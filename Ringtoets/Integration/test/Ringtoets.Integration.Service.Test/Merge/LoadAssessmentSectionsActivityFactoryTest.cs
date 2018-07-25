@@ -39,11 +39,11 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
+            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(null, provider, string.Empty);
+            TestDelegate call = () => LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(null, service, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -69,12 +69,12 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
+            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
             // Call
             TestDelegate call = () => LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(new AssessmentSectionsOwner(),
-                                                                                                                 provider,
+                                                                                                                 service,
                                                                                                                  null);
 
             // Assert
@@ -93,12 +93,12 @@ namespace Ringtoets.Integration.Service.Test.Merge
             IEnumerable<AssessmentSection> expectedAssessmentSections = Enumerable.Empty<AssessmentSection>();
 
             var mocks = new MockRepository();
-            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
-            provider.Expect(pr => pr.LoadAssessmentSections(filePath)).Return(expectedAssessmentSections);
+            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
+            service.Expect(pr => pr.LoadAssessmentSections(filePath)).Return(expectedAssessmentSections);
             mocks.ReplayAll();
 
             // Call
-            Activity activity = LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(owner, provider, filePath);
+            Activity activity = LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(owner, service, filePath);
 
             // Assert
             Assert.IsInstanceOf<LoadAssessmentSectionsActivity>(activity);

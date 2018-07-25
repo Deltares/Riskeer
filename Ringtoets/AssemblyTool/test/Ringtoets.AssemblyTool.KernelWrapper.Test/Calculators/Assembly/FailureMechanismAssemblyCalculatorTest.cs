@@ -239,7 +239,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
-            var expectedResults = new List<FailureMechanismSectionAssembly>
+            var expectedResults = new[]
             {
                 new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
             };
@@ -260,16 +260,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.Assemble(expectedResults, assemblyCategoriesInput);
 
                 // Assert
-                AssertCalculatorOutput(expectedResults.Single(), kernel.FmSectionAssemblyResultsWithProbabilityInput.Single());
+                AssertFailureMechanismSectionAssembly(expectedResults.Single(), kernel.FmSectionAssemblyResultsWithProbabilityInput.Single());
+
                 Assert.IsFalse(kernel.PartialAssembly);
-                Assert.AreEqual(assemblyCategoriesInput.N, kernel.FailureMechanismInput.LengthEffectFactor);
-                Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, kernel.FailureMechanismInput.FailureProbabilityMarginFactor);
+
+                double expectedN = assemblyCategoriesInput.N;
+                double expectedFailureMechanismContribution = assemblyCategoriesInput.FailureMechanismContribution;
+                Assert.AreEqual(expectedN, kernel.FailureMechanismInput.LengthEffectFactor);
+                Assert.AreEqual(expectedFailureMechanismContribution, kernel.FailureMechanismInput.FailureProbabilityMarginFactor);
 
                 Assert.AreSame(categoriesKernel.FailureMechanismCategoriesOutput, kernel.CategoryLimits);
                 Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, categoriesKernel.LowerLimitNorm);
                 Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, categoriesKernel.SignalingNorm);
-                Assert.AreEqual(assemblyCategoriesInput.N, categoriesKernel.N);
-                Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, categoriesKernel.FailureMechanismContribution);
+                Assert.AreEqual(expectedN, categoriesKernel.N);
+                Assert.AreEqual(expectedFailureMechanismContribution, categoriesKernel.FailureMechanismContribution);
             }
         }
 
@@ -370,8 +374,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             }
         }
 
-        private static void AssertCalculatorOutput(FailureMechanismSectionAssembly expectedSectionAssembly,
-                                                   FmSectionAssemblyDirectResultWithProbability actualResult)
+        private static void AssertFailureMechanismSectionAssembly(FailureMechanismSectionAssembly expectedSectionAssembly,
+                                                                  FmSectionAssemblyDirectResultWithProbability actualResult)
         {
             FailureMechanismSectionAssemblyCategoryGroup actualGroup =
                 FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(actualResult.Result);

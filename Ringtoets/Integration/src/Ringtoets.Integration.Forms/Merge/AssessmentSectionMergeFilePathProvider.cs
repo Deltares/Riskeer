@@ -26,7 +26,7 @@ using RingtoetsStorageCoreResources = Ringtoets.Storage.Core.Properties.Resource
 namespace Ringtoets.Integration.Forms.Merge
 {
     /// <summary>
-    /// Class for providing a file path of a project for which the assessment section can be merged.
+    /// Class for providing a file path of a project that might contain assessment sections that can be merged.
     /// </summary>
     public class AssessmentSectionMergeFilePathProvider : IAssessmentSectionMergeFilePathProvider
     {

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Commands;
+using Core.Common.Util.Extensions;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -31,9 +32,10 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Plugin.Properties;
@@ -91,9 +93,16 @@ namespace Ringtoets.Integration.Plugin.Merge
             }
 
             BeforeMerge(targetAssessmentSection);
-            MergeHydraulicBoundaryLocations(targetAssessmentSection, sourceAssessmentSection);
+
+            var changedObjects = new List<IObservable>
+            {
+                targetAssessmentSection
+            };
+
+            changedObjects.AddRange(MergeHydraulicBoundaryLocations(targetAssessmentSection, sourceAssessmentSection));
             MergeFailureMechanisms(targetAssessmentSection, failureMechanismsToMerge);
-            AfterMerge(targetAssessmentSection);
+
+            AfterMerge(changedObjects);
         }
 
         private void BeforeMerge(AssessmentSection assessmentSection)
@@ -101,37 +110,41 @@ namespace Ringtoets.Integration.Plugin.Merge
             viewCommands.RemoveAllViewsForItem(assessmentSection);
         }
 
-        private static void AfterMerge(AssessmentSection targetAssessmentSection)
+        private static void AfterMerge(IEnumerable<IObservable> changedObjects)
         {
-            targetAssessmentSection.NotifyObservers();
+            changedObjects.ForEachElementDo(co => co.NotifyObservers());
         }
 
         #region HydraulicBoundaryLocationCalculations
 
-        private static void MergeHydraulicBoundaryLocations(IAssessmentSection targetAssessmentSection, IAssessmentSection sourceAssessmentSection)
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocations(IAssessmentSection targetAssessmentSection, IAssessmentSection sourceAssessmentSection)
         {
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
-                                                       sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForSignalingNorm,
-                                                       sourceAssessmentSection.WaterLevelCalculationsForSignalingNorm);
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                                                       sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm);
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
-                                                       sourceAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+            var changedObjects = new List<IObservable>();
 
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
-                                                       sourceAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForSignalingNorm,
-                                                       sourceAssessmentSection.WaveHeightCalculationsForSignalingNorm);
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
-                                                       sourceAssessmentSection.WaveHeightCalculationsForLowerLimitNorm);
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
-                                                       sourceAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
+                                                                               sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                               sourceAssessmentSection.WaterLevelCalculationsForSignalingNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                                               sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
+                                                                               sourceAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm));
+
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
+                                                                               sourceAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForSignalingNorm,
+                                                                               sourceAssessmentSection.WaveHeightCalculationsForSignalingNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
+                                                                               sourceAssessmentSection.WaveHeightCalculationsForLowerLimitNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
+                                                                               sourceAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm));
 
             log.Info(Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged);
+
+            return changedObjects;
         }
 
-        private static void MergeHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations,
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations,
                                                                        IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations)
         {
             for (var i = 0; i < targetCalculations.Count(); i++)
@@ -143,6 +156,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                 {
                     targetCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = sourceCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
                     targetCalculation.Output = sourceCalculation.Output;
+                    yield return targetCalculation;
                 }
             }
         }
@@ -154,6 +168,8 @@ namespace Ringtoets.Integration.Plugin.Merge
 
             if (!targetCalculationHasOutput && !sourceCalculationHasOutput
                 || targetCalculationHasOutput && !sourceCalculationHasOutput
+                || targetCalculationHasOutput && !targetCalculation.Output.HasGeneralResult && !sourceCalculation.Output.HasGeneralResult
+                || targetCalculationHasOutput && targetCalculation.Output.HasGeneralResult && sourceCalculation.Output.HasGeneralResult
                 || targetCalculationHasOutput && targetCalculation.Output.HasGeneralResult && !sourceCalculation.Output.HasGeneralResult)
             {
                 return false;
@@ -175,7 +191,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.Piping = mechanism))
                 {
-                    UpdateHydraulicBoundaryLocationReferences<PipingFailureMechanism, PipingCalculationScenario, PipingInput>(
+                    UpdateCalculationHydraulicBoundaryLocationReferences<PipingFailureMechanism, PipingCalculationScenario, PipingInput>(
                         targetAssessmentSection.Piping, hydraulicBoundaryLocations);
                     continue;
                 }
@@ -184,7 +200,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.GrassCoverErosionInwards = mechanism))
                 {
-                    UpdateHydraulicBoundaryLocationReferences<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>(
+                    UpdateCalculationHydraulicBoundaryLocationReferences<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>(
                         targetAssessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocations);
                     continue;
                 }
@@ -193,7 +209,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.MacroStabilityInwards = mechanism))
                 {
-                    UpdateHydraulicBoundaryLocationReferences<MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput>(
+                    UpdateCalculationHydraulicBoundaryLocationReferences<MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput>(
                         targetAssessmentSection.MacroStabilityInwards, hydraulicBoundaryLocations);
                     continue;
                 }
@@ -216,7 +232,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.StabilityStoneCover = mechanism))
                 {
-                    UpdateHydraulicBoundaryLocationReferences<StabilityStoneCoverFailureMechanism, StabilityStoneCoverWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsInput>(
+                    UpdateCalculationHydraulicBoundaryLocationReferences<StabilityStoneCoverFailureMechanism, StabilityStoneCoverWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsInput>(
                         targetAssessmentSection.StabilityStoneCover, hydraulicBoundaryLocations);
                     continue;
                 }
@@ -225,7 +241,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.WaveImpactAsphaltCover = mechanism))
                 {
-                    UpdateHydraulicBoundaryLocationReferences<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsInput>(
+                    UpdateCalculationHydraulicBoundaryLocationReferences<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsInput>(
                         targetAssessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocations);
                     continue;
                 }
@@ -234,6 +250,16 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.WaterPressureAsphaltCover = mechanism))
                 {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<GrassCoverErosionOutwardsFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.GrassCoverErosionOutwards = mechanism))
+                {
+                    UpdateLocationCalculationHydraulicBoundaryLocationReferences(targetAssessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocations);
+                    UpdateCalculationHydraulicBoundaryLocationReferences<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsWaveConditionsCalculation, FailureMechanismCategoryWaveConditionsInput>(
+                        targetAssessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocations);
                     continue;
                 }
 
@@ -255,7 +281,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.HeightStructures = mechanism))
                 {
-                    UpdateHydraulicBoundaryLocationReferences<HeightStructuresFailureMechanism, StructuresCalculation<HeightStructuresInput>, HeightStructuresInput>(
+                    UpdateCalculationHydraulicBoundaryLocationReferences<HeightStructuresFailureMechanism, StructuresCalculation<HeightStructuresInput>, HeightStructuresInput>(
                         targetAssessmentSection.HeightStructures, hydraulicBoundaryLocations);
                     continue;
                 }
@@ -264,7 +290,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.ClosingStructures = mechanism))
                 {
-                    UpdateHydraulicBoundaryLocationReferences<ClosingStructuresFailureMechanism, StructuresCalculation<ClosingStructuresInput>, ClosingStructuresInput>(
+                    UpdateCalculationHydraulicBoundaryLocationReferences<ClosingStructuresFailureMechanism, StructuresCalculation<ClosingStructuresInput>, ClosingStructuresInput>(
                         targetAssessmentSection.ClosingStructures, hydraulicBoundaryLocations);
                     continue;
                 }
@@ -280,7 +306,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.StabilityPointStructures = mechanism))
                 {
-                    UpdateHydraulicBoundaryLocationReferences<StabilityPointStructuresFailureMechanism, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresInput>(
+                    UpdateCalculationHydraulicBoundaryLocationReferences<StabilityPointStructuresFailureMechanism, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresInput>(
                         targetAssessmentSection.StabilityPointStructures, hydraulicBoundaryLocations);
                     continue;
                 }
@@ -288,6 +314,13 @@ namespace Ringtoets.Integration.Plugin.Merge
                 if (TryMergeFailureMechanism<StrengthStabilityLengthwiseConstructionFailureMechanism>(
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.StrengthStabilityLengthwiseConstruction = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<DuneErosionFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.DuneErosion = mechanism))
                 {
                     continue;
                 }
@@ -313,7 +346,7 @@ namespace Ringtoets.Integration.Plugin.Merge
             return false;
         }
 
-        private static void UpdateHydraulicBoundaryLocationReferences<TFailureMechanism, TCalculation, TCalculationInput>(
+        private static void UpdateCalculationHydraulicBoundaryLocationReferences<TFailureMechanism, TCalculation, TCalculationInput>(
             TFailureMechanism failureMechanism, IEnumerable<HydraulicBoundaryLocation> locations)
             where TFailureMechanism : IFailureMechanism
             where TCalculation : ICalculation<TCalculationInput>
@@ -332,6 +365,38 @@ namespace Ringtoets.Integration.Plugin.Merge
         private static HydraulicBoundaryLocation GetHydraulicBoundaryLocation(HydraulicBoundaryLocation location, IEnumerable<HydraulicBoundaryLocation> locations)
         {
             return locations.Single(l => l.Name == location.Name && l.Id == location.Id && l.Location.Equals(location.Location));
+        }
+
+        private static void UpdateLocationCalculationHydraulicBoundaryLocationReferences(GrassCoverErosionOutwardsFailureMechanism targetFailureMechanism,
+                                                                                         IEnumerable<HydraulicBoundaryLocation> locations)
+        {
+            HydraulicBoundaryLocationCalculation[] oldWaterLevelForMechanismSpecificFactorizedSignalingNorm = targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ToArray();
+            HydraulicBoundaryLocationCalculation[] oldWaterLevelForMechanismSpecificSignalingNorm = targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ToArray();
+            HydraulicBoundaryLocationCalculation[] oldWaterLevelForMechanismSpecificLowerLimitNorm = targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ToArray();
+            HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificFactorizedSignalingNorm = targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.ToArray();
+            HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificSignalingNorm = targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.ToArray();
+            HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificLowerLimitNorm = targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.ToArray();
+            targetFailureMechanism.SetHydraulicBoundaryLocationCalculations(locations);
+
+            ReplaceCalculationData(oldWaterLevelForMechanismSpecificFactorizedSignalingNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
+            ReplaceCalculationData(oldWaterLevelForMechanismSpecificSignalingNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
+            ReplaceCalculationData(oldWaterLevelForMechanismSpecificLowerLimitNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
+
+            ReplaceCalculationData(oldWaveHeightForMechanismSpecificFactorizedSignalingNorm, targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
+            ReplaceCalculationData(oldWaveHeightForMechanismSpecificSignalingNorm, targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
+            ReplaceCalculationData(oldWaveHeightForMechanismSpecificLowerLimitNorm, targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
+        }
+
+        private static void ReplaceCalculationData(IEnumerable<HydraulicBoundaryLocationCalculation> oldCalculations, IEnumerable<HydraulicBoundaryLocationCalculation> newCalculations)
+        {
+            for (var i = 0; i < newCalculations.Count(); i++)
+            {
+                HydraulicBoundaryLocationCalculation newCalculation = newCalculations.ElementAt(i);
+                HydraulicBoundaryLocationCalculation oldCalculation = oldCalculations.ElementAt(i);
+
+                newCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = oldCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+                newCalculation.Output = oldCalculation.Output;
+            }
         }
 
         #endregion

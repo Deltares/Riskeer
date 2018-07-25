@@ -22,14 +22,14 @@
 namespace Ringtoets.Integration.Forms.Merge
 {
     /// <summary>
-    /// Interface for providing a file path of a project for which the assessment section can be merged.
+    /// Interface for providing a file path of a project that might contain assessment sections that can be merged.
     /// </summary>
     public interface IAssessmentSectionMergeFilePathProvider
     {
         /// <summary>
-        /// Gets the file path 
+        /// Gets the file path.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A file path, or <c>null</c> if no file was chosen.</returns>
         string GetFilePath();
     }
 }

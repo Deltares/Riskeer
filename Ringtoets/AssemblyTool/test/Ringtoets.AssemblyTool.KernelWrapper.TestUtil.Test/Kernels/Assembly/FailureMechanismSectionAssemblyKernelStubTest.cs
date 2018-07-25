@@ -63,18 +63,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
             Assert.IsNull(kernel.FailureMechanismAssemblyDirectResultWithProbability);
             Assert.IsNull(kernel.FailureMechanismSectionCategories);
-        }
-
-        private static FailureMechanism CreateRandomFailureMechanism(Random random)
-        {
-            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
-            return failureMechanism;
-        }
-
-        private static AssessmentSection CreateRandomAssessmentSection(Random random)
-        {
-            var assessmentSection = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
-            return assessmentSection;
+            Assert.IsNull(kernel.FailureMechanismAssessmentResult);
         }
 
         #region Simple Assessment

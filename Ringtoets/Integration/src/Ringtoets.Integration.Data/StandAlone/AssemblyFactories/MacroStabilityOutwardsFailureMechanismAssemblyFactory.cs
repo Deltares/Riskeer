@@ -110,10 +110,15 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
             try
             {
+                double n = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
+                    failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
+
                 return calculator.AssembleDetailedAssessment(
                     failureMechanismSectionResult.DetailedAssessmentResult,
                     failureMechanismSectionResult.DetailedAssessmentProbability,
-                    CreateAssemblyCategoriesInput(failureMechanism, assessmentSection)).Group;
+                    assessmentSection.FailureMechanismContribution.Norm,
+                    n,
+                    failureMechanism.Contribution / 100).Group;
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
@@ -166,7 +171,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
                     failureMechanismSectionResult.TailorMadeAssessmentProbability,
                     assessmentSection.FailureMechanismContribution.Norm,
                     n,
-                    failureMechanism.Contribution).Group;
+                    failureMechanism.Contribution / 100).Group;
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
@@ -316,15 +321,6 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
             {
                 throw new AssemblyException(RingtoetsCommonDataResources.FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism, e);
             }
-        }
-
-        private static AssemblyCategoriesInput CreateAssemblyCategoriesInput(MacroStabilityOutwardsFailureMechanism failureMechanism,
-                                                                             IAssessmentSection assessmentSection)
-        {
-            return AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
-                                                                                    failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength),
-                                                                                failureMechanism,
-                                                                                assessmentSection);
         }
     }
 }

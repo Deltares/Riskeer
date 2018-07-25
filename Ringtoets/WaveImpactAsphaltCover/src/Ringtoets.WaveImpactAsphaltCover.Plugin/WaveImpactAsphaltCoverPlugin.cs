@@ -329,7 +329,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                           .AddSeparator()
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               failureMechanismContext,
-                              CalculateAll)
+                              CalculateAll,
+                              ValidateAllDataAvailableAndGetErrorMessageForFailureMechanism)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -472,6 +473,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             ValidateAll(context.WrappedData.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>(),
                         context.AssessmentSection);
+        }
+
+        private static string ValidateAllDataAvailableAndGetErrorMessageForFailureMechanism(WaveImpactAsphaltCoverFailureMechanismContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)

@@ -165,13 +165,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismAssemblyCategories_CategoryWithInvalidFailureMechanismCategory_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var categoryLimit = new CategoriesList<FailureMechanismCategory>(new[]
+            var categoryLimits = new CategoriesList<FailureMechanismCategory>(new[]
             {
                 new FailureMechanismCategory((EFailureMechanismCategory) 99, 0, 1)
             });
 
             // Call
-            TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categoryLimit);
+            TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categoryLimits);
 
             // Assert
             const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFailureMechanismCategory'.";
@@ -241,13 +241,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismSectionAssemblyCategories_CategoryWithInvalidFailureMechanismSectionCategory_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var categoryLimit = new CategoriesList<FmSectionCategory>(new[]
+            var categoryLimits = new CategoriesList<FmSectionCategory>(new[]
             {
                 new FmSectionCategory((EFmSectionCategory) 99, 0, 1)
             });
 
             // Call
-            TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categoryLimit);
+            TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categoryLimits);
 
             // Assert
             const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFmSectionCategory'.";

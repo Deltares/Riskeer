@@ -55,14 +55,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
             }
         }
 
-        private static void AssertSections(IEnumerable<CombinedAssemblyFailureMechanismSection> originalSections, IEnumerable<FailureMechanismSection> fmSectionWithCategories)
+        private static void AssertSections(IEnumerable<CombinedAssemblyFailureMechanismSection> originalSections, IEnumerable<FailureMechanismSection> failureMechanismSections)
         {
-            Assert.AreEqual(originalSections.Count(), fmSectionWithCategories.Count());
-            Assert.IsTrue(fmSectionWithCategories.All(r => r.GetType() == typeof(FmSectionWithDirectCategory)));
-            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionStart), fmSectionWithCategories.Select(r => r.SectionStart));
-            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionEnd), fmSectionWithCategories.Select(r => r.SectionEnd));
+            Assert.AreEqual(originalSections.Count(), failureMechanismSections.Count());
+            Assert.IsTrue(failureMechanismSections.All(r => r.GetType() == typeof(FmSectionWithDirectCategory)));
+            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionStart), failureMechanismSections.Select(r => r.SectionStart));
+            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionEnd), failureMechanismSections.Select(r => r.SectionEnd));
             CollectionAssert.AreEqual(originalSections.Select(s => ConvertCategoryGroup(s.CategoryGroup)),
-                                      fmSectionWithCategories.Select(r => (FmSectionWithDirectCategory) r)
+                                      failureMechanismSections.Select(r => (FmSectionWithDirectCategory) r)
                                                              .Select(category => category.Category));
         }
 

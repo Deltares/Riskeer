@@ -69,7 +69,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
                 FailureMechanismAssemblyResult output = kernel.AssembleAssessmentSectionWbi2B1(
                     input.Select(AssessmentSectionAssemblyInputCreator.CreateFailureMechanismAssemblyResult).ToArray(),
-                    categories, false);
+                    categories,
+                    false);
 
                 return FailureMechanismAssemblyCreator.Create(output);
             }

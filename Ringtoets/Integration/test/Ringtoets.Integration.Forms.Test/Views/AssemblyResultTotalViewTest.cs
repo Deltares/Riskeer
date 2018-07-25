@@ -247,14 +247,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.AssembleAssessmentSectionCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.A;
-                calculator.AssembleFailureMechanismsAssemblyOutput = new FailureMechanismAssembly(0.5, FailureMechanismAssemblyCategoryGroup.IIIt);
+                calculator.AssembleFailureMechanismsAssemblyOutput = new FailureMechanismAssembly(0.5, FailureMechanismAssemblyCategoryGroup.IIt);
                 calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = FailureMechanismAssemblyCategoryGroup.IVt;
 
                 buttonTester.Click();
 
                 // Then
                 AssertAssemblyResultControl(totalControlName, "A");
-                AssertFailureMechanismAssemblyCategoryControl("IIIt", "1/2");
+                AssertFailureMechanismAssemblyCategoryControl("IIt", "1/2");
                 AssertAssemblyResultControl(failureMechanismsWithoutProbabilityControlName, "IVt");
             }
         }

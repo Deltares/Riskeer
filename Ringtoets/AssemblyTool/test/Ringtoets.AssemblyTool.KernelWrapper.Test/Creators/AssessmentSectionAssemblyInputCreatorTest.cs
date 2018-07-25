@@ -49,21 +49,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             }
         }
 
-        private static IEnumerable<TestCaseData> GetAssessmentSectionAssemblyCategoryGroupConversions
-        {
-            get
-            {
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.None, EAssessmentGrade.Gr);
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotAssessed, EAssessmentGrade.Ngo);
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotApplicable, EAssessmentGrade.Nvt);
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.APlus, EAssessmentGrade.APlus);
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.A, EAssessmentGrade.A);
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.B, EAssessmentGrade.B);
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.C, EAssessmentGrade.C);
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.D, EAssessmentGrade.D);
-            }
-        }
-
         [Test]
         public void CreateFailureMechanismAssemblyResult_FailureMechanismAssemblyNull_ThrowsArgumentNullException()
         {

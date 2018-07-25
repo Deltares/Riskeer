@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Service.Merge
         /// </summary>
         /// <param name="assessmentSectionsOwner">The owner to set the retrieved collection
         /// of <see cref="AssessmentSection"/> on.</param>
-        /// <param name="loadAssessmentSectionService">The provider defining how to
+        /// <param name="loadAssessmentSectionService">The service defining how to
         /// retrieve the collection of <see cref="AssessmentSection"/> from a file.</param>
         /// <param name="filePath">The file path to retrieve the collection of
         /// <see cref="AssessmentSection"/> from.</param>

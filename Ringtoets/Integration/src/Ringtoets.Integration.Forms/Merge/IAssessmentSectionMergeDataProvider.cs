@@ -39,6 +39,8 @@ namespace Ringtoets.Integration.Forms.Merge
         /// <returns>The selected merge data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSections"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="assessmentSections"/>
+        /// contains no elements.</exception>
         AssessmentSectionMergeData GetMergeData(IEnumerable<AssessmentSection> assessmentSections);
     }
 }

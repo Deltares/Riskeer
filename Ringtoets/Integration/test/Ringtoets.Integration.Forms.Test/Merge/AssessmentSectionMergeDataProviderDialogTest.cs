@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
@@ -214,28 +213,17 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
-        public void GetMergeData_WithEmptyAssessmentSections_SetsDataOnDialog()
+        public void GetMergeData_WithEmptyAssessmentSections_ThrowsArgumentException()
         {
             // Setup
-            DialogBoxHandler = (formName, wnd) =>
-            {
-                using (new FormTester(formName)) {}
-            };
-
             using (var dialogParent = new Form())
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Call
-                dialog.GetMergeData(Enumerable.Empty<AssessmentSection>());
+                TestDelegate call = () => dialog.GetMergeData(Enumerable.Empty<AssessmentSection>());
 
                 // Assert
-                var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
-                Assert.IsNull(comboBox.SelectedItem);
-                CollectionAssert.IsEmpty(comboBox.Items);
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(0, rows.Count);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "assessmentSections must at least have one element.");
             }
         }
 

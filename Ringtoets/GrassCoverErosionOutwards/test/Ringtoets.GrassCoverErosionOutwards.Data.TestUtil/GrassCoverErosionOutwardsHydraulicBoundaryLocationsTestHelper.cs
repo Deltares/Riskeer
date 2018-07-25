@@ -51,6 +51,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
                                                          bool setCalculationOutput = false)
         {
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, setCalculationOutput);
+            SetHydraulicBoundaryLocations(failureMechanism, hydraulicBoundaryLocations, setCalculationOutput);
+        }
+
+        /// <summary>
+        /// Sets the given <paramref name="hydraulicBoundaryLocations"/> to the <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to set the locations to.</param>
+        /// <param name="hydraulicBoundaryLocations">The locations to set.</param>
+        /// <param name="setCalculationOutput">Whether to set dummy output for the automatically generated
+        /// hydraulic boundary location calculations.</param>
+        public static void SetHydraulicBoundaryLocations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                         IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                         bool setCalculationOutput = false)
+        {
             failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             if (setCalculationOutput)
