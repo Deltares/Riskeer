@@ -1244,7 +1244,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var pipingFailureMechanism = new PipingFailureMechanism();
+                var failureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
@@ -1276,7 +1276,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     surfaceLine1,
                     surfaceLine2
                 };
-                pipingFailureMechanism.SetSections(new[]
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
                     new FailureMechanismSection("Section 1", new List<Point2D>
                     {
@@ -1291,7 +1291,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 });
 
                 var nodeData = new PipingCalculationGroupContext(
-                    pipingFailureMechanism.CalculationsGroup,
+                    failureMechanism.CalculationsGroup,
                     null,
                     surfaceLines,
                     new[]
@@ -1306,7 +1306,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                             new PipingStochasticSoilProfile(0.5, PipingSoilProfileTestFactory.CreatePipingSoilProfile("B"))
                         })
                     },
-                    pipingFailureMechanism,
+                    failureMechanism,
                     assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -1336,10 +1336,10 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
 
                     // Then
-                    PipingFailureMechanismSectionResult failureMechanismSectionResult1 = pipingFailureMechanism.SectionResults.First();
-                    PipingFailureMechanismSectionResult failureMechanismSectionResult2 = pipingFailureMechanism.SectionResults.ElementAt(1);
+                    PipingFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+                    PipingFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
-                    PipingCalculationScenario[] pipingCalculationScenarios = pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
+                    PipingCalculationScenario[] pipingCalculationScenarios = failureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
                     Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios).Count());
 
                     foreach (PipingCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios))
@@ -1360,7 +1360,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var group = new CalculationGroup();
 
-                var pipingFailureMechanism = new PipingFailureMechanism();
+                var failureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
@@ -1392,7 +1392,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     surfaceLine1,
                     surfaceLine2
                 };
-                pipingFailureMechanism.SetSections(new[]
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
                     new FailureMechanismSection("Section 1", new List<Point2D>
                     {
@@ -1417,7 +1417,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                                                                          new Point2D(5.0, 0.0)
                                                                      })
                                                                  },
-                                                                 pipingFailureMechanism,
+                                                                 failureMechanism,
                                                                  assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -1432,9 +1432,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Precondition
-                foreach (PipingFailureMechanismSectionResult failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
+                foreach (PipingFailureMechanismSectionResult failureMechanismSectionResult in failureMechanism.SectionResults)
                 {
-                    CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()));
+                    CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(failureMechanism.Calculations.OfType<PipingCalculationScenario>()));
                 }
 
                 DialogBoxHandler = (name, wnd) =>
@@ -1453,9 +1453,9 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
 
                     // Then
-                    foreach (PipingFailureMechanismSectionResult failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
+                    foreach (PipingFailureMechanismSectionResult failureMechanismSectionResult in failureMechanism.SectionResults)
                     {
-                        CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()));
+                        CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(failureMechanism.Calculations.OfType<PipingCalculationScenario>()));
                     }
                 }
             }

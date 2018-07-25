@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.TestUtil

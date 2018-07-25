@@ -210,7 +210,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                view.FailureMechanism.SetSections(new[]
+                FailureMechanismTestHelper.SetSections(view.FailureMechanism, new[]
                 {
                     new FailureMechanismSection("SectionC", new[]
                     {

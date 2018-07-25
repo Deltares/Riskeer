@@ -33,6 +33,7 @@ using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
@@ -210,7 +211,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                view.FailureMechanism.SetSections(new[]
+                FailureMechanismTestHelper.SetSections(view.FailureMechanism, new[]
                 {
                     new FailureMechanismSection("SectionC", new[]
                     {

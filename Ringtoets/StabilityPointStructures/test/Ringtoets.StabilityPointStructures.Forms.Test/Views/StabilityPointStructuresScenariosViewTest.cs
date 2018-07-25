@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.Views;
@@ -210,7 +211,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                view.FailureMechanism.SetSections(new[]
+                FailureMechanismTestHelper.SetSections(view.FailureMechanism, new[]
                 {
                     new FailureMechanismSection("SectionC", new[]
                     {

@@ -30,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.ReferenceLines;
@@ -146,7 +147,7 @@ namespace Ringtoets.Integration.TestUtil
                         foreach (FailureMechanismSection section in failureMechanisms[0].Sections)
                         {
                             FailureMechanismSection clonedSection = DeepCloneSection(section);
-                            failureMechanisms[i].SetSections(new[]
+                            FailureMechanismTestHelper.SetSections(failureMechanisms[i], new[]
                             {
                                 clonedSection
                             });
