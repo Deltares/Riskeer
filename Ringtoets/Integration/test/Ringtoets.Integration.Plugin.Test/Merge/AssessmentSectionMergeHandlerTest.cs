@@ -91,8 +91,9 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(viewCommands);
 
             // Call
-            TestDelegate call = () => handler.PerformMerge(null, new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                           Enumerable.Empty<IFailureMechanism>());
+            TestDelegate call = () => handler.PerformMerge(null, new AssessmentSectionMergeData(
+                                                               new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                               Enumerable.Empty<IFailureMechanism>(), new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -174,8 +175,10 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
             // Call
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSection(AssessmentSectionComposition.Dike),
-                                 Enumerable.Empty<IFailureMechanism>());
+                                 new AssessmentSectionMergeData(
+                                     new AssessmentSection(AssessmentSectionComposition.Dike),
+                                     Enumerable.Empty<IFailureMechanism>(),
+                                     new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
             mocks.VerifyAll();
@@ -197,8 +200,10 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
             // Call
             Action call = () => handler.PerformMerge(targetAssessmentSection,
-                                                     new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                     Enumerable.Empty<IFailureMechanism>());
+                                                     new AssessmentSectionMergeData(
+                                                         new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                         Enumerable.Empty<IFailureMechanism>(),
+                                                         new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn samengevoegd.", LogLevelConstant.Info));
@@ -218,7 +223,10 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, sourceAssessmentSection.GetFailureMechanisms());
+            handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
+                                     sourceAssessmentSection,
+                                     sourceAssessmentSection.GetFailureMechanisms(),
+                                     new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
             Assert.AreSame(sourceAssessmentSection.Piping, targetAssessmentSection.Piping);
@@ -254,7 +262,11 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(
+                                     sourceAssessmentSection,
+                                     Enumerable.Empty<IFailureMechanism>(),
+                                     new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
             Assert.AreNotSame(sourceAssessmentSection.Piping, targetAssessmentSection.Piping);
@@ -290,7 +302,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            TestDelegate call = () => handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, new []
+            TestDelegate call = () => handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, new[]
             {
                 new TestFailureMechanism()
             });
@@ -313,7 +325,10 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            Action call = () => handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, sourceAssessmentSection.GetFailureMechanisms());
+            Action call = () => handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
+                                                         sourceAssessmentSection,
+                                                         sourceAssessmentSection.GetFailureMechanisms(),
+                                                         new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -438,18 +453,21 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificLowerLimitNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.ToArray();
 
             // When
-            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, new IFailureMechanism[]
-            {
-                sourceAssessmentSection.Piping,
-                sourceAssessmentSection.GrassCoverErosionInwards,
-                sourceAssessmentSection.MacroStabilityInwards,
-                sourceAssessmentSection.HeightStructures,
-                sourceAssessmentSection.ClosingStructures,
-                sourceAssessmentSection.StabilityPointStructures,
-                sourceAssessmentSection.StabilityStoneCover,
-                sourceAssessmentSection.WaveImpactAsphaltCover,
-                sourceAssessmentSection.GrassCoverErosionOutwards
-            });
+            handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
+                                     sourceAssessmentSection,
+                                     new IFailureMechanism[]
+                                     {
+                                         sourceAssessmentSection.Piping,
+                                         sourceAssessmentSection.GrassCoverErosionInwards,
+                                         sourceAssessmentSection.MacroStabilityInwards,
+                                         sourceAssessmentSection.HeightStructures,
+                                         sourceAssessmentSection.ClosingStructures,
+                                         sourceAssessmentSection.StabilityPointStructures,
+                                         sourceAssessmentSection.StabilityStoneCover,
+                                         sourceAssessmentSection.WaveImpactAsphaltCover,
+                                         sourceAssessmentSection.GrassCoverErosionOutwards
+                                     },
+                                     new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
             var pipingCalculation = (PipingCalculationScenario) targetAssessmentSection.Piping.Calculations.Single();
@@ -506,7 +524,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         {
             Assert.AreEqual(sourceCalculations.Length, targetLocations.Length);
             Assert.AreEqual(targetCalculations.Count(), sourceCalculations.Length);
-            
+
             for (var i = 0; i < sourceCalculations.Length; i++)
             {
                 HydraulicBoundaryLocationCalculation sourceCalculation = sourceCalculations[i];
@@ -538,7 +556,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            HydraulicBoundaryLocation[] locations = 
+            HydraulicBoundaryLocation[] locations =
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation()
@@ -561,7 +579,12 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
 
             // When
-            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+
+            handler.PerformMerge(targetAssessmentSection, 
+                                 new AssessmentSectionMergeData(
+                                     sourceAssessmentSection,
+                                     Enumerable.Empty<IFailureMechanism>(),
+                                     new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -580,7 +603,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            HydraulicBoundaryLocation[] locations = 
+            HydraulicBoundaryLocation[] locations =
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation()
@@ -604,7 +627,11 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
 
             // When
-            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(
+                                     sourceAssessmentSection,
+                                     Enumerable.Empty<IFailureMechanism>(),
+                                     new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -623,7 +650,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            HydraulicBoundaryLocation[] locations = 
+            HydraulicBoundaryLocation[] locations =
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation()
@@ -647,7 +674,11 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.IsTrue(sourceCalculations.All(c => c.InputParameters.ShouldIllustrationPointsBeCalculated));
 
             // When
-            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(
+                                     sourceAssessmentSection,
+                                     Enumerable.Empty<IFailureMechanism>(),
+                                     new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -665,7 +696,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            HydraulicBoundaryLocation[] locations = 
+            HydraulicBoundaryLocation[] locations =
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation()
@@ -689,7 +720,11 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
 
             // When
-            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(
+                                     sourceAssessmentSection,
+                                     Enumerable.Empty<IFailureMechanism>(),
+                                     new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -709,7 +744,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            HydraulicBoundaryLocation[] locations = 
+            HydraulicBoundaryLocation[] locations =
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation()
@@ -733,7 +768,11 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
 
             // When
-            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(
+                                     sourceAssessmentSection,
+                                     Enumerable.Empty<IFailureMechanism>(),
+                                     new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -775,7 +814,11 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
 
             // When
-            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(
+                                     sourceAssessmentSection,
+                                     Enumerable.Empty<IFailureMechanism>(),
+                                     new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -816,7 +859,11 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(viewCommands);
 
             // Call
-            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(
+                                     sourceAssessmentSection,
+                                     Enumerable.Empty<IFailureMechanism>(),
+                                     new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
             mocks.VerifyAll();
