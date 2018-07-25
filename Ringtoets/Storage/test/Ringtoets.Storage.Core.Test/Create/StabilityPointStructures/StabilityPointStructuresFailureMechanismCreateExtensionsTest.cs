@@ -168,7 +168,7 @@ namespace Ringtoets.Storage.Core.Test.Create.StabilityPointStructures
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

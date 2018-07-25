@@ -562,7 +562,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
@@ -587,7 +587,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
@@ -652,7 +652,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

@@ -130,7 +130,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
             });

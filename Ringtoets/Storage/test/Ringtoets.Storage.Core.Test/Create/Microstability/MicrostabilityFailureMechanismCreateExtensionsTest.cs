@@ -140,7 +140,7 @@ namespace Ringtoets.Storage.Core.Test.Create.Microstability
         {
             // Setup
             var failureMechanism = new MicrostabilityFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

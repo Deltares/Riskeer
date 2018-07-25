@@ -130,7 +130,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
             });

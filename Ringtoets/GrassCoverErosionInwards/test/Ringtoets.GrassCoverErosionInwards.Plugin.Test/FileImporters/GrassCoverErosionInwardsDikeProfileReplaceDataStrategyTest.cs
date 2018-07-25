@@ -258,7 +258,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("Section", new[]
                 {

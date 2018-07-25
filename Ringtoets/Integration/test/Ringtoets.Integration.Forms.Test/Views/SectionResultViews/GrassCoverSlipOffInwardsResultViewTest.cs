@@ -130,7 +130,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Setup
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
             });

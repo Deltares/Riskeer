@@ -87,7 +87,7 @@ namespace Ringtoets.Storage.Core.Read
                                                                                .Select(failureMechanismSectionEntity =>
                                                                                            failureMechanismSectionEntity.Read(collector))
                                                                                .ToArray();
-            failureMechanism.SetSections(readFailureMechanismSections, string.Empty);
+            FailureMechanismTestHelper.SetSections(failureMechanism, readFailureMechanismSections, string.Empty);
         }
 
         private static void ReadForeshoreProfiles(this FailureMechanismEntity entity,

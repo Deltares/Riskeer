@@ -67,7 +67,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section
             });
@@ -84,7 +84,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {

@@ -1041,7 +1041,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
@@ -1076,7 +1076,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
@@ -1170,7 +1170,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

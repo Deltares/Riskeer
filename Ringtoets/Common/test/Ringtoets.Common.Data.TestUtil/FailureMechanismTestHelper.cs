@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// be connected to elements already defined in <see cref="IFailureMechanism.Sections"/>.</exception>
         public static void SetSections(IFailureMechanism failureMechanism, IEnumerable<FailureMechanismSection> sections)
         {
-            failureMechanism.SetSections(sections, string.Empty);
+            FailureMechanismTestHelper.SetSections(failureMechanism, sections, string.Empty);
         }
     }
 }

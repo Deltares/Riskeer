@@ -118,7 +118,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 calculationWithStructureToRemoveAndOutput
             });
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
@@ -229,7 +229,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 calculationWithStructureAAndOutput
             });
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
@@ -615,7 +615,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 structure2
             }, "someLocation");
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section1,
                 section2

@@ -1042,7 +1042,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
@@ -1077,7 +1077,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
@@ -1171,7 +1171,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

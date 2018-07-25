@@ -1110,7 +1110,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {

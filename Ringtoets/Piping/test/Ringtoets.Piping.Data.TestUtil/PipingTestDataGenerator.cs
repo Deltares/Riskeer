@@ -412,7 +412,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                                                            new Point2D(5, 5),
                                                            new Point2D(15, 15)
                                                        });
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section1,
                 section2

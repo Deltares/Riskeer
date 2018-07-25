@@ -959,7 +959,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
@@ -993,7 +993,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
@@ -1089,7 +1089,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

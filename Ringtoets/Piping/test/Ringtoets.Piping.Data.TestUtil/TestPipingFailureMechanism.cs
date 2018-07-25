@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             }, "path/to/stochasticSoilModels");
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("Section", new List<Point2D>
                 {

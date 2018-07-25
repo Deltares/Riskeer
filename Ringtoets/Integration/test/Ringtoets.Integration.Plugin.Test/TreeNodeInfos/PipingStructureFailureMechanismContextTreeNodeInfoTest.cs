@@ -210,7 +210,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = false
             };
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("A", new[]
                 {

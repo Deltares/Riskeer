@@ -154,7 +154,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             };
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("A", geometryPoints.Take(2)),
                 new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)),
@@ -358,7 +358,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
                 // When
-                failureMechanism.SetSections(new[]
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
                     new FailureMechanismSection(string.Empty, new[]
                     {

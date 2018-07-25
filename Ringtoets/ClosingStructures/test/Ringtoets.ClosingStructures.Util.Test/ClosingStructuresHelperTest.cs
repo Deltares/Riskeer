@@ -51,7 +51,7 @@ namespace Ringtoets.ClosingStructures.Util.Test
             // Setup
             var location = new Point2D(1, 1);
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 CreateFailureMechanismSection(location)
             });
@@ -82,7 +82,7 @@ namespace Ringtoets.ClosingStructures.Util.Test
                     }
                 }
             };
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 CreateFailureMechanismSection(location)
             });

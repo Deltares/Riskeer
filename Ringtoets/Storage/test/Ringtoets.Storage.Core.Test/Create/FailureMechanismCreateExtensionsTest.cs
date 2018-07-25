@@ -78,7 +78,7 @@ namespace Ringtoets.Storage.Core.Test.Create
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

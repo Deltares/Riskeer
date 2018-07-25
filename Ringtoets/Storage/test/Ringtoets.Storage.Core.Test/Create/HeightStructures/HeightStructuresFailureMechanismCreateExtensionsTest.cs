@@ -158,7 +158,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

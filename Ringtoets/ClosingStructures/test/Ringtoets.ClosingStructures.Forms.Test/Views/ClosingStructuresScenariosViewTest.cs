@@ -386,7 +386,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 failureMechanismSectionA,
                 failureMechanismSectionB

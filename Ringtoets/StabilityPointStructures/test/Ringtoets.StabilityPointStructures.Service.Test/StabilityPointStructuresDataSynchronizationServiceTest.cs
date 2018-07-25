@@ -102,7 +102,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 calculationWithStructureAAndOutput
             });
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
@@ -431,7 +431,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 profile
             }, "path");
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section1,
                 section2

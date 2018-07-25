@@ -143,7 +143,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call 
-            TestDelegate call = () => failureMechanism.SetSections(null, string.Empty);
+            TestDelegate call = () => FailureMechanismTestHelper.SetSections(failureMechanism, null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -157,7 +157,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call 
-            TestDelegate call = () => failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
+            TestDelegate call = () => FailureMechanismTestHelper.SetSections(failureMechanism, Enumerable.Empty<FailureMechanismSection>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -178,7 +178,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section
             }, sourcePath);
@@ -213,7 +213,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section1,
                 section2
@@ -248,7 +248,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            TestDelegate call = () => failureMechanism.SetSections(new[]
+            TestDelegate call = () => FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section1,
                 section2
@@ -277,7 +277,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            TestDelegate call = () => failureMechanism.SetSections(new[]
+            TestDelegate call = () => FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section1,
                 section2
@@ -299,7 +299,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             var failureMechanism = new SimpleFailureMechanismBase();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section
             }, string.Empty);

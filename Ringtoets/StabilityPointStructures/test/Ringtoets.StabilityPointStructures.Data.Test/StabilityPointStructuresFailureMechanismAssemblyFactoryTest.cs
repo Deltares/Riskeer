@@ -957,7 +957,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
@@ -991,7 +991,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
@@ -1087,7 +1087,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

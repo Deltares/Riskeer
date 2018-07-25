@@ -149,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 failureMechanismSection1,
                 failureMechanismSection2,
@@ -405,7 +405,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("Section 1", new List<Point2D>
                 {

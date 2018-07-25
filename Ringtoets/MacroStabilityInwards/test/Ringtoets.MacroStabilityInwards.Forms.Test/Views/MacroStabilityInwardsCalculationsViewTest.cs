@@ -234,7 +234,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 failureMechanismSection1,
                 failureMechanismSection2,
@@ -1213,7 +1213,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 surfaceLine2
             }, "path");
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("Section 1", new List<Point2D>
                 {
@@ -1269,7 +1269,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("Section 1", new List<Point2D>
                 {
@@ -1356,7 +1356,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 })
             }, arbitrary);
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("Section 1", new List<Point2D>
                 {
@@ -1439,7 +1439,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 surfaceLine2
             }, arbitraryFilePath);
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("Section 1", new List<Point2D>
                 {

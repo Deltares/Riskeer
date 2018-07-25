@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 section
             });
@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {

@@ -150,7 +150,7 @@ namespace Ringtoets.Storage.Core.Test.Create.DuneErosion
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

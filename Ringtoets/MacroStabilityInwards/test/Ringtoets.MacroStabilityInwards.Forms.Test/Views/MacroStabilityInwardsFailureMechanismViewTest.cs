@@ -174,7 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 surfaceLineA,
                 surfaceLineB
             }, arbitraryFilePath);
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("A", geometryPoints.Take(2)),
                 new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)),
@@ -446,7 +446,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 mocks.ReplayAll();
 
                 // When
-                failureMechanism.SetSections(new[]
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
                     new FailureMechanismSection(string.Empty, new[]
                     {
