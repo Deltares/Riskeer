@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -84,6 +85,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         public void SetSections_WithSection_AddedSectionResult()
         {
             // Setup
+            string sourcePath = TestHelper.GetScratchPadPath();
+
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
@@ -91,18 +94,21 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             failureMechanism.SetSections(new[]
             {
                 section
-            });
+            }, sourcePath);
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         [Test]
         public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsCleared()
         {
             // Setup
+            string sourcePath = TestHelper.GetScratchPadPath();
+
             var failureMechanism = new TestFailureMechanism();
 
             failureMechanism.SetSections(new[]
@@ -115,11 +121,12 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                 {
                     new Point2D(2, 1)
                 })
-            });
+            }, sourcePath);
 
             // Precondition
             Assert.AreEqual(2, failureMechanism.Sections.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
 
             // Call
             failureMechanism.ClearAllSections();
@@ -127,6 +134,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
         }
     }
 }

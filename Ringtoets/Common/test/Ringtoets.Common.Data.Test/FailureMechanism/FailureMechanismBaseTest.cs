@@ -309,7 +309,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            Assert.IsEmpty(failureMechanism.FailureMechanismSectionSourcePath);
+            Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         private class SimpleFailureMechanismBase : FailureMechanismBase

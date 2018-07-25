@@ -34,14 +34,17 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
-            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
+            IEnumerable<FailureMechanismSection> sections = new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            };
 
             // Call
             FailureMechanismTestHelper.SetSections(failureMechanism, sections);
 
             // Assert
             Assert.IsEmpty(failureMechanism.FailureMechanismSectionSourcePath);
-            Assert.AreSame(sections, failureMechanism.Sections);
+            Assert.AreEqual(sections.Single(), failureMechanism.Sections.Single());
         }
     }
 }
