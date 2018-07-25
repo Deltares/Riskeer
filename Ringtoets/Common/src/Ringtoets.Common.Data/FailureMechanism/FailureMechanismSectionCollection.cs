@@ -85,6 +85,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
 
             List<FailureMechanismSection> sourceCollection = failureMechanismSections.ToList();
+            if (!sourceCollection.Any())
+            {
+                return;
+            }
+
             if (!sections.Any())
             {
                 FailureMechanismSection firstSection = sourceCollection.First();
