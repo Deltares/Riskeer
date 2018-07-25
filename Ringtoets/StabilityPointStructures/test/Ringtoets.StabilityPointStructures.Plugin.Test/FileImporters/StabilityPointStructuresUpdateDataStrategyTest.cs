@@ -140,7 +140,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var readStructure = new TestStabilityPointStructure("read id");
-            var importedStructures = new[]
+            TestStabilityPointStructure[] importedStructures =
             {
                 readStructure
             };
@@ -176,7 +176,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var readStructure = new TestStabilityPointStructure(commonId, "new name");
-            var importedStructures = new[]
+            TestStabilityPointStructure[] importedStructures =
             {
                 readStructure
             };
@@ -216,7 +216,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             var structureToUpdateFrom = new TestStabilityPointStructure(commonId, "new name");
             var addedStructure = new TestStabilityPointStructure("added id");
-            var importedStructures = new[]
+            TestStabilityPointStructure[] importedStructures =
             {
                 structureToUpdateFrom,
                 addedStructure
@@ -696,11 +696,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
                 removedStructure
             }, sourceFilePath);
 
-            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSections(new[]
             {
-                originalMatchingPoint,
-                new Point2D(10, 10)
-            }));
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    originalMatchingPoint,
+                    new Point2D(10, 10)
+                })
+            });
 
             StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
             StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();

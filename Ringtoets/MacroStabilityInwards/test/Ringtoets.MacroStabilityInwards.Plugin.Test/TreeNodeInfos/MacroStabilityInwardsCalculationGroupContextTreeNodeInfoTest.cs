@@ -1091,17 +1091,19 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     surfaceLine1,
                     surfaceLine2
                 };
-                failureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
+                failureMechanism.AddSections(new[]
                 {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                }));
-
-                failureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
-                {
-                    new Point2D(5.0, 0.0),
-                    new Point2D(10.0, 0.0)
-                }));
+                    new FailureMechanismSection("Section 1", new List<Point2D>
+                    {
+                        new Point2D(0.0, 0.0),
+                        new Point2D(5.0, 0.0)
+                    }),
+                    new FailureMechanismSection("Section 2", new List<Point2D>
+                    {
+                        new Point2D(5.0, 0.0),
+                        new Point2D(10.0, 0.0)
+                    })
+                });
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                 null,
@@ -1200,17 +1202,19 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     surfaceLine1,
                     surfaceLine2
                 };
-                failureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
+                failureMechanism.AddSections(new[]
                 {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                }));
-
-                failureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
-                {
-                    new Point2D(5.0, 0.0),
-                    new Point2D(10.0, 0.0)
-                }));
+                    new FailureMechanismSection("Section 1", new List<Point2D>
+                    {
+                        new Point2D(0.0, 0.0),
+                        new Point2D(5.0, 0.0)
+                    }),
+                    new FailureMechanismSection("Section 2", new List<Point2D>
+                    {
+                        new Point2D(5.0, 0.0),
+                        new Point2D(10.0, 0.0)
+                    })
+                });
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 null,

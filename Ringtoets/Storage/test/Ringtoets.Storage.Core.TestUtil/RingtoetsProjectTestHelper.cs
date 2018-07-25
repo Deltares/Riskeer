@@ -306,21 +306,24 @@ namespace Ringtoets.Storage.Core.TestUtil
 
         private static void AddSections(IFailureMechanism failureMechanism)
         {
-            failureMechanism.AddSection(new FailureMechanismSection("section 1", new[]
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0, 2),
-                new Point2D(2, 3)
-            }));
-            failureMechanism.AddSection(new FailureMechanismSection("section 2", new[]
-            {
-                new Point2D(2, 3),
-                new Point2D(4, 5)
-            }));
-            failureMechanism.AddSection(new FailureMechanismSection("section 3", new[]
-            {
-                new Point2D(4, 5),
-                new Point2D(2, 3)
-            }));
+                new FailureMechanismSection("section 1", new[]
+                {
+                    new Point2D(0, 2),
+                    new Point2D(2, 3)
+                }),
+                new FailureMechanismSection("section 2", new[]
+                {
+                    new Point2D(2, 3),
+                    new Point2D(4, 5)
+                }),
+                new FailureMechanismSection("section 3", new[]
+                {
+                    new Point2D(4, 5),
+                    new Point2D(2, 3)
+                })
+            });
         }
 
         private static void AddForeshoreProfiles(ForeshoreProfileCollection foreshoreProfiles)
