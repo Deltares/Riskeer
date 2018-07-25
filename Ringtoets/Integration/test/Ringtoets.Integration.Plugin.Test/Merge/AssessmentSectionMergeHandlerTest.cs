@@ -259,6 +259,29 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
+        public void PerformMerge_WithFailureMechanismThatCannotBeMerged_ThrowsNotSupportedException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            // Call
+            TestDelegate call = () => handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, new []
+            {
+                new TestFailureMechanism()
+            });
+
+            // Assert
+            var exception = Assert.Throws<NotSupportedException>(call);
+            Assert.AreEqual("Failure mechanism can't be merged.", exception.Message);
+        }
+
+        [Test]
         public void PerformMerge_WithAllFailureMechanismsToMerge_LogMessages()
         {
             // Setup

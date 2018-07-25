@@ -182,6 +182,13 @@ namespace Ringtoets.Integration.Plugin.Merge
 
         #region FailureMechanisms
 
+        /// <summary>
+        /// Merge the failure mechanism to the <paramref name="targetAssessmentSection"/>.
+        /// </summary>
+        /// <param name="targetAssessmentSection">The assessment section to merge to.</param>
+        /// <param name="failureMechanismsToMerge">The failure mechanisms to merge.</param>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="failureMechanismsToMerge"/>
+        /// contains an element that can't be merged.</exception>
         private static void MergeFailureMechanisms(AssessmentSection targetAssessmentSection, IEnumerable<IFailureMechanism> failureMechanismsToMerge)
         {
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = targetAssessmentSection.HydraulicBoundaryDatabase.Locations;
@@ -325,9 +332,14 @@ namespace Ringtoets.Integration.Plugin.Merge
                     continue;
                 }
 
-                TryMergeFailureMechanism<TechnicalInnovationFailureMechanism>(
+                if (TryMergeFailureMechanism<TechnicalInnovationFailureMechanism>(
                     targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.TechnicalInnovation = mechanism);
+                    (section, mechanism) => section.TechnicalInnovation = mechanism))
+                {
+                    continue;
+                }
+
+                throw new NotSupportedException("Failure mechanism can't be merged.");
             }
         }
 
