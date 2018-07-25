@@ -647,7 +647,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var intersectionPoint = new Point2D(10, 10);
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("OldSection", new[]
                 {
@@ -726,7 +726,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 removedStructure
             }, sourceFilePath);
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {

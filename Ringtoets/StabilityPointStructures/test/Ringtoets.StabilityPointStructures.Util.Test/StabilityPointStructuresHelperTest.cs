@@ -51,7 +51,7 @@ namespace Ringtoets.StabilityPointStructures.Util.Test
             // Setup
             var location = new Point2D(1, 1);
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 CreateFailureMechanismSection(location)
             });
@@ -82,7 +82,7 @@ namespace Ringtoets.StabilityPointStructures.Util.Test
                     }
                 }
             };
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 CreateFailureMechanismSection(location)
             });

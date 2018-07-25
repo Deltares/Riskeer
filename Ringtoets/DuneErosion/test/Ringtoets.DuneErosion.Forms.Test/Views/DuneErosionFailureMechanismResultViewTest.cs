@@ -129,7 +129,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
             });

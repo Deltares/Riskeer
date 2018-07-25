@@ -81,14 +81,14 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void AddSections_WithSection_AddedSectionResult()
+        public void SetSections_WithSection_AddedSectionResult()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 section
             });
@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Setup
             var failureMechanism = new TestFailureMechanism();
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {

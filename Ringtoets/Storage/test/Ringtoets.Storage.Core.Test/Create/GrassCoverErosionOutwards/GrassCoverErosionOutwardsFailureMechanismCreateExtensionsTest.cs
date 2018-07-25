@@ -152,7 +152,7 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionOutwards
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

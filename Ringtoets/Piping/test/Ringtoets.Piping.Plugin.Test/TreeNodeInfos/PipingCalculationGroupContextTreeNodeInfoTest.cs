@@ -1276,7 +1276,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     surfaceLine1,
                     surfaceLine2
                 };
-                pipingFailureMechanism.AddSections(new[]
+                pipingFailureMechanism.SetSections(new[]
                 {
                     new FailureMechanismSection("Section 1", new List<Point2D>
                     {
@@ -1392,7 +1392,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     surfaceLine1,
                     surfaceLine2
                 };
-                pipingFailureMechanism.AddSections(new[]
+                pipingFailureMechanism.SetSections(new[]
                 {
                     new FailureMechanismSection("Section 1", new List<Point2D>
                     {

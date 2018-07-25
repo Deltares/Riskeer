@@ -1062,7 +1062,7 @@ namespace Ringtoets.Integration.TestUtil
                                                            new Point2D(5, 5),
                                                            new Point2D(15, 15)
                                                        });
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
@@ -1079,7 +1079,7 @@ namespace Ringtoets.Integration.TestUtil
             for (var i = 1; i <= numberOfSections; i++)
             {
                 endPoint = new Point2D(startPoint.X + endPointStepsX, startPoint.Y + endPointStepsY);
-                failureMechanism.AddSections(new[]
+                failureMechanism.SetSections(new[]
                 {
                     new FailureMechanismSection(i.ToString(),
                                                 new[]

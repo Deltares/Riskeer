@@ -210,7 +210,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                view.FailureMechanism.AddSections(new[]
+                view.FailureMechanism.SetSections(new[]
                 {
                     new FailureMechanismSection("SectionC", new[]
                     {
@@ -386,7 +386,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 failureMechanismSectionA,
                 failureMechanismSectionB

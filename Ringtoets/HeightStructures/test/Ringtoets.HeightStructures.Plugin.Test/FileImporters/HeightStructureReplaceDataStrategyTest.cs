@@ -317,7 +317,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                 }
             };
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {

@@ -62,7 +62,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 section
             });
@@ -79,7 +79,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {

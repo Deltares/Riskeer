@@ -118,7 +118,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 calculationWithStructureToRemoveAndOutput
             });
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
@@ -230,7 +230,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 calculationWithStructureAAndOutput
             });
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
@@ -614,7 +614,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 profile
             }, "path");
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 section1,
                 section2

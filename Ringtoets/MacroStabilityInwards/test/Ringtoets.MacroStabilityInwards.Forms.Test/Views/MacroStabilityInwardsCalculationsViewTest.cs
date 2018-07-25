@@ -234,7 +234,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 failureMechanismSection1,
                 failureMechanismSection2,
@@ -525,7 +525,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Precondition
                 Assert.AreEqual(0, listBox.Items.Count);
 
-                failureMechanismWithSections.AddSections(new[]
+                failureMechanismWithSections.SetSections(new[]
                 {
                     failureMechanismSection1,
                     failureMechanismSection2,
@@ -1213,7 +1213,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 surfaceLine2
             }, "path");
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("Section 1", new List<Point2D>
                 {
@@ -1269,7 +1269,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("Section 1", new List<Point2D>
                 {
@@ -1356,7 +1356,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 })
             }, arbitrary);
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("Section 1", new List<Point2D>
                 {
@@ -1439,7 +1439,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 surfaceLine2
             }, arbitraryFilePath);
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("Section 1", new List<Point2D>
                 {

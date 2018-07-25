@@ -694,7 +694,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("Section", new List<Point2D>
                 {

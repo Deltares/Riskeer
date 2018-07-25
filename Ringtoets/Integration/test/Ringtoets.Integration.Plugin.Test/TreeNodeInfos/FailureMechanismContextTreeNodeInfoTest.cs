@@ -238,7 +238,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 {
                     IsRelevant = false
                 };
-                failureMechanism.AddSections(new [] {new FailureMechanismSection("A", new[]
+                failureMechanism.SetSections(new [] {new FailureMechanismSection("A", new[]
                 {
                     new Point2D(1, 2),
                     new Point2D(5, 6)

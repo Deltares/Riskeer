@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Setup
             var failureMechanism = new TFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
@@ -170,7 +170,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             var failureMechanism = new TFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

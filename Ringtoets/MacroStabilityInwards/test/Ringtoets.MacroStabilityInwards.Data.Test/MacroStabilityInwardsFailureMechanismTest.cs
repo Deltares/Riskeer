@@ -124,7 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 section
             });
@@ -141,7 +141,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {

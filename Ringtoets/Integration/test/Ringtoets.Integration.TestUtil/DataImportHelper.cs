@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.TestUtil
                         foreach (FailureMechanismSection section in failureMechanisms[0].Sections)
                         {
                             FailureMechanismSection clonedSection = DeepCloneSection(section);
-                            failureMechanisms[i].AddSections(new[]
+                            failureMechanisms[i].SetSections(new[]
                             {
                                 clonedSection
                             });

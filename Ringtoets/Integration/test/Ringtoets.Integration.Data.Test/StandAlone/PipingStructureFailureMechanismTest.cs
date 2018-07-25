@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 section
             });
@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             // Setup
             var failureMechanism = new PipingStructureFailureMechanism();
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {

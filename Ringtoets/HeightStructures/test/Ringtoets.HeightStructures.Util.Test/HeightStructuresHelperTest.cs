@@ -51,7 +51,7 @@ namespace Ringtoets.HeightStructures.Util.Test
             // Setup
             var location = new Point2D(1, 1);
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 CreateFailureMechanismSection(location)
             });
@@ -82,7 +82,7 @@ namespace Ringtoets.HeightStructures.Util.Test
                     }
                 }
             };
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 CreateFailureMechanismSection(location)
             });

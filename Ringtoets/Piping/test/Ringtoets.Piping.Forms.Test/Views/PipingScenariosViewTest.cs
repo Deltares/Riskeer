@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            pipingFailureMechanism.AddSections(new[]
+            pipingFailureMechanism.SetSections(new[]
             {
                 failureMechanismSection1,
                 failureMechanismSection2,
@@ -201,7 +201,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Precondition
             Assert.AreEqual(0, listBox.Items.Count);
 
-            pipingFailureMechanismWithSections.AddSections(new[]
+            pipingFailureMechanismWithSections.SetSections(new[]
             {
                 failureMechanismSection1,
                 failureMechanismSection2,
@@ -421,7 +421,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var pipingFailureMechanism = new PipingFailureMechanism();
 
-            pipingFailureMechanism.AddSections(new[]
+            pipingFailureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("Section 1", new List<Point2D>
                 {

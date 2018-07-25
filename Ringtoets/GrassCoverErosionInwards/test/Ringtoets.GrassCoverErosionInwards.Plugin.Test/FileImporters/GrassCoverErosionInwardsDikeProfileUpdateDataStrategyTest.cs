@@ -551,7 +551,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
 
             var intersectionPoint = new Point2D(10, 10);
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("OldSection", new[]
                 {
@@ -627,7 +627,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("Section", new[]
                 {

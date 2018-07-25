@@ -172,7 +172,7 @@ namespace Ringtoets.Storage.Core.Test.Create.Piping
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

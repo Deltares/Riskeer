@@ -424,7 +424,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new MacroStabilityInwardsCalculationScenario();
                 var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
-                failureMechanism.AddSections(new[]
+                failureMechanism.SetSections(new[]
                 {
                     new FailureMechanismSection("A", new[]
                     {
@@ -547,7 +547,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 }, true);
 
                 MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
-                failureMechanism.AddSections(new[]
+                failureMechanism.SetSections(new[]
                 {
                     new FailureMechanismSection("A", new[]
                     {

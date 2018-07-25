@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("firstSection", new List<Point2D>
                 {
@@ -142,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("firstSection", new List<Point2D>
                 {

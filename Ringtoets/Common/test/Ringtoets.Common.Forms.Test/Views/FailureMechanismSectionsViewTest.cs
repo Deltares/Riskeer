@@ -172,7 +172,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 CreateFailureMechanismSection("a")
             });
@@ -185,7 +185,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), sectionsDataGridViewControl);
 
                 // When
-                failureMechanism.AddSections(new[]
+                failureMechanism.SetSections(new[]
                 {
                     CreateFailureMechanismSection("b")
                 });
@@ -201,7 +201,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 CreateFailureMechanismSection("a")
             });

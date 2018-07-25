@@ -67,7 +67,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 section
             });
@@ -84,7 +84,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {

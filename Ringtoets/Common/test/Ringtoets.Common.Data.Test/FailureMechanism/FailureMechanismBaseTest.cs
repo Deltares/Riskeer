@@ -136,13 +136,13 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void AddSections_SectionsNull_ThrowArgumentNullException()
+        public void SetSections_SectionsNull_ThrowArgumentNullException()
         {
             // Setup
             var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call 
-            TestDelegate call = () => failureMechanism.AddSections(null);
+            TestDelegate call = () => failureMechanism.SetSections(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -150,7 +150,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void AddSections_FirstSectionAdded_SectionAddedToSections()
+        public void SetSections_FirstSectionAdded_SectionAddedToSections()
         {
             // Setup
             var failureMechanism = new SimpleFailureMechanismBase();
@@ -162,7 +162,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 section
             });
@@ -175,7 +175,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void AddSections_SecondSectionStartConnectingToEndOfFirst_Section2AddedAfterSection1()
+        public void SetSections_SecondSectionStartConnectingToEndOfFirst_Section2AddedAfterSection1()
         {
             // Setup
             var failureMechanism = new SimpleFailureMechanismBase();
@@ -195,7 +195,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
@@ -210,7 +210,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void AddSections_SecondSectionEndConnectingToStartOfFirst_ThrowArgumentException()
+        public void SetSections_SecondSectionEndConnectingToStartOfFirst_ThrowArgumentException()
         {
             // Setup
             var failureMechanism = new SimpleFailureMechanismBase();
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            TestDelegate call = () => failureMechanism.AddSections(new[]
+            TestDelegate call = () => failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
@@ -242,7 +242,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void AddSections_SecondSectionDoesNotConnectToFirst_ThrowArgumentException()
+        public void SetSections_SecondSectionDoesNotConnectToFirst_ThrowArgumentException()
         {
             // Setup
             var failureMechanism = new SimpleFailureMechanismBase();
@@ -259,7 +259,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            TestDelegate call = () => failureMechanism.AddSections(new[]
+            TestDelegate call = () => failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
@@ -281,7 +281,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             var failureMechanism = new SimpleFailureMechanismBase();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 section
             });

@@ -152,7 +152,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             };
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("A", geometryPoints.Take(2)),
                 new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)),
@@ -353,7 +353,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 mocks.ReplayAll();
 
                 // When
-                failureMechanism.AddSections(new[]
+                failureMechanism.SetSections(new[]
                 {
                     new FailureMechanismSection(string.Empty, new[]
                     {

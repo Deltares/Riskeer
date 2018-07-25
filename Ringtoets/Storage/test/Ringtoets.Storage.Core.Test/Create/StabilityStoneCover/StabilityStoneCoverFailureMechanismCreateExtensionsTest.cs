@@ -147,7 +147,7 @@ namespace Ringtoets.Storage.Core.Test.Create.StabilityStoneCover
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });

@@ -111,6 +111,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             Assert.IsTrue(importSuccessful);
 
+            Assert.AreEqual(sectionsFilePath, failureMechanism.FailureMechanismSectionSourcePath);
             FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
             Assert.AreEqual(sectionCount, sections.Length);
             AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
@@ -128,7 +129,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("A", importReferenceLine.Points)
             });

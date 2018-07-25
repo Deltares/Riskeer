@@ -148,7 +148,7 @@ namespace Ringtoets.Storage.Core.Test.Create.WaveImpactAsphaltCover
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
