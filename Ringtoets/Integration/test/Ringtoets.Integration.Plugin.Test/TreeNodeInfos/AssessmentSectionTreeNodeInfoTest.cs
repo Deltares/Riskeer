@@ -83,7 +83,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class AssessmentSectionTreeNodeInfoTest
     {
-        private const int contextMenuCalculateAllIndex = 4;
+        private const int contextMenuImportAssessmentSectionIndex = 2;
+        private const int contextMenuCalculateAllIndex = 6;
         private MockRepository mocks;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabase");
 
@@ -336,9 +337,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddRenameItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -372,41 +373,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_ContextMenuItemImportAssessmentSectionEnabled()
-        {
-            // Setup
-            var section = new AssessmentSection(AssessmentSectionComposition.Dike);
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(section, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                mocks.ReplayAll();
-
-                using (var plugin = new RingtoetsPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-
-                    // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(section, section, treeViewControl))
-                    {
-                        const string expectedItemText = "&Importeren...";
-                        const string expectedItemTooltip = "Importeer de gegevens vanuit een bestand.";
-                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2,
-                                                                      expectedItemText, expectedItemTooltip,
-                                                                      CoreCommonGuiResources.ImportIcon);
-                    }
-                }
-            }
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_AddCustomItems()
+        public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -429,6 +396,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     {
                         // Assert
                         Assert.AreEqual(14, menu.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportAssessmentSectionIndex,
+                                                                      "&Importeren...",
+                                                                      "Importeer de gegevens vanuit een bestand.",
+                                                                      CoreCommonGuiResources.ImportIcon);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                       "Alles be&rekenen",
