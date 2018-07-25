@@ -40,11 +40,11 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
+            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new LoadAssessmentSectionsActivity(null, provider, string.Empty);
+            TestDelegate call = () => new LoadAssessmentSectionsActivity(null, service, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

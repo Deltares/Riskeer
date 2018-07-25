@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Merge
                 throw new ArgumentException($@"{nameof(assessmentSections)} must at least have one element.", nameof(assessmentSections));
             }
 
-            SetComboBoxData(assessmentSections);
+            assessmentSectionComboBox.DataSource = assessmentSections.ToArray();
 
             return ShowDialog() == DialogResult.OK
                        ? new AssessmentSectionMergeData((AssessmentSection) assessmentSectionComboBox.SelectedItem,
@@ -125,13 +125,6 @@ namespace Ringtoets.Integration.Forms.Merge
         #endregion
 
         #region Data Setters
-
-        private void SetComboBoxData(IEnumerable<AssessmentSection> assessmentSections)
-        {
-            assessmentSectionComboBox.BeginUpdate();
-            assessmentSectionComboBox.DataSource = assessmentSections.ToArray();
-            assessmentSectionComboBox.EndUpdate();
-        }
 
         private void SetDataGridViewData(AssessmentSection assessmentSection)
         {
