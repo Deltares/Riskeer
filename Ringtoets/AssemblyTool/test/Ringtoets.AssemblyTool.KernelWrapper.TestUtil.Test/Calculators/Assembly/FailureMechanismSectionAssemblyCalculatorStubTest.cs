@@ -781,9 +781,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Assert
             Assert.AreEqual(tailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityAndDetailedCalculationResultInput);
             Assert.AreEqual(probability, calculator.TailorMadeAssessmentProbabilityInput);
-            Assert.AreEqual(normativeNorm, calculator.TailorMadeNormativeNormInput);
-            Assert.AreEqual(n, calculator.TailorMadeFailureMechanismNInput);
-            Assert.AreEqual(failureMechanismContribution, calculator.TailorMadeFailureMechanismContributionInput);
+            Assert.AreEqual(normativeNorm, calculator.TailorMadeAssessmentNormativeNormInput);
+            Assert.AreEqual(n, calculator.TailorMadeAssessmentFailureMechanismNInput);
+            Assert.AreEqual(failureMechanismContribution, calculator.TailorMadeAssessmentFailureMechanismContributionInput);
         }
 
         [Test]
