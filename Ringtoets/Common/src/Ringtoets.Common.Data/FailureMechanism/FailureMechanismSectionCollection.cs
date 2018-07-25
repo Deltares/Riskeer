@@ -61,8 +61,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <item><paramref name="filePath"/> is not a valid file path.</item>
         /// </list>
         /// </exception>
-        public void AddRange(IEnumerable<FailureMechanismSection> failureMechanismSections,
-                             string filePath)
+        public void SetSections(IEnumerable<FailureMechanismSection> failureMechanismSections,
+                                string filePath)
         {
             if (failureMechanismSections == null)
             {
@@ -84,18 +84,17 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 throw new ArgumentException(@"Collection cannot contain null.", nameof(failureMechanismSections));
             }
 
+            sections.Clear();
+
             List<FailureMechanismSection> sourceCollection = failureMechanismSections.ToList();
             if (!sourceCollection.Any())
             {
                 return;
             }
 
-            if (!sections.Any())
-            {
-                FailureMechanismSection firstSection = sourceCollection.First();
-                sections.Add(firstSection);
-                sourceCollection.Remove(firstSection);
-            }
+            FailureMechanismSection firstSection = sourceCollection.First();
+            sections.Add(firstSection);
+            sourceCollection.Remove(firstSection);
 
             foreach (FailureMechanismSection section in sourceCollection)
             {
