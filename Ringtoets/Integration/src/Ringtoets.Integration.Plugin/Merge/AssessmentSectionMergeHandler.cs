@@ -32,13 +32,11 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
-using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
@@ -95,7 +93,7 @@ namespace Ringtoets.Integration.Plugin.Merge
             };
 
             changedObjects.AddRange(MergeHydraulicBoundaryLocations(targetAssessmentSection, mergeData.AssessmentSection));
-            MergeFailureMechanisms(targetAssessmentSection, mergeData.FailureMechanisms);
+            MergeFailureMechanisms(targetAssessmentSection, mergeData);
 
             AfterMerge(changedObjects);
         }
@@ -181,176 +179,143 @@ namespace Ringtoets.Integration.Plugin.Merge
         /// Merge the failure mechanism to the <paramref name="targetAssessmentSection"/>.
         /// </summary>
         /// <param name="targetAssessmentSection">The assessment section to merge to.</param>
-        /// <param name="failureMechanismsToMerge">The failure mechanisms to merge.</param>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="failureMechanismsToMerge"/>
-        /// contains an element that can't be merged.</exception>
-        private static void MergeFailureMechanisms(AssessmentSection targetAssessmentSection, IEnumerable<IFailureMechanism> failureMechanismsToMerge)
+        /// <param name="mergeData">The data to merge.</param>
+        private static void MergeFailureMechanisms(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData)
         {
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = targetAssessmentSection.HydraulicBoundaryDatabase.Locations;
-            foreach (IFailureMechanism failureMechanism in failureMechanismsToMerge)
+            AssessmentSection sourceAssessmentSection = mergeData.AssessmentSection;
+
+            if (mergeData.MergePiping)
             {
-                if (TryMergeFailureMechanism<PipingFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.Piping = mechanism))
-                {
-                    UpdateCalculationHydraulicBoundaryLocationReferences<PipingFailureMechanism, PipingCalculationScenario, PipingInput>(
-                        targetAssessmentSection.Piping, hydraulicBoundaryLocations);
-                    continue;
-                }
+                targetAssessmentSection.Piping = sourceAssessmentSection.Piping;
+                UpdateCalculationHydraulicBoundaryLocationReferences<PipingFailureMechanism, PipingCalculationScenario, PipingInput>(
+                    targetAssessmentSection.Piping, hydraulicBoundaryLocations);
+                LogMergeMessage(targetAssessmentSection.Piping);
+            }
 
-                if (TryMergeFailureMechanism<GrassCoverErosionInwardsFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.GrassCoverErosionInwards = mechanism))
-                {
-                    UpdateCalculationHydraulicBoundaryLocationReferences<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>(
-                        targetAssessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocations);
-                    continue;
-                }
+            if (mergeData.MergeGrassCoverErosionInwards)
+            {
+                targetAssessmentSection.GrassCoverErosionInwards = sourceAssessmentSection.GrassCoverErosionInwards;
+                UpdateCalculationHydraulicBoundaryLocationReferences<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>(
+                    targetAssessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocations);
+                LogMergeMessage(targetAssessmentSection.GrassCoverErosionInwards);
+            }
 
-                if (TryMergeFailureMechanism<MacroStabilityInwardsFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.MacroStabilityInwards = mechanism))
-                {
-                    UpdateCalculationHydraulicBoundaryLocationReferences<MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput>(
-                        targetAssessmentSection.MacroStabilityInwards, hydraulicBoundaryLocations);
-                    continue;
-                }
+            if (mergeData.MergeMacroStabilityInwards)
+            {
+                targetAssessmentSection.MacroStabilityInwards = sourceAssessmentSection.MacroStabilityInwards;
+                UpdateCalculationHydraulicBoundaryLocationReferences<MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput>(
+                    targetAssessmentSection.MacroStabilityInwards, hydraulicBoundaryLocations);
+                LogMergeMessage(targetAssessmentSection.MacroStabilityInwards);
+            }
 
-                if (TryMergeFailureMechanism<MacroStabilityOutwardsFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.MacroStabilityOutwards = mechanism))
-                {
-                    continue;
-                }
+            if (mergeData.MergeMacroStabilityOutwards)
+            {
+                targetAssessmentSection.MacroStabilityOutwards = sourceAssessmentSection.MacroStabilityOutwards;
+                LogMergeMessage(targetAssessmentSection.MacroStabilityOutwards);
+            }
 
-                if (TryMergeFailureMechanism<MicrostabilityFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.Microstability = mechanism))
-                {
-                    continue;
-                }
+            if (mergeData.MergeMicrostability)
+            {
+                targetAssessmentSection.Microstability = sourceAssessmentSection.Microstability;
+                LogMergeMessage(targetAssessmentSection.Microstability);
+            }
 
-                if (TryMergeFailureMechanism<StabilityStoneCoverFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.StabilityStoneCover = mechanism))
-                {
-                    UpdateCalculationHydraulicBoundaryLocationReferences<StabilityStoneCoverFailureMechanism, StabilityStoneCoverWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsInput>(
-                        targetAssessmentSection.StabilityStoneCover, hydraulicBoundaryLocations);
-                    continue;
-                }
+            if (mergeData.MergeStabilityStoneCover)
+            {
+                targetAssessmentSection.StabilityStoneCover = sourceAssessmentSection.StabilityStoneCover;
+                UpdateCalculationHydraulicBoundaryLocationReferences<StabilityStoneCoverFailureMechanism, StabilityStoneCoverWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsInput>(
+                    targetAssessmentSection.StabilityStoneCover, hydraulicBoundaryLocations);
+                LogMergeMessage(targetAssessmentSection.StabilityStoneCover);
+            }
 
-                if (TryMergeFailureMechanism<WaveImpactAsphaltCoverFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.WaveImpactAsphaltCover = mechanism))
-                {
-                    UpdateCalculationHydraulicBoundaryLocationReferences<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsInput>(
-                        targetAssessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocations);
-                    continue;
-                }
+            if (mergeData.MergeWaveImpactAsphaltCover)
+            {
+                targetAssessmentSection.WaveImpactAsphaltCover = sourceAssessmentSection.WaveImpactAsphaltCover;
+                UpdateCalculationHydraulicBoundaryLocationReferences<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsInput>(
+                    targetAssessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocations);
+                LogMergeMessage(targetAssessmentSection.WaveImpactAsphaltCover);
+            }
 
-                if (TryMergeFailureMechanism<WaterPressureAsphaltCoverFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.WaterPressureAsphaltCover = mechanism))
-                {
-                    continue;
-                }
+            if (mergeData.MergeWaterPressureAsphaltCover)
+            {
+                targetAssessmentSection.WaterPressureAsphaltCover = sourceAssessmentSection.WaterPressureAsphaltCover;
+                LogMergeMessage(targetAssessmentSection.WaterPressureAsphaltCover);
+            }
 
-                if (TryMergeFailureMechanism<GrassCoverErosionOutwardsFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.GrassCoverErosionOutwards = mechanism))
-                {
-                    UpdateLocationCalculationHydraulicBoundaryLocationReferences(targetAssessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocations);
-                    UpdateCalculationHydraulicBoundaryLocationReferences<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsWaveConditionsCalculation, FailureMechanismCategoryWaveConditionsInput>(
-                        targetAssessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocations);
-                    continue;
-                }
+            if (mergeData.MergeGrassCoverErosionOutwards)
+            {
+                targetAssessmentSection.GrassCoverErosionOutwards = sourceAssessmentSection.GrassCoverErosionOutwards;
+                UpdateLocationCalculationHydraulicBoundaryLocationReferences(targetAssessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocations);
+                UpdateCalculationHydraulicBoundaryLocationReferences<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsWaveConditionsCalculation, FailureMechanismCategoryWaveConditionsInput>(
+                    targetAssessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocations);
+                LogMergeMessage(targetAssessmentSection.GrassCoverErosionOutwards);
+            }
 
-                if (TryMergeFailureMechanism<GrassCoverSlipOffOutwardsFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.GrassCoverSlipOffOutwards = mechanism))
-                {
-                    continue;
-                }
+            if (mergeData.MergeGrassCoverSlipOffOutwards)
+            {
+                targetAssessmentSection.GrassCoverSlipOffOutwards = sourceAssessmentSection.GrassCoverSlipOffOutwards;
+                LogMergeMessage(targetAssessmentSection.GrassCoverSlipOffOutwards);
+            }
 
-                if (TryMergeFailureMechanism<GrassCoverSlipOffInwardsFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.GrassCoverSlipOffInwards = mechanism))
-                {
-                    continue;
-                }
+            if (mergeData.MergeGrassCoverSlipOffInwards)
+            {
+                targetAssessmentSection.GrassCoverSlipOffInwards = sourceAssessmentSection.GrassCoverSlipOffInwards;
+                LogMergeMessage(targetAssessmentSection.GrassCoverSlipOffInwards);
+            }
 
-                if (TryMergeFailureMechanism<HeightStructuresFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.HeightStructures = mechanism))
-                {
-                    UpdateCalculationHydraulicBoundaryLocationReferences<HeightStructuresFailureMechanism, StructuresCalculation<HeightStructuresInput>, HeightStructuresInput>(
-                        targetAssessmentSection.HeightStructures, hydraulicBoundaryLocations);
-                    continue;
-                }
+            if (mergeData.MergeHeightStructures)
+            {
+                targetAssessmentSection.HeightStructures = sourceAssessmentSection.HeightStructures;
+                UpdateCalculationHydraulicBoundaryLocationReferences<HeightStructuresFailureMechanism, StructuresCalculation<HeightStructuresInput>, HeightStructuresInput>(
+                    targetAssessmentSection.HeightStructures, hydraulicBoundaryLocations);
+                LogMergeMessage(targetAssessmentSection.HeightStructures);
+            }
 
-                if (TryMergeFailureMechanism<ClosingStructuresFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.ClosingStructures = mechanism))
-                {
-                    UpdateCalculationHydraulicBoundaryLocationReferences<ClosingStructuresFailureMechanism, StructuresCalculation<ClosingStructuresInput>, ClosingStructuresInput>(
-                        targetAssessmentSection.ClosingStructures, hydraulicBoundaryLocations);
-                    continue;
-                }
+            if (mergeData.MergeClosingStructures)
+            {
+                targetAssessmentSection.ClosingStructures = sourceAssessmentSection.ClosingStructures;
+                UpdateCalculationHydraulicBoundaryLocationReferences<ClosingStructuresFailureMechanism, StructuresCalculation<ClosingStructuresInput>, ClosingStructuresInput>(
+                    targetAssessmentSection.ClosingStructures, hydraulicBoundaryLocations);
+                LogMergeMessage(targetAssessmentSection.ClosingStructures);
+            }
 
-                if (TryMergeFailureMechanism<PipingStructureFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.PipingStructure = mechanism))
-                {
-                    continue;
-                }
+            if (mergeData.MergePipingStructure)
+            {
+                targetAssessmentSection.PipingStructure = sourceAssessmentSection.PipingStructure;
+                LogMergeMessage(targetAssessmentSection.PipingStructure);
+            }
 
-                if (TryMergeFailureMechanism<StabilityPointStructuresFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.StabilityPointStructures = mechanism))
-                {
-                    UpdateCalculationHydraulicBoundaryLocationReferences<StabilityPointStructuresFailureMechanism, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresInput>(
-                        targetAssessmentSection.StabilityPointStructures, hydraulicBoundaryLocations);
-                    continue;
-                }
+            if (mergeData.MergeStabilityPointStructures)
+            {
+                targetAssessmentSection.StabilityPointStructures = sourceAssessmentSection.StabilityPointStructures;
+                UpdateCalculationHydraulicBoundaryLocationReferences<StabilityPointStructuresFailureMechanism, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresInput>(
+                    targetAssessmentSection.StabilityPointStructures, hydraulicBoundaryLocations);
+                LogMergeMessage(targetAssessmentSection.StabilityPointStructures);
+            }
 
-                if (TryMergeFailureMechanism<StrengthStabilityLengthwiseConstructionFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.StrengthStabilityLengthwiseConstruction = mechanism))
-                {
-                    continue;
-                }
+            if (mergeData.MergeStrengthStabilityLengthwiseConstruction)
+            {
+                targetAssessmentSection.StrengthStabilityLengthwiseConstruction = sourceAssessmentSection.StrengthStabilityLengthwiseConstruction;
+                LogMergeMessage(targetAssessmentSection.StrengthStabilityLengthwiseConstruction);
+            }
 
-                if (TryMergeFailureMechanism<DuneErosionFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.DuneErosion = mechanism))
-                {
-                    continue;
-                }
+            if (mergeData.MergeDuneErosion)
+            {
+                targetAssessmentSection.DuneErosion = sourceAssessmentSection.DuneErosion;
+                LogMergeMessage(targetAssessmentSection.DuneErosion);
+            }
 
-                if (TryMergeFailureMechanism<TechnicalInnovationFailureMechanism>(
-                    targetAssessmentSection, failureMechanism,
-                    (section, mechanism) => section.TechnicalInnovation = mechanism))
-                {
-                    continue;
-                }
-
-                throw new NotSupportedException("Failure mechanism can't be merged.");
+            if (mergeData.MergeTechnicalInnovation)
+            {
+                targetAssessmentSection.TechnicalInnovation = sourceAssessmentSection.TechnicalInnovation;
+                LogMergeMessage(targetAssessmentSection.TechnicalInnovation);
             }
         }
 
-        private static bool TryMergeFailureMechanism<TFailureMechanism>(AssessmentSection targetAssessmentSection, IFailureMechanism failureMechanismToMerge,
-                                                                        Action<AssessmentSection, TFailureMechanism> mergeFailureMechanismAction)
-            where TFailureMechanism : class, IFailureMechanism
+        private static void LogMergeMessage(IFailureMechanism failureMechanism)
         {
-            var failureMechanism = failureMechanismToMerge as TFailureMechanism;
-            if (failureMechanism != null)
-            {
-                mergeFailureMechanismAction(targetAssessmentSection, failureMechanism);
-                log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced, failureMechanism.Name);
-                return true;
-            }
-
-            return false;
+            log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced, failureMechanism.Name);
         }
 
         private static void UpdateCalculationHydraulicBoundaryLocationReferences<TFailureMechanism, TCalculation, TCalculationInput>(

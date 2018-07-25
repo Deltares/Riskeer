@@ -185,7 +185,27 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
                                      sourceAssessmentSection.GetFailureMechanisms(),
-                                     new AssessmentSectionMergeData.ConstructionProperties()));
+                                     new AssessmentSectionMergeData.ConstructionProperties
+                                     {
+                                         MergePiping = true,
+                                         MergeGrassCoverErosionInwards = true,
+                                         MergeMacroStabilityInwards = true,
+                                         MergeMacroStabilityOutwards = true,
+                                         MergeMicrostability = true,
+                                         MergeStabilityStoneCover = true,
+                                         MergeWaveImpactAsphaltCover = true,
+                                         MergeWaterPressureAsphaltCover = true,
+                                         MergeGrassCoverErosionOutwards = true,
+                                         MergeGrassCoverSlipOffOutwards = true,
+                                         MergeGrassCoverSlipOffInwards = true,
+                                         MergeHeightStructures = true,
+                                         MergeClosingStructures = true,
+                                         MergePipingStructure = true,
+                                         MergeStabilityPointStructures = true,
+                                         MergeStrengthStabilityLengthwiseConstruction = true,
+                                         MergeDuneErosion = true,
+                                         MergeTechnicalInnovation = true
+                                     }));
 
             // Assert
             Assert.AreSame(sourceAssessmentSection.Piping, targetAssessmentSection.Piping);
@@ -264,7 +284,27 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Action call = () => handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
                                                          sourceAssessmentSection,
                                                          sourceAssessmentSection.GetFailureMechanisms(),
-                                                         new AssessmentSectionMergeData.ConstructionProperties()));
+                                                         new AssessmentSectionMergeData.ConstructionProperties
+                                                         {
+                                                             MergePiping = true,
+                                                             MergeGrassCoverErosionInwards = true,
+                                                             MergeMacroStabilityInwards = true,
+                                                             MergeMacroStabilityOutwards = true,
+                                                             MergeMicrostability = true,
+                                                             MergeStabilityStoneCover = true,
+                                                             MergeWaveImpactAsphaltCover = true,
+                                                             MergeWaterPressureAsphaltCover = true,
+                                                             MergeGrassCoverErosionOutwards = true,
+                                                             MergeGrassCoverSlipOffOutwards = true,
+                                                             MergeGrassCoverSlipOffInwards = true,
+                                                             MergeHeightStructures = true,
+                                                             MergeClosingStructures = true,
+                                                             MergePipingStructure = true,
+                                                             MergeStabilityPointStructures = true,
+                                                             MergeStrengthStabilityLengthwiseConstruction = true,
+                                                             MergeDuneErosion = true,
+                                                             MergeTechnicalInnovation = true
+                                                         }));
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -403,7 +443,18 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
                                          sourceAssessmentSection.WaveImpactAsphaltCover,
                                          sourceAssessmentSection.GrassCoverErosionOutwards
                                      },
-                                     new AssessmentSectionMergeData.ConstructionProperties()));
+                                     new AssessmentSectionMergeData.ConstructionProperties
+                                     {
+                                         MergePiping = true,
+                                         MergeGrassCoverErosionInwards = true,
+                                         MergeMacroStabilityInwards = true,
+                                         MergeStabilityStoneCover = true,
+                                         MergeWaveImpactAsphaltCover = true,
+                                         MergeGrassCoverErosionOutwards = true,
+                                         MergeHeightStructures = true,
+                                         MergeClosingStructures = true,
+                                         MergeStabilityPointStructures = true,
+                                     }));
 
             // Then
             var pipingCalculation = (PipingCalculationScenario) targetAssessmentSection.Piping.Calculations.Single();
