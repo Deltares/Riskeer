@@ -35,8 +35,11 @@ namespace Ringtoets.Integration.Data.Merge
         /// </summary>
         /// <param name="assessmentSection">The assessment section to merge.</param>
         /// <param name="failureMechanisms">The failure mechanisms to merge.</param>
+        /// <param name="properties">The container of the properties for the
+        /// <see cref="AssessmentSectionMergeData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssessmentSectionMergeData(AssessmentSection assessmentSection, IEnumerable<IFailureMechanism> failureMechanisms)
+        public AssessmentSectionMergeData(AssessmentSection assessmentSection, IEnumerable<IFailureMechanism> failureMechanisms,
+                                          ConstructionProperties properties)
         {
             if (assessmentSection == null)
             {
@@ -46,6 +49,11 @@ namespace Ringtoets.Integration.Data.Merge
             if (failureMechanisms == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanisms));
+            }
+
+            if (properties == null)
+            {
+                throw new ArgumentNullException(nameof(properties));
             }
 
             AssessmentSection = assessmentSection;

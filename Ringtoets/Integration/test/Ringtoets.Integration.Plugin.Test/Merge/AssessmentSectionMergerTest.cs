@@ -318,7 +318,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
             mergeDataProvider.Expect(mdp => mdp.GetMergeData(null)).IgnoreArguments().Return(
-                new AssessmentSectionMergeData(assessmentSectionToMerge, failureMechanismsToMerge));
+                new AssessmentSectionMergeData(assessmentSectionToMerge, failureMechanismsToMerge, new AssessmentSectionMergeData.ConstructionProperties()));
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, assessmentSectionToMerge, failureMechanismsToMerge));
             mocks.ReplayAll();
@@ -361,7 +361,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
             mergeDataProvider.Expect(mdp => mdp.GetMergeData(null)).IgnoreArguments().Return(
-                new AssessmentSectionMergeData(assessmentSectionToMerge, failureMechanismsToMerge));
+                new AssessmentSectionMergeData(assessmentSectionToMerge, failureMechanismsToMerge, new AssessmentSectionMergeData.ConstructionProperties()));
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, assessmentSectionToMerge, failureMechanismsToMerge)).Throw(new Exception());
             mocks.ReplayAll();

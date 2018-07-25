@@ -72,7 +72,8 @@ namespace Ringtoets.Integration.Forms.Merge
                        ? new AssessmentSectionMergeData((AssessmentSection) assessmentSectionComboBox.SelectedItem,
                                                         failureMechanismMergeDataRows.Where(row => row.IsSelected)
                                                                                      .Select(row => row.FailureMechanism)
-                                                                                     .ToArray())
+                                                                                     .ToArray(),
+                                                        new AssessmentSectionMergeData.ConstructionProperties())
                        : null;
         }
 

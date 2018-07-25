@@ -36,7 +36,8 @@ namespace Ringtoets.Integration.Data.Test.Merge
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionMergeData(null, Enumerable.Empty<IFailureMechanism>());
+            TestDelegate call = () => new AssessmentSectionMergeData(null, Enumerable.Empty<IFailureMechanism>(),
+                                                                     new AssessmentSectionMergeData.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -47,11 +48,24 @@ namespace Ringtoets.Integration.Data.Test.Merge
         public void Constructor_FailureMechanismsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike), null);
+            TestDelegate call = () => new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                                     null, new AssessmentSectionMergeData.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanisms", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_PropertiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                                     Enumerable.Empty<IFailureMechanism>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("properties", exception.ParamName);
         }
 
         [Test]
@@ -62,7 +76,8 @@ namespace Ringtoets.Integration.Data.Test.Merge
             IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
 
             // Call
-            var mergeData = new AssessmentSectionMergeData(assessmentSection, failureMechanisms);
+            var mergeData = new AssessmentSectionMergeData(assessmentSection, failureMechanisms,
+                                                           new AssessmentSectionMergeData.ConstructionProperties());
 
             // Assert
             Assert.AreSame(assessmentSection, mergeData.AssessmentSection);
