@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Data.Merge
 {
@@ -34,21 +32,15 @@ namespace Ringtoets.Integration.Data.Merge
         /// Creates a new instance of <see cref="AssessmentSectionMergeData"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to merge.</param>
-        /// <param name="failureMechanisms">The failure mechanisms to merge.</param>
         /// <param name="properties">The container of the properties for the
-        /// <see cref="AssessmentSectionMergeData"/>.</param>
+        ///     <see cref="AssessmentSectionMergeData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssessmentSectionMergeData(AssessmentSection assessmentSection, IEnumerable<IFailureMechanism> failureMechanisms,
+        public AssessmentSectionMergeData(AssessmentSection assessmentSection,
                                           ConstructionProperties properties)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (failureMechanisms == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanisms));
             }
 
             if (properties == null)
@@ -57,7 +49,6 @@ namespace Ringtoets.Integration.Data.Merge
             }
 
             AssessmentSection = assessmentSection;
-            FailureMechanisms = failureMechanisms;
 
             MergePiping = properties.MergePiping;
             MergeGrassCoverErosionInwards = properties.MergeGrassCoverErosionInwards;
@@ -83,11 +74,6 @@ namespace Ringtoets.Integration.Data.Merge
         /// Gets the assessment section to merge.
         /// </summary>
         public AssessmentSection AssessmentSection { get; }
-
-        /// <summary>
-        /// Gets the failure mechanisms to merge.
-        /// </summary>
-        public IEnumerable<IFailureMechanism> FailureMechanisms { get; }
 
         /// <summary>
         /// Gets the indicator whether piping should be merged.
@@ -172,7 +158,7 @@ namespace Ringtoets.Integration.Data.Merge
         /// <summary>
         /// Gets the indicator whether dune erosion should be merged.
         /// </summary>
-        public bool MergeDuneErosion{ get; }
+        public bool MergeDuneErosion { get; }
 
         /// <summary>
         /// Gets the indicator whether technical innovation should be merged.

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -340,9 +339,6 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 Assert.IsFalse(result.MergeStrengthStabilityLengthwiseConstruction);
                 Assert.IsFalse(result.MergeDuneErosion);
                 Assert.IsFalse(result.MergeTechnicalInnovation);
-
-                IEnumerable<IFailureMechanism> selectedFailureMechanisms = result.FailureMechanisms;
-                Assert.AreEqual(0, selectedFailureMechanisms.Count());
             }
         }
 
@@ -406,9 +402,6 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 Assert.IsTrue(result.MergeStrengthStabilityLengthwiseConstruction);
                 Assert.IsTrue(result.MergeDuneErosion);
                 Assert.IsTrue(result.MergeTechnicalInnovation);
-
-                IEnumerable<IFailureMechanism> selectedFailureMechanisms = result.FailureMechanisms;
-                Assert.AreEqual(18, selectedFailureMechanisms.Count());
             }
         }
 

@@ -30,7 +30,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -93,7 +92,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Call
             TestDelegate call = () => handler.PerformMerge(null, new AssessmentSectionMergeData(
                                                                new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                               Enumerable.Empty<IFailureMechanism>(), new AssessmentSectionMergeData.ConstructionProperties()));
+                                                               new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -136,7 +135,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection,
                                  new AssessmentSectionMergeData(
                                      new AssessmentSection(AssessmentSectionComposition.Dike),
-                                     Enumerable.Empty<IFailureMechanism>(),
                                      new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
@@ -161,7 +159,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Action call = () => handler.PerformMerge(targetAssessmentSection,
                                                      new AssessmentSectionMergeData(
                                                          new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                         Enumerable.Empty<IFailureMechanism>(),
                                                          new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
@@ -184,7 +181,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Call
             handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
-                                     sourceAssessmentSection.GetFailureMechanisms(),
                                      new AssessmentSectionMergeData.ConstructionProperties
                                      {
                                          MergePiping = true,
@@ -244,7 +240,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection,
                                  new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
-                                     Enumerable.Empty<IFailureMechanism>(),
                                      new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
@@ -283,7 +278,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Call
             Action call = () => handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
                                                          sourceAssessmentSection,
-                                                         sourceAssessmentSection.GetFailureMechanisms(),
                                                          new AssessmentSectionMergeData.ConstructionProperties
                                                          {
                                                              MergePiping = true,
@@ -431,18 +425,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // When
             handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
-                                     new IFailureMechanism[]
-                                     {
-                                         sourceAssessmentSection.Piping,
-                                         sourceAssessmentSection.GrassCoverErosionInwards,
-                                         sourceAssessmentSection.MacroStabilityInwards,
-                                         sourceAssessmentSection.HeightStructures,
-                                         sourceAssessmentSection.ClosingStructures,
-                                         sourceAssessmentSection.StabilityPointStructures,
-                                         sourceAssessmentSection.StabilityStoneCover,
-                                         sourceAssessmentSection.WaveImpactAsphaltCover,
-                                         sourceAssessmentSection.GrassCoverErosionOutwards
-                                     },
                                      new AssessmentSectionMergeData.ConstructionProperties
                                      {
                                          MergePiping = true,
@@ -570,7 +552,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection,
                                  new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
-                                     Enumerable.Empty<IFailureMechanism>(),
                                      new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
@@ -617,7 +598,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection,
                                  new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
-                                     Enumerable.Empty<IFailureMechanism>(),
                                      new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
@@ -664,7 +644,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection,
                                  new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
-                                     Enumerable.Empty<IFailureMechanism>(),
                                      new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
@@ -710,7 +689,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection,
                                  new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
-                                     Enumerable.Empty<IFailureMechanism>(),
                                      new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
@@ -758,7 +736,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection,
                                  new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
-                                     Enumerable.Empty<IFailureMechanism>(),
                                      new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
@@ -804,7 +781,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection,
                                  new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
-                                     Enumerable.Empty<IFailureMechanism>(),
                                      new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Then
@@ -849,7 +825,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection,
                                  new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
-                                     Enumerable.Empty<IFailureMechanism>(),
                                      new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert

@@ -37,8 +37,7 @@ namespace Ringtoets.Integration.Data.Test.Merge
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionMergeData(null, Enumerable.Empty<IFailureMechanism>(),
-                                                                     new AssessmentSectionMergeData.ConstructionProperties());
+            TestDelegate call = () => new AssessmentSectionMergeData(null, new AssessmentSectionMergeData.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -46,23 +45,10 @@ namespace Ringtoets.Integration.Data.Test.Merge
         }
 
         [Test]
-        public void Constructor_FailureMechanismsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                                     null, new AssessmentSectionMergeData.ConstructionProperties());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanisms", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_PropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                                     Enumerable.Empty<IFailureMechanism>(), null);
+            TestDelegate call = () => new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -74,15 +60,12 @@ namespace Ringtoets.Integration.Data.Test.Merge
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
 
             // Call
-            var mergeData = new AssessmentSectionMergeData(assessmentSection, failureMechanisms,
-                                                           new AssessmentSectionMergeData.ConstructionProperties());
+            var mergeData = new AssessmentSectionMergeData(assessmentSection, new AssessmentSectionMergeData.ConstructionProperties());
 
             // Assert
             Assert.AreSame(assessmentSection, mergeData.AssessmentSection);
-            Assert.AreSame(failureMechanisms, mergeData.FailureMechanisms);
             Assert.IsFalse(mergeData.MergePiping);
             Assert.IsFalse(mergeData.MergeGrassCoverErosionInwards);
             Assert.IsFalse(mergeData.MergeMacroStabilityInwards);
@@ -109,7 +92,6 @@ namespace Ringtoets.Integration.Data.Test.Merge
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
 
             var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties
             {
@@ -134,12 +116,10 @@ namespace Ringtoets.Integration.Data.Test.Merge
             };
 
             // Call            
-            var mergeData = new AssessmentSectionMergeData(assessmentSection, failureMechanisms,
-                                                           constructionProperties);
+            var mergeData = new AssessmentSectionMergeData(assessmentSection, constructionProperties);
 
             // Assert
             Assert.AreSame(assessmentSection, mergeData.AssessmentSection);
-            Assert.AreSame(failureMechanisms, mergeData.FailureMechanisms);
             Assert.AreEqual(constructionProperties.MergePiping, mergeData.MergePiping);
             Assert.AreEqual(constructionProperties.MergeGrassCoverErosionInwards, mergeData.MergeGrassCoverErosionInwards);
             Assert.AreEqual(constructionProperties.MergeMacroStabilityInwards, mergeData.MergeMacroStabilityInwards);

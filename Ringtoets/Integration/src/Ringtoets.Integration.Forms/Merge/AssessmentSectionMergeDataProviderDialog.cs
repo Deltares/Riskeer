@@ -102,21 +102,13 @@ namespace Ringtoets.Integration.Forms.Merge
                     MergeStrengthStabilityLengthwiseConstruction = FailureMechanismIsSelectedToMerge<StrengthStabilityLengthwiseConstructionFailureMechanism>(),
                     MergeDuneErosion = FailureMechanismIsSelectedToMerge<DuneErosionFailureMechanism>(),
                     MergeTechnicalInnovation = FailureMechanismIsSelectedToMerge<TechnicalInnovationFailureMechanism>()
-            };
+                };
 
                 return new AssessmentSectionMergeData((AssessmentSection) assessmentSectionComboBox.SelectedItem,
-                                                      failureMechanismMergeDataRows.Where(row => row.IsSelected)
-                                                                                   .Select(row => row.FailureMechanism)
-                                                                                   .ToArray(),
                                                       constructionProperties);
             }
-            return null;
-        }
 
-        private bool FailureMechanismIsSelectedToMerge<TFailureMechanism>()
-            where TFailureMechanism : IFailureMechanism
-        {
-            return failureMechanismMergeDataRows.Any(row => row.FailureMechanism is TFailureMechanism && row.IsSelected);
+            return null;
         }
 
         protected override Button GetCancelButton()
@@ -151,6 +143,12 @@ namespace Ringtoets.Integration.Forms.Merge
         {
             infoIcon.BackgroundImage = CoreCommonGuiResources.information;
             toolTip.SetToolTip(infoIcon, Resources.AssessmentSectionMergeDataProviderDialog_InfoToolTip);
+        }
+
+        private bool FailureMechanismIsSelectedToMerge<TFailureMechanism>()
+            where TFailureMechanism : IFailureMechanism
+        {
+            return failureMechanismMergeDataRows.Any(row => row.FailureMechanism is TFailureMechanism && row.IsSelected);
         }
 
         #region Event Handling

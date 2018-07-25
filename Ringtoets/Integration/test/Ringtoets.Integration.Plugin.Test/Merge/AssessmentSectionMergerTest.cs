@@ -300,11 +300,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var filePath = "Filepath";
             var originalAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var assessmentSectionToMerge = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var failureMechanismsToMerge = new IFailureMechanism[]
-            {
-                assessmentSectionToMerge.Piping
-            };
-            var mergeData = new AssessmentSectionMergeData(assessmentSectionToMerge, failureMechanismsToMerge, new AssessmentSectionMergeData.ConstructionProperties());
+            var mergeData = new AssessmentSectionMergeData(assessmentSectionToMerge, new AssessmentSectionMergeData.ConstructionProperties());
 
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
@@ -343,11 +339,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Given
             var originalAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var assessmentSectionToMerge = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var failureMechanismsToMerge = new IFailureMechanism[]
-            {
-                assessmentSectionToMerge.Piping
-            };
-            var mergeData = new AssessmentSectionMergeData(assessmentSectionToMerge, failureMechanismsToMerge, new AssessmentSectionMergeData.ConstructionProperties());
+            var mergeData = new AssessmentSectionMergeData(assessmentSectionToMerge, new AssessmentSectionMergeData.ConstructionProperties());
 
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
