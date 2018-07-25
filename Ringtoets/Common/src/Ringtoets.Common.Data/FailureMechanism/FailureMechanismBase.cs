@@ -113,7 +113,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         {
             sectionCollection.AddRange(sections, string.Empty);
 
-            foreach (FailureMechanismSection failureMechanismSection in sectionCollection)
+            foreach (FailureMechanismSection failureMechanismSection in sections)
             {
                 AddSectionResult(failureMechanismSection);
             }
