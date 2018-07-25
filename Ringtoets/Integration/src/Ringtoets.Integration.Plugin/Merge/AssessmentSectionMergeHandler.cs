@@ -31,10 +31,10 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Plugin.Properties;
@@ -299,6 +299,13 @@ namespace Ringtoets.Integration.Plugin.Merge
                 if (TryMergeFailureMechanism<StrengthStabilityLengthwiseConstructionFailureMechanism>(
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.StrengthStabilityLengthwiseConstruction = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<DuneErosionFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.DuneErosion = mechanism))
                 {
                     continue;
                 }
