@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(inputParameters);
-            Assert.IsInstanceOf<ICalculationInput>(inputParameters);
+            Assert.IsInstanceOf<ICalculationInputWithHydraulicBoundaryLocation>(inputParameters);
             Assert.IsInstanceOf<IMacroStabilityInwardsWaternetInput>(inputParameters);
 
             Assert.IsNull(inputParameters.SurfaceLine);
