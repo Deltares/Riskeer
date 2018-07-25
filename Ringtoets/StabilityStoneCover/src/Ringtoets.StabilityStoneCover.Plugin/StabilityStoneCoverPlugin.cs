@@ -326,7 +326,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                           .AddSeparator()
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               failureMechanismContext,
-                              CalculateAll)
+                              CalculateAll,
+                              ValidateAllDataAvailableAndGetErrorMessageForFailureMechanism)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -467,6 +468,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             ValidateAll(context.WrappedData.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>(),
                         context.AssessmentSection);
+        }
+
+        private static string ValidateAllDataAvailableAndGetErrorMessageForFailureMechanism(StabilityStoneCoverFailureMechanismContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(StabilityStoneCoverWaveConditionsCalculationGroupContext context)

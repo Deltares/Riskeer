@@ -517,6 +517,38 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_CalculateAllAndValidateAllDisabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new StabilityStoneCoverFailureMechanism();
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+                var nodeData = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
+                                                                              assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndex];
+                    Assert.IsFalse(calculateItem.Enabled);
+                    Assert.AreEqual("Er is geen hydraulische randvoorwaardendatabase geïmporteerd.", calculateItem.ToolTipText);
+                }
+            }
+        }
+
+        [Test]
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
