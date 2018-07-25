@@ -144,16 +144,16 @@ namespace Ringtoets.Integration.Plugin.Merge
                 return;
             }
 
-            PerformMerge(assessmentSection, mergeData.AssessmentSection, mergeData.FailureMechanisms);
+            PerformMerge(assessmentSection, mergeData);
         }
 
-        private void PerformMerge(AssessmentSection assessmentSection, AssessmentSection assessmentSectionToMerge, IEnumerable<IFailureMechanism> failureMechanismToMerge)
+        private void PerformMerge(AssessmentSection assessmentSection, AssessmentSectionMergeData mergeData)
         {
             log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_started);
 
             try
             {
-                mergeHandler.PerformMerge(assessmentSection, assessmentSectionToMerge, failureMechanismToMerge);
+                mergeHandler.PerformMerge(assessmentSection, mergeData);
                 log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_successful);
             }
             catch (Exception e)

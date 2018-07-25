@@ -304,6 +304,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             {
                 assessmentSectionToMerge.Piping
             };
+            var mergeData = new AssessmentSectionMergeData(assessmentSectionToMerge, failureMechanismsToMerge, new AssessmentSectionMergeData.ConstructionProperties());
 
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
@@ -317,10 +318,9 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
-            mergeDataProvider.Expect(mdp => mdp.GetMergeData(null)).IgnoreArguments().Return(
-                new AssessmentSectionMergeData(assessmentSectionToMerge, failureMechanismsToMerge, new AssessmentSectionMergeData.ConstructionProperties()));
+            mergeDataProvider.Expect(mdp => mdp.GetMergeData(null)).IgnoreArguments().Return(mergeData);
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
-            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, assessmentSectionToMerge, failureMechanismsToMerge));
+            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, mergeData));
             mocks.ReplayAll();
 
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
@@ -347,6 +347,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             {
                 assessmentSectionToMerge.Piping
             };
+            var mergeData = new AssessmentSectionMergeData(assessmentSectionToMerge, failureMechanismsToMerge, new AssessmentSectionMergeData.ConstructionProperties());
 
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
@@ -360,10 +361,9 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
-            mergeDataProvider.Expect(mdp => mdp.GetMergeData(null)).IgnoreArguments().Return(
-                new AssessmentSectionMergeData(assessmentSectionToMerge, failureMechanismsToMerge, new AssessmentSectionMergeData.ConstructionProperties()));
+            mergeDataProvider.Expect(mdp => mdp.GetMergeData(null)).IgnoreArguments().Return(mergeData);
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
-            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, assessmentSectionToMerge, failureMechanismsToMerge)).Throw(new Exception());
+            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, mergeData)).Throw(new Exception());
             mocks.ReplayAll();
 
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
