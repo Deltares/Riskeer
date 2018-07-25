@@ -110,7 +110,6 @@ namespace Demo.Ringtoets.Test.Commands
             foreach (IFailureMechanism failureMechanism in demoAssessmentSection.GetFailureMechanisms())
             {
                 Assert.AreEqual(283, failureMechanism.Sections.Count());
-                Assert.IsEmpty(failureMechanism.FailureMechanismSectionSourcePath);
             }
 
             AssertGrassCoverErosionInwardsFailureMechanism(demoAssessmentSection);

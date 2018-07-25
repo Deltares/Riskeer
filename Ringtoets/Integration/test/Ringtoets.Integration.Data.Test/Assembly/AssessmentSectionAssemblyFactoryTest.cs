@@ -372,7 +372,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         public void AssembleCombinedPerFailureMechanismSection_WithAssessmentSection_SetsInputOnCalculator()
         {
             var random = new Random(21);
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -410,7 +410,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         public void AssembleCombinedPerFailureMechanismSection_AssemblyRan_ReturnsOutput()
         {
             var random = new Random(21);
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -468,7 +468,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -493,7 +493,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())

@@ -235,7 +235,7 @@ namespace Ringtoets.Integration.TestUtil
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/>
         /// to initialize the <see cref="AssessmentSection"/> with.</param>
         /// <returns>The configured <see cref="AssessmentSection"/>.</returns>
-        public static AssessmentSection GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+        public static AssessmentSection GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             var assessmentSection = new AssessmentSection(composition)
@@ -1076,20 +1076,20 @@ namespace Ringtoets.Integration.TestUtil
             double endPointStepsX = (endPoint.X - startPoint.X) / numberOfSections;
             double endPointStepsY = (endPoint.Y - startPoint.Y) / numberOfSections;
 
+            var sections = new List<FailureMechanismSection>();
             for (var i = 1; i <= numberOfSections; i++)
             {
                 endPoint = new Point2D(startPoint.X + endPointStepsX, startPoint.Y + endPointStepsY);
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    new FailureMechanismSection(i.ToString(),
-                                                new[]
-                                                {
-                                                    startPoint,
-                                                    endPoint
-                                                })
-                });
+                sections.Add(new FailureMechanismSection(i.ToString(),
+                                                         new[]
+                                                         {
+                                                             startPoint,
+                                                             endPoint
+                                                         }));
                 startPoint = endPoint;
             }
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, sections);
         }
     }
 }

@@ -201,7 +201,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void NotifyFailureMechanism_SectionsAddedAfterFullInitialization_NewRowAddedToView()
+        public void NotifyFailureMechanism_SectionsUpdatedAfterFullInitialization_NewRowAddedToView()
         {
             // Setup
             using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
@@ -210,14 +210,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                FailureMechanismTestHelper.SetSections(view.FailureMechanism, new[]
+                List<FailureMechanismSection> newSections = view.FailureMechanism.Sections.ToList();
+                newSections.Add(new FailureMechanismSection("SectionC", new[]
                 {
-                    new FailureMechanismSection("SectionC", new[]
-                    {
-                        view.FailureMechanism.Sections.Last().EndPoint,
-                        new Point2D(30, 30)
-                    })
-                });
+                    view.FailureMechanism.Sections.Last().EndPoint,
+                    new Point2D(30, 30)
+                }));
 
                 // Call
                 failureMechanism.NotifyObservers();

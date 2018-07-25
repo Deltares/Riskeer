@@ -129,9 +129,10 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 throw new ArgumentNullException(nameof(sourcePath));
             }
 
+            ClearAllSections();
             sectionCollection.SetSections(sections, sourcePath);
 
-            foreach (FailureMechanismSection failureMechanismSection in sections)
+            foreach (FailureMechanismSection failureMechanismSection in Sections)
             {
                 AddSectionResult(failureMechanismSection);
             }

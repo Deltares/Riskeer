@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         public void CreateInput_WithAllFailureMechanisms_ReturnsInputCollection()
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
         private static IEnumerable<TestCaseData> GetFailureMechanismTestCaseData()
         {
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             yield return new TestCaseData(assessmentSection, assessmentSection.Piping);

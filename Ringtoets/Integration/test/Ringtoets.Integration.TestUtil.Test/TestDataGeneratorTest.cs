@@ -140,29 +140,29 @@ namespace Ringtoets.Integration.TestUtil.Test
         }
 
         [Test]
-        public void GetAssessmenSectionWithAllFailureMechanismSectionsAndResults_DefaultComposition_ReturnAssessmentSection()
+        public void GetAssessmentSectionWithAllFailureMechanismSectionsAndResults_DefaultComposition_ReturnAssessmentSection()
         {
             // Call
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults();
 
             // Assert
-            AssertAssessmenSectionWithAllFailureMechanismSectionsAndResults(assessmentSection);
+            AssertAssessmentSectionWithAllFailureMechanismSectionsAndResults(assessmentSection);
         }
 
         [Test]
         [TestCase(AssessmentSectionComposition.Dike)]
         [TestCase(AssessmentSectionComposition.DikeAndDune)]
         [TestCase(AssessmentSectionComposition.Dune)]
-        public void GetAssessmenSectionWithAllFailureMechanismSectionsAndResults_CompositionGiven_ReturnAssessmentSection(AssessmentSectionComposition composition)
+        public void GetAssessmentSectionWithAllFailureMechanismSectionsAndResults_CompositionGiven_ReturnAssessmentSection(AssessmentSectionComposition composition)
         {
             // Call
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(composition);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(composition);
 
             // Assert
-            AssertAssessmenSectionWithAllFailureMechanismSectionsAndResults(assessmentSection);
+            AssertAssessmentSectionWithAllFailureMechanismSectionsAndResults(assessmentSection);
         }
 
-        private static void AssertAssessmenSectionWithAllFailureMechanismSectionsAndResults(IAssessmentSection assessmentSection)
+        private static void AssertAssessmentSectionWithAllFailureMechanismSectionsAndResults(IAssessmentSection assessmentSection)
         {
             Assert.IsNotNull(assessmentSection.ReferenceLine);
             CollectionAssert.AreEqual(new[]

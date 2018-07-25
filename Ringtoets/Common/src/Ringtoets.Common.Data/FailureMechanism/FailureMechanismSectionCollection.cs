@@ -53,30 +53,30 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// Adds all <see cref="FailureMechanismSection"/> originating from a source file.
         /// </summary>
         /// <param name="failureMechanismSections">The collection of <see cref="FailureMechanismSection"/> to add</param>
-        /// <param name="filePath">The path to the source file.</param>
+        /// <param name="sourcePath">The path to the source file.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="failureMechanismSections"/> contains <c>null</c>.</item>
-        /// <item><paramref name="filePath"/> is not a valid file path.</item>
+        /// <item><paramref name="sourcePath"/> is not a valid file path.</item>
         /// </list>
         /// </exception>
         public void SetSections(IEnumerable<FailureMechanismSection> failureMechanismSections,
-                                string filePath)
+                                string sourcePath)
         {
             if (failureMechanismSections == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSections));
             }
 
-            if (filePath == null)
+            if (sourcePath == null)
             {
-                throw new ArgumentNullException(nameof(filePath));
+                throw new ArgumentNullException(nameof(sourcePath));
             }
 
-            if (!IOUtils.IsValidFilePath(filePath) && filePath.Length > 0)
+            if (!IOUtils.IsValidFilePath(sourcePath) && sourcePath.Length > 0)
             {
-                throw new ArgumentException($@"'{filePath}' is not a valid file path.", nameof(filePath));
+                throw new ArgumentException($@"'{sourcePath}' is not a valid file path.", nameof(sourcePath));
             }
 
             sections.Clear();
@@ -96,7 +96,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 InsertSectionWhileMaintainingConnectivityOrder(section);
             }
 
-            SourcePath = filePath;
+            SourcePath = sourcePath;
         }
 
         public IEnumerator<FailureMechanismSection> GetEnumerator()
