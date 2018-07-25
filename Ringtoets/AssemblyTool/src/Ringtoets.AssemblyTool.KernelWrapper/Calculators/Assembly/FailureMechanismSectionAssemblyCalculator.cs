@@ -137,6 +137,37 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             return GetDetailedAssembly(detailedAssessmentResult, probability, failureMechanismSectionN, assemblyCategoriesInput);
         }
 
+        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                          double probability,
+                                                                          double normativeNorm, 
+                                                                          double failureMechanismN,
+                                                                          double failureMechanismContribution)
+        {
+            try
+            {
+                ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
+                CategoriesList<FmSectionCategory> categories = categoriesKernel.CalculateFmSectionCategoryLimitsWbi02(
+                    normativeNorm,
+                    new FailureMechanism(failureMechanismN, failureMechanismContribution));
+
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                FmSectionAssemblyDirectResultWithProbability output =
+                    kernel.TranslateAssessmentResultWbi0G3(GetAssessmentResultTypeG2(detailedAssessmentResult, probability),
+                                                           probability,
+                                                           categories);
+
+                return FailureMechanismSectionAssemblyCreator.Create(output);
+            }
+            catch (AssemblyException e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+            }
+        }
+
         public FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
             DetailedAssessmentResultType detailedAssessmentResultForFactorizedSignalingNorm,
             DetailedAssessmentResultType detailedAssessmentResultForSignalingNorm,

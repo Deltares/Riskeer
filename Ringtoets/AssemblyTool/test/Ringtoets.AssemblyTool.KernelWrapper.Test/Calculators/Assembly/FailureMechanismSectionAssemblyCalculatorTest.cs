@@ -741,6 +741,229 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
+        public void AssembleDetailedAssessmentWithNormativeNorm_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            var random = new Random(39);
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleDetailedAssessment(
+                    (DetailedAssessmentProbabilityOnlyResultType) 99,
+                    random.NextDouble(),
+                    random.NextDouble(),
+                    random.NextDouble(1, 10),
+                    random.NextDouble());
+
+                // Assert
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithNormativeNorm_WithValidInput_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            double normativeNorm = random.NextDouble();
+            double n = random.NextDouble(1, 10);
+            double failureMechanismContribution = random.NextDouble();
+            var detailedAssessment = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
+                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi02 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
+                                                                                                                              random.NextDouble());
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                calculator.AssembleDetailedAssessment(
+                    detailedAssessment,
+                    probability,
+                    normativeNorm, 
+                    n, 
+                    failureMechanismContribution);
+
+                // Assert
+                Assert.AreEqual(normativeNorm, categoriesKernel.AssessmentSectionNorm);
+                Assert.AreEqual(n, categoriesKernel.N);
+                Assert.AreEqual(failureMechanismContribution, categoriesKernel.FailureMechanismContribution);
+                Assert.AreSame(categoriesKernel.FailureMechanismSectionCategoriesOutputWbi02, kernel.FailureMechanismSectionCategories);
+
+                EAssessmentResultTypeG2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessment);
+                Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeG2Input);
+                Assert.AreEqual(probability, kernel.FailureProbabilityInput);
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithNormativeNorm_WithProbabilityResultAndNaNValue_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(39);
+            double normativeNorm = random.NextDouble();
+            double n = random.NextDouble(1, 10);
+            double failureMechanismContribution = random.NextDouble();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
+                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi02 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
+                                                                                                                              random.NextDouble());
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                calculator.AssembleDetailedAssessment(
+                    DetailedAssessmentProbabilityOnlyResultType.Probability,
+                    double.NaN,
+                    normativeNorm,
+                    n,
+                    failureMechanismContribution);
+
+                // Assert
+                Assert.AreEqual(normativeNorm, categoriesKernel.AssessmentSectionNorm);
+                Assert.AreEqual(n, categoriesKernel.N);
+                Assert.AreEqual(failureMechanismContribution, categoriesKernel.FailureMechanismContribution);
+                Assert.AreSame(categoriesKernel.FailureMechanismSectionCategoriesOutputWbi02, kernel.FailureMechanismSectionCategories);
+                
+                Assert.IsNaN(kernel.FailureProbabilityInput);
+                Assert.AreEqual(EAssessmentResultTypeG2.Gr, kernel.AssessmentResultTypeG2Input);
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithNormativeNorm_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        {
+            // Setup
+            var random = new Random(39);
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
+                                                                                                                              random.NextDouble());
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
+                    random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
+                    random.NextDouble(),
+                    random.NextDouble(),
+                    random.NextDouble(1, 10),
+                    random.NextDouble());
+
+                // Assert
+                AssertCalculatorOutput(kernel.FailureMechanismAssemblyDirectResultWithProbability, assembly);
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithNormativeNorm_KernelWithInvalidOutput_ThrowFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99,
+                                                                                                                              random.NextDouble());
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleDetailedAssessment(
+                    random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
+                    random.NextDouble(),
+                    random.NextDouble(),
+                    random.NextDouble(1, 10),
+                    random.NextDouble());
+
+                // Assert
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithNormativeNorm_KernelThrowsException_ThrowFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.ThrowExceptionOnCalculate = true;
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleDetailedAssessment(
+                    random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
+                    random.NextDouble(),
+                    random.NextDouble(),
+                    random.NextDouble(1, 10),
+                    random.NextDouble());
+
+                // Assert
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+                Assert.IsNotNull(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithNormativeNorm_KernelThrowsAssemblyException_ThrowFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.ThrowAssemblyExceptionOnCalculate = true;
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleDetailedAssessment(
+                    random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
+                    random.NextDouble(),
+                    random.NextDouble(),
+                    random.NextDouble(1, 10),
+                    random.NextDouble());
+
+                // Assert
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+                Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
+                {
+                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
+                }), exception.Message);
+            }
+        }
+
+        [Test]
         public void AssembleDetailedAssessmentWithLengthEffect_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Setup
