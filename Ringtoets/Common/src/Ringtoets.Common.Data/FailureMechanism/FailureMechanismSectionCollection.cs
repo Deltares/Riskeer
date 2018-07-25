@@ -54,13 +54,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// </summary>
         /// <param name="failureMechanismSections">The collection of <see cref="FailureMechanismSection"/> to add</param>
         /// <param name="sourcePath">The path to the source file.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="failureMechanismSections"/> contains <c>null</c>.</item>
-        /// <item><paramref name="sourcePath"/> is not a valid file path.</item>
-        /// </list>
-        /// </exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="sourcePath"/> is not a valid file path.</exception>
         public void SetSections(IEnumerable<FailureMechanismSection> failureMechanismSections,
                                 string sourcePath)
         {
