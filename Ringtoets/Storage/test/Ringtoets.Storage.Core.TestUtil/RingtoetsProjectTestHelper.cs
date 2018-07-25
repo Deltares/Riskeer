@@ -39,6 +39,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -306,7 +307,7 @@ namespace Ringtoets.Storage.Core.TestUtil
 
         private static void SetSections(IFailureMechanism failureMechanism)
         {
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("section 1", new[]
                 {

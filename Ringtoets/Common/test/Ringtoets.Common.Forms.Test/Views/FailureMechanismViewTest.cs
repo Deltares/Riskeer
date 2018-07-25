@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             });
 
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("A", geometryPoints.Take(2)),
                 new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)),
@@ -316,7 +316,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
                 // Call
-                failureMechanism.SetSections(new[]
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
                     new FailureMechanismSection(string.Empty, new[]
                     {

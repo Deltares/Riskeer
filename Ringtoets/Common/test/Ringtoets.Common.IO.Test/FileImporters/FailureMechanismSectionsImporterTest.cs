@@ -129,7 +129,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("A", importReferenceLine.Points)
             });
