@@ -375,6 +375,100 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         }
 
         [Test]
+        public void AssembleDetailedAssessmentWithNormativeNorm_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
+                random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble());
+
+            // Assert
+            Assert.AreEqual(0.25, assembly.Probability);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IVv, assembly.Group);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithNormativeNorm_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                    random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+            };
+
+            // Call
+            FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
+                random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble(),
+                random.NextDouble());
+
+            // Assert
+            Assert.AreSame(calculator.DetailedAssessmentAssemblyOutput, assembly);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithNormativeNorm_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            double normativeNorm = random.NextDouble();
+            double n = random.NextDouble(1, 10);
+            double failureMechanismContribution = random.NextDouble();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            calculator.AssembleDetailedAssessment(detailedAssessmentResult,
+                                                  probability,
+                                                  normativeNorm,
+                                                  n,
+                                                  failureMechanismContribution);
+
+            // Assert
+            Assert.AreEqual(detailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
+            Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
+            Assert.AreEqual(normativeNorm, calculator.DetailedAssessmentNormativeNormInput);
+            Assert.AreEqual(n, calculator.DetailedAssessmentFailureMechanismSectionNInput);
+            Assert.AreEqual(failureMechanismContribution, calculator.DetailedAssessmentFailureMechanismContribution);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithNormativeNorm_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.AssembleDetailedAssessment(
+                random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
+                random.NextDouble(),
+                CreateAssemblyCategoriesInput());
+
+            // Assert
+            var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
         public void AssembleDetailedAssessmentWithLengthEffect_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
         {
             // Setup

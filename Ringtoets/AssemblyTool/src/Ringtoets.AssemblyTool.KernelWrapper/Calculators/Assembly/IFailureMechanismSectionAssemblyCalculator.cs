@@ -93,6 +93,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the detailed assessment based on the input parameters.
         /// </summary>
+        /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentProbabilityOnlyResultType"/> to assemble for.</param>
+        /// <param name="probability">The probability to calculate with.</param>
+        /// <param name="normativeNorm">The norm which has been defined on the assessment section.</param>
+        /// <param name="failureMechanismN">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="failureMechanismContribution">The contribution of a failure mechanism.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs while assembling.</exception>
+        FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                   double probability,
+                                                                   double normativeNorm, 
+                                                                   double failureMechanismN,
+                                                                   double failureMechanismContribution);
+
+        /// <summary>
+        /// Assembles the detailed assessment based on the input parameters.
+        /// </summary>
         /// <param name="detailedAssessmentResultForFactorizedSignalingNorm">The category Iv - IIv 
         /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
         /// <param name="detailedAssessmentResultForSignalingNorm">The category IIv - IIIv 

@@ -72,9 +72,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public double DetailedAssessmentProbabilityInput { get; private set; }
 
         /// <summary>
+        /// Gets the normative norm input of the detailed assessment calculation.
+        /// </summary>
+        public double DetailedAssessmentNormativeNormInput { get; private set; }
+
+        /// <summary>
         /// Gets the 'N' parameter input of the detailed assessment calculation.
         /// </summary>
         public double DetailedAssessmentFailureMechanismSectionNInput { get; private set; }
+
+        /// <summary>
+        /// Gets the failure mechanism contribution input of the detailed assessment calculation.
+        /// </summary>
+        public double DetailedAssessmentFailureMechanismContribution { get; private set; }
 
         /// <summary>
         /// Gets the detailed assessment result input for cat Iv - IIv.
@@ -303,6 +313,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             return DetailedAssessmentAssemblyOutput ??
                    (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIv));
+        }
+
+        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                          double probability, 
+                                                                          double normativeNorm, 
+                                                                          double failureMechanismN, 
+                                                                          double failureMechanismContribution)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            DetailedAssessmentProbabilityOnlyResultInput = detailedAssessmentResult;
+            DetailedAssessmentProbabilityInput = probability;
+            DetailedAssessmentNormativeNormInput = normativeNorm;
+            DetailedAssessmentFailureMechanismSectionNInput = failureMechanismN;
+            DetailedAssessmentFailureMechanismContribution = failureMechanismContribution;
+
+            return DetailedAssessmentAssemblyOutput ??
+                   (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0.25, FailureMechanismSectionAssemblyCategoryGroup.IVv));
         }
 
         public FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
