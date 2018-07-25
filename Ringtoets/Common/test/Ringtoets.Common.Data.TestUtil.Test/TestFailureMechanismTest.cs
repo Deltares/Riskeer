@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            failureMechanism.SetSections(new[]
             {
                 section
             }, sourcePath);
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             var failureMechanism = new TestFailureMechanism();
 
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
