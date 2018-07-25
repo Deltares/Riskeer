@@ -143,7 +143,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Dijken en dammen - Piping" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public PipingFailureMechanism Piping
         {
             get
@@ -161,7 +161,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Dijken en dammen - Grasbekleding erosie kruin en binnentalud" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwards
         {
             get
@@ -179,7 +179,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Dijken en dammen - Macrostabiliteit binnenwaarts" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public MacroStabilityInwardsFailureMechanism MacroStabilityInwards
         {
             get
@@ -197,7 +197,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Dijken en dammen - Macrostabiliteit buitenwaarts" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public MacroStabilityOutwardsFailureMechanism MacroStabilityOutwards
         {
             get
@@ -215,7 +215,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Dijken en dammen - Microstabiliteit" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public MicrostabilityFailureMechanism Microstability
         {
             get
@@ -233,7 +233,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Dijken en dammen - Stabiliteit steenzetting" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public StabilityStoneCoverFailureMechanism StabilityStoneCover
         {
             get
@@ -251,7 +251,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Dijken en dammen - Golfklappen op asfaltbekledingen" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public WaveImpactAsphaltCoverFailureMechanism WaveImpactAsphaltCover
         {
             get
@@ -269,7 +269,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Dijken en dammen - Wateroverdruk bij asfaltbekleding" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public WaterPressureAsphaltCoverFailureMechanism WaterPressureAsphaltCover
         {
             get
@@ -287,7 +287,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Dijken en dammen - Grasbekleding erosie buitentalud" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public GrassCoverErosionOutwardsFailureMechanism GrassCoverErosionOutwards
         {
             get
@@ -305,7 +305,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Dijken en dammen - Grasbekleding afschuiven buitentalud" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public GrassCoverSlipOffOutwardsFailureMechanism GrassCoverSlipOffOutwards
         {
             get
@@ -323,7 +323,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Dijken en dammen - Grasbekleding afschuiven binnentalud" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public GrassCoverSlipOffInwardsFailureMechanism GrassCoverSlipOffInwards
         {
             get
@@ -341,7 +341,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Kunstwerken - Hoogte kunstwerk" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public HeightStructuresFailureMechanism HeightStructures
         {
             get
@@ -359,7 +359,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Kunstwerken - Betrouwbaarheid sluiting kunstwerk" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public ClosingStructuresFailureMechanism ClosingStructures
         {
             get
@@ -377,7 +377,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Kunstwerken - Piping bij kunstwerk" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public PipingStructureFailureMechanism PipingStructure
         {
             get
@@ -395,7 +395,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Kunstwerken - Sterkte en stabiliteit puntconstructies" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public StabilityPointStructuresFailureMechanism StabilityPointStructures
         {
             get
@@ -413,7 +413,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Kunstwerken - Sterkte en stabiliteit langsconstructies" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public StrengthStabilityLengthwiseConstructionFailureMechanism StrengthStabilityLengthwiseConstruction
         {
             get
@@ -431,7 +431,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Duinwaterkering - Duinafslag" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public DuneErosionFailureMechanism DuneErosion
         {
             get
@@ -449,7 +449,7 @@ namespace Ringtoets.Integration.Data
         /// Gets or sets the "Technische innovaties - Technische innovaties" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the old failure mechanism.</exception>
+        /// is not equal to the contribution of the current failure mechanism.</exception>
         public TechnicalInnovationFailureMechanism TechnicalInnovation
         {
             get

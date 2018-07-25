@@ -269,7 +269,8 @@ namespace Ringtoets.Integration.Data.Test
         public void Name_SetingNewValue_GetNewValue()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             const string newValue = "new value";
 
             // Call
@@ -283,7 +284,8 @@ namespace Ringtoets.Integration.Data.Test
         public void Comments_SettingNewValue_GetNewValue()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             const string newValue = "new comment value";
 
             // Call
@@ -371,7 +373,8 @@ namespace Ringtoets.Integration.Data.Test
         {
             // Setup
             const int invalidValue = 99;
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
             TestDelegate call = () => assessmentSection.ChangeComposition((AssessmentSectionComposition) invalidValue);
@@ -418,7 +421,8 @@ namespace Ringtoets.Integration.Data.Test
         public void ReferenceLine_SetNewValue_GetNewValue()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             var referenceLine = new ReferenceLine();
 
@@ -434,7 +438,7 @@ namespace Ringtoets.Integration.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             var referenceLine = new ReferenceLine();
 
             Point2D[] somePointsCollection =
@@ -460,7 +464,8 @@ namespace Ringtoets.Integration.Data.Test
         public void ReferenceLine_Null_RelevantGeneralInputSectionLengthNaN()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
             assessmentSection.ReferenceLine = null;
@@ -476,7 +481,8 @@ namespace Ringtoets.Integration.Data.Test
         public void SetHydraulicBoundaryLocationCalculations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
             TestDelegate test = () => assessmentSection.SetHydraulicBoundaryLocationCalculations(null);
@@ -490,7 +496,8 @@ namespace Ringtoets.Integration.Data.Test
         public void SetHydraulicBoundaryLocationCalculations_Always_PreviousCalculationsCleared()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
             {
@@ -525,7 +532,8 @@ namespace Ringtoets.Integration.Data.Test
         public void SetHydraulicBoundaryLocationCalculations_MultipleHydraulicBoundaryLocations_SetsExpectedCalculations()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocations = new[]
@@ -550,7 +558,8 @@ namespace Ringtoets.Integration.Data.Test
             Func<AssessmentSection, IFailureMechanism> getFailureMechanismFunc)
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             newFailureMechanism.Contribution = getFailureMechanismFunc(assessmentSection).Contribution;
 
             // When
@@ -562,12 +571,13 @@ namespace Ringtoets.Integration.Data.Test
 
         [Test]
         [TestCaseSource(nameof(GetNewFailureMechanisms))]
-        public void GivenAssessmentSection_WhenSettingFailureMechanismWithOtherContributionContribution_ThenThrowsArgumentException(
+        public void GivenAssessmentSection_WhenSettingFailureMechanismWithOtherContribution_ThenThrowsArgumentException(
             Action<AssessmentSection, IFailureMechanism> setNewFailureMechanismAction, IFailureMechanism newFailureMechanism)
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            newFailureMechanism.Contribution = new Random(21).Next(0, 100);
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            newFailureMechanism.Contribution = random.Next(0, 100);
 
             // When
             TestDelegate call = () => setNewFailureMechanismAction(assessmentSection, newFailureMechanism);
