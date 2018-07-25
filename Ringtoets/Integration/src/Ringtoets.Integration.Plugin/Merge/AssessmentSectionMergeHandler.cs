@@ -350,16 +350,17 @@ namespace Ringtoets.Integration.Plugin.Merge
             HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificLowerLimitNorm = targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.ToArray();
             targetFailureMechanism.SetHydraulicBoundaryLocationCalculations(locations);
 
-            ReplaceCalculationData(oldWaterLevelForMechanismSpecificFactorizedSignalingNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            ReplaceCalculationData(oldWaterLevelForMechanismSpecificSignalingNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
-            ReplaceCalculationData(oldWaterLevelForMechanismSpecificLowerLimitNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
+            ReplaceHydraulicBoundaryLocationCalculationData(oldWaterLevelForMechanismSpecificFactorizedSignalingNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
+            ReplaceHydraulicBoundaryLocationCalculationData(oldWaterLevelForMechanismSpecificSignalingNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
+            ReplaceHydraulicBoundaryLocationCalculationData(oldWaterLevelForMechanismSpecificLowerLimitNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
 
-            ReplaceCalculationData(oldWaveHeightForMechanismSpecificFactorizedSignalingNorm, targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            ReplaceCalculationData(oldWaveHeightForMechanismSpecificSignalingNorm, targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
-            ReplaceCalculationData(oldWaveHeightForMechanismSpecificLowerLimitNorm, targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
+            ReplaceHydraulicBoundaryLocationCalculationData(oldWaveHeightForMechanismSpecificFactorizedSignalingNorm, targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
+            ReplaceHydraulicBoundaryLocationCalculationData(oldWaveHeightForMechanismSpecificSignalingNorm, targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
+            ReplaceHydraulicBoundaryLocationCalculationData(oldWaveHeightForMechanismSpecificLowerLimitNorm, targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
         }
 
-        private static void ReplaceCalculationData(IEnumerable<HydraulicBoundaryLocationCalculation> oldCalculations, IEnumerable<HydraulicBoundaryLocationCalculation> newCalculations)
+        private static void ReplaceHydraulicBoundaryLocationCalculationData(IEnumerable<HydraulicBoundaryLocationCalculation> oldCalculations,
+                                                                            IEnumerable<HydraulicBoundaryLocationCalculation> newCalculations)
         {
             for (var i = 0; i < newCalculations.Count(); i++)
             {
