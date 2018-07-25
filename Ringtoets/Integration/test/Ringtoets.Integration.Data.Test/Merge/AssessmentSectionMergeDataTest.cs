@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.Data.Test.Merge
                 MergeStrengthStabilityLengthwiseConstruction = random.NextBoolean(),
                 MergeDuneErosion = random.NextBoolean(),
                 MergeTechnicalInnovation = random.NextBoolean()
-        };
+            };
 
             // Call            
             var mergeData = new AssessmentSectionMergeData(assessmentSection, failureMechanisms,
