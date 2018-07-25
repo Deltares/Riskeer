@@ -24,9 +24,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.Properties;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -68,13 +80,43 @@ namespace Ringtoets.Integration.Forms.Merge
 
             assessmentSectionComboBox.DataSource = assessmentSections.ToArray();
 
-            return ShowDialog() == DialogResult.OK
-                       ? new AssessmentSectionMergeData((AssessmentSection) assessmentSectionComboBox.SelectedItem,
-                                                        failureMechanismMergeDataRows.Where(row => row.IsSelected)
-                                                                                     .Select(row => row.FailureMechanism)
-                                                                                     .ToArray(),
-                                                        new AssessmentSectionMergeData.ConstructionProperties())
-                       : null;
+            if (ShowDialog() == DialogResult.OK)
+            {
+                var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties
+                {
+                    MergePiping = FailureMechanismIsSelectedToMerge<PipingFailureMechanism>(),
+                    MergeGrassCoverErosionInwards = FailureMechanismIsSelectedToMerge<GrassCoverErosionInwardsFailureMechanism>(),
+                    MergeMacroStabilityInwards = FailureMechanismIsSelectedToMerge<MacroStabilityInwardsFailureMechanism>(),
+                    MergeMacroStabilityOutwards = FailureMechanismIsSelectedToMerge<MacroStabilityOutwardsFailureMechanism>(),
+                    MergeMicrostability = FailureMechanismIsSelectedToMerge<MicrostabilityFailureMechanism>(),
+                    MergeStabilityStoneCover = FailureMechanismIsSelectedToMerge<StabilityStoneCoverFailureMechanism>(),
+                    MergeWaveImpactAsphaltCover = FailureMechanismIsSelectedToMerge<WaveImpactAsphaltCoverFailureMechanism>(),
+                    MergeWaterPressureAsphaltCover = FailureMechanismIsSelectedToMerge<WaterPressureAsphaltCoverFailureMechanism>(),
+                    MergeGrassCoverErosionOutwards = FailureMechanismIsSelectedToMerge<GrassCoverErosionOutwardsFailureMechanism>(),
+                    MergeGrassCoverSlipOffOutwards = FailureMechanismIsSelectedToMerge<GrassCoverSlipOffOutwardsFailureMechanism>(),
+                    MergeGrassCoverSlipOffInwards = FailureMechanismIsSelectedToMerge<GrassCoverSlipOffInwardsFailureMechanism>(),
+                    MergeHeightStructures = FailureMechanismIsSelectedToMerge<HeightStructuresFailureMechanism>(),
+                    MergeClosingStructures = FailureMechanismIsSelectedToMerge<ClosingStructuresFailureMechanism>(),
+                    MergePipingStructure = FailureMechanismIsSelectedToMerge<PipingStructureFailureMechanism>(),
+                    MergeStabilityPointStructures = FailureMechanismIsSelectedToMerge<StabilityPointStructuresFailureMechanism>(),
+                    MergeStrengthStabilityLengthwiseConstruction = FailureMechanismIsSelectedToMerge<StrengthStabilityLengthwiseConstructionFailureMechanism>(),
+                    MergeDuneErosion = FailureMechanismIsSelectedToMerge<DuneErosionFailureMechanism>(),
+                    MergeTechnicalInnovation = FailureMechanismIsSelectedToMerge<TechnicalInnovationFailureMechanism>()
+            };
+
+                return new AssessmentSectionMergeData((AssessmentSection) assessmentSectionComboBox.SelectedItem,
+                                                      failureMechanismMergeDataRows.Where(row => row.IsSelected)
+                                                                                   .Select(row => row.FailureMechanism)
+                                                                                   .ToArray(),
+                                                      constructionProperties);
+            }
+            return null;
+        }
+
+        private bool FailureMechanismIsSelectedToMerge<TFailureMechanism>()
+            where TFailureMechanism : IFailureMechanism
+        {
+            return failureMechanismMergeDataRows.Any(row => row.FailureMechanism is TFailureMechanism && row.IsSelected);
         }
 
         protected override Button GetCancelButton()

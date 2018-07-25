@@ -295,8 +295,6 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             // Given
             var random = new Random(21);
             AssessmentSection selectedAssessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            const int selectedFailureMechanismOne = 5;
-            const int selectedFailureMechanismTwo = 8;
 
             DialogBoxHandler = (formName, wnd) =>
             {
@@ -305,12 +303,6 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                     var dialog = (AssessmentSectionMergeDataProviderDialog) formTester.TheObject;
                     var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
                     comboBox.SelectedItem = selectedAssessmentSection;
-
-                    var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
-
-                    DataGridViewRowCollection rows = dataGridView.Rows;
-                    rows[selectedFailureMechanismOne].Cells[isSelectedIndex].Value = true;
-                    rows[selectedFailureMechanismTwo].Cells[isSelectedIndex].Value = true;
 
                     var button = new ButtonTester("importButton", formName);
                     button.Click();
@@ -330,13 +322,93 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 // Then
                 Assert.AreSame(selectedAssessmentSection, result.AssessmentSection);
 
+                Assert.IsFalse(result.MergePiping);
+                Assert.IsFalse(result.MergeGrassCoverErosionInwards);
+                Assert.IsFalse(result.MergeMacroStabilityInwards);
+                Assert.IsFalse(result.MergeMacroStabilityOutwards);
+                Assert.IsFalse(result.MergeMicrostability);
+                Assert.IsFalse(result.MergeStabilityStoneCover);
+                Assert.IsFalse(result.MergeWaveImpactAsphaltCover);
+                Assert.IsFalse(result.MergeWaterPressureAsphaltCover);
+                Assert.IsFalse(result.MergeGrassCoverErosionOutwards);
+                Assert.IsFalse(result.MergeGrassCoverSlipOffOutwards);
+                Assert.IsFalse(result.MergeGrassCoverSlipOffInwards);
+                Assert.IsFalse(result.MergeHeightStructures);
+                Assert.IsFalse(result.MergeClosingStructures);
+                Assert.IsFalse(result.MergePipingStructure);
+                Assert.IsFalse(result.MergeStabilityPointStructures);
+                Assert.IsFalse(result.MergeStrengthStabilityLengthwiseConstruction);
+                Assert.IsFalse(result.MergeDuneErosion);
+                Assert.IsFalse(result.MergeTechnicalInnovation);
+
                 IEnumerable<IFailureMechanism> selectedFailureMechanisms = result.FailureMechanisms;
-                Assert.AreEqual(2, selectedFailureMechanisms.Count());
-                CollectionAssert.AreEquivalent(new IFailureMechanism[]
+                Assert.AreEqual(0, selectedFailureMechanisms.Count());
+            }
+        }
+
+        [Test]
+        public void GivenValidDialog_WhenGetMergeDataCalledAndAllDataSelectedAndImportPressed_ThenReturnsSelectedData()
+        {
+            // Given
+            var random = new Random(21);
+            AssessmentSection selectedAssessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (var formTester = new FormTester(formName))
                 {
-                    selectedAssessmentSection.StabilityStoneCover,
-                    selectedAssessmentSection.GrassCoverErosionOutwards
-                }, selectedFailureMechanisms);
+                    var dialog = (AssessmentSectionMergeDataProviderDialog) formTester.TheObject;
+                    var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
+                    comboBox.SelectedItem = selectedAssessmentSection;
+
+                    var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
+
+                    DataGridViewRowCollection rows = dataGridView.Rows;
+
+                    foreach (DataGridViewRow row in rows)
+                    {
+                        row.Cells[isSelectedIndex].Value = true;
+                    }
+
+                    var button = new ButtonTester("importButton", formName);
+                    button.Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
+            {
+                // When
+                AssessmentSectionMergeData result = dialog.GetMergeData(new[]
+                {
+                    new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()),
+                    selectedAssessmentSection
+                });
+
+                // Then
+                Assert.AreSame(selectedAssessmentSection, result.AssessmentSection);
+
+                Assert.IsTrue(result.MergePiping);
+                Assert.IsTrue(result.MergeGrassCoverErosionInwards);
+                Assert.IsTrue(result.MergeMacroStabilityInwards);
+                Assert.IsTrue(result.MergeMacroStabilityOutwards);
+                Assert.IsTrue(result.MergeMicrostability);
+                Assert.IsTrue(result.MergeStabilityStoneCover);
+                Assert.IsTrue(result.MergeWaveImpactAsphaltCover);
+                Assert.IsTrue(result.MergeWaterPressureAsphaltCover);
+                Assert.IsTrue(result.MergeGrassCoverErosionOutwards);
+                Assert.IsTrue(result.MergeGrassCoverSlipOffOutwards);
+                Assert.IsTrue(result.MergeGrassCoverSlipOffInwards);
+                Assert.IsTrue(result.MergeHeightStructures);
+                Assert.IsTrue(result.MergeClosingStructures);
+                Assert.IsTrue(result.MergePipingStructure);
+                Assert.IsTrue(result.MergeStabilityPointStructures);
+                Assert.IsTrue(result.MergeStrengthStabilityLengthwiseConstruction);
+                Assert.IsTrue(result.MergeDuneErosion);
+                Assert.IsTrue(result.MergeTechnicalInnovation);
+
+                IEnumerable<IFailureMechanism> selectedFailureMechanisms = result.FailureMechanisms;
+                Assert.AreEqual(18, selectedFailureMechanisms.Count());
             }
         }
 
