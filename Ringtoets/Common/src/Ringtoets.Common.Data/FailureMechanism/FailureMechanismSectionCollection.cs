@@ -79,11 +79,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 throw new ArgumentException($@"'{filePath}' is not a valid file path.", nameof(filePath));
             }
 
-            if (failureMechanismSections.Contains(null))
-            {
-                throw new ArgumentException(@"Collection cannot contain null.", nameof(failureMechanismSections));
-            }
-
             sections.Clear();
 
             List<FailureMechanismSection> sourceCollection = failureMechanismSections.ToList();
