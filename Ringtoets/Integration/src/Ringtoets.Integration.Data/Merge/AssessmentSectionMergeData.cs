@@ -58,6 +58,25 @@ namespace Ringtoets.Integration.Data.Merge
 
             AssessmentSection = assessmentSection;
             FailureMechanisms = failureMechanisms;
+
+            MergePiping = properties.MergePiping;
+            MergeGrassCoverErosionInwards = properties.MergeGrassCoverErosionInwards;
+            MergeMacroStabilityInwards = properties.MergeMacroStabilityInwards;
+            MergeMacroStabilityOutwards = properties.MergeMacroStabilityOutwards;
+            MergeMicrostability = properties.MergeMicrostability;
+            MergeStabilityStoneCover = properties.MergeStabilityStoneCover;
+            MergeWaveImpactAsphaltCover = properties.MergeWaveImpactAsphaltCover;
+            MergeWaterPressureAsphaltCover = properties.MergeWaterPressureAsphaltCover;
+            MergeGrassCoverErosionOutwards = properties.MergeGrassCoverErosionOutwards;
+            MergeGrassCoverSlipOffOutwards = properties.MergeGrassCoverSlipOffOutwards;
+            MergeGrassCoverSlipOffInwards = properties.MergeGrassCoverSlipOffInwards;
+            MergeHeightStructures = properties.MergeHeightStructures;
+            MergeClosingStructures = properties.MergeClosingStructures;
+            MergePipingStructure = properties.MergePipingStructure;
+            MergeStabilityPointStructures = properties.MergeStabilityPointStructures;
+            MergeStrengthStabilityLengthwiseConstruction = properties.MergeStrengthStabilityLengthwiseConstruction;
+            MergeDuneErosion = properties.MergeDuneErosion;
+            MergeTechnicalInnovation = properties.MergeTechnicalInnovation;
         }
 
         /// <summary>
