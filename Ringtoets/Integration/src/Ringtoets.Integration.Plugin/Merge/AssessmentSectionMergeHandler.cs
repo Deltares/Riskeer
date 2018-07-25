@@ -75,22 +75,16 @@ namespace Ringtoets.Integration.Plugin.Merge
             this.viewCommands = viewCommands;
         }
 
-        public void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection,
-                                 IEnumerable<IFailureMechanism> failureMechanismsToMerge)
+        public void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData)
         {
             if (targetAssessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(targetAssessmentSection));
             }
 
-            if (sourceAssessmentSection == null)
+            if (mergeData == null)
             {
-                throw new ArgumentNullException(nameof(sourceAssessmentSection));
-            }
-
-            if (failureMechanismsToMerge == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismsToMerge));
+                throw new ArgumentNullException(nameof(mergeData));
             }
 
             BeforeMerge(targetAssessmentSection);
@@ -100,20 +94,10 @@ namespace Ringtoets.Integration.Plugin.Merge
                 targetAssessmentSection
             };
 
-            changedObjects.AddRange(MergeHydraulicBoundaryLocations(targetAssessmentSection, sourceAssessmentSection));
-            MergeFailureMechanisms(targetAssessmentSection, failureMechanismsToMerge);
+            changedObjects.AddRange(MergeHydraulicBoundaryLocations(targetAssessmentSection, mergeData.AssessmentSection));
+            MergeFailureMechanisms(targetAssessmentSection, mergeData.FailureMechanisms);
 
             AfterMerge(changedObjects);
-        }
-
-        public void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData)
-        {
-            if (mergeData == null)
-            {
-                throw new ArgumentNullException(nameof(mergeData));
-            }
-
-            PerformMerge(targetAssessmentSection, mergeData.AssessmentSection, mergeData.FailureMechanisms);
         }
 
         private void BeforeMerge(AssessmentSection assessmentSection)
@@ -156,7 +140,7 @@ namespace Ringtoets.Integration.Plugin.Merge
         }
 
         private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations,
-                                                                       IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations)
+                                                                                           IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations)
         {
             for (var i = 0; i < targetCalculations.Count(); i++)
             {

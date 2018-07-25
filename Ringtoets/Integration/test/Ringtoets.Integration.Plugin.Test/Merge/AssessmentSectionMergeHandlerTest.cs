@@ -102,47 +102,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void PerformMerge_SourceAssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            mocks.ReplayAll();
-
-            var handler = new AssessmentSectionMergeHandler(viewCommands);
-
-            // Call
-            TestDelegate call = () => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                           null, Enumerable.Empty<IFailureMechanism>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("sourceAssessmentSection", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void PerformMerge_FailureMechanismsToMergeNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            mocks.ReplayAll();
-
-            var handler = new AssessmentSectionMergeHandler(viewCommands);
-
-            // Call
-            TestDelegate call = () => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                           new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                           null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismsToMerge", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void PerformMerge_MergeDataNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -287,29 +246,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.AreNotSame(sourceAssessmentSection.StrengthStabilityLengthwiseConstruction, targetAssessmentSection.StrengthStabilityLengthwiseConstruction);
             Assert.AreNotSame(sourceAssessmentSection.DuneErosion, targetAssessmentSection.DuneErosion);
             Assert.AreNotSame(sourceAssessmentSection.TechnicalInnovation, targetAssessmentSection.TechnicalInnovation);
-        }
-
-        [Test]
-        public void PerformMerge_WithFailureMechanismThatCannotBeMerged_ThrowsNotSupportedException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
-            var handler = new AssessmentSectionMergeHandler(viewCommands);
-            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            // Call
-            TestDelegate call = () => handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, new[]
-            {
-                new TestFailureMechanism()
-            });
-
-            // Assert
-            var exception = Assert.Throws<NotSupportedException>(call);
-            Assert.AreEqual("Failure mechanism can't be merged.", exception.Message);
         }
 
         [Test]
@@ -580,7 +516,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
             // When
 
-            handler.PerformMerge(targetAssessmentSection, 
+            handler.PerformMerge(targetAssessmentSection,
                                  new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
                                      Enumerable.Empty<IFailureMechanism>(),

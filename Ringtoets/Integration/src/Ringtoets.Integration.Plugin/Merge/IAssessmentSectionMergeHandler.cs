@@ -36,16 +36,6 @@ namespace Ringtoets.Integration.Plugin.Merge
         /// Performs the merge.
         /// </summary>
         /// <param name="targetAssessmentSection">The assessment section to merge to.</param>
-        /// <param name="sourceAssessmentSection">The assessment section to merge from.</param>
-        /// <param name="failureMechanismsToMerge">The failure mechanisms to merge.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection,
-                          IEnumerable<IFailureMechanism> failureMechanismsToMerge);
-
-        /// <summary>
-        /// Performs the merge.
-        /// </summary>
-        /// <param name="targetAssessmentSection">The assessment section to merge to.</param>
         /// <param name="mergeData">The data to merge.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData);
