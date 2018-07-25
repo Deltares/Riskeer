@@ -37,6 +37,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -103,6 +104,16 @@ namespace Ringtoets.Integration.Plugin.Merge
             MergeFailureMechanisms(targetAssessmentSection, failureMechanismsToMerge);
 
             AfterMerge(changedObjects);
+        }
+
+        public void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData)
+        {
+            if (mergeData == null)
+            {
+                throw new ArgumentNullException(nameof(mergeData));
+            }
+
+            PerformMerge(targetAssessmentSection, mergeData.AssessmentSection, mergeData.FailureMechanisms);
         }
 
         private void BeforeMerge(AssessmentSection assessmentSection)

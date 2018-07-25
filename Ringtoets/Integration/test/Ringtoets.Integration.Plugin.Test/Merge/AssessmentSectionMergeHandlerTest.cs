@@ -40,6 +40,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Plugin.Merge;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
@@ -138,6 +139,24 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanismsToMerge", exception.ParamName);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void PerformMerge_MergeDataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Call
+            TestDelegate call = () => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("mergeData", exception.ParamName);
         }
 
         [Test]

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Merge;
 
 namespace Ringtoets.Integration.Plugin.Merge
 {
@@ -40,5 +41,13 @@ namespace Ringtoets.Integration.Plugin.Merge
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection,
                           IEnumerable<IFailureMechanism> failureMechanismsToMerge);
+
+        /// <summary>
+        /// Performs the merge.
+        /// </summary>
+        /// <param name="targetAssessmentSection">The assessment section to merge to.</param>
+        /// <param name="mergeData">The data to merge.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData);
     }
 }
