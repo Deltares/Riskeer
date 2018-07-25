@@ -24,9 +24,10 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Common.Data.Calculation
 {
     /// <summary>
-    /// Interface  describing an object that is the input to an <see cref="ICalculation{T}"/>.
+    /// Interface describing an object that has a <see cref="HydraulicBoundaryLocation"/>
+    /// and is the input to an <see cref="ICalculation{T}"/>.
     /// </summary>
-    public interface ICalculationInputWithLocation : ICalculationInput
+    public interface ICalculationInputWithHydraulicBoundaryLocation : ICalculationInput
     {
         /// <summary>
         /// Gets or sets the hydraulic boundary location.

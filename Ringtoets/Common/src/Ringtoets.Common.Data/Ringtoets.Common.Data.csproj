@@ -32,7 +32,7 @@
     <Compile Include="AssessmentSection\WellKnownBackgroundDataConfiguration.cs" />
     <Compile Include="AssessmentSection\WmtsBackgroundDataConfiguration.cs" />
     <Compile Include="Calculation\ICalculatable.cs" />
-    <Compile Include="Calculation\ICalculationInputWithLocation.cs" />
+    <Compile Include="Calculation\ICalculationInputWithHydraulicBoundaryLocation.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="Contribution\NormType.cs" />
     <Compile Include="DikeProfiles\BreakWater.cs" />

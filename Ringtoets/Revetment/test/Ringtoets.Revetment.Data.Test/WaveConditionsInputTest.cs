@@ -47,7 +47,7 @@ namespace Ringtoets.Revetment.Data.Test
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(input);
-            Assert.IsInstanceOf<ICalculationInputWithLocation>(input);
+            Assert.IsInstanceOf<ICalculationInputWithHydraulicBoundaryLocation>(input);
             Assert.IsInstanceOf<IUseBreakWater>(input);
             Assert.IsInstanceOf<IUseForeshore>(input);
             Assert.IsInstanceOf<IHasForeshoreProfile>(input);

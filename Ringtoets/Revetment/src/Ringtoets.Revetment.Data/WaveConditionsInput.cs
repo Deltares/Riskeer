@@ -35,7 +35,7 @@ namespace Ringtoets.Revetment.Data
     /// <summary>
     /// Abstract class that holds all generic wave conditions calculation input parameters.
     /// </summary>
-    public abstract class WaveConditionsInput : CloneableObservable, ICalculationInputWithLocation, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
+    public abstract class WaveConditionsInput : CloneableObservable, ICalculationInputWithHydraulicBoundaryLocation, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
     {
         private const int orientationNumberOfDecimals = 2;
 

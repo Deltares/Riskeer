@@ -322,7 +322,7 @@ namespace Ringtoets.Integration.Plugin.Merge
             TFailureMechanism failureMechanism, IEnumerable<HydraulicBoundaryLocation> locations)
             where TFailureMechanism : IFailureMechanism
             where TCalculation : ICalculation<TCalculationInput>
-            where TCalculationInput : class, ICalculationInputWithLocation
+            where TCalculationInput : class, ICalculationInputWithHydraulicBoundaryLocation
         {
             foreach (TCalculation calculation in failureMechanism.Calculations.Cast<TCalculation>())
             {
