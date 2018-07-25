@@ -61,5 +61,95 @@ namespace Ringtoets.Integration.Data.Merge
         /// Gets the failure mechanisms to merge.
         /// </summary>
         public IEnumerable<IFailureMechanism> FailureMechanisms { get; }
+
+        /// <summary>
+        /// Indicator whether piping should be merged.
+        /// </summary>
+        public bool MergePiping { get; }
+
+        /// <summary>
+        /// Indicator whether grass cover erosion inwards should be merged.
+        /// </summary>
+        public bool MergeGrassCoverErosionInwards { get; }
+
+        /// <summary>
+        /// Indicator whether macro stability inwards should be merged.
+        /// </summary>
+        public bool MergeMacroStabilityInwards { get; }
+
+        /// <summary>
+        /// Indicator whether macro stability outwards should be merged.
+        /// </summary>
+        public bool MergeMacroStabilityOutwards { get; }
+
+        /// <summary>
+        /// Indicator whether microstability should be merged.
+        /// </summary>
+        public bool MergeMicrostability { get; }
+
+        /// <summary>
+        /// Indicator whether stability stone cover should be merged.
+        /// </summary>
+        public bool MergeStabilityStoneCover { get; }
+
+        /// <summary>
+        /// Indicator whether wave impact asphalt cover should be merged.
+        /// </summary>
+        public bool MergeWaveImpactAsphaltCover { get; }
+
+        /// <summary>
+        /// Indicator whether water pressure asphalt cover should be merged.
+        /// </summary>
+        public bool MergeWaterPressureAsphaltCover { get; }
+
+        /// <summary>
+        /// Indicator whether grass cover erosion outwards should be merged.
+        /// </summary>
+        public bool MergeGrassCoverErosionOutwards { get; }
+
+        /// <summary>
+        /// Indicator whether grass cover slip off outwards should be merged.
+        /// </summary>
+        public bool MergeGrassCoverSlipOffOutwards { get; }
+
+        /// <summary>
+        /// Indicator whether grass cover slip off inwards should be merged.
+        /// </summary>
+        public bool MergeGrassCoverSlipOffInwards { get; }
+
+        /// <summary>
+        /// Indicator whether height structures should be merged.
+        /// </summary>
+        public bool MergeHeightStructures { get; }
+
+        /// <summary>
+        /// Indicator whether closing structures should be merged.
+        /// </summary>
+        public bool MergeClosingStructures { get; }
+
+        /// <summary>
+        /// Indicator whether piping structure should be merged.
+        /// </summary>
+        public bool MergePipingStructure { get; }
+
+        /// <summary>
+        /// Indicator whether stability point structures should be merged.
+        /// </summary>
+        public bool MergeStabilityPointStructures { get; }
+
+        /// <summary>
+        /// Indicator whether strength stability lengthwise construction should be merged.
+        /// </summary>
+        public bool MergeStrengthStabilityLengthwiseConstruction { get; }
+
+        /// <summary>
+        /// Indicator whether dune erosion should be merged.
+        /// </summary>
+        public bool MergeDuneErosion{ get; }
+
+        /// <summary>
+        /// Indicator whether technical innovation should be merged.
+        /// </summary>
+        public bool MergeTechnicalInnovation { get; }
     }
 }
