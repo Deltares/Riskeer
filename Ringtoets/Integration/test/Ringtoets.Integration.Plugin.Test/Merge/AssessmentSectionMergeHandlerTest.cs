@@ -654,6 +654,44 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetCalculationsFuncs))]
+        public void PerformMerge_HydraulicBoundaryLocationCalculationsMerged_ObserversNotified(
+            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation[] locations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+
+            targetCalculations.ForEachElementDo(calculation => calculation.Attach(observer));
+
+            SetOutput(targetCalculations);
+            SetOutput(sourceCalculations, true);
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Call
+            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
         private static void SetOutput(IEnumerable<HydraulicBoundaryLocationCalculation> calculations, bool illustrationPoints = false)
         {
             foreach (HydraulicBoundaryLocationCalculation calculation in calculations)

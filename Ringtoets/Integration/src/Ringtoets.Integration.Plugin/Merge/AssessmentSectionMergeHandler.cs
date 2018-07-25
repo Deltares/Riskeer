@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Commands;
+using Core.Common.Util.Extensions;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -92,9 +93,16 @@ namespace Ringtoets.Integration.Plugin.Merge
             }
 
             BeforeMerge(targetAssessmentSection);
-            MergeHydraulicBoundaryLocations(targetAssessmentSection, sourceAssessmentSection);
+
+            var changedObjects = new List<IObservable>
+            {
+                targetAssessmentSection
+            };
+
+            changedObjects.AddRange(MergeHydraulicBoundaryLocations(targetAssessmentSection, sourceAssessmentSection));
             MergeFailureMechanisms(targetAssessmentSection, failureMechanismsToMerge);
-            AfterMerge(targetAssessmentSection);
+
+            AfterMerge(changedObjects);
         }
 
         private void BeforeMerge(AssessmentSection assessmentSection)
@@ -102,37 +110,41 @@ namespace Ringtoets.Integration.Plugin.Merge
             viewCommands.RemoveAllViewsForItem(assessmentSection);
         }
 
-        private static void AfterMerge(AssessmentSection targetAssessmentSection)
+        private static void AfterMerge(IEnumerable<IObservable> changedObjects)
         {
-            targetAssessmentSection.NotifyObservers();
+            changedObjects.ForEachElementDo(co => co.NotifyObservers());
         }
 
         #region HydraulicBoundaryLocationCalculations
 
-        private static void MergeHydraulicBoundaryLocations(IAssessmentSection targetAssessmentSection, IAssessmentSection sourceAssessmentSection)
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocations(IAssessmentSection targetAssessmentSection, IAssessmentSection sourceAssessmentSection)
         {
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
-                                                       sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForSignalingNorm,
-                                                       sourceAssessmentSection.WaterLevelCalculationsForSignalingNorm);
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                                                       sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm);
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
-                                                       sourceAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+            var changedObjects = new List<IObservable>();
 
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
-                                                       sourceAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForSignalingNorm,
-                                                       sourceAssessmentSection.WaveHeightCalculationsForSignalingNorm);
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
-                                                       sourceAssessmentSection.WaveHeightCalculationsForLowerLimitNorm);
-            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
-                                                       sourceAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
+                                                                               sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                               sourceAssessmentSection.WaterLevelCalculationsForSignalingNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                                               sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
+                                                                               sourceAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm));
+
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
+                                                                               sourceAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForSignalingNorm,
+                                                                               sourceAssessmentSection.WaveHeightCalculationsForSignalingNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
+                                                                               sourceAssessmentSection.WaveHeightCalculationsForLowerLimitNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
+                                                                               sourceAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm));
 
             log.Info(Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged);
+
+            return changedObjects;
         }
 
-        private static void MergeHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations,
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations,
                                                                        IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations)
         {
             for (var i = 0; i < targetCalculations.Count(); i++)
@@ -144,6 +156,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                 {
                     targetCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = sourceCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
                     targetCalculation.Output = sourceCalculation.Output;
+                    yield return targetCalculation;
                 }
             }
         }
