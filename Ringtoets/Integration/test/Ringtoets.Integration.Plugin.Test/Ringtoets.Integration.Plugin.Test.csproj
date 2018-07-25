@@ -48,7 +48,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Merge\AssessmentSectionMergeExceptionTest.cs" />
     <Compile Include="Merge\AssessmentSectionMergeHandlerTest.cs" />
     <Compile Include="Merge\AssessmentSectionMergerTest.cs" />
     <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />

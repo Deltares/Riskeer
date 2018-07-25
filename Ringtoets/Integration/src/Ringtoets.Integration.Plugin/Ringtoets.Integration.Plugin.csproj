@@ -26,7 +26,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Merge\AssessmentSectionMergeHandler.cs" />
-    <Compile Include="Merge\AssessmentSectionMergeException.cs" />
     <Compile Include="Merge\AssessmentSectionMerger.cs" />
     <Compile Include="FileImporters\ForeshoreProfileReplaceDataStrategy.cs" />
     <Compile Include="FileImporters\ForeshoreProfileUpdateDataStrategy.cs" />
