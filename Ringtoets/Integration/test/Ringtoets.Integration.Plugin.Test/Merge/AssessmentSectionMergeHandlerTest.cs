@@ -528,6 +528,49 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
         [Test]
         [TestCaseSource(nameof(GetCalculationsFuncs))]
+        public void GivenAssessmentSectionWithHydraulicBoundaryLocationCalculations_WhenBothAssessmentSectionsHaveOutput_ThenCalculationsNotChanged(
+            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation[] locations = 
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+
+            SetOutput(targetCalculations);
+            SetOutput(sourceCalculations);
+            sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Precondition
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+
+            // When
+            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+
+            // Then
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetCalculationsFuncs))]
         public void GivenAssessmentSectionWithHydraulicBoundaryLocationCalculations_WhenSourceAssessmentSectionHasOutput_ThenCalculationDataMerged(
             Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -651,6 +694,49 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetCalculationsFuncs))]
+        public void GivenAssessmentSectionWithHydraulicBoundaryLocationCalculations_WhenBothAssessmentSectionsHaveOutputAndIllustrationPoints_ThenCalculationsNotChanged(
+            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation[] locations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+
+            SetOutput(targetCalculations, true);
+            SetOutput(sourceCalculations, true);
+            sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Precondition
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+
+            // When
+            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+
+            // Then
+            Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
+            Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
             mocks.VerifyAll();
         }
 

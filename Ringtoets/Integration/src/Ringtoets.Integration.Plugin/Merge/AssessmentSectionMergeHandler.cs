@@ -168,6 +168,8 @@ namespace Ringtoets.Integration.Plugin.Merge
 
             if (!targetCalculationHasOutput && !sourceCalculationHasOutput
                 || targetCalculationHasOutput && !sourceCalculationHasOutput
+                || targetCalculationHasOutput && !targetCalculation.Output.HasGeneralResult && !sourceCalculation.Output.HasGeneralResult
+                || targetCalculationHasOutput && targetCalculation.Output.HasGeneralResult && sourceCalculation.Output.HasGeneralResult
                 || targetCalculationHasOutput && targetCalculation.Output.HasGeneralResult && !sourceCalculation.Output.HasGeneralResult)
             {
                 return false;
