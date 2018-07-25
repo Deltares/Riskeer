@@ -695,7 +695,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     LowerBoundaryRevetment = (RoundedDouble) 1,
                     UpperBoundaryRevetment = (RoundedDouble) 3,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 3
+                    UpperBoundaryWaterLevels = (RoundedDouble) 3,
+                    Orientation = (RoundedDouble) 10
                 }
             });
         }
@@ -709,13 +710,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
-                    ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
                     UpperBoundaryRevetment = (RoundedDouble) 3,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 3
+                    UpperBoundaryWaterLevels = (RoundedDouble) 3,
+                    Orientation = (RoundedDouble) 10
                 }
             });
         }

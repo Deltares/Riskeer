@@ -168,182 +168,68 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void CreateActivities_PipingNotRelevant_NoActivitiesCreated()
+        [TestCaseSource(nameof(GetFailureMechanismTestCases))]
+        public void CreateActivities_FailureMechanismNotIrrelevant_NoActivitiesCreated(
+            Action<AssessmentSection> setFailureMechanismIrrelevantAction,
+            Action<AssessmentSection> addValidCalculationToFailureMechanismAction)
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.Piping.IsRelevant = false;
+            setFailureMechanismIrrelevantAction(assessmentSection);
 
-            AddPipingCalculationScenario(assessmentSection, new TestHydraulicBoundaryLocation());
+            addValidCalculationToFailureMechanismAction(assessmentSection);
 
             // Call
             IEnumerable<CalculatableActivity> activities =
                 AssessmentSectionCalculationActivityFactory.CreateActivities(assessmentSection);
 
             // Assert
-            Assert.AreEqual(0, activities.Count());
+            CollectionAssert.IsEmpty(activities);
         }
 
-        [Test]
-        public void CreateActivities_GrassCoverErosionInwardsNotRelevant_NoActivitiesCreated()
+        private static IEnumerable<TestCaseData> GetFailureMechanismTestCases()
         {
-            // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.GrassCoverErosionInwards.IsRelevant = false;
-
-            AddGrassCoverErosionInwardsCalculation(assessmentSection, new TestHydraulicBoundaryLocation());
-
-            // Call
-            IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateActivities(assessmentSection);
-
-            // Assert
-            Assert.AreEqual(0, activities.Count());
-        }
-
-        [Test]
-        public void CreateActivities_MacroStabilityInwardsNotRelevant_NoActivitiesCreated()
-        {
-            // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.MacroStabilityInwards.IsRelevant = false;
-
-            AddMacroStabilityInwardsCalculationScenario(assessmentSection, new TestHydraulicBoundaryLocation());
-
-            // Call
-            IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateActivities(assessmentSection);
-
-            // Assert
-            Assert.AreEqual(0, activities.Count());
-        }
-
-        [Test]
-        public void CreateActivities_StabilityStoneCoverNotRelevant_NoActivitiesCreated()
-        {
-            // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.StabilityStoneCover.IsRelevant = false;
-
-            AddStabilityStoneCoverCalculation(assessmentSection, new TestHydraulicBoundaryLocation());
-
-            // Call
-            IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateActivities(assessmentSection);
-
-            // Assert
-            Assert.AreEqual(0, activities.Count());
-        }
-
-        [Test]
-        public void CreateActivities_WaveImpactAsphaltCoverNotRelevant_NoActivitiesCreated()
-        {
-            // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.WaveImpactAsphaltCover.IsRelevant = false;
-
-            AddWaveImpactAsphaltCoverCalculation(assessmentSection, new TestHydraulicBoundaryLocation());
-
-            // Call
-            IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateActivities(assessmentSection);
-
-            // Assert
-            Assert.AreEqual(0, activities.Count());
-        }
-
-        [Test]
-        public void CreateActivities_GrassCoverErosionOutwardsNotRelevant_NoActivitiesCreated()
-        {
-            // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.GrassCoverErosionOutwards.IsRelevant = false;
-
-            AddGrassCoverErosionOutwardsCalculation(assessmentSection, new TestHydraulicBoundaryLocation());
-
-            // Call
-            IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateActivities(assessmentSection);
-
-            // Assert
-            Assert.AreEqual(0, activities.Count());
-        }
-
-        [Test]
-        public void CreateActivities_HeightStructuresNotRelevant_NoActivitiesCreated()
-        {
-            // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.HeightStructures.IsRelevant = false;
-
-            AddHeightStructuresCalculation(assessmentSection, new TestHydraulicBoundaryLocation());
-
-            // Call
-            IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateActivities(assessmentSection);
-
-            // Assert
-            Assert.AreEqual(0, activities.Count());
-        }
-
-        [Test]
-        public void CreateActivities_ClosingStructuresNotRelevant_NoActivitiesCreated()
-        {
-            // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.ClosingStructures.IsRelevant = false;
-
-            AddClosingStructuresCalculation(assessmentSection, new TestHydraulicBoundaryLocation());
-
-            // Call
-            IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateActivities(assessmentSection);
-
-            // Assert
-            Assert.AreEqual(0, activities.Count());
-        }
-
-        [Test]
-        public void CreateActivities_StabilityPointStructuresNotRelevant_NoActivitiesCreated()
-        {
-            // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.StabilityPointStructures.IsRelevant = false;
-
-            AddStabilityPointStructuresCalculation(assessmentSection, new TestHydraulicBoundaryLocation());
-
-            // Call
-            IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateActivities(assessmentSection);
-
-            // Assert
-            Assert.AreEqual(0, activities.Count());
-        }
-
-        [Test]
-        public void CreateActivities_DuneErosionNotRelevant_NoActivitiesCreated()
-        {
-            // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.DuneErosion.IsRelevant = false;
-
-            AddDuneLocationCalculation(assessmentSection);
-
-            // Call
-            IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateActivities(assessmentSection);
-
-            // Assert
-            Assert.AreEqual(0, activities.Count());
+            yield return new TestCaseData(new Action<AssessmentSection>(section => section.Piping.IsRelevant = false),
+                                          new Action<AssessmentSection>(section => AddPipingCalculationScenario(section, new TestHydraulicBoundaryLocation())))
+                .SetName("Piping");
+            yield return new TestCaseData(new Action<AssessmentSection>(section => section.GrassCoverErosionInwards.IsRelevant = false),
+                                          new Action<AssessmentSection>(section => AddGrassCoverErosionInwardsCalculation(section, new TestHydraulicBoundaryLocation())))
+                .SetName("GrassCoverErosionInwards");
+            yield return new TestCaseData(new Action<AssessmentSection>(section => section.MacroStabilityInwards.IsRelevant = false),
+                                          new Action<AssessmentSection>(section => AddMacroStabilityInwardsCalculationScenario(section, new TestHydraulicBoundaryLocation())))
+                .SetName("MacroStabilityInwards");
+            yield return new TestCaseData(new Action<AssessmentSection>(section => section.StabilityStoneCover.IsRelevant = false),
+                                          new Action<AssessmentSection>(section => AddStabilityStoneCoverCalculation(section, new TestHydraulicBoundaryLocation())))
+                .SetName("StabilityStoneCover");
+            yield return new TestCaseData(new Action<AssessmentSection>(section => section.WaveImpactAsphaltCover.IsRelevant = false),
+                                          new Action<AssessmentSection>(section => AddWaveImpactAsphaltCoverCalculation(section, new TestHydraulicBoundaryLocation())))
+                .SetName("WaveImpactAsphaltCover");
+            yield return new TestCaseData(new Action<AssessmentSection>(section => section.GrassCoverErosionOutwards.IsRelevant = false),
+                                          new Action<AssessmentSection>(section => AddGrassCoverErosionOutwardsCalculation(section, new TestHydraulicBoundaryLocation())))
+                .SetName("GrassCoverErosionOutwards");
+            yield return new TestCaseData(new Action<AssessmentSection>(section => section.HeightStructures.IsRelevant = false),
+                                          new Action<AssessmentSection>(section => AddHeightStructuresCalculation(section, new TestHydraulicBoundaryLocation())))
+                .SetName("HeightStructures");
+            yield return new TestCaseData(new Action<AssessmentSection>(section => section.ClosingStructures.IsRelevant = false),
+                                          new Action<AssessmentSection>(section => AddClosingStructuresCalculation(section, new TestHydraulicBoundaryLocation())))
+                .SetName("ClosingStructures");
+            yield return new TestCaseData(new Action<AssessmentSection>(section => section.StabilityPointStructures.IsRelevant = false),
+                                          new Action<AssessmentSection>(section => AddStabilityPointStructuresCalculation(section, new TestHydraulicBoundaryLocation())))
+                .SetName("StabilityPointStructures");
+            yield return new TestCaseData(new Action<AssessmentSection>(section => section.DuneErosion.IsRelevant = false),
+                                          new Action<AssessmentSection>(AddDuneLocationCalculation))
+                .SetName("DuneErosion");
         }
 
         private static AssessmentSection CreateAssessmentSection()
         {
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune);
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
-
-            return assessmentSection;
+            return new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                }
+            };
         }
 
         private static void AddGrassCoverErosionInwardsCalculation(AssessmentSection assessmentSection,
@@ -387,13 +273,13 @@ namespace Ringtoets.Integration.Service.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
-                    ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
                     UpperBoundaryRevetment = (RoundedDouble) 3,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 3
+                    UpperBoundaryWaterLevels = (RoundedDouble) 3,
+                    Orientation = (RoundedDouble) 10
                 }
             });
         }
@@ -407,13 +293,13 @@ namespace Ringtoets.Integration.Service.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
-                    ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
                     UpperBoundaryRevetment = (RoundedDouble) 3,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 3
+                    UpperBoundaryWaterLevels = (RoundedDouble) 3,
+                    Orientation = (RoundedDouble) 10
                 }
             });
         }

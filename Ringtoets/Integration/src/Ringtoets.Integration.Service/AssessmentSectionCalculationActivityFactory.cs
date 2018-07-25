@@ -37,13 +37,13 @@ using Ringtoets.WaveImpactAsphaltCover.Service;
 namespace Ringtoets.Integration.Service
 {
     /// <summary>
-    /// This class defines a factory method that can be used to create instances of <see cref="CalculatableActivity"/> for
+    /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for
     /// all calculations in an <see cref="AssessmentSection"/>.
     /// </summary>
     public static class AssessmentSectionCalculationActivityFactory
     {
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> for all calculations
+        /// Creates a collection of <see cref="CalculatableActivity"/> for all relevant calculations
         /// in the given <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to create the activities for.</param>
