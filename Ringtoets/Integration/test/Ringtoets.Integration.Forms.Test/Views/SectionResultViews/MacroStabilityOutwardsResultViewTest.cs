@@ -195,7 +195,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
                 Assert.AreEqual("Iv", cells[simpleAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual("VIv", cells[detailedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("IVv", cells[detailedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[combinedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual(false, cells[useManualAssemblyCategoryGroupIndex].Value);

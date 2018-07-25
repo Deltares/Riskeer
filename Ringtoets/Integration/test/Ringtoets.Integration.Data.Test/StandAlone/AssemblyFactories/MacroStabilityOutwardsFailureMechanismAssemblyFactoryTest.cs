@@ -45,17 +45,6 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
     [TestFixture]
     public class MacroStabilityOutwardsFailureMechanismAssemblyFactoryTest
     {
-        private static void AssertAssemblyCategoriesInput(IAssessmentSection assessmentSection,
-                                                          MacroStabilityOutwardsFailureMechanism failureMechanism,
-                                                          AssemblyCategoriesInput assemblyCategoriesInput)
-        {
-            Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, assemblyCategoriesInput.SignalingNorm);
-            Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, assemblyCategoriesInput.LowerLimitNorm);
-            Assert.AreEqual(failureMechanism.Contribution / 100, assemblyCategoriesInput.FailureMechanismContribution);
-            Assert.AreEqual(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
-                                failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength), assemblyCategoriesInput.N);
-        }
-
         #region Simple Assembly
 
         [Test]
@@ -227,7 +216,12 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 // Assert
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 Assert.AreEqual(sectionResult.DetailedAssessmentProbability, calculator.DetailedAssessmentProbabilityInput);
-                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
+
+                Assert.AreEqual(assessmentSection.FailureMechanismContribution.Norm, calculator.DetailedAssessmentNormativeNormInput);
+                double expectedN = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
+                    failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
+                Assert.AreEqual(expectedN, calculator.DetailedAssessmentFailureMechanismSectionNInput);
+                Assert.AreEqual(failureMechanism.Contribution / 100, calculator.DetailedAssessmentFailureMechanismContribution);
                 mocks.VerifyAll();
             }
         }
