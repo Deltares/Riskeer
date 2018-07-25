@@ -494,7 +494,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var locations = new[]
+            HydraulicBoundaryLocation[] locations = 
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation()
@@ -536,7 +536,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var locations = new[]
+            HydraulicBoundaryLocation[] locations = 
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation()
@@ -578,7 +578,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var locations = new[]
+            HydraulicBoundaryLocation[] locations = 
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation()
@@ -622,7 +622,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var locations = new[]
+            HydraulicBoundaryLocation[] locations = 
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation()
