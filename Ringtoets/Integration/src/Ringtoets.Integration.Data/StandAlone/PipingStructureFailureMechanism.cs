@@ -101,9 +101,8 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Add(new PipingStructureFailureMechanismSectionResult(section));
         }
 
-        public override void ClearAllSections()
+        protected override void ClearSectionResults()
         {
-            base.ClearAllSections();
             sectionResults.Clear();
         }
     }

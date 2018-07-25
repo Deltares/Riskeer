@@ -68,9 +68,8 @@ namespace Ringtoets.Integration.Data.StandAlone
             sectionResults.Add(new WaterPressureAsphaltCoverFailureMechanismSectionResult(section));
         }
 
-        public override void ClearAllSections()
+        protected override void ClearSectionResults()
         {
-            base.ClearAllSections();
             sectionResults.Clear();
         }
     }

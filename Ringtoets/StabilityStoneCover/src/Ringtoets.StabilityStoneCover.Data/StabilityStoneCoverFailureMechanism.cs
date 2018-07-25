@@ -90,9 +90,8 @@ namespace Ringtoets.StabilityStoneCover.Data
             sectionResults.Add(new StabilityStoneCoverFailureMechanismSectionResult(section));
         }
 
-        public override void ClearAllSections()
+        protected override void ClearSectionResults()
         {
-            base.ClearAllSections();
             sectionResults.Clear();
         }
     }

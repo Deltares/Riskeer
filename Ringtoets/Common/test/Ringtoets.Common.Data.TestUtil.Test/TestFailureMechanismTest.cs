@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsCleared()
+        public void ClearAllSections_WithSectionResults_SectionResultsCleared()
         {
             // Setup
             string sourcePath = TestHelper.GetScratchPadPath();
@@ -124,17 +124,13 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             }, sourcePath);
 
             // Precondition
-            Assert.AreEqual(2, failureMechanism.Sections.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
-            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
         }
     }
 }

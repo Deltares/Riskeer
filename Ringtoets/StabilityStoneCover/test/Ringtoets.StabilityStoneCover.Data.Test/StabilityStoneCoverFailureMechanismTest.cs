@@ -74,7 +74,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         }
 
         [Test]
-        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsCleared()
+        public void ClearAllSections_WithSectionResults_SectionResultsCleared()
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -92,14 +92,12 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             });
 
             // Precondition
-            Assert.AreEqual(2, failureMechanism.Sections.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 

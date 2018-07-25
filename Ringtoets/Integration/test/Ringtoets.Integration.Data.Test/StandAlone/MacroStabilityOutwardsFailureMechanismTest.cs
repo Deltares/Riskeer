@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
         }
 
         [Test]
-        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsCleared()
+        public void ClearAllSections_WithSectionResults_SectionResultsCleared()
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
@@ -86,14 +86,12 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             });
 
             // Precondition
-            Assert.AreEqual(2, failureMechanism.Sections.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
     }

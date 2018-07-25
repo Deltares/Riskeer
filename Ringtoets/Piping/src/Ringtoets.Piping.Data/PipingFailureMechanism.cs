@@ -99,9 +99,8 @@ namespace Ringtoets.Piping.Data
             sectionResults.Add(new PipingFailureMechanismSectionResult(section));
         }
 
-        public override void ClearAllSections()
+        protected override void ClearSectionResults()
         {
-            base.ClearAllSections();
             sectionResults.Clear();
         }
     }

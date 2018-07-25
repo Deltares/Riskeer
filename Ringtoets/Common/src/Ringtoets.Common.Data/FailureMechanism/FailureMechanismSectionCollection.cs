@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 throw new ArgumentException($@"'{sourcePath}' is not a valid file path.", nameof(sourcePath));
             }
 
-            sections.Clear();
+            Clear();
 
             List<FailureMechanismSection> sourceCollection = failureMechanismSections.ToList();
             if (!sourceCollection.Any())

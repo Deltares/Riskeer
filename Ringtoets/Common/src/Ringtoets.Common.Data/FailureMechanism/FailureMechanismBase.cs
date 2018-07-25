@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 throw new ArgumentNullException(nameof(sourcePath));
             }
 
-            ClearAllSections();
+            ClearSectionResults();
             sectionCollection.SetSections(sections, sourcePath);
 
             foreach (FailureMechanismSection failureMechanismSection in Sections)
@@ -138,12 +138,15 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
         }
 
-        public virtual void ClearAllSections()
+        public void ClearAllSections()
         {
             sectionCollection.Clear();
+            ClearSectionResults();
         }
 
         protected virtual void AddSectionResult(FailureMechanismSection section) {}
+
+        protected virtual void ClearSectionResults() {}
 
         private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)
         {

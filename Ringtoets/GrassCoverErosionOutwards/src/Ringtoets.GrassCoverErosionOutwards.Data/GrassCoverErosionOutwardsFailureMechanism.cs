@@ -185,9 +185,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             sectionResults.Add(new GrassCoverErosionOutwardsFailureMechanismSectionResult(section));
         }
 
-        public override void ClearAllSections()
+        protected override void ClearSectionResults()
         {
-            base.ClearAllSections();
             sectionResults.Clear();
         }
 

@@ -97,9 +97,8 @@ namespace Ringtoets.ClosingStructures.Data
             sectionResults.Add(new ClosingStructuresFailureMechanismSectionResult(section));
         }
 
-        public override void ClearAllSections()
+        protected override void ClearSectionResults()
         {
-            base.ClearAllSections();
             sectionResults.Clear();
         }
     }

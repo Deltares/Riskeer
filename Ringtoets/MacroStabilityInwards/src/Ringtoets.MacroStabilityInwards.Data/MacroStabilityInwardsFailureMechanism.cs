@@ -101,9 +101,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
             sectionResults.Add(new MacroStabilityInwardsFailureMechanismSectionResult(section));
         }
 
-        public override void ClearAllSections()
+        protected override void ClearSectionResults()
         {
-            base.ClearAllSections();
             sectionResults.Clear();
         }
     }

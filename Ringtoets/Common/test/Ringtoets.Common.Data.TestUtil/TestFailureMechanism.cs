@@ -64,9 +64,8 @@ namespace Ringtoets.Common.Data.TestUtil
             sectionResults.Add(new TestFailureMechanismSectionResult(section));
         }
 
-        public override void ClearAllSections()
+        protected override void ClearSectionResults()
         {
-            base.ClearAllSections();
             sectionResults.Clear();
         }
     }

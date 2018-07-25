@@ -99,9 +99,8 @@ namespace Ringtoets.HeightStructures.Data
             sectionResults.Add(new HeightStructuresFailureMechanismSectionResult(section));
         }
 
-        public override void ClearAllSections()
+        protected override void ClearSectionResults()
         {
-            base.ClearAllSections();
             sectionResults.Clear();
         }
     }

@@ -97,9 +97,8 @@ namespace Ringtoets.StabilityPointStructures.Data
             sectionResults.Add(new StabilityPointStructuresFailureMechanismSectionResult(section));
         }
 
-        public override void ClearAllSections()
+        protected override void ClearSectionResults()
         {
-            base.ClearAllSections();
             sectionResults.Clear();
         }
     }
