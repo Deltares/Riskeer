@@ -80,19 +80,25 @@ namespace Ringtoets.Common.Data.FailureMechanism
         IEnumerable<ICalculation> Calculations { get; }
 
         /// <summary>
-        /// Gets the sections that define areas for which a calculation could determine
-        /// a representative result. Cannot return <c>null</c>.
+        /// Gets the source path of the imported <see cref="Sections"/>.
+        /// </summary>
+        string FailureMechanismSectionSourcePath { get; }
+
+        /// <summary>
+        /// Gets the collection of sections that define areas for which a calculation could determine
+        /// a representative result.
         /// </summary>
         IEnumerable<FailureMechanismSection> Sections { get; }
 
         /// <summary>
-        /// Adds a collection of <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.
+        /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.
         /// </summary>
-        /// <param name="sections">The sections to add.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sections"/> is <c>null</c>.</exception>
+        /// <param name="sections">The sections to set.</param>
+        /// <param name="sourcePath">The path of the file the sections originate from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="sections"/> cannot
         /// be connected to elements already defined in <see cref="Sections"/>.</exception>
-        void AddSections(IEnumerable<FailureMechanismSection> sections);
+        void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath);
 
         /// <summary>
         /// Clears all sections from <see cref="Sections"/>.

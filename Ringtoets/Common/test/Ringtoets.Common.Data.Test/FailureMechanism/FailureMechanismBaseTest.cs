@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -142,18 +143,33 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call 
-            TestDelegate call = () => failureMechanism.SetSections(null);
+            TestDelegate call = () => failureMechanism.SetSections(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSections", exception.ParamName);
+            Assert.AreEqual("sections", exception.ParamName);
         }
 
         [Test]
-        public void SetSections_FirstSectionAdded_SectionAddedToSections()
+        public void SetSections_SourcePathNull_ThrowArgumentNullException()
         {
             // Setup
             var failureMechanism = new SimpleFailureMechanismBase();
+
+            // Call 
+            TestDelegate call = () => failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("sourcePath", exception.ParamName);
+        }
+
+        [Test]
+        public void SetSections_FirstSectionAdded_SectionAddedToSectionsAndSourcePathSet()
+        {
+            // Setup
+            var failureMechanism = new SimpleFailureMechanismBase();
+            string sourcePath = TestHelper.GetScratchPadPath();
 
             var section = new FailureMechanismSection("A", new[]
             {
@@ -165,13 +181,15 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             failureMechanism.SetSections(new[]
             {
                 section
-            });
+            }, sourcePath);
 
             // Assert
             CollectionAssert.AreEqual(new[]
             {
                 section
             }, failureMechanism.Sections);
+
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         [Test]
@@ -199,7 +217,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             {
                 section1,
                 section2
-            });
+            }, string.Empty);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -234,7 +252,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             {
                 section1,
                 section2
-            });
+            }, string.Empty);
 
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
@@ -263,7 +281,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             {
                 section1,
                 section2
-            });
+            }, string.Empty);
 
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
@@ -271,7 +289,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void ClearAllSections_HasSections_ClearSections()
+        public void ClearAllSections_HasSections_ClearSectionsAndSourcePath()
         {
             // Setup
             var section = new FailureMechanismSection("A", new[]
@@ -284,13 +302,14 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             failureMechanism.SetSections(new[]
             {
                 section
-            });
+            }, string.Empty);
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsEmpty(failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         private class SimpleFailureMechanismBase : FailureMechanismBase

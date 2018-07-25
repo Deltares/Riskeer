@@ -149,7 +149,7 @@ namespace Demo.Ringtoets.Commands
                     {
                         // Copy same FailureMechanismSection instances to other failure mechanisms
                         FailureMechanismSection[] clonedSections = failureMechanisms[0].Sections.Select(DeepCloneSection).ToArray();
-                        failureMechanisms[i].AddSections(clonedSections);
+                        failureMechanisms[i].SetSections(clonedSections, string.Empty);
                     }
                 }
             }

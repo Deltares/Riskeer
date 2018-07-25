@@ -101,6 +101,14 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
         }
 
+        public string FailureMechanismSectionSourcePath
+        {
+            get
+            {
+                return sectionCollection.SourcePath;
+            }
+        }
+
         public Comment InputComments { get; }
 
         public Comment OutputComments { get; }
@@ -109,9 +117,19 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         public bool IsRelevant { get; set; }
 
-        public void AddSections(IEnumerable<FailureMechanismSection> sections)
+        public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {
-            sectionCollection.AddRange(sections, string.Empty);
+            if (sections == null)
+            {
+                throw new ArgumentNullException(nameof(sections));
+            }
+
+            if (sourcePath == null)
+            {
+                throw new ArgumentNullException(nameof(sourcePath));
+            }
+
+            sectionCollection.SetSections(sections, sourcePath);
 
             foreach (FailureMechanismSection failureMechanismSection in sections)
             {

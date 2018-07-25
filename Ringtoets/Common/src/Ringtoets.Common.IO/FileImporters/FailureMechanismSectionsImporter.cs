@@ -227,8 +227,7 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             IEnumerable<FailureMechanismSection> snappedSections = SnapReadSectionsToReferenceLine(failureMechanismSections, referenceLine);
 
-            ImportTarget.ClearAllSections();
-            ImportTarget.AddSections(snappedSections);
+            ImportTarget.SetSections(snappedSections, FilePath);
         }
 
         private static IEnumerable<FailureMechanismSection> SnapReadSectionsToReferenceLine(IEnumerable<FailureMechanismSection> failureMechanismSections,
