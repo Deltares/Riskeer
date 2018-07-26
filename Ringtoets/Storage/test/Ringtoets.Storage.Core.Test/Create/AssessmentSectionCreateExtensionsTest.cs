@@ -196,7 +196,6 @@ namespace Ringtoets.Storage.Core.Test.Create
             Assert.IsNull(entity.HydraulicDatabaseLocation);
             Assert.IsNull(entity.HydraulicDatabaseVersion);
             CollectionAssert.IsEmpty(entity.HydraulicLocationEntities);
-            CollectionAssert.IsEmpty(entity.HydraRingPreprocessorEntities);
 
             AssertHydraulicLocationCalculationCollectionEntities(assessmentSection, entity);
         }
@@ -236,72 +235,6 @@ namespace Ringtoets.Storage.Core.Test.Create
             Assert.AreEqual(expectedNrOfHydraulicBoundaryLocations, entity.HydraulicLocationEntities.Count);
 
             AssertHydraulicLocationCalculationCollectionEntities(assessmentSection, entity);
-        }
-
-        [Test]
-        public void Create_HydraulicBoundaryDatabaseLinkedWithCanUsePreprocessorFalse_SetsExpectedPropertiesToEntity()
-        {
-            // Setup
-            const string testFilePath = "path";
-            const string testVersion = "1";
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase =
-                {
-                    FilePath = testFilePath,
-                    Version = testVersion,
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(-1, "name", 1, 2)
-                    }
-                }
-            };
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
-
-            // Assert
-            CollectionAssert.IsEmpty(entity.HydraRingPreprocessorEntities);
-        }
-
-        [Test]
-        public void Create_HydraulicBoundaryDatabaseLinkedWithCanUsePreprocessorTrue_SetsExpectedPropertiesToEntity()
-        {
-            // Setup
-            const string testFilePath = "path";
-            const string testVersion = "1";
-            const bool usePreprocessor = true;
-            const string preprocessorDirectory = "directory";
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase =
-                {
-                    FilePath = testFilePath,
-                    Version = testVersion,
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(-1, "name", 1, 2)
-                    },
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = usePreprocessor,
-                    PreprocessorDirectory = preprocessorDirectory
-                }
-            };
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
-
-            // Assert
-            Assert.AreEqual(1, entity.HydraRingPreprocessorEntities.Count);
-            HydraRingPreprocessorEntity preprocessorEntity = entity.HydraRingPreprocessorEntities.First();
-            Assert.AreEqual(Convert.ToByte(usePreprocessor), preprocessorEntity.UsePreprocessor);
-            Assert.AreEqual(preprocessorDirectory, preprocessorEntity.PreprocessorDirectory);
         }
 
         [Test]

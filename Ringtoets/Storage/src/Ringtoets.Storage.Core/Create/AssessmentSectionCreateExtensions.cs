@@ -123,15 +123,6 @@ namespace Ringtoets.Storage.Core.Create
                 entity.HydraulicDatabaseLocation = hydraulicBoundaryDatabase.FilePath.DeepClone();
                 entity.HydraulicDatabaseVersion = hydraulicBoundaryDatabase.Version.DeepClone();
 
-                if (hydraulicBoundaryDatabase.CanUsePreprocessor)
-                {
-                    entity.HydraRingPreprocessorEntities.Add(new HydraRingPreprocessorEntity
-                    {
-                        UsePreprocessor = Convert.ToByte(hydraulicBoundaryDatabase.UsePreprocessor),
-                        PreprocessorDirectory = hydraulicBoundaryDatabase.PreprocessorDirectory.DeepClone()
-                    });
-                }
-
                 for (var i = 0; i < hydraulicBoundaryDatabase.Locations.Count; i++)
                 {
                     HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations[i];

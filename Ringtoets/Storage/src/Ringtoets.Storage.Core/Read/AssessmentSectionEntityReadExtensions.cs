@@ -122,19 +122,9 @@ namespace Ringtoets.Storage.Core.Read
         {
             if (entity.HydraulicDatabaseLocation != null)
             {
-                HydraRingPreprocessorEntity preprocessorEntity = entity.HydraRingPreprocessorEntities.FirstOrDefault();
-
                 HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-
                 hydraulicBoundaryDatabase.FilePath = entity.HydraulicDatabaseLocation;
                 hydraulicBoundaryDatabase.Version = entity.HydraulicDatabaseVersion;
-
-                if (preprocessorEntity != null)
-                {
-                    hydraulicBoundaryDatabase.CanUsePreprocessor = true;
-                    hydraulicBoundaryDatabase.UsePreprocessor = Convert.ToBoolean(preprocessorEntity.UsePreprocessor);
-                    hydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorEntity.PreprocessorDirectory;
-                }
 
                 HydraulicBoundaryLocation[] readHydraulicBoundaryLocations = entity.HydraulicLocationEntities
                                                                                    .OrderBy(hl => hl.Order)

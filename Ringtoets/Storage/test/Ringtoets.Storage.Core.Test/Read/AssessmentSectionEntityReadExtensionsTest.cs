@@ -387,7 +387,7 @@ namespace Ringtoets.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_WithHydraulicDatabaseLocationWithoutPreprocessor_ReturnsNewAssessmentSectionWithHydraulicDatabaseSet()
+        public void Read_WithHydraulicBoundaryLocationDatabase_ReturnsNewAssessmentSectionWithHydraulicDatabaseSet()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
@@ -417,46 +417,6 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.IsFalse(section.HydraulicBoundaryDatabase.CanUsePreprocessor);
             Assert.IsFalse(section.HydraulicBoundaryDatabase.UsePreprocessor);
             Assert.IsNull(section.HydraulicBoundaryDatabase.PreprocessorDirectory);
-        }
-
-        [Test]
-        public void Read_WithHydraulicDatabaseLocationAndPreprocessor_ReturnsNewAssessmentSectionWithHydraulicDatabaseSet()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            const string testLocation = "testLocation";
-            const string testVersion = "testVersion";
-            const byte usePreprocessor = 1;
-            const string preprocessorDirectory = "preprocessorLocation";
-            entity.HydraulicDatabaseLocation = testLocation;
-            entity.HydraulicDatabaseVersion = testVersion;
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-            entity.HydraRingPreprocessorEntities.Add(new HydraRingPreprocessorEntity
-            {
-                UsePreprocessor = usePreprocessor,
-                PreprocessorDirectory = preprocessorDirectory
-            });
-            entity.HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity2 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity3 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity4 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity5 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity6 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity7 = new HydraulicLocationCalculationCollectionEntity();
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            Assert.AreEqual(testLocation, section.HydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(testVersion, section.HydraulicBoundaryDatabase.Version);
-            Assert.IsTrue(section.HydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.AreEqual(Convert.ToBoolean(usePreprocessor), section.HydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.AreEqual(preprocessorDirectory, section.HydraulicBoundaryDatabase.PreprocessorDirectory);
         }
 
         [Test]
