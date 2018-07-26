@@ -280,6 +280,7 @@
           <Property Name="CalculationGroupEntityId" Type="integer" />
           <Property Name="FailureMechanismType" Type="smallint" Nullable="false" />
           <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
+          <Property Name="FailureMechanismSectionCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="InputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="OutputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="NotRelevantComments" Type="nvarchar" MaxLength="2147483647" />
@@ -5111,6 +5112,7 @@
           <Property Name="CalculationGroupEntityId" Type="Int64" />
           <Property Name="FailureMechanismType" Type="Int16" Nullable="false" />
           <Property Name="IsRelevant" Type="Byte" Nullable="false" />
+          <Property Name="FailureMechanismSectionCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="InputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="OutputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="NotRelevantComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
@@ -8592,6 +8594,7 @@
                 <ScalarProperty Name="NotRelevantComments" ColumnName="NotRelevantComments" />
                 <ScalarProperty Name="OutputComments" ColumnName="OutputComments" />
                 <ScalarProperty Name="InputComments" ColumnName="InputComments" />
+                <ScalarProperty Name="FailureMechanismSectionCollectionSourcePath" ColumnName="FailureMechanismSectionCollectionSourcePath" />
                 <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
                 <ScalarProperty Name="FailureMechanismType" ColumnName="FailureMechanismType" />
                 <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />

@@ -66,6 +66,7 @@ namespace Ringtoets.Storage.Core.DbContext
         public long? CalculationGroupEntityId { get; set; }
         public short FailureMechanismType { get; set; }
         public byte IsRelevant { get; set; }
+        public string FailureMechanismSectionCollectionSourcePath { get; set; }
         public string InputComments { get; set; }
         public string OutputComments { get; set; }
         public string NotRelevantComments { get; set; }
