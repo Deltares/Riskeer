@@ -74,7 +74,6 @@ namespace Ringtoets.Storage.Core.DbContext
         public virtual DbSet<HeightStructuresFailureMechanismMetaEntity> HeightStructuresFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<HeightStructuresOutputEntity> HeightStructuresOutputEntities { get; set; }
         public virtual DbSet<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
-        public virtual DbSet<HydraRingPreprocessorEntity> HydraRingPreprocessorEntities { get; set; }
         public virtual DbSet<HydraulicLocationCalculationCollectionEntity> HydraulicLocationCalculationCollectionEntities { get; set; }
         public virtual DbSet<HydraulicLocationCalculationEntity> HydraulicLocationCalculationEntities { get; set; }
         public virtual DbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
