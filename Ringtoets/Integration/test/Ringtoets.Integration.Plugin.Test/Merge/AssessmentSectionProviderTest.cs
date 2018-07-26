@@ -130,5 +130,39 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.AreEqual(1, assessmentSections.Count());
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void GivenGetAssessmentSectionsAlreadyCalled_WhenCallingAgainWithInvalidFilePath_ThenThrowsAssessmentSectionProviderException()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var provider = new AssessmentSectionProvider(viewParent);
+            string filePath = Path.Combine(testDataPath, "project.rtd");
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(filePath);
+
+            // Precondition
+            Assert.AreEqual(1, assessmentSections.Count());
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            // When
+            TestDelegate call = () => assessmentSections = provider.GetAssessmentSections("filePath");
+
+            // Then
+            Assert.Throws<AssessmentSectionProviderException>(call);
+            mocks.VerifyAll();
+        }
     }
 }

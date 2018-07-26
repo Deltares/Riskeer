@@ -36,7 +36,6 @@ namespace Ringtoets.Integration.Plugin.Merge
     public class AssessmentSectionProvider : IAssessmentSectionProvider
     {
         private readonly IWin32Window viewParent;
-        private readonly AssessmentSectionsOwner assessmentSectionsOwner;
 
         /// <summary>
         /// Initializes a new instance of <see cref="AssessmentSectionProvider"/>.
@@ -52,7 +51,6 @@ namespace Ringtoets.Integration.Plugin.Merge
             }
 
             this.viewParent = viewParent;
-            assessmentSectionsOwner = new AssessmentSectionsOwner();
         }
 
         public IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
@@ -61,6 +59,8 @@ namespace Ringtoets.Integration.Plugin.Merge
             {
                 throw new ArgumentNullException(nameof(filePath));
             }
+
+            var assessmentSectionsOwner = new AssessmentSectionsOwner();
 
             ActivityProgressDialogRunner.Run(viewParent,
                                              LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(
