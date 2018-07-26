@@ -34,12 +34,10 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </summary>
         /// <param name="version">The version of the read hydraulic boundary database.</param>
         /// <param name="locations">The read hydraulic boundary locations.</param>
-        /// <param name="canUsePreprocessor">A value indicating whether the Hydra-Ring preprocessor can be used for the read hydraulic boundary database.</param>
-        public ReadHydraulicBoundaryDatabase(string version, IEnumerable<HydraulicBoundaryLocation> locations, bool canUsePreprocessor)
+        public ReadHydraulicBoundaryDatabase(string version, IEnumerable<HydraulicBoundaryLocation> locations)
         {
             Version = version;
             Locations = locations;
-            CanUsePreprocessor = canUsePreprocessor;
         }
 
         /// <summary>
@@ -51,10 +49,5 @@ namespace Ringtoets.Common.IO.FileImporters
         /// Gets the read hydraulic boundary locations.
         /// </summary>
         public IEnumerable<HydraulicBoundaryLocation> Locations { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether the Hydra-Ring preprocessor can be used for the read hydraulic boundary database.
-        /// </summary>
-        public bool CanUsePreprocessor { get; }
     }
 }

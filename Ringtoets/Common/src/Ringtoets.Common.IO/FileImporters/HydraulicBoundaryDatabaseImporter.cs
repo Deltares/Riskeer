@@ -175,7 +175,7 @@ namespace Ringtoets.Common.IO.FileImporters
                     }
                 }
 
-                return new ReadHydraulicBoundaryDatabase(version, hydraulicBoundaryLocations, canUsePreprocessor);
+                return new ReadHydraulicBoundaryDatabase(version, hydraulicBoundaryLocations);
             }
             catch (Exception e) when (e is LineParseException || e is CriticalFileReadException)
             {

@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.FileImporters;
@@ -38,15 +36,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             const string version = "version";
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = Enumerable.Empty<HydraulicBoundaryLocation>();
-            bool canUsePreprocessor = new Random(11).NextBoolean();
 
             // Call
-            var readHydraulicBoundaryDatabase = new ReadHydraulicBoundaryDatabase(version, hydraulicBoundaryLocations, canUsePreprocessor);
+            var readHydraulicBoundaryDatabase = new ReadHydraulicBoundaryDatabase(version, hydraulicBoundaryLocations);
 
             // Assert
             Assert.AreEqual(version, readHydraulicBoundaryDatabase.Version);
             Assert.AreSame(hydraulicBoundaryLocations, readHydraulicBoundaryDatabase.Locations);
-            Assert.AreEqual(canUsePreprocessor, readHydraulicBoundaryDatabase.CanUsePreprocessor);
         }
     }
 }
