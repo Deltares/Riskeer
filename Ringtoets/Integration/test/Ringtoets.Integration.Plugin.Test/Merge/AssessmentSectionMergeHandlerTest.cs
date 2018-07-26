@@ -142,31 +142,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void PerformMerge_WithAllData_LogMessageAndNotifyObservers()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var handler = new AssessmentSectionMergeHandler(viewCommands);
-            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            targetAssessmentSection.Attach(observer);
-
-            // Call
-            Action call = () => handler.PerformMerge(targetAssessmentSection,
-                                                     new AssessmentSectionMergeData(
-                                                         new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                         new AssessmentSectionMergeData.ConstructionProperties()));
-
-            // Assert
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn samengevoegd.", LogLevelConstant.Info));
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void PerformMerge_WithAllFailureMechanismsToMerge_SetNewFailureMechanisms()
         {
             // Setup
@@ -304,25 +279,25 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                Assert.AreEqual(19, msgs.Length);
-                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Piping' zijn vervangen.", msgs[1]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Grasbekleding erosie kruin en binnentalud' zijn vervangen.", msgs[2]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Macrostabiliteit binnenwaarts' zijn vervangen.", msgs[3]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Macrostabiliteit buitenwaarts' zijn vervangen.", msgs[4]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Microstabiliteit' zijn vervangen.", msgs[5]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Stabiliteit steenzetting' zijn vervangen.", msgs[6]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Golfklappen op asfaltbekleding' zijn vervangen.", msgs[7]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Wateroverdruk bij asfaltbekleding' zijn vervangen.", msgs[8]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Grasbekleding erosie buitentalud' zijn vervangen.", msgs[9]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Grasbekleding afschuiven buitentalud' zijn vervangen.", msgs[10]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Grasbekleding afschuiven binnentalud' zijn vervangen.", msgs[11]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Kunstwerken - Hoogte kunstwerk' zijn vervangen.", msgs[12]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Kunstwerken - Betrouwbaarheid sluiting kunstwerk' zijn vervangen.", msgs[13]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Kunstwerken - Piping bij kunstwerk' zijn vervangen.", msgs[14]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Kunstwerken - Sterkte en stabiliteit puntconstructies' zijn vervangen.", msgs[15]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Kunstwerken - Sterkte en stabiliteit langsconstructies' zijn vervangen.", msgs[16]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Duinwaterkering - Duinafslag' zijn vervangen.", msgs[17]);
-                Assert.AreEqual("Gegevens van toetsspoor 'Technische innovaties - Technische innovaties' zijn vervangen.", msgs[18]);
+                Assert.AreEqual(18, msgs.Length);
+                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Piping' zijn vervangen.", msgs[0]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Grasbekleding erosie kruin en binnentalud' zijn vervangen.", msgs[1]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Macrostabiliteit binnenwaarts' zijn vervangen.", msgs[2]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Macrostabiliteit buitenwaarts' zijn vervangen.", msgs[3]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Microstabiliteit' zijn vervangen.", msgs[4]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Stabiliteit steenzetting' zijn vervangen.", msgs[5]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Golfklappen op asfaltbekleding' zijn vervangen.", msgs[6]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Wateroverdruk bij asfaltbekleding' zijn vervangen.", msgs[7]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Grasbekleding erosie buitentalud' zijn vervangen.", msgs[8]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Grasbekleding afschuiven buitentalud' zijn vervangen.", msgs[9]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Dijken en dammen - Grasbekleding afschuiven binnentalud' zijn vervangen.", msgs[10]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Kunstwerken - Hoogte kunstwerk' zijn vervangen.", msgs[11]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Kunstwerken - Betrouwbaarheid sluiting kunstwerk' zijn vervangen.", msgs[12]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Kunstwerken - Piping bij kunstwerk' zijn vervangen.", msgs[13]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Kunstwerken - Sterkte en stabiliteit puntconstructies' zijn vervangen.", msgs[14]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Kunstwerken - Sterkte en stabiliteit langsconstructies' zijn vervangen.", msgs[15]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Duinwaterkering - Duinafslag' zijn vervangen.", msgs[16]);
+                Assert.AreEqual("Gegevens van toetsspoor 'Technische innovaties - Technische innovaties' zijn vervangen.", msgs[17]);
             });
         }
 
@@ -800,7 +775,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
         [Test]
         [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
-        public void PerformMerge_HydraulicBoundaryLocationCalculationsMerged_ObserversNotified(
+        public void PerformMerge_HydraulicBoundaryLocationCalculationsMerged_ObserversNotifiedAndMessageLogged(
             Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
@@ -830,12 +805,54 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(viewCommands);
 
             // Call
-            handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(
-                                     sourceAssessmentSection,
-                                     new AssessmentSectionMergeData.ConstructionProperties()));
+            Action call = () => handler.PerformMerge(targetAssessmentSection,
+                                                     new AssessmentSectionMergeData(
+                                                         sourceAssessmentSection,
+                                                         new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn samengevoegd.", LogLevelConstant.Info));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculationFuncs))]
+        public void PerformMerge_HydraulicBoundaryLocationCalculationsNotMerged_ObserversNotNotifiedAndNoMessageLogged(
+            Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation[] locations =
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
+
+            targetCalculations.ForEachElementDo(calculation => calculation.Attach(observer));
+
+            SetOutput(targetCalculations);
+            SetOutput(sourceCalculations);
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Call
+            Action call = () => handler.PerformMerge(targetAssessmentSection,
+                                                     new AssessmentSectionMergeData(
+                                                         sourceAssessmentSection,
+                                                         new AssessmentSectionMergeData.ConstructionProperties()));
+
+            // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
             mocks.VerifyAll();
         }
 

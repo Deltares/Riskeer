@@ -132,7 +132,10 @@ namespace Ringtoets.Integration.Plugin.Merge
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                                                                                sourceAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm));
 
-            log.Info(Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged);
+            if (changedObjects.Any())
+            {
+                log.Info(Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged);
+            }
 
             return changedObjects;
         }
