@@ -37,16 +37,5 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabase
             const string expectedQuery = "SELECT LocationId, HRDLocationId FROM Locations WHERE TrackId = @TrackId ORDER BY HRDLocationId;";
             Assert.AreEqual(expectedQuery, query);
         }
-
-        [Test]
-        public void GetRegionByTrackIdQuery_Always_ReturnsExpectedValues()
-        {
-            // Call
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetRegionByTrackIdQuery();
-
-            // Assert
-            const string expectedQuery = "SELECT * FROM Regions LEFT JOIN Tracks ON Regions.RegionId = Tracks.RegionId WHERE Tracks.TrackId = @TrackId";
-            Assert.AreEqual(expectedQuery, query);
-        }
     }
 }

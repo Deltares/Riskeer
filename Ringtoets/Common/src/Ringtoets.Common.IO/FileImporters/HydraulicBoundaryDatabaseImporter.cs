@@ -151,7 +151,6 @@ namespace Ringtoets.Common.IO.FileImporters
             try
             {
                 string version = hydraulicBoundaryDatabaseReader.GetVersion();
-                bool canUsePreprocessor = hydraulicLocationConfigurationDatabaseReader.GetCanUsePreprocessorByTrackId(trackId);
                 var hydraulicBoundaryLocations = new List<HydraulicBoundaryLocation>();
 
                 Dictionary<long, long> locationIdsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationIdsByTrackId(trackId);

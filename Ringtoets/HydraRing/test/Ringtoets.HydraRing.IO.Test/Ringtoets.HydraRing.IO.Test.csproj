@@ -28,8 +28,6 @@
     <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseQueryBuilderTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseReaderTest.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\LocationsTableDefinitionsTest.cs" />
-    <Compile Include="HydraulicLocationConfigurationDatabase\RegionsTableDefinitionsTest.cs" />
-    <Compile Include="HydraulicLocationConfigurationDatabase\TracksTableDefinitionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

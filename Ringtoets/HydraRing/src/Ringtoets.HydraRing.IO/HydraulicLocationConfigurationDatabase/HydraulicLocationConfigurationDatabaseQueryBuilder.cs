@@ -37,17 +37,5 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
                    $"WHERE {LocationsTableDefinitions.TrackId} = @{LocationsTableDefinitions.TrackId} " +
                    $"ORDER BY {LocationsTableDefinitions.HrdLocationId};";
         }
-
-        /// <summary>
-        /// Gets the query to get region information from the database.
-        /// </summary>
-        /// <returns>The query to get region information from the database.</returns>
-        public static string GetRegionByTrackIdQuery()
-        {
-            return $"SELECT * FROM {RegionsTableDefinitions.TableName} " +
-                   $"LEFT JOIN {TracksTableDefinitions.TableName} " +
-                   $"ON {RegionsTableDefinitions.TableName}.{RegionsTableDefinitions.RegionId} = {TracksTableDefinitions.TableName}.{TracksTableDefinitions.RegionId} " +
-                   $"WHERE {TracksTableDefinitions.TableName}.{TracksTableDefinitions.TrackId} = @{TracksTableDefinitions.TrackId}";
-        }
     }
 }

@@ -18,7 +18,6 @@
       <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\lib\net40\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HydraulicBoundaryDatabase\GeneralTableDefinitions.cs" />
@@ -29,8 +28,6 @@
     <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseReader.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\HydraulicLocationConfigurationDatabaseQueryBuilder.cs" />
     <Compile Include="HydraulicLocationConfigurationDatabase\LocationsTableDefinitions.cs" />
-    <Compile Include="HydraulicLocationConfigurationDatabase\RegionsTableDefinitions.cs" />
-    <Compile Include="HydraulicLocationConfigurationDatabase\TracksTableDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
