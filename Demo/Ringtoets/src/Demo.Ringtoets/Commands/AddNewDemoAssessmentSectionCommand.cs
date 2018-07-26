@@ -134,22 +134,25 @@ namespace Demo.Ringtoets.Commands
                                                                                    "traject_6-3_vakken.shx"))
             {
                 IFailureMechanism[] failureMechanisms = demoAssessmentSection.GetFailureMechanisms().ToArray();
+
+                string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
+                                               "traject_6-3_vakken.shp");
+
                 for (var i = 0; i < failureMechanisms.Length; i++)
                 {
-                    
                     if (i == 0)
                     {
+                        
                         var importer = new FailureMechanismSectionsImporter(failureMechanisms[i],
                                                                             demoAssessmentSection.ReferenceLine,
-                                                                            Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
-                                                                                         "traject_6-3_vakken.shp"));
+                                                                            filePath);
                         importer.Import();
                     }
                     else
                     {
                         // Copy same FailureMechanismSection instances to other failure mechanisms
                         FailureMechanismSection[] clonedSections = failureMechanisms[0].Sections.Select(DeepCloneSection).ToArray();
-                        failureMechanisms[i].SetSections(clonedSections, string.Empty);
+                        failureMechanisms[i].SetSections(clonedSections, filePath);
                     }
                 }
             }
