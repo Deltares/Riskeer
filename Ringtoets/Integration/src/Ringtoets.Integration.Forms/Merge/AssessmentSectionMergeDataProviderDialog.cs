@@ -118,7 +118,6 @@ namespace Ringtoets.Integration.Forms.Merge
 
         private void InitializeComboBox()
         {
-            assessmentSectionComboBox.DisplayMember = nameof(AssessmentSection.Name);
             assessmentSectionComboBox.SelectedIndexChanged += AssessmentSectionComboBoxOnSelectedIndexChanged;
         }
 
@@ -172,6 +171,7 @@ namespace Ringtoets.Integration.Forms.Merge
         {
             assessmentSectionComboBox.DataSource = null;
             assessmentSectionComboBox.DataSource = assessmentSections.ToArray();
+            assessmentSectionComboBox.DisplayMember = nameof(AssessmentSection.Name);
         }
 
         private void SetDataGridViewData(AssessmentSection assessmentSection)
