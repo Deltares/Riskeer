@@ -119,14 +119,73 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void PerformMerge_WithAllData_AllViewsForTargetAssessmentSectionClosed()
+        public void PerformMerge_WithAllFailureMechanismsToMerge_AllViewsForFailureMechanismsClosed()
         {
             // Setup
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.Piping));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.GrassCoverErosionInwards));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.MacroStabilityInwards));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.MacroStabilityOutwards));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.Microstability));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.StabilityStoneCover));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.WaveImpactAsphaltCover));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.WaterPressureAsphaltCover));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.GrassCoverErosionOutwards));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.GrassCoverSlipOffOutwards));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.GrassCoverSlipOffInwards));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.HeightStructures));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.ClosingStructures));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.PipingStructure));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.StabilityPointStructures));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.StrengthStabilityLengthwiseConstruction));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.DuneErosion));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection.TechnicalInnovation));
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Call
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSectionMergeData(
+                                     new AssessmentSection(AssessmentSectionComposition.Dike),
+                                     new AssessmentSectionMergeData.ConstructionProperties
+                                     {
+                                         MergePiping = true,
+                                         MergeGrassCoverErosionInwards = true,
+                                         MergeMacroStabilityInwards = true,
+                                         MergeMacroStabilityOutwards = true,
+                                         MergeMicrostability = true,
+                                         MergeStabilityStoneCover = true,
+                                         MergeWaveImpactAsphaltCover = true,
+                                         MergeWaterPressureAsphaltCover = true,
+                                         MergeGrassCoverErosionOutwards = true,
+                                         MergeGrassCoverSlipOffOutwards = true,
+                                         MergeGrassCoverSlipOffInwards = true,
+                                         MergeHeightStructures = true,
+                                         MergeClosingStructures = true,
+                                         MergePipingStructure = true,
+                                         MergeStabilityPointStructures = true,
+                                         MergeStrengthStabilityLengthwiseConstruction = true,
+                                         MergeDuneErosion = true,
+                                         MergeTechnicalInnovation = true
+                                     }));
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void PerformMerge_WithNoFailureMechanismsToMerge_NoViewsClosed()
+        {
+            // Setup
+            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var mocks = new MockRepository();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(viewCommands);

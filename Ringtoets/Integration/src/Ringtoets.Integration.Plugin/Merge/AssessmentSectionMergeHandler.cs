@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                 throw new ArgumentNullException(nameof(mergeData));
             }
 
-            BeforeMerge(targetAssessmentSection);
+            BeforeMerge(targetAssessmentSection, mergeData);
 
             var changedObjects = new List<IObservable>
             {
@@ -98,9 +98,34 @@ namespace Ringtoets.Integration.Plugin.Merge
             AfterMerge(changedObjects);
         }
 
-        private void BeforeMerge(AssessmentSection assessmentSection)
+        private void BeforeMerge(AssessmentSection assessmentSection, AssessmentSectionMergeData mergeData)
         {
-            viewCommands.RemoveAllViewsForItem(assessmentSection);
+            CloseViewForFailureMechanism(mergeData.MergePiping, assessmentSection.Piping);
+            CloseViewForFailureMechanism(mergeData.MergeGrassCoverErosionInwards, assessmentSection.GrassCoverErosionInwards);
+            CloseViewForFailureMechanism(mergeData.MergeMacroStabilityInwards, assessmentSection.MacroStabilityInwards);
+            CloseViewForFailureMechanism(mergeData.MergeMacroStabilityOutwards, assessmentSection.MacroStabilityOutwards);
+            CloseViewForFailureMechanism(mergeData.MergeMicrostability, assessmentSection.Microstability);
+            CloseViewForFailureMechanism(mergeData.MergeStabilityStoneCover, assessmentSection.StabilityStoneCover);
+            CloseViewForFailureMechanism(mergeData.MergeWaveImpactAsphaltCover, assessmentSection.WaveImpactAsphaltCover);
+            CloseViewForFailureMechanism(mergeData.MergeWaterPressureAsphaltCover, assessmentSection.WaterPressureAsphaltCover);
+            CloseViewForFailureMechanism(mergeData.MergeGrassCoverErosionOutwards, assessmentSection.GrassCoverErosionOutwards);
+            CloseViewForFailureMechanism(mergeData.MergeGrassCoverSlipOffOutwards, assessmentSection.GrassCoverSlipOffOutwards);
+            CloseViewForFailureMechanism(mergeData.MergeGrassCoverSlipOffInwards, assessmentSection.GrassCoverSlipOffInwards);
+            CloseViewForFailureMechanism(mergeData.MergeHeightStructures, assessmentSection.HeightStructures);
+            CloseViewForFailureMechanism(mergeData.MergeClosingStructures, assessmentSection.ClosingStructures);
+            CloseViewForFailureMechanism(mergeData.MergePipingStructure, assessmentSection.PipingStructure);
+            CloseViewForFailureMechanism(mergeData.MergeStabilityPointStructures, assessmentSection.StabilityPointStructures);
+            CloseViewForFailureMechanism(mergeData.MergeStrengthStabilityLengthwiseConstruction, assessmentSection.StrengthStabilityLengthwiseConstruction);
+            CloseViewForFailureMechanism(mergeData.MergeDuneErosion, assessmentSection.DuneErosion);
+            CloseViewForFailureMechanism(mergeData.MergeTechnicalInnovation, assessmentSection.TechnicalInnovation);
+        }
+
+        private void CloseViewForFailureMechanism(bool shouldClose, IFailureMechanism failureMechanism)
+        {
+            if (shouldClose)
+            {
+                viewCommands.RemoveAllViewsForItem(failureMechanism);
+            }
         }
 
         private static void AfterMerge(IEnumerable<IObservable> changedObjects)
