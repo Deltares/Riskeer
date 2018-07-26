@@ -111,7 +111,6 @@ namespace Ringtoets.Storage.Core.Test.Read
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
-            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
         }
 
         [Test]
@@ -311,8 +310,6 @@ namespace Ringtoets.Storage.Core.Test.Read
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
-            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
 
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForFactorizedSignalingNorm);
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForSignalingNorm);
@@ -414,9 +411,6 @@ namespace Ringtoets.Storage.Core.Test.Read
             // Assert
             Assert.AreEqual(testLocation, section.HydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(testVersion, section.HydraulicBoundaryDatabase.Version);
-            Assert.IsFalse(section.HydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.IsFalse(section.HydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.IsNull(section.HydraulicBoundaryDatabase.PreprocessorDirectory);
         }
 
         [Test]

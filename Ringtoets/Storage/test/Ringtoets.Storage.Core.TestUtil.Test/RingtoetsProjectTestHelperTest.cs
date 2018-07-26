@@ -497,9 +497,6 @@ namespace Ringtoets.Storage.Core.TestUtil.Test
         {
             Assert.AreEqual("1.0", hydraulicBoundaryDatabase.Version);
             Assert.AreEqual("/temp/test", hydraulicBoundaryDatabase.FilePath);
-            Assert.IsTrue(hydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.IsTrue(hydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.AreEqual("/temp/preprocessor", hydraulicBoundaryDatabase.PreprocessorDirectory);
             Assert.AreEqual(2, hydraulicBoundaryDatabase.Locations.Count);
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations[0];

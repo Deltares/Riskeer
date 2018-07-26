@@ -83,10 +83,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = "/temp/test",
-                    Version = "1.0",
-                    CanUsePreprocessor = true,
-                    UsePreprocessor = true,
-                    PreprocessorDirectory = "/temp/preprocessor"
+                    Version = "1.0"
                 },
                 ReferenceLine = GetReferenceLine(),
                 Id = "12-2",
