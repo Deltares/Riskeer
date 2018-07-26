@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_WithValidArguments_NewPropertiesWithSectionsAsData()
+        public void CreateInstance_WithValidArguments_NewPropertiesWithFailureMechanismAsData()
         {
             // Setup
             var mocks = new MockRepository();
@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionsProbabilityAssessmentProperties>(objectProperties);
-            Assert.AreSame(failureMechanismSectionsContext.WrappedData.Sections, objectProperties.Data);
+            Assert.AreSame(failureMechanismSectionsContext.WrappedData, objectProperties.Data);
             mocks.VerifyAll();
         }
     }

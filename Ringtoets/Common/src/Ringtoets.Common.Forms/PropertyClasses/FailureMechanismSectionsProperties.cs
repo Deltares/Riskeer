@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -34,25 +33,20 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSection"/>.
+    /// ViewModel of <see cref="IFailureMechanism"/> for the properties panel
+    /// to show a collection of <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public class FailureMechanismSectionsProperties : ObjectProperties<IEnumerable<FailureMechanismSection>>, IDisposable
+    public class FailureMechanismSectionsProperties : ObjectProperties<IFailureMechanism>, IDisposable
     {
         private readonly Observer failureMechanismObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionsProperties"/>.
         /// </summary>
-        /// <param name="sections">The sections to show the properties for.</param>
-        /// <param name="failureMechanism">The failure mechanism which the sections belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionsProperties(IEnumerable<FailureMechanismSection> sections, IFailureMechanism failureMechanism)
+        /// <param name="failureMechanism">The failure mechanism to show the section properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public FailureMechanismSectionsProperties(IFailureMechanism failureMechanism)
         {
-            if (sections == null)
-            {
-                throw new ArgumentNullException(nameof(sections));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -63,7 +57,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 Observable = failureMechanism
             };
 
-            data = sections;
+            data = failureMechanism;
         }
 
         [PropertyOrder(1)]
@@ -75,7 +69,19 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(section => new FailureMechanismSectionProperties(section)).ToArray();
+                return data.Sections.Select(section => new FailureMechanismSectionProperties(section)).ToArray();
+            }
+        }
+
+        [PropertyOrder(2)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ObservableCollectionWithSourcePath_SourcePath_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSections_SourcePath_Description))]
+        public string SourcePath
+        {
+            get
+            {
+                return data.FailureMechanismSectionSourcePath;
             }
         }
 
