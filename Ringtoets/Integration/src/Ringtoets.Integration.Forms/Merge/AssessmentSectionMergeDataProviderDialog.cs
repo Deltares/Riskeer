@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Forms.Merge
                 throw new ArgumentException($@"{nameof(assessmentSections)} must at least have one element.", nameof(assessmentSections));
             }
 
-            assessmentSectionComboBox.DataSource = assessmentSections.ToArray();
+            SetComboBoxData(assessmentSections);
 
             if (ShowDialog() == DialogResult.OK)
             {
@@ -119,6 +119,7 @@ namespace Ringtoets.Integration.Forms.Merge
         private void InitializeComboBox()
         {
             assessmentSectionComboBox.DisplayMember = nameof(AssessmentSection.Name);
+            assessmentSectionComboBox.SelectedIndexChanged += AssessmentSectionComboBoxOnSelectedIndexChanged;
         }
 
         private void InitializeDataGridView()
@@ -153,7 +154,7 @@ namespace Ringtoets.Integration.Forms.Merge
 
         #region Event Handling
 
-        private void AssessmentSectionComboBox_OnSelectedIndexChanged(object sender, EventArgs eventArgs)
+        private void AssessmentSectionComboBoxOnSelectedIndexChanged(object sender, EventArgs eventArgs)
         {
             if (assessmentSectionComboBox.SelectedIndex == -1)
             {
@@ -166,6 +167,12 @@ namespace Ringtoets.Integration.Forms.Merge
         #endregion
 
         #region Data Setters
+
+        private void SetComboBoxData(IEnumerable<AssessmentSection> assessmentSections)
+        {
+            assessmentSectionComboBox.DataSource = null;
+            assessmentSectionComboBox.DataSource = assessmentSections.ToArray();
+        }
 
         private void SetDataGridViewData(AssessmentSection assessmentSection)
         {
