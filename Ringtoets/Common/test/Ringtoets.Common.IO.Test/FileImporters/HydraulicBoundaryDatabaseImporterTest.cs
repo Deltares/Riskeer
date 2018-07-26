@@ -194,8 +194,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
-            string directory = Path.Combine(testDataPath, "WithUsePreprocessor");
-            string validFilePath = Path.Combine(directory, "completeUsePreprocessorFalse.sqlite");
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             // Call
             var importResult = false;
@@ -209,7 +208,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             });
             Assert.IsTrue(importResult);
             IEnumerable<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            Assert.AreEqual(9, importedLocations.Count());
+            Assert.AreEqual(18, importedLocations.Count());
             CollectionAssert.AllItemsAreNotNull(importedLocations);
             CollectionAssert.AllItemsAreUnique(importedLocations);
             mocks.VerifyAll();
