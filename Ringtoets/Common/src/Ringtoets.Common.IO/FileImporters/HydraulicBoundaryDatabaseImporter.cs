@@ -82,17 +82,6 @@ namespace Ringtoets.Common.IO.FileImporters
             hydraulicBoundaryDatabase.Locations.Clear();
             hydraulicBoundaryDatabase.Locations.AddRange(readHydraulicBoundaryDatabase.Locations);
 
-            if (readHydraulicBoundaryDatabase.CanUsePreprocessor)
-            {
-                hydraulicBoundaryDatabase.CanUsePreprocessor = true;
-                hydraulicBoundaryDatabase.UsePreprocessor = true;
-                hydraulicBoundaryDatabase.PreprocessorDirectory = Path.GetDirectoryName(filePath);
-            }
-            else
-            {
-                hydraulicBoundaryDatabase.CanUsePreprocessor = false;
-            }
-
             log.Info(Resources.HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read);
 
             return true;

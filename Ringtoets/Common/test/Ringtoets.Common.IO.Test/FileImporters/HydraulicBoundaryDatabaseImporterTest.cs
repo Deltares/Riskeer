@@ -187,7 +187,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ValidFileWithCanUsePreprocessorFalse_DataImported()
+        public void Import_ValidFile_DataImported()
         {
             // Setup
             var mocks = new MockRepository();
@@ -208,41 +208,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 StringAssert.EndsWith("De hydraulische randvoorwaardenlocaties zijn ingelezen.", messageArray[0]);
             });
             Assert.IsTrue(importResult);
-            Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
             IEnumerable<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(9, importedLocations.Count());
-            CollectionAssert.AllItemsAreNotNull(importedLocations);
-            CollectionAssert.AllItemsAreUnique(importedLocations);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Import_ValidFileWithCanUsePreprocessorTrue_DataImported()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-            mocks.ReplayAll();
-
-            string directory = Path.Combine(testDataPath, "WithUsePreprocessor");
-            string validFilePath = Path.Combine(directory, "completeUsePreprocessorTrue.sqlite");
-
-            // Call
-            var importResult = false;
-            Action call = () => importResult = importer.Import(assessmentSection, validFilePath);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] messageArray = messages.ToArray();
-                StringAssert.EndsWith("De hydraulische randvoorwaardenlocaties zijn ingelezen.", messageArray[0]);
-            });
-            Assert.IsTrue(importResult);
-            Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor);
-            Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor);
-            Assert.AreEqual(directory, assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory);
-            IEnumerable<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            Assert.AreEqual(106, importedLocations.Count());
             CollectionAssert.AllItemsAreNotNull(importedLocations);
             CollectionAssert.AllItemsAreUnique(importedLocations);
             mocks.VerifyAll();
