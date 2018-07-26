@@ -86,7 +86,6 @@ namespace Ringtoets.Migration.Integration.Test
                     AssertHydraulicBoundaryLocationsOnGrassCoverErosionOutwardsFailureMechanism(reader, sourceFilePath);
 
                     AssertPipingSoilLayers(reader);
-                    AssertHydraRingPreprocessor(reader);
                     AssertStabilityStoneCoverFailureMechanism(reader);
                     AssertMacroStabilityOutwardsFailureMechanism(reader);
                     AssertPipingStructureFailureMechanism(reader);
@@ -487,14 +486,6 @@ namespace Ringtoets.Migration.Integration.Test
             const string validateForeignKeys =
                 "PRAGMA foreign_keys;";
             reader.AssertReturnedDataIsValid(validateForeignKeys);
-        }
-
-        private static void AssertHydraRingPreprocessor(MigratedDatabaseReader reader)
-        {
-            const string validatePreprocessorSettings =
-                "SELECT COUNT() = 0 " +
-                "FROM [HydraRingPreprocessorEntity];";
-            reader.AssertReturnedDataIsValid(validatePreprocessorSettings);
         }
 
         private static void AssertPipingSoilLayers(MigratedDatabaseReader reader)

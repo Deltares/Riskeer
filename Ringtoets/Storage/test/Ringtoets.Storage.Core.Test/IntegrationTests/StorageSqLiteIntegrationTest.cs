@@ -2085,9 +2085,6 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedBoundaryDatabase.Version, actualBoundaryDatabase.Version);
             Assert.AreEqual(expectedBoundaryDatabase.FilePath, actualBoundaryDatabase.FilePath);
             Assert.AreEqual(expectedBoundaryDatabase.Locations.Count, actualBoundaryDatabase.Locations.Count);
-            Assert.AreEqual(expectedBoundaryDatabase.CanUsePreprocessor, actualBoundaryDatabase.CanUsePreprocessor);
-            Assert.AreEqual(expectedBoundaryDatabase.UsePreprocessor, actualBoundaryDatabase.UsePreprocessor);
-            Assert.AreEqual(expectedBoundaryDatabase.PreprocessorDirectory, actualBoundaryDatabase.PreprocessorDirectory);
 
             AssertHydraulicBoundaryLocations(expectedBoundaryDatabase.Locations, actualBoundaryDatabase.Locations);
         }
