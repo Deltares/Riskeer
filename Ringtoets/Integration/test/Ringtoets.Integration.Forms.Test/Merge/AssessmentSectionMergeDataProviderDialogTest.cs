@@ -289,7 +289,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
-        public void GivenValidDialog_WhenGetMergeDataCalledAndDataSelectedAndImportPressed_ThenReturnsSelectedData()
+        public void GivenValidDialog_WhenGetMergeDataCalledAndOnlyAssessmentSectionSelectedAndImportPressed_ThenReturnsSelectedData()
         {
             // Given
             var random = new Random(21);

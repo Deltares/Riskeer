@@ -595,7 +595,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => !c.Output.HasGeneralResult));
             Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
-            
+
             // When
             handler.PerformMerge(targetAssessmentSection,
                                  new AssessmentSectionMergeData(

@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Merge;
 
 namespace Ringtoets.Integration.Data.Test.Merge
@@ -56,7 +53,7 @@ namespace Ringtoets.Integration.Data.Test.Merge
         }
 
         [Test]
-        public void Constructor_EmptyProperties_ExpectedValues()
+        public void Constructor_DefaultProperties_ExpectedValues()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);

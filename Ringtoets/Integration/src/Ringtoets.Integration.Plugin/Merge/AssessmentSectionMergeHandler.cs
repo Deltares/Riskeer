@@ -175,11 +175,6 @@ namespace Ringtoets.Integration.Plugin.Merge
 
         #region FailureMechanisms
 
-        /// <summary>
-        /// Merge the failure mechanism to the <paramref name="targetAssessmentSection"/>.
-        /// </summary>
-        /// <param name="targetAssessmentSection">The assessment section to merge to.</param>
-        /// <param name="mergeData">The data to merge.</param>
         private static void MergeFailureMechanisms(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData)
         {
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = targetAssessmentSection.HydraulicBoundaryDatabase.Locations;

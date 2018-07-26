@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Data.Merge
         /// </summary>
         /// <param name="assessmentSection">The assessment section to merge.</param>
         /// <param name="properties">The container of the properties for the
-        ///     <see cref="AssessmentSectionMergeData"/>.</param>
+        /// <see cref="AssessmentSectionMergeData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public AssessmentSectionMergeData(AssessmentSection assessmentSection,
                                           ConstructionProperties properties)
