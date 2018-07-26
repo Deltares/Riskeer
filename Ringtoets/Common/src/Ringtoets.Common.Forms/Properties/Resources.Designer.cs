@@ -1937,6 +1937,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locatie van het bestand waaruit de vakindeling is geïmporteerd..
+        /// </summary>
+        public static string FailureMechanismSections_SourcePath_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismSections_SourcePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to startpunten.
         /// </summary>
         public static string FailureMechanismSections_StartPoints_DisplayName {

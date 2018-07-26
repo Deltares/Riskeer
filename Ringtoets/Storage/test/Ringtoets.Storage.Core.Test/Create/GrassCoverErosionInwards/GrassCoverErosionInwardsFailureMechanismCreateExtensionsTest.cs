@@ -29,7 +29,6 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.GrassCoverErosionInwards;
 using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
 {
@@ -152,7 +151,10 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

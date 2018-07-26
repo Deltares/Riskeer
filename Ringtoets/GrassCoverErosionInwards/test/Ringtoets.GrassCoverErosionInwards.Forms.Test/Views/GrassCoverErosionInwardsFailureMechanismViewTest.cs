@@ -152,9 +152,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             };
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
-            failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
-            failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("A", geometryPoints.Take(2)),
+                new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)),
+                new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2))
+            });
 
             failureMechanism.DikeProfiles.AddRange(new[]
             {
@@ -350,11 +353,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 mocks.ReplayAll();
 
                 // When
-                failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
-                    new Point2D(1, 2),
-                    new Point2D(1, 2)
-                }));
+                    new FailureMechanismSection(string.Empty, new[]
+                    {
+                        new Point2D(1, 2),
+                        new Point2D(1, 2)
+                    })
+                });
                 failureMechanism.NotifyObservers();
 
                 // Then

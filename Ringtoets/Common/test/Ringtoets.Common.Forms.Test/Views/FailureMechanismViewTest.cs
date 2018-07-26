@@ -149,9 +149,12 @@ namespace Ringtoets.Common.Forms.Test.Views
             });
 
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
-            failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
-            failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("A", geometryPoints.Take(2)),
+                new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)),
+                new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2))
+            });
 
             // Call
             using (var view = new FailureMechanismView<TestFailureMechanism>(failureMechanism, assessmentSection))
@@ -313,11 +316,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
                 // Call
-                failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
-                    new Point2D(1, 2),
-                    new Point2D(1, 2)
-                }));
+                    new FailureMechanismSection(string.Empty, new[]
+                    {
+                        new Point2D(1, 2),
+                        new Point2D(1, 2)
+                    })
+                });
                 failureMechanism.NotifyObservers();
 
                 // Assert

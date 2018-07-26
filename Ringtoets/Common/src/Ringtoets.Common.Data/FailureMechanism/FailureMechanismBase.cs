@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -38,7 +37,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     public abstract class FailureMechanismBase : Observable, IFailureMechanism
     {
         private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
-        private readonly List<FailureMechanismSection> sections;
+        private readonly FailureMechanismSectionCollection sectionCollection;
         private double contribution;
 
         /// <summary>
@@ -60,7 +59,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             Name = name;
             Code = failureMechanismCode;
             Group = group;
-            sections = new List<FailureMechanismSection>();
+            sectionCollection = new FailureMechanismSectionCollection();
             IsRelevant = true;
             InputComments = new Comment();
             OutputComments = new Comment();
@@ -98,7 +97,15 @@ namespace Ringtoets.Common.Data.FailureMechanism
         {
             get
             {
-                return sections;
+                return sectionCollection;
+            }
+        }
+
+        public string FailureMechanismSectionSourcePath
+        {
+            get
+            {
+                return sectionCollection.SourcePath;
             }
         }
 
@@ -110,27 +117,36 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         public bool IsRelevant { get; set; }
 
-        public virtual void AddSection(FailureMechanismSection section)
+        public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {
-            if (section == null)
+            if (sections == null)
             {
-                throw new ArgumentNullException(nameof(section));
+                throw new ArgumentNullException(nameof(sections));
             }
 
-            if (!sections.Any())
+            if (sourcePath == null)
             {
-                sections.Add(section);
+                throw new ArgumentNullException(nameof(sourcePath));
             }
-            else
+
+            ClearSectionResults();
+            sectionCollection.SetSections(sections, sourcePath);
+
+            foreach (FailureMechanismSection failureMechanismSection in Sections)
             {
-                InsertSectionWhileMaintainingConnectivityOrder(section);
+                AddSectionResult(failureMechanismSection);
             }
         }
 
-        public virtual void ClearAllSections()
+        public void ClearAllSections()
         {
-            sections.Clear();
+            sectionCollection.Clear();
+            ClearSectionResults();
         }
+
+        protected virtual void AddSectionResult(FailureMechanismSection section) {}
+
+        protected virtual void ClearSectionResults() {}
 
         private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)
         {
@@ -143,27 +159,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
             if (string.IsNullOrEmpty(failureMechanismCode))
             {
                 throw new ArgumentException(parameterIsRequired, nameof(failureMechanismCode));
-            }
-        }
-
-        /// <summary>
-        /// Inserts the section to <see cref="Sections"/> while maintaining connectivity
-        /// order (neighboring <see cref="FailureMechanismSection"/> have same end points).
-        /// </summary>
-        /// <param name="sectionToInsert">The new section.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="sectionToInsert"/> cannot
-        /// be connected to elements already defined in <see cref="Sections"/>.</exception>
-        private void InsertSectionWhileMaintainingConnectivityOrder(FailureMechanismSection sectionToInsert)
-        {
-            if (sections.Last().EndPoint.Equals(sectionToInsert.StartPoint))
-            {
-                sections.Add(sectionToInsert);
-            }
-            else
-            {
-                string message = string.Format(Resources.BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections,
-                                               sectionToInsert.Name);
-                throw new ArgumentException(message, nameof(sectionToInsert));
             }
         }
     }

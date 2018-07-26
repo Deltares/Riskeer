@@ -70,7 +70,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            failureMechanism.AddSection(section);
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
@@ -79,29 +82,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsCleared()
+        public void ClearAllSections_WithSectionResults_SectionResultsCleared()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new Point2D(2, 1)
-            }));
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-            {
-                new Point2D(2, 1)
-            }));
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(2, 1)
+                }),
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(2, 1)
+                })
+            });
 
             // Precondition
-            Assert.AreEqual(2, failureMechanism.Sections.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 

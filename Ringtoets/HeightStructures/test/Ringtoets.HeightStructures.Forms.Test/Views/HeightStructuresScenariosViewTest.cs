@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -202,7 +203,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void NotifyFailureMechanism_SectionsAddedAfterFullInitialization_NewRowAddedToView()
+        public void NotifyFailureMechanism_SectionsUpdatedAfterFullInitialization_NewRowAddedToView()
         {
             // Setup
             using (HeightStructuresScenariosView view = ShowScenariosView())
@@ -211,7 +212,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                view.FailureMechanism.AddSection(new FailureMechanismSection("SectionC", new[]
+                List<FailureMechanismSection> newSections = view.FailureMechanism.Sections.ToList();
+                newSections.Add(new FailureMechanismSection("SectionC", new[]
                 {
                     view.FailureMechanism.Sections.Last().EndPoint,
                     new Point2D(30, 30)
@@ -380,8 +382,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
-            failureMechanism.AddSection(failureMechanismSectionA);
-            failureMechanism.AddSection(failureMechanismSectionB);
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSectionA,
+                failureMechanismSectionB
+            });
 
             return failureMechanism;
         }

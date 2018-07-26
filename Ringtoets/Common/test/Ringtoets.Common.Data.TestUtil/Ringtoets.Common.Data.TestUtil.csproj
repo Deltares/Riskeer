@@ -26,6 +26,7 @@
     <Compile Include="CommonCloneAssert.cs" />
     <Compile Include="CommonTestDataGenerator.cs" />
     <Compile Include="CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase.cs" />
+    <Compile Include="FailureMechanismTestHelper.cs" />
     <Compile Include="DistributionTestHelper.cs" />
     <Compile Include="FailureMechanismContributionTestFactory.cs" />
     <Compile Include="FailureMechanismSectionResultTestFactory.cs" />

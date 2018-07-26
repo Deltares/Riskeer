@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
@@ -82,10 +83,11 @@ namespace Ringtoets.Storage.Core.Read
                                                          IFailureMechanism failureMechanism,
                                                          ReadConversionCollector collector)
         {
-            foreach (FailureMechanismSectionEntity failureMechanismSectionEntity in entity.FailureMechanismSectionEntities)
-            {
-                failureMechanism.AddSection(failureMechanismSectionEntity.Read(collector));
-            }
+            FailureMechanismSection[] readFailureMechanismSections = entity.FailureMechanismSectionEntities
+                                                                               .Select(failureMechanismSectionEntity =>
+                                                                                           failureMechanismSectionEntity.Read(collector))
+                                                                               .ToArray();
+            failureMechanism.SetSections(readFailureMechanismSections, string.Empty);
         }
 
         private static void ReadForeshoreProfiles(this FailureMechanismEntity entity,

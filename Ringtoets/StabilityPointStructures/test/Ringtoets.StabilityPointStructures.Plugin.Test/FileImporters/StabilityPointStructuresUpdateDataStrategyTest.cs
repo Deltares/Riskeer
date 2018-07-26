@@ -140,7 +140,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var readStructure = new TestStabilityPointStructure("read id");
-            var importedStructures = new[]
+            TestStabilityPointStructure[] importedStructures =
             {
                 readStructure
             };
@@ -176,7 +176,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var readStructure = new TestStabilityPointStructure(commonId, "new name");
-            var importedStructures = new[]
+            TestStabilityPointStructure[] importedStructures =
             {
                 readStructure
             };
@@ -216,7 +216,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             var structureToUpdateFrom = new TestStabilityPointStructure(commonId, "new name");
             var addedStructure = new TestStabilityPointStructure("added id");
-            var importedStructures = new[]
+            TestStabilityPointStructure[] importedStructures =
             {
                 structureToUpdateFrom,
                 addedStructure
@@ -618,16 +618,19 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var intersectionPoint = new Point2D(10, 10);
-            failureMechanism.AddSection(new FailureMechanismSection("OldSection", new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                originalMatchingPoint,
-                intersectionPoint
-            }));
-            failureMechanism.AddSection(new FailureMechanismSection("NewSection", new[]
-            {
-                intersectionPoint,
-                updatedMatchingPoint
-            }));
+                new FailureMechanismSection("OldSection", new[]
+                {
+                    originalMatchingPoint,
+                    intersectionPoint
+                }),
+                new FailureMechanismSection("NewSection", new[]
+                {
+                    intersectionPoint,
+                    updatedMatchingPoint
+                })
+            });
 
             StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
             StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
@@ -693,11 +696,14 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
                 removedStructure
             }, sourceFilePath);
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                originalMatchingPoint,
-                new Point2D(10, 10)
-            }));
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    originalMatchingPoint,
+                    new Point2D(10, 10)
+                })
+            });
 
             StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
             StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();

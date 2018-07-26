@@ -235,7 +235,7 @@ namespace Ringtoets.Integration.TestUtil
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/>
         /// to initialize the <see cref="AssessmentSection"/> with.</param>
         /// <returns>The configured <see cref="AssessmentSection"/>.</returns>
-        public static AssessmentSection GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+        public static AssessmentSection GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             var assessmentSection = new AssessmentSection(composition)
@@ -1062,8 +1062,11 @@ namespace Ringtoets.Integration.TestUtil
                                                            new Point2D(5, 5),
                                                            new Point2D(15, 15)
                                                        });
-            failureMechanism.AddSection(section1);
-            failureMechanism.AddSection(section2);
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section1,
+                section2
+            });
         }
 
         private static void AddFailureMechanismSections(IFailureMechanism failureMechanism, int numberOfSections)
@@ -1073,17 +1076,20 @@ namespace Ringtoets.Integration.TestUtil
             double endPointStepsX = (endPoint.X - startPoint.X) / numberOfSections;
             double endPointStepsY = (endPoint.Y - startPoint.Y) / numberOfSections;
 
+            var sections = new List<FailureMechanismSection>();
             for (var i = 1; i <= numberOfSections; i++)
             {
                 endPoint = new Point2D(startPoint.X + endPointStepsX, startPoint.Y + endPointStepsY);
-                failureMechanism.AddSection(new FailureMechanismSection(i.ToString(),
-                                                                        new[]
-                                                                        {
-                                                                            startPoint,
-                                                                            endPoint
-                                                                        }));
+                sections.Add(new FailureMechanismSection(i.ToString(),
+                                                         new[]
+                                                         {
+                                                             startPoint,
+                                                             endPoint
+                                                         }));
                 startPoint = endPoint;
             }
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, sections);
         }
     }
 }

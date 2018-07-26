@@ -150,9 +150,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             };
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
-            failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
-            failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("A", geometryPoints.Take(2)),
+                new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)),
+                new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2))
+            });
 
             var profile1 = new TestForeshoreProfile("profile1 ID", new[]
             {
@@ -349,11 +352,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
                 // When
-                failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
-                    new Point2D(1, 2),
-                    new Point2D(1, 2)
-                }));
+                    new FailureMechanismSection(string.Empty, new[]
+                    {
+                        new Point2D(1, 2),
+                        new Point2D(1, 2)
+                    })
+                });
                 failureMechanism.NotifyObservers();
 
                 // Then

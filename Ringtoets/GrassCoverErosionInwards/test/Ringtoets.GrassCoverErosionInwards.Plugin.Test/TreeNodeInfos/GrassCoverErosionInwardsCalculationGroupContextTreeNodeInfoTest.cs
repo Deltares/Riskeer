@@ -1779,10 +1779,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             parentGroup.Children.Add(group);
 
-            failureMechanism.AddSection(new FailureMechanismSection("section", new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new Point2D(0, 0)
-            }));
+                new FailureMechanismSection("section", new[]
+                {
+                    new Point2D(0, 0)
+                })
+            });
 
             var calculation = new GrassCoverErosionInwardsCalculation();
             group.Children.Add(calculation);

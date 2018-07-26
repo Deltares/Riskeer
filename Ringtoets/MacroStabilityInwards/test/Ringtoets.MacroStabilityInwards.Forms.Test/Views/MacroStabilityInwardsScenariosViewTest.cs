@@ -149,9 +149,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            failureMechanism.AddSection(failureMechanismSection1);
-            failureMechanism.AddSection(failureMechanismSection2);
-            failureMechanism.AddSection(failureMechanismSection3);
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
 
             MacroStabilityInwardsScenariosView macroStabilityInwardsScenarioView = ShowMacroStabilityInwardsScenarioView();
 
@@ -170,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenScenariosViewWithFailureMechanism_WhenSectionsAddedAndFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
         {
             // Given
-            var failureMechanismWithSections = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var failureMechanismSection1 = new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
@@ -188,19 +191,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             });
 
             MacroStabilityInwardsScenariosView macroStabilityInwardsScenarioView = ShowMacroStabilityInwardsScenarioView();
-            macroStabilityInwardsScenarioView.MacroStabilityInwardsFailureMechanism = failureMechanismWithSections;
+            macroStabilityInwardsScenarioView.MacroStabilityInwardsFailureMechanism = failureMechanism;
 
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
             // Precondition
             Assert.AreEqual(0, listBox.Items.Count);
 
-            failureMechanismWithSections.AddSection(failureMechanismSection1);
-            failureMechanismWithSections.AddSection(failureMechanismSection2);
-            failureMechanismWithSections.AddSection(failureMechanismSection3);
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
 
             // When
-            failureMechanismWithSections.NotifyObservers();
+            failureMechanism.NotifyObservers();
 
             // Then
             Assert.AreEqual(3, listBox.Items.Count);
@@ -399,17 +405,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }));
-
-            failureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            }));
+                new FailureMechanismSection("Section 1", new List<Point2D>
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                }),
+                new FailureMechanismSection("Section 2", new List<Point2D>
+                {
+                    new Point2D(5.0, 0.0),
+                    new Point2D(10.0, 0.0)
+                })
+            });
 
             MacroStabilityInwardsScenariosView macroStabilityInwardsScenarioView = ShowMacroStabilityInwardsScenarioView();
 

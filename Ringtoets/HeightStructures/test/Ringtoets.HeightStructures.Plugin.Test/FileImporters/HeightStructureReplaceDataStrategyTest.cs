@@ -193,7 +193,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                 failureMechanism.HeightStructures
             }, affectedObjects);
 
-            var expected = new[]
+            TestHeightStructure[] expected =
             {
                 importedStructure
             };
@@ -317,10 +317,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                 }
             };
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                location
-            }));
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    location
+                })
+            });
             HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = calculation;
 

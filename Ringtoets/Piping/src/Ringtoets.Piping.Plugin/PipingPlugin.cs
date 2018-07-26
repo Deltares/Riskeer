@@ -105,7 +105,8 @@ namespace Ringtoets.Piping.Plugin
             };
             yield return new PropertyInfo<PipingFailureMechanismSectionsContext, FailureMechanismSectionsProbabilityAssessmentProperties>
             {
-                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(context.WrappedData.Sections, context.WrappedData, ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
+                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(
+                    context.WrappedData, ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
             };
         }
 

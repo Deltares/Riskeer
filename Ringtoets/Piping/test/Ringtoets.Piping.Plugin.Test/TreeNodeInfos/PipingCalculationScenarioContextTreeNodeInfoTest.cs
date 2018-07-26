@@ -823,17 +823,20 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
-                pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
+                var failureMechanism = new TestPipingFailureMechanism();
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
-                    new Point2D(0, 0)
-                }));
+                    new FailureMechanismSection("A", new[]
+                    {
+                        new Point2D(0, 0)
+                    })
+                });
                 var assessmentSection = new AssessmentSectionStub();
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     new CalculationGroup(),
                                                                                     Enumerable.Empty<PipingSurfaceLine>(),
                                                                                     Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                    pipingFailureMechanism,
+                                                                                    failureMechanism,
                                                                                     assessmentSection);
 
                 var mainWindow = mocks.DynamicMock<IMainWindow>();
@@ -932,7 +935,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var failureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
@@ -942,16 +945,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 }, true);
 
                 PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
-                pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
-                    new Point2D(0, 0)
-                }));
+                    new FailureMechanismSection("A", new[]
+                    {
+                        new Point2D(0, 0)
+                    })
+                });
 
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     new CalculationGroup(),
                                                                                     Enumerable.Empty<PipingSurfaceLine>(),
                                                                                     Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                    pipingFailureMechanism,
+                                                                                    failureMechanism,
                                                                                     assessmentSection);
 
                 var mainWindow = mocks.DynamicMock<IMainWindow>();

@@ -118,19 +118,22 @@ namespace Ringtoets.HeightStructures.Service.Test
                 calculationWithStructureToRemoveAndOutput
             });
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                locationStructureToRemove,
-                new Point2D(1, 1)
-            }));
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    locationStructureToRemove,
+                    new Point2D(1, 1)
+                }),
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(1, 1),
+                    locationStructureToKeep
+                })
+            });
             HeightStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToRemove = failureMechanism.SectionResults.ElementAt(0);
             sectionWithCalculationAtStructureToRemove.Calculation = calculationWithStructureToRemove;
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-            {
-                new Point2D(1, 1),
-                locationStructureToKeep
-            }));
             HeightStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToKeep = failureMechanism.SectionResults.ElementAt(1);
             sectionWithCalculationAtStructureToKeep.Calculation = calculationWithStructureToKeepAndOutput;
 
@@ -226,19 +229,22 @@ namespace Ringtoets.HeightStructures.Service.Test
                 calculationWithStructureAAndOutput
             });
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                locationStructureA,
-                new Point2D(1, 1)
-            }));
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    locationStructureA,
+                    new Point2D(1, 1)
+                }),
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(1, 1),
+                    locationStructureB
+                })
+            });
             HeightStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureA = failureMechanism.SectionResults.ElementAt(0);
             sectionWithCalculationAtStructureA.Calculation = calculationWithStructureA;
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-            {
-                new Point2D(1, 1),
-                locationStructureB
-            }));
             HeightStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureB = failureMechanism.SectionResults.ElementAt(1);
             sectionWithCalculationAtStructureB.Calculation = calculationWithStructureBAndOutput;
 
@@ -609,8 +615,11 @@ namespace Ringtoets.HeightStructures.Service.Test
                 structure2
             }, "someLocation");
 
-            failureMechanism.AddSection(section1);
-            failureMechanism.AddSection(section2);
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section1,
+                section2
+            });
             HeightStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
                                                                                     .First(sr => ReferenceEquals(sr.Section, section1));
             HeightStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults

@@ -39,6 +39,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -106,87 +107,87 @@ namespace Ringtoets.Storage.Core.TestUtil
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             ConfigureMacroStabilityInwardsFailureMechanism(macroStabilityInwardsFailureMechanism, assessmentSection);
-            AddSections(macroStabilityInwardsFailureMechanism);
+            SetSections(macroStabilityInwardsFailureMechanism);
             SetSectionResults(macroStabilityInwardsFailureMechanism.SectionResults);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             ConfigurePipingFailureMechanism(pipingFailureMechanism, assessmentSection);
-            AddSections(pipingFailureMechanism);
+            SetSections(pipingFailureMechanism);
             SetSectionResults(pipingFailureMechanism.SectionResults);
 
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             ConfigureGrassCoverErosionInwardsFailureMechanism(grassCoverErosionInwardsFailureMechanism, assessmentSection);
-            AddSections(grassCoverErosionInwardsFailureMechanism);
+            SetSections(grassCoverErosionInwardsFailureMechanism);
             SetSectionResults(grassCoverErosionInwardsFailureMechanism.SectionResults,
                               (GrassCoverErosionInwardsCalculation) grassCoverErosionInwardsFailureMechanism.Calculations.First());
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             AddForeshoreProfiles(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
             ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism, hydraulicBoundaryLocations);
-            AddSections(grassCoverErosionOutwardsFailureMechanism);
+            SetSections(grassCoverErosionOutwardsFailureMechanism);
             SetSectionResults(grassCoverErosionOutwardsFailureMechanism.SectionResults);
 
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
             AddForeshoreProfiles(stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
             ConfigureStabilityStoneCoverFailureMechanism(stabilityStoneCoverFailureMechanism, assessmentSection);
-            AddSections(stabilityStoneCoverFailureMechanism);
+            SetSections(stabilityStoneCoverFailureMechanism);
             SetSectionResults(stabilityStoneCoverFailureMechanism.SectionResults);
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             AddForeshoreProfiles(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
             ConfigureWaveImpactAsphaltCoverFailureMechanism(waveImpactAsphaltCoverFailureMechanism, assessmentSection);
-            AddSections(waveImpactAsphaltCoverFailureMechanism);
+            SetSections(waveImpactAsphaltCoverFailureMechanism);
             SetSectionResults(waveImpactAsphaltCoverFailureMechanism.SectionResults);
 
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
             AddForeshoreProfiles(heightStructuresFailureMechanism.ForeshoreProfiles);
             ConfigureHeightStructuresFailureMechanism(heightStructuresFailureMechanism, assessmentSection);
-            AddSections(heightStructuresFailureMechanism);
+            SetSections(heightStructuresFailureMechanism);
             SetSectionResults(heightStructuresFailureMechanism.SectionResults,
                               (StructuresCalculation<HeightStructuresInput>) heightStructuresFailureMechanism.Calculations.First());
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             AddForeshoreProfiles(closingStructuresFailureMechanism.ForeshoreProfiles);
             ConfigureClosingStructuresFailureMechanism(closingStructuresFailureMechanism, assessmentSection);
-            AddSections(closingStructuresFailureMechanism);
+            SetSections(closingStructuresFailureMechanism);
             SetSectionResults(closingStructuresFailureMechanism.SectionResults,
                               (StructuresCalculation<ClosingStructuresInput>) closingStructuresFailureMechanism.Calculations.First());
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism);
-            AddSections(duneErosionFailureMechanism);
+            SetSections(duneErosionFailureMechanism);
             SetSectionResults(duneErosionFailureMechanism.SectionResults);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             AddForeshoreProfiles(stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
             ConfigureStabilityPointStructuresFailureMechanism(stabilityPointStructuresFailureMechanism,
                                                               assessmentSection);
-            AddSections(stabilityPointStructuresFailureMechanism);
+            SetSections(stabilityPointStructuresFailureMechanism);
             SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults,
                               (StructuresCalculation<StabilityPointStructuresInput>) stabilityPointStructuresFailureMechanism.Calculations.First());
 
             MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
             ConfigureMacroStabilityOutwardsFailureMechanism(macroStabilityOutwardsFailureMechanism);
-            AddSections(macroStabilityOutwardsFailureMechanism);
+            SetSections(macroStabilityOutwardsFailureMechanism);
             SetSectionResults(macroStabilityOutwardsFailureMechanism.SectionResults);
 
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             ConfigurePipingStructureFailureMechanism(pipingStructureFailureMechanism);
-            AddSections(pipingStructureFailureMechanism);
+            SetSections(pipingStructureFailureMechanism);
             SetSectionResults(pipingStructureFailureMechanism.SectionResults);
 
-            AddSections(assessmentSection.Microstability);
+            SetSections(assessmentSection.Microstability);
             SetSectionResults(assessmentSection.Microstability.SectionResults);
-            AddSections(assessmentSection.WaterPressureAsphaltCover);
+            SetSections(assessmentSection.WaterPressureAsphaltCover);
             SetSectionResults(assessmentSection.WaterPressureAsphaltCover.SectionResults);
-            AddSections(assessmentSection.GrassCoverSlipOffInwards);
+            SetSections(assessmentSection.GrassCoverSlipOffInwards);
             SetSectionResults(assessmentSection.GrassCoverSlipOffInwards.SectionResults);
-            AddSections(assessmentSection.GrassCoverSlipOffOutwards);
+            SetSections(assessmentSection.GrassCoverSlipOffOutwards);
             SetSectionResults(assessmentSection.GrassCoverSlipOffOutwards.SectionResults);
-            AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
+            SetSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
             SetSectionResults(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
             SetSectionResults(assessmentSection.DuneErosion.SectionResults);
-            AddSections(assessmentSection.TechnicalInnovation);
+            SetSections(assessmentSection.TechnicalInnovation);
             SetSectionResults(assessmentSection.TechnicalInnovation.SectionResults);
 
             var fullTestProject = new RingtoetsProject
@@ -304,23 +305,26 @@ namespace Ringtoets.Storage.Core.TestUtil
             }
         }
 
-        private static void AddSections(IFailureMechanism failureMechanism)
+        private static void SetSections(IFailureMechanism failureMechanism)
         {
-            failureMechanism.AddSection(new FailureMechanismSection("section 1", new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new Point2D(0, 2),
-                new Point2D(2, 3)
-            }));
-            failureMechanism.AddSection(new FailureMechanismSection("section 2", new[]
-            {
-                new Point2D(2, 3),
-                new Point2D(4, 5)
-            }));
-            failureMechanism.AddSection(new FailureMechanismSection("section 3", new[]
-            {
-                new Point2D(4, 5),
-                new Point2D(2, 3)
-            }));
+                new FailureMechanismSection("section 1", new[]
+                {
+                    new Point2D(0, 2),
+                    new Point2D(2, 3)
+                }),
+                new FailureMechanismSection("section 2", new[]
+                {
+                    new Point2D(2, 3),
+                    new Point2D(4, 5)
+                }),
+                new FailureMechanismSection("section 3", new[]
+                {
+                    new Point2D(4, 5),
+                    new Point2D(2, 3)
+                })
+            });
         }
 
         private static void AddForeshoreProfiles(ForeshoreProfileCollection foreshoreProfiles)

@@ -794,7 +794,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                         StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie", messageList[4]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[5]);
                         Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", messageList[6]);
-                        
+
                         Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", messageList[7]);
                         CalculationServiceTestHelper.AssertValidationStartMessage(messageList[8]);
                         CalculationServiceTestHelper.AssertValidationEndMessage(messageList[9]);
@@ -1541,7 +1541,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             parentGroup.Children.Add(group);
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             group.Children.Add(calculation);

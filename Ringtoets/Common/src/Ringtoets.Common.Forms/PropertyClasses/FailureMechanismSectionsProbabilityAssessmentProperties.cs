@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -35,10 +34,10 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSection"/>
-    /// with a section specific N for the properties panel.
+    /// ViewModel of <see cref="IFailureMechanism"/> for the properties panel to show
+    /// a collection of <see cref="FailureMechanismSection"/> with a section specific N.
     /// </summary>
-    public class FailureMechanismSectionsProbabilityAssessmentProperties : ObjectProperties<IEnumerable<FailureMechanismSection>>, IDisposable
+    public class FailureMechanismSectionsProbabilityAssessmentProperties : ObjectProperties<IFailureMechanism>, IDisposable
     {
         private readonly Observer failureMechanismObserver;
         private readonly ProbabilityAssessmentInput probabilityAssessmentInput;
@@ -46,20 +45,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionsProbabilityAssessmentProperties"/>.
         /// </summary>
-        /// <param name="sections">The sections to show the properties for.</param>
-        /// <param name="failureMechanism">The failure mechanism which the sections belong to.</param>
+        /// <param name="failureMechanism">The failure mechanism to show the section properties for.</param>
         /// <param name="probabilityAssessmentInput">The probability assessment input belonging to the
         /// failure mechanism of the properties.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionsProbabilityAssessmentProperties(IEnumerable<FailureMechanismSection> sections,
-                                                                       IFailureMechanism failureMechanism,
+        public FailureMechanismSectionsProbabilityAssessmentProperties(IFailureMechanism failureMechanism,
                                                                        ProbabilityAssessmentInput probabilityAssessmentInput)
         {
-            if (sections == null)
-            {
-                throw new ArgumentNullException(nameof(sections));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -75,7 +67,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 Observable = failureMechanism
             };
 
-            data = sections;
+            data = failureMechanism;
             this.probabilityAssessmentInput = probabilityAssessmentInput;
         }
 
@@ -88,7 +80,19 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(section => new FailureMechanismSectionProbabilityAssessmentProperties(section, probabilityAssessmentInput)).ToArray();
+                return data.Sections.Select(section => new FailureMechanismSectionProbabilityAssessmentProperties(section, probabilityAssessmentInput)).ToArray();
+            }
+        }
+
+        [PropertyOrder(2)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ObservableCollectionWithSourcePath_SourcePath_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSections_SourcePath_Description))]
+        public string SourcePath
+        {
+            get
+            {
+                return data.FailureMechanismSectionSourcePath;
             }
         }
 

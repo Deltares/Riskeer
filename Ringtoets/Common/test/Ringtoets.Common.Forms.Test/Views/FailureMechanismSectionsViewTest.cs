@@ -148,7 +148,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var sections = new[]
+            FailureMechanismSection[] sections =
             {
                 CreateFailureMechanismSection("a"),
                 CreateFailureMechanismSection("b"),
@@ -172,7 +172,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(CreateFailureMechanismSection("a"));
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                CreateFailureMechanismSection("a")
+            });
 
             using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
             {
@@ -182,7 +185,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                 AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), sectionsDataGridViewControl);
 
                 // When
-                failureMechanism.AddSection(CreateFailureMechanismSection("b"));
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+                {
+                    CreateFailureMechanismSection("b")
+                });
                 failureMechanism.NotifyObservers();
 
                 // Then
@@ -195,7 +201,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(CreateFailureMechanismSection("a"));
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                CreateFailureMechanismSection("a")
+            });
 
             using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
             {

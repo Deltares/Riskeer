@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_WithAssessmentSection_ExpectedValues()
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             // Call
@@ -220,7 +220,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionViewWithOutdatedContent_WhenRefreshingAssemblyResults_ThenRefreshButtonDisabledAndWarningCleared()
         {
             // Given
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -248,7 +248,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionView_WhenAssessmentSectionNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
         {
             // Given
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -275,7 +275,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-            var assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            var assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -302,7 +302,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionView_WhenCalculationNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
         {
             // Given
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
             var calculation = new TestHeightStructuresCalculation();
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(calculation);
@@ -332,7 +332,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionView_WithOrWithoutErrorSetAndObserverNotified_ThenWarningSetWithPadding(bool withError, int expectedPadding)
         {
             // Given
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -391,7 +391,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private AssemblyResultPerSectionView ShowAssemblyResultPerSectionView()
         {
-            return ShowAssemblyResultPerSectionView(TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
+            return ShowAssemblyResultPerSectionView(TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                                                         new Random(21).NextEnumValue<AssessmentSectionComposition>()));
         }
 

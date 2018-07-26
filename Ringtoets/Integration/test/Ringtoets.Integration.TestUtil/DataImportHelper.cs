@@ -30,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.ReferenceLines;
@@ -91,7 +92,7 @@ namespace Ringtoets.Integration.TestUtil
         /// <para>This will import 283 failure mechanism sections.</para>
         /// <para>Imports using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IEnumerable{IFailureMechanism})"/>
+        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, System.Collections.Generic.IEnumerable{Ringtoets.Common.Data.FailureMechanism.IFailureMechanism})"/>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
@@ -143,11 +144,7 @@ namespace Ringtoets.Integration.TestUtil
                     else
                     {
                         // Copy same FailureMechanismSection instances to other failure mechanisms
-                        foreach (FailureMechanismSection section in failureMechanisms[0].Sections)
-                        {
-                            FailureMechanismSection clonedSection = DeepCloneSection(section);
-                            failureMechanisms[i].AddSection(clonedSection);
-                        }
+                        FailureMechanismTestHelper.SetSections(failureMechanisms[i], failureMechanisms[0].Sections.Select(DeepCloneSection).ToList());
                     }
                 }
             }

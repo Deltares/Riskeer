@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void PipingFailureMechanism_PipingFailureMechanismWithSections_SectionsListBoxCorrectlyInitialized()
         {
             // Setup
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             var failureMechanismSection1 = new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
@@ -152,14 +152,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            pipingFailureMechanism.AddSection(failureMechanismSection1);
-            pipingFailureMechanism.AddSection(failureMechanismSection2);
-            pipingFailureMechanism.AddSection(failureMechanismSection3);
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
 
             PipingScenariosView pipingScenarioView = ShowPipingScenarioView();
 
             // Call
-            pipingScenarioView.PipingFailureMechanism = pipingFailureMechanism;
+            pipingScenarioView.PipingFailureMechanism = failureMechanism;
 
             // Assert
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
@@ -173,7 +176,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenPipingScenariosViewWithPipingFailureMechanism_WhenSectionsAddedAndPipingFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
         {
             // Given
-            var pipingFailureMechanismWithSections = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             var failureMechanismSection1 = new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
@@ -191,19 +194,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
             });
 
             PipingScenariosView pipingScenarioView = ShowPipingScenarioView();
-            pipingScenarioView.PipingFailureMechanism = pipingFailureMechanismWithSections;
+            pipingScenarioView.PipingFailureMechanism = failureMechanism;
 
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
             // Precondition
             Assert.AreEqual(0, listBox.Items.Count);
 
-            pipingFailureMechanismWithSections.AddSection(failureMechanismSection1);
-            pipingFailureMechanismWithSections.AddSection(failureMechanismSection2);
-            pipingFailureMechanismWithSections.AddSection(failureMechanismSection3);
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
 
             // When
-            pipingFailureMechanismWithSections.NotifyObservers();
+            failureMechanism.NotifyObservers();
 
             // Then
             Assert.AreEqual(3, listBox.Items.Count);
@@ -344,7 +350,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                int refreshed = 0;
+                var refreshed = 0;
                 dataGridView.Invalidated += (sender, args) => refreshed++;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -413,19 +419,21 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point3D(5.0, -5.0, 0.0)
             });
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
 
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }));
-
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            }));
+                new FailureMechanismSection("Section 1", new List<Point2D>
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                }),
+                new FailureMechanismSection("Section 2", new List<Point2D>
+                {
+                    new Point2D(5.0, 0.0),
+                    new Point2D(10.0, 0.0)
+                })
+            });
 
             PipingScenariosView pipingScenarioView = ShowPipingScenarioView();
 
@@ -473,7 +481,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 }
             };
 
-            pipingScenarioView.PipingFailureMechanism = pipingFailureMechanism;
+            pipingScenarioView.PipingFailureMechanism = failureMechanism;
 
             return pipingScenarioView;
         }

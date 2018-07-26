@@ -38,30 +38,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     public class FailureMechanismSectionsPropertiesTest
     {
         [Test]
-        public void Constructor_FailureMechanismSectionsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new FailureMechanismSectionsProperties(null, failureMechanism);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("sections", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
-            // Setup
-            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
-
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsProperties(sections, null);
+            TestDelegate call = () => new FailureMechanismSectionsProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -72,22 +52,22 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = new TestFailureMechanism();
+            string sourcePath = TestHelper.GetScratchPadPath();
             IEnumerable<FailureMechanismSection> sections = new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             };
 
+            failureMechanism.SetSections(sections, sourcePath);
+
             // Call
-            using (var properties = new FailureMechanismSectionsProperties(sections, failureMechanism))
+            using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<ObjectProperties<IEnumerable<FailureMechanismSection>>>(properties);
+                Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
-                Assert.AreSame(sections, properties.Data);
+                Assert.AreSame(failureMechanism, properties.Data);
 
                 TestHelper.AssertTypeConverter<FailureMechanismSectionsProperties, ExpandableArrayConverter>(
                     nameof(FailureMechanismSectionsProperties.Sections));
@@ -100,7 +80,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     Assert.AreSame(section, property.Data);
                 }
 
-                mocks.VerifyAll();
+                Assert.AreEqual(sourcePath, properties.SourcePath);
             }
         }
 
@@ -112,21 +92,27 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
-
             // Call
-            using (var properties = new FailureMechanismSectionsProperties(sections, failureMechanism))
+            using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-                Assert.AreEqual(1, dynamicProperties.Count);
+                Assert.AreEqual(2, dynamicProperties.Count);
 
                 PropertyDescriptor sectionsProperty = dynamicProperties[0];
+                var generalCategoryName = "Algemeen";
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionsProperty,
-                                                                                "Algemeen",
+                                                                                generalCategoryName,
                                                                                 "Vakindeling",
                                                                                 "Vakindeling waarmee de waterkering voor dit toetsspoor is " +
                                                                                 "geschematiseerd ten behoeve van de beoordeling.",
+                                                                                true);
+
+                PropertyDescriptor sourcePathProperty = dynamicProperties[1];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sourcePathProperty,
+                                                                                generalCategoryName,
+                                                                                "Bronlocatie",
+                                                                                "De locatie van het bestand waaruit de vakindeling is geïmporteerd.",
                                                                                 true);
                 mocks.VerifyAll();
             }
@@ -137,9 +123,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
-            using (var properties = new FailureMechanismSectionsProperties(sections, failureMechanism))
+            using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {
                 var refreshRequiredRaised = 0;
                 properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;

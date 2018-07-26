@@ -46,11 +46,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
-
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsProbabilityAssessmentProperties(sections,
-                                                                                                  failureMechanism,
+            TestDelegate call = () => new FailureMechanismSectionsProbabilityAssessmentProperties(failureMechanism,
                                                                                                   null);
 
             // Assert
@@ -60,38 +57,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_FailureMechanismSectionsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            var random = new Random(39);
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
-
-            // Call
-            TestDelegate call = () => new FailureMechanismSectionsProbabilityAssessmentProperties(null,
-                                                                                                  failureMechanism,
-                                                                                                  probabilityAssessmentInput);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("sections", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(39);
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
-            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsProbabilityAssessmentProperties(sections,
-                                                                                                  null,
+            TestDelegate call = () => new FailureMechanismSectionsProbabilityAssessmentProperties(null,
                                                                                                   probabilityAssessmentInput);
 
             // Assert
@@ -103,9 +76,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
+            var failureMechanism = new TestFailureMechanism();
+            string sourcePath = TestHelper.GetScratchPadPath();
 
             var random = new Random(39);
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
@@ -114,16 +86,16 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             };
+            failureMechanism.SetSections(sections, sourcePath);
 
             // Call
-            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(sections,
-                                                                                                failureMechanism,
+            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(failureMechanism,
                                                                                                 probabilityAssessmentInput))
             {
                 // Assert
-                Assert.IsInstanceOf<ObjectProperties<IEnumerable<FailureMechanismSection>>>(properties);
+                Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
-                Assert.AreSame(sections, properties.Data);
+                Assert.AreSame(failureMechanism, properties.Data);
 
                 TestHelper.AssertTypeConverter<FailureMechanismSectionsProperties, ExpandableArrayConverter>(
                     nameof(FailureMechanismSectionsProperties.Sections));
@@ -140,7 +112,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                     property.N.GetAccuracy());
                 }
 
-                mocks.VerifyAll();
+                Assert.AreEqual(sourcePath, properties.SourcePath);
             }
         }
 
@@ -154,23 +126,29 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             var random = new Random(39);
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
-            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
-            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(sections,
-                                                                                                failureMechanism,
+            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(failureMechanism,
                                                                                                 probabilityAssessmentInput))
             {
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-                Assert.AreEqual(1, dynamicProperties.Count);
+                Assert.AreEqual(2, dynamicProperties.Count);
 
                 PropertyDescriptor sectionsProperty = dynamicProperties[0];
+                var generalCategoryName = "Algemeen";
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionsProperty,
-                                                                                "Algemeen",
+                                                                                generalCategoryName,
                                                                                 "Vakindeling",
                                                                                 "Vakindeling waarmee de waterkering voor dit toetsspoor is " +
                                                                                 "geschematiseerd ten behoeve van de beoordeling.",
+                                                                                true);
+
+                PropertyDescriptor sourcePathProperty = dynamicProperties[1];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sourcePathProperty,
+                                                                                generalCategoryName,
+                                                                                "Bronlocatie",
+                                                                                "De locatie van het bestand waaruit de vakindeling is geïmporteerd.",
                                                                                 true);
                 mocks.VerifyAll();
             }
@@ -183,10 +161,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var random = new Random(39);
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
             var failureMechanism = new TestFailureMechanism();
-            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
-            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(sections,
-                                                                                                failureMechanism,
+            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(failureMechanism,
                                                                                                 probabilityAssessmentInput))
             {
                 var refreshRequiredRaised = 0;

@@ -249,7 +249,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
                 targetCollection
             }, affectedObjects);
 
-            var expectedCollection = new[]
+            TestStabilityPointStructure[] expectedCollection =
             {
                 importedStructure
             };
@@ -354,10 +354,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                location
-            }));
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    location
+                })
+            });
             StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = calculation;
 

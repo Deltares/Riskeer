@@ -143,7 +143,10 @@ namespace Ringtoets.Storage.Core.Test.Create.PipingStructure
         {
             // Setup
             var failureMechanism = new PipingStructureFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

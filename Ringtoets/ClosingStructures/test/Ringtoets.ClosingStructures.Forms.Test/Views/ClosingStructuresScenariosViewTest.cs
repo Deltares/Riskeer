@@ -33,6 +33,7 @@ using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
@@ -201,7 +202,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void NotifyFailureMechanism_SectionsAddedAfterFullInitialization_NewRowAddedToView()
+        public void NotifyFailureMechanism_SectionsUpdatedAfterFullInitialization_NewRowAddedToView()
         {
             // Setup
             using (ClosingStructuresScenariosView view = ShowScenariosView())
@@ -210,11 +211,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                view.FailureMechanism.AddSection(new FailureMechanismSection("SectionC", new[]
+                List<FailureMechanismSection> newSections = view.FailureMechanism.Sections.ToList();
+                newSections.Add(new FailureMechanismSection("SectionC", new[]
                 {
                     view.FailureMechanism.Sections.Last().EndPoint,
                     new Point2D(30, 30)
                 }));
+
+                FailureMechanismTestHelper.SetSections(view.FailureMechanism, newSections);
 
                 // Call
                 failureMechanism.NotifyObservers();
@@ -383,8 +387,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
-            failureMechanism.AddSection(failureMechanismSectionA);
-            failureMechanism.AddSection(failureMechanismSectionB);
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSectionA,
+                failureMechanismSectionB
+            });
 
             return failureMechanism;
         }

@@ -28,7 +28,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.WaveImpactAsphaltCover;
 using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Storage.Core.Test.Create.WaveImpactAsphaltCover
@@ -149,7 +148,10 @@ namespace Ringtoets.Storage.Core.Test.Create.WaveImpactAsphaltCover
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

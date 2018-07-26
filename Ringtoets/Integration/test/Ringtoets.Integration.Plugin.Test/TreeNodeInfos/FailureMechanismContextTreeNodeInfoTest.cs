@@ -238,11 +238,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 {
                     IsRelevant = false
                 };
-                failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+                FailureMechanismTestHelper.SetSections(failureMechanism, new [] {new FailureMechanismSection("A", new[]
                 {
                     new Point2D(1, 2),
                     new Point2D(5, 6)
-                }));
+                })});
                 var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
                 // Call

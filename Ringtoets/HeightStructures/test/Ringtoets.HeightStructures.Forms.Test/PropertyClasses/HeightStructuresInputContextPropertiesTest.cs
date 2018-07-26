@@ -310,8 +310,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                     new Point2D(-10.0, -10.0),
                     new Point2D(10.0, 10.0)
                 });
-            failureMechanism.AddSection(
-                failureMechanismSection);
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection
+            });
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             // Call

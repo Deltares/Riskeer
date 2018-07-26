@@ -680,12 +680,14 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            failureMechanism.AddSection(
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(10, 10)
-                }));
+                })
+            });
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {

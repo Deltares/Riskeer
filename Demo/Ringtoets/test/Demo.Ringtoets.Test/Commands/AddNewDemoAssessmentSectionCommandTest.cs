@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
+using Core.Common.Util.IO;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -110,6 +111,7 @@ namespace Demo.Ringtoets.Test.Commands
             foreach (IFailureMechanism failureMechanism in demoAssessmentSection.GetFailureMechanisms())
             {
                 Assert.AreEqual(283, failureMechanism.Sections.Count());
+                Assert.IsTrue(failureMechanism.FailureMechanismSectionSourcePath.Contains("traject_6-3_vakken.shp"));
             }
 
             AssertGrassCoverErosionInwardsFailureMechanism(demoAssessmentSection);

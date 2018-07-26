@@ -33,6 +33,7 @@
     <Compile Include="IllustrationPoints\TestFaultTreeIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\TestTopLevelIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\WindDirectionTestFactoryTest.cs" />
+    <Compile Include="FailureMechanismTestHelperTest.cs" />
     <Compile Include="LimitedPrecisionHelperTest.cs" />
     <Compile Include="AssessmentSectionStubTest.cs" />
     <Compile Include="Probability\TestProbabilityAssessmentInputTest.cs" />

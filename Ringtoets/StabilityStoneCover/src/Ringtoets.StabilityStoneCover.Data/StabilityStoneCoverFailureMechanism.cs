@@ -84,15 +84,14 @@ namespace Ringtoets.StabilityStoneCover.Data
             }
         }
 
-        public override void AddSection(FailureMechanismSection section)
+        protected override void AddSectionResult(FailureMechanismSection section)
         {
-            base.AddSection(section);
+            base.AddSectionResult(section);
             sectionResults.Add(new StabilityStoneCoverFailureMechanismSectionResult(section));
         }
 
-        public override void ClearAllSections()
+        protected override void ClearSectionResults()
         {
-            base.ClearAllSections();
             sectionResults.Clear();
         }
     }

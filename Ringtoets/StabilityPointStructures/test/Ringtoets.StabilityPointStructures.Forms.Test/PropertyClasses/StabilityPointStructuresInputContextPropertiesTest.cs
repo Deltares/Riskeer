@@ -31,7 +31,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -1457,11 +1456,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new Point2D(-10.0, -10.0),
-                new Point2D(10.0, 10.0)
-            }));
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(-10.0, -10.0),
+                    new Point2D(10.0, 10.0)
+                })
+            });
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             // Call

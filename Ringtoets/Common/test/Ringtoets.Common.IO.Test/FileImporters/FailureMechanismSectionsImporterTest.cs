@@ -111,6 +111,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             Assert.IsTrue(importSuccessful);
 
+            Assert.AreEqual(sectionsFilePath, failureMechanism.FailureMechanismSectionSourcePath);
             FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
             Assert.AreEqual(sectionCount, sections.Length);
             AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
@@ -128,7 +129,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", importReferenceLine.Points));
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("A", importReferenceLine.Points)
+            });
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call
@@ -422,7 +426,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             string expectedMessage = $"Er is een fout opgetreden bij het importeren van de vakindeling uit bestand '{sectionsFilePath}': " +
                                      "Het bestand moet vakken bevatten die allen op elkaar aansluiten. " +
-                                     $"{ Environment.NewLine}Er is geen vakindeling geïmporteerd.";
+                                     $"{Environment.NewLine}Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
