@@ -305,6 +305,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
             protected override void ClearSectionResults()
             {
+                base.ClearSectionResults();
                 SectionResultsCleared = true;
             }
         }
