@@ -126,7 +126,7 @@
   <data name="ReferenceLine_SetGeometry_New_geometry_has_null_coordinate" xml:space="preserve">
     <value>Een punt in de geometrie voor de referentielijn heeft geen waarde.</value>
   </data>
-  <data name="BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections" xml:space="preserve">
+  <data name="FailureMechanismSectionCollection_ValidateSection_Section_0_must_connect_to_existing_sections" xml:space="preserve">
     <value>Vak '{0}' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.</value>
   </data>
   <data name="FailureMechanismSection_Section_must_have_at_least_1_geometry_point" xml:space="preserve">

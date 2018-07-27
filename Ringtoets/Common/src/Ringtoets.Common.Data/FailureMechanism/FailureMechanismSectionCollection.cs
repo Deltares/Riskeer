@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.FailureMechanism
 {
-    public class FailureMechanismSectionCollection : Observable, IObservableEnumerable<FailureMechanismSection>
+    public class FailureMechanismSectionCollection : Observable, IEnumerable<FailureMechanismSection>
     {
         private readonly List<FailureMechanismSection> sections = new List<FailureMechanismSection>();
 
@@ -76,19 +76,23 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
             Clear();
 
-            List<FailureMechanismSection> sourceCollection = failureMechanismSections.ToList();
-            if (!sourceCollection.Any())
+            if (failureMechanismSections.Any())
             {
-                return;
-            }
+                FailureMechanismSection firstSection = failureMechanismSections.First();
+                var newSections = new List<FailureMechanismSection>
+                {
+                    firstSection
+                };
 
-            FailureMechanismSection firstSection = sourceCollection.First();
-            sections.Add(firstSection);
-            sourceCollection.Remove(firstSection);
+                FailureMechanismSection previousSection = firstSection;
+                foreach (FailureMechanismSection section in failureMechanismSections.Skip(1))
+                {
+                    ValidateSection(section, previousSection);
+                    newSections.Add(section);
+                    previousSection = section;
+                }
 
-            foreach (FailureMechanismSection section in sourceCollection)
-            {
-                InsertSectionWhileMaintainingConnectivityOrder(section);
+                sections.AddRange(newSections);
             }
 
             SourcePath = sourcePath;
@@ -105,23 +109,20 @@ namespace Ringtoets.Common.Data.FailureMechanism
         }
 
         /// <summary>
-        /// Inserts the section to the collection while maintaining connectivity
-        /// order (neighboring <see cref="FailureMechanismSection"/> have same end points).
+        /// Validates the section on its connectivity order (neighboring
+        /// <see cref="FailureMechanismSection"/> must have same end points).
         /// </summary>
-        /// <param name="sectionToInsert">The new section.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="sectionToInsert"/> cannot
-        /// be connected to elements already defined in this collection.</exception>
-        private void InsertSectionWhileMaintainingConnectivityOrder(FailureMechanismSection sectionToInsert)
+        /// <param name="section">The new section.</param>
+        /// <param name="previousSection">The previous section.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="section"/> cannot
+        /// be connected to the previous section.</exception>
+        private static void ValidateSection(FailureMechanismSection section, FailureMechanismSection previousSection)
         {
-            if (sections.Last().EndPoint.Equals(sectionToInsert.StartPoint))
+            if (!previousSection.EndPoint.Equals(section.StartPoint))
             {
-                sections.Add(sectionToInsert);
-            }
-            else
-            {
-                string message = string.Format(Resources.BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections,
-                                               sectionToInsert.Name);
-                throw new ArgumentException(message, nameof(sectionToInsert));
+                string message = string.Format(Resources.FailureMechanismSectionCollection_ValidateSection_Section_0_must_connect_to_existing_sections,
+                                               section.Name);
+                throw new ArgumentException(message, nameof(section));
             }
         }
     }

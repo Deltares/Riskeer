@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -40,7 +41,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             var sectionCollection = new FailureMechanismSectionCollection();
 
             // Assert
-            Assert.IsInstanceOf<IObservableEnumerable<FailureMechanismSection>>(sectionCollection);
+            Assert.IsInstanceOf<IEnumerable<FailureMechanismSection>>(sectionCollection);
             Assert.IsInstanceOf<Observable>(sectionCollection);
             Assert.IsNull(sectionCollection.SourcePath);
             CollectionAssert.IsEmpty(sectionCollection);
@@ -108,7 +109,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void SetSections_SecondSectionEndConnectingToStartOfFirst_ThrowArgumentException()
+        public void SetSections_SecondSectionEndConnectingToStartOfFirst_ThrowsArgumentExceptionAndDoesNotSetSections()
         {
             // Setup
             var sectionCollection = new FailureMechanismSectionCollection();
@@ -137,10 +138,12 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            CollectionAssert.IsEmpty(sectionCollection);
+            Assert.IsNull(sectionCollection.SourcePath);
         }
 
         [Test]
-        public void SetSections_SecondSectionDoesNotConnectToFirst_ThrowArgumentException()
+        public void SetSections_SecondSectionDoesNotConnectToFirst_ThrowsArgumentExceptionAndDoesNotSetSections()
         {
             // Setup
             var sectionCollection = new FailureMechanismSectionCollection();
@@ -166,6 +169,8 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            CollectionAssert.IsEmpty(sectionCollection);
+            Assert.IsNull(sectionCollection.SourcePath);
         }
 
         [Test]
@@ -202,6 +207,21 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 section1,
                 section2
             }, sectionCollection);
+            Assert.AreEqual(sourcePath, sectionCollection.SourcePath);
+        }
+
+        [Test]
+        public void SetSections_WithEmptySectionCollection_SourcePathSet()
+        {
+            // Setup
+            string sourcePath = TestHelper.GetScratchPadPath();
+            var sectionCollection = new FailureMechanismSectionCollection();
+
+            // Call
+            sectionCollection.SetSections(Enumerable.Empty<FailureMechanismSection>(), sourcePath);
+
+            // Assert
+            CollectionAssert.IsEmpty(sectionCollection);
             Assert.AreEqual(sourcePath, sectionCollection.SourcePath);
         }
     }

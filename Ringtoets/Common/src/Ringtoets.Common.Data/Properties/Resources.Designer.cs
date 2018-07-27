@@ -164,15 +164,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vak &apos;{0}&apos; sluit niet aan op de al gedefinieerde vakken van het toetsspoor..
-        /// </summary>
-        public static string BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections {
-            get {
-                return ResourceManager.GetString("BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Caisson.
         /// </summary>
         public static string BreakWaterType_Caisson_DisplayName {
@@ -543,6 +534,16 @@ namespace Ringtoets.Common.Data.Properties {
         public static string FailureMechanismSection_Section_must_have_at_least_1_geometry_point {
             get {
                 return ResourceManager.GetString("FailureMechanismSection_Section_must_have_at_least_1_geometry_point", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vak &apos;{0}&apos; sluit niet aan op de al gedefinieerde vakken van het toetsspoor..
+        /// </summary>
+        public static string FailureMechanismSectionCollection_ValidateSection_Section_0_must_connect_to_existing_sections {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionCollection_ValidateSection_Section_0_must_connect_to_exist" +
+                        "ing_sections", resourceCulture);
             }
         }
         
