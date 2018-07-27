@@ -25,6 +25,7 @@ using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
@@ -46,6 +47,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<ICalculationScenario>(scenario);
 
             Assert.IsTrue(scenario.IsRelevant);
+            Assert.AreEqual(4, scenario.Contribution.NumberOfDecimalPlaces);
             Assert.AreEqual((RoundedDouble) 1.0, scenario.Contribution);
             Assert.AreEqual(CalculationScenarioStatus.NotCalculated, scenario.Status);
         }
@@ -66,19 +68,20 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(15.0)]
-        public void Contribution_Always_ReturnsSetValue(double newValue)
+        public void Contribution_Always_ReturnsSetValue()
         {
             // Setup
+            var random = new Random(21);
+            RoundedDouble roundedDouble = random.NextRoundedDouble();
+
             var scenario = new PipingCalculationScenario(new GeneralPipingInput());
-            var roundedDouble = (RoundedDouble) newValue;
 
             // Call
             scenario.Contribution = roundedDouble;
 
             // Assert
-            Assert.AreEqual(roundedDouble, scenario.Contribution);
+            Assert.AreEqual(4, scenario.Contribution.NumberOfDecimalPlaces);
+            Assert.AreEqual(roundedDouble, scenario.Contribution, scenario.Contribution.GetAccuracy());
         }
 
         [Test]

@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Data
             : base(generalInputParameters)
         {
             IsRelevant = true;
-            contribution = new RoundedDouble(2, 1.0);
+            contribution = new RoundedDouble(4, 1.0);
         }
 
         public bool IsRelevant { get; set; }
