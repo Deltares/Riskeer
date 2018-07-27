@@ -128,18 +128,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
-            const double factorOfStability1 = 1.0 / 1000000.0;
-            const double factorOfStability2 = 1.0 / 2000000.0;
+            const double factorOfStability1 = 1.0 / 10.0;
+            const double factorOfStability2 = 1.0 / 20.0;
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario1 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(factorOfStability1, section);
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario2 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(factorOfStability2, section);
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario3 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(0.0, section);
 
             macroStabilityInwardsCalculationScenario1.IsRelevant = true;
-            macroStabilityInwardsCalculationScenario1.Contribution = (RoundedDouble) 0.2;
+            macroStabilityInwardsCalculationScenario1.Contribution = (RoundedDouble) 0.211;
 
             macroStabilityInwardsCalculationScenario2.IsRelevant = true;
-            macroStabilityInwardsCalculationScenario2.Contribution = (RoundedDouble) 0.8;
+            macroStabilityInwardsCalculationScenario2.Contribution = (RoundedDouble) 0.789;
 
             macroStabilityInwardsCalculationScenario3.IsRelevant = false;
 
@@ -154,7 +154,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.99686512181936182, detailedAssessmentProbability, 1e-8);
+            Assert.AreEqual(0.99012934868838343, detailedAssessmentProbability, 1e-8);
             mocks.VerifyAll();
         }
 
