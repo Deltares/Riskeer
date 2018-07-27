@@ -191,7 +191,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Contribution_AlwaysOnChange_ValueSetToRowNotifyObserverAndCalculationPropertyChanged()
+        public void Contribution_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();
@@ -213,8 +213,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             row.Contribution = (RoundedDouble) newValue;
 
             // Assert
-            Assert.AreEqual(2, row.Contribution.NumberOfDecimalPlaces);
-            Assert.AreEqual(newValue, row.Contribution, row.Contribution.GetAccuracy());
             Assert.AreEqual(newValue / 100, calculation.Contribution, calculation.Contribution.GetAccuracy());
             mocks.VerifyAll();
         }

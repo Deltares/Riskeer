@@ -197,7 +197,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            int newValue = new Random().Next(0, 100);
+            double newValue = new Random(21).NextDouble() * 100;
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             calculation.Attach(observer);
@@ -208,7 +208,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             row.Contribution = (RoundedDouble) newValue;
 
             // Assert
-            Assert.AreEqual(newValue, calculation.Contribution * 100, calculation.Contribution.GetAccuracy());
+            Assert.AreEqual(newValue / 100, calculation.Contribution, calculation.Contribution.GetAccuracy());
             mocks.VerifyAll();
         }
 
