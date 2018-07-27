@@ -120,6 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(name, row.Name);
             Assert.AreEqual(isRelevant, row.IsRelevant);
+            Assert.AreEqual(2, row.Contribution.NumberOfDecimalPlaces);
             Assert.AreEqual(contribution * 100, row.Contribution, row.Contribution.GetAccuracy());
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
                 calculation.Output, failureMechanism, assessmentSection);
@@ -156,6 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(name, row.Name);
             Assert.AreEqual(isRelevant, row.IsRelevant);
+            Assert.AreEqual(2, row.Contribution.NumberOfDecimalPlaces);
             Assert.AreEqual(contribution * 100, row.Contribution, row.Contribution.GetAccuracy());
             Assert.AreEqual("-", row.FailureProbabilityMacroStabilityInwards);
             mocks.VerifyAll();
@@ -189,7 +191,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Contribution_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
+        public void Contribution_AlwaysOnChange_ValueSetToRowNotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();
@@ -205,14 +207,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
 
-            int newValue = new Random(21).Next(0, 100);
+            double newValue = new Random(21).NextDouble() * 100;
 
             // Call
             row.Contribution = (RoundedDouble) newValue;
 
             // Assert
-            Assert.AreEqual(2, calculation.Contribution.NumberOfDecimalPlaces);
-            Assert.AreEqual(newValue, calculation.Contribution * 100, calculation.Contribution.GetAccuracy());
+            Assert.AreEqual(2, row.Contribution.NumberOfDecimalPlaces);
+            Assert.AreEqual(newValue, row.Contribution, row.Contribution.GetAccuracy());
+            Assert.AreEqual(newValue / 100, calculation.Contribution, calculation.Contribution.GetAccuracy());
             mocks.VerifyAll();
         }
 

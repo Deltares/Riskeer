@@ -100,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             get
             {
-                return new RoundedDouble(0, Calculation.Contribution * 100);
+                return new RoundedDouble(2, Calculation.Contribution * 100);
             }
             set
             {
