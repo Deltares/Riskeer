@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 
@@ -38,7 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public MacroStabilityInwardsCalculationScenario()
         {
             IsRelevant = true;
-            contribution = new RoundedDouble(2, 1.0);
+            contribution = new RoundedDouble(4, 1.0);
         }
 
         public bool IsRelevant { get; set; }
