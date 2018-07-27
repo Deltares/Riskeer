@@ -120,7 +120,29 @@ SELECT
 	1
 FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
 INSERT INTO DuneLocationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationEntity;
-INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
+INSERT INTO FailureMechanismEntity (
+	[FailureMechanismEntityId],
+	[AssessmentSectionEntityId],
+	[CalculationGroupEntityId],
+	[FailureMechanismType],
+	[IsRelevant],
+	[FailureMechanismSectionCollectionSourcePath],
+	[InputComments],
+	[OutputComments],
+	[NotRelevantComments])
+SELECT 
+	[FailureMechanismEntityId],
+	[AssessmentSectionEntityId],
+	[CalculationGroupEntityId],
+	[FailureMechanismType],
+	[IsRelevant],
+	CASE WHEN COUNT([FailureMechanismSectionEntityId]) THEN "" ELSE NULL END,
+	[InputComments],
+	[OutputComments],
+	[NotRelevantComments]
+FROM [SOURCEPROJECT].FailureMechanismEntity
+LEFT JOIN [SOURCEPROJECT].FailureMechanismSectionEntity USING (FailureMechanismEntityId)
+GROUP BY FailureMechanismEntityId;
 INSERT INTO FailureMechanismSectionEntity (
 	[FailureMechanismSectionEntityId],
 	[FailureMechanismEntityId],

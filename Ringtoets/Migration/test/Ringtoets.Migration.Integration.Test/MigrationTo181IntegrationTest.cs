@@ -84,6 +84,7 @@ namespace Ringtoets.Migration.Integration.Test
                     AssertHydraulicBoundaryLocationsProperties(reader, sourceFilePath);
                     AssertHydraulicBoundaryLocationsOnAssessmentSection(reader, sourceFilePath);
                     AssertHydraulicBoundaryLocationsOnGrassCoverErosionOutwardsFailureMechanism(reader, sourceFilePath);
+                    AssertFailureMechanisms(reader, sourceFilePath);
 
                     AssertPipingSoilLayers(reader);
                     AssertStabilityStoneCoverFailureMechanism(reader);
@@ -486,6 +487,37 @@ namespace Ringtoets.Migration.Integration.Test
             const string validateForeignKeys =
                 "PRAGMA foreign_keys;";
             reader.AssertReturnedDataIsValid(validateForeignKeys);
+        }
+
+        private static void AssertFailureMechanisms(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string validateFailureMechanismSectionsSourcePath =
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM (SELECT " +
+                "CASE WHEN " +
+                "COUNT([FailureMechanismSectionEntityId]) AND [FailureMechanismSectionCollectionSourcePath] IS NULL " +
+                "OR " +
+                "[FailureMechanismSectionCollectionSourcePath] IS NOT NULL AND NOT COUNT([FailureMechanismSectionEntityId]) " +
+                "THEN 1 ELSE 0 END AS [IsInvalid] " +
+                "FROM [FailureMechanismEntity] " +
+                "LEFT JOIN [FailureMechanismSectionEntity] USING([FailureMechanismEntityId]) " +
+                "GROUP BY [FailureMechanismEntityId]);";
+            reader.AssertReturnedDataIsValid(validateFailureMechanismSectionsSourcePath);
+
+            string validateFailureMechanisms =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].FailureMechanismEntity) " +
+                "FROM FailureMechanismEntity NEW " +
+                "JOIN [SOURCEPROJECT].FailureMechanismEntity OLD USING (FailureMechanismEntityId) " +
+                "WHERE NEW.AssessmentSectionEntityId = OLD.AssessmentSectionEntityId " +
+                "AND NEW.CalculationGroupEntityId IS OLD.CalculationGroupEntityId " +
+                "AND NEW.FailureMechanismType = OLD.FailureMechanismType " +
+                "AND NEW.IsRelevant = OLD.IsRelevant " +
+                "AND NEW.InputComments IS OLD.InputComments " +
+                "AND NEW.OutputComments IS OLD.OutputComments " +
+                "AND NEW.NotRelevantComments IS OLD.NotRelevantComments; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateFailureMechanisms);
         }
 
         private static void AssertPipingSoilLayers(MigratedDatabaseReader reader)
