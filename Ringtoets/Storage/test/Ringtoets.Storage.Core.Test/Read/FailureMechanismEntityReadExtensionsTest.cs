@@ -84,7 +84,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
+            Assert.IsEmpty(failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         [Test]
