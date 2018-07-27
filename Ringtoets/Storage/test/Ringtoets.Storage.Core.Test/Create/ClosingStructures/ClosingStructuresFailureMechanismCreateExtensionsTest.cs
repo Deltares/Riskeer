@@ -21,11 +21,11 @@
 
 using System;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Storage.Core.Create;
@@ -103,8 +103,6 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotRelevantText = "Really not relevant";
-            const string originalForeshoreProfilesSourcePath = "foreshoreProfiles/file/path";
-            const string originalStructuresSourcePath = "structures/file/path";
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 InputComments =
@@ -120,31 +118,15 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
                     Body = originalNotRelevantText
                 }
             };
-            failureMechanism.ForeshoreProfiles.AddRange(Enumerable.Empty<ForeshoreProfile>(), originalForeshoreProfilesSourcePath);
-            failureMechanism.ClosingStructures.AddRange(Enumerable.Empty<ClosingStructure>(), originalStructuresSourcePath);
             var registry = new PersistenceRegistry();
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            Assert.AreNotSame(originalInput, entity.InputComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
-            Assert.AreNotSame(originalOutput, entity.OutputComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreNotSame(originalNotRelevantText, entity.NotRelevantComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
-
-            ClosingStructuresFailureMechanismMetaEntity metaEntity = entity.ClosingStructuresFailureMechanismMetaEntities.First();
-            Assert.AreNotSame(originalForeshoreProfilesSourcePath, metaEntity.ForeshoreProfileCollectionSourcePath,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(originalForeshoreProfilesSourcePath, metaEntity.ForeshoreProfileCollectionSourcePath);
-            Assert.AreNotSame(originalStructuresSourcePath, metaEntity.ClosingStructureCollectionSourcePath,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(originalStructuresSourcePath, metaEntity.ClosingStructureCollectionSourcePath);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
         }
 
         [Test]
@@ -158,17 +140,19 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
 
             // Assert
             CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
+            Assert.IsNull(entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         [Test]
         public void Create_WithSections_FailureMechanismSectionEntitiesCreated()
         {
             // Setup
+            const string filePath = "failureMechanismSections/file/path";
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
+            }, filePath);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
@@ -176,6 +160,7 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities).Count());
+            TestHelper.AssertAreEqualButNotSame(filePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         [Test]
@@ -203,8 +188,7 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
             ClosingStructuresFailureMechanismMetaEntity metaEntity =
                 entity.ClosingStructuresFailureMechanismMetaEntities.Single();
             string metaEntityForeshoreProfileCollectionSourcePath = metaEntity.ForeshoreProfileCollectionSourcePath;
-            Assert.AreNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
-            Assert.AreEqual(filePath, metaEntityForeshoreProfileCollectionSourcePath);
+            TestHelper.AssertAreEqualButNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
         }
 
         [Test]
@@ -214,11 +198,11 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
             ClosingStructure structure = new TestClosingStructure();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var path = "some path";
+            const string filePath = "some path";
             failureMechanism.ClosingStructures.AddRange(new[]
             {
                 structure
-            }, path);
+            }, filePath);
 
             var persistenceRegistry = new PersistenceRegistry();
 
@@ -232,8 +216,7 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
             ClosingStructuresFailureMechanismMetaEntity metaEntity =
                 entity.ClosingStructuresFailureMechanismMetaEntities.Single();
             string entitySourcePath = metaEntity.ClosingStructureCollectionSourcePath;
-            Assert.AreEqual(path, entitySourcePath);
-            Assert.AreNotSame(path, entitySourcePath);
+            TestHelper.AssertAreEqualButNotSame(filePath, entitySourcePath);
         }
 
         [Test]

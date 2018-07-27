@@ -52,7 +52,8 @@ namespace Ringtoets.Storage.Core.Create
                 IsRelevant = Convert.ToByte(mechanism.IsRelevant),
                 InputComments = mechanism.InputComments.Body.DeepClone(),
                 OutputComments = mechanism.OutputComments.Body.DeepClone(),
-                NotRelevantComments = mechanism.NotRelevantComments.Body.DeepClone()
+                NotRelevantComments = mechanism.NotRelevantComments.Body.DeepClone(),
+                FailureMechanismSectionCollectionSourcePath = mechanism.FailureMechanismSectionSourcePath.DeepClone()
             };
 
             mechanism.AddEntitiesForFailureMechanismSections(registry, entity);

@@ -71,6 +71,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
 
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             MacroStabilityInwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
@@ -233,18 +234,20 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
             // Assert
             Assert.IsNotNull(entity);
             CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
+            Assert.IsNull(entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         [Test]
         public void Create_WithSections_FailureMechanismSectionEntitiesCreated()
         {
             // Setup
+            const string filePath = "failureMechanismSections/file/path";
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             FailureMechanismSection testFailureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            failureMechanism.SetSections(new[]
             {
                 testFailureMechanismSection
-            });
+            }, filePath);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
@@ -253,6 +256,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.IsNotNull(entity);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities).Count());
+            TestHelper.AssertAreEqualButNotSame(filePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         [Test]

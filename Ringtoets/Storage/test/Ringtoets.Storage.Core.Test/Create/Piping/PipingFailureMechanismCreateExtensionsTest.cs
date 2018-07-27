@@ -168,14 +168,30 @@ namespace Ringtoets.Storage.Core.Test.Create.Piping
         }
 
         [Test]
-        public void Create_WithSections_ReturnsWithFailureMechanismSectionEntitiesAndPipingResultEntities()
+        public void Create_WithoutSections_EmptyFailureMechanismSectionEntities()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.IsNotNull(entity);
+            CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
+            Assert.IsNull(entity.FailureMechanismSectionCollectionSourcePath);
+        }
+
+        [Test]
+        public void Create_WithSections_ReturnsWithFailureMechanismSectionEntitiesAndPipingResultEntities()
+        {
+            // Setup
+            const string filePath = "failureMechanismSections/File/Path";
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
+            }, filePath);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -185,6 +201,7 @@ namespace Ringtoets.Storage.Core.Test.Create.Piping
             Assert.IsNotNull(entity);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities).Count());
+            TestHelper.AssertAreEqualButNotSame(filePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         [Test]

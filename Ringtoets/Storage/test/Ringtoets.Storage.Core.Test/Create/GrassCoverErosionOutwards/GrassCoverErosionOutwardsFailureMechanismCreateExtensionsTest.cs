@@ -123,15 +123,9 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionOutwards
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            Assert.AreNotSame(originalInput, entity.InputComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
-            Assert.AreNotSame(originalOutput, entity.OutputComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreNotSame(originalNotRelevantText, entity.NotRelevantComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
         }
 
         [Test]
@@ -145,6 +139,7 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionOutwards
 
             // Assert
             CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
+            Assert.IsNull(entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         [Test]
@@ -152,10 +147,11 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionOutwards
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            const string filePath = "failureMechanismSections/file/path";
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
+            }, filePath);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
@@ -163,6 +159,7 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionOutwards
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionOutwardsSectionResultEntities).Count());
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         [Test]

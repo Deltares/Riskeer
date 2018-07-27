@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -91,7 +92,8 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
 
             HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.First();
             Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
-            Assert.IsNull(metaEntity.HeightStructureCollectionSourcePath);
+            Assert.AreEqual(failureMechanism.HeightStructures.SourcePath, metaEntity.HeightStructureCollectionSourcePath);
+            Assert.AreEqual(failureMechanism.ForeshoreProfiles.SourcePath, metaEntity.ForeshoreProfileCollectionSourcePath);
         }
 
         [Test]
@@ -101,7 +103,6 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotRelevantText = "Really not relevant";
-            const string originalSourcePath = "some output path";
             var failureMechanism = new HeightStructuresFailureMechanism
             {
                 InputComments =
@@ -117,27 +118,16 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
                     Body = originalNotRelevantText
                 }
             };
-            failureMechanism.HeightStructures.AddRange(Enumerable.Empty<HeightStructure>(), originalSourcePath);
+
             var registry = new PersistenceRegistry();
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            Assert.AreNotSame(originalInput, entity.InputComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
-            Assert.AreNotSame(originalOutput, entity.OutputComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreNotSame(originalNotRelevantText, entity.NotRelevantComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
-
-            HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.First();
-            Assert.AreEqual(originalSourcePath, metaEntity.HeightStructureCollectionSourcePath);
-            Assert.AreNotSame(originalSourcePath, metaEntity.HeightStructureCollectionSourcePath,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
         }
 
         [Test]
@@ -151,17 +141,19 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
 
             // Assert
             CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
+            Assert.IsNull(entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         [Test]
         public void Create_WithSections_FailureMechanismSectionEntitiesCreated()
         {
             // Setup
+            const string filePath = "failureMechanismSections/file/path";
             var failureMechanism = new HeightStructuresFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
+            }, filePath);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
@@ -169,23 +161,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities).Count());
-        }
-
-        [Test]
-        public void Create_WithoutForeshoreProfiles_EmptyForeshoreProfilesEntities()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            // Call
-            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
-
-            // Assert
-            CollectionAssert.IsEmpty(entity.ForeshoreProfileEntities);
-
-            HeightStructuresFailureMechanismMetaEntity metaEntity =
-                entity.HeightStructuresFailureMechanismMetaEntities.Single();
-            Assert.IsNull(metaEntity.ForeshoreProfileCollectionSourcePath);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         [Test]
@@ -213,8 +189,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
             HeightStructuresFailureMechanismMetaEntity metaEntity =
                 entity.HeightStructuresFailureMechanismMetaEntities.Single();
             string metaEntityForeshoreProfileCollectionSourcePath = metaEntity.ForeshoreProfileCollectionSourcePath;
-            Assert.AreNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
-            Assert.AreEqual(filePath, metaEntityForeshoreProfileCollectionSourcePath);
+            TestHelper.AssertAreEqualButNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
         }
 
         [Test]
@@ -237,27 +212,6 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
         }
 
         [Test]
-        public void Create_WithoutHeightStructuresWithSourcePath_EmptyHeightStructureEntitiesWithSourcePath()
-        {
-            // Setup
-            const string originalSourcePath = "some output path";
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.HeightStructures.AddRange(Enumerable.Empty<HeightStructure>(), originalSourcePath);
-
-            var persistenceRegistry = new PersistenceRegistry();
-
-            // Call
-            FailureMechanismEntity entity = failureMechanism.Create(persistenceRegistry);
-
-            // Assert
-            Assert.AreEqual(0, entity.HeightStructureEntities.Count);
-
-            HeightStructuresFailureMechanismMetaEntity metaEntity =
-                entity.HeightStructuresFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(originalSourcePath, metaEntity.HeightStructureCollectionSourcePath);
-        }
-
-        [Test]
         public void Create_WithHeightStructures_HeightStructureEntitiesCreated()
         {
             // Setup
@@ -268,7 +222,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
             failureMechanism.HeightStructures.AddRange(new[]
             {
                 structure
-            }, filePath);
+            }, string.Empty);
 
             var persistenceRegistry = new PersistenceRegistry();
 
@@ -282,8 +236,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
             HeightStructuresFailureMechanismMetaEntity metaEntity =
                 entity.HeightStructuresFailureMechanismMetaEntities.Single();
             string metaEntityHeightStructureCollectionSourcePath = metaEntity.HeightStructureCollectionSourcePath;
-            Assert.AreNotSame(filePath, metaEntityHeightStructureCollectionSourcePath);
-            Assert.AreEqual(filePath, metaEntityHeightStructureCollectionSourcePath);
+            TestHelper.AssertAreEqualButNotSame(filePath, metaEntityHeightStructureCollectionSourcePath);
         }
 
         [Test]

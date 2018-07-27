@@ -91,7 +91,6 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(1, entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Count);
             GrassCoverErosionInwardsFailureMechanismMetaEntity generalInputEntity = entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.First();
             Assert.AreEqual(failureMechanism.GeneralInput.N, generalInputEntity.N);
-            Assert.IsNull(generalInputEntity.DikeProfileCollectionSourcePath);
         }
 
         [Test]
@@ -122,15 +121,9 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            Assert.AreNotSame(originalInput, entity.InputComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
-            Assert.AreNotSame(originalOutput, entity.OutputComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreNotSame(originalNotRelevantText, entity.NotRelevantComments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
         }
 
         [Test]
@@ -144,17 +137,19 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
 
             // Assert
             CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
+            Assert.IsNull(entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         [Test]
         public void Create_WithSections_FailureMechanismSectionEntitiesCreated()
         {
             // Setup
+            const string filePath = "failureMechanismSections/file/path";
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
+            }, filePath);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
@@ -162,6 +157,7 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities).Count());
+            TestHelper.AssertAreEqualButNotSame(filePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         [Test]
@@ -176,19 +172,23 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
 
             // Assert
             CollectionAssert.IsEmpty(entity.DikeProfileEntities);
+
+            GrassCoverErosionInwardsFailureMechanismMetaEntity generalInputEntity =
+                entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Single();
+            Assert.IsNull(generalInputEntity.DikeProfileCollectionSourcePath);
         }
 
         [Test]
         public void Create_WithDikeProfiles_AddDikeProfileEntities()
         {
             // Setup
-            const string sourcePath = "some/path/to/my/dikeprofiles";
+            const string filePath = "some/path/to/my/dikeprofiles";
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.AddRange(new[]
             {
                 DikeProfileTestFactory.CreateDikeProfile(string.Empty, "id1"),
                 DikeProfileTestFactory.CreateDikeProfile(string.Empty, "id2")
-            }, sourcePath);
+            }, filePath);
 
             var registry = new PersistenceRegistry();
 
@@ -199,8 +199,8 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(2, entity.DikeProfileEntities.Count);
 
             GrassCoverErosionInwardsFailureMechanismMetaEntity generalInputEntity =
-                entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.First();
-            Assert.AreEqual(sourcePath, generalInputEntity.DikeProfileCollectionSourcePath);
+                entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Single();
+            TestHelper.AssertAreEqualButNotSame(filePath, generalInputEntity.DikeProfileCollectionSourcePath);
         }
 
         [Test]
