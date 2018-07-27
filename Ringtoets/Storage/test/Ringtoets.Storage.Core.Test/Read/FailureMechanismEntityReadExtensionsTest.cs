@@ -91,8 +91,10 @@ namespace Ringtoets.Storage.Core.Test.Read
         public void ReadAsStandAloneFailureMechanism_WithSectionsSet_ReturnsNewStandAloneFailureMechanismWithFailureMechanismSections()
         {
             // Setup
+            const string filePath = "failureMechanismSections/File/Path";
             var entity = new FailureMechanismEntity
             {
+                FailureMechanismSectionCollectionSourcePath = filePath,
                 FailureMechanismSectionEntities =
                 {
                     CreateSimpleFailureMechanismSectionEntity()
@@ -105,8 +107,8 @@ namespace Ringtoets.Storage.Core.Test.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.Sections.Count());
-            Assert.IsEmpty(failureMechanism.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
+            Assert.AreEqual(filePath, failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         private static FailureMechanismSectionEntity CreateSimpleFailureMechanismSectionEntity()
@@ -162,6 +164,8 @@ namespace Ringtoets.Storage.Core.Test.Read
         public void ReadAsDuneErosionFailureMechanism_WithSectionsSet_ReturnsNewDuneErosionFailureMechanismWithFailureMechanismSectionsAdded()
         {
             // Setup
+            const string filePath = "failureMechanismSections/File/Path";
+
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
             var duneErosionSectionResultEntity = new DuneErosionSectionResultEntity
             {
@@ -170,6 +174,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             failureMechanismSectionEntity.DuneErosionSectionResultEntities.Add(duneErosionSectionResultEntity);
             var entity = new FailureMechanismEntity
             {
+                FailureMechanismSectionCollectionSourcePath = filePath,
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
@@ -195,7 +200,9 @@ namespace Ringtoets.Storage.Core.Test.Read
             entity.ReadAsDuneErosionFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
+                            failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         [Test]
@@ -623,6 +630,8 @@ namespace Ringtoets.Storage.Core.Test.Read
         public void ReadAsPipingFailureMechanism_WithSectionsSet_SetsPipingFailureMechanismWithFailureMechanismSections()
         {
             // Setup
+            const string filePath = "failureMechanismSections/File/Path";
+
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
             var pipingSectionResultEntity = new PipingSectionResultEntity
             {
@@ -631,6 +640,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             failureMechanismSectionEntity.PipingSectionResultEntities.Add(pipingSectionResultEntity);
             var entity = new FailureMechanismEntity
             {
+                FailureMechanismSectionCollectionSourcePath = filePath,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 FailureMechanismSectionEntities =
                 {
@@ -648,8 +658,10 @@ namespace Ringtoets.Storage.Core.Test.Read
             entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(failureMechanismSectionEntity.PipingSectionResultEntities.Count,
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count,
                             failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
+                            failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         [Test]
@@ -988,6 +1000,8 @@ namespace Ringtoets.Storage.Core.Test.Read
         public void ReadAsMacroStabilityInwardsFailureMechanism_WithSectionsSet_MacroStabilityInwardsFailureMechanismWithFailureMechanismSectionsSet()
         {
             // Setup
+            const string filePath = "failureMechanismSections/File/Path";
+
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
             failureMechanismSectionEntity.MacroStabilityInwardsSectionResultEntities.Add(new MacroStabilityInwardsSectionResultEntity
             {
@@ -995,6 +1009,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             });
             var entity = new FailureMechanismEntity
             {
+                FailureMechanismSectionCollectionSourcePath = filePath,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 FailureMechanismSectionEntities =
                 {
@@ -1012,8 +1027,10 @@ namespace Ringtoets.Storage.Core.Test.Read
             entity.ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(failureMechanismSectionEntity.MacroStabilityInwardsSectionResultEntities.Count,
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count,
                             failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
+                            failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         [Test]
@@ -1162,6 +1179,7 @@ namespace Ringtoets.Storage.Core.Test.Read
         public void ReadAsMacroStabilityOutwardsFailureMechanism_WithSectionsSet_MacroStabilityOutwardsFailureMechanismWithFailureMechanismSectionsSet()
         {
             // Setup
+            const string filePath = "failureMechanismSections/File/Path";
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
             failureMechanismSectionEntity.MacroStabilityOutwardsSectionResultEntities.Add(new MacroStabilityOutwardsSectionResultEntity
             {
@@ -1169,6 +1187,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             });
             var entity = new FailureMechanismEntity
             {
+                FailureMechanismSectionCollectionSourcePath = filePath,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 FailureMechanismSectionEntities =
                 {
@@ -1186,8 +1205,9 @@ namespace Ringtoets.Storage.Core.Test.Read
             entity.ReadAsMacroStabilityOutwardsFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(failureMechanismSectionEntity.MacroStabilityOutwardsSectionResultEntities.Count,
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count,
                             failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath, failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         #endregion
@@ -1284,6 +1304,8 @@ namespace Ringtoets.Storage.Core.Test.Read
         public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithSectionsSet_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithFailureMechanismSectionsAdded()
         {
             // Setup
+            const string filePath = "failureMechanismSections/File/Path";
+
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
             var grassCoverErosionInwardsSectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity
             {
@@ -1292,6 +1314,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             failureMechanismSectionEntity.GrassCoverErosionInwardsSectionResultEntities.Add(grassCoverErosionInwardsSectionResultEntity);
             var entity = new FailureMechanismEntity
             {
+                FailureMechanismSectionCollectionSourcePath = filePath,
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
@@ -1312,7 +1335,8 @@ namespace Ringtoets.Storage.Core.Test.Read
             entity.ReadAsGrassCoverErosionInwardsFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath, failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         [Test]
@@ -1592,6 +1616,8 @@ namespace Ringtoets.Storage.Core.Test.Read
         public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithSectionsSet_ReturnsNewGrassCoverErosionOutwardsFailureMechanismWithFailureMechanismSectionsAdded()
         {
             // Setup
+            const string filePath = "failureMechanismSections/File/Path";
+
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
             var grassCoverErosionOutwardsSectionResultEntity = new GrassCoverErosionOutwardsSectionResultEntity
             {
@@ -1626,7 +1652,8 @@ namespace Ringtoets.Storage.Core.Test.Read
             entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath, failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         [Test]
@@ -1883,6 +1910,46 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual("Child1", child2.Id);
         }
 
+        [Test]
+        public void ReadAsStabilityStoneCoverFailureMechanism_WithSectionsSet_StabilityStoneCoverFailureMechanismWithFailureMechanismSectionsSet()
+        {
+            // Setup
+            const string filePath = "failureMechanismSections/FilePath";
+
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            failureMechanismSectionEntity.StabilityStoneCoverSectionResultEntities.Add(new StabilityStoneCoverSectionResultEntity()
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            });
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismSectionCollectionSourcePath = filePath,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                StabilityStoneCoverFailureMechanismMetaEntities =
+                {
+                    new StabilityStoneCoverFailureMechanismMetaEntity
+                    {
+                        N = 2
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsStabilityStoneCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count,
+                            failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
+                            failureMechanism.FailureMechanismSectionSourcePath);
+        }
+
         #endregion
 
         #region Wave Impact Asphalt Cover
@@ -2055,6 +2122,45 @@ namespace Ringtoets.Storage.Core.Test.Read
 
             ForeshoreProfile child2 = foreshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Id);
+        }
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithSectionsSet_WaveImpactAsphaltCoverFailureMechanismWithFailureMechanismSectionsSet()
+        {
+            // Setup
+            const string filePath = "failureMechanismSections/FilePath";
+
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            failureMechanismSectionEntity.WaveImpactAsphaltCoverSectionResultEntities.Add(new WaveImpactAsphaltCoverSectionResultEntity()
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            });
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismSectionCollectionSourcePath = filePath,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                WaveImpactAsphaltCoverFailureMechanismMetaEntities =
+                {
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsWaveImpactAsphaltCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count,
+                            failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
+                            failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         #endregion
@@ -2293,6 +2399,46 @@ namespace Ringtoets.Storage.Core.Test.Read
             // Assert
             Assert.AreEqual(sourcePath, failureMechanism.HeightStructures.SourcePath);
             CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
+        }
+
+        [Test]
+        public void ReadAsHeightStructuresFailureMechanism_WithSectionsSet_HeightStructuresFailureMechanismWithFailureMechanismSectionsSet()
+        {
+            // Setup
+            const string filePath = "failureMechanismSections/FilePath";
+
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            failureMechanismSectionEntity.HeightStructuresSectionResultEntities.Add(new HeightStructuresSectionResultEntity()
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            });
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismSectionCollectionSourcePath = filePath,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                HeightStructuresFailureMechanismMetaEntities = 
+                {
+                    new HeightStructuresFailureMechanismMetaEntity
+                    {
+                        N = 2
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsHeightStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count,
+                            failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
+                            failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         #endregion
@@ -2542,6 +2688,43 @@ namespace Ringtoets.Storage.Core.Test.Read
             ICalculationBase expectedCalculationGroup = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("A", expectedCalculationGroup.Name);
             Assert.IsInstanceOf<CalculationGroup>(expectedCalculationGroup);
+        }
+
+        [Test]
+        public void ReadAsClosingStructuresFailureMechanism_WithSectionsSet_ClosingStructuresFailureMechanismWithFailureMechanismSectionsSet()
+        {
+            // Setup
+            const string filePath = "failureMechanismSections/FilePath";
+
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            failureMechanismSectionEntity.ClosingStructuresSectionResultEntities.Add(new ClosingStructuresSectionResultEntity()
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            });
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismSectionCollectionSourcePath = filePath,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                ClosingStructuresFailureMechanismMetaEntities =
+                {
+                    new ClosingStructuresFailureMechanismMetaEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsClosingStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count,
+                            failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
+                            failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         #endregion
@@ -2804,6 +2987,46 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.IsInstanceOf<CalculationGroup>(expectedCalculationGroup);
         }
 
+        [Test]
+        public void ReadAsStabilityPointStructuresFailureMechanism_WithSectionsSet_StabilityPointStructuresFailureMechanismWithFailureMechanismSectionsSet()
+        {
+            // Setup
+            const string filePath = "failureMechanismSections/FilePath";
+
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            failureMechanismSectionEntity.StabilityPointStructuresSectionResultEntities.Add(new StabilityPointStructuresSectionResultEntity()
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            });
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismSectionCollectionSourcePath = filePath,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                StabilityPointStructuresFailureMechanismMetaEntities =
+                {
+                    new StabilityPointStructuresFailureMechanismMetaEntity
+                    {
+                        N = 2
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsStabilityPointStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count,
+                            failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
+                            failureMechanism.FailureMechanismSectionSourcePath);
+        }
+
         #endregion
 
         #region PipingStructure
@@ -2898,6 +3121,8 @@ namespace Ringtoets.Storage.Core.Test.Read
         public void ReadAsPipingStructureFailureMechanism_WithSectionsSet_PipingStructureFailureMechanismWithFailureMechanismSectionsSet()
         {
             // Setup
+            const string filePath = "failureMechanismSections/FilePath";
+
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
             failureMechanismSectionEntity.PipingStructureSectionResultEntities.Add(new PipingStructureSectionResultEntity
             {
@@ -2905,6 +3130,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             });
             var entity = new FailureMechanismEntity
             {
+                FailureMechanismSectionCollectionSourcePath = filePath, 
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 FailureMechanismSectionEntities =
                 {
@@ -2925,8 +3151,10 @@ namespace Ringtoets.Storage.Core.Test.Read
             entity.ReadAsPipingStructureFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(failureMechanismSectionEntity.PipingStructureSectionResultEntities.Count,
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count,
                             failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath, 
+                            failureMechanism.FailureMechanismSectionSourcePath);
         }
 
         #endregion

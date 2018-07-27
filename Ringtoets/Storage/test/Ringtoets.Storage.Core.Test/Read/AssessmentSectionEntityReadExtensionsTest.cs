@@ -27,9 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -40,9 +38,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read;
 using Ringtoets.Storage.Core.Serializers;
-using Ringtoets.Storage.Core.TestUtil;
 using Ringtoets.Storage.Core.TestUtil.Hydraulics;
-using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 
 namespace Ringtoets.Storage.Core.Test.Read
 {
@@ -455,191 +451,9 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(outputComments, section.Piping.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.Piping.NotRelevantComments.Body);
             Assert.AreEqual(parameterA, section.Piping.PipingProbabilityAssessmentInput.A);
-        }
-
-        [Test]
-        public void Read_WithPipingWithStochasticSoilModels_ReturnsPipingWithStochasticSoilModels()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            var random = new Random(21);
-            var geometry = new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble())
-            };
-            string segmentPointXml = new Point2DCollectionXmlSerializer().ToXml(geometry);
-            const string stochasticSoilModelSourcePath = "path";
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.Piping,
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                StochasticSoilModelEntities =
-                {
-                    new StochasticSoilModelEntity
-                    {
-                        Name = "modelA",
-                        StochasticSoilModelSegmentPointXml = segmentPointXml,
-                        PipingStochasticSoilProfileEntities =
-                        {
-                            PipingStochasticSoilProfileEntityTestFactory.CreateStochasticSoilProfileEntity()
-                        }
-                    },
-                    new StochasticSoilModelEntity
-                    {
-                        Name = "modelB",
-                        StochasticSoilModelSegmentPointXml = segmentPointXml,
-                        PipingStochasticSoilProfileEntities =
-                        {
-                            PipingStochasticSoilProfileEntityTestFactory.CreateStochasticSoilProfileEntity()
-                        }
-                    }
-                },
-                PipingFailureMechanismMetaEntities =
-                {
-                    new PipingFailureMechanismMetaEntity
-                    {
-                        StochasticSoilModelCollectionSourcePath = stochasticSoilModelSourcePath
-                    }
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            Assert.AreEqual(2, section.Piping.StochasticSoilModels.Count);
-            Assert.AreEqual(stochasticSoilModelSourcePath, section.Piping.StochasticSoilModels.SourcePath);
-        }
-
-        [Test]
-        public void Read_WithPipingWithSurfaceLines_ReturnsPipingWithSurfaceLines()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            string emptyPointsXml = new Point3DCollectionXmlSerializer().ToXml(new Point3D[0]);
-            const string surfaceLineSourcePath = "some/path";
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.Piping,
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                SurfaceLineEntities =
-                {
-                    new SurfaceLineEntity
-                    {
-                        PointsXml = emptyPointsXml,
-                        Name = "Line A"
-                    },
-                    new SurfaceLineEntity
-                    {
-                        PointsXml = emptyPointsXml,
-                        Name = "Line B"
-                    }
-                },
-                PipingFailureMechanismMetaEntities =
-                {
-                    new PipingFailureMechanismMetaEntity
-                    {
-                        SurfaceLineCollectionSourcePath = surfaceLineSourcePath
-                    }
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            Assert.AreEqual(2, section.Piping.SurfaceLines.Count);
-            Assert.AreEqual(surfaceLineSourcePath, section.Piping.SurfaceLines.SourcePath);
-        }
-
-        [Test]
-        public void Read_WithPipingWithCalculationGroups_ReturnsPipingWithCalculationGroups()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.Piping,
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntity1 =
-                    {
-                        new CalculationGroupEntity
-                        {
-                            Order = 0
-                        },
-                        new CalculationGroupEntity
-                        {
-                            Order = 1
-                        }
-                    }
-                },
-                PipingFailureMechanismMetaEntities =
-                {
-                    new PipingFailureMechanismMetaEntity()
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            List<ICalculationBase> childCalculationGroups = section.Piping.CalculationsGroup.Children;
-            Assert.AreEqual(2, childCalculationGroups.Count);
-        }
-
-        [Test]
-        public void Read_WithPipingWithFailureMechanismSections_ReturnsPipingWithFailureMechanismSections()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.Piping,
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities(),
-                PipingFailureMechanismMetaEntities =
-                {
-                    new PipingFailureMechanismMetaEntity()
-                }
-            };
-            FailureMechanismSectionEntity sectionA = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0);
-            FailureMechanismSectionEntity sectionB = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(1);
-            sectionA.PipingSectionResultEntities.Add(new PipingSectionResultEntity
-            {
-                FailureMechanismSectionEntity = sectionA
-            });
-            sectionB.PipingSectionResultEntities.Add(new PipingSectionResultEntity
-            {
-                FailureMechanismSectionEntity = sectionB
-            });
-
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            Assert.AreEqual(2, section.Piping.Sections.Count());
+            Assert.IsNull(section.Piping.FailureMechanismSectionSourcePath);
+            Assert.IsNull(section.Piping.StochasticSoilModels.SourcePath);
+            Assert.IsNull(section.Piping.SurfaceLines.SourcePath);
         }
 
         [Test]
@@ -683,153 +497,13 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(inputComments, section.MacroStabilityInwards.InputComments.Body);
             Assert.AreEqual(outputComments, section.MacroStabilityInwards.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.MacroStabilityInwards.NotRelevantComments.Body);
+            Assert.IsNull(section.MacroStabilityInwards.FailureMechanismSectionSourcePath);
+            Assert.IsNull(section.MacroStabilityInwards.StochasticSoilModels.SourcePath);
+            Assert.IsNull(section.MacroStabilityInwards.SurfaceLines.SourcePath);
 
             MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = section.MacroStabilityInwards
                                                                                                 .MacroStabilityInwardsProbabilityAssessmentInput;
             Assert.AreEqual(parameterA, probabilityAssessmentInput.A);
-        }
-
-        [Test]
-        public void Read_WithMacroStabilityInwardsWithStochasticSoilModels_ReturnsMacroStabilityInwardsWithStochasticSoilModels()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            var random = new Random(21);
-            string segmentPointsXml = new Point2DCollectionXmlSerializer().ToXml(new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
-            const string stochasticSoilModelSourcePath = "path";
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.MacroStabilityInwards,
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                StochasticSoilModelEntities =
-                {
-                    new StochasticSoilModelEntity
-                    {
-                        Name = "modelA",
-                        StochasticSoilModelSegmentPointXml = segmentPointsXml,
-                        MacroStabilityInwardsStochasticSoilProfileEntities =
-                        {
-                            MacroStabilityInwardsStochasticSoilProfileEntityTestFactory.CreateStochasticSoilProfileEntity()
-                        }
-                    },
-                    new StochasticSoilModelEntity
-                    {
-                        Name = "modelB",
-                        StochasticSoilModelSegmentPointXml = segmentPointsXml,
-                        MacroStabilityInwardsStochasticSoilProfileEntities =
-                        {
-                            MacroStabilityInwardsStochasticSoilProfileEntityTestFactory.CreateStochasticSoilProfileEntity()
-                        }
-                    }
-                },
-                MacroStabilityInwardsFailureMechanismMetaEntities =
-                {
-                    new MacroStabilityInwardsFailureMechanismMetaEntity
-                    {
-                        StochasticSoilModelCollectionSourcePath = stochasticSoilModelSourcePath
-                    }
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            Assert.AreEqual(2, section.MacroStabilityInwards.StochasticSoilModels.Count);
-            Assert.AreEqual(stochasticSoilModelSourcePath, section.MacroStabilityInwards.StochasticSoilModels.SourcePath);
-        }
-
-        [Test]
-        public void Read_WithMacroStabilityInwardsWithSurfaceLines_ReturnsMacroStabilityInwardsWithSurfaceLines()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            string emptyPointsXml = new Point3DCollectionXmlSerializer().ToXml(new Point3D[0]);
-            const string surfaceLineSourcePath = "some/path";
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.MacroStabilityInwards,
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                SurfaceLineEntities =
-                {
-                    new SurfaceLineEntity
-                    {
-                        PointsXml = emptyPointsXml,
-                        Name = "Line A"
-                    },
-                    new SurfaceLineEntity
-                    {
-                        PointsXml = emptyPointsXml,
-                        Name = "Line B"
-                    }
-                },
-                MacroStabilityInwardsFailureMechanismMetaEntities =
-                {
-                    new MacroStabilityInwardsFailureMechanismMetaEntity
-                    {
-                        SurfaceLineCollectionSourcePath = surfaceLineSourcePath
-                    }
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            Assert.AreEqual(2, section.MacroStabilityInwards.SurfaceLines.Count);
-            Assert.AreEqual(surfaceLineSourcePath, section.MacroStabilityInwards.SurfaceLines.SourcePath);
-        }
-
-        [Test]
-        public void Read_WithMacroStabilityInwardsWithFailureMechanismSections_ReturnsMacroStabilityInwardsWithFailureMechanismSections()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.MacroStabilityInwards,
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities(),
-                MacroStabilityInwardsFailureMechanismMetaEntities =
-                {
-                    new MacroStabilityInwardsFailureMechanismMetaEntity()
-                }
-            };
-            FailureMechanismSectionEntity sectionA = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0);
-            FailureMechanismSectionEntity sectionB = failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(1);
-            sectionA.MacroStabilityInwardsSectionResultEntities.Add(new MacroStabilityInwardsSectionResultEntity
-            {
-                FailureMechanismSectionEntity = sectionA
-            });
-            sectionB.MacroStabilityInwardsSectionResultEntities.Add(new MacroStabilityInwardsSectionResultEntity
-            {
-                FailureMechanismSectionEntity = sectionB
-            });
-
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            Assert.AreEqual(2, section.MacroStabilityInwards.Sections.Count());
         }
 
         [Test]
@@ -872,6 +546,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(inputComments, section.MacroStabilityOutwards.InputComments.Body);
             Assert.AreEqual(outputComments, section.MacroStabilityOutwards.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.MacroStabilityOutwards.NotRelevantComments.Body);
+            Assert.IsNull(section.MacroStabilityOutwards.FailureMechanismSectionSourcePath);
 
             MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = section.MacroStabilityOutwards
                                                                                                  .MacroStabilityOutwardsProbabilityAssessmentInput;
@@ -879,17 +554,17 @@ namespace Ringtoets.Storage.Core.Test.Read
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithGrassCoverErosionInwardsWithProperties_ReturnsGrassCoverErosionInwardsWithProperties(bool isRelevant)
+        public void Read_WithGrassCoverErosionInwardsWithProperties_ReturnsGrassCoverErosionInwardsWithProperties()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
+            double n = random.NextDouble(1.0, 20.0);
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotRelevantText = "Really not relevant";
 
-            RoundedDouble n = new Random(39).NextRoundedDouble(1.0, 20.0);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
@@ -919,99 +594,25 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(originalInput, section.GrassCoverErosionInwards.InputComments.Body);
             Assert.AreEqual(originalOutput, section.GrassCoverErosionInwards.OutputComments.Body);
             Assert.AreEqual(originalNotRelevantText, section.GrassCoverErosionInwards.NotRelevantComments.Body);
+            Assert.IsNull(section.GrassCoverErosionInwards.FailureMechanismSectionSourcePath);
+            Assert.IsNull(section.GrassCoverErosionInwards.DikeProfiles.SourcePath);
 
             RoundedDouble actualN = section.GrassCoverErosionInwards.GeneralInput.N;
             Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]
-        public void Read_WithGrassCoverErosionInwardsWithCalculationGroups_ReturnsGrassCoverErosionInwardsWithCalculationGroups()
+        public void Read_WithGrassCoverErosionOutwardsWithProperties_ReturnsGrassCoverErosionOutwardsWithProperties()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
-                GrassCoverErosionInwardsFailureMechanismMetaEntities =
-                {
-                    new GrassCoverErosionInwardsFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
-                },
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntity1 =
-                    {
-                        new CalculationGroupEntity
-                        {
-                            Order = 0
-                        },
-                        new CalculationGroupEntity
-                        {
-                            Order = 1
-                        }
-                    }
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            List<ICalculationBase> childCalculationGroups = section.GrassCoverErosionInwards.CalculationsGroup.Children;
-            Assert.AreEqual(2, childCalculationGroups.Count);
-        }
-
-        [Test]
-        public void Read_WithGrassCoverErosionInwardsWithFailureMechanismSection_ReturnsGrassCoverErosionInwardsWithFailureMechanismSections()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            var rootGroupEntity = new CalculationGroupEntity();
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities(),
-                GrassCoverErosionInwardsFailureMechanismMetaEntities =
-                {
-                    new GrassCoverErosionInwardsFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
-                },
-                CalculationGroupEntity = rootGroupEntity
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            Assert.AreEqual(2, section.GrassCoverErosionInwards.Sections.Count());
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithGrassCoverErosionOutwardsWithProperties_ReturnsGrassCoverErosionOutwardsWithProperties(bool isRelevant)
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
+            double n = random.NextDouble(1.0, 20.0);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
 
-            RoundedDouble n = new Random(39).NextRoundedDouble(1.0, 20.0);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
@@ -1047,133 +648,24 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(inputComments, section.GrassCoverErosionOutwards.InputComments.Body);
             Assert.AreEqual(outputComments, section.GrassCoverErosionOutwards.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.GrassCoverErosionOutwards.NotRelevantComments.Body);
+            Assert.IsNull(section.GrassCoverErosionOutwards.FailureMechanismSectionSourcePath);
+            Assert.IsNull(section.GrassCoverErosionOutwards.ForeshoreProfiles.SourcePath);
 
             RoundedDouble actualN = section.GrassCoverErosionOutwards.GeneralInput.N;
             Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]
-        public void Read_WithGrassCoverErosionOutwardsWithWaveConditionsCalculationGroups_ReturnsGrassCoverErosionOutwardsWithWaveConditionsCalculationGroups()
+        public void Read_WithStabilityStoneCoverWithProperties_ReturnsStabilityStoneCoverWithProperties()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
-                GrassCoverErosionOutwardsFailureMechanismMetaEntities =
-                {
-                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity
-                    {
-                        N = 1,
-                        HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity2 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity3 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity4 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity5 = new HydraulicLocationCalculationCollectionEntity()
-                    }
-                },
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntity1 =
-                    {
-                        new CalculationGroupEntity
-                        {
-                            Order = 0
-                        },
-                        new CalculationGroupEntity
-                        {
-                            Order = 1
-                        }
-                    }
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            List<ICalculationBase> childCalculationGroups = section.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children;
-            Assert.AreEqual(2, childCalculationGroups.Count);
-        }
-
-        [Test]
-        public void Read_WithGrassCoverErosionOutwardsWithForeshoreProfile_ReturnsGrassCoverErosionOutwardsWithForeshoreProfiles()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            const string profileAId = "profileA";
-            const string profileBId = "profileB";
-            const string fileLocation = "some/location";
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
-                GrassCoverErosionOutwardsFailureMechanismMetaEntities =
-                {
-                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity
-                    {
-                        N = 2,
-                        ForeshoreProfileCollectionSourcePath = fileLocation,
-                        HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity2 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity3 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity4 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity5 = new HydraulicLocationCalculationCollectionEntity()
-                    }
-                },
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                ForeshoreProfileEntities =
-                {
-                    new ForeshoreProfileEntity
-                    {
-                        Order = 1,
-                        Id = profileAId,
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
-                    },
-                    new ForeshoreProfileEntity
-                    {
-                        Order = 0,
-                        Id = profileBId,
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
-                    }
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            ForeshoreProfileCollection foreshoreProfiles = section.GrassCoverErosionOutwards.ForeshoreProfiles;
-            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
-            CollectionAssert.AreEqual(new[]
-            {
-                profileBId,
-                profileAId
-            }, foreshoreProfiles.Select(fp => fp.Id));
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithStabilityStoneCoverWithProperties_ReturnsStabilityStoneCoverWithProperties(bool isRelevant)
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
+            double n = random.NextDouble(1.0, 20.0);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
-            RoundedDouble n = new Random(39).NextRoundedDouble(1.0, 20.0);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1204,125 +696,24 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(inputComments, section.StabilityStoneCover.InputComments.Body);
             Assert.AreEqual(outputComments, section.StabilityStoneCover.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.StabilityStoneCover.NotRelevantComments.Body);
+            Assert.IsNull(section.StabilityStoneCover.FailureMechanismSectionSourcePath);
+            Assert.IsNull(section.StabilityStoneCover.ForeshoreProfiles.SourcePath);
 
             RoundedDouble actualN = section.StabilityStoneCover.GeneralInput.N;
             Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]
-        public void Read_WithStabilityStoneCoverWithWaveConditionsCalculationGroups_ReturnsStabilityStoneCoverWithWaveConditionsCalculationGroups()
+        public void Read_WithWaveImpactAsphaltCoverWithProperties_ReturnsWaveImpactAsphaltCoverWithProperties()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.StabilityStoneRevetment,
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntity1 =
-                    {
-                        new CalculationGroupEntity
-                        {
-                            Order = 0
-                        },
-                        new CalculationGroupEntity
-                        {
-                            Order = 1
-                        }
-                    }
-                },
-                StabilityStoneCoverFailureMechanismMetaEntities =
-                {
-                    new StabilityStoneCoverFailureMechanismMetaEntity
-                    {
-                        N = 3.9
-                    }
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            List<ICalculationBase> childCalculationGroups = section.StabilityStoneCover.WaveConditionsCalculationGroup.Children;
-            Assert.AreEqual(2, childCalculationGroups.Count);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithStabilityStoneCoverWithForeshoreProfiles_ReturnsStabilityStoneCoverWithForeshoreProfiles(bool isRelevant)
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            const string profileAId = "profileA";
-            const string profileBId = "profileB";
-            const string fileLocation = "some/file/location";
-
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.StabilityStoneRevetment,
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                ForeshoreProfileEntities =
-                {
-                    new ForeshoreProfileEntity
-                    {
-                        Order = 1,
-                        Id = profileAId,
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
-                    },
-                    new ForeshoreProfileEntity
-                    {
-                        Order = 0,
-                        Id = profileBId,
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
-                    }
-                },
-                StabilityStoneCoverFailureMechanismMetaEntities =
-                {
-                    new StabilityStoneCoverFailureMechanismMetaEntity
-                    {
-                        ForeshoreProfileCollectionSourcePath = fileLocation,
-                        N = 3.9
-                    }
-                },
-                IsRelevant = Convert.ToByte(isRelevant)
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            ForeshoreProfileCollection foreshoreProfiles = section.StabilityStoneCover.ForeshoreProfiles;
-            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
-            CollectionAssert.AreEqual(new[]
-            {
-                profileBId,
-                profileAId
-            }, foreshoreProfiles.Select(fp => fp.Id));
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithWaveImpactAsphaltCoverWithProperties_ReturnsWaveImpactAsphaltCoverWithProperties(bool isRelevant)
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
+            double deltaL = random.NextDouble(1.0, 20.0);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
-            RoundedDouble deltaL = new Random(39).NextRoundedDouble(1.0, 2000.0);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1353,122 +744,24 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(inputComments, section.WaveImpactAsphaltCover.InputComments.Body);
             Assert.AreEqual(outputComments, section.WaveImpactAsphaltCover.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.WaveImpactAsphaltCover.NotRelevantComments.Body);
+            Assert.IsNull(section.WaveImpactAsphaltCover.FailureMechanismSectionSourcePath);
+            Assert.IsNull(section.WaveImpactAsphaltCover.ForeshoreProfiles.SourcePath);
 
             RoundedDouble actualDeltaL = section.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.DeltaL;
             Assert.AreEqual(deltaL, actualDeltaL, actualDeltaL.GetAccuracy());
         }
 
         [Test]
-        public void Read_WithWaveImpactAsphaltCoverWithForeshoreProfiles_ReturnsWaveImpactAsphaltCoverWithForeshoreProfiles()
+        public void Read_WithHeightStructuresWithProperties_ReturnsHeightStructuresWithProperties()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            const string profileAId = "profileA";
-            const string profileBId = "profileB";
-            const string fileLocation = "some/location";
-
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.WaveImpactOnAsphaltRevetment,
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                ForeshoreProfileEntities =
-                {
-                    new ForeshoreProfileEntity
-                    {
-                        Order = 1,
-                        Id = profileAId,
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
-                    },
-                    new ForeshoreProfileEntity
-                    {
-                        Order = 0,
-                        Id = profileBId,
-                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
-                    }
-                },
-                WaveImpactAsphaltCoverFailureMechanismMetaEntities =
-                {
-                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
-                    {
-                        ForeshoreProfileCollectionSourcePath = fileLocation,
-                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
-                    }
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            ForeshoreProfileCollection foreshoreProfiles = section.WaveImpactAsphaltCover.ForeshoreProfiles;
-            Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
-            CollectionAssert.AreEqual(new[]
-            {
-                profileBId,
-                profileAId
-            }, foreshoreProfiles.Select(fp => fp.Id));
-        }
-
-        [Test]
-        public void Read_WithWaveImpactAsphaltCoverWithWaveConditionsCalculationGroups_ReturnsWaveImpactAsphaltCoverWithWaveConditionsCalculationGroups()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.WaveImpactOnAsphaltRevetment,
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntity1 =
-                    {
-                        new CalculationGroupEntity
-                        {
-                            Order = 0
-                        },
-                        new CalculationGroupEntity
-                        {
-                            Order = 1
-                        }
-                    }
-                },
-                WaveImpactAsphaltCoverFailureMechanismMetaEntities =
-                {
-                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
-                    {
-                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
-                    }
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            List<ICalculationBase> childCalculationGroups = section.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children;
-            Assert.AreEqual(2, childCalculationGroups.Count);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithHeightStructuresWithProperties_ReturnsHeightStructuresWithProperties(bool isRelevant)
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
+            double n = random.NextDouble(1.0, 20.0);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
-            RoundedDouble n = new Random(39).NextRoundedDouble(1.0, 20.0);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1499,22 +792,24 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(inputComments, section.HeightStructures.InputComments.Body);
             Assert.AreEqual(outputComments, section.HeightStructures.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.HeightStructures.NotRelevantComments.Body);
+            Assert.IsNull(section.HeightStructures.FailureMechanismSectionSourcePath);
+            Assert.IsNull(section.HeightStructures.HeightStructures.SourcePath);
 
             RoundedDouble actualN = section.HeightStructures.GeneralInput.N;
             Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithClosingStructuresWithProperties_ReturnsClosingStructuresWithProperties(bool isRelevant)
+        public void Read_WithClosingStructuresWithProperties_ReturnsClosingStructuresWithProperties()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
+            int n2a = random.Next(1, 40);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
-            int n2a = new Random(39).Next(1, 40);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1545,20 +840,21 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(inputComments, section.ClosingStructures.InputComments.Body);
             Assert.AreEqual(outputComments, section.ClosingStructures.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.ClosingStructures.NotRelevantComments.Body);
+            Assert.IsNull(section.ClosingStructures.FailureMechanismSectionSourcePath);
             Assert.AreEqual(n2a, section.ClosingStructures.GeneralInput.N2A);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithStabilityPointStructuresWithProperties_ReturnsStabilityPointStructuresWithProperties(bool isRelevant)
+        public void Read_WithStabilityPointStructuresWithProperties_ReturnsStabilityPointStructuresWithProperties()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
+            double n = random.NextDouble(1.0, 20.0);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
-            RoundedDouble n = new Random(39).NextRoundedDouble(1.0, 20.0);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1589,6 +885,8 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(inputComments, section.StabilityPointStructures.InputComments.Body);
             Assert.AreEqual(outputComments, section.StabilityPointStructures.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.StabilityPointStructures.NotRelevantComments.Body);
+            Assert.IsNull(section.StabilityPointStructures.FailureMechanismSectionSourcePath);
+            Assert.IsNull(section.StabilityPointStructures.StabilityPointStructures.SourcePath);
 
             RoundedDouble actualN = section.StabilityPointStructures.GeneralInput.N;
             Assert.AreEqual(n, actualN, actualN.GetAccuracy());
@@ -1604,7 +902,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             const string notRelevantComments = "Really not relevant";
             var random = new Random(39);
             bool isRelevant = random.NextBoolean();
-            RoundedDouble n = random.NextRoundedDouble(1.0, 20.0);
+            double n = random.NextDouble(1.0, 20.0);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1640,44 +938,10 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(inputComments, section.DuneErosion.InputComments.Body);
             Assert.AreEqual(outputComments, section.DuneErosion.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.DuneErosion.NotRelevantComments.Body);
+            Assert.IsNull(section.DuneErosion.FailureMechanismSectionSourcePath);
 
             RoundedDouble actualN = section.DuneErosion.GeneralInput.N;
             Assert.AreEqual(n, actualN, actualN.GetAccuracy());
-        }
-
-        [Test]
-        public void Read_WithDuneErosionWithFailureMechanismSection_ReturnsDuneErosionWithFailureMechanismSections()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.DuneErosion,
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities(),
-                DuneErosionFailureMechanismMetaEntities =
-                {
-                    new DuneErosionFailureMechanismMetaEntity
-                    {
-                        N = 1,
-                        DuneLocationCalculationCollectionEntity = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity1 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity2 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity3 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity4 = new DuneLocationCalculationCollectionEntity()
-                    }
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            Assert.AreEqual(2, section.DuneErosion.Sections.Count());
         }
 
         [Test]
@@ -1687,7 +951,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             var random = new Random(21);
             bool isRelevant = random.NextBoolean();
-            double parameterN = 1 + random.NextDouble();
+            double parameterN = random.NextDouble(1.0, 20.0);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
@@ -1720,6 +984,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(inputComments, section.PipingStructure.InputComments.Body);
             Assert.AreEqual(outputComments, section.PipingStructure.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.PipingStructure.NotRelevantComments.Body);
+            Assert.IsNull(section.PipingStructure.FailureMechanismSectionSourcePath);
 
             RoundedDouble actualN = section.PipingStructure.N;
             Assert.AreEqual(parameterN, actualN, actualN.GetAccuracy());
@@ -1754,7 +1019,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             FailureMechanismEntity grassRevetmentSlidingInwards = CreateFailureMechanismEntity(
                 grassRevetmentSlidingInwardsIsRelevant,
                 FailureMechanismType.GrassRevetmentSlidingInwards);
-            FailureMechanismEntity technicalInnovations = CreateFailureMechanismEntity(
+            FailureMechanismEntity technicalInnovation = CreateFailureMechanismEntity(
                 technicalInnovationsIsRelevant,
                 FailureMechanismType.TechnicalInnovations);
 
@@ -1763,7 +1028,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             entity.FailureMechanismEntities.Add(waterOverpressureAsphaltRevetment);
             entity.FailureMechanismEntities.Add(grassRevetmentSlidingOutwards);
             entity.FailureMechanismEntities.Add(grassRevetmentSlidingInwards);
-            entity.FailureMechanismEntities.Add(technicalInnovations);
+            entity.FailureMechanismEntities.Add(technicalInnovation);
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
@@ -1773,34 +1038,29 @@ namespace Ringtoets.Storage.Core.Test.Read
 
             // Assert
             AssertFailureMechanismEqual(microstabilityIsRelevant,
-                                        2,
                                         microstability.InputComments,
                                         microstability.OutputComments,
                                         microstability.NotRelevantComments,
                                         section.Microstability);
             AssertFailureMechanismEqual(strengthAndStabilityParallelConstructionIsRelevant,
-                                        2,
                                         strengthAndStabilityParallelConstruction.InputComments,
                                         strengthAndStabilityParallelConstruction.OutputComments,
                                         strengthAndStabilityParallelConstruction.NotRelevantComments,
                                         section.StrengthStabilityLengthwiseConstruction);
             AssertFailureMechanismEqual(waterOverpressureAsphaltRevetmentIsRelevant,
-                                        2,
                                         waterOverpressureAsphaltRevetment.InputComments,
                                         waterOverpressureAsphaltRevetment.OutputComments,
                                         waterOverpressureAsphaltRevetment.NotRelevantComments,
                                         section.WaterPressureAsphaltCover);
             AssertFailureMechanismEqual(grassRevetmentSlidingOutwardsIsRelevant,
-                                        2,
                                         grassRevetmentSlidingOutwards.InputComments,
                                         grassRevetmentSlidingOutwards.OutputComments,
                                         grassRevetmentSlidingOutwards.NotRelevantComments,
                                         section.GrassCoverSlipOffOutwards);
             AssertFailureMechanismEqual(technicalInnovationsIsRelevant,
-                                        2,
-                                        technicalInnovations.InputComments,
-                                        technicalInnovations.OutputComments,
-                                        technicalInnovations.NotRelevantComments,
+                                        technicalInnovation.InputComments,
+                                        technicalInnovation.OutputComments,
+                                        technicalInnovation.NotRelevantComments,
                                         section.TechnicalInnovation);
         }
 
@@ -1887,11 +1147,10 @@ namespace Ringtoets.Storage.Core.Test.Read
                 InputComments = string.Concat("InputComment", failureMechanismType.ToString()),
                 OutputComments = string.Concat("OutputComment", failureMechanismType.ToString()),
                 NotRelevantComments = string.Concat("NotRelevantComment", failureMechanismType.ToString()),
-                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             };
         }
 
-        private static void AssertFailureMechanismEqual(bool expectedIsRelevant, int expectedSectionCount,
+        private static void AssertFailureMechanismEqual(bool expectedIsRelevant,
                                                         string expectedInputComments, string expectedOutputComments,
                                                         string expectedNotRelevantComments, IFailureMechanism failureMechanism)
         {
@@ -1899,29 +1158,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(expectedInputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(expectedOutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(expectedNotRelevantComments, failureMechanism.NotRelevantComments.Body);
-            Assert.AreEqual(expectedSectionCount, failureMechanism.Sections.Count());
-        }
-
-        private static FailureMechanismSectionEntity[] CreateFailureMechanismSectionEntities()
-        {
-            var dummyPointData = new[]
-            {
-                new Point2D(0.0, 0.0)
-            };
-            string dummyPointXml = new Point2DCollectionXmlSerializer().ToXml(dummyPointData);
-            return new[]
-            {
-                new FailureMechanismSectionEntity
-                {
-                    Name = "",
-                    FailureMechanismSectionPointXml = dummyPointXml
-                },
-                new FailureMechanismSectionEntity
-                {
-                    Name = "",
-                    FailureMechanismSectionPointXml = dummyPointXml
-                }
-            };
+            Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
         }
     }
 }
