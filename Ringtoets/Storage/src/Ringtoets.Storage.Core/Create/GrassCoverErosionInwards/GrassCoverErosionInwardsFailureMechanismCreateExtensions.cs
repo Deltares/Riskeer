@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Storage.Core.DbContext;
@@ -55,7 +56,7 @@ namespace Ringtoets.Storage.Core.Create.GrassCoverErosionInwards
             var metaEntity = new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
                 N = mechanism.GeneralInput.N,
-                DikeProfileCollectionSourcePath = mechanism.DikeProfiles.SourcePath
+                DikeProfileCollectionSourcePath = mechanism.DikeProfiles.SourcePath.DeepClone()
             };
             entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(metaEntity);
         }

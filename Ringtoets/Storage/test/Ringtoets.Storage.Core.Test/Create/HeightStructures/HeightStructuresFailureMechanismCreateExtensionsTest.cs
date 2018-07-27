@@ -222,7 +222,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
             failureMechanism.HeightStructures.AddRange(new[]
             {
                 structure
-            }, string.Empty);
+            }, filePath);
 
             var persistenceRegistry = new PersistenceRegistry();
 

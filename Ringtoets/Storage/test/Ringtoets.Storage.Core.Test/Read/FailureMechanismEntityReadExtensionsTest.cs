@@ -1626,6 +1626,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             failureMechanismSectionEntity.GrassCoverErosionOutwardsSectionResultEntities.Add(grassCoverErosionOutwardsSectionResultEntity);
             var entity = new FailureMechanismEntity
             {
+                FailureMechanismSectionCollectionSourcePath = filePath,
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
