@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
@@ -78,6 +79,7 @@ namespace Ringtoets.Storage.Core.TestUtil.Test
 
             AssertHydraulicBoundaryDatabase(assessmentSection.HydraulicBoundaryDatabase);
             AssertHydraulicBoundaryLocationCalculations(assessmentSection);
+            AssertFailureMechanismSections(assessmentSection);
 
             AssertPipingFailureMechanism(assessmentSection);
 
@@ -510,6 +512,15 @@ namespace Ringtoets.Storage.Core.TestUtil.Test
             Assert.AreEqual("test2", hydraulicBoundaryLocationWithIllustrationPoints.Name);
             Assert.AreEqual(135.2, hydraulicBoundaryLocationWithIllustrationPoints.Location.X);
             Assert.AreEqual(5293.8, hydraulicBoundaryLocationWithIllustrationPoints.Location.Y);
+        }
+
+        private static void AssertFailureMechanismSections(AssessmentSection asssessmentSection)
+        {
+            foreach (IFailureMechanism failureMechanism in asssessmentSection.GetFailureMechanisms())
+            {
+                Assert.IsNotEmpty(failureMechanism.FailureMechanismSectionSourcePath);
+                Assert.IsNotEmpty(failureMechanism.Sections);
+            }
         }
 
         #region Dune Erosion Failure Mechanism

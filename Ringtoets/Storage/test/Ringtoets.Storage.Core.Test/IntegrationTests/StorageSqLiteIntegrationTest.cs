@@ -467,6 +467,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
             AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
             AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
             AssertFailureMechanismSections(expectedFailureMechanism.Sections, actualFailureMechanism.Sections);
+            Assert.AreEqual(expectedFailureMechanism.FailureMechanismSectionSourcePath, actualFailureMechanism.FailureMechanismSectionSourcePath);
         }
 
         private static void AssertFailureMechanismSections(IEnumerable<FailureMechanismSection> expectedSections,

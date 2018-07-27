@@ -304,7 +304,7 @@ namespace Ringtoets.Storage.Core.TestUtil
 
         private static void SetSections(IFailureMechanism failureMechanism)
         {
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("section 1", new[]
                 {
@@ -321,7 +321,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                     new Point2D(4, 5),
                     new Point2D(2, 3)
                 })
-            });
+            }, "failureMechanismSections/File/Path");
         }
 
         private static void AddForeshoreProfiles(ForeshoreProfileCollection foreshoreProfiles)
