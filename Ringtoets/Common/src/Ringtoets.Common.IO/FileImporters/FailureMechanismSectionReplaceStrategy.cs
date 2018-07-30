@@ -49,6 +49,8 @@ namespace Ringtoets.Common.IO.FileImporters
             this.failureMechanism = failureMechanism;
         }
 
+        /// <inheritdoc />
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public void UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
                                                    string sourcePath)
         {
