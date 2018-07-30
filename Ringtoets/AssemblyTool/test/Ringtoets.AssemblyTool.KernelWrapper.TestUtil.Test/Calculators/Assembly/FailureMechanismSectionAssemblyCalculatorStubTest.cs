@@ -45,6 +45,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.IsNull(calculator.SimpleAssessmentAssemblyOutput);
 
             Assert.AreEqual(0.0, calculator.DetailedAssessmentFailureMechanismSectionNInput);
+            Assert.AreEqual(0.0, calculator.DetailedAssessmentFailureMechanismNInput);
             Assert.AreEqual(0.0, calculator.DetailedAssessmentProbabilityInput);
             Assert.AreEqual((DetailedAssessmentProbabilityOnlyResultType) 0, calculator.DetailedAssessmentProbabilityOnlyResultInput);
             Assert.IsNull(calculator.DetailedAssessmentAssemblyOutput);
@@ -446,7 +447,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual(detailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
             Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
             Assert.AreEqual(normativeNorm, calculator.DetailedAssessmentNormativeNormInput);
-            Assert.AreEqual(n, calculator.DetailedAssessmentFailureMechanismSectionNInput);
+            Assert.AreEqual(n, calculator.DetailedAssessmentFailureMechanismNInput);
             Assert.AreEqual(failureMechanismContribution, calculator.DetailedAssessmentFailureMechanismContribution);
         }
 
@@ -464,7 +465,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             TestDelegate test = () => calculator.AssembleDetailedAssessment(
                 random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
                 random.NextDouble(),
-                CreateAssemblyCategoriesInput());
+                random.NextDouble(),
+                random.NextDouble(1, 10),
+                random.NextDouble());
 
             // Assert
             var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);

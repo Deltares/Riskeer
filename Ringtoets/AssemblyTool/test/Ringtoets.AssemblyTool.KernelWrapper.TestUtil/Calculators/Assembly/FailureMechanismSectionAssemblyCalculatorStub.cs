@@ -77,7 +77,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public double DetailedAssessmentNormativeNormInput { get; private set; }
 
         /// <summary>
-        /// Gets the 'N' parameter input of the detailed assessment calculation.
+        /// Gets the failure mechanism 'N' parameter input of the detailed assessment calculation.
+        /// </summary>
+        public double DetailedAssessmentFailureMechanismNInput { get; private set; }
+
+        /// <summary>
+        /// Gets the 'N' parameter failure mechanism section input of the detailed assessment calculation.
         /// </summary>
         public double DetailedAssessmentFailureMechanismSectionNInput { get; private set; }
 
@@ -329,7 +334,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             DetailedAssessmentProbabilityOnlyResultInput = detailedAssessmentResult;
             DetailedAssessmentProbabilityInput = probability;
             DetailedAssessmentNormativeNormInput = normativeNorm;
-            DetailedAssessmentFailureMechanismSectionNInput = failureMechanismN;
+            DetailedAssessmentFailureMechanismNInput = failureMechanismN;
             DetailedAssessmentFailureMechanismContribution = failureMechanismContribution;
 
             return DetailedAssessmentAssemblyOutput ??
