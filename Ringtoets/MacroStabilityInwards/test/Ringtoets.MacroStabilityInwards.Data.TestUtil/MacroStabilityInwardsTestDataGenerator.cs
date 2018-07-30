@@ -122,7 +122,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         public static MacroStabilityInwardsCalculationScenario GetIrrelevantMacroStabilityInwardsCalculationScenario()
         {
             MacroStabilityInwardsCalculationScenario calculation = GetMacroStabilityInwardsCalculationScenario();
-            calculation.Contribution = (RoundedDouble) 0.5;
+            calculation.Contribution = (RoundedDouble) 0.5432;
             calculation.IsRelevant = false;
 
             return calculation;

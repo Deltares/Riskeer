@@ -2,7 +2,7 @@
 <configuratie>
   <berekening naam="Calculation">
     <scenario>
-        <bijdrage>8.8</bijdrage>
+        <bijdrage>87.654321</bijdrage>
     </scenario>
   </berekening>
 </configuratie>

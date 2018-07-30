@@ -144,7 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             // Assert
             Assert.IsFalse(calculation.IsRelevant);
-            Assert.AreEqual(0.5, calculation.Contribution, calculation.Contribution.GetAccuracy());
+            Assert.AreEqual(0.5432, calculation.Contribution, calculation.Contribution.GetAccuracy());
         }
 
         [Test]

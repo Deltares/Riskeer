@@ -327,7 +327,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var expectedCalculation = new MacroStabilityInwardsCalculationScenario
             {
                 Name = "Calculation",
-                Contribution = (RoundedDouble) 0.088
+                Contribution = (RoundedDouble) 0.8765
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
