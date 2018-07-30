@@ -600,6 +600,21 @@ namespace Ringtoets.Integration.Data
             yield return TechnicalInnovation;
         }
 
+        public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
+        {
+            yield return Piping;
+            yield return GrassCoverErosionInwards;
+            yield return MacroStabilityInwards;
+            yield return StabilityStoneCover;
+            yield return WaveImpactAsphaltCover;
+            yield return GrassCoverErosionOutwards;
+            yield return HeightStructures;
+            yield return ClosingStructures;
+            yield return PipingStructure;
+            yield return StabilityPointStructures;
+            yield return DuneErosion;
+        }
+
         /// <inheritdoc />
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="newComposition"/> 
         /// is not a valid enum value of <see cref="AssessmentSectionComposition"/>.</exception>
@@ -722,21 +737,6 @@ namespace Ringtoets.Integration.Data
             StabilityPointStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             PipingStructure.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             DuneErosion.IsRelevant = Composition != AssessmentSectionComposition.Dike;
-        }
-
-        private IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
-        {
-            yield return Piping;
-            yield return GrassCoverErosionInwards;
-            yield return MacroStabilityInwards;
-            yield return StabilityStoneCover;
-            yield return WaveImpactAsphaltCover;
-            yield return GrassCoverErosionOutwards;
-            yield return HeightStructures;
-            yield return ClosingStructures;
-            yield return PipingStructure;
-            yield return StabilityPointStructures;
-            yield return DuneErosion;
         }
     }
 }

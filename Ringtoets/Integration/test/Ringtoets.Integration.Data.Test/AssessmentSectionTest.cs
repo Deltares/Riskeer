@@ -336,6 +336,36 @@ namespace Ringtoets.Integration.Data.Test
         [TestCase(AssessmentSectionComposition.Dike)]
         [TestCase(AssessmentSectionComposition.Dune)]
         [TestCase(AssessmentSectionComposition.DikeAndDune)]
+        public void GetContributingFailureMechanisms_Always_ReturnContributingFailureMechanisms(AssessmentSectionComposition composition)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(composition);
+
+            // Call
+            IFailureMechanism[] failureMechanisms = assessmentSection.GetContributingFailureMechanisms().ToArray();
+
+            // Assert
+            Assert.AreEqual(11, failureMechanisms.Length);
+            CollectionAssert.AreEqual(new IFailureMechanism[]
+            {
+                assessmentSection.Piping,
+                assessmentSection.GrassCoverErosionInwards,
+                assessmentSection.MacroStabilityInwards,
+                assessmentSection.StabilityStoneCover,
+                assessmentSection.WaveImpactAsphaltCover,
+                assessmentSection.GrassCoverErosionOutwards,
+                assessmentSection.HeightStructures,
+                assessmentSection.ClosingStructures,
+                assessmentSection.PipingStructure,
+                assessmentSection.StabilityPointStructures,
+                assessmentSection.DuneErosion
+            }, failureMechanisms);
+        }
+
+        [Test]
+        [TestCase(AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.Dune)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune)]
         public void FailureMechanismContribution_DefaultConstructed_FailureMechanismContributionWithItemsForFailureMechanismsAndOther(
             AssessmentSectionComposition composition)
         {

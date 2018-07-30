@@ -94,6 +94,20 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             CollectionAssert.IsEmpty(failureMechanism);
         }
 
+
+        [Test]
+        public void GetContributingFailureMechanisms_Always_ReturnEmpty()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+
+            // Call
+            IEnumerable<IFailureMechanism> failureMechanism = assessmentSection.GetContributingFailureMechanisms();
+
+            // Assert
+            CollectionAssert.IsEmpty(failureMechanism);
+        }
+
         [Test]
         public void ChangeComposition_Call_ThrowsNotImplementedException()
         {

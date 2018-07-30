@@ -177,6 +177,11 @@ namespace Ringtoets.Common.Data.TestUtil
             yield break;
         }
 
+        public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
+        {
+            yield break;
+        }
+
         public void ChangeComposition(AssessmentSectionComposition newComposition)
         {
             throw new NotImplementedException("Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.");
