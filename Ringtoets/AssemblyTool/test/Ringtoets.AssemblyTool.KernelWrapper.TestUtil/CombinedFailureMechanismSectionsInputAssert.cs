@@ -63,7 +63,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
             CollectionAssert.AreEqual(originalSections.Select(s => s.SectionEnd), failureMechanismSections.Select(r => r.SectionEnd));
             CollectionAssert.AreEqual(originalSections.Select(s => ConvertCategoryGroup(s.CategoryGroup)),
                                       failureMechanismSections.Select(r => (FmSectionWithDirectCategory) r)
-                                                             .Select(category => category.Category));
+                                                              .Select(category => category.Category));
         }
 
         private static EFmSectionCategory ConvertCategoryGroup(FailureMechanismSectionAssemblyCategoryGroup categoryGroup)

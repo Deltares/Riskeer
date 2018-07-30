@@ -86,7 +86,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
         private static void AssertAssemblyCategoriesInput(AssemblyCategoriesInput assemblyCategoriesInput,
                                                           AssemblyCategoriesKernelStub categoriesKernel,
-                                                          CategoriesList<FmSectionCategory> categories,
                                                           FailureMechanismSectionAssemblyKernelStub kernel)
         {
             Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, categoriesKernel.SignalingNorm);
@@ -94,7 +93,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             Assert.AreEqual(assemblyCategoriesInput.N, categoriesKernel.N);
             Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, categoriesKernel.FailureMechanismContribution);
 
-            Assert.AreSame(categories, kernel.FailureMechanismSectionCategories);
+            Assert.AreSame(categoriesKernel.FailureMechanismSectionCategoriesOutput, kernel.FailureMechanismSectionCategories);
+        }
+
+        private static void AssertAssemblyCategoriesInput(double normativeNorm,
+                                                          double n, double failureMechanismContribution,
+                                                          AssemblyCategoriesKernelStub categoriesKernel,
+                                                          FailureMechanismSectionAssemblyKernelStub kernel)
+        {
+            Assert.AreEqual(normativeNorm, categoriesKernel.AssessmentSectionNorm);
+            Assert.AreEqual(n, categoriesKernel.N);
+            Assert.AreEqual(failureMechanismContribution, categoriesKernel.FailureMechanismContribution);
+            Assert.AreSame(categoriesKernel.FailureMechanismCategoriesOutput, kernel.FailureMechanismSectionCategories);
         }
 
         private static AssemblyCategoriesInput CreateAssemblyCategoriesInput()
@@ -571,7 +581,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                categoriesKernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -592,7 +602,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
-                                              categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01,
                                               kernel);
             }
         }
@@ -608,7 +617,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                categoriesKernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -628,7 +637,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
-                                              categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01,
                                               kernel);
             }
         }
@@ -780,7 +788,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi02 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -797,10 +805,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                     failureMechanismContribution);
 
                 // Assert
-                Assert.AreEqual(normativeNorm, categoriesKernel.AssessmentSectionNorm);
-                Assert.AreEqual(n, categoriesKernel.N);
-                Assert.AreEqual(failureMechanismContribution, categoriesKernel.FailureMechanismContribution);
-                Assert.AreSame(categoriesKernel.FailureMechanismSectionCategoriesOutputWbi02, kernel.FailureMechanismSectionCategories);
+                AssertAssemblyCategoriesInput(normativeNorm, n, failureMechanismContribution, categoriesKernel, kernel);
 
                 EAssessmentResultTypeG2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessment);
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeG2Input);
@@ -821,7 +826,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi02 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -838,11 +843,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                     failureMechanismContribution);
 
                 // Assert
-                Assert.AreEqual(normativeNorm, categoriesKernel.AssessmentSectionNorm);
-                Assert.AreEqual(n, categoriesKernel.N);
-                Assert.AreEqual(failureMechanismContribution, categoriesKernel.FailureMechanismContribution);
-                Assert.AreSame(categoriesKernel.FailureMechanismSectionCategoriesOutputWbi02, kernel.FailureMechanismSectionCategories);
-                
+                AssertAssemblyCategoriesInput(normativeNorm, n, failureMechanismContribution, categoriesKernel, kernel);
+
                 Assert.IsNaN(kernel.FailureProbabilityInput);
                 Assert.AreEqual(EAssessmentResultTypeG2.Gr, kernel.AssessmentResultTypeG2Input);
             }
@@ -1001,7 +1003,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                categoriesKernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -1023,7 +1025,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeG2Input);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
-                                              categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01,
                                               kernel);
             }
         }
@@ -1040,7 +1041,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                categoriesKernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -1061,7 +1062,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(EAssessmentResultTypeG2.Gr, kernel.AssessmentResultTypeG2Input);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
-                                              categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01,
                                               kernel);
             }
         }
@@ -1566,7 +1566,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi02 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
@@ -1577,11 +1577,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, normativeNorm, n, failureMechanismContribution);
 
                 // Assert
-                Assert.AreEqual(normativeNorm, categoriesKernel.AssessmentSectionNorm);
-                Assert.AreEqual(n, categoriesKernel.N);
-                Assert.AreEqual(failureMechanismContribution, categoriesKernel.FailureMechanismContribution);
+                AssertAssemblyCategoriesInput(normativeNorm, n, failureMechanismContribution, categoriesKernel, kernel);
 
-                Assert.AreSame(categoriesKernel.FailureMechanismSectionCategoriesOutputWbi02, kernel.FailureMechanismSectionCategories);
                 EAssessmentResultTypeT4 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4(tailorMadeAssessmentResult);
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeT4Input);
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
@@ -1601,7 +1598,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi02 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
@@ -1616,11 +1613,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                                                         failureMechanismContribution);
 
                 // Assert
-                Assert.AreEqual(normativeNorm, categoriesKernel.AssessmentSectionNorm);
-                Assert.AreEqual(n, categoriesKernel.N);
-                Assert.AreEqual(failureMechanismContribution, categoriesKernel.FailureMechanismContribution);
+                AssertAssemblyCategoriesInput(normativeNorm, n, failureMechanismContribution, categoriesKernel, kernel);
 
-                Assert.AreSame(categoriesKernel.FailureMechanismSectionCategoriesOutputWbi02, kernel.FailureMechanismSectionCategories);
                 Assert.AreEqual(EAssessmentResultTypeT4.Gr, kernel.AssessmentResultTypeT4Input);
                 Assert.IsNaN(kernel.FailureProbabilityInput);
             }
@@ -1775,7 +1769,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                categoriesKernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -1792,7 +1786,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
-                                              categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01,
                                               kernel);
             }
         }
@@ -1808,7 +1801,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                categoriesKernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -1826,7 +1819,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.IsNaN(kernel.FailureProbabilityInput);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
-                                              categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01,
                                               kernel);
             }
         }
@@ -1976,7 +1968,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                categoriesKernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -1994,7 +1986,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(n, kernel.LengthEffectFactorInput);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
-                                              categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01,
                                               kernel);
             }
         }
@@ -2011,7 +2002,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                categoriesKernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -2031,7 +2022,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(n, kernel.LengthEffectFactorInput);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
-                                              categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01,
                                               kernel);
             }
         }
@@ -3099,7 +3089,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                categoriesKernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -3115,7 +3105,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(EAssessmentResultTypeG2.ResultSpecified, kernel.AssessmentResultTypeG2Input);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
-                                              categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01,
                                               kernel);
 
             }
@@ -3132,7 +3121,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                categoriesKernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -3148,7 +3137,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(EAssessmentResultTypeG2.Gr, kernel.AssessmentResultTypeG2Input);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
-                                              categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01,
                                               kernel);
             }
         }
@@ -3261,7 +3249,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                categoriesKernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -3281,7 +3269,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(EAssessmentResultTypeG2.ResultSpecified, kernel.AssessmentResultTypeG2Input);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
-                                              categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01,
                                               kernel);
             }
         }
@@ -3298,7 +3285,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
-                categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                categoriesKernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
@@ -3315,7 +3302,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(EAssessmentResultTypeG2.Gr, kernel.AssessmentResultTypeG2Input);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
-                                              categoriesKernel.FailureMechanismSectionCategoriesOutputWbi01,
                                               kernel);
             }
         }

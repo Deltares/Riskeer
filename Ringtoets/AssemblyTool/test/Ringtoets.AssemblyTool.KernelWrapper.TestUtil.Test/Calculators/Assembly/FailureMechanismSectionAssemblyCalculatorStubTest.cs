@@ -64,6 +64,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
                             calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
             Assert.IsNull(calculator.TailorMadeAssessmentAssemblyOutput);
 
+            Assert.AreEqual(0.0, calculator.TailorMadeAssessmentFailureMechanismContributionInput);
+            Assert.AreEqual(0.0, calculator.TailorMadeAssessmentFailureMechanismNInput);
+            Assert.AreEqual(0.0, calculator.TailorMadeAssessmentNormativeNormInput);
+
             Assert.IsNull(calculator.CombinedSimpleAssemblyInput);
             Assert.IsNull(calculator.CombinedDetailedAssemblyInput);
             Assert.IsNull(calculator.CombinedTailorMadeAssemblyInput);

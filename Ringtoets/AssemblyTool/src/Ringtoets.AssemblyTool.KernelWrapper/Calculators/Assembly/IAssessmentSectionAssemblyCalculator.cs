@@ -35,7 +35,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="input">The collection of failure mechanism assemblies to assemble for.</param>
         /// <param name="signalingNorm">The signaling norm to calculate with.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
-        /// <returns>An <see cref="FailureMechanismAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismAssembly"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
         FailureMechanismAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
@@ -47,7 +47,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// </summary>
         /// <param name="input">The collection of failure mechanism assembly category groups
         /// to assemble for.</param>
-        /// <returns>An <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
         FailureMechanismAssemblyCategoryGroup AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input);

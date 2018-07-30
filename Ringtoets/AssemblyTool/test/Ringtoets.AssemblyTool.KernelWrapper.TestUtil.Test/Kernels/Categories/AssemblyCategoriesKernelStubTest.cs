@@ -50,8 +50,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             Assert.IsFalse(kernel.Calculated);
 
             Assert.IsNull(kernel.AssessmentSectionCategoriesOutput);
-            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutputWbi01);
-            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutputWbi02);
+            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutput);
             Assert.IsNull(kernel.FailureMechanismCategoriesOutput);
         }
 
@@ -262,7 +261,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             // Setup
             var kernel = new AssemblyCategoriesKernelStub
             {
-                FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories()
+                FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories()
             };
 
             // Call
@@ -271,7 +270,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
                 CreateValidFailureMechanism());
 
             // Assert
-            Assert.AreSame(kernel.FailureMechanismSectionCategoriesOutputWbi01, output);
+            Assert.AreSame(kernel.FailureMechanismSectionCategoriesOutput, output);
         }
 
         [Test]
@@ -296,7 +295,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
             Assert.IsFalse(kernel.Calculated);
-            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutputWbi01);
+            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutput);
         }
 
         [Test]
@@ -322,7 +321,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             Assert.AreEqual("entity", errorMessage.EntityId);
             Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
             Assert.IsFalse(kernel.Calculated);
-            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutputWbi01);
+            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutput);
         }
 
         [Test]
@@ -357,7 +356,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             var random = new Random(21);
             var kernel = new AssemblyCategoriesKernelStub
             {
-                FailureMechanismSectionCategoriesOutputWbi02 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories()
+                FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories()
             };
 
             // Call
@@ -366,7 +365,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
                 CreateValidFailureMechanism());
 
             // Assert
-            Assert.AreSame(kernel.FailureMechanismSectionCategoriesOutputWbi02, output);
+            Assert.AreSame(kernel.FailureMechanismSectionCategoriesOutput, output);
         }
 
         [Test]
@@ -392,7 +391,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
             Assert.IsFalse(kernel.Calculated);
-            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutputWbi02);
+            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutput);
         }
 
         [Test]
@@ -419,7 +418,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             Assert.AreEqual("entity", errorMessage.EntityId);
             Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
             Assert.IsFalse(kernel.Calculated);
-            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutputWbi02);
+            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutput);
         }
 
         private static FailureMechanism CreateValidFailureMechanism()

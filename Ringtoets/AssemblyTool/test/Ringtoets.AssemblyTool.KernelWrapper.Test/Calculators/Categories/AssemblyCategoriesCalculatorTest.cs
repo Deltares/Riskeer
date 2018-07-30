@@ -278,7 +278,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                kernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
@@ -303,7 +303,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismSectionCategoriesOutputWbi01 = output;
+                kernel.FailureMechanismSectionCategoriesOutput = output;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
@@ -378,7 +378,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismSectionCategoriesOutputWbi02 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
+                kernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
@@ -405,7 +405,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismSectionCategoriesOutputWbi02 = output;
+                kernel.FailureMechanismSectionCategoriesOutput = output;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
 

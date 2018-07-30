@@ -139,7 +139,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 
         public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                           double probability,
-                                                                          double normativeNorm, 
+                                                                          double normativeNorm,
                                                                           double failureMechanismN,
                                                                           double failureMechanismContribution)
         {
@@ -204,16 +204,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
-                ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
-                CategoriesList<FmSectionCategory> categories = categoriesKernel.CalculateFmSectionCategoryLimitsWbi01(
-                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
-                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
-
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 FmSectionAssemblyDirectResultWithProbability output =
                     kernel.TranslateAssessmentResultWbi0G3(GetAssessmentResultTypeG2(detailedAssessmentResult, probability),
                                                            probability,
-                                                           categories);
+                                                           GetWbi01Categories(assemblyCategoriesInput));
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
             }
@@ -234,16 +229,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
-                ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
-                CategoriesList<FmSectionCategory> categories = categoriesKernel.CalculateFmSectionCategoryLimitsWbi01(
-                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
-                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
-
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0G5(failureMechanismSectionN,
                                                                                                              GetAssessmentResultTypeG2(detailedAssessmentResult, probability),
                                                                                                              probability,
-                                                                                                             categories);
+                                                                                                             GetWbi01Categories(assemblyCategoriesInput));
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
             }
@@ -327,18 +317,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
-                ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
-                CategoriesList<FmSectionCategory> categories = categoriesKernel.CalculateFmSectionCategoryLimitsWbi01(
-                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
-                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
-
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0T3(
                     double.IsNaN(probability) && tailorMadeAssessmentResult == TailorMadeAssessmentProbabilityCalculationResultType.Probability
                         ? EAssessmentResultTypeT3.Gr
                         : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
                     probability,
-                    categories);
+                    GetWbi01Categories(assemblyCategoriesInput));
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
             }
@@ -352,6 +337,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
+        private CategoriesList<FmSectionCategory> GetWbi01Categories(AssemblyCategoriesInput assemblyCategoriesInput)
+        {
+            ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
+            return categoriesKernel.CalculateFmSectionCategoryLimitsWbi01(
+                new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
+                new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
+        }
+
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
                                                                             double probability,
                                                                             double failureMechanismSectionN,
@@ -359,11 +352,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
-                ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
-                CategoriesList<FmSectionCategory> categories = categoriesKernel.CalculateFmSectionCategoryLimitsWbi01(
-                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
-                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
-
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0T5(
                     failureMechanismSectionN,
@@ -371,7 +359,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                         ? EAssessmentResultTypeT3.Gr
                         : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
                     probability,
-                    categories);
+                    GetWbi01Categories(assemblyCategoriesInput));
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
             }

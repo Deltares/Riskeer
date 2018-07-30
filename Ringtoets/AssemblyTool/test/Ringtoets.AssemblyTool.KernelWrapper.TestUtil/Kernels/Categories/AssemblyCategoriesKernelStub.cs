@@ -83,14 +83,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         public CategoriesList<FailureMechanismCategory> FailureMechanismCategoriesOutput { get; set; }
 
         /// <summary>
-        /// Gets or sets the failure mechanism section categories output for WBI-01.
+        /// Gets or sets the failure mechanism section categories output.
         /// </summary>
-        public CategoriesList<FmSectionCategory> FailureMechanismSectionCategoriesOutputWbi01 { get; set; }
-
-        /// <summary>
-        /// Gets or sets the failure mechanism section categories output for WBI-02.
-        /// </summary>
-        public CategoriesList<FmSectionCategory> FailureMechanismSectionCategoriesOutputWbi02 { get; set; }
+        public CategoriesList<FmSectionCategory> FailureMechanismSectionCategoriesOutput { get; set; }
 
         public CategoriesList<AssessmentSectionCategory> CalculateAssessmentSectionCategoryLimitsWbi21(AssessmentSection section)
         {
@@ -129,7 +124,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
             Calculated = true;
 
-            return FailureMechanismSectionCategoriesOutputWbi01;
+            return FailureMechanismSectionCategoriesOutput;
         }
 
         public CategoriesList<FmSectionCategory> CalculateFmSectionCategoryLimitsWbi02(double assessmentSectionNorm, FailureMechanism failureMechanism)
@@ -142,7 +137,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
             Calculated = true;
 
-            return FailureMechanismSectionCategoriesOutputWbi02;
+            return FailureMechanismSectionCategoriesOutput;
         }
 
         private void ThrowException()
