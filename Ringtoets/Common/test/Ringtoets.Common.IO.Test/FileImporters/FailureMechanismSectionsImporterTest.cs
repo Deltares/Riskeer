@@ -667,15 +667,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
         private class TestFailureMechanismSectionUpdateStrategy : IFailureMechanismSectionUpdateStrategy
         {
-            public bool Updated { get; private set; }
-
             public string SourcePath { get; private set; }
 
             public IEnumerable<FailureMechanismSection> ImportedFailureMechanismSections { get; private set; }
 
             public void UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
             {
-                Updated = true;
                 SourcePath = sourcePath;
                 ImportedFailureMechanismSections = importedFailureMechanismSections;
             }
@@ -749,7 +746,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                    .Min();
         }
 
-        private IEnumerable<Segment2D> GetLineSegments(IEnumerable<Point2D> linePoints)
+        private static IEnumerable<Segment2D> GetLineSegments(IEnumerable<Point2D> linePoints)
         {
             Point2D endPoint = null;
             foreach (Point2D linePoint in linePoints)
