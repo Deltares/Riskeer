@@ -130,6 +130,7 @@ namespace Ringtoets.Integration.Data
             pipingStructure = new PipingStructureFailureMechanism();
             duneErosion = new DuneErosionFailureMechanism();
             technicalInnovation = new TechnicalInnovationFailureMechanism();
+            OtherFailureMechanism = new OtherFailureMechanism();
 
             const int otherContribution = 30;
             FailureMechanismContribution = new FailureMechanismContribution(GetContributingFailureMechanisms(),
@@ -463,6 +464,11 @@ namespace Ringtoets.Integration.Data
             }
         }
 
+        /// <summary>
+        /// Gets the "Overige" category failure mechanism.
+        /// </summary>
+        public OtherFailureMechanism OtherFailureMechanism { get; }
+
         public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm
         {
             get
@@ -613,6 +619,7 @@ namespace Ringtoets.Integration.Data
             yield return PipingStructure;
             yield return StabilityPointStructures;
             yield return DuneErosion;
+            yield return OtherFailureMechanism;
         }
 
         /// <inheritdoc />

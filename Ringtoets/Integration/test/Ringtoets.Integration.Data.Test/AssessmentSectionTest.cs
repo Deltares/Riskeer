@@ -342,10 +342,11 @@ namespace Ringtoets.Integration.Data.Test
             var assessmentSection = new AssessmentSection(composition);
 
             // Call
-            IFailureMechanism[] failureMechanisms = assessmentSection.GetContributingFailureMechanisms().ToArray();
+            IFailureMechanism[] failureMechanisms = assessmentSection.GetContributingFailureMechanisms()
+                                                                     .ToArray();
 
             // Assert
-            Assert.AreEqual(11, failureMechanisms.Length);
+            Assert.AreEqual(12, failureMechanisms.Length);
             CollectionAssert.AreEqual(new IFailureMechanism[]
             {
                 assessmentSection.Piping,
@@ -358,7 +359,8 @@ namespace Ringtoets.Integration.Data.Test
                 assessmentSection.ClosingStructures,
                 assessmentSection.PipingStructure,
                 assessmentSection.StabilityPointStructures,
-                assessmentSection.DuneErosion
+                assessmentSection.DuneErosion,
+                assessmentSection.OtherFailureMechanism
             }, failureMechanisms);
         }
 
