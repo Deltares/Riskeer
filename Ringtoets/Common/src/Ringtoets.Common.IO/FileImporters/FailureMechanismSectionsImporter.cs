@@ -48,6 +48,7 @@ namespace Ringtoets.Common.IO.FileImporters
         private const double lengthDifferenceTolerance = 1;
 
         private readonly ReferenceLine referenceLine;
+        private readonly IFailureMechanismSectionUpdateStrategy failureMechanismSectionUpdateStrategy;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSectionsImporter"/> class.
@@ -55,16 +56,27 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="importTarget">The failure mechanism to update.</param>
         /// <param name="referenceLine">The reference line used to check correspondence with.</param>
         /// <param name="filePath">The path to the file to import from.</param>
+        /// <param name="failureMechanismSectionUpdateStrategy">The strategy to update the failure mechanism sections
+        /// with the imported data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.
         /// </exception>
-        public FailureMechanismSectionsImporter(IFailureMechanism importTarget, ReferenceLine referenceLine, string filePath) : base(filePath, importTarget)
+        public FailureMechanismSectionsImporter(IFailureMechanism importTarget,
+                                                ReferenceLine referenceLine,
+                                                string filePath,
+                                                IFailureMechanismSectionUpdateStrategy failureMechanismSectionUpdateStrategy) : base(filePath, importTarget)
         {
             if (referenceLine == null)
             {
                 throw new ArgumentNullException(nameof(referenceLine));
             }
 
+            if (failureMechanismSectionUpdateStrategy == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionUpdateStrategy));
+            }
+
             this.referenceLine = referenceLine;
+            this.failureMechanismSectionUpdateStrategy = failureMechanismSectionUpdateStrategy;
         }
 
         protected override bool OnImport()
@@ -227,7 +239,7 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             IEnumerable<FailureMechanismSection> snappedSections = SnapReadSectionsToReferenceLine(failureMechanismSections, referenceLine);
 
-            ImportTarget.SetSections(snappedSections, FilePath);
+            failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(snappedSections, FilePath);
         }
 
         private static IEnumerable<FailureMechanismSection> SnapReadSectionsToReferenceLine(IEnumerable<FailureMechanismSection> failureMechanismSections,

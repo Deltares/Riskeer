@@ -103,7 +103,10 @@ namespace Ringtoets.Integration.TestUtil
                                                                                    "traject_6-3_vakken.shx"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp");
-                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine, filePath),
+                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(failureMechanism, 
+                                                                                           assessmentSection.ReferenceLine, 
+                                                                                           filePath, 
+                                                                                           new FailureMechanismSectionReplaceStrategy(failureMechanism)),
                                                       "FailureMechanismSectionsImporter");
                 activity.Run();
                 activity.Finish();
@@ -132,19 +135,21 @@ namespace Ringtoets.Integration.TestUtil
                 IFailureMechanism[] failureMechanisms = targetFailureMechanisms.ToArray();
                 for (var i = 0; i < failureMechanisms.Length; i++)
                 {
+                    IFailureMechanism failureMechanism = failureMechanisms[i];
                     if (i == 0)
                     {
                         string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                        "traject_6-3_vakken.shp");
-                        var importer = new FailureMechanismSectionsImporter(failureMechanisms[i],
+                        var importer = new FailureMechanismSectionsImporter(failureMechanism,
                                                                             assessmentSection.ReferenceLine,
-                                                                            filePath);
+                                                                            filePath,
+                                                                            new FailureMechanismSectionReplaceStrategy(failureMechanism));
                         importer.Import();
                     }
                     else
                     {
                         // Copy same FailureMechanismSection instances to other failure mechanisms
-                        FailureMechanismTestHelper.SetSections(failureMechanisms[i], failureMechanisms[0].Sections.Select(DeepCloneSection).ToList());
+                        FailureMechanismTestHelper.SetSections(failureMechanism, failureMechanisms[0].Sections.Select(DeepCloneSection).ToList());
                     }
                 }
             }

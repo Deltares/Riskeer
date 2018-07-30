@@ -52,6 +52,7 @@
     <Compile Include="Configurations\Import\CalculationConfigurationImporterTest.cs" />
     <Compile Include="Exceptions\DistributionValidationExceptionTest.cs" />
     <Compile Include="FileImporters\DikeProfilesImporterTest.cs" />
+    <Compile Include="FileImporters\FailureMechanismSectionReplaceStrategyTest.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporterTest.cs" />
     <Compile Include="FileImporters\ForeshoreProfilesImporterTest.cs" />
     <Compile Include="FileImporters\HydraulicBoundaryDatabaseImporterTest.cs" />

@@ -649,7 +649,8 @@ namespace Ringtoets.Integration.Plugin
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
                 CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
                                                                                                  context.AssessmentSection.ReferenceLine,
-                                                                                                 filePath)
+                                                                                                 filePath,
+                                                                                                 new FailureMechanismSectionReplaceStrategy(context.WrappedData))
             };
             yield return new ImportInfo<ForeshoreProfilesContext>
             {
@@ -1332,6 +1333,7 @@ namespace Ringtoets.Integration.Plugin
                       .AddOpenItem()
                       .AddSeparator()
                       .AddImportItem()
+                      .AddUpdateItem()
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();

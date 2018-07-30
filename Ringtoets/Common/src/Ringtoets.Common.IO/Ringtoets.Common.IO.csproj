@@ -47,10 +47,13 @@
     <Compile Include="Configurations\Import\CalculationConfigurationImporter.cs" />
     <Compile Include="Exceptions\DistributionValidationException.cs" />
     <Compile Include="FileImporters\DikeProfilesImporter.cs" />
+    <Compile Include="FileImporters\FailureMechanismSectionReplaceStrategy.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporter.cs" />
+    <Compile Include="FileImporters\FailureMechanismSectionUpdateStrategy.cs" />
     <Compile Include="FileImporters\ForeshoreProfilesImporter.cs" />
     <Compile Include="FileImporters\HydraulicBoundaryDatabaseImporter.cs" />
     <Compile Include="FileImporters\IDikeProfileUpdateDataStrategy.cs" />
+    <Compile Include="FileImporters\IFailureMechanismSectionUpdateStrategy.cs" />
     <Compile Include="FileImporters\IForeshoreProfileUpdateDataStrategy.cs" />
     <Compile Include="FileImporters\MessageProviders\IImporterMessageProvider.cs" />
     <Compile Include="FileImporters\MessageProviders\ImportMessageProvider.cs" />

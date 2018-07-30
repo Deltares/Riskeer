@@ -140,19 +140,21 @@ namespace Demo.Ringtoets.Commands
 
                 for (var i = 0; i < failureMechanisms.Length; i++)
                 {
+                    IFailureMechanism failureMechanism = failureMechanisms[i];
+
                     if (i == 0)
                     {
-                        
-                        var importer = new FailureMechanismSectionsImporter(failureMechanisms[i],
+                        var importer = new FailureMechanismSectionsImporter(failureMechanism,
                                                                             demoAssessmentSection.ReferenceLine,
-                                                                            filePath);
+                                                                            filePath,
+                                                                            new FailureMechanismSectionReplaceStrategy(failureMechanism));
                         importer.Import();
                     }
                     else
                     {
                         // Copy same FailureMechanismSection instances to other failure mechanisms
                         FailureMechanismSection[] clonedSections = failureMechanisms[0].Sections.Select(DeepCloneSection).ToArray();
-                        failureMechanisms[i].SetSections(clonedSections, filePath);
+                        failureMechanism.SetSections(clonedSections, filePath);
                     }
                 }
             }
