@@ -55,24 +55,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private Form testForm;
 
         [Test]
-        public void Constructor_ViewCommandsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new FailureMechanismContributionView(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("viewCommands", paramName);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_SetsDefaults()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -80,7 +63,42 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            using (var contributionView = new FailureMechanismContributionView(viewCommands))
+            TestDelegate call = () => new FailureMechanismContributionView(null, viewCommands);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ViewCommandsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismContributionView(assessmentSection, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("viewCommands", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            // Call
+            using (var contributionView = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 ShowFormWithView(contributionView);
 
@@ -113,7 +131,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             // Call
-            using (var contributionView = new FailureMechanismContributionView(viewCommands)
+            using (var contributionView = new FailureMechanismContributionView(assessmentSection, viewCommands)
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -137,10 +155,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            using (var distributionView = new FailureMechanismContributionView(viewCommands))
+            using (var distributionView = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 // Call
                 ShowFormWithView(distributionView);
@@ -181,20 +200,20 @@ namespace Ringtoets.Integration.Forms.Test.Views
             const string testCode = "testCode";
             double testContribution = 100 - otherContribution;
 
-            var mockRepository = new MockRepository();
-            var viewCommands = mockRepository.Stub<IViewCommands>();
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
 
-            var someMechanism = mockRepository.StrictMock<FailureMechanismBase>(testName, testCode, 1);
+            var someMechanism = mocks.StrictMock<FailureMechanismBase>(testName, testCode, 1);
             someMechanism.Contribution = testContribution;
 
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
             var initialContribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
             }, otherContribution, norm, norm);
 
-            using (var distributionView = new FailureMechanismContributionView(viewCommands)
+            using (var distributionView = new FailureMechanismContributionView(assessmentSection, viewCommands)
             {
                 AssessmentSection = assessmentSection
             })
@@ -221,7 +240,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(initialContribution.Distribution.Single(d => d.FailureMechanism == someMechanism).ProbabilitySpace, probabilitySpaceCell.Value);
             }
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -235,10 +254,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection1 = new AssessmentSection(AssessmentSectionComposition.Dike);
             var assessmentSection2 = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            var mockRepository = new MockRepository();
-            var viewCommands = mockRepository.Stub<IViewCommands>();
-            var someMechanism = mockRepository.Stub<IFailureMechanism>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var someMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
 
             var initialContribution = new FailureMechanismContribution(new[]
                                                                        {
@@ -254,7 +273,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                                    1.0 / newReturnPeriod,
                                                                    1.0 / newReturnPeriod);
 
-            using (var distributionView = new FailureMechanismContributionView(viewCommands)
+            using (var distributionView = new FailureMechanismContributionView(assessmentSection1, viewCommands)
             {
                 Data = initialContribution,
                 AssessmentSection = assessmentSection1
@@ -276,7 +295,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -289,10 +308,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            var mockRepository = new MockRepository();
-            var viewCommands = mockRepository.Stub<IViewCommands>();
-            var someMechanism = mockRepository.Stub<IFailureMechanism>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var someMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
 
             var contribution = new FailureMechanismContribution(new[]
                                                                 {
@@ -301,7 +320,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                                 1.0 / initialReturnPeriod,
                                                                 1.0 / 300);
 
-            using (var distributionView = new FailureMechanismContributionView(viewCommands)
+            using (var distributionView = new FailureMechanismContributionView(assessmentSection, viewCommands)
             {
                 Data = contribution,
                 AssessmentSection = assessmentSection
@@ -323,7 +342,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -337,17 +356,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            var mockRepository = new MockRepository();
-            var viewCommands = mockRepository.Stub<IViewCommands>();
-            var someMechanism = mockRepository.Stub<IFailureMechanism>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var someMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
 
             var contribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
             }, random.Next(0, 100), 1.0 / lowerLimitNorm, 1.0 / signalingNorm);
 
-            using (var distributionView = new FailureMechanismContributionView(viewCommands)
+            using (var distributionView = new FailureMechanismContributionView(assessmentSection, viewCommands)
             {
                 Data = contribution,
                 AssessmentSection = assessmentSection
@@ -369,19 +388,20 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
             }
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismContributionView_WhenObserverNotified_UpdatesDataSource()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var viewCommands = mockRepository.Stub<IViewCommands>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 FailureMechanismContribution contributionData = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
                 {
@@ -403,7 +423,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(1, dataGridView.RowCount);
             }
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -414,16 +434,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            var mockRepository = new MockRepository();
-            var viewCommands = mockRepository.Stub<IViewCommands>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return("A");
             failureMechanism.Stub(fm => fm.Code).Return("C");
             failureMechanism.Contribution = 100;
             failureMechanism.IsRelevant = isFailureMechanismRelevant;
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 // When
                 FailureMechanismContribution contributionData = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
@@ -443,7 +463,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(isFailureMechanismRelevant, isRelevantGridCell.Value);
             }
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -453,15 +473,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             const double norm = 1.0 / 30000;
 
-            var mockRepository = new MockRepository();
-            var viewCommands = mockRepository.Stub<IViewCommands>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return("A");
             failureMechanism.Stub(fm => fm.Code).Return("C");
             failureMechanism.Contribution = 0;
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 // When
                 var contributionData = new FailureMechanismContribution(new[]
@@ -481,7 +501,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual("n.v.t", probabilitySpaceCell.FormattedValue);
             }
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -493,15 +513,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            var mockRepository = new MockRepository();
-            var viewCommands = mockRepository.Stub<IViewCommands>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return("A");
             failureMechanism.Stub(fm => fm.Code).Return("C");
             failureMechanism.Contribution = contribution;
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 // When
                 var contributionData = new FailureMechanismContribution(new[]
@@ -527,7 +547,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(expectedTextValue, probabilitySpaceCell.FormattedValue);
             }
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -537,15 +557,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CompositionComboBox_WithDataSet_SelectedDisplayTextAndValueCorrect(AssessmentSectionComposition composition, string expectedDisplayText)
         {
             // Setup
+            var assessmentSection = new AssessmentSection(composition);
+
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 ShowFormWithView(view);
-
-                var assessmentSection = new AssessmentSection(composition);
 
                 view.Data = assessmentSection.FailureMechanismContribution;
                 view.AssessmentSection = assessmentSection;
@@ -579,7 +599,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands)
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands)
             {
                 Data = assessmentSection.FailureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -610,12 +630,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var viewCommands = mocks.Stub<IViewCommands>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.IsRelevant = true;
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 ShowFormWithView(view);
 
@@ -651,12 +672,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var viewCommands = mocks.Stub<IViewCommands>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.IsRelevant = false;
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 ShowFormWithView(view);
 
@@ -717,7 +739,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 ShowFormWithView(view);
 
@@ -778,6 +800,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return("A");
             failureMechanism.Stub(fm => fm.Code).Return("b");
@@ -792,7 +815,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 failureMechanism
             });
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 ShowFormWithView(view);
 
@@ -816,10 +839,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 ShowFormWithView(view);
 

@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Forms.Test
             var assessmentSection = new AssessmentSection(initialComposition);
 
             using (var form = new Form())
-            using (var view = new FailureMechanismContributionView(viewCommands)
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands)
             {
                 Data = assessmentSection.FailureMechanismContribution,
                 AssessmentSection = assessmentSection

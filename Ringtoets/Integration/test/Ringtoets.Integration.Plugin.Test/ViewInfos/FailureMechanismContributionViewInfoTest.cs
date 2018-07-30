@@ -136,7 +136,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands)
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands)
             {
                 Data = assessmentSection.FailureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -167,7 +167,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                               .Return(AssessmentSectionComposition.DikeAndDune);
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands)
+            using (var view = new FailureMechanismContributionView(assessmentSection1, viewCommands)
             {
                 Data = assessmentSection1.FailureMechanismContribution,
                 AssessmentSection = assessmentSection1
@@ -192,7 +192,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -221,7 +221,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismContributionView));

@@ -61,10 +61,17 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
         /// </summary>
+        /// <param name="assessmentSection">The assessment section to get the data from.</param>
         /// <param name="viewCommands">Objects exposing high level <see cref="IView"/> related commands.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is null.</exception>
-        public FailureMechanismContributionView(IViewCommands viewCommands)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public FailureMechanismContributionView(IAssessmentSection assessmentSection,
+                                                IViewCommands viewCommands)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             if (viewCommands == null)
             {
                 throw new ArgumentNullException(nameof(viewCommands));
