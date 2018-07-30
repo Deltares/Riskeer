@@ -21,9 +21,11 @@
 
 using System;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 
 namespace Ringtoets.Common.IO.Test.FileImporters
@@ -93,6 +95,26 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("sourcePath", paramName);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateSectionsWithImportedData_WithValidData_SetsSectionsToFailureMechanism()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+            var failureMechanismSectionReplaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
+            string sourcePath = TestHelper.GetScratchPadPath();
+            FailureMechanismSection[] sections =
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            };
+
+            // Call
+            failureMechanismSectionReplaceStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
+
+            // Assert
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(sections.Single(), failureMechanism.Sections.Single());
         }
     }
 }
