@@ -269,7 +269,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(expectedN, kernel.FailureMechanismInput.LengthEffectFactor);
                 Assert.AreEqual(expectedFailureMechanismContribution, kernel.FailureMechanismInput.FailureProbabilityMarginFactor);
 
-                Assert.AreSame(categoriesKernel.FailureMechanismCategoriesOutput, kernel.CategoryLimits);
+                Assert.AreSame(categoriesKernel.FailureMechanismCategoriesOutput, kernel.Categories);
                 Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, categoriesKernel.LowerLimitNorm);
                 Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, categoriesKernel.SignalingNorm);
                 Assert.AreEqual(expectedN, categoriesKernel.N);

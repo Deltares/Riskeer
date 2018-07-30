@@ -81,7 +81,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
-                CategoriesList<FailureMechanismCategory> categoryLimits = categoriesKernel.CalculateFailureMechanismCategoryLimitsWbi11(
+                CategoriesList<FailureMechanismCategory> categories = categoriesKernel.CalculateFailureMechanismCategoryLimitsWbi11(
                     new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
 
@@ -89,7 +89,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 FailureMechanismAssemblyResult output = kernel.AssembleFailureMechanismWbi1B1(
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
                     sectionAssemblies.Select(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult).ToArray(),
-                    categoryLimits,
+                    categories,
                     false);
 
                 return FailureMechanismAssemblyCreator.Create(output);

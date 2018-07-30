@@ -55,10 +55,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public FailureMechanism FailureMechanismInput { get; private set; }
 
         /// <summary>
-        /// Gets the <see cref="CategoryLimits"/> with <see cref="FailureMechanismCategory"/>
+        /// Gets the <see cref="CategoriesList{TCategory}"/> with <see cref="FailureMechanismCategory"/>
         /// used as input parameter for assembly methods.
         /// </summary>
-        public CategoriesList<FailureMechanismCategory> CategoryLimits { get; private set; }
+        public CategoriesList<FailureMechanismCategory> Categories { get; private set; }
 
         /// <summary>
         /// Gets or sets the failure mechanism category result.
@@ -110,7 +110,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         {
             ThrowException();
 
-            CategoryLimits = categoryLimits;
+            Categories = categoryLimits;
             FailureMechanismInput = failureMechanism;
             FmSectionAssemblyResultsWithProbabilityInput = fmSectionAssemblyResults;
             PartialAssembly = partialAssembly;

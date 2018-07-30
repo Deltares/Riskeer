@@ -38,23 +38,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
     public class AssemblyCategoryCreatorTest
     {
         [Test]
-        public void CreateAssessmentSectionAssemblyCategories_CategoryLimitsNull_ThrowsArgumentNullException()
+        public void CreateAssessmentSectionAssemblyCategories_CategoriesNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("categoryLimits", exception.ParamName);
+            Assert.AreEqual("categories", exception.ParamName);
         }
 
         [Test]
-        public void CreateAssessmentSectionAssemblyCategories_WithAssessmentSectionCategoryLimits_ReturnAssessmentSectionAssemblyCategories()
+        public void CreateAssessmentSectionAssemblyCategories_WithAssessmentSectionCategories_ReturnAssessmentSectionAssemblyCategories()
         {
             // Setup
             var random = new Random(11);
 
-            var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
+            var categories = new CategoriesList<AssessmentSectionCategory>(new[]
             {
                 new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0, 0.25),
                 new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0.25, 0.5),
@@ -63,23 +63,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categoryLimits);
+            IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categories);
 
             // Assert
-            AssemblyCategoryAssert.AssertAssessmentSectionAssemblyCategories(categoryLimits, result);
+            AssemblyCategoryAssert.AssertAssessmentSectionAssemblyCategories(categories, result);
         }
 
         [Test]
         public void CreateAssessmentSectionAssemblyCategories_CategoryWithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
+            var categories = new CategoriesList<AssessmentSectionCategory>(new[]
             {
                 new AssessmentSectionCategory((EAssessmentGrade) 99, 0, 1)
             });
 
             // Call
-            TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categoryLimits);
+            TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categories);
 
             // Assert
             const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EAssessmentGrade'.";
@@ -93,13 +93,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
         {
             // Setup
-            var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
+            var categories = new CategoriesList<AssessmentSectionCategory>(new[]
             {
                 new AssessmentSectionCategory(categoryGroup, 0, 1)
             });
 
             // Call
-            IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categoryLimits);
+            IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categories);
 
             // Assert
             Assert.AreEqual(expectedCategoryGroup, result.Single().Group);
@@ -130,23 +130,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateFailureMechanismAssemblyCategories_CategoryLimitsNull_ThrowsArgumentNullException()
+        public void CreateFailureMechanismAssemblyCategories_CategoriesNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("categoryLimits", exception.ParamName);
+            Assert.AreEqual("categories", exception.ParamName);
         }
 
         [Test]
-        public void CreateFailureMechanismAssemblyCategories_WithCategoryLimits_ReturnFailureMechanismAssemblyCategoryResult()
+        public void CreateFailureMechanismAssemblyCategories_WithCategories_ReturnFailureMechanismAssemblyCategoryResult()
         {
             // Setup
             var random = new Random(11);
 
-            var categoryLimits = new CategoriesList<FailureMechanismCategory>(new[]
+            var categories = new CategoriesList<FailureMechanismCategory>(new[]
             {
                 new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0, 0.25),
                 new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0.25, 0.5),
@@ -155,23 +155,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<FailureMechanismAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categoryLimits);
+            IEnumerable<FailureMechanismAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categories);
 
             // Assert
-            AssemblyCategoryAssert.AssertFailureMechanismAssemblyCategories(categoryLimits, result);
+            AssemblyCategoryAssert.AssertFailureMechanismAssemblyCategories(categories, result);
         }
 
         [Test]
         public void CreateFailureMechanismAssemblyCategories_CategoryWithInvalidFailureMechanismCategory_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var categoryLimits = new CategoriesList<FailureMechanismCategory>(new[]
+            var categories = new CategoriesList<FailureMechanismCategory>(new[]
             {
                 new FailureMechanismCategory((EFailureMechanismCategory) 99, 0, 1)
             });
 
             // Call
-            TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categoryLimits);
+            TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categories);
 
             // Assert
             const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFailureMechanismCategory'.";
@@ -193,36 +193,36 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             FailureMechanismAssemblyCategoryGroup expectedCategoryGroup)
         {
             // Setup
-            var categoryLimits = new CategoriesList<FailureMechanismCategory>(new[]
+            var categories = new CategoriesList<FailureMechanismCategory>(new[]
             {
                 new FailureMechanismCategory(categoryGroup, 0, 1)
             });
 
             // Call
-            IEnumerable<FailureMechanismAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categoryLimits);
+            IEnumerable<FailureMechanismAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categories);
 
             // Assert
             Assert.AreEqual(expectedCategoryGroup, result.Single().Group);
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyCategories_CategoryLimitsNull_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionAssemblyCategories_Categories_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("categoryLimits", exception.ParamName);
+            Assert.AreEqual("categories", exception.ParamName);
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyCategories_WithCategoryLimits_ReturnFailureMechanismSectionAssemblyCategoryResult()
+        public void CreateFailureMechanismSectionAssemblyCategories_WithCategories_ReturnFailureMechanismSectionAssemblyCategoryResult()
         {
             // Setup
             var random = new Random(11);
 
-            var categoryLimits = new CategoriesList<FmSectionCategory>(new[]
+            var categories = new CategoriesList<FmSectionCategory>(new[]
             {
                 new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0, 0.25),
                 new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0.25, 0.5),
@@ -231,23 +231,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categoryLimits);
+            IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categories);
 
             // Assert
-            AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(categoryLimits, result);
+            AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(categories, result);
         }
 
         [Test]
         public void CreateFailureMechanismSectionAssemblyCategories_CategoryWithInvalidFailureMechanismSectionCategory_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var categoryLimits = new CategoriesList<FmSectionCategory>(new[]
+            var categories = new CategoriesList<FmSectionCategory>(new[]
             {
                 new FmSectionCategory((EFmSectionCategory) 99, 0, 1)
             });
 
             // Call
-            TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categoryLimits);
+            TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categories);
 
             // Assert
             const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFmSectionCategory'.";
@@ -269,13 +269,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup)
         {
             // Setup
-            var categoryLimits = new CategoriesList<FmSectionCategory>(new[]
+            var categories = new CategoriesList<FmSectionCategory>(new[]
             {
                 new FmSectionCategory(categoryGroup, 0, 1)
             });
 
             // Call
-            IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categoryLimits);
+            IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categories);
 
             // Assert
             Assert.AreEqual(expectedCategoryGroup, result.Single().Group);
