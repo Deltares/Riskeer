@@ -24,10 +24,11 @@ using Core.Common.Base;
 namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// This interface describes methods for obtaining <see cref="FailureMechanismSectionResult"/> objects.
+    /// This interface describes an <see cref="IFailureMechanism"/> containing <see cref="FailureMechanismSectionResult"/> objects.
     /// </summary>
     /// <typeparam name="T">The type of the section results.</typeparam>
-    public interface IHasSectionResults<out T> where T : FailureMechanismSectionResult
+    public interface IHasSectionResults<out T> : IFailureMechanism
+        where T : FailureMechanismSectionResult
     {
         /// <summary>
         /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>.
