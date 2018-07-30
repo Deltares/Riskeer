@@ -233,7 +233,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(7, cells.Count);
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
-            Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[failureProbabilityPipingColumnIndex].FormattedValue);
             Assert.AreEqual("-".ToString(CultureInfo.CurrentCulture), cells[failureProbabilityUpliftColumnIndex].FormattedValue);
@@ -243,7 +243,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             cells = rows[1].Cells;
             Assert.AreEqual(7, cells.Count);
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
-            Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4), cells[failureProbabilityPipingColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4), cells[failureProbabilityUpliftColumnIndex].FormattedValue);

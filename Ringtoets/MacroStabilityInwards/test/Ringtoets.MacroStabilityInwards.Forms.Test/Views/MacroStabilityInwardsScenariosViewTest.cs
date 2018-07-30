@@ -230,14 +230,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(4, cells.Count);
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
-            Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[failureProbabilityColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(4, cells.Count);
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
-            Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(1), cells[failureProbabilityColumnIndex].FormattedValue);
         }
