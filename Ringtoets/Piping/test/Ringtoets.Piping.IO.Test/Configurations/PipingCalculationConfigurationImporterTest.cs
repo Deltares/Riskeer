@@ -532,7 +532,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation",
-                Contribution = (RoundedDouble) 0.088
+                Contribution = (RoundedDouble) 0.8765
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);

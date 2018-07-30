@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         public static PipingCalculationScenario GetIrrelevantPipingCalculationScenario()
         {
             PipingCalculationScenario calculation = GetPipingCalculationScenario();
-            calculation.Contribution = (RoundedDouble) 0.5;
+            calculation.Contribution = (RoundedDouble) 0.5432;
             calculation.IsRelevant = false;
 
             return calculation;
