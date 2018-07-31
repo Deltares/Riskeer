@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Ringtoets.Common.Data.Hydraulics;
@@ -52,6 +51,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 throw new ArgumentNullException(nameof(pipingCalculation));
             }
+
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
@@ -124,13 +124,13 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Gets the stochastic soil profile probability of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
-        public string StochasticSoilProfileProbability
+        public RoundedDouble StochasticSoilProfileProbability
         {
             get
             {
                 return PipingCalculation.InputParameters.StochasticSoilProfile != null
-                           ? new RoundedDouble(3, PipingCalculation.InputParameters.StochasticSoilProfile.Probability * 100).Value.ToString(CultureInfo.CurrentCulture)
-                           : new RoundedDouble(3).Value.ToString(CultureInfo.CurrentCulture);
+                           ? new RoundedDouble(2, PipingCalculation.InputParameters.StochasticSoilProfile.Probability * 100)
+                           : new RoundedDouble(2);
             }
         }
 
