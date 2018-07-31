@@ -201,9 +201,10 @@ namespace Ringtoets.Piping.Plugin.Test
                 UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, updateInfos.Length);
+                Assert.AreEqual(3, updateInfos.Length);
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(PipingSurfaceLinesContext)));
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(PipingStochasticSoilModelCollectionContext)));
+                Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(PipingFailureMechanismSectionsContext)));
             }
         }
 

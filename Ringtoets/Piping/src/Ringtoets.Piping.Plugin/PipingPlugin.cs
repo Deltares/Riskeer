@@ -42,6 +42,7 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Forms.UpdateInfos;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.SoilProfile;
@@ -199,6 +200,10 @@ namespace Ringtoets.Piping.Plugin
                 ),
                 VerifyUpdates = context => VerifyStochasticSoilModelUpdates(context, Resources.PipingPlugin_VerifyStochasticSoilModelUpdates_When_updating_StochasticSoilModel_definitions_assigned_to_calculation_output_will_be_cleared_confirm)
             };
+
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                PipingFailureMechanismSectionsContext, PipingFailureMechanism, PipingFailureMechanismSectionResult>(
+                new PipingFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
