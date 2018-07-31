@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Forms.Test
 
                 // When
                 assessmentSection.ChangeComposition(newComposition);
-                assessmentSection.FailureMechanismContribution.NotifyObservers();
+                assessmentSection.NotifyObservers();
 
                 // Then
                 var compositionLabel = (Label) new ControlTester(assessmentSectionCompositionLabelName).TheObject;
