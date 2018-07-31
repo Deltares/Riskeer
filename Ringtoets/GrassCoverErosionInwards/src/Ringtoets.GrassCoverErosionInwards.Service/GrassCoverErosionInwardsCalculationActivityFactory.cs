@@ -124,7 +124,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             return new GrassCoverErosionInwardsCalculationActivity(calculation,
-                                                                   assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                    failureMechanism,
                                                                    assessmentSection);
         }

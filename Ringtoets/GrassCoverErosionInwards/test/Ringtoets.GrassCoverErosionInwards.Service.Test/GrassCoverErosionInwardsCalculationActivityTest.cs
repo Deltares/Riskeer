@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
@@ -52,26 +52,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ParameteredConstructor_HydraulicBoundaryDatabaseFilePathNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, null, failureMechanism, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("hydraulicBoundaryDatabaseFilePath", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -86,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, "", null, assessmentSection);
+            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -102,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, null);
+            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
