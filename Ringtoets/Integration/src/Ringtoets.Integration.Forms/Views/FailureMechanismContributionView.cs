@@ -80,9 +80,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             InitializeComponent();
-            InitializeGridColumns();
-            SubscribeEvents();
-
+            
             this.viewCommands = viewCommands;
 
             failureMechanismObservers = new List<Observer>();
@@ -94,14 +92,24 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 Observable = assessmentSection.FailureMechanismContribution
             };
-            assessmentSectionObserver = new Observer(UpdateData)
+            assessmentSectionObserver = new Observer(UpdateView)
             {
                 Observable = assessmentSection
             };
 
             AssessmentSection = assessmentSection;
             AttachToFailureMechanisms();
-            UpdateData();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            InitializeGridColumns();
+
+            probabilityDistributionGrid.CellFormatting += ProbabilityDistributionGridOnCellFormatting;
+            probabilityDistributionGrid.CellFormatting += DisableIrrelevantFieldsFormatting;
+
+            UpdateView();
         }
 
         /// <summary>
@@ -128,7 +136,7 @@ namespace Ringtoets.Integration.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void UpdateData()
+        private void UpdateView()
         {
             SetAssessmentSectionComposition();
             SetReturnPeriodText();
@@ -137,16 +145,13 @@ namespace Ringtoets.Integration.Forms.Views
 
         private Observer CreateFailureMechanismObserver(IFailureMechanism failureMechanism)
         {
-            return new Observer(probabilityDistributionGrid.RefreshDataGridView)
+            return new Observer(() =>
+            {
+                probabilityDistributionGrid.RefreshDataGridView();
+            })
             {
                 Observable = failureMechanism
             };
-        }
-
-        private void SubscribeEvents()
-        {
-            probabilityDistributionGrid.CellFormatting += ProbabilityDistributionGridOnCellFormatting;
-            probabilityDistributionGrid.CellFormatting += DisableIrrelevantFieldsFormatting;
         }
 
         private void DetachFromFailureMechanisms()
@@ -157,14 +162,15 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void AttachToFailureMechanisms()
         {
-            failureMechanismObservers.AddRange(AssessmentSection.GetFailureMechanisms().Select(CreateFailureMechanismObserver));
+            failureMechanismObservers.AddRange(AssessmentSection.GetFailureMechanisms()
+                                                                .Select(CreateFailureMechanismObserver)
+                                                                .ToArray());
         }
 
         private void SetGridDataSource()
         {
             probabilityDistributionGrid.SetDataSource(AssessmentSection.FailureMechanismContribution.Distribution
                                                                        .Select(ci => new FailureMechanismContributionItemRow(ci, viewCommands)).ToArray());
-            probabilityDistributionGrid.RefreshDataGridView();
         }
 
         private void SetReturnPeriodText()

@@ -25,6 +25,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Core.Common.Util;
 using NUnit.Extensions.Forms;
@@ -107,6 +108,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var groupBoxView = (GroupBox) new ControlTester("groupBoxAssessmentSectionDetails").TheObject;
 
                 // Assert
+                Assert.IsInstanceOf<IView>(contributionView);
+                Assert.IsInstanceOf<UserControl>(contributionView);
+
                 Assert.AreEqual(new Size(0, 0), dataGridView.MinimumSize);
                 Assert.AreEqual(DockStyle.Fill, dataGridView.Dock);
                 Assert.IsFalse(dataGridView.AutoScroll);
@@ -259,10 +263,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(view);
 
                 // Then
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
                 DataGridViewRow row = dataGridView.Rows[0];
-                var isRelevantGridCell = (DataGridViewCheckBoxCell)row.Cells[isRelevantColumnIndex];
+                var isRelevantGridCell = (DataGridViewCheckBoxCell) row.Cells[isRelevantColumnIndex];
                 Assert.AreEqual(isFailureMechanismRelevant, isRelevantGridCell.Value);
             }
 
@@ -293,7 +297,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(view);
 
                 // Assert
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
                 DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
                 DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[probabilitySpaceColumnIndex];
@@ -331,7 +335,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(view);
 
                 // Assert
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
                 DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
                 DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[probabilitySpaceColumnIndex];
@@ -431,7 +435,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(view);
 
                 // Assert
-                var compositionLabel = (Label)new ControlTester(assessmentSectionConfigurationLabelName).TheObject;
+                var compositionLabel = (Label) new ControlTester(assessmentSectionConfigurationLabelName).TheObject;
                 string expectedLabelValue = $"Trajecttype: {expectedDisplayText}";
                 Assert.AreEqual(expectedLabelValue, compositionLabel.Text);
             }
@@ -461,7 +465,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var compositionLabel = (Label)new ControlTester(assessmentSectionConfigurationLabelName).TheObject;
+                var compositionLabel = (Label) new ControlTester(assessmentSectionConfigurationLabelName).TheObject;
 
                 // Precondition
                 string initialCompositionDisplayName = new EnumDisplayWrapper<AssessmentSectionComposition>(initialComposition).DisplayName;
@@ -479,144 +483,49 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-//        [Test]
-//        public void GivenView_WhenSettingRelevantFailureMechanism_RowIsStyledAsEnabled()
-//        {
-//            // Given
-//            var mocks = new MockRepository();
-//            var viewCommands = mocks.Stub<IViewCommands>();
-//            var failureMechanism = mocks.Stub<IFailureMechanism>();
-//            failureMechanism.IsRelevant = true;
-//            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-//            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-//            mocks.ReplayAll();
-//
-//            // When
-//            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
-//            {
-//                ShowFormWithView(view);
-//                
-//                // Then
-//                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-//                DataGridViewRow row = dataGridView.Rows[0];
-//
-//                for (var i = 0; i < row.Cells.Count; i++)
-//                {
-//                    if (i == isRelevantColumnIndex)
-//                    {
-//                        continue;
-//                    }
-//
-//                    DataGridViewCell cell = row.Cells[i];
-//                    AssertIsCellStyledAsEnabled(cell);
-//                }
-//            }
-//
-//            mocks.VerifyAll();
-//        }
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenView_IsRelevantPropertyChangeNotified_RowStylesUpdates(bool initialIsRelevant)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
 
-//        [Test]
-//        public void GivenView_WhenSettingFailureMechanismThatIsIrrelevant_RowIsStyledAsGreyedOut()
-//        {
-//            // Given
-//            var mocks = new MockRepository();
-//            var viewCommands = mocks.Stub<IViewCommands>();
-//            var failureMechanism = mocks.Stub<IFailureMechanism>();
-//            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-//            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-//            mocks.ReplayAll();
-//
-//            failureMechanism.IsRelevant = false;
-//
-//            // When
-//            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
-//            {
-//                ShowFormWithView(view);
-//
-//                // Then
-//                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-//                DataGridViewRow row = dataGridView.Rows[0];
-//
-//                for (var i = 0; i < row.Cells.Count; i++)
-//                {
-//                    if (i == isRelevantColumnIndex)
-//                    {
-//                        continue;
-//                    }
-//
-//                    DataGridViewCell cell = row.Cells[i];
-//                    AssertIsCellStyleGreyedOut(cell);
-//                }
-//            }
-//
-//            mocks.VerifyAll();
-//        }
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-//        [Test]
-//        [TestCase(true)]
-//        [TestCase(false)]
-//        public void GivenView_IsRelevantPropertyChangeNotified_RowStylesUpdates(bool initialIsRelevant)
-//        {
-//            // Given
-//            var mocks = new MockRepository();
-//            var viewCommands = mocks.Stub<IViewCommands>();
-//            var failureMechanism = mocks.Stub<IFailureMechanism>();
-//            failureMechanism.Stub(fm => fm.Name).Return("A");
-//            failureMechanism.Stub(fm => fm.Code).Return("C");
-//            failureMechanism.IsRelevant = initialIsRelevant;
-//            failureMechanism.Stub(fm => fm.Attach(null)).IgnoreArguments();
-//            failureMechanism.Stub(fm => fm.Detach(null)).IgnoreArguments();
-//            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-//            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-//            mocks.ReplayAll();
-//
-//            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
-//            {
-//                ShowFormWithView(view);
-//
-//                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-//                DataGridViewRow row = dataGridView.Rows[0];
-//
-//                for (var i = 0; i < row.Cells.Count; i++)
-//                {
-//                    if (i != isRelevantColumnIndex)
-//                    {
-//                        DataGridViewCell cell = row.Cells[i];
-//                        if (failureMechanism.IsRelevant)
-//                        {
-//                            AssertIsCellStyledAsEnabled(cell);
-//                        }
-//                        else
-//                        {
-//                            AssertIsCellStyleGreyedOut(cell);
-//                        }
-//                    }
-//                }
-//
-//                // When
-//                failureMechanism.IsRelevant = !initialIsRelevant;
-//                failureMechanism.NotifyObservers();
-//
-//                // Then
-//                for (var i = 0; i < row.Cells.Count; i++)
-//                {
-//                    if (i != isRelevantColumnIndex)
-//                    {
-//                        DataGridViewCell cell = row.Cells[i];
-//                        if (failureMechanism.IsRelevant)
-//                        {
-//                            AssertIsCellStyledAsEnabled(cell);
-//                        }
-//                        else
-//                        {
-//                            AssertIsCellStyleGreyedOut(cell);
-//                        }
-//                    }
-//                }
-//            }
-//
-//            mocks.VerifyAll();
-//        }
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
+            {
+                ShowFormWithView(view);
+
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
+                DataGridViewRow row = dataGridView.Rows[0];
+
+                // When
+                assessmentSection.Piping.IsRelevant = !initialIsRelevant;
+                assessmentSection.Piping.NotifyObservers();
+
+                // Then
+                for (var i = 0; i < row.Cells.Count; i++)
+                {
+                    if (i != isRelevantColumnIndex)
+                    {
+                        DataGridViewCell cell = row.Cells[i];
+                        if (assessmentSection.Piping.IsRelevant)
+                        {
+                            AssertIsCellStyledAsEnabled(cell);
+                        }
+                        else
+                        {
+                            AssertIsCellStyleGreyedOut(cell);
+                        }
+                    }
+                }
+            }
+
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void GivenView_WhenMakingFailureMechanismIrrelevant_UpdateFailureMechanismAndNotifyObserversAndCloseRelatedViews()
