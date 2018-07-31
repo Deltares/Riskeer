@@ -56,8 +56,6 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly IViewCommands viewCommands;
         private FailureMechanismContribution data;
 
-        private IAssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
         /// </summary>
@@ -84,34 +82,19 @@ namespace Ringtoets.Integration.Forms.Views
             this.viewCommands = viewCommands;
 
             failureMechanismObserver = new Observer(probabilityDistributionGrid.RefreshDataGridView);
+
+            data = assessmentSection.FailureMechanismContribution;
+            AssessmentSection = assessmentSection;
+            HandleNewDataSet(data);
+            HandleNewAssessmentSectionSet(AssessmentSection);
         }
 
         /// <summary>
-        /// Gets or sets the assessment section this view belongs to.
+        /// Gets the assessment section this view belongs to.
         /// </summary>
-        public IAssessmentSection AssessmentSection
-        {
-            get
-            {
-                return assessmentSection;
-            }
-            set
-            {
-                HandleNewAssessmentSectionSet(value);
-            }
-        }
+        public IAssessmentSection AssessmentSection { get; }
 
-        public object Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                HandleNewDataSet((FailureMechanismContribution) value);
-            }
-        }
+        public object Data { get; set; }
 
         public void UpdateObserver()
         {
@@ -165,17 +148,15 @@ namespace Ringtoets.Integration.Forms.Views
         {
             DetachFromFailureMechanisms();
 
-            assessmentSection = value;
-
             AttachToFailureMechanisms();
             SetAssessmentSectionComposition();
         }
 
         private void DetachFromFailureMechanisms()
         {
-            if (assessmentSection != null)
+            if (AssessmentSection != null)
             {
-                foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+                foreach (IFailureMechanism failureMechanism in AssessmentSection.GetFailureMechanisms())
                 {
                     failureMechanism.Detach(failureMechanismObserver);
 
@@ -186,9 +167,9 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void AttachToFailureMechanisms()
         {
-            if (assessmentSection != null)
+            if (AssessmentSection != null)
             {
-                foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+                foreach (IFailureMechanism failureMechanism in AssessmentSection.GetFailureMechanisms())
                 {
                     failureMechanism.Attach(failureMechanismObserver);
                 }

@@ -426,8 +426,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
                 CloseForData = CloseFailureMechanismContributionViewForData,
-                CreateInstance = context => new FailureMechanismContributionView(context.Parent, Gui.ViewCommands),
-                AfterCreate = (view, context) => view.AssessmentSection = context.Parent
+                CreateInstance = context => new FailureMechanismContributionView(context.Parent, Gui.ViewCommands)
             };
 
             yield return new ViewInfo<NormContext, FailureMechanismContribution, AssessmentSectionAssemblyCategoriesView>
@@ -1144,7 +1143,7 @@ namespace Ringtoets.Integration.Plugin
         private static bool CloseFailureMechanismContributionViewForData(FailureMechanismContributionView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            return assessmentSection != null && assessmentSection.FailureMechanismContribution == view.Data && assessmentSection == view.AssessmentSection;
+            return assessmentSection != null && assessmentSection == view.AssessmentSection;
         }
 
         #endregion

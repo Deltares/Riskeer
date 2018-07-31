@@ -136,11 +136,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands)
-            {
-                Data = assessmentSection.FailureMechanismContribution,
-                AssessmentSection = assessmentSection
-            })
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -167,35 +163,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                               .Return(AssessmentSectionComposition.DikeAndDune);
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(assessmentSection1, viewCommands)
-            {
-                Data = assessmentSection1.FailureMechanismContribution,
-                AssessmentSection = assessmentSection1
-            })
+            using (var view = new FailureMechanismContributionView(assessmentSection1, viewCommands))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection2);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewWithoutData_ReturnsFalse()
-        {
-            // Setup
-            var viewCommands = mocks.Stub<IViewCommands>();
-
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            mocks.ReplayAll();
-
-            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
