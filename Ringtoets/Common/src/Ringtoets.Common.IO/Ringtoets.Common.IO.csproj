@@ -55,6 +55,7 @@
     <Compile Include="FileImporters\IDikeProfileUpdateDataStrategy.cs" />
     <Compile Include="FileImporters\IFailureMechanismSectionUpdateStrategy.cs" />
     <Compile Include="FileImporters\IForeshoreProfileUpdateDataStrategy.cs" />
+    <Compile Include="FileImporters\IFailureMechanismSectionResultUpdateStrategy.cs" />
     <Compile Include="FileImporters\MessageProviders\IImporterMessageProvider.cs" />
     <Compile Include="FileImporters\MessageProviders\ImportMessageProvider.cs" />
     <Compile Include="FileImporters\MessageProviders\UpdateMessageProvider.cs" />
