@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Core.Common.Util;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -51,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <item><see cref="IFailureMechanism.Contribution"/></item>
         /// </list>
         /// </remarks>
-        private readonly Observer failureMechanismObserver;
+        private readonly List<Observer> failureMechanismObservers;
 
         private readonly IViewCommands viewCommands;
         private FailureMechanismContribution data;
@@ -81,7 +83,7 @@ namespace Ringtoets.Integration.Forms.Views
 
             this.viewCommands = viewCommands;
 
-            failureMechanismObserver = new Observer(probabilityDistributionGrid.RefreshDataGridView);
+            failureMechanismObservers = new List<Observer>();
 
             data = assessmentSection.FailureMechanismContribution;
             AssessmentSection = assessmentSection;
@@ -112,22 +114,24 @@ namespace Ringtoets.Integration.Forms.Views
             if (disposing)
             {
                 components?.Dispose();
-                UnsubscribeEvents();
                 DetachFromFailureMechanisms();
             }
+
             base.Dispose(disposing);
+        }
+
+        private Observer CreateFailureMechanismObserver(IFailureMechanism failureMechanism)
+        {
+            return new Observer(probabilityDistributionGrid.RefreshDataGridView)
+            {
+                Observable = failureMechanism
+            };
         }
 
         private void SubscribeEvents()
         {
             probabilityDistributionGrid.CellFormatting += ProbabilityDistributionGridOnCellFormatting;
             probabilityDistributionGrid.CellFormatting += DisableIrrelevantFieldsFormatting;
-        }
-
-        private void UnsubscribeEvents()
-        {
-            probabilityDistributionGrid.CellFormatting -= ProbabilityDistributionGridOnCellFormatting;
-            probabilityDistributionGrid.CellFormatting -= DisableIrrelevantFieldsFormatting;
         }
 
         private void HandleNewDataSet(FailureMechanismContribution value)
@@ -156,12 +160,8 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (AssessmentSection != null)
             {
-                foreach (IFailureMechanism failureMechanism in AssessmentSection.GetFailureMechanisms())
-                {
-                    failureMechanism.Detach(failureMechanismObserver);
-
-                    failureMechanismObserver.Dispose();
-                }
+                failureMechanismObservers.ForEachElementDo(o => o.Dispose());
+                failureMechanismObservers.Clear();
             }
         }
 
@@ -169,10 +169,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (AssessmentSection != null)
             {
-                foreach (IFailureMechanism failureMechanism in AssessmentSection.GetFailureMechanisms())
-                {
-                    failureMechanism.Attach(failureMechanismObserver);
-                }
+                failureMechanismObservers.AddRange(AssessmentSection.GetFailureMechanisms().Select(CreateFailureMechanismObserver));
             }
         }
 

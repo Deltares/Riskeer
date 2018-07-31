@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Gui.Commands;
 using Core.Common.Util;
@@ -310,7 +308,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 ShowFormWithView(view);
-                
+
                 // Precondition
                 var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 Assert.AreEqual(2, dataGridView.RowCount);
