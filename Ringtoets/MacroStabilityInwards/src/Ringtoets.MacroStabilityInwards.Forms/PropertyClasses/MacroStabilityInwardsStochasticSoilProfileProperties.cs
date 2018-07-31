@@ -75,11 +75,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Probability_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Probability_Description))]
-        public string Probability
+        public RoundedDouble Probability
         {
             get
             {
-                return new RoundedDouble(3, data.Probability * 100).Value.ToString(CultureInfo.CurrentCulture);
+                return new RoundedDouble(2, data.Probability * 100);
             }
         }
 
@@ -139,6 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                 {
                     return RingtoetsCommonFormsResources.StochasticSoilProfile_Type_1D;
                 }
+
                 if (data.SoilProfile is MacroStabilityInwardsSoilProfile2D)
                 {
                     return RingtoetsCommonFormsResources.StochasticSoilProfile_Type_2D;

@@ -29,6 +29,7 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
@@ -73,43 +74,31 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(0.142, "14,2")]
-        [TestCase(1.0, "100")]
-        [TestCase(0.5 + 1e-6, "50")]
         [SetCulture("nl-NL")]
-        public void GetProperties_WithSoilProfile1DAndDutchLocale_ReturnExpectedValues(double probability, string expectedProbability)
+        public void GetProperties_WithSoilProfile1DAndDutchLocale_ReturnExpectedValues()
         {
-            GetProperties_WithSoilProfile1D_ReturnExpectedValues(probability, expectedProbability);
+            GetProperties_WithSoilProfile1D_ReturnExpectedValues(0.54321);
         }
 
         [Test]
-        [TestCase(0.142, "14.2")]
-        [TestCase(1.0, "100")]
-        [TestCase(0.5 + 1e-6, "50")]
         [SetCulture("en-US")]
-        public void GetProperties_WithData1DAndEnglishLocale_ReturnExpectedValues(double probability, string expectedProbability)
+        public void GetProperties_WithData1DAndEnglishLocale_ReturnExpectedValues()
         {
-            GetProperties_WithSoilProfile1D_ReturnExpectedValues(probability, expectedProbability);
+            GetProperties_WithSoilProfile1D_ReturnExpectedValues(0.54321);
         }
 
         [Test]
-        [TestCase(0.142, "14,2")]
-        [TestCase(1.0, "100")]
-        [TestCase(0.5 + 1e-6, "50")]
         [SetCulture("nl-NL")]
-        public void GetProperties_WithSoilProfile2DAndDutchLocale_ReturnExpectedValues(double probability, string expectedProbability)
+        public void GetProperties_WithSoilProfile2DAndDutchLocale_ReturnExpectedValues()
         {
-            GetProperties_WithSoilProfile2D_ReturnExpectedValues(probability, expectedProbability);
+            GetProperties_WithSoilProfile2D_ReturnExpectedValues(0.54321);
         }
 
         [Test]
-        [TestCase(0.142, "14.2")]
-        [TestCase(1.0, "100")]
-        [TestCase(0.5 + 1e-6, "50")]
         [SetCulture("en-US")]
-        public void GetProperties_WithSoilProfile2DAndEnglishLocale_ReturnExpectedValues(double probability, string expectedProbability)
+        public void GetProperties_WithSoilProfile2DAndEnglishLocale_ReturnExpectedValues()
         {
-            GetProperties_WithSoilProfile2D_ReturnExpectedValues(probability, expectedProbability);
+            GetProperties_WithSoilProfile2D_ReturnExpectedValues(0.54321);
         }
 
         [Test]
@@ -168,7 +157,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsFalse()
         {
             // Setup
-
             var soilProfile = new MacroStabilityInwardsSoilProfile1D("name", -5.0, new[]
             {
                 new MacroStabilityInwardsSoilLayer1D(-2)
@@ -309,7 +297,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
-        private static void GetProperties_WithSoilProfile1D_ReturnExpectedValues(double probability, string expectedProbability)
+        private static void GetProperties_WithSoilProfile1D_ReturnExpectedValues(double probability)
         {
             // Setup
             var layerOne = new MacroStabilityInwardsSoilLayer1D(-2);
@@ -336,11 +324,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             CollectionAssert.IsEmpty(properties.Layers2D);
             Assert.AreEqual(soilProfile.Bottom.ToString(CultureInfo.CurrentCulture), properties.Bottom);
-            Assert.AreEqual(expectedProbability, properties.Probability);
+            Assert.AreEqual(2, properties.Probability.NumberOfDecimalPlaces);
+            Assert.AreEqual(probability * 100, properties.Probability, properties.Probability.GetAccuracy());
             Assert.AreEqual("1D profiel", properties.Type);
         }
 
-        private static void GetProperties_WithSoilProfile2D_ReturnExpectedValues(double probability, string expectedProbability)
+        private static void GetProperties_WithSoilProfile2D_ReturnExpectedValues(double probability)
         {
             // Setup
             MacroStabilityInwardsSoilLayer2D layerOne = CreateMacroStabilityInwardsSoilLayer2D();
@@ -372,8 +361,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             CollectionAssert.IsEmpty(properties.Layers1D);
             Assert.AreEqual(double.NaN.ToString(CultureInfo.CurrentCulture), properties.Bottom);
-
-            Assert.AreEqual(expectedProbability, properties.Probability);
+            Assert.AreEqual(2, properties.Probability.NumberOfDecimalPlaces);
+            Assert.AreEqual(probability * 100, properties.Probability, properties.Probability.GetAccuracy());
             Assert.AreEqual("2D profiel", properties.Type);
 
             TestHelper.AssertTypeConverter<MacroStabilityInwardsStochasticSoilProfileProperties,
