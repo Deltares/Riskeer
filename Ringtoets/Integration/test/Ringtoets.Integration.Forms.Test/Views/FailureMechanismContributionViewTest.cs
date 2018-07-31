@@ -311,14 +311,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 // Precondition
                 var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-                Assert.AreEqual(2, dataGridView.RowCount);
+
+                var invalidated = false;
+                dataGridView.Invalidated += (sender, args) => invalidated = true;
 
                 // When
-                assessmentSection.FailureMechanismContribution.UpdateContributions(new IFailureMechanism[0], 30);
                 assessmentSection.FailureMechanismContribution.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(1, dataGridView.RowCount);
+                Assert.IsTrue(invalidated);
             }
 
             mocks.VerifyAll();
@@ -486,7 +487,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 // Call
                 assessmentSection.ChangeComposition(newComposition);
-                assessmentSection.FailureMechanismContribution.NotifyObservers();
+                assessmentSection.NotifyObservers();
 
                 // Assert
                 var compositionLabel = (Label) new ControlTester(assessmentSectionConfigurationLabelName).TheObject;

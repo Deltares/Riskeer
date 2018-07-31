@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// can be updated and the <see cref="FailureMechanismContributionItem.Contribution"/>
     /// and <see cref="FailureMechanismContributionItem.ProbabilitySpace"/> can be seen in a grid.
     /// </summary>
-    public partial class FailureMechanismContributionView : UserControl, IView, IObserver
+    public partial class FailureMechanismContributionView : UserControl, IView
     {
         private const int isRelevantColumnIndex = 0;
         private const int probabilityPerYearColumnIndex = 4;
@@ -55,8 +55,9 @@ namespace Ringtoets.Integration.Forms.Views
         /// </remarks>
         private readonly List<Observer> failureMechanismObservers;
 
+        private readonly Observer failureMechanismContributionObserver;
+
         private readonly IViewCommands viewCommands;
-        private FailureMechanismContribution data;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
@@ -84,11 +85,14 @@ namespace Ringtoets.Integration.Forms.Views
             this.viewCommands = viewCommands;
 
             failureMechanismObservers = new List<Observer>();
+            failureMechanismContributionObserver = new Observer(probabilityDistributionGrid.RefreshDataGridView)
+            {
+                Observable = assessmentSection.FailureMechanismContribution
+            };
 
-            data = assessmentSection.FailureMechanismContribution;
             AssessmentSection = assessmentSection;
-            HandleNewDataSet(data);
-            HandleNewAssessmentSectionSet(AssessmentSection);
+            AttachToFailureMechanisms();
+            UpdateData();
         }
 
         /// <summary>
@@ -97,13 +101,6 @@ namespace Ringtoets.Integration.Forms.Views
         public IAssessmentSection AssessmentSection { get; }
 
         public object Data { get; set; }
-
-        public void UpdateObserver()
-        {
-            SetAssessmentSectionComposition();
-            SetReturnPeriodText();
-            SetGridDataSource();
-        }
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -115,9 +112,17 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 components?.Dispose();
                 DetachFromFailureMechanisms();
+                failureMechanismContributionObserver.Dispose();
             }
 
             base.Dispose(disposing);
+        }
+
+        private void UpdateData()
+        {
+            SetAssessmentSectionComposition();
+            SetReturnPeriodText();
+            SetGridDataSource();
         }
 
         private Observer CreateFailureMechanismObserver(IFailureMechanism failureMechanism)
@@ -134,81 +139,35 @@ namespace Ringtoets.Integration.Forms.Views
             probabilityDistributionGrid.CellFormatting += DisableIrrelevantFieldsFormatting;
         }
 
-        private void HandleNewDataSet(FailureMechanismContribution value)
-        {
-            DetachFromData();
-
-            data = value;
-
-            SetGridDataSource();
-            SetReturnPeriodText();
-
-            AttachToData();
-
-            probabilityDistributionGrid.RefreshDataGridView();
-        }
-
-        private void HandleNewAssessmentSectionSet(IAssessmentSection value)
-        {
-            DetachFromFailureMechanisms();
-
-            AttachToFailureMechanisms();
-            SetAssessmentSectionComposition();
-        }
-
         private void DetachFromFailureMechanisms()
         {
-            if (AssessmentSection != null)
-            {
-                failureMechanismObservers.ForEachElementDo(o => o.Dispose());
-                failureMechanismObservers.Clear();
-            }
+            failureMechanismObservers.ForEachElementDo(o => o.Dispose());
+            failureMechanismObservers.Clear();
         }
 
         private void AttachToFailureMechanisms()
         {
-            if (AssessmentSection != null)
-            {
-                failureMechanismObservers.AddRange(AssessmentSection.GetFailureMechanisms().Select(CreateFailureMechanismObserver));
-            }
+            failureMechanismObservers.AddRange(AssessmentSection.GetFailureMechanisms().Select(CreateFailureMechanismObserver));
         }
 
         private void SetGridDataSource()
         {
-            if (data != null)
-            {
-                probabilityDistributionGrid.SetDataSource(data.Distribution.Select(ci => new FailureMechanismContributionItemRow(ci, viewCommands)).ToArray());
-                probabilityDistributionGrid.RefreshDataGridView();
-            }
-        }
-
-        private void AttachToData()
-        {
-            data?.Attach(this);
-        }
-
-        private void DetachFromData()
-        {
-            data?.Detach(this);
+            probabilityDistributionGrid.SetDataSource(AssessmentSection.FailureMechanismContribution.Distribution
+                                                                       .Select(ci => new FailureMechanismContributionItemRow(ci, viewCommands)).ToArray());
+            probabilityDistributionGrid.RefreshDataGridView();
         }
 
         private void SetReturnPeriodText()
         {
-            if (data != null)
-            {
-                returnPeriodLabel.Text = string.Format(Resources.FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_,
-                                                       Convert.ToInt32(1.0 / data.Norm));
-            }
+            returnPeriodLabel.Text = string.Format(Resources.FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_,
+                                                   Convert.ToInt32(1.0 / AssessmentSection.FailureMechanismContribution.Norm));
         }
 
         private void SetAssessmentSectionComposition()
         {
-            if (AssessmentSection != null)
-            {
-                string assessmentSectionComposition = new EnumDisplayWrapper<AssessmentSectionComposition>(AssessmentSection.Composition).DisplayName;
-                assessmentSectionCompositionLabel.Text = string.Format(Resources.FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_,
-                                                                       assessmentSectionComposition);
-            }
+            string assessmentSectionComposition = new EnumDisplayWrapper<AssessmentSectionComposition>(AssessmentSection.Composition).DisplayName;
+            assessmentSectionCompositionLabel.Text = string.Format(Resources.FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_,
+                                                                   assessmentSectionComposition);
         }
 
         private void InitializeGridColumns()
@@ -240,14 +199,9 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void ProbabilityDistributionGridOnCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (data == null)
-            {
-                return;
-            }
-
             if (e.ColumnIndex == probabilityPerYearColumnIndex)
             {
-                FailureMechanismContributionItem contributionItem = data.Distribution.ElementAt(e.RowIndex);
+                FailureMechanismContributionItem contributionItem = AssessmentSection.FailureMechanismContribution.Distribution.ElementAt(e.RowIndex);
                 if (Math.Abs(contributionItem.Contribution) < 1e-6)
                 {
                     e.Value = Resources.FailureMechanismContributionView_ProbabilityPerYear_Not_applicable;
@@ -258,11 +212,6 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (data == null)
-            {
-                return;
-            }
-
             if (eventArgs.ColumnIndex != isRelevantColumnIndex)
             {
                 if (!IsIrrelevantChecked(eventArgs.RowIndex))
@@ -287,7 +236,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private bool IsReadOnly(int rowIndex)
         {
-            FailureMechanismContributionItem rowData = data.Distribution.ElementAt(rowIndex);
+            FailureMechanismContributionItem rowData = AssessmentSection.FailureMechanismContribution.Distribution.ElementAt(rowIndex);
             return rowData.IsAlwaysRelevant;
         }
 
