@@ -78,8 +78,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithSoilProfile1D_ReturnExpectedValues()
         {
             // Setup
-            const double bottom = -5.4321;
-            const double probability = 0.54321;
+            var random = new Random(21);
+            double bottom = random.NextDouble();
+            double probability = random.NextDouble();
 
             var layerOne = new MacroStabilityInwardsSoilLayer1D(-2);
             var layerTwo = new MacroStabilityInwardsSoilLayer1D(-4);
@@ -115,7 +116,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithSoilProfile2D_ReturnExpectedValues()
         {
             // Setup
-            const double probability = 0.54321;
+            var random = new Random(21);
+            double probability = random.NextDouble();
 
             MacroStabilityInwardsSoilLayer2D layerOne = CreateMacroStabilityInwardsSoilLayer2D();
             MacroStabilityInwardsSoilLayer2D layerTwo = CreateMacroStabilityInwardsSoilLayer2D();

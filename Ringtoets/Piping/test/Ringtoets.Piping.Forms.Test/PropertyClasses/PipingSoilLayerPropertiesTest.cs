@@ -62,7 +62,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            const double topLevel = 5.4321;
+            var random = new Random(21);
+            double topLevel = random.NextDouble();
 
             var layer = new PipingSoilLayer(topLevel)
             {

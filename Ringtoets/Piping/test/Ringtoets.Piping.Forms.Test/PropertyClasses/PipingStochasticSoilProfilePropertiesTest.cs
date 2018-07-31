@@ -71,7 +71,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var random = new Random(21);
             var layerOne = new PipingSoilLayer(-2);
             var layerTwo = new PipingSoilLayer(-4);
 
@@ -81,9 +80,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 layerTwo
             };
 
-            const double bottom = -5.4321;
-            const double probability = 0.54321;
-
+            var random = new Random(21);
+            double bottom = random.NextDouble();
+            double probability = random.NextDouble();
             var soilProfileType = random.NextEnumValue<SoilProfileType>();
             var soilProfile = new PipingSoilProfile("<some name>", bottom, layers, soilProfileType);
             var stochasticSoilProfile = new PipingStochasticSoilProfile(probability, soilProfile);
