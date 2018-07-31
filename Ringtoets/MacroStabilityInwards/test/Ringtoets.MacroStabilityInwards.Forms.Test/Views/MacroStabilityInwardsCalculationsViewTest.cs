@@ -332,7 +332,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("Model A", cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("<geen>", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual("0", cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(0), cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
                 Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
 
                 cells = rows[1].Cells;
@@ -340,7 +340,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("Model E", cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("Profile 5", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual("30", cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(30), cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
                 Assert.AreEqual("Location 2 (5 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
             }
 
@@ -1023,7 +1023,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Precondition
                 var currentCell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
-                Assert.AreEqual("30", currentCell.FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(30), currentCell.FormattedValue);
 
                 MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfileToChange = calculation.InputParameters.StochasticSoilProfile;
                 var updatedProfile = new MacroStabilityInwardsStochasticSoilProfile(
@@ -1037,7 +1037,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Then
                 Assert.AreEqual(1, refreshed);
                 var cell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
-                Assert.AreEqual("50", cell.FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(50), cell.FormattedValue);
             }
 
             mocks.VerifyAll();
@@ -1526,6 +1526,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             testForm.Show();
 
             return calculationsView;
+        }
+
+        private static string GetFormattedProbabilityValue(double value)
+        {
+            return new RoundedDouble(2, value).ToString();
         }
     }
 }

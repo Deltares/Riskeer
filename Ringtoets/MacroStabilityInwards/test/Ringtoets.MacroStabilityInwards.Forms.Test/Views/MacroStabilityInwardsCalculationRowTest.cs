@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
@@ -89,7 +88,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(calculation.Name, row.Name);
             Assert.AreSame(calculation.InputParameters.StochasticSoilModel, row.StochasticSoilModel.WrappedObject);
             Assert.AreSame(calculation.InputParameters.StochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
-            Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile.Probability.ToString(CultureInfo.CurrentCulture), row.StochasticSoilProfileProbability);
+            Assert.AreEqual(2, row.StochasticSoilProfileProbability.NumberOfDecimalPlaces);
+            Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile.Probability, row.StochasticSoilProfileProbability, row.StochasticSoilProfileProbability.GetAccuracy());
             Assert.AreSame(hydraulicBoundaryLocation, row.SelectableHydraulicBoundaryLocation.WrappedObject.HydraulicBoundaryLocation);
             mocks.VerifyAll();
         }
@@ -111,7 +111,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreSame(calculation, row.MacroStabilityInwardsCalculation);
             Assert.IsNull(row.StochasticSoilModel.WrappedObject);
             Assert.IsNull(row.StochasticSoilProfile.WrappedObject);
-            Assert.AreEqual("0", row.StochasticSoilProfileProbability);
+            Assert.AreEqual(2, row.StochasticSoilProfileProbability.NumberOfDecimalPlaces);
+            Assert.AreEqual(0, row.StochasticSoilProfileProbability, row.StochasticSoilProfileProbability.GetAccuracy());
             Assert.IsNull(row.SelectableHydraulicBoundaryLocation.WrappedObject);
             mocks.VerifyAll();
         }
