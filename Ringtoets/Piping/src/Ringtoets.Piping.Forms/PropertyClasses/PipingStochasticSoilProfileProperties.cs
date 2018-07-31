@@ -99,11 +99,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Bottom_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Bottom_Description))]
-        public double Bottom
+        public RoundedDouble Bottom
         {
             get
             {
-                return data.SoilProfile.Bottom;
+                return new RoundedDouble(2, data.SoilProfile.Bottom);
             }
         }
 

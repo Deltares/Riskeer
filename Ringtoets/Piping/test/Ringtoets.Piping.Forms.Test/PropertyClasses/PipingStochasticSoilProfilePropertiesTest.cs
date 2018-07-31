@@ -81,10 +81,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 layerTwo
             };
 
+            const double bottom = -5.4321;
             const double probability = 0.54321;
 
             var soilProfileType = random.NextEnumValue<SoilProfileType>();
-            var soilProfile = new PipingSoilProfile("<some name>", -5.0, layers, soilProfileType);
+            var soilProfile = new PipingSoilProfile("<some name>", bottom, layers, soilProfileType);
             var stochasticSoilProfile = new PipingStochasticSoilProfile(probability, soilProfile);
 
             // Call
@@ -98,7 +99,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(layerOne, properties.Layers[0].Data);
             Assert.AreSame(layerTwo, properties.Layers[1].Data);
 
-            Assert.AreEqual(soilProfile.Bottom, properties.Bottom);
+            Assert.AreEqual(2, properties.Bottom.NumberOfDecimalPlaces);
+            Assert.AreEqual(bottom, properties.Bottom, properties.Bottom.GetAccuracy());
             Assert.AreEqual(2, properties.Probability.NumberOfDecimalPlaces);
             Assert.AreEqual(probability * 100, properties.Probability, properties.Probability.GetAccuracy());
             Assert.AreEqual(soilProfileType, properties.Type);
