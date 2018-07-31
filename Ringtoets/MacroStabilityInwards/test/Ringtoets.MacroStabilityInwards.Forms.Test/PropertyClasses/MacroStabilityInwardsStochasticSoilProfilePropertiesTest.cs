@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
@@ -70,6 +69,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 ExpandableArrayConverter>(nameof(MacroStabilityInwardsStochasticSoilProfileProperties.Layers1D));
             TestHelper.AssertTypeConverter<MacroStabilityInwardsStochasticSoilProfileProperties,
                 ExpandableArrayConverter>(nameof(MacroStabilityInwardsStochasticSoilProfileProperties.Layers2D));
+            TestHelper.AssertTypeConverter<MacroStabilityInwardsStochasticSoilProfileProperties,
+                ExpandableArrayConverter>(nameof(MacroStabilityInwardsStochasticSoilProfileProperties.PreconsolidationStresses));
             Assert.AreSame(stochasticSoilProfile, properties.Data);
         }
 
@@ -308,7 +309,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 layerTwo
             };
 
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("<some name>", -5.0, layers);
+            const double bottom = -5.4321;
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("<some name>", bottom, layers);
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
 
             // Call
@@ -323,7 +325,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreSame(layerTwo, properties.Layers1D[1].Data);
 
             CollectionAssert.IsEmpty(properties.Layers2D);
-            Assert.AreEqual(soilProfile.Bottom.ToString(CultureInfo.CurrentCulture), properties.Bottom);
+            Assert.AreEqual(2, properties.Bottom.NumberOfDecimalPlaces);
+            Assert.AreEqual(bottom, properties.Bottom, properties.Bottom.GetAccuracy());
             Assert.AreEqual(2, properties.Probability.NumberOfDecimalPlaces);
             Assert.AreEqual(probability * 100, properties.Probability, properties.Probability.GetAccuracy());
             Assert.AreEqual("1D profiel", properties.Type);
@@ -360,13 +363,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreSame(layerTwo, properties.Layers2D[1].Data);
 
             CollectionAssert.IsEmpty(properties.Layers1D);
-            Assert.AreEqual(double.NaN.ToString(CultureInfo.CurrentCulture), properties.Bottom);
+            Assert.AreEqual(double.NaN, properties.Bottom);
             Assert.AreEqual(2, properties.Probability.NumberOfDecimalPlaces);
             Assert.AreEqual(probability * 100, properties.Probability, properties.Probability.GetAccuracy());
             Assert.AreEqual("2D profiel", properties.Type);
 
-            TestHelper.AssertTypeConverter<MacroStabilityInwardsStochasticSoilProfileProperties,
-                ExpandableArrayConverter>(nameof(MacroStabilityInwardsStochasticSoilProfileProperties.PreconsolidationStresses));
             Assert.AreEqual(stresses.Length, properties.PreconsolidationStresses.Length);
             Assert.AreSame(stresses[0], properties.PreconsolidationStresses[0].Data);
         }

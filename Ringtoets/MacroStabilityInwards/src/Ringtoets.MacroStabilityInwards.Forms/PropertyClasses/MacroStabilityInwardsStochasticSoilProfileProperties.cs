@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
@@ -118,12 +117,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Bottom_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Bottom_Description))]
-        public string Bottom
+        public RoundedDouble Bottom
         {
             get
             {
                 double bottomValue = (data.SoilProfile as MacroStabilityInwardsSoilProfile1D)?.Bottom ?? double.NaN;
-                return new RoundedDouble(2, bottomValue).Value.ToString(CultureInfo.CurrentCulture);
+                return new RoundedDouble(2, bottomValue);
             }
         }
 
