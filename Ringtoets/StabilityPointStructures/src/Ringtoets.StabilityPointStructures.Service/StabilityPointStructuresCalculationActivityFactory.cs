@@ -125,7 +125,6 @@ namespace Ringtoets.StabilityPointStructures.Service
             }
 
             return new StabilityPointStructuresCalculationActivity(calculation,
-                                                                   assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                    failureMechanism,
                                                                    assessmentSection);
         }

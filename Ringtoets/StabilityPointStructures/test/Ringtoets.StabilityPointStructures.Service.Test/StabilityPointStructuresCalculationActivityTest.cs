@@ -45,7 +45,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            var activity = new StabilityPointStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+            var activity = new StabilityPointStructuresCalculationActivity(calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
@@ -53,26 +53,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ParameteredConstructor_HlcdFilePathNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-
-            // Call
-            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, null, failureMechanism, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("hydraulicBoundaryDatabaseFilePath", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -87,7 +67,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, "", null, assessmentSection);
+            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -103,7 +83,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, "", failureMechanism, null);
+            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

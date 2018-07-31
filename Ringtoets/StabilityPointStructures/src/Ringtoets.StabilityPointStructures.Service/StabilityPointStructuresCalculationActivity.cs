@@ -38,27 +38,19 @@ namespace Ringtoets.StabilityPointStructures.Service
         private readonly StabilityPointStructuresCalculationService calculationService;
         private readonly StabilityPointStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
-        private readonly string hydraulicBoundaryDatabaseFilePath;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The stability point structures data used for the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public StabilityPointStructuresCalculationActivity(StructuresCalculation<StabilityPointStructuresInput> calculation,
-                                                           string hydraulicBoundaryDatabaseFilePath,
                                                            StabilityPointStructuresFailureMechanism failureMechanism,
                                                            IAssessmentSection assessmentSection)
             : base(calculation)
         {
-            if (hydraulicBoundaryDatabaseFilePath == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseFilePath));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -72,7 +64,6 @@ namespace Ringtoets.StabilityPointStructures.Service
             this.calculation = calculation;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
-            this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
 
             Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
 
@@ -90,7 +81,7 @@ namespace Ringtoets.StabilityPointStructures.Service
 
             calculationService.Calculate(calculation,
                                          failureMechanism.GeneralInput,
-                                         hydraulicBoundaryDatabaseFilePath,
+                                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                          assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
 
