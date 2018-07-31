@@ -45,7 +45,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
-            var activity = new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+            var activity = new ClosingStructuresCalculationActivity(calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
@@ -53,26 +53,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ParameteredConstructor_HlcdFilePathNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-
-            // Call
-            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, null, failureMechanism, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("hydraulicBoundaryDatabaseFilePath", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -87,7 +67,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, "", null, assessmentSection);
+            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -103,7 +83,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, null);
+            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

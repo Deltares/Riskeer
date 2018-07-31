@@ -125,7 +125,6 @@ namespace Ringtoets.ClosingStructures.Service
             }
 
             return new ClosingStructuresCalculationActivity(calculation,
-                                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                             failureMechanism,
                                                             assessmentSection);
         }
