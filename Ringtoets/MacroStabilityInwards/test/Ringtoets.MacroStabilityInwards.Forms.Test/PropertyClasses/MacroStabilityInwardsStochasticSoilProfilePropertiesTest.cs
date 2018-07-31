@@ -82,8 +82,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             double bottom = random.NextDouble();
             double probability = random.NextDouble();
 
-            var layerOne = new MacroStabilityInwardsSoilLayer1D(-2);
-            var layerTwo = new MacroStabilityInwardsSoilLayer1D(-4);
+            var layerOne = new MacroStabilityInwardsSoilLayer1D(4);
+            var layerTwo = new MacroStabilityInwardsSoilLayer1D(2);
             IEnumerable<MacroStabilityInwardsSoilLayer1D> layers = new[]
             {
                 layerOne,

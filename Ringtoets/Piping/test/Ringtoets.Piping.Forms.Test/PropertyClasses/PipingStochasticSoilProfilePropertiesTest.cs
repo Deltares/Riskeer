@@ -71,8 +71,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var layerOne = new PipingSoilLayer(-2);
-            var layerTwo = new PipingSoilLayer(-4);
+            var layerOne = new PipingSoilLayer(4);
+            var layerTwo = new PipingSoilLayer(2);
 
             IEnumerable<PipingSoilLayer> layers = new[]
             {
