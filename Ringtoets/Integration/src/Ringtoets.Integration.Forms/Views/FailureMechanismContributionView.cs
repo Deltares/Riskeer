@@ -56,6 +56,7 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly List<Observer> failureMechanismObservers;
 
         private readonly Observer failureMechanismContributionObserver;
+        private readonly Observer assessmentSectionObserver;
 
         private readonly IViewCommands viewCommands;
 
@@ -85,9 +86,17 @@ namespace Ringtoets.Integration.Forms.Views
             this.viewCommands = viewCommands;
 
             failureMechanismObservers = new List<Observer>();
-            failureMechanismContributionObserver = new Observer(probabilityDistributionGrid.RefreshDataGridView)
+            failureMechanismContributionObserver = new Observer(() =>
+            {
+                probabilityDistributionGrid.RefreshDataGridView();
+                SetReturnPeriodText();
+            })
             {
                 Observable = assessmentSection.FailureMechanismContribution
+            };
+            assessmentSectionObserver = new Observer(UpdateData)
+            {
+                Observable = assessmentSection
             };
 
             AssessmentSection = assessmentSection;
@@ -113,6 +122,7 @@ namespace Ringtoets.Integration.Forms.Views
                 components?.Dispose();
                 DetachFromFailureMechanisms();
                 failureMechanismContributionObserver.Dispose();
+                assessmentSectionObserver.Dispose();
             }
 
             base.Dispose(disposing);

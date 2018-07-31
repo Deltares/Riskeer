@@ -93,6 +93,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
+            assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
@@ -119,7 +121,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void ReturnPeriodTextBox_Initialize_TextSetToData()
+        public void Constructor_Always_SetReturnPeriodTextBox()
         {
             // Setup
             var mocks = new MockRepository();
@@ -152,6 +154,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
+            assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
@@ -195,10 +199,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
-            var someMechanism = mocks.StrictMock<FailureMechanismBase>(testName, testCode, 1);
+            var someMechanism = mocks.Stub<FailureMechanismBase>(testName, testCode, 1);
             someMechanism.Contribution = testContribution;
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(someMechanism, mocks);
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
+            assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
             // Call
@@ -227,41 +233,120 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_ChangeReturnPeriodAndNotify_UpdateReturnPeriodTextBox()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_Always_ProperlyInitializeRelevancyColumn(bool isFailureMechanismRelevant)
         {
-            // Setup
-            const int initialReturnPeriod = 100;
-            const int newReturnPeriod = 200;
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike, 1.0 / initialReturnPeriod, 1.0 / 300);
-
+            // Given
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Name).Return("A");
+            failureMechanism.Stub(fm => fm.Code).Return("C");
+            failureMechanism.Stub(section => section.Attach(null)).IgnoreArguments();
+            failureMechanism.Stub(section => section.Detach(null)).IgnoreArguments();
+            failureMechanism.Contribution = 100;
+            failureMechanism.IsRelevant = isFailureMechanismRelevant;
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
+            assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var distributionView = new FailureMechanismContributionView(assessmentSection, viewCommands))
+            // When
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
-                ShowFormWithView(distributionView);
-                var returnPeriodLabel = new ControlTester(returnPeriodLabelName);
+                ShowFormWithView(view);
 
-                // Precondition
-                string initialReturnPeriodLabelText = $"Norm van het dijktraject: 1 / {initialReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
-                Assert.AreEqual(initialReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
+                // Then
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
 
-                // Call
-                assessmentSection.FailureMechanismContribution.LowerLimitNorm = 1.0 / newReturnPeriod;
-                assessmentSection.FailureMechanismContribution.NotifyObservers();
-
-                // Assert
-                string newReturnPeriodLabelText = $"Norm van het dijktraject: 1 / {newReturnPeriod.ToString(CultureInfo.CurrentCulture)}";
-                Assert.AreEqual(newReturnPeriodLabelText, returnPeriodLabel.Properties.Text);
+                DataGridViewRow row = dataGridView.Rows[0];
+                var isRelevantGridCell = (DataGridViewCheckBoxCell)row.Cells[isRelevantColumnIndex];
+                Assert.AreEqual(isFailureMechanismRelevant, isRelevantGridCell.Value);
             }
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void UpdateObserver_ChangeNormativeNormAndNotify_UpdateReturnPeriodTextBox()
+        public void Constructor_FailureMechanismWithZeroContribution_ProbabilitySpaceShowsAsNotApplicable()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Name).Return("A");
+            failureMechanism.Stub(fm => fm.Code).Return("C");
+            failureMechanism.Stub(section => section.Attach(null)).IgnoreArguments();
+            failureMechanism.Stub(section => section.Detach(null)).IgnoreArguments();
+            failureMechanism.Contribution = 0;
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
+            assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
+            mocks.ReplayAll();
+
+            // Call
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
+            {
+                ShowFormWithView(view);
+
+                // Assert
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+
+                DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
+                DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[probabilitySpaceColumnIndex];
+                Assert.AreEqual("n.v.t", probabilitySpaceCell.FormattedValue);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismWithContribution_ProbabilitySpaceShowsAsLocalisedText()
+        {
+            // Setup
+            const double contribution = 25.0;
+            const double norm = 1.0 / 30000;
+
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Name).Return("A");
+            failureMechanism.Stub(fm => fm.Code).Return("C");
+            failureMechanism.Stub(section => section.Attach(null)).IgnoreArguments();
+            failureMechanism.Stub(section => section.Detach(null)).IgnoreArguments();
+            failureMechanism.Contribution = contribution;
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
+            assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
+            assessmentSection.FailureMechanismContribution.NormativeNorm = NormType.Signaling;
+            mocks.ReplayAll();
+
+            // Call
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
+            {
+                ShowFormWithView(view);
+
+                // Assert
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+
+                DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
+                DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[probabilitySpaceColumnIndex];
+                Assert.AreEqual("1/#,#", probabilitySpaceCell.InheritedStyle.Format);
+
+                string expectedTextValue = new FailureMechanismContributionItem(failureMechanism, norm)
+                                           .ProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
+                Assert.AreEqual(expectedTextValue, probabilitySpaceCell.FormattedValue);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenView_WhenFailureMechanismContributionNotified_ThenReturnPeriodTextBoxUpdated()
         {
             // Setup
             const int lowerLimitNorm = 100;
@@ -295,7 +380,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismContributionView_WhenObserverNotified_UpdatesDataSource()
+        public void GivenFailureMechanismContributionView_WhenFailureMechanismContributionNotified_ThenDataGridViewInvalidated()
         {
             // Given
             var mocks = new MockRepository();
@@ -303,6 +388,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
+            assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
             using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
@@ -326,117 +413,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenFailureMechanismContributionView_WhenSettingData_ProperlyInitializeRelevancyColumn(bool isFailureMechanismRelevant)
-        {
-            // Given
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return("A");
-            failureMechanism.Stub(fm => fm.Code).Return("C");
-            failureMechanism.Stub(section => section.Attach(null)).IgnoreArguments();
-            failureMechanism.Stub(section => section.Detach(null)).IgnoreArguments();
-            failureMechanism.Contribution = 100;
-            failureMechanism.IsRelevant = isFailureMechanismRelevant;
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-            mocks.ReplayAll();
-
-            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
-            {
-                // When
-                ShowFormWithView(view);
-
-                // Then
-                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-
-                DataGridViewRow row = dataGridView.Rows[0];
-                var isRelevantGridCell = (DataGridViewCheckBoxCell) row.Cells[isRelevantColumnIndex];
-                Assert.AreEqual(isFailureMechanismRelevant, isRelevantGridCell.Value);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenFailureMechanismContributionView_WhenSettingDataWithZeroContributionFailureMechanism_ProbabilitySpaceShowsAsNotApplicable()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return("A");
-            failureMechanism.Stub(fm => fm.Code).Return("C");
-            failureMechanism.Stub(section => section.Attach(null)).IgnoreArguments();
-            failureMechanism.Stub(section => section.Detach(null)).IgnoreArguments();
-            failureMechanism.Contribution = 0;
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-            mocks.ReplayAll();
-
-            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
-            {
-                // When
-                ShowFormWithView(view);
-
-                // Then
-                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-
-                DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
-                DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[probabilitySpaceColumnIndex];
-                Assert.AreEqual("n.v.t", probabilitySpaceCell.FormattedValue);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenFailureMechanismContributionView_WhenSettingDataWithNormalContributionFailureMechanism_ProbabilitySpaceShowsAsLocalisedText()
-        {
-            // Given
-            const double contribution = 25.0;
-            const double norm = 1.0 / 30000;
-
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return("A");
-            failureMechanism.Stub(fm => fm.Code).Return("C");
-            failureMechanism.Stub(section => section.Attach(null)).IgnoreArguments();
-            failureMechanism.Stub(section => section.Detach(null)).IgnoreArguments();
-            failureMechanism.Contribution = contribution;
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-            assessmentSection.FailureMechanismContribution.NormativeNorm = NormType.Signaling;
-            mocks.ReplayAll();
-
-            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
-            {
-                // When
-                ShowFormWithView(view);
-
-                // Then
-                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-
-                DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
-                DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[probabilitySpaceColumnIndex];
-                Assert.AreEqual("1/#,#", probabilitySpaceCell.InheritedStyle.Format);
-
-                string expectedTextValue = new FailureMechanismContributionItem(failureMechanism, norm)
-                                           .ProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
-                Assert.AreEqual(expectedTextValue, probabilitySpaceCell.FormattedValue);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase(AssessmentSectionComposition.Dike, "Dijk")]
         [TestCase(AssessmentSectionComposition.Dune, "Duin")]
         [TestCase(AssessmentSectionComposition.DikeAndDune, "Dijk / Duin")]
-        public void CompositionComboBox_WithDataSet_SelectedDisplayTextAndValueCorrect(AssessmentSectionComposition composition, string expectedDisplayText)
+        public void Constructor_Always_CompositionComboBoxSelectedDisplayTextAndValueCorrect(AssessmentSectionComposition composition, string expectedDisplayText)
         {
             // Setup
             var assessmentSection = new AssessmentSection(composition);
@@ -445,14 +425,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
+            // Call
             using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 ShowFormWithView(view);
 
-                // Call
-                var compositionLabel = (Label) new ControlTester(assessmentSectionConfigurationLabelName).TheObject;
-
                 // Assert
+                var compositionLabel = (Label)new ControlTester(assessmentSectionConfigurationLabelName).TheObject;
                 string expectedLabelValue = $"Trajecttype: {expectedDisplayText}";
                 Assert.AreEqual(expectedLabelValue, compositionLabel.Text);
             }
@@ -467,7 +446,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
-        public void UpdateObserver_ChangeAssessmentSectionCompositionAndNotify_ChangeCompositionComboBoxItem(
+        public void GivenView_WhenAssessmentSectionCompositionChangedAndNotified_ThenCompositionComboBoxItemUpdated(
             AssessmentSectionComposition initialComposition,
             AssessmentSectionComposition newComposition)
         {
@@ -482,19 +461,19 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                // Precondition
-                Assert.AreNotEqual(assessmentSection.Composition, newComposition);
+                var compositionLabel = (Label)new ControlTester(assessmentSectionConfigurationLabelName).TheObject;
 
-                // Call
+                // Precondition
+                string initialCompositionDisplayName = new EnumDisplayWrapper<AssessmentSectionComposition>(initialComposition).DisplayName;
+                Assert.AreEqual($"Trajecttype: {initialCompositionDisplayName}", compositionLabel.Text);
+
+                // When
                 assessmentSection.ChangeComposition(newComposition);
                 assessmentSection.NotifyObservers();
 
-                // Assert
-                var compositionLabel = (Label) new ControlTester(assessmentSectionConfigurationLabelName).TheObject;
-
+                // Then
                 string compositionDisplayName = new EnumDisplayWrapper<AssessmentSectionComposition>(newComposition).DisplayName;
-                string newCompositionValue = $"Trajecttype: {compositionDisplayName}";
-                Assert.AreEqual(newCompositionValue, compositionLabel.Text);
+                Assert.AreEqual($"Trajecttype: {compositionDisplayName}", compositionLabel.Text);
             }
 
             mocks.VerifyAll();
@@ -653,6 +632,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             failureMechanism.Expect(fm => fm.NotifyObservers());
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
+            assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
             var viewCommands = mocks.Stub<IViewCommands>();
             viewCommands.Expect(c => c.RemoveAllViewsForItem(failureMechanism));
             mocks.ReplayAll();
