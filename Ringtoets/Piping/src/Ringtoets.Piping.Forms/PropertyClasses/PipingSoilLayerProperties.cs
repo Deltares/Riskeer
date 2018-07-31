@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -70,11 +69,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_TopLevel_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.SoilLayer_TopLevel_Description))]
-        public string TopLevel
+        public RoundedDouble TopLevel
         {
             get
             {
-                return new RoundedDouble(2, data.Top).Value.ToString(CultureInfo.CurrentCulture);
+                return new RoundedDouble(2, data.Top);
             }
         }
 

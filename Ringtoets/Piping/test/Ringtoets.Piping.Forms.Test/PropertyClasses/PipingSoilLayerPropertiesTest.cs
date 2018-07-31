@@ -21,10 +21,10 @@
 
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives;
 
@@ -62,7 +62,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var layer = new PipingSoilLayer(-2.91)
+            const double topLevel = 5.4321;
+
+            var layer = new PipingSoilLayer(topLevel)
             {
                 MaterialName = "Test Name",
                 IsAquifer = true
@@ -74,7 +76,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(layer.MaterialName, properties.Name);
             Assert.AreEqual(layer.IsAquifer, properties.IsAquifer);
-            Assert.AreEqual(layer.Top.ToString(CultureInfo.CurrentCulture), properties.TopLevel);
+            Assert.AreEqual(2, properties.TopLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(topLevel, properties.TopLevel, properties.TopLevel.GetAccuracy());
         }
 
         [Test]
