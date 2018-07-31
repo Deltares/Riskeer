@@ -23,6 +23,7 @@ using System;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -33,6 +34,7 @@ namespace Ringtoets.Integration.Forms.Views
     {
         private readonly FailureMechanismContributionItem contributionItem;
         private readonly IViewCommands viewCommands;
+        private IFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionItemRow"/>.
@@ -53,6 +55,29 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             this.contributionItem = contributionItem;
+            this.viewCommands = viewCommands;
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismContributionItemRow"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism this row contains.</param>
+        /// <param name="viewCommands">>Class responsible for exposing high level <see cref="IView"/>
+        /// related commands.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        internal FailureMechanismContributionItemRow(IFailureMechanism failureMechanism, IViewCommands viewCommands)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (viewCommands == null)
+            {
+                throw new ArgumentNullException(nameof(viewCommands));
+            }
+
+            this.failureMechanism = failureMechanism;
             this.viewCommands = viewCommands;
         }
 

@@ -25,6 +25,7 @@ using Core.Common.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Piping.Data;
 
@@ -42,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new FailureMechanismContributionItemRow(null, viewCommands);
+            TestDelegate test = () => new FailureMechanismContributionItemRow((FailureMechanismContributionItem) null, viewCommands);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -63,6 +64,40 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreSame("viewCommands", paramName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismContributionItemRow((IFailureMechanism) null, viewCommands);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ViewCommandsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismContributionItemRow(failureMechanism, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("viewCommands", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -104,6 +139,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 viewCommands.Expect(c => c.RemoveAllViewsForItem(pipingFailureMechanism));
             }
+
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
