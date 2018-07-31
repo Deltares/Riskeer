@@ -27,6 +27,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives;
@@ -67,23 +68,17 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(0.142, "14,2")]
-        [TestCase(1.0, "100")]
-        [TestCase(0.5 + 1e-6, "50")]
         [SetCulture("nl-NL")]
-        public void GetProperties_WithDataAndDutchLocale_ReturnExpectedValues(double probability, string expectedProbability)
+        public void GetProperties_WithDataAndDutchLocale_ReturnExpectedValues()
         {
-            GetProperties_WithData_ReturnExpectedValues(probability, expectedProbability);
+            GetProperties_WithData_ReturnExpectedValues(0.54321);
         }
 
         [Test]
-        [TestCase(0.142, "14.2")]
-        [TestCase(1.0, "100")]
-        [TestCase(0.5 + 1e-6, "50")]
         [SetCulture("en-US")]
-        public void GetProperties_WithDataAndEnglishLocale_ReturnExpectedValues(double probability, string expectedProbability)
+        public void GetProperties_WithDataAndEnglishLocale_ReturnExpectedValues()
         {
-            GetProperties_WithData_ReturnExpectedValues(probability, expectedProbability);
+            GetProperties_WithData_ReturnExpectedValues(0.54321);
         }
 
         [Test]
@@ -139,7 +134,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                                             true);
         }
 
-        private static void GetProperties_WithData_ReturnExpectedValues(double probability, string expectedProbability)
+        private static void GetProperties_WithData_ReturnExpectedValues(double probability)
         {
             // Setup
             var random = new Random(21);
@@ -167,7 +162,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(layerTwo, properties.Layers[1].Data);
 
             Assert.AreEqual(soilProfile.Bottom, properties.Bottom);
-            Assert.AreEqual(expectedProbability, properties.Probability);
+            Assert.AreEqual(2, properties.Probability.NumberOfDecimalPlaces);
+            Assert.AreEqual(probability * 100, properties.Probability, properties.Probability.GetAccuracy());
             Assert.AreEqual(soilProfileType, properties.Type);
         }
     }

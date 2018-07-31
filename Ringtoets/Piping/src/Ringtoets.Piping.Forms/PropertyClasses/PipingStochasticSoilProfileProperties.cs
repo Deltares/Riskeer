@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
@@ -75,11 +74,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Probability_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StochasticSoilProfile_Probability_Description))]
-        public string Probability
+        public RoundedDouble Probability
         {
             get
             {
-                return new RoundedDouble(3, data.Probability * 100).Value.ToString(CultureInfo.CurrentCulture);
+                return new RoundedDouble(2, data.Probability * 100);
             }
         }
 
