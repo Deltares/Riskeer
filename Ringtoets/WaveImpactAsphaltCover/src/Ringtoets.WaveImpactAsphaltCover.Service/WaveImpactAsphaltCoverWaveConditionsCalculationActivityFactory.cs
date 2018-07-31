@@ -124,7 +124,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             }
 
             return new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                               assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                failureMechanism,
                                                                                assessmentSection);
         }

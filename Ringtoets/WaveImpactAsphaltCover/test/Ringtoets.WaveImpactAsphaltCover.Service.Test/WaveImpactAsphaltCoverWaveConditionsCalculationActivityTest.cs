@@ -44,7 +44,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
 
             // Call
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSection);
+            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
@@ -52,26 +52,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}'", activity.Description);
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_HlcdDirectoryNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, null, failureMechanism, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("hlcdFilePath", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -86,7 +66,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
 
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, string.Empty, null, assessmentSection);
+            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -102,7 +82,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, null);
+            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
