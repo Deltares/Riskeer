@@ -130,6 +130,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddUpdateItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
