@@ -75,31 +75,83 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        public void GetProperties_WithSoilProfile1DAndDutchLocale_ReturnExpectedValues()
+        public void GetProperties_WithSoilProfile1D_ReturnExpectedValues()
         {
-            GetProperties_WithSoilProfile1D_ReturnExpectedValues(0.54321);
+            // Setup
+            const double bottom = -5.4321;
+            const double probability = 0.54321;
+
+            var layerOne = new MacroStabilityInwardsSoilLayer1D(-2);
+            var layerTwo = new MacroStabilityInwardsSoilLayer1D(-4);
+            IEnumerable<MacroStabilityInwardsSoilLayer1D> layers = new[]
+            {
+                layerOne,
+                layerTwo
+            };
+
+            var soilProfile = new MacroStabilityInwardsSoilProfile1D("<some name>", bottom, layers);
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
+
+            // Call
+            var properties = new MacroStabilityInwardsStochasticSoilProfileProperties(stochasticSoilProfile);
+
+            // Assert
+            Assert.AreEqual(soilProfile.Name, properties.Name);
+            Assert.AreEqual(soilProfile.Name, properties.ToString());
+
+            Assert.AreEqual(2, properties.Layers1D.Length);
+            Assert.AreSame(layerOne, properties.Layers1D[0].Data);
+            Assert.AreSame(layerTwo, properties.Layers1D[1].Data);
+
+            CollectionAssert.IsEmpty(properties.Layers2D);
+            Assert.AreEqual(2, properties.Bottom.NumberOfDecimalPlaces);
+            Assert.AreEqual(bottom, properties.Bottom, properties.Bottom.GetAccuracy());
+            Assert.AreEqual(2, properties.Probability.NumberOfDecimalPlaces);
+            Assert.AreEqual(probability * 100, properties.Probability, properties.Probability.GetAccuracy());
+            Assert.AreEqual("1D profiel", properties.Type);
         }
 
         [Test]
-        [SetCulture("en-US")]
-        public void GetProperties_WithData1DAndEnglishLocale_ReturnExpectedValues()
+        public void GetProperties_WithSoilProfile2D_ReturnExpectedValues()
         {
-            GetProperties_WithSoilProfile1D_ReturnExpectedValues(0.54321);
-        }
+            // Setup
+            const double probability = 0.54321;
 
-        [Test]
-        [SetCulture("nl-NL")]
-        public void GetProperties_WithSoilProfile2DAndDutchLocale_ReturnExpectedValues()
-        {
-            GetProperties_WithSoilProfile2D_ReturnExpectedValues(0.54321);
-        }
+            MacroStabilityInwardsSoilLayer2D layerOne = CreateMacroStabilityInwardsSoilLayer2D();
+            MacroStabilityInwardsSoilLayer2D layerTwo = CreateMacroStabilityInwardsSoilLayer2D();
+            var layers = new[]
+            {
+                layerOne,
+                layerTwo
+            };
 
-        [Test]
-        [SetCulture("en-US")]
-        public void GetProperties_WithSoilProfile2DAndEnglishLocale_ReturnExpectedValues()
-        {
-            GetProperties_WithSoilProfile2D_ReturnExpectedValues(0.54321);
+            var stresses = new[]
+            {
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress()
+            };
+
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D("<some name>", layers, stresses);
+            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
+
+            // Call
+            var properties = new MacroStabilityInwardsStochasticSoilProfileProperties(stochasticSoilProfile);
+
+            // Assert
+            Assert.AreEqual(soilProfile.Name, properties.Name);
+            Assert.AreEqual(soilProfile.Name, properties.ToString());
+
+            Assert.AreEqual(layers.Length, properties.Layers2D.Length);
+            Assert.AreSame(layerOne, properties.Layers2D[0].Data);
+            Assert.AreSame(layerTwo, properties.Layers2D[1].Data);
+
+            CollectionAssert.IsEmpty(properties.Layers1D);
+            Assert.AreEqual(double.NaN, properties.Bottom);
+            Assert.AreEqual(2, properties.Probability.NumberOfDecimalPlaces);
+            Assert.AreEqual(probability * 100, properties.Probability, properties.Probability.GetAccuracy());
+            Assert.AreEqual("2D profiel", properties.Type);
+
+            Assert.AreEqual(stresses.Length, properties.PreconsolidationStresses.Length);
+            Assert.AreSame(stresses[0], properties.PreconsolidationStresses[0].Data);
         }
 
         [Test]
@@ -296,80 +348,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             string expectedMessage = $"{soilProfile.GetType()} is not supported. Supported types: " +
                                      $"{nameof(MacroStabilityInwardsSoilProfile1D)} and {nameof(MacroStabilityInwardsSoilProfile2D)}.";
             Assert.AreEqual(expectedMessage, exception.Message);
-        }
-
-        private static void GetProperties_WithSoilProfile1D_ReturnExpectedValues(double probability)
-        {
-            // Setup
-            var layerOne = new MacroStabilityInwardsSoilLayer1D(-2);
-            var layerTwo = new MacroStabilityInwardsSoilLayer1D(-4);
-            IEnumerable<MacroStabilityInwardsSoilLayer1D> layers = new[]
-            {
-                layerOne,
-                layerTwo
-            };
-
-            const double bottom = -5.4321;
-            var soilProfile = new MacroStabilityInwardsSoilProfile1D("<some name>", bottom, layers);
-            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
-
-            // Call
-            var properties = new MacroStabilityInwardsStochasticSoilProfileProperties(stochasticSoilProfile);
-
-            // Assert
-            Assert.AreEqual(soilProfile.Name, properties.Name);
-            Assert.AreEqual(soilProfile.Name, properties.ToString());
-
-            Assert.AreEqual(2, properties.Layers1D.Length);
-            Assert.AreSame(layerOne, properties.Layers1D[0].Data);
-            Assert.AreSame(layerTwo, properties.Layers1D[1].Data);
-
-            CollectionAssert.IsEmpty(properties.Layers2D);
-            Assert.AreEqual(2, properties.Bottom.NumberOfDecimalPlaces);
-            Assert.AreEqual(bottom, properties.Bottom, properties.Bottom.GetAccuracy());
-            Assert.AreEqual(2, properties.Probability.NumberOfDecimalPlaces);
-            Assert.AreEqual(probability * 100, properties.Probability, properties.Probability.GetAccuracy());
-            Assert.AreEqual("1D profiel", properties.Type);
-        }
-
-        private static void GetProperties_WithSoilProfile2D_ReturnExpectedValues(double probability)
-        {
-            // Setup
-            MacroStabilityInwardsSoilLayer2D layerOne = CreateMacroStabilityInwardsSoilLayer2D();
-            MacroStabilityInwardsSoilLayer2D layerTwo = CreateMacroStabilityInwardsSoilLayer2D();
-            var layers = new[]
-            {
-                layerOne,
-                layerTwo
-            };
-
-            var stresses = new[]
-            {
-                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress()
-            };
-
-            var soilProfile = new MacroStabilityInwardsSoilProfile2D("<some name>", layers, stresses);
-            var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
-
-            // Call
-            var properties = new MacroStabilityInwardsStochasticSoilProfileProperties(stochasticSoilProfile);
-
-            // Assert
-            Assert.AreEqual(soilProfile.Name, properties.Name);
-            Assert.AreEqual(soilProfile.Name, properties.ToString());
-
-            Assert.AreEqual(layers.Length, properties.Layers2D.Length);
-            Assert.AreSame(layerOne, properties.Layers2D[0].Data);
-            Assert.AreSame(layerTwo, properties.Layers2D[1].Data);
-
-            CollectionAssert.IsEmpty(properties.Layers1D);
-            Assert.AreEqual(double.NaN, properties.Bottom);
-            Assert.AreEqual(2, properties.Probability.NumberOfDecimalPlaces);
-            Assert.AreEqual(probability * 100, properties.Probability, properties.Probability.GetAccuracy());
-            Assert.AreEqual("2D profiel", properties.Type);
-
-            Assert.AreEqual(stresses.Length, properties.PreconsolidationStresses.Length);
-            Assert.AreSame(stresses[0], properties.PreconsolidationStresses[0].Data);
         }
 
         private static MacroStabilityInwardsSoilLayer2D CreateMacroStabilityInwardsSoilLayer2D()
