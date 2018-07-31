@@ -80,17 +80,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
-            PipingStochasticSoilProfile stochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First();
-
             var surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 0.0, 0.0),
                 new Point3D(1.0, 0.0, 10)
             });
+
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
+            PipingStochasticSoilProfile stochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             var dampingFactorExitMean = (RoundedDouble) 1.0;
             var phreaticLevelExitMean = (RoundedDouble) 2.0;

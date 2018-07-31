@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
@@ -34,6 +35,7 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 {
@@ -76,9 +78,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First();
+
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilModel = stochasticSoilModel,
+                    StochasticSoilProfile = stochasticSoilProfile,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
 
             // Call
             var row = new MacroStabilityInwardsCalculationRow(calculation, handler);
@@ -89,7 +105,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreSame(calculation.InputParameters.StochasticSoilModel, row.StochasticSoilModel.WrappedObject);
             Assert.AreSame(calculation.InputParameters.StochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
             Assert.AreEqual(2, row.StochasticSoilProfileProbability.NumberOfDecimalPlaces);
-            Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile.Probability, row.StochasticSoilProfileProbability, row.StochasticSoilProfileProbability.GetAccuracy());
+            Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile.Probability * 100, row.StochasticSoilProfileProbability, row.StochasticSoilProfileProbability.GetAccuracy());
             Assert.AreSame(hydraulicBoundaryLocation, row.SelectableHydraulicBoundaryLocation.WrappedObject.HydraulicBoundaryLocation);
             mocks.VerifyAll();
         }
