@@ -21,6 +21,7 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -148,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 calculation1.InputParameters.NotifyObservers();
                 Assert.AreEqual("PK001_0001_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-6_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
                 listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_19");
                 calculation2.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0002");
@@ -157,7 +158,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 calculation2.InputParameters.NotifyObservers();
                 Assert.AreEqual("PK001_0002_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-6_4_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
                 listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_16");
                 calculation3.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0003");
@@ -166,7 +167,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 calculation3.InputParameters.NotifyObservers();
                 Assert.AreEqual("PK001_0003_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-7_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
                 listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_8");
                 calculation4.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0004");
@@ -175,7 +176,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 calculation4.InputParameters.NotifyObservers();
                 Assert.AreEqual("PK001_0004_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-8_6_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
                 // Update stochastic soil models
                 DataUpdateHelper.UpdateMacroStabilityInwardsStochasticSoilModels(assessmentSection);
@@ -183,23 +184,28 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_22");
                 Assert.AreEqual("PK001_0001_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-6_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
                 listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_19");
                 Assert.AreEqual("PK001_0002_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-6_4_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
                 listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_16");
                 Assert.AreEqual("PK001_0003_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-7_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
                 listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_8");
                 Assert.AreEqual("PK001_0004_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-8_6_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual("100", dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
             }
+        }
+
+        private static string GetFormattedProbabilityValue(double value)
+        {
+            return new RoundedDouble(2, value).ToString();
         }
     }
 }
