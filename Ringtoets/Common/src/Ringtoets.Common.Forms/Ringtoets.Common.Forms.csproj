@@ -172,6 +172,7 @@
     <Compile Include="UITypeEditors\IHasStructureProperty.cs" />
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
+    <Compile Include="UpdateInfos\RingtoetsUpdateInfoFactory.cs" />
     <Compile Include="Views\CalculatableRow.cs" />
     <Compile Include="Views\DesignWaterLevelCalculationsView.cs">
       <SubType>UserControl</SubType>

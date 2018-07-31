@@ -154,6 +154,7 @@
     <Compile Include="UITypeEditors\HydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="UITypeEditors\ForeshoreProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\StructureEditorTest.cs" />
+    <Compile Include="UpdateInfos\RingtoetsUpdateInfoFactoryTest.cs" />
     <Compile Include="Views\CalculatableRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelCalculationsViewTest.cs" />
     <Compile Include="Views\FailureMechanismSectionProbabilityAssessmentRowTest.cs" />
