@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -35,6 +36,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
+using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -80,7 +82,37 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
+            PipingStochasticSoilProfile stochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First();
+
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 0.0),
+                new Point3D(1.0, 0.0, 10)
+            });
+
+            var dampingFactorExitMean = (RoundedDouble) 1.0;
+            var phreaticLevelExitMean = (RoundedDouble) 2.0;
+
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    DampingFactorExit =
+                    {
+                        Mean = dampingFactorExitMean
+                    },
+                    PhreaticLevelExit =
+                    {
+                        Mean = phreaticLevelExitMean
+                    },
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilModel = stochasticSoilModel,
+                    StochasticSoilProfile = stochasticSoilProfile,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
 
             // Call
             var row = new PipingCalculationRow(calculation, handler);
@@ -88,13 +120,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreSame(calculation, row.PipingCalculation);
             Assert.AreEqual(calculation.Name, row.Name);
-            Assert.AreSame(calculation.InputParameters.StochasticSoilModel, row.StochasticSoilModel.WrappedObject);
-            Assert.AreSame(calculation.InputParameters.StochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
+            Assert.AreSame(stochasticSoilModel, row.StochasticSoilModel.WrappedObject);
+            Assert.AreSame(stochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
             Assert.AreEqual(2, row.StochasticSoilProfileProbability.NumberOfDecimalPlaces);
-            Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile.Probability, row.StochasticSoilProfileProbability, row.StochasticSoilProfileProbability.GetAccuracy());
+            Assert.AreEqual(stochasticSoilProfile.Probability * 100, row.StochasticSoilProfileProbability, row.StochasticSoilProfileProbability.GetAccuracy());
             Assert.AreSame(hydraulicBoundaryLocation, row.SelectableHydraulicBoundaryLocation.WrappedObject.HydraulicBoundaryLocation);
-            Assert.AreEqual(calculation.InputParameters.DampingFactorExit.Mean, row.DampingFactorExitMean);
-            Assert.AreEqual(calculation.InputParameters.PhreaticLevelExit.Mean, row.PhreaticLevelExitMean);
+            Assert.AreEqual(dampingFactorExitMean, row.DampingFactorExitMean);
+            Assert.AreEqual(phreaticLevelExitMean, row.PhreaticLevelExitMean);
             Assert.AreEqual(calculation.InputParameters.EntryPointL, row.EntryPointL);
             Assert.AreEqual(calculation.InputParameters.ExitPointL, row.ExitPointL);
             mocks.VerifyAll();
