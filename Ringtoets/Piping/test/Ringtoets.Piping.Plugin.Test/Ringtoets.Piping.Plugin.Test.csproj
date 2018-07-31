@@ -35,6 +35,7 @@
     <Compile Include="ExportInfos\PipingCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\PipingCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="FileImporter\PipingSurfaceLineReplaceDataStrategyTest.cs" />
+    <Compile Include="FileImporter\PipingFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="FileImporter\PipingSurfaceLineUpdateDataStrategyTest.cs" />
     <Compile Include="FileImporter\PipingStochasticSoilModelImporterConfigurationFactoryTest.cs" />
     <Compile Include="FileImporter\SurfaceLinesCsvImporterConfigurationFactoryTest.cs" />
@@ -135,6 +136,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
