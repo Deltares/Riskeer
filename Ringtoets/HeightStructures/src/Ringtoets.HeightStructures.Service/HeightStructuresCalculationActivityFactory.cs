@@ -125,7 +125,6 @@ namespace Ringtoets.HeightStructures.Service
             }
 
             return new HeightStructuresCalculationActivity(calculation,
-                                                           assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                            failureMechanism,
                                                            assessmentSection);
         }

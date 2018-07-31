@@ -35,7 +35,6 @@ namespace Ringtoets.HeightStructures.Service
     internal class HeightStructuresCalculationActivity : CalculatableActivity
     {
         private readonly StructuresCalculation<HeightStructuresInput> calculation;
-        private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private readonly HeightStructuresCalculationService calculationService;
@@ -44,21 +43,14 @@ namespace Ringtoets.HeightStructures.Service
         /// Creates a new instance of <see cref="HeightStructuresCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The height structures data used for the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public HeightStructuresCalculationActivity(StructuresCalculation<HeightStructuresInput> calculation,
-                                                   string hydraulicBoundaryDatabaseFilePath,
                                                    HeightStructuresFailureMechanism failureMechanism,
                                                    IAssessmentSection assessmentSection)
             : base(calculation)
         {
-            if (hydraulicBoundaryDatabaseFilePath == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseFilePath));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -70,7 +62,6 @@ namespace Ringtoets.HeightStructures.Service
             }
 
             this.calculation = calculation;
-            this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
@@ -90,7 +81,7 @@ namespace Ringtoets.HeightStructures.Service
 
             calculationService.Calculate(calculation,
                                          failureMechanism.GeneralInput,
-                                         hydraulicBoundaryDatabaseFilePath,
+                                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                          assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
 
