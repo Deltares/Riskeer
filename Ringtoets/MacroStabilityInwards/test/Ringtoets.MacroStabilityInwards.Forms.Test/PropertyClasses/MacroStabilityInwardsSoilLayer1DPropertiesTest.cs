@@ -21,10 +21,10 @@
 
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
 
@@ -61,7 +61,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var layer = new MacroStabilityInwardsSoilLayer1D(-2.9)
+            const double topLevel = 5.4321;
+
+            var layer = new MacroStabilityInwardsSoilLayer1D(topLevel)
             {
                 Data =
                 {
@@ -76,7 +78,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(layer.Data.MaterialName, properties.Name);
             Assert.AreEqual(layer.Data.IsAquifer, properties.IsAquifer);
-            Assert.AreEqual(layer.Top.ToString(CultureInfo.CurrentCulture), properties.TopLevel);
+            Assert.AreEqual(2, properties.TopLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(topLevel, properties.TopLevel, properties.TopLevel.GetAccuracy());
         }
 
         [Test]
