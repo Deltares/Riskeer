@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             InitializeComponent();
-            
+
             this.viewCommands = viewCommands;
 
             failureMechanismObservers = new List<Observer>();
@@ -101,6 +101,13 @@ namespace Ringtoets.Integration.Forms.Views
             AttachToFailureMechanisms();
         }
 
+        /// <summary>
+        /// Gets the assessment section this view belongs to.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
+
+        public object Data { get; set; }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -111,13 +118,6 @@ namespace Ringtoets.Integration.Forms.Views
 
             UpdateView();
         }
-
-        /// <summary>
-        /// Gets the assessment section this view belongs to.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
-
-        public object Data { get; set; }
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -145,10 +145,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private Observer CreateFailureMechanismObserver(IFailureMechanism failureMechanism)
         {
-            return new Observer(() =>
-            {
-                probabilityDistributionGrid.RefreshDataGridView();
-            })
+            return new Observer(probabilityDistributionGrid.RefreshDataGridView)
             {
                 Observable = failureMechanism
             };
