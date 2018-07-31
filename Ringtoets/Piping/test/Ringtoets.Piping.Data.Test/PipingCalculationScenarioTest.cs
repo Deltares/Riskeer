@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.IsTrue(scenario.IsRelevant);
             Assert.AreEqual(4, scenario.Contribution.NumberOfDecimalPlaces);
-            Assert.AreEqual((RoundedDouble) 1.0, scenario.Contribution);
+            Assert.AreEqual(1.0, scenario.Contribution, scenario.Contribution.GetAccuracy());
             Assert.AreEqual(CalculationScenarioStatus.NotCalculated, scenario.Status);
         }
 
@@ -72,16 +72,16 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var random = new Random(21);
-            RoundedDouble roundedDouble = random.NextRoundedDouble();
+            RoundedDouble contribution = random.NextRoundedDouble();
 
             var scenario = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call
-            scenario.Contribution = roundedDouble;
+            scenario.Contribution = contribution;
 
             // Assert
             Assert.AreEqual(4, scenario.Contribution.NumberOfDecimalPlaces);
-            Assert.AreEqual(roundedDouble, scenario.Contribution, scenario.Contribution.GetAccuracy());
+            Assert.AreEqual(contribution, scenario.Contribution, scenario.Contribution.GetAccuracy());
         }
 
         [Test]
