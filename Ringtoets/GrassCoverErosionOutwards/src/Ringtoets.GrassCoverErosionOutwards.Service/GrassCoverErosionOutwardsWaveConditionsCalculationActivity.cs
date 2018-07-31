@@ -34,7 +34,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
     internal class GrassCoverErosionOutwardsWaveConditionsCalculationActivity : CalculatableActivity
     {
         private readonly GrassCoverErosionOutwardsWaveConditionsCalculation calculation;
-        private readonly string hlcdFilePath;
         private readonly GrassCoverErosionOutwardsFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private readonly GrassCoverErosionOutwardsWaveConditionsCalculationService calculationService;
@@ -43,21 +42,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The grass cover erosion outwards wave conditions data used for the calculation.</param>
-        /// <param name="hlcdFilePath">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsCalculationActivity(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                                                                          string hlcdFilePath,
                                                                           GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                           IAssessmentSection assessmentSection)
             : base(calculation)
         {
-            if (hlcdFilePath == null)
-            {
-                throw new ArgumentNullException(nameof(hlcdFilePath));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -69,7 +61,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             }
 
             this.calculation = calculation;
-            this.hlcdFilePath = hlcdFilePath;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
@@ -84,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                                                                                       failureMechanism.GetAssessmentLevel(assessmentSection,
                                                                                                                           calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                                           calculation.InputParameters.CategoryType),
-                                                                                      hlcdFilePath,
+                                                                                      assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                       assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                       failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
         }
@@ -95,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
             GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
             calculationService.Calculate(
-                calculation, failureMechanism, assessmentSection, hlcdFilePath);
+                calculation, failureMechanism, assessmentSection, assessmentSection.HydraulicBoundaryDatabase.FilePath);
         }
 
         protected override void OnCancel()
