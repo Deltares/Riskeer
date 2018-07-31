@@ -35,6 +35,7 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly FailureMechanismContributionItem contributionItem;
         private readonly IViewCommands viewCommands;
         private IFailureMechanism failureMechanism;
+        private readonly double norm;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionItemRow"/>.
@@ -55,6 +56,8 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             this.contributionItem = contributionItem;
+            norm = contributionItem.Norm;
+            failureMechanism = contributionItem.FailureMechanism;
             this.viewCommands = viewCommands;
         }
 
@@ -62,10 +65,11 @@ namespace Ringtoets.Integration.Forms.Views
         /// Creates a new instance of <see cref="FailureMechanismContributionItemRow"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism this row contains.</param>
+        /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="viewCommands">>Class responsible for exposing high level <see cref="IView"/>
         /// related commands.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal FailureMechanismContributionItemRow(IFailureMechanism failureMechanism, IViewCommands viewCommands)
+        internal FailureMechanismContributionItemRow(IFailureMechanism failureMechanism, double norm, IViewCommands viewCommands)
         {
             if (failureMechanism == null)
             {
@@ -78,6 +82,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             this.failureMechanism = failureMechanism;
+            this.norm = norm;
             this.viewCommands = viewCommands;
         }
 
@@ -88,7 +93,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return contributionItem.Assessment;
+                return failureMechanism.Name;
             }
         }
 
@@ -99,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return contributionItem.AssessmentCode;
+                return failureMechanism.Code;
             }
         }
 
@@ -110,7 +115,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return contributionItem.Contribution;
+                return failureMechanism.Contribution;
             }
         }
 
@@ -121,7 +126,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return contributionItem.ProbabilitySpace;
+                return 100 / (norm * failureMechanism.Contribution);
             }
         }
 
@@ -132,17 +137,17 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return contributionItem.IsRelevant;
+                return failureMechanism.IsRelevant;
             }
             set
             {
                 if (!value)
                 {
-                    viewCommands.RemoveAllViewsForItem(contributionItem.FailureMechanism);
+                    viewCommands.RemoveAllViewsForItem(failureMechanism);
                 }
 
-                contributionItem.IsRelevant = value;
-                contributionItem.NotifyFailureMechanismObservers();
+                failureMechanism.IsRelevant = value;
+                failureMechanism.NotifyObservers();
             }
         }
     }
