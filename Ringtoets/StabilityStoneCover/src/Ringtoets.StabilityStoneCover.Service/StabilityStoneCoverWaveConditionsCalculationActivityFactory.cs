@@ -124,7 +124,6 @@ namespace Ringtoets.StabilityStoneCover.Service
             }
 
             return new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                             failureMechanism,
                                                                             assessmentSection);
         }

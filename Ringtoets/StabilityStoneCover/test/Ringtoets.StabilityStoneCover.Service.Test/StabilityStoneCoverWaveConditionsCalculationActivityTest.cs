@@ -44,7 +44,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSection);
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
@@ -52,26 +52,6 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.AreEqual($"Golfcondities voor blokken en zuilen berekenen voor '{calculation.Name}'", activity.Description);
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_HlcdDirectoryNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
-
-            // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, null, failureMechanism, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("hlcdFilePath", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -86,7 +66,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, "", null, assessmentSection);
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -102,7 +82,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, "", failureMechanism, null);
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
