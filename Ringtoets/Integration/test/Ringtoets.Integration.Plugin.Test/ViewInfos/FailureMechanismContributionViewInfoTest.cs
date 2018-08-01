@@ -107,11 +107,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewCommands = mocks.Stub<IViewCommands>();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-            assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
 
             using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
@@ -130,15 +128,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewCommands = mocks.Stub<IViewCommands>();
-
-            IAssessmentSection assessmentSection1 = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            assessmentSection1.Stub(section => section.Composition).Return(AssessmentSectionComposition.DikeAndDune);
-            assessmentSection1.Stub(section => section.Attach(null)).IgnoreArguments();
-            assessmentSection1.Stub(section => section.Detach(null)).IgnoreArguments();
-
-            IAssessmentSection assessmentSection2 = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            assessmentSection2.Stub(section => section.Composition).Return(AssessmentSectionComposition.DikeAndDune);
             mocks.ReplayAll();
+
+            var assessmentSection1 = new AssessmentSectionStub();
+            var assessmentSection2 = new AssessmentSectionStub();
 
             using (var view = new FailureMechanismContributionView(assessmentSection1, viewCommands))
             {
@@ -156,17 +149,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_SetsExpectedViewProperties()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-            assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
-
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             mocks.ReplayAll();
 
+            var assessmentSection = new AssessmentSectionStub();
             plugin.Gui = gui;
 
             var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);

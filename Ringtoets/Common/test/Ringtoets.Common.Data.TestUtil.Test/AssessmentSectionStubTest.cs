@@ -80,7 +80,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
             CollectionAssert.IsEmpty(assessmentSection.GetContributingFailureMechanisms());
-            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms());
         }
 
         [Test]
@@ -132,7 +131,19 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
             Assert.AreSame(failureMechanisms, assessmentSection.GetContributingFailureMechanisms());
-            Assert.AreSame(failureMechanisms, assessmentSection.GetFailureMechanisms());
+        }
+
+        [Test]
+        public void GetContributingFailureMechanisms_Always_ReturnEmpty()
+        {
+            // Setup 
+            var assessmentSection = new AssessmentSectionStub();
+
+            // Call
+            IEnumerable<IFailureMechanism> failureMechanism = assessmentSection.GetContributingFailureMechanisms();
+
+            // Assert 
+            CollectionAssert.IsEmpty(failureMechanism);
         }
 
         [Test]

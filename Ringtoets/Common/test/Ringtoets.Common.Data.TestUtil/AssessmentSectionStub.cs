@@ -178,7 +178,7 @@ namespace Ringtoets.Common.Data.TestUtil
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
-            return failureMechanisms;
+            yield break;
         }
 
         public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()

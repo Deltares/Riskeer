@@ -182,7 +182,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void AttachToFailureMechanisms()
         {
-            failureMechanismObservers.AddRange(AssessmentSection.GetFailureMechanisms()
+            failureMechanismObservers.AddRange(AssessmentSection.GetContributingFailureMechanisms()
                                                                 .Select(CreateFailureMechanismObserver)
                                                                 .ToArray());
         }
