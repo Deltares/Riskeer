@@ -60,7 +60,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AddSection_WithSection_AddedSectionResult()
+        public void SetSections_WithSection_SetsSectionResults()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
