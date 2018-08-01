@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -76,11 +75,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new FailureMechanismSection("firstSection", new List<Point2D>
+                new FailureMechanismSection("firstSection", new[]
                 {
                     new Point2D(0.0, 0.0),
                     new Point2D(1.1, 1.1)
-                }), new FailureMechanismSection("secondSection", new List<Point2D>
+                }),
+                new FailureMechanismSection("secondSection", new[]
                 {
                     new Point2D(1.1, 1.1),
                     new Point2D(2.2, 2.2)
@@ -144,11 +144,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new FailureMechanismSection("firstSection", new List<Point2D>
+                new FailureMechanismSection("firstSection", new[]
                 {
                     new Point2D(0.0, 0.0),
                     new Point2D(1.1, 1.1)
-                }), new FailureMechanismSection("secondSection", new List<Point2D>
+                }),
+                new FailureMechanismSection("secondSection", new[]
                 {
                     new Point2D(1.1, 1.1),
                     new Point2D(2.2, 2.2)

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -133,17 +131,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new List<Point2D>
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
             });
-            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new List<Point2D>
+            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
             {
                 new Point2D(5.0, 0.0),
                 new Point2D(10.0, 0.0)
             });
-            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new List<Point2D>
+            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
             {
                 new Point2D(10.0, 0.0),
                 new Point2D(15.0, 0.0)
@@ -174,17 +172,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new List<Point2D>
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
             });
-            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new List<Point2D>
+            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
             {
                 new Point2D(5.0, 0.0),
                 new Point2D(10.0, 0.0)
             });
-            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new List<Point2D>
+            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
             {
                 new Point2D(10.0, 0.0),
                 new Point2D(15.0, 0.0)
@@ -407,12 +405,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new FailureMechanismSection("Section 1", new List<Point2D>
+                new FailureMechanismSection("Section 1", new[]
                 {
                     new Point2D(0.0, 0.0),
                     new Point2D(5.0, 0.0)
                 }),
-                new FailureMechanismSection("Section 2", new List<Point2D>
+                new FailureMechanismSection("Section 2", new[]
                 {
                     new Point2D(5.0, 0.0),
                     new Point2D(10.0, 0.0)

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -1093,12 +1092,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 };
                 FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
-                    new FailureMechanismSection("Section 1", new List<Point2D>
+                    new FailureMechanismSection("Section 1", new[]
                     {
                         new Point2D(0.0, 0.0),
                         new Point2D(5.0, 0.0)
                     }),
-                    new FailureMechanismSection("Section 2", new List<Point2D>
+                    new FailureMechanismSection("Section 2", new[]
                     {
                         new Point2D(5.0, 0.0),
                         new Point2D(10.0, 0.0)
@@ -1204,12 +1203,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 };
                 FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
-                    new FailureMechanismSection("Section 1", new List<Point2D>
+                    new FailureMechanismSection("Section 1", new[]
                     {
                         new Point2D(0.0, 0.0),
                         new Point2D(5.0, 0.0)
                     }),
-                    new FailureMechanismSection("Section 2", new List<Point2D>
+                    new FailureMechanismSection("Section 2", new[]
                     {
                         new Point2D(5.0, 0.0),
                         new Point2D(10.0, 0.0)

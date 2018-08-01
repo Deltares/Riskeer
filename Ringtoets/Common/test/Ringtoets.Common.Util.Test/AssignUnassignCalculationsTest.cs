@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Util.Test
 
         private readonly FailureMechanismSection[] oneSection =
         {
-            new FailureMechanismSection("testFailureMechanismSection", new List<Point2D>
+            new FailureMechanismSection("testFailureMechanismSection", new[]
             {
                 new Point2D(0.0, 0.0)
             })
@@ -47,12 +47,12 @@ namespace Ringtoets.Common.Util.Test
 
         private readonly FailureMechanismSection[] twoSections =
         {
-            new FailureMechanismSection(firstSectionName, new List<Point2D>
+            new FailureMechanismSection(firstSectionName, new[]
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(10.0, 10.0)
             }),
-            new FailureMechanismSection(secondSectionName, new List<Point2D>
+            new FailureMechanismSection(secondSectionName, new[]
             {
                 new Point2D(11.0, 11.0),
                 new Point2D(100.0, 100.0)
@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Util.Test
             var calculation = mockRepository.Stub<ICalculation>();
             mockRepository.ReplayAll();
 
-            var section = new FailureMechanismSection("firstSection", new List<Point2D>
+            var section = new FailureMechanismSection("firstSection", new[]
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(1.1, 1.1)
@@ -183,7 +183,7 @@ namespace Ringtoets.Common.Util.Test
 
             var location = new Point2D(0.51, 0.51);
 
-            var sectionA = new FailureMechanismSection("firstSection", new List<Point2D>
+            var sectionA = new FailureMechanismSection("firstSection", new[]
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(1.1, 1.1)

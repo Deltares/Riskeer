@@ -696,7 +696,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new FailureMechanismSection("Section", new List<Point2D>
+                new FailureMechanismSection("Section", new[]
                 {
                     new Point2D(-10.0, -10.0),
                     new Point2D(10.0, 10.0)

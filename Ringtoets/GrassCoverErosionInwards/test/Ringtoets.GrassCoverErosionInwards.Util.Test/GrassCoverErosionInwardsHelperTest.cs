@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -223,13 +222,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Util.Test
 
         #region Prepared data
 
-        private static readonly FailureMechanismSection failureMechanismSectionA = new FailureMechanismSection(firstSectionName, new List<Point2D>
+        private static readonly FailureMechanismSection failureMechanismSectionA = new FailureMechanismSection(firstSectionName, new[]
         {
             new Point2D(0.0, 0.0),
             new Point2D(10.0, 10.0)
         });
 
-        private static readonly FailureMechanismSection failureMechanismSectionB = new FailureMechanismSection(secondSectionName, new List<Point2D>
+        private static readonly FailureMechanismSection failureMechanismSectionB = new FailureMechanismSection(secondSectionName, new[]
         {
             new Point2D(11.0, 11.0),
             new Point2D(100.0, 100.0)
@@ -237,11 +236,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Util.Test
 
         private static readonly GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(
             failureMechanismSectionA);
-
-        private readonly FailureMechanismSection[] oneSection =
-        {
-            failureMechanismSectionA
-        };
 
         private readonly FailureMechanismSection[] twoSections =
         {
