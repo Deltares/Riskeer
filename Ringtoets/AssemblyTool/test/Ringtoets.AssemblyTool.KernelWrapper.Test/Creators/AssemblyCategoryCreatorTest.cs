@@ -206,7 +206,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyCategories_Categories_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionAssemblyCategories_CategoriesNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(null);
