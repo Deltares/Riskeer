@@ -203,5 +203,36 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; private set; }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="FailureMechanismContributionItemRow"/>.
+        /// </summary>
+        private class ConstructionProperties
+        {
+            /// <summary>
+            /// Gets or sets the relevant column index.
+            /// </summary>
+            public int IsRelevantColumnIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the name column index.
+            /// </summary>
+            public int NameColumnIndex { internal get; set;}
+
+            /// <summary>
+            /// Gets or sets the code column index.
+            /// </summary>
+            public int CodeColumnIndex { internal get; set;}
+
+            /// <summary>
+            /// Gets or sets the contribution column index.
+            /// </summary>
+            public int ContributionColumnIndex { internal get; set;}
+
+            /// <summary>
+            /// Gets or sets the probability space column index.
+            /// </summary>
+            public int ProbabilitySpaceColumnIndex { internal get; set;}
+        }
     }
 }
