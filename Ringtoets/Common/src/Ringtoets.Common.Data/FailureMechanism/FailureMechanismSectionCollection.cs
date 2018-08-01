@@ -29,6 +29,9 @@ using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.FailureMechanism
 {
+    /// <summary>
+    /// A collection of <see cref="FailureMechanismSection"/>.
+    /// </summary>
     public class FailureMechanismSectionCollection : Observable, IEnumerable<FailureMechanismSection>
     {
         private readonly List<FailureMechanismSection> sections = new List<FailureMechanismSection>();
@@ -50,12 +53,16 @@ namespace Ringtoets.Common.Data.FailureMechanism
         }
 
         /// <summary>
-        /// Adds all <see cref="FailureMechanismSection"/> originating from a source file.
+        /// Sets all <see cref="FailureMechanismSection"/> originating from a source file to the collection.
         /// </summary>
-        /// <param name="failureMechanismSections">The collection of <see cref="FailureMechanismSection"/> to add</param>
+        /// <param name="failureMechanismSections">The collection of <see cref="FailureMechanismSection"/> to set.</param>
         /// <param name="sourcePath">The path to the source file.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="sourcePath"/> is not a valid file path.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="sourcePath"/> is not a valid file path.</item>
+        /// <item><paramref name="failureMechanismSections"/> contains sections that are not properly chained.</item>
+        /// </list></exception>
         public void SetSections(IEnumerable<FailureMechanismSection> failureMechanismSections,
                                 string sourcePath)
         {
@@ -74,27 +81,29 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 throw new ArgumentException($@"'{sourcePath}' is not a valid file path.", nameof(sourcePath));
             }
 
-            Clear();
-
-            if (failureMechanismSections.Any())
+            if (!failureMechanismSections.Any())
             {
-                FailureMechanismSection firstSection = failureMechanismSections.First();
-                var newSections = new List<FailureMechanismSection>
-                {
-                    firstSection
-                };
-
-                FailureMechanismSection previousSection = firstSection;
-                foreach (FailureMechanismSection section in failureMechanismSections.Skip(1))
-                {
-                    ValidateSection(section, previousSection);
-                    newSections.Add(section);
-                    previousSection = section;
-                }
-
-                sections.AddRange(newSections);
+                Clear();
+                SourcePath = sourcePath;
+                return;
             }
 
+            FailureMechanismSection firstSection = failureMechanismSections.First();
+            var newSections = new List<FailureMechanismSection>
+            {
+                firstSection
+            };
+
+            FailureMechanismSection previousSection = firstSection;
+            foreach (FailureMechanismSection section in failureMechanismSections.Skip(1))
+            {
+                ValidateSection(section, previousSection);
+                newSections.Add(section);
+                previousSection = section;
+            }
+
+            Clear();
+            sections.AddRange(newSections);
             SourcePath = sourcePath;
         }
 

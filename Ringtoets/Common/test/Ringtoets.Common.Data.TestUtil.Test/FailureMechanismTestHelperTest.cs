@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Assert
             Assert.IsEmpty(failureMechanism.FailureMechanismSectionSourcePath);
-            Assert.AreEqual(sections.Single(), failureMechanism.Sections.Single());
+            Assert.AreSame(sections.Single(), failureMechanism.Sections.Single());
         }
     }
 }

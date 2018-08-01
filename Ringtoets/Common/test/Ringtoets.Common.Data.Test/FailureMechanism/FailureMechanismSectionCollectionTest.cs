@@ -143,10 +143,15 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void SetSections_SecondSectionDoesNotConnectToFirst_ThrowsArgumentExceptionAndDoesNotSetSections()
+        public void SetSections_SecondSectionDoesNotConnectToFirst_ThrowsArgumentExceptionAndOldDataRemains()
         {
             // Setup
             var sectionCollection = new FailureMechanismSectionCollection();
+            string oldPath = TestHelper.GetScratchPadPath();
+            sectionCollection.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, oldPath);
 
             var section1 = new FailureMechanismSection("A", new[]
             {
@@ -169,8 +174,8 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-            CollectionAssert.IsEmpty(sectionCollection);
-            Assert.IsNull(sectionCollection.SourcePath);
+            Assert.AreEqual(1, sectionCollection.Count());
+            Assert.AreEqual(oldPath, sectionCollection.SourcePath);
         }
 
         [Test]

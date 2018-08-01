@@ -214,8 +214,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = false
             };
-            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
-            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
 
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 

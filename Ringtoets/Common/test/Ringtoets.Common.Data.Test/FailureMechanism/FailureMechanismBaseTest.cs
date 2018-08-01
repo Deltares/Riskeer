@@ -274,10 +274,14 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             var failureMechanism = new SimpleFailureMechanismBase();
+            string sourcePath = TestHelper.GetScratchPadPath();
             failureMechanism.SetSections(new[]
             {
                 section
-            }, string.Empty);
+            }, sourcePath);
+
+            // Precondition
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
 
             // Call
             failureMechanism.ClearAllSections();

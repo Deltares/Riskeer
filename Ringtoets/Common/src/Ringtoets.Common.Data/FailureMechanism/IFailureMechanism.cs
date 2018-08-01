@@ -96,8 +96,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <param name="sections">The sections to set.</param>
         /// <param name="sourcePath">The path of the file the sections originate from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="sections"/> cannot
-        /// be connected to elements already defined in <see cref="Sections"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="sourcePath"/> is not a valid file path.</item>
+        /// <item><paramref name="sections"/> contains sections that are not properly chained.</item>
+        /// </list></exception>
         void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath);
 
         /// <summary>

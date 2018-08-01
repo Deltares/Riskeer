@@ -210,14 +210,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = false
             };
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("A", new[]
-                {
-                    new Point2D(1, 2),
-                    new Point2D(5, 6)
-                })
-            });
+
             var failureMechanismContext = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call

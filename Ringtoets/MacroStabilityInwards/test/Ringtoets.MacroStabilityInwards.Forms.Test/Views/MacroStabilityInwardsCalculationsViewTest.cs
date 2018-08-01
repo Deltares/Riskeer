@@ -1340,12 +1340,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             });
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            const string arbitrary = "path";
+            const string sourcePath = "path";
             failureMechanism.SurfaceLines.AddRange(new[]
             {
                 surfaceLine1,
                 surfaceLine2
-            }, arbitrary);
+            }, sourcePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name", new[]
@@ -1353,7 +1353,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     new Point2D(0.0, 0.0),
                     new Point2D(5.0, 0.0)
                 })
-            }, arbitrary);
+            }, sourcePath);
 
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
