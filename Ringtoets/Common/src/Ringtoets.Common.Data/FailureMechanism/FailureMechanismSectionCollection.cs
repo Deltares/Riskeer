@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             FailureMechanismSection previousSection = firstSection;
             foreach (FailureMechanismSection section in failureMechanismSections.Skip(1))
             {
-                ValidateSection(section, previousSection);
+                ValidateSectionConnectivity(section, previousSection);
                 newSections.Add(section);
                 previousSection = section;
             }
@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <param name="previousSection">The previous section.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="section"/> cannot
         /// be connected to the previous section.</exception>
-        private static void ValidateSection(FailureMechanismSection section, FailureMechanismSection previousSection)
+        private static void ValidateSectionConnectivity(FailureMechanismSection section, FailureMechanismSection previousSection)
         {
             if (!previousSection.EndPoint.Equals(section.StartPoint))
             {

@@ -202,7 +202,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void NotifyFailureMechanism_SectionsUpdatedAfterFullInitialization_NewRowAddedToView()
+        public void NotifyFailureMechanism_SectionsSetAfterFullInitialization_NewRowAddedToView()
         {
             // Setup
             using (ClosingStructuresScenariosView view = ShowScenariosView())

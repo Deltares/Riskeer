@@ -62,6 +62,18 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ObservableCollectionWithSourcePath_SourcePath_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSections_SourcePath_Description))]
+        public string SourcePath
+        {
+            get
+            {
+                return data.FailureMechanismSectionSourcePath;
+            }
+        }
+
+        [PropertyOrder(2)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSections_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSections_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
@@ -70,18 +82,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             get
             {
                 return data.Sections.Select(section => new FailureMechanismSectionProperties(section)).ToArray();
-            }
-        }
-
-        [PropertyOrder(2)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ObservableCollectionWithSourcePath_SourcePath_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSections_SourcePath_Description))]
-        public string SourcePath
-        {
-            get
-            {
-                return data.FailureMechanismSectionSourcePath;
             }
         }
 

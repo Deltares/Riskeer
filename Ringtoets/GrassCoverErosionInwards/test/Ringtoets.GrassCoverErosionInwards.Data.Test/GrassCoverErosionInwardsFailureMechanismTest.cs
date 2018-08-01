@@ -96,12 +96,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             });
 
             // Precondition
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 

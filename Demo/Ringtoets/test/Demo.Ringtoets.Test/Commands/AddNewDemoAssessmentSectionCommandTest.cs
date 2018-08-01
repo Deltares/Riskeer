@@ -29,7 +29,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
-using Core.Common.Util.IO;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;

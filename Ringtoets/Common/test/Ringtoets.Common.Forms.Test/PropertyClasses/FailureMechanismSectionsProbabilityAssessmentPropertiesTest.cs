@@ -99,7 +99,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
                 TestHelper.AssertTypeConverter<FailureMechanismSectionsProperties, ExpandableArrayConverter>(
                     nameof(FailureMechanismSectionsProperties.Sections));
-                Assert.IsNotNull(properties.Sections);
                 Assert.AreEqual(sections.Count(), properties.Sections.Length);
                 for (var i = 0; i < sections.Count(); i++)
                 {
@@ -134,21 +133,21 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
                 Assert.AreEqual(2, dynamicProperties.Count);
-
-                PropertyDescriptor sectionsProperty = dynamicProperties[0];
                 var generalCategoryName = "Algemeen";
+
+                PropertyDescriptor sourcePathProperty = dynamicProperties[0];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sourcePathProperty,
+                                                                                generalCategoryName,
+                                                                                "Bronlocatie",
+                                                                                "De locatie van het bestand waaruit de vakindeling is geïmporteerd.",
+                                                                                true);
+
+                PropertyDescriptor sectionsProperty = dynamicProperties[1];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionsProperty,
                                                                                 generalCategoryName,
                                                                                 "Vakindeling",
                                                                                 "Vakindeling waarmee de waterkering voor dit toetsspoor is " +
                                                                                 "geschematiseerd ten behoeve van de beoordeling.",
-                                                                                true);
-
-                PropertyDescriptor sourcePathProperty = dynamicProperties[1];
-                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sourcePathProperty,
-                                                                                generalCategoryName,
-                                                                                "Bronlocatie",
-                                                                                "De locatie van het bestand waaruit de vakindeling is geïmporteerd.",
                                                                                 true);
                 mocks.VerifyAll();
             }

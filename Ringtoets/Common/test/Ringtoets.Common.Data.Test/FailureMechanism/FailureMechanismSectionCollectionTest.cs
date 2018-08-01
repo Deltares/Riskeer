@@ -148,9 +148,10 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Setup
             var sectionCollection = new FailureMechanismSectionCollection();
             string oldPath = TestHelper.GetScratchPadPath();
+            FailureMechanismSection oldSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             sectionCollection.SetSections(new[]
             {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+                oldSection
             }, oldPath);
 
             var section1 = new FailureMechanismSection("A", new[]
@@ -174,7 +175,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-            Assert.AreEqual(1, sectionCollection.Count());
+            Assert.AreEqual(oldSection, sectionCollection.Single());
             Assert.AreEqual(oldPath, sectionCollection.SourcePath);
         }
 

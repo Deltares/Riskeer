@@ -151,7 +151,7 @@ namespace Ringtoets.Integration.TestUtil
                     else
                     {
                         // Copy same FailureMechanismSection instances to other failure mechanisms
-                        FailureMechanismTestHelper.SetSections(failureMechanism, failureMechanisms[0].Sections.Select(DeepCloneSection).ToList());
+                        FailureMechanismTestHelper.SetSections(failureMechanism, failureMechanisms[0].Sections.Select(DeepCloneSection).ToArray());
                     }
                 }
             }
