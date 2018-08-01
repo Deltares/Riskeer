@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private readonly IViewCommands viewCommands;
         private readonly IFailureMechanism failureMechanism;
-        private readonly double norm;
+        private readonly FailureMechanismContribution failureMechanismContribution;
 
         private const int isRelevantIndex = 0;
         private const int nameIndex = 1;
@@ -59,15 +59,21 @@ namespace Ringtoets.Integration.Forms.Views
         /// Creates a new instance of <see cref="FailureMechanismContributionItemRow"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism this row contains.</param>
-        /// <param name="norm">The norm of the assessment section.</param>
+        /// <param name="failureMechanismContribution">The failure mechanism contribution to get the norm from.</param>
         /// <param name="viewCommands">>Class responsible for exposing high level <see cref="IView"/>
         /// related commands.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal FailureMechanismContributionItemRow(IFailureMechanism failureMechanism, double norm, IViewCommands viewCommands)
+        internal FailureMechanismContributionItemRow(IFailureMechanism failureMechanism, FailureMechanismContribution failureMechanismContribution,
+                                                     IViewCommands viewCommands)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (failureMechanismContribution == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismContribution));
             }
 
             if (viewCommands == null)
@@ -76,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             this.failureMechanism = failureMechanism;
-            this.norm = norm;
+            this.failureMechanismContribution = failureMechanismContribution;
             this.viewCommands = viewCommands;
 
             CreateColumnStateDefinitions();
@@ -148,7 +154,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return 100 / (norm * failureMechanism.Contribution);
+                return 100 / (failureMechanismContribution.Norm * failureMechanism.Contribution);
             }
         }
 

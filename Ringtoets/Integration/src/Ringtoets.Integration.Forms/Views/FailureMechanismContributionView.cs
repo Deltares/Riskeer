@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Forms.Views
             RemoveRowEvents();
             failureMechanismContributionItemRows = AssessmentSection.GetContributingFailureMechanisms()
                                                                     .Select(fm => new FailureMechanismContributionItemRow(
-                                                                                fm, AssessmentSection.FailureMechanismContribution.Norm,
+                                                                                fm, AssessmentSection.FailureMechanismContribution,
                                                                                 viewCommands)).ToArray();
 
             probabilityDistributionGrid.SetDataSource(failureMechanismContributionItemRows);

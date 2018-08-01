@@ -26,11 +26,11 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Forms.Views;
-using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
@@ -51,13 +51,32 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
             // Call
-            TestDelegate call = () => new FailureMechanismContributionItemRow(null, double.NaN, viewCommands);
+            TestDelegate call = () => new FailureMechanismContributionItemRow(null, failureMechanismContribution, viewCommands);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismContributionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismContributionItemRow(failureMechanism, null, viewCommands);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismContribution", exception.ParamName);
         }
 
         [Test]
@@ -68,8 +87,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
             // Call
-            TestDelegate call = () => new FailureMechanismContributionItemRow(failureMechanism, double.NaN, null);
+            TestDelegate call = () => new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -85,19 +106,19 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            const double norm = 0.1;
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            var row = new FailureMechanismContributionItemRow(pipingFailureMechanism, norm, viewCommands);
+            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands);
 
             // Assert
             Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
-            Assert.AreEqual(pipingFailureMechanism.Contribution, row.Contribution);
-            Assert.AreEqual(pipingFailureMechanism.Name, row.Assessment);
-            Assert.AreEqual(pipingFailureMechanism.Code, row.Code);
-            Assert.AreEqual(pipingFailureMechanism.IsRelevant, row.IsRelevant);
-            Assert.AreEqual(100.0 / (norm * pipingFailureMechanism.Contribution), row.ProbabilitySpace);
+            Assert.AreEqual(failureMechanism.Contribution, row.Contribution);
+            Assert.AreEqual(failureMechanism.Name, row.Assessment);
+            Assert.AreEqual(failureMechanism.Code, row.Code);
+            Assert.AreEqual(failureMechanism.IsRelevant, row.IsRelevant);
+            Assert.AreEqual(100.0 / (failureMechanismContribution.Norm * failureMechanism.Contribution), row.ProbabilitySpace);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(5, columnStateDefinitions.Count);
@@ -123,9 +144,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             failureMechanism.IsRelevant = isRelevant;
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            var row = new FailureMechanismContributionItemRow(failureMechanism, double.NaN, viewCommands);
+            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands);
 
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -151,7 +173,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var row = new FailureMechanismContributionItemRow(failureMechanism, 0.1, viewCommands);
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
+            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands);
 
             var rowUpdated = false;
             row.RowUpdated += (sender, args) => rowUpdated = true;
@@ -180,7 +204,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             viewCommands.Expect(c => c.RemoveAllViewsForItem(failureMechanism));
             mocks.ReplayAll();
 
-            var row = new FailureMechanismContributionItemRow(failureMechanism, 0.1, viewCommands);
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
+            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands);
 
             // Call
             row.IsRelevant = false;
