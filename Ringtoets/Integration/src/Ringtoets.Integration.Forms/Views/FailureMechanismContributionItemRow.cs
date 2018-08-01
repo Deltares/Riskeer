@@ -26,6 +26,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -34,6 +35,16 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     internal class FailureMechanismContributionItemRow : IHasColumnStateDefinitions
     {
+        /// <summary>
+        /// Fired when the row has started updating.
+        /// </summary>
+        public EventHandler RowUpdated;
+
+        /// <summary>
+        /// Fired when the row has finished updating.
+        /// </summary>
+        public EventHandler RowUpdateDone;
+
         private readonly IViewCommands viewCommands;
         private readonly IFailureMechanism failureMechanism;
         private readonly double norm;
@@ -69,6 +80,8 @@ namespace Ringtoets.Integration.Forms.Views
             this.viewCommands = viewCommands;
 
             CreateColumnStateDefinitions();
+
+            Update();
         }
 
         private void CreateColumnStateDefinitions()
@@ -156,7 +169,30 @@ namespace Ringtoets.Integration.Forms.Views
                 }
 
                 failureMechanism.IsRelevant = value;
+
+                Update();
+
+                RowUpdated?.Invoke(this, EventArgs.Empty);
                 failureMechanism.NotifyObservers();
+                RowUpdateDone?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public void Update()
+        {
+            if (!IsRelevant)
+            {
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[nameIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[codeIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[contributionIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[probabilitySpaceIndex]);
+            }
+            else
+            {
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[nameIndex]);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[codeIndex]);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[contributionIndex]);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[probabilitySpaceIndex]);
             }
         }
 

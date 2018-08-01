@@ -26,8 +26,8 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Piping.Data;
@@ -112,37 +112,80 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(false)]
         [TestCase(true)]
-        public void IsRelevant_AlwaysOnChange_NotifyFailureMechanismObserversAndCalculationPropertyChanged(bool newValue)
+        [TestCase(false)]
+        public void Constructor_FailureMechanismIsRelevantSet_ExpectedColumnStates(bool isRelevant)
         {
             // Setup
-            var pipingFailureMechanism = new PipingFailureMechanism();
-
             var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            if (!newValue)
-            {
-                viewCommands.Expect(c => c.RemoveAllViewsForItem(pipingFailureMechanism));
-            }
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
 
+            failureMechanism.IsRelevant = isRelevant;
+
+            // Call
+            var row = new FailureMechanismContributionItemRow(failureMechanism, double.NaN, viewCommands);
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[isRelevantIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[nameIndex], isRelevant);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[codeIndex], isRelevant);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[contributionIndex], isRelevant);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[probabilitySpaceIndex], isRelevant);
+        }
+
+        [Test]
+        [TestCase(false)]
+        [TestCase(true)]
+        public void IsRelevant_Always_UpdatesDataAndFiresEventsAndNotifiesObservers(bool newValue)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            pipingFailureMechanism.Attach(observer);
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.Attach(observer);
 
-            const double norm = 0.1;
-            var contributionItem = new FailureMechanismContributionItem(pipingFailureMechanism, norm);
+            var row = new FailureMechanismContributionItemRow(failureMechanism, 0.1, viewCommands);
 
-            var row = new FailureMechanismContributionItemRow(pipingFailureMechanism, norm, viewCommands);
+            var rowUpdated = false;
+            row.RowUpdated += (sender, args) => rowUpdated = true;
+
+            var rowUpdateDone = false;
+            row.RowUpdateDone += (sender, args) => rowUpdateDone = true;
 
             // Call
             row.IsRelevant = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, contributionItem.IsRelevant);
+            Assert.AreEqual(newValue, failureMechanism.IsRelevant);
+            Assert.IsTrue(rowUpdated);
+            Assert.IsTrue(rowUpdateDone);
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void IsRelevant_SetToFalse_CloseViewsForFailureMechanism()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(c => c.RemoveAllViewsForItem(failureMechanism));
+            mocks.ReplayAll();
+
+            var row = new FailureMechanismContributionItemRow(failureMechanism, 0.1, viewCommands);
+
+            // Call
+            row.IsRelevant = false;
+
+            // Assert
             mocks.VerifyAll();
         }
     }
