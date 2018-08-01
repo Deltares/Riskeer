@@ -40,7 +40,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.Piping.Data;
@@ -824,13 +823,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput());
                 var failureMechanism = new TestPipingFailureMechanism();
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    new FailureMechanismSection("A", new[]
-                    {
-                        new Point2D(0, 0)
-                    })
-                });
                 var assessmentSection = new AssessmentSectionStub();
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     new CalculationGroup(),
@@ -945,13 +937,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 }, true);
 
                 PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    new FailureMechanismSection("A", new[]
-                    {
-                        new Point2D(0, 0)
-                    })
-                });
 
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     new CalculationGroup(),

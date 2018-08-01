@@ -187,7 +187,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // When
                 FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
-                    CreateFailureMechanismSection("b")
+                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
                 });
                 failureMechanism.NotifyObservers();
 

@@ -527,11 +527,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                                                            new Point2D(5, 5),
                                                            new Point2D(15, 15)
                                                        });
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
-            });
+            }, "path/to/sections");
         }
 
         /// <summary>

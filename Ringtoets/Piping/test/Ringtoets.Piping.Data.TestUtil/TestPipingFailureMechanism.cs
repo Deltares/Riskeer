@@ -21,7 +21,6 @@
 
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.TestUtil
@@ -67,14 +66,14 @@ namespace Ringtoets.Piping.Data.TestUtil
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             }, "path/to/stochasticSoilModels");
 
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("Section", new[]
                 {
                     new Point2D(0.0, 0.0),
                     new Point2D(5.0, 0.0)
                 })
-            });
+            }, "path/to/sections");
 
             return failureMechanism;
         }

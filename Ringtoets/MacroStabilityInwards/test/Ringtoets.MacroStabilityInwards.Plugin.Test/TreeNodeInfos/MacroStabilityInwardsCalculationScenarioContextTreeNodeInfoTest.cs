@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -39,7 +38,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -424,14 +422,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new MacroStabilityInwardsCalculationScenario();
                 var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    new FailureMechanismSection("A", new[]
-                    {
-                        new Point2D(0, 0)
-                    })
-                });
-
                 var assessmentSection = new AssessmentSectionStub();
                 var calculationContext = new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                                              new CalculationGroup(),
@@ -547,13 +537,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 }, true);
 
                 MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    new FailureMechanismSection("A", new[]
-                    {
-                        new Point2D(0, 0)
-                    })
-                });
 
                 var calculationContext = new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                                              new CalculationGroup(),

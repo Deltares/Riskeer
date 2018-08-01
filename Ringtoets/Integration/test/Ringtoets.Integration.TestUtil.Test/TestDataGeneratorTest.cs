@@ -47,6 +47,8 @@ namespace Ringtoets.Integration.TestUtil.Test
     [TestFixture]
     public class TestDataGeneratorTest
     {
+        private static string pathToSections = "path/to/sections";
+
         [Test]
         public void GetAssessmentSectionWithAllCalculationConfigurations_DefaultComposition_ReturnsWithAllPossibleCalculationConfigurations()
         {
@@ -174,7 +176,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             }, assessmentSection.ReferenceLine.Points);
 
             IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
-            for (int i = 0; i < failureMechanisms.Count(); i++)
+            for (var i = 0; i < failureMechanisms.Count(); i++)
             {
                 AssertHasFailureMechanismSections(failureMechanisms.ElementAt(i), i);
             }
@@ -379,6 +381,7 @@ namespace Ringtoets.Integration.TestUtil.Test
         {
             IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;
             Assert.AreEqual(2, sections.Count());
+            Assert.AreEqual(pathToSections, failureMechanism.FailureMechanismSectionSourcePath);
 
             var failureMechanismHasSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
             if (failureMechanismHasSectionResults != null)
@@ -391,6 +394,7 @@ namespace Ringtoets.Integration.TestUtil.Test
         {
             IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;
             Assert.AreEqual(sectionsCount, sections.Count());
+            Assert.AreEqual(pathToSections, failureMechanism.FailureMechanismSectionSourcePath);
 
             var startPoint = new Point2D(-1, -1);
             var endPoint = new Point2D(15, 15);

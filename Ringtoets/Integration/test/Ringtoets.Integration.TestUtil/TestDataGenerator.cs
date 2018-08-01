@@ -54,6 +54,8 @@ namespace Ringtoets.Integration.TestUtil
     /// </summary>
     public static class TestDataGenerator
     {
+        private const string pathToSections = "path/to/sections";
+
         /// <summary>
         /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/> and
         /// with all possible configurations for the parent and nested calculations of the failure mechanisms.
@@ -1062,11 +1064,11 @@ namespace Ringtoets.Integration.TestUtil
                                                            new Point2D(5, 5),
                                                            new Point2D(15, 15)
                                                        });
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
-            });
+            }, pathToSections);
         }
 
         private static void AddFailureMechanismSections(IFailureMechanism failureMechanism, int numberOfSections)
@@ -1089,7 +1091,7 @@ namespace Ringtoets.Integration.TestUtil
                 startPoint = endPoint;
             }
 
-            FailureMechanismTestHelper.SetSections(failureMechanism, sections);
+            failureMechanism.SetSections(sections, pathToSections);
         }
     }
 }
