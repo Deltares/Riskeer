@@ -503,50 +503,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenView_IsRelevantPropertyChangeNotified_RowStylesUpdates(bool initialIsRelevant)
-        {
-            // Given
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
-            {
-                ShowFormWithView(view);
-
-                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-                DataGridViewRow row = dataGridView.Rows[0];
-
-                // When
-                assessmentSection.Piping.IsRelevant = !initialIsRelevant;
-                assessmentSection.Piping.NotifyObservers();
-
-                // Then
-                for (var i = 0; i < row.Cells.Count; i++)
-                {
-                    if (i != isRelevantColumnIndex)
-                    {
-                        DataGridViewCell cell = row.Cells[i];
-                        if (assessmentSection.Piping.IsRelevant)
-                        {
-                            AssertIsCellStyledAsEnabled(cell);
-                        }
-                        else
-                        {
-                            AssertIsCellStyleGreyedOut(cell);
-                        }
-                    }
-                }
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void GivenView_WhenMakingFailureMechanismIrrelevant_UpdateFailureMechanismAndNotifyObserversAndCloseRelatedViews()
         {
             // Given
@@ -588,9 +544,54 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenView_WhenRowUpdatedEventFiredAndFailureMechanismNotified_ThenRowNotUpdatedAndViewInvalidated()
+        [TestCaseSource(nameof(GetCellFormattingStates))]
+        public void GivenFailureMechanismResultView_WhenCellFormattingEventFired_ThenCellStyleSetToColumnDefinition(
+            bool readOnly, CellStyle style)
         {
             // Given
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+            var failureMechanisms = new List<IFailureMechanism>
+            {
+                failureMechanism
+            };
+            var assessmentSection = new AssessmentSectionStub(failureMechanisms);
+
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
+            {
+                ShowFormWithView(view);
+
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+
+                var row = (FailureMechanismContributionItemRow)dataGridView.Rows[0].DataBoundItem;
+                DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[0];
+                definition.ReadOnly = readOnly;
+                definition.Style = style;
+
+                // When
+                failureMechanism.NotifyObservers();
+
+                // Then
+                DataGridViewCell cell = dataGridView.Rows[0].Cells[0];
+                Assert.AreEqual(readOnly, cell.ReadOnly);
+                Assert.AreEqual(style.BackgroundColor, cell.Style.BackColor);
+                Assert.AreEqual(style.TextColor, cell.Style.ForeColor);
+            }
+        }
+
+        private static IEnumerable<TestCaseData> GetCellFormattingStates()
+        {
+            yield return new TestCaseData(true, CellStyle.Disabled);
+            yield return new TestCaseData(false, CellStyle.Enabled);
+        }
+
+
+        [Test]
+        public void GivenView_WhenRowUpdatedEventFiredAndFailureMechanismNotified_ThenRowNotUpdatedAndViewInvalidated()
+        {
             // Given
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();

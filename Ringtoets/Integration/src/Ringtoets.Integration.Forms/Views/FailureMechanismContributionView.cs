@@ -38,7 +38,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// View for the <see cref="FailureMechanismContribution"/>, from which the <see cref="FailureMechanismContribution.Norm"/>
+    /// View for the <see cref="IAssessmentSection.FailureMechanismContribution"/>, from which the <see cref="FailureMechanismContribution.Norm"/>
     /// can be updated and the <see cref="FailureMechanismContributionItem.Contribution"/>
     /// and <see cref="FailureMechanismContributionItem.ProbabilitySpace"/> can be seen in a grid.
     /// </summary>
@@ -117,8 +117,8 @@ namespace Ringtoets.Integration.Forms.Views
             base.OnLoad(e);
             InitializeGridColumns();
 
+            probabilityDistributionGrid.CellFormatting += HandleCellStyling;
             probabilityDistributionGrid.CellFormatting += ProbabilityDistributionGridOnCellFormatting;
-            probabilityDistributionGrid.CellFormatting += DisableIrrelevantFieldsFormatting;
 
             UpdateView();
         }
@@ -256,6 +256,11 @@ namespace Ringtoets.Integration.Forms.Views
 
         #region Event handling
 
+        private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            probabilityDistributionGrid.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
+        }
+
         private void ProbabilityDistributionGridOnCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == probabilityPerYearColumnIndex)
@@ -267,36 +272,6 @@ namespace Ringtoets.Integration.Forms.Views
                     e.FormattingApplied = true;
                 }
             }
-        }
-
-        private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex != isRelevantColumnIndex)
-            {
-                if (!IsIrrelevantChecked(eventArgs.RowIndex))
-                {
-                    probabilityDistributionGrid.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    probabilityDistributionGrid.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
-            else
-            {
-                probabilityDistributionGrid.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex, IsReadOnly(eventArgs.RowIndex));
-            }
-        }
-
-        private bool IsIrrelevantChecked(int rowIndex)
-        {
-            return (bool) probabilityDistributionGrid.GetCell(rowIndex, isRelevantColumnIndex).Value;
-        }
-
-        private bool IsReadOnly(int rowIndex)
-        {
-            FailureMechanismContributionItem rowData = AssessmentSection.FailureMechanismContribution.Distribution.ElementAt(rowIndex);
-            return rowData.IsAlwaysRelevant;
         }
 
         #endregion
