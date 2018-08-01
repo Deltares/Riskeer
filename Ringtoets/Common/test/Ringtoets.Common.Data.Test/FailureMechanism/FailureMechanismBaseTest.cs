@@ -199,6 +199,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 section2
             }, failureMechanism.Sections);
             Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+            Assert.IsTrue(failureMechanism.SectionResultAdded);
         }
 
         [Test]
@@ -291,6 +292,8 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         {
             public bool SectionResultsCleared { get; private set; }
 
+            public bool SectionResultAdded { get; private set; }
+
             public SimpleFailureMechanismBase(string name = "SomeName",
                                               string failureMechanismCode = "SomeCode",
                                               int group = 1) : base(name, failureMechanismCode, group) {}
@@ -301,6 +304,12 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 {
                     throw new NotImplementedException();
                 }
+            }
+
+            protected override void AddSectionResult(FailureMechanismSection section)
+            {
+                base.AddSectionResult(section);
+                SectionResultAdded = true;
             }
 
             protected override void ClearSectionResults()
