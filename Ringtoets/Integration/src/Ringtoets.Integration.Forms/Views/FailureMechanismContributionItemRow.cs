@@ -32,34 +32,9 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     internal class FailureMechanismContributionItemRow
     {
-        private readonly FailureMechanismContributionItem contributionItem;
         private readonly IViewCommands viewCommands;
-        private IFailureMechanism failureMechanism;
+        private readonly IFailureMechanism failureMechanism;
         private readonly double norm;
-
-        /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismContributionItemRow"/>.
-        /// </summary>
-        /// <param name="contributionItem">The <see cref="FailureMechanismContributionItem"/> this row contains.</param>
-        /// <param name="viewCommands">Class responsible for exposing high level <see cref="IView"/>
-        /// related commands.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input arguments is <c>null</c>.</exception>
-        internal FailureMechanismContributionItemRow(FailureMechanismContributionItem contributionItem, IViewCommands viewCommands)
-        {
-            if (contributionItem == null)
-            {
-                throw new ArgumentNullException(nameof(contributionItem));
-            }
-            if (viewCommands == null)
-            {
-                throw new ArgumentNullException(nameof(viewCommands));
-            }
-
-            this.contributionItem = contributionItem;
-            norm = contributionItem.Norm;
-            failureMechanism = contributionItem.FailureMechanism;
-            this.viewCommands = viewCommands;
-        }
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionItemRow"/>.
