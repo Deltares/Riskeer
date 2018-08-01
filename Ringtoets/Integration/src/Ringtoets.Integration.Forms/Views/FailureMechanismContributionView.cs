@@ -44,8 +44,12 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class FailureMechanismContributionView : UserControl, IView
     {
+
         private const int isRelevantColumnIndex = 0;
-        private const int probabilityPerYearColumnIndex = 4;
+        private const int nameColumnIndex = 1;
+        private const int codeColumnIndex = 2;
+        private const int contributionColumnIndex = 3;
+        private const int probabilitySpaceColumnIndex = 4;
 
         /// <remarks>
         /// Actually only interested in the following changes:
@@ -185,7 +189,14 @@ namespace Ringtoets.Integration.Forms.Views
             failureMechanismContributionItemRows = AssessmentSection.GetContributingFailureMechanisms()
                                                                     .Select(fm => new FailureMechanismContributionItemRow(
                                                                                 fm, AssessmentSection.FailureMechanismContribution,
-                                                                                viewCommands)).ToArray();
+                                                                                viewCommands, new FailureMechanismContributionItemRow.ConstructionProperties
+                                                                                {
+                                                                                    IsRelevantColumnIndex = isRelevantColumnIndex,
+                                                                                    NameColumnIndex = nameColumnIndex,
+                                                                                    CodeColumnIndex = codeColumnIndex,
+                                                                                    ContributionColumnIndex = contributionColumnIndex,
+                                                                                    ProbabilitySpaceColumnIndex = probabilitySpaceColumnIndex
+                                                                                })).ToArray();
 
             probabilityDistributionGrid.SetDataSource(failureMechanismContributionItemRows);
 
@@ -263,7 +274,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void ProbabilityDistributionGridOnCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == probabilityPerYearColumnIndex)
+            if (e.ColumnIndex == probabilitySpaceColumnIndex)
             {
                 var row = (FailureMechanismContributionItemRow) probabilityDistributionGrid.Rows[e.RowIndex].DataBoundItem;
                 if (Math.Abs(row.Contribution) < 1e-6)

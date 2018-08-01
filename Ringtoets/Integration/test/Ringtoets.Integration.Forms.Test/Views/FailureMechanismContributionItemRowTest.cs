@@ -37,11 +37,20 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismContributionItemRowTest
     {
-        private const int isRelevantIndex = 0;
-        private const int nameIndex = 1;
-        private const int codeIndex = 2;
-        private const int contributionIndex = 3;
-        private const int probabilitySpaceIndex = 4;
+        private static FailureMechanismContributionItemRow.ConstructionProperties ConstructionProperties
+        {
+            get
+            {
+                return new FailureMechanismContributionItemRow.ConstructionProperties
+                {
+                    IsRelevantColumnIndex = 0,
+                    NameColumnIndex = 1,
+                    CodeColumnIndex = 2,
+                    ContributionColumnIndex = 3,
+                    ProbabilitySpaceColumnIndex = 4
+                };
+            }
+        }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -54,7 +63,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            TestDelegate call = () => new FailureMechanismContributionItemRow(null, failureMechanismContribution, viewCommands);
+            TestDelegate call = () => new FailureMechanismContributionItemRow(null, failureMechanismContribution, viewCommands, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -72,7 +81,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismContributionItemRow(failureMechanism, null, viewCommands);
+            TestDelegate call = () => new FailureMechanismContributionItemRow(failureMechanism, null, viewCommands, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -90,11 +99,31 @@ namespace Ringtoets.Integration.Forms.Test.Views
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            TestDelegate call = () => new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, null);
+            TestDelegate call = () => new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, null, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("viewCommands", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -110,7 +139,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands);
+            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands, ConstructionProperties);
 
             // Assert
             Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
@@ -123,11 +152,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(5, columnStateDefinitions.Count);
 
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, isRelevantIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, nameIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, codeIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, contributionIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, probabilitySpaceIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.IsRelevantColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.NameColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.CodeColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ContributionColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ProbabilitySpaceColumnIndex);
 
             mocks.VerifyAll();
         }
@@ -147,15 +176,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands);
+            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands, ConstructionProperties);
 
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[isRelevantIndex], true);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[nameIndex], isRelevant, true);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[codeIndex], isRelevant, true);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[contributionIndex], isRelevant, true);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[probabilitySpaceIndex], isRelevant, true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.IsRelevantColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.NameColumnIndex], isRelevant, true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.CodeColumnIndex], isRelevant, true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ContributionColumnIndex], isRelevant, true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ProbabilitySpaceColumnIndex], isRelevant, true);
         }
 
         [Test]
@@ -175,7 +204,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
-            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands);
+            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands, ConstructionProperties);
 
             var rowUpdated = false;
             row.RowUpdated += (sender, args) => rowUpdated = true;
@@ -206,7 +235,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
-            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands);
+            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands, ConstructionProperties);
 
             // Call
             row.IsRelevant = false;

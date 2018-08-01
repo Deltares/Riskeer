@@ -49,11 +49,11 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly IFailureMechanism failureMechanism;
         private readonly FailureMechanismContribution failureMechanismContribution;
 
-        private const int isRelevantIndex = 0;
-        private const int nameIndex = 1;
-        private const int codeIndex = 2;
-        private const int contributionIndex = 3;
-        private const int probabilitySpaceIndex = 4;
+        private readonly int isRelevantColumnIndex;
+        private readonly int nameColumnIndex;
+        private readonly int codeColumnIndex;
+        private readonly int contributionColumnIndex;
+        private readonly int probabilitySpaceColumnIndex;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionItemRow"/>.
@@ -62,9 +62,11 @@ namespace Ringtoets.Integration.Forms.Views
         /// <param name="failureMechanismContribution">The failure mechanism contribution to get the norm from.</param>
         /// <param name="viewCommands">>Class responsible for exposing high level <see cref="IView"/>
         /// related commands.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="FailureMechanismContributionItemRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal FailureMechanismContributionItemRow(IFailureMechanism failureMechanism, FailureMechanismContribution failureMechanismContribution,
-                                                     IViewCommands viewCommands)
+                                                     IViewCommands viewCommands, ConstructionProperties constructionProperties)
         {
             if (failureMechanism == null)
             {
@@ -81,9 +83,20 @@ namespace Ringtoets.Integration.Forms.Views
                 throw new ArgumentNullException(nameof(viewCommands));
             }
 
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
+            }
+
             this.failureMechanism = failureMechanism;
             this.failureMechanismContribution = failureMechanismContribution;
             this.viewCommands = viewCommands;
+
+            isRelevantColumnIndex = constructionProperties.IsRelevantColumnIndex;
+            nameColumnIndex = constructionProperties.NameColumnIndex;
+            codeColumnIndex = constructionProperties.CodeColumnIndex;
+            contributionColumnIndex = constructionProperties.ContributionColumnIndex;
+            probabilitySpaceColumnIndex = constructionProperties.ProbabilitySpaceColumnIndex;
 
             CreateColumnStateDefinitions();
 
@@ -95,21 +108,21 @@ namespace Ringtoets.Integration.Forms.Views
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>
             {
                 {
-                    isRelevantIndex, failureMechanism is OtherFailureMechanism 
+                    isRelevantColumnIndex, failureMechanism is OtherFailureMechanism 
                                          ? DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
                                          : new DataGridViewColumnStateDefinition()
                 },
                 {
-                    nameIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                    nameColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
                 },
                 {
-                    codeIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                    codeColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
                 },
                 {
-                    contributionIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                    contributionColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
                 },
                 {
-                    probabilitySpaceIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                    probabilitySpaceColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
                 }
             };
         }
@@ -188,17 +201,17 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (!IsRelevant)
             {
-                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[nameIndex]);
-                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[codeIndex]);
-                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[contributionIndex]);
-                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[probabilitySpaceIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[nameColumnIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[codeColumnIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[contributionColumnIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[probabilitySpaceColumnIndex]);
             }
             else
             {
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[nameIndex], true);
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[codeIndex], true);
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[contributionIndex], true);
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[probabilitySpaceIndex], true);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[nameColumnIndex], true);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[codeColumnIndex], true);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[contributionColumnIndex], true);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[probabilitySpaceColumnIndex], true);
             }
         }
 
@@ -207,7 +220,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Class holding the various construction parameters for <see cref="FailureMechanismContributionItemRow"/>.
         /// </summary>
-        private class ConstructionProperties
+        internal class ConstructionProperties
         {
             /// <summary>
             /// Gets or sets the relevant column index.
