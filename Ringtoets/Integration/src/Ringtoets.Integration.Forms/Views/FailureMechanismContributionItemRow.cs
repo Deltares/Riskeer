@@ -195,10 +195,10 @@ namespace Ringtoets.Integration.Forms.Views
             }
             else
             {
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[nameIndex]);
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[codeIndex]);
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[contributionIndex]);
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[probabilitySpaceIndex]);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[nameIndex], true);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[codeIndex], true);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[contributionIndex], true);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[probabilitySpaceIndex], true);
             }
         }
 

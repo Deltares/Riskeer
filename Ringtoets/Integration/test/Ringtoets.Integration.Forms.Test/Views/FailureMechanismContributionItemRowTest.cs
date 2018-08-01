@@ -152,10 +152,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[isRelevantIndex], true);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[nameIndex], isRelevant);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[codeIndex], isRelevant);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[contributionIndex], isRelevant);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[probabilitySpaceIndex], isRelevant);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[nameIndex], isRelevant, true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[codeIndex], isRelevant, true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[contributionIndex], isRelevant, true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[probabilitySpaceIndex], isRelevant, true);
         }
 
         [Test]
