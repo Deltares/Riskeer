@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Piping.Data;
 
@@ -34,6 +37,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismContributionItemRowTest
     {
+        private const int isRelevantIndex = 0;
+        private const int nameIndex = 1;
+        private const int codeIndex = 2;
+        private const int contributionIndex = 3;
+        private const int probabilitySpaceIndex = 4;
+
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -69,7 +78,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithFailureMechanism_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -83,11 +92,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var row = new FailureMechanismContributionItemRow(pipingFailureMechanism, norm, viewCommands);
 
             // Assert
+            Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
             Assert.AreEqual(pipingFailureMechanism.Contribution, row.Contribution);
             Assert.AreEqual(pipingFailureMechanism.Name, row.Assessment);
             Assert.AreEqual(pipingFailureMechanism.Code, row.Code);
             Assert.AreEqual(pipingFailureMechanism.IsRelevant, row.IsRelevant);
             Assert.AreEqual(100.0 / (norm * pipingFailureMechanism.Contribution), row.ProbabilitySpace);
+
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(5, columnStateDefinitions.Count);
+
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, isRelevantIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, nameIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, codeIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, contributionIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, probabilitySpaceIndex);
 
             mocks.VerifyAll();
         }

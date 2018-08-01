@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Ringtoets.Common.Data.Contribution;
@@ -28,13 +30,19 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="FailureMechanismContributionItem"/>.
+    /// This class represents a row of <see cref="IFailureMechanism"/>.
     /// </summary>
-    internal class FailureMechanismContributionItemRow
+    internal class FailureMechanismContributionItemRow : IHasColumnStateDefinitions
     {
         private readonly IViewCommands viewCommands;
         private readonly IFailureMechanism failureMechanism;
         private readonly double norm;
+
+        private const int isRelevantIndex = 0;
+        private const int nameIndex = 1;
+        private const int codeIndex = 2;
+        private const int contributionIndex = 3;
+        private const int probabilitySpaceIndex = 4;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionItemRow"/>.
@@ -59,6 +67,32 @@ namespace Ringtoets.Integration.Forms.Views
             this.failureMechanism = failureMechanism;
             this.norm = norm;
             this.viewCommands = viewCommands;
+
+            CreateColumnStateDefinitions();
+        }
+
+        private void CreateColumnStateDefinitions()
+        {
+            ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>
+            {
+                {
+                    isRelevantIndex, failureMechanism is OtherFailureMechanism 
+                                         ? DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                                         : new DataGridViewColumnStateDefinition()
+                },
+                {
+                    nameIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                },
+                {
+                    codeIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                },
+                {
+                    contributionIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                },
+                {
+                    probabilitySpaceIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                }
+            };
         }
 
         /// <summary>
@@ -125,5 +159,7 @@ namespace Ringtoets.Integration.Forms.Views
                 failureMechanism.NotifyObservers();
             }
         }
+
+        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; private set; }
     }
 }
