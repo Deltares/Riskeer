@@ -650,8 +650,10 @@ namespace Ringtoets.Integration.Plugin
                 CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
                                                                                                  context.AssessmentSection.ReferenceLine,
                                                                                                  filePath,
-                                                                                                 new FailureMechanismSectionReplaceStrategy(context.WrappedData))
+                                                                                                 new FailureMechanismSectionReplaceStrategy(context.WrappedData),
+                                                                                                 new ImportMessageProvider())
             };
+
             yield return new ImportInfo<ForeshoreProfilesContext>
             {
                 CreateFileImporter = (context, filePath) =>

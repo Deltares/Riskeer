@@ -147,7 +147,8 @@ namespace Demo.Ringtoets.Commands
                         var importer = new FailureMechanismSectionsImporter(failureMechanism,
                                                                             demoAssessmentSection.ReferenceLine,
                                                                             filePath,
-                                                                            new FailureMechanismSectionReplaceStrategy(failureMechanism));
+                                                                            new FailureMechanismSectionReplaceStrategy(failureMechanism),
+                                                                            new ImportMessageProvider());
                         importer.Import();
                     }
                     else

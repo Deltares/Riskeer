@@ -26,6 +26,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.UpdateInfos
@@ -74,7 +75,8 @@ namespace Ringtoets.Common.Forms.UpdateInfos
                     context.AssessmentSection.ReferenceLine,
                     filePath,
                     new FailureMechanismSectionUpdateStrategy<TSectionResult>((TFailureMechanism) context.WrappedData,
-                                                                              sectionResultUpdateStrategy))
+                                                                              sectionResultUpdateStrategy),
+                    new UpdateMessageProvider())
             };
         }
     }

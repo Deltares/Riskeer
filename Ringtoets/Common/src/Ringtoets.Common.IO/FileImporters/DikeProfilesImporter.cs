@@ -51,7 +51,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="dikeProfileUpdateStrategy">The strategy to update the dike profiles 
         /// with the imported data.</param>
-        /// <param name="messageProvider">The message provide to provide the messages during importer action.</param>
+        /// <param name="messageProvider">The message provider to provide the messages during the importer action.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public DikeProfilesImporter(DikeProfileCollection importTarget, ReferenceLine referenceLine,
                                     string filePath,

@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.TestUtil
         /// <para>This will import 283 failure mechanism sections.</para>
         /// <para>Imports using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, System.Collections.Generic.IEnumerable{Ringtoets.Common.Data.FailureMechanism.IFailureMechanism})"/>
+        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IEnumerable{IFailureMechanism})"/>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
@@ -103,10 +103,11 @@ namespace Ringtoets.Integration.TestUtil
                                                                                    "traject_6-3_vakken.shx"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp");
-                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(failureMechanism, 
-                                                                                           assessmentSection.ReferenceLine, 
-                                                                                           filePath, 
-                                                                                           new FailureMechanismSectionReplaceStrategy(failureMechanism)),
+                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(failureMechanism,
+                                                                                           assessmentSection.ReferenceLine,
+                                                                                           filePath,
+                                                                                           new FailureMechanismSectionReplaceStrategy(failureMechanism),
+                                                                                           new ImportMessageProvider()),
                                                       "FailureMechanismSectionsImporter");
                 activity.Run();
                 activity.Finish();
@@ -143,7 +144,8 @@ namespace Ringtoets.Integration.TestUtil
                         var importer = new FailureMechanismSectionsImporter(failureMechanism,
                                                                             assessmentSection.ReferenceLine,
                                                                             filePath,
-                                                                            new FailureMechanismSectionReplaceStrategy(failureMechanism));
+                                                                            new FailureMechanismSectionReplaceStrategy(failureMechanism),
+                                                                            new ImportMessageProvider());
                         importer.Import();
                     }
                     else

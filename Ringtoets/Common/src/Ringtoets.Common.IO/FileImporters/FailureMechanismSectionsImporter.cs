@@ -27,6 +27,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.FileImporters
@@ -49,6 +50,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private readonly ReferenceLine referenceLine;
         private readonly IFailureMechanismSectionUpdateStrategy failureMechanismSectionUpdateStrategy;
+        private readonly IImporterMessageProvider messageProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSectionsImporter"/> class.
@@ -58,12 +60,14 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="failureMechanismSectionUpdateStrategy">The strategy to update the failure mechanism sections
         /// with the imported data.</param>
+        /// <param name="messageProvider">The message provider to provide the messages during the importer action.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.
         /// </exception>
         public FailureMechanismSectionsImporter(IFailureMechanism importTarget,
                                                 ReferenceLine referenceLine,
                                                 string filePath,
-                                                IFailureMechanismSectionUpdateStrategy failureMechanismSectionUpdateStrategy) : base(filePath, importTarget)
+                                                IFailureMechanismSectionUpdateStrategy failureMechanismSectionUpdateStrategy,
+                                                IImporterMessageProvider messageProvider) : base(filePath, importTarget)
         {
             if (referenceLine == null)
             {
@@ -75,8 +79,14 @@ namespace Ringtoets.Common.IO.FileImporters
                 throw new ArgumentNullException(nameof(failureMechanismSectionUpdateStrategy));
             }
 
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
+            }
+
             this.referenceLine = referenceLine;
             this.failureMechanismSectionUpdateStrategy = failureMechanismSectionUpdateStrategy;
+            this.messageProvider = messageProvider;
         }
 
         protected override bool OnImport()
@@ -92,13 +102,13 @@ namespace Ringtoets.Common.IO.FileImporters
             IEnumerable<FailureMechanismSection> readFailureMechanismSections = readResults.Items;
             if (HasStartOrEndPointsTooFarFromReferenceLine(referenceLine, readFailureMechanismSections))
             {
-                LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_too_far_from_current_referenceline);
+                LogCriticalError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_too_far_from_current_referenceline);
                 return false;
             }
 
             if (IsTotalLengthOfSectionsTooDifferentFromReferenceLineLength(referenceLine, readFailureMechanismSections))
             {
-                LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_too_different_from_referenceline_length);
+                LogCriticalError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_too_different_from_referenceline_length);
                 return false;
             }
 
@@ -107,13 +117,12 @@ namespace Ringtoets.Common.IO.FileImporters
                 return false;
             }
 
-            NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_data_model, 3, 3);
+            NotifyProgress(messageProvider.GetAddDataToModelProgressText(), 3, 3);
 
             IEnumerable<FailureMechanismSection> orderedReadSections = OrderSections(readFailureMechanismSections, referenceLine);
             if (!ArePointsSnapped(referenceLine.Points.Last(), orderedReadSections.Last().EndPoint))
             {
-                string message = string.Format(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_from_file_0_contains_unchained_sections, FilePath);
-                LogCriticalFileReadError(message);
+                LogCriticalError(Resources.FailureMechanismSectionsImporter_Import_File_contains_unchained_sections);
                 return false;
             }
 
@@ -130,7 +139,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected override void LogImportCanceledMessage()
         {
-            Log.Info(Resources.FailureMechanismSectionsImporter_Import_canceled_No_data_changed);
+            Log.Info(messageProvider.GetCancelledLogMessageText(Resources.FailureMechanismSections_TypeDescriptor));
         }
 
         private ReadResult<FailureMechanismSection> ReadFailureMechanismSections()
@@ -152,13 +161,13 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 return new FailureMechanismSectionReader(FilePath);
             }
-            catch (ArgumentException e)
+            catch (CriticalFileReadException exception)
             {
-                LogCriticalFileReadError(e);
+                Log.Error(exception.Message);
             }
-            catch (CriticalFileReadException e)
+            catch (ArgumentException exception)
             {
-                LogCriticalFileReadError(e);
+                Log.Error(exception.Message);
             }
 
             return null;
@@ -171,7 +180,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 int count = reader.GetFailureMechanismSectionCount();
                 if (count == 0)
                 {
-                    LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_ReadFile_File_is_empty);
+                    LogCriticalError(Resources.FailureMechanismSectionsImporter_ReadFile_File_is_empty);
                     return new ReadResult<FailureMechanismSection>(true);
                 }
 
@@ -188,19 +197,14 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             catch (CriticalFileReadException e)
             {
-                LogCriticalFileReadError(e);
+                Log.Error(e.Message);
                 return new ReadResult<FailureMechanismSection>(true);
             }
         }
 
-        private void LogCriticalFileReadError(Exception exception)
+        private void LogCriticalError(string message)
         {
-            LogCriticalFileReadError(exception.Message);
-        }
-
-        private void LogCriticalFileReadError(string message)
-        {
-            string errorMessage = string.Format(Resources.FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported,
+            string errorMessage = string.Format(messageProvider.GetUpdateDataFailedLogMessageText(Resources.FailureMechanismSections_TypeDescriptor),
                                                 message);
             Log.Error(errorMessage);
         }
