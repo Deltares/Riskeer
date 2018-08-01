@@ -99,7 +99,12 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 Observable = assessmentSection.FailureMechanismContribution
             };
-            assessmentSectionObserver = new Observer(UpdateView)
+            assessmentSectionObserver = new Observer(() =>
+            {
+                DetachFromFailureMechanisms();
+                UpdateView();
+                AttachToFailureMechanisms();
+            })
             {
                 Observable = assessmentSection
             };

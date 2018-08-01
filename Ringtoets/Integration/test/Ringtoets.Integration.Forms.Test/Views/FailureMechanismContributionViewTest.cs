@@ -692,6 +692,47 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GivenView_WhenAssessmentSectionNotified_ThenFailureMechanismObserversResubscribed()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var failureMechanism1 = new TestFailureMechanism();
+            var failureMechanism2 = new TestFailureMechanism();
+            var failureMechanisms = new List<IFailureMechanism>
+            {
+                failureMechanism1
+            };
+            var assessmentSection = new AssessmentSectionStub(failureMechanisms);
+
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
+            {
+                ShowFormWithView(view);
+
+                failureMechanisms.Remove(failureMechanism1);
+                failureMechanisms.Add(failureMechanism2);
+                assessmentSection.NotifyObservers();
+
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var invalidated = false;
+                dataGridView.Invalidated += (sender, args) => invalidated = true;
+                
+                // Precondition
+                Assert.IsFalse(invalidated);
+
+                // When
+                failureMechanism1.NotifyObservers();
+
+                // Then
+                Assert.IsFalse(invalidated);
+            }
+
+            mocks.VerifyAll();
+        }
+
         private static IEnumerable<TestCaseData> GetCellFormattingStates()
         {
             yield return new TestCaseData(true, CellStyle.Disabled);
