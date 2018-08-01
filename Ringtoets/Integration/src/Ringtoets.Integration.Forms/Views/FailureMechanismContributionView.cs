@@ -44,7 +44,6 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class FailureMechanismContributionView : UserControl, IView
     {
-
         private const int isRelevantColumnIndex = 0;
         private const int nameColumnIndex = 1;
         private const int codeColumnIndex = 2;

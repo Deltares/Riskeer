@@ -414,7 +414,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             });
             mocks.ReplayAll();
 
-
             using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 ShowFormWithView(view);
@@ -564,9 +563,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
-                var row = (FailureMechanismContributionItemRow)dataGridView.Rows[0].DataBoundItem;
+                var row = (FailureMechanismContributionItemRow) dataGridView.Rows[0].DataBoundItem;
                 DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[0];
                 definition.ReadOnly = readOnly;
                 definition.Style = style;
@@ -581,13 +580,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(style.TextColor, cell.Style.ForeColor);
             }
         }
-
-        private static IEnumerable<TestCaseData> GetCellFormattingStates()
-        {
-            yield return new TestCaseData(true, CellStyle.Disabled);
-            yield return new TestCaseData(false, CellStyle.Enabled);
-        }
-
 
         [Test]
         public void GivenView_WhenRowUpdatedEventFiredAndFailureMechanismNotified_ThenRowNotUpdatedAndViewInvalidated()
@@ -608,9 +600,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
-                var row = (FailureMechanismContributionItemRow)dataGridView.Rows[0].DataBoundItem;
+                var row = (FailureMechanismContributionItemRow) dataGridView.Rows[0].DataBoundItem;
                 var invalidated = false;
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
 
@@ -646,7 +638,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
                 var invalidated = false;
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
@@ -681,7 +673,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(view);
 
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 var row = (FailureMechanismContributionItemRow) dataGridView.Rows[0].DataBoundItem;
 
                 // Precondition
@@ -698,6 +690,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
 
             mocks.VerifyAll();
+        }
+
+        private static IEnumerable<TestCaseData> GetCellFormattingStates()
+        {
+            yield return new TestCaseData(true, CellStyle.Disabled);
+            yield return new TestCaseData(false, CellStyle.Enabled);
         }
 
         public override void Setup()
@@ -718,30 +716,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             testForm.Controls.Add(distributionView);
             testForm.Show();
-        }
-
-        private static void AssertIsCellStyledAsEnabled(DataGridViewCell cell)
-        {
-            Color enabledBackColor = Color.FromKnownColor(KnownColor.White);
-            Color enabledForeColor = Color.FromKnownColor(KnownColor.ControlText);
-
-            Assert.IsTrue(cell.ReadOnly);
-            Assert.AreEqual(enabledBackColor, cell.Style.BackColor,
-                            "Color does not match for column index: " + cell.ColumnIndex);
-            Assert.AreEqual(enabledForeColor, cell.Style.ForeColor,
-                            "Color does not match for column index: " + cell.ColumnIndex);
-        }
-
-        private static void AssertIsCellStyleGreyedOut(DataGridViewCell cell)
-        {
-            Color irrelevantMechanismBackColor = Color.FromKnownColor(KnownColor.DarkGray);
-            Color irrelevantMechanismForeColor = Color.FromKnownColor(KnownColor.GrayText);
-
-            Assert.IsTrue(cell.ReadOnly);
-            Assert.AreEqual(irrelevantMechanismBackColor, cell.Style.BackColor,
-                            "Color does not match for column index: " + cell.ColumnIndex);
-            Assert.AreEqual(irrelevantMechanismForeColor, cell.Style.ForeColor,
-                            "Color does not match for column index: " + cell.ColumnIndex);
         }
     }
 }

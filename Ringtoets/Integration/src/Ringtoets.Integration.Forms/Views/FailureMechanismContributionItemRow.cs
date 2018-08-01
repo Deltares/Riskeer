@@ -35,16 +35,6 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     internal class FailureMechanismContributionItemRow : IHasColumnStateDefinitions
     {
-        /// <summary>
-        /// Fired when the row has started updating.
-        /// </summary>
-        public EventHandler RowUpdated;
-
-        /// <summary>
-        /// Fired when the row has finished updating.
-        /// </summary>
-        public EventHandler RowUpdateDone;
-
         private readonly IViewCommands viewCommands;
         private readonly IFailureMechanism failureMechanism;
         private readonly FailureMechanismContribution failureMechanismContribution;
@@ -54,6 +44,16 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly int codeColumnIndex;
         private readonly int contributionColumnIndex;
         private readonly int probabilitySpaceColumnIndex;
+
+        /// <summary>
+        /// Fired when the row has started updating.
+        /// </summary>
+        public EventHandler RowUpdated;
+
+        /// <summary>
+        /// Fired when the row has finished updating.
+        /// </summary>
+        public EventHandler RowUpdateDone;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionItemRow"/>.
@@ -101,30 +101,6 @@ namespace Ringtoets.Integration.Forms.Views
             CreateColumnStateDefinitions();
 
             Update();
-        }
-
-        private void CreateColumnStateDefinitions()
-        {
-            ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>
-            {
-                {
-                    isRelevantColumnIndex, failureMechanism is OtherFailureMechanism 
-                                         ? DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
-                                         : new DataGridViewColumnStateDefinition()
-                },
-                {
-                    nameColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
-                },
-                {
-                    codeColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
-                },
-                {
-                    contributionColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
-                },
-                {
-                    probabilitySpaceColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
-                }
-            };
         }
 
         /// <summary>
@@ -197,6 +173,8 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
+        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; private set; }
+
         public void Update()
         {
             if (!IsRelevant)
@@ -215,7 +193,29 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; private set; }
+        private void CreateColumnStateDefinitions()
+        {
+            ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>
+            {
+                {
+                    isRelevantColumnIndex, failureMechanism is OtherFailureMechanism
+                                               ? DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                                               : new DataGridViewColumnStateDefinition()
+                },
+                {
+                    nameColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                },
+                {
+                    codeColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                },
+                {
+                    contributionColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                },
+                {
+                    probabilitySpaceColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                }
+            };
+        }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="FailureMechanismContributionItemRow"/>.
@@ -230,22 +230,22 @@ namespace Ringtoets.Integration.Forms.Views
             /// <summary>
             /// Gets or sets the name column index.
             /// </summary>
-            public int NameColumnIndex { internal get; set;}
+            public int NameColumnIndex { internal get; set; }
 
             /// <summary>
             /// Gets or sets the code column index.
             /// </summary>
-            public int CodeColumnIndex { internal get; set;}
+            public int CodeColumnIndex { internal get; set; }
 
             /// <summary>
             /// Gets or sets the contribution column index.
             /// </summary>
-            public int ContributionColumnIndex { internal get; set;}
+            public int ContributionColumnIndex { internal get; set; }
 
             /// <summary>
             /// Gets or sets the probability space column index.
             /// </summary>
-            public int ProbabilitySpaceColumnIndex { internal get; set;}
+            public int ProbabilitySpaceColumnIndex { internal get; set; }
         }
     }
 }
