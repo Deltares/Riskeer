@@ -36,6 +36,7 @@ namespace Ringtoets.Common.Data.TestUtil
     public class AssessmentSectionStub : Observable, IAssessmentSection
     {
         private static readonly Random random = new Random(21);
+        private readonly IEnumerable<IFailureMechanism> failureMechanisms;
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNorm;
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNorm;
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNorm;
@@ -45,8 +46,11 @@ namespace Ringtoets.Common.Data.TestUtil
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNorm;
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNorm;
 
-        public AssessmentSectionStub()
+        public AssessmentSectionStub() : this(new IFailureMechanism[0]) {}
+
+        public AssessmentSectionStub(IEnumerable<IFailureMechanism> failureMechanisms)
         {
+            this.failureMechanisms = failureMechanisms;
             FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(),
                                                                             0,
                                                                             1.0 / 30000,
@@ -174,12 +178,12 @@ namespace Ringtoets.Common.Data.TestUtil
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
-            yield break;
+            return failureMechanisms;
         }
 
         public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
         {
-            yield break;
+            return failureMechanisms;
         }
 
         public void ChangeComposition(AssessmentSectionComposition newComposition)
