@@ -28,7 +28,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 
@@ -89,24 +89,24 @@ namespace Ringtoets.Integration.Forms.Test
 
                 Assert.IsTrue(dataGridInvalidated,
                               "Expect the DataGridView to be flagged for redrawing.");
-                AssertDataGridViewDataSource(assessmentSection.FailureMechanismContribution.Distribution, contributionGridView);
+                AssertDataGridViewDataSource(assessmentSection.GetContributingFailureMechanisms(), contributionGridView, assessmentSection.FailureMechanismContribution.Norm);
             }
             mocks.VerifyAll();
         }
 
-        private static void AssertDataGridViewDataSource(IEnumerable<FailureMechanismContributionItem> expectedDistributionElements, DataGridView dataGridView)
+        private static void AssertDataGridViewDataSource(IEnumerable<IFailureMechanism> expectedElements, DataGridView dataGridView, double norm)
         {
-            FailureMechanismContributionItem[] itemArray = expectedDistributionElements.ToArray();
+            IFailureMechanism[] itemArray = expectedElements.ToArray();
             Assert.AreEqual(itemArray.Length, dataGridView.RowCount);
             for (var i = 0; i < itemArray.Length; i++)
             {
-                FailureMechanismContributionItem expectedElement = itemArray[i];
+                IFailureMechanism expectedElement = itemArray[i];
                 DataGridViewRow row = dataGridView.Rows[i];
                 Assert.AreEqual(expectedElement.IsRelevant, row.Cells[isRelevantColumnIndex].Value);
-                Assert.AreEqual(expectedElement.Assessment, row.Cells[nameColumnIndex].Value);
-                Assert.AreEqual(expectedElement.AssessmentCode, row.Cells[codeColumnIndex].Value);
+                Assert.AreEqual(expectedElement.Name, row.Cells[nameColumnIndex].Value);
+                Assert.AreEqual(expectedElement.Code, row.Cells[codeColumnIndex].Value);
                 Assert.AreEqual(expectedElement.Contribution, row.Cells[contributionColumnIndex].Value);
-                Assert.AreEqual(expectedElement.ProbabilitySpace, row.Cells[probabilitySpaceColumnIndex].Value);
+                Assert.AreEqual(100 / (expectedElement.Contribution * norm), row.Cells[probabilitySpaceColumnIndex].Value);
             }
         }
     }

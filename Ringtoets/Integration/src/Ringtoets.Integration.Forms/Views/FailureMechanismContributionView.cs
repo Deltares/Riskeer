@@ -166,8 +166,12 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SetGridDataSource()
         {
-            probabilityDistributionGrid.SetDataSource(AssessmentSection.FailureMechanismContribution.Distribution
-                                                                       .Select(ci => new FailureMechanismContributionItemRow(ci, viewCommands)).ToArray());
+            FailureMechanismContributionItemRow[] rows = AssessmentSection.GetContributingFailureMechanisms()
+                                                                          .Select(fm => new FailureMechanismContributionItemRow(
+                                                                                      fm, AssessmentSection.FailureMechanismContribution.Norm,
+                                                                                      viewCommands)).ToArray();
+
+            probabilityDistributionGrid.SetDataSource(rows);
         }
 
         private void SetReturnPeriodText()
