@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Core.Common.Util;
@@ -59,6 +60,9 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly Observer assessmentSectionObserver;
 
         private readonly IViewCommands viewCommands;
+
+        private bool rowUpdating;
+        private FailureMechanismContributionItemRow[] failureMechanismContributionItemRows;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
@@ -131,6 +135,8 @@ namespace Ringtoets.Integration.Forms.Views
                 DetachFromFailureMechanisms();
                 failureMechanismContributionObserver.Dispose();
                 assessmentSectionObserver.Dispose();
+
+                RemoveRowEvents();
             }
 
             base.Dispose(disposing);
@@ -145,7 +151,16 @@ namespace Ringtoets.Integration.Forms.Views
 
         private Observer CreateFailureMechanismObserver(IFailureMechanism failureMechanism)
         {
-            return new Observer(probabilityDistributionGrid.RefreshDataGridView)
+            return new Observer(() =>
+            {
+                if (rowUpdating)
+                {
+                    return;
+                }
+
+                failureMechanismContributionItemRows.ForEachElementDo(row => row.Update());
+                probabilityDistributionGrid.RefreshDataGridView();
+            })
             {
                 Observable = failureMechanism
             };
@@ -166,12 +181,39 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SetGridDataSource()
         {
-            FailureMechanismContributionItemRow[] rows = AssessmentSection.GetContributingFailureMechanisms()
-                                                                          .Select(fm => new FailureMechanismContributionItemRow(
-                                                                                      fm, AssessmentSection.FailureMechanismContribution.Norm,
-                                                                                      viewCommands)).ToArray();
+            RemoveRowEvents();
+            failureMechanismContributionItemRows = AssessmentSection.GetContributingFailureMechanisms()
+                                                                    .Select(fm => new FailureMechanismContributionItemRow(
+                                                                                fm, AssessmentSection.FailureMechanismContribution.Norm,
+                                                                                viewCommands)).ToArray();
 
-            probabilityDistributionGrid.SetDataSource(rows);
+            probabilityDistributionGrid.SetDataSource(failureMechanismContributionItemRows);
+
+            failureMechanismContributionItemRows.ForEachElementDo(row =>
+            {
+                row.RowUpdated += RowUpdated;
+                row.RowUpdateDone += RowUpdateDone;
+            });
+        }
+
+        private void RemoveRowEvents()
+        {
+            failureMechanismContributionItemRows?.ForEachElementDo(row =>
+            {
+                row.RowUpdated -= RowUpdated;
+                row.RowUpdateDone -= RowUpdateDone;
+            });
+        }
+
+        private void RowUpdateDone(object sender, EventArgs eventArgs)
+        {
+            rowUpdating = false;
+        }
+
+        private void RowUpdated(object sender, EventArgs eventArgs)
+        {
+            rowUpdating = true;
+            probabilityDistributionGrid.RefreshDataGridView();
         }
 
         private void SetReturnPeriodText()
@@ -218,8 +260,8 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (e.ColumnIndex == probabilityPerYearColumnIndex)
             {
-                FailureMechanismContributionItem contributionItem = AssessmentSection.FailureMechanismContribution.Distribution.ElementAt(e.RowIndex);
-                if (Math.Abs(contributionItem.Contribution) < 1e-6)
+                var row = (FailureMechanismContributionItemRow) probabilityDistributionGrid.Rows[e.RowIndex].DataBoundItem;
+                if (Math.Abs(row.Contribution) < 1e-6)
                 {
                     e.Value = Resources.FailureMechanismContributionView_ProbabilityPerYear_Not_applicable;
                     e.FormattingApplied = true;

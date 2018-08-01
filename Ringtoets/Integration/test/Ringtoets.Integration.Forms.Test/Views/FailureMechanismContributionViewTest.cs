@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -565,7 +566,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 failureMechanism
             });
-            var viewCommands = mocks.Stub<IViewCommands>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(c => c.RemoveAllViewsForItem(failureMechanism));
             mocks.ReplayAll();
 
@@ -586,40 +587,117 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-//        [Test]
-//        public void GivenView_WhenSettingFailureMechanismThatIsAlwaysRelevant_IsRelevantFlagTrueAndReadonly()
-//        {
-//            // Given
-//            var mocks = new MockRepository();
-//            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-//            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-//            var viewCommands = mocks.Stub<IViewCommands>();
-//            mocks.ReplayAll();
-//
-//            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
-//            {
-//                ShowFormWithView(view);
-//
-//                FailureMechanismContribution contribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
-//
-//                // Precondition:
-//                FailureMechanismContributionItem[] contributionItems = contribution.Distribution.ToArray();
-//                Assert.AreEqual(1, contributionItems.Length);
-//                Assert.IsTrue(contributionItems[0].IsAlwaysRelevant);
-//                Assert.IsTrue(contributionItems[0].IsRelevant);
-//
-//                // When
-//
-//                // Then
-//                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-//                DataGridViewRow row = dataGridView.Rows[0];
-//                DataGridViewCell isRelevantCell = row.Cells[isRelevantColumnIndex];
-//                Assert.IsTrue((bool) isRelevantCell.Value);
-//                Assert.IsTrue(isRelevantCell.ReadOnly);
-//            }
-//
-//            mocks.VerifyAll();
-//        }
+        [Test]
+        public void GivenView_WhenRowUpdatedEventFiredAndFailureMechanismNotified_ThenRowNotUpdatedAndViewInvalidated()
+        {
+            // Given
+            // Given
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+            var failureMechanisms = new List<IFailureMechanism>
+            {
+                failureMechanism
+            };
+            var assessmentSection = new AssessmentSectionStub(failureMechanisms);
+
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
+            {
+                ShowFormWithView(view);
+
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+
+                var row = (FailureMechanismContributionItemRow)dataGridView.Rows[0].DataBoundItem;
+                var invalidated = false;
+                dataGridView.Invalidated += (sender, args) => invalidated = true;
+
+                // Precondition
+                Assert.IsFalse(invalidated);
+
+                // When
+                row.RowUpdated?.Invoke(row, EventArgs.Empty);
+                failureMechanism.NotifyObservers();
+                row.RowUpdateDone?.Invoke(row, EventArgs.Empty);
+
+                // Then
+                Assert.IsTrue(invalidated);
+            }
+        }
+
+        [Test]
+        public void GivenView_WhenFailureMechanismNotified_ThenDataGridViewInvalidated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+            var failureMechanisms = new List<IFailureMechanism>
+            {
+                failureMechanism
+            };
+            var assessmentSection = new AssessmentSectionStub(failureMechanisms);
+
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
+            {
+                ShowFormWithView(view);
+
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+
+                var invalidated = false;
+                dataGridView.Invalidated += (sender, args) => invalidated = true;
+
+                // Precondition
+                Assert.IsFalse(invalidated);
+
+                // When
+                failureMechanism.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(invalidated);
+            }
+        }
+
+        [Test]
+        public void GivenView_WhenFailureMechanismRemovedAndAssessmentSectionNotified_ThenEventHandlersDisconnected()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+            var failureMechanisms = new List<IFailureMechanism>
+            {
+                failureMechanism
+            };
+            var assessmentSection = new AssessmentSectionStub(failureMechanisms);
+
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
+            {
+                ShowFormWithView(view);
+
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var row = (FailureMechanismContributionItemRow) dataGridView.Rows[0].DataBoundItem;
+
+                // Precondition
+                Assert.IsNotNull(row.RowUpdated);
+                Assert.IsNotNull(row.RowUpdateDone);
+
+                // When
+                failureMechanisms.Remove(failureMechanism);
+                assessmentSection.NotifyObservers();
+
+                // Then
+                Assert.IsNull(row.RowUpdated);
+                Assert.IsNull(row.RowUpdateDone);
+            }
+
+            mocks.VerifyAll();
+        }
 
         public override void Setup()
         {
