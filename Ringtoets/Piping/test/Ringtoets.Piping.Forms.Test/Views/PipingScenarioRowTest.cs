@@ -119,6 +119,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(name, row.Name);
             Assert.AreEqual(isRelevant, row.IsRelevant);
+            Assert.AreEqual(2, row.Contribution.NumberOfDecimalPlaces);
             Assert.AreEqual(contribution * 100, row.Contribution, row.Contribution.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.PipingProbability), row.FailureProbabilityPiping);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.UpliftProbability), row.FailureProbabilityUplift);
@@ -154,6 +155,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(name, row.Name);
             Assert.AreEqual(isRelevant, row.IsRelevant);
+            Assert.AreEqual(2, row.Contribution.NumberOfDecimalPlaces);
             Assert.AreEqual(contribution * 100, row.Contribution, row.Contribution.GetAccuracy());
             Assert.AreEqual("-", row.FailureProbabilityPiping);
             Assert.AreEqual("-", row.FailureProbabilityUplift);
@@ -197,7 +199,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            double newValue = new Random(21).NextDouble() * 100;
+            double newValue = new Random(21).NextDouble(0, 100);
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             calculation.Attach(observer);

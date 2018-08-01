@@ -136,10 +136,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario3 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(0.0, section);
 
             macroStabilityInwardsCalculationScenario1.IsRelevant = true;
-            macroStabilityInwardsCalculationScenario1.Contribution = (RoundedDouble) 0.211;
+            macroStabilityInwardsCalculationScenario1.Contribution = (RoundedDouble) 0.2111;
 
             macroStabilityInwardsCalculationScenario2.IsRelevant = true;
-            macroStabilityInwardsCalculationScenario2.Contribution = (RoundedDouble) 0.789;
+            macroStabilityInwardsCalculationScenario2.Contribution = (RoundedDouble) 0.7889;
 
             macroStabilityInwardsCalculationScenario3.IsRelevant = false;
 
@@ -154,7 +154,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.99012934868838343, detailedAssessmentProbability, 1e-8);
+            Assert.AreEqual(0.99012835996547233, detailedAssessmentProbability, 1e-8);
             mocks.VerifyAll();
         }
 
@@ -343,10 +343,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
-            macroStabilityInwardsCalculationScenario.Contribution = (RoundedDouble) 0.321;
+            macroStabilityInwardsCalculationScenario.Contribution = (RoundedDouble) 0.3211;
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario2 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(section);
-            macroStabilityInwardsCalculationScenario2.Contribution = (RoundedDouble) 0.543;
+            macroStabilityInwardsCalculationScenario2.Contribution = (RoundedDouble) 0.5435;
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario3 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(section);
 
@@ -361,7 +361,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             RoundedDouble totalContribution = failureMechanismSectionResult.GetTotalContribution(calculationScenarios);
 
             // Assert
-            Assert.AreEqual((RoundedDouble) 0.864, totalContribution);
+            Assert.AreEqual((RoundedDouble) 0.8646, totalContribution);
         }
 
         [Test]

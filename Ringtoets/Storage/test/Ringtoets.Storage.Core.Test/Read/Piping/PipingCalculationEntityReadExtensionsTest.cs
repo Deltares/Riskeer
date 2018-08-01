@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
@@ -369,7 +370,7 @@ namespace Ringtoets.Storage.Core.Test.Read.Piping
         private static double? GetRandomNullableDoubleInRange(Random random, double lowerLimit, double upperLimit)
         {
             double difference = upperLimit - lowerLimit;
-            return lowerLimit + random.NextDouble() * difference;
+            return lowerLimit + random.NextDouble(0, difference);
         }
     }
 }

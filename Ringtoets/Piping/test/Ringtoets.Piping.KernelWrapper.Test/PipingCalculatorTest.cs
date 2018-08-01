@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             var input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
             var testPipingSubCalculatorFactory = new TestPipingSubCalculatorFactory();
-            double bottomAquitardLayerAboveExitPointZ = new Random(21).NextDouble() * 10;
+            double bottomAquitardLayerAboveExitPointZ = new Random(21).NextDouble(0, 10);
             testPipingSubCalculatorFactory.LastCreatedPipingProfilePropertyCalculator.BottomAquitardLayerAboveExitPointZ = bottomAquitardLayerAboveExitPointZ;
 
             // Call

@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.DikeProfiles;
@@ -68,7 +69,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void Orientation_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            double newValue = new Random(21).NextDouble() * 360;
+            double newValue = new Random(21).NextDouble(0, 360);
             var dikeProfileData = new DikeProfileData();
 
             // Call

@@ -133,11 +133,11 @@ namespace Ringtoets.Piping.Data.Test
             PipingCalculationScenario pipingCalculationScenario3 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
 
             pipingCalculationScenario1.IsRelevant = true;
-            pipingCalculationScenario1.Contribution = (RoundedDouble) 0.211;
+            pipingCalculationScenario1.Contribution = (RoundedDouble) 0.2111;
             pipingCalculationScenario1.Output = PipingOutputTestFactory.Create(1.1, 2.2, 3.3);
 
             pipingCalculationScenario2.IsRelevant = true;
-            pipingCalculationScenario2.Contribution = (RoundedDouble) 0.789;
+            pipingCalculationScenario2.Contribution = (RoundedDouble) 0.7889;
             pipingCalculationScenario1.Output = PipingOutputTestFactory.Create(4.4, 5.5, 6.6);
 
             pipingCalculationScenario3.IsRelevant = false;
@@ -153,7 +153,7 @@ namespace Ringtoets.Piping.Data.Test
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.022638809368856008, detailedAssessmentProbability);
+            Assert.AreEqual(0.022635940064759167, detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
@@ -342,10 +342,10 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
-            pipingCalculationScenario.Contribution = (RoundedDouble) 0.321;
+            pipingCalculationScenario.Contribution = (RoundedDouble) 0.3211;
 
             PipingCalculationScenario pipingCalculationScenario2 = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
-            pipingCalculationScenario2.Contribution = (RoundedDouble) 0.543;
+            pipingCalculationScenario2.Contribution = (RoundedDouble) 0.5435;
 
             PipingCalculationScenario pipingCalculationScenario3 = PipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(section);
 
@@ -360,7 +360,7 @@ namespace Ringtoets.Piping.Data.Test
             RoundedDouble totalContribution = failureMechanismSectionResult.GetTotalContribution(calculationScenarios);
 
             // Assert
-            Assert.AreEqual((RoundedDouble) 0.864, totalContribution);
+            Assert.AreEqual((RoundedDouble) 0.8646, totalContribution);
         }
 
         [Test]
