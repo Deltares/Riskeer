@@ -23,6 +23,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PresentationObjects\WaveImpactAsphaltCoverFailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverWaveConditionsInputContextTest.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverCalculationGroupContextTest.cs" />

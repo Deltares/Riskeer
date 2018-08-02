@@ -299,7 +299,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new WaveImpactAsphaltCoverFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };

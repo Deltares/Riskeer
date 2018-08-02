@@ -14,6 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PresentationObjects\EmptyWaveImpactAsphaltCoverOutput.cs" />
+    <Compile Include="PresentationObjects\WaveImpactAsphaltCoverFailureMechanismSectionsContext.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverWaveConditionsInputContext.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverCalculationContext.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverContext.cs" />
