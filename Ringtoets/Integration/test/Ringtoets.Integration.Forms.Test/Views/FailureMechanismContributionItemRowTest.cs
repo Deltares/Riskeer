@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
             Assert.AreEqual(failureMechanism.Contribution, row.Contribution);
-            Assert.AreEqual(failureMechanism.Name, row.Assessment);
+            Assert.AreEqual(failureMechanism.Name, row.Name);
             Assert.AreEqual(failureMechanism.Code, row.Code);
             Assert.AreEqual(failureMechanism.IsRelevant, row.IsRelevant);
             Assert.AreEqual(100.0 / (failureMechanismContribution.Norm * failureMechanism.Contribution), row.ProbabilitySpace);

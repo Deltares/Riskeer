@@ -104,9 +104,9 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets <see cref="FailureMechanismContributionItem.Assessment"/>.
+        /// Gets the name of the failure mechanism.
         /// </summary>
-        public string Assessment
+        public string Name
         {
             get
             {
@@ -115,7 +115,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets <see cref="FailureMechanismContributionItem.AssessmentCode"/>.
+        /// Gets the code of the failure mechanism.
         /// </summary>
         public string Code
         {
@@ -126,7 +126,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets <see cref="FailureMechanismContributionItem.Contribution"/>.
+        /// Gets the contribution of the failure mechanism.
         /// </summary>
         public double Contribution
         {
@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets <see cref="FailureMechanismContributionItem.ProbabilitySpace"/>.
+        /// Gets the probability space of the failure mechanism.
         /// </summary>
         public double ProbabilitySpace
         {
@@ -148,7 +148,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets <see cref="FailureMechanismContributionItem.IsRelevant"/>.
+        /// Gets or sets whether the failure mechanism is relevant.
         /// </summary>
         public bool IsRelevant
         {
