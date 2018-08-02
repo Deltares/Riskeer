@@ -167,17 +167,6 @@ namespace Ringtoets.Common.Data.Contribution
         }
 
         /// <summary>
-        /// Gets the distribution of failure mechanism contributions.
-        /// </summary>
-        public IEnumerable<FailureMechanismContributionItem> Distribution
-        {
-            get
-            {
-                return distribution;
-            }
-        }
-
-        /// <summary>
         /// Fully updates the contents of <see cref="Distribution"/> for a new set of failure
         /// mechanisms and the remainder contribution.
         /// </summary>
