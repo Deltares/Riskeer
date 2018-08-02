@@ -70,10 +70,7 @@ namespace Ringtoets.Common.Data.TestUtil
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("21");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
-                                                                                   failureMechanisms,
-                                                                                   1,
-                                                                                   0.1,
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1,
                                                                                    1.0 / 30000));
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(GetHydraulicBoundaryDatabase(filePath));

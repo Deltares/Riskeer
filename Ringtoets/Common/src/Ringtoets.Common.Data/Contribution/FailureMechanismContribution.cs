@@ -43,23 +43,10 @@ namespace Ringtoets.Common.Data.Contribution
         private NormType normativeNorm;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismContribution"/>. Values are taken from the 
-        /// <paramref name="failureMechanisms"/> and one item is added with a value of <paramref name="otherContribution"/>
-        /// which represents the contribution of any other failure mechanisms.
+        /// Creates a new instance of <see cref="FailureMechanismContribution"/>
         /// </summary>
-        /// <param name="failureMechanisms">The <see cref="IEnumerable{T}"/> of <see cref="IFailureMechanism"/> 
-        /// on which to base the <see cref="FailureMechanismContribution"/>.</param>
-        /// <param name="otherContribution">The collective contribution for other failure mechanisms.</param>
         /// <param name="lowerLimitNorm">The lower limit norm.</param>
         /// <param name="signalingNorm">The signaling norm.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item>any of the <paramref name="failureMechanisms"/> has a value for <see cref="IFailureMechanism.Contribution"/> 
-        /// not in the interval [0, 100].</item>
-        /// <item>the value of <paramref name="otherContribution"/> is not in the interval [0, 100]</item>
-        /// </list>
-        /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
@@ -67,10 +54,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
         /// </list>
         /// </exception>
-        public FailureMechanismContribution(IEnumerable<IFailureMechanism> failureMechanisms,
-                                            double otherContribution,
-                                            double lowerLimitNorm,
-                                            double signalingNorm)
+        public FailureMechanismContribution(double lowerLimitNorm, double signalingNorm)
         {
             ValidateNorms(signalingNorm, lowerLimitNorm);
 

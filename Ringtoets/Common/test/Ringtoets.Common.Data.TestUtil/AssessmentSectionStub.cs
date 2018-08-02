@@ -51,9 +51,7 @@ namespace Ringtoets.Common.Data.TestUtil
         public AssessmentSectionStub(IEnumerable<IFailureMechanism> failureMechanisms)
         {
             this.failureMechanisms = failureMechanisms;
-            FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(),
-                                                                            0,
-                                                                            1.0 / 30000,
+            FailureMechanismContribution = new FailureMechanismContribution(1.0 / 30000,
                                                                             1.0 / 30000);
             BackgroundData = new BackgroundData(new WmtsBackgroundDataConfiguration())
             {
