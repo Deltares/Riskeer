@@ -377,7 +377,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new HeightStructuresFailureMechanismSectionsContext(failureMechanism, assessmentSection), 
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
