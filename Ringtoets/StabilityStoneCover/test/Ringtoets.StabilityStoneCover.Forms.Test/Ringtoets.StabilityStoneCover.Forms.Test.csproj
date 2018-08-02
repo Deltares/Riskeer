@@ -32,6 +32,7 @@
   <ItemGroup>
     <Compile Include="PresentationObjects\StabilityStoneCoverContextTest.cs" />
     <Compile Include="PresentationObjects\StabilityStoneCoverFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\StabilityStoneCoverFailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\StabilityStoneCoverWaveConditionsCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\StabilityStoneCoverWaveConditionsCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\StabilityStoneCoverWaveConditionsInputContextTest.cs" />

@@ -297,7 +297,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new StabilityStoneCoverFailureMechanismSectionsContext(failureMechanism, assessmentSection), 
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
