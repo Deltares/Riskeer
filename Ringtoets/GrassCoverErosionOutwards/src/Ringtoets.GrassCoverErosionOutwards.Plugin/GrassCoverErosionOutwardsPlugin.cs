@@ -45,6 +45,7 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Forms.UpdateInfos;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
@@ -55,6 +56,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
+using Ringtoets.GrassCoverErosionOutwards.Plugin.FileImporters;
 using Ringtoets.GrassCoverErosionOutwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.Revetment.Data;
@@ -384,6 +386,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 {
                     context.WrappedData
                 }, filePath));
+        }
+
+        public override IEnumerable<UpdateInfo> GetUpdateInfos()
+        {
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                GrassCoverErosionOutwardsFailureMechanismSectionsContext, GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResult>(
+                new GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override void Activate()

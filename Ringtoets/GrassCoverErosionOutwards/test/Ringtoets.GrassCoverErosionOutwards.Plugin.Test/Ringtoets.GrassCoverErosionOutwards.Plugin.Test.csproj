@@ -31,6 +31,7 @@
     <Compile Include="ExportInfos\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextConfigurationExportInfoTest.cs" />
     <Compile Include="ExportInfos\GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextWaveConditionsExportInfoTest.cs" />
     <Compile Include="ExportInfos\GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextExportInfoTest.cs" />
+    <Compile Include="FileImporters\GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsPluginTest.cs" />
     <Compile Include="ImportInfos\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="UpdateInfos\GrassCoverErosionOutwardsFailureMechanismSectionsContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsDesignWaterLevelCalculationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsWaveHeightCalculationsViewInfoTest.cs" />
@@ -130,6 +132,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
       <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
