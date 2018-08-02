@@ -246,7 +246,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogValidationMessageAndReturnFalse()
+        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsValidationMessageAndReturnFalse()
         {
             // Setup
             var mockRepository = new MockRepository();

@@ -105,36 +105,6 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_HydraulicBoundaryDatabasePathInvalid_ReturnsFalseAndLogsValidationError()
-        {
-            // Setup 
-            var isValid = false;
-
-            // Call
-            Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
-                                                                                                                   GetValidAssessmentLevel(),
-                                                                                                                   new HydraulicBoundaryDatabase
-                                                                                                                   {
-                                                                                                                       FilePath = string.Empty,
-                                                                                                                       PreprocessorDirectory = validPreprocessorDirectory
-                                                                                                                   },
-                                                                                                                   validNorm,
-                                                                                                                   string.Empty);
-
-            // Assert
-            TestHelper.AssertLogMessages(action, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Fout bij het lezen van bestand '': bestandspad mag niet leeg of ongedefinieerd zijn.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
         public void Validate_InvalidHydraulicBoundaryDatabaseFileLocation_ReturnsFalseAndLogsValidationError()
         {
             // Setup 
@@ -147,6 +117,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    new HydraulicBoundaryDatabase
                                                                                                                    {
                                                                                                                        FilePath = invalidFilePath,
+                                                                                                                       CanUsePreprocessor = true,
                                                                                                                        PreprocessorDirectory = validPreprocessorDirectory
                                                                                                                    },
                                                                                                                    validNorm,
@@ -158,7 +129,8 @@ namespace Ringtoets.Revetment.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual($"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.", msgs[1]);
+                Assert.AreEqual("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. " +
+                                $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
@@ -177,7 +149,9 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    new HydraulicBoundaryDatabase
                                                                                                                    {
-                                                                                                                       FilePath = string.Empty,
+                                                                                                                       FilePath = validFilePath,
+                                                                                                                       CanUsePreprocessor = true,
+                                                                                                                       UsePreprocessor = true,
                                                                                                                        PreprocessorDirectory = invalidPreprocessorDirectory
                                                                                                                    },
                                                                                                                    validNorm,
@@ -209,6 +183,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    new HydraulicBoundaryDatabase
                                                                                                                    {
                                                                                                                        FilePath = dbFilePath,
+                                                                                                                       CanUsePreprocessor = true,
                                                                                                                        PreprocessorDirectory = validPreprocessorDirectory
                                                                                                                    },
                                                                                                                    validNorm,
@@ -220,7 +195,34 @@ namespace Ringtoets.Revetment.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. " +
+                                        "Fout bij het lezen van bestand", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_WithoutImportedHydraulicBoundaryDatabases_LogsValidationMessageAndReturnFalse()
+        {
+            // Setup 
+            var isValid = false;
+
+            // Call
+            Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
+                                                                                                                   GetValidAssessmentLevel(),
+                                                                                                                   new HydraulicBoundaryDatabase(),
+                                                                                                                   validNorm,
+                                                                                                                   string.Empty);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("Er is geen hydraulische randvoorwaardendatabase geïmporteerd.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
@@ -988,6 +990,7 @@ namespace Ringtoets.Revetment.Service.Test
             return new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
+                CanUsePreprocessor = true,
                 PreprocessorDirectory = validPreprocessorDirectory
             };
         }
