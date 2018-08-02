@@ -64,13 +64,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
             Assert.AreEqual(1.0 / 30000, contribution.LowerLimitNorm);
 
-            FailureMechanismContributionItem[] contributionItems = contribution.Distribution.ToArray();
-            Assert.AreEqual(1, contributionItems.Length);
-
-            FailureMechanismContributionItem failureMechanismContributionItem = contributionItems[0];
-            Assert.AreEqual(0, failureMechanismContributionItem.Contribution);
-            Assert.IsInstanceOf<OtherFailureMechanism>(failureMechanismContributionItem.FailureMechanism);
-
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
@@ -114,13 +107,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
             Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
             Assert.AreEqual(1.0 / 30000, contribution.LowerLimitNorm);
-
-            FailureMechanismContributionItem[] contributionItems = contribution.Distribution.ToArray();
-            Assert.AreEqual(1, contributionItems.Length);
-
-            FailureMechanismContributionItem failureMechanismContributionItem = contributionItems[0];
-            Assert.AreEqual(0, failureMechanismContributionItem.Contribution);
-            Assert.IsInstanceOf<OtherFailureMechanism>(failureMechanismContributionItem.FailureMechanism);
 
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Contribution;
@@ -41,9 +40,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(1.0 / 30000, contribution.LowerLimitNorm);
             Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
-
-            FailureMechanismContributionItem otherFailureMechanismContributionItem = contribution.Distribution.Single();
-            Assert.AreEqual(1, otherFailureMechanismContributionItem.Contribution);
         }
 
         [Test]
@@ -76,15 +72,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(1.0 / 30000, contribution.LowerLimitNorm);
             Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
-
-            FailureMechanismContributionItem otherFailureMechanismContributionItem = contribution.Distribution
-                                                                                                 .Single(d => d.FailureMechanism is OtherFailureMechanism);
-            Assert.AreEqual(1, otherFailureMechanismContributionItem.Contribution);
-
-            CollectionAssert.AreEquivalent(failureMechanisms, contribution.Distribution.Except(new[]
-            {
-                otherFailureMechanismContributionItem
-            }).Select(i => i.FailureMechanism));
 
             mockRepository.VerifyAll();
         }
