@@ -204,9 +204,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
                 UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, updateInfos.Length);
+                Assert.AreEqual(3, updateInfos.Length);
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(MacroStabilityInwardsSurfaceLinesContext)));
                 Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(MacroStabilityInwardsStochasticSoilModelCollectionContext)));
+                Assert.AreEqual(1, updateInfos.Count(updateInfo => updateInfo.DataType == typeof(MacroStabilityInwardsFailureMechanismSectionsContext)));
             }
         }
 

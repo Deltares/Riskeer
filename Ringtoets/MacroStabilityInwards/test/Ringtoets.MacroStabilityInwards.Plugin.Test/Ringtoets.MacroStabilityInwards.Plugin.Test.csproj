@@ -39,6 +39,7 @@
     <Compile Include="FileImporter\MacroStabilityInwardsStochasticSoilModelUpdateDataStrategyTest.cs" />
     <Compile Include="FileImporter\MacroStabilityInwardsSurfaceLineReplaceDataStrategyTest.cs" />
     <Compile Include="FileImporter\MacroStabilityInwardsSurfaceLineUpdateDataStrategyTest.cs" />
+    <Compile Include="FileImporter\MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="FileImporter\SurfaceLinesCsvImporterConfigurationFactoryTest.cs" />
     <Compile Include="ImportInfos\MacroStabilityInwardsCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\MacroStabilityInwardsSurfaceLinesContextImportInfoTest.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="TreeNodeInfos\MacroStabilityInwardsStochasticSoilProfileTreeNodeInfoTest.cs" />
     <Compile Include="UpdateInfos\MacroStabilityInwardsSurfaceLinesContextUpdateInfoTest.cs" />
     <Compile Include="UpdateInfos\MacroStabilityInwardsStochasticSoilModelCollectionContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\MacroStabilityInwardsFailureMechanismSectionsContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityInwardsFailureMechanismSectionsProbabilityAssessmentViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityInwardsInputViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityInwardsFailureMechanismResultViewInfoTest.cs" />
@@ -135,6 +137,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
