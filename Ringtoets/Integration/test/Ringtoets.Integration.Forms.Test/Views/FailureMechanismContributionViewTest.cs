@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
@@ -231,7 +230,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(testContribution, contributionCell.Value);
 
                 var probabilitySpaceCell = (DataGridViewTextBoxCell) row.Cells[probabilitySpaceColumnIndex];
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.Distribution.Single(d => d.FailureMechanism == failureMechanism).ProbabilitySpace, probabilitySpaceCell.Value);
+                Assert.AreEqual(100 / (assessmentSection.FailureMechanismContribution.Norm * failureMechanism.Contribution), probabilitySpaceCell.Value);
             }
 
             mocks.VerifyAll();
