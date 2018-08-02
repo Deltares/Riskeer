@@ -204,7 +204,7 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_WithoutImportedHydraulicBoundaryDatabases_LogsValidationMessageAndReturnFalse()
+        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsValidationMessageAndReturnFalse()
         {
             // Setup 
             var isValid = false;

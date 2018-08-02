@@ -100,9 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                                                                  GetValidAssessmentLevel(),
                                                                                                                  new HydraulicBoundaryDatabase
                                                                                                                  {
-                                                                                                                     FilePath = testFilePath,
-                                                                                                                     CanUsePreprocessor = true,
-                                                                                                                     PreprocessorDirectory = validPreprocessorDirectory
+                                                                                                                     FilePath = testFilePath
                                                                                                                  },
                                                                                                                  validNorm);
 
@@ -142,9 +140,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                                                                  GetValidAssessmentLevel(),
                                                                                                                  new HydraulicBoundaryDatabase
                                                                                                                  {
-                                                                                                                     FilePath = invalidFilePath,
-                                                                                                                     CanUsePreprocessor = true,
-                                                                                                                     PreprocessorDirectory = validPreprocessorDirectory
+                                                                                                                     FilePath = invalidFilePath
                                                                                                                  },
                                                                                                                  validNorm);
 
@@ -226,9 +222,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                                                                  GetValidAssessmentLevel(),
                                                                                                                  new HydraulicBoundaryDatabase
                                                                                                                  {
-                                                                                                                     FilePath = testFilePath,
-                                                                                                                     CanUsePreprocessor = true,
-                                                                                                                     PreprocessorDirectory = validPreprocessorDirectory
+                                                                                                                     FilePath = testFilePath
                                                                                                                  },
                                                                                                                  validNorm);
 
@@ -1168,9 +1162,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             return new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath,
-                CanUsePreprocessor = true,
-                PreprocessorDirectory = validPreprocessorDirectory
+                FilePath = validFilePath
             };
         }
 
