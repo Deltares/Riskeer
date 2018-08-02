@@ -320,7 +320,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             const double contribution = 25.0;
-            const double norm = 1.0 / 30000;
 
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
@@ -354,8 +353,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[probabilitySpaceColumnIndex];
                 Assert.AreEqual("1/#,#", probabilitySpaceCell.InheritedStyle.Format);
 
-                string expectedTextValue = new FailureMechanismContributionItem(failureMechanism, norm)
-                                           .ProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
+                double expectedProbabilitySpace = 100 / (assessmentSection.FailureMechanismContribution.Norm * failureMechanism.Contribution);
+                string expectedTextValue =  expectedProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
                 Assert.AreEqual(expectedTextValue, probabilitySpaceCell.FormattedValue);
             }
 

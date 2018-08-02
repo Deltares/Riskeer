@@ -88,7 +88,6 @@
     <Compile Include="Probability\ProbabilityAssessmentInputExtensionsTest.cs" />
     <Compile Include="Probability\ProbabilityAssessmentOutputFactoryTest.cs" />
     <Compile Include="Probability\ProbabilityAssessmentOutputTest.cs" />
-    <Compile Include="Contribution\FailureMechanismContributionItemTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionTest.cs" />
     <Compile Include="Contribution\OtherFailureMechanismTest.cs" />
     <Compile Include="FailureMechanism\FailureMechanismBaseTest.cs" />
