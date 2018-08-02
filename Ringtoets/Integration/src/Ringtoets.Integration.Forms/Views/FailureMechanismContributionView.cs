@@ -30,7 +30,6 @@ using Core.Common.Gui.Commands;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -38,9 +37,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// View for the <see cref="IAssessmentSection.FailureMechanismContribution"/>, from which the <see cref="FailureMechanismContribution.Norm"/>
-    /// can be updated and the <see cref="FailureMechanismContributionItem.Contribution"/>
-    /// and <see cref="FailureMechanismContributionItem.ProbabilitySpace"/> can be seen in a grid.
+    /// View for the <see cref="IAssessmentSection.FailureMechanismContribution"/>.
     /// </summary>
     public partial class FailureMechanismContributionView : UserControl, IView
     {

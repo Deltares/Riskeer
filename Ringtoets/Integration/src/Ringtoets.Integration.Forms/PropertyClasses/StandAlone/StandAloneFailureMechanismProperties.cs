@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
             get
             {
                 return string.Format(Resources.FailureMechanismProperties_Contribution_Other_Percentage_0,
-                    assessmentSection.GetContributingFailureMechanisms().Single(fm => fm is OtherFailureMechanism).Contribution);
+                                     assessmentSection.GetContributingFailureMechanisms().Single(fm => fm is OtherFailureMechanism).Contribution);
             }
         }
 

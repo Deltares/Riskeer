@@ -132,9 +132,7 @@ namespace Ringtoets.Integration.Data
             technicalInnovation = new TechnicalInnovationFailureMechanism();
             OtherFailureMechanism = new OtherFailureMechanism();
 
-            const int otherContribution = 30;
-            FailureMechanismContribution = new FailureMechanismContribution(lowerLimitNorm,
-                                                                            signalingNorm);
+            FailureMechanismContribution = new FailureMechanismContribution(lowerLimitNorm, signalingNorm);
             ChangeComposition(composition);
         }
 

@@ -354,7 +354,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual("1/#,#", probabilitySpaceCell.InheritedStyle.Format);
 
                 double expectedProbabilitySpace = 100 / (assessmentSection.FailureMechanismContribution.Norm * failureMechanism.Contribution);
-                string expectedTextValue =  expectedProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
+                string expectedTextValue = expectedProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
                 Assert.AreEqual(expectedTextValue, probabilitySpaceCell.FormattedValue);
             }
 
@@ -714,10 +714,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 failureMechanisms.Add(failureMechanism2);
                 assessmentSection.NotifyObservers();
 
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 var invalidated = false;
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
-                
+
                 // Precondition
                 Assert.IsFalse(invalidated);
 
