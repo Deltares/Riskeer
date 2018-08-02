@@ -123,7 +123,30 @@ namespace Ringtoets.Common.Forms.Test.UpdateInfos
         }
 
         [Test]
-        public void CreateFailureMechanismSectionsUpdateInfo_WithoutSetSourcePath_ReturnsIsEnabledFalse()
+        public void CreateFailureMechanismSectionsUpdateInfo_WithSourcePath_ReturnsSourcePath()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mocks.ReplayAll();
+
+            // Call
+            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
+
+            // Assert
+            var testFailureMechanism = new TestFailureMechanism();
+            testFailureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), "path/to/sections");
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(testFailureMechanism, assessmentSection);
+            Assert.AreEqual(testFailureMechanism.FailureMechanismSectionSourcePath, 
+                            updateInfo.CurrentPath(failureMechanismSectionsContext));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionsUpdateInfo_WithoutSourcePath_ReturnsIsEnabledFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -143,7 +166,7 @@ namespace Ringtoets.Common.Forms.Test.UpdateInfos
         }
 
         [Test]
-        public void CreateFailureMechanismSectionsUpdateInfo_WithoutSetSourcePath_ReturnsNullPath()
+        public void CreateFailureMechanismSectionsUpdateInfo_WithoutSourcePath_ReturnsNullPath()
         {
             // Setup
             var mocks = new MockRepository();

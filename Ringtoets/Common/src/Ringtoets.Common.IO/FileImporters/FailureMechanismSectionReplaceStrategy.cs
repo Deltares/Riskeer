@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 failureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
                 throw new UpdateDataException(e.Message, e);
             }

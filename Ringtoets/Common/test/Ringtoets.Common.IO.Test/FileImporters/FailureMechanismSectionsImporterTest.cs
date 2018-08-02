@@ -125,7 +125,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         [TestCase("traject_1-1.shp", "traject_1-1_vakken.shp", 62)]
         [TestCase("traject_19-1.shp", "traject_19-1_vakken.shp", 17)]
-        public void Import_ValidFileCorrespondingToReferenceLineAndNoSectionImportedYet_CallsUpdateStrategy(string referenceLineFileName, string sectionsFileName, int sectionCount)
+        public void Import_ValidFileCorrespondingToReferenceLine_CallsUpdateStrategy(string referenceLineFileName, string sectionsFileName, int sectionCount)
         {
             // Setup
             var mocks = new MockRepository();
@@ -160,7 +160,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [TestCase("StartSectionReversedCoordinates")]
         [TestCase("EndSectionReversedCoordinates")]
         [TestCase("InBetweenSectionReversedCoordinates")]
-        public void Import_ValidArtificialFileWithReversedSectionCoordinatesImperfectlyCorrespondingToReferenceLineAndNoSectionImportedYet_CallsUpdateStrategy(
+        public void Import_ValidArtificialFileWithReversedSectionCoordinatesImperfectlyCorrespondingToReferenceLine_CallsUpdateStrategy(
             string affectedSection)
         {
             // Setup

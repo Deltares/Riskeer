@@ -162,11 +162,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 return new FailureMechanismSectionReader(FilePath);
             }
-            catch (CriticalFileReadException exception)
-            {
-                LogCriticalError(exception.Message);
-            }
-            catch (ArgumentException exception)
+            catch (Exception exception) when (exception is CriticalFileReadException || exception is ArgumentException)
             {
                 LogCriticalError(exception.Message);
             }

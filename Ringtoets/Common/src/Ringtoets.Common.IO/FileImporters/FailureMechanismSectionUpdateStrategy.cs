@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionUpdateStrategy{T}"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to update the secitons for.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to update the sections for.</param>
         /// <param name="sectionResultUpdateStrategy">The <see cref="IFailureMechanismSectionResultUpdateStrategy{T}"/> to use when updating
         /// the section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 failureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
                 throw new UpdateDataException(e.Message, e);
             }

@@ -27,7 +27,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -133,7 +132,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             string sourcePath = TestHelper.GetScratchPadPath();
 
-            var failureMechanism = new TestUpdateFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
             FailureMechanismSection failureMechanismSection1 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(0.0, 0.0),
@@ -150,11 +149,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 failureMechanismSection2
             }, sourcePath);
 
-            IObservableEnumerable<TestFailureMechanismSectionResult> failureMechanismSectionResults = failureMechanism.SectionResults;
-            TestFailureMechanismSectionResult oldSectionResult = failureMechanismSectionResults.First();
+            IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults = failureMechanism.SectionResults;
+            FailureMechanismSectionResult oldSectionResult = failureMechanismSectionResults.First();
 
             var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             FailureMechanismSection[] sections =
             {
@@ -189,7 +188,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Setup
             string sourcePath = TestHelper.GetScratchPadPath();
 
-            var failureMechanism = new TestUpdateFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
             FailureMechanismSection failureMechanismSection1 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(0.0, 0.0),
@@ -202,7 +201,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             });
 
             var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             FailureMechanismSection[] sections =
             {
@@ -227,14 +226,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             const string oldSourcePath = "old/path";
             string sourcePath = TestHelper.GetScratchPadPath();
 
-            var failureMechanism = new TestUpdateFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
             failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, oldSourcePath);
 
             var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(
                 failureMechanism, sectionResultUpdateStrategy);
 
             // Precondition
@@ -251,43 +250,13 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.IsFalse(sectionResultUpdateStrategy.Updated);
         }
 
-        private class TestUpdateFailureMechanism : FailureMechanismBase, IHasSectionResults<TestFailureMechanismSectionResult>
+        private class TestUpdateFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>
         {
-            private readonly ObservableList<TestFailureMechanismSectionResult> sectionResults;
+            public bool Updated { get; private set; }
+            public FailureMechanismSectionResult Origin { get; private set; }
+            public FailureMechanismSectionResult Target { get; private set; }
 
-            public TestUpdateFailureMechanism() : base("Test", "TST", 2)
-            {
-                sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
-            }
-
-            public override IEnumerable<ICalculation> Calculations { get; }
-
-            public IObservableEnumerable<TestFailureMechanismSectionResult> SectionResults
-            {
-                get
-                {
-                    return sectionResults;
-                }
-            }
-
-            protected override void AddSectionResult(FailureMechanismSection section)
-            {
-                sectionResults.Add(new TestFailureMechanismSectionResult(section));
-            }
-
-            protected override void ClearSectionResults()
-            {
-                sectionResults.Clear();
-            }
-        }
-
-        private class TestUpdateFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>
-        {
-            public bool Updated { get; set; }
-            public TestFailureMechanismSectionResult Origin { get; set; }
-            public TestFailureMechanismSectionResult Target { get; set; }
-
-            public void UpdateSectionResult(TestFailureMechanismSectionResult origin, TestFailureMechanismSectionResult target)
+            public void UpdateSectionResult(FailureMechanismSectionResult origin, FailureMechanismSectionResult target)
             {
                 Updated = true;
                 Origin = origin;
