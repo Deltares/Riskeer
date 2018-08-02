@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Gui;
@@ -69,33 +68,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void ViewDataType_Always_ReturnsViewDataType()
+        public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Call
-            Type viewDataType = info.ViewDataType;
-
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismContribution), viewDataType);
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            Type viewType = info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismContributionView), viewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            Type dataType = info.DataType;
-
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismContributionContext), dataType);
+            Assert.AreEqual(typeof(FailureMechanismContributionContext), info.DataType);
+            Assert.AreEqual(typeof(FailureMechanismContribution), info.ViewDataType);
         }
 
         [Test]
@@ -109,7 +86,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_Returns_FailureMechanismContribution()
+        public void GetViewData_Always_ReturnsFailureMechanismContribution()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
@@ -130,17 +107,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewCommands = mocks.Stub<IViewCommands>();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            assessmentSection.Stub(section => section.Composition)
-                             .Return(AssessmentSectionComposition.Dike);
-
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands)
-            {
-                Data = assessmentSection.FailureMechanismContribution,
-                AssessmentSection = assessmentSection
-            })
+            var assessmentSection = new AssessmentSectionStub();
+
+            using (var view = new FailureMechanismContributionView(assessmentSection, viewCommands))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -157,21 +128,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewCommands = mocks.Stub<IViewCommands>();
-
-            IAssessmentSection assessmentSection1 = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            assessmentSection1.Stub(section => section.Composition)
-                              .Return(AssessmentSectionComposition.DikeAndDune);
-
-            IAssessmentSection assessmentSection2 = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            assessmentSection2.Stub(section => section.Composition)
-                              .Return(AssessmentSectionComposition.DikeAndDune);
             mocks.ReplayAll();
 
-            using (var view = new FailureMechanismContributionView(viewCommands)
-            {
-                Data = assessmentSection1.FailureMechanismContribution,
-                AssessmentSection = assessmentSection1
-            })
+            var assessmentSection1 = new AssessmentSectionStub();
+            var assessmentSection2 = new AssessmentSectionStub();
+
+            using (var view = new FailureMechanismContributionView(assessmentSection1, viewCommands))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection2);
@@ -184,57 +146,25 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewWithoutData_ReturnsFalse()
+        public void CreateInstance_WithContext_SetsExpectedViewProperties()
         {
             // Setup
-            var viewCommands = mocks.Stub<IViewCommands>();
-
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            mocks.ReplayAll();
-
-            using (var view = new FailureMechanismContributionView(viewCommands))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, assessmentSection);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AfterCreate_WithGuiSet_SetsAssessmentSection()
-        {
-            // Setup
-            var viewCommands = mocks.Stub<IViewCommands>();
-
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
+            gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+            plugin.Gui = gui;
 
             var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
 
-            using (var view = new FailureMechanismContributionView(viewCommands))
-            using (var ringtoetsPlugin = new RingtoetsPlugin())
-            {
-                info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismContributionView));
-                ringtoetsPlugin.Gui = gui;
+            // Call
+            var view = (FailureMechanismContributionView) info.CreateInstance(context);
 
-                // Call
-                info.AfterCreate(view, context);
-
-                // Assert
-                Assert.AreSame(view.AssessmentSection, assessmentSection);
-            }
-
-            mocks.VerifyAll();
+            // Assert
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
     }
 }

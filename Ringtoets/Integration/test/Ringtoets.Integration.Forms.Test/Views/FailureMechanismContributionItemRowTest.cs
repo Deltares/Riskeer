@@ -20,107 +20,227 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Forms.Views;
-using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
     public class FailureMechanismContributionItemRowTest
     {
-        [Test]
-        public void Constructor_WithoutFailureMechanismContributionItem_ThrowsArgumentNullException()
+        private static FailureMechanismContributionItemRow.ConstructionProperties ConstructionProperties
         {
-            // setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new FailureMechanismContributionItemRow(null, viewCommands);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("contributionItem", paramName);
-            mocks.VerifyAll();
+            get
+            {
+                return new FailureMechanismContributionItemRow.ConstructionProperties
+                {
+                    IsRelevantColumnIndex = 0,
+                    NameColumnIndex = 1,
+                    CodeColumnIndex = 2,
+                    ContributionColumnIndex = 3,
+                    ProbabilitySpaceColumnIndex = 4
+                };
+            }
         }
 
         [Test]
-        public void Constructor_WithoutViewCommands_ThrowsArgumentNullException()
-        {
-            // Setup
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            var contributionItem = new FailureMechanismContributionItem(pipingFailureMechanism, 1000);
-
-            // Call
-            TestDelegate call = () => new FailureMechanismContributionItemRow(contributionItem, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreSame("viewCommands", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithFailureMechanismContributionItem_PropertiesFromFailureMechanismContributionItem()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            const double norm = 0.1;
-            var contributionItem = new FailureMechanismContributionItem(pipingFailureMechanism, norm);
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            var row = new FailureMechanismContributionItemRow(contributionItem, viewCommands);
+            TestDelegate call = () => new FailureMechanismContributionItemRow(null, failureMechanismContribution, viewCommands, ConstructionProperties);
 
             // Assert
-            Assert.AreEqual(contributionItem.Contribution, row.Contribution);
-            Assert.AreEqual(contributionItem.Assessment, row.Assessment);
-            Assert.AreEqual(contributionItem.AssessmentCode, row.Code);
-            Assert.AreEqual(contributionItem.IsRelevant, row.IsRelevant);
-            Assert.AreEqual(contributionItem.ProbabilitySpace, row.ProbabilitySpace);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismContributionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismContributionItemRow(failureMechanism, null, viewCommands, ConstructionProperties);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismContribution", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ViewCommandsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, null, ConstructionProperties);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("viewCommands", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
+            // Call
+            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands, ConstructionProperties);
+
+            // Assert
+            Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
+            Assert.AreEqual(failureMechanism.Contribution, row.Contribution);
+            Assert.AreEqual(failureMechanism.Name, row.Name);
+            Assert.AreEqual(failureMechanism.Code, row.Code);
+            Assert.AreEqual(failureMechanism.IsRelevant, row.IsRelevant);
+            Assert.AreEqual(100.0 / (failureMechanismContribution.Norm * failureMechanism.Contribution), row.ProbabilitySpace);
+
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(5, columnStateDefinitions.Count);
+
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.IsRelevantColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.NameColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.CodeColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ContributionColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ProbabilitySpaceColumnIndex);
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_FailureMechanismIsRelevantSet_ExpectedColumnStates(bool isRelevant)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            failureMechanism.IsRelevant = isRelevant;
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
+            // Call
+            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands, ConstructionProperties);
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.IsRelevantColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.NameColumnIndex], isRelevant, true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.CodeColumnIndex], isRelevant, true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ContributionColumnIndex], isRelevant, true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ProbabilitySpaceColumnIndex], isRelevant, true);
         }
 
         [Test]
         [TestCase(false)]
         [TestCase(true)]
-        public void IsRelevant_AlwaysOnChange_NotifyFailureMechanismObserversAndCalculationPropertyChanged(bool newValue)
+        public void IsRelevant_Always_UpdatesDataAndFiresEventsAndNotifiesObservers(bool newValue)
         {
             // Setup
-            var pipingFailureMechanism = new PipingFailureMechanism();
-
             var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            if (!newValue)
-            {
-                viewCommands.Expect(c => c.RemoveAllViewsForItem(pipingFailureMechanism));
-            }
+            var viewCommands = mocks.Stub<IViewCommands>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            pipingFailureMechanism.Attach(observer);
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.Attach(observer);
 
-            const double norm = 0.1;
-            var contributionItem = new FailureMechanismContributionItem(pipingFailureMechanism, norm);
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
-            var row = new FailureMechanismContributionItemRow(contributionItem, viewCommands);
+            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands, ConstructionProperties);
+
+            var rowUpdated = false;
+            row.RowUpdated += (sender, args) => rowUpdated = true;
+
+            var rowUpdateDone = false;
+            row.RowUpdateDone += (sender, args) => rowUpdateDone = true;
 
             // Call
             row.IsRelevant = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, contributionItem.IsRelevant);
+            Assert.AreEqual(newValue, failureMechanism.IsRelevant);
+            Assert.IsTrue(rowUpdated);
+            Assert.IsTrue(rowUpdateDone);
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void IsRelevant_SetToFalse_CloseViewsForFailureMechanism()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(c => c.RemoveAllViewsForItem(failureMechanism));
+            mocks.ReplayAll();
+
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
+            var row = new FailureMechanismContributionItemRow(failureMechanism, failureMechanismContribution, viewCommands, ConstructionProperties);
+
+            // Call
+            row.IsRelevant = false;
+
+            // Assert
             mocks.VerifyAll();
         }
     }

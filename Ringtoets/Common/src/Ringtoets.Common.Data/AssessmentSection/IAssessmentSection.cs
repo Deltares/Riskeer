@@ -120,6 +120,12 @@ namespace Ringtoets.Common.Data.AssessmentSection
         IEnumerable<IFailureMechanism> GetFailureMechanisms();
 
         /// <summary>
+        /// Gets the contributing failure mechanisms of the assessment section.
+        /// </summary>
+        /// <returns>A collection of failure mechanisms.</returns>
+        IEnumerable<IFailureMechanism> GetContributingFailureMechanisms();
+
+        /// <summary>
         /// Changes <see cref="Composition"/> and reconfigures <see cref="FailureMechanismContribution"/>
         /// and the failure mechanisms returned by <see cref="GetFailureMechanisms"/>.
         /// </summary>

@@ -20,105 +20,232 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="FailureMechanismContributionItem"/>.
+    /// This class represents a row of <see cref="IFailureMechanism"/>.
     /// </summary>
-    internal class FailureMechanismContributionItemRow
+    internal class FailureMechanismContributionItemRow : IHasColumnStateDefinitions
     {
-        private readonly FailureMechanismContributionItem contributionItem;
         private readonly IViewCommands viewCommands;
+        private readonly IFailureMechanism failureMechanism;
+        private readonly FailureMechanismContribution failureMechanismContribution;
+
+        private readonly int isRelevantColumnIndex;
+        private readonly int nameColumnIndex;
+        private readonly int codeColumnIndex;
+        private readonly int contributionColumnIndex;
+        private readonly int probabilitySpaceColumnIndex;
+
+        /// <summary>
+        /// Fired when the row has started updating.
+        /// </summary>
+        public EventHandler RowUpdated;
+
+        /// <summary>
+        /// Fired when the row has finished updating.
+        /// </summary>
+        public EventHandler RowUpdateDone;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionItemRow"/>.
         /// </summary>
-        /// <param name="contributionItem">The <see cref="FailureMechanismContributionItem"/> this row contains.</param>
-        /// <param name="viewCommands">Class responsible for exposing high level <see cref="IView"/>
+        /// <param name="failureMechanism">The failure mechanism this row contains.</param>
+        /// <param name="failureMechanismContribution">The failure mechanism contribution to get the norm from.</param>
+        /// <param name="viewCommands">>Class responsible for exposing high level <see cref="IView"/>
         /// related commands.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input arguments is <c>null</c>.</exception>
-        internal FailureMechanismContributionItemRow(FailureMechanismContributionItem contributionItem, IViewCommands viewCommands)
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="FailureMechanismContributionItemRow"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        internal FailureMechanismContributionItemRow(IFailureMechanism failureMechanism, FailureMechanismContribution failureMechanismContribution,
+                                                     IViewCommands viewCommands, ConstructionProperties constructionProperties)
         {
-            if (contributionItem == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(contributionItem));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
+
+            if (failureMechanismContribution == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismContribution));
+            }
+
             if (viewCommands == null)
             {
                 throw new ArgumentNullException(nameof(viewCommands));
             }
 
-            this.contributionItem = contributionItem;
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
+            }
+
+            this.failureMechanism = failureMechanism;
+            this.failureMechanismContribution = failureMechanismContribution;
             this.viewCommands = viewCommands;
+
+            isRelevantColumnIndex = constructionProperties.IsRelevantColumnIndex;
+            nameColumnIndex = constructionProperties.NameColumnIndex;
+            codeColumnIndex = constructionProperties.CodeColumnIndex;
+            contributionColumnIndex = constructionProperties.ContributionColumnIndex;
+            probabilitySpaceColumnIndex = constructionProperties.ProbabilitySpaceColumnIndex;
+
+            CreateColumnStateDefinitions();
+
+            Update();
         }
 
         /// <summary>
-        /// Gets <see cref="FailureMechanismContributionItem.Assessment"/>.
+        /// Gets the name of the failure mechanism.
         /// </summary>
-        public string Assessment
+        public string Name
         {
             get
             {
-                return contributionItem.Assessment;
+                return failureMechanism.Name;
             }
         }
 
         /// <summary>
-        /// Gets <see cref="FailureMechanismContributionItem.AssessmentCode"/>.
+        /// Gets the code of the failure mechanism.
         /// </summary>
         public string Code
         {
             get
             {
-                return contributionItem.AssessmentCode;
+                return failureMechanism.Code;
             }
         }
 
         /// <summary>
-        /// Gets <see cref="FailureMechanismContributionItem.Contribution"/>.
+        /// Gets the contribution of the failure mechanism.
         /// </summary>
         public double Contribution
         {
             get
             {
-                return contributionItem.Contribution;
+                return failureMechanism.Contribution;
             }
         }
 
         /// <summary>
-        /// Gets <see cref="FailureMechanismContributionItem.ProbabilitySpace"/>.
+        /// Gets the probability space of the failure mechanism.
         /// </summary>
         public double ProbabilitySpace
         {
             get
             {
-                return contributionItem.ProbabilitySpace;
+                return 100 / (failureMechanismContribution.Norm * failureMechanism.Contribution);
             }
         }
 
         /// <summary>
-        /// Gets or sets <see cref="FailureMechanismContributionItem.IsRelevant"/>.
+        /// Gets or sets whether the failure mechanism is relevant.
         /// </summary>
         public bool IsRelevant
         {
             get
             {
-                return contributionItem.IsRelevant;
+                return failureMechanism.IsRelevant;
             }
             set
             {
                 if (!value)
                 {
-                    viewCommands.RemoveAllViewsForItem(contributionItem.FailureMechanism);
+                    viewCommands.RemoveAllViewsForItem(failureMechanism);
                 }
 
-                contributionItem.IsRelevant = value;
-                contributionItem.NotifyFailureMechanismObservers();
+                failureMechanism.IsRelevant = value;
+
+                Update();
+
+                RowUpdated?.Invoke(this, EventArgs.Empty);
+                failureMechanism.NotifyObservers();
+                RowUpdateDone?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; private set; }
+
+        public void Update()
+        {
+            if (!IsRelevant)
+            {
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[nameColumnIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[codeColumnIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[contributionColumnIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[probabilitySpaceColumnIndex]);
+            }
+            else
+            {
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[nameColumnIndex], true);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[codeColumnIndex], true);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[contributionColumnIndex], true);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[probabilitySpaceColumnIndex], true);
+            }
+        }
+
+        private void CreateColumnStateDefinitions()
+        {
+            ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>
+            {
+                {
+                    isRelevantColumnIndex, failureMechanism is OtherFailureMechanism
+                                               ? DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                                               : new DataGridViewColumnStateDefinition()
+                },
+                {
+                    nameColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                },
+                {
+                    codeColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                },
+                {
+                    contributionColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                },
+                {
+                    probabilitySpaceColumnIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition()
+                }
+            };
+        }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="FailureMechanismContributionItemRow"/>.
+        /// </summary>
+        internal class ConstructionProperties
+        {
+            /// <summary>
+            /// Gets or sets the relevant column index.
+            /// </summary>
+            public int IsRelevantColumnIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the name column index.
+            /// </summary>
+            public int NameColumnIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the code column index.
+            /// </summary>
+            public int CodeColumnIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the contribution column index.
+            /// </summary>
+            public int ContributionColumnIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the probability space column index.
+            /// </summary>
+            public int ProbabilitySpaceColumnIndex { internal get; set; }
         }
     }
 }

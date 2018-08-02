@@ -19,12 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Linq;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Data.TestUtil.Test
 {
@@ -32,7 +28,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class FailureMechanismContributionTestFactoryTest
     {
         [Test]
-        public void CreateFailureMechanismContribution_ReturnsExpectedFailureMechanismContribution()
+        public void CreateFailureMechanismContribution_Always_ReturnsExpectedFailureMechanismContribution()
         {
             // Call
             FailureMechanismContribution contribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
@@ -41,52 +37,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(1.0 / 30000, contribution.LowerLimitNorm);
             Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
-
-            FailureMechanismContributionItem otherFailureMechanismContributionItem = contribution.Distribution.Single();
-            Assert.AreEqual(1, otherFailureMechanismContributionItem.Contribution);
-        }
-
-        [Test]
-        public void CreateFailureMechanismContribution_FailureMechanismsNull_ReturnsExpectedFailureMechanismContribution()
-        {
-            // Call
-            TestDelegate test = () => FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
-        public void CreateFailureMechanismContribution_WithFailureMechanism_ReturnsExpectedFailureMechanismContribution()
-        {
-            // Call
-            var mockRepository = new MockRepository();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
-            var failureMechanism2 = mockRepository.Stub<IFailureMechanism>();
-            mockRepository.ReplayAll();
-
-            var failureMechanisms = new[]
-            {
-                failureMechanism,
-                failureMechanism2
-            };
-            FailureMechanismContribution contribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(failureMechanisms);
-
-            // Assert
-            Assert.AreEqual(1.0 / 30000, contribution.LowerLimitNorm);
-            Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
-            Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
-
-            FailureMechanismContributionItem otherFailureMechanismContributionItem = contribution.Distribution
-                                                                                                 .Single(d => d.FailureMechanism is OtherFailureMechanism);
-            Assert.AreEqual(1, otherFailureMechanismContributionItem.Contribution);
-
-            CollectionAssert.AreEquivalent(failureMechanisms, contribution.Distribution.Except(new[]
-            {
-                otherFailureMechanismContributionItem
-            }).Select(i => i.FailureMechanism));
-
-            mockRepository.VerifyAll();
         }
     }
 }

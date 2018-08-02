@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Contribution
@@ -37,30 +34,14 @@ namespace Ringtoets.Common.Data.Contribution
     {
         private static readonly Range<double> normValidityRange = new Range<double>(1.0 / 1000000, 1.0 / 10);
 
-        private readonly List<FailureMechanismContributionItem> distribution = new List<FailureMechanismContributionItem>();
-        private readonly OtherFailureMechanism otherFailureMechanism = new OtherFailureMechanism();
         private double lowerLimitNorm;
         private double signalingNorm;
-        private NormType normativeNorm;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismContribution"/>. Values are taken from the 
-        /// <paramref name="failureMechanisms"/> and one item is added with a value of <paramref name="otherContribution"/>
-        /// which represents the contribution of any other failure mechanisms.
+        /// Creates a new instance of <see cref="FailureMechanismContribution"/>
         /// </summary>
-        /// <param name="failureMechanisms">The <see cref="IEnumerable{T}"/> of <see cref="IFailureMechanism"/> 
-        /// on which to base the <see cref="FailureMechanismContribution"/>.</param>
-        /// <param name="otherContribution">The collective contribution for other failure mechanisms.</param>
         /// <param name="lowerLimitNorm">The lower limit norm.</param>
         /// <param name="signalingNorm">The signaling norm.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item>any of the <paramref name="failureMechanisms"/> has a value for <see cref="IFailureMechanism.Contribution"/> 
-        /// not in the interval [0, 100].</item>
-        /// <item>the value of <paramref name="otherContribution"/> is not in the interval [0, 100]</item>
-        /// </list>
-        /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
@@ -68,18 +49,13 @@ namespace Ringtoets.Common.Data.Contribution
         /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
         /// </list>
         /// </exception>
-        public FailureMechanismContribution(IEnumerable<IFailureMechanism> failureMechanisms,
-                                            double otherContribution,
-                                            double lowerLimitNorm,
-                                            double signalingNorm)
+        public FailureMechanismContribution(double lowerLimitNorm, double signalingNorm)
         {
             ValidateNorms(signalingNorm, lowerLimitNorm);
 
             this.lowerLimitNorm = lowerLimitNorm;
             this.signalingNorm = signalingNorm;
             NormativeNorm = NormType.LowerLimit;
-
-            UpdateContributions(failureMechanisms, otherContribution);
         }
 
         /// <summary>
@@ -101,7 +77,6 @@ namespace Ringtoets.Common.Data.Contribution
                 ValidateNorms(value, lowerLimitNorm);
 
                 signalingNorm = value;
-                SetDistribution();
             }
         }
 
@@ -131,7 +106,6 @@ namespace Ringtoets.Common.Data.Contribution
                 }
 
                 lowerLimitNorm = value;
-                SetDistribution();
             }
         }
 
@@ -144,7 +118,7 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return normativeNorm == NormType.LowerLimit
+                return NormativeNorm == NormType.LowerLimit
                            ? LowerLimitNorm
                            : SignalingNorm;
             }
@@ -153,61 +127,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// <summary>
         /// Gets or sets the norm type which has been defined on the assessment section.
         /// </summary>
-        public NormType NormativeNorm
-        {
-            get
-            {
-                return normativeNorm;
-            }
-            set
-            {
-                normativeNorm = value;
-                SetDistribution();
-            }
-        }
-
-        /// <summary>
-        /// Gets the distribution of failure mechanism contributions.
-        /// </summary>
-        public IEnumerable<FailureMechanismContributionItem> Distribution
-        {
-            get
-            {
-                return distribution;
-            }
-        }
-
-        /// <summary>
-        /// Fully updates the contents of <see cref="Distribution"/> for a new set of failure
-        /// mechanisms and the remainder contribution.
-        /// </summary>
-        /// <param name="newFailureMechanisms">The new failure mechanisms.</param>
-        /// <param name="otherContribution">The collective contribution for other failure mechanisms.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="newFailureMechanisms"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item>any of the <paramref name="newFailureMechanisms"/> has a value for 
-        /// <see cref="IFailureMechanism.Contribution"/> not in the interval [0, 100].</item>
-        /// <item>the value of <paramref name="otherContribution"/> is not in the interval [0, 100]</item>
-        /// </list>
-        /// </exception>
-        public void UpdateContributions(IEnumerable<IFailureMechanism> newFailureMechanisms, double otherContribution)
-        {
-            if (newFailureMechanisms == null)
-            {
-                throw new ArgumentNullException(nameof(newFailureMechanisms),
-                                                Resources.FailureMechanismContribution_UpdateContributions_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection);
-            }
-
-            distribution.Clear();
-            newFailureMechanisms.ForEachElementDo(AddContributionItem);
-            AddOtherContributionItem(otherContribution);
-        }
-
-        private void SetDistribution()
-        {
-            distribution.ForEachElementDo(d => d.Norm = Norm);
-        }
+        public NormType NormativeNorm { get; set; }
 
         /// <summary>
         /// Validates the norm value;
@@ -249,29 +169,6 @@ namespace Ringtoets.Common.Data.Contribution
                                                       signalingNormValue,
                                                       Resources.FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm);
             }
-        }
-
-        /// <summary>
-        /// Adds a <see cref="FailureMechanismContributionItem"/> based on <paramref name="failureMechanism"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to add a <see cref="FailureMechanismContributionItem"/> for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        private void AddContributionItem(IFailureMechanism failureMechanism)
-        {
-            distribution.Add(new FailureMechanismContributionItem(failureMechanism, Norm));
-        }
-
-        /// <summary>
-        /// Adds a <see cref="FailureMechanismContributionItem"/> representing all other failure mechanisms not in the failure mechanism
-        /// list supported within Ringtoets.
-        /// </summary>
-        /// <param name="otherContribution">The contribution to set for other failure mechanisms.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="otherContribution"/> is not in the interval [0, 100]</exception>
-        private void AddOtherContributionItem(double otherContribution)
-        {
-            otherFailureMechanism.Contribution = otherContribution;
-            var otherContributionItem = new FailureMechanismContributionItem(otherFailureMechanism, Norm, true);
-            distribution.Add(otherContributionItem);
         }
     }
 }

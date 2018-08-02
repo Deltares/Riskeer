@@ -39,23 +39,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <returns>The created <see cref="FailureMechanismContribution"/>.</returns>
         public static FailureMechanismContribution CreateFailureMechanismContribution()
         {
-            return new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(),
-                                                    1,
-                                                    1.0 / 30000,
-                                                    1.0 / 30000);
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismContribution"/>.
-        /// </summary>
-        /// <param name="failureMechanisms">The failure mechanisms on which to base the <see cref="FailureMechanismContribution"/>.</param>
-        /// <returns>The created <see cref="FailureMechanismContribution"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
-        public static FailureMechanismContribution CreateFailureMechanismContribution(IEnumerable<IFailureMechanism> failureMechanisms)
-        {
-            return new FailureMechanismContribution(failureMechanisms,
-                                                    1,
-                                                    1.0 / 30000,
+            return new FailureMechanismContribution(1.0 / 30000,
                                                     1.0 / 30000);
         }
     }

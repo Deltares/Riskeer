@@ -379,10 +379,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     failureMechanism
                 });
                 assessmentSection.Stub(a => a.FailureMechanismContribution)
-                                 .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
-                                 {
-                                     failureMechanism
-                                 }));
+                                 .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
 
                 var context = new DuneLocationCalculationsContext(duneLocationCalculations,
                                                                   failureMechanism,
@@ -482,10 +479,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 failureMechanism
             });
             assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
-                             {
-                                 failureMechanism
-                             }));
+                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
 
             var context = new DuneLocationCalculationsContext(duneLocationCalculations,
                                                               failureMechanism,
@@ -563,10 +557,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 failureMechanism
             });
             assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
-                             {
-                                 failureMechanism
-                             }));
+                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
 
             var context = new DuneLocationCalculationsContext(duneLocationCalculations,
                                                               failureMechanism,
@@ -643,10 +634,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 failureMechanism
             });
             assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
-                             {
-                                 failureMechanism
-                             }));
+                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
 
             var context = new DuneLocationCalculationsContext(duneLocationCalculations,
                                                               failureMechanism,

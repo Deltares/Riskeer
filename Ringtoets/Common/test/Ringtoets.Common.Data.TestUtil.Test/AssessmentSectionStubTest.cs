@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class AssessmentSectionStubTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithoutParameters_ExpectedValues()
         {
             // Call
             var assessmentSection = new AssessmentSectionStub();
@@ -64,12 +64,49 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
             Assert.AreEqual(1.0 / 30000, contribution.LowerLimitNorm);
 
-            FailureMechanismContributionItem[] contributionItems = contribution.Distribution.ToArray();
-            Assert.AreEqual(1, contributionItems.Length);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.GetContributingFailureMechanisms());
+        }
 
-            FailureMechanismContributionItem failureMechanismContributionItem = contributionItems[0];
-            Assert.AreEqual(0, failureMechanismContributionItem.Contribution);
-            Assert.IsInstanceOf<OtherFailureMechanism>(failureMechanismContributionItem.FailureMechanism);
+        [Test]
+        public void Constructor_WithContributingFailureMechanisms_ExpectedValues()
+        {
+            // Setup
+            IEnumerable<IFailureMechanism> failureMechanisms = Enumerable.Empty<IFailureMechanism>();
+
+            // Call
+            var assessmentSection = new AssessmentSectionStub(failureMechanisms);
+
+            // Assert
+            Assert.IsInstanceOf<IAssessmentSection>(assessmentSection);
+            Assert.IsInstanceOf<Observable>(assessmentSection);
+
+            Assert.IsNull(assessmentSection.Id);
+            Assert.IsNull(assessmentSection.Name);
+            Assert.IsNull(assessmentSection.Comments);
+            Assert.AreEqual(0, Convert.ToInt32(assessmentSection.Composition));
+            Assert.IsNull(assessmentSection.ReferenceLine);
+            Assert.IsNotNull(assessmentSection.BackgroundData);
+            Assert.AreEqual("Background data", assessmentSection.BackgroundData.Name);
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            Assert.IsNotNull(hydraulicBoundaryDatabase);
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNull(hydraulicBoundaryDatabase.Version);
+            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
+
+            FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+            Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
+            Assert.AreEqual(1.0 / 30000, contribution.SignalingNorm);
+            Assert.AreEqual(1.0 / 30000, contribution.LowerLimitNorm);
 
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
@@ -79,18 +116,19 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForSignalingNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+            Assert.AreSame(failureMechanisms, assessmentSection.GetContributingFailureMechanisms());
         }
 
         [Test]
-        public void GetFailureMechanisms_Always_ReturnEmpty()
+        public void GetContributingFailureMechanisms_Always_ReturnEmpty()
         {
-            // Setup
+            // Setup 
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            IEnumerable<IFailureMechanism> failureMechanism = assessmentSection.GetFailureMechanisms();
+            IEnumerable<IFailureMechanism> failureMechanism = assessmentSection.GetContributingFailureMechanisms();
 
-            // Assert
+            // Assert 
             CollectionAssert.IsEmpty(failureMechanism);
         }
 

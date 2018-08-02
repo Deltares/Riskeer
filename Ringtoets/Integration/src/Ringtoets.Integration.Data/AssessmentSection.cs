@@ -130,12 +130,9 @@ namespace Ringtoets.Integration.Data
             pipingStructure = new PipingStructureFailureMechanism();
             duneErosion = new DuneErosionFailureMechanism();
             technicalInnovation = new TechnicalInnovationFailureMechanism();
+            OtherFailureMechanism = new OtherFailureMechanism();
 
-            const int otherContribution = 30;
-            FailureMechanismContribution = new FailureMechanismContribution(GetContributingFailureMechanisms(),
-                                                                            otherContribution,
-                                                                            lowerLimitNorm,
-                                                                            signalingNorm);
+            FailureMechanismContribution = new FailureMechanismContribution(lowerLimitNorm, signalingNorm);
             ChangeComposition(composition);
         }
 
@@ -463,6 +460,11 @@ namespace Ringtoets.Integration.Data
             }
         }
 
+        /// <summary>
+        /// Gets the "Overige" category failure mechanism.
+        /// </summary>
+        public OtherFailureMechanism OtherFailureMechanism { get; }
+
         public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm
         {
             get
@@ -600,6 +602,22 @@ namespace Ringtoets.Integration.Data
             yield return TechnicalInnovation;
         }
 
+        public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
+        {
+            yield return Piping;
+            yield return GrassCoverErosionInwards;
+            yield return MacroStabilityInwards;
+            yield return StabilityStoneCover;
+            yield return WaveImpactAsphaltCover;
+            yield return GrassCoverErosionOutwards;
+            yield return HeightStructures;
+            yield return ClosingStructures;
+            yield return PipingStructure;
+            yield return StabilityPointStructures;
+            yield return DuneErosion;
+            yield return OtherFailureMechanism;
+        }
+
         /// <inheritdoc />
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="newComposition"/> 
         /// is not a valid enum value of <see cref="AssessmentSectionComposition"/>.</exception>
@@ -629,7 +647,7 @@ namespace Ringtoets.Integration.Data
                     PipingStructure.Contribution = 2;
                     StabilityPointStructures.Contribution = 2;
                     DuneErosion.Contribution = 0;
-                    FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 30);
+                    OtherFailureMechanism.Contribution = 30;
                     break;
                 case AssessmentSectionComposition.Dune:
                     Piping.Contribution = 0;
@@ -644,7 +662,7 @@ namespace Ringtoets.Integration.Data
                     PipingStructure.Contribution = 0;
                     StabilityPointStructures.Contribution = 0;
                     DuneErosion.Contribution = 70;
-                    FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 30);
+                    OtherFailureMechanism.Contribution = 30;
                     break;
                 case AssessmentSectionComposition.DikeAndDune:
                     Piping.Contribution = 24;
@@ -659,7 +677,7 @@ namespace Ringtoets.Integration.Data
                     PipingStructure.Contribution = 2;
                     StabilityPointStructures.Contribution = 2;
                     DuneErosion.Contribution = 10;
-                    FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 20);
+                    OtherFailureMechanism.Contribution = 20;
                     break;
                 default:
                     throw new NotSupportedException();
@@ -722,21 +740,6 @@ namespace Ringtoets.Integration.Data
             StabilityPointStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             PipingStructure.IsRelevant = Composition != AssessmentSectionComposition.Dune;
             DuneErosion.IsRelevant = Composition != AssessmentSectionComposition.Dike;
-        }
-
-        private IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
-        {
-            yield return Piping;
-            yield return GrassCoverErosionInwards;
-            yield return MacroStabilityInwards;
-            yield return StabilityStoneCover;
-            yield return WaveImpactAsphaltCover;
-            yield return GrassCoverErosionOutwards;
-            yield return HeightStructures;
-            yield return ClosingStructures;
-            yield return PipingStructure;
-            yield return StabilityPointStructures;
-            yield return DuneErosion;
         }
     }
 }
