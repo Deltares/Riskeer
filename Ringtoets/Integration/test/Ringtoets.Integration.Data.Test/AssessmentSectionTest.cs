@@ -553,6 +553,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(contributions[9], assessmentSection.PipingStructure.Contribution);
             Assert.AreEqual(contributions[10], assessmentSection.StabilityPointStructures.Contribution);
             Assert.AreEqual(contributions[11], assessmentSection.DuneErosion.Contribution);
+            Assert.AreEqual(contributions[12], assessmentSection.OtherFailureMechanism.Contribution);
         }
 
         private static IEnumerable<Tuple<double, bool>> GetContributionsTuples(AssessmentSectionComposition composition)

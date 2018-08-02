@@ -651,7 +651,7 @@ namespace Ringtoets.Integration.Data
                     PipingStructure.Contribution = 2;
                     StabilityPointStructures.Contribution = 2;
                     DuneErosion.Contribution = 0;
-                    FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 30);
+                    OtherFailureMechanism.Contribution = 30;
                     break;
                 case AssessmentSectionComposition.Dune:
                     Piping.Contribution = 0;
@@ -666,7 +666,7 @@ namespace Ringtoets.Integration.Data
                     PipingStructure.Contribution = 0;
                     StabilityPointStructures.Contribution = 0;
                     DuneErosion.Contribution = 70;
-                    FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 30);
+                    OtherFailureMechanism.Contribution = 30;
                     break;
                 case AssessmentSectionComposition.DikeAndDune:
                     Piping.Contribution = 24;
@@ -681,7 +681,7 @@ namespace Ringtoets.Integration.Data
                     PipingStructure.Contribution = 2;
                     StabilityPointStructures.Contribution = 2;
                     DuneErosion.Contribution = 10;
-                    FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 20);
+                    OtherFailureMechanism.Contribution = 20;
                     break;
                 default:
                     throw new NotSupportedException();
