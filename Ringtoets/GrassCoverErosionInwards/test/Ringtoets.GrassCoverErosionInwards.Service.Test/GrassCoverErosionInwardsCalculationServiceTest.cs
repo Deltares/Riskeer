@@ -125,7 +125,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -214,7 +214,47 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsMessageAndReturnFalse()
+        {
+            // Setup
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository);
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
+                }
+            };
+
+            // Call
+            var isValid = false;
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                StringAssert.StartsWith("Er is geen hydraulische randvoorwaardendatabase geïmporteerd.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
