@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Util.Extensions;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Contribution
@@ -37,10 +34,8 @@ namespace Ringtoets.Common.Data.Contribution
     {
         private static readonly Range<double> normValidityRange = new Range<double>(1.0 / 1000000, 1.0 / 10);
 
-        private readonly List<FailureMechanismContributionItem> distribution = new List<FailureMechanismContributionItem>();
         private double lowerLimitNorm;
         private double signalingNorm;
-        private NormType normativeNorm;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContribution"/>
@@ -82,7 +77,6 @@ namespace Ringtoets.Common.Data.Contribution
                 ValidateNorms(value, lowerLimitNorm);
 
                 signalingNorm = value;
-                SetDistribution();
             }
         }
 
@@ -112,7 +106,6 @@ namespace Ringtoets.Common.Data.Contribution
                 }
 
                 lowerLimitNorm = value;
-                SetDistribution();
             }
         }
 
@@ -125,7 +118,7 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return normativeNorm == NormType.LowerLimit
+                return NormativeNorm == NormType.LowerLimit
                            ? LowerLimitNorm
                            : SignalingNorm;
             }
@@ -134,23 +127,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// <summary>
         /// Gets or sets the norm type which has been defined on the assessment section.
         /// </summary>
-        public NormType NormativeNorm
-        {
-            get
-            {
-                return normativeNorm;
-            }
-            set
-            {
-                normativeNorm = value;
-                SetDistribution();
-            }
-        }
-
-        private void SetDistribution()
-        {
-            distribution.ForEachElementDo(d => d.Norm = Norm);
-        }
+        public NormType NormativeNorm { get; set; }
 
         /// <summary>
         /// Validates the norm value;

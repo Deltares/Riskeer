@@ -21,44 +21,21 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Test.Contribution
 {
     [TestFixture]
     public class FailureMechanismContributionTest
     {
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
-
         [Test]
-        [TestCaseSource(nameof(GetInvalidNormValues),
-            new object[]
-            {
-                "Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException"
-            })]
+        [TestCaseSource(nameof(GetInvalidNormValues))]
         [SetCulture("nl-NL")]
         public void Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
-            // Setup
-            var random = new Random(21);
-            int contribution = random.Next(1, 100);
-
             // Call
-            TestDelegate test = () => new FailureMechanismContribution(invalidNorm,
-                                                                       0.000001);
+            TestDelegate test = () => new FailureMechanismContribution(invalidNorm, 0.000001);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
@@ -68,21 +45,12 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidNormValues),
-            new object[]
-            {
-                "Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException"
-            })]
+        [TestCaseSource(nameof(GetInvalidNormValues))]
         [SetCulture("nl-NL")]
         public void Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
-            // Setup
-            var random = new Random(21);
-            int contribution = random.Next(1, 100);
-
             // Call
-            TestDelegate test = () => new FailureMechanismContribution(0.1,
-                                                                       invalidNorm);
+            TestDelegate test = () => new FailureMechanismContribution(0.1, invalidNorm);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
@@ -95,8 +63,6 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void Constructor_SignalingNormLargerThanLowerLimitNorm_ThrowsArgumentOutOfRangeException()
         {
             // Setup
-            var random = new Random(21);
-            int contribution = random.Next(1, 100);
             const double signalingNorm = 0.1;
 
             // Call
@@ -111,161 +77,25 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
-        public void Constructor_ValidData_ExpectedValues()
+        [TestCaseSource(nameof(GetValidNormEdgeValues))]
+        public void Constructor_ValidData_ExpectedValues(double norm)
         {
-            // Setup
-            var random = new Random(21);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = random.NextDouble(0.1, signalingNorm);
-
             // Call
-            var result = new FailureMechanismContribution(lowerLimitNorm, signalingNorm);
+            var result = new FailureMechanismContribution(norm, norm);
 
             // Assert
-            Assert.AreEqual(lowerLimitNorm, result.Norm);
-            Assert.AreEqual(signalingNorm, result.SignalingNorm);
-            Assert.AreEqual(lowerLimitNorm, result.LowerLimitNorm);
+            Assert.AreEqual(norm, result.Norm);
+            Assert.AreEqual(norm, result.SignalingNorm);
+            Assert.AreEqual(norm, result.LowerLimitNorm);
             Assert.AreEqual(NormType.LowerLimit, result.NormativeNorm);
-
         }
 
         [Test]
-        public void LowerLimitNorm_WhenUpdatedAndNormativeNormLowerLimit_NormUpdatedForEachFailureMechanismContributionItem()
-        {
-            // Setup
-            const double norm = 1.0 / 30000;
-            const double newNorm = 0.1;
-
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            var random = new Random(21);
-            int otherContribution = random.Next(1, 100);
-
-            var failureMechanismContribution = new FailureMechanismContribution(norm,
-                                                                                norm);
-
-            // Call
-            failureMechanismContribution.LowerLimitNorm = newNorm;
-
-            // Assert
-            CollectionAssert.AreEqual(Enumerable.Repeat(newNorm, 2),
-                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void LowerLimitNorm_WhenUpdatedAndNormativeNormNotLowerLimit_NormNotUpdatedForEachFailureMechanismContributionItem()
-        {
-            // Setup
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            var random = new Random(21);
-            int otherContribution = random.Next(1, 100);
-            const double norm = 1.0 / 30000;
-
-            var failureMechanismContribution = new FailureMechanismContribution(norm, norm)
-            {
-                NormativeNorm = NormType.Signaling
-            };
-
-            // Call
-            failureMechanismContribution.LowerLimitNorm = 0.1;
-
-            // Assert
-            CollectionAssert.AreEqual(Enumerable.Repeat(norm, 2),
-                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void SignalingNorm_WhenUpdatedAndNormativeNormSignaling_NormUpdatedForEachFailureMechanismContributionItem()
-        {
-            // Setup
-            const double norm = 1.0 / 30000;
-            const double newNorm = 0.000001;
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            var random = new Random(21);
-            int otherContribution = random.Next(1, 100);
-
-            var failureMechanismContribution = new FailureMechanismContribution(norm,
-                                                                                norm)
-            {
-                NormativeNorm = NormType.Signaling
-            };
-
-            // Call
-            failureMechanismContribution.SignalingNorm = newNorm;
-
-            // Assert
-            CollectionAssert.AreEqual(Enumerable.Repeat(newNorm, 2),
-                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void SignalingNorm_WhenUpdatedAndNormativeNormNotSignaling_NormNotUpdatedForEachFailureMechanismContributionItem()
-        {
-            // Setup
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            var random = new Random(21);
-            int otherContribution = random.Next(1, 100);
-            const double norm = 1.0 / 30000;
-
-            var failureMechanismContribution = new FailureMechanismContribution(norm,
-                                                                                norm);
-
-            // Call
-            failureMechanismContribution.SignalingNorm = 0.000001;
-
-            // Assert
-            CollectionAssert.AreEqual(Enumerable.Repeat(norm, 2),
-                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void NormativeNorm_WhenUpdated_NormUpdatedForEachFailureMechanismContributionItem()
-        {
-            // Setup
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            var random = new Random(21);
-            int otherContribution = random.Next(1, 100);
-
-            var failureMechanismContribution = new FailureMechanismContribution(0.1, 0.001);
-
-            // Precondition
-            CollectionAssert.AreEqual(Enumerable.Repeat(0.1, 2),
-                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
-
-            // Call
-            failureMechanismContribution.NormativeNorm = NormType.Signaling;
-
-            // Assert
-            CollectionAssert.AreEqual(Enumerable.Repeat(0.001, 2),
-                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetInvalidNormValues),
-            new object[]
-            {
-                "Norm_WhenUpdated_NormUpdatedForEachFailureMechanismContributionItem"
-            })]
+        [TestCaseSource(nameof(GetInvalidNormValues))]
         [SetCulture("nl-NL")]
         public void LowerLimitNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Setup
-            var random = new Random(21);
-            int contribution = random.Next(1, 100);
             const double norm = 1.0 / 30000;
             var failureMechanismContribution = new FailureMechanismContribution(norm,
                                                                                 norm);
@@ -281,17 +111,11 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidNormValues),
-            new object[]
-            {
-                "SignalingNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException"
-            })]
+        [TestCaseSource(nameof(GetInvalidNormValues))]
         [SetCulture("nl-NL")]
         public void SignalingNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Setup
-            var random = new Random(21);
-            int contribution = random.Next(1, 100);
             const double norm = 1.0 / 30000;
             var failureMechanismContribution = new FailureMechanismContribution(norm,
                                                                                 norm);
@@ -307,34 +131,9 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
-        [TestCaseSource(nameof(GetValidNormEdgeValues),
-            new object[]
-            {
-                "Norm_SettingBothNormsToEdgeNorms_ThenPropertiesSet"
-            })]
-        public void GivenFailureMechanismContribution_WhenSettingBothNormsToEdgeNorms_ThenPropertiesSet(double newNorm)
-        {
-            // Given
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            var random = new Random(21);
-
-            // When
-            var failureMechanismContribution = new FailureMechanismContribution(newNorm, newNorm);
-
-            // Then
-            CollectionAssert.AreEqual(Enumerable.Repeat(newNorm, 2),
-                                      failureMechanismContribution.Distribution.Select(d => d.Norm));
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void SignalingNorm_SignalingNormBiggerThanLowerLimitNorm_ThrowsArgumentOutOfRangeException()
         {
             // Setup
-            var random = new Random(21);
-            int contribution = random.Next(1, 100);
             const double norm = 1.0 / 30000;
             const double newNorm = 1.0 / 10;
             var failureMechanismContribution = new FailureMechanismContribution(norm,
@@ -354,8 +153,6 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void LowerLimitNorm_SignalingNormBiggerThanLowerLimitNorm_ThrowsArgumentOutOfRangeException()
         {
             // Setup
-            var random = new Random(21);
-            int contribution = random.Next(1, 100);
             const double norm = 1.0 / 30000;
             const double newNorm = 1.0 / 1000000;
             var failureMechanismContribution = new FailureMechanismContribution(norm,
@@ -377,10 +174,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         public void Norm_DifferentNormativeNormTypes_ReturnNorm(NormType normType, double expectedNorm)
         {
             // Setup
-            var random = new Random(21);
-            int contribution = random.Next(1, 100);
-            var failureMechanismContribution = new FailureMechanismContribution(0.1,
-                                                                                0.01)
+            var failureMechanismContribution = new FailureMechanismContribution(0.1, 0.01)
             {
                 NormativeNorm = normType
             };
@@ -392,32 +186,19 @@ namespace Ringtoets.Common.Data.Test.Contribution
             Assert.AreEqual(expectedNorm, norm);
         }
 
-        private static void AssertFailureProbabilitySpace(double newOtherContribution, double norm, double probabilitySpace)
+        private static IEnumerable<TestCaseData> GetValidNormEdgeValues()
         {
-            double expectedProbabilitySpace = 100.0 / (norm * newOtherContribution);
-            Assert.AreEqual(expectedProbabilitySpace, probabilitySpace);
+            yield return new TestCaseData(1.0 / 10);
+            yield return new TestCaseData(1.0 / 1000000);
         }
 
-        private static IEnumerable<TestCaseData> GetValidNormEdgeValues(string name)
+        private static IEnumerable<TestCaseData> GetInvalidNormValues()
         {
-            yield return new TestCaseData(1.0 / 10)
-                .SetName($"{name} Minimum valid norm");
-            yield return new TestCaseData(1.0 / 1000000)
-                .SetName($"{name} Maximum valid norm");
-        }
-
-        private static IEnumerable<TestCaseData> GetInvalidNormValues(string name)
-        {
-            yield return new TestCaseData(double.MaxValue)
-                .SetName($"{name} maxValue");
-            yield return new TestCaseData(double.MinValue)
-                .SetName($"{name} minValue");
-            yield return new TestCaseData(double.NaN)
-                .SetName($"{name} NaN");
-            yield return new TestCaseData(0.1 + 1e-6)
-                .SetName($"{name} maximum boundary");
-            yield return new TestCaseData(0.000001 - 1e-6)
-                .SetName($"{name} minimum boundary");
+            yield return new TestCaseData(double.MaxValue);
+            yield return new TestCaseData(double.MinValue);
+            yield return new TestCaseData(double.NaN);
+            yield return new TestCaseData(0.1 + 1e-6);
+            yield return new TestCaseData(0.000001 - 1e-6);
         }
     }
 }
