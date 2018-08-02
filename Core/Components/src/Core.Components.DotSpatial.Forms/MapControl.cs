@@ -60,6 +60,10 @@ namespace Core.Components.DotSpatial.Forms
         private MapDataCollection data;
         private ImageBasedMapData backgroundMapData;
 
+        private Timer updateTimer;
+        private const int updateTimerInterval = 10;
+        private readonly IList<IFeatureBasedMapDataLayer> mapDataLayersToUpdate = new List<IFeatureBasedMapDataLayer>();
+
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
         /// </summary>
@@ -70,6 +74,8 @@ namespace Core.Components.DotSpatial.Forms
 
             mapDataCollectionObserver = new RecursiveObserver<MapDataCollection, MapDataCollection>(HandleMapDataCollectionChange, mdc => mdc.Collection);
             backGroundMapDataObserver = new Observer(HandleBackgroundMapDataChange);
+
+            InitializeUpdateTimer();
         }
 
         public MapDataCollection Data
@@ -413,7 +419,12 @@ namespace Core.Components.DotSpatial.Forms
                 FeatureBasedMapDataLayer = featureBasedMapDataLayer
             };
 
-            drawnMapData.Observer = new Observer(() => drawnMapData.FeatureBasedMapDataLayer.Update())
+            drawnMapData.Observer = new Observer(() =>
+            {
+                mapDataLayersToUpdate.Add(drawnMapData.FeatureBasedMapDataLayer);
+
+                StartUpdateTimer();
+            })
             {
                 Observable = featureBasedMapData
             };
@@ -601,6 +612,47 @@ namespace Core.Components.DotSpatial.Forms
             IsRectangleZoomingEnabled = false;
 
             map.FunctionMode = FunctionMode.None;
+        }
+
+        #endregion
+
+        #region Update timer
+
+        private void InitializeUpdateTimer()
+        {
+            updateTimer = new Timer
+            {
+                Interval = updateTimerInterval
+            };
+
+            updateTimer.Tick += UpdateTimerOnTick;
+        }
+
+        private void StartUpdateTimer()
+        {
+            if (updateTimer.Enabled)
+            {
+                updateTimer.Stop();
+            }
+
+            updateTimer.Start();
+        }
+
+        private void UpdateTimerOnTick(object sender, EventArgs eventArgs)
+        {
+            updateTimer.Stop();
+
+            UpdateMapDataLayers();
+        }
+
+        private void UpdateMapDataLayers()
+        {
+            foreach (IFeatureBasedMapDataLayer mapDataLayerToUpdate in mapDataLayersToUpdate.Distinct())
+            {
+                mapDataLayerToUpdate.Update();
+            }
+
+            mapDataLayersToUpdate.Clear();
         }
 
         #endregion
