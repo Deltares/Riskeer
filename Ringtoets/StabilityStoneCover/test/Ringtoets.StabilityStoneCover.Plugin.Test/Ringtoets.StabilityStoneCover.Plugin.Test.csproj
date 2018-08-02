@@ -29,6 +29,7 @@
     <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationContextConfigurationExportInfoTest.cs" />
     <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextWaveConditionsExportInfoTest.cs" />
     <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextConfigurationExportInfoTest.cs" />
+    <Compile Include="FileImporters\StabilityStoneCoverFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="ImportInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfos\StabilityStoneCoverWaveConditionsInputContextPropertyInfoTest.cs" />
@@ -111,6 +112,14 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
