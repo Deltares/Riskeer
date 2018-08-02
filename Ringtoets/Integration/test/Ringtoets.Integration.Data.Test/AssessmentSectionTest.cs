@@ -50,71 +50,13 @@ namespace Ringtoets.Integration.Data.Test
     public class AssessmentSectionTest
     {
         [Test]
-        [TestCase(AssessmentSectionComposition.Dike, 129)]
-        [TestCase(AssessmentSectionComposition.Dune, 100)]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, 129)]
-        public void Constructor_ExpectedValues(AssessmentSectionComposition composition, int sum)
+        [TestCase(AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.Dune)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune)]
+        public void Constructor_ExpectedValues(AssessmentSectionComposition composition)
         {
             // Call
             var assessmentSection = new AssessmentSection(composition);
-
-            const string pipingName = "Dijken en dammen - Piping";
-            const string grassErosionInsideName = "Dijken en dammen - Grasbekleding erosie kruin en binnentalud";
-            const string macroStabilityInwardsName = "Dijken en dammen - Macrostabiliteit binnenwaarts";
-            const string stoneRevetmentName = "Dijken en dammen - Stabiliteit steenzetting";
-            const string waveImpactAsphaltName = "Dijken en dammen - Golfklappen op asfaltbekleding";
-            const string grassCoverErosionOutwardsName = "Dijken en dammen - Grasbekleding erosie buitentalud";
-            const string heightStructuresName = "Kunstwerken - Hoogte kunstwerk";
-            const string closingStructuresName = "Kunstwerken - Betrouwbaarheid sluiting kunstwerk";
-            const string pipingStructureName = "Kunstwerken - Piping bij kunstwerk";
-            const string stabilityPointStructuresName = "Kunstwerken - Sterkte en stabiliteit puntconstructies";
-            const string duneErosionName = "Duinwaterkering - Duinafslag";
-            const string otherName = "Overig";
-
-            const string pipingCode = "STPH";
-            const string grassErosionInsideCode = "GEKB";
-            const string macroStabilityInwardsCode = "STBI";
-            const string stoneRevetmentCode = "ZST";
-            const string waveImpactAsphaltCode = "AGK";
-            const string grassCoverErosionOutwardsCode = "GEBU";
-            const string heightStructuresCode = "HTKW";
-            const string closingStructuresCode = "BSKW";
-            const string pipingStructureCode = "PKW";
-            const string stabilityPointStructuresCode = "STKWp";
-            const string duneErosionCode = "DA";
-            const string otherCode = "-";
-
-            var names = new[]
-            {
-                pipingName,
-                grassErosionInsideName,
-                macroStabilityInwardsName,
-                stoneRevetmentName,
-                waveImpactAsphaltName,
-                grassCoverErosionOutwardsName,
-                heightStructuresName,
-                closingStructuresName,
-                pipingStructureName,
-                stabilityPointStructuresName,
-                duneErosionName,
-                otherName
-            };
-
-            var codes = new[]
-            {
-                pipingCode,
-                grassErosionInsideCode,
-                macroStabilityInwardsCode,
-                stoneRevetmentCode,
-                waveImpactAsphaltCode,
-                grassCoverErosionOutwardsCode,
-                heightStructuresCode,
-                closingStructuresCode,
-                pipingStructureCode,
-                stabilityPointStructuresCode,
-                duneErosionCode,
-                otherCode
-            };
 
             // Assert
             Assert.IsInstanceOf<Observable>(assessmentSection);
@@ -157,16 +99,10 @@ namespace Ringtoets.Integration.Data.Test
 
             AssertExpectedContributions(composition, assessmentSection);
 
-            Assert.AreEqual(names, assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
-            Assert.AreEqual(codes, assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.AssessmentCode));
-            Assert.AreEqual(Enumerable.Repeat(1.0 / 30000.0, 12), assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.Norm));
-
             Assert.AreEqual(double.NaN, assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(double.NaN, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
-
-            Assert.AreEqual(sum, assessmentSection.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
 
             Assert.IsTrue(assessmentSection.BackgroundData.IsVisible);
             Assert.AreEqual(0.0, assessmentSection.BackgroundData.Transparency.Value);
@@ -362,42 +298,6 @@ namespace Ringtoets.Integration.Data.Test
                 assessmentSection.DuneErosion,
                 assessmentSection.OtherFailureMechanism
             }, failureMechanisms);
-        }
-
-        [Test]
-        [TestCase(AssessmentSectionComposition.Dike)]
-        [TestCase(AssessmentSectionComposition.Dune)]
-        [TestCase(AssessmentSectionComposition.DikeAndDune)]
-        public void FailureMechanismContribution_DefaultConstructed_FailureMechanismContributionWithItemsForFailureMechanismsAndOther(
-            AssessmentSectionComposition composition)
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(composition);
-
-            const double norm = 1.0 / 30000;
-
-            // Call
-            FailureMechanismContributionItem[] contribution = assessmentSection.FailureMechanismContribution.Distribution.ToArray();
-
-            // Assert
-            IFailureMechanism[] failureMechanisms = GetExpectedContributingFailureMechanisms(assessmentSection);
-
-            Assert.AreEqual(12, contribution.Length);
-            for (var i = 0; i < 11; i++)
-            {
-                Assert.AreEqual(failureMechanisms[i].Name, contribution[i].Assessment);
-                Assert.AreEqual(failureMechanisms[i].Contribution, contribution[i].Contribution);
-                Assert.AreEqual(norm, contribution[i].Norm);
-                Assert.AreEqual(100.0 / (norm * contribution[i].Contribution), contribution[i].ProbabilitySpace);
-            }
-
-            FailureMechanismContributionItem otherContributionItem = contribution[11];
-            Assert.AreEqual("Overig", otherContributionItem.Assessment);
-            double expectedOtherContribution = composition == AssessmentSectionComposition.DikeAndDune ? 20.0 : 30.0;
-            Assert.AreEqual(expectedOtherContribution, otherContributionItem.Contribution);
-            Assert.AreEqual(norm, otherContributionItem.Norm);
-            double expectedNorm = composition == AssessmentSectionComposition.DikeAndDune ? 150000 : 100000;
-            Assert.AreEqual(expectedNorm, otherContributionItem.ProbabilitySpace, 1e-6);
         }
 
         [Test]
@@ -653,9 +553,6 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(contributions[9], assessmentSection.PipingStructure.Contribution);
             Assert.AreEqual(contributions[10], assessmentSection.StabilityPointStructures.Contribution);
             Assert.AreEqual(contributions[11], assessmentSection.DuneErosion.Contribution);
-
-            CollectionAssert.AreEqual(contributionTuples.Where(tuple => tuple.Item2).Select(tuple => tuple.Item1),
-                                      assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
         }
 
         private static IEnumerable<Tuple<double, bool>> GetContributionsTuples(AssessmentSectionComposition composition)
