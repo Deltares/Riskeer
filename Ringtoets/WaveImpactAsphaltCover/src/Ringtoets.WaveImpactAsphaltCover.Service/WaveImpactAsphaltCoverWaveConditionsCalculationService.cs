@@ -45,15 +45,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         /// </summary>
         /// <param name="calculation">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> for which to validate the values.</param>
         /// <param name="assessmentLevel">The assessment level to use for determining water levels.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to validate.</param>
         /// <param name="norm">The norm to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public static bool Validate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
                                     RoundedDouble assessmentLevel,
-                                    string hydraulicBoundaryDatabaseFilePath,
-                                    string preprocessorDirectory,
+                                    HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                     double norm)
         {
             if (calculation == null)
@@ -63,8 +61,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
 
             return ValidateWaveConditionsInput(calculation.InputParameters,
                                                assessmentLevel,
-                                               hydraulicBoundaryDatabaseFilePath,
-                                               preprocessorDirectory,
+                                               hydraulicBoundaryDatabase,
                                                norm,
                                                Resources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
         }

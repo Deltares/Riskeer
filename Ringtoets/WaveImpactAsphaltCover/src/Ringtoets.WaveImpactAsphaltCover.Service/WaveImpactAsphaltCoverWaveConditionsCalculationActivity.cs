@@ -21,7 +21,6 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
@@ -74,8 +73,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             return WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
                                                                                    assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                                         calculation.InputParameters.CategoryType),
-                                                                                   assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                   assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                   assessmentSection.HydraulicBoundaryDatabase,
                                                                                    assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
         }
 
