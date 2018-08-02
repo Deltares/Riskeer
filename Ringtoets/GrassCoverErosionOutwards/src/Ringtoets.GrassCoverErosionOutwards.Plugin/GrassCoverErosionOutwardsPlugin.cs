@@ -494,7 +494,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new GrassCoverErosionOutwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };

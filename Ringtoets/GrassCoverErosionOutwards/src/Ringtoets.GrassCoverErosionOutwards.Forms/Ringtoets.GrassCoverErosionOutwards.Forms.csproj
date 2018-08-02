@@ -24,6 +24,7 @@
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsInputContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightCalculationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightCalculationsContext.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsFailureMechanismSectionsContext.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsInputContextProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsOutputProperties.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelCalculationContext.cs" />

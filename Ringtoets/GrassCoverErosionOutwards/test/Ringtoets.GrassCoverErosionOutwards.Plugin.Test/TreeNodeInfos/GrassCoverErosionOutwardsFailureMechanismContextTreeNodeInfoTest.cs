@@ -213,7 +213,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
             Assert.AreEqual(3, inputsFolder.Contents.Count());
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
+            var failureMechanismSectionsContext = (GrassCoverErosionOutwardsFailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
