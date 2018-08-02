@@ -41,6 +41,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Forms.UpdateInfos;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
 using Ringtoets.Revetment.Data;
@@ -52,6 +53,7 @@ using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
 using Ringtoets.WaveImpactAsphaltCover.IO.Exporters;
+using Ringtoets.WaveImpactAsphaltCover.Plugin.FileImporters;
 using Ringtoets.WaveImpactAsphaltCover.Service;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -224,6 +226,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 {
                     context.WrappedData
                 }, filePath));
+        }
+
+        public override IEnumerable<UpdateInfo> GetUpdateInfos()
+        {
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                WaveImpactAsphaltCoverFailureMechanismSectionsContext, WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+                new WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
         }
 
         #region ViewInfos
