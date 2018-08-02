@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.IO.FileImporters
@@ -37,6 +38,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </summary>
         /// <param name="origin">The object to get the data from that will be put on <paramref name="target"/>.</param>
         /// <param name="target">The object to update with data from <paramref name="origin"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         void UpdateSectionResult(T origin, T target);
     }
 }

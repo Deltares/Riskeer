@@ -20,10 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
@@ -115,6 +118,69 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
             Assert.AreEqual(sections.Single(), failureMechanism.Sections.Single());
+        }
+
+        [Test]
+        public void UpdateSectionsWithImportedData_WithInvalidSections_ThrowsUpdateDataException()
+        {
+            // Setup
+            string sourcePath = TestHelper.GetScratchPadPath();
+
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismSection failureMechanismSection1 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 5.0)
+            });
+            FailureMechanismSection failureMechanismSection2 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(10.0, 10.0),
+                new Point2D(15.0, 15.0)
+            });
+
+            var failureMechanismSectionReplaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
+
+            FailureMechanismSection[] sections =
+            {
+                failureMechanismSection1,
+                failureMechanismSection2
+            };
+
+            // Call
+            TestDelegate call = () => failureMechanismSectionReplaceStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
+
+            // Assert
+            var exception = Assert.Throws<UpdateDataException>(call);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+            Assert.AreEqual(exception.InnerException.Message, exception.Message);
+        }
+
+        [Test]
+        public void UpdateSectionsWithImportedData_WithEmptyData_ClearsSectionsAndUpdatesPath()
+        {
+            // Setup
+            const string oldSourcePath = "old/path";
+            string sourcePath = TestHelper.GetScratchPadPath();
+
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, oldSourcePath);
+
+            var failureMechanismSectionReplaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
+
+            // Precondition
+            IEnumerable<FailureMechanismSection> failureMechanismSections = failureMechanism.Sections;
+            Assert.AreEqual(1, failureMechanismSections.Count());
+            Assert.AreEqual(oldSourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+
+            // Call
+            failureMechanismSectionReplaceStrategy.UpdateSectionsWithImportedData(Enumerable.Empty<FailureMechanismSection>(), sourcePath);
+
+            // Assert
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+            Assert.IsEmpty(failureMechanismSections);
         }
     }
 }

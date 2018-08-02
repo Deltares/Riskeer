@@ -31,8 +31,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// </summary>
     public class PipingFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<PipingFailureMechanismSectionResult>
     {
-        /// <inheritdoc/>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public void UpdateSectionResult(PipingFailureMechanismSectionResult origin, PipingFailureMechanismSectionResult target)
         {
             if (origin == null)

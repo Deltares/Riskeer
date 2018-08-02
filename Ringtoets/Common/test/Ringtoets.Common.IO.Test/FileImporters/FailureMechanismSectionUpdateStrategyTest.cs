@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
@@ -42,11 +43,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(null, sectionResultUpdateStrategy);
+            TestDelegate call = () => new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(null, sectionResultUpdateStrategy);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -59,11 +60,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, null);
+            TestDelegate call = () => new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -75,12 +76,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            var importer = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
+            var importer = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionUpdateStrategy>(importer);
@@ -92,12 +93,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy).UpdateSectionsWithImportedData(null, "");
+            TestDelegate call = () => new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy).UpdateSectionsWithImportedData(null, "");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -110,11 +111,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             // Call
             TestDelegate call = () => failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(
@@ -149,17 +150,19 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 failureMechanismSection2
             }, sourcePath);
 
-            int testValue = new Random(39).Next(1, 20);
-            IObservableEnumerable<TestUpdateFailureMechanismSectionResult> failureMechanismSectionResults = failureMechanism.SectionResults;
-            failureMechanismSectionResults.First().TestValue = testValue;
-            failureMechanismSectionResults.ElementAt(1).TestValue = testValue;
+            IObservableEnumerable<TestFailureMechanismSectionResult> failureMechanismSectionResults = failureMechanism.SectionResults;
+            TestFailureMechanismSectionResult oldSectionResult = failureMechanismSectionResults.First();
 
             var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<TestUpdateFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             FailureMechanismSection[] sections =
             {
-                failureMechanismSection1,
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 5.0)
+                }),
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(5.0, 5.0),
@@ -176,22 +179,90 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             IEnumerable<FailureMechanismSection> failureMechanismSections = failureMechanism.Sections;
             Assert.AreEqual(2, failureMechanismSections.Count());
             CollectionAssert.AreEqual(sections, failureMechanismSections);
-            Assert.AreEqual(testValue, failureMechanismSectionResults.First().TestValue);
-            Assert.Zero(failureMechanismSectionResults.ElementAt(1).TestValue);
+            Assert.AreSame(oldSectionResult, sectionResultUpdateStrategy.Origin);
+            Assert.AreSame(failureMechanismSectionResults.First(), sectionResultUpdateStrategy.Target);
         }
 
-        private class TestUpdateFailureMechanism : FailureMechanismBase, IHasSectionResults<TestUpdateFailureMechanismSectionResult>
+        [Test]
+        public void UpdateSectionsWithImportedData_WithInvalidSections_ThrowsUpdateDataException()
         {
-            private readonly ObservableList<TestUpdateFailureMechanismSectionResult> sectionResults;
+            // Setup
+            string sourcePath = TestHelper.GetScratchPadPath();
+
+            var failureMechanism = new TestUpdateFailureMechanism();
+            FailureMechanismSection failureMechanismSection1 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 5.0)
+            });
+            FailureMechanismSection failureMechanismSection2 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(10.0, 10.0),
+                new Point2D(15.0, 15.0)
+            });
+
+            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
+
+            FailureMechanismSection[] sections =
+            {
+                failureMechanismSection1,
+                failureMechanismSection2
+            };
+
+            // Call
+            TestDelegate call = () => failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
+
+            // Assert
+            var exception = Assert.Throws<UpdateDataException>(call);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+            Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            Assert.IsFalse(sectionResultUpdateStrategy.Updated);
+        }
+
+        [Test]
+        public void UpdateSectionsWithImportedData_WithEmptyData_ClearsSectionsAndUpdatesPath()
+        {
+            // Setup
+            const string oldSourcePath = "old/path";
+            string sourcePath = TestHelper.GetScratchPadPath();
+
+            var failureMechanism = new TestUpdateFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, oldSourcePath);
+
+            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(
+                failureMechanism, sectionResultUpdateStrategy);
+
+            // Precondition
+            IEnumerable<FailureMechanismSection> failureMechanismSections = failureMechanism.Sections;
+            Assert.AreEqual(1, failureMechanismSections.Count());
+            Assert.AreEqual(oldSourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+
+            // Call
+            failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(Enumerable.Empty<FailureMechanismSection>(), sourcePath);
+
+            // Assert
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+            Assert.IsEmpty(failureMechanismSections);
+            Assert.IsFalse(sectionResultUpdateStrategy.Updated);
+        }
+
+        private class TestUpdateFailureMechanism : FailureMechanismBase, IHasSectionResults<TestFailureMechanismSectionResult>
+        {
+            private readonly ObservableList<TestFailureMechanismSectionResult> sectionResults;
 
             public TestUpdateFailureMechanism() : base("Test", "TST", 2)
             {
-                sectionResults = new ObservableList<TestUpdateFailureMechanismSectionResult>();
+                sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
             }
 
             public override IEnumerable<ICalculation> Calculations { get; }
 
-            public IObservableEnumerable<TestUpdateFailureMechanismSectionResult> SectionResults
+            public IObservableEnumerable<TestFailureMechanismSectionResult> SectionResults
             {
                 get
                 {
@@ -201,7 +272,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             protected override void AddSectionResult(FailureMechanismSection section)
             {
-                sectionResults.Add(new TestUpdateFailureMechanismSectionResult(section));
+                sectionResults.Add(new TestFailureMechanismSectionResult(section));
             }
 
             protected override void ClearSectionResults()
@@ -210,21 +281,17 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             }
         }
 
-        private class TestUpdateFailureMechanismSectionResult : FailureMechanismSectionResult
+        private class TestUpdateFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>
         {
-            public TestUpdateFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
-            {
-                TestValue = 0;
-            }
+            public bool Updated { get; set; }
+            public TestFailureMechanismSectionResult Origin { get; set; }
+            public TestFailureMechanismSectionResult Target { get; set; }
 
-            public int TestValue { get; set; }
-        }
-
-        private class TestUpdateFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<TestUpdateFailureMechanismSectionResult>
-        {
-            public void UpdateSectionResult(TestUpdateFailureMechanismSectionResult origin, TestUpdateFailureMechanismSectionResult target)
+            public void UpdateSectionResult(TestFailureMechanismSectionResult origin, TestFailureMechanismSectionResult target)
             {
-                target.TestValue = origin.TestValue;
+                Updated = true;
+                Origin = origin;
+                Target = target;
             }
         }
     }

@@ -67,7 +67,8 @@ namespace Ringtoets.Common.IO.FileImporters
                                                 ReferenceLine referenceLine,
                                                 string filePath,
                                                 IFailureMechanismSectionUpdateStrategy failureMechanismSectionUpdateStrategy,
-                                                IImporterMessageProvider messageProvider) : base(filePath, importTarget)
+                                                IImporterMessageProvider messageProvider) 
+            : base(filePath, importTarget)
         {
             if (referenceLine == null)
             {
@@ -112,19 +113,19 @@ namespace Ringtoets.Common.IO.FileImporters
                 return false;
             }
 
-            if (Canceled)
-            {
-                return false;
-            }
-
-            NotifyProgress(messageProvider.GetAddDataToModelProgressText(), 3, 3);
-
             IEnumerable<FailureMechanismSection> orderedReadSections = OrderSections(readFailureMechanismSections, referenceLine);
             if (!ArePointsSnapped(referenceLine.Points.Last(), orderedReadSections.Last().EndPoint))
             {
                 LogCriticalError(Resources.FailureMechanismSectionsImporter_Import_File_contains_unchained_sections);
                 return false;
             }
+
+            if (Canceled)
+            {
+                return false;
+            }
+
+            NotifyProgress(messageProvider.GetAddDataToModelProgressText(), 3, 3);
 
             AddImportedDataToModel(orderedReadSections);
             return true;
@@ -163,11 +164,11 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             catch (CriticalFileReadException exception)
             {
-                Log.Error(exception.Message);
+                LogCriticalError(exception.Message);
             }
             catch (ArgumentException exception)
             {
-                Log.Error(exception.Message);
+                LogCriticalError(exception.Message);
             }
 
             return null;

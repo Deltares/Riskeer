@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -66,8 +67,6 @@ namespace Ringtoets.Common.Forms.Test.UpdateInfos
                 FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
 
             // Assert
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(new TestFailureMechanism(), assessmentSection);
-            Assert.IsInstanceOf<FailureMechanismSectionsImporter>(updateInfo.CreateFileImporter(failureMechanismSectionsContext, ""));
             Assert.AreEqual("Vakindeling", updateInfo.Name);
             Assert.AreEqual("Algemeen", updateInfo.Category);
 
@@ -75,8 +74,91 @@ namespace Ringtoets.Common.Forms.Test.UpdateInfos
             Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilterGenerator.Filter);
 
             TestHelper.AssertImagesAreEqual(Resources.SectionsIcon, updateInfo.Image);
-            Assert.IsFalse(updateInfo.IsEnabled(failureMechanismSectionsContext));
+            Assert.IsNull(updateInfo.VerifyUpdates);
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionsUpdateInfo_WithArguments_ReturnsExpectedCreatedFileImporter()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mocks.ReplayAll();
+
+            // Call
+            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
+
+            // Assert
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(new TestFailureMechanism(), assessmentSection);
+            Assert.IsInstanceOf<FailureMechanismSectionsImporter>(updateInfo.CreateFileImporter(failureMechanismSectionsContext, ""));
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionsUpdateInfo_WithSourcePath_ReturnsIsEnabledTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mocks.ReplayAll();
+
+            // Call
+            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
+
+            // Assert
+            var testFailureMechanism = new TestFailureMechanism();
+            testFailureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), "path/to/sections");
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(testFailureMechanism, assessmentSection);
+            Assert.IsTrue(updateInfo.IsEnabled(failureMechanismSectionsContext));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionsUpdateInfo_WithoutSetSourcePath_ReturnsIsEnabledFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mocks.ReplayAll();
+
+            // Call
+            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
+
+            // Assert
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(new TestFailureMechanism(), assessmentSection);
+            Assert.IsFalse(updateInfo.IsEnabled(failureMechanismSectionsContext));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionsUpdateInfo_WithoutSetSourcePath_ReturnsNullPath()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mocks.ReplayAll();
+
+            // Call
+            UpdateInfo<FailureMechanismSectionsContext> updateInfo = RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
+
+            // Assert
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(new TestFailureMechanism(), assessmentSection);
+            Assert.IsNull(updateInfo.CurrentPath(failureMechanismSectionsContext));
             mocks.VerifyAll();
         }
     }

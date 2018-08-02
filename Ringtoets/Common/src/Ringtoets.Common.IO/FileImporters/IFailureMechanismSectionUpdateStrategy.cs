@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.IO.FileImporters
@@ -36,6 +37,13 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </summary>
         /// <param name="importedFailureMechanismSections">The imported failure mechanism sections.</param>
         /// <param name="sourcePath">The source path from where the failure mechanism sections were imported.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="UpdateDataException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="sourcePath"/> is not a valid file path.</item>
+        /// <item><paramref name="importedFailureMechanismSections"/> contains sections that are not properly chained.</item>
+        /// </list>
+        /// </exception>
         void UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
                                             string sourcePath);
     }

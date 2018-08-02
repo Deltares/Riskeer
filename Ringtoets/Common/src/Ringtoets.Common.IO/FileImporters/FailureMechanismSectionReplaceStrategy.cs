@@ -21,12 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.IO.FileImporters
 {
     /// <summary>
-    /// A replace strategy that can be used to replace failure mechanism sections with
+    /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to replace failure mechanism sections with
     /// imported failure mechanism sections.
     /// </summary>
     public class FailureMechanismSectionReplaceStrategy : IFailureMechanismSectionUpdateStrategy
@@ -49,8 +50,6 @@ namespace Ringtoets.Common.IO.FileImporters
             this.failureMechanism = failureMechanism;
         }
 
-        /// <inheritdoc />
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public void UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
                                                    string sourcePath)
         {
@@ -64,7 +63,14 @@ namespace Ringtoets.Common.IO.FileImporters
                 throw new ArgumentNullException(nameof(sourcePath));
             }
 
-            failureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
+            try
+            {
+                failureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
+            }
+            catch (Exception e)
+            {
+                throw new UpdateDataException(e.Message, e);
+            }
         }
     }
 }

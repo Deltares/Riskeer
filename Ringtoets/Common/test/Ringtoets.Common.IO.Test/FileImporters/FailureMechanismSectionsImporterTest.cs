@@ -92,7 +92,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsImporter(failureMechanism, new ReferenceLine(), "", new TestFailureMechanismSectionUpdateStrategy(), null);
+            TestDelegate call = () => new FailureMechanismSectionsImporter(failureMechanism,
+                                                                           new ReferenceLine(),
+                                                                           "",
+                                                                           new TestFailureMechanismSectionUpdateStrategy(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -122,7 +125,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         [Test]
         [TestCase("traject_1-1.shp", "traject_1-1_vakken.shp", 62)]
         [TestCase("traject_19-1.shp", "traject_19-1_vakken.shp", 17)]
-        public void Import_ValidFileCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections(string referenceLineFileName, string sectionsFileName, int sectionCount)
+        public void Import_ValidFileCorrespondingToReferenceLineAndNoSectionImportedYet_CallsUpdateStrategy(string referenceLineFileName, string sectionsFileName, int sectionCount)
         {
             // Setup
             var mocks = new MockRepository();
@@ -154,80 +157,10 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ValidFileCorrespondingToReferenceLineAndHasSectionImported_ReplaceSections()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
-            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                      Path.Combine("ReferenceLine", "traject_1-1.shp"));
-            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                 Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
-
-            ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
-
-            var failureMechanism = new TestFailureMechanism();
-            var oldSection = new FailureMechanismSection("A", importReferenceLine.Points);
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                oldSection
-            });
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
-
-            var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
-
-            // Call
-            bool importSuccessful = importer.Import();
-
-            // Assert
-            Assert.IsTrue(importSuccessful);
-
-            IEnumerable<FailureMechanismSection> sections = updateStrategy.ImportedFailureMechanismSections;
-            CollectionAssert.DoesNotContain(sections, oldSection);
-            Assert.AreEqual(62, sections.Count());
-            AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Import_ValidArtificialFileImperfectlyCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var messageProvider = mocks.Stub<IImporterMessageProvider>();
-            mocks.ReplayAll();
-
-            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                      Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
-            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                 Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_ValidVakken.shp"));
-
-            ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
-
-            var failureMechanism = new TestFailureMechanism();
-            var updateStrategy = new TestFailureMechanismSectionUpdateStrategy();
-
-            var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
-
-            // Call
-            bool importSuccessful = importer.Import();
-
-            // Assert
-            Assert.IsTrue(importSuccessful);
-
-            IEnumerable<FailureMechanismSection> sections = updateStrategy.ImportedFailureMechanismSections;
-            Assert.AreEqual(7, sections.Count());
-            AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase("StartSectionReversedCoordinates")]
         [TestCase("EndSectionReversedCoordinates")]
         [TestCase("InBetweenSectionReversedCoordinates")]
-        public void Import_ValidArtificialFileWithReversedSectionCoordinatesImperfectlyCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections(
+        public void Import_ValidArtificialFileWithReversedSectionCoordinatesImperfectlyCorrespondingToReferenceLineAndNoSectionImportedYet_CallsUpdateStrategy(
             string affectedSection)
         {
             // Setup
@@ -302,11 +235,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_FilePathIsDirectory_CancelImportWithErrorMessage()
+        public void Import_FilePathIsDirectory_AbortImportWithErrorMessage()
         {
             // Setup
             var mocks = new MockRepository();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
             mocks.ReplayAll();
 
             string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -325,19 +259,21 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{sectionsFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
+            string expectedMessage = string.Format(expectedUpdateDataFailedText,
+                                                   $@"Fout bij het lezen van bestand '{sectionsFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.");
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Import_FileDoesNotExist_CancelImportWithErrorMessage()
+        public void Import_FileDoesNotExist_AbortImportWithErrorMessage()
         {
             // Setup
             var mocks = new MockRepository();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
+            messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
             mocks.ReplayAll();
 
             string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -356,15 +292,15 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{sectionsFilePath}': het bestand bestaat niet.";
+            string expectedMessage = string.Format(expectedUpdateDataFailedText, $@"Fout bij het lezen van bestand '{sectionsFilePath}': het bestand bestaat niet.");
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Import_EmptyArtificialFile_CancelImportWithErrorMessage()
+        public void Import_EmptyArtificialFile_AbortImportWithErrorMessage()
         {
             // Setup
             var mocks = new MockRepository();
@@ -392,14 +328,14 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string expectedMessage = string.Format(expectedUpdateDataFailedText, "Het bestand heeft geen vakindeling");
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
         [Test]
         [TestCase("StartTooFarFromReferenceline")]
         [TestCase("EndTooFarFromReferenceline")]
-        public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromReferenceLine_CancelImportWithErrorMessage(string shapeCondition)
+        public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromReferenceLine_AbortImportWithErrorMessage(string shapeCondition)
         {
             // Setup
             var mocks = new MockRepository();
@@ -425,17 +361,17 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = String.Format(expectedUpdateDataFailedText, "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn");
+            string expectedMessage = string.Format(expectedUpdateDataFailedText, "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn");
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
         [Test]
         [TestCase("StartTooFarFromReferencelineStart")]
         [TestCase("EndTooFarFromReferencelineEnd")]
-        public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromStartEndOfReferenceLine_CancelImportWithErrorMessage(string shapeCondition)
+        public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromStartEndOfReferenceLine_AbortImportWithErrorMessage(string shapeCondition)
         {
             // Setup
             var mocks = new MockRepository();
@@ -465,12 +401,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                    "De geografische ligging van ieder vak moet overeenkomen met de ligging van (een deel van) de referentielijn");
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Import_InvalidArtificialFileBecauseSectionsDoNotFullyCoverReferenceLine_CancelImportWithErrorMessage()
+        public void Import_InvalidArtificialFileBecauseSectionsDoNotFullyCoverReferenceLine_AbortImportWithErrorMessage()
         {
             // Setup
             var mocks = new MockRepository();
@@ -498,17 +434,16 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string expectedMessage = string.Format(expectedUpdateDataFailedText, "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte");
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Import_InvalidArtificialFileBecauseUnchainedSections_CancelImportWithErrorMessage()
+        public void Import_InvalidArtificialFileBecauseUnchainedSections_AbortImportWithErrorMessage()
         {
             // Setup
             var mocks = new MockRepository();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(string.Empty);
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
             mocks.ReplayAll();
 
@@ -532,12 +467,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string expectedMessage = string.Format(expectedUpdateDataFailedText, "Het bestand moet vakken bevatten die allen op elkaar aansluiten");
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Import_InvalidArtificialFileBecauseSomePointsNotOnReferenceLine_CancelImportWithErrorMessage()
+        public void Import_InvalidArtificialFileBecauseSomePointsNotOnReferenceLine_AbortImportWithErrorMessage()
         {
             // Setup
             var mocks = new MockRepository();
@@ -565,12 +500,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string expectedMessage = string.Format(expectedUpdateDataFailedText, "De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte");
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Import_MissingNameValue_CancelImportWithErrorMessage()
+        public void Import_MissingNameValue_AbortImportWithErrorMessage()
         {
             // Setup
             var mocks = new MockRepository();
@@ -593,7 +528,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string expectedMessage = $"Fout bij het lezen van bestand '{sectionsFilePath}': voor één of meerdere vakken is geen naam opgegeven.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -633,12 +568,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, expectedCancelledText, 1);
             Assert.IsFalse(importSuccessful);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Import_CancelOfImportWhenValidatingImportedections_CancelsImportAndLogs()
+        public void Import_CancelOfImportWhenValidatingImportedSections_CancelsImportAndLogs()
         {
             // Setup
             var mocks = new MockRepository();
@@ -673,7 +608,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, expectedCancelledText, 1);
             Assert.IsFalse(importSuccessful);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsFalse(updateStrategy.Updated);
             mocks.VerifyAll();
         }
 
@@ -718,13 +653,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_TrueAndLogMessagesAndExpectedImportedData()
+        public void Import_ReuseOfCanceledImportToValidTargetWithValidFile_TrueAndExpectedImportedData()
         {
             // Setup
             var mocks = new MockRepository();
-            var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
-            messageProvider.Expect(mp => mp.GetCancelledLogMessageText(sectionsTypeDescriptor)).Return(string.Empty);
-            messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(string.Empty);
+            var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
             string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -789,12 +722,15 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
         private class TestFailureMechanismSectionUpdateStrategy : IFailureMechanismSectionUpdateStrategy
         {
+            public bool Updated { get; private set; }
+
             public string SourcePath { get; private set; }
 
             public IEnumerable<FailureMechanismSection> ImportedFailureMechanismSections { get; private set; }
 
             public void UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
             {
+                Updated = true;
                 SourcePath = sourcePath;
                 ImportedFailureMechanismSections = importedFailureMechanismSections;
             }
