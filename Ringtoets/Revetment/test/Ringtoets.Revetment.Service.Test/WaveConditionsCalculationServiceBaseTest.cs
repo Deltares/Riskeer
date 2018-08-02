@@ -56,8 +56,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             TestDelegate action = () => TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(null,
                                                                                                                GetValidAssessmentLevel(),
-                                                                                                               validFilePath,
-                                                                                                               validPreprocessorDirectory,
+                                                                                                               GetValidHydraulicBoundaryDatabase(),
                                                                                                                validNorm,
                                                                                                                string.Empty);
 
@@ -78,14 +77,31 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             TestDelegate action = () => TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                GetValidAssessmentLevel(),
-                                                                                                               validFilePath,
-                                                                                                               validPreprocessorDirectory,
+                                                                                                               GetValidHydraulicBoundaryDatabase(),
                                                                                                                validNorm,
                                                                                                                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(action);
             Assert.AreEqual("designWaterLevelName", exception.ParamName);
+        }
+
+        [Test]
+        public void Validate_HydraulicBoundaryDatabaseNull_ThrowArgumentNullException()
+        {
+            // Setup 
+            var input = new TestWaveConditionsInput();
+
+            // Call
+            TestDelegate action = () => TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
+                                                                                                               GetValidAssessmentLevel(),
+                                                                                                               null,
+                                                                                                               validNorm,
+                                                                                                               "test");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(action);
+            Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
         }
 
         [Test]
@@ -97,8 +113,11 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                    GetValidAssessmentLevel(),
-                                                                                                                   string.Empty,
-                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   new HydraulicBoundaryDatabase
+                                                                                                                   {
+                                                                                                                       FilePath = string.Empty,
+                                                                                                                       PreprocessorDirectory = validPreprocessorDirectory
+                                                                                                                   },
                                                                                                                    validNorm,
                                                                                                                    string.Empty);
 
@@ -125,8 +144,11 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                    GetValidAssessmentLevel(),
-                                                                                                                   invalidFilePath,
-                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   new HydraulicBoundaryDatabase
+                                                                                                                   {
+                                                                                                                       FilePath = invalidFilePath,
+                                                                                                                       PreprocessorDirectory = validPreprocessorDirectory
+                                                                                                                   },
                                                                                                                    validNorm,
                                                                                                                    string.Empty);
 
@@ -153,8 +175,11 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                    GetValidAssessmentLevel(),
-                                                                                                                   validFilePath,
-                                                                                                                   invalidPreprocessorDirectory,
+                                                                                                                   new HydraulicBoundaryDatabase
+                                                                                                                   {
+                                                                                                                       FilePath = string.Empty,
+                                                                                                                       PreprocessorDirectory = invalidPreprocessorDirectory
+                                                                                                                   },
                                                                                                                    validNorm,
                                                                                                                    string.Empty);
 
@@ -181,8 +206,11 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                    GetValidAssessmentLevel(),
-                                                                                                                   dbFilePath,
-                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   new HydraulicBoundaryDatabase
+                                                                                                                   {
+                                                                                                                       FilePath = dbFilePath,
+                                                                                                                       PreprocessorDirectory = validPreprocessorDirectory
+                                                                                                                   },
                                                                                                                    validNorm,
                                                                                                                    string.Empty);
 
@@ -208,8 +236,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                    GetValidAssessmentLevel(),
-                                                                                                                   validFilePath,
-                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   GetValidHydraulicBoundaryDatabase(),
                                                                                                                    double.NaN,
                                                                                                                    string.Empty);
 
@@ -235,8 +262,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                    GetValidAssessmentLevel(),
-                                                                                                                   validFilePath,
-                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   GetValidHydraulicBoundaryDatabase(),
                                                                                                                    1.0,
                                                                                                                    string.Empty);
 
@@ -264,8 +290,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    GetValidAssessmentLevel(),
-                                                                                                                   validFilePath,
-                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   GetValidHydraulicBoundaryDatabase(),
                                                                                                                    validNorm,
                                                                                                                    string.Empty);
 
@@ -298,8 +323,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    RoundedDouble.NaN,
-                                                                                                                   validFilePath,
-                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   GetValidHydraulicBoundaryDatabase(),
                                                                                                                    validNorm,
                                                                                                                    designWaterLevelName);
 
@@ -342,8 +366,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    (RoundedDouble) assessmentLevel,
-                                                                                                                   validFilePath,
-                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   GetValidHydraulicBoundaryDatabase(),
                                                                                                                    validNorm,
                                                                                                                    "DesignWaterLevelName");
 
@@ -376,8 +399,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    GetValidAssessmentLevel(),
-                                                                                                                   validFilePath,
-                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   GetValidHydraulicBoundaryDatabase(),
                                                                                                                    validNorm,
                                                                                                                    "DesignWaterLevelName");
 
@@ -410,8 +432,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    GetValidAssessmentLevel(),
-                                                                                                                   validFilePath,
-                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   GetValidHydraulicBoundaryDatabase(),
                                                                                                                    validNorm,
                                                                                                                    "DesignWaterLevelName");
 
@@ -457,8 +478,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    GetValidAssessmentLevel(),
-                                                                                                                   validFilePath,
-                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   GetValidHydraulicBoundaryDatabase(),
                                                                                                                    validNorm,
                                                                                                                    "DesignWaterLevelName");
 
@@ -486,8 +506,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    GetValidAssessmentLevel(),
-                                                                                                                   validFilePath,
-                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   GetValidHydraulicBoundaryDatabase(),
                                                                                                                    validNorm,
                                                                                                                    "DesignWaterLevelName");
 
@@ -964,6 +983,15 @@ namespace Ringtoets.Revetment.Service.Test
             return input;
         }
 
+        private static HydraulicBoundaryDatabase GetValidHydraulicBoundaryDatabase()
+        {
+            return new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                PreprocessorDirectory = validPreprocessorDirectory
+            };
+        }
+
         private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, bool useForeshore, bool useBreakWater)
         {
             return new WaveConditionsCosineCalculationInput(1,
@@ -993,15 +1021,13 @@ namespace Ringtoets.Revetment.Service.Test
 
             public static bool PublicValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,
                                                                  RoundedDouble assessmentLevel,
-                                                                 string dbFilePath,
-                                                                 string preprocessorDirectory,
+                                                                 HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                                                  double targetProbability,
                                                                  string valueName)
             {
                 return ValidateWaveConditionsInput(waveConditionsInput,
                                                    assessmentLevel,
-                                                   dbFilePath,
-                                                   preprocessorDirectory,
+                                                   hydraulicBoundaryDatabase,
                                                    targetProbability,
                                                    valueName);
             }

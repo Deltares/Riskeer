@@ -27,6 +27,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using log4net;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
@@ -72,24 +73,26 @@ namespace Ringtoets.Revetment.Service
         /// </summary>
         /// <param name="waveConditionsInput">The input of the calculation.</param>
         /// <param name="assessmentLevel">The assessment level to use for determining water levels.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary
-        /// database file which to validate.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to validate.</param>
         /// <param name="norm">The norm to validate.</param>
         /// <param name="designWaterLevelName">The name of the design water level property.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>
-        /// or <paramref name="designWaterLevelName"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>,
+        /// <paramref name="designWaterLevelName"/> or <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
         protected static bool ValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,
                                                           RoundedDouble assessmentLevel,
-                                                          string hydraulicBoundaryDatabaseFilePath,
-                                                          string preprocessorDirectory,
+                                                          HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                                           double norm,
                                                           string designWaterLevelName)
         {
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
+            }
+
+            if (hydraulicBoundaryDatabase == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
             if (designWaterLevelName == null)
@@ -99,8 +102,7 @@ namespace Ringtoets.Revetment.Service
 
             CalculationServiceHelper.LogValidationBegin();
 
-            string[] messages = ValidateInput(hydraulicBoundaryDatabaseFilePath,
-                                              preprocessorDirectory,
+            string[] messages = ValidateInput(hydraulicBoundaryDatabase,
                                               waveConditionsInput,
                                               assessmentLevel,
                                               norm,
@@ -210,8 +212,7 @@ namespace Ringtoets.Revetment.Service
             return outputs;
         }
 
-        private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath,
-                                              string preprocessorDirectory,
+        private static string[] ValidateInput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                               WaveConditionsInput input,
                                               RoundedDouble assessmentLevel,
                                               double norm,
@@ -219,14 +220,13 @@ namespace Ringtoets.Revetment.Service
         {
             var validationResults = new List<string>();
 
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
-                                                                                                                   preprocessorDirectory);
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
                 validationResults.Add(databaseFilePathValidationProblem);
             }
 
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
+            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
             if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
             {
                 validationResults.Add(preprocessorDirectoryValidationProblem);

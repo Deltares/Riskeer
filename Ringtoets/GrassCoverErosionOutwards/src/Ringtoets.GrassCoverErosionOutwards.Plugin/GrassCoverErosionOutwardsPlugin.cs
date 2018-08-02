@@ -843,8 +843,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                    failureMechanism.GetAssessmentLevel(assessmentSection,
                                                                                                                        calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                                        calculation.InputParameters.CategoryType),
-                                                                                   assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                   assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                   assessmentSection.HydraulicBoundaryDatabase,
                                                                                    failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
             }
         }
@@ -968,8 +967,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                failureMechanism.GetAssessmentLevel(assessmentSection,
                                                                                                                    calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                                    calculation.InputParameters.CategoryType),
-                                                                               assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                               assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                               assessmentSection.HydraulicBoundaryDatabase,
                                                                                failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
         }
 

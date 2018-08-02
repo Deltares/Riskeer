@@ -21,7 +21,6 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
@@ -75,8 +74,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                                                                                       failureMechanism.GetAssessmentLevel(assessmentSection,
                                                                                                                           calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                                           calculation.InputParameters.CategoryType),
-                                                                                      assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                      assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                      assessmentSection.HydraulicBoundaryDatabase,
                                                                                       failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
         }
 
