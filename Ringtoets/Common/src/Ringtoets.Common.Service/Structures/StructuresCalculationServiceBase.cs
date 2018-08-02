@@ -324,8 +324,7 @@ namespace Ringtoets.Common.Service.Structures
             var validationResults = new List<string>();
 
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                                   preprocessorDirectory);
+            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
                 validationResults.Add(databaseFilePathValidationProblem);

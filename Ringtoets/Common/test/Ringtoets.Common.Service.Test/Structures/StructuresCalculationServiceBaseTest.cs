@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         [Test]
-        public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
+        public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -114,7 +114,8 @@ namespace Ringtoets.Common.Service.Test.Structures
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. " +
+                                        "Fout bij het lezen van bestand", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -123,7 +124,7 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         [Test]
-        public void Validate_ValidCalculationInvalidPreprocessorDirectory_ReturnsFalse()
+        public void Validate_ValidCalculationInvalidPreprocessorDirectory_LogsErrorAndReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -159,7 +160,7 @@ namespace Ringtoets.Common.Service.Test.Structures
         }
 
         [Test]
-        public void Validate_ValidCalculationValidHydraulicBoundaryDatabaseNoSettings_ReturnsFalse()
+        public void Validate_ValidCalculationValidHydraulicBoundaryDatabaseNoSettings_LogsErrorAndReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -181,7 +182,36 @@ namespace Ringtoets.Common.Service.Test.Structures
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. " +
+                                        "Fout bij het lezen van bestand", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
+                                                                                                       mocks);
+            mocks.ReplayAll();
+
+            var isValid = false;
+
+            // Call
+            Action call = () => isValid = TestStructuresCalculationService.Validate(new TestStructuresCalculation(), assessmentSection);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("Er is geen hydraulische randvoorwaardendatabase geïmporteerd.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
