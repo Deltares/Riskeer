@@ -132,12 +132,6 @@
   <data name="FailureMechanismSection_Section_must_have_at_least_1_geometry_point" xml:space="preserve">
     <value>Vak moet minstens uit één punt bestaan.</value>
   </data>
-  <data name="FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism" xml:space="preserve">
-    <value>Kan geen bijdrage element maken zonder een toetsspoor.</value>
-  </data>
-  <data name="FailureMechanismContribution_UpdateContributions_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection" xml:space="preserve">
-    <value>Kan geen bijdrageoverzicht maken zonder toetsspoor.</value>
-  </data>
   <data name="OtherFailureMechanism_DisplayName" xml:space="preserve">
     <value>Overig</value>
   </data>

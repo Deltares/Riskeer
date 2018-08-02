@@ -509,26 +509,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen bijdrageoverzicht maken zonder toetsspoor..
-        /// </summary>
-        public static string FailureMechanismContribution_UpdateContributions_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection {
-            get {
-                return ResourceManager.GetString("FailureMechanismContribution_UpdateContributions_Can_not_create_FailureMechanismC" +
-                        "ontribution_without_FailureMechanism_collection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan geen bijdrage element maken zonder een toetsspoor..
-        /// </summary>
-        public static string FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure" +
-                        "_mechanism", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Vak moet minstens uit één punt bestaan..
         /// </summary>
         public static string FailureMechanismSection_Section_must_have_at_least_1_geometry_point {
