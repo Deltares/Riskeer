@@ -29,7 +29,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.FileImporters
     /// An update strategy that can be used to update a <see cref="StabilityStoneCoverFailureMechanismSectionResult"/> instance with data
     /// from an old <see cref="StabilityStoneCoverFailureMechanismSectionResult"/> instance.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<StabilityStoneCoverFailureMechanismSectionResult>
+    public class StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy 
+        : IFailureMechanismSectionResultUpdateStrategy<StabilityStoneCoverFailureMechanismSectionResult>
     {
         public void UpdateSectionResult(StabilityStoneCoverFailureMechanismSectionResult origin, StabilityStoneCoverFailureMechanismSectionResult target)
         {

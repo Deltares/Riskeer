@@ -53,6 +53,7 @@
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsScenariosContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\OvertoppingRateOutputContextTreeNodeInfoTest.cs" />
     <Compile Include="UpdateInfos\DikeProfilesContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\GrassCoverErosionInwardsFailureMechanismSectionsContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsInputViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsOutputViewInfoTestBase.cs" />
