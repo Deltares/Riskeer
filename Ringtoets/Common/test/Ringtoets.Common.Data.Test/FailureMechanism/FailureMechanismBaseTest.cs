@@ -282,6 +282,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
             // Precondition
             Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+            CollectionAssert.IsNotEmpty(failureMechanism.Sections);
 
             // Call
             failureMechanism.ClearAllSections();

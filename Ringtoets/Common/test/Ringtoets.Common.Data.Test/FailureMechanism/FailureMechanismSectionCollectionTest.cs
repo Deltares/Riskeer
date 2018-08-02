@@ -143,16 +143,10 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void SetSections_SecondSectionDoesNotConnectToFirst_ThrowsArgumentExceptionAndOldDataRemains()
+        public void SetSections_SecondSectionDoesNotConnectToFirst_ThrowsArgumentException()
         {
             // Setup
             var sectionCollection = new FailureMechanismSectionCollection();
-            string oldPath = TestHelper.GetScratchPadPath();
-            FailureMechanismSection oldSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            sectionCollection.SetSections(new[]
-            {
-                oldSection
-            }, oldPath);
 
             var section1 = new FailureMechanismSection("A", new[]
             {
@@ -175,7 +169,43 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-            Assert.AreEqual(oldSection, sectionCollection.Single());
+            CollectionAssert.IsEmpty(sectionCollection);
+            Assert.IsNull(sectionCollection.SourcePath);
+        }
+
+        [Test]
+        public void GivenCollectionWithSections_WhenArgumentExceptionThrown_ThenOldDataRemains()
+        {
+            // Given
+            var sectionCollection = new FailureMechanismSectionCollection();
+            string oldPath = TestHelper.GetScratchPadPath();
+            FailureMechanismSection oldSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            sectionCollection.SetSections(new[]
+            {
+                oldSection
+            }, oldPath);
+
+            var section1 = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            });
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(5, 6),
+                new Point2D(7, 8)
+            });
+
+            // When
+            TestDelegate call = () => sectionCollection.SetSections(new[]
+            {
+                section1,
+                section2
+            }, string.Empty);
+
+            // Then
+            Assert.Throws<ArgumentException>(call);
+            Assert.AreSame(oldSection, sectionCollection.Single());
             Assert.AreEqual(oldPath, sectionCollection.SourcePath);
         }
 
