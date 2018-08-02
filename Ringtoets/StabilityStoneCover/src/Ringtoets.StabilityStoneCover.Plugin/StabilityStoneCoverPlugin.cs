@@ -555,8 +555,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
                                                                              assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                                   calculation.InputParameters.CategoryType),
-                                                                             assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                             assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                             assessmentSection.HydraulicBoundaryDatabase,
                                                                              assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
             }
         }
@@ -649,8 +648,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
                                                                          assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                               calculation.InputParameters.CategoryType),
-                                                                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                         assessmentSection.HydraulicBoundaryDatabase,
                                                                          assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
         }
 

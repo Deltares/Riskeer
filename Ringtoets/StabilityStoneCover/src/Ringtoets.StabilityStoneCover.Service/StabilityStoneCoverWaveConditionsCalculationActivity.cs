@@ -21,7 +21,6 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service.Properties;
@@ -74,8 +73,7 @@ namespace Ringtoets.StabilityStoneCover.Service
             return StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
                                                                                 assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                                      calculation.InputParameters.CategoryType),
-                                                                                assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                assessmentSection.HydraulicBoundaryDatabase,
                                                                                 assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
         }
 
