@@ -20,6 +20,7 @@
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsOutputContext.cs" />
     <Compile Include="PresentationObjects\OvertoppingOutputContext.cs" />
     <Compile Include="PresentationObjects\OvertoppingRateOutputContext.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionInwardsFailureMechanismSectionsContext.cs" />
     <Compile Include="PropertyClasses\DikeHeightOutputProperties.cs" />
     <Compile Include="PropertyClasses\DikeProfileCollectionProperties.cs" />
     <Compile Include="Factories\GrassCoverErosionInwardsMapDataFeatureFactory.cs" />
