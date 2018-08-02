@@ -15,6 +15,7 @@
   <ItemGroup>
     <Compile Include="FileImporters\GrassCoverErosionInwardsDikeProfileReplaceDataStrategy.cs" />
     <Compile Include="FileImporters\GrassCoverErosionInwardsDikeProfileUpdateDataStrategy.cs" />
+    <Compile Include="FileImporters\GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategy.cs" />
     <Compile Include="GrassCoverErosionInwardsPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -82,6 +83,11 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Plugin\Ringtoets.Common.Plugin.csproj">
       <Project>{8513B8D6-79C8-4173-B663-59C91AC65E5F}</Project>
       <Name>Ringtoets.Common.Plugin</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">

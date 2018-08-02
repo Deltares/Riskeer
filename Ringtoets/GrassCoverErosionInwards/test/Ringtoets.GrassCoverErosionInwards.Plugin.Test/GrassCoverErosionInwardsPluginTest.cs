@@ -193,8 +193,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, updateInfos.Length);
+                Assert.AreEqual(2, updateInfos.Length);
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(DikeProfilesContext)));
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(GrassCoverErosionInwardsFailureMechanismSectionsContext)));
             }
         }
 

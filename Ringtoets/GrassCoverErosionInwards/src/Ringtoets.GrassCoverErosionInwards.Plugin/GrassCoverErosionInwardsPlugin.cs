@@ -39,6 +39,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Forms.UpdateInfos;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.Plugin;
@@ -151,6 +152,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 VerifyUpdates = context => VerifyDikeProfilesShouldUpdate(context,
                                                                           Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_When_updating_Calculation_with_DikeProfile_data_output_will_be_cleared_confirm)
             };
+
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                GrassCoverErosionInwardsFailureMechanismSectionsContext, GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResult>(
+                new GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
@@ -535,7 +540,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             return new object[]
             {
-                new GrassCoverErosionInwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection), 
+                new GrassCoverErosionInwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
