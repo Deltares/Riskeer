@@ -113,7 +113,6 @@
     <Compile Include="TreeNodeInfos\NormContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingStructureFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\MacroStabilityOutwardsFailureMechanismContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\FailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismContributionContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ForeshoreProfilesContextTreeNodeInfoTest.cs" />

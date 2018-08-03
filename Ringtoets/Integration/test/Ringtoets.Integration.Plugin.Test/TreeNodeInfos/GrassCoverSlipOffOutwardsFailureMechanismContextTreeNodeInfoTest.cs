@@ -168,20 +168,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var outputFolder = (CategoryTreeFolder) children[1];
-            Assert.AreEqual(3, outputFolder.Contents.Count());
+            Assert.AreEqual(2, outputFolder.Contents.Count());
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-            var failureMechanismAssemblyCategoriesContext = (GeotechnicalFailureMechanismAssemblyCategoriesContext) outputFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
-
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>)
-                outputFolder.Contents.ElementAt(1);
+                outputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputComment = (Comment) outputFolder.Contents.ElementAt(2);
+            var outputComment = (Comment) outputFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 

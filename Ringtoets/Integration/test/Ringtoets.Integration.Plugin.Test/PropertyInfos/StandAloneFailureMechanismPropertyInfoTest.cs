@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismContext<IFailureMechanism>), info.DataType);
+            Assert.AreEqual(typeof(IFailureMechanismContext<IFailureMechanism>), info.DataType);
             Assert.AreEqual(typeof(StandAloneFailureMechanismProperties), info.PropertyObjectType);
         }
 

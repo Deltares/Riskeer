@@ -256,7 +256,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(FailureMechanismContext<IFailureMechanism>),
+                    typeof(IFailureMechanismContext<IFailureMechanism>),
                     typeof(StandAloneFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -513,7 +513,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(39, treeNodeInfos.Length);
+                Assert.AreEqual(38, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSection)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(BackgroundData)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(NormContext)));
@@ -639,8 +639,16 @@ namespace Ringtoets.Integration.Plugin.Test
                 UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, updateInfos.Length);
+                Assert.AreEqual(9, updateInfos.Length);
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(ForeshoreProfilesContext)));
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(GrassCoverSlipOffInwardsFailureMechanismSectionsContext)));
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(GrassCoverSlipOffOutwardsFailureMechanismSectionsContext)));
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(MacroStabilityOutwardsFailureMechanismSectionsContext)));
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(MicrostabilityFailureMechanismSectionsContext)));
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(PipingStructureFailureMechanismSectionsContext)));
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext)));
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(TechnicalInnovationFailureMechanismSectionsContext)));
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(WaterPressureAsphaltCoverFailureMechanismSectionsContext)));
             }
         }
 
