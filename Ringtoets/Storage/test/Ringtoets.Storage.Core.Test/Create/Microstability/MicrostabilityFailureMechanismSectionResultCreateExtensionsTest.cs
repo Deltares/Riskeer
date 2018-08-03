@@ -54,7 +54,7 @@ namespace Ringtoets.Storage.Core.Test.Create.Microstability
             var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
             bool useManualAssemblyCategoryGroup = random.NextBoolean();
-            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {

@@ -206,15 +206,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public SelectableFailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup
+        public ManualFailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup
         {
             get
             {
-                return SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(SectionResult.ManualAssemblyCategoryGroup);
+                return SectionResult.ManualAssemblyCategoryGroup;
             }
             set
             {
-                SectionResult.ManualAssemblyCategoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(value);
+                SectionResult.ManualAssemblyCategoryGroup = value;
                 UpdateInternalData();
             }
         }

@@ -71,7 +71,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
             bool useManualAssemblyCategoryGroup = random.NextBoolean();
-            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             var entity = new MicrostabilitySectionResultEntity
             {
