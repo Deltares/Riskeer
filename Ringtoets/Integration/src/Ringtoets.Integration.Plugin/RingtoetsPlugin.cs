@@ -48,6 +48,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Controls;
@@ -55,6 +56,7 @@ using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Forms.UpdateInfos;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
@@ -74,6 +76,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.Dialogs;
@@ -314,7 +317,7 @@ namespace Ringtoets.Integration.Plugin
                     context.WrappedData,
                     new FailureMechanismContributionNormChangeHandler(context.AssessmentSection))
             };
-            yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismProperties>
+            yield return new PropertyInfo<IFailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismProperties>
             {
                 CreateInstance = context => new StandAloneFailureMechanismProperties(context.WrappedData, context.Parent)
             };
@@ -708,6 +711,38 @@ namespace Ringtoets.Integration.Plugin
                 IsEnabled = context => context.WrappedData.SourcePath != null,
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
+
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                GrassCoverSlipOffInwardsFailureMechanismSectionsContext, GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResult>(
+                new GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateStrategy());
+
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                GrassCoverSlipOffOutwardsFailureMechanismSectionsContext, GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
+                new GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategy());
+
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                MacroStabilityOutwardsFailureMechanismSectionsContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
+                new MacroStabilityOutwardsFailureMechanismSectionResultUpdateStrategy());
+
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                MicrostabilityFailureMechanismSectionsContext, MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult>(
+                new MicrostabilityFailureMechanismSectionResultUpdateStrategy());
+
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                PipingStructureFailureMechanismSectionsContext, PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>(
+                new PipingStructureFailureMechanismSectionResultUpdateStrategy());
+
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext, StrengthStabilityLengthwiseConstructionFailureMechanism, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(
+                new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateStrategy());
+
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                TechnicalInnovationFailureMechanismSectionsContext, TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult>(
+                new TechnicalInnovationFailureMechanismSectionResultUpdateStrategy());
+
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                WaterPressureAsphaltCoverFailureMechanismSectionsContext, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult>(
+                new WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
         }
 
         /// <summary>
@@ -1649,7 +1684,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                new GrassCoverSlipOffInwardsFailureMechanismSectionsContext(nodeData, assessmentSection), 
                 nodeData.InputComments
             };
         }
@@ -1692,7 +1727,7 @@ namespace Ringtoets.Integration.Plugin
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData),
+                                       GetOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
@@ -1703,6 +1738,21 @@ namespace Ringtoets.Integration.Plugin
             {
                 new MacroStabilityOutwardsFailureMechanismSectionsContext(nodeData, assessmentSection), 
                 nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
+                                                      IAssessmentSection assessmentSection)
+        {
+            MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = nodeData.MacroStabilityOutwardsProbabilityAssessmentInput;
+            return new object[]
+            {
+                new GeotechnicalFailureMechanismAssemblyCategoriesContext(nodeData,
+                                                                          assessmentSection,
+                                                                          () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
+                new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData, assessmentSection),
+                nodeData.OutputComments
             };
         }
 
@@ -1744,7 +1794,7 @@ namespace Ringtoets.Integration.Plugin
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData),
+                                       GetOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
@@ -1755,6 +1805,20 @@ namespace Ringtoets.Integration.Plugin
             {
                 new PipingStructureFailureMechanismSectionsContext(nodeData, assessmentSection), 
                 nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(PipingStructureFailureMechanism nodeData,
+                                                      IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismAssemblyCategoriesContext(nodeData,
+                                                              assessmentSection,
+                                                              () => nodeData.N),
+                new ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData, assessmentSection),
+                nodeData.OutputComments
             };
         }
 
