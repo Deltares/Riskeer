@@ -48,7 +48,6 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Controls;
@@ -75,7 +74,6 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.Dialogs;
@@ -158,20 +156,20 @@ namespace Ringtoets.Integration.Plugin
             ),
             new FailureMechanismContextAssociation(
                 typeof(GrassCoverSlipOffInwardsFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                    mechanism,
+                (mechanism, assessmentSection) => new GrassCoverSlipOffInwardsFailureMechanismContext(
+                    (GrassCoverSlipOffInwardsFailureMechanism) mechanism,
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
                 typeof(GrassCoverSlipOffOutwardsFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                    mechanism,
+                (mechanism, assessmentSection) => new GrassCoverSlipOffOutwardsFailureMechanismContext(
+                    (GrassCoverSlipOffOutwardsFailureMechanism) mechanism,
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
                 typeof(MicrostabilityFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                    mechanism,
+                (mechanism, assessmentSection) => new MicrostabilityFailureMechanismContext(
+                    (MicrostabilityFailureMechanism) mechanism,
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
@@ -188,14 +186,14 @@ namespace Ringtoets.Integration.Plugin
             ),
             new FailureMechanismContextAssociation(
                 typeof(TechnicalInnovationFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                    mechanism,
+                (mechanism, assessmentSection) => new TechnicalInnovationFailureMechanismContext(
+                    (TechnicalInnovationFailureMechanism) mechanism,
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
                 typeof(StrengthStabilityLengthwiseConstructionFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                    mechanism,
+                (mechanism, assessmentSection) => new StrengthStabilityLengthwiseConstructionFailureMechanismContext(
+                    (StrengthStabilityLengthwiseConstructionFailureMechanism) mechanism,
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
@@ -206,8 +204,8 @@ namespace Ringtoets.Integration.Plugin
             ),
             new FailureMechanismContextAssociation(
                 typeof(WaterPressureAsphaltCoverFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                    mechanism,
+                (mechanism, assessmentSection) => new WaterPressureAsphaltCoverFailureMechanismContext(
+                    (WaterPressureAsphaltCoverFailureMechanism) mechanism,
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
@@ -794,17 +792,53 @@ namespace Ringtoets.Integration.Plugin
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
 
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismContext>(
+                GrassCoverSlipOffInwardsFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismContext>(
+                GrassCoverSlipOffOutwardsFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
+
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<MacroStabilityOutwardsFailureMechanismContext>(
                 MacroStabilityOutwardsFailureMechanismEnabledChildNodeObjects,
-                MacroStabilityOutwardsFailureMechanismDisabledChildNodeObjects,
-                MacroStabilityOutwardsFailureMechanismEnabledContextMenuStrip,
-                MacroStabilityOutwardsFailureMechanismDisabledContextMenuStrip);
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<MicrostabilityFailureMechanismContext>(
+                MicrostabilityFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<PipingStructureFailureMechanismContext>(
                 PipingStructureFailureMechanismEnabledChildNodeObjects,
-                PipingStructureFailureMechanismDisabledChildNodeObjects,
-                PipingStructureFailureMechanismEnabledContextMenuStrip,
-                PipingStructureFailureMechanismDisabledContextMenuStrip);
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismContext>(
+                StrengthStabilityLengthwiseConstructionFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TechnicalInnovationFailureMechanismContext>(
+                TechnicalInnovationFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismContext>(
+                WaterPressureAsphaltCoverFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
             {
@@ -1503,7 +1537,7 @@ namespace Ringtoets.Integration.Plugin
 
         #region StandAloneFailureMechanismContext TreeNodeInfo
 
-        private static object[] StandAloneFailureMechanismEnabledChildNodeObjects(FailureMechanismContext<IFailureMechanism> nodeData)
+        private static object[] StandAloneFailureMechanismEnabledChildNodeObjects(IFailureMechanismContext<IFailureMechanism> nodeData)
         {
             return new object[]
             {
@@ -1516,7 +1550,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private static object[] StandAloneFailureMechanismDisabledChildNodeObjects(FailureMechanismContext<IFailureMechanism> nodeData)
+        private static object[] StandAloneFailureMechanismDisabledChildNodeObjects(IFailureMechanismContext<IFailureMechanism> nodeData)
         {
             return new object[]
             {
@@ -1589,7 +1623,7 @@ namespace Ringtoets.Integration.Plugin
             return failureMechanismSectionResultContexts;
         }
 
-        private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(FailureMechanismContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -1604,12 +1638,12 @@ namespace Ringtoets.Integration.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(FailureMechanismContext<IFailureMechanism> failureMechanismContext)
+        private void RemoveAllViewsForItem(IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip StandAloneFailureMechanismDisabledContextMenuStrip(FailureMechanismContext<IFailureMechanism> nodeData,
+        private ContextMenuStrip StandAloneFailureMechanismDisabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData,
                                                                                     object parentData,
                                                                                     TreeViewControl treeViewControl)
         {
@@ -1624,6 +1658,58 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
+        #region GrassCoverSlipOffInwardsFailureMechanismContext TreeNodeInfo
+
+        private static object[] GrassCoverSlipOffInwardsFailureMechanismEnabledChildNodeObjects(GrassCoverSlipOffInwardsFailureMechanismContext nodeData)
+        {
+            return new object[]
+            {
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       TreeFolderCategory.Input),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetOutputs(nodeData.WrappedData),
+                                       TreeFolderCategory.Output)
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(GrassCoverSlipOffInwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        #endregion
+
+        #region GrassCoverSlipOffOutwardsFailureMechanismContext TreeNodeInfo
+
+        private static object[] GrassCoverSlipOffOutwardsFailureMechanismEnabledChildNodeObjects(GrassCoverSlipOffOutwardsFailureMechanismContext nodeData)
+        {
+            return new object[]
+            {
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       TreeFolderCategory.Input),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetOutputs(nodeData.WrappedData),
+                                       TreeFolderCategory.Output)
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        #endregion
+
         #region MacroStabilityOutwardsFailureMechanismContext TreeNodeInfo
 
         private static object[] MacroStabilityOutwardsFailureMechanismEnabledChildNodeObjects(MacroStabilityOutwardsFailureMechanismContext nodeData)
@@ -1634,16 +1720,8 @@ namespace Ringtoets.Integration.Plugin
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
-            };
-        }
-
-        private static object[] MacroStabilityOutwardsFailureMechanismDisabledChildNodeObjects(MacroStabilityOutwardsFailureMechanismContext nodeData)
-        {
-            return new object[]
-            {
-                nodeData.WrappedData.NotRelevantComments
             };
         }
 
@@ -1656,51 +1734,29 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip MacroStabilityOutwardsFailureMechanismEnabledContextMenuStrip(MacroStabilityOutwardsFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
+        #endregion
+
+        #region MicrostabilityFailureMechanismContext TreeNodeInfo
+
+        private static object[] MicrostabilityFailureMechanismEnabledChildNodeObjects(MicrostabilityFailureMechanismContext nodeData)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-
-            return builder.AddOpenItem()
-                          .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
-        }
-
-        private void RemoveAllViewsForItem(MacroStabilityOutwardsFailureMechanismContext failureMechanismContext)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
-        }
-
-        private ContextMenuStrip MacroStabilityOutwardsFailureMechanismDisabledContextMenuStrip(MacroStabilityOutwardsFailureMechanismContext nodeData,
-                                                                                                object parentData,
-                                                                                                TreeViewControl treeViewControl)
-        {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-
-            return builder.AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .Build();
-        }
-
-        private static IEnumerable<object> GetOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
-                                                      IAssessmentSection assessmentSection)
-        {
-            MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = nodeData.MacroStabilityOutwardsProbabilityAssessmentInput;
             return new object[]
             {
-                new GeotechnicalFailureMechanismAssemblyCategoriesContext(nodeData,
-                                                                          assessmentSection,
-                                                                          () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
-                new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
-                    nodeData.SectionResults, nodeData, assessmentSection),
-                nodeData.OutputComments
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       TreeFolderCategory.Input),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetOutputs(nodeData.WrappedData),
+                                       TreeFolderCategory.Output)
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(MicrostabilityFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
             };
         }
 
@@ -1716,16 +1772,8 @@ namespace Ringtoets.Integration.Plugin
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
-            };
-        }
-
-        private static object[] PipingStructureFailureMechanismDisabledChildNodeObjects(PipingStructureFailureMechanismContext nodeData)
-        {
-            return new object[]
-            {
-                nodeData.WrappedData.NotRelevantComments
             };
         }
 
@@ -1738,50 +1786,82 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip PipingStructureFailureMechanismEnabledContextMenuStrip(PipingStructureFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+        #endregion
 
-            return builder.AddOpenItem()
-                          .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
-        }
+        #region StrengthStabilityLengthwiseConstructionFailureMechanismContext TreeNodeInfo
 
-        private void RemoveAllViewsForItem(PipingStructureFailureMechanismContext failureMechanismContext)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
-        }
-
-        private ContextMenuStrip PipingStructureFailureMechanismDisabledContextMenuStrip(PipingStructureFailureMechanismContext nodeData,
-                                                                                         object parentData,
-                                                                                         TreeViewControl treeViewControl)
-        {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-
-            return builder.AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .Build();
-        }
-
-        private static IEnumerable<object> GetOutputs(PipingStructureFailureMechanism nodeData,
-                                                      IAssessmentSection assessmentSection)
+        private static object[] StrengthStabilityLengthwiseConstructionFailureMechanismEnabledChildNodeObjects(
+            StrengthStabilityLengthwiseConstructionFailureMechanismContext nodeData)
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(nodeData,
-                                                              assessmentSection,
-                                                              () => nodeData.N),
-                new ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(
-                    nodeData.SectionResults, nodeData, assessmentSection),
-                nodeData.OutputComments
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       TreeFolderCategory.Input),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetOutputs(nodeData.WrappedData),
+                                       TreeFolderCategory.Output)
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        #endregion
+
+        #region TechnicalInnovationFailureMechanismContext TreeNodeInfo
+
+        private static object[] TechnicalInnovationFailureMechanismEnabledChildNodeObjects(TechnicalInnovationFailureMechanismContext nodeData)
+        {
+            return new object[]
+            {
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       TreeFolderCategory.Input),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetOutputs(nodeData.WrappedData),
+                                       TreeFolderCategory.Output)
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(TechnicalInnovationFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
+            };
+        }
+
+        #endregion
+
+        #region WaterPressureAsphaltCoverFailureMechanismContext TreeNodeInfo
+
+        private static object[] WaterPressureAsphaltCoverFailureMechanismEnabledChildNodeObjects(WaterPressureAsphaltCoverFailureMechanismContext nodeData)
+        {
+            return new object[]
+            {
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       TreeFolderCategory.Input),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetOutputs(nodeData.WrappedData),
+                                       TreeFolderCategory.Output)
+            };
+        }
+
+        private static IEnumerable<object> GetInputs(WaterPressureAsphaltCoverFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                nodeData.InputComments
             };
         }
 
