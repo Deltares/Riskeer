@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -40,6 +39,7 @@ using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
+using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
@@ -153,8 +153,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
                 Assert.AreEqual(result.UseManualAssemblyCategoryGroup, row.UseManualAssemblyCategoryGroup);
-                Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(result.ManualAssemblyCategoryGroup),
-                                row.ManualAssemblyCategoryGroup);
+                Assert.AreEqual(result.ManualAssemblyCategoryGroup, row.ManualAssemblyCategoryGroup);
 
                 TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
                     NoProbabilityValueDoubleConverter>(
@@ -310,7 +309,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             var random = new Random(39);
-            var newValue = random.NextEnumValue<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
+            var newValue = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
@@ -325,7 +324,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 row.ManualAssemblyCategoryGroup = newValue;
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(newValue);
+                ManualFailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup = newValue;
                 Assert.AreEqual(expectedCategoryGroup, result.ManualAssemblyCategoryGroup);
                 mocks.VerifyAll();
             }

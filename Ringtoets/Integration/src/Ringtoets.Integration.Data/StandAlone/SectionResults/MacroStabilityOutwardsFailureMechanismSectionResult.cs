@@ -24,6 +24,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Primitives;
+using Ringtoets.Integration.Data.Assembly;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResults
@@ -48,7 +49,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
             DetailedAssessmentProbability = double.NaN;
             TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None;
             TailorMadeAssessmentProbability = double.NaN;
-            ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.None;
         }
 
         /// <summary>
@@ -112,6 +113,6 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <summary>
         /// Gets or sets the manually selected assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
+        public ManualFailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
     }
 }

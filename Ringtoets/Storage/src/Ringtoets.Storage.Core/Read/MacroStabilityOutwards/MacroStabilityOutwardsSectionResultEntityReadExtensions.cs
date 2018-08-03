@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
+using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Storage.Core.DbContext;
 
@@ -58,7 +58,7 @@ namespace Ringtoets.Storage.Core.Read.MacroStabilityOutwards
             sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentProbabilityAndDetailedCalculationResultType) entity.TailorMadeAssessmentResult;
             sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
             sectionResult.UseManualAssemblyCategoryGroup = Convert.ToBoolean(entity.UseManualAssemblyCategoryGroup);
-            sectionResult.ManualAssemblyCategoryGroup = (FailureMechanismSectionAssemblyCategoryGroup) entity.ManualAssemblyCategoryGroup;
+            sectionResult.ManualAssemblyCategoryGroup = (ManualFailureMechanismSectionAssemblyCategoryGroup) entity.ManualAssemblyCategoryGroup;
         }
     }
 }
