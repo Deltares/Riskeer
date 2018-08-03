@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses.StandAlone;
 
@@ -67,7 +68,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var context = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
@@ -76,6 +77,11 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             Assert.IsInstanceOf<StandAloneFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
             mocks.VerifyAll();
+        }
+
+        private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+        {
+            public TestFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) : base(wrappedFailureMechanism, parent) {}
         }
     }
 }

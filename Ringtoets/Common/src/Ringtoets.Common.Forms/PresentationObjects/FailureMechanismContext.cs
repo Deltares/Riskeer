@@ -27,9 +27,9 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a <see cref="IFailureMechanism"/> instance.
+    /// This class is an abstract base presentation object for a <see cref="IFailureMechanism"/> instance.
     /// </summary>
-    public class FailureMechanismContext<T> : ObservableWrappedObjectContextBase<T>, IFailureMechanismContext<T> where T : IFailureMechanism
+    public abstract class FailureMechanismContext<T> : ObservableWrappedObjectContextBase<T>, IFailureMechanismContext<T> where T : IFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismContext{T}"/> class.
@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public FailureMechanismContext(T wrappedFailureMechanism, IAssessmentSection parent)
+        protected FailureMechanismContext(T wrappedFailureMechanism, IAssessmentSection parent)
             : base(wrappedFailureMechanism)
         {
             if (parent == null)

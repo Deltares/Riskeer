@@ -126,7 +126,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(new TestFailureMechanism(), assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(new TestFailureMechanism(), assessmentSection);
 
             using (IView view = GetView(failureMechanism))
             {
@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (IView view = GetView(failureMechanism))
             {
@@ -177,5 +177,10 @@ namespace Ringtoets.Common.Plugin.TestUtil
         /// <param name="data">The failure mechanism containing the data to set to the view.</param>
         /// <returns>A view object.</returns>
         protected abstract IView GetView(IFailureMechanism data);
+
+        private class TestFailureMechanismContext : FailureMechanismContext<TestFailureMechanism>
+        {
+            public TestFailureMechanismContext(TestFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) : base(wrappedFailureMechanism, parent) {}
+        }
     }
 }
