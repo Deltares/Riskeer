@@ -219,7 +219,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
                 sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
-                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 
