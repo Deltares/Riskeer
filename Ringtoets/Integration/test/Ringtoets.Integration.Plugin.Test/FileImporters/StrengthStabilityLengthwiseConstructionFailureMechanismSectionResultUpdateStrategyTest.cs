@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
                 TailorMadeAssessmentResult = TailorMadeAssessmentResultType.ProbabilityNegligible,
                 UseManualAssemblyCategoryGroup = true,
-                ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+                ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>()
             };
             var targetResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 

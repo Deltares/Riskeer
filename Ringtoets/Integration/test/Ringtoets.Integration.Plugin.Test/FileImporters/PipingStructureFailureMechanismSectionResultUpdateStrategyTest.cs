@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 DetailedAssessmentResult = DetailedAssessmentResultType.Sufficient,
                 TailorMadeAssessmentResult = TailorMadeAssessmentResultType.ProbabilityNegligible,
                 UseManualAssemblyCategoryGroup = true,
-                ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+                ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>()
             };
             var targetResult = new PipingStructureFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
