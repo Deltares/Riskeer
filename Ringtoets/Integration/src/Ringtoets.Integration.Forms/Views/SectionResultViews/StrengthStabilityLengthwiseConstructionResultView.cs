@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 DataGridViewControl,
                 nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.UseManualAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.ManualAssemblyCategoryGroup));
         }

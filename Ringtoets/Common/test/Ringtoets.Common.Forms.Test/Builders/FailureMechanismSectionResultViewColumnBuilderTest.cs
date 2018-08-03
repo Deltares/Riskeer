@@ -381,7 +381,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 IEnumerable<EnumDisplayWrapper<DetailedAssessmentResultType>> expectedDataSource =
                     CreateExpectedEnumDisplayWrappers<DetailedAssessmentResultType>();
                 AssertEnumDisplayWrappersAreEqual(expectedDataSource,
-                                                  (EnumDisplayWrapper<DetailedAssessmentResultType>[])columnData.DataSource);
+                                                  (EnumDisplayWrapper<DetailedAssessmentResultType>[]) columnData.DataSource);
             }
         }
 
@@ -436,7 +436,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 IEnumerable<EnumDisplayWrapper<DetailedAssessmentResultType>> expectedDataSource =
                     CreateExpectedEnumDisplayWrappers<DetailedAssessmentResultType>();
                 AssertEnumDisplayWrappersAreEqual(expectedDataSource,
-                                                  (EnumDisplayWrapper<DetailedAssessmentResultType>[])columnData.DataSource);
+                                                  (EnumDisplayWrapper<DetailedAssessmentResultType>[]) columnData.DataSource);
             }
         }
 
@@ -491,7 +491,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 IEnumerable<EnumDisplayWrapper<DetailedAssessmentResultType>> expectedDataSource =
                     CreateExpectedEnumDisplayWrappers<DetailedAssessmentResultType>();
                 AssertEnumDisplayWrappersAreEqual(expectedDataSource,
-                                                  (EnumDisplayWrapper<DetailedAssessmentResultType>[])columnData.DataSource);
+                                                  (EnumDisplayWrapper<DetailedAssessmentResultType>[]) columnData.DataSource);
             }
         }
 
@@ -546,7 +546,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 IEnumerable<EnumDisplayWrapper<DetailedAssessmentResultType>> expectedDataSource =
                     CreateExpectedEnumDisplayWrappers<DetailedAssessmentResultType>();
                 AssertEnumDisplayWrappersAreEqual(expectedDataSource,
-                                                  (EnumDisplayWrapper<DetailedAssessmentResultType>[])columnData.DataSource);
+                                                  (EnumDisplayWrapper<DetailedAssessmentResultType>[]) columnData.DataSource);
             }
         }
 
@@ -601,7 +601,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 IEnumerable<EnumDisplayWrapper<DetailedAssessmentResultType>> expectedDataSource =
                     CreateExpectedEnumDisplayWrappers<DetailedAssessmentResultType>();
                 AssertEnumDisplayWrappersAreEqual(expectedDataSource,
-                                                  (EnumDisplayWrapper<DetailedAssessmentResultType>[])columnData.DataSource);
+                                                  (EnumDisplayWrapper<DetailedAssessmentResultType>[]) columnData.DataSource);
             }
         }
 
@@ -656,7 +656,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 IEnumerable<EnumDisplayWrapper<DetailedAssessmentResultType>> expectedDataSource =
                     CreateExpectedEnumDisplayWrappers<DetailedAssessmentResultType>();
                 AssertEnumDisplayWrappersAreEqual(expectedDataSource,
-                                                  (EnumDisplayWrapper<DetailedAssessmentResultType>[])columnData.DataSource);
+                                                  (EnumDisplayWrapper<DetailedAssessmentResultType>[]) columnData.DataSource);
             }
         }
 
@@ -1228,10 +1228,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddManualAssemblyCategoryGroupColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddSelectableAssemblyCategoryGroupColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(null, "property");
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -1239,10 +1239,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddManualAssemblyCategoryGroupColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddSelectableAssemblyCategoryGroupColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(new DataGridViewControl(), null);
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -1250,7 +1250,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddManualAssemblyCategoryGroupColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddSelectableAssemblyCategoryGroupColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -1264,7 +1264,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(control, dataPropertyName);
+                FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);

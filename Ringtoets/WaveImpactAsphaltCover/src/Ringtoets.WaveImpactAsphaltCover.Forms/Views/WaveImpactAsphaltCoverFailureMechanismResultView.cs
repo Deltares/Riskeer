@@ -132,7 +132,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
                 DataGridViewControl,
                 nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.UseManualAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.ManualAssemblyCategoryGroup));
         }
