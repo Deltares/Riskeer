@@ -126,7 +126,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
             Assert.AreEqual(2, inputsFolder.Contents.Count());
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
+            var failureMechanismSectionsContext = (DuneErosionFailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 

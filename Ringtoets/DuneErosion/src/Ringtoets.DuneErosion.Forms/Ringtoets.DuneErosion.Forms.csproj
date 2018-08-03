@@ -23,6 +23,7 @@
     <Compile Include="PresentationObjects\DuneErosionFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\DuneLocationCalculationsContext.cs" />
     <Compile Include="PresentationObjects\DuneLocationCalculationsGroupContext.cs" />
+    <Compile Include="PresentationObjects\DuneErosionFailureMechanismSectionsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DuneErosionFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\DuneLocationCalculationsProperties.cs" />

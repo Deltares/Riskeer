@@ -243,7 +243,7 @@ namespace Ringtoets.DuneErosion.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new DuneErosionFailureMechanismSectionsContext(failureMechanism, assessmentSection), 
                 failureMechanism.InputComments
             };
         }
