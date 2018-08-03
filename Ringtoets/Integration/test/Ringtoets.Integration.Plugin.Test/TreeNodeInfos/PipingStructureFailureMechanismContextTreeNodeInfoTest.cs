@@ -23,7 +23,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -38,11 +37,9 @@ using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -183,7 +180,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
@@ -426,10 +423,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<T>>(typeof(IFailureMechanism));
-            failureMechanism.Expect(fm => ((IFailureMechanism) fm).IsRelevant).Return(true);
+            failureMechanism.Expect(fm => fm.IsRelevant).Return(true);
             failureMechanism.Expect(fm => fm.SectionResults).Return(new ObservableList<T>()).Repeat.Any();
-            failureMechanism.Expect(fm => ((IFailureMechanism) fm).InputComments).Return(new Comment());
-            failureMechanism.Expect(fm => ((IFailureMechanism) fm).OutputComments).Return(new Comment());
+            failureMechanism.Expect(fm => fm.InputComments).Return(new Comment());
+            failureMechanism.Expect(fm => fm.OutputComments).Return(new Comment());
             var failureMechanismContext = mocks.Stub<PipingStructureFailureMechanismContext>(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();

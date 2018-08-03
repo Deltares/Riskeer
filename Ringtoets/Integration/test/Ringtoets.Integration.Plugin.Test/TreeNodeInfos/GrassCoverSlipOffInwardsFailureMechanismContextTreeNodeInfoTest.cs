@@ -31,17 +31,12 @@ using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -49,7 +44,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class MacroStabilityOutwardsFailureMechanismContextTreeNodeInfoTest
+    public class GrassCoverSlipOffInwardsFailureMechanismContextTreeNodeInfoTest
     {
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
@@ -62,7 +57,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityOutwardsFailureMechanismContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverSlipOffInwardsFailureMechanismContext));
         }
 
         [TearDown]
@@ -106,8 +101,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var failureMechanismContext = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+            var failureMechanismContext = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(failureMechanismContext);
@@ -136,8 +131,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+            var context = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -152,9 +147,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
-            var failureMechanismContext = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -181,17 +176,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
-
-                failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
-                MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput;
-                Assert.AreEqual(probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength), calculator.FailureMechanismN);
-            }
-
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>)
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>)
                 outputFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
@@ -207,12 +192,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism
             {
                 IsRelevant = false
             };
 
-            var failureMechanismContext = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -229,9 +214,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+                var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -268,12 +253,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+                var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism
                 {
                     IsRelevant = false
                 };
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -307,8 +292,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             using (var treeView = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-                var context = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+                var context = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -340,14 +325,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var failureMechanismObserver = mocks.Stub<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism
             {
                 IsRelevant = true
             };
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
@@ -383,14 +368,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var failureMechanismObserver = mocks.Stub<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism
             {
                 IsRelevant = false
             };
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
@@ -431,7 +416,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             failureMechanism.Expect(fm => fm.SectionResults).Return(new ObservableList<T>()).Repeat.Any();
             failureMechanism.Expect(fm => fm.InputComments).Return(new Comment());
             failureMechanism.Expect(fm => fm.OutputComments).Return(new Comment());
-            var failureMechanismContext = mocks.Stub<MacroStabilityOutwardsFailureMechanismContext>(failureMechanism, assessmentSection);
+            var failureMechanismContext = mocks.Stub<GrassCoverSlipOffInwardsFailureMechanismContext>(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 

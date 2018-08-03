@@ -96,6 +96,12 @@
     <Compile Include="TreeNodeInfos\DikeProfileTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismAssemblyCategoriesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GeotechnicalFailureMechanismAssemblyCategoriesContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverSlipOffInwardsFailureMechanismContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverSlipOffOutwardsFailureMechanismContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\StrengthStabilityLengthwiseConstructionFailureMechanismContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\TechnicalInnovationFailureMechanismContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MicrostabilityFailureMechanismContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\WaterPressureAsphaltCoverFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\NormContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingStructureFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\MacroStabilityOutwardsFailureMechanismContextTreeNodeInfoTest.cs" />
