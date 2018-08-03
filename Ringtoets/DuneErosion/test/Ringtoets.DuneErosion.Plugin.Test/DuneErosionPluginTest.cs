@@ -166,7 +166,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(1, updateInfos.Length);
-                Assert.IsTrue(updateInfos.Any(ei => ei.DataType == typeof(DuneLocationCalculationsGroupContext)));
+                Assert.IsTrue(updateInfos.Any(ei => ei.DataType == typeof(DuneErosionFailureMechanismSectionsContext)));
             }
         }
     }
