@@ -132,6 +132,14 @@
     <Compile Include="TreeNodeInfos\WaveHeightCalculationsGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveHeightCalculationsContextTreeNodeInfoTest.cs" />
     <Compile Include="UpdateInfos\ForeshoreProfileContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\WaterPressureAsphaltCoverFailureMechanismSectionsContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\TechnicalInnovationFailureMechanismSectionsContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\PipingStructureFailureMechanismSectionsContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\MicrostabilityFailureMechanismSectionsContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\MacroStabilityOutwardsFailureMechanismSectionsContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\GrassCoverSlipOffOutwardsFailureMechanismSectionsContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\GrassCoverSlipOffInwardsFailureMechanismSectionsContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\AssemblyResultPerSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssemblyResultTotalViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionAssemblyCategoriesViewInfoTest.cs" />
