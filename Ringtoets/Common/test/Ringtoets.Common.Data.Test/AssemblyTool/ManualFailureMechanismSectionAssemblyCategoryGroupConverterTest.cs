@@ -2,9 +2,10 @@
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Integration.Data.Assembly;
+using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.Common.Primitives;
 
-namespace Ringtoets.Integration.Data.Test.Assembly
+namespace Ringtoets.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
     public class ManualFailureMechanismSectionAssemblyCategoryGroupConverterTest

@@ -21,8 +21,6 @@
     <Compile Include="Assembly\AssessmentSectionAssemblyFactoryTest.cs" />
     <Compile Include="Assembly\CombinedAssemblyFailureMechanismSectionFactoryTest.cs" />
     <Compile Include="Assembly\CombinedFailureMechanismSectionAssemblyResultFactoryTest.cs" />
-    <Compile Include="Assembly\ManualFailureMechanismSectionAssemblyCategoryGroupConverterTest.cs" />
-    <Compile Include="Assembly\ManualFailureMechanismSectionAssemblyCategoryGroupTest.cs" />
     <Compile Include="AssessmentSectionTest.cs" />
     <Compile Include="Assembly\CombinedFailureMechanismSectionAssemblyResultTest.cs" />
     <Compile Include="Merge\AssessmentSectionMergeDataTest.cs" />

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 
-namespace Ringtoets.Integration.Data.Assembly
+namespace Ringtoets.Common.Data.AssemblyTool
 {
     /// <summary>
     /// The cpnverter that <see cref="ManualFailureMechanismSectionAssemblyCategoryGroup"/>

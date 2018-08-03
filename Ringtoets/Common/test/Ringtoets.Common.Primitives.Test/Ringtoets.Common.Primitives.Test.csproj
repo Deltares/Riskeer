@@ -14,6 +14,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManualFailureMechanismSectionAssemblyCategoryGroupTest.cs" />
     <Compile Include="TailorMadeAssessmentCategoryGroupResultTypeTest.cs" />
     <Compile Include="TailorMadeAssessmentResultTypeTest.cs" />
     <Compile Include="DetailedAssessmentResultTypeTest.cs" />

@@ -1,7 +1,7 @@
 ﻿using Core.Common.Util.Attributes;
 using RingtoetsCommonPrimitivesResources = Ringtoets.Common.Primitives.Properties.Resources;
 
-namespace Ringtoets.Integration.Data.Assembly
+namespace Ringtoets.Common.Primitives
 {
     public enum ManualFailureMechanismSectionAssemblyCategoryGroup
     {

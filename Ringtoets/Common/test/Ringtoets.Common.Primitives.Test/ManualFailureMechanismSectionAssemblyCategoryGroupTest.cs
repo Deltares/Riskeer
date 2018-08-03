@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Primitives;
-using Ringtoets.Integration.Data.Assembly;
 
-namespace Ringtoets.Integration.Data.Test.Assembly
+namespace Ringtoets.Common.Primitives.Test
 {
     [TestFixture]
     public class ManualFailureMechanismSectionAssemblyCategoryGroupTest : EnumWithDisplayNameTestFixture<ManualFailureMechanismSectionAssemblyCategoryGroup>

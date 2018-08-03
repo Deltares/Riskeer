@@ -19,6 +19,7 @@
     <Compile Include="AssemblyTool\FailureMechanismAssemblyResultFactory.cs" />
     <Compile Include="AssemblyTool\AssemblyCategoriesInputFactory.cs" />
     <Compile Include="AssemblyTool\AssemblyToolCategoriesFactory.cs" />
+    <Compile Include="AssemblyTool\ManualFailureMechanismSectionAssemblyCategoryGroupConverter.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionCategoryType.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionComposition.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionExtensions.cs" />
@@ -161,6 +162,11 @@
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
       <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
       <Name>Ringtoets.AssemblyTool.KernelWrapper</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78aa56f5-431d-465c-ac50-3173d7e90ac1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

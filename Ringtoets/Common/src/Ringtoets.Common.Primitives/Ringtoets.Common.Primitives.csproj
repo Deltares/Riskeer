@@ -11,6 +11,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManualFailureMechanismSectionAssemblyCategoryGroup.cs" />
     <Compile Include="TailorMadeAssessmentCategoryGroupResultType.cs" />
     <Compile Include="TailorMadeAssessmentResultType.cs" />
     <Compile Include="DetailedAssessmentResultType.cs" />
