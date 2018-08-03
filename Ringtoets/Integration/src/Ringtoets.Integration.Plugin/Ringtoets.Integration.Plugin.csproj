@@ -25,6 +25,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileImporters\WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy.cs" />
+    <Compile Include="FileImporters\TechnicalInnovationFailureMechanismSectionResultUpdateStrategy.cs" />
+    <Compile Include="FileImporters\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateStrategy.cs" />
+    <Compile Include="FileImporters\PipingStructureFailureMechanismSectionResultUpdateStrategy.cs" />
+    <Compile Include="FileImporters\MicrostabilityFailureMechanismSectionResultUpdateStrategy.cs" />
+    <Compile Include="FileImporters\MacroStabilityOutwardsFailureMechanismSectionResultUpdateStrategy.cs" />
+    <Compile Include="FileImporters\GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategy.cs" />
+    <Compile Include="FileImporters\GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateStrategy.cs" />
     <Compile Include="Merge\AssessmentSectionMergeHandler.cs" />
     <Compile Include="Merge\AssessmentSectionMerger.cs" />
     <Compile Include="FileImporters\ForeshoreProfileReplaceDataStrategy.cs" />
@@ -101,6 +109,11 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Plugin\Ringtoets.Common.Plugin.csproj">
       <Project>{8513B8D6-79C8-4173-B663-59C91AC65E5F}</Project>
       <Name>Ringtoets.Common.Plugin</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
