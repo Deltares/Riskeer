@@ -13,6 +13,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileImporters\StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy.cs" />
     <Compile Include="FileImporters\StabilityPointStructureReplaceStrategy.cs" />
     <Compile Include="FileImporters\StabilityPointStructureUpdateDataStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,6 +68,11 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">

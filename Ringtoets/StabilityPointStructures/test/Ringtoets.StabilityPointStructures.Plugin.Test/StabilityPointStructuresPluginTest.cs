@@ -166,8 +166,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                 UpdateInfo[] updateInfo = plugin.GetUpdateInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, updateInfo.Length);
+                Assert.AreEqual(2, updateInfo.Length);
                 Assert.IsTrue(updateInfo.Any(i => i.DataType == typeof(StabilityPointStructuresContext)));
+                Assert.IsTrue(updateInfo.Any(i => i.DataType == typeof(StabilityPointStructuresFailureMechanismSectionsContext)));
             }
         }
 

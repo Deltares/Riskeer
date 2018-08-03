@@ -27,6 +27,7 @@
   <ItemGroup>
     <Compile Include="ExportInfos\StabilityPointStructuresCalculationContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\StabilityPointStructuresCalculationGroupContextExportInfoTest.cs" />
+    <Compile Include="FileImporters\StabilityPointStructuresFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="FileImporters\StabilityPointStructureReplaceDataStrategyTest.cs" />
     <Compile Include="FileImporters\StabilityPointStructuresUpdateDataStrategyTest.cs" />
     <Compile Include="ImportInfos\StabilityPointStructuresCalculationGroupContextImportInfoTest.cs" />
@@ -45,6 +46,7 @@
     <Compile Include="TreeNodeInfos\StabilityPointStructuresInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityPointStructuresScenariosContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityPointStructureTreeNodeInfoTest.cs" />
+    <Compile Include="UpdateInfos\StabilityPointStructuresFailureMechanismSectionsContextUpdateInfoTest.cs" />
     <Compile Include="UpdateInfos\StabilityPointStructuresContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\StabilityPointStructuresFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\StabilityPointStructuresScenariosViewInfoTest.cs" />
@@ -112,6 +114,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843d6e5-066f-4795-94f5-1d53932dd03c}</Project>
