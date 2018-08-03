@@ -15,6 +15,7 @@
   <ItemGroup>
     <Compile Include="PresentationObjects\ClosingStructuresOutputContext.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresScenariosContext.cs" />
+    <Compile Include="PresentationObjects\ClosingStructuresFailureMechanismSectionsContext.cs" />
     <Compile Include="PropertyClasses\ClosingStructuresFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\ClosingStructureProperties.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresCalculationContext.cs" />

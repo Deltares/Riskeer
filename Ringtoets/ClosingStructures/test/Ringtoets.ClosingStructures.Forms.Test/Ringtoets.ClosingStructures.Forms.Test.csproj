@@ -31,6 +31,7 @@
     <Compile Include="PresentationObjects\ClosingStructuresInputContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresOutputContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresScenariosContextTest.cs" />
+    <Compile Include="PresentationObjects\ClosingStructuresFailureMechanismSectionsContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\ClosingStructuresFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ClosingStructurePropertiesTest.cs" />
