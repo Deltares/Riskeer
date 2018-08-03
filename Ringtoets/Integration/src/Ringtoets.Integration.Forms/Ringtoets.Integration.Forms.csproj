@@ -46,6 +46,12 @@
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\WaterPressureAsphaltCoverFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\TechnicalInnovationFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\MicrostabilityFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffOutwardsFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffInwardsFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContext.cs" />
     <Compile Include="PropertyClasses\BackgroundDataProperties.cs" />

@@ -43,6 +43,12 @@
     <Compile Include="Observers\AssessmentSectionResultObserverTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContextTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffInwardsFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffOutwardsFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\MicrostabilityFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\TechnicalInnovationFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\WaterPressureAsphaltCoverFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContextTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesPropertiesTest.cs" />
