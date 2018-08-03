@@ -617,6 +617,36 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the
+        /// overridden combined <see cref="ManualFailureMechanismSectionAssemblyCategoryGroup"/>.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddManualAssemblyCategoryGroupColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            IEnumerable<EnumDisplayWrapper<ManualFailureMechanismSectionAssemblyCategoryGroup>> dataSource =
+                CreateEnumDisplayWrappers<ManualFailureMechanismSectionAssemblyCategoryGroup>();
+
+            dataGridViewControl.AddComboBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_ManualAssembly_DisplayName,
+                dataSource,
+                nameof(EnumDisplayWrapper<ManualFailureMechanismSectionAssemblyCategoryGroup>.Value),
+                nameof(EnumDisplayWrapper<ManualFailureMechanismSectionAssemblyCategoryGroup>.DisplayName));
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the
         /// overridden combined assembly probability.
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
