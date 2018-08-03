@@ -154,11 +154,47 @@ namespace Ringtoets.Common.Primitives.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Iv.
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IVv.
         /// </summary>
         public static string FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;selecteer&gt;.
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyCategoryGroup_None_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_None_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NVT.
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VIIv.
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName", resourceCulture);
             }
         }
         

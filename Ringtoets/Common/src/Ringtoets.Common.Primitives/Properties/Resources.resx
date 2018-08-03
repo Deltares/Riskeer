@@ -165,4 +165,16 @@
   <data name="TailorMadeAssessmentCategoryGroupResultType_VIIv_NGO_DisplayName" xml:space="preserve">
     <value>VIIv (NGO)</value>
   </data>
+  <data name="FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName" xml:space="preserve">
+    <value>VIIv</value>
+  </data>
+  <data name="FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName" xml:space="preserve">
+    <value>Iv</value>
+  </data>
+  <data name="FailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName" xml:space="preserve">
+    <value>NVT</value>
+  </data>
+  <data name="FailureMechanismSectionAssemblyCategoryGroup_None_DisplayName" xml:space="preserve">
+    <value>&lt;selecteer&gt;</value>
+  </data>
 </root>

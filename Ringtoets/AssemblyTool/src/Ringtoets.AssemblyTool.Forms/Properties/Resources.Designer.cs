@@ -98,41 +98,5 @@ namespace Ringtoets.AssemblyTool.Forms.Properties {
                 return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Iv.
-        /// </summary>
-        internal static string FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VIIv.
-        /// </summary>
-        internal static string FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;selecteer&gt;.
-        /// </summary>
-        internal static string SelectableFailureMechanismSectionAssemblyCategoryGroup_None_DisplayName {
-            get {
-                return ResourceManager.GetString("SelectableFailureMechanismSectionAssemblyCategoryGroup_None_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NVT.
-        /// </summary>
-        internal static string SelectableFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName {
-            get {
-                return ResourceManager.GetString("SelectableFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName", resourceCulture);
-            }
-        }
     }
 }

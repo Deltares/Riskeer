@@ -30,13 +30,13 @@ namespace Ringtoets.AssemblyTool.Forms
     /// </summary>
     public enum SelectableFailureMechanismSectionAssemblyCategoryGroup
     {
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SelectableFailureMechanismSectionAssemblyCategoryGroup_None_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_None_DisplayName))]
         None = 1,
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SelectableFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName))]
         NotApplicable = 2,
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName))]
         Iv = 3,
 
         [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName))]
@@ -54,7 +54,7 @@ namespace Ringtoets.AssemblyTool.Forms
         [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName))]
         VIv = 8,
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName))]
         VIIv = 9
     }
 }

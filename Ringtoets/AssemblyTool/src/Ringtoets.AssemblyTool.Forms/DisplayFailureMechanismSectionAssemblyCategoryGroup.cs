@@ -36,7 +36,7 @@ namespace Ringtoets.AssemblyTool.Forms
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName))]
         NotApplicable = 2,
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName))]
         Iv = 3,
 
         [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName))]
@@ -54,7 +54,7 @@ namespace Ringtoets.AssemblyTool.Forms
         [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName))]
         VIv = 8,
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName))]
         VIIv = 9
     }
 }
