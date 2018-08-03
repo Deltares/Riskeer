@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
 
@@ -40,7 +39,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
             DetailedAssessmentResult = DetailedAssessmentResultType.None;
             TailorMadeAssessmentResult = TailorMadeAssessmentResultType.None;
-            ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.None;
         }
 
         /// <summary>
@@ -66,6 +65,6 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <summary>
         /// Gets or sets the manually selected assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
+        public ManualFailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
     }
 }
