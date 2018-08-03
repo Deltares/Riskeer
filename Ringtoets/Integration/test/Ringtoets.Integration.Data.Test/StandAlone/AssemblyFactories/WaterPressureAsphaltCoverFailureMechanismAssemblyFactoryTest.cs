@@ -391,7 +391,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
             var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssemblyCategoryGroup = true,
-                ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+                ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>()
             };
 
             // Call
@@ -399,7 +399,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 sectionResult);
 
             // Assert
-            Assert.AreEqual(categoryGroup, sectionResult.ManualAssemblyCategoryGroup);
+            Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                            categoryGroup);
         }
 
         [Test]
@@ -493,7 +494,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
             });
             WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssemblyCategoryGroup = true;
-            sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -504,7 +505,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
                 // Assert
-                Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                                calculator.FailureMechanismSectionCategories.Single());
             }
         }
 

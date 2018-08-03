@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -94,8 +93,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
                 Assert.AreEqual(result.UseManualAssemblyCategoryGroup, row.UseManualAssemblyCategoryGroup);
-                Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(result.ManualAssemblyCategoryGroup),
-                                row.ManualAssemblyCategoryGroup);
+                Assert.AreEqual(result.ManualAssemblyCategoryGroup, row.ManualAssemblyCategoryGroup);
 
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(6, columnStateDefinitions.Count);
@@ -207,7 +205,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             var random = new Random(39);
-            var newValue = random.NextEnumValue<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
+            var newValue = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
@@ -221,8 +219,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 row.ManualAssemblyCategoryGroup = newValue;
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(newValue);
-                Assert.AreEqual(expectedCategoryGroup, result.ManualAssemblyCategoryGroup);
+                Assert.AreEqual(newValue, result.ManualAssemblyCategoryGroup);
                 mocks.VerifyAll();
             }
         }
