@@ -250,7 +250,7 @@ namespace Core.Common.TestUtil.Test
 
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO);
             Assert.IsTrue(Directory.Exists(path));
-            
+
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO);
             Assert.IsTrue(Directory.Exists(path));
         }
@@ -1153,6 +1153,24 @@ namespace Core.Common.TestUtil.Test
             Assert.Throws<AssertionException>(test);
         }
 
+        [Test]
+        public void PerformActionWithDelayedAssert_WithAllData_DoesNotThrow()
+        {
+            // Setup
+            var callPerformed = false;
+            var assertPerformed = false;
+            var callAction = new Action(() => callPerformed = true);
+            var assertAction = new Action(() => assertPerformed = true);
+            const int delay = 10;
+
+            // Call
+            TestHelper.PerformActionWithDelayedAssert(callAction, assertAction, delay);
+
+            // Assert
+            Assert.IsTrue(callPerformed);
+            Assert.IsTrue(assertPerformed);
+        }
+
         private class TestEqualSameObject
         {
             private readonly int someInt;
@@ -1168,14 +1186,17 @@ namespace Core.Common.TestUtil.Test
                 {
                     return false;
                 }
+
                 if (ReferenceEquals(this, obj))
                 {
                     return true;
                 }
+
                 if (obj.GetType() != GetType())
                 {
                     return false;
                 }
+
                 return Equals((TestEqualSameObject) obj);
             }
 

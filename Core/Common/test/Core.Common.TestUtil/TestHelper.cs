@@ -35,6 +35,7 @@ using log4net.Config;
 using log4net.Core;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using Timer = System.Timers.Timer;
 
 namespace Core.Common.TestUtil
 {
@@ -66,6 +67,7 @@ namespace Core.Common.TestUtil
             {
                 Directory.CreateDirectory(scratchPadPath);
             }
+
             return scratchPadPath;
         }
 
@@ -113,6 +115,7 @@ namespace Core.Common.TestUtil
             try
             {
                 using (File.OpenWrite(pathToFile)) {}
+
                 return true;
             }
             catch (IOException)
@@ -269,6 +272,7 @@ namespace Core.Common.TestUtil
                 Assert.IsNull(actualImage);
                 return;
             }
+
             Assert.IsNotNull(actualImage);
 
             Assert.AreEqual(expectedImage.Size, actualImage.Size);
@@ -337,6 +341,7 @@ namespace Core.Common.TestUtil
 
                 message = string.Join(Environment.NewLine, customMessageParts.ToArray());
             }
+
             Assert.AreEqual(expectedCustomMessage, message);
             return exception;
         }
@@ -470,6 +475,7 @@ namespace Core.Common.TestUtil
                     Assert.AreSame(expectedEnumerator.Current, actualEnumerator.Current);
                 }
             }
+
             Assert.IsFalse(actualEnumerator.MoveNext());
         }
 
@@ -497,6 +503,7 @@ namespace Core.Common.TestUtil
                     Assert.AreNotSame(expectedEnumerator.Current, actualEnumerator.Current);
                 }
             }
+
             Assert.IsFalse(actualEnumerator.MoveNext());
         }
 
@@ -531,8 +538,36 @@ namespace Core.Common.TestUtil
                         Assert.IsTrue(equalityComparer.Equals(expectedEnumerator.Current, actualEnumerator.Current));
                     }
                 }
+
                 Assert.IsFalse(actualEnumerator.MoveNext());
             }
+        }
+
+        /// <summary>
+        /// Performs the call and asserts after the delay has passed.
+        /// </summary>
+        /// <param name="callAction">The call to perform.</param>
+        /// <param name="assertAction">The assert to perform.</param>
+        /// <param name="delay">The delay by which the assert action is performed
+        /// after the call action is done.</param>
+        /// <exception cref="AssertionException">Thrown when an assert in the
+        /// <paramref name="assertAction"/> failed.</exception>
+        public static void PerformActionWithDelayedAssert(Action callAction, Action assertAction, int delay)
+        {
+            var timer = new Timer
+            {
+                Interval = delay
+            };
+
+            var timerEnded = false;
+            timer.Elapsed += (sender, args) => { timerEnded = true; };
+
+            callAction();
+            timer.Start();
+
+            while (!timerEnded) {}
+
+            assertAction();
         }
 
         /// <summary>
@@ -705,6 +740,7 @@ namespace Core.Common.TestUtil
                     imageColors[index++] = bitmap.GetPixel(j, i);
                 }
             }
+
             return imageColors;
         }
     }
