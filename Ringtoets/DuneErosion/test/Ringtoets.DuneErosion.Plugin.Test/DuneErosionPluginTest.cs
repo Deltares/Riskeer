@@ -140,7 +140,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
         }
 
         [Test]
-        public void GetExportInfos_ReturnsSupportedExportInfo()
+        public void GetExportInfos_ReturnsSupportedExportInfos()
         {
             // Setup
             using (var plugin = new DuneErosionPlugin())
@@ -152,6 +152,21 @@ namespace Ringtoets.DuneErosion.Plugin.Test
                 Assert.AreEqual(2, exportInfos.Length);
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(DuneLocationCalculationsContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(DuneLocationCalculationsGroupContext)));
+            }
+        }
+        
+        [Test]
+        public void GetUpdateInfos_ReturnsSupportedUpdateInfos()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                // Call
+                UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, updateInfos.Length);
+                Assert.IsTrue(updateInfos.Any(ei => ei.DataType == typeof(DuneLocationCalculationsGroupContext)));
             }
         }
     }

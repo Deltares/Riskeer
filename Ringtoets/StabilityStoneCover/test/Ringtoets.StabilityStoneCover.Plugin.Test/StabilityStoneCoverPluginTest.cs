@@ -156,11 +156,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
             using (var plugin = new StabilityStoneCoverPlugin())
             {
                 // Call
-                UpdateInfo[] exportInfos = plugin.GetUpdateInfos().ToArray();
+                UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, exportInfos.Length);
-                Assert.AreEqual(1, exportInfos.Count(ei => ei.DataType == typeof(StabilityStoneCoverFailureMechanismSectionsContext)));
+                Assert.AreEqual(1, updateInfos.Length);
+                Assert.AreEqual(1, updateInfos.Count(ei => ei.DataType == typeof(StabilityStoneCoverFailureMechanismSectionsContext)));
             }
         }
     }

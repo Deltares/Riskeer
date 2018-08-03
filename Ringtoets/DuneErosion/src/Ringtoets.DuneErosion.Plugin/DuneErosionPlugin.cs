@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.UpdateInfos;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
@@ -45,6 +46,7 @@ using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.DuneErosion.IO;
+using Ringtoets.DuneErosion.Plugin.FileImporters;
 using Ringtoets.DuneErosion.Plugin.Properties;
 using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -184,6 +186,13 @@ namespace Ringtoets.DuneErosion.Plugin
             };
         }
 
+        public override IEnumerable<UpdateInfo> GetUpdateInfos()
+        {
+            yield return RingtoetsUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                DuneErosionFailureMechanismSectionsContext, DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResult>(
+                new DuneErosionFailureMechanismSectionResultUpdateStrategy());
+        }
+
         public override void Activate()
         {
             base.Activate();
@@ -243,7 +252,7 @@ namespace Ringtoets.DuneErosion.Plugin
         {
             return new object[]
             {
-                new DuneErosionFailureMechanismSectionsContext(failureMechanism, assessmentSection), 
+                new DuneErosionFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
         }

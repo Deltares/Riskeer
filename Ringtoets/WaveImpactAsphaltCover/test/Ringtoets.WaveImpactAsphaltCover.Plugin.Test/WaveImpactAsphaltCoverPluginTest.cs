@@ -169,11 +169,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 // Call
-                UpdateInfo[] exportInfos = plugin.GetUpdateInfos().ToArray();
+                UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, exportInfos.Length);
-                Assert.AreEqual(1, exportInfos.Count(ei => ei.DataType == typeof(WaveImpactAsphaltCoverFailureMechanismSectionsContext)));
+                Assert.AreEqual(1, updateInfos.Length);
+                Assert.AreEqual(1, updateInfos.Count(ei => ei.DataType == typeof(WaveImpactAsphaltCoverFailureMechanismSectionsContext)));
             }
         }
     }
