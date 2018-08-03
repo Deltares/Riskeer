@@ -464,7 +464,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = MicrostabilityFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult);
-                Assert.AreEqual(categoryGroup, expectedAssembly);
+                Assert.AreEqual(expectedAssembly, categoryGroup);
             }
         }
 

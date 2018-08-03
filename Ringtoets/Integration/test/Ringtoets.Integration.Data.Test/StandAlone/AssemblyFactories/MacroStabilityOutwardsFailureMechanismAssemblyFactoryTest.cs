@@ -775,7 +775,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
-                Assert.AreEqual(categoryGroup, expectedAssembly);
+                Assert.AreEqual(expectedAssembly, categoryGroup);
                 mocks.VerifyAll();
             }
         }

@@ -382,7 +382,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult);
-                Assert.AreEqual(categoryGroup, expectedAssembly);
+                Assert.AreEqual(expectedAssembly, categoryGroup);
             }
         }
 

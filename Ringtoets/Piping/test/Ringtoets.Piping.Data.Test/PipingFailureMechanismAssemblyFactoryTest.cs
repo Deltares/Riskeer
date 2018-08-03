@@ -893,7 +893,7 @@ namespace Ringtoets.Piping.Data.Test
                     Enumerable.Empty<PipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
-                Assert.AreEqual(categoryGroup, expectedAssembly.Group);
+                Assert.AreEqual(expectedAssembly.Group, categoryGroup);
                 mocks.VerifyAll();
             }
         }
@@ -929,7 +929,7 @@ namespace Ringtoets.Piping.Data.Test
                 FailureMechanismSectionAssembly expectedAssembly = calculator.AssembleManual(
                     sectionResult.ManualAssemblyProbability,
                     AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(0.0, failureMechanism, assessmentSection));
-                Assert.AreEqual(categoryGroup, expectedAssembly.Group);
+                Assert.AreEqual(expectedAssembly.Group, categoryGroup);
                 mocks.VerifyAll();
             }
         }

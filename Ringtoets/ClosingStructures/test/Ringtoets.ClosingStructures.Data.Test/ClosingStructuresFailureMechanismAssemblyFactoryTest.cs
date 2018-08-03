@@ -810,7 +810,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
-                Assert.AreEqual(categoryGroup, expectedAssembly.Group);
+                Assert.AreEqual(expectedAssembly.Group, categoryGroup);
                 mocks.VerifyAll();
             }
         }
@@ -846,7 +846,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 FailureMechanismSectionAssembly expectedAssembly = calculator.AssembleManual(
                     sectionResult.ManualAssemblyProbability,
                     AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(0.0, failureMechanism, assessmentSection));
-                Assert.AreEqual(categoryGroup, expectedAssembly.Group);
+                Assert.AreEqual(expectedAssembly.Group, categoryGroup);
                 mocks.VerifyAll();
             }
         }

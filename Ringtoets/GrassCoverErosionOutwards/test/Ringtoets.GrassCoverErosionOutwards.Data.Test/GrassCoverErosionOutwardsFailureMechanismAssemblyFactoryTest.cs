@@ -502,7 +502,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 sectionResult);
 
             // Assert
-            Assert.AreEqual(categoryGroup, sectionResult.ManualAssemblyCategoryGroup);
+            Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, categoryGroup);
         }
 
         [Test]

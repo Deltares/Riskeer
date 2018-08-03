@@ -483,7 +483,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult);
-                Assert.AreEqual(categoryGroup, expectedAssembly);
+                Assert.AreEqual(expectedAssembly, categoryGroup);
             }
         }
 
@@ -502,7 +502,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
                 sectionResult);
 
             // Assert
-            Assert.AreEqual(categoryGroup, sectionResult.ManualAssemblyCategoryGroup);
+            Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, categoryGroup);
         }
 
         [Test]
