@@ -381,7 +381,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new StabilityPointStructuresFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, failureMechanism, assessmentSection),
                 failureMechanism.InputComments

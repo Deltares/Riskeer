@@ -13,6 +13,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PresentationObjects\StabilityPointStructuresFailureMechanismSectionsContext.cs" />
     <Compile Include="PresentationObjects\StabilityPointStructuresOutputContext.cs" />
     <Compile Include="PresentationObjects\StabilityPointStructuresScenariosContext.cs" />
     <Compile Include="PresentationObjects\StabilityPointStructuresContext.cs" />
