@@ -34,7 +34,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionsContext"/> class.
         /// </summary>
-        /// <param name="wrappedData">The WaveImpactAsphaltCover failure mechanism to wrap.</param>
+        /// <param name="wrappedData">The <see cref="WaveImpactAsphaltCoverFailureMechanism"/> to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverFailureMechanismSectionsContext(WaveImpactAsphaltCoverFailureMechanism wrappedData, IAssessmentSection assessmentSection)

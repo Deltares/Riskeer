@@ -34,7 +34,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="HeightStructuresFailureMechanismSectionsContext"/> class.
         /// </summary>
-        /// <param name="wrappedData">The HeightStructures failure mechanism to wrap.</param>
+        /// <param name="wrappedData">The <see cref="HeightStructuresFailureMechanism"/> to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public HeightStructuresFailureMechanismSectionsContext(HeightStructuresFailureMechanism wrappedData, IAssessmentSection assessmentSection)

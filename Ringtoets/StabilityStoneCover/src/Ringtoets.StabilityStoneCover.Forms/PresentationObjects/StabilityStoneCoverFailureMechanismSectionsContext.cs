@@ -34,7 +34,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityStoneCoverFailureMechanismSectionsContext"/> class.
         /// </summary>
-        /// <param name="wrappedData">The StabilityStoneCover failure mechanism to wrap.</param>
+        /// <param name="wrappedData">The <see cref="StabilityStoneCoverFailureMechanism"/> to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public StabilityStoneCoverFailureMechanismSectionsContext(StabilityStoneCoverFailureMechanism wrappedData, IAssessmentSection assessmentSection)
