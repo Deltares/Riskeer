@@ -24,7 +24,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
-using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Storage.Core.Create.MacroStabilityOutwards;
 using Ringtoets.Storage.Core.DbContext;

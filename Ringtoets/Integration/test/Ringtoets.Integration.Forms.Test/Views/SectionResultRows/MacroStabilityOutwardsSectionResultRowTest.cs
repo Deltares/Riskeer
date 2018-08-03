@@ -324,8 +324,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 row.ManualAssemblyCategoryGroup = newValue;
 
                 // Assert
-                ManualFailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup = newValue;
-                Assert.AreEqual(expectedCategoryGroup, result.ManualAssemblyCategoryGroup);
+                Assert.AreEqual(newValue, result.ManualAssemblyCategoryGroup);
                 mocks.VerifyAll();
             }
         }

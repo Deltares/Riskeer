@@ -21,7 +21,6 @@
 
 using System;
 using Ringtoets.Common.Primitives;
-using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Storage.Core.DbContext;
 
