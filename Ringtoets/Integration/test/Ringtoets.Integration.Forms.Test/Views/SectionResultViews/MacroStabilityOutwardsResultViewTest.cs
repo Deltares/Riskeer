@@ -202,7 +202,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual("VIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[combinedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual(false, cells[useManualAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
                 mocks.VerifyAll();
             }
         }
