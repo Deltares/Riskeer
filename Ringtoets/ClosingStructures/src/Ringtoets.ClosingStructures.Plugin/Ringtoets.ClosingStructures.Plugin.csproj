@@ -16,6 +16,7 @@
     <Compile Include="ClosingStructuresPlugin.cs" />
     <Compile Include="FileImporters\ClosingStructureReplaceDataStrategy.cs" />
     <Compile Include="FileImporters\ClosingStructureUpdateDataStrategy.cs" />
+    <Compile Include="FileImporters\ClosingStructuresFailureMechanismSectionResultUpdateStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +68,11 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">

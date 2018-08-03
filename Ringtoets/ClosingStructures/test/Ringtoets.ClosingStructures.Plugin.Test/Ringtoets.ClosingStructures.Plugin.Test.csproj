@@ -29,6 +29,7 @@
     <Compile Include="ExportInfos\ClosingStructuresCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="FileImporters\ClosingStructureReplaceDataStrategyTest.cs" />
     <Compile Include="FileImporters\ClosingStructureUpdateDataStrategyTest.cs" />
+    <Compile Include="FileImporters\ClosingStructuresFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="ImportInfos\ClosingStructuresCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="PropertyInfos\ClosingStructuresInputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\ClosingStructuresFailureMechanismContextPropertyInfoTest.cs" />
@@ -46,6 +47,7 @@
     <Compile Include="TreeNodeInfos\ClosingStructuresScenariosContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructureTreeNodeInfoTest.cs" />
     <Compile Include="UpdateInfos\ClosingStructuresContextUpdateInfoTest.cs" />
+    <Compile Include="UpdateInfos\ClosingStructuresFailureMechanismSectionsContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\ClosingStructuresFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\ClosingStructuresScenariosViewInfoTest.cs" />
     <Compile Include="ViewInfos\ClosingStructuresFailureMechanismViewInfoTest.cs" />
@@ -113,6 +115,10 @@
       <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
       <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>

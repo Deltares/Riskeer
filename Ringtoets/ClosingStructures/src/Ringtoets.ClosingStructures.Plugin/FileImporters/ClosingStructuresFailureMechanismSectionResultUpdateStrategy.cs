@@ -20,19 +20,19 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Plugin.FileImporters
+namespace Ringtoets.ClosingStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="HeightStructuresFailureMechanismSectionResult"/> instance with data
-    /// from an old <see cref="HeightStructuresFailureMechanismSectionResult"/> instance.
+    /// An update strategy that can be used to update a <see cref="ClosingStructuresFailureMechanismSectionResult"/> instance with data
+    /// from an old <see cref="ClosingStructuresFailureMechanismSectionResult"/> instance.
     /// </summary>
-    public class HeightStructuresFailureMechanismSectionResultUpdateStrategy 
-        : IFailureMechanismSectionResultUpdateStrategy<HeightStructuresFailureMechanismSectionResult>
+    public class ClosingStructuresFailureMechanismSectionResultUpdateStrategy
+        : IFailureMechanismSectionResultUpdateStrategy<ClosingStructuresFailureMechanismSectionResult>
     {
-        public void UpdateSectionResult(HeightStructuresFailureMechanismSectionResult origin, HeightStructuresFailureMechanismSectionResult target)
+        public void UpdateSectionResult(ClosingStructuresFailureMechanismSectionResult origin, ClosingStructuresFailureMechanismSectionResult target)
         {
             if (origin == null)
             {
