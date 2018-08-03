@@ -43,6 +43,14 @@
     <Compile Include="Observers\AssessmentSectionResultObserverTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContextTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\WaterPressureAsphaltCoverFailureMechanismSectionsContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\TechnicalInnovationFailureMechanismSectionsContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismSectionsContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\MicrostabilityFailureMechanismSectionsContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismSectionsContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffOutwardsFailureMechanismSectionsContextTest.cs" />
+    <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffInwardsFailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffInwardsFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffOutwardsFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\MicrostabilityFailureMechanismContextTest.cs" />

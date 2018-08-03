@@ -163,7 +163,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputFolder.Category);
 
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
+            var failureMechanismSectionsContext = (PipingStructureFailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 

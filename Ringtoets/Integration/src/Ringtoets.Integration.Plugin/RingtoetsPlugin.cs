@@ -786,12 +786,6 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = NormContextMenuStrip
             };
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(
-                StandAloneFailureMechanismEnabledChildNodeObjects,
-                StandAloneFailureMechanismDisabledChildNodeObjects,
-                StandAloneFailureMechanismEnabledContextMenuStrip,
-                StandAloneFailureMechanismDisabledContextMenuStrip);
-
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismContext>(
                 GrassCoverSlipOffInwardsFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
@@ -1535,35 +1529,13 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        #region StandAloneFailureMechanismContext TreeNodeInfo
-
-        private static object[] StandAloneFailureMechanismEnabledChildNodeObjects(IFailureMechanismContext<IFailureMechanism> nodeData)
-        {
-            return new object[]
-            {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
-                                       TreeFolderCategory.Input),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData),
-                                       TreeFolderCategory.Output)
-            };
-        }
+        #region StandAloneFailureMechanism TreeNodeInfo
 
         private static object[] StandAloneFailureMechanismDisabledChildNodeObjects(IFailureMechanismContext<IFailureMechanism> nodeData)
         {
             return new object[]
             {
                 nodeData.WrappedData.NotRelevantComments
-            };
-        }
-
-        private static IEnumerable<object> GetInputs(IFailureMechanism nodeData, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
             };
         }
 
@@ -1703,7 +1675,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                new GrassCoverSlipOffOutwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.InputComments
             };
         }
@@ -1729,7 +1701,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                new MacroStabilityOutwardsFailureMechanismSectionsContext(nodeData, assessmentSection), 
                 nodeData.InputComments
             };
         }
@@ -1755,7 +1727,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                new MicrostabilityFailureMechanismSectionsContext(nodeData, assessmentSection), 
                 nodeData.InputComments
             };
         }
@@ -1781,7 +1753,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                new PipingStructureFailureMechanismSectionsContext(nodeData, assessmentSection), 
                 nodeData.InputComments
             };
         }
@@ -1808,7 +1780,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                new StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext(nodeData, assessmentSection), 
                 nodeData.InputComments
             };
         }
@@ -1834,7 +1806,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                new TechnicalInnovationFailureMechanismSectionsContext(nodeData, assessmentSection), 
                 nodeData.InputComments
             };
         }
@@ -1860,7 +1832,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new FailureMechanismSectionsContext(nodeData, assessmentSection),
+                new WaterPressureAsphaltCoverFailureMechanismSectionsContext(nodeData, assessmentSection), 
                 nodeData.InputComments
             };
         }
