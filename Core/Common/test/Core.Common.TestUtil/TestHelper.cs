@@ -29,6 +29,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using log4net.Appender;
 using log4net.Config;
@@ -548,7 +549,7 @@ namespace Core.Common.TestUtil
         /// </summary>
         /// <param name="callAction">The call to perform.</param>
         /// <param name="assertAction">The assert to perform.</param>
-        /// <param name="delay">The delay by which the assert action is performed
+        /// <param name="delay">The delay in milliseconds by which the assert action is performed
         /// after the call action is done.</param>
         /// <exception cref="AssertionException">Thrown when an assert in the
         /// <paramref name="assertAction"/> failed.</exception>
@@ -565,7 +566,10 @@ namespace Core.Common.TestUtil
             callAction();
             timer.Start();
 
-            while (!timerEnded) {}
+            while (!timerEnded)
+            {
+                Thread.Sleep(delay + 1);
+            }
 
             assertAction();
         }
