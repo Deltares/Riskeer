@@ -19,11 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.Plugin.TestUtil.FileImporters;
 using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Plugin.FileImporters;
@@ -31,54 +30,17 @@ using Ringtoets.DuneErosion.Plugin.FileImporters;
 namespace Ringtoets.DuneErosion.Plugin.Test.FileImporters
 {
     [TestFixture]
-    public class DuneErosionFailureMechanismSectionResultUpdateStrategyTest
+    public class DuneErosionFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
+        DuneErosionFailureMechanismSectionResultUpdateStrategy, DuneErosionFailureMechanismSectionResult>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        protected override DuneErosionFailureMechanismSectionResult CreateEmptySectionResult()
         {
-            // Call
-            var strategy = new DuneErosionFailureMechanismSectionResultUpdateStrategy();
-
-            // Assert
-            Assert.IsInstanceOf<IFailureMechanismSectionResultUpdateStrategy<DuneErosionFailureMechanismSectionResult>>(strategy);
+            return new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        [Test]
-        public void UpdateSectionResult_OriginNull_ThrowsArgumentNullException()
+        protected override DuneErosionFailureMechanismSectionResult CreateConfiguredSectionResult()
         {
-            // Setup
-            var strategy = new DuneErosionFailureMechanismSectionResultUpdateStrategy();
-
-            // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(
-                null, new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("origin", paramName);
-        }
-
-        [Test]
-        public void UpdateSectionResult_TargetNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new DuneErosionFailureMechanismSectionResultUpdateStrategy();
-
-            // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(
-                new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("target", paramName);
-        }
-
-        [Test]
-        public void UpdateSectionResult_WithData_UpdatesTargetSectionResult()
-        {
-            // Setup
-            var strategy = new DuneErosionFailureMechanismSectionResultUpdateStrategy();
-            var originResult = new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 DetailedAssessmentResultForFactorizedSignalingNorm = DetailedAssessmentResultType.Sufficient,
@@ -90,12 +52,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.FileImporters
                 UseManualAssemblyCategoryGroup = true,
                 ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.VIv
             };
-            var targetResult = new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+        }
 
-            // Call
-            strategy.UpdateSectionResult(originResult, targetResult);
-
-            // Assert
+        protected override void AssertSectionResult(DuneErosionFailureMechanismSectionResult originResult,
+                                                    DuneErosionFailureMechanismSectionResult targetResult)
+        {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResultForFactorizedSignalingNorm, targetResult.DetailedAssessmentResultForFactorizedSignalingNorm);
             Assert.AreEqual(originResult.DetailedAssessmentResultForSignalingNorm, targetResult.DetailedAssessmentResultForSignalingNorm);
@@ -105,7 +66,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);
             Assert.AreEqual(originResult.UseManualAssemblyCategoryGroup, targetResult.UseManualAssemblyCategoryGroup);
             Assert.AreEqual(originResult.ManualAssemblyCategoryGroup, targetResult.ManualAssemblyCategoryGroup);
-            Assert.AreNotSame(originResult.Section, targetResult.Section);
         }
     }
 }

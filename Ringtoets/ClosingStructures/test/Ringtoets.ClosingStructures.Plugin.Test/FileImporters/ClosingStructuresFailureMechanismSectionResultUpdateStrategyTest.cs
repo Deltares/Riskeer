@@ -21,65 +21,28 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Common.Primitives;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Plugin.FileImporters;
+using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Plugin.TestUtil.FileImporters;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismSectionResultUpdateStrategyTest
+    public class ClosingStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
+        ClosingStructuresFailureMechanismSectionResultUpdateStrategy, ClosingStructuresFailureMechanismSectionResult>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        protected override ClosingStructuresFailureMechanismSectionResult CreateEmptySectionResult()
         {
-            // Call
-            var strategy = new ClosingStructuresFailureMechanismSectionResultUpdateStrategy();
-
-            // Assert
-            Assert.IsInstanceOf<IFailureMechanismSectionResultUpdateStrategy<ClosingStructuresFailureMechanismSectionResult>>(strategy);
+            return new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        [Test]
-        public void UpdateSectionResult_OriginNull_ThrowsArgumentNullException()
+        protected override ClosingStructuresFailureMechanismSectionResult CreateConfiguredSectionResult()
         {
-            // Setup
-            var strategy = new ClosingStructuresFailureMechanismSectionResultUpdateStrategy();
-
-            // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(
-                null, new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("origin", paramName);
-        }
-
-        [Test]
-        public void UpdateSectionResult_TargetNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new ClosingStructuresFailureMechanismSectionResultUpdateStrategy();
-
-            // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("target", paramName);
-        }
-
-        [Test]
-        public void UpdateSectionResult_WithData_UpdatesTargetSectionResult()
-        {
-            // Setup
             var random = new Random(39);
-            var strategy = new ClosingStructuresFailureMechanismSectionResultUpdateStrategy();
-            var originResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<ClosingStructuresInput>(),
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
@@ -89,12 +52,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 UseManualAssemblyProbability = true,
                 ManualAssemblyProbability = random.NextDouble()
             };
-            var targetResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+        }
 
-            // Call
-            strategy.UpdateSectionResult(originResult, targetResult);
-
-            // Assert
+        protected override void AssertSectionResult(ClosingStructuresFailureMechanismSectionResult originResult, 
+                                                    ClosingStructuresFailureMechanismSectionResult targetResult)
+        {
             Assert.AreSame(originResult.Calculation, targetResult.Calculation);
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);
@@ -102,7 +64,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.TailorMadeAssessmentProbability, targetResult.TailorMadeAssessmentProbability);
             Assert.AreEqual(originResult.UseManualAssemblyProbability, targetResult.UseManualAssemblyProbability);
             Assert.AreEqual(originResult.ManualAssemblyProbability, targetResult.ManualAssemblyProbability);
-            Assert.AreNotSame(originResult.Section, targetResult.Section);
         }
     }
 }

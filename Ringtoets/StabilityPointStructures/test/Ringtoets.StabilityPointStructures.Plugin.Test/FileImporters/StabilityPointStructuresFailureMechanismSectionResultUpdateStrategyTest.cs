@@ -23,7 +23,7 @@ using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.Plugin.TestUtil.FileImporters;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Plugin.FileImporters;
@@ -31,55 +31,18 @@ using Ringtoets.StabilityPointStructures.Plugin.FileImporters;
 namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 {
     [TestFixture]
-    public class StabilityPointStructuresFailureMechanismSectionResultUpdateStrategyTest
+    public class StabilityPointStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
+        StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy, StabilityPointStructuresFailureMechanismSectionResult>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        protected override StabilityPointStructuresFailureMechanismSectionResult CreateEmptySectionResult()
         {
-            // Call
-            var strategy = new StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy();
-
-            // Assert
-            Assert.IsInstanceOf<IFailureMechanismSectionResultUpdateStrategy<StabilityPointStructuresFailureMechanismSectionResult>>(strategy);
+            return new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        [Test]
-        public void UpdateSectionResult_OriginNull_ThrowsArgumentNullException()
+        protected override StabilityPointStructuresFailureMechanismSectionResult CreateConfiguredSectionResult()
         {
-            // Setup
-            var strategy = new StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy();
-
-            // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(
-                null, new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("origin", paramName);
-        }
-
-        [Test]
-        public void UpdateSectionResult_TargetNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy();
-
-            // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(
-                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("target", paramName);
-        }
-
-        [Test]
-        public void UpdateSectionResult_WithData_UpdatesTargetSectionResult()
-        {
-            // Setup
             var random = new Random(39);
-            var strategy = new StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy();
-            var originResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>(),
                 SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
@@ -89,12 +52,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
                 UseManualAssemblyProbability = true,
                 ManualAssemblyProbability = random.NextDouble()
             };
-            var targetResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+        }
 
-            // Call
-            strategy.UpdateSectionResult(originResult, targetResult);
-
-            // Assert
+        protected override void AssertSectionResult(StabilityPointStructuresFailureMechanismSectionResult originResult,
+                                                    StabilityPointStructuresFailureMechanismSectionResult targetResult)
+        {
             Assert.AreSame(originResult.Calculation, targetResult.Calculation);
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);
@@ -102,7 +64,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.TailorMadeAssessmentProbability, targetResult.TailorMadeAssessmentProbability);
             Assert.AreEqual(originResult.UseManualAssemblyProbability, targetResult.UseManualAssemblyProbability);
             Assert.AreEqual(originResult.ManualAssemblyProbability, targetResult.ManualAssemblyProbability);
-            Assert.AreNotSame(originResult.Section, targetResult.Section);
         }
     }
 }

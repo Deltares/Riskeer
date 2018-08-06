@@ -31,8 +31,7 @@ namespace Ringtoets.Common.Plugin.TestUtil.FileImporters
     /// </summary>
     /// <typeparam name="TUpdateStrategy">The type of the update strategy to test.</typeparam>
     /// <typeparam name="TSectionResult">The type of the failure mechanism section result the update strategy uses.</typeparam>
-    public abstract class FailureMechanismSectionResultUpdateStrategyTestFixture<
-        TUpdateStrategy, TSectionResult>
+    public abstract class FailureMechanismSectionResultUpdateStrategyTestFixture<TUpdateStrategy, TSectionResult>
         where TUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<TSectionResult>, new()
         where TSectionResult : FailureMechanismSectionResult
     {
@@ -43,7 +42,7 @@ namespace Ringtoets.Common.Plugin.TestUtil.FileImporters
             var strategy = new TUpdateStrategy();
 
             // Assert
-            Assert.IsInstanceOf<TUpdateStrategy>(strategy);
+            Assert.IsInstanceOf<IFailureMechanismSectionResultUpdateStrategy<TSectionResult>>(strategy);
         }
 
         [Test]
@@ -53,8 +52,7 @@ namespace Ringtoets.Common.Plugin.TestUtil.FileImporters
             var strategy = new TUpdateStrategy();
 
             // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(
-                null, CreateEmptySectionResult());
+            TestDelegate test = () => strategy.UpdateSectionResult(null, CreateEmptySectionResult());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -68,8 +66,7 @@ namespace Ringtoets.Common.Plugin.TestUtil.FileImporters
             var strategy = new TUpdateStrategy();
 
             // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(
-                CreateEmptySectionResult(), null);
+            TestDelegate test = () => strategy.UpdateSectionResult(CreateEmptySectionResult(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -99,17 +96,17 @@ namespace Ringtoets.Common.Plugin.TestUtil.FileImporters
         protected abstract TSectionResult CreateEmptySectionResult();
 
         /// <summary>
+        /// Method for creating a configured instance of <typeparamref name="TSectionResult"/>.
+        /// </summary>
+        /// <returns>An empty <typeparamref name="TSectionResult"/></returns>
+        protected abstract TSectionResult CreateConfiguredSectionResult();
+
+        /// <summary>
         /// Method that asserts whether <paramref name="originResult"/> and
         /// <paramref name="targetResult"/> are equal.
         /// </summary>
         /// <exception cref="AssertionException">Thrown when <paramref name="originResult"/>
         /// and <paramref name="targetResult"/> are not equal.</exception>
         protected abstract void AssertSectionResult(TSectionResult originResult, TSectionResult targetResult);
-
-        /// <summary>
-        /// Method for creating a configured instance of <typeparamref name="TSectionResult"/>.
-        /// </summary>
-        /// <returns>An empty <typeparamref name="TSectionResult"/></returns>
-        protected abstract TSectionResult CreateConfiguredSectionResult();
     }
 }

@@ -22,7 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.Plugin.TestUtil.FileImporters;
 using Ringtoets.Common.Primitives;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
@@ -30,76 +30,37 @@ using Ringtoets.MacroStabilityInwards.Plugin.FileImporter;
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategyTest
+    public class MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
+        MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy, MacroStabilityInwardsFailureMechanismSectionResult>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        protected override MacroStabilityInwardsFailureMechanismSectionResult CreateEmptySectionResult()
         {
-            // Call
-            var strategy = new MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy();
-
-            // Assert
-            Assert.IsInstanceOf<IFailureMechanismSectionResultUpdateStrategy<MacroStabilityInwardsFailureMechanismSectionResult>>(strategy);
+            return new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        [Test]
-        public void UpdateSectionResult_OriginNull_ThrowsArgumentNullException()
+        protected override MacroStabilityInwardsFailureMechanismSectionResult CreateConfiguredSectionResult()
         {
-            // Setup
-            var strategy = new MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy();
-
-            // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(
-                null, new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("origin", paramName);
-        }
-
-        [Test]
-        public void UpdateSectionResult_TargetNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy();
-
-            // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(
-                new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("target", paramName);
-        }
-
-        [Test]
-        public void UpdateSectionResult_WithData_UpdatesTargetSectionResult()
-        {
-            // Setup
             var random = new Random(39);
-            var strategy = new MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy();
-            var originResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed,
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                 TailorMadeAssessmentProbability = random.NextDouble(),
                 UseManualAssemblyProbability = true,
                 ManualAssemblyProbability = random.NextDouble()
             };
-            var targetResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+        }
 
-            // Call
-            strategy.UpdateSectionResult(originResult, targetResult);
-
-            // Assert
+        protected override void AssertSectionResult(MacroStabilityInwardsFailureMechanismSectionResult originResult,
+                                                    MacroStabilityInwardsFailureMechanismSectionResult targetResult)
+        {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);
             Assert.AreEqual(originResult.TailorMadeAssessmentProbability, targetResult.TailorMadeAssessmentProbability);
             Assert.AreEqual(originResult.UseManualAssemblyProbability, targetResult.UseManualAssemblyProbability);
             Assert.AreEqual(originResult.ManualAssemblyProbability, targetResult.ManualAssemblyProbability);
-            Assert.AreNotSame(originResult.Section, targetResult.Section);
         }
     }
 }

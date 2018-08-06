@@ -22,7 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.Plugin.TestUtil.FileImporters;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters;
@@ -30,55 +30,18 @@ using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters;
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategyTest
+    public class GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
+        GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategy, GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        protected override GrassCoverErosionInwardsFailureMechanismSectionResult CreateEmptySectionResult()
         {
-            // Call
-            var strategy = new GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategy();
-
-            // Assert
-            Assert.IsInstanceOf<IFailureMechanismSectionResultUpdateStrategy<GrassCoverErosionInwardsFailureMechanismSectionResult>>(strategy);
+            return new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        [Test]
-        public void UpdateSectionResult_OriginNull_ThrowsArgumentNullException()
+        protected override GrassCoverErosionInwardsFailureMechanismSectionResult CreateConfiguredSectionResult()
         {
-            // Setup
-            var strategy = new GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategy();
-
-            // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(
-                null, new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("origin", paramName);
-        }
-
-        [Test]
-        public void UpdateSectionResult_TargetNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategy();
-
-            // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(
-                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("target", paramName);
-        }
-
-        [Test]
-        public void UpdateSectionResult_WithData_UpdatesTargetSectionResult()
-        {
-            // Setup
             var random = new Random(39);
-            var strategy = new GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategy();
-            var originResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new GrassCoverErosionInwardsCalculation(),
                 SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
@@ -88,12 +51,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
                 UseManualAssemblyProbability = true,
                 ManualAssemblyProbability = random.NextDouble()
             };
-            var targetResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+        }
 
-            // Call
-            strategy.UpdateSectionResult(originResult, targetResult);
-
-            // Assert
+        protected override void AssertSectionResult(GrassCoverErosionInwardsFailureMechanismSectionResult originResult,
+                                                    GrassCoverErosionInwardsFailureMechanismSectionResult targetResult)
+        {
             Assert.AreSame(originResult.Calculation, targetResult.Calculation);
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);
@@ -101,7 +63,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.TailorMadeAssessmentProbability, targetResult.TailorMadeAssessmentProbability);
             Assert.AreEqual(originResult.UseManualAssemblyProbability, targetResult.UseManualAssemblyProbability);
             Assert.AreEqual(originResult.ManualAssemblyProbability, targetResult.ManualAssemblyProbability);
-            Assert.AreNotSame(originResult.Section, targetResult.Section);
         }
     }
 }
