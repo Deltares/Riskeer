@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
@@ -196,9 +197,16 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
             }
 
-            return failureMechanismSectionResult.UseManualAssemblyCategoryGroup
-                       ? ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(failureMechanismSectionResult.ManualAssemblyCategoryGroup)
-                       : AssembleCombinedAssessment(failureMechanismSectionResult);
+            try
+            {
+                return failureMechanismSectionResult.UseManualAssemblyCategoryGroup
+                           ? ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(failureMechanismSectionResult.ManualAssemblyCategoryGroup)
+                           : AssembleCombinedAssessment(failureMechanismSectionResult);
+            }
+            catch (Exception e) when (e is NotSupportedException || e is InvalidEnumArgumentException)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
         }
 
         /// <summary>

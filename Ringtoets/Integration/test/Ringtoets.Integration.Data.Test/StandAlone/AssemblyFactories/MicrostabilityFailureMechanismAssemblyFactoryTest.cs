@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -509,6 +510,26 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
+        }
+
+        [Test]
+        public void GetSectionAssemblyCategoryGroup_WithManualInputAndInvalidManualFailureMechanismSectionAssemblyCategoryGroup_ThrowsAssemblyException()
+        {
+            // Setup
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                UseManualAssemblyCategoryGroup = true,
+                ManualAssemblyCategoryGroup = (ManualFailureMechanismSectionAssemblyCategoryGroup) 99
+            };
+
+            // Call
+            TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(call);
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+            Assert.AreEqual(innerException.Message, exception.Message);
         }
 
         #endregion
