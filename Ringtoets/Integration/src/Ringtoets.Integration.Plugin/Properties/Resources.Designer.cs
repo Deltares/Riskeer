@@ -161,6 +161,16 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingen zijn niet samengevoegd omdat het huidige traject meer gegevens bevat..
+        /// </summary>
+        public static string AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_not_merged {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLo" +
+                        "cations_not_merged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gegevens van toetsspoor &apos;{0}&apos; zijn vervangen..
         /// </summary>
         public static string AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced {
