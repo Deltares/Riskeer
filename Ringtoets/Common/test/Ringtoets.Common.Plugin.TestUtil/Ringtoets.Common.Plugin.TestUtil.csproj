@@ -20,6 +20,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileImporters\FailureMechanismSectionResultUpdateStrategyTestFixture.cs" />
     <Compile Include="HydraulicBoundaryLocationCalculationActivityLogTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShouldCloseViewWithFailureMechanismTester.cs" />
@@ -55,6 +56,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
