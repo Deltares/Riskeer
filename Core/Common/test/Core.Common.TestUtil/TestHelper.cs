@@ -29,6 +29,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using log4net.Appender;
 using log4net.Config;
@@ -565,7 +566,10 @@ namespace Core.Common.TestUtil
             callAction();
             timer.Start();
 
-            while (!timerEnded) {}
+            while (!timerEnded)
+            {
+                Thread.Sleep(delay + 1);
+            }
 
             assertAction();
         }
