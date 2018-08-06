@@ -483,7 +483,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult);
-                Assert.AreEqual(categoryGroup, expectedAssembly);
+                Assert.AreEqual(expectedAssembly, categoryGroup);
             }
         }
 

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
@@ -84,9 +83,9 @@ namespace Ringtoets.Storage.Core.Read
                                                          ReadConversionCollector collector)
         {
             FailureMechanismSection[] readFailureMechanismSections = entity.FailureMechanismSectionEntities
-                                                                               .Select(failureMechanismSectionEntity =>
-                                                                                           failureMechanismSectionEntity.Read(collector))
-                                                                               .ToArray();
+                                                                           .Select(failureMechanismSectionEntity =>
+                                                                                       failureMechanismSectionEntity.Read(collector))
+                                                                           .ToArray();
             if (readFailureMechanismSections.Any())
             {
                 failureMechanism.SetSections(readFailureMechanismSections, entity.FailureMechanismSectionCollectionSourcePath);

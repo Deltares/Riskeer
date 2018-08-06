@@ -483,7 +483,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 sectionResult);
 
             // Assert
-            Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup), 
+            Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
                             categoryGroup);
         }
 

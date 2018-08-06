@@ -6,7 +6,7 @@ using Ringtoets.Common.Primitives;
 namespace Ringtoets.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// The cpnverter that <see cref="ManualFailureMechanismSectionAssemblyCategoryGroup"/>
+    /// The converter that converts <see cref="ManualFailureMechanismSectionAssemblyCategoryGroup"/>
     /// to <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
     /// </summary>
     public static class ManualFailureMechanismSectionAssemblyCategoryGroupConverter

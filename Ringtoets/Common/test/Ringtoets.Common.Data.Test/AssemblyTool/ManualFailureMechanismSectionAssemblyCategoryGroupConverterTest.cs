@@ -17,7 +17,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
         [TestCase(ManualFailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
         [TestCase(ManualFailureMechanismSectionAssemblyCategoryGroup.Vv, FailureMechanismSectionAssemblyCategoryGroup.Vv)]
         [TestCase(ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv, FailureMechanismSectionAssemblyCategoryGroup.VIIv)]
-        public void Convert_WIthValidManualFailureMechanismSectionAssemblyCategoryGroup_ReturnsExpectedFailureMechanismSectionAssemblyCategoryGroup(
+        public void Convert_WithValidManualFailureMechanismSectionAssemblyCategoryGroup_ReturnsExpectedFailureMechanismSectionAssemblyCategoryGroup(
             ManualFailureMechanismSectionAssemblyCategoryGroup originalCategoryGroup,
             FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup)
         {
