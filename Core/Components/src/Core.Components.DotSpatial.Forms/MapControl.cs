@@ -37,6 +37,7 @@ using DotSpatial.Projections;
 using DotSpatial.Topology;
 using log4net;
 using ILog = log4net.ILog;
+using Timer = System.Timers.Timer;
 
 namespace Core.Components.DotSpatial.Forms
 {
@@ -45,12 +46,14 @@ namespace Core.Components.DotSpatial.Forms
     /// </summary>
     public class MapControl : Control, IMapControl
     {
+        private const int updateTimerInterval = 10;
         private readonly ILog log = LogManager.GetLogger(typeof(MapControl));
         private readonly Cursor defaultCursor = Cursors.Default;
         private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
         private readonly Observer backGroundMapDataObserver;
         private readonly List<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
         private readonly MapControlBackgroundLayerStatus backgroundLayerStatus = new MapControlBackgroundLayerStatus();
+        private readonly List<IFeatureBasedMapDataLayer> mapDataLayersToUpdate = new List<IFeatureBasedMapDataLayer>();
 
         private Map map;
         private bool removing;
@@ -61,8 +64,6 @@ namespace Core.Components.DotSpatial.Forms
         private ImageBasedMapData backgroundMapData;
 
         private Timer updateTimer;
-        private const int updateTimerInterval = 10;
-        private readonly IList<IFeatureBasedMapDataLayer> mapDataLayersToUpdate = new List<IFeatureBasedMapDataLayer>();
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -435,6 +436,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 featureBasedMapDataLayer.Reproject(Projection);
             }
+
             map.Layers.Add(featureBasedMapDataLayer);
         }
 
@@ -581,6 +583,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 envelope.ExpandToInclude(drawnMapData.FeatureBasedMapDataLayer.Extent.ToEnvelope());
             }
+
             return envelope;
         }
 
@@ -598,6 +601,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 envelope.ExpandToInclude(CreateEnvelopeForAllVisibleLayers(childMapData));
             }
+
             return envelope;
         }
 
@@ -622,10 +626,15 @@ namespace Core.Components.DotSpatial.Forms
         {
             updateTimer = new Timer
             {
-                Interval = updateTimerInterval
+                Interval = updateTimerInterval,
+                SynchronizingObject = this
             };
 
-            updateTimer.Tick += UpdateTimerOnTick;
+            updateTimer.Elapsed += (sender, args) =>
+            {
+                updateTimer.Stop();
+                UpdateMapDataLayers();
+            };
         }
 
         private void StartUpdateTimer()
@@ -636,13 +645,6 @@ namespace Core.Components.DotSpatial.Forms
             }
 
             updateTimer.Start();
-        }
-
-        private void UpdateTimerOnTick(object sender, EventArgs eventArgs)
-        {
-            updateTimer.Stop();
-
-            UpdateMapDataLayers();
         }
 
         private void UpdateMapDataLayers()

@@ -1538,12 +1538,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(5313600.4932731427, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
 
-                var i = false;
-                mapView.FinishedRefresh += (sender, args) => i = true;
-                mapView.Invalidated += (sender, args) => i = true;
-                mapView.ViewExtentsChanged += (sender, args) => i = true;
 
-                PerformActionWithDelayedAssert(20, () =>
+                Action callAction = () =>
                 {
                     // When
                     mapPointData.Features = new[]
@@ -1560,7 +1556,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                         })
                     };
                     mapPointData.NotifyObservers();
-                }, () =>
+                };
+                Action assertAction = () =>
                 {
                     // Then
                     CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
@@ -1569,20 +1566,10 @@ namespace Core.Components.DotSpatial.Forms.Test
                                     "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=12345.6789000&y=9876.5432100).");
                     Assert.AreEqual(5323846.0863087801, pointFeatureLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y,
                                     "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=12345.6789000&y=9876.5432100).");
-                });
+                };
+
+                TestHelper.PerformActionWithDelayedAssert(callAction, assertAction, 20);
             }
-        }
-
-        private static void PerformActionWithDelayedAssert(int delay, Action performAction, Action assertAction)
-        {
-            var timer = new Timer
-            {
-                Interval = delay
-            };
-            timer.Tick += (sender, args) => assertAction();
-
-            performAction();
-            timer.Start();
         }
 
         /// <summary>
