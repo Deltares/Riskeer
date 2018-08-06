@@ -74,6 +74,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
+
             mocks.VerifyAll();
         }
 
@@ -96,6 +97,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual("Referentielijn", text);
             }
+
             mocks.VerifyAll();
         }
 
@@ -118,6 +120,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ReferenceLineIcon, image);
             }
+
             mocks.VerifyAll();
         }
 
@@ -150,6 +153,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     info.ContextMenuStrip(null, null, treeViewControl);
                 }
             }
+
             // Assert
             mocks.VerifyAll();
         }
@@ -173,6 +177,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
             }
+
             mocks.VerifyAll();
         }
 
@@ -196,6 +201,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
+
             mocks.VerifyAll();
         }
 

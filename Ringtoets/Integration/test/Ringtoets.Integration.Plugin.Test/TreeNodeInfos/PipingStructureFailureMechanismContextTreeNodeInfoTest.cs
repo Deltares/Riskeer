@@ -36,7 +36,6 @@ using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
@@ -151,7 +150,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = new AssessmentSectionStub();
 
             var failureMechanism = new PipingStructureFailureMechanism();
-
             var failureMechanismContext = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
@@ -160,6 +158,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(2, children.Length);
             var inputFolder = (CategoryTreeFolder) children[0];
+            Assert.AreEqual(2, inputFolder.Contents.Count());
             Assert.AreEqual("Invoer", inputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputFolder.Category);
 
@@ -171,6 +170,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var outputFolder = (CategoryTreeFolder) children[1];
+            Assert.AreEqual(3, outputFolder.Contents.Count());
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
@@ -187,7 +187,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(failureMechanism.N, calculator.AssemblyCategoriesInput.N);
             }
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>)
+            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>)
                 outputFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
@@ -262,15 +262,15 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var failureMechanism = new PipingStructureFailureMechanism
+            {
+                IsRelevant = false
+            };
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var context = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
+            
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = new PipingStructureFailureMechanism
-                {
-                    IsRelevant = false
-                };
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
-
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
                 {
@@ -413,33 +413,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(failureMechanism.IsRelevant);
                 }
             }
-        }
-
-        /// <summary>
-        /// Used in ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(Type)
-        /// </summary>
-        private void ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<T>() where T : FailureMechanismSectionResult
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<T>>(typeof(IFailureMechanism));
-            failureMechanism.Expect(fm => fm.IsRelevant).Return(true);
-            failureMechanism.Expect(fm => fm.SectionResults).Return(new ObservableList<T>()).Repeat.Any();
-            failureMechanism.Expect(fm => fm.InputComments).Return(new Comment());
-            failureMechanism.Expect(fm => fm.OutputComments).Return(new Comment());
-            var failureMechanismContext = mocks.Stub<PipingStructureFailureMechanismContext>(failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
-            // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
-
-            // Assert
-            var outputFolder = (CategoryTreeFolder) children[1];
-
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<T>) outputFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
         }
     }
 }

@@ -171,7 +171,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             object[] children = info.ChildNodeObjects(context);
 
             // Assert
-            var expectedChildren = new[]
+            ForeshoreProfile[] expectedChildren =
             {
                 profile1,
                 profile2,

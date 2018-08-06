@@ -73,6 +73,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
+
             mocks.VerifyAll();
         }
 
@@ -95,6 +96,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(testname, text);
             }
+
             mocks.VerifyAll();
         }
 
@@ -116,6 +118,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
             }
+
             mocks.VerifyAll();
         }
 
@@ -137,6 +140,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.InputFolderIcon, image);
             }
+
             mocks.VerifyAll();
         }
 
@@ -158,6 +162,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.OutputFolderIcon, image);
             }
+
             mocks.VerifyAll();
         }
 
@@ -189,6 +194,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     object2
                 }, objects);
             }
+
             mocks.VerifyAll();
         }
 
@@ -222,6 +228,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     info.ContextMenuStrip(null, null, treeViewControl);
                 }
             }
+
             // Assert
             mocks.VerifyAll();
         }

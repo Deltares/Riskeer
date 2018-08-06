@@ -166,6 +166,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
+
             // Assert
             // Assert expectancies called in TearDown()
         }
@@ -173,7 +174,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         private class SimpleStructuresOutputContext : StructuresOutputContext
         {
             public SimpleStructuresOutputContext(IStructuresCalculation wrappedData, IAssessmentSection assessmentSection)
-                : base(wrappedData, assessmentSection) { }
+                : base(wrappedData, assessmentSection) {}
         }
     }
 }

@@ -169,6 +169,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     info.ContextMenuStrip(null, null, treeViewControl);
                 }
             }
+
             // Assert
             mockRepository.VerifyAll();
         }
@@ -202,6 +203,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             // Assert
             mockRepository.VerifyAll(); // Expect no calls on arguments
         }

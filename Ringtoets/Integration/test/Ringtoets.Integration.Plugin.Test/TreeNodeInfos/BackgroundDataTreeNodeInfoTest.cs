@@ -229,6 +229,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     info.ContextMenuStrip(null, null, treeViewControl);
                 }
             }
+
             // Assert
             mockRepository.VerifyAll();
         }
@@ -265,6 +266,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             // Assert
             mockRepository.VerifyAll();
         }
@@ -339,6 +341,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -395,6 +398,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     BackgroundDataTestHelper.AssertBackgroundData(oldBackgroundData, assessmentSection.BackgroundData);
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -462,6 +466,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -529,6 +534,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     AssertBackgroundData(newMapData, assessmentSection.BackgroundData);
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -590,6 +596,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     BackgroundDataTestHelper.AssertBackgroundData(backgroundData, assessmentSection.BackgroundData);
                 }
             }
+
             mockRepository.VerifyAll();
         }
 

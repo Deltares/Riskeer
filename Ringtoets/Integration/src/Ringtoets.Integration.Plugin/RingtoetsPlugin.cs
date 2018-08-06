@@ -1574,62 +1574,6 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(IFailureMechanism nodeData)
-        {
-            var grassCoverSlipOffInwards = nodeData as IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>;
-            var grassCoverSlipOffOutwards = nodeData as IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>;
-            var microstability = nodeData as IHasSectionResults<MicrostabilityFailureMechanismSectionResult>;
-            var technicalInnovation = nodeData as IHasSectionResults<TechnicalInnovationFailureMechanismSectionResult>;
-            var strengthStabilityLengthwiseConstruction = nodeData as IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>;
-            var waterPressureAsphaltCover = nodeData as IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>;
-
-            var failureMechanismSectionResultContexts = new object[2];
-            if (grassCoverSlipOffInwards != null)
-            {
-                failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(
-                        grassCoverSlipOffInwards.SectionResults, nodeData);
-            }
-
-            if (grassCoverSlipOffOutwards != null)
-            {
-                failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
-                        grassCoverSlipOffOutwards.SectionResults, nodeData);
-            }
-
-            if (microstability != null)
-            {
-                failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(
-                        microstability.SectionResults, nodeData);
-            }
-
-            if (technicalInnovation != null)
-            {
-                failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(
-                        technicalInnovation.SectionResults, nodeData);
-            }
-
-            if (strengthStabilityLengthwiseConstruction != null)
-            {
-                failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(
-                        strengthStabilityLengthwiseConstruction.SectionResults, nodeData);
-            }
-
-            if (waterPressureAsphaltCover != null)
-            {
-                failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(
-                        waterPressureAsphaltCover.SectionResults, nodeData);
-            }
-
-            failureMechanismSectionResultContexts[1] = nodeData.OutputComments;
-            return failureMechanismSectionResultContexts;
-        }
-
         private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
@@ -1684,8 +1628,18 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new GrassCoverSlipOffInwardsFailureMechanismSectionsContext(nodeData, assessmentSection), 
+                new GrassCoverSlipOffInwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(GrassCoverSlipOffInwardsFailureMechanism nodeData)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData),
+                nodeData.OutputComments
             };
         }
 
@@ -1715,6 +1669,16 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
+        private static IEnumerable<object> GetOutputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData),
+                nodeData.OutputComments
+            };
+        }
+
         #endregion
 
         #region MacroStabilityOutwardsFailureMechanismContext TreeNodeInfo
@@ -1736,7 +1700,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new MacroStabilityOutwardsFailureMechanismSectionsContext(nodeData, assessmentSection), 
+                new MacroStabilityOutwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.InputComments
             };
         }
@@ -1777,8 +1741,18 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new MicrostabilityFailureMechanismSectionsContext(nodeData, assessmentSection), 
+                new MicrostabilityFailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(MicrostabilityFailureMechanism nodeData)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData),
+                nodeData.OutputComments
             };
         }
 
@@ -1803,7 +1777,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new PipingStructureFailureMechanismSectionsContext(nodeData, assessmentSection), 
+                new PipingStructureFailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.InputComments
             };
         }
@@ -1844,8 +1818,18 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext(nodeData, assessmentSection), 
+                new StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData),
+                nodeData.OutputComments
             };
         }
 
@@ -1870,8 +1854,18 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new TechnicalInnovationFailureMechanismSectionsContext(nodeData, assessmentSection), 
+                new TechnicalInnovationFailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(TechnicalInnovationFailureMechanism nodeData)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData),
+                nodeData.OutputComments
             };
         }
 
@@ -1896,8 +1890,18 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new WaterPressureAsphaltCoverFailureMechanismSectionsContext(nodeData, assessmentSection), 
+                new WaterPressureAsphaltCoverFailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(WaterPressureAsphaltCoverFailureMechanism nodeData)
+        {
+            return new object[]
+            {
+                new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData),
+                nodeData.OutputComments
             };
         }
 

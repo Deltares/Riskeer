@@ -33,8 +33,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -145,10 +143,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
 
             var failureMechanism = new TechnicalInnovationFailureMechanism();
-
             var failureMechanismContext = new TechnicalInnovationFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
@@ -157,6 +155,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(2, children.Length);
             var inputFolder = (CategoryTreeFolder) children[0];
+            Assert.AreEqual(2, inputFolder.Contents.Count());
             Assert.AreEqual("Invoer", inputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputFolder.Category);
 
@@ -247,15 +246,15 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var failureMechanism = new TechnicalInnovationFailureMechanism
+            {
+                IsRelevant = false
+            };
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var context = new TechnicalInnovationFailureMechanismContext(failureMechanism, assessmentSection);
+            
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = new TechnicalInnovationFailureMechanism
-                {
-                    IsRelevant = false
-                };
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new TechnicalInnovationFailureMechanismContext(failureMechanism, assessmentSection);
-
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
                 {
@@ -398,33 +397,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(failureMechanism.IsRelevant);
                 }
             }
-        }
-
-        /// <summary>
-        /// Used in ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(Type)
-        /// </summary>
-        private void ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<T>() where T : FailureMechanismSectionResult
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<T>>(typeof(IFailureMechanism));
-            failureMechanism.Expect(fm => fm.IsRelevant).Return(true);
-            failureMechanism.Expect(fm => fm.SectionResults).Return(new ObservableList<T>()).Repeat.Any();
-            failureMechanism.Expect(fm => fm.InputComments).Return(new Comment());
-            failureMechanism.Expect(fm => fm.OutputComments).Return(new Comment());
-            var failureMechanismContext = mocks.Stub<TechnicalInnovationFailureMechanismContext>(failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
-
-            // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
-
-            // Assert
-            var outputFolder = (CategoryTreeFolder) children[1];
-
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<T>) outputFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
         }
     }
 }
