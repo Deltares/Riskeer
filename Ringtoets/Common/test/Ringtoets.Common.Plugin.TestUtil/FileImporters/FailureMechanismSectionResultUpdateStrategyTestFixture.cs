@@ -90,19 +90,19 @@ namespace Ringtoets.Common.Plugin.TestUtil.FileImporters
         }
 
         /// <summary>
-        /// Method for creating an empty instance of <typeparamref name="TSectionResult"/>.
+        /// Creates an empty instance of <typeparamref name="TSectionResult"/>.
         /// </summary>
-        /// <returns>An empty <typeparamref name="TSectionResult"/></returns>
+        /// <returns>An empty <typeparamref name="TSectionResult"/>.</returns>
         protected abstract TSectionResult CreateEmptySectionResult();
 
         /// <summary>
-        /// Method for creating a configured instance of <typeparamref name="TSectionResult"/>.
+        /// Creates a configured instance of <typeparamref name="TSectionResult"/>.
         /// </summary>
-        /// <returns>An empty <typeparamref name="TSectionResult"/></returns>
+        /// <returns>An empty <typeparamref name="TSectionResult"/>.</returns>
         protected abstract TSectionResult CreateConfiguredSectionResult();
 
         /// <summary>
-        /// Method that asserts whether <paramref name="originResult"/> and
+        /// Asserts whether <paramref name="originResult"/> and
         /// <paramref name="targetResult"/> are equal.
         /// </summary>
         /// <exception cref="AssertionException">Thrown when <paramref name="originResult"/>
