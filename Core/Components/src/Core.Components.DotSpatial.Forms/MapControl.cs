@@ -37,6 +37,7 @@ using DotSpatial.Projections;
 using DotSpatial.Topology;
 using log4net;
 using ILog = log4net.ILog;
+using Timer = System.Timers.Timer;
 
 namespace Core.Components.DotSpatial.Forms
 {
@@ -45,12 +46,14 @@ namespace Core.Components.DotSpatial.Forms
     /// </summary>
     public class MapControl : Control, IMapControl
     {
+        private const int updateTimerInterval = 10;
         private readonly ILog log = LogManager.GetLogger(typeof(MapControl));
         private readonly Cursor defaultCursor = Cursors.Default;
         private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
         private readonly Observer backGroundMapDataObserver;
         private readonly List<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
         private readonly MapControlBackgroundLayerStatus backgroundLayerStatus = new MapControlBackgroundLayerStatus();
+        private readonly List<IFeatureBasedMapDataLayer> mapDataLayersToUpdate = new List<IFeatureBasedMapDataLayer>();
 
         private Map map;
         private bool removing;
@@ -59,6 +62,8 @@ namespace Core.Components.DotSpatial.Forms
         private RdNewMouseCoordinatesMapExtension mouseCoordinatesMapExtension;
         private MapDataCollection data;
         private ImageBasedMapData backgroundMapData;
+
+        private Timer updateTimer;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -70,6 +75,8 @@ namespace Core.Components.DotSpatial.Forms
 
             mapDataCollectionObserver = new RecursiveObserver<MapDataCollection, MapDataCollection>(HandleMapDataCollectionChange, mdc => mdc.Collection);
             backGroundMapDataObserver = new Observer(HandleBackgroundMapDataChange);
+
+            InitializeUpdateTimer();
         }
 
         public MapDataCollection Data
@@ -413,7 +420,11 @@ namespace Core.Components.DotSpatial.Forms
                 FeatureBasedMapDataLayer = featureBasedMapDataLayer
             };
 
-            drawnMapData.Observer = new Observer(() => drawnMapData.FeatureBasedMapDataLayer.Update())
+            drawnMapData.Observer = new Observer(() =>
+            {
+                mapDataLayersToUpdate.Add(drawnMapData.FeatureBasedMapDataLayer);
+                StartUpdateTimer();
+            })
             {
                 Observable = featureBasedMapData
             };
@@ -424,6 +435,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 featureBasedMapDataLayer.Reproject(Projection);
             }
+
             map.Layers.Add(featureBasedMapDataLayer);
         }
 
@@ -570,6 +582,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 envelope.ExpandToInclude(drawnMapData.FeatureBasedMapDataLayer.Extent.ToEnvelope());
             }
+
             return envelope;
         }
 
@@ -587,6 +600,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 envelope.ExpandToInclude(CreateEnvelopeForAllVisibleLayers(childMapData));
             }
+
             return envelope;
         }
 
@@ -601,6 +615,45 @@ namespace Core.Components.DotSpatial.Forms
             IsRectangleZoomingEnabled = false;
 
             map.FunctionMode = FunctionMode.None;
+        }
+
+        #endregion
+
+        #region Update timer
+
+        private void InitializeUpdateTimer()
+        {
+            updateTimer = new Timer
+            {
+                Interval = updateTimerInterval,
+                SynchronizingObject = this
+            };
+
+            updateTimer.Elapsed += (sender, args) =>
+            {
+                updateTimer.Stop();
+                UpdateMapDataLayers();
+            };
+        }
+
+        private void StartUpdateTimer()
+        {
+            if (updateTimer.Enabled)
+            {
+                updateTimer.Stop();
+            }
+
+            updateTimer.Start();
+        }
+
+        private void UpdateMapDataLayers()
+        {
+            foreach (IFeatureBasedMapDataLayer mapDataLayerToUpdate in mapDataLayersToUpdate.Distinct())
+            {
+                mapDataLayerToUpdate.Update();
+            }
+
+            mapDataLayersToUpdate.Clear();
         }
 
         #endregion
