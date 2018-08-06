@@ -100,27 +100,27 @@ namespace Ringtoets.Integration.Plugin.Merge
 
         private void BeforeMerge(AssessmentSection assessmentSection, AssessmentSectionMergeData mergeData)
         {
-            CloseViewForFailureMechanism(mergeData.MergePiping, assessmentSection.Piping);
-            CloseViewForFailureMechanism(mergeData.MergeGrassCoverErosionInwards, assessmentSection.GrassCoverErosionInwards);
-            CloseViewForFailureMechanism(mergeData.MergeMacroStabilityInwards, assessmentSection.MacroStabilityInwards);
-            CloseViewForFailureMechanism(mergeData.MergeMacroStabilityOutwards, assessmentSection.MacroStabilityOutwards);
-            CloseViewForFailureMechanism(mergeData.MergeMicrostability, assessmentSection.Microstability);
-            CloseViewForFailureMechanism(mergeData.MergeStabilityStoneCover, assessmentSection.StabilityStoneCover);
-            CloseViewForFailureMechanism(mergeData.MergeWaveImpactAsphaltCover, assessmentSection.WaveImpactAsphaltCover);
-            CloseViewForFailureMechanism(mergeData.MergeWaterPressureAsphaltCover, assessmentSection.WaterPressureAsphaltCover);
-            CloseViewForFailureMechanism(mergeData.MergeGrassCoverErosionOutwards, assessmentSection.GrassCoverErosionOutwards);
-            CloseViewForFailureMechanism(mergeData.MergeGrassCoverSlipOffOutwards, assessmentSection.GrassCoverSlipOffOutwards);
-            CloseViewForFailureMechanism(mergeData.MergeGrassCoverSlipOffInwards, assessmentSection.GrassCoverSlipOffInwards);
-            CloseViewForFailureMechanism(mergeData.MergeHeightStructures, assessmentSection.HeightStructures);
-            CloseViewForFailureMechanism(mergeData.MergeClosingStructures, assessmentSection.ClosingStructures);
-            CloseViewForFailureMechanism(mergeData.MergePipingStructure, assessmentSection.PipingStructure);
-            CloseViewForFailureMechanism(mergeData.MergeStabilityPointStructures, assessmentSection.StabilityPointStructures);
-            CloseViewForFailureMechanism(mergeData.MergeStrengthStabilityLengthwiseConstruction, assessmentSection.StrengthStabilityLengthwiseConstruction);
-            CloseViewForFailureMechanism(mergeData.MergeDuneErosion, assessmentSection.DuneErosion);
-            CloseViewForFailureMechanism(mergeData.MergeTechnicalInnovation, assessmentSection.TechnicalInnovation);
+            CloseViewsForFailureMechanism(mergeData.MergePiping, assessmentSection.Piping);
+            CloseViewsForFailureMechanism(mergeData.MergeGrassCoverErosionInwards, assessmentSection.GrassCoverErosionInwards);
+            CloseViewsForFailureMechanism(mergeData.MergeMacroStabilityInwards, assessmentSection.MacroStabilityInwards);
+            CloseViewsForFailureMechanism(mergeData.MergeMacroStabilityOutwards, assessmentSection.MacroStabilityOutwards);
+            CloseViewsForFailureMechanism(mergeData.MergeMicrostability, assessmentSection.Microstability);
+            CloseViewsForFailureMechanism(mergeData.MergeStabilityStoneCover, assessmentSection.StabilityStoneCover);
+            CloseViewsForFailureMechanism(mergeData.MergeWaveImpactAsphaltCover, assessmentSection.WaveImpactAsphaltCover);
+            CloseViewsForFailureMechanism(mergeData.MergeWaterPressureAsphaltCover, assessmentSection.WaterPressureAsphaltCover);
+            CloseViewsForFailureMechanism(mergeData.MergeGrassCoverErosionOutwards, assessmentSection.GrassCoverErosionOutwards);
+            CloseViewsForFailureMechanism(mergeData.MergeGrassCoverSlipOffOutwards, assessmentSection.GrassCoverSlipOffOutwards);
+            CloseViewsForFailureMechanism(mergeData.MergeGrassCoverSlipOffInwards, assessmentSection.GrassCoverSlipOffInwards);
+            CloseViewsForFailureMechanism(mergeData.MergeHeightStructures, assessmentSection.HeightStructures);
+            CloseViewsForFailureMechanism(mergeData.MergeClosingStructures, assessmentSection.ClosingStructures);
+            CloseViewsForFailureMechanism(mergeData.MergePipingStructure, assessmentSection.PipingStructure);
+            CloseViewsForFailureMechanism(mergeData.MergeStabilityPointStructures, assessmentSection.StabilityPointStructures);
+            CloseViewsForFailureMechanism(mergeData.MergeStrengthStabilityLengthwiseConstruction, assessmentSection.StrengthStabilityLengthwiseConstruction);
+            CloseViewsForFailureMechanism(mergeData.MergeDuneErosion, assessmentSection.DuneErosion);
+            CloseViewsForFailureMechanism(mergeData.MergeTechnicalInnovation, assessmentSection.TechnicalInnovation);
         }
 
-        private void CloseViewForFailureMechanism(bool shouldClose, IFailureMechanism failureMechanism)
+        private void CloseViewsForFailureMechanism(bool shouldClose, IFailureMechanism failureMechanism)
         {
             if (shouldClose)
             {
@@ -177,6 +177,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                 {
                     targetCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = sourceCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
                     targetCalculation.Output = sourceCalculation.Output;
+
                     yield return targetCalculation;
                 }
             }
