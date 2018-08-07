@@ -134,7 +134,7 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
             Assert.AreEqual(entity.CriticalOvertoppingDischargeCoefficientOfVariation, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.FlowWidthAtBottomProtectionMean, structure.FlowWidthAtBottomProtection.Mean.Value);
             Assert.AreEqual(entity.FlowWidthAtBottomProtectionStandardDeviation, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
-            Assert.AreEqual(entity.ProbabilityOpenStructureBeforeFlooding, structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(entity.ProbabilityOpenStructureBeforeFlooding, structure.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(entity.FailureProbabilityOpenStructure, structure.FailureProbabilityOpenStructure);
             Assert.AreEqual(entity.IdenticalApertures, structure.IdenticalApertures);
             Assert.AreEqual(entity.FailureProbabilityReparation, structure.FailureProbabilityReparation);
@@ -204,7 +204,7 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
             Assert.IsNaN(structure.CriticalOvertoppingDischarge.CoefficientOfVariation);
             Assert.IsNaN(structure.FlowWidthAtBottomProtection.Mean);
             Assert.IsNaN(structure.FlowWidthAtBottomProtection.StandardDeviation);
-            Assert.IsNaN(structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.IsNaN(structure.ProbabilityOpenStructureBeforeFlooding);
             Assert.IsNaN(structure.FailureProbabilityOpenStructure);
             Assert.IsNaN(structure.FailureProbabilityReparation);
         }

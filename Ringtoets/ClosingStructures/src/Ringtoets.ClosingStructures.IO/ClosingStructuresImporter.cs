@@ -203,7 +203,7 @@ namespace Ringtoets.ClosingStructures.IO
                                        structureName,
                                        structureId);
 
-            TrySetConstructionProperty((rows, key) => constructionProperties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = rows[key].NumericalValue,
+            TrySetConstructionProperty((rows, key) => constructionProperties.ProbabilityOpenStructureBeforeFlooding = rows[key].NumericalValue,
                                        rowData,
                                        StructureFilesKeywords.ClosingStructureParameterKeyword11,
                                        structureName,

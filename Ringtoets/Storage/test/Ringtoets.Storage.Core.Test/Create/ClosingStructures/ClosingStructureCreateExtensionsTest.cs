@@ -87,7 +87,7 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
             Assert.AreEqual(structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value, entity.CriticalOvertoppingDischargeCoefficientOfVariation);
             Assert.AreEqual(structure.FlowWidthAtBottomProtection.Mean.Value, entity.FlowWidthAtBottomProtectionMean);
             Assert.AreEqual(structure.FlowWidthAtBottomProtection.StandardDeviation.Value, entity.FlowWidthAtBottomProtectionStandardDeviation);
-            Assert.AreEqual(structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding, entity.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(structure.ProbabilityOpenStructureBeforeFlooding, entity.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(structure.FailureProbabilityOpenStructure, entity.FailureProbabilityOpenStructure);
             Assert.AreEqual(structure.IdenticalApertures, entity.IdenticalApertures);
             Assert.AreEqual(structure.FailureProbabilityReparation, entity.FailureProbabilityReparation);
@@ -152,7 +152,7 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
                     Mean = RoundedDouble.NaN,
                     StandardDeviation = RoundedDouble.NaN
                 },
-                ProbabilityOrFrequencyOpenStructureBeforeFlooding = double.NaN,
+                ProbabilityOpenStructureBeforeFlooding = double.NaN,
                 FailureProbabilityOpenStructure = double.NaN,
                 FailureProbabilityReparation = double.NaN
             });

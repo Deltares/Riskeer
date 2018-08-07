@@ -291,10 +291,10 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             yield return new TestCaseData(new ClosingStructure(differentInflowModelTypeConstructionProperties))
                 .SetName($"{targetName}_DifferentInflowModelType_{testResultDescription}");
 
-            ClosingStructure.ConstructionProperties differentProbabilityOrFrequencyOpenStructureBeforeFloodingConstructionProperties =
+            ClosingStructure.ConstructionProperties differentProbabilityOpenStructureBeforeFloodingConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
-            differentProbabilityOrFrequencyOpenStructureBeforeFloodingConstructionProperties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble();
-            yield return new TestCaseData(new ClosingStructure(differentProbabilityOrFrequencyOpenStructureBeforeFloodingConstructionProperties))
+            differentProbabilityOpenStructureBeforeFloodingConstructionProperties.ProbabilityOpenStructureBeforeFlooding = random.NextDouble();
+            yield return new TestCaseData(new ClosingStructure(differentProbabilityOpenStructureBeforeFloodingConstructionProperties))
                 .SetName($"{targetName}_DifferentProbabilityOrFrequencyOpenStructureBeforeFlooding_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentStructureNormalOrientationConstructionProperties =
@@ -362,7 +362,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                 FailureProbabilityOpenStructure = referenceStructure.FailureProbabilityOpenStructure,
                 IdenticalApertures = referenceStructure.IdenticalApertures,
                 InflowModelType = referenceStructure.InflowModelType,
-                ProbabilityOrFrequencyOpenStructureBeforeFlooding = referenceStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding,
+                ProbabilityOpenStructureBeforeFlooding = referenceStructure.ProbabilityOpenStructureBeforeFlooding,
                 StructureNormalOrientation = referenceStructure.StructureNormalOrientation
             };
         }

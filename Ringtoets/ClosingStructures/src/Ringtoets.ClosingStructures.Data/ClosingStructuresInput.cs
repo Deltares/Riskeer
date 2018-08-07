@@ -89,7 +89,7 @@ namespace Ringtoets.ClosingStructures.Data
                        && Equals(FailureProbabilityReparation, Structure.FailureProbabilityReparation)
                        && Equals(IdenticalApertures, Structure.IdenticalApertures)
                        && Equals(InsideWaterLevel, Structure.InsideWaterLevel)
-                       && Equals(ProbabilityOrFrequencyOpenStructureBeforeFlooding, Structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding)
+                       && Equals(ProbabilityOrFrequencyOpenStructureBeforeFlooding, Structure.ProbabilityOpenStructureBeforeFlooding)
                        && Equals(ThresholdHeightOpenWeir, Structure.ThresholdHeightOpenWeir);
             }
         }
@@ -120,7 +120,7 @@ namespace Ringtoets.ClosingStructures.Data
                 FailureProbabilityReparation = Structure.FailureProbabilityReparation;
                 IdenticalApertures = Structure.IdenticalApertures;
                 InsideWaterLevel = Structure.InsideWaterLevel;
-                ProbabilityOrFrequencyOpenStructureBeforeFlooding = Structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
+                ProbabilityOrFrequencyOpenStructureBeforeFlooding = Structure.ProbabilityOpenStructureBeforeFlooding;
                 ThresholdHeightOpenWeir = Structure.ThresholdHeightOpenWeir;
             }
             else

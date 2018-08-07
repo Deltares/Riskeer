@@ -641,7 +641,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 Assert.AreEqual(expectedClosingStructure.FailureProbabilityReparation, input.FailureProbabilityReparation);
                 Assert.AreEqual(expectedClosingStructure.IdenticalApertures, input.IdenticalApertures);
                 DistributionAssert.AreEqual(expectedClosingStructure.InsideWaterLevel, input.InsideWaterLevel);
-                Assert.AreEqual(expectedClosingStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding, input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+                Assert.AreEqual(expectedClosingStructure.ProbabilityOpenStructureBeforeFlooding, input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
                 DistributionAssert.AreEqual(expectedClosingStructure.ThresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
             }
         }

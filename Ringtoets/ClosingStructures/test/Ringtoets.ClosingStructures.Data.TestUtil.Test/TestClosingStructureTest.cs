@@ -165,7 +165,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             Assert.AreEqual(25.0, structure.FlowWidthAtBottomProtection.Mean.Value);
             Assert.AreEqual(0.05, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
 
-            Assert.AreEqual(1.0, structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(1.0, structure.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(0.1, structure.FailureProbabilityOpenStructure);
             Assert.AreEqual(4, structure.IdenticalApertures);
             Assert.AreEqual(1.0, structure.FailureProbabilityReparation);
