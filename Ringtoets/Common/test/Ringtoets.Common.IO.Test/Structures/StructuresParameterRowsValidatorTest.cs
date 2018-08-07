@@ -666,7 +666,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_BETSLUIT11' op regel 11, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_BETSLUIT11' op regel 11, kolom 'Numeriekewaarde', moet in het bereik [0,0, 1,0] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT12' op regel 12, kolom 'Numeriekewaarde', moet in het bereik [0,0, 1,0] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT13' op regel 13, kolom 'Numeriekewaarde', moet een positief geheel getal zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT14' op regel 14, kolom 'Numeriekewaarde', moet in het bereik [0,0, 1,0] liggen.",
@@ -1839,7 +1839,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword11,
-                    NumericalValue = 123
+                    NumericalValue = 0.4
                 },
                 new StructuresParameterRow
                 {

@@ -118,7 +118,7 @@ namespace Ringtoets.Common.IO.Structures
                     StructureFilesKeywords.ClosingStructureParameterKeyword10, LogNormalDistributionRule
                 },
                 {
-                    StructureFilesKeywords.ClosingStructureParameterKeyword11, PositiveDoubleRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword11, ProbabilityRule
                 },
                 {
                     StructureFilesKeywords.ClosingStructureParameterKeyword12, ProbabilityRule
