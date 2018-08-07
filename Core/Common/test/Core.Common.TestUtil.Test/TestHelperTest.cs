@@ -1154,7 +1154,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void PerformActionWithDelayedAssert_WithAllData_DoesNotThrow()
+        public void PerformActionWithDelayedAssert_WithAllData_PerformsActions()
         {
             // Setup
             var callPerformed = false;
