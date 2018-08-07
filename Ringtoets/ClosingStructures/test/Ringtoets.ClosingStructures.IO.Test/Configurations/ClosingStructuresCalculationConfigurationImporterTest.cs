@@ -80,7 +80,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("validConfigurationInflowModelTypeWithoutStructure.xml",
                                               "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.")
                     .SetName(testNameFormat);
-                yield return new TestCaseData("validConfigurationProbabilityOrFrequencyOpenStructureWithoutStructure.xml",
+                yield return new TestCaseData("validConfigurationProbabilityOpenStructureWithoutStructure.xml",
                                               "Er is geen kunstwerk opgegeven om kans op open staan bij naderend hoogwater aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData("validConfigurationOrientationWithoutStructure.xml",
@@ -89,7 +89,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("validConfigurationInvalidFailureProbabilityStructureErosion.xml",
                                               "Een waarde van '1,1' als faalkans gegeven erosie bodem is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")
                     .SetName(testNameFormat);
-                yield return new TestCaseData("validConfigurationInvalidProbabilityOrFrequencyOpenStructureBeforeFlooding.xml",
+                yield return new TestCaseData("validConfigurationInvalidProbabilityOpenStructureBeforeFlooding.xml",
                                               "Een waarde van '-1,2' als kans op open staan bij naderend hoogwater is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData("validConfigurationInvalidFailureProbabilityOpenStructure.xml",

@@ -88,9 +88,9 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleInflowModelTypes.xml",
                                               "Element 'instroommodel' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleInflowModelTypes");
-                yield return new TestCaseData("invalidCalculationMultipleProbabilityOrFrequencyOpenStructureBeforeFlooding.xml",
+                yield return new TestCaseData("invalidCalculationMultipleProbabilityOpenStructureBeforeFlooding.xml",
                                               "Element 'kansopopenstaan' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleProbabilityOrFrequencyOpenStructureBeforeFlooding");
+                    .SetName("invalidCalculationMultipleProbabilityOpenStructureBeforeFlooding");
 
                 yield return new TestCaseData("invalidCalculationOrientationEmpty.xml",
                                               "The 'orientatie' element is invalid - The value '' is invalid according to its datatype 'Double'")
@@ -124,12 +124,12 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                                               "The 'faalkansherstel' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
                     .SetName("invalidCalculationFailureProbabilityReparationNoDouble");
 
-                yield return new TestCaseData("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingEmpty.xml",
+                yield return new TestCaseData("invalidCalculationProbabilityOpenStructureBeforeFloodingEmpty.xml",
                                               "The 'kansopopenstaan' element is invalid - The value '' is invalid according to its datatype 'Double'")
-                    .SetName("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingEmpty");
-                yield return new TestCaseData("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingNoDouble.xml",
+                    .SetName("invalidCalculationProbabilityOpenStructureBeforeFloodingEmpty");
+                yield return new TestCaseData("invalidCalculationProbabilityOpenStructureBeforeFloodingNoDouble.xml",
                                               "The 'kansopopenstaan' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
-                    .SetName("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingNoDouble");
+                    .SetName("invalidCalculationProbabilityOpenStructureBeforeFloodingNoDouble");
 
                 yield return new TestCaseData("invalidCalculationIdenticalAperturesEmpty.xml",
                                               "The 'nrdoorstroomopeningen' element is invalid - The value '' is invalid according to its datatype 'Integer'")
