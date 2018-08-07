@@ -25,18 +25,26 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.Observers;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Integration.Forms.Test.Observers
 {
@@ -91,8 +99,36 @@ namespace Ringtoets.Integration.Forms.Test.Observers
 
         [Test]
         [TestCaseSource(nameof(GetFailureMechanismReplaceData))]
-        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenAssessmentSectionNotified_ThenFailureMechanismObserversResubscribed<TFailureMechanism>(
-            AssessmentSection assessmentSection, TFailureMechanism oldFailureMechanism, Action setNewFailureMechanismAction)
+        public void GivenAssessmentSectionWithFailureMechanismsReplaced_WhenOldFailureMechanismNotified_ThenAssessmentSectionResultObserverNotNotified<TFailureMechanism>(
+            AssessmentSection assessmentSection, Func<AssessmentSection, TFailureMechanism> getFailureMechanismFunc, Action setNewFailureMechanismAction)
+            where TFailureMechanism : IFailureMechanism
+        {
+            // Given
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                mocks.ReplayAll();
+
+                TFailureMechanism oldFailureMechanism = getFailureMechanismFunc(assessmentSection);
+
+                setNewFailureMechanismAction();
+                assessmentSection.NotifyObservers();
+
+                resultObserver.Attach(observer);
+
+                // When
+                oldFailureMechanism.NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetFailureMechanismReplaceData))]
+        public void GivenAssessmentSectionWithFailureMechanismsReplaced_WhenNewFailureMechanismNotified_ThenAssessmentSectionResultObserverNotified<TFailureMechanism>(
+            AssessmentSection assessmentSection, Func<AssessmentSection, TFailureMechanism> getFailureMechanismFunc, Action setNewFailureMechanismAction)
             where TFailureMechanism : IFailureMechanism
         {
             // Given
@@ -103,12 +139,15 @@ namespace Ringtoets.Integration.Forms.Test.Observers
                 observer.Expect(o => o.UpdateObserver());
                 mocks.ReplayAll();
 
-                resultObserver.Attach(observer);
-
-                // When
                 setNewFailureMechanismAction();
                 assessmentSection.NotifyObservers();
-                oldFailureMechanism.NotifyObservers();
+
+                resultObserver.Attach(observer);
+
+                TFailureMechanism newFailureMechanism = getFailureMechanismFunc(assessmentSection);
+
+                // When
+                newFailureMechanism.NotifyObservers();
 
                 // Then
                 mocks.VerifyAll();
@@ -547,41 +586,41 @@ namespace Ringtoets.Integration.Forms.Test.Observers
             AssessmentSection assessmentSection1 = CreateAssessmentSection();
             AssessmentSection assessmentSection2 = CreateAssessmentSection();
 
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.Piping,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, PipingFailureMechanism>(assessmentSection => assessmentSection.Piping),
                                           new Action(() => assessmentSection1.Piping = assessmentSection2.Piping));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.GrassCoverErosionInwards,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, GrassCoverErosionInwardsFailureMechanism>(assessmentSection => assessmentSection.GrassCoverErosionInwards),
                                           new Action(() => assessmentSection1.GrassCoverErosionInwards = assessmentSection2.GrassCoverErosionInwards));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.MacroStabilityInwards,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, MacroStabilityInwardsFailureMechanism>(assessmentSection => assessmentSection.MacroStabilityInwards),
                                           new Action(() => assessmentSection1.MacroStabilityInwards = assessmentSection2.MacroStabilityInwards));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.MacroStabilityOutwards,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, MacroStabilityOutwardsFailureMechanism>(assessmentSection => assessmentSection.MacroStabilityOutwards),
                                           new Action(() => assessmentSection1.MacroStabilityOutwards = assessmentSection2.MacroStabilityOutwards));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.Microstability,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, MicrostabilityFailureMechanism>(assessmentSection => assessmentSection.Microstability),
                                           new Action(() => assessmentSection1.Microstability = assessmentSection2.Microstability));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.StabilityStoneCover,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, StabilityStoneCoverFailureMechanism>(assessmentSection => assessmentSection.StabilityStoneCover),
                                           new Action(() => assessmentSection1.StabilityStoneCover = assessmentSection2.StabilityStoneCover));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.WaveImpactAsphaltCover,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, WaveImpactAsphaltCoverFailureMechanism>(assessmentSection => assessmentSection.WaveImpactAsphaltCover),
                                           new Action(() => assessmentSection1.WaveImpactAsphaltCover = assessmentSection2.WaveImpactAsphaltCover));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.ClosingStructures,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, ClosingStructuresFailureMechanism>(assessmentSection => assessmentSection.ClosingStructures),
                                           new Action(() => assessmentSection1.ClosingStructures = assessmentSection2.ClosingStructures));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.HeightStructures,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, HeightStructuresFailureMechanism>(assessmentSection => assessmentSection.HeightStructures),
                                           new Action(() => assessmentSection1.HeightStructures = assessmentSection2.HeightStructures));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.StabilityPointStructures,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, StabilityPointStructuresFailureMechanism>(assessmentSection => assessmentSection.StabilityPointStructures),
                                           new Action(() => assessmentSection1.StabilityPointStructures = assessmentSection2.StabilityPointStructures));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.PipingStructure,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, PipingStructureFailureMechanism>(assessmentSection => assessmentSection.PipingStructure),
                                           new Action(() => assessmentSection1.PipingStructure = assessmentSection2.PipingStructure));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.GrassCoverErosionOutwards,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, GrassCoverErosionOutwardsFailureMechanism>(assessmentSection => assessmentSection.GrassCoverErosionOutwards),
                                           new Action(() => assessmentSection1.GrassCoverErosionOutwards = assessmentSection2.GrassCoverErosionOutwards));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.GrassCoverSlipOffInwards,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, GrassCoverSlipOffInwardsFailureMechanism>(assessmentSection => assessmentSection.GrassCoverSlipOffInwards),
                                           new Action(() => assessmentSection1.GrassCoverSlipOffInwards = assessmentSection2.GrassCoverSlipOffInwards));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.GrassCoverSlipOffOutwards,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, GrassCoverSlipOffOutwardsFailureMechanism>(assessmentSection => assessmentSection.GrassCoverSlipOffOutwards),
                                           new Action(() => assessmentSection1.GrassCoverSlipOffOutwards = assessmentSection2.GrassCoverSlipOffOutwards));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.WaterPressureAsphaltCover,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, WaterPressureAsphaltCoverFailureMechanism>(assessmentSection => assessmentSection.WaterPressureAsphaltCover),
                                           new Action(() => assessmentSection1.WaterPressureAsphaltCover = assessmentSection2.WaterPressureAsphaltCover));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.StrengthStabilityLengthwiseConstruction,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, StrengthStabilityLengthwiseConstructionFailureMechanism>(assessmentSection => assessmentSection.StrengthStabilityLengthwiseConstruction),
                                           new Action(() => assessmentSection1.StrengthStabilityLengthwiseConstruction = assessmentSection2.StrengthStabilityLengthwiseConstruction));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.DuneErosion,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, DuneErosionFailureMechanism>(assessmentSection => assessmentSection.DuneErosion),
                                           new Action(() => assessmentSection1.DuneErosion = assessmentSection2.DuneErosion));
-            yield return new TestCaseData(assessmentSection1, assessmentSection1.TechnicalInnovation,
+            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, TechnicalInnovationFailureMechanism>(assessmentSection => assessmentSection.TechnicalInnovation),
                                           new Action(() => assessmentSection1.TechnicalInnovation = assessmentSection2.TechnicalInnovation));
         }
 
