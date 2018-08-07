@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -88,7 +87,7 @@ namespace Ringtoets.Integration.Forms.Observers
             {
                 Observable = assessmentSection
             };
-            
+
             closingStructuresObserver = CreateCalculatableFailureMechanismObserver<ClosingStructuresFailureMechanism,
                 ClosingStructuresFailureMechanismSectionResult, StructuresCalculation<ClosingStructuresInput>>(assessmentSection.ClosingStructures);
 
@@ -144,28 +143,6 @@ namespace Ringtoets.Integration.Forms.Observers
                 WaterPressureAsphaltCoverFailureMechanismSectionResult>(assessmentSection.WaterPressureAsphaltCover);
         }
 
-        private void ResubscribeFailureMechanismObservers(AssessmentSection assessmentSection)
-        {
-            closingStructuresObserver.Observable = assessmentSection.ClosingStructures;
-            duneErosionObserver.Observable = assessmentSection.DuneErosion;
-            grassCoverErosionInwardsObserver.Observable = assessmentSection.GrassCoverErosionInwards;
-            grassCoverErosionOutwardsObserver.Observable = assessmentSection.GrassCoverErosionOutwards;
-            heightStructuresObserver.Observable = assessmentSection.HeightStructures;
-            macroStabilityInwardsObserver.Observable = assessmentSection.MacroStabilityInwards;
-            pipingObserver.Observable = assessmentSection.Piping;
-            stabilityPointStructuresObserver.Observable = assessmentSection.StabilityPointStructures;
-            stabilityStoneCoverObserver.Observable = assessmentSection.StabilityStoneCover;
-            waveImpactAsphaltCoverObserver.Observable = assessmentSection.WaveImpactAsphaltCover;
-            grassCoverSlipOffInwardsObserver.Observable = assessmentSection.GrassCoverSlipOffInwards;
-            grassCoverSlipOffOutwardsObserver.Observable = assessmentSection.GrassCoverSlipOffOutwards;
-            macroStabilityOutwardsObserver.Observable = assessmentSection.MacroStabilityOutwards;
-            microstabilityObserver.Observable = assessmentSection.Microstability;
-            pipingStructureObserver.Observable = assessmentSection.PipingStructure;
-            strengthStabilityLengthwiseConstructionObserver.Observable = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            technicalInnovationObserver.Observable = assessmentSection.TechnicalInnovation;
-            waterPressureAsphaltCoverObserver.Observable = assessmentSection.WaterPressureAsphaltCover;
-        }
-
         public void Dispose()
         {
             assessmentSectionObserver.Dispose();
@@ -187,6 +164,28 @@ namespace Ringtoets.Integration.Forms.Observers
             strengthStabilityLengthwiseConstructionObserver.Dispose();
             technicalInnovationObserver.Dispose();
             waterPressureAsphaltCoverObserver.Dispose();
+        }
+
+        private void ResubscribeFailureMechanismObservers(AssessmentSection assessmentSection)
+        {
+            closingStructuresObserver.Observable = assessmentSection.ClosingStructures;
+            duneErosionObserver.Observable = assessmentSection.DuneErosion;
+            grassCoverErosionInwardsObserver.Observable = assessmentSection.GrassCoverErosionInwards;
+            grassCoverErosionOutwardsObserver.Observable = assessmentSection.GrassCoverErosionOutwards;
+            heightStructuresObserver.Observable = assessmentSection.HeightStructures;
+            macroStabilityInwardsObserver.Observable = assessmentSection.MacroStabilityInwards;
+            pipingObserver.Observable = assessmentSection.Piping;
+            stabilityPointStructuresObserver.Observable = assessmentSection.StabilityPointStructures;
+            stabilityStoneCoverObserver.Observable = assessmentSection.StabilityStoneCover;
+            waveImpactAsphaltCoverObserver.Observable = assessmentSection.WaveImpactAsphaltCover;
+            grassCoverSlipOffInwardsObserver.Observable = assessmentSection.GrassCoverSlipOffInwards;
+            grassCoverSlipOffOutwardsObserver.Observable = assessmentSection.GrassCoverSlipOffOutwards;
+            macroStabilityOutwardsObserver.Observable = assessmentSection.MacroStabilityOutwards;
+            microstabilityObserver.Observable = assessmentSection.Microstability;
+            pipingStructureObserver.Observable = assessmentSection.PipingStructure;
+            strengthStabilityLengthwiseConstructionObserver.Observable = assessmentSection.StrengthStabilityLengthwiseConstruction;
+            technicalInnovationObserver.Observable = assessmentSection.TechnicalInnovation;
+            waterPressureAsphaltCoverObserver.Observable = assessmentSection.WaterPressureAsphaltCover;
         }
 
         private Observer CreateCalculatableFailureMechanismObserver<TFailureMechanism, TSectionResult, TCalculation>(TFailureMechanism failureMechanism)
