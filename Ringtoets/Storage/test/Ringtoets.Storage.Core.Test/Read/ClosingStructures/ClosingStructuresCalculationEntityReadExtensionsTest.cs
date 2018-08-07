@@ -159,7 +159,7 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
             Assert.AreEqual(entity.IdenticalApertures, inputParameters.IdenticalApertures);
             Assert.AreEqual(entity.LevelCrestStructureNotClosingMean, inputParameters.LevelCrestStructureNotClosing.Mean.Value);
             Assert.AreEqual(entity.LevelCrestStructureNotClosingStandardDeviation, inputParameters.LevelCrestStructureNotClosing.StandardDeviation.Value);
-            Assert.AreEqual(entity.ProbabilityOpenStructureBeforeFlooding, inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(entity.ProbabilityOpenStructureBeforeFlooding, inputParameters.ProbabilityOpenStructureBeforeFlooding);
             Assert.IsFalse(calculation.HasOutput);
         }
 

@@ -160,7 +160,7 @@ namespace Ringtoets.Storage.Core.Create
             entity.LevelCrestStructureNotClosingMean = input.LevelCrestStructureNotClosing.Mean.ToNaNAsNull();
             entity.LevelCrestStructureNotClosingStandardDeviation = input.LevelCrestStructureNotClosing.StandardDeviation.ToNaNAsNull();
 
-            entity.ProbabilityOpenStructureBeforeFlooding = input.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
+            entity.ProbabilityOpenStructureBeforeFlooding = input.ProbabilityOpenStructureBeforeFlooding;
         }
 
         private static void SetOutputEntity(StructuresCalculation<ClosingStructuresInput> calculation,

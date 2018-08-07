@@ -73,7 +73,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             input.FactorStormDurationOpenStructure = random.NextRoundedDouble();
             input.FailureProbabilityOpenStructure = random.NextDouble();
             input.FailureProbabilityReparation = random.NextDouble();
-            input.ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble();
+            input.ProbabilityOpenStructureBeforeFlooding = random.NextDouble();
             input.DeviationWaveDirection = random.NextRoundedDouble();
             input.InflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>();
             input.IdenticalApertures = random.Next();

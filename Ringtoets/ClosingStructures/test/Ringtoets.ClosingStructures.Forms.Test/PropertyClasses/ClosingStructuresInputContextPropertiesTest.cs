@@ -139,7 +139,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(input.IdenticalApertures, properties.IdenticalApertures);
             Assert.AreSame(input.LevelCrestStructureNotClosing, properties.LevelCrestStructureNotClosing.Data);
             Assert.AreSame(input.ThresholdHeightOpenWeir, properties.ThresholdHeightOpenWeir.Data);
-            Assert.AreEqual(input.ProbabilityOrFrequencyOpenStructureBeforeFlooding, properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(input.ProbabilityOpenStructureBeforeFlooding, properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             Assert.AreEqual(input.FailureProbabilityOpenStructure, properties.FailureProbabilityOpenStructure);
             Assert.AreEqual(input.FailureProbabilityReparation, properties.FailureProbabilityReparation);
             Assert.AreSame(input.DrainCoefficient, properties.DrainCoefficient.Data);

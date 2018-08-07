@@ -1018,7 +1018,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedInput.FailureProbabilityReparation, actualInput.FailureProbabilityReparation);
             Assert.AreEqual(expectedInput.IdenticalApertures, actualInput.IdenticalApertures);
             DistributionAssert.AreEqual(expectedInput.LevelCrestStructureNotClosing, actualInput.LevelCrestStructureNotClosing);
-            Assert.AreEqual(expectedInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding, actualInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(expectedInput.ProbabilityOpenStructureBeforeFlooding, actualInput.ProbabilityOpenStructureBeforeFlooding);
         }
 
         #endregion

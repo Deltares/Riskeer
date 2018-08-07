@@ -46,7 +46,7 @@ namespace Ringtoets.ClosingStructures.Data
         private RoundedDouble factorStormDurationOpenStructure;
         private double failureProbabilityOpenStructure;
         private double failureProbabilityReparation;
-        private double probabilityOrFrequencyOpenStructureBeforeFlooding;
+        private double probabilityOpenStructureBeforeFlooding;
         private RoundedDouble deviationWaveDirection;
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Ringtoets.ClosingStructures.Data
                        && Equals(FailureProbabilityReparation, Structure.FailureProbabilityReparation)
                        && Equals(IdenticalApertures, Structure.IdenticalApertures)
                        && Equals(InsideWaterLevel, Structure.InsideWaterLevel)
-                       && Equals(ProbabilityOrFrequencyOpenStructureBeforeFlooding, Structure.ProbabilityOpenStructureBeforeFlooding)
+                       && Equals(ProbabilityOpenStructureBeforeFlooding, Structure.ProbabilityOpenStructureBeforeFlooding)
                        && Equals(ThresholdHeightOpenWeir, Structure.ThresholdHeightOpenWeir);
             }
         }
@@ -120,7 +120,7 @@ namespace Ringtoets.ClosingStructures.Data
                 FailureProbabilityReparation = Structure.FailureProbabilityReparation;
                 IdenticalApertures = Structure.IdenticalApertures;
                 InsideWaterLevel = Structure.InsideWaterLevel;
-                ProbabilityOrFrequencyOpenStructureBeforeFlooding = Structure.ProbabilityOpenStructureBeforeFlooding;
+                ProbabilityOpenStructureBeforeFlooding = Structure.ProbabilityOpenStructureBeforeFlooding;
                 ThresholdHeightOpenWeir = Structure.ThresholdHeightOpenWeir;
             }
             else
@@ -146,7 +146,7 @@ namespace Ringtoets.ClosingStructures.Data
         {
             FailureProbabilityOpenStructure = 0;
             FailureProbabilityReparation = 0;
-            ProbabilityOrFrequencyOpenStructureBeforeFlooding = 1.0;
+            ProbabilityOpenStructureBeforeFlooding = 1.0;
 
             ThresholdHeightOpenWeir = new NormalDistribution
             {
@@ -351,20 +351,20 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the failure probability or frequency of an open structure before flooding.
+        /// Gets or sets the failure probability of an open structure before flooding.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
         /// is not in the interval [0, 1].</exception>
-        public double ProbabilityOrFrequencyOpenStructureBeforeFlooding
+        public double ProbabilityOpenStructureBeforeFlooding
         {
             get
             {
-                return probabilityOrFrequencyOpenStructureBeforeFlooding;
+                return probabilityOpenStructureBeforeFlooding;
             }
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
-                probabilityOrFrequencyOpenStructureBeforeFlooding = value;
+                probabilityOpenStructureBeforeFlooding = value;
             }
         }
 

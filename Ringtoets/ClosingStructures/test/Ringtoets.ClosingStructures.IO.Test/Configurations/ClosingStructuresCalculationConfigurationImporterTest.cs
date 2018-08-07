@@ -401,7 +401,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                     InflowModelType = ClosingStructureInflowModelType.VerticalWall,
                     FailureProbabilityStructureWithErosion = 0.001,
                     FactorStormDurationOpenStructure = (RoundedDouble) 0.002,
-                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = 0.03,
+                    ProbabilityOpenStructureBeforeFlooding = 0.03,
                     FailureProbabilityOpenStructure = 0.22,
                     FailureProbabilityReparation = 0.0006,
                     ShouldIllustrationPointsBeCalculated = true,
@@ -759,7 +759,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.InputParameters.FailureProbabilityReparation, actualCalculation.InputParameters.FailureProbabilityReparation);
             Assert.AreEqual(expectedCalculation.InputParameters.IdenticalApertures, actualCalculation.InputParameters.IdenticalApertures);
             Assert.AreEqual(expectedCalculation.InputParameters.InflowModelType, actualCalculation.InputParameters.InflowModelType);
-            Assert.AreEqual(expectedCalculation.InputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding, actualCalculation.InputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(expectedCalculation.InputParameters.ProbabilityOpenStructureBeforeFlooding, actualCalculation.InputParameters.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreSame(expectedCalculation.InputParameters.ForeshoreProfile, actualCalculation.InputParameters.ForeshoreProfile);
             Assert.AreEqual(expectedCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, actualCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             Assert.AreSame(expectedCalculation.InputParameters.Structure, actualCalculation.InputParameters.Structure);

@@ -410,11 +410,11 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
+                return data.WrappedData.ProbabilityOpenStructureBeforeFlooding;
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ProbabilityOrFrequencyOpenStructureBeforeFlooding = value, PropertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ProbabilityOpenStructureBeforeFlooding = value, PropertyChangeHandler);
             }
         }
 

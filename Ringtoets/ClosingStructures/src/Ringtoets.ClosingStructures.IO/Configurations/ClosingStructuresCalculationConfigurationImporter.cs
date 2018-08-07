@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
@@ -353,7 +352,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
                 try
                 {
-                    calculation.InputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding = (RoundedDouble) failureProbability;
+                    calculation.InputParameters.ProbabilityOpenStructureBeforeFlooding = (RoundedDouble) failureProbability;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
