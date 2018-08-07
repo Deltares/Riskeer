@@ -49,7 +49,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         private const int thresholdHeightOpenWeirPropertyIndex = 12;
         private const int insideWaterLevelPropertyIndex = 13;
         private const int criticalOvertoppingDischargePropertyIndex = 14;
-        private const int probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 15;
+        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 15;
         private const int failureProbabilityOpenStructurePropertyIndex = 16;
         private const int failureProbabilityReparationPropertyIndex = 17;
 
@@ -129,7 +129,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("Mean"));
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
 
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.ProbabilityOpenStructureBeforeFlooding), properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.ProbabilityOpenStructureBeforeFlooding), properties.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.FailureProbabilityOpenStructure), properties.FailureProbabilityOpenStructure);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.FailureProbabilityReparation), properties.FailureProbabilityReparation);
         }
@@ -269,8 +269,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Kritiek instromend debiet directe invoer per strekkende meter.",
                                                                             true);
 
-            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOrFrequencyOpenStructureBeforeFloodingProperty,
+            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[probabilityOpenStructureBeforeFloodingPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
                                                                             schematizationCategory,
                                                                             "Kans op open staan bij naderend hoogwater [1/jaar]",
                                                                             "Kans op open staan bij naderend hoogwater.",

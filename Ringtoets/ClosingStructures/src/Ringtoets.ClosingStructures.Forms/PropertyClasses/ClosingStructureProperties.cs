@@ -54,7 +54,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         private const int thresholdHeightOpenWeirPropertyIndex = 13;
         private const int insideWaterLevelPropertyIndex = 14;
         private const int criticalOvertoppingDischargePropertyIndex = 15;
-        private const int probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 16;
+        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 16;
         private const int failureProbabilityOpenStructurePropertyIndex = 17;
         private const int failureProbabilityReparationPropertyIndex = 18;
 
@@ -249,11 +249,11 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex)]
+        [PropertyOrder(probabilityOpenStructureBeforeFloodingPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityOrFrequencyOpenStructureBeforeFlooding_Description))]
-        public string ProbabilityOrFrequencyOpenStructureBeforeFlooding
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityOpenStructureBeforeFlooding_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityOpenStructureBeforeFlooding_Description))]
+        public string ProbabilityOpenStructureBeforeFlooding
         {
             get
             {

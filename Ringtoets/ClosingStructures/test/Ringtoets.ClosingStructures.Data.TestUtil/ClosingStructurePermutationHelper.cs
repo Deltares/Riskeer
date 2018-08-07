@@ -295,7 +295,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                 CreateTestClosingStructureConstructionProperties();
             differentProbabilityOpenStructureBeforeFloodingConstructionProperties.ProbabilityOpenStructureBeforeFlooding = random.NextDouble();
             yield return new TestCaseData(new ClosingStructure(differentProbabilityOpenStructureBeforeFloodingConstructionProperties))
-                .SetName($"{targetName}_DifferentProbabilityOrFrequencyOpenStructureBeforeFlooding_{testResultDescription}");
+                .SetName($"{targetName}_DifferentProbabilityOpenStructureBeforeFlooding_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentStructureNormalOrientationConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();

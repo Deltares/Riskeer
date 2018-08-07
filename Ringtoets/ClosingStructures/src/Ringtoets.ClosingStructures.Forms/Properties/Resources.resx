@@ -129,10 +129,10 @@
   <data name="LevelCrestStructureNotClosing_DisplayName" xml:space="preserve">
     <value>Kruinhoogte niet gesloten kering [m+NAP]</value>
   </data>
-  <data name="ProbabilityOrFrequencyOpenStructureBeforeFlooding_Description" xml:space="preserve">
+  <data name="ProbabilityOpenStructureBeforeFlooding_Description" xml:space="preserve">
     <value>Kans op open staan bij naderend hoogwater.</value>
   </data>
-  <data name="ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName" xml:space="preserve">
+  <data name="ProbabilityOpenStructureBeforeFlooding_DisplayName" xml:space="preserve">
     <value>Kans op open staan bij naderend hoogwater [1/jaar]</value>
   </data>
   <data name="FailureProbabilityOpenStructure_Description" xml:space="preserve">

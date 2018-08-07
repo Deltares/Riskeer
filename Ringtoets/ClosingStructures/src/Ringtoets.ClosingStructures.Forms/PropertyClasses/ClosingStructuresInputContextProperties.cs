@@ -64,7 +64,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         private const int levelCrestStructureNotClosingPropertyIndex = 14;
         private const int thresholdHeightOpenWeirPropertyIndex = 15;
         private const int criticalOvertoppingDischargePropertyIndex = 16;
-        private const int probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 17;
+        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 17;
         private const int failureProbabilityOpenStructurePropertyIndex = 18;
         private const int failureProbabilityReparationPropertyIndex = 19;
         private const int failureProbabilityStructureWithErosionPropertyIndex = 20;
@@ -196,7 +196,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         {
             return nameof(InflowModelType).Equals(property)
                    || nameof(IdenticalApertures).Equals(property)
-                   || nameof(ProbabilityOrFrequencyOpenStructureBeforeFlooding).Equals(property)
+                   || nameof(ProbabilityOpenStructureBeforeFlooding).Equals(property)
                    || nameof(FailureProbabilityOpenStructure).Equals(property)
                    || nameof(FailureProbabilityReparation).Equals(property)
                    || base.ShouldPropertyBeReadOnlyInAbsenseOfStructure(property);
@@ -401,12 +401,12 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [DynamicReadOnly]
-        [PropertyOrder(probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex)]
+        [PropertyOrder(probabilityOpenStructureBeforeFloodingPropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityOrFrequencyOpenStructureBeforeFlooding_Description))]
-        public double ProbabilityOrFrequencyOpenStructureBeforeFlooding
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityOpenStructureBeforeFlooding_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityOpenStructureBeforeFlooding_Description))]
+        public double ProbabilityOpenStructureBeforeFlooding
         {
             get
             {
