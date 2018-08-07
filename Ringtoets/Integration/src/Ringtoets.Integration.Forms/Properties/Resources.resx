@@ -348,9 +348,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanismContributionView_GridColumn_ProbabilitySpace" xml:space="preserve">
     <value>Faalkansruimte [1/jaar]</value>
   </data>
-  <data name="FailureMechanismContributionView_GridColumn_RelevancyFilter" xml:space="preserve">
-    <value>Algemeen filter</value>
-  </data>
   <data name="RefreshAssemblyResultsButton_Text" xml:space="preserve">
     <value>Assemblageresultaat verversen</value>
   </data>
@@ -387,7 +384,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanismMergeDataRow_IsSelected_DisplayName" xml:space="preserve">
     <value>Selecteer</value>
   </data>
-  <data name="FailureMechanismMergeDataRow_IsRelevant_DisplayName" xml:space="preserve">
+  <data name="FailureMechanism_IsRelevant_DisplayName" xml:space="preserve">
     <value>Is relevant</value>
   </data>
   <data name="AssessmentSectionMergeDataProviderDialog_InfoToolTip" xml:space="preserve">

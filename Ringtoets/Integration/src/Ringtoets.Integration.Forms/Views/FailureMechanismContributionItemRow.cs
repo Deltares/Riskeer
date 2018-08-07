@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism this row contains.</param>
         /// <param name="failureMechanismContribution">The failure mechanism contribution to get the norm from.</param>
-        /// <param name="viewCommands">>Class responsible for exposing high level <see cref="IView"/>
+        /// <param name="viewCommands">Class responsible for exposing high level <see cref="IView"/>
         /// related commands.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="FailureMechanismContributionItemRow"/>.</param>

@@ -169,6 +169,36 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
+        public void LowerLimitNorm_ValidValue_SetsNewValue()
+        {
+            // Setup
+            const double norm = 1.0 / 30000;
+            const double newLowerLimitNorm = 1.0 / 20000;
+            var failureMechanismContribution = new FailureMechanismContribution(norm, norm);
+
+            // Call
+            failureMechanismContribution.LowerLimitNorm = newLowerLimitNorm;
+
+            // Assert
+            Assert.AreEqual(newLowerLimitNorm, failureMechanismContribution.LowerLimitNorm);
+        }
+
+        [Test]
+        public void SignalingNorm_ValidValue_SetsNewValue()
+        {
+            // Setup
+            const double norm = 1.0 / 30000;
+            const double newSignalingNorm = 1.0 / 40000;
+            var failureMechanismContribution = new FailureMechanismContribution(norm, norm);
+
+            // Call
+            failureMechanismContribution.SignalingNorm = newSignalingNorm;
+
+            // Assert
+            Assert.AreEqual(newSignalingNorm, failureMechanismContribution.SignalingNorm);
+        }
+
+        [Test]
         [TestCase(NormType.Signaling, 0.01)]
         [TestCase(NormType.LowerLimit, 0.1)]
         public void Norm_DifferentNormativeNormTypes_ReturnNorm(NormType normType, double expectedNorm)

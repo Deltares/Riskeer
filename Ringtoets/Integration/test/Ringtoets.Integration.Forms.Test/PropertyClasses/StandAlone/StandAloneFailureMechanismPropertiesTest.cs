@@ -79,17 +79,20 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
             var random = new Random(39);
             double otherContribution = random.NextDouble();
 
-            var failureMechanism = new OtherFailureMechanism
+            var failureMechanism = new TestFailureMechanism
             {
-                IsRelevant = isRelevant,
-                Contribution = otherContribution
+                IsRelevant = isRelevant
             };
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetContributingFailureMechanisms()).Return(new[]
+            assessmentSection.Stub(section => section.GetContributingFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                failureMechanism
+                failureMechanism,
+                new OtherFailureMechanism
+                {
+                    Contribution = otherContribution
+                }
             });
             mocks.ReplayAll();
 

@@ -498,6 +498,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is relevant.
+        /// </summary>
+        public static string FailureMechanism_IsRelevant_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_IsRelevant_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toetsspoor.
         /// </summary>
         public static string FailureMechanism_Name_DisplayName {
@@ -564,15 +573,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Algemeen filter.
-        /// </summary>
-        public static string FailureMechanismContributionView_GridColumn_RelevancyFilter {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_RelevancyFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to n.v.t.
         /// </summary>
         public static string FailureMechanismContributionView_ProbabilityPerYear_Not_applicable {
@@ -597,15 +597,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string FailureMechanismMergeDataRow_HasSections_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismMergeDataRow_HasSections_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Is relevant.
-        /// </summary>
-        public static string FailureMechanismMergeDataRow_IsRelevant_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismMergeDataRow_IsRelevant_DisplayName", resourceCulture);
             }
         }
         
