@@ -57,8 +57,8 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                                              ClosingStructuresConfigurationSchemaIdentifiers.IdenticalApertures,
                                              configuration.IdenticalApertures);
             WriteElementWhenContentAvailable(writer,
-                                             ClosingStructuresConfigurationSchemaIdentifiers.ProbabilityOrFrequencyOpenStructureBeforeFlooding,
-                                             configuration.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+                                             ClosingStructuresConfigurationSchemaIdentifiers.ProbabilityOpenStructureBeforeFlooding,
+                                             configuration.ProbabilityOpenStructureBeforeFlooding);
             WriteElementWhenContentAvailable(writer,
                                              ClosingStructuresConfigurationSchemaIdentifiers.FailureProbabilityOpenStructure,
                                              configuration.FailureProbabilityOpenStructure);

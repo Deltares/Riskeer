@@ -74,7 +74,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 calculationConfiguration.IdenticalApertures = input.IdenticalApertures;
                 calculationConfiguration.FailureProbabilityOpenStructure = input.FailureProbabilityOpenStructure;
                 calculationConfiguration.FailureProbabilityReparation = input.FailureProbabilityReparation;
-                calculationConfiguration.ProbabilityOrFrequencyOpenStructureBeforeFlooding = input.ProbabilityOpenStructureBeforeFlooding;
+                calculationConfiguration.ProbabilityOpenStructureBeforeFlooding = input.ProbabilityOpenStructureBeforeFlooding;
 
                 calculationConfiguration.FlowWidthAtBottomProtection = input.FlowWidthAtBottomProtection.ToStochastConfiguration();
                 calculationConfiguration.WidthFlowApertures = input.WidthFlowApertures.ToStochastConfiguration();

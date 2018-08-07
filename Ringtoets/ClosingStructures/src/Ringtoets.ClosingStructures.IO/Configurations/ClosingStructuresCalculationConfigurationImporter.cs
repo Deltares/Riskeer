@@ -119,7 +119,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 && TrySetFailureProbabilityStructureWithErosion(readCalculation, calculation)
                 && TrySetFailureProbabilityOpenStructure(readCalculation, calculation)
                 && TrySetFailureProbabilityReparation(readCalculation, calculation)
-                && TrySetProbabilityOrFrequencyOpenStructureBeforeFlooding(readCalculation, calculation)
+                && TrySetProbabilityOpenStructureBeforeFlooding(readCalculation, calculation)
                 && TrySetInflowModelType(readCalculation, calculation)
                 && TrySetIdenticalApertures(readCalculation, calculation)
                 && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile,
@@ -326,29 +326,29 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         }
 
         /// <summary>
-        /// Sets the probability or frequency open structure before flooding.
+        /// Sets the probability open structure before flooding.
         /// </summary>
         /// <param name="readCalculation">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <returns><c>false</c> when the probability or frequency open structure before flooding 
-        /// is invalid or when there is a probability or frequency open structure before flooding 
+        /// <returns><c>false</c> when the probability open structure before flooding 
+        /// is invalid or when there is a probability open structure before flooding 
         /// but no structure defined, <c>true</c> otherwise.</returns>
-        private bool TrySetProbabilityOrFrequencyOpenStructureBeforeFlooding(ClosingStructuresCalculationConfiguration readCalculation,
+        private bool TrySetProbabilityOpenStructureBeforeFlooding(ClosingStructuresCalculationConfiguration readCalculation,
                                                                              StructuresCalculation<ClosingStructuresInput> calculation)
         {
-            if (readCalculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding.HasValue)
+            if (readCalculation.ProbabilityOpenStructureBeforeFlooding.HasValue)
             {
                 if (calculation.InputParameters.Structure == null)
                 {
                     Log.LogCalculationConversionError(
                         string.Format(RingtoetsCommonIOResources.CalculationConfigurationImporter_TryParameter_No_Structure_to_assign_Parameter_0_,
-                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName),
+                                      RingtoetsCommonIOResources.CalculationConfigurationImporter_ProbabilityOpenStructureBeforeFlooding_DisplayName),
                         calculation.Name);
 
                     return false;
                 }
 
-                double failureProbability = readCalculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding.Value;
+                double failureProbability = readCalculation.ProbabilityOpenStructureBeforeFlooding.Value;
 
                 try
                 {
@@ -360,7 +360,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                         string.Format(
                             RingtoetsCommonIOResources.TryReadParameter_Value_0_ParameterName_1_is_invalid,
                             failureProbability,
-                            RingtoetsCommonIOResources.CalculationConfigurationImporter_ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName),
+                            RingtoetsCommonIOResources.CalculationConfigurationImporter_ProbabilityOpenStructureBeforeFlooding_DisplayName),
                         calculation.Name,
                         e);
 

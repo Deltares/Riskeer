@@ -60,7 +60,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(configuration.FactorStormDurationOpenStructure);
             Assert.IsNull(configuration.FailureProbabilityOpenStructure);
             Assert.IsNull(configuration.FailureProbabilityReparation);
-            Assert.IsNull(configuration.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.IsNull(configuration.ProbabilityOpenStructureBeforeFlooding);
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             double factorStormDurationOpenStructure = random.NextDouble();
             double failureProbabilityOpenStructure = random.NextDouble();
             double failureProbabilityReparation = random.NextDouble();
-            double probabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble();
+            double probabilityOpenStructureBeforeFlooding = random.NextDouble();
 
             var configuration = new ClosingStructuresCalculationConfiguration("some name");
 
@@ -93,7 +93,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             configuration.FactorStormDurationOpenStructure = factorStormDurationOpenStructure;
             configuration.FailureProbabilityOpenStructure = failureProbabilityOpenStructure;
             configuration.FailureProbabilityReparation = failureProbabilityReparation;
-            configuration.ProbabilityOrFrequencyOpenStructureBeforeFlooding = probabilityOrFrequencyOpenStructureBeforeFlooding;
+            configuration.ProbabilityOpenStructureBeforeFlooding = probabilityOpenStructureBeforeFlooding;
 
             // Assert
             Assert.AreEqual(inflowModelType, configuration.InflowModelType);
@@ -106,7 +106,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.AreEqual(factorStormDurationOpenStructure, configuration.FactorStormDurationOpenStructure);
             Assert.AreEqual(failureProbabilityOpenStructure, configuration.FailureProbabilityOpenStructure);
             Assert.AreEqual(failureProbabilityReparation, configuration.FailureProbabilityReparation);
-            Assert.AreEqual(probabilityOrFrequencyOpenStructureBeforeFlooding, configuration.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(probabilityOpenStructureBeforeFlooding, configuration.ProbabilityOpenStructureBeforeFlooding);
         }
 
         [Test]

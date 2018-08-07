@@ -170,10 +170,10 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to kans op open staan bij naderend hoogwater.
         /// </summary>
-        public static string CalculationConfigurationImporter_ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName {
+        public static string CalculationConfigurationImporter_ProbabilityOpenStructureBeforeFlooding_DisplayName {
             get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_ProbabilityOrFrequencyOpenStructureBeforeFloodin" +
-                        "g_DisplayName", resourceCulture);
+                return ResourceManager.GetString("CalculationConfigurationImporter_ProbabilityOpenStructureBeforeFlooding_DisplayNa" +
+                        "me", resourceCulture);
             }
         }
         

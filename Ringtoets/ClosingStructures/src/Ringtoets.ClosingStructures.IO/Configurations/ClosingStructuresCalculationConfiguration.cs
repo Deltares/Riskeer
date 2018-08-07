@@ -82,9 +82,9 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         public double? FailureProbabilityReparation { get; set; }
 
         /// <summary>
-        /// Gets or sets the probability or frequency for an open structure before flooding.
+        /// Gets or sets the probability for an open structure before flooding.
         /// </summary>
-        public double? ProbabilityOrFrequencyOpenStructureBeforeFlooding { get; set; }
+        public double? ProbabilityOpenStructureBeforeFlooding { get; set; }
 
         /// <summary>
         /// Gets or sets the inflow model type.

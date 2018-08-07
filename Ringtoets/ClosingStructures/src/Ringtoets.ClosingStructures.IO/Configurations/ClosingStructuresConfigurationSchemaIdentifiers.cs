@@ -49,9 +49,9 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         public const string FailureProbabilityReparation = "faalkansherstel";
 
         /// <summary>
-        /// The identifier for the probability or frequency open structure before flooding element.
+        /// The identifier for the probability open structure before flooding element.
         /// </summary>
-        public const string ProbabilityOrFrequencyOpenStructureBeforeFlooding = "kansopopenstaan";
+        public const string ProbabilityOpenStructureBeforeFlooding = "kansopopenstaan";
 
         /// <summary>
         /// The identifier for the inflow model type element.

@@ -594,7 +594,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="CalculationConfigurationImporter_FailureProbabilityReparation_DisplayName" xml:space="preserve">
     <value>faalkans herstel van gefaalde situatie</value>
   </data>
-  <data name="CalculationConfigurationImporter_ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName" xml:space="preserve">
+  <data name="CalculationConfigurationImporter_ProbabilityOpenStructureBeforeFlooding_DisplayName" xml:space="preserve">
     <value>kans op open staan bij naderend hoogwater</value>
   </data>
   <data name="CalculationConfigurationImporter_IdenticalApertures_DisplayName" xml:space="preserve">

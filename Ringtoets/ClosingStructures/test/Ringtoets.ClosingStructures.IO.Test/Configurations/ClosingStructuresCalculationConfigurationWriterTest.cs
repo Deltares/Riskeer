@@ -138,7 +138,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 StructureNormalOrientation = 67.1,
                 FactorStormDurationOpenStructure = 1.0,
                 IdenticalApertures = 1,
-                ProbabilityOrFrequencyOpenStructureBeforeFlooding = 1e-2,
+                ProbabilityOpenStructureBeforeFlooding = 1e-2,
                 FailureProbabilityOpenStructure = 1e-3,
                 FailureProbabilityReparation = 1e-2,
                 InflowModelType = ConfigurationClosingStructureInflowModelType.LowSill,
