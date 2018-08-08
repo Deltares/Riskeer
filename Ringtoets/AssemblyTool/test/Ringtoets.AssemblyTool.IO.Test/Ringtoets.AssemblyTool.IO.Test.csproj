@@ -14,11 +14,30 @@
     <Reference Include="System.Core" />
   <ItemGroup>
     <Compile Include="Model\Gml\SerializableEnvelopeTest.cs" />
+    <Compile Include="Model\Gml\SerializableBoundaryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.AssemblyTool.IO\Ringtoets.AssemblyTool.IO.csproj">
+      <Project>{b9838495-b090-4b84-a387-a8974f4f9cc4}</Project>
+      <Name>Ringtoets.AssemblyTool.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.AssemblyTool.IO.TestUtil\Ringtoets.AssemblyTool.IO.TestUtil.csproj">
+      <Project>{C7023D25-F8DF-4E3F-BF5D-A8F961CC63F7}</Project>
+      <Name>Ringtoets.AssemblyTool.IO.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
