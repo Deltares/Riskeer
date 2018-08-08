@@ -33,16 +33,16 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Gml
         public void DefaultConstructor_ReturnsDefaultValues()
         {
             // Call
-            var boundaries = new SerializableEnvelope();
+            var envelope = new SerializableEnvelope();
 
             // Assert
-            Assert.IsNull(boundaries.LowerCorner);
-            Assert.IsNull(boundaries.UpperCorner);
+            Assert.IsNull(envelope.LowerCorner);
+            Assert.IsNull(envelope.UpperCorner);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableEnvelope>(
-                nameof(SerializableEnvelope.LowerCorner), "lowerCorner", "http://www.opengis.net/gml/3.2");
+                nameof(SerializableEnvelope.LowerCorner), "lowerCorner");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableEnvelope>(
-                nameof(SerializableEnvelope.UpperCorner), "upperCorner", "http://www.opengis.net/gml/3.2");
+                nameof(SerializableEnvelope.UpperCorner), "upperCorner");
         }
 
         [Test]
@@ -82,11 +82,11 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Gml
             var upperCorner = new Point2D(random.NextDouble(), random.NextDouble());
 
             // Call
-            var boundaries = new SerializableEnvelope(lowerCorner, upperCorner);
+            var envelope = new SerializableEnvelope(lowerCorner, upperCorner);
 
             // Assert
-            Assert.AreEqual(lowerCorner.X + " " + lowerCorner.Y, boundaries.LowerCorner);
-            Assert.AreEqual(upperCorner.X + " " + upperCorner.Y, boundaries.UpperCorner);
+            Assert.AreEqual(lowerCorner.X + " " + lowerCorner.Y, envelope.LowerCorner);
+            Assert.AreEqual(upperCorner.X + " " + upperCorner.Y, envelope.UpperCorner);
         }
     }
 }
