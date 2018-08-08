@@ -158,6 +158,25 @@ namespace Ringtoets.Migration.Integration.Test
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateClosingStructureProbabilityOpenStructureBeforeFlooding);
 
+            string validateIdenticalApertures =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT " +
+                "SUM([IsInvalid]) = 0 " +
+                "FROM " +
+                "( " +
+                "SELECT " +
+                "CASE WHEN (NEW.[IdenticalApertures] != OLD.[IdenticalApertures] " +
+                "AND OLD.[IdenticalApertures] >= 1)  " +
+                "OR (NEW.[IdenticalApertures] != 1 AND OLD.[IdenticalApertures] = 0) " +
+                "THEN 1 " +
+                "ELSE 0 " +
+                "END AS [IsInvalid] " +
+                "FROM ClosingStructureEntity NEW " +
+                "JOIN [SOURCEPROJECT].ClosingStructureEntity OLD USING (ClosingStructureEntityId) " +
+                "); " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateIdenticalApertures);
+
             string validateClosingStructure =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructureEntity) " +
@@ -188,7 +207,6 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND NEW.FlowWidthAtBottomProtectionMean IS OLD.FlowWidthAtBottomProtectionMean" +
                 "AND NEW.FlowWidthAtBottomProtectionStandardDeviation IS OLD.FlowWidthAtBottomProtectionStandardDeviation" +
                 "AND NEW.FailureProbabilityOpenStructure IS OLD.FailureProbabilityOpenStructure" +
-                "AND NEW.IdenticalApertures IS OLD.IdenticalApertures" +
                 "AND NEW.FailureProbabilityReparation IS OLD.FailureProbabilityReparation" +
                 "AND NEW.InflowModelType IS OLD.InflowModelType;" +
                 "DETACH DATABASE SOURCEPROJECT;";

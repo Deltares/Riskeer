@@ -76,7 +76,12 @@ SELECT
 			[ProbabilityOrFrequencyOpenStructureBeforeFlooding]
 	END,
 	[FailureProbabilityOpenStructure],
-	[IdenticalApertures],
+	CASE
+		WHEN [IdenticalApertures] = 0
+			THEN 1
+		ELSE 
+			[IdenticalApertures]
+	END,
 	[FailureProbabilityReparation],
 	[InflowModelType]
 FROM [SOURCEPROJECT].ClosingStructureEntity;
