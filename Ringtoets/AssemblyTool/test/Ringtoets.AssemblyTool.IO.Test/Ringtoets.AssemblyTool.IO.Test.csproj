@@ -15,7 +15,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\AssemblyTest.cs" />
+    <Compile Include="Model\SerializableMeasureTest.cs" />
+    <Compile Include="Model\SerializableAssemblyTest.cs" />
     <Compile Include="Model\Gml\SerializableEnvelopeTest.cs" />
     <Compile Include="Model\Gml\SerializableBoundaryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

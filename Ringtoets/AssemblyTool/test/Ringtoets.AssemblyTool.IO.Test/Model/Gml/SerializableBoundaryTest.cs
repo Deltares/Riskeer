@@ -33,10 +33,10 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Gml
         public void DefaultConstructor_ReturnsDefaultValues()
         {
             // Call
-            var boundaries = new SerializableBoundary();
+            var boundary = new SerializableBoundary();
 
             // Assert
-            Assert.IsNull(boundaries.Envelope);
+            Assert.IsNull(boundary.Envelope);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableBoundary>(
                 nameof(SerializableBoundary.Envelope), "Envelope");
@@ -79,11 +79,11 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Gml
             var upperCorner = new Point2D(random.NextDouble(), random.NextDouble());
 
             // Call
-            var boundaries = new SerializableBoundary(lowerCorner, upperCorner);
+            var boundary = new SerializableBoundary(lowerCorner, upperCorner);
 
             // Assert
-            Assert.AreEqual(lowerCorner.X + " " + lowerCorner.Y, boundaries.Envelope.LowerCorner);
-            Assert.AreEqual(upperCorner.X + " " + upperCorner.Y, boundaries.Envelope.UpperCorner);
+            Assert.AreEqual(lowerCorner.X + " " + lowerCorner.Y, boundary.Envelope.LowerCorner);
+            Assert.AreEqual(upperCorner.X + " " + upperCorner.Y, boundary.Envelope.UpperCorner);
         }
     }
 }

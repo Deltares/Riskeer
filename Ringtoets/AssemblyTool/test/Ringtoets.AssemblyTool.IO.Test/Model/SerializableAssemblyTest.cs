@@ -75,9 +75,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Call
             TestDelegate call = () => new SerializableAssembly(null,
-                                                   new Point2D(random.NextDouble(), random.NextDouble()),
-                                                   new Point2D(random.NextDouble(), random.NextDouble()),
-                                                   new List<SerializableFeatureMember>());
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new List<SerializableFeatureMember>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -92,9 +92,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Call
             TestDelegate call = () => new SerializableAssembly(string.Empty,
-                                                   null,
-                                                   new Point2D(random.NextDouble(), random.NextDouble()),
-                                                   new List<SerializableFeatureMember>());
+                                                               null,
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new List<SerializableFeatureMember>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -109,9 +109,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Call
             TestDelegate call = () => new SerializableAssembly(string.Empty,
-                                                   new Point2D(random.NextDouble(), random.NextDouble()),
-                                                   null,
-                                                   new List<SerializableFeatureMember>());
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               null,
+                                                               new List<SerializableFeatureMember>());
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("upperCorner", exception.ParamName);
@@ -125,9 +125,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Call
             TestDelegate call = () => new SerializableAssembly(string.Empty,
-                                                   new Point2D(random.NextDouble(), random.NextDouble()),
-                                                   new Point2D(random.NextDouble(), random.NextDouble()),
-                                                   null);
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               null);
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("featureMembers", exception.ParamName);
@@ -146,12 +146,12 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Call
             var assembly = new SerializableAssembly(id,
-                                        lowerCorner,
-                                        upperCorner,
-                                        new List<SerializableFeatureMember>
-                                        {
-                                            featureMember
-                                        });
+                                                    lowerCorner,
+                                                    upperCorner,
+                                                    new List<SerializableFeatureMember>
+                                                    {
+                                                        featureMember
+                                                    });
             // Assert
             Assert.AreEqual(id, assembly.Id);
             Assert.AreEqual(lowerCorner.X + " " + lowerCorner.Y, assembly.Boundary.Envelope.LowerCorner);
@@ -172,7 +172,11 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var assessmentSection = new SerializableAssessmentSection
             {
                 Id = "section1",
-                Length = 100,
+                Length = new SerializableMeasure
+                {
+                    UnitOfMeasure = "m",
+                    Value = 100
+                },
                 Name = "Traject A",
                 SurfaceLineGeometry = new SerializableLine(new[]
                 {
@@ -182,10 +186,10 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             };
 
             var assembly = new SerializableAssembly("assembly_1", new Point2D(12.0, 34.0), new Point2D(56.0, 78.0),
-                                        new List<SerializableFeatureMember>
-                                        {
-                                            assessmentSection
-                                        });
+                                                    new List<SerializableFeatureMember>
+                                                    {
+                                                        assessmentSection
+                                                    });
 
             serializer.Serialize(writer, assembly, xmlns);
             Console.WriteLine(writer.ToString());
