@@ -2560,6 +2560,18 @@ SELECT
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = cs.[FailureMechanismEntityId]
 	WHERE source.[ProbabilityOrFrequencyOpenStructureBeforeFlooding] IS NOT cs.[ProbabilityOpenStructureBeforeFlooding];
 
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde van '" || source.[IdenticalApertures] || "' van parameter 'Aantal identieke doorstroomopeningen' van kunstwerk '" || source.[Name] || "' is ongeldig en is veranderd naar 1."
+	FROM ClosingStructureEntity AS cs
+	JOIN [SOURCEPROJECT].ClosingStructureEntity AS source ON cs.[rowid] = source.[rowid]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = cs.[FailureMechanismEntityId]
+	WHERE source.[IdenticalApertures] != cs.[IdenticalApertures];
+
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 
 	[ToVersion], 
