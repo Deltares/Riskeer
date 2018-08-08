@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using Core.Common.TestUtil;
 using Core.Common.Util.Attributes;
@@ -609,6 +611,27 @@ namespace Core.Common.Util.Test.Reflection
             Assert.AreEqual(1.2, testClass.PublicPropertyPrivateSetter);
         }
 
+        [Test]
+        public void GetPropertyAttributes_PropertyNameNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => TypeUtils.GetPropertyAttributes<AttributeClass, TestingAttribute>(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("propertyName", paramName);
+        }
+
+        [Test]
+        public void GetPropertyAttributes_WithPropertyName_ReturnsTestingAttribute()
+        {
+            // Call
+            IEnumerable<TestingAttribute> attributes = TypeUtils.GetPropertyAttributes<AttributeClass, TestingAttribute>(nameof(AttributeClass.Property));
+
+            // Assert
+            Assert.IsInstanceOf<TestingAttribute>(attributes.Single());
+        }
+
         private enum TestEnum
         {
             NoDisplayName,
@@ -660,5 +683,13 @@ namespace Core.Common.Util.Test.Reflection
 
             public DerivedTestClass(int privateInt) : base(privateInt) {}
         }
+
+        private class AttributeClass
+        {
+            [Testing]
+            public int Property { get; set; }
+        }
+
+        private class TestingAttribute : Attribute {}
     }
 }

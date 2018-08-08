@@ -21,6 +21,7 @@
 
 using System.Linq;
 using System.Xml.Serialization;
+using Core.Common.Util.Reflection;
 using NUnit.Framework;
 
 namespace Ringtoets.AssemblyTool.IO.TestUtil
@@ -52,9 +53,31 @@ namespace Ringtoets.AssemblyTool.IO.TestUtil
             Assert.AreEqual(namespaceUrl, attribute.Namespace);
         }
 
+        /// <summary>
+        /// Asserts whether the property <paramref name="propertyName"/> in class <typeparamref name="T"/>
+        /// has a <see cref="XmlElementAttribute"/> with the correct values.
+        /// </summary>
+        /// <typeparam name="T">The class the <paramref name="propertyName"/> is in.</typeparam>
+        /// <param name="propertyName">The name of the property to assert.</param>
+        /// <param name="elementName">The expected XML element name.</param>
+        /// <param name="namespaceUrl">The expected XML namespace url.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>the <see cref="XmlElementAttribute"/> could not be found, or multiple attributes are defined;</item>
+        /// <item>the <paramref name="elementName"/> or <paramref name="namespaceUrl"/> do not match
+        /// with the actual attribute.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertXmlAttributeAttribute<T>(string propertyName, string elementName, string namespaceUrl = null)
+        {
+            XmlAttributeAttribute attribute = GetPropertyAttribute<T, XmlAttributeAttribute>(propertyName);
+            Assert.AreEqual(elementName, attribute.AttributeName);
+            Assert.AreEqual(namespaceUrl, attribute.Namespace);
+        }
+
         private static TAttribute GetPropertyAttribute<TObject, TAttribute>(string propertyName)
         {
-            var attribute = (TAttribute) typeof(TObject).GetProperty(propertyName)?.GetCustomAttributes(typeof(TAttribute), false).SingleOrDefault();
+            TAttribute attribute = TypeUtils.GetPropertyAttributes<TObject, TAttribute>(propertyName).SingleOrDefault();
             Assert.IsNotNull(attribute);
             return attribute;
         }
