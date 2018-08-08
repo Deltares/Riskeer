@@ -88,7 +88,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             DistributionAssert.AreEqual(expectedLevelCrestStructureNotClosing, input.LevelCrestStructureNotClosing);
 
             Assert.AreEqual(1.0, input.ProbabilityOpenStructureBeforeFlooding);
-            Assert.AreEqual(0, input.IdenticalApertures);
+            Assert.AreEqual(1, input.IdenticalApertures);
 
             Assert.AreEqual(0, (int) input.InflowModelType);
         }
@@ -171,7 +171,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             DistributionAssert.AreEqual(expectedLevelCrestStructureNotClosing, input.LevelCrestStructureNotClosing);
 
             Assert.AreEqual(1.0, input.ProbabilityOpenStructureBeforeFlooding);
-            Assert.AreEqual(0, input.IdenticalApertures);
+            Assert.AreEqual(1, input.IdenticalApertures);
 
             Assert.AreEqual(0, (int) input.InflowModelType);
         }
@@ -596,6 +596,33 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(probability, input.ProbabilityOpenStructureBeforeFlooding);
+        }
+
+        [Test]
+        public void IdenticalApertures_InvalidValue_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.IdenticalApertures = 0;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor het aantal identieke openingen moet groter of gelijk zijn aan 1.");
+        }
+
+        [Test]
+        public void IdenticalApertures_ValidValue_ExpectedValues()
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+            int newValue = new Random(21).Next(1, int.MaxValue);
+
+            // Call
+            input.IdenticalApertures = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, input.IdenticalApertures);
         }
 
         #endregion

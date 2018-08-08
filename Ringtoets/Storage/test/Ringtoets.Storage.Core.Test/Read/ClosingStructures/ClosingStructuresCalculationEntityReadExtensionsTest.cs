@@ -54,7 +54,10 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
         public void Read_EntityNotReadBefore_RegisterEntity()
         {
             // Setup
-            var entity = new ClosingStructuresCalculationEntity();
+            var entity = new ClosingStructuresCalculationEntity
+            {
+                IdenticalApertures = 1
+            };
 
             var collector = new ReadConversionCollector();
 
@@ -193,7 +196,8 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
                 AreaFlowAperturesMean = null,
                 AreaFlowAperturesStandardDeviation = null,
                 LevelCrestStructureNotClosingMean = null,
-                LevelCrestStructureNotClosingStandardDeviation = null
+                LevelCrestStructureNotClosingStandardDeviation = null,
+                IdenticalApertures = 1
             };
             var collector = new ReadConversionCollector();
 
@@ -238,7 +242,8 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
             var structureEntity = new ClosingStructureEntity();
             var entity = new ClosingStructuresCalculationEntity
             {
-                ClosingStructureEntity = structureEntity
+                ClosingStructureEntity = structureEntity,
+                IdenticalApertures = 1
             };
             var collector = new ReadConversionCollector();
             collector.Read(structureEntity, structure);
@@ -258,7 +263,8 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new ClosingStructuresCalculationEntity
             {
-                HydraulicLocationEntity = hydraulicLocationEntity
+                HydraulicLocationEntity = hydraulicLocationEntity,
+                IdenticalApertures = 1
             };
 
             var collector = new ReadConversionCollector();
@@ -279,7 +285,8 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
             var profileEntity = new ForeshoreProfileEntity();
             var entity = new ClosingStructuresCalculationEntity
             {
-                ForeshoreProfileEntity = profileEntity
+                ForeshoreProfileEntity = profileEntity,
+                IdenticalApertures = 1
             };
 
             var collector = new ReadConversionCollector();
@@ -301,7 +308,8 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
                 ClosingStructuresOutputEntities =
                 {
                     new ClosingStructuresOutputEntity()
-                }
+                },
+                IdenticalApertures = 1
             };
 
             var collector = new ReadConversionCollector();

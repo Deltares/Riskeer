@@ -40,7 +40,7 @@ namespace Ringtoets.ClosingStructures.Data.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -105,6 +105,15 @@ namespace Ringtoets.ClosingStructures.Data.Properties {
         public static string ClosingStructuresFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("ClosingStructuresFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde voor het aantal identieke openingen moet groter of gelijk zijn aan 1..
+        /// </summary>
+        public static string ClosingStructuresInput_IdenticalApertures_must_be_equal_or_greater_to_one {
+            get {
+                return ResourceManager.GetString("ClosingStructuresInput_IdenticalApertures_must_be_equal_or_greater_to_one", resourceCulture);
             }
         }
         
