@@ -564,9 +564,9 @@ namespace Ringtoets.Common.IO.Structures
         {
             var messages = new List<string>();
             double value = row.NumericalValue;
-            if (!IsValueWholeNumber(value) || value < 0)
+            if (!IsValueWholeNumber(value) || value < 1)
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_positive_whole_number,
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_whole_number_greater_or_equal_to_one,
                                            row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstToUpper()));
             }
             return messages;

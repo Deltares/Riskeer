@@ -624,7 +624,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword13,
-                    NumericalValue = -11,
+                    NumericalValue = 0,
                     LineNumber = 13
                 },
                 new StructuresParameterRow
@@ -668,7 +668,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT11' op regel 11, kolom 'Numeriekewaarde', moet in het bereik [0,0, 1,0] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT12' op regel 12, kolom 'Numeriekewaarde', moet in het bereik [0,0, 1,0] liggen.",
-                "De waarde voor parameter 'KW_BETSLUIT13' op regel 13, kolom 'Numeriekewaarde', moet een positief geheel getal zijn.",
+                "De waarde voor parameter 'KW_BETSLUIT13' op regel 13, kolom 'Numeriekewaarde', moet een geheel getal zijn groter of gelijk aan 1.",
                 "De waarde voor parameter 'KW_BETSLUIT14' op regel 14, kolom 'Numeriekewaarde', moet in het bereik [0,0, 1,0] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT15' op regel 15, kolom 'Alfanumeriekewaarde', moet een geldig kunstwerk type zijn."
             };
