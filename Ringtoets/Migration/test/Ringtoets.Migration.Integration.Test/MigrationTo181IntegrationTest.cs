@@ -131,6 +131,7 @@ namespace Ringtoets.Migration.Integration.Test
                     MigratedSerializedDataTestHelper.AssertSerializedPoint2DCollection(reader);
 
                     AssertClosingStructure(reader, sourceFilePath);
+                    AssertClosingStructureCalculationInput(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -211,6 +212,28 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND NEW.InflowModelType IS OLD.InflowModelType;" +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateClosingStructure);
+        }
+
+        private static void AssertClosingStructureCalculationInput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateIdenticalApertures =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCE; " +
+                "SELECT " +
+                "SUM([IsInvalid]) = 0 " +
+                "FROM " +
+                "( " +
+                "SELECT " +
+                "CASE WHEN (NEW.[IdenticalApertures] != OLD.[IdenticalApertures] " +
+                "AND OLD.[IdenticalApertures] >= 1)  " +
+                "OR (NEW.[IdenticalApertures] != 1 AND OLD.[IdenticalApertures] = 0) " +
+                "THEN 1 " +
+                "ELSE 0 " +
+                "END AS [IsInvalid] " +
+                "FROM ClosingStructuresCalculationEntity NEW " +
+                "JOIN [SOURCE].ClosingStructuresCalculationEntity OLD USING (ClosingStructuresCalculationEntityId) " +
+                "); " +
+                "DETACH DATABASE SOURCE;";
+            reader.AssertReturnedDataIsValid(validateIdenticalApertures);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)

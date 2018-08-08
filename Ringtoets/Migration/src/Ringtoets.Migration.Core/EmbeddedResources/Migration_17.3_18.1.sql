@@ -165,7 +165,12 @@ SELECT
 	[FlowWidthAtBottomProtectionStandardDeviation],
 	[ProbabilityOrFrequencyOpenStructureBeforeFlooding],
 	[FailureProbabilityOpenStructure],
-	[IdenticalApertures],
+	CASE
+		WHEN [IdenticalApertures] = 0
+			THEN 1
+		ELSE 
+			[IdenticalApertures]
+	END,
 	[FailureProbabilityReparation],
 	[InflowModelType],
 	[FailureProbabilityStructureWithErosion],
