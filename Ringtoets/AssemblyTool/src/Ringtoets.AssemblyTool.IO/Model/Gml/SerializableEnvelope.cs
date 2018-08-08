@@ -58,13 +58,13 @@ namespace Ringtoets.AssemblyTool.IO.Model.Gml
         }
 
         /// <summary>
-        /// The coordinates of the lower corner of the envelope.
+        /// Gets or sets the coordinates of the lower corner of the envelope.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.LowerCorner, Namespace = AssemblyXmlIdentifiers.GmlNamespace)]
         public string LowerCorner { get; set; }
 
         /// <summary>
-        /// The coordinates of the upper corner of the envelope.
+        /// Gets or sets the coordinates of the upper corner of the envelope.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.UpperCorner, Namespace = AssemblyXmlIdentifiers.GmlNamespace)]
         public string UpperCorner { get; set; }
