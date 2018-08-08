@@ -59,7 +59,7 @@ namespace Ringtoets.Storage.Core.DbContext
         public double? ThresholdHeightOpenWeirStandardDeviation { get; set; }
         public double? AreaFlowAperturesMean { get; set; }
         public double? AreaFlowAperturesStandardDeviation { get; set; }
-        public double ProbabilityOrFrequencyOpenStructureBeforeFlooding { get; set; }
+        public double ProbabilityOpenStructureBeforeFlooding { get; set; }
         public double FailureProbabilityOpenStructure { get; set; }
         public int IdenticalApertures { get; set; }
         public double FailureProbabilityReparation { get; set; }

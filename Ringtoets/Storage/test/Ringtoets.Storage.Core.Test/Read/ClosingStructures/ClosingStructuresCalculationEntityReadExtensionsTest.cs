@@ -110,7 +110,7 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
                 IdenticalApertures = 27,
                 LevelCrestStructureNotClosingMean = 28.28,
                 LevelCrestStructureNotClosingStandardDeviation = 29.29,
-                ProbabilityOrFrequencyOpenStructureBeforeFlooding = 0.30
+                ProbabilityOpenStructureBeforeFlooding = 0.30
             };
             var collector = new ReadConversionCollector();
 
@@ -159,7 +159,7 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
             Assert.AreEqual(entity.IdenticalApertures, inputParameters.IdenticalApertures);
             Assert.AreEqual(entity.LevelCrestStructureNotClosingMean, inputParameters.LevelCrestStructureNotClosing.Mean.Value);
             Assert.AreEqual(entity.LevelCrestStructureNotClosingStandardDeviation, inputParameters.LevelCrestStructureNotClosing.StandardDeviation.Value);
-            Assert.AreEqual(entity.ProbabilityOrFrequencyOpenStructureBeforeFlooding, inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(entity.ProbabilityOpenStructureBeforeFlooding, inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
             Assert.IsFalse(calculation.HasOutput);
         }
 

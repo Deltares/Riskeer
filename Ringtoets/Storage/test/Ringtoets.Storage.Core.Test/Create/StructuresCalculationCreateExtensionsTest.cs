@@ -510,7 +510,7 @@ namespace Ringtoets.Storage.Core.Test.Create
             Assert.AreEqual(inputParameters.IdenticalApertures, entity.IdenticalApertures);
             Assert.AreEqual(inputParameters.LevelCrestStructureNotClosing.Mean.Value, entity.LevelCrestStructureNotClosingMean);
             Assert.AreEqual(inputParameters.LevelCrestStructureNotClosing.StandardDeviation.Value, entity.LevelCrestStructureNotClosingStandardDeviation);
-            Assert.AreEqual(inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding, entity.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding, entity.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(Convert.ToByte(inputParameters.ShouldIllustrationPointsBeCalculated), entity.ShouldIllustrationPointsBeCalculated);
             Assert.AreEqual(order, entity.Order);
 
