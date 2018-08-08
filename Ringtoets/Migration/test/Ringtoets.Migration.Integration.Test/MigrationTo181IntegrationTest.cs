@@ -129,10 +129,70 @@ namespace Ringtoets.Migration.Integration.Test
                     MigratedSerializedDataTestHelper.AssertSerializedDikeProfileRoughnessPoints(reader);
                     MigratedSerializedDataTestHelper.AssertSerializedSurfaceLine(reader);
                     MigratedSerializedDataTestHelper.AssertSerializedPoint2DCollection(reader);
+
+                    AssertClosingStructure(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
             }
+        }
+
+        private static void AssertClosingStructure(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateClosingStructureProbabilityOpenStructureBeforeFlooding =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT " +
+                "SUM([IsInvalid]) = 0 " +
+                "FROM " +
+                "( " +
+                "SELECT " +
+                "CASE WHEN (NEW.[ProbabilityOpenStructureBeforeFlooding] IS NOT OLD.[ProbabilityOrFrequencyOpenStructureBeforeFlooding] " +
+                "AND OLD.[ProbabilityOrFrequencyOpenStructureBeforeFlooding] <= 1)  " +
+                "OR (NEW.[ProbabilityOpenStructureBeforeFlooding] IS NOT NULL AND OLD.[ProbabilityOrFrequencyOpenStructureBeforeFlooding] > 1) " +
+                "THEN 1 " +
+                "ELSE 0 " +
+                "END AS [IsInvalid] " +
+                "FROM ClosingStructureEntity NEW " +
+                "JOIN [SOURCEPROJECT].ClosingStructureEntity OLD USING (ClosingStructureEntityId) " +
+                "); " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateClosingStructureProbabilityOpenStructureBeforeFlooding);
+
+            string validateClosingStructure =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructureEntity) " +
+                "FROM ClosingStructureEntity NEW " +
+                "JOIN [SOURCEPROJECT].ClosingStructureEntity OLD USING(ClosingStructureEntityId) " +
+                "WHERE NEW.FailureMechanismEntityId = OLD.FailureMechanismEntityId " +
+                "AND NEW.\"Order\" = OLD.\"Order\"; " +
+                "AND NEW.Name = OLD.Name " +
+                "AND NEW.X IS OLD.X " +
+                "AND NEW.Y IS OLD.Y" +
+                "AND NEW.StructureNormalOrientation IS OLD.StructureNormalOrientation" +
+                "AND NEW.StorageStructureAreaMean IS OLD.StorageStructureAreaMean" +
+                "AND NEW.StorageStructureAreaCoefficientOfVariation IS OLD.StorageStructureAreaCoefficientOfVariation" +
+                "AND NEW.AllowedLevelIncreaseStorageMean IS OLD.AllowedLevelIncreaseStorageMean" +
+                "AND NEW.AllowedLevelIncreaseStorageStandardDeviation IS OLD.AllowedLevelIncreaseStorageStandardDeviation" +
+                "AND NEW.WidthFlowAperturesMean IS OLD.WidthFlowAperturesMean" +
+                "AND NEW.WidthFlowAperturesStandardDeviation IS OLD.WidthFlowAperturesStandardDeviation" +
+                "AND NEW.LevelCrestStructureNotClosingMean IS OLD.LevelCrestStructureNotClosingMean" +
+                "AND NEW.LevelCrestStructureNotClosingStandardDeviation IS OLD.LevelCrestStructureNotClosingStandardDeviation" +
+                "AND NEW.InsideWaterLevelMean IS OLD.InsideWaterLevelMean" +
+                "AND NEW.InsideWaterLevelStandardDeviation IS OLD.InsideWaterLevelStandardDeviation" +
+                "AND NEW.ThresholdHeightOpenWeirMean IS OLD.ThresholdHeightOpenWeirMean" +
+                "AND NEW.ThresholdHeightOpenWeirStandardDeviation IS OLD.ThresholdHeightOpenWeirStandardDeviation" +
+                "AND NEW.AreaFlowAperturesMean IS OLD.AreaFlowAperturesMean" +
+                "AND NEW.AreaFlowAperturesStandardDeviation IS OLD.AreaFlowAperturesStandardDeviation" +
+                "AND NEW.CriticalOvertoppingDischargeMean IS OLD.CriticalOvertoppingDischargeMean" +
+                "AND NEW.CriticalOvertoppingDischargeCoefficientOfVariation IS OLD.CriticalOvertoppingDischargeCoefficientOfVariation" +
+                "AND NEW.FlowWidthAtBottomProtectionMean IS OLD.FlowWidthAtBottomProtectionMean" +
+                "AND NEW.FlowWidthAtBottomProtectionStandardDeviation IS OLD.FlowWidthAtBottomProtectionStandardDeviation" +
+                "AND NEW.FailureProbabilityOpenStructure IS OLD.FailureProbabilityOpenStructure" +
+                "AND NEW.IdenticalApertures IS OLD.IdenticalApertures" +
+                "AND NEW.FailureProbabilityReparation IS OLD.FailureProbabilityReparation" +
+                "AND NEW.InflowModelType IS OLD.InflowModelType;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateClosingStructure);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
