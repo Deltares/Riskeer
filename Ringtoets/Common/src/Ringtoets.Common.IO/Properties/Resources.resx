@@ -885,4 +885,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="FailureMechanismSections_TypeDescriptor" xml:space="preserve">
     <value>Vakindeling</value>
   </data>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_positive_whole_number" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een positief geheel getal zijn.</value>
+  </data>
 </root>

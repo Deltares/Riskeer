@@ -1208,7 +1208,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword20,
-                    NumericalValue = -1.0,
+                    NumericalValue = -1,
                     LineNumber = 20
                 },
                 new StructuresParameterRow
@@ -1290,7 +1290,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_STERSTAB17' op regel 17, kolom 'Numeriekewaarde', moet een getal zijn groter dan 0.",
                 "De waarde voor parameter 'KW_STERSTAB17' op regel 17, kolom 'Boolean', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.",
                 "De waarde voor parameter 'KW_STERSTAB17' op regel 17, kolom 'Standaardafwijking.variatie', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_STERSTAB20' op regel 20, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_STERSTAB20' op regel 20, kolom 'Numeriekewaarde', moet een positief geheel getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB21' op regel 21, kolom 'Numeriekewaarde', moet in het bereik [0,0, 1,0] liggen.",
                 "De waarde voor parameter 'KW_STERSTAB22' op regel 22, kolom 'Numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_STERSTAB23' op regel 23, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
