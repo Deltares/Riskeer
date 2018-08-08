@@ -2543,6 +2543,18 @@ SELECT
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
 	WHERE source.[LayerThree] IS NOT NULL;
 
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde van '" || source.[ProbabilityOrFrequencyOpenStructureBeforeFlooding] || "' van parameter 'Kans op open staan bij naderend hoogwater' van kunstwerk '" || source.[Name] || "' is ongeldig en is veranderd naar NaN."
+	FROM ClosingStructureEntity AS cs
+	JOIN [SOURCEPROJECT].ClosingStructureEntity AS source ON cs.[rowid] = source.[rowid]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = cs.[FailureMechanismEntityId]
+	WHERE source.[ProbabilityOrFrequencyOpenStructureBeforeFlooding] IS NOT cs.[ProbabilityOpenStructureBeforeFlooding];
+
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 
 	[ToVersion], 
