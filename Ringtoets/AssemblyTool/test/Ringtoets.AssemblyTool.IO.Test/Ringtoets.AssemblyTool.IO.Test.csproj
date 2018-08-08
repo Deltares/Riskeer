@@ -13,6 +13,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
   <ItemGroup>
+    <Compile Include="Model\Gml\SerializableEnvelopeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
