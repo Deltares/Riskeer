@@ -154,6 +154,15 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waterstand bij categoriegrens.
+        /// </summary>
+        public static string WaterLevelCategoryBoundary_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterLevelCategoryBoundary_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ondergrens bekleding.
         /// </summary>
         public static string WaveConditionsChartDataFactory_LowerBoundaryRevetment_DisplayName {
