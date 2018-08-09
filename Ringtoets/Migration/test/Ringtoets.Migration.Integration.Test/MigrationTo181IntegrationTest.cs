@@ -132,6 +132,8 @@ namespace Ringtoets.Migration.Integration.Test
 
                     AssertClosingStructure(reader, sourceFilePath);
                     AssertClosingStructureCalculationInput(reader, sourceFilePath);
+
+                    AssertStabilityPointStructureCalculationInput(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -234,6 +236,47 @@ namespace Ringtoets.Migration.Integration.Test
                 "); " +
                 "DETACH DATABASE SOURCE;";
             reader.AssertReturnedDataIsValid(validateIdenticalApertures);
+        }
+
+        private static void AssertStabilityPointStructureCalculationInput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateLevellingCount =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCE; " +
+                "SELECT " +
+                "SUM([IsInvalid]) = 0 " +
+                "FROM " +
+                "( " +
+                "SELECT " +
+                "CASE WHEN (NEW.[LevellingCount] != OLD.[LevellingCount] " +
+                "AND OLD.[LevellingCount] >= 0)  " +
+                "OR (NEW.[LevellingCount] != 0 AND OLD.[LevellingCount] < 0) " +
+                "THEN 1 " +
+                "ELSE 0 " +
+                "END AS [IsInvalid] " +
+                "FROM StabilityPointStructuresCalculationEntity NEW " +
+                "JOIN [SOURCE].StabilityPointStructuresCalculationEntity OLD USING (StabilityPointStructuresCalculationEntityId) " +
+                "); " +
+                "DETACH DATABASE SOURCE;";
+            reader.AssertReturnedDataIsValid(validateLevellingCount);
+
+            string validateVerticalDistance =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCE; " +
+                "SELECT " +
+                "SUM([IsInvalid]) = 0 " +
+                "FROM " +
+                "( " +
+                "SELECT " +
+                "CASE WHEN (NEW.[VerticalDistance] IS NOT OLD.[VerticalDistance] " +
+                "AND OLD.[VerticalDistance] >= 0)  " +
+                "OR (NEW.[VerticalDistance] IS NOT NULL AND OLD.[VerticalDistance] < 0) " +
+                "THEN 1 " +
+                "ELSE 0 " +
+                "END AS [IsInvalid] " +
+                "FROM StabilityPointStructuresCalculationEntity NEW " +
+                "JOIN [SOURCE].StabilityPointStructuresCalculationEntity OLD USING (StabilityPointStructuresCalculationEntityId) " +
+                "); " +
+                "DETACH DATABASE SOURCE;";
+            reader.AssertReturnedDataIsValid(validateVerticalDistance);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
