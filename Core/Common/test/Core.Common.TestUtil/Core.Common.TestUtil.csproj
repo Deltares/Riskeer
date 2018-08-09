@@ -25,6 +25,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +36,7 @@
     <Compile Include="DirectoryDisposeHelper.cs" />
     <Compile Include="DoubleWithToleranceComparer.cs" />
     <Compile Include="EnumValuesTestFixture.cs" />
+    <Compile Include="EnumWithXmlEnumNameTestFixture.cs" />
     <Compile Include="EnumWithDisplayNameTestFixture.cs" />
     <Compile Include="EqualsTestFixture.cs" />
     <Compile Include="FileDisposeHelper.cs" />
