@@ -2577,6 +2577,63 @@ SELECT
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = cs.[FailureMechanismEntityId]
 	WHERE source.[IdenticalApertures] != cs.[IdenticalApertures];
 
+/*
+* Log changes that are applied to closing structure calculations
+*/
+CREATE TEMP TABLE TempMigratedStructuresCalculationGroupMapping
+(
+	'CalculationGroupEntityId' INTEGER NOT NULL,
+	'FailureMechanismEntityId' INTEGER NOT NULL,
+	PRIMARY KEY
+	(
+		'CalculationGroupEntityId'
+	)
+);
+
+INSERT INTO TempMigratedStructuresCalculationGroupMapping(
+	[CalculationGroupEntityId],
+	[FailureMechanismEntityId]
+)
+SELECT
+	[CalculationGroupEntityId],
+	[FailureMechanismEntityId]
+FROM
+(
+WITH RECURSIVE CalculationGroupEntities(CalculationGroupEntityId, ParentCalculationGroupEntityId, FailureMechanismEntityId) AS (
+SELECT
+	CalculationGroupEntityId,
+	NULL,
+	FailureMechanismEntityId
+FROM FailureMechanismEntity
+WHERE FailureMechanismEntity.FailureMechanismType = 10
+UNION ALL
+SELECT
+	CalculationGroupEntity.CalculationGroupEntityId,
+	CalculationGroupEntity.ParentCalculationGroupEntityId,
+	CalculationGroupEntities.FailureMechanismEntityId
+FROM CalculationGroupEntity, CalculationGroupEntities
+WHERE CalculationGroupEntity.ParentCalculationGroupEntityId = CalculationGroupEntities.CalculationGroupEntityId
+)
+SELECT
+	CalculationGroupEntities.CalculationGroupEntityId AS CalculationGroupEntityId,
+	CalculationGroupEntities.FailureMechanismEntityId AS FailureMechanismEntityId
+FROM CalculationGroupEntities
+ORDER BY FailureMechanismEntityId
+);
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde van '" || source.[IdenticalApertures] || "' van parameter 'Aantal identieke doorstroomopeningen' van berekening '" || source.[Name] || "' is ongeldig en is veranderd naar 1."
+	FROM ClosingStructuresCalculationEntity AS cs
+	JOIN [SOURCEPROJECT].ClosingStructuresCalculationEntity AS source ON cs.[rowid] = source.[rowid]
+	JOIN TempMigratedStructuresCalculationGroupMapping mapping USING(CalculationGroupEntityId)
+ 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = mapping.[FailureMechanismEntityId]
+	WHERE source.[IdenticalApertures] != cs.[IdenticalApertures];
+
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 
 	[ToVersion], 
@@ -2656,6 +2713,7 @@ FROM AssessmentSectionFailureMechanismMessages;
 
 DROP TABLE TempFailureMechanisms;
 DROP TABLE TempAssessmentSectionFailureMechanism;
+DROP TABLE TempMigratedStructuresCalculationGroupMapping;
 DROP TABLE TempChanges;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
