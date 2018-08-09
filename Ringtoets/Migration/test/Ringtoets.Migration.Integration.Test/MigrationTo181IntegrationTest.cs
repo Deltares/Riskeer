@@ -573,7 +573,7 @@ namespace Ringtoets.Migration.Integration.Test
                     messages[i++]);
 
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "* Traject: 'Kunstwerken sluiten invalide'"),
+                    new MigrationLogMessage("17.3", newVersion, "* Traject: 'Closing Structures Invalid Data'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
