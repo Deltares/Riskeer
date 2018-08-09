@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using Ringtoets.Revetment.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
 {
@@ -35,14 +34,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             get
             {
                 return Color.Gray;
-            }
-        }
-
-        public string DesignWaterLevelName
-        {
-            get
-            {
-                return RingtoetsCommonFormsResources.DesignWaterLevel_DisplayName;
             }
         }
     }

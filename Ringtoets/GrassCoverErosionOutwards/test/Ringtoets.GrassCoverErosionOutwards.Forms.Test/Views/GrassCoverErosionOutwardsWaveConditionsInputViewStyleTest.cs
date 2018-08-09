@@ -38,7 +38,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<IWaveConditionsInputViewStyle>(style);
             Assert.AreEqual(Color.Green, style.RevetmentLineColor);
-            Assert.AreEqual("Waterstand bij doorsnede-eis", style.DesignWaterLevelName);
         }
     }
 }

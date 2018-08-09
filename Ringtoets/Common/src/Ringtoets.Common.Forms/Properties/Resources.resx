@@ -878,9 +878,6 @@ handmatig</value>
   <data name="FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set" xml:space="preserve">
     <value>Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.</value>
   </data>
-  <data name="DesignWaterLevel_DisplayName" xml:space="preserve">
-    <value>Toetspeil</value>
-  </data>
   <data name="MetaData_Couple_distance" xml:space="preserve">
     <value>Koppelingsafstand</value>
   </data>

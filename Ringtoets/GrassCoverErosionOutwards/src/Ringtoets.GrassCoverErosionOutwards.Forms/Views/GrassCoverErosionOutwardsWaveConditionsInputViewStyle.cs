@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Drawing;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.Revetment.Forms.Views;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
@@ -36,14 +35,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             get
             {
                 return Color.Green;
-            }
-        }
-
-        public string DesignWaterLevelName
-        {
-            get
-            {
-                return Resources.DesignWaterLevel_DisplayName;
             }
         }
     }

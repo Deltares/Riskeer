@@ -1110,15 +1110,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetspeil.
-        /// </summary>
-        public static string DesignWaterLevel_DisplayName {
-            get {
-                return ResourceManager.GetString("DesignWaterLevel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de waterstand berekening?.
         /// </summary>
         public static string DesignWaterLevelCalculation_Convergence_Description {
