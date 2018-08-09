@@ -32,7 +32,10 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="SerializableMeasure"/>.
         /// </summary>
-        public SerializableMeasure() {}
+        public SerializableMeasure()
+        {
+            Value = double.NaN;
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="SerializableMeasure"/>.

@@ -27,6 +27,7 @@ using Ringtoets.AssemblyTool.IO.TestUtil;
 
 namespace Ringtoets.AssemblyTool.IO.Test.Model.Gml
 {
+    [TestFixture]
     public class SerializableEnvelopeTest
     {
         [Test]

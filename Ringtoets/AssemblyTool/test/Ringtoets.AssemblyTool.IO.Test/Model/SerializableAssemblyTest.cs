@@ -32,6 +32,7 @@ using Ringtoets.AssemblyTool.IO.TestUtil;
 
 namespace Ringtoets.AssemblyTool.IO.Test.Model
 {
+    [TestFixture]
     public class SerializableAssemblyTest
     {
         [Test]
