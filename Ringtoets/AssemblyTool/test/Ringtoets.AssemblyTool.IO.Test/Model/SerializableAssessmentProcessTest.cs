@@ -37,6 +37,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var assessmentProcess = new SerializableAssessmentProcess();
 
             // Assert
+            Assert.IsInstanceOf<SerializableFeatureMember>(assessmentProcess);
             Assert.IsNull(assessmentProcess.Id);
             Assert.IsNull(assessmentProcess.AssessmentSectionId);
             Assert.IsNull(assessmentProcess.Description);

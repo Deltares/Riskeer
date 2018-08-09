@@ -77,7 +77,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         }
 
         /// <summary>
-        /// Gets or sets the assessment section ID.
+        /// Gets or sets the ID.
         /// </summary>
         [XmlAttribute(AssemblyXmlIdentifiers.Id, Namespace = AssemblyXmlIdentifiers.GmlNamespace)]
         public string Id { get; set; }

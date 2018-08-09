@@ -38,6 +38,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var assessmentSection = new SerializableAssessmentSection();
 
             // Assert
+            Assert.IsInstanceOf<SerializableFeatureMember>(assessmentSection);
             Assert.AreEqual("Dijktraject", assessmentSection.AssessmentSectionType);
             Assert.IsNull(assessmentSection.Id);
             Assert.IsNull(assessmentSection.Name);
