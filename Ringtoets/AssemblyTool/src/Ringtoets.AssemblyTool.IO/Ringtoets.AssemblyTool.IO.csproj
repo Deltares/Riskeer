@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Include="Model\AssemblyXmlIdentifiers.cs" />
     <Compile Include="Model\Enums\AssemblyXmlEnumIdentifiers.cs" />
+    <Compile Include="Model\Enums\AssemblyMethod.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismCategoryGroup.cs" />
     <Compile Include="Model\Gml\SerializableEnvelope.cs" />
     <Compile Include="Model\Gml\SerializableBoundary.cs" />
