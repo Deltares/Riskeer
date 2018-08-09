@@ -131,9 +131,9 @@ namespace Ringtoets.Migration.Integration.Test
                     MigratedSerializedDataTestHelper.AssertSerializedPoint2DCollection(reader);
 
                     AssertClosingStructure(reader, sourceFilePath);
-                    AssertClosingStructureCalculationInput(reader, sourceFilePath);
+                    AssertClosingStructureCalculation(reader, sourceFilePath);
 
-                    AssertStabilityPointStructureCalculationInput(reader, sourceFilePath);
+                    AssertStabilityPointStructureCalculation(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -216,7 +216,7 @@ namespace Ringtoets.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateClosingStructure);
         }
 
-        private static void AssertClosingStructureCalculationInput(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertClosingStructureCalculation(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateIdenticalApertures =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCE; " +
@@ -236,9 +236,59 @@ namespace Ringtoets.Migration.Integration.Test
                 "); " +
                 "DETACH DATABASE SOURCE;";
             reader.AssertReturnedDataIsValid(validateIdenticalApertures);
+
+            string validateClosingStructureCalculation =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCE; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCE].ClosingStructuresCalculationEntity) " +
+                "FROM ClosingStructuresCalculationEntity NEW " +
+                "JOIN [SOURCE].ClosingStructuresCalculationEntity OLD USING(ClosingStructuresCalculationEntityId) " +
+                "WHERE OLD.CalculationGroupEntityId = NEW.CalculationGroupEntityId " +
+                "AND OLD.ForeshoreProfileEntityId IS NEW.ForeshoreProfileEntityId " +
+                "AND OLD.HydraulicLocationEntityId IS NEW.HydraulicLocationEntityId " +
+                "AND OLD.ClosingStructureEntityId IS NEW.ClosingStructureEntityId " +
+                "AND OLD.\"Order\" = NEW.\"Order\" " +
+                "AND OLD.Name IS NEW.Name " +
+                "AND OLD.Comments IS NEW.Comments " +
+                "AND OLD.UseBreakWater = NEW.UseBreakWater " +
+                "AND OLD.BreakWaterType = NEW.BreakWaterType " +
+                "AND OLD.BreakWaterHeight IS NEW.BreakWaterHeight " +
+                "AND OLD.UseForeshore = NEW.UseForeshore " +
+                "AND OLD.Orientation IS NEW.Orientation " +
+                "AND OLD.StructureNormalOrientation IS NEW.StructureNormalOrientation " +
+                "AND OLD.StorageStructureAreaMean IS NEW.StorageStructureAreaMean " +
+                "AND OLD.StorageStructureAreaCoefficientOfVariation IS NEW.StorageStructureAreaCoefficientOfVariation " +
+                "AND OLD.AllowedLevelIncreaseStorageMean IS NEW.AllowedLevelIncreaseStorageMean " +
+                "AND OLD.AllowedLevelIncreaseStorageStandardDeviation IS NEW.AllowedLevelIncreaseStorageStandardDeviation " +
+                "AND OLD.WidthFlowAperturesMean IS NEW.WidthFlowAperturesMean " +
+                "AND OLD.WidthFlowAperturesStandardDeviation IS NEW.WidthFlowAperturesStandardDeviation " +
+                "AND OLD.LevelCrestStructureNotClosingMean IS NEW.LevelCrestStructureNotClosingMean " +
+                "AND OLD.LevelCrestStructureNotClosingStandardDeviation IS NEW.LevelCrestStructureNotClosingStandardDeviation " +
+                "AND OLD.InsideWaterLevelMean IS NEW.InsideWaterLevelMean " +
+                "AND OLD.InsideWaterLevelStandardDeviation IS NEW.InsideWaterLevelStandardDeviation " +
+                "AND OLD.ThresholdHeightOpenWeirMean IS NEW.ThresholdHeightOpenWeirMean " +
+                "AND OLD.ThresholdHeightOpenWeirStandardDeviation IS NEW.ThresholdHeightOpenWeirStandardDeviation " +
+                "AND OLD.AreaFlowAperturesMean IS NEW.AreaFlowAperturesMean " +
+                "AND OLD.AreaFlowAperturesStandardDeviation IS NEW.AreaFlowAperturesStandardDeviation " +
+                "AND OLD.CriticalOvertoppingDischargeMean IS NEW.CriticalOvertoppingDischargeMean " +
+                "AND OLD.CriticalOvertoppingDischargeCoefficientOfVariation IS NEW.CriticalOvertoppingDischargeCoefficientOfVariation " +
+                "AND OLD.FlowWidthAtBottomProtectionMean IS NEW.FlowWidthAtBottomProtectionMean " +
+                "AND OLD.FlowWidthAtBottomProtectionStandardDeviation IS NEW.FlowWidthAtBottomProtectionStandardDeviation " +
+                "AND OLD.ProbabilityOrFrequencyOpenStructureBeforeFlooding = NEW.ProbabilityOpenStructureBeforeFlooding " +
+                "AND OLD.FailureProbabilityOpenStructure = NEW.FailureProbabilityOpenStructure " +
+                "AND OLD.FailureProbabilityReparation = NEW.FailureProbabilityReparation " +
+                "AND OLD.InflowModelType = NEW.InflowModelType " +
+                "AND OLD.FailureProbabilityStructureWithErosion = NEW.FailureProbabilityStructureWithErosion " +
+                "AND OLD.DeviationWaveDirection IS NEW.DeviationWaveDirection " +
+                "AND OLD.DrainCoefficientMean IS NEW.DrainCoefficientMean " +
+                "AND OLD.ModelFactorSuperCriticalFlowMean IS NEW.ModelFactorSuperCriticalFlowMean " +
+                "AND OLD.StormDurationMean IS NEW.StormDurationMean " +
+                "AND OLD.FactorStormDurationOpenStructure IS NEW.FactorStormDurationOpenStructure " +
+                "AND OLD.ShouldIllustrationPointsBeCalculated = NEW.ShouldIllustrationPointsBeCalculated;" +
+                "DETACH DATABASE SOURCE;";
+            reader.AssertReturnedDataIsValid(validateClosingStructureCalculation);
         }
 
-        private static void AssertStabilityPointStructureCalculationInput(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertStabilityPointStructureCalculation(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateLevellingCount =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCE; " +
@@ -277,6 +327,75 @@ namespace Ringtoets.Migration.Integration.Test
                 "); " +
                 "DETACH DATABASE SOURCE;";
             reader.AssertReturnedDataIsValid(validateVerticalDistance);
+
+            string validateStabilityPointStructureCalculation =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCE; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCE].StabilityPointStructuresCalculationEntity) " +
+                "FROM StabilityPointStructuresCalculationEntity NEW " +
+                "JOIN [SOURCE].StabilityPointStructuresCalculationEntity OLD USING(StabilityPointStructuresCalculationEntityId) " +
+                "WHERE OLD.CalculationGroupEntityId = NEW.CalculationGroupEntityId " +
+                "AND OLD.ForeshoreProfileEntityId IS NEW.ForeshoreProfileEntityId " +
+                "AND OLD.HydraulicLocationEntityId IS NEW.HydraulicLocationEntityId " +
+                "AND OLD.StabilityPointStructureEntityId IS NEW.StabilityPointStructureEntityId " +
+                "AND OLD.\"Order\" = NEW.\"Order\" " +
+                "AND OLD.Name IS NEW.Name " +
+                "AND OLD.Comments IS NEW.Comments " +
+                "AND OLD.UseBreakWater = NEW.UseBreakWater " +
+                "AND OLD.BreakWaterType = NEW.BreakWaterType " +
+                "AND OLD.BreakWaterHeight IS NEW.BreakWaterHeight " +
+                "AND OLD.UseForeshore = NEW.UseForeshore " +
+                "AND OLD.StructureNormalOrientation IS NEW.StructureNormalOrientation " +
+                "AND OLD.StorageStructureAreaMean IS NEW.StorageStructureAreaMean " +
+                "AND OLD.StorageStructureAreaCoefficientOfVariation IS NEW.StorageStructureAreaCoefficientOfVariation " +
+                "AND OLD.AllowedLevelIncreaseStorageMean IS NEw.AllowedLevelIncreaseStorageMean " +
+                "AND OLD.AllowedLevelIncreaseStorageStandardDeviation IS NEW.AllowedLevelIncreaseStorageStandardDeviation " +
+                "AND OLD.WidthFlowAperturesMean IS NEW.WidthFlowAperturesMean " +
+                "AND OLD.WidthFlowAperturesStandardDeviation IS NEW.WidthFlowAperturesStandardDeviation " +
+                "AND OLD.InsideWaterLevelMean IS NEW.InsideWaterLevelMean " +
+                "AND OLD.InsideWaterLevelStandardDeviation IS NEW.InsideWaterLevelStandardDeviation " +
+                "AND OLD.ThresholdHeightOpenWeirMean IS NEW.ThresholdHeightOpenWeirMean " +
+                "AND OLD.ThresholdHeightOpenWeirStandardDeviation IS NEW.ThresholdHeightOpenWeirStandardDeviation " +
+                "AND OLD.CriticalOvertoppingDischargeMean IS NEW.CriticalOvertoppingDischargeMean " +
+                "AND OLD.CriticalOvertoppingDischargeCoefficientOfVariation IS NEW.CriticalOvertoppingDischargeCoefficientOfVariation " +
+                "AND OLD.FlowWidthAtBottomProtectionMean IS NEW.FlowWidthAtBottomProtectionMean " +
+                "AND OLD.FlowWidthAtBottomProtectionStandardDeviation IS NEW.FlowWidthAtBottomProtectionStandardDeviation " +
+                "AND OLD.ConstructiveStrengthLinearLoadModelMean IS NEW.ConstructiveStrengthLinearLoadModelMean " +
+                "AND OLD.ConstructiveStrengthLinearLoadModelCoefficientOfVariation IS NEW.ConstructiveStrengthLinearLoadModelCoefficientOfVariation " +
+                "AND OLD.ConstructiveStrengthQuadraticLoadModelMean IS NEW.ConstructiveStrengthQuadraticLoadModelMean " +
+                "AND OLD.ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation IS NEW.ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation " +
+                "AND OLD.BankWidthMean IS NEW.BankWidthMean " +
+                "AND OLD.BankWidthStandardDeviation IS NEW.BankWidthStandardDeviation " +
+                "AND OLD.InsideWaterLevelFailureConstructionMean IS NEW.InsideWaterLevelFailureConstructionMean " +
+                "AND OLD.InsideWaterLevelFailureConstructionStandardDeviation IS NEW.InsideWaterLevelFailureConstructionStandardDeviation " +
+                "AND OLD.EvaluationLevel IS NEW.EvaluationLevel " +
+                "AND OLD.LevelCrestStructureMean IS NEW.LevelCrestStructureMean " +
+                "AND OLD.LevelCrestStructureStandardDeviation IS NEW.LevelCrestStructureStandardDeviation " +
+                "AND OLD.FailureProbabilityRepairClosure = NEW.FailureProbabilityRepairClosure " +
+                "AND OLD.FailureCollisionEnergyMean IS NEW.FailureCollisionEnergyMean " +
+                "AND OLD.FailureCollisionEnergyCoefficientOfVariation IS NEW.FailureCollisionEnergyCoefficientOfVariation " +
+                "AND OLD.ShipMassMean IS NEW.ShipMassMean " +
+                "AND OLD.ShipMassCoefficientOfVariation IS NEW.ShipMassCoefficientOfVariation " +
+                "AND OLD.ShipVelocityMean IS NEW.ShipVelocityMean " +
+                "AND OLD.ShipVelocityCoefficientOfVariation IS NEW.ShipVelocityCoefficientOfVariation " +
+                "AND OLD.ProbabilityCollisionSecondaryStructure = NEW.ProbabilityCollisionSecondaryStructure " +
+                "AND OLD.FlowVelocityStructureClosableMean IS NEW.FlowVelocityStructureClosableMean " +
+                "AND OLD.StabilityLinearLoadModelMean IS NEW.StabilityLinearLoadModelMean " +
+                "AND OLD.StabilityLinearLoadModelCoefficientOfVariation IS NEW.StabilityLinearLoadModelCoefficientOfVariation " +
+                "AND OLD.StabilityQuadraticLoadModelMean IS NEW.StabilityQuadraticLoadModelMean " +
+                "AND OLD.StabilityQuadraticLoadModelCoefficientOfVariation IS NEW.StabilityQuadraticLoadModelCoefficientOfVariation " +
+                "AND OLD.AreaFlowAperturesMean IS NEW.AreaFlowAperturesMean " +
+                "AND OLD.AreaFlowAperturesStandardDeviation IS NEW.AreaFlowAperturesStandardDeviation " +
+                "AND OLD.InflowModelType = NEW.InflowModelType " +
+                "AND OLD.LoadSchematizationType = NEW.LoadSchematizationType " +
+                "AND OLD.VolumicWeightWater IS NEW.VolumicWeightWater " +
+                "AND OLD.StormDurationMean IS NEW.StormDurationMean " +
+                "AND OLD.ModelFactorSuperCriticalFlowMean IS NEW.ModelFactorSuperCriticalFlowMean " +
+                "AND OLD.FactorStormDurationOpenStructure IS NEW.FactorStormDurationOpenStructure " +
+                "AND OLD.DrainCoefficientMean IS NEW.DrainCoefficientMean " +
+                "AND OLD.FailureProbabilityStructureWithErosion = NEW.FailureProbabilityStructureWithErosion " +
+                "AND OLD.ShouldIllustrationPointsBeCalculated = NEW.ShouldIllustrationPointsBeCalculated;" +
+                "DETACH DATABASE SOURCE;";
+            reader.AssertReturnedDataIsValid(validateStabilityPointStructureCalculation);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
