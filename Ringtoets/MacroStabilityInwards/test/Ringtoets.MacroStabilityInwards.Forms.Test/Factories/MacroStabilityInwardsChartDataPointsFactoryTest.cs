@@ -870,7 +870,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateWaterNetZonePoints_PhreaticLineAboveSurfaceLineAndWaterNetLinesOnSurfaceLine_ReturnsEmptyCollection()
+        public void CreateWaternetZonePoints_PhreaticLineAboveSurfaceLineAndWaternetLinesOnSurfaceLine_ReturnsEmptyCollection()
         {
             // Setup
             var waternetLineGeometry = new[]
