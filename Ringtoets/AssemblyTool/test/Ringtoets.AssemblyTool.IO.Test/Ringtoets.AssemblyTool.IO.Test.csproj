@@ -15,6 +15,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\DataTypes\SerializableFailureMechanismAssemblyResultTest.cs" />
     <Compile Include="Model\Enums\AssemblyXmlEnumIdentifiersTest.cs" />
     <Compile Include="Model\Enums\AssemblyMethodTest.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismCategoryGroupTest.cs" />
