@@ -173,7 +173,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var assessmentSection = new SerializableAssessmentSection
             {
                 Id = "section1",
-                Length = new SerializableMeasure
+                SurfaceLineLength = new SerializableMeasure
                 {
                     UnitOfMeasure = "m",
                     Value = 100
