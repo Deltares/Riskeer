@@ -21,53 +21,49 @@
 
 using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
+using System.Globalization;
+using System.Linq;
 using Core.Common.Base.Geometry;
-using Ringtoets.AssemblyTool.IO.Model.Helpers;
-using Ringtoets.AssemblyTool.IO.Properties;
 
-namespace Ringtoets.AssemblyTool.IO.Model
+namespace Ringtoets.AssemblyTool.IO.Model.Helpers
 {
     /// <summary>
-    /// Class describing a serializable line string.
+    /// Formatter for instances and collections of <see cref="Point2D"/> for serialization.
     /// </summary>
-    public class SerializableLineString
+    public static class GeometrySerializationFormatter
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SerializableLineString"/>.
+        /// Formats a collection of <see cref="Point2D"/> to a string for serialization.
         /// </summary>
-        public SerializableLineString()
-        {
-            CoordinateSystem = Resources.SrsName;
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SerializableLineString"/>.
-        /// </summary>
-        /// <param name="geometry">The geometry of the line.</param>
+        /// <param name="geometry">The collection of points to format.</param>
+        /// <returns>A formatted string of all given points.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/>
         /// is <c>null</c>.</exception>
-        public SerializableLineString(IEnumerable<Point2D> geometry) : this()
+        public static string Format(IEnumerable<Point2D> geometry)
         {
             if (geometry == null)
             {
                 throw new ArgumentNullException(nameof(geometry));
             }
 
-            Geometry = GeometrySerializationFormatter.Format(geometry);
+            return geometry.Select(Format).Aggregate((c1, c2) => c1 + " " + c2);
         }
 
         /// <summary>
-        /// Gets or sets the name of the coordinate system this line is projected on.
+        /// Formats a <see cref="Point2D"/> to a string for serialization.
         /// </summary>
-        [XmlAttribute(AssemblyXmlIdentifiers.CoordinateSystem)]
-        public string CoordinateSystem { get; set; }
+        /// <param name="point">The point to format.</param>
+        /// <returns>A formatted string of the given point.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/>
+        /// is <c>null</c>.</exception>
+        public static string Format(Point2D point)
+        {
+            if (point == null)
+            {
+                throw new ArgumentNullException(nameof(point));
+            }
 
-        /// <summary>
-        /// Gets or sets the list of coordinates representing the
-        /// geometry of the line.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.Geometry)]
-        public string Geometry { get; set; }
+            return point.X.ToString(CultureInfo.InvariantCulture) + " " + point.Y.ToString(CultureInfo.InvariantCulture);
+        }
     }
 }

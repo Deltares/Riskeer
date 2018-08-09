@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model.Gml;
+using Ringtoets.AssemblyTool.IO.Model.Helpers;
 using Ringtoets.AssemblyTool.IO.TestUtil;
 
 namespace Ringtoets.AssemblyTool.IO.Test.Model.Gml
@@ -87,10 +87,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Gml
             var envelope = new SerializableEnvelope(lowerCorner, upperCorner);
 
             // Assert
-            Assert.AreEqual(lowerCorner.X.ToString(CultureInfo.InvariantCulture) + " " + lowerCorner.Y.ToString(CultureInfo.InvariantCulture),
-                            envelope.LowerCorner);
-            Assert.AreEqual(upperCorner.X.ToString(CultureInfo.InvariantCulture) + " " + upperCorner.Y.ToString(CultureInfo.InvariantCulture),
-                            envelope.UpperCorner);
+            Assert.AreEqual(GeometrySerializationFormatter.Format(lowerCorner), envelope.LowerCorner);
+            Assert.AreEqual(GeometrySerializationFormatter.Format(upperCorner), envelope.UpperCorner);
         }
     }
 }

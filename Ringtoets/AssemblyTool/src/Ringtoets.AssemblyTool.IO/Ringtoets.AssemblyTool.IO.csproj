@@ -20,6 +20,7 @@
     <Compile Include="Model\AssemblyXmlIdentifiers.cs" />
     <Compile Include="Model\Gml\SerializableEnvelope.cs" />
     <Compile Include="Model\Gml\SerializableBoundary.cs" />
+    <Compile Include="Model\Helpers\GeometrySerializationFormatter.cs" />
     <Compile Include="Model\SerializableAssessmentSection.cs" />
     <Compile Include="Model\SerializableAssessmentProcess.cs" />
     <Compile Include="Model\SerializableLine.cs" />
