@@ -393,7 +393,7 @@ namespace Ringtoets.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(66, messages.Count);
+                Assert.AreEqual(70, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "Gevolgen van de migratie van versie 17.3 naar versie 18.1:"),
@@ -629,6 +629,19 @@ namespace Ringtoets.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - De waarde van '1.1' van parameter 'Kans op open staan bij naderend hoogwater' van kunstwerk 'Gemaal Leemans' is ongeldig en is veranderd naar NaN."),
+                    messages[i++]);
+
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "* Traject: 'Stability Point Structures Data'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - De waarde van '-0.11' van parameter 'Afstand onderkant wand en teen van de dijk/berm' van berekening 'Invalid Vertical Distance' is ongeldig en is veranderd naar NaN."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - De waarde van '-30' van parameter 'Aantal nivelleringen per jaar' van berekening 'Invalid Levelling Count' is ongeldig en is veranderd naar 0."),
                     messages[i]);
             }
         }

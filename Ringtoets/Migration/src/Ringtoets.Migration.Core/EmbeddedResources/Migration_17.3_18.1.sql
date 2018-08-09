@@ -2718,7 +2718,7 @@ SELECT
 	WHERE source.[IdenticalApertures] != cs.[IdenticalApertures];
 
 /*
-* Log changes that are applied to closing structure calculations
+* Log changes that are applied to closing and stability point structure calculations
 */
 CREATE TEMP TABLE TempMigratedStructuresCalculationGroupMapping
 (
@@ -2746,6 +2746,7 @@ SELECT
 	FailureMechanismEntityId
 FROM FailureMechanismEntity
 WHERE FailureMechanismEntity.FailureMechanismType = 10
+OR FailureMechanismEntity.FailureMechanismType = 12
 UNION ALL
 SELECT
 	CalculationGroupEntity.CalculationGroupEntityId,
@@ -2773,6 +2774,32 @@ SELECT
 	JOIN TempMigratedStructuresCalculationGroupMapping mapping USING(CalculationGroupEntityId)
  	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = mapping.[FailureMechanismEntityId]
 	WHERE source.[IdenticalApertures] != cs.[IdenticalApertures];
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde van '" || source.[LevellingCount] || "' van parameter 'Aantal nivelleringen per jaar' van berekening '" || source.[Name] || "' is ongeldig en is veranderd naar 0."
+	FROM StabilityPointStructuresCalculationEntity AS sps
+	JOIN [SOURCEPROJECT].StabilityPointStructuresCalculationEntity AS source ON sps.[rowid] = source.[rowid]
+	JOIN TempMigratedStructuresCalculationGroupMapping mapping USING(CalculationGroupEntityId)
+ 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = mapping.[FailureMechanismEntityId]
+	WHERE source.[LevellingCount] != sps.[LevellingCount];
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde van '" || source.[VerticalDistance] || "' van parameter 'Afstand onderkant wand en teen van de dijk/berm' van berekening '" || source.[Name] || "' is ongeldig en is veranderd naar NaN."
+	FROM StabilityPointStructuresCalculationEntity AS sps
+	JOIN [SOURCEPROJECT].StabilityPointStructuresCalculationEntity AS source ON sps.[rowid] = source.[rowid]
+	JOIN TempMigratedStructuresCalculationGroupMapping mapping USING(CalculationGroupEntityId)
+ 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = mapping.[FailureMechanismEntityId]
+	WHERE source.[VerticalDistance] IS NOT sps.[VerticalDistance];
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 
