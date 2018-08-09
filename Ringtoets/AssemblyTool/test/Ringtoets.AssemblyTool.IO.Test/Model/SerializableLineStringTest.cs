@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -75,7 +76,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Assert
             Assert.AreEqual("EPSG:28992", lineString.CoordinateSystem);
-            Assert.AreEqual(geometry.Select(c => c.X + " " + c.Y).Aggregate((c1, c2) => c1 + " " + c2), lineString.Geometry);
+            Assert.AreEqual(geometry.Select(c => c.X.ToString(CultureInfo.InvariantCulture) + " " + c.Y.ToString(CultureInfo.InvariantCulture))
+                                    .Aggregate((c1, c2) => c1 + " " + c2), lineString.Geometry);
         }
     }
 }

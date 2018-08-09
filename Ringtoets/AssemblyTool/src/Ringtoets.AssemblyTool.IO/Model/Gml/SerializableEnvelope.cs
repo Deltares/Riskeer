@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
 
@@ -53,8 +54,8 @@ namespace Ringtoets.AssemblyTool.IO.Model.Gml
                 throw new ArgumentNullException(nameof(upperCorner));
             }
 
-            LowerCorner = lowerCorner.X + " " + lowerCorner.Y;
-            UpperCorner = upperCorner.X + " " + upperCorner.Y;
+            LowerCorner = lowerCorner.X.ToString(CultureInfo.InvariantCulture) + " " + lowerCorner.Y.ToString(CultureInfo.InvariantCulture);
+            UpperCorner = upperCorner.X.ToString(CultureInfo.InvariantCulture) + " " + upperCorner.Y.ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>

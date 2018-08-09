@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -70,7 +71,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var line = new SerializableLine(geometry);
 
             // Assert
-            Assert.AreEqual(geometry.Select(c => c.X + " " + c.Y).Aggregate((c1, c2) => c1 + " " + c2), line.LineString.Geometry);
+            Assert.AreEqual(geometry.Select(c => c.X.ToString(CultureInfo.InvariantCulture) + " " + c.Y.ToString(CultureInfo.InvariantCulture))
+                                    .Aggregate((c1, c2) => c1 + " " + c2), line.LineString.Geometry);
         }
     }
 }

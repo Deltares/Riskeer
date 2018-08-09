@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
@@ -54,7 +55,8 @@ namespace Ringtoets.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(geometry));
             }
 
-            Geometry = geometry.Select(c => c.X + " " + c.Y).Aggregate((c1, c2) => c1 + " " + c2);
+            Geometry = geometry.Select(c => c.X.ToString(CultureInfo.InvariantCulture) + " " + c.Y.ToString(CultureInfo.InvariantCulture))
+                               .Aggregate((c1, c2) => c1 + " " + c2);
         }
 
         /// <summary>
