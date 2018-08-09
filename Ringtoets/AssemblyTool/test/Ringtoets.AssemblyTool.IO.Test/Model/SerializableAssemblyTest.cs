@@ -186,10 +186,16 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                 })
             };
 
+            var assessmentProcess = new SerializableAssessmentProcess("process1",
+                assessmentSection,
+                2018,
+                2020);
+
             var assembly = new SerializableAssembly("assembly_1", new Point2D(12.0, 34.0), new Point2D(56.0, 78.0),
                                                     new List<SerializableFeatureMember>
                                                     {
-                                                        assessmentSection
+                                                        assessmentSection,
+                                                        assessmentProcess
                                                     });
 
             serializer.Serialize(writer, assembly, xmlns);
