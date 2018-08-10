@@ -33,17 +33,17 @@ namespace Ringtoets.Revetment.Data
     /// </summary>
     public static class WaveConditionsInputHelper
     {
-        private const double designWaterLevelSubstraction = 0.01;
+        private const double assessmentLevelSubstraction = 0.01;
 
         /// <summary>
         /// Gets an upper boundary based on the provided assessment level (that can be used while
         /// determining water levels for wave condition calculations).
         /// </summary>
         /// <param name="assessmentLevel">The assessment level at stake.</param>
-        /// <returns>The corresponding design water level upper boundary.</returns>
-        public static RoundedDouble GetUpperBoundaryDesignWaterLevel(RoundedDouble assessmentLevel)
+        /// <returns>The corresponding assessment level upper boundary.</returns>
+        public static RoundedDouble GetUpperBoundaryAssessmentLevel(RoundedDouble assessmentLevel)
         {
-            return new RoundedDouble(2, assessmentLevel - designWaterLevelSubstraction);
+            return new RoundedDouble(2, assessmentLevel - assessmentLevelSubstraction);
         }
 
         /// <summary>

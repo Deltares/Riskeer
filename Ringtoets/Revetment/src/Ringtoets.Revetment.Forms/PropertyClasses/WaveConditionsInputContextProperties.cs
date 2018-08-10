@@ -147,7 +147,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return WaveConditionsInputHelper.GetUpperBoundaryDesignWaterLevel(AssessmentLevel);
+                return WaveConditionsInputHelper.GetUpperBoundaryAssessmentLevel(AssessmentLevel);
             }
         }
 

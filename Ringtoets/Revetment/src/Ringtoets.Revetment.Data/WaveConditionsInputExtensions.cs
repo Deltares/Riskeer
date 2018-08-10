@@ -47,7 +47,7 @@ namespace Ringtoets.Revetment.Data
 
             var waterLevels = new List<RoundedDouble>();
 
-            var upperBoundary = new RoundedDouble(2, Math.Min(WaveConditionsInputHelper.GetUpperBoundaryDesignWaterLevel(assessmentLevel),
+            var upperBoundary = new RoundedDouble(2, Math.Min(WaveConditionsInputHelper.GetUpperBoundaryAssessmentLevel(assessmentLevel),
                                                               Math.Min(waveConditionsInput.UpperBoundaryRevetment,
                                                                        !double.IsNaN(waveConditionsInput.UpperBoundaryWaterLevels)
                                                                            ? waveConditionsInput.UpperBoundaryWaterLevels
