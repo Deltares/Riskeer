@@ -116,9 +116,9 @@ namespace Ringtoets.Revetment.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="ChartLineData"/> with default styling for design water level.
+        /// Create <see cref="ChartLineData"/> with default styling for the assessment level.
         /// </summary>
-        public static ChartLineData CreateDesignWaterLevelChartData()
+        public static ChartLineData CreateAssessmentLevelChartData()
         {
             return new ChartLineData(Resources.AssessmentLevelCategoryBoundary_DisplayName,
                                      new ChartLineStyle

@@ -117,10 +117,10 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDesignWaterLevelChartData_ReturnsEmptyChartLineDataWithExpectedStyling()
+        public void CreateAssessmentLevelChartData_ReturnsEmptyChartLineDataWithExpectedStyling()
         {
             // Call
-            ChartLineData data = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartData();
+            ChartLineData data = WaveConditionsChartDataFactory.CreateAssessmentLevelChartData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Points);
