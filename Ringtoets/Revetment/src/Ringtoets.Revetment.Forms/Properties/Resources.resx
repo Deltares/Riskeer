@@ -276,7 +276,7 @@
   <data name="WaveConditionsInput_CategoryType_DisplayName" xml:space="preserve">
     <value>Categoriegrens</value>
   </data>
-  <data name="WaterLevelCategoryBoundary_DisplayName" xml:space="preserve">
+  <data name="AssessmentLevelCategoryBoundary_DisplayName" xml:space="preserve">
     <value>Waterstand bij categoriegrens</value>
   </data>
 </root>

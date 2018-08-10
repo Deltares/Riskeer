@@ -120,7 +120,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// </summary>
         public static ChartLineData CreateDesignWaterLevelChartData()
         {
-            return new ChartLineData(Resources.CategoryBoundaryWaterLevel_DisplayName,
+            return new ChartLineData(Resources.AssessmentLevelCategoryBoundary_DisplayName,
                                      new ChartLineStyle
                                      {
                                          Color = Color.LightCoral,

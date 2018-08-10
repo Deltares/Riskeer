@@ -84,9 +84,9 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Waterstand bij categoriegrens.
         /// </summary>
-        public static string CategoryBoundaryWaterLevel_DisplayName {
+        public static string AssessmentLevelCategoryBoundary_DisplayName {
             get {
-                return ResourceManager.GetString("CategoryBoundaryWaterLevel_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssessmentLevelCategoryBoundary_DisplayName", resourceCulture);
             }
         }
         
