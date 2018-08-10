@@ -61,11 +61,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_Description))]
-        public override RoundedDouble UpperBoundaryDesignWaterLevel
+        public override RoundedDouble UpperBoundaryAssessmentLevel
         {
             get
             {
-                return base.UpperBoundaryDesignWaterLevel;
+                return base.UpperBoundaryAssessmentLevel;
             }
         }
 

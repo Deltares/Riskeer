@@ -60,7 +60,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
         private const int categoryTypePropertyIndex = 1;
         private const int assessmentLevelPropertyIndex = 2;
-        private const int upperBoundaryDesignWaterLevelPropertyIndex = 3;
+        private const int upperBoundaryAssessmentLevelPropertyIndex = 3;
         private const int upperBoundaryRevetmentPropertyIndex = 4;
         private const int lowerBoundaryRevetmentPropertyIndex = 5;
         private const int upperBoundaryWaterLevelsPropertyIndex = 6;
@@ -139,11 +139,11 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(upperBoundaryDesignWaterLevelPropertyIndex)]
+        [PropertyOrder(upperBoundaryAssessmentLevelPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_UpperBoundaryDesignWaterLevel_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_UpperBoundaryDesignWaterLevel_Description))]
-        public virtual RoundedDouble UpperBoundaryDesignWaterLevel
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_UpperBoundaryAssessmentLevel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_UpperBoundaryAssessmentLevel_Description))]
+        public virtual RoundedDouble UpperBoundaryAssessmentLevel
         {
             get
             {
