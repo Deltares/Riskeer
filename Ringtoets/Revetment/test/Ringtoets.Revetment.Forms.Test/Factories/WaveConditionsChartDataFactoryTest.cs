@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
@@ -118,28 +117,14 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDesignWaterLevelChartData_DesignWaterLevelNameNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => WaveConditionsChartDataFactory.CreateDesignWaterLevelChartData(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("chartDataName", exception.ParamName);
-        }
-
-        [Test]
         public void CreateDesignWaterLevelChartData_ReturnsEmptyChartLineDataWithExpectedStyling()
         {
-            // Setup
-            const string designWaterLevelName = "Toetspeil";
-
             // Call
-            ChartLineData data = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartData(designWaterLevelName);
+            ChartLineData data = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartData();
 
             // Assert
             CollectionAssert.IsEmpty(data.Points);
-            Assert.AreEqual(designWaterLevelName, data.Name);
+            Assert.AreEqual("Waterstand bij categoriegrens", data.Name);
             AssertEqualStyle(data.Style, Color.LightCoral, 3, ChartLineDashStyle.Solid);
         }
 

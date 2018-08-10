@@ -82,6 +82,15 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waterstand bij categoriegrens.
+        /// </summary>
+        public static string CategoryBoundaryWaterLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("CategoryBoundaryWaterLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De schematisatie van het voorlandprofiel..
         /// </summary>
         public static string ForeshoreProfile_Description {
@@ -150,15 +159,6 @@ namespace Ringtoets.Revetment.Forms.Properties {
         public static string GeneralWaveConditionsInput_C_DisplayName {
             get {
                 return ResourceManager.GetString("GeneralWaveConditionsInput_C_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij categoriegrens.
-        /// </summary>
-        public static string WaterLevelCategoryBoundary_DisplayName {
-            get {
-                return ResourceManager.GetString("WaterLevelCategoryBoundary_DisplayName", resourceCulture);
             }
         }
         

@@ -106,7 +106,7 @@ namespace Ringtoets.Revetment.Forms.Views
             upperBoundaryRevetmentChartData = WaveConditionsChartDataFactory.CreateUpperRevetmentBoundaryChartData(inputViewStyle.RevetmentLineColor);
             lowerBoundaryWaterLevelsChartData = WaveConditionsChartDataFactory.CreateLowerWaterLevelsBoundaryChartData();
             upperBoundaryWaterLevelsChartData = WaveConditionsChartDataFactory.CreateUpperWaterLevelsBoundaryChartData();
-            designWaterLevelChartData = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartData(Resources.WaterLevelCategoryBoundary_DisplayName);
+            designWaterLevelChartData = WaveConditionsChartDataFactory.CreateDesignWaterLevelChartData();
             waterLevelsChartData = WaveConditionsChartDataFactory.CreateWaterLevelsChartData();
             revetmentBaseChartData = WaveConditionsChartDataFactory.CreateRevetmentBaseChartData(inputViewStyle.RevetmentLineColor);
             revetmentChartData = WaveConditionsChartDataFactory.CreateRevetmentChartData(inputViewStyle.RevetmentLineColor);
