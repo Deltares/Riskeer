@@ -123,15 +123,6 @@
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName" xml:space="preserve">
     <value>Hydraulische randvoorwaarden voor gras</value>
   </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_Description" xml:space="preserve">
-    <value>Bovengrens bepaald aan de hand van de waarde van de waterstand op de geselecteerde hydraulische locatie.</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_DisplayName" xml:space="preserve">
-    <value>Bovengrens op basis van waterstand [m+NAP]</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description" xml:space="preserve">
-    <value>Berekende waterstand op de geselecteerde locatie.</value>
-  </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType" xml:space="preserve">
     <value>Gras</value>
   </data>

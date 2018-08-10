@@ -103,36 +103,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende waterstand op de geselecteerde locatie..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_De" +
-                        "scription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bovengrens bepaald aan de hand van de waarde van de waterstand op de geselecteerde hydraulische locatie..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesign" +
-                        "WaterLevel_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bovengrens op basis van waterstand [m+NAP].
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesign" +
-                        "WaterLevel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekende resultaten voor de hydraulische randvoorwaarden voor gras..
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description {

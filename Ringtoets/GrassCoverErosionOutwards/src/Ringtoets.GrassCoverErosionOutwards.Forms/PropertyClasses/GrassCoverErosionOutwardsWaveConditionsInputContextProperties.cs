@@ -21,12 +21,10 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Util.Attributes;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.Revetment.Forms.PropertyClasses;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
@@ -48,26 +46,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
                                                                              Func<RoundedDouble> getAssessmentLevelFunc,
                                                                              IObservablePropertyChangeHandler propertyChangeHandler)
             : base(context, getAssessmentLevelFunc, propertyChangeHandler) {}
-
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.DesignWaterLevelCalculation_Result_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description))]
-        public override RoundedDouble AssessmentLevel
-        {
-            get
-            {
-                return base.AssessmentLevel;
-            }
-        }
-
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_Description))]
-        public override RoundedDouble UpperBoundaryAssessmentLevel
-        {
-            get
-            {
-                return base.UpperBoundaryAssessmentLevel;
-            }
-        }
 
         public override string RevetmentType
         {

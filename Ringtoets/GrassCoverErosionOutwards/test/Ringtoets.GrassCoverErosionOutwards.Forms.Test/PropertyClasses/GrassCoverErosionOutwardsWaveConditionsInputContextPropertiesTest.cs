@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -36,29 +34,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsInputContextPropertiesTest
     {
-        private MockRepository mockRepository;
-        private IObservablePropertyChangeHandler handler;
-        private IAssessmentSection assessmentSection;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-            handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            mockRepository.VerifyAll();
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 calculation.InputParameters,
@@ -75,43 +59,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<FailureMechanismCategoryWaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Gras", properties.RevetmentType);
-        }
-
-        [Test]
-        public void Constructor_Always_OverriddenExpectedPropertyDescriptors()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                calculation.InputParameters,
-                calculation,
-                assessmentSection,
-                new GrassCoverErosionOutwardsFailureMechanism());
-
-            // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context,
-                                                                                               AssessmentSectionHelper.GetTestAssessmentLevel,
-                                                                                               handler);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(16, dynamicProperties.Count);
-
-            const string hydraulicParametersCategory = "Hydraulische gegevens";
-
-            PropertyDescriptor assessmentLevelProperty = dynamicProperties[2];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentLevelProperty,
-                                                                            hydraulicParametersCategory,
-                                                                            "Waterstand [m+NAP]",
-                                                                            "Berekende waterstand op de geselecteerde locatie.",
-                                                                            true);
-
-            PropertyDescriptor upperBoundaryDesignWaterLevelProperty = dynamicProperties[3];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryDesignWaterLevelProperty,
-                                                                            hydraulicParametersCategory,
-                                                                            "Bovengrens op basis van waterstand [m+NAP]",
-                                                                            "Bovengrens bepaald aan de hand van de waarde van de waterstand op de geselecteerde hydraulische locatie.",
-                                                                            true);
+            mockRepository.VerifyAll();
         }
     }
 }
