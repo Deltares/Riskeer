@@ -1,0 +1,140 @@
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using NUnit.Framework;
+using Ringtoets.AssemblyTool.IO.Model;
+using Ringtoets.AssemblyTool.IO.Model.DataTypes;
+using Ringtoets.AssemblyTool.IO.TestUtil;
+
+namespace Ringtoets.AssemblyTool.IO.Test.Model
+{
+    [TestFixture]
+    public class SerializableTotalAssemblyResultTest
+    {
+        [Test]
+        public void DefaultConstructor_ReturnsDefaultValues()
+        {
+            // Call
+            var totalAssemblyResult = new SerializableTotalAssemblyResult();
+
+            // Assert
+            Assert.IsInstanceOf<SerializableFeatureMember>(totalAssemblyResult);
+            Assert.IsNull(totalAssemblyResult.Id);
+            Assert.IsNull(totalAssemblyResult.AssessmentProcessId);
+            Assert.IsNull(totalAssemblyResult.AssemblyResultWithProbability);
+            Assert.IsNull(totalAssemblyResult.AssemblyResultWithoutProbability);
+
+            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableTotalAssemblyResult>(
+                nameof(SerializableTotalAssemblyResult.Id), "VeiligheidsoordeelID");
+            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableTotalAssemblyResult>(
+                nameof(SerializableTotalAssemblyResult.AssessmentProcessId), "BeoordelingsprocesIDRef");
+
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableTotalAssemblyResult>(
+                nameof(SerializableTotalAssemblyResult.AssemblyResultWithProbability), "toetsoordeelMetKansschatting");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableTotalAssemblyResult>(
+                nameof(SerializableTotalAssemblyResult.AssemblyResultWithoutProbability), "toetsoordeelZonderKansschatting");
+        }
+
+        [Test]
+        public void Constructor_IdNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new SerializableTotalAssemblyResult(null,
+                                                                          new SerializableAssessmentProcess(),
+                                                                          new SerializableFailureMechanismAssemblyResult(),
+                                                                          new SerializableFailureMechanismAssemblyResult());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("id", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_AssessmentProcessNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new SerializableTotalAssemblyResult("id",
+                                                                          null,
+                                                                          new SerializableFailureMechanismAssemblyResult(),
+                                                                          new SerializableFailureMechanismAssemblyResult());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentProcess", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_AssemblyResultWithoutProbabilityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new SerializableTotalAssemblyResult("id",
+                                                                          new SerializableAssessmentProcess(),
+                                                                          null,
+                                                                          new SerializableFailureMechanismAssemblyResult());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assemblyResultWithoutProbability", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_AssemblyResultWithProbabilityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new SerializableTotalAssemblyResult("id",
+                                                                          new SerializableAssessmentProcess(),
+                                                                          new SerializableFailureMechanismAssemblyResult(),
+                                                                          null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assemblyResultWithProbability", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithValidData_ReturnsExpectedValues()
+        {
+            // Setup
+            const string id = "id";
+
+            var random = new Random(39);
+            var assessmentProcess = new SerializableAssessmentProcess("process id",
+                                                                      new SerializableAssessmentSection(),
+                                                                      random.Next(),
+                                                                      random.Next());
+            var resultWithoutProbability = new SerializableFailureMechanismAssemblyResult();
+            var resultWithProbability = new SerializableFailureMechanismAssemblyResult();
+
+            // Call
+            var totalAssemblyResult = new SerializableTotalAssemblyResult(id,
+                                                                          assessmentProcess,
+                                                                          resultWithoutProbability,
+                                                                          resultWithProbability);
+
+            // Assert
+            Assert.AreEqual(id, totalAssemblyResult.Id);
+            Assert.AreEqual(assessmentProcess.Id, totalAssemblyResult.AssessmentProcessId);
+            Assert.AreSame(resultWithoutProbability, totalAssemblyResult.AssemblyResultWithoutProbability);
+            Assert.AreSame(resultWithProbability, totalAssemblyResult.AssemblyResultWithProbability);
+        }
+    }
+}

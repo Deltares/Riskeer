@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -28,6 +29,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
+using Ringtoets.AssemblyTool.IO.Model.DataTypes;
+using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.AssemblyTool.IO.TestUtil;
 
 namespace Ringtoets.AssemblyTool.IO.Test.Model
@@ -63,9 +66,10 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual("featureMember", xmlArrayAttribute.ElementName);
 
             IEnumerable<XmlArrayItemAttribute> xmlArrayItemAttributes = TypeUtils.GetPropertyAttributes<SerializableAssembly, XmlArrayItemAttribute>(nameof(SerializableAssembly.FeatureMembers));
-            Assert.AreEqual(2, xmlArrayItemAttributes.Count());
+            Assert.AreEqual(3, xmlArrayItemAttributes.Count());
             Assert.AreEqual(typeof(SerializableAssessmentProcess), xmlArrayItemAttributes.ElementAt(0).Type);
             Assert.AreEqual(typeof(SerializableAssessmentSection), xmlArrayItemAttributes.ElementAt(1).Type);
+            Assert.AreEqual(typeof(SerializableTotalAssemblyResultTest), xmlArrayItemAttributes.ElementAt(2).Type);
         }
 
         [Test]
@@ -155,8 +159,10 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                     });
             // Assert
             Assert.AreEqual(id, assembly.Id);
-            Assert.AreEqual(lowerCorner.X + " " + lowerCorner.Y, assembly.Boundary.Envelope.LowerCorner);
-            Assert.AreEqual(upperCorner.X + " " + upperCorner.Y, assembly.Boundary.Envelope.UpperCorner);
+            Assert.AreEqual(lowerCorner.X.ToString(CultureInfo.InvariantCulture) + " " + lowerCorner.Y.ToString(CultureInfo.InvariantCulture),
+                            assembly.Boundary.Envelope.LowerCorner);
+            Assert.AreEqual(upperCorner.X.ToString(CultureInfo.InvariantCulture) + " " + upperCorner.Y.ToString(CultureInfo.InvariantCulture),
+                            assembly.Boundary.Envelope.UpperCorner);
             Assert.AreSame(featureMember, assembly.FeatureMembers.Single());
         }
 
@@ -181,21 +187,28 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                 Name = "Traject A",
                 SurfaceLineGeometry = new SerializableLine(new[]
                 {
-                    new Point2D(0.0, 10.0),
-                    new Point2D(10.0, 20.0)
+                    new Point2D(0.35, 10.642),
+                    new Point2D(10.1564, 20.23)
                 })
             };
 
             var assessmentProcess = new SerializableAssessmentProcess("process1",
-                assessmentSection,
-                2018,
-                2020);
+                                                                      assessmentSection,
+                                                                      2018,
+                                                                      2020);
 
-            var assembly = new SerializableAssembly("assembly_1", new Point2D(12.0, 34.0), new Point2D(56.0, 78.0),
+            var totalAssemblyResult = new SerializableTotalAssemblyResult(
+                "total id",
+                assessmentProcess,
+                new SerializableFailureMechanismAssemblyResult(AssemblyMethod.WBI2B1, SerializableFailureMechanismCategoryGroup.IIt),
+                new SerializableFailureMechanismAssemblyResult(AssemblyMethod.WBI3C1, SerializableFailureMechanismCategoryGroup.NotApplicable, 0.000124));
+
+            var assembly = new SerializableAssembly("assembly_1", new Point2D(12.0, 34.0), new Point2D(56.053, 78.0002345),
                                                     new List<SerializableFeatureMember>
                                                     {
                                                         assessmentSection,
-                                                        assessmentProcess
+                                                        assessmentProcess,
+                                                        totalAssemblyResult
                                                     });
 
             serializer.Serialize(writer, assembly, xmlns);
