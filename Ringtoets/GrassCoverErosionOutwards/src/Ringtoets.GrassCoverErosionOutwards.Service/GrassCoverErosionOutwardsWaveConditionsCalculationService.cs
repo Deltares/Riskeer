@@ -28,7 +28,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
@@ -63,8 +62,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             return ValidateWaveConditionsInput(calculation.InputParameters,
                                                assessmentLevel,
                                                hydraulicBoundaryDatabase,
-                                               norm,
-                                               Resources.GrassCoverErosionOutwardsWaveConditionsCalculationService_LogMessage_DesignWaterLevel_name);
+                                               norm);
         }
 
         /// <summary>

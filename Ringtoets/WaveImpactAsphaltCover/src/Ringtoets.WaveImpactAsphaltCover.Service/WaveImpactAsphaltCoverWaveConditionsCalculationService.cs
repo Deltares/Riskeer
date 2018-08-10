@@ -30,7 +30,6 @@ using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
-using Ringtoets.Revetment.Service.Properties;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Service
@@ -63,8 +62,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             return ValidateWaveConditionsInput(calculation.InputParameters,
                                                assessmentLevel,
                                                hydraulicBoundaryDatabase,
-                                               norm,
-                                               Resources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
+                                               norm);
         }
 
         /// <summary>

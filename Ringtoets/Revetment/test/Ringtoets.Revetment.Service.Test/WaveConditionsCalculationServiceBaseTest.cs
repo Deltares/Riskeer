@@ -57,33 +57,11 @@ namespace Ringtoets.Revetment.Service.Test
             TestDelegate action = () => TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(null,
                                                                                                                GetValidAssessmentLevel(),
                                                                                                                GetValidHydraulicBoundaryDatabase(),
-                                                                                                               validNorm,
-                                                                                                               string.Empty);
+                                                                                                               validNorm);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(action);
             Assert.AreEqual("waveConditionsInput", exception.ParamName);
-        }
-
-        [Test]
-        public void Validate_DesignWaterLevelNameNull_ThrowArgumentNullException()
-        {
-            // Setup 
-            var input = new TestWaveConditionsInput
-            {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-            };
-
-            // Call
-            TestDelegate action = () => TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
-                                                                                                               GetValidAssessmentLevel(),
-                                                                                                               GetValidHydraulicBoundaryDatabase(),
-                                                                                                               validNorm,
-                                                                                                               null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(action);
-            Assert.AreEqual("designWaterLevelName", exception.ParamName);
         }
 
         [Test]
@@ -96,8 +74,7 @@ namespace Ringtoets.Revetment.Service.Test
             TestDelegate action = () => TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                GetValidAssessmentLevel(),
                                                                                                                null,
-                                                                                                               validNorm,
-                                                                                                               "test");
+                                                                                                               validNorm);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(action);
@@ -120,8 +97,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                        CanUsePreprocessor = true,
                                                                                                                        PreprocessorDirectory = validPreprocessorDirectory
                                                                                                                    },
-                                                                                                                   validNorm,
-                                                                                                                   string.Empty);
+                                                                                                                   validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -154,8 +130,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                        UsePreprocessor = true,
                                                                                                                        PreprocessorDirectory = invalidPreprocessorDirectory
                                                                                                                    },
-                                                                                                                   validNorm,
-                                                                                                                   string.Empty);
+                                                                                                                   validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -186,8 +161,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                        CanUsePreprocessor = true,
                                                                                                                        PreprocessorDirectory = validPreprocessorDirectory
                                                                                                                    },
-                                                                                                                   validNorm,
-                                                                                                                   string.Empty);
+                                                                                                                   validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -213,8 +187,7 @@ namespace Ringtoets.Revetment.Service.Test
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    new HydraulicBoundaryDatabase(),
-                                                                                                                   validNorm,
-                                                                                                                   string.Empty);
+                                                                                                                   validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -239,8 +212,7 @@ namespace Ringtoets.Revetment.Service.Test
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    GetValidHydraulicBoundaryDatabase(),
-                                                                                                                   double.NaN,
-                                                                                                                   string.Empty);
+                                                                                                                   double.NaN);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -265,8 +237,7 @@ namespace Ringtoets.Revetment.Service.Test
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    GetValidHydraulicBoundaryDatabase(),
-                                                                                                                   1.0,
-                                                                                                                   string.Empty);
+                                                                                                                   1.0);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -293,8 +264,7 @@ namespace Ringtoets.Revetment.Service.Test
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    GetValidHydraulicBoundaryDatabase(),
-                                                                                                                   validNorm,
-                                                                                                                   string.Empty);
+                                                                                                                   validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -320,24 +290,19 @@ namespace Ringtoets.Revetment.Service.Test
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             };
 
-            const string designWaterLevelName = "<de arbitraire naam voor designwaterlevel>";
-
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    RoundedDouble.NaN,
                                                                                                                    GetValidHydraulicBoundaryDatabase(),
-                                                                                                                   validNorm,
-                                                                                                                   designWaterLevelName);
+                                                                                                                   validNorm);
 
             // Assert
-            string expectedMessage = $"Kan {designWaterLevelName} niet afleiden op basis van de invoer";
-
             TestHelper.AssertLogMessages(action, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith(expectedMessage, msgs[1]);
+                StringAssert.StartsWith("Kan waterstand bij categoriegrens niet afleiden op basis van de invoer", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 
@@ -369,8 +334,7 @@ namespace Ringtoets.Revetment.Service.Test
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    (RoundedDouble) assessmentLevel,
                                                                                                                    GetValidHydraulicBoundaryDatabase(),
-                                                                                                                   validNorm,
-                                                                                                                   "DesignWaterLevelName");
+                                                                                                                   validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -402,8 +366,7 @@ namespace Ringtoets.Revetment.Service.Test
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    GetValidHydraulicBoundaryDatabase(),
-                                                                                                                   validNorm,
-                                                                                                                   "DesignWaterLevelName");
+                                                                                                                   validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -435,8 +398,7 @@ namespace Ringtoets.Revetment.Service.Test
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    GetValidHydraulicBoundaryDatabase(),
-                                                                                                                   validNorm,
-                                                                                                                   "DesignWaterLevelName");
+                                                                                                                   validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -481,8 +443,7 @@ namespace Ringtoets.Revetment.Service.Test
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    GetValidHydraulicBoundaryDatabase(),
-                                                                                                                   validNorm,
-                                                                                                                   "DesignWaterLevelName");
+                                                                                                                   validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -509,8 +470,7 @@ namespace Ringtoets.Revetment.Service.Test
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(input,
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    GetValidHydraulicBoundaryDatabase(),
-                                                                                                                   validNorm,
-                                                                                                                   "DesignWaterLevelName");
+                                                                                                                   validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -1025,14 +985,12 @@ namespace Ringtoets.Revetment.Service.Test
             public static bool PublicValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,
                                                                  RoundedDouble assessmentLevel,
                                                                  HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                                 double targetProbability,
-                                                                 string valueName)
+                                                                 double targetProbability)
             {
                 return ValidateWaveConditionsInput(waveConditionsInput,
                                                    assessmentLevel,
                                                    hydraulicBoundaryDatabase,
-                                                   targetProbability,
-                                                   valueName);
+                                                   targetProbability);
             }
 
             public void PublicCalculate(RoundedDouble a,

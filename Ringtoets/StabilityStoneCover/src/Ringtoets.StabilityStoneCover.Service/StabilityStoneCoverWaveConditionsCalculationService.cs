@@ -33,7 +33,6 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service.Properties;
-using RingtoetsRevetmentsServicesResources = Ringtoets.Revetment.Service.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Service
 {
@@ -67,8 +66,7 @@ namespace Ringtoets.StabilityStoneCover.Service
             return ValidateWaveConditionsInput(calculation.InputParameters,
                                                assessmentLevel,
                                                hydraulicBoundaryDatabase,
-                                               norm,
-                                               RingtoetsRevetmentsServicesResources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
+                                               norm);
         }
 
         /// <summary>
