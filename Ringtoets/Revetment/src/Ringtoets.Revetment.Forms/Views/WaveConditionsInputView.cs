@@ -188,7 +188,7 @@ namespace Ringtoets.Revetment.Forms.Views
             upperBoundaryWaterLevelsChartData.Points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(input);
 
             RoundedDouble assessmentLevel = getHydraulicBoundaryLocationCalculationFunc()?.Output?.Result ?? RoundedDouble.NaN;
-            assessmentLevelChartData.Points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, assessmentLevel);
+            assessmentLevelChartData.Points = WaveConditionsChartDataPointsFactory.CreateAssessmentLevelGeometryPoints(input, assessmentLevel);
             waterLevelsChartData.Lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input, assessmentLevel);
 
             revetmentBaseChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
