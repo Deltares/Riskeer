@@ -39,6 +39,8 @@ namespace Ringtoets.StabilityPointStructures.Data
         private static readonly Range<RoundedDouble> verticalDistanceValidityRange = new Range<RoundedDouble>(
             new RoundedDouble(verticalDistanceNumberOfDecimals), new RoundedDouble(verticalDistanceNumberOfDecimals, double.PositiveInfinity));
 
+        private static readonly Range<int> levellingCountValidityRange = new Range<int>(0, int.MaxValue);
+
         private NormalDistribution insideWaterLevelFailureConstruction;
         private NormalDistribution insideWaterLevel;
         private NormalDistribution drainCoefficient;
@@ -60,6 +62,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         private RoundedDouble verticalDistance;
         private double failureProbabilityRepairClosure;
         private double probabilityCollisionSecondaryStructure;
+        private int levellingCount;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresInput"/>.
@@ -603,7 +606,24 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the levelling count.
         /// [1/year]
         /// </summary>
-        public int LevellingCount { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when the value is smaller then 0.</exception>
+        public int LevellingCount
+        {
+            get
+            {
+                return levellingCount;
+            }
+            set
+            {
+                if (!levellingCountValidityRange.InRange(value))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(LevellingCount),
+                                                          Resources.StabilityPointStructuresInput_LevellingCount_must_be_equal_or_greater_to_zero);
+                }
+                levellingCount = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the probability of a secondary collision on the structure per levelling.

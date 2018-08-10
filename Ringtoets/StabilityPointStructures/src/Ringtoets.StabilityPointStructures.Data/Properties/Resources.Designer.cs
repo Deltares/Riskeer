@@ -118,6 +118,15 @@ namespace Ringtoets.StabilityPointStructures.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor aantal nivelleringen per jaar moet groter of gelijk zijn aan 0..
+        /// </summary>
+        public static string StabilityPointStructuresInput_LevellingCount_must_be_equal_or_greater_to_zero {
+            get {
+                return ResourceManager.GetString("StabilityPointStructuresInput_LevellingCount_must_be_equal_or_greater_to_zero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor afstand onderkant wand en teen dijk moet groter of gelijk zijn aan 0..
         /// </summary>
         public static string StabilityPointStructuresInput_VerticalDistance_must_be_equal_or_greater_to_zero {

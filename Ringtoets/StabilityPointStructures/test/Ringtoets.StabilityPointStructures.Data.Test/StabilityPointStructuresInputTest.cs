@@ -992,6 +992,35 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 call, "De waarde voor afstand onderkant wand en teen dijk moet groter of gelijk zijn aan 0.");
         }
 
+        [Test]
+        public void LevellingCount_ValidValue_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+            int levellingCount = new Random(21).Next(0, int.MaxValue);
+
+            // Call
+            input.LevellingCount = levellingCount;
+
+            // Assert
+            Assert.AreEqual(levellingCount, input.LevellingCount);
+        }
+
+        [Test]
+        public void LevellingCount_InvalidValue_ThrowsArgumentOutOfRangException()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.LevellingCount = -1;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                call, "De waarde voor aantal nivelleringen per jaar moet groter of gelijk zijn aan 0.");
+        }
+
+
         #endregion
 
         #region Helpers
