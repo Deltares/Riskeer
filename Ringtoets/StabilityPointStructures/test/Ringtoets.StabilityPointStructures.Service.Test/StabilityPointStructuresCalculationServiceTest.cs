@@ -1846,7 +1846,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             input.FactorStormDurationOpenStructure = value;
             input.StructureNormalOrientation = RoundedDouble.NaN;
             input.EvaluationLevel = value;
-            input.VerticalDistance = value;
             input.VolumicWeightWater = value;
 
             input.InsideWaterLevelFailureConstruction.Mean = value;
@@ -1904,6 +1903,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.StorageStructureArea.Mean = RoundedDouble.NaN;
                 input.FlowWidthAtBottomProtection.Mean = RoundedDouble.NaN;
                 input.CriticalOvertoppingDischarge.Mean = RoundedDouble.NaN;
+                input.VerticalDistance = RoundedDouble.NaN;
             }
             else
             {
@@ -1948,6 +1948,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.StorageStructureArea.Mean = value;
                 input.FlowWidthAtBottomProtection.Mean = value;
                 input.CriticalOvertoppingDischarge.Mean = value;
+                input.VerticalDistance = value;
             }
         }
 

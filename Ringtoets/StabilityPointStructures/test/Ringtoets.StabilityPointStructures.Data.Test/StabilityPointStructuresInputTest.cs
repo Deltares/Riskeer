@@ -961,19 +961,35 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void VerticalDistance_Always_ExpectedValues()
+        [TestCase(double.NaN)]
+        [TestCase(0)]
+        public void VerticalDistance_ValidValue_ExpectedValues(double verticalDistance)
         {
             // Setup 
-            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            var verticalDistance = new RoundedDouble(5, random.NextDouble());
 
             // Call
-            input.VerticalDistance = verticalDistance;
+            input.VerticalDistance = (RoundedDouble) verticalDistance;
 
             // Assert
             Assert.AreEqual(2, input.VerticalDistance.NumberOfDecimalPlaces);
             AssertAreEqual(verticalDistance, input.VerticalDistance);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(0)]
+        public void VerticalDistance_InvalidValue_ThrowsArgumentOutOfRangException(double verticalDistance)
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.VerticalDistance = (RoundedDouble) (-0.01);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                call, "De waarde voor afstand onderkant wand en teen dijk moet groter of gelijk zijn aan 0.");
         }
 
         #endregion

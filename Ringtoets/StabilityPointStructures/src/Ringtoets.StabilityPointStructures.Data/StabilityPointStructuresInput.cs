@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.StabilityPointStructures.Data.Properties;
 using RingtoetsDataCommonResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Data
@@ -33,6 +34,11 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// </summary>
     public class StabilityPointStructuresInput : StructuresInputBase<StabilityPointStructure>
     {
+        private const int verticalDistanceNumberOfDecimals = 2;
+
+        private static readonly Range<RoundedDouble> verticalDistanceValidityRange = new Range<RoundedDouble>(
+            new RoundedDouble(verticalDistanceNumberOfDecimals), new RoundedDouble(verticalDistanceNumberOfDecimals, double.PositiveInfinity));
+
         private NormalDistribution insideWaterLevelFailureConstruction;
         private NormalDistribution insideWaterLevel;
         private NormalDistribution drainCoefficient;
@@ -65,7 +71,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             failureProbabilityRepairClosure = 0;
 
             evaluationLevel = new RoundedDouble(2);
-            verticalDistance = new RoundedDouble(2);
+            verticalDistance = new RoundedDouble(verticalDistanceNumberOfDecimals);
 
             drainCoefficient = new NormalDistribution(2)
             {
@@ -188,12 +194,12 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         private void SetDefaultSchematizationProperties()
         {
-            EvaluationLevel = (RoundedDouble) double.NaN;
+            EvaluationLevel = RoundedDouble.NaN;
             FailureProbabilityRepairClosure = 0.0;
             InflowModelType = 0;
             LoadSchematizationType = LoadSchematizationType.Linear;
-            StructureNormalOrientation = (RoundedDouble) double.NaN;
-            VerticalDistance = (RoundedDouble) double.NaN;
+            StructureNormalOrientation = RoundedDouble.NaN;
+            VerticalDistance = RoundedDouble.NaN;
             LevellingCount = 0;
             ProbabilityCollisionSecondaryStructure = 0.0;
 
@@ -655,6 +661,8 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the vertical distance.
         /// [m]
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when the value is smaller than 0.</exception>
         public RoundedDouble VerticalDistance
         {
             get
@@ -663,6 +671,13 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
             set
             {
+                RoundedDouble newValue = value.ToPrecision(verticalDistance.NumberOfDecimalPlaces);
+                if (!double.IsNaN(newValue) && !verticalDistanceValidityRange.InRange(newValue))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(VerticalDistance),
+                                                          Resources.StabilityPointStructuresInput_VerticalDistance_must_be_equal_or_greater_to_zero);
+                }
+
                 verticalDistance = value.ToPrecision(verticalDistance.NumberOfDecimalPlaces);
             }
         }
