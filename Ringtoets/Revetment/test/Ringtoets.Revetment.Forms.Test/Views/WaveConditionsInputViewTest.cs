@@ -168,7 +168,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                 chartData.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex), "Bovengrens waterstanden");
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
-                                chartData.Collection.ElementAt(designWaterLevelChartDataIndex), "Toetspeil");
+                                chartData.Collection.ElementAt(designWaterLevelChartDataIndex), "Waterstand bij categoriegrens");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(assessmentLevel),
@@ -301,7 +301,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
-                                designWaterLevelChartData, "Toetspeil");
+                                designWaterLevelChartData, "Waterstand bij categoriegrens");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(assessmentLevel),
@@ -386,7 +386,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
-                                designWaterLevelChartData, "Toetspeil");
+                                designWaterLevelChartData, "Waterstand bij categoriegrens");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(assessmentLevel),
@@ -467,7 +467,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
                 CollectionAssert.IsEmpty(designWaterLevelChartData.Points);
-                Assert.AreEqual("Toetspeil", designWaterLevelChartData.Name);
+                Assert.AreEqual("Waterstand bij categoriegrens", designWaterLevelChartData.Name);
                 CollectionAssert.IsEmpty(waterLevelsChartData.Lines);
                 Assert.AreEqual("Waterstanden in berekening", waterLevelsChartData.Name);
 
@@ -546,7 +546,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
-                                designWaterLevelChartData, "Toetspeil");
+                                designWaterLevelChartData, "Waterstand bij categoriegrens");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(assessmentLevel),
@@ -633,7 +633,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
                 RoundedDouble expectedAssessmentLevel = newHydraulicBoundaryLocationCalculation.Output.Result;
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, expectedAssessmentLevel,
-                                designWaterLevelChartData, "Toetspeil");
+                                designWaterLevelChartData, "Waterstand bij categoriegrens");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(expectedAssessmentLevel),
