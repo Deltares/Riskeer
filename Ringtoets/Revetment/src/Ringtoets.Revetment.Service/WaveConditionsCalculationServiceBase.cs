@@ -63,11 +63,6 @@ namespace Ringtoets.Revetment.Service
         }
 
         /// <summary>
-        /// Gets whether the calculation is canceled or not.
-        /// </summary>
-        protected bool Canceled { get; private set; }
-
-        /// <summary>
         /// Performs validation over the given input parameters. Error and status information is logged
         /// during the execution of the operation.
         /// </summary>
@@ -78,10 +73,10 @@ namespace Ringtoets.Revetment.Service
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> or
         /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        protected static bool ValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,
-                                                          RoundedDouble assessmentLevel,
-                                                          HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                          double norm)
+        public static bool ValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,
+                                                       RoundedDouble assessmentLevel,
+                                                       HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                       double norm)
         {
             if (waveConditionsInput == null)
             {
@@ -106,6 +101,11 @@ namespace Ringtoets.Revetment.Service
 
             return !messages.Any();
         }
+
+        /// <summary>
+        /// Gets whether the calculation is canceled or not.
+        /// </summary>
+        protected bool Canceled { get; private set; }
 
         /// <summary>
         /// Performs a wave conditions calculation based on the supplied <see cref="WaveConditionsInput"/>
