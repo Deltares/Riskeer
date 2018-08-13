@@ -47,6 +47,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.Revetment.IO.Configurations;
+using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
@@ -306,7 +307,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             return new object[]
             {
-                new StabilityStoneCoverFailureMechanismSectionsContext(failureMechanism, assessmentSection), 
+                new StabilityStoneCoverFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
@@ -561,11 +562,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
-                StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                             assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                                  calculation.InputParameters.CategoryType),
-                                                                             assessmentSection.HydraulicBoundaryDatabase,
-                                                                             assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
+                WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
+                                                              assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                   calculation.InputParameters.CategoryType),
+                                                              assessmentSection.HydraulicBoundaryDatabase,
+                                                              assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
             }
         }
 
@@ -654,11 +655,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             IAssessmentSection assessmentSection = context.AssessmentSection;
             StabilityStoneCoverWaveConditionsCalculation calculation = context.WrappedData;
 
-            StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                         assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                              calculation.InputParameters.CategoryType),
-                                                                         assessmentSection.HydraulicBoundaryDatabase,
-                                                                         assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
+            WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
+                                                          assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                               calculation.InputParameters.CategoryType),
+                                                          assessmentSection.HydraulicBoundaryDatabase,
+                                                          assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
         }
 
         private void PerformCalculation(StabilityStoneCoverWaveConditionsCalculation calculation,

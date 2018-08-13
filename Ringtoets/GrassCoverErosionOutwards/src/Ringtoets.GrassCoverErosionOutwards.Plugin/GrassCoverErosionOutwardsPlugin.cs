@@ -61,6 +61,7 @@ using Ringtoets.GrassCoverErosionOutwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Views;
+using Ringtoets.Revetment.Service;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
@@ -848,12 +849,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
             {
-                GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                   failureMechanism.GetAssessmentLevel(assessmentSection,
-                                                                                                                       calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                                       calculation.InputParameters.CategoryType),
-                                                                                   assessmentSection.HydraulicBoundaryDatabase,
-                                                                                   failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
+                WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
+                                                              failureMechanism.GetAssessmentLevel(assessmentSection,
+                                                                                                  calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                  calculation.InputParameters.CategoryType),
+                                                              assessmentSection.HydraulicBoundaryDatabase,
+                                                              failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
             }
         }
 
@@ -972,12 +973,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.FailureMechanism;
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = context.WrappedData;
 
-            GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                               failureMechanism.GetAssessmentLevel(assessmentSection,
-                                                                                                                   calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                                   calculation.InputParameters.CategoryType),
-                                                                               assessmentSection.HydraulicBoundaryDatabase,
-                                                                               failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
+            WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
+                                                          failureMechanism.GetAssessmentLevel(assessmentSection,
+                                                                                              calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                              calculation.InputParameters.CategoryType),
+                                                          assessmentSection.HydraulicBoundaryDatabase,
+                                                          failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
         }
 
         private void PerformCalculation(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,

@@ -22,6 +22,7 @@
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
+using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service.Properties;
 
@@ -70,11 +71,11 @@ namespace Ringtoets.StabilityStoneCover.Service
 
         protected override bool Validate()
         {
-            return StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                                     calculation.InputParameters.CategoryType),
-                                                                                assessmentSection.HydraulicBoundaryDatabase,
-                                                                                assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
+            return WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
+                                                                 assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                      calculation.InputParameters.CategoryType),
+                                                                 assessmentSection.HydraulicBoundaryDatabase,
+                                                                 assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
         }
 
         protected override void PerformCalculation()

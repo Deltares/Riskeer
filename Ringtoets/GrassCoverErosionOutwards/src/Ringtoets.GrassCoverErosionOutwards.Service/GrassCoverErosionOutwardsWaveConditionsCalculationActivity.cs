@@ -23,6 +23,7 @@ using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.Revetment.Service;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service
@@ -70,12 +71,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
         protected override bool Validate()
         {
-            return GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                      failureMechanism.GetAssessmentLevel(assessmentSection,
-                                                                                                                          calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                                          calculation.InputParameters.CategoryType),
-                                                                                      assessmentSection.HydraulicBoundaryDatabase,
-                                                                                      failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
+            return WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
+                                                                 failureMechanism.GetAssessmentLevel(assessmentSection,
+                                                                                                     calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                     calculation.InputParameters.CategoryType),
+                                                                 assessmentSection.HydraulicBoundaryDatabase,
+                                                                 failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
         }
 
         protected override void PerformCalculation()

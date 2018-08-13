@@ -47,6 +47,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.Revetment.IO.Configurations;
+using Ringtoets.Revetment.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -565,11 +566,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
-                WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                                     calculation.InputParameters.CategoryType),
-                                                                                assessmentSection.HydraulicBoundaryDatabase,
-                                                                                assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
+                WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
+                                                              assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                   calculation.InputParameters.CategoryType),
+                                                              assessmentSection.HydraulicBoundaryDatabase,
+                                                              assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
             }
         }
 
@@ -657,11 +658,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             IAssessmentSection assessmentSection = context.AssessmentSection;
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = context.WrappedData;
 
-            WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                            assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                                 calculation.InputParameters.CategoryType),
-                                                                            assessmentSection.HydraulicBoundaryDatabase,
-                                                                            assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
+            WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
+                                                          assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                               calculation.InputParameters.CategoryType),
+                                                          assessmentSection.HydraulicBoundaryDatabase,
+                                                          assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
         }
 
         private void PerformCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
