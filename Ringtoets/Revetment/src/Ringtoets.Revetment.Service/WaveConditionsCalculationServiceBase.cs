@@ -73,10 +73,10 @@ namespace Ringtoets.Revetment.Service
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> or
         /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        public static bool ValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,
-                                                       RoundedDouble assessmentLevel,
-                                                       HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                       double norm)
+        public static bool Validate(WaveConditionsInput waveConditionsInput,
+                                    RoundedDouble assessmentLevel,
+                                    HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                    double norm)
         {
             if (waveConditionsInput == null)
             {
