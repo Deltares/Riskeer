@@ -43,7 +43,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// <param name="assemblyMethod">The method used to assemble this result.</param>
         /// <param name="categoryGroup">The category group of this assembly result.</param>
         /// <param name="probability">The probability of this assembly result.</param>
-        public SerializableFailureMechanismAssemblyResult(AssemblyMethod assemblyMethod,
+        public SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod assemblyMethod,
                                                           SerializableFailureMechanismCategoryGroup categoryGroup,
                                                           double? probability = null) : this()
         {
@@ -56,7 +56,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// Gets or sets the name of the method used to assemble this result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.AssemblyMethod)]
-        public AssemblyMethod AssemblyMethod { get; set; }
+        public SerializableAssemblyMethod AssemblyMethod { get; set; }
 
         /// <summary>
         /// Gets or sets the category group of this assembly result.

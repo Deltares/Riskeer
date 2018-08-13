@@ -38,7 +38,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
             var assemblyResult = new SerializableFailureMechanismAssemblyResult();
 
             // Assert
-            Assert.AreEqual((AssemblyMethod) 0, assemblyResult.AssemblyMethod);
+            Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
             Assert.AreEqual((SerializableFailureMechanismCategoryGroup) 0, assemblyResult.CategoryGroup);
             Assert.IsNull(assemblyResult.Probability);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
@@ -59,7 +59,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
             // Setup
             var random = new Random(39);
             var category = random.NextEnumValue<SerializableFailureMechanismCategoryGroup>();
-            var assemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
             double probability = random.NextDouble();
 
             // Call
@@ -79,7 +79,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
             // Setup
             var random = new Random(39);
             var assemblyResult = new SerializableFailureMechanismAssemblyResult(
-                random.NextEnumValue<AssemblyMethod>(),
+                random.NextEnumValue<SerializableAssemblyMethod>(),
                 random.NextEnumValue<SerializableFailureMechanismCategoryGroup>(),
                 probability);
 

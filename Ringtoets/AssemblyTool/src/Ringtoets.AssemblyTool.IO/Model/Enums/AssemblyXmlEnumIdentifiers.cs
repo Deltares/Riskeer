@@ -74,112 +74,112 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         #region AssemblyMethod
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0E1"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0E1"/>
         /// </summary>
         public const string AssemblyMethodWBI0E1 = "WBI-0E-1";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0E3"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0E3"/>
         /// </summary>
         public const string AssemblyMethodWBI0E3 = "WBI-0E-3";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0G1"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0G1"/>
         /// </summary>
         public const string AssemblyMethodWBI0G1 = "WBI-0G-1";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0G3"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0G3"/>
         /// </summary>
         public const string AssemblyMethodWBI0G3 = "WBI-0G-3";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0G4"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0G4"/>
         /// </summary>
         public const string AssemblyMethodWBI0G4 = "WBI-0G-4";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0G5"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0G5"/>
         /// </summary>
         public const string AssemblyMethodWBI0G5 = "WBI-0G-5";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0G6"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0G6"/>
         /// </summary>
         public const string AssemblyMethodWBI0G6 = "WBI-0G-6";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0T1"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0T1"/>
         /// </summary>
         public const string AssemblyMethodWBI0T1 = "WBI-0T-1";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0T3"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0T3"/>
         /// </summary>
         public const string AssemblyMethodWBI0T3 = "WBI-0T-3";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0T4"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0T4"/>
         /// </summary>
         public const string AssemblyMethodWBI0T4 = "WBI-0T-4";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0T5"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0T5"/>
         /// </summary>
         public const string AssemblyMethodWBI0T5 = "WBI-0T-5";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0T6"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0T6"/>
         /// </summary>
         public const string AssemblyMethodWBI0T6 = "WBI-0T-6";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0T7"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0T7"/>
         /// </summary>
         public const string AssemblyMethodWBI0T7 = "WBI-0T-7";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI0A1"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0A1"/>
         /// </summary>
         public const string AssemblyMethodWBI0A1 = "WBI-0A-1";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI1A1"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI1A1"/>
         /// </summary>
         public const string AssemblyMethodWBI1A1 = "WBI-1A-1";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI1B1"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI1B1"/>
         /// </summary>
         public const string AssemblyMethodWBI1B1 = "WBI-1B-1";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI2A1"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI2A1"/>
         /// </summary>
         public const string AssemblyMethodWBI2A1 = "WBI-2A-1";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI2B1"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI2B1"/>
         /// </summary>
         public const string AssemblyMethodWBI2B1 = "WBI-2B-1";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI2C1"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI2C1"/>
         /// </summary>
         public const string AssemblyMethodWBI2C1 = "WBI-2C-1";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI3A1"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI3A1"/>
         /// </summary>
         public const string AssemblyMethodWBI3A1 = "WBI-3A-1";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI3B1"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI3B1"/>
         /// </summary>
         public const string AssemblyMethodWBI3B1 = "WBI-3B-1";
 
         /// <summary>
-        /// Identifier for <see cref="AssemblyMethod.WBI3C1"/>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI3C1"/>
         /// </summary>
         public const string AssemblyMethodWBI3C1 = "WBI-3C-1";
 

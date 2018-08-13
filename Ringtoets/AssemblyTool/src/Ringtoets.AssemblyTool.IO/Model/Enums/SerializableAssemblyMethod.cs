@@ -24,9 +24,9 @@ using System.Xml.Serialization;
 namespace Ringtoets.AssemblyTool.IO.Model.Enums
 {
     /// <summary>
-    /// Enum defining the various types of assembly methods.
+    /// Serializable enum defining the various types of assembly methods.
     /// </summary>
-    public enum AssemblyMethod
+    public enum SerializableAssemblyMethod
     {
         /// <summary>
         /// Represents the assembly method WBI-0E-1.
