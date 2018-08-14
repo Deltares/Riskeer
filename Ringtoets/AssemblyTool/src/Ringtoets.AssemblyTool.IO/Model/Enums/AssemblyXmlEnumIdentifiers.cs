@@ -184,5 +184,29 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         public const string AssemblyMethodWBI3C1 = "WBI-3C-1";
 
         #endregion
+
+        #region SerializableFailureMechanismGroup
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group1"/>
+        /// </summary>
+        public const string SerializableFailureMechanismGroup1 = "GEDPROB";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group2"/>
+        /// </summary>
+        public const string SerializableFailureMechanismGroup2 = "GEDPROEXB";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group3"/>
+        /// </summary>
+        public const string SerializableFailureMechanismGroup3 = "GEDSPROB";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group4"/>
+        /// </summary>
+        public const string SerializableFailureMechanismGroup4 = "GEEN";
+
+        #endregion
     }
 }
