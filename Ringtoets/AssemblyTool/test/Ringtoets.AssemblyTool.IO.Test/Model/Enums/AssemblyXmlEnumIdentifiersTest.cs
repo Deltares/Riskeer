@@ -61,6 +61,30 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("WBI-3A-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI3A1);
             Assert.AreEqual("WBI-3B-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI3B1);
             Assert.AreEqual("WBI-3C-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI3C1);
+            
+            Assert.AreEqual("GEDPROB", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup1);
+            Assert.AreEqual("GEDPROBEX", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup2);
+            Assert.AreEqual("GEDSPROB", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup3);
+            Assert.AreEqual("GEEN", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup4);
+           
+            Assert.AreEqual("STBI", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTBI);
+            Assert.AreEqual("STBU", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTBU);
+            Assert.AreEqual("STPH", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTPH);
+            Assert.AreEqual("STMI", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTMI);
+            Assert.AreEqual("AGK", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeAGK);
+            Assert.AreEqual("AWO", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeAWO);
+            Assert.AreEqual("GEBU", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGEBU);
+            Assert.AreEqual("GABU", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGABU);
+            Assert.AreEqual("GEKB", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGEKB);
+            Assert.AreEqual("GABI", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGABI);
+            Assert.AreEqual("ZST", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeZST);
+            Assert.AreEqual("DA", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeDA);
+            Assert.AreEqual("HTKW", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeHTKW);
+            Assert.AreEqual("BSKW", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeBSKW);
+            Assert.AreEqual("PKW", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypePKW);
+            Assert.AreEqual("STKWp", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTKWp);
+            Assert.AreEqual("STKWl", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTKWl);
+            Assert.AreEqual("INN", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeINN);
         }
     }
 }
