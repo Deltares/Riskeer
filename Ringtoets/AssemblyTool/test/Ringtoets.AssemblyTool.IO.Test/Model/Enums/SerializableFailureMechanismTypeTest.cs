@@ -148,7 +148,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
                         SerializableFailureMechanismType.STKWp, "STKWp"
                     },
                     {
-                        SerializableFailureMechanismType.STKWl, "STWKl"
+                        SerializableFailureMechanismType.STKWl, "STKWl"
                     },
                     {
                         SerializableFailureMechanismType.INN, "INN"

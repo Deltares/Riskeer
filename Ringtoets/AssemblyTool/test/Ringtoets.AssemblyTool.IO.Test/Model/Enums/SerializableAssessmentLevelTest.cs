@@ -27,47 +27,59 @@ using Ringtoets.AssemblyTool.IO.Model.Enums;
 namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
 {
     [TestFixture]
-    public class SerializableAssemblyGroupTest : EnumWithXmlEnumNameTestFixture<SerializableAssemblyGroup>
+    public class SerializableAssessmentLevelTest : EnumWithXmlEnumNameTestFixture<SerializableAssessmentLevel>
     {
-        protected override IDictionary<SerializableAssemblyGroup, int> ExpectedValueForEnumValues
+        protected override IDictionary<SerializableAssessmentLevel, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<SerializableAssemblyGroup, int>
+                return new Dictionary<SerializableAssessmentLevel, int>
                 {
                     {
-                        SerializableAssemblyGroup.Group1, 1
+                        SerializableAssessmentLevel.SimpleAssessment, 1
                     },
                     {
-                        SerializableAssemblyGroup.Group2, 2
+                        SerializableAssessmentLevel.DetailedAssessment, 2
                     },
                     {
-                        SerializableAssemblyGroup.Group3, 3
+                        SerializableAssessmentLevel.TailorMadeAssessment, 3
                     },
                     {
-                        SerializableAssemblyGroup.Group4, 4
+                        SerializableAssessmentLevel.CombinedAssessment, 4
+                    },
+                    {
+                        SerializableAssessmentLevel.CombinedSectionAssessment, 5
+                    },
+                    {
+                        SerializableAssessmentLevel.CombinedSectionFailureMechanismAssessment, 6
                     }
                 };
             }
         }
 
-        protected override IDictionary<SerializableAssemblyGroup, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<SerializableAssessmentLevel, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<SerializableAssemblyGroup, string>
+                return new Dictionary<SerializableAssessmentLevel, string>
                 {
                     {
-                        SerializableAssemblyGroup.Group1, "GEDPROB"
+                        SerializableAssessmentLevel.SimpleAssessment, "EENVDGETS"
                     },
                     {
-                        SerializableAssemblyGroup.Group2, "GEDSPROBEX"
+                        SerializableAssessmentLevel.DetailedAssessment, "GEDTETS"
                     },
                     {
-                        SerializableAssemblyGroup.Group3, "GEDSPROB"
+                        SerializableAssessmentLevel.TailorMadeAssessment, "TOETSOPMT"
                     },
                     {
-                        SerializableAssemblyGroup.Group4, "GEEN"
+                        SerializableAssessmentLevel.CombinedAssessment, "GECBNTR"
+                    },
+                    {
+                        SerializableAssessmentLevel.CombinedSectionAssessment, "GECBNTRDV"
+                    },
+                    {
+                        SerializableAssessmentLevel.CombinedSectionFailureMechanismAssessment, "GECBNTRDVTS"
                     }
                 };
             }

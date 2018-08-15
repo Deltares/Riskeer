@@ -110,117 +110,117 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
 
         #endregion
 
-        #region AssemblyMethod
+        #region SerializableAssemblyMethod
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0E1"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0E1 = "WBI-0E-1";
+        public const string SerializableAssemblyMethodWBI0E1 = "WBI-0E-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0E3"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0E3 = "WBI-0E-3";
+        public const string SerializableAssemblyMethodWBI0E3 = "WBI-0E-3";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0G1"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0G1 = "WBI-0G-1";
+        public const string SerializableAssemblyMethodWBI0G1 = "WBI-0G-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0G3"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0G3 = "WBI-0G-3";
+        public const string SerializableAssemblyMethodWBI0G3 = "WBI-0G-3";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0G4"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0G4 = "WBI-0G-4";
+        public const string SerializableAssemblyMethodWBI0G4 = "WBI-0G-4";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0G5"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0G5 = "WBI-0G-5";
+        public const string SerializableAssemblyMethodWBI0G5 = "WBI-0G-5";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0G6"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0G6 = "WBI-0G-6";
+        public const string SerializableAssemblyMethodWBI0G6 = "WBI-0G-6";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0T1"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0T1 = "WBI-0T-1";
+        public const string SerializableAssemblyMethodWBI0T1 = "WBI-0T-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0T3"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0T3 = "WBI-0T-3";
+        public const string SerializableAssemblyMethodWBI0T3 = "WBI-0T-3";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0T4"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0T4 = "WBI-0T-4";
+        public const string SerializableAssemblyMethodWBI0T4 = "WBI-0T-4";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0T5"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0T5 = "WBI-0T-5";
+        public const string SerializableAssemblyMethodWBI0T5 = "WBI-0T-5";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0T6"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0T6 = "WBI-0T-6";
+        public const string SerializableAssemblyMethodWBI0T6 = "WBI-0T-6";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0T7"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0T7 = "WBI-0T-7";
+        public const string SerializableAssemblyMethodWBI0T7 = "WBI-0T-7";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI0A1"/>.
         /// </summary>
-        public const string AssemblyMethodWBI0A1 = "WBI-0A-1";
+        public const string SerializableAssemblyMethodWBI0A1 = "WBI-0A-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI1A1"/>.
         /// </summary>
-        public const string AssemblyMethodWBI1A1 = "WBI-1A-1";
+        public const string SerializableAssemblyMethodWBI1A1 = "WBI-1A-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI1B1"/>.
         /// </summary>
-        public const string AssemblyMethodWBI1B1 = "WBI-1B-1";
+        public const string SerializableAssemblyMethodWBI1B1 = "WBI-1B-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI2A1"/>.
         /// </summary>
-        public const string AssemblyMethodWBI2A1 = "WBI-2A-1";
+        public const string SerializableAssemblyMethodWBI2A1 = "WBI-2A-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI2B1"/>.
         /// </summary>
-        public const string AssemblyMethodWBI2B1 = "WBI-2B-1";
+        public const string SerializableAssemblyMethodWBI2B1 = "WBI-2B-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI2C1"/>.
         /// </summary>
-        public const string AssemblyMethodWBI2C1 = "WBI-2C-1";
+        public const string SerializableAssemblyMethodWBI2C1 = "WBI-2C-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI3A1"/>.
         /// </summary>
-        public const string AssemblyMethodWBI3A1 = "WBI-3A-1";
+        public const string SerializableAssemblyMethodWBI3A1 = "WBI-3A-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI3B1"/>.
         /// </summary>
-        public const string AssemblyMethodWBI3B1 = "WBI-3B-1";
+        public const string SerializableAssemblyMethodWBI3B1 = "WBI-3B-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI3C1"/>.
         /// </summary>
-        public const string AssemblyMethodWBI3C1 = "WBI-3C-1";
+        public const string SerializableAssemblyMethodWBI3C1 = "WBI-3C-1";
 
         #endregion
 
@@ -234,7 +234,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyGroup.Group2"/>.
         /// </summary>
-        public const string SerializableFailureMechanismGroup2 = "GEDPROEXB";
+        public const string SerializableFailureMechanismGroup2 = "GEDSPROBEX";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyGroup.Group3"/>.
@@ -339,6 +339,40 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         /// Identifier for <see cref="SerializableFailureMechanismType.INN"/>
         /// </summary>
         public const string SerializableFailureMechanismTypeINN = "INN";
+
+        #endregion
+
+        #region SerializableAssessmentLevel
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssessmentLevel.SimpleAssessment"/>.
+        /// </summary>
+        public const string SerializableAssessmentLevelSimpleAssessment = "EENVDGETS";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssessmentLevel.DetailedAssessment"/>.
+        /// </summary>
+        public const string SerializableAssessmentLevelDetailedAssessment = "GEDTETS";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssessmentLevel.TailorMadeAssessment"/>.
+        /// </summary>
+        public const string SerializableAssessmentLevelTailorMadeAssessment = "TOETSOPMT";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssessmentLevel.CombinedAssessment"/>.
+        /// </summary>
+        public const string SerializableAssessmentLevelCombinedAssessment = "GECBNTR";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssessmentLevel.CombinedSectionAssessment"/>.
+        /// </summary>
+        public const string SerializableAssessmentLevelCombinedSectionAssessment = "GECBNTRDV";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssessmentLevel.CombinedSectionFailureMechanismAssessment"/>.
+        /// </summary>
+        public const string SerializableAssessmentLevelCombinedSectionFailureMechanismAssessment = "GECBNTRDVTS";
 
         #endregion
     }

@@ -48,31 +48,31 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("VI-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVIv);
             Assert.AreEqual("VII-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVIIv);
 
-            Assert.AreEqual("WBI-0E-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0E1);
-            Assert.AreEqual("WBI-0E-3", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0E3);
-            Assert.AreEqual("WBI-0G-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0G1);
-            Assert.AreEqual("WBI-0G-3", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0G3);
-            Assert.AreEqual("WBI-0G-4", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0G4);
-            Assert.AreEqual("WBI-0G-5", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0G5);
-            Assert.AreEqual("WBI-0G-6", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0G6);
-            Assert.AreEqual("WBI-0T-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0T1);
-            Assert.AreEqual("WBI-0T-3", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0T3);
-            Assert.AreEqual("WBI-0T-4", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0T4);
-            Assert.AreEqual("WBI-0T-5", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0T5);
-            Assert.AreEqual("WBI-0T-6", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0T6);
-            Assert.AreEqual("WBI-0T-7", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0T7);
-            Assert.AreEqual("WBI-0A-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0A1);
-            Assert.AreEqual("WBI-1A-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI1A1);
-            Assert.AreEqual("WBI-1B-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI1B1);
-            Assert.AreEqual("WBI-2A-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI2A1);
-            Assert.AreEqual("WBI-2B-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI2B1);
-            Assert.AreEqual("WBI-2C-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI2C1);
-            Assert.AreEqual("WBI-3A-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI3A1);
-            Assert.AreEqual("WBI-3B-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI3B1);
-            Assert.AreEqual("WBI-3C-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI3C1);
+            Assert.AreEqual("WBI-0E-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0E1);
+            Assert.AreEqual("WBI-0E-3", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0E3);
+            Assert.AreEqual("WBI-0G-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0G1);
+            Assert.AreEqual("WBI-0G-3", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0G3);
+            Assert.AreEqual("WBI-0G-4", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0G4);
+            Assert.AreEqual("WBI-0G-5", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0G5);
+            Assert.AreEqual("WBI-0G-6", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0G6);
+            Assert.AreEqual("WBI-0T-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0T1);
+            Assert.AreEqual("WBI-0T-3", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0T3);
+            Assert.AreEqual("WBI-0T-4", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0T4);
+            Assert.AreEqual("WBI-0T-5", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0T5);
+            Assert.AreEqual("WBI-0T-6", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0T6);
+            Assert.AreEqual("WBI-0T-7", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0T7);
+            Assert.AreEqual("WBI-0A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0A1);
+            Assert.AreEqual("WBI-1A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI1A1);
+            Assert.AreEqual("WBI-1B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI1B1);
+            Assert.AreEqual("WBI-2A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI2A1);
+            Assert.AreEqual("WBI-2B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI2B1);
+            Assert.AreEqual("WBI-2C-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI2C1);
+            Assert.AreEqual("WBI-3A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3A1);
+            Assert.AreEqual("WBI-3B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3B1);
+            Assert.AreEqual("WBI-3C-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3C1);
             
             Assert.AreEqual("GEDPROB", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup1);
-            Assert.AreEqual("GEDPROBEX", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup2);
+            Assert.AreEqual("GEDSPROBEX", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup2);
             Assert.AreEqual("GEDSPROB", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup3);
             Assert.AreEqual("GEEN", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup4);
            
@@ -94,6 +94,14 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("STKWp", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTKWp);
             Assert.AreEqual("STKWl", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTKWl);
             Assert.AreEqual("INN", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeINN);
+
+            Assert.AreEqual("EENVDGETS", AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelSimpleAssessment);
+            Assert.AreEqual("GEDTETS", AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelDetailedAssessment);
+            Assert.AreEqual("TOETSOPMT", AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelTailorMadeAssessment);
+            Assert.AreEqual("GECBNTR", AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelCombinedAssessment);
+            Assert.AreEqual("GECBNTRDV", AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelCombinedSectionAssessment);
+            Assert.AreEqual("GECBNTRDVTS", AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelCombinedSectionFailureMechanismAssessment);
+
         }
     }
 }
