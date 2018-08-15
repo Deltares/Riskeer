@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\AssemblyXmlIdentifiers.cs" />
+    <Compile Include="Model\DataTypes\SerializableAssessmentSectionAssemblyResult.cs" />
     <Compile Include="Model\DataTypes\SerializableFailureMechanismSectionAssemblyResult.cs" />
     <Compile Include="Model\Enums\AssemblyXmlEnumIdentifiers.cs" />
     <Compile Include="Model\Enums\SerializableAssessmentLevel.cs" />

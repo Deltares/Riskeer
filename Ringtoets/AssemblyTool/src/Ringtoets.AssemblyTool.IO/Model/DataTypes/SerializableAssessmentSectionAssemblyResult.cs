@@ -26,30 +26,27 @@ using Ringtoets.AssemblyTool.IO.Properties;
 namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
 {
     /// <summary>
-    /// Class describing a serializable failure mechanism assembly result.
+    /// Class describing a serializable assessment section assembly result.
     /// </summary>
-    public class SerializableFailureMechanismAssemblyResult
+    public class SerializableAssessmentSectionAssemblyResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SerializableFailureMechanismAssemblyResult"/>.
+        /// Creates a new instance of <see cref="SerializableAssessmentSectionAssemblyResult"/>.
         /// </summary>
-        public SerializableFailureMechanismAssemblyResult()
+        public SerializableAssessmentSectionAssemblyResult()
         {
             Status = Resources.FullAssembly;
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="SerializableFailureMechanismAssemblyResult"/>.
+        /// Creates a new instance of <see cref="SerializableAssessmentSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="assemblyMethod">The method used to assemble this result.</param>
         /// <param name="categoryGroup">The category group of this assembly result.</param>
-        /// <param name="probability">The probability of this assembly result.</param>
-        public SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod assemblyMethod,
-                                                          SerializableFailureMechanismCategoryGroup categoryGroup,
-                                                          double? probability = null) : this()
+        public SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethod assemblyMethod,
+                                                           SerializableAssessmentSectionCategoryGroup categoryGroup) : this()
         {
             CategoryGroup = categoryGroup;
-            Probability = probability;
             AssemblyMethod = assemblyMethod;
         }
 
@@ -62,28 +59,13 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// <summary>
         /// Gets or sets the category group of this assembly result.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.FailureMechanismCategoryGroup)]
-        public SerializableFailureMechanismCategoryGroup CategoryGroup { get; set; }
-
-        /// <summary>
-        /// Gets or sets the probability of this assembly result.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.Probability)]
-        public double? Probability { get; set; }
+        [XmlElement(AssemblyXmlIdentifiers.AssessmentSectionCategoryGroup)]
+        public SerializableAssessmentSectionCategoryGroup CategoryGroup { get; set; }
 
         /// <summary>
         /// Gets or sets the status of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Status)]
         public string Status { get; set; }
-
-        /// <summary>
-        /// Determines whether <see cref="Probability"/> should be serialized.
-        /// </summary>
-        /// <returns><c>true</c> if <see cref="Probability"/> has a value, <c>false</c> otherwise.</returns>
-        public bool ShouldSerializeProbability()
-        {
-            return Probability.HasValue;
-        }
     }
 }

@@ -78,6 +78,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string AssessmentProcessIdRef = "BeoordelingsprocesIDRef";
 
         /// <summary>
+        /// Identifier for an assessment section category group element.
+        /// </summary>
+        public const string AssessmentSectionCategoryGroup = "categorie";
+
+        /// <summary>
         /// Identifier for an assessment section ID reference attribute.
         /// </summary>
         public const string AssessmentSectionIdRef = "WaterkeringstelselIDRef";
@@ -93,9 +98,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string AssessmentSection = "Waterkeringstelsel";
 
         /// <summary>
-        /// Identifier for an assessment section category group element.
+        /// Identifier for a failure mechanism category group element.
         /// </summary>
-        public const string AssessmentSectionCategoryGroup = "categorieTraject";
+        public const string FailureMechanismCategoryGroup = "categorieTraject";
 
         /// <summary>
         /// Identifier for a bounded by element.
