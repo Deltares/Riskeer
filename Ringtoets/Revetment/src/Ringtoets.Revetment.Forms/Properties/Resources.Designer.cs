@@ -217,7 +217,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij de geselecteerde categoriegrens..
+        ///   Looks up a localized string similar to Waterstand bij categoriegrens voor de geselecteerde hydraulische locatie..
         /// </summary>
         public static string WaveConditionsInput_AssessmentLevel_Description {
             get {
