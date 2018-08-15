@@ -188,22 +188,22 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         #region SerializableFailureMechanismGroup
 
         /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group1"/>.
+        /// Identifier for <see cref="SerializableAssemblyGroup.Group1"/>.
         /// </summary>
         public const string SerializableFailureMechanismGroup1 = "GEDPROB";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group2"/>.
+        /// Identifier for <see cref="SerializableAssemblyGroup.Group2"/>.
         /// </summary>
         public const string SerializableFailureMechanismGroup2 = "GEDPROEXB";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group3"/>.
+        /// Identifier for <see cref="SerializableAssemblyGroup.Group3"/>.
         /// </summary>
         public const string SerializableFailureMechanismGroup3 = "GEDSPROB";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group4"/>.
+        /// Identifier for <see cref="SerializableAssemblyGroup.Group4"/>.
         /// </summary>
         public const string SerializableFailureMechanismGroup4 = "GEEN";
 
