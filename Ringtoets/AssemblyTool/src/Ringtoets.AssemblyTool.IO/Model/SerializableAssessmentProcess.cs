@@ -42,14 +42,12 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="assessmentSection">The assessment section this process belongs to.</param>
         /// <param name="startYear">The starting year of the assessment process.</param>
         /// <param name="endYear">The end year of the assessment process.</param>
-        /// <param name="description">The description of the assessment process.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/>
         /// or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public SerializableAssessmentProcess(string id,
                                              SerializableAssessmentSection assessmentSection,
                                              int startYear,
-                                             int endYear,
-                                             string description = null)
+                                             int endYear)
         {
             if (id == null)
             {
@@ -65,7 +63,6 @@ namespace Ringtoets.AssemblyTool.IO.Model
             AssessmentSectionId = assessmentSection.Id;
             StartYear = startYear;
             EndYear = endYear;
-            Description = description;
         }
 
         /// <summary>
@@ -91,11 +88,5 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.EndYear)]
         public int EndYear { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.Description)]
-        public string Description { get; set; }
     }
 }

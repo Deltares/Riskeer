@@ -40,7 +40,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsInstanceOf<SerializableFeatureMember>(assessmentProcess);
             Assert.IsNull(assessmentProcess.Id);
             Assert.IsNull(assessmentProcess.AssessmentSectionId);
-            Assert.IsNull(assessmentProcess.Description);
             Assert.Zero(assessmentProcess.StartYear);
             Assert.Zero(assessmentProcess.EndYear);
 
@@ -53,8 +52,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                 nameof(SerializableAssessmentProcess.StartYear), "beginJaarBeoordelingsronde");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentProcess>(
                 nameof(SerializableAssessmentProcess.EndYear), "eindJaarBeoordelingsronde");
-            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentProcess>(
-                nameof(SerializableAssessmentProcess.Description), "omschrijving");
         }
 
         [Test]
@@ -96,7 +93,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         {
             // Setup
             const string id = "section id";
-            const string description = "process description";
 
             var random = new Random(39);
             var assessmentSection = new SerializableAssessmentSection(
@@ -115,15 +111,13 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var assessmentProcess = new SerializableAssessmentProcess(id,
                                                                       assessmentSection,
                                                                       startYear,
-                                                                      endYear,
-                                                                      description);
+                                                                      endYear);
 
             // Assert
             Assert.AreEqual(id, assessmentProcess.Id);
             Assert.AreEqual(assessmentSection.Id, assessmentProcess.AssessmentSectionId);
             Assert.AreEqual(startYear, assessmentProcess.StartYear);
             Assert.AreEqual(endYear, assessmentProcess.EndYear);
-            Assert.AreEqual(description, assessmentProcess.Description);
         }
     }
 }

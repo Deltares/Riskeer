@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
+using Ringtoets.AssemblyTool.IO.Model.DataTypes;
+using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.AssemblyTool.IO.TestUtil;
 
 namespace Ringtoets.AssemblyTool.IO.Test.Model
@@ -76,7 +79,12 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Setup
             const string id = "section id";
 
-            var failureMechanism = new SerializableFailureMechanism();
+            var random = new Random(39);
+            var failureMechanism = new SerializableFailureMechanism("fm id",
+                                                                    new SerializableTotalAssemblyResult(),
+                                                                    random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                                    random.NextEnumValue<SerializableAssemblyGroup>(),
+                                                                    new SerializableFailureMechanismAssemblyResult());
 
             // Call
             var sections = new SerializableFailureMechanismSections(id,
@@ -84,7 +92,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Assert
             Assert.AreEqual(id, sections.Id);
-            Assert.AreEqual(failureMechanism.Id, failureMechanism.Id);
+            Assert.AreEqual(failureMechanism.Id, sections.FailureMechanismId);
         }
     }
 }
