@@ -232,7 +232,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>T&amp;raject toevoegen...</value>
   </data>
   <data name="DesignWaterLevelCalculationsContext_DisplayName" xml:space="preserve">
-    <value>Toetspeilen</value>
+    <value>Waterstanden</value>
   </data>
   <data name="WaveHeightCalculationsContext_DisplayName" xml:space="preserve">
     <value>Golfhoogtes</value>

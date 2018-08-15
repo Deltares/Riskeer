@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Toetspeilen", text);
+                Assert.AreEqual("Waterstanden", text);
             }
         }
 
