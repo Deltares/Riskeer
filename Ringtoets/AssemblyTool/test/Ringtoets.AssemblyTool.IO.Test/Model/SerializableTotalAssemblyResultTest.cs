@@ -61,7 +61,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableTotalAssemblyResult(null,
                                                                           new SerializableAssessmentProcess(),
                                                                           new SerializableFailureMechanismAssemblyResult(),
-                                                                          new SerializableFailureMechanismAssemblyResult());
+                                                                          new SerializableFailureMechanismAssemblyResult(),
+                                                                          new SerializableAssessmentSectionAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -75,7 +76,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableTotalAssemblyResult("id",
                                                                           null,
                                                                           new SerializableFailureMechanismAssemblyResult(),
-                                                                          new SerializableFailureMechanismAssemblyResult());
+                                                                          new SerializableFailureMechanismAssemblyResult(),
+                                                                          new SerializableAssessmentSectionAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -89,7 +91,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableTotalAssemblyResult("id",
                                                                           new SerializableAssessmentProcess(),
                                                                           null,
-                                                                          new SerializableFailureMechanismAssemblyResult());
+                                                                          new SerializableFailureMechanismAssemblyResult(),
+                                                                          new SerializableAssessmentSectionAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -103,11 +106,27 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableTotalAssemblyResult("id",
                                                                           new SerializableAssessmentProcess(),
                                                                           new SerializableFailureMechanismAssemblyResult(),
-                                                                          null);
+                                                                          null,
+                                                                          new SerializableAssessmentSectionAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assemblyResultWithProbability", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionAssemblyResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new SerializableTotalAssemblyResult("id",
+                                                                          new SerializableAssessmentProcess(),
+                                                                          new SerializableFailureMechanismAssemblyResult(),
+                                                                          new SerializableFailureMechanismAssemblyResult(),
+                                                                          null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSectionAssemblyResult", exception.ParamName);
         }
 
         [Test]
@@ -123,18 +142,21 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                       random.Next());
             var resultWithoutProbability = new SerializableFailureMechanismAssemblyResult();
             var resultWithProbability = new SerializableFailureMechanismAssemblyResult();
+            var assessmentSectionResult = new SerializableAssessmentSectionAssemblyResult();
 
             // Call
             var totalAssemblyResult = new SerializableTotalAssemblyResult(id,
                                                                           assessmentProcess,
                                                                           resultWithoutProbability,
-                                                                          resultWithProbability);
+                                                                          resultWithProbability,
+                                                                          assessmentSectionResult);
 
             // Assert
             Assert.AreEqual(id, totalAssemblyResult.Id);
             Assert.AreEqual(assessmentProcess.Id, totalAssemblyResult.AssessmentProcessId);
             Assert.AreSame(resultWithoutProbability, totalAssemblyResult.AssemblyResultWithoutProbability);
             Assert.AreSame(resultWithProbability, totalAssemblyResult.AssemblyResultWithProbability);
+            Assert.AreSame(assessmentSectionResult, totalAssemblyResult.AssessmentSectionAssemblyResult);
         }
     }
 }

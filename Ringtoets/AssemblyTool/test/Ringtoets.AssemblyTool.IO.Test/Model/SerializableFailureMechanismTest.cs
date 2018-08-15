@@ -133,7 +133,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                     new SerializableTotalAssemblyResult(totalResultId,
                                                                                                         new SerializableAssessmentProcess(),
                                                                                                         new SerializableFailureMechanismAssemblyResult(),
-                                                                                                        new SerializableFailureMechanismAssemblyResult()),
+                                                                                                        new SerializableFailureMechanismAssemblyResult(),
+                                                                                                        new SerializableAssessmentSectionAssemblyResult()),
                                                                     type,
                                                                     group,
                                                                     assemblyResult);

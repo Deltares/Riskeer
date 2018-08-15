@@ -80,6 +80,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <summary>
         /// Identifier for an assessment section category group element.
         /// </summary>
+        public const string AssessmentSectionAssemblyResult = "veiligheidsoordeel";
+        
+        /// <summary>
+        /// Identifier for an assessment section category group element.
+        /// </summary>
         public const string AssessmentSectionCategoryGroup = "categorie";
 
         /// <summary>

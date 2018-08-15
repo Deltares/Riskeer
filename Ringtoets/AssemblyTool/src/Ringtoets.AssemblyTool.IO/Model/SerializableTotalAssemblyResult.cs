@@ -43,11 +43,13 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="assessmentProcess">The assessment process this result belongs to.</param>
         /// <param name="assemblyResultWithoutProbability">The assembly result for failure mechanisms with a probability.</param>
         /// <param name="assemblyResultWithProbability">The assembly result for failure mechanisms without a probablilty.</param>
+        /// <param name="assessmentSectionAssemblyResult">The assembly result for the assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableTotalAssemblyResult(string id,
                                                SerializableAssessmentProcess assessmentProcess,
                                                SerializableFailureMechanismAssemblyResult assemblyResultWithoutProbability,
-                                               SerializableFailureMechanismAssemblyResult assemblyResultWithProbability) : this()
+                                               SerializableFailureMechanismAssemblyResult assemblyResultWithProbability,
+                                               SerializableAssessmentSectionAssemblyResult assessmentSectionAssemblyResult) : this()
         {
             if (id == null)
             {
@@ -69,10 +71,16 @@ namespace Ringtoets.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(assemblyResultWithProbability));
             }
 
+            if (assessmentSectionAssemblyResult == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSectionAssemblyResult));
+            }
+
             Id = id;
             AssessmentProcessId = assessmentProcess.Id;
             AssemblyResultWithoutProbability = assemblyResultWithoutProbability;
             AssemblyResultWithProbability = assemblyResultWithProbability;
+            AssessmentSectionAssemblyResult = assessmentSectionAssemblyResult;
         }
 
         /// <summary>
@@ -98,5 +106,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.AssemblyResultWithoutProbability)]
         public SerializableFailureMechanismAssemblyResult AssemblyResultWithoutProbability { get; set; }
+
+        /// <summary>
+        /// Gets or sets the assessment section assembly result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.AssessmentSectionAssemblyResult)]
+        public SerializableAssessmentSectionAssemblyResult AssessmentSectionAssemblyResult { get; set; }
     }
 }

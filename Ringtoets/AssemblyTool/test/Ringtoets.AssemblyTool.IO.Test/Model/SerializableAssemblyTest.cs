@@ -205,7 +205,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                 "total id",
                 assessmentProcess,
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI2B1, SerializableFailureMechanismCategoryGroup.IIt),
-                new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismCategoryGroup.NotApplicable, 0.000124));
+                new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismCategoryGroup.NotApplicable, 0.000124),
+                new SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethod.WBI2C1, SerializableAssessmentSectionCategoryGroup.B));
 
             var failureMechanism1 = new SerializableFailureMechanism("fm1",
                                                                      totalAssemblyResult,
