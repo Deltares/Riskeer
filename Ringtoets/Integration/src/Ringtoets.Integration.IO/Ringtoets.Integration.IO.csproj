@@ -19,6 +19,7 @@
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly.cs" />
     <Compile Include="Assembly\ExportableFailureMechanism.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismAssemblyMethod.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismAssemblyResult.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismGroup.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismSectionAssemblyMethod.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismType.cs" />
