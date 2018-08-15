@@ -25,6 +25,7 @@
     <Compile Include="Assembly\ExportableFailureMechanismGroupTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismSectionAssemblyMethodTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismSectionAssemblyResultWithProbabilityTest.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismTest.cs" />
     <Compile Include="Assembly\ExportableSectionAssemblyResultTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriterTest.cs" />

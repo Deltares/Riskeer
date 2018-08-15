@@ -6,7 +6,7 @@ namespace Ringtoets.Integration.IO.Assembly
     /// <summary>
     /// Base implementation to hold all information for exporting assembly results for a failure mechanism section.
     /// </summary>
-    /// <typeparam name="TSectionAssemblyResult">The type of <see cref="ExportableSectionAssemblyResult"/> the results hold.</typeparam>
+    /// <typeparam name="TSectionAssemblyResult">The type of <see cref="ExportableSectionAssemblyResult"/>.</typeparam>
     public abstract class ExportableAggregatedFailureMechanismSectionAssemblyResultBase<TSectionAssemblyResult>
         where TSectionAssemblyResult : ExportableSectionAssemblyResult
     {
