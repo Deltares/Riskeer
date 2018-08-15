@@ -47,7 +47,6 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique ID of the assessment section.</param>
         /// <param name="name">The name of the assessment section.</param>
-        /// <param name="surfaceLineLength">The length of the surface line in meters.</param>
         /// <param name="geometry">The geometry of the surface line.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableAssessmentSection(string id,
