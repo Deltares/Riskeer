@@ -18,6 +18,7 @@
     <Compile Include="Assembly\ExportableFailureMechanismSectionAssemblyMethod.cs" />
     <Compile Include="Assembly\ExportableSectionAssemblyResult.cs" />
     <Compile Include="Assembly\ExportableSectionAssemblyResultWithProbability.cs" />
+    <Compile Include="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
