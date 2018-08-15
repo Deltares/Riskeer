@@ -43,8 +43,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsNull(assessmentSection.Id);
             Assert.IsNull(assessmentSection.Name);
             Assert.IsNull(assessmentSection.SurfaceLineGeometry);
-            Assert.IsNaN(assessmentSection.SurfaceLineLength.Value);
-            Assert.AreEqual("m", assessmentSection.SurfaceLineLength.UnitOfMeasure);
+            Assert.IsNull(assessmentSection.SurfaceLineLength);
 
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableAssessmentSection>(
                 nameof(SerializableAssessmentSection.Id), "id", "http://www.opengis.net/gml/3.2");

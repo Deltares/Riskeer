@@ -66,13 +66,14 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual("featureMember", xmlArrayAttribute.ElementName);
 
             IEnumerable<XmlArrayItemAttribute> xmlArrayItemAttributes = TypeUtils.GetPropertyAttributes<SerializableAssembly, XmlArrayItemAttribute>(nameof(SerializableAssembly.FeatureMembers));
-            Assert.AreEqual(6, xmlArrayItemAttributes.Count());
+            Assert.AreEqual(7, xmlArrayItemAttributes.Count());
             Assert.AreEqual(typeof(SerializableAssessmentProcess), xmlArrayItemAttributes.ElementAt(0).Type);
             Assert.AreEqual(typeof(SerializableAssessmentSection), xmlArrayItemAttributes.ElementAt(1).Type);
             Assert.AreEqual(typeof(SerializableTotalAssemblyResult), xmlArrayItemAttributes.ElementAt(2).Type);
             Assert.AreEqual(typeof(SerializableFailureMechanism), xmlArrayItemAttributes.ElementAt(3).Type);
             Assert.AreEqual(typeof(SerializableFailureMechanismSectionAssembly), xmlArrayItemAttributes.ElementAt(4).Type);
             Assert.AreEqual(typeof(SerializableFailureMechanismSections), xmlArrayItemAttributes.ElementAt(5).Type);
+            Assert.AreEqual(typeof(SerializableFailureMechanismSection), xmlArrayItemAttributes.ElementAt(6).Type);
         }
 
         [Test]
@@ -156,7 +157,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var assembly = new SerializableAssembly(id,
                                                     lowerCorner,
                                                     upperCorner,
-                                                    new[]
+                                                    new SerializableFeatureMember[]
                                                     {
                                                         featureMember
                                                     });
@@ -213,6 +214,15 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                      new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI1A1, SerializableFailureMechanismCategoryGroup.IIt));
 
             var sections1 = new SerializableFailureMechanismSections("sections1", failureMechanism1);
+            var section1 = new SerializableFailureMechanismSection("s1",
+                                                                   sections1,
+                                                                   0.12,
+                                                                   10.23,
+                                                                   new[]
+                                                                   {
+                                                                       new Point2D(0.23, 0.24),
+                                                                       new Point2D(10.23, 10.24)
+                                                                   });
 
             var result1 = new SerializableFailureMechanismSectionAssembly("sr1",
                                                                           failureMechanism1,
@@ -231,7 +241,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                         totalAssemblyResult,
                                                         failureMechanism1,
                                                         result1,
-                                                        sections1
+                                                        sections1,
+                                                        section1
                                                     });
 
             serializer.Serialize(writer, assembly, xmlns);

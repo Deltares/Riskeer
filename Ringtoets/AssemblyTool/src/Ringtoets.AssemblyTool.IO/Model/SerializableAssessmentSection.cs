@@ -40,7 +40,6 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public SerializableAssessmentSection()
         {
             AssessmentSectionType = Resources.AssessmentSectionType;
-            SurfaceLineLength = new SerializableMeasure("m", double.NaN);
         }
 
         /// <summary>

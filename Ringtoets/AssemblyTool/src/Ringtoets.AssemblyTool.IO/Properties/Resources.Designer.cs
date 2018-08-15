@@ -100,6 +100,24 @@ namespace Ringtoets.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GECBNETSSTE.
+        /// </summary>
+        internal static string FailureMechanismSectionType_Combined {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionType_Combined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TOETSSSTE.
+        /// </summary>
+        internal static string FailureMechanismSectionType_FailureMechanism {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionType_FailureMechanism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VOLLDG.
         /// </summary>
         internal static string FullAssembly {

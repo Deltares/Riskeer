@@ -123,6 +123,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string DirectFailureMechanism = "typeFaalmechanisme";
 
         /// <summary>
+        /// Identifier for an end distance element.
+        /// </summary>
+        public const string EndDistance = "afstandEinde";
+        
+        /// <summary>
         /// Identifier for an end year element.
         /// </summary>
         public const string EndYear = "eindJaarBeoordelingsronde";
@@ -152,6 +157,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         public const string FailureMechanismIdRef = "ToetsspoorIDRef";
         
+        /// <summary>
+        /// Identifier for a failure mechanism section element.
+        /// </summary>
+        public const string FailureMechanismSection = "Waterkeringsectie";
+
         /// <summary>
         /// Identifier for a failure mechanism section assembly element.
         /// </summary>
@@ -183,6 +193,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string FailureMechanismSectionsIdRef = "VakindelingIDRef";
         
         /// <summary>
+        /// Identifier for a failure mechanism section type element.
+        /// </summary>
+        public const string FailureMechanismSectionType = "typeWaterkeringsectie";
+        
+        /// <summary>
         /// Identifier for a failure mechanism group element.
         /// </summary>
         public const string FailureMechanismType = "typeToetsspoor";
@@ -201,6 +216,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Identifier for a 2D geometry element.
         /// </summary>
         public const string Geometry2D = "geometrie2D";
+
+        /// <summary>
+        /// Identifier for a 2D line geometry element.
+        /// </summary>
+        public const string GeometryLine2D = "geometrieLijn2D";
 
         /// <summary>
         /// The XML namespace for GML objects.
@@ -241,6 +261,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Identifier for section result elements.
         /// </summary>
         public const string SectionResults = "toetsoordeelVak";
+        
+        /// <summary>
+        /// Identifier for a start distance element.
+        /// </summary>
+        public const string StartDistance = "afstandBegin";
         
         /// <summary>
         /// Identifier for a start year element.
