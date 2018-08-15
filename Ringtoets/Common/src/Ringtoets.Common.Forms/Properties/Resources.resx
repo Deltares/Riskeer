@@ -1464,4 +1464,10 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="FailureMechanismSections_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de vakindeling is geïmporteerd.</value>
   </data>
+  <data name="WaterLevelCalculations_DisplayName" xml:space="preserve">
+    <value>Waterstanden</value>
+  </data>
+  <data name="WaveHeightCalculations_DisplayName" xml:space="preserve">
+    <value>Golfhoogten</value>
+  </data>
 </root>

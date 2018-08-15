@@ -57,7 +57,6 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using Ringtoets.GrassCoverErosionOutwards.Plugin.FileImporters;
-using Ringtoets.GrassCoverErosionOutwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Views;
@@ -182,7 +181,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
                 DesignWaterLevelCalculationsView>
             {
-                GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName} " +
+                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaterLevelCalculations_DisplayName} " +
                                                  $"- {RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -199,7 +198,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
                 WaveHeightCalculationsView>
             {
-                GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName} " +
+                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaveHeightCalculations_DisplayName} " +
                                                  $"- {RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -268,7 +267,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext>
             {
-                Text = context => Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.WaterLevelCalculations_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContextMenuStrip,
                 ChildNodeObjects = DesignWaterLevelCalculationsGroupContextChildNodeObjects
@@ -276,7 +275,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext>
             {
-                Text = context => Resources.GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.WaveHeightCalculations_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextMenuStrip,
                 ChildNodeObjects = WaveHeightCalculationsGroupContextChildNodeObjects

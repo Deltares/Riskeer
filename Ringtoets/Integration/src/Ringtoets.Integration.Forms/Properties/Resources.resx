@@ -231,12 +231,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AddAssessmentSection_DisplayName" xml:space="preserve">
     <value>T&amp;raject toevoegen...</value>
   </data>
-  <data name="DesignWaterLevelCalculationsContext_DisplayName" xml:space="preserve">
-    <value>Waterstanden</value>
-  </data>
-  <data name="WaveHeightCalculationsContext_DisplayName" xml:space="preserve">
-    <value>Golfhoogten</value>
-  </data>
   <data name="AssessmentSectionComposition_Composition_Description" xml:space="preserve">
     <value>Selecteer het type traject, bepalend voor de faalkansbegroting.</value>
   </data>

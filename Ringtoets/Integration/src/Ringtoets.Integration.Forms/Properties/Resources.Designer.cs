@@ -489,15 +489,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden.
-        /// </summary>
-        public static string DesignWaterLevelCalculationsContext_DisplayName {
-            get {
-                return ResourceManager.GetString("DesignWaterLevelCalculationsContext_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Is relevant.
         /// </summary>
         public static string FailureMechanism_IsRelevant_DisplayName {
@@ -895,15 +886,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string SignalingNorm_DisplayName {
             get {
                 return ResourceManager.GetString("SignalingNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfhoogten.
-        /// </summary>
-        public static string WaveHeightCalculationsContext_DisplayName {
-            get {
-                return ResourceManager.GetString("WaveHeightCalculationsContext_DisplayName", resourceCulture);
             }
         }
     }

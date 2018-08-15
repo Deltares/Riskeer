@@ -80,23 +80,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waterstanden.
-        /// </summary>
-        internal static string GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfhoogten.
-        /// </summary>
-        internal static string GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName", resourceCulture);
-            }
-        }
     }
 }
