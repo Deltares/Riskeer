@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogtes.
+        ///   Looks up a localized string similar to Golfhoogten.
         /// </summary>
         internal static string GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName {
             get {

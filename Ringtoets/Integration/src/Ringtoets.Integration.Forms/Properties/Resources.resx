@@ -235,7 +235,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Waterstanden</value>
   </data>
   <data name="WaveHeightCalculationsContext_DisplayName" xml:space="preserve">
-    <value>Golfhoogtes</value>
+    <value>Golfhoogten</value>
   </data>
   <data name="AssessmentSectionComposition_Composition_Description" xml:space="preserve">
     <value>Selecteer het type traject, bepalend voor de faalkansbegroting.</value>

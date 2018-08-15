@@ -98,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Golfhoogtes", text);
+                Assert.AreEqual("Golfhoogten", text);
             }
         }
 

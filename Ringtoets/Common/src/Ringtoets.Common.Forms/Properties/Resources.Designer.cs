@@ -2305,7 +2305,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden en golfhoogtes uit marginale statistiek.
+        ///   Looks up a localized string similar to Waterstanden en golfhoogten uit marginale statistiek.
         /// </summary>
         public static string HydraulicBoundaryLocationsExporter_DisplayName {
             get {

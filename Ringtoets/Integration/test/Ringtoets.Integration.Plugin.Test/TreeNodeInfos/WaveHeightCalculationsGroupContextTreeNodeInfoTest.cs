@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                const string expectedName = "Golfhoogtes";
+                const string expectedName = "Golfhoogten";
                 Assert.AreEqual(expectedName, text);
             }
         }
