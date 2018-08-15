@@ -161,6 +161,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Identifier for a failure mechanism section element.
         /// </summary>
         public const string FailureMechanismSection = "Waterkeringsectie";
+        
+        /// <summary>
+        /// Identifier for a failure mechanism section ID reference attribute.
+        /// </summary>
+        public const string FailureMechanismSectionIdRef = "WaterkeringsectieIDRef";
 
         /// <summary>
         /// Identifier for a failure mechanism section assembly element.

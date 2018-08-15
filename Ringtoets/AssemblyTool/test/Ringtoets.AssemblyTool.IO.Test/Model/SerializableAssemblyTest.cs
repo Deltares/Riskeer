@@ -226,6 +226,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             var result1 = new SerializableFailureMechanismSectionAssembly("sr1",
                                                                           failureMechanism1,
+                                                                          section1,
                                                                           new[]
                                                                           {
                                                                               new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0E1, SerializableAssessmentLevel.SimpleAssessment, SerializableFailureMechanismSectionCategoryGroup.IIv, 0.5),
