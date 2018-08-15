@@ -6,7 +6,8 @@ namespace Ringtoets.Integration.IO.Assembly
     /// <summary>
     /// Class that holds all the information to export a failure mechanism section assembly result with probability.
     /// </summary>
-    public class ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability
+    public class ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability :
+        ExportableAggregatedFailureMechanismSectionAssemblyResultBase<ExportableSectionAssemblyResultWithProbability>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.
@@ -22,62 +23,19 @@ namespace Ringtoets.Integration.IO.Assembly
                                                                                         ExportableSectionAssemblyResultWithProbability detailedAssembly,
                                                                                         ExportableSectionAssemblyResultWithProbability tailorMadeAssembly,
                                                                                         ExportableSectionAssemblyResultWithProbability combinedAssembly)
+            : base(failureMechanismSection, simpleAssembly, tailorMadeAssembly, combinedAssembly)
         {
-            if (failureMechanismSection == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSection));
-            }
-
-            if (simpleAssembly == null)
-            {
-                throw new ArgumentNullException(nameof(simpleAssembly));
-            }
-
             if (detailedAssembly == null)
             {
                 throw new ArgumentNullException(nameof(detailedAssembly));
             }
 
-            if (tailorMadeAssembly == null)
-            {
-                throw new ArgumentNullException(nameof(tailorMadeAssembly));
-            }
-
-            if (combinedAssembly == null)
-            {
-                throw new ArgumentNullException(nameof(combinedAssembly));
-            }
-
-            FailureMechanismSection = failureMechanismSection;
-            SimpleAssembly = simpleAssembly;
             DetailedAssembly = detailedAssembly;
-            TailorMadeAssembly = tailorMadeAssembly;
-            CombinedAssembly = combinedAssembly;
         }
-
-        /// <summary>
-        /// Gets the failure mechanism section.
-        /// </summary>
-        public FailureMechanismSection FailureMechanismSection { get; }
-
-        /// <summary>
-        /// Gets the simple assembly result.
-        /// </summary>
-        public ExportableSectionAssemblyResultWithProbability SimpleAssembly { get; }
 
         /// <summary>
         /// Gets the detailed assembly result.
         /// </summary>
         public ExportableSectionAssemblyResultWithProbability DetailedAssembly { get; }
-
-        /// <summary>
-        /// Gets the tailor made assembly result.
-        /// </summary>
-        public ExportableSectionAssemblyResultWithProbability TailorMadeAssembly { get; }
-
-        /// <summary>
-        /// Gets the combined assembly result.
-        /// </summary>
-        public ExportableSectionAssemblyResultWithProbability CombinedAssembly { get; }
     }
 }
