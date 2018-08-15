@@ -20,48 +20,42 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
+using Core.Common.Base.Geometry;
 
-namespace Ringtoets.AssemblyTool.IO.Model
+namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
 {
     /// <summary>
-    /// Class describing a serializable measure.
+    /// Class that describes a serializable GML line.
     /// </summary>
-    public class SerializableMeasure
+    public class SerializableLine
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SerializableMeasure"/>.
+        /// Creates a new instance of <see cref="SerializableLine"/>.
         /// </summary>
-        public SerializableMeasure()
-        {
-            Value = double.NaN;
-        }
+        public SerializableLine() {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="SerializableMeasure"/>.
+        /// Creates a new instance of <see cref="SerializableLine"/>.
         /// </summary>
-        /// <param name="unitOfMeasure">The unit of measure.</param>
-        /// <param name="value">The value of the measure.</param>
-        public SerializableMeasure(string unitOfMeasure, double value)
+        /// <param name="geometry">The geometry of the line.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/>
+        /// is <c>null</c>.</exception>
+        public SerializableLine(IEnumerable<Point2D> geometry)
         {
-            if (unitOfMeasure == null)
+            if (geometry == null)
             {
-                throw new ArgumentNullException(nameof(unitOfMeasure));
+                throw new ArgumentNullException(nameof(geometry));
             }
 
-            UnitOfMeasure = unitOfMeasure;
-            Value = value;
+            LineString = new SerializableLineString(geometry);
         }
-        /// <summary>
-        /// Gets or sets the unit of measure.
-        /// </summary>
-        [XmlAttribute(AssemblyXmlIdentifiers.UnitOfMeasure)]
-        public string UnitOfMeasure { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the measure.
+        /// Gets or sets the line string containing the geometry of the line.
         /// </summary>
-        [XmlText]
-        public double Value { get; set; }
+        [XmlElement(AssemblyXmlIdentifiers.LineString, Namespace = AssemblyXmlIdentifiers.GmlNamespace)]
+        public SerializableLineString LineString { get; set; }
     }
 }

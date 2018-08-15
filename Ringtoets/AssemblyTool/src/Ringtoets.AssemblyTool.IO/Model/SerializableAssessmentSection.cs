@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
+using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Properties;
 
 namespace Ringtoets.AssemblyTool.IO.Model

@@ -34,10 +34,10 @@
     <Compile Include="Model\SerializableTotalAssemblyResult.cs" />
     <Compile Include="Model\SerializableAssessmentSection.cs" />
     <Compile Include="Model\SerializableAssessmentProcess.cs" />
-    <Compile Include="Model\SerializableLine.cs" />
+    <Compile Include="Model\DataTypes\SerializableLine.cs" />
     <Compile Include="Model\DataTypes\SerializableFailureMechanismAssemblyResult.cs" />
-    <Compile Include="Model\SerializableLineString.cs" />
-    <Compile Include="Model\SerializableMeasure.cs" />
+    <Compile Include="Model\DataTypes\SerializableLineString.cs" />
+    <Compile Include="Model\DataTypes\SerializableMeasure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\SerializableAssembly.cs" />
     <Compile Include="Model\SerializableFeatureMember.cs" />

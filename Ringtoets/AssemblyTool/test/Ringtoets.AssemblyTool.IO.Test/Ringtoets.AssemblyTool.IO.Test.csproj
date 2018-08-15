@@ -30,9 +30,9 @@
     <Compile Include="Model\SerializableTotalAssemblyResultTest.cs" />
     <Compile Include="Model\SerializableAssessmentProcessTest.cs" />
     <Compile Include="Model\SerializableAssessmentSectionTest.cs" />
-    <Compile Include="Model\SerializableLineTest.cs" />
-    <Compile Include="Model\SerializableLineStringTest.cs" />
-    <Compile Include="Model\SerializableMeasureTest.cs" />
+    <Compile Include="Model\DataTypes\SerializableLineTest.cs" />
+    <Compile Include="Model\DataTypes\SerializableLineStringTest.cs" />
+    <Compile Include="Model\DataTypes\SerializableMeasureTest.cs" />
     <Compile Include="Model\SerializableAssemblyTest.cs" />
     <Compile Include="Model\Gml\SerializableEnvelopeTest.cs" />
     <Compile Include="Model\Gml\SerializableBoundaryTest.cs" />

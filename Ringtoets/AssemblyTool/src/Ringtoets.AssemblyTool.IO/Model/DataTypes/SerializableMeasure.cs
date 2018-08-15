@@ -20,42 +20,48 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
-using Core.Common.Base.Geometry;
 
-namespace Ringtoets.AssemblyTool.IO.Model
+namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
 {
     /// <summary>
-    /// Class that describes a serializable GML line.
+    /// Class describing a serializable measure.
     /// </summary>
-    public class SerializableLine
+    public class SerializableMeasure
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SerializableLine"/>.
+        /// Creates a new instance of <see cref="SerializableMeasure"/>.
         /// </summary>
-        public SerializableLine() {}
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SerializableLine"/>.
-        /// </summary>
-        /// <param name="geometry">The geometry of the line.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/>
-        /// is <c>null</c>.</exception>
-        public SerializableLine(IEnumerable<Point2D> geometry)
+        public SerializableMeasure()
         {
-            if (geometry == null)
-            {
-                throw new ArgumentNullException(nameof(geometry));
-            }
-
-            LineString = new SerializableLineString(geometry);
+            Value = double.NaN;
         }
 
         /// <summary>
-        /// Gets or sets the line string containing the geometry of the line.
+        /// Creates a new instance of <see cref="SerializableMeasure"/>.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.LineString, Namespace = AssemblyXmlIdentifiers.GmlNamespace)]
-        public SerializableLineString LineString { get; set; }
+        /// <param name="unitOfMeasure">The unit of measure.</param>
+        /// <param name="value">The value of the measure.</param>
+        public SerializableMeasure(string unitOfMeasure, double value)
+        {
+            if (unitOfMeasure == null)
+            {
+                throw new ArgumentNullException(nameof(unitOfMeasure));
+            }
+
+            UnitOfMeasure = unitOfMeasure;
+            Value = value;
+        }
+        /// <summary>
+        /// Gets or sets the unit of measure.
+        /// </summary>
+        [XmlAttribute(AssemblyXmlIdentifiers.UnitOfMeasure)]
+        public string UnitOfMeasure { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the measure.
+        /// </summary>
+        [XmlText]
+        public double Value { get; set; }
     }
 }

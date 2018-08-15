@@ -25,10 +25,10 @@ using System.Linq;
 using System.Xml.Serialization;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.IO.Model;
+using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.TestUtil;
 
-namespace Ringtoets.AssemblyTool.IO.Test.Model
+namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
 {
     [TestFixture]
     public class SerializableMeasureTest

@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model.Helpers;
 using Ringtoets.AssemblyTool.IO.Properties;
 
-namespace Ringtoets.AssemblyTool.IO.Model
+namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
 {
     /// <summary>
     /// Class describing a serializable line string.

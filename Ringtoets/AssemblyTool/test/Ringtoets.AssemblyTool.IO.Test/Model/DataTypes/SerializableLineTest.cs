@@ -24,10 +24,10 @@ using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.IO.Model;
+using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.TestUtil;
 
-namespace Ringtoets.AssemblyTool.IO.Test.Model
+namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
 {
     [TestFixture]
     public class SerializableLineTest
