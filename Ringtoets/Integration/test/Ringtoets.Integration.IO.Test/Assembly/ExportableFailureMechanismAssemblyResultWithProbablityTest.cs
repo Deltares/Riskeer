@@ -14,7 +14,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            var assemblyMethod = random.NextEnumValue<ExportableFailureMechanismAssemblyMethod>();
+            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
             var assemblyCategory = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
             double probability = random.NextDouble();
 

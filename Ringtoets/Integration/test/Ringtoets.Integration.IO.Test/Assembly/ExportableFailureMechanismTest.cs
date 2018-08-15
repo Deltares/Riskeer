@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         private static ExportableFailureMechanismAssemblyResult CreateFailureMechanismAssemblyResult()
         {
             var random = new Random(21);
-            return new ExportableFailureMechanismAssemblyResult(random.NextEnumValue<ExportableFailureMechanismAssemblyMethod>(),
+            return new ExportableFailureMechanismAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
                                                                 random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
         }
     }
