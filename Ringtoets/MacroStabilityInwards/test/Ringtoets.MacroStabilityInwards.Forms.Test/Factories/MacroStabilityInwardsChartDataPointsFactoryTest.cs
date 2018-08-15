@@ -870,6 +870,39 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateWaternetZonePoints_PhreaticLineAboveSurfaceLineAndWaternetLinesOnSurfaceLine_ReturnsEmptyCollection()
+        {
+            // Setup
+            var waternetLineGeometry = new[]
+            {
+                new Point2D(0, 6),
+                new Point2D(4.98, 6),
+                new Point2D(10.05, 7)
+            };
+
+            var phreaticLineGeometry = new[]
+            {
+                new Point2D(0, 10),
+                new Point2D(10.05, 10)
+            };
+
+            MacroStabilityInwardsWaternetLine waternetLine = CreateWaternetLine(waternetLineGeometry, phreaticLineGeometry);
+
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 6, 6),
+                new Point3D(5, 6, 6),
+                new Point3D(10, 7, 7)
+            });
+
+            IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
+
+            // Assert
+            CollectionAssert.IsEmpty(zones);
+        }
+
+        [Test]
         [TestCaseSource(nameof(GetPhreaticLineAndWaternetLineConfigurationsBelowSurfaceLine))]
         public void CreateWaternetZonePoints_DifferentWaternetLineAndPhreaticLineBelowSurfaceLineConfigurations_ReturnsPointsCollection(
             MacroStabilityInwardsSurfaceLine surfaceLine,
@@ -1132,7 +1165,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(10, 2),
                 new Point2D(11.09, 3.74),
                 new Point2D(13, -2),
-                new Point2D(13, -2),
                 new Point2D(11.09, -2),
                 new Point2D(10, -2),
                 new Point2D(6.875, -2),
@@ -1147,7 +1179,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(13, -2),
                 new Point2D(15, -2),
                 new Point2D(15, -8),
-                new Point2D(13, -2),
                 new Point2D(13, -2)
             }, zones.ElementAt(1), new Point2DComparerWithTolerance(1e-2));
         }

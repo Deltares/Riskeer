@@ -93,7 +93,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                         Mean = (RoundedDouble) 111.222,
                         StandardDeviation = (RoundedDouble) 0.111
                     },
-                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = 321.987,
+                    ProbabilityOpenStructureBeforeFlooding = 321.987,
                     FailureProbabilityOpenStructure = 654.321,
                     IdenticalApertures = 42,
                     FailureProbabilityReparation = 987.654,
@@ -163,7 +163,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, flowWidthAtBottomProtection.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.11, flowWidthAtBottomProtection.StandardDeviation, flowWidthAtBottomProtection.StandardDeviation.GetAccuracy());
 
-            Assert.AreEqual(321.987, structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(321.987, structure.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(654.321, structure.FailureProbabilityOpenStructure);
             Assert.AreEqual(42, structure.IdenticalApertures);
             Assert.AreEqual(987.654, structure.FailureProbabilityReparation);
@@ -250,7 +250,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, flowWidthAtBottomProtection.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.05, flowWidthAtBottomProtection.StandardDeviation, flowWidthAtBottomProtection.StandardDeviation.GetAccuracy());
 
-            Assert.AreEqual(1, structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(1, structure.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(1, structure.FailureProbabilityOpenStructure);
             Assert.AreEqual(1, structure.IdenticalApertures);
             Assert.AreEqual(1, structure.FailureProbabilityReparation);
@@ -344,7 +344,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 FailureProbabilityReparation = random.NextDouble(),
                 InflowModelType = ClosingStructureInflowModelType.FloodedCulvert,
                 IdenticalApertures = random.Next(),
-                ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble()
+                ProbabilityOpenStructureBeforeFlooding = random.NextDouble()
             });
 
             // Call
@@ -361,7 +361,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(otherStructure.FailureProbabilityOpenStructure, structure.FailureProbabilityOpenStructure);
             Assert.AreEqual(otherStructure.FailureProbabilityReparation, structure.FailureProbabilityReparation);
             Assert.AreEqual(otherStructure.IdenticalApertures, structure.IdenticalApertures);
-            Assert.AreEqual(otherStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding, structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(otherStructure.ProbabilityOpenStructureBeforeFlooding, structure.ProbabilityOpenStructureBeforeFlooding);
             TestHelper.AssertAreEqualButNotSame(otherStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
             TestHelper.AssertAreEqualButNotSame(otherStructure.InsideWaterLevel, structure.InsideWaterLevel);
             TestHelper.AssertAreEqualButNotSame(otherStructure.LevelCrestStructureNotClosing, structure.LevelCrestStructureNotClosing);
@@ -444,8 +444,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
                                                                                              "FlowWidthAtBottomProtectionMean");
                 yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.FlowWidthAtBottomProtection.StandardDeviation = cp.FlowWidthAtBottomProtection.StandardDeviation + offset,
                                                                                              "FlowWidthAtBottomProtectionStandardDeviation");
-                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble(),
-                                                                                             "ProbabilityOrFrequencyOpenStructureBeforeFlooding");
+                yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.ProbabilityOpenStructureBeforeFlooding = random.NextDouble(),
+                                                                                             "ProbabilityOpenStructureBeforeFlooding");
                 yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.FailureProbabilityOpenStructure = random.NextDouble(),
                                                                                              "FailureProbabilityOpenStructure");
                 yield return new ChangePropertyData<ClosingStructure.ConstructionProperties>(cp => cp.IdenticalApertures = random.Next(5, int.MaxValue),
@@ -509,7 +509,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                         Mean = (RoundedDouble) 25.0,
                         StandardDeviation = (RoundedDouble) 0.05
                     },
-                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = 1.0,
+                    ProbabilityOpenStructureBeforeFlooding = 1.0,
                     FailureProbabilityOpenStructure = 0.1,
                     IdenticalApertures = 4,
                     FailureProbabilityReparation = 1.0,

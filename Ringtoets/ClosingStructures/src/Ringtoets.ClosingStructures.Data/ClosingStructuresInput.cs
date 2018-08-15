@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
@@ -35,8 +36,10 @@ namespace Ringtoets.ClosingStructures.Data
     {
         private const int deviationWaveDirectionNumberOfDecimals = 2;
 
-        private static readonly Range<RoundedDouble> deviationWaveDirectionValidityRange = new Range<RoundedDouble>(new RoundedDouble(deviationWaveDirectionNumberOfDecimals, -360),
-                                                                                                                    new RoundedDouble(deviationWaveDirectionNumberOfDecimals, 360));
+        private static readonly Range<RoundedDouble> deviationWaveDirectionValidityRange = new Range<RoundedDouble>(
+            new RoundedDouble(deviationWaveDirectionNumberOfDecimals, -360), new RoundedDouble(deviationWaveDirectionNumberOfDecimals, 360));
+
+        private static readonly Range<int> identicalAperturesValidityRange = new Range<int>(1, int.MaxValue);
 
         private NormalDistribution thresholdHeightOpenWeir;
         private NormalDistribution drainCoefficient;
@@ -46,8 +49,9 @@ namespace Ringtoets.ClosingStructures.Data
         private RoundedDouble factorStormDurationOpenStructure;
         private double failureProbabilityOpenStructure;
         private double failureProbabilityReparation;
-        private double probabilityOrFrequencyOpenStructureBeforeFlooding;
+        private double probabilityOpenStructureBeforeFlooding;
         private RoundedDouble deviationWaveDirection;
+        private int identicalApertures;
 
         /// <summary>
         /// Creates a new instance of the <see cref="ClosingStructuresInput"/> class.
@@ -89,7 +93,7 @@ namespace Ringtoets.ClosingStructures.Data
                        && Equals(FailureProbabilityReparation, Structure.FailureProbabilityReparation)
                        && Equals(IdenticalApertures, Structure.IdenticalApertures)
                        && Equals(InsideWaterLevel, Structure.InsideWaterLevel)
-                       && Equals(ProbabilityOrFrequencyOpenStructureBeforeFlooding, Structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding)
+                       && Equals(ProbabilityOpenStructureBeforeFlooding, Structure.ProbabilityOpenStructureBeforeFlooding)
                        && Equals(ThresholdHeightOpenWeir, Structure.ThresholdHeightOpenWeir);
             }
         }
@@ -120,7 +124,7 @@ namespace Ringtoets.ClosingStructures.Data
                 FailureProbabilityReparation = Structure.FailureProbabilityReparation;
                 IdenticalApertures = Structure.IdenticalApertures;
                 InsideWaterLevel = Structure.InsideWaterLevel;
-                ProbabilityOrFrequencyOpenStructureBeforeFlooding = Structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
+                ProbabilityOpenStructureBeforeFlooding = Structure.ProbabilityOpenStructureBeforeFlooding;
                 ThresholdHeightOpenWeir = Structure.ThresholdHeightOpenWeir;
             }
             else
@@ -146,7 +150,7 @@ namespace Ringtoets.ClosingStructures.Data
         {
             FailureProbabilityOpenStructure = 0;
             FailureProbabilityReparation = 0;
-            ProbabilityOrFrequencyOpenStructureBeforeFlooding = 1.0;
+            ProbabilityOpenStructureBeforeFlooding = 1.0;
 
             ThresholdHeightOpenWeir = new NormalDistribution
             {
@@ -172,7 +176,7 @@ namespace Ringtoets.ClosingStructures.Data
                 StandardDeviation = RoundedDouble.NaN
             };
 
-            IdenticalApertures = 0;
+            IdenticalApertures = 1;
             InflowModelType = 0;
         }
 
@@ -331,7 +335,23 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the amount of identical apertures.
         /// </summary>
-        public int IdenticalApertures { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value is smaller than 1.</exception>
+        public int IdenticalApertures
+        {
+            get
+            {
+                return identicalApertures;
+            }
+            set
+            {
+                if (!identicalAperturesValidityRange.InRange(value))
+                {
+                    throw new ArgumentOutOfRangeException(nameof(IdenticalApertures),
+                                                          Resources.ClosingStructuresInput_IdenticalApertures_must_be_equal_or_greater_to_one);
+                }
+                identicalApertures = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the level of crest of the structures that are not closed.
@@ -351,20 +371,20 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the failure probability or frequency of an open structure before flooding.
+        /// Gets or sets the failure probability of an open structure before flooding.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
         /// is not in the interval [0, 1].</exception>
-        public double ProbabilityOrFrequencyOpenStructureBeforeFlooding
+        public double ProbabilityOpenStructureBeforeFlooding
         {
             get
             {
-                return probabilityOrFrequencyOpenStructureBeforeFlooding;
+                return probabilityOpenStructureBeforeFlooding;
             }
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_);
-                probabilityOrFrequencyOpenStructureBeforeFlooding = value;
+                probabilityOpenStructureBeforeFlooding = value;
             }
         }
 

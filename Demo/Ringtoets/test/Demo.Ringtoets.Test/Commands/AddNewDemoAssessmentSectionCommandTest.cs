@@ -330,7 +330,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(0.15, closingStructure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
             Assert.AreEqual(25.0, closingStructure.FlowWidthAtBottomProtection.Mean.Value);
             Assert.AreEqual(0.05, closingStructure.FlowWidthAtBottomProtection.StandardDeviation.Value);
-            Assert.AreEqual(1.0, closingStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(1.0, closingStructure.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(0.1, closingStructure.FailureProbabilityOpenStructure);
             Assert.AreEqual(4, closingStructure.IdenticalApertures);
             Assert.AreEqual(1.0, closingStructure.FailureProbabilityReparation);

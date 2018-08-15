@@ -139,7 +139,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(input.IdenticalApertures, properties.IdenticalApertures);
             Assert.AreSame(input.LevelCrestStructureNotClosing, properties.LevelCrestStructureNotClosing.Data);
             Assert.AreSame(input.ThresholdHeightOpenWeir, properties.ThresholdHeightOpenWeir.Data);
-            Assert.AreEqual(input.ProbabilityOrFrequencyOpenStructureBeforeFlooding, properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(input.ProbabilityOpenStructureBeforeFlooding, properties.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(input.FailureProbabilityOpenStructure, properties.FailureProbabilityOpenStructure);
             Assert.AreEqual(input.FailureProbabilityReparation, properties.FailureProbabilityReparation);
             Assert.AreSame(input.DrainCoefficient, properties.DrainCoefficient.Data);
@@ -152,7 +152,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                 nameof(ClosingStructuresInputContextProperties.FailureProbabilityOpenStructure));
 
             TestHelper.AssertTypeConverter<ClosingStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
-                nameof(ClosingStructuresInputContextProperties.ProbabilityOrFrequencyOpenStructureBeforeFlooding));
+                nameof(ClosingStructuresInputContextProperties.ProbabilityOpenStructureBeforeFlooding));
 
             TestHelper.AssertTypeConverter<ClosingStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
                 nameof(ClosingStructuresInputContextProperties.FailureProbabilityReparation));
@@ -212,8 +212,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.LevelCrestStructureNotClosing, false, false);
 
-            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[verticalWallProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOrFrequencyOpenStructureBeforeFloodingProperty,
+            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[verticalWallProbabilityOpenStructureBeforeFloodingPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
                                                                             schematizationCategory,
                                                                             "Kans op open staan bij naderend hoogwater [1/jaar]",
                                                                             "Kans op open staan bij naderend hoogwater.");
@@ -319,8 +319,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Aantal identieke doorstroomopeningen [-]",
                                                                             "Aantal identieke doorstroomopeningen.");
 
-            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[floodedCulvertProbabilityOpenOrFrequencyStructureBeforeFloodingPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOrFrequencyOpenStructureBeforeFloodingProperty,
+            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[floodedCulvertProbabilityOpenStructureBeforeFloodingPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
                                                                             schematizationCategory,
                                                                             "Kans op open staan bij naderend hoogwater [1/jaar]",
                                                                             "Kans op open staan bij naderend hoogwater.");
@@ -432,8 +432,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             true);
             DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ThresholdHeightOpenWeir, false, false);
 
-            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFloodingProperty = dynamicProperties[lowSillProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOrFrequencyOpenStructureBeforeFloodingProperty,
+            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[lowSillProbabilityOpenStructureBeforeFloodingPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
                                                                             schematizationCategory,
                                                                             "Kans op open staan bij naderend hoogwater [1/jaar]",
                                                                             "Kans op open staan bij naderend hoogwater.");
@@ -503,8 +503,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             PropertyDescriptor identicalApertures = dynamicProperties[identicalAperturesPropertyIndex];
             Assert.IsTrue(identicalApertures.IsReadOnly);
 
-            PropertyDescriptor probabilityOrFrequencyOpenStructureBeforeFlooding = dynamicProperties[probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex];
-            Assert.IsTrue(probabilityOrFrequencyOpenStructureBeforeFlooding.IsReadOnly);
+            PropertyDescriptor probabilityOpenStructureBeforeFlooding = dynamicProperties[probabilityOpenStructureBeforeFloodingPropertyIndex];
+            Assert.IsTrue(probabilityOpenStructureBeforeFlooding.IsReadOnly);
 
             PropertyDescriptor failureProbabilityOpenStructure = dynamicProperties[failureProbabilityOpenStructurePropertyIndex];
             Assert.IsTrue(failureProbabilityOpenStructure.IsReadOnly);
@@ -590,11 +590,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_Always_InputChangedAndObservablesNotified()
+        public void ProbabilityOpenStructureBeforeFlooding_Always_InputChangedAndObservablesNotified()
         {
             var random = new Random(21);
             SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble());
+                properties => properties.ProbabilityOpenStructureBeforeFlooding = random.NextDouble());
         }
 
         [Test]
@@ -892,7 +892,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         private const int verticalWallAllowedLevelIncreaseStoragePropertyIndex = 10;
         private const int verticalWallLevelCrestStructureNotClosingPropertyIndex = 11;
         private const int verticalWallCriticalOvertoppingDischargePropertyIndex = 12;
-        private const int verticalWallProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 13;
+        private const int verticalWallProbabilityOpenStructureBeforeFloodingPropertyIndex = 13;
         private const int verticalWallFailureProbabilityOpenStructurePropertyIndex = 14;
         private const int verticalWallFailureProbabilityReparationPropertyIndex = 15;
         private const int verticalWallFailureProbabilityStructureWithErosionPropertyIndex = 16;
@@ -920,7 +920,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         private const int lowSillAllowedLevelIncreaseStoragePropertyIndex = 10;
         private const int lowSillThresholdHeightOpenWeirPropertyIndex = 11;
         private const int lowSillCriticalOvertoppingDischargePropertyIndex = 12;
-        private const int lowSillProbabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 13;
+        private const int lowSillProbabilityOpenStructureBeforeFloodingPropertyIndex = 13;
         private const int lowSillFailureProbabilityOpenStructurePropertyIndex = 14;
         private const int lowSillFailureProbabilityReparationPropertyIndex = 15;
         private const int lowSillFailureProbabilityStructureWithErosionPropertyIndex = 16;
@@ -947,7 +947,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         private const int floodedCulvertStorageStructureAreaPropertyIndex = 9;
         private const int floodedCulvertAllowedLevelIncreaseStoragePropertyIndex = 10;
         private const int floodedCulvertCriticalOvertoppingDischargePropertyIndex = 11;
-        private const int floodedCulvertProbabilityOpenOrFrequencyStructureBeforeFloodingPropertyIndex = 12;
+        private const int floodedCulvertProbabilityOpenStructureBeforeFloodingPropertyIndex = 12;
         private const int floodedCulvertFailureProbabilityOpenStructurePropertyIndex = 13;
         private const int floodedCulvertFailureProbabilityReparationPropertyIndex = 14;
         private const int floodedCulvertFailureProbabilityStructureWithErosionPropertyIndex = 15;
@@ -964,7 +964,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
         private const int inflowModelTypePropertyIndex = 6;
         private const int identicalAperturesPropertyIndex = 9;
-        private const int probabilityOrFrequencyOpenStructureBeforeFloodingPropertyIndex = 16;
+        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 16;
         private const int failureProbabilityOpenStructurePropertyIndex = 17;
         private const int failureProbabilityReparationPropertyIndex = 18;
 

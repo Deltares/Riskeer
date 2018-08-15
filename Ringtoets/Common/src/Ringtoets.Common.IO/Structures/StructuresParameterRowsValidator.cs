@@ -118,7 +118,7 @@ namespace Ringtoets.Common.IO.Structures
                     StructureFilesKeywords.ClosingStructureParameterKeyword10, LogNormalDistributionRule
                 },
                 {
-                    StructureFilesKeywords.ClosingStructureParameterKeyword11, PositiveDoubleRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword11, ProbabilityRule
                 },
                 {
                     StructureFilesKeywords.ClosingStructureParameterKeyword12, ProbabilityRule
@@ -195,7 +195,7 @@ namespace Ringtoets.Common.IO.Structures
                     StructureFilesKeywords.StabilityPointStructureParameterKeyword19, VariationCoefficientNormalDistributionRule
                 },
                 {
-                    StructureFilesKeywords.StabilityPointStructureParameterKeyword20, PositiveDoubleRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword20, PositiveIntRule
                 },
                 {
                     StructureFilesKeywords.StabilityPointStructureParameterKeyword21, ProbabilityRule
@@ -406,6 +406,11 @@ namespace Ringtoets.Common.IO.Structures
             return ValidatePositiveDoubleParameter(row, StructureFilesKeywords.NumericalValueColumnName);
         }
 
+        private static List<string> PositiveIntRule(StructuresParameterRow row)
+        {
+            return ValidatePositiveIntParameter(row, StructureFilesKeywords.NumericalValueColumnName);
+        }
+
         private static List<string> ValidateDoubleParameter(StructuresParameterRow row, string columnName)
         {
             var messages = new List<string>();
@@ -428,6 +433,20 @@ namespace Ringtoets.Common.IO.Structures
             if (double.IsNaN(value) || double.IsInfinity(value) || value < 0)
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_must_be_a_positive_number,
+                                           row.ParameterId, row.LineNumber, columnName.FirstToUpper()));
+            }
+
+            return messages;
+        }
+
+        private static List<string> ValidatePositiveIntParameter(StructuresParameterRow row, string columnName)
+        {
+            var messages = new List<string>();
+
+            double value = GetValueFromRowForColumn(row, columnName);
+            if (!IsValueWholeNumber(value) || value < 0)
+            {
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_positive_whole_number,
                                            row.ParameterId, row.LineNumber, columnName.FirstToUpper()));
             }
 
@@ -564,9 +583,9 @@ namespace Ringtoets.Common.IO.Structures
         {
             var messages = new List<string>();
             double value = row.NumericalValue;
-            if (!IsValueWholeNumber(value) || value < 0)
+            if (!IsValueWholeNumber(value) || value < 1)
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_positive_whole_number,
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_whole_number_greater_or_equal_to_one,
                                            row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstToUpper()));
             }
             return messages;

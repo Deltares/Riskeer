@@ -776,7 +776,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             Assert.AreEqual(readStructure.FailureProbabilityReparation, structure.FailureProbabilityReparation);
             Assert.AreEqual(readStructure.IdenticalApertures, structure.IdenticalApertures);
             Assert.AreEqual(readStructure.InflowModelType, structure.InflowModelType);
-            Assert.AreEqual(readStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding, structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(readStructure.ProbabilityOpenStructureBeforeFlooding, structure.ProbabilityOpenStructureBeforeFlooding);
 
             DistributionAssert.AreEqual(readStructure.FlowWidthAtBottomProtection, structure.FlowWidthAtBottomProtection);
             DistributionAssert.AreEqual(readStructure.InsideWaterLevel, structure.InsideWaterLevel);

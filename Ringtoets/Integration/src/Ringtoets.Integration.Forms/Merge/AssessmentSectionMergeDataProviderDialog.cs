@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Forms.Merge
                                                  Resources.FailureMechanism_Name_DisplayName,
                                                  true);
             dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsRelevant),
-                                                  Resources.FailureMechanismMergeDataRow_IsRelevant_DisplayName,
+                                                  Resources.FailureMechanism_IsRelevant_DisplayName,
                                                   true);
             dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.HasSections),
                                                   Resources.FailureMechanismMergeDataRow_HasSections_DisplayName,

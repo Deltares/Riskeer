@@ -88,9 +88,9 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleInflowModelTypes.xml",
                                               "Element 'instroommodel' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleInflowModelTypes");
-                yield return new TestCaseData("invalidCalculationMultipleProbabilityOrFrequencyOpenStructureBeforeFlooding.xml",
+                yield return new TestCaseData("invalidCalculationMultipleProbabilityOpenStructureBeforeFlooding.xml",
                                               "Element 'kansopopenstaan' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleProbabilityOrFrequencyOpenStructureBeforeFlooding");
+                    .SetName("invalidCalculationMultipleProbabilityOpenStructureBeforeFlooding");
 
                 yield return new TestCaseData("invalidCalculationOrientationEmpty.xml",
                                               "The 'orientatie' element is invalid - The value '' is invalid according to its datatype 'Double'")
@@ -124,12 +124,12 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                                               "The 'faalkansherstel' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
                     .SetName("invalidCalculationFailureProbabilityReparationNoDouble");
 
-                yield return new TestCaseData("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingEmpty.xml",
+                yield return new TestCaseData("invalidCalculationProbabilityOpenStructureBeforeFloodingEmpty.xml",
                                               "The 'kansopopenstaan' element is invalid - The value '' is invalid according to its datatype 'Double'")
-                    .SetName("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingEmpty");
-                yield return new TestCaseData("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingNoDouble.xml",
+                    .SetName("invalidCalculationProbabilityOpenStructureBeforeFloodingEmpty");
+                yield return new TestCaseData("invalidCalculationProbabilityOpenStructureBeforeFloodingNoDouble.xml",
                                               "The 'kansopopenstaan' element is invalid - The value 'nul' is invalid according to its datatype 'Double'")
-                    .SetName("invalidCalculationProbabilityOrFrequencyOpenStructureBeforeFloodingNoDouble");
+                    .SetName("invalidCalculationProbabilityOpenStructureBeforeFloodingNoDouble");
 
                 yield return new TestCaseData("invalidCalculationIdenticalAperturesEmpty.xml",
                                               "The 'nrdoorstroomopeningen' element is invalid - The value '' is invalid according to its datatype 'Integer'")
@@ -348,7 +348,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
             Assert.AreEqual("profiel1", calculation.ForeshoreProfileId);
             Assert.AreEqual(0.002, calculation.FactorStormDurationOpenStructure);
-            Assert.AreEqual(0.03, calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(0.03, calculation.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(0.22, calculation.FailureProbabilityOpenStructure);
             Assert.AreEqual(0.0006, calculation.FailureProbabilityReparation);
             Assert.AreEqual(0.001, calculation.FailureProbabilityStructureWithErosion);
@@ -405,7 +405,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.ForeshoreProfileId);
             Assert.IsTrue(double.IsPositiveInfinity(calculation.FactorStormDurationOpenStructure.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.ProbabilityOpenStructureBeforeFlooding.Value));
             Assert.IsTrue(double.IsNegativeInfinity(calculation.FailureProbabilityOpenStructure.Value));
             Assert.IsTrue(double.IsNegativeInfinity(calculation.FailureProbabilityReparation.Value));
             Assert.IsTrue(double.IsNegativeInfinity(calculation.FailureProbabilityStructureWithErosion.Value));
@@ -460,7 +460,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.ForeshoreProfileId);
             Assert.IsNaN(calculation.FactorStormDurationOpenStructure);
-            Assert.IsNaN(calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.IsNaN(calculation.ProbabilityOpenStructureBeforeFlooding);
             Assert.IsNaN(calculation.FailureProbabilityOpenStructure);
             Assert.IsNaN(calculation.FailureProbabilityReparation);
             Assert.IsNaN(calculation.FailureProbabilityStructureWithErosion);
@@ -521,7 +521,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(calculation.IdenticalApertures);
             Assert.IsNull(calculation.InflowModelType);
             Assert.IsNull(calculation.FactorStormDurationOpenStructure);
-            Assert.IsNull(calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.IsNull(calculation.ProbabilityOpenStructureBeforeFlooding);
 
             Assert.IsNull(calculation.AreaFlowApertures);
             Assert.IsNull(calculation.DrainCoefficient);
@@ -571,7 +571,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(calculation.IdenticalApertures);
             Assert.IsNull(calculation.InflowModelType);
             Assert.IsNull(calculation.FactorStormDurationOpenStructure);
-            Assert.IsNull(calculation.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.IsNull(calculation.ProbabilityOpenStructureBeforeFlooding);
 
             Assert.IsNull(calculation.AreaFlowApertures.Mean);
             Assert.IsNull(calculation.AreaFlowApertures.StandardDeviation);

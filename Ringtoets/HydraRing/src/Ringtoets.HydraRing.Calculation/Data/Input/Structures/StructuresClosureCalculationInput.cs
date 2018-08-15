@@ -48,7 +48,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double failureProbabilityStructureWithErosion;
         private readonly double stormDurationMean;
         private readonly double stormDurationVariation;
-        private readonly double probabilityOrFrequencyOpenStructureBeforeFlooding;
+        private readonly double probabilityOpenStructureBeforeFlooding;
 
         /// <summary>
         /// Creates a new instance of <see cref="StructuresClosureCalculationInput"/>.
@@ -76,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="failureProbabilityStructureWithErosion">The failure probability structure with erosion.</param>
         /// <param name="stormDurationMean">The mean of the storm duration.</param>
         /// <param name="stormDurationVariation">The variation of the storm duration.</param>
-        /// <param name="probabilityOrFrequencyOpenStructureBeforeFlooding">The probability or frequency of an open structure before flooding.</param>
+        /// <param name="probabilityOpenStructureBeforeFlooding">The probability of an open structure before flooding.</param>
         protected StructuresClosureCalculationInput(long hydraulicBoundaryLocationId,
                                                     double sectionNormal,
                                                     IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -94,7 +94,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                     double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeVariation,
                                                     double failureProbabilityStructureWithErosion,
                                                     double stormDurationMean, double stormDurationVariation,
-                                                    double probabilityOrFrequencyOpenStructureBeforeFlooding)
+                                                    double probabilityOpenStructureBeforeFlooding)
             : base(hydraulicBoundaryLocationId)
         {
             Section = new HydraRingSection(1, double.NaN, sectionNormal);
@@ -119,7 +119,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.failureProbabilityStructureWithErosion = failureProbabilityStructureWithErosion;
             this.stormDurationMean = stormDurationMean;
             this.stormDurationVariation = stormDurationVariation;
-            this.probabilityOrFrequencyOpenStructureBeforeFlooding = probabilityOrFrequencyOpenStructureBeforeFlooding;
+            this.probabilityOpenStructureBeforeFlooding = probabilityOpenStructureBeforeFlooding;
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.StructuresClosure;
@@ -145,7 +145,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new LogNormalHydraRingVariable(104, HydraRingDeviationType.Variation, criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation);
                 yield return new DeterministicHydraRingVariable(105, failureProbabilityStructureWithErosion);
                 yield return new LogNormalHydraRingVariable(108, HydraRingDeviationType.Variation, stormDurationMean, stormDurationVariation);
-                yield return new DeterministicHydraRingVariable(129, probabilityOrFrequencyOpenStructureBeforeFlooding);
+                yield return new DeterministicHydraRingVariable(129, probabilityOpenStructureBeforeFlooding);
             }
         }
 

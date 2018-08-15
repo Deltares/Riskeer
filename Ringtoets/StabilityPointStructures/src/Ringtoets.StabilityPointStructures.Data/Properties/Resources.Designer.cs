@@ -40,7 +40,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -114,6 +114,24 @@ namespace Ringtoets.StabilityPointStructures.Data.Properties {
         public static string StabilityPointStructuresFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("StabilityPointStructuresFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde voor aantal nivelleringen per jaar moet groter of gelijk zijn aan 0..
+        /// </summary>
+        public static string StabilityPointStructuresInput_LevellingCount_must_be_equal_or_greater_to_zero {
+            get {
+                return ResourceManager.GetString("StabilityPointStructuresInput_LevellingCount_must_be_equal_or_greater_to_zero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde voor afstand onderkant wand en teen dijk moet groter of gelijk zijn aan 0..
+        /// </summary>
+        public static string StabilityPointStructuresInput_VerticalDistance_must_be_equal_or_greater_to_zero {
+            get {
+                return ResourceManager.GetString("StabilityPointStructuresInput_VerticalDistance_must_be_equal_or_greater_to_zero", resourceCulture);
             }
         }
     }

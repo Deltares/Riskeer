@@ -569,7 +569,7 @@ namespace Demo.Ringtoets.Commands
                         Mean = (RoundedDouble) 25.0,
                         StandardDeviation = (RoundedDouble) 0.05
                     },
-                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = 1.0,
+                    ProbabilityOpenStructureBeforeFlooding = 1.0,
                     FailureProbabilityOpenStructure = 0.1,
                     IdenticalApertures = 4,
                     FailureProbabilityReparation = 1.0,

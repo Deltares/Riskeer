@@ -129,4 +129,10 @@
   <data name="StabilityPointStructuresFailureMechanism_DisplayName" xml:space="preserve">
     <value>Kunstwerken - Sterkte en stabiliteit puntconstructies</value>
   </data>
+  <data name="StabilityPointStructuresInput_VerticalDistance_must_be_equal_or_greater_to_zero" xml:space="preserve">
+    <value>De waarde voor afstand onderkant wand en teen dijk moet groter of gelijk zijn aan 0.</value>
+  </data>
+  <data name="StabilityPointStructuresInput_LevellingCount_must_be_equal_or_greater_to_zero" xml:space="preserve">
+    <value>De waarde voor aantal nivelleringen per jaar moet groter of gelijk zijn aan 0.</value>
+  </data>
 </root>

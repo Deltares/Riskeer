@@ -120,13 +120,13 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void GetContributingFailureMechanisms_Always_ReturnEmpty()
+        public void GetFailureMechanisms_Always_ReturnEmpty()
         {
             // Setup 
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            IEnumerable<IFailureMechanism> failureMechanism = assessmentSection.GetContributingFailureMechanisms();
+            IEnumerable<IFailureMechanism> failureMechanism = assessmentSection.GetFailureMechanisms();
 
             // Assert 
             CollectionAssert.IsEmpty(failureMechanism);

@@ -2664,7 +2664,8 @@ namespace Ringtoets.Storage.Core.Test.Read
                         new ClosingStructuresCalculationEntity
                         {
                             Name = "B",
-                            Order = 0
+                            Order = 0,
+                            IdenticalApertures = 1
                         }
                     }
                 },

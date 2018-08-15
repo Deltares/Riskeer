@@ -90,7 +90,7 @@
           <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="real" />
           <Property Name="FlowWidthAtBottomProtectionMean" Type="real" />
           <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="real" />
-          <Property Name="ProbabilityOrFrequencyOpenStructureBeforeFlooding" Type="real" />
+          <Property Name="ProbabilityOpenStructureBeforeFlooding" Type="real" />
           <Property Name="FailureProbabilityOpenStructure" Type="real" />
           <Property Name="IdenticalApertures" Type="int" Nullable="false" />
           <Property Name="FailureProbabilityReparation" Type="real" />
@@ -132,7 +132,7 @@
           <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="real" />
           <Property Name="FlowWidthAtBottomProtectionMean" Type="real" />
           <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="real" />
-          <Property Name="ProbabilityOrFrequencyOpenStructureBeforeFlooding" Type="real" Nullable="false" />
+          <Property Name="ProbabilityOpenStructureBeforeFlooding" Type="real" Nullable="false" />
           <Property Name="FailureProbabilityOpenStructure" Type="real" Nullable="false" />
           <Property Name="IdenticalApertures" Type="int" Nullable="false" />
           <Property Name="FailureProbabilityReparation" Type="real" Nullable="false" />
@@ -4888,7 +4888,7 @@
           <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="Double" />
           <Property Name="FlowWidthAtBottomProtectionMean" Type="Double" />
           <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="Double" />
-          <Property Name="ProbabilityOrFrequencyOpenStructureBeforeFlooding" Type="Double" />
+          <Property Name="ProbabilityOpenStructureBeforeFlooding" Type="Double" />
           <Property Name="FailureProbabilityOpenStructure" Type="Double" />
           <Property Name="IdenticalApertures" Type="Int32" Nullable="false" />
           <Property Name="FailureProbabilityReparation" Type="Double" />
@@ -4932,7 +4932,7 @@
           <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="Double" />
           <Property Name="FlowWidthAtBottomProtectionMean" Type="Double" />
           <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="Double" />
-          <Property Name="ProbabilityOrFrequencyOpenStructureBeforeFlooding" Type="Double" Nullable="false" />
+          <Property Name="ProbabilityOpenStructureBeforeFlooding" Type="Double" Nullable="false" />
           <Property Name="FailureProbabilityOpenStructure" Type="Double" Nullable="false" />
           <Property Name="IdenticalApertures" Type="Int32" Nullable="false" />
           <Property Name="FailureProbabilityReparation" Type="Double" Nullable="false" />
@@ -8372,7 +8372,7 @@
                 <ScalarProperty Name="FailureProbabilityReparation" ColumnName="FailureProbabilityReparation" />
                 <ScalarProperty Name="IdenticalApertures" ColumnName="IdenticalApertures" />
                 <ScalarProperty Name="FailureProbabilityOpenStructure" ColumnName="FailureProbabilityOpenStructure" />
-                <ScalarProperty Name="ProbabilityOrFrequencyOpenStructureBeforeFlooding" ColumnName="ProbabilityOrFrequencyOpenStructureBeforeFlooding" />
+                <ScalarProperty Name="ProbabilityOpenStructureBeforeFlooding" ColumnName="ProbabilityOpenStructureBeforeFlooding" />
                 <ScalarProperty Name="FlowWidthAtBottomProtectionStandardDeviation" ColumnName="FlowWidthAtBottomProtectionStandardDeviation" />
                 <ScalarProperty Name="FlowWidthAtBottomProtectionMean" ColumnName="FlowWidthAtBottomProtectionMean" />
                 <ScalarProperty Name="CriticalOvertoppingDischargeCoefficientOfVariation" ColumnName="CriticalOvertoppingDischargeCoefficientOfVariation" />
@@ -8416,7 +8416,7 @@
                 <ScalarProperty Name="FailureProbabilityReparation" ColumnName="FailureProbabilityReparation" />
                 <ScalarProperty Name="IdenticalApertures" ColumnName="IdenticalApertures" />
                 <ScalarProperty Name="FailureProbabilityOpenStructure" ColumnName="FailureProbabilityOpenStructure" />
-                <ScalarProperty Name="ProbabilityOrFrequencyOpenStructureBeforeFlooding" ColumnName="ProbabilityOrFrequencyOpenStructureBeforeFlooding" />
+                <ScalarProperty Name="ProbabilityOpenStructureBeforeFlooding" ColumnName="ProbabilityOpenStructureBeforeFlooding" />
                 <ScalarProperty Name="FlowWidthAtBottomProtectionStandardDeviation" ColumnName="FlowWidthAtBottomProtectionStandardDeviation" />
                 <ScalarProperty Name="FlowWidthAtBottomProtectionMean" ColumnName="FlowWidthAtBottomProtectionMean" />
                 <ScalarProperty Name="CriticalOvertoppingDischargeCoefficientOfVariation" ColumnName="CriticalOvertoppingDischargeCoefficientOfVariation" />

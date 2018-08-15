@@ -489,6 +489,8 @@ namespace Ringtoets.Migration.Test
                 migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
                 migrationLog.AppendLine("  + Toetsspoor: 'Wateroverdruk bij asfaltbekleding'");
                 migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'");
+                migrationLog.AppendLine("    - De waarde van '0' van parameter 'Aantal identieke doorstroomopeningen' van berekening 'Nieuwe berekening' is ongeldig en is veranderd naar 1.");
                 migrationLog.AppendLine("  + Toetsspoor: 'Macrostabiliteit buitenwaarts'");
                 migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
                 migrationLog.AppendLine("  + Toetsspoor: 'Golfklappen op asfaltbekleding'");

@@ -77,7 +77,7 @@ namespace Ringtoets.Storage.Core.Create.ClosingStructures
                 CriticalOvertoppingDischargeCoefficientOfVariation = structure.CriticalOvertoppingDischarge.CoefficientOfVariation.ToNaNAsNull(),
                 FlowWidthAtBottomProtectionMean = structure.FlowWidthAtBottomProtection.Mean.ToNaNAsNull(),
                 FlowWidthAtBottomProtectionStandardDeviation = structure.FlowWidthAtBottomProtection.StandardDeviation.ToNaNAsNull(),
-                ProbabilityOrFrequencyOpenStructureBeforeFlooding = structure.ProbabilityOrFrequencyOpenStructureBeforeFlooding.ToNaNAsNull(),
+                ProbabilityOpenStructureBeforeFlooding = structure.ProbabilityOpenStructureBeforeFlooding.ToNaNAsNull(),
                 FailureProbabilityOpenStructure = structure.FailureProbabilityOpenStructure.ToNaNAsNull(),
                 IdenticalApertures = structure.IdenticalApertures,
                 FailureProbabilityReparation = structure.FailureProbabilityReparation.ToNaNAsNull(),

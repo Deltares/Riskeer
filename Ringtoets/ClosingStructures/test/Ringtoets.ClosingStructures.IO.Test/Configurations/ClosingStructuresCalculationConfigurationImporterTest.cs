@@ -80,7 +80,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("validConfigurationInflowModelTypeWithoutStructure.xml",
                                               "Er is geen kunstwerk opgegeven om instroommodel aan toe te voegen.")
                     .SetName(testNameFormat);
-                yield return new TestCaseData("validConfigurationProbabilityOrFrequencyOpenStructureWithoutStructure.xml",
+                yield return new TestCaseData("validConfigurationProbabilityOpenStructureWithoutStructure.xml",
                                               "Er is geen kunstwerk opgegeven om kans op open staan bij naderend hoogwater aan toe te voegen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData("validConfigurationOrientationWithoutStructure.xml",
@@ -89,7 +89,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("validConfigurationInvalidFailureProbabilityStructureErosion.xml",
                                               "Een waarde van '1,1' als faalkans gegeven erosie bodem is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")
                     .SetName(testNameFormat);
-                yield return new TestCaseData("validConfigurationInvalidProbabilityOrFrequencyOpenStructureBeforeFlooding.xml",
+                yield return new TestCaseData("validConfigurationInvalidProbabilityOpenStructureBeforeFlooding.xml",
                                               "Een waarde van '-1,2' als kans op open staan bij naderend hoogwater is ongeldig. De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")
                     .SetName(testNameFormat);
                 yield return new TestCaseData("validConfigurationInvalidFailureProbabilityOpenStructure.xml",
@@ -401,7 +401,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                     InflowModelType = ClosingStructureInflowModelType.VerticalWall,
                     FailureProbabilityStructureWithErosion = 0.001,
                     FactorStormDurationOpenStructure = (RoundedDouble) 0.002,
-                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = 0.03,
+                    ProbabilityOpenStructureBeforeFlooding = 0.03,
                     FailureProbabilityOpenStructure = 0.22,
                     FailureProbabilityReparation = 0.0006,
                     ShouldIllustrationPointsBeCalculated = true,
@@ -759,7 +759,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.InputParameters.FailureProbabilityReparation, actualCalculation.InputParameters.FailureProbabilityReparation);
             Assert.AreEqual(expectedCalculation.InputParameters.IdenticalApertures, actualCalculation.InputParameters.IdenticalApertures);
             Assert.AreEqual(expectedCalculation.InputParameters.InflowModelType, actualCalculation.InputParameters.InflowModelType);
-            Assert.AreEqual(expectedCalculation.InputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding, actualCalculation.InputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(expectedCalculation.InputParameters.ProbabilityOpenStructureBeforeFlooding, actualCalculation.InputParameters.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreSame(expectedCalculation.InputParameters.ForeshoreProfile, actualCalculation.InputParameters.ForeshoreProfile);
             Assert.AreEqual(expectedCalculation.InputParameters.ShouldIllustrationPointsBeCalculated, actualCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             Assert.AreSame(expectedCalculation.InputParameters.Structure, actualCalculation.InputParameters.Structure);

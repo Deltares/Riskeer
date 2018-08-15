@@ -50,7 +50,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             Assert.AreEqual(original.FactorStormDurationOpenStructure, clone.FactorStormDurationOpenStructure);
             Assert.AreEqual(original.FailureProbabilityOpenStructure, clone.FailureProbabilityOpenStructure);
             Assert.AreEqual(original.FailureProbabilityReparation, clone.FailureProbabilityReparation);
-            Assert.AreEqual(original.ProbabilityOrFrequencyOpenStructureBeforeFlooding, clone.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(original.ProbabilityOpenStructureBeforeFlooding, clone.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(original.DeviationWaveDirection, clone.DeviationWaveDirection);
             Assert.AreEqual(original.InflowModelType, clone.InflowModelType);
             Assert.AreEqual(original.IdenticalApertures, clone.IdenticalApertures);

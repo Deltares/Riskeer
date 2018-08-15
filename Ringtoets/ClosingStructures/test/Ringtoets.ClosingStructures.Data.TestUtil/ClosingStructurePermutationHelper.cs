@@ -291,11 +291,11 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             yield return new TestCaseData(new ClosingStructure(differentInflowModelTypeConstructionProperties))
                 .SetName($"{targetName}_DifferentInflowModelType_{testResultDescription}");
 
-            ClosingStructure.ConstructionProperties differentProbabilityOrFrequencyOpenStructureBeforeFloodingConstructionProperties =
+            ClosingStructure.ConstructionProperties differentProbabilityOpenStructureBeforeFloodingConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
-            differentProbabilityOrFrequencyOpenStructureBeforeFloodingConstructionProperties.ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextDouble();
-            yield return new TestCaseData(new ClosingStructure(differentProbabilityOrFrequencyOpenStructureBeforeFloodingConstructionProperties))
-                .SetName($"{targetName}_DifferentProbabilityOrFrequencyOpenStructureBeforeFlooding_{testResultDescription}");
+            differentProbabilityOpenStructureBeforeFloodingConstructionProperties.ProbabilityOpenStructureBeforeFlooding = random.NextDouble();
+            yield return new TestCaseData(new ClosingStructure(differentProbabilityOpenStructureBeforeFloodingConstructionProperties))
+                .SetName($"{targetName}_DifferentProbabilityOpenStructureBeforeFlooding_{testResultDescription}");
 
             ClosingStructure.ConstructionProperties differentStructureNormalOrientationConstructionProperties =
                 CreateTestClosingStructureConstructionProperties();
@@ -362,7 +362,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                 FailureProbabilityOpenStructure = referenceStructure.FailureProbabilityOpenStructure,
                 IdenticalApertures = referenceStructure.IdenticalApertures,
                 InflowModelType = referenceStructure.InflowModelType,
-                ProbabilityOrFrequencyOpenStructureBeforeFlooding = referenceStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding,
+                ProbabilityOpenStructureBeforeFlooding = referenceStructure.ProbabilityOpenStructureBeforeFlooding,
                 StructureNormalOrientation = referenceStructure.StructureNormalOrientation
             };
         }

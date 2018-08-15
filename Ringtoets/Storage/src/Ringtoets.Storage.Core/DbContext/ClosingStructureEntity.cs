@@ -67,7 +67,7 @@ namespace Ringtoets.Storage.Core.DbContext
         public double? CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
         public double? FlowWidthAtBottomProtectionMean { get; set; }
         public double? FlowWidthAtBottomProtectionStandardDeviation { get; set; }
-        public double? ProbabilityOrFrequencyOpenStructureBeforeFlooding { get; set; }
+        public double? ProbabilityOpenStructureBeforeFlooding { get; set; }
         public double? FailureProbabilityOpenStructure { get; set; }
         public int IdenticalApertures { get; set; }
         public double? FailureProbabilityReparation { get; set; }

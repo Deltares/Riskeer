@@ -961,20 +961,63 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void VerticalDistance_Always_ExpectedValues()
+        [TestCase(double.NaN)]
+        [TestCase(0)]
+        public void VerticalDistance_ValidValue_ExpectedValues(double verticalDistance)
         {
             // Setup 
-            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            var verticalDistance = new RoundedDouble(5, random.NextDouble());
 
             // Call
-            input.VerticalDistance = verticalDistance;
+            input.VerticalDistance = (RoundedDouble) verticalDistance;
 
             // Assert
             Assert.AreEqual(2, input.VerticalDistance.NumberOfDecimalPlaces);
             AssertAreEqual(verticalDistance, input.VerticalDistance);
         }
+
+        [Test]
+        public void VerticalDistance_InvalidValue_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.VerticalDistance = (RoundedDouble) (-0.01);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                call, "De waarde voor afstand onderkant wand en teen dijk moet groter of gelijk zijn aan 0.");
+        }
+
+        [Test]
+        public void LevellingCount_ValidValue_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+            int levellingCount = new Random(21).Next(0, int.MaxValue);
+
+            // Call
+            input.LevellingCount = levellingCount;
+
+            // Assert
+            Assert.AreEqual(levellingCount, input.LevellingCount);
+        }
+
+        [Test]
+        public void LevellingCount_InvalidValue_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.LevellingCount = -1;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                call, "De waarde voor aantal nivelleringen per jaar moet groter of gelijk zijn aan 0.");
+        }
+
 
         #endregion
 

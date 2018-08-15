@@ -192,18 +192,18 @@ namespace Ringtoets.ClosingStructures.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kans op open staan bij naderend hoogwater..
         /// </summary>
-        public static string ProbabilityOrFrequencyOpenStructureBeforeFlooding_Description {
+        public static string ProbabilityOpenStructureBeforeFlooding_Description {
             get {
-                return ResourceManager.GetString("ProbabilityOrFrequencyOpenStructureBeforeFlooding_Description", resourceCulture);
+                return ResourceManager.GetString("ProbabilityOpenStructureBeforeFlooding_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kans op open staan bij naderend hoogwater [1/jaar].
         /// </summary>
-        public static string ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName {
+        public static string ProbabilityOpenStructureBeforeFlooding_DisplayName {
             get {
-                return ResourceManager.GetString("ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName", resourceCulture);
+                return ResourceManager.GetString("ProbabilityOpenStructureBeforeFlooding_DisplayName", resourceCulture);
             }
         }
     }

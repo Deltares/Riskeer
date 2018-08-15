@@ -170,10 +170,10 @@ namespace Ringtoets.Common.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to kans op open staan bij naderend hoogwater.
         /// </summary>
-        public static string CalculationConfigurationImporter_ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName {
+        public static string CalculationConfigurationImporter_ProbabilityOpenStructureBeforeFlooding_DisplayName {
             get {
-                return ResourceManager.GetString("CalculationConfigurationImporter_ProbabilityOrFrequencyOpenStructureBeforeFloodin" +
-                        "g_DisplayName", resourceCulture);
+                return ResourceManager.GetString("CalculationConfigurationImporter_ProbabilityOpenStructureBeforeFlooding_DisplayNa" +
+                        "me", resourceCulture);
             }
         }
         
@@ -2202,6 +2202,16 @@ namespace Ringtoets.Common.IO.Properties {
             get {
                 return ResourceManager.GetString("StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_" +
                         "positive_whole_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet een geheel getal zijn groter of gelijk aan 1..
+        /// </summary>
+        public static string StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_whole_number_greater_or_equal_to_one {
+            get {
+                return ResourceManager.GetString("StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_" +
+                        "whole_number_greater_or_equal_to_one", resourceCulture);
             }
         }
         

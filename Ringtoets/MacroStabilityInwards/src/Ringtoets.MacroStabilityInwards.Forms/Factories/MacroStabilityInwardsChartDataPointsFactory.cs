@@ -638,6 +638,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                     }
                     else if (Math.Abs(waternetBottomDelta) < tolerance && waternetTopDelta > 0)
                     {
+                        bottomLine.Add(surfaceLineIntersection);
                         topLine.Add(surfaceLineIntersection);
                     }
                 }
@@ -647,8 +648,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             if (AreaIsNotFlatLine(topLine, bottomLine))
             {
                 area.AddRange(topLine);
-                area.AddRange(bottomLine.OrderByDescending(p => p.X));
-                if (topLine.Any())
+
+                List<Point2D> sortedBottomLine = bottomLine.OrderByDescending(p => p.X).ToList();
+                if (sortedBottomLine.First().Equals(topLine.Last()))
+                {
+                    sortedBottomLine.Remove(sortedBottomLine.First());
+                }
+
+                area.AddRange(sortedBottomLine);
+                if (topLine.Any() && !area.Last().Equals(topLine.First()))
                 {
                     area.Add(topLine.First());
                 }

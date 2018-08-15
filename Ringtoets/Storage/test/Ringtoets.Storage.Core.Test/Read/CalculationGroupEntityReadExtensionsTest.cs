@@ -1146,12 +1146,14 @@ namespace Ringtoets.Storage.Core.Test.Read
                     new ClosingStructuresCalculationEntity
                     {
                         Order = 0,
-                        Name = "1"
+                        Name = "1",
+                        IdenticalApertures = 1
                     },
                     new ClosingStructuresCalculationEntity
                     {
                         Order = 1,
-                        Name = "2"
+                        Name = "2",
+                        IdenticalApertures = 1
                     }
                 }
             };
@@ -1184,12 +1186,14 @@ namespace Ringtoets.Storage.Core.Test.Read
                     new ClosingStructuresCalculationEntity
                     {
                         Order = 0,
-                        Name = "calculation1"
+                        Name = "calculation1",
+                        IdenticalApertures = 1
                     },
                     new ClosingStructuresCalculationEntity
                     {
                         Order = 2,
-                        Name = "calculation2"
+                        Name = "calculation2",
+                        IdenticalApertures = 1
                     }
                 },
                 CalculationGroupEntity1 =

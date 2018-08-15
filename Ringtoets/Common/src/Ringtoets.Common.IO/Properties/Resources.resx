@@ -426,8 +426,8 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
   <data name="StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_Range_3_" xml:space="preserve">
     <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet in het bereik {3} liggen.</value>
   </data>
-  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_positive_whole_number" xml:space="preserve">
-    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een positief geheel getal zijn.</value>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_whole_number_greater_or_equal_to_one" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een geheel getal zijn groter of gelijk aan 1.</value>
   </data>
   <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_structure_type_invalid" xml:space="preserve">
     <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een geldig kunstwerk type zijn.</value>
@@ -594,7 +594,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
   <data name="CalculationConfigurationImporter_FailureProbabilityReparation_DisplayName" xml:space="preserve">
     <value>faalkans herstel van gefaalde situatie</value>
   </data>
-  <data name="CalculationConfigurationImporter_ProbabilityOrFrequencyOpenStructureBeforeFlooding_DisplayName" xml:space="preserve">
+  <data name="CalculationConfigurationImporter_ProbabilityOpenStructureBeforeFlooding_DisplayName" xml:space="preserve">
     <value>kans op open staan bij naderend hoogwater</value>
   </data>
   <data name="CalculationConfigurationImporter_IdenticalApertures_DisplayName" xml:space="preserve">
@@ -884,5 +884,8 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   </data>
   <data name="FailureMechanismSections_TypeDescriptor" xml:space="preserve">
     <value>Vakindeling</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_positive_whole_number" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een positief geheel getal zijn.</value>
   </data>
 </root>

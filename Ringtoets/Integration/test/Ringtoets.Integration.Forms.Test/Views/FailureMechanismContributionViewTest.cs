@@ -168,7 +168,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
                 string isRelevantColumnHeaderText = dataGridView.Columns[isRelevantColumnIndex].HeaderText;
-                Assert.AreEqual("Algemeen filter", isRelevantColumnHeaderText);
+                Assert.AreEqual("Is relevant", isRelevantColumnHeaderText);
 
                 string nameColumnHeaderText = dataGridView.Columns[nameColumnIndex].HeaderText;
                 Assert.AreEqual("Toetsspoor", nameColumnHeaderText);

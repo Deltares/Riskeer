@@ -129,4 +129,7 @@
   <data name="N2A_Value_should_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor 'N2A' moet in het bereik {0} liggen.</value>
   </data>
+  <data name="ClosingStructuresInput_IdenticalApertures_must_be_equal_or_greater_to_one" xml:space="preserve">
+    <value>De waarde voor het aantal identieke openingen moet groter of gelijk zijn aan 1.</value>
+  </data>
 </root>

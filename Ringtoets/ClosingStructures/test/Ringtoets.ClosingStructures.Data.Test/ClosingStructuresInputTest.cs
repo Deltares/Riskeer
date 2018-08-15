@@ -87,8 +87,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             DistributionAssert.AreEqual(expectedAreaFlowApertures, input.AreaFlowApertures);
             DistributionAssert.AreEqual(expectedLevelCrestStructureNotClosing, input.LevelCrestStructureNotClosing);
 
-            Assert.AreEqual(1.0, input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
-            Assert.AreEqual(0, input.IdenticalApertures);
+            Assert.AreEqual(1.0, input.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(1, input.IdenticalApertures);
 
             Assert.AreEqual(0, (int) input.InflowModelType);
         }
@@ -170,8 +170,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             DistributionAssert.AreEqual(expectedAreaFlowApertures, input.AreaFlowApertures);
             DistributionAssert.AreEqual(expectedLevelCrestStructureNotClosing, input.LevelCrestStructureNotClosing);
 
-            Assert.AreEqual(1.0, input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
-            Assert.AreEqual(0, input.IdenticalApertures);
+            Assert.AreEqual(1.0, input.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(1, input.IdenticalApertures);
 
             Assert.AreEqual(0, (int) input.InflowModelType);
         }
@@ -570,13 +570,13 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [TestCase(-1e-6)]
         [TestCase(-23456)]
         [TestCase(double.NaN)]
-        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_InvalidValues_ThrowsArgumentOutOfRangeException(double probability)
+        public void ProbabilityOpenStructureBeforeFlooding_InvalidValues_ThrowsArgumentOutOfRangeException(double probability)
         {
             // Setup
             var input = new ClosingStructuresInput();
 
             // Call
-            TestDelegate call = () => input.ProbabilityOrFrequencyOpenStructureBeforeFlooding = probability;
+            TestDelegate call = () => input.ProbabilityOpenStructureBeforeFlooding = probability;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.");
@@ -586,16 +586,43 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [TestCase(0)]
         [TestCase(0.5)]
         [TestCase(1.0)]
-        public void ProbabilityOrFrequencyOpenStructureBeforeFlooding_ValidValues_ExpectedValues(double probability)
+        public void ProbabilityOpenStructureBeforeFlooding_ValidValues_ExpectedValues(double probability)
         {
             // Setup
             var input = new ClosingStructuresInput();
 
             // Call 
-            input.ProbabilityOrFrequencyOpenStructureBeforeFlooding = probability;
+            input.ProbabilityOpenStructureBeforeFlooding = probability;
 
             // Assert
-            Assert.AreEqual(probability, input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(probability, input.ProbabilityOpenStructureBeforeFlooding);
+        }
+
+        [Test]
+        public void IdenticalApertures_InvalidValue_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.IdenticalApertures = 0;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor het aantal identieke openingen moet groter of gelijk zijn aan 1.");
+        }
+
+        [Test]
+        public void IdenticalApertures_ValidValue_ExpectedValues()
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+            int newValue = new Random(21).Next(1, int.MaxValue);
+
+            // Call
+            input.IdenticalApertures = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, input.IdenticalApertures);
         }
 
         #endregion
@@ -622,7 +649,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 Assert.AreEqual(defaultInput.FailureProbabilityReparation, input.FailureProbabilityReparation);
                 Assert.AreEqual(defaultInput.IdenticalApertures, input.IdenticalApertures);
                 DistributionAssert.AreEqual(defaultInput.InsideWaterLevel, input.InsideWaterLevel);
-                Assert.AreEqual(defaultInput.ProbabilityOrFrequencyOpenStructureBeforeFlooding, input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+                Assert.AreEqual(defaultInput.ProbabilityOpenStructureBeforeFlooding, input.ProbabilityOpenStructureBeforeFlooding);
                 DistributionAssert.AreEqual(defaultInput.ThresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
             }
             else
@@ -641,7 +668,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 Assert.AreEqual(expectedClosingStructure.FailureProbabilityReparation, input.FailureProbabilityReparation);
                 Assert.AreEqual(expectedClosingStructure.IdenticalApertures, input.IdenticalApertures);
                 DistributionAssert.AreEqual(expectedClosingStructure.InsideWaterLevel, input.InsideWaterLevel);
-                Assert.AreEqual(expectedClosingStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding, input.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+                Assert.AreEqual(expectedClosingStructure.ProbabilityOpenStructureBeforeFlooding, input.ProbabilityOpenStructureBeforeFlooding);
                 DistributionAssert.AreEqual(expectedClosingStructure.ThresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
             }
         }

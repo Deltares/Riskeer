@@ -60,7 +60,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double failureProbabilityStructureWithErosion = 17.7;
             const double stormDurationMean = 18.8;
             const double stormDurationVariation = 19.9;
-            const double probabilityOrFrequencyOpenStructureBeforeFlooding = 20.0;
+            const double probabilityOpenStructureBeforeFlooding = 20.0;
             const double drainCoefficientMean = 21.1;
             const double drainCoefficientStandardDeviation = 22.2;
             const double areaFlowAperturesMean = 23.3;
@@ -85,7 +85,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                             criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                                                                             failureProbabilityStructureWithErosion,
                                                                             stormDurationMean, stormDurationVariation,
-                                                                            probabilityOrFrequencyOpenStructureBeforeFlooding,
+                                                                            probabilityOpenStructureBeforeFlooding,
                                                                             drainCoefficientMean, drainCoefficientStandardDeviation,
                                                                             areaFlowAperturesMean, areaFlowAperturesStandardDeviation,
                                                                             insideWaterLevelMean, insideWaterLevelStandardDeviation);

@@ -57,7 +57,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             DistributionAssert.AreEqual(referenceStructure.AreaFlowApertures, calculation.InputParameters.AreaFlowApertures);
             DistributionAssert.AreEqual(referenceStructure.CriticalOvertoppingDischarge, calculation.InputParameters.CriticalOvertoppingDischarge);
             DistributionAssert.AreEqual(referenceStructure.FlowWidthAtBottomProtection, calculation.InputParameters.FlowWidthAtBottomProtection);
-            Assert.AreEqual(referenceStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding, calculation.InputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding);
+            Assert.AreEqual(referenceStructure.ProbabilityOpenStructureBeforeFlooding, calculation.InputParameters.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(referenceStructure.FailureProbabilityOpenStructure, calculation.InputParameters.FailureProbabilityOpenStructure);
             Assert.AreEqual(referenceStructure.IdenticalApertures, calculation.InputParameters.IdenticalApertures);
             Assert.AreEqual(referenceStructure.FailureProbabilityOpenStructure, calculation.InputParameters.FailureProbabilityOpenStructure);

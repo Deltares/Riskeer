@@ -86,7 +86,7 @@ namespace Ringtoets.ClosingStructures.Data
                 Mean = constructionProperties.FlowWidthAtBottomProtection.Mean,
                 StandardDeviation = constructionProperties.FlowWidthAtBottomProtection.StandardDeviation
             };
-            ProbabilityOrFrequencyOpenStructureBeforeFlooding = constructionProperties.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
+            ProbabilityOpenStructureBeforeFlooding = constructionProperties.ProbabilityOpenStructureBeforeFlooding;
             FailureProbabilityOpenStructure = constructionProperties.FailureProbabilityOpenStructure;
             IdenticalApertures = constructionProperties.IdenticalApertures;
             FailureProbabilityReparation = constructionProperties.FailureProbabilityReparation;
@@ -148,13 +148,10 @@ namespace Ringtoets.ClosingStructures.Data
         public LogNormalDistribution FlowWidthAtBottomProtection { get; }
 
         /// <summary>
-        /// Gets the probability or frequency of the closing structure being open before flooding.
+        /// Gets the probability of the closing structure being open before flooding.
         /// [1/year]
         /// </summary>
-        /// <remarks>Because this property can also be used to denote a frequency, there
-        /// is no guarantee that this property returns a value in the range [0.0, 1.0]
-        /// nor that formal rules of probability apply.</remarks>
-        public double ProbabilityOrFrequencyOpenStructureBeforeFlooding { get; private set; }
+        public double ProbabilityOpenStructureBeforeFlooding { get; private set; }
 
         /// <summary>
         /// Gets the probability of failing to close the closing structure.
@@ -216,7 +213,7 @@ namespace Ringtoets.ClosingStructures.Data
             LevelCrestStructureNotClosing.Mean = fromStructure.LevelCrestStructureNotClosing.Mean;
             LevelCrestStructureNotClosing.StandardDeviation = fromStructure.LevelCrestStructureNotClosing.StandardDeviation;
 
-            ProbabilityOrFrequencyOpenStructureBeforeFlooding = fromStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
+            ProbabilityOpenStructureBeforeFlooding = fromStructure.ProbabilityOpenStructureBeforeFlooding;
 
             StorageStructureArea.Mean = fromStructure.StorageStructureArea.Mean;
             StorageStructureArea.CoefficientOfVariation = fromStructure.StorageStructureArea.CoefficientOfVariation;
@@ -248,7 +245,7 @@ namespace Ringtoets.ClosingStructures.Data
                 hashCode = (hashCode * 397) ^ InflowModelType.GetHashCode();
                 hashCode = (hashCode * 397) ^ InsideWaterLevel.GetHashCode();
                 hashCode = (hashCode * 397) ^ LevelCrestStructureNotClosing.GetHashCode();
-                hashCode = (hashCode * 397) ^ ProbabilityOrFrequencyOpenStructureBeforeFlooding.GetHashCode();
+                hashCode = (hashCode * 397) ^ ProbabilityOpenStructureBeforeFlooding.GetHashCode();
                 hashCode = (hashCode * 397) ^ StorageStructureArea.GetHashCode();
                 hashCode = (hashCode * 397) ^ ThresholdHeightOpenWeir.GetHashCode();
                 hashCode = (hashCode * 397) ^ WidthFlowApertures.GetHashCode();
@@ -269,7 +266,7 @@ namespace Ringtoets.ClosingStructures.Data
                    && InflowModelType.Equals(other.InflowModelType)
                    && InsideWaterLevel.Equals(other.InsideWaterLevel)
                    && LevelCrestStructureNotClosing.Equals(other.LevelCrestStructureNotClosing)
-                   && ProbabilityOrFrequencyOpenStructureBeforeFlooding.Equals(other.ProbabilityOrFrequencyOpenStructureBeforeFlooding)
+                   && ProbabilityOpenStructureBeforeFlooding.Equals(other.ProbabilityOpenStructureBeforeFlooding)
                    && StorageStructureArea.Equals(other.StorageStructureArea)
                    && ThresholdHeightOpenWeir.Equals(other.ThresholdHeightOpenWeir)
                    && WidthFlowApertures.Equals(other.WidthFlowApertures);
@@ -331,7 +328,7 @@ namespace Ringtoets.ClosingStructures.Data
                     StandardDeviation = (RoundedDouble) 0.05
                 };
 
-                ProbabilityOrFrequencyOpenStructureBeforeFlooding = 1;
+                ProbabilityOpenStructureBeforeFlooding = 1;
                 FailureProbabilityOpenStructure = 1;
                 IdenticalApertures = 1;
                 FailureProbabilityReparation = 1;
@@ -393,13 +390,10 @@ namespace Ringtoets.ClosingStructures.Data
             public LogNormalDistribution FlowWidthAtBottomProtection { get; }
 
             /// <summary>
-            /// Gets or sets the probability or frequency of the closing structure being open before flooding.
+            /// Gets or sets the probability of the closing structure being open before flooding.
             /// [1/year]
             /// </summary>
-            /// <remarks>Because this property can also be used to denote a frequency, there
-            /// is no guarantee that this property returns a value in the range [0.0, 1.0]
-            /// nor that formal rules of probability apply.</remarks>
-            public double ProbabilityOrFrequencyOpenStructureBeforeFlooding { get; set; }
+            public double ProbabilityOpenStructureBeforeFlooding { get; set; }
 
             /// <summary>
             /// Gets or sets the probability of failing to close the closing structure.

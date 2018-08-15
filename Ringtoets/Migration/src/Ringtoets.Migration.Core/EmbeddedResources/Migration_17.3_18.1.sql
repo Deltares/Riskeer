@@ -10,8 +10,177 @@ ATTACH DATABASE "{0}" AS SOURCEPROJECT;
 INSERT INTO BackgroundDataEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataEntity;
 INSERT INTO BackgroundDataMetaEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
-INSERT INTO ClosingStructureEntity SELECT * FROM [SOURCEPROJECT].ClosingStructureEntity;
-INSERT INTO ClosingStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity;
+INSERT INTO ClosingStructureEntity (
+	[ClosingStructureEntityId],
+	[FailureMechanismEntityId],
+	[Order],
+	[Name],
+	[Id],
+	[X],
+	[Y],
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[LevelCrestStructureNotClosingMean],
+	[LevelCrestStructureNotClosingStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ProbabilityOpenStructureBeforeFlooding],
+	[FailureProbabilityOpenStructure],
+	[IdenticalApertures],
+	[FailureProbabilityReparation],
+	[InflowModelType])
+SELECT
+	[ClosingStructureEntityId],
+	[FailureMechanismEntityId],
+	[Order],
+	[Name],
+	[Id],
+	[X],
+	[Y],
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[LevelCrestStructureNotClosingMean],
+	[LevelCrestStructureNotClosingStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	CASE
+		WHEN [ProbabilityOrFrequencyOpenStructureBeforeFlooding] > 1
+			THEN NULL
+		ELSE
+			[ProbabilityOrFrequencyOpenStructureBeforeFlooding]
+	END,
+	[FailureProbabilityOpenStructure],
+	CASE
+		WHEN [IdenticalApertures] = 0
+			THEN 1
+		ELSE 
+			[IdenticalApertures]
+	END,
+	[FailureProbabilityReparation],
+	[InflowModelType]
+FROM [SOURCEPROJECT].ClosingStructureEntity;
+INSERT INTO ClosingStructuresCalculationEntity (
+	[ClosingStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[ClosingStructureEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[UseForeshore],
+	[Orientation],
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[LevelCrestStructureNotClosingMean],
+	[LevelCrestStructureNotClosingStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ProbabilityOpenStructureBeforeFlooding],
+	[FailureProbabilityOpenStructure],
+	[IdenticalApertures],
+	[FailureProbabilityReparation],
+	[InflowModelType],
+	[FailureProbabilityStructureWithErosion],
+	[DeviationWaveDirection],
+	[DrainCoefficientMean],
+	[ModelFactorSuperCriticalFlowMean],
+	[StormDurationMean],
+	[FactorStormDurationOpenStructure],
+	[ShouldIllustrationPointsBeCalculated])
+SELECT
+	[ClosingStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[ClosingStructureEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[UseForeshore],
+	[Orientation],
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[LevelCrestStructureNotClosingMean],
+	[LevelCrestStructureNotClosingStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ProbabilityOrFrequencyOpenStructureBeforeFlooding],
+	[FailureProbabilityOpenStructure],
+	CASE
+		WHEN [IdenticalApertures] = 0
+			THEN 1
+		ELSE 
+			[IdenticalApertures]
+	END,
+	[FailureProbabilityReparation],
+	[InflowModelType],
+	[FailureProbabilityStructureWithErosion],
+	[DeviationWaveDirection],
+	[DrainCoefficientMean],
+	[ModelFactorSuperCriticalFlowMean],
+	[StormDurationMean],
+	[FactorStormDurationOpenStructure],
+	[ShouldIllustrationPointsBeCalculated]
+	FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity;
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity;
 INSERT INTO ClosingStructuresOutputEntity(
 	[ClosingStructuresOutputEntityId],
@@ -736,7 +905,147 @@ SELECT
 FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
-INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
+INSERT INTO StabilityPointStructuresCalculationEntity (
+	[StabilityPointStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[StabilityPointStructureEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[UseForeshore],
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ConstructiveStrengthLinearLoadModelMean],
+	[ConstructiveStrengthLinearLoadModelCoefficientOfVariation],
+	[ConstructiveStrengthQuadraticLoadModelMean],
+	[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation],
+	[BankWidthMean],
+	[BankWidthStandardDeviation],
+	[InsideWaterLevelFailureConstructionMean],
+	[InsideWaterLevelFailureConstructionStandardDeviation],
+	[EvaluationLevel],
+	[LevelCrestStructureMean],
+	[LevelCrestStructureStandardDeviation],
+	[VerticalDistance],
+	[FailureProbabilityRepairClosure],
+	[FailureCollisionEnergyMean],
+	[FailureCollisionEnergyCoefficientOfVariation],
+	[ShipMassMean],
+	[ShipMassCoefficientOfVariation],
+	[ShipVelocityMean],
+	[ShipVelocityCoefficientOfVariation],
+	[LevellingCount],
+	[ProbabilityCollisionSecondaryStructure],
+	[FlowVelocityStructureClosableMean],
+	[StabilityLinearLoadModelMean],
+	[StabilityLinearLoadModelCoefficientOfVariation],
+	[StabilityQuadraticLoadModelMean],
+	[StabilityQuadraticLoadModelCoefficientOfVariation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[InflowModelType],
+	[LoadSchematizationType],
+	[VolumicWeightWater],
+	[StormDurationMean],
+	[ModelFactorSuperCriticalFlowMean],
+	[FactorStormDurationOpenStructure],
+	[DrainCoefficientMean],
+	[FailureProbabilityStructureWithErosion],
+	[ShouldIllustrationPointsBeCalculated])
+SELECT 
+	[StabilityPointStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[StabilityPointStructureEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[UseForeshore],
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ConstructiveStrengthLinearLoadModelMean],
+	[ConstructiveStrengthLinearLoadModelCoefficientOfVariation],
+	[ConstructiveStrengthQuadraticLoadModelMean],
+	[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation],
+	[BankWidthMean],
+	[BankWidthStandardDeviation],
+	[InsideWaterLevelFailureConstructionMean],
+	[InsideWaterLevelFailureConstructionStandardDeviation],
+	[EvaluationLevel],
+	[LevelCrestStructureMean],
+	[LevelCrestStructureStandardDeviation],
+	CASE
+		WHEN [VerticalDistance] < 0
+			THEN NULL 
+		ELSE 
+			[VerticalDistance]
+	END,
+	[FailureProbabilityRepairClosure],
+	[FailureCollisionEnergyMean],
+	[FailureCollisionEnergyCoefficientOfVariation],
+	[ShipMassMean],
+	[ShipMassCoefficientOfVariation],
+	[ShipVelocityMean],
+	[ShipVelocityCoefficientOfVariation],
+	CASE 
+		WHEN [LevellingCount] < 0
+			THEN 0
+		ELSE 
+			[LevellingCount]
+	END,
+	[ProbabilityCollisionSecondaryStructure],
+	[FlowVelocityStructureClosableMean],
+	[StabilityLinearLoadModelMean],
+	[StabilityLinearLoadModelCoefficientOfVariation],
+	[StabilityQuadraticLoadModelMean],
+	[StabilityQuadraticLoadModelCoefficientOfVariation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[InflowModelType],
+	[LoadSchematizationType],
+	[VolumicWeightWater],
+	[StormDurationMean],
+	[ModelFactorSuperCriticalFlowMean],
+	[FactorStormDurationOpenStructure],
+	[DrainCoefficientMean],
+	[FailureProbabilityStructureWithErosion],
+	[ShouldIllustrationPointsBeCalculated]
+FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
 INSERT INTO StabilityPointStructuresOutputEntity(
 	[StabilityPointStructuresOutputEntityId],
@@ -2384,6 +2693,114 @@ SELECT
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
 	WHERE source.[LayerThree] IS NOT NULL;
 
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde van '" || source.[ProbabilityOrFrequencyOpenStructureBeforeFlooding] || "' van parameter 'Kans op open staan bij naderend hoogwater' van kunstwerk '" || source.[Name] || "' is ongeldig en is veranderd naar NaN."
+	FROM ClosingStructureEntity AS cs
+	JOIN [SOURCEPROJECT].ClosingStructureEntity AS source ON cs.[rowid] = source.[rowid]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = cs.[FailureMechanismEntityId]
+	WHERE source.[ProbabilityOrFrequencyOpenStructureBeforeFlooding] IS NOT cs.[ProbabilityOpenStructureBeforeFlooding];
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde van '" || source.[IdenticalApertures] || "' van parameter 'Aantal identieke doorstroomopeningen' van kunstwerk '" || source.[Name] || "' is ongeldig en is veranderd naar 1."
+	FROM ClosingStructureEntity AS cs
+	JOIN [SOURCEPROJECT].ClosingStructureEntity AS source ON cs.[rowid] = source.[rowid]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = cs.[FailureMechanismEntityId]
+	WHERE source.[IdenticalApertures] != cs.[IdenticalApertures];
+
+/*
+* Log changes that are applied to closing and stability point structure calculations
+*/
+CREATE TEMP TABLE TempMigratedStructuresCalculationGroupMapping
+(
+	'CalculationGroupEntityId' INTEGER NOT NULL,
+	'FailureMechanismEntityId' INTEGER NOT NULL,
+	PRIMARY KEY
+	(
+		'CalculationGroupEntityId'
+	)
+);
+
+INSERT INTO TempMigratedStructuresCalculationGroupMapping(
+	[CalculationGroupEntityId],
+	[FailureMechanismEntityId]
+)
+SELECT
+	[CalculationGroupEntityId],
+	[FailureMechanismEntityId]
+FROM
+(
+WITH RECURSIVE CalculationGroupEntities(CalculationGroupEntityId, ParentCalculationGroupEntityId, FailureMechanismEntityId) AS (
+SELECT
+	CalculationGroupEntityId,
+	NULL,
+	FailureMechanismEntityId
+FROM FailureMechanismEntity
+WHERE FailureMechanismEntity.FailureMechanismType = 10
+OR FailureMechanismEntity.FailureMechanismType = 12
+UNION ALL
+SELECT
+	CalculationGroupEntity.CalculationGroupEntityId,
+	CalculationGroupEntity.ParentCalculationGroupEntityId,
+	CalculationGroupEntities.FailureMechanismEntityId
+FROM CalculationGroupEntity, CalculationGroupEntities
+WHERE CalculationGroupEntity.ParentCalculationGroupEntityId = CalculationGroupEntities.CalculationGroupEntityId
+)
+SELECT
+	CalculationGroupEntities.CalculationGroupEntityId AS CalculationGroupEntityId,
+	CalculationGroupEntities.FailureMechanismEntityId AS FailureMechanismEntityId
+FROM CalculationGroupEntities
+ORDER BY FailureMechanismEntityId
+);
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde van '" || source.[IdenticalApertures] || "' van parameter 'Aantal identieke doorstroomopeningen' van berekening '" || source.[Name] || "' is ongeldig en is veranderd naar 1."
+	FROM ClosingStructuresCalculationEntity AS cs
+	JOIN [SOURCEPROJECT].ClosingStructuresCalculationEntity AS source ON cs.[rowid] = source.[rowid]
+	JOIN TempMigratedStructuresCalculationGroupMapping mapping USING(CalculationGroupEntityId)
+ 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = mapping.[FailureMechanismEntityId]
+	WHERE source.[IdenticalApertures] != cs.[IdenticalApertures];
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde van '" || source.[LevellingCount] || "' van parameter 'Aantal nivelleringen per jaar' van berekening '" || source.[Name] || "' is ongeldig en is veranderd naar 0."
+	FROM StabilityPointStructuresCalculationEntity AS sps
+	JOIN [SOURCEPROJECT].StabilityPointStructuresCalculationEntity AS source ON sps.[rowid] = source.[rowid]
+	JOIN TempMigratedStructuresCalculationGroupMapping mapping USING(CalculationGroupEntityId)
+ 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = mapping.[FailureMechanismEntityId]
+	WHERE source.[LevellingCount] != sps.[LevellingCount];
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"De waarde van '" || source.[VerticalDistance] || "' van parameter 'Afstand onderkant wand en teen van de dijk/berm' van berekening '" || source.[Name] || "' is ongeldig en is veranderd naar NaN."
+	FROM StabilityPointStructuresCalculationEntity AS sps
+	JOIN [SOURCEPROJECT].StabilityPointStructuresCalculationEntity AS source ON sps.[rowid] = source.[rowid]
+	JOIN TempMigratedStructuresCalculationGroupMapping mapping USING(CalculationGroupEntityId)
+ 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = mapping.[FailureMechanismEntityId]
+	WHERE source.[VerticalDistance] IS NOT sps.[VerticalDistance];
+
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 
 	[ToVersion], 
@@ -2463,6 +2880,7 @@ FROM AssessmentSectionFailureMechanismMessages;
 
 DROP TABLE TempFailureMechanisms;
 DROP TABLE TempAssessmentSectionFailureMechanism;
+DROP TABLE TempMigratedStructuresCalculationGroupMapping;
 DROP TABLE TempChanges;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (

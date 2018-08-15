@@ -146,7 +146,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             differentStructures.Add(structures.Single(s => !s.FailureProbabilityOpenStructure.Equals(referenceStructure.FailureProbabilityOpenStructure)));
             differentStructures.Add(structures.Single(s => !s.IdenticalApertures.Equals(referenceStructure.IdenticalApertures)));
             differentStructures.Add(structures.Single(s => !s.InflowModelType.Equals(referenceStructure.InflowModelType)));
-            differentStructures.Add(structures.Single(s => !s.ProbabilityOrFrequencyOpenStructureBeforeFlooding.Equals(referenceStructure.ProbabilityOrFrequencyOpenStructureBeforeFlooding)));
+            differentStructures.Add(structures.Single(s => !s.ProbabilityOpenStructureBeforeFlooding.Equals(referenceStructure.ProbabilityOpenStructureBeforeFlooding)));
             differentStructures.Add(structures.Single(s => !s.StructureNormalOrientation.Equals(referenceStructure.StructureNormalOrientation)));
             Assert.AreEqual(expectedTestDataCount, differentStructures.Distinct().Count());
         }

@@ -244,7 +244,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void InitializeGridColumns()
         {
             probabilityDistributionGrid.AddCheckBoxColumn(nameof(FailureMechanismContributionItemRow.IsRelevant),
-                                                          Resources.FailureMechanismContributionView_GridColumn_RelevancyFilter);
+                                                          Resources.FailureMechanism_IsRelevant_DisplayName);
 
             probabilityDistributionGrid.AddTextBoxColumn(nameof(FailureMechanismContributionItemRow.Name),
                                                          Resources.FailureMechanism_Name_DisplayName,

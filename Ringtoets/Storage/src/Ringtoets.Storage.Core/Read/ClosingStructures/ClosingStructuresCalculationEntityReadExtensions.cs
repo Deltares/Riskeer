@@ -99,7 +99,7 @@ namespace Ringtoets.Storage.Core.Read.ClosingStructures
             inputParameters.IdenticalApertures = entity.IdenticalApertures;
             inputParameters.LevelCrestStructureNotClosing.Mean = (RoundedDouble) entity.LevelCrestStructureNotClosingMean.ToNullAsNaN();
             inputParameters.LevelCrestStructureNotClosing.StandardDeviation = (RoundedDouble) entity.LevelCrestStructureNotClosingStandardDeviation.ToNullAsNaN();
-            inputParameters.ProbabilityOrFrequencyOpenStructureBeforeFlooding = entity.ProbabilityOrFrequencyOpenStructureBeforeFlooding;
+            inputParameters.ProbabilityOpenStructureBeforeFlooding = entity.ProbabilityOpenStructureBeforeFlooding;
         }
 
         private static void ReadOutput(StructuresCalculation<ClosingStructuresInput> calculation,
