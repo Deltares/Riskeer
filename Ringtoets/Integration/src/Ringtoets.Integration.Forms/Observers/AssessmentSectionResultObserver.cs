@@ -79,7 +79,11 @@ namespace Ringtoets.Integration.Forms.Observers
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            assessmentSectionObserver = new Observer(() => ResubscribeFailureMechanismObservers(assessmentSection))
+            assessmentSectionObserver = new Observer(() =>
+            {
+                ResubscribeFailureMechanismObservers(assessmentSection);
+                NotifyObservers();
+            })
             {
                 Observable = assessmentSection
             };

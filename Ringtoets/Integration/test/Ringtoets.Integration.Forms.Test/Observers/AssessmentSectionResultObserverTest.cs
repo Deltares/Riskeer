@@ -75,6 +75,29 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenAssessmentSectionNotified_ThenAttachedObserverNotified()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                resultObserver.Attach(observer);
+
+                // When
+                assessmentSection.NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         [TestCaseSource(nameof(GetFailureMechanismReplaceData))]
         public void GivenAssessmentSectionWithFailureMechanismsReplaced_WhenOldFailureMechanismNotified_ThenAssessmentSectionResultObserverNotNotified<TFailureMechanism>(
             AssessmentSection assessmentSection, Func<AssessmentSection, TFailureMechanism> getFailureMechanismFunc, Action setNewFailureMechanismAction)
