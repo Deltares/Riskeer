@@ -110,6 +110,35 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
 
         #endregion
 
+        #region SerializableAssessmentSectionCategoryGroup
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssessmentSectionCategoryGroup.APlus"/>.
+        /// </summary>
+        public const string SerializableAssessmentSectionCategoryGroupAPlus = "A+";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssessmentSectionCategoryGroup.A"/>.
+        /// </summary>
+        public const string SerializableAssessmentSectionCategoryGroupA = "A";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssessmentSectionCategoryGroup.B"/>.
+        /// </summary>
+        public const string SerializableAssessmentSectionCategoryGroupB = "B";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssessmentSectionCategoryGroup.C"/>.
+        /// </summary>
+        public const string SerializableAssessmentSectionCategoryGroupC = "C";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssessmentSectionCategoryGroup.D"/>.
+        /// </summary>
+        public const string SerializableAssessmentSectionCategoryGroupD = "D";
+
+        #endregion
+
         #region SerializableAssemblyMethod
 
         /// <summary>
