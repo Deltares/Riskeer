@@ -3,7 +3,7 @@
 namespace Ringtoets.Integration.IO.Assembly
 {
     /// <summary>
-    /// Class that represents an assembly result for a failure mechanism section.
+    /// Class that holds all the information to export an assembly result for a failure mechanism section.
     /// </summary>
     public class ExportableSectionAssemblyResult
     {
@@ -20,7 +20,7 @@ namespace Ringtoets.Integration.IO.Assembly
         }
 
         /// <summary>
-        ///  Gets the assembly method that was used to assemble this result.
+        ///  Gets the assembly method that was used to assemble the assembly result.
         /// </summary>
         public ExportableFailureMechanismSectionAssemblyMethod AssemblyMethod { get; }
 

@@ -3,7 +3,7 @@
 namespace Ringtoets.Integration.IO.Assembly
 {
     /// <summary>
-    /// Class that represents an assembly result with a probability for a failure mechanism section.
+    /// Class that holds all the information to export an assembly result with a probability for a failure mechanism section.
     /// </summary>
     public class ExportableSectionAssemblyResultWithProbability : ExportableSectionAssemblyResult
     {
