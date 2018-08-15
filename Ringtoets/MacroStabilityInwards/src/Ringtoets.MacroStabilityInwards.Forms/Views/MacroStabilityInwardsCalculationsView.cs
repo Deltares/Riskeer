@@ -40,6 +40,7 @@ using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Views
 {
@@ -228,7 +229,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
                 nameof(MacroStabilityInwardsCalculationRow.SelectableHydraulicBoundaryLocation),
-                Resources.MacroStabilityInwardsInput_HydraulicBoundaryLocation_DisplayName,
+                RingtoetsCommonFormsResources.HydraulicBoundaryLocation_DisplayName,
                 null,
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
