@@ -977,9 +977,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        [TestCase(double.NaN)]
-        [TestCase(0)]
-        public void VerticalDistance_InvalidValue_ThrowsArgumentOutOfRangException(double verticalDistance)
+        public void VerticalDistance_InvalidValue_ThrowsArgumentOutOfRangeException()
         {
             // Setup 
             var input = new StabilityPointStructuresInput();
@@ -1007,7 +1005,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void LevellingCount_InvalidValue_ThrowsArgumentOutOfRangException()
+        public void LevellingCount_InvalidValue_ThrowsArgumentOutOfRangeException()
         {
             // Setup 
             var input = new StabilityPointStructuresInput();
