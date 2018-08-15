@@ -21,6 +21,7 @@
 
 using System.Xml.Serialization;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
+using Ringtoets.AssemblyTool.IO.Properties;
 
 namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
 {
@@ -34,7 +35,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// </summary>
         public SerializableFailureMechanismAssemblyResult()
         {
-            Status = "VOLLDG";
+            Status = Resources.FullAssembly;
         }
 
         /// <summary>

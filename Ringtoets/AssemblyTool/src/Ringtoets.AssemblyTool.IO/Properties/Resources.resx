@@ -123,6 +123,9 @@
   <data name="DirectFailureMechanism" xml:space="preserve">
     <value>DIRECT</value>
   </data>
+  <data name="FullAssembly" xml:space="preserve">
+    <value>VOLLDG</value>
+  </data>
   <data name="SrsName" xml:space="preserve">
     <value>EPSG:28992</value>
   </data>

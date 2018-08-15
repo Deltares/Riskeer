@@ -100,6 +100,15 @@ namespace Ringtoets.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to VOLLDG.
+        /// </summary>
+        internal static string FullAssembly {
+            get {
+                return ResourceManager.GetString("FullAssembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EPSG:28992.
         /// </summary>
         internal static string SrsName {
