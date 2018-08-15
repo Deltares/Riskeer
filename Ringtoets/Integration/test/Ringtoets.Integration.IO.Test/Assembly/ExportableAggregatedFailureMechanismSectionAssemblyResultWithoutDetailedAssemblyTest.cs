@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.IO.Assembly;
 
 namespace Ringtoets.Integration.IO.Test.Assembly
@@ -15,7 +15,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         public void Constructor_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            ExportableFailureMechanismSection failureMechanismSection = CreateSection();
             ExportableSectionAssemblyResult simpleAssembly = CreateSectionResult();
             ExportableSectionAssemblyResult tailorMadeAssembly = CreateSectionResult();
             ExportableSectionAssemblyResult combinedAssembly = CreateSectionResult();
@@ -40,6 +40,12 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             var random = new Random(21);
             return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
                                                        random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+        }
+
+        private static ExportableFailureMechanismSection CreateSection()
+        {
+            var random = new Random(21);
+            return new ExportableFailureMechanismSection(Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble());
         }
     }
 }

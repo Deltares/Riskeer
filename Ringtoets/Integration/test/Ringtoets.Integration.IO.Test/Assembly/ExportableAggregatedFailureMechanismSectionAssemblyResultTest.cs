@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.IO.Assembly;
 
 namespace Ringtoets.Integration.IO.Test.Assembly
@@ -16,7 +16,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Call
             TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(),
+                CreateSection(),
                 CreateSectionResult(),
                 null,
                 CreateSectionResult(),
@@ -31,7 +31,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         public void Constructor_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            ExportableFailureMechanismSection failureMechanismSection = CreateSection();
             ExportableSectionAssemblyResult simpleAssembly = CreateSectionResult();
             ExportableSectionAssemblyResult detailedAssembly = CreateSectionResult();
             ExportableSectionAssemblyResult tailorMadeAssembly = CreateSectionResult();
@@ -52,6 +52,12 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             Assert.AreSame(detailedAssembly, assemblyResult.DetailedAssembly);
             Assert.AreSame(tailorMadeAssembly, assemblyResult.TailorMadeAssembly);
             Assert.AreSame(combinedAssembly, assemblyResult.CombinedAssembly);
+        }
+
+        private static ExportableFailureMechanismSection CreateSection()
+        {
+            var random = new Random(21);
+            return new ExportableFailureMechanismSection(Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble());
         }
 
         private static ExportableSectionAssemblyResult CreateSectionResult()

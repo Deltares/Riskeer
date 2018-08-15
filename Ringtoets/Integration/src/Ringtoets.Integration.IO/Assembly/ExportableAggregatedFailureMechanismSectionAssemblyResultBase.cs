@@ -18,7 +18,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <param name="tailorMadeAssembly">The tailor made assembly result of the failure mechanism section.</param>
         /// <param name="combinedAssembly">The combined assembly result of the failure mechanism section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null.</c></exception>
-        protected ExportableAggregatedFailureMechanismSectionAssemblyResultBase(FailureMechanismSection failureMechanismSection,
+        protected ExportableAggregatedFailureMechanismSectionAssemblyResultBase(ExportableFailureMechanismSection failureMechanismSection,
                                                                                 TSectionAssemblyResult simpleAssembly,
                                                                                 TSectionAssemblyResult tailorMadeAssembly,
                                                                                 TSectionAssemblyResult combinedAssembly)
@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <summary>
         /// Gets the failure mechanism section.
         /// </summary>
-        public FailureMechanismSection FailureMechanismSection { get; }
+        public ExportableFailureMechanismSection FailureMechanismSection { get; }
 
         /// <summary>
         /// Gets the simple assembly result.
