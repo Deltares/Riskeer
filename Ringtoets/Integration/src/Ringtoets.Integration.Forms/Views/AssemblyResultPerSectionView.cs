@@ -92,8 +92,6 @@ namespace Ringtoets.Integration.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            dataGridViewControl.CellFormatting -= HandleCellStyling;
-
             if (disposing)
             {
                 components?.Dispose();
