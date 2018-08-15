@@ -91,26 +91,6 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Identifier for an assessment section element.
         /// </summary>
         public const string AssessmentSection = "Waterkeringstelsel";
-       
-        /// <summary>
-        /// Identifier for an assessment section total assembly result element.
-        /// </summary>
-        public const string AssessmentSectionAssemblyResult = "ToetsoordeelTraject";
-
-        /// <summary>
-        /// Identifier for an assessment section total assembly result element.
-        /// </summary>
-        public const string TotalAssemblyResult = "Veiligheidsoordeel";
-
-        /// <summary>
-        /// Identifier for an assessment section assembly result ID attribute.
-        /// </summary>
-        public const string TotalAssemblyResultId = "VeiligheidsoordeelID";
-
-        /// <summary>
-        /// Identifier for an assessment section assembly result ID reference attribute.
-        /// </summary>
-        public const string TotalAssemblyResultIdRef = "VeiligheidsoordeelIDRef";
         
         /// <summary>
         /// Identifier for an assessment section category group element.
@@ -122,6 +102,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         public const string BoundedBy = "boundedBy";
 
+        /// <summary>
+        /// Identifier for a combined section result element.
+        /// </summary>
+        public const string CombinedSectionResult = "eindtoetsoordeel";
+        
         /// <summary>
         /// Identifier for a coordinate system type attribute.
         /// </summary>
@@ -158,9 +143,24 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string FailureMechanismAssemblyResult = "toetsoordeel";
 
         /// <summary>
-        /// Identifier for a failure mechanism id attribute.
+        /// Identifier for a failure mechanism ID attribute.
         /// </summary>
         public const string FailureMechanismId = "ToetsspoorID";
+
+        /// <summary>
+        /// Identifier for a failure mechanism ID reference attribute.
+        /// </summary>
+        public const string FailureMechanismIdRef = "ToetsspoorIDRef";
+        
+        /// <summary>
+        /// Identifier for a failure mechanism section assembly element.
+        /// </summary>
+        public const string FailureMechanismSectionAssemblyResult = "Toets";
+
+        /// <summary>
+        /// Identifier for a failure mechanism section assembly element.
+        /// </summary>
+        public const string FailureMechanismSectionAssemblyResultId = "ToetsID";
         
         /// <summary>
         /// Identifier for a failure mechanism section category group element.
@@ -223,6 +223,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string Probability = "faalkans";
 
         /// <summary>
+        /// Identifier for section result elements.
+        /// </summary>
+        public const string SectionResults = "toetsoordeelVak";
+        
+        /// <summary>
         /// Identifier for a start year element.
         /// </summary>
         public const string StartYear = "beginJaarBeoordelingsronde";
@@ -231,6 +236,21 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Identifier for a status element.
         /// </summary>
         public const string Status = "status";
+
+        /// <summary>
+        /// Identifier for an assessment section total assembly result element.
+        /// </summary>
+        public const string TotalAssemblyResult = "Veiligheidsoordeel";
+
+        /// <summary>
+        /// Identifier for an assessment section assembly result ID attribute.
+        /// </summary>
+        public const string TotalAssemblyResultId = "VeiligheidsoordeelID";
+
+        /// <summary>
+        /// Identifier for an assessment section assembly result ID reference attribute.
+        /// </summary>
+        public const string TotalAssemblyResultIdRef = "VeiligheidsoordeelIDRef";
 
         /// <summary>
         /// Identifier for a unit of measure attribute.

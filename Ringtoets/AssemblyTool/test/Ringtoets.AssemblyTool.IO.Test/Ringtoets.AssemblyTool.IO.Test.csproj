@@ -26,6 +26,7 @@
     <Compile Include="Model\Enums\SerializableFailureMechanismCategoryGroupTest.cs" />
     <Compile Include="Model\Helpers\GeometrySerializationFormatterTest.cs" />
     <Compile Include="Model\SerializableFailureMechanismTest.cs" />
+    <Compile Include="Model\SerializableFailureMechanismSectionAssemblyTest.cs" />
     <Compile Include="Model\SerializableTotalAssemblyResultTest.cs" />
     <Compile Include="Model\SerializableAssessmentProcessTest.cs" />
     <Compile Include="Model\SerializableAssessmentSectionTest.cs" />

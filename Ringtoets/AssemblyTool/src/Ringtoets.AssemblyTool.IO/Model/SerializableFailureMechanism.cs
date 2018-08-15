@@ -45,13 +45,13 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Creates a new instance of <see cref="SerializableFailureMechanism"/>.
         /// </summary>
         /// <param name="id">The unique ID of the assembly result.</param>
-        /// <param name="parentTotalAssemblyResult">The ID of the parent <see cref="SerializableTotalAssemblyResult"/>.</param>
+        /// <param name="totalAssemblyResult">The total assembly result this failure mechanism belongs to.</param>
         /// <param name="failureMechanismType">The type of the failure mechanism.</param>
         /// <param name="assemblyGroup">The group of the failure mechanism.</param>
         /// <param name="failureMechanismAssemblyResult">The total failure mechanism assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableFailureMechanism(string id,
-                                            SerializableTotalAssemblyResult parentTotalAssemblyResult,
+                                            SerializableTotalAssemblyResult totalAssemblyResult,
                                             SerializableFailureMechanismType failureMechanismType,
                                             SerializableAssemblyGroup assemblyGroup,
                                             SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResult) : this()
@@ -61,9 +61,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(id));
             }
 
-            if (parentTotalAssemblyResult == null)
+            if (totalAssemblyResult == null)
             {
-                throw new ArgumentNullException(nameof(parentTotalAssemblyResult));
+                throw new ArgumentNullException(nameof(totalAssemblyResult));
             }
 
             if (failureMechanismAssemblyResult == null)
@@ -72,7 +72,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
             }
 
             Id = id;
-            TotalAssemblyResultId = parentTotalAssemblyResult.Id;
+            TotalAssemblyResultId = totalAssemblyResult.Id;
             FailureMechanismType = failureMechanismType;
             AssemblyGroup = assemblyGroup;
             FailureMechanismAssemblyResult = failureMechanismAssemblyResult;

@@ -81,7 +81,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_ParentTotalAssemblyResultNull_ThrowsArgumentNullException()
+        public void Constructor_TotalAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(39);
@@ -95,7 +95,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("parentTotalAssemblyResult", exception.ParamName);
+            Assert.AreEqual("totalAssemblyResult", exception.ParamName);
         }
 
         [Test]
