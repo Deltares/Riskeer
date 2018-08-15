@@ -50,6 +50,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultPerSectionView : UserControl, IView
     {
+        private readonly Observer assessmentSectionObserver;
         private readonly Observer assessmentSectionResultObserver;
 
         /// <summary>
@@ -68,6 +69,10 @@ namespace Ringtoets.Integration.Forms.Views
             AssessmentSection = assessmentSection;
             InitializeComponent();
 
+            assessmentSectionObserver = new Observer(EnableRefreshButton)
+            {
+                Observable = assessmentSection
+            };
             assessmentSectionResultObserver = new Observer(EnableRefreshButton)
             {
                 Observable = new AssessmentSectionResultObserver(assessmentSection)
@@ -92,11 +97,10 @@ namespace Ringtoets.Integration.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            dataGridViewControl.CellFormatting -= HandleCellStyling;
-
             if (disposing)
             {
                 components?.Dispose();
+                assessmentSectionObserver.Dispose();
                 assessmentSectionResultObserver.Dispose();
             }
 
