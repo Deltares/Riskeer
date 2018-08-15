@@ -18,6 +18,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assembly\ExportableFailureMechanismSectionAssemblyMethodTest.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismSectionAssemblyResultWithProbabilityTest.cs" />
+    <Compile Include="Assembly\ExportableSectionAssemblyResultTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -36,6 +38,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Ringtoets.AssemblyTool.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
