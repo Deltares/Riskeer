@@ -31,7 +31,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
         public void AssemblyXmlEnumIdentifiers_ExpectedValues()
         {
             Assert.AreEqual("NVT", AssemblyXmlEnumIdentifiers.NotApplicable);
-            
+
             Assert.AreEqual("I-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupIt);
             Assert.AreEqual("II-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupIIt);
             Assert.AreEqual("III-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupIIIt);
@@ -70,12 +70,12 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("WBI-3A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3A1);
             Assert.AreEqual("WBI-3B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3B1);
             Assert.AreEqual("WBI-3C-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3C1);
-            
+
             Assert.AreEqual("GEDPROB", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup1);
             Assert.AreEqual("GEDSPROBEX", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup2);
             Assert.AreEqual("GEDSPROB", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup3);
             Assert.AreEqual("GEEN", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup4);
-           
+
             Assert.AreEqual("STBI", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTBI);
             Assert.AreEqual("STBU", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTBU);
             Assert.AreEqual("STPH", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTPH);
@@ -101,7 +101,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("GECBNTR", AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelCombinedAssessment);
             Assert.AreEqual("GECBNTRDV", AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelCombinedSectionAssessment);
             Assert.AreEqual("GECBNTRDVTS", AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelCombinedSectionFailureMechanismAssessment);
-
         }
     }
 }

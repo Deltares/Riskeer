@@ -52,6 +52,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
             UnitOfMeasure = unitOfMeasure;
             Value = value;
         }
+
         /// <summary>
         /// Gets or sets the unit of measure.
         /// </summary>
