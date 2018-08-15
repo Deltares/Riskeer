@@ -344,6 +344,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var invalidated = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
+                object dataSource = dataGridView.DataSource;
 
                 // Precondition
                 Assert.IsFalse(invalidated);
@@ -361,7 +362,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 buttonTester.Click();
 
-                // Then 
+                // Then
+                Assert.AreSame(dataSource, dataGridView.DataSource);
                 Assert.IsTrue(invalidated);
                 AssertFailureMechanismRows(view.AssessmentSection, newAssemblyResult, newCategoryGroup, rows);
             }
@@ -501,6 +503,29 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
+        [Test]
+        [SetCulture("nl-NL")]
+        public void GivenAssessmentSectionObserversNotified_WhenRefreshingAssemblyResults_ThenDataGridViewDataSourceUpdated()
+        {
+            // Given
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
+            {
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                buttonTester.Properties.Enabled = true;
+
+                DataGridView dataGridView = GetDataGridView();
+                object dataSource = dataGridView.DataSource;
+
+                // When
+                view.AssessmentSection.NotifyObservers();
+                buttonTester.Click();
+
+                // Then
+                Assert.AreNotSame(dataSource, dataGridView.DataSource);
+            }
+        }
+
         #region View test helpers
 
         private AssemblyResultTotalView ShowAssemblyResultTotalView()
@@ -534,7 +559,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private static FailureMechanismAssemblyControl GetFailureMechanismAssemblyControl()
         {
-            return (FailureMechanismAssemblyControl)new ControlTester(failureMechanismsWithProbabilityControlName).TheObject;
+            return (FailureMechanismAssemblyControl) new ControlTester(failureMechanismsWithProbabilityControlName).TheObject;
         }
 
         private static BorderedLabel GetGroupLabel(AssemblyResultControl control)
