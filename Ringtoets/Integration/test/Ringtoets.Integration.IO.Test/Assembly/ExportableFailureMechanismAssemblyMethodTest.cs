@@ -15,13 +15,10 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                 return new Dictionary<ExportableFailureMechanismAssemblyMethod, int>
                 {
                     {
-                        ExportableFailureMechanismAssemblyMethod.WBI2A1, 1
+                        ExportableFailureMechanismAssemblyMethod.WBI1A1, 1
                     },
                     {
-                        ExportableFailureMechanismAssemblyMethod.WBI2B1, 2
-                    },
-                    {
-                        ExportableFailureMechanismAssemblyMethod.WBI2C1, 3
+                        ExportableFailureMechanismAssemblyMethod.WBI1B1, 2
                     }
                 };
             }
