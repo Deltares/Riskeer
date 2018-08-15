@@ -17,6 +17,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultBaseTest.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultTest.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismSectionAssemblyMethodTest.cs" />
