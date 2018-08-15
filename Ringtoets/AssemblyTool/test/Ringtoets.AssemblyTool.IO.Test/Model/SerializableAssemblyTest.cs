@@ -66,10 +66,11 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual("featureMember", xmlArrayAttribute.ElementName);
 
             IEnumerable<XmlArrayItemAttribute> xmlArrayItemAttributes = TypeUtils.GetPropertyAttributes<SerializableAssembly, XmlArrayItemAttribute>(nameof(SerializableAssembly.FeatureMembers));
-            Assert.AreEqual(3, xmlArrayItemAttributes.Count());
+            Assert.AreEqual(4, xmlArrayItemAttributes.Count());
             Assert.AreEqual(typeof(SerializableAssessmentProcess), xmlArrayItemAttributes.ElementAt(0).Type);
             Assert.AreEqual(typeof(SerializableAssessmentSection), xmlArrayItemAttributes.ElementAt(1).Type);
-            Assert.AreEqual(typeof(SerializableTotalAssemblyResultTest), xmlArrayItemAttributes.ElementAt(2).Type);
+            Assert.AreEqual(typeof(SerializableTotalAssemblyResult), xmlArrayItemAttributes.ElementAt(2).Type);
+            Assert.AreEqual(typeof(SerializableFailureMechanism), xmlArrayItemAttributes.ElementAt(3).Type);
         }
 
         [Test]
@@ -203,12 +204,19 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI2B1, SerializableFailureMechanismCategoryGroup.IIt),
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismCategoryGroup.NotApplicable, 0.000124));
 
+            var failureMechanism1 = new SerializableFailureMechanism("fm1",
+                totalAssemblyResult,
+                SerializableFailureMechanismType.GABI,
+                SerializableAssemblyGroup.Group4,
+                new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI1A1, SerializableFailureMechanismCategoryGroup.IIt));
+
             var assembly = new SerializableAssembly("assembly_1", new Point2D(12.0, 34.0), new Point2D(56.053, 78.0002345),
                                                     new List<SerializableFeatureMember>
                                                     {
                                                         assessmentSection,
                                                         assessmentProcess,
-                                                        totalAssemblyResult
+                                                        totalAssemblyResult,
+                                                        failureMechanism1
                                                     });
 
             serializer.Serialize(writer, assembly, xmlns);

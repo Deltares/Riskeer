@@ -1,0 +1,150 @@
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+using Ringtoets.AssemblyTool.IO.Model;
+using Ringtoets.AssemblyTool.IO.Model.DataTypes;
+using Ringtoets.AssemblyTool.IO.Model.Enums;
+using Ringtoets.AssemblyTool.IO.TestUtil;
+
+namespace Ringtoets.AssemblyTool.IO.Test.Model
+{
+    [TestFixture]
+    public class SerializableFailureMechanismTest
+    {
+        [Test]
+        public void DefaultConstructor_ReturnsDefaultValues()
+        {
+            // Call
+            var failureMechanism = new SerializableFailureMechanism();
+
+            // Assert
+            Assert.IsInstanceOf<SerializableFeatureMember>(failureMechanism);
+            Assert.AreEqual("DIRECT", failureMechanism.DirectFailureMechanism);
+            Assert.IsNull(failureMechanism.Id);
+            Assert.IsNull(failureMechanism.TotalAssemblyResultId);
+            Assert.IsNull(failureMechanism.FailureMechanismAssemblyResult);
+            Assert.AreEqual((SerializableAssemblyGroup) 0, failureMechanism.AssemblyGroup);
+            Assert.AreEqual((SerializableFailureMechanismType) 0, failureMechanism.FailureMechanismType);
+
+            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanism>(
+                nameof(SerializableFailureMechanism.Id), "ToetsspoorID");
+            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanism>(
+                nameof(SerializableFailureMechanism.TotalAssemblyResultId), "VeiligheidsoordeelIDRef");
+
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
+                nameof(SerializableFailureMechanism.FailureMechanismType), "typeToetsspoor");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
+                nameof(SerializableFailureMechanism.AssemblyGroup), "toetsspoorGroep");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
+                nameof(SerializableFailureMechanism.DirectFailureMechanism), "typeFaalmechanisme");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
+                nameof(SerializableFailureMechanism.FailureMechanismAssemblyResult), "toetsoordeel");
+        }
+
+        [Test]
+        public void Constructor_IdNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate call = () => new SerializableFailureMechanism(null,
+                                                                       new SerializableTotalAssemblyResult(),
+                                                                       random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                                       random.NextEnumValue<SerializableAssemblyGroup>(),
+                                                                       new SerializableFailureMechanismAssemblyResult());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("id", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ParentTotalAssemblyResultNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate call = () => new SerializableFailureMechanism("id",
+                                                                       null,
+                                                                       random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                                       random.NextEnumValue<SerializableAssemblyGroup>(),
+                                                                       new SerializableFailureMechanismAssemblyResult());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("parentTotalAssemblyResult", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate call = () => new SerializableFailureMechanism("id",
+                                                                       new SerializableTotalAssemblyResult(),
+                                                                       random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                                       random.NextEnumValue<SerializableAssemblyGroup>(),
+                                                                       null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismAssemblyResult", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithValidData_ReturnsExpectedValues()
+        {
+            // Setup
+            const string id = "section id";
+            const string totalResultId = "section id";
+
+            var random = new Random(39);
+            var type = random.NextEnumValue<SerializableFailureMechanismType>();
+            var group = random.NextEnumValue<SerializableAssemblyGroup>();
+            var assemblyResult = new SerializableFailureMechanismAssemblyResult();
+
+            // Call
+            var failureMechanism = new SerializableFailureMechanism("id",
+                                                                    new SerializableTotalAssemblyResult(totalResultId,
+                                                                                                        new SerializableAssessmentProcess(),
+                                                                                                        new SerializableFailureMechanismAssemblyResult(),
+                                                                                                        new SerializableFailureMechanismAssemblyResult()),
+                                                                    type,
+                                                                    group,
+                                                                    assemblyResult);
+
+            // Assert
+            Assert.AreEqual(id, failureMechanism.Id);
+            Assert.AreEqual(totalResultId, failureMechanism.TotalAssemblyResultId);
+            Assert.AreEqual(type, failureMechanism.FailureMechanismType);
+            Assert.AreEqual(group, failureMechanism.AssemblyGroup);
+            Assert.AreEqual("DIRECT", failureMechanism.DirectFailureMechanism);
+            Assert.AreSame(assemblyResult, failureMechanism.FailureMechanismAssemblyResult);
+        }
+    }
+}

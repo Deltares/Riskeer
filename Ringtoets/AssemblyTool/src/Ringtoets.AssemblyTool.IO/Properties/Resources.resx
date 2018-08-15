@@ -120,6 +120,9 @@
   <data name="AssessmentSectionType" xml:space="preserve">
     <value>Dijktraject</value>
   </data>
+  <data name="DirectFailureMechanism" xml:space="preserve">
+    <value>DIRECT</value>
+  </data>
   <data name="SrsName" xml:space="preserve">
     <value>EPSG:28992</value>
   </data>

@@ -128,6 +128,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string Description = "omschrijving";
 
         /// <summary>
+        /// Identifier for a direct failure mechanism element.
+        /// </summary>
+        public const string DirectFailureMechanism = "typeFaalmechanisme";
+
+        /// <summary>
         /// Identifier for an end year element.
         /// </summary>
         public const string EndYear = "eindJaarBeoordelingsronde";
@@ -146,16 +151,16 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Identifier for a failure mechanism assembly result element.
         /// </summary>
         public const string FailureMechanismAssemblyResult = "toetsoordeel";
-        
+
         /// <summary>
-        /// Identifier for a failure mechanism assembly result element.
+        /// Identifier for a failure mechanism id attribute.
         /// </summary>
-        public const string FailureMechanismDirect = "typeToetsspoor";
+        public const string FailureMechanismId = "ToetsspoorID";
         
         /// <summary>
         /// Identifier for a failure mechanism group element.
         /// </summary>
-        public const string FailureMechanismType = "typeFaalmechanisme";
+        public const string FailureMechanismType = "typeToetsspoor";
         
         /// <summary>
         /// Identifier for a feature member element.

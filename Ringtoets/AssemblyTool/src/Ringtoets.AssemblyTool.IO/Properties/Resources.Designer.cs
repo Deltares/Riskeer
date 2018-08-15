@@ -91,6 +91,15 @@ namespace Ringtoets.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DIRECT.
+        /// </summary>
+        internal static string DirectFailureMechanism {
+            get {
+                return ResourceManager.GetString("DirectFailureMechanism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EPSG:28992.
         /// </summary>
         internal static string SrsName {
