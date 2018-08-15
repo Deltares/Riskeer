@@ -1,16 +1,15 @@
 ﻿using System;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.IO.Assembly;
 
-namespace Ringtoets.Integration.IO
+namespace Ringtoets.Integration.IO.Assembly
 {
     /// <summary>
-    /// Class that holds all the information to export a failure mechanism section assembly result with probability.
+    /// Class that holds all the information to export a failure mechanism section assembly result.
     /// </summary>
-    public class ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability
+    public class ExportableAggregatedFailureMechanismSectionAssemblyResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.
+        /// Creates a new instance of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="failureMechanismSection">The failure mechanism section.</param>
         /// <param name="simpleAssembly">The simple assembly result of the failure mechanism section.</param>
@@ -18,11 +17,11 @@ namespace Ringtoets.Integration.IO
         /// <param name="tailorMadeAssembly">The tailor made assembly result of the failure mechanism section.</param>
         /// <param name="combinedAssembly">The combined assembly result of the failure mechanism section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null.</c></exception>
-        public ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(FailureMechanismSection failureMechanismSection,
-                                                                                        ExportableSectionAssemblyResultWithProbability simpleAssembly,
-                                                                                        ExportableSectionAssemblyResultWithProbability detailedAssembly,
-                                                                                        ExportableSectionAssemblyResultWithProbability tailorMadeAssembly,
-                                                                                        ExportableSectionAssemblyResultWithProbability combinedAssembly)
+        public ExportableAggregatedFailureMechanismSectionAssemblyResult(FailureMechanismSection failureMechanismSection, 
+                                                                         ExportableSectionAssemblyResult simpleAssembly, 
+                                                                         ExportableSectionAssemblyResult detailedAssembly, 
+                                                                         ExportableSectionAssemblyResult tailorMadeAssembly, 
+                                                                         ExportableSectionAssemblyResult combinedAssembly)
         {
             if (failureMechanismSection == null)
             {
@@ -64,21 +63,21 @@ namespace Ringtoets.Integration.IO
         /// <summary>
         /// Gets the simple assembly result.
         /// </summary>
-        public ExportableSectionAssemblyResultWithProbability SimpleAssembly { get; }
+        public ExportableSectionAssemblyResult SimpleAssembly { get; }
 
         /// <summary>
         /// Gets the detailed assembly result.
         /// </summary>
-        public ExportableSectionAssemblyResultWithProbability DetailedAssembly { get; }
+        public ExportableSectionAssemblyResult DetailedAssembly { get; }
 
         /// <summary>
         /// Gets the tailor made assembly result.
         /// </summary>
-        public ExportableSectionAssemblyResultWithProbability TailorMadeAssembly { get; }
+        public ExportableSectionAssemblyResult TailorMadeAssembly { get; }
 
         /// <summary>
         /// Gets the combined assembly result.
         /// </summary>
-        public ExportableSectionAssemblyResultWithProbability CombinedAssembly { get; }
+        public ExportableSectionAssemblyResult CombinedAssembly { get; }
     }
 }
