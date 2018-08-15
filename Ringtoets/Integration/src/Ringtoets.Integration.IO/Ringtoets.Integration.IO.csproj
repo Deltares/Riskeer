@@ -22,6 +22,7 @@
     <Compile Include="Assembly\ExportableFailureMechanismAssemblyResultWithProbability.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismGroup.cs" />
     <Compile Include="Assembly\ExportableAssemblyMethod.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismSection.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismType.cs" />
     <Compile Include="Assembly\ExportableSectionAssemblyResult.cs" />
     <Compile Include="Assembly\ExportableSectionAssemblyResultWithProbability.cs" />
