@@ -51,6 +51,7 @@ using Ringtoets.Integration.Forms.Controls;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -517,12 +518,23 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 DataGridView dataGridView = GetDataGridView();
                 object dataSource = dataGridView.DataSource;
 
+                // Precondition
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(view.AssessmentSection.GetFailureMechanisms().Count(), rows.Count);
+                AssertAssemblyCells(view.AssessmentSection.Piping, new FailureMechanismAssembly(1, FailureMechanismAssemblyCategoryGroup.IIIt), rows[0].Cells);
+
                 // When
+                view.AssessmentSection.Piping = new TestPipingFailureMechanism
+                {
+                    IsRelevant = false
+                };
                 view.AssessmentSection.NotifyObservers();
                 buttonTester.Click();
 
                 // Then
                 Assert.AreNotSame(dataSource, dataGridView.DataSource);
+                Assert.AreEqual(view.AssessmentSection.GetFailureMechanisms().Count(), rows.Count);
+                AssertAssemblyCells(view.AssessmentSection.Piping, FailureMechanismAssemblyCategoryGroup.NotApplicable, rows[0].Cells);
             }
         }
 
