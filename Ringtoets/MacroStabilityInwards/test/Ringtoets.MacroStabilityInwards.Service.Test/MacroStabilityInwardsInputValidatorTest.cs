@@ -118,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                "De waarde voor 'toetspeil' moet een concreet getal zijn."
+                "De waarde voor 'waterstand' moet een concreet getal zijn."
             }, messages);
         }
 

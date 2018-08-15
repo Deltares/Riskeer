@@ -332,13 +332,13 @@
     <value>PL 1 offset onder teen dijk binnenwaarts [m]</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeTopAtPolder_Description" xml:space="preserve">
-    <value>Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin binnentalud.</value>
+    <value>Verschil tussen waterstand en de freatische lijn onder kruin binnentalud.</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeTopAtPolder_DisplayName" xml:space="preserve">
     <value>PL 1 offset onder binnenkruin [m]</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeTopAtRiver_Description" xml:space="preserve">
-    <value>Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin buitentalud.</value>
+    <value>Verschil tussen waterstand en de freatische lijn onder kruin buitentalud.</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeTopAtRiver_DisplayName" xml:space="preserve">
     <value>PL 1 offset onder buitenkruin [m]</value>
