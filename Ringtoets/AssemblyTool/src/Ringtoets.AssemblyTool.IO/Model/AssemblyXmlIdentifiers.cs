@@ -58,6 +58,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string AssemblyNamespace = "http://localhost/standaarden/assemblage";
 
         /// <summary>
+        /// Identifier for an assessment level element.
+        /// </summary>
+        public const string AssessmentLevel = "toets";
+
+        /// <summary>
         /// Identifier for an assessment process element.
         /// </summary>
         public const string AssessmentProcess = "Beoordelingsproces";
@@ -156,6 +161,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Identifier for a failure mechanism id attribute.
         /// </summary>
         public const string FailureMechanismId = "ToetsspoorID";
+        
+        /// <summary>
+        /// Identifier for a failure mechanism section category group element.
+        /// </summary>
+        public const string FailureMechanismSectionCategoryGroup = "categorieVak";
         
         /// <summary>
         /// Identifier for a failure mechanism group element.

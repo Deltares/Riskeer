@@ -129,7 +129,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var assemblyResult = new SerializableFailureMechanismAssemblyResult();
 
             // Call
-            var failureMechanism = new SerializableFailureMechanism("id",
+            var failureMechanism = new SerializableFailureMechanism(id,
                                                                     new SerializableTotalAssemblyResult(totalResultId,
                                                                                                         new SerializableAssessmentProcess(),
                                                                                                         new SerializableFailureMechanismAssemblyResult(),
