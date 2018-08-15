@@ -29,6 +29,7 @@
     <Compile Include="Model\Gml\SerializableEnvelope.cs" />
     <Compile Include="Model\Gml\SerializableBoundary.cs" />
     <Compile Include="Model\Helpers\GeometrySerializationFormatter.cs" />
+    <Compile Include="Model\SerializableFailureMechanismSections.cs" />
     <Compile Include="Model\SerializableFailureMechanism.cs" />
     <Compile Include="Model\SerializableFailureMechanismSectionAssembly.cs" />
     <Compile Include="Model\SerializableTotalAssemblyResult.cs" />

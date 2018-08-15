@@ -168,6 +168,21 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string FailureMechanismSectionCategoryGroup = "categorieVak";
         
         /// <summary>
+        /// Identifier for a failure mechanism sections element.
+        /// </summary>
+        public const string FailureMechanismSections = "Vakindeling";
+        
+        /// <summary>
+        /// Identifier for a failure mechanism sections ID attribute.
+        /// </summary>
+        public const string FailureMechanismSectionsId = "VakindelingID";
+
+        /// <summary>
+        /// Identifier for a failure mechanism sections ID reference attribute.
+        /// </summary>
+        public const string FailureMechanismSectionsIdRef = "VakindelingIDRef";
+        
+        /// <summary>
         /// Identifier for a failure mechanism group element.
         /// </summary>
         public const string FailureMechanismType = "typeToetsspoor";
