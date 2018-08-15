@@ -64,7 +64,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Call
             TestDelegate call = () => new SerializableAssessmentSection(null,
                                                                         "name",
-                                                                        new Random(39).NextDouble(),
                                                                         Enumerable.Empty<Point2D>());
 
             // Assert
@@ -78,7 +77,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Call
             TestDelegate call = () => new SerializableAssessmentSection("id",
                                                                         null,
-                                                                        new Random(39).NextDouble(),
                                                                         Enumerable.Empty<Point2D>());
 
             // Assert
@@ -87,17 +85,16 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_SurfaceLineGeometryNull_ThrowsArgumentNullException()
+        public void Constructor_GeometryNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new SerializableAssessmentSection("id",
                                                                         "name",
-                                                                        new Random(39).NextDouble(),
                                                                         null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("surfaceLineGeometry", exception.ParamName);
+            Assert.AreEqual("geometry", exception.ParamName);
         }
 
         [Test]
@@ -108,7 +105,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             const string id = "section id";
 
             var random = new Random(39);
-            double length = random.NextDouble();
             var geometry = new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble()),
@@ -116,13 +112,13 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             };
 
             // Call
-            var assessmentSection = new SerializableAssessmentSection(id, name, length, geometry);
+            var assessmentSection = new SerializableAssessmentSection(id, name, geometry);
 
             // Assert
             Assert.AreEqual(id, assessmentSection.Id);
             Assert.AreEqual(name, assessmentSection.Name);
             Assert.AreEqual("m", assessmentSection.SurfaceLineLength.UnitOfMeasure);
-            Assert.AreEqual(length, assessmentSection.SurfaceLineLength.Value);
+            Assert.AreEqual(Math2D.Length(geometry), assessmentSection.SurfaceLineLength.Value);
             Assert.IsNotNull(assessmentSection.SurfaceLineGeometry);
         }
     }

@@ -48,12 +48,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="id">The unique ID of the assessment section.</param>
         /// <param name="name">The name of the assessment section.</param>
         /// <param name="surfaceLineLength">The length of the surface line in meters.</param>
-        /// <param name="surfaceLineGeometry">The geometry of the surface line.</param>
+        /// <param name="geometry">The geometry of the surface line.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableAssessmentSection(string id,
                                              string name,
-                                             double surfaceLineLength,
-                                             IEnumerable<Point2D> surfaceLineGeometry) : this()
+                                             IEnumerable<Point2D> geometry) : this()
         {
             if (id == null)
             {
@@ -65,15 +64,15 @@ namespace Ringtoets.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(name));
             }
 
-            if (surfaceLineGeometry == null)
+            if (geometry == null)
             {
-                throw new ArgumentNullException(nameof(surfaceLineGeometry));
+                throw new ArgumentNullException(nameof(geometry));
             }
 
             Id = id;
             Name = name;
-            SurfaceLineLength = new SerializableMeasure("m", surfaceLineLength);
-            SurfaceLineGeometry = new SerializableLine(surfaceLineGeometry);
+            SurfaceLineLength = new SerializableMeasure("m", Math2D.Length(geometry));
+            SurfaceLineGeometry = new SerializableLine(geometry);
         }
 
         /// <summary>

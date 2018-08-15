@@ -98,7 +98,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var assessmentSection = new SerializableAssessmentSection(
                 "assessment section id",
                 "name",
-                random.NextDouble(),
                 new[]
                 {
                     new Point2D(random.NextDouble(), random.NextDouble()),
