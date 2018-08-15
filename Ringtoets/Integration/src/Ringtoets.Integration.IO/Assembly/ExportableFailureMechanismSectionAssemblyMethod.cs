@@ -69,5 +69,20 @@
         /// Represents the assembly method WBI-0T-7.
         /// </summary>
         WBI0T7 = 13,
+
+        /// <summary>
+        /// Represents the assembly method WBI-0A-1.
+        /// </summary>
+        WBI0A1 = 14,
+
+        /// <summary>
+        /// Represents the assembly method WBI-1A-1.
+        /// </summary>
+        WBI1A1 = 15,
+
+        /// <summary>
+        /// Represents the assembly method WBI-1B-1.
+        /// </summary>
+        WBI1B1 = 16
     }
 }

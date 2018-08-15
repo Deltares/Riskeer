@@ -26,7 +26,10 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                     { ExportableFailureMechanismSectionAssemblyMethod.WBI0T4, 10 },
                     { ExportableFailureMechanismSectionAssemblyMethod.WBI0T5, 11 },
                     { ExportableFailureMechanismSectionAssemblyMethod.WBI0T6, 12 },
-                    { ExportableFailureMechanismSectionAssemblyMethod.WBI0T7, 13 }
+                    { ExportableFailureMechanismSectionAssemblyMethod.WBI0T7, 13 },
+                    { ExportableFailureMechanismSectionAssemblyMethod.WBI0A1, 14 },
+                    { ExportableFailureMechanismSectionAssemblyMethod.WBI1A1, 15 },
+                    { ExportableFailureMechanismSectionAssemblyMethod.WBI1B1, 16 }
                 };
             }
         }
