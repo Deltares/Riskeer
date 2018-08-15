@@ -255,13 +255,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 hydraulicBoundaryLocationProperty,
                 hydraulicDataCategory,
                 "Locatie met hydraulische randvoorwaarden",
-                "De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.");
+                "De locatie met hydraulische randvoorwaarden waarvan de berekende waterstand wordt gebruikt.");
 
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[expectedAssessmentLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 assessmentLevelProperty,
                 hydraulicDataCategory,
-                "Toetspeil [m+NAP]",
+                "Waterstand [m+NAP]",
                 "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.",
                 true);
 
@@ -269,8 +269,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 useHydraulicBoundaryLocationProperty,
                 hydraulicDataCategory,
-                "Handmatig toetspeil invoeren",
-                "Sta toe om het toetspeil handmatig te specificeren?");
+                "Handmatig waterstand invoeren",
+                "Sta toe om de waterstand handmatig te specificeren?");
 
             PropertyDescriptor dampingsFactorExitProperty = dynamicProperties[expectedDampingFactorExitPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -489,13 +489,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     hydraulicBoundaryLocationProperty,
                     hydraulicDataCategory,
                     "Locatie met hydraulische randvoorwaarden",
-                    "De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.");
+                    "De locatie met hydraulische randvoorwaarden waarvan de berekende waterstand wordt gebruikt.");
 
                 PropertyDescriptor assessmentLevelProperty = dynamicProperties[expectedAssessmentLevelPropertyIndex];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                     assessmentLevelProperty,
                     hydraulicDataCategory,
-                    "Toetspeil [m+NAP]",
+                    "Waterstand [m+NAP]",
                     "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.",
                     true);
             }
@@ -507,7 +507,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                     assessmentLevelProperty,
                     hydraulicDataCategory,
-                    "Toetspeil [m+NAP]",
+                    "Waterstand [m+NAP]",
                     "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.");
             }
 

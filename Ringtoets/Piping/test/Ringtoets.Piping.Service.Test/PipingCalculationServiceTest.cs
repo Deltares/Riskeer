@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Kan het toetspeil niet afleiden op basis van de invoer.", msgs[1]);
+                Assert.AreEqual("Kan de waterstand niet afleiden op basis van de invoer.", msgs[1]);
                 Assert.AreEqual("Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });

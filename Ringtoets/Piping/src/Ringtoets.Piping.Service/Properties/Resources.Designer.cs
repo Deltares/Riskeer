@@ -148,7 +148,7 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan het toetspeil niet afleiden op basis van de invoer..
+        ///   Looks up a localized string similar to Kan de waterstand niet afleiden op basis van de invoer..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_Cannot_determine_AssessmentLevel {
             get {

@@ -139,7 +139,7 @@
     <value>Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.</value>
   </data>
   <data name="PipingCalculationService_ValidateInput_Cannot_determine_AssessmentLevel" xml:space="preserve">
-    <value>Kan het toetspeil niet afleiden op basis van de invoer.</value>
+    <value>Kan de waterstand niet afleiden op basis van de invoer.</value>
   </data>
   <data name="PipingCalculationService_ValidateInput_No_value_for_EntryPointL" xml:space="preserve">
     <value>De waarde voor 'intredepunt' moet een concreet getal zijn.</value>

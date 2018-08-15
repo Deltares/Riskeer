@@ -491,7 +491,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt..
+        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden waarvan de berekende waterstand wordt gebruikt..
         /// </summary>
         public static string MacroStabilityInwardsInput_HydraulicBoundaryLocation_Description {
             get {
@@ -545,7 +545,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sta toe om het toetspeil handmatig te specificeren?.
+        ///   Looks up a localized string similar to Sta toe om de waterstand handmatig te specificeren?.
         /// </summary>
         public static string MacroStabilityInwardsInput_UseAssessmentLevelManualInput_Description {
             get {
@@ -554,7 +554,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Handmatig toetspeil invoeren.
+        ///   Looks up a localized string similar to Handmatig waterstand invoeren.
         /// </summary>
         public static string MacroStabilityInwardsInput_UseAssessmentLevelManualInput_DisplayName {
             get {

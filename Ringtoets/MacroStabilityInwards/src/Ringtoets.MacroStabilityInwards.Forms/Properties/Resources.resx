@@ -134,7 +134,7 @@
     <value>Ondergrondschematisatie</value>
   </data>
   <data name="MacroStabilityInwardsInput_HydraulicBoundaryLocation_Description" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.</value>
+    <value>De locatie met hydraulische randvoorwaarden waarvan de berekende waterstand wordt gebruikt.</value>
   </data>
   <data name="MacroStabilityInwardsInput_HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
     <value>Locatie met hydraulische randvoorwaarden</value>
@@ -206,10 +206,10 @@
     <value>Selecteer profielschematisaties</value>
   </data>
   <data name="MacroStabilityInwardsInput_UseAssessmentLevelManualInput_Description" xml:space="preserve">
-    <value>Sta toe om het toetspeil handmatig te specificeren?</value>
+    <value>Sta toe om de waterstand handmatig te specificeren?</value>
   </data>
   <data name="MacroStabilityInwardsInput_UseAssessmentLevelManualInput_DisplayName" xml:space="preserve">
-    <value>Handmatig toetspeil invoeren</value>
+    <value>Handmatig waterstand invoeren</value>
   </data>
   <data name="MacroStabilityInwardsSoilLayerData_MaterialName_DisplayName" xml:space="preserve">
     <value>Naam</value>
