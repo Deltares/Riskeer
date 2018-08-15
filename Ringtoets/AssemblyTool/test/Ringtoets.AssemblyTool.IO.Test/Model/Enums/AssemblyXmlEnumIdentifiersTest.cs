@@ -30,7 +30,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
         [Test]
         public void AssemblyXmlEnumIdentifiers_ExpectedValues()
         {
-            Assert.AreEqual("NVT", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupNotApplicable);
+            Assert.AreEqual("NVT", AssemblyXmlEnumIdentifiers.NotApplicable);
+            
             Assert.AreEqual("I-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupIt);
             Assert.AreEqual("II-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupIIt);
             Assert.AreEqual("III-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupIIIt);
@@ -38,6 +39,14 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("V-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupVt);
             Assert.AreEqual("VI-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupVIt);
             Assert.AreEqual("VII-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupVIIt);
+
+            Assert.AreEqual("I-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupIv);
+            Assert.AreEqual("II-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupIIv);
+            Assert.AreEqual("III-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupIIIv);
+            Assert.AreEqual("IV-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupIVv);
+            Assert.AreEqual("V-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVv);
+            Assert.AreEqual("VI-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVIv);
+            Assert.AreEqual("VII-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVIIv);
 
             Assert.AreEqual("WBI-0E-1", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0E1);
             Assert.AreEqual("WBI-0E-3", AssemblyXmlEnumIdentifiers.AssemblyMethodWBI0E3);

@@ -27,12 +27,12 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
     /// </summary>
     public static class AssemblyXmlEnumIdentifiers
     {
-        #region SerializableFailureMechanismCategoryGroup
-
         /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismCategoryGroup.NotApplicable"/>.
+        /// Identifier for enums describing a not applicable value.
         /// </summary>
-        public const string SerializableFailureMechanismCategoryGroupNotApplicable = "NVT";
+        public const string NotApplicable = "NVT";
+
+        #region SerializableFailureMechanismCategoryGroup
 
         /// <summary>
         /// Identifier for <see cref="SerializableFailureMechanismCategoryGroup.It"/>.
@@ -68,6 +68,45 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         /// Identifier for <see cref="SerializableFailureMechanismCategoryGroup.VIIt"/>.
         /// </summary>
         public const string SerializableFailureMechanismCategoryGroupVIIt = "VII-traject";
+
+        #endregion
+
+        #region SerializableFailureMechanismSectionCategoryGroup
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionCategoryGroup.Iv"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionCategoryGroupIv = "I-vak";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionCategoryGroup.IIv"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionCategoryGroupIIv = "II-vak";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionCategoryGroup.IIIv"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionCategoryGroupIIIv = "III-vak";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionCategoryGroup.IVv"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionCategoryGroupIVv = "IV-vak";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionCategoryGroup.Vv"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionCategoryGroupVv = "V-vak";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionCategoryGroup.VIv"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionCategoryGroupVIv = "VI-vak";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionCategoryGroup.VIIv"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionCategoryGroupVIIv = "VII-vak";
 
         #endregion
 

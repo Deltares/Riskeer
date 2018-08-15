@@ -20,6 +20,7 @@
     <Compile Include="Model\AssemblyXmlIdentifiers.cs" />
     <Compile Include="Model\Enums\AssemblyXmlEnumIdentifiers.cs" />
     <Compile Include="Model\Enums\SerializableAssemblyMethod.cs" />
+    <Compile Include="Model\Enums\SerializableFailureMechanismSectionCategoryGroup.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismType.cs" />
     <Compile Include="Model\Enums\SerializableAssemblyGroup.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismCategoryGroup.cs" />

@@ -31,7 +31,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         /// <summary>
         /// Represents the assembly category NVT (Not applicable) for a failure mechanism.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupNotApplicable)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.NotApplicable)]
         NotApplicable = 1,
 
         /// <summary>
