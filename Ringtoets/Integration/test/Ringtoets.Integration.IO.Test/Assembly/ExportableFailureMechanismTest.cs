@@ -4,7 +4,6 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.IO.Assembly;
 
 namespace Ringtoets.Integration.IO.Test.Assembly
@@ -24,7 +23,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
 
             // Call
             TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult, ExportableSectionAssemblyResult>(
-                null, Enumerable.Empty<FailureMechanismSection>(), sectionAssemblyResults, code, group);
+                null, Enumerable.Empty<ExportableFailureMechanismSection>(), sectionAssemblyResults, code, group);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +54,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
+            IEnumerable<ExportableFailureMechanismSection> sections = Enumerable.Empty<ExportableFailureMechanismSection>();
             var code = random.NextEnumValue<ExportableFailureMechanismType>();
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
 
@@ -74,7 +73,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             // Setup
             var random = new Random(21);
             ExportableFailureMechanismAssemblyResult failureMechanismAssembly = CreateFailureMechanismAssemblyResult();
-            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
+            IEnumerable<ExportableFailureMechanismSection> sections = Enumerable.Empty<ExportableFailureMechanismSection>();
             IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<ExportableSectionAssemblyResult>> sectionAssemblyResults =
                 Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<ExportableSectionAssemblyResult>>();
             var code = random.NextEnumValue<ExportableFailureMechanismType>();

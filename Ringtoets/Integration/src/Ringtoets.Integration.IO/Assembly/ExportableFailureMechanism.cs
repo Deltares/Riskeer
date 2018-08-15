@@ -24,7 +24,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismAssembly"/>,
         /// <paramref name="sections"/> or <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
         public ExportableFailureMechanism(TFailureMechanismAssemblyResult failureMechanismAssembly,
-                                          IEnumerable<FailureMechanismSection> sections,
+                                          IEnumerable<ExportableFailureMechanismSection> sections,
                                           IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<TSectionAssemblyResult>> sectionAssemblyResults,
                                           ExportableFailureMechanismType code,
                                           ExportableFailureMechanismGroup group)
@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <summary>
         /// Gets the collection of sections.
         /// </summary>
-        public IEnumerable<FailureMechanismSection> Sections { get; }
+        public IEnumerable<ExportableFailureMechanismSection> Sections { get; }
 
         /// <summary>
         /// Gets the collection of assembly results.
