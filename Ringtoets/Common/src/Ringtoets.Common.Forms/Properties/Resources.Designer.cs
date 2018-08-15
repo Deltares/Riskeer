@@ -137,7 +137,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetspeil [m+NAP].
+        ///   Looks up a localized string similar to Waterstand [m+NAP].
         /// </summary>
         public static string AssessmentLevel_DisplayName {
             get {

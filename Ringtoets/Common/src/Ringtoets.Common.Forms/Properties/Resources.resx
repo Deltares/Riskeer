@@ -612,7 +612,7 @@ handmatig</value>
     <value>Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.</value>
   </data>
   <data name="AssessmentLevel_DisplayName" xml:space="preserve">
-    <value>Toetspeil [m+NAP]</value>
+    <value>Waterstand [m+NAP]</value>
   </data>
   <data name="BreakWater_UseBreakWater_Description" xml:space="preserve">
     <value>Moet de dam worden gebruikt tijdens de berekening?</value>
