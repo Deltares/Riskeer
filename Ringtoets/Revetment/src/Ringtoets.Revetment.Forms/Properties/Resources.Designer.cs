@@ -82,15 +82,6 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij categoriegrens.
-        /// </summary>
-        public static string AssessmentLevelCategoryBoundary_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentLevelCategoryBoundary_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De schematisatie van het voorlandprofiel..
         /// </summary>
         public static string ForeshoreProfile_Description {
@@ -222,6 +213,33 @@ namespace Ringtoets.Revetment.Forms.Properties {
         public static string WaveConditionsChartDataFactory_WaterLevels_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsChartDataFactory_WaterLevels_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstand bij de geselecteerde categoriegrens..
+        /// </summary>
+        public static string WaveConditionsInput_AssessmentLevel_Description {
+            get {
+                return ResourceManager.GetString("WaveConditionsInput_AssessmentLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstand bij categoriegrens [m+NAP].
+        /// </summary>
+        public static string WaveConditionsInput_AssessmentLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsInput_AssessmentLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstand bij categoriegrens.
+        /// </summary>
+        public static string WaveConditionsInput_AssessmentLevel_DisplayName_without_unit {
+            get {
+                return ResourceManager.GetString("WaveConditionsInput_AssessmentLevel_DisplayName_without_unit", resourceCulture);
             }
         }
         

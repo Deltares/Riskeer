@@ -264,8 +264,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[assessmentLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentLevelProperty,
                                                                             hydraulicParametersCategory,
-                                                                            "Toetspeil [m+NAP]",
-                                                                            "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.",
+                                                                            "Waterstand bij categoriegrens [m+NAP]",
+                                                                            "Waterstand bij de geselecteerde categoriegrens.",
                                                                             true);
 
             PropertyDescriptor upperBoundaryAssessmentLevelProperty = dynamicProperties[upperBoundaryAssessmentLevelPropertyIndex];

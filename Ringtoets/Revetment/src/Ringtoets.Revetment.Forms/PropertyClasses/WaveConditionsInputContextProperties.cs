@@ -129,8 +129,8 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
 
         [PropertyOrder(assessmentLevelPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.AssessmentLevel_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.AssessmentLevel_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_AssessmentLevel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_AssessmentLevel_Description))]
         public virtual RoundedDouble AssessmentLevel
         {
             get

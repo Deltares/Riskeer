@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
@@ -120,7 +119,7 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// </summary>
         public static ChartLineData CreateAssessmentLevelChartData()
         {
-            return new ChartLineData(Resources.AssessmentLevelCategoryBoundary_DisplayName,
+            return new ChartLineData(Resources.WaveConditionsInput_AssessmentLevel_DisplayName_without_unit,
                                      new ChartLineStyle
                                      {
                                          Color = Color.LightCoral,
