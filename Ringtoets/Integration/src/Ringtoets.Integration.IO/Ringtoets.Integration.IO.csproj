@@ -15,6 +15,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assembly\ExportableFailureMechanismSectionAssemblyMethod.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
