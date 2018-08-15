@@ -12,7 +12,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// </summary>
         /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
         /// <param name="assemblyCategory">The assembly result.</param>
-        public ExportableSectionAssemblyResult(ExportableFailureMechanismSectionAssemblyMethod assemblyMethod,
+        public ExportableSectionAssemblyResult(ExportableAssemblyMethod assemblyMethod,
                                                FailureMechanismSectionAssemblyCategoryGroup assemblyCategory)
         {
             AssemblyMethod = assemblyMethod;
@@ -22,7 +22,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <summary>
         ///  Gets the assembly method that was used to assemble the assembly result.
         /// </summary>
-        public ExportableFailureMechanismSectionAssemblyMethod AssemblyMethod { get; }
+        public ExportableAssemblyMethod AssemblyMethod { get; }
 
         /// <summary>
         /// Gets the assembly category.

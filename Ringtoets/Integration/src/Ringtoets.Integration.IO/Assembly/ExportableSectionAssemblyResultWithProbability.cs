@@ -13,7 +13,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
         /// <param name="assemblyCategory">The assembly result.</param>
         /// <param name="probability">The probability of the assembly result.</param>
-        public ExportableSectionAssemblyResultWithProbability(ExportableFailureMechanismSectionAssemblyMethod assemblyMethod,
+        public ExportableSectionAssemblyResultWithProbability(ExportableAssemblyMethod assemblyMethod,
                                                               FailureMechanismSectionAssemblyCategoryGroup assemblyCategory,
                                                               double probability)
             : base(assemblyMethod, assemblyCategory)

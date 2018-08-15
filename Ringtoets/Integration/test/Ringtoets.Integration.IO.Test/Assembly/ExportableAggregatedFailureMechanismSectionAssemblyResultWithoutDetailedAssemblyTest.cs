@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         private static ExportableSectionAssemblyResult CreateSectionResult()
         {
             var random = new Random(21);
-            return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableFailureMechanismSectionAssemblyMethod>(),
+            return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
                                                        random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
         }
     }

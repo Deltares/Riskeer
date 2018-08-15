@@ -1,9 +1,9 @@
 ﻿namespace Ringtoets.Integration.IO.Assembly
 {
     /// <summary>
-    /// Enum defining the exportable assembly category methods for a failure mechanism section.
+    /// Enum defining the exportable assembly methods.
     /// </summary>
-    public enum ExportableFailureMechanismSectionAssemblyMethod
+    public enum ExportableAssemblyMethod
     {
         /// <summary>
         /// Represents the assembly method WBI-0E-1.
@@ -83,6 +83,36 @@
         /// <summary>
         /// Represents the assembly method WBI-1B-1.
         /// </summary>
-        WBI1B1 = 16
+        WBI1B1 = 16,
+
+        /// <summary>
+        /// Represents the assembly method WBI-2A-1.
+        /// </summary>
+        WBI2A1 = 17,
+
+        /// <summary>
+        /// Represents the assembly method WBI-2B-1.
+        /// </summary>
+        WBI2B1 = 18,
+
+        /// <summary>
+        /// Represents the assembly method WBI-2C-1.
+        /// </summary>
+        WBI2C1 = 19,
+
+        /// <summary>
+        /// Represents the assembly method WBI-3A-1.
+        /// </summary>
+        WBI3A1 = 20,
+
+        /// <summary>
+        /// Represents the assembly method WBI-3B-1.
+        /// </summary>
+        WBI3B1 = 21,
+
+        /// <summary>
+        /// Represents the assembly method WBI-3C-1.
+        /// </summary>
+        WBI3C1 = 22
     }
 }
