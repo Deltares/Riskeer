@@ -608,11 +608,20 @@ handmatig</value>
   <data name="HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
     <value>Locatie met hydraulische randvoorwaarden</value>
   </data>
+  <data name="HydraulicBoundaryLocation_Description_with_assessment_level" xml:space="preserve">
+    <value>De locatie met hydraulische randvoorwaarden waarvan de berekende waterstand wordt gebruikt.</value>
+  </data>
   <data name="AssessmentLevel_Description" xml:space="preserve">
     <value>Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.</value>
   </data>
   <data name="AssessmentLevel_DisplayName" xml:space="preserve">
     <value>Waterstand [m+NAP]</value>
+  </data>
+  <data name="UseAssessmentLevelManualInput_Description" xml:space="preserve">
+    <value>Sta toe om de waterstand handmatig te specificeren?</value>
+  </data>
+  <data name="UseAssessmentLevelManualInput_DisplayName" xml:space="preserve">
+    <value>Handmatig waterstand invoeren</value>
   </data>
   <data name="BreakWater_UseBreakWater_Description" xml:space="preserve">
     <value>Moet de dam worden gebruikt tijdens de berekening?</value>

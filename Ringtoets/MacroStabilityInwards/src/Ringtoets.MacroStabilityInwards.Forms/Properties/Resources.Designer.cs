@@ -491,24 +491,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden waarvan de berekende waterstand wordt gebruikt..
-        /// </summary>
-        public static string MacroStabilityInwardsInput_HydraulicBoundaryLocation_Description {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsInput_HydraulicBoundaryLocation_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie met hydraulische randvoorwaarden.
-        /// </summary>
-        public static string MacroStabilityInwardsInput_HydraulicBoundaryLocation_DisplayName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsInput_HydraulicBoundaryLocation_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De verschillende opbouwen van de ondergrond en hun respectievelijke kansen van voorkomen..
         /// </summary>
         public static string MacroStabilityInwardsInput_StochasticSoilModel_Description {
@@ -541,24 +523,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         public static string MacroStabilityInwardsInput_StochasticSoilProfile_DisplayName {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsInput_StochasticSoilProfile_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sta toe om de waterstand handmatig te specificeren?.
-        /// </summary>
-        public static string MacroStabilityInwardsInput_UseAssessmentLevelManualInput_Description {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsInput_UseAssessmentLevelManualInput_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Handmatig waterstand invoeren.
-        /// </summary>
-        public static string MacroStabilityInwardsInput_UseAssessmentLevelManualInput_DisplayName {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsInput_UseAssessmentLevelManualInput_DisplayName", resourceCulture);
             }
         }
         

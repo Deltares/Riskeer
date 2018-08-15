@@ -178,8 +178,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         [PropertyOrder(selectedHydraulicBoundaryLocationPropertyIndex)]
         [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_HydraulicBoundaryLocation_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_HydraulicBoundaryLocation_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryLocation_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryLocation_Description_with_assessment_level))]
         public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
         {
             get
@@ -216,8 +216,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(useHydraulicBoundaryLocationPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData), hydraulicCategoryIndex, totalCategoryCount)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_UseAssessmentLevelManualInput_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsInput_UseAssessmentLevelManualInput_Description))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.UseAssessmentLevelManualInput_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.UseAssessmentLevelManualInput_Description))]
         public bool UseAssessmentLevelManualInput
         {
             get

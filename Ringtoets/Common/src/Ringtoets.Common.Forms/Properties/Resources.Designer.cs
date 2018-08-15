@@ -2231,6 +2231,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden waarvan de berekende waterstand wordt gebruikt..
+        /// </summary>
+        public static string HydraulicBoundaryLocation_Description_with_assessment_level {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocation_Description_with_assessment_level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Locatie met hydraulische randvoorwaarden.
         /// </summary>
         public static string HydraulicBoundaryLocation_DisplayName {
@@ -3874,6 +3883,24 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("UpdateItemIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sta toe om de waterstand handmatig te specificeren?.
+        /// </summary>
+        public static string UseAssessmentLevelManualInput_Description {
+            get {
+                return ResourceManager.GetString("UseAssessmentLevelManualInput_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handmatig waterstand invoeren.
+        /// </summary>
+        public static string UseAssessmentLevelManualInput_DisplayName {
+            get {
+                return ResourceManager.GetString("UseAssessmentLevelManualInput_DisplayName", resourceCulture);
             }
         }
         

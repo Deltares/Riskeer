@@ -472,24 +472,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden waarvan de berekende waterstand wordt gebruikt..
-        /// </summary>
-        public static string PipingInput_HydraulicBoundaryLocation_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_HydraulicBoundaryLocation_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie met hydraulische randvoorwaarden.
-        /// </summary>
-        public static string PipingInput_HydraulicBoundaryLocation_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_HydraulicBoundaryLocation_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Polderpeil..
         /// </summary>
         public static string PipingInput_PhreaticLevelExit_Description {
@@ -630,24 +612,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingInput_ThicknessCoverageLayer_DisplayName {
             get {
                 return ResourceManager.GetString("PipingInput_ThicknessCoverageLayer_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sta toe om de waterstand handmatig te specificeren?.
-        /// </summary>
-        public static string PipingInput_UseAssessmentLevelManualInput_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_UseAssessmentLevelManualInput_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Handmatig waterstand invoeren.
-        /// </summary>
-        public static string PipingInput_UseAssessmentLevelManualInput_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_UseAssessmentLevelManualInput_DisplayName", resourceCulture);
             }
         }
         
