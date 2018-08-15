@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 
@@ -47,7 +46,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableFailureMechanismSectionAssembly(string id,
                                                            SerializableFailureMechanism failureMechanism,
-                                                           List<SerializableFailureMechanismSectionAssemblyResult> sectionResults,
+                                                           SerializableFailureMechanismSectionAssemblyResult[] sectionResults,
                                                            SerializableFailureMechanismSectionAssemblyResult combinedSectionResult) : this()
         {
             if (id == null)
@@ -95,10 +94,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public SerializableFailureMechanismSectionAssemblyResult CombinedSectionResult { get; set; }
 
         /// <summary>
-        /// Gets or sets the list of results for this section.
+        /// Gets or sets the array of results for this section.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.SectionResults)]
-        public List<SerializableFailureMechanismSectionAssemblyResult> SectionResults { get; set; }
-
+        public SerializableFailureMechanismSectionAssemblyResult[] SectionResults { get; set; }
     }
 }

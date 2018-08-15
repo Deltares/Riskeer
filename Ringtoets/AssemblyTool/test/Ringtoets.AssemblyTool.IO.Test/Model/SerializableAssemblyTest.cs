@@ -56,7 +56,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual("Assemblage", xmlRootAttribute.ElementName);
             Assert.AreEqual("http://localhost/standaarden/assemblage", xmlRootAttribute.Namespace);
 
-            var gmlNamespace = "http://www.opengis.net/gml/3.2";
+            const string gmlNamespace = "http://www.opengis.net/gml/3.2";
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableAssembly>(
                 nameof(SerializableAssembly.Id), "id", gmlNamespace);
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssembly>(
@@ -84,7 +84,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableAssembly(null,
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
-                                                               new List<SerializableFeatureMember>());
+                                                               new SerializableFeatureMember[0]);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -101,7 +101,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableAssembly(string.Empty,
                                                                null,
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
-                                                               new List<SerializableFeatureMember>());
+                                                               new SerializableFeatureMember[0]);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -118,7 +118,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableAssembly(string.Empty,
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                null,
-                                                               new List<SerializableFeatureMember>());
+                                                               new SerializableFeatureMember[0]);
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("upperCorner", exception.ParamName);
@@ -155,7 +155,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var assembly = new SerializableAssembly(id,
                                                     lowerCorner,
                                                     upperCorner,
-                                                    new List<SerializableFeatureMember>
+                                                    new[]
                                                     {
                                                         featureMember
                                                     });
@@ -206,22 +206,22 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismCategoryGroup.NotApplicable, 0.000124));
 
             var failureMechanism1 = new SerializableFailureMechanism("fm1",
-                totalAssemblyResult,
-                SerializableFailureMechanismType.GABI,
-                SerializableAssemblyGroup.Group4,
-                new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI1A1, SerializableFailureMechanismCategoryGroup.IIt));
+                                                                     totalAssemblyResult,
+                                                                     SerializableFailureMechanismType.GABI,
+                                                                     SerializableAssemblyGroup.Group4,
+                                                                     new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI1A1, SerializableFailureMechanismCategoryGroup.IIt));
 
             var result1 = new SerializableFailureMechanismSectionAssembly("sr1",
                                                                           failureMechanism1,
-                new List<SerializableFailureMechanismSectionAssemblyResult>
-                {
-                    new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0E1, SerializableAssessmentLevel.SimpleAssessment, SerializableFailureMechanismSectionCategoryGroup.IIv, 0.5),
-                    new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0T5, SerializableAssessmentLevel.TailorMadeAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv)
-                },
-                new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0A1, SerializableAssessmentLevel.CombinedAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv));
+                                                                          new[]
+                                                                          {
+                                                                              new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0E1, SerializableAssessmentLevel.SimpleAssessment, SerializableFailureMechanismSectionCategoryGroup.IIv, 0.5),
+                                                                              new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0T5, SerializableAssessmentLevel.TailorMadeAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv)
+                                                                          },
+                                                                          new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0A1, SerializableAssessmentLevel.CombinedAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv));
 
             var assembly = new SerializableAssembly("assembly_1", new Point2D(12.0, 34.0), new Point2D(56.053, 78.0002345),
-                                                    new List<SerializableFeatureMember>
+                                                    new SerializableFeatureMember[]
                                                     {
                                                         assessmentSection,
                                                         assessmentProcess,

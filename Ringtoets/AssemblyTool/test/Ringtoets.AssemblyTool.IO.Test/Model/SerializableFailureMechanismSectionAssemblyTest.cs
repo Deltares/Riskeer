@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
@@ -61,7 +60,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Call
             TestDelegate call = () => new SerializableFailureMechanismSectionAssembly(null,
                                                                                       new SerializableFailureMechanism(),
-                                                                                      new List<SerializableFailureMechanismSectionAssemblyResult>(),
+                                                                                      new SerializableFailureMechanismSectionAssemblyResult[0],
                                                                                       new SerializableFailureMechanismSectionAssemblyResult());
 
             // Assert
@@ -75,7 +74,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Call
             TestDelegate call = () => new SerializableFailureMechanismSectionAssembly("id",
                                                                                       null,
-                                                                                      new List<SerializableFailureMechanismSectionAssemblyResult>(),
+                                                                                      new SerializableFailureMechanismSectionAssemblyResult[0],
                                                                                       new SerializableFailureMechanismSectionAssemblyResult());
 
             // Assert
@@ -103,7 +102,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Call
             TestDelegate call = () => new SerializableFailureMechanismSectionAssembly("id",
                                                                                       new SerializableFailureMechanism(),
-                                                                                      new List<SerializableFailureMechanismSectionAssemblyResult>(),
+                                                                                      new SerializableFailureMechanismSectionAssemblyResult[0],
                                                                                       null);
 
             // Assert
@@ -118,7 +117,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             const string id = "id";
 
             var failureMechanism = new SerializableFailureMechanism();
-            var sectionResults = new List<SerializableFailureMechanismSectionAssemblyResult>();
+            var sectionResults = new SerializableFailureMechanismSectionAssemblyResult[0];
             var combinedSectionResult = new SerializableFailureMechanismSectionAssemblyResult();
 
             // Call

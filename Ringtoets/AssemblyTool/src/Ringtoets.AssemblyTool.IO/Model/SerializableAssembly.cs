@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model.Gml;
@@ -48,7 +47,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="featureMembers">The collection of <see cref="SerializableFeatureMember"/> that
         /// belong to the assembly.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public SerializableAssembly(string id, Point2D lowerCorner, Point2D upperCorner, List<SerializableFeatureMember> featureMembers)
+        public SerializableAssembly(string id, Point2D lowerCorner, Point2D upperCorner, SerializableFeatureMember[] featureMembers)
         {
             if (id == null)
             {
@@ -96,6 +95,6 @@ namespace Ringtoets.AssemblyTool.IO.Model
         [XmlArrayItem(typeof(SerializableTotalAssemblyResult))]
         [XmlArrayItem(typeof(SerializableFailureMechanism))]
         [XmlArrayItem(typeof(SerializableFailureMechanismSectionAssembly))]
-        public List<SerializableFeatureMember> FeatureMembers { get; set; }
+        public SerializableFeatureMember[] FeatureMembers { get; set; }
     }
 }
