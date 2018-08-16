@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.IO.Assembly
 {
