@@ -678,7 +678,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Vakindeling (eindpunten)", sectionEndsData.Name);
 
                 var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
-                Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicLocationsData.Name);
+                Assert.AreEqual("Hydraulische belastingen", hydraulicLocationsData.Name);
 
                 var stochasticSoilModelsData = (MapLineData) mapDataList[updatedStochasticSoilModelsLayerIndex];
                 Assert.AreEqual("Stochastische ondergrondmodellen", stochasticSoilModelsData.Name);
@@ -715,7 +715,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Vakindeling (eindpunten)", actualSectionEndsData.Name);
 
                 var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
-                Assert.AreEqual("Hydraulische randvoorwaarden", actualHydraulicLocationsData.Name);
+                Assert.AreEqual("Hydraulische belastingen", actualHydraulicLocationsData.Name);
 
                 var actualStochasticSoilModelsData = (MapLineData) mapDataList[updatedStochasticSoilModelsLayerIndex];
                 Assert.AreEqual("Stochastische ondergrondmodellen", actualStochasticSoilModelsData.Name);
@@ -818,7 +818,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Profielschematisaties", surfaceLinesMapData.Name);
             Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
-            Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
+            Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);
         }
 

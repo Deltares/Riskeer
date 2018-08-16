@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
 
             // Assert
             CollectionAssert.IsEmpty(data.Features);
-            Assert.AreEqual("Hydraulische randvoorwaarden", data.Name);
+            Assert.AreEqual("Hydraulische belastingen", data.Name);
             Assert.IsTrue(data.ShowLabels);
             AssertEqualStyle(data.Style, Color.DarkBlue, 6, PointSymbol.Circle);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);

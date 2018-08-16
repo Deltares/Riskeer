@@ -2141,15 +2141,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
-        /// </summary>
-        public static string HydraulicBoundaryConditions_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryConditions_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Coördinaten van de hydraulische randvoorwaardenlocatie..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Coordinates_Description {

@@ -111,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             string nodeText = info.Text(null);
 
             // Assert
-            Assert.AreEqual("Hydraulische randvoorwaarden", nodeText);
+            Assert.AreEqual("Hydraulische belastingen", nodeText);
         }
 
         [Test]

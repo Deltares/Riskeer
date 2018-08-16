@@ -131,7 +131,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Hydraulische randvoorwaarden", text);
+            Assert.AreEqual("Hydraulische belastingen", text);
         }
 
         [Test]

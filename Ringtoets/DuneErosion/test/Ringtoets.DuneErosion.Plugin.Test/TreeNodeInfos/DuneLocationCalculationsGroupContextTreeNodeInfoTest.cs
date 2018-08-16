@@ -98,7 +98,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Hydraulische randvoorwaarden", text);
+                Assert.AreEqual("Hydraulische belastingen", text);
             }
         }
 

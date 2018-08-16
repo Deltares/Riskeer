@@ -500,9 +500,6 @@ handmatig</value>
   <data name="FailureMechanism_N_DisplayName" xml:space="preserve">
     <value>N [-]</value>
   </data>
-  <data name="HydraulicBoundaryConditions_DisplayName" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden</value>
-  </data>
   <data name="HydraulicBoundaryDatabase_Location_Coordinates_Description" xml:space="preserve">
     <value>Coördinaten van de hydraulische randvoorwaardenlocatie.</value>
   </data>
