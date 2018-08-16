@@ -12,6 +12,37 @@ namespace Ringtoets.Integration.IO.Test.Assembly
     public class ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityTest
     {
         [Test]
+        public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(null,
+                                                                                                                   CreateSectionResult(),
+                                                                                                                   CreateSectionResult(),
+                                                                                                                   CreateSectionResult(),
+                                                                                                                   CreateSectionResult());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_SimpleAssemblyNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
+                CreateSection(),
+                null,
+                CreateSectionResult(),
+                CreateSectionResult(),
+                CreateSectionResult());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("simpleAssembly", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_DetailedAssemblyNull_ThrowsArgumentNullException()
         {
             // Call
@@ -25,6 +56,38 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("detailedAssembly", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_TailorMadeAssemblyNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
+                CreateSection(),
+                CreateSectionResult(),
+                CreateSectionResult(),
+                null,
+                CreateSectionResult());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("tailorMadeAssembly", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_CombinedAssemblyNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
+                CreateSection(),
+                CreateSectionResult(),
+                CreateSectionResult(),
+                CreateSectionResult(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("combinedAssembly", exception.ParamName);
         }
 
         [Test]
@@ -45,8 +108,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                                                               combinedAssembly);
 
             // Assert
-            Assert.IsInstanceOf<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<ExportableSectionAssemblyResultWithProbability>>(assemblyResult);
-
             Assert.AreSame(failureMechanismSection, assemblyResult.FailureMechanismSection);
             Assert.AreSame(simpleAssembly, assemblyResult.SimpleAssembly);
             Assert.AreSame(detailedAssembly, assemblyResult.DetailedAssembly);
