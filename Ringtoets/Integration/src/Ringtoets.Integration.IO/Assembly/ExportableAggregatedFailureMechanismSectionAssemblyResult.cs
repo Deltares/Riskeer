@@ -1,10 +1,9 @@
 ﻿using System;
-using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.IO.Assembly
 {
     /// <summary>
-    /// Class that holds all the information to export a failure mechanism section assembly result.
+    /// Class that holds all the information to export the assembly result of a failure mechanism section.
     /// </summary>
     public class ExportableAggregatedFailureMechanismSectionAssemblyResult :
         ExportableAggregatedFailureMechanismSectionAssemblyResultBase<ExportableSectionAssemblyResult>

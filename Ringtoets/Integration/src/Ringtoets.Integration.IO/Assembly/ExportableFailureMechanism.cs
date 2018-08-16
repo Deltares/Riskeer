@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Ringtoets.Integration.IO.Assembly
 {
     /// <summary>
-    /// Class that holds all the information to export the assembly results of a failure mechanism.
+    /// Class that holds all the information to export the assembly of a failure mechanism.
     /// </summary>
     /// <typeparam name="TFailureMechanismAssemblyResult">The type of <see cref="ExportableFailureMechanismAssemblyResult"/>.</typeparam>
     /// <typeparam name="TSectionAssemblyResult">The type of <see cref="ExportableSectionAssemblyResult"/>.</typeparam>
