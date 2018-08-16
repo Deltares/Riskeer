@@ -179,7 +179,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}.
+        ///   Looks up a localized string similar to Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. {0}.
         /// </summary>
         public static string Hydraulic_boundary_database_connection_failed_0_ {
             get {
