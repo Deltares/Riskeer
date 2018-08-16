@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Assembly
 {
@@ -24,19 +23,13 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         public void Constructor_ExpectedValues()
         {
             // Setup
-            ExportableFailureMechanismSection failureMechanismSection = CreateSection();
+            ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection();
 
             // Call
             var assemblyResult = new TestExportableAggregatedFailureMechanismSectionAssemblyResultBase(failureMechanismSection);
 
             // Assert
             Assert.AreSame(failureMechanismSection, assemblyResult.FailureMechanismSection);
-        }
-
-        private static ExportableFailureMechanismSection CreateSection()
-        {
-            var random = new Random(21);
-            return new ExportableFailureMechanismSection(Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble());
         }
 
         private class TestExportableAggregatedFailureMechanismSectionAssemblyResultBase

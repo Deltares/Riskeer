@@ -82,5 +82,9 @@
       <Project>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</Project>
       <Name>Ringtoets.Integration.IO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.IO.TestUtil\Ringtoets.Integration.IO.TestUtil.csproj">
+      <Project>{1C002B07-DDF6-4849-B8ED-551163AC9423}</Project>
+      <Name>Ringtoets.Integration.IO.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
