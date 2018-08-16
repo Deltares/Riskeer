@@ -48,8 +48,8 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique ID of the section.</param>
         /// <param name="failureMechanismSections">The failure mechanism sections object the section belong to.</param>
-        /// <param name="startDistance">The distance over the reference line where this section starts.</param>
-        /// <param name="endDistance">The distance over the reference line where this section ends.</param>
+        /// <param name="startDistance">The distance over the reference line where this section starts in meters.</param>
+        /// <param name="endDistance">The distance over the reference line where this section ends in meters.</param>
         /// <param name="geometry">The geometry of the section.</param>
         /// <param name="assemblyMethod">The assembly method used to create this section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
