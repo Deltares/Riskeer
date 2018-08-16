@@ -210,7 +210,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende hydraulische belastingenlocaties zijn verwijderd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende hydraulische belastingen zijn verwijderd.", 1);
 
             AssertHydraulicBoundaryLocationCalculationOutput(assessmentSection, false);
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(assessmentSection.DuneErosion);

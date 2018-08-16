@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -40,7 +41,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Plugin.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
@@ -543,20 +544,33 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(40, msgs.Length);
 
-                        const string duneCalculationName = "Hydraulische belastingen";
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            duneLocation.Name, duneCalculationName, "Iv->IIv", msgs, 0);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            duneLocation.Name, duneCalculationName, "IIv->IIIv", msgs, 8);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            duneLocation.Name, duneCalculationName, "IIIv->IVv", msgs, 16);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            duneLocation.Name, duneCalculationName, "IVv->Vv", msgs, 24);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            duneLocation.Name, duneCalculationName, "Vv->VIv", msgs, 32);
+                        AssertDuneLocationCalculationMessages(duneLocation.Name, "Iv->IIv", msgs, 0);
+                        AssertDuneLocationCalculationMessages(duneLocation.Name, "IIv->IIIv", msgs, 8);
+                        AssertDuneLocationCalculationMessages(duneLocation.Name, "IIIv->IVv", msgs, 16);
+                        AssertDuneLocationCalculationMessages(duneLocation.Name, "IVv->Vv", msgs, 24);
+                        AssertDuneLocationCalculationMessages(duneLocation.Name, "Vv->VIv", msgs, 32);
                     });
                 }
             }
+        }
+
+        private static void AssertDuneLocationCalculationMessages(string duneLocationName,
+                                                                  string categoryName,
+                                                                  IEnumerable<string> actualMessages,
+                                                                  int startIndex)
+        {
+            Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{duneLocationName}' (Categorie {categoryName}) is gestart.",
+                            actualMessages.ElementAt(startIndex));
+            CalculationServiceTestHelper.AssertValidationStartMessage(actualMessages.ElementAt(startIndex + 1));
+            CalculationServiceTestHelper.AssertValidationEndMessage(actualMessages.ElementAt(startIndex + 2));
+            CalculationServiceTestHelper.AssertCalculationStartMessage(actualMessages.ElementAt(startIndex + 3));
+            Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{duneLocationName}' (Categorie {categoryName}) is niet geconvergeerd.",
+                            actualMessages.ElementAt(startIndex + 4));
+            StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie",
+                                    actualMessages.ElementAt(startIndex + 5));
+            CalculationServiceTestHelper.AssertCalculationEndMessage(actualMessages.ElementAt(startIndex + 6));
+            Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{duneLocationName}' (Categorie {categoryName}) is gelukt.",
+                            actualMessages.ElementAt(startIndex + 7));
         }
     }
 }
