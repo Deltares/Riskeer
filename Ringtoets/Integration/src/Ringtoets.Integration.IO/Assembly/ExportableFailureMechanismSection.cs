@@ -14,9 +14,9 @@ namespace Ringtoets.Integration.IO.Assembly
         /// </summary>
         /// <param name="geometry">The geometry of the failure mechanism section.</param>
         /// <param name="startDistance">The start distance of the failure mechanism section between the section
-        /// and the start of the reference line.</param>
+        /// and the start of the reference line in meters.</param>
         /// <param name="endDistance">The end distance of the failure mechanism section between the section
-        /// and the start of the reference line.</param>
+        /// and the start of the reference line in meters.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is <c>null</c>.</exception>
         public ExportableFailureMechanismSection(IEnumerable<Point2D> geometry, double startDistance, double endDistance)
         {
@@ -37,11 +37,13 @@ namespace Ringtoets.Integration.IO.Assembly
 
         /// <summary>
         /// Gets the start distance between the failure mechanism section and the start of the reference line.
+        /// [m]
         /// </summary>
         public double StartDistance { get; }
 
         /// <summary>
         /// Gets the end distance between the failure mechanism section and the reference line.
+        /// [m]
         /// </summary>
         public double EndDistance { get; }
     }

@@ -15,9 +15,9 @@ namespace Ringtoets.Integration.IO.Assembly
         /// </summary>
         /// <param name="geometry">The geometry of the failure mechanism section.</param>
         /// <param name="startDistance">The start distance of the failure mechanism section between the section
-        /// and the start of the reference line.</param>
+        /// and the start of the reference line in meters.</param>
         /// <param name="endDistance">The end distance of the failure mechanism section between the section
-        /// and the start of the reference line.</param>
+        /// and the start of the reference line in meters.</param>
         /// <param name="assemblyMethod">The assembly method which was used to get this section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/>
         /// is <c>null</c>.</exception>
