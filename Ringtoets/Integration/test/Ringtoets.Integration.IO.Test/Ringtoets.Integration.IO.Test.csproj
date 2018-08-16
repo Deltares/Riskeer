@@ -21,6 +21,7 @@
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultTest.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssemblyTest.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityTest.cs" />
+    <Compile Include="Assembly\ExportableAssessmentSectionAssemblyResultTest.cs" />
     <Compile Include="Assembly\ExportableCombinedFailureMechanismSectionTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismCombinedSectionAssemblyResultTest.cs" />
     <Compile Include="Assembly\ExportableCombinedSectionAssemblyTest.cs" />
