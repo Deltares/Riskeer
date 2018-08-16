@@ -198,7 +198,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_ReferenceLineNull_ExpectedValues()
+        public void Constructor_AssessmentSectionWithoutReferenceLine_ExpectedValues()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
