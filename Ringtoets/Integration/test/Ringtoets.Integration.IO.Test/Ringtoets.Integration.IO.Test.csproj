@@ -24,6 +24,7 @@
     <Compile Include="Assembly\ExportableAssessmentSectionAssemblyResultTest.cs" />
     <Compile Include="Assembly\ExportableAssessmentSectionTest.cs" />
     <Compile Include="Assembly\ExportableCombinedFailureMechanismSectionTest.cs" />
+    <Compile Include="Assembly\ExportableCombinedSectionAssemblyCollectionTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismCombinedSectionAssemblyResultTest.cs" />
     <Compile Include="Assembly\ExportableCombinedSectionAssemblyTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismSectionTest.cs" />
