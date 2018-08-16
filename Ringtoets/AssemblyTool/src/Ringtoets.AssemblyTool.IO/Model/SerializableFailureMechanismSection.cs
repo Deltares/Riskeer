@@ -121,16 +121,16 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public SerializableMeasure Length { get; set; }
 
         /// <summary>
-        /// Gets or sets the assembly method used to create this section.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.AssemblyMethod)]
-        public SerializableAssemblyMethod? AssemblyMethod { get; set; }
-
-        /// <summary>
         /// Gets or sets the section type.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionType)]
         public string FailureMechanismSectionType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the assembly method used to create this section.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.AssemblyMethod)]
+        public SerializableAssemblyMethod? AssemblyMethod { get; set; }
 
         /// <summary>
         /// Determines whether <see cref="AssemblyMethod"/> should be serialized.

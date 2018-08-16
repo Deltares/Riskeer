@@ -81,6 +81,12 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public string Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the assessment section.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.Name)]
+        public string Name { get; set; }
+
+        /// <summary>
         /// Gets or sets the geometry of the surface line.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Geometry2D)]
@@ -92,12 +98,6 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Length)]
         public SerializableMeasure SurfaceLineLength { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the assessment section.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.Name)]
-        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the assessment section.
