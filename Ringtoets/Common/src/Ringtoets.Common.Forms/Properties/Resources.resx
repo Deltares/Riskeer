@@ -660,7 +660,7 @@ handmatig</value>
     <value>Genereer belastingenberekeningen.</value>
   </data>
   <data name="CalculationGroup_No_HRD_To_Generate_ToolTip" xml:space="preserve">
-    <value>Er is geen hydraulische belastingendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.</value>
+    <value>Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren.</value>
   </data>
   <data name="DataTypeDisplayName_csv_file_filter_Description" xml:space="preserve">
     <value>Kommagescheiden bestand</value>

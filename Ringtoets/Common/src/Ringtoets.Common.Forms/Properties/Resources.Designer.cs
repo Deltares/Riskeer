@@ -490,7 +490,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische belastingendatabase beschikbaar om de randvoorwaardenberekeningen te genereren..
+        ///   Looks up a localized string similar to Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren..
         /// </summary>
         public static string CalculationGroup_No_HRD_To_Generate_ToolTip {
             get {
