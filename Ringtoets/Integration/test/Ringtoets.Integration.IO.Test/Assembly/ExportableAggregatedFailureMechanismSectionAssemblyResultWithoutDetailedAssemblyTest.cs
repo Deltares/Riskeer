@@ -1,7 +1,5 @@
 ﻿using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.TestUtil;
 
@@ -17,8 +15,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
                 ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection(),
                 null,
-                CreateSectionResult(),
-                CreateSectionResult());
+                ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
+                ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -31,9 +29,9 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             // Call
             TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
                 ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection(),
-                CreateSectionResult(),
+                ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 null,
-                CreateSectionResult());
+                ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -46,8 +44,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             // Call
             TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
                 ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection(),
-                CreateSectionResult(),
-                CreateSectionResult(),
+                ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
+                ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 null);
 
             // Assert
@@ -60,9 +58,9 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Setup
             ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection();
-            ExportableSectionAssemblyResult simpleAssembly = CreateSectionResult();
-            ExportableSectionAssemblyResult tailorMadeAssembly = CreateSectionResult();
-            ExportableSectionAssemblyResult combinedAssembly = CreateSectionResult();
+            ExportableSectionAssemblyResult simpleAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
+            ExportableSectionAssemblyResult tailorMadeAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
+            ExportableSectionAssemblyResult combinedAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
 
             // Call
             var assemblyResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(failureMechanismSection,
@@ -77,13 +75,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             Assert.AreSame(simpleAssembly, assemblyResult.SimpleAssembly);
             Assert.AreSame(tailorMadeAssembly, assemblyResult.TailorMadeAssembly);
             Assert.AreSame(combinedAssembly, assemblyResult.CombinedAssembly);
-        }
-
-        private static ExportableSectionAssemblyResult CreateSectionResult()
-        {
-            var random = new Random(21);
-            return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                       random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
         }
     }
 }
