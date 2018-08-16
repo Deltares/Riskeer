@@ -646,7 +646,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
+        ///   Looks up a localized string similar to Hydraulische belastingen.
         /// </summary>
         public static string HydraulicBoundaryDatabase_DisplayName {
             get {

@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsSetName()
         {
             // Setup
-            const string name = "Hydraulische randvoorwaarden";
+            const string name = "Hydraulische belastingen";
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
