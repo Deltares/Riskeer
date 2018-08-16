@@ -12,6 +12,52 @@ namespace Ringtoets.Integration.IO.Test.Assembly
     public class ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssemblyTest
     {
         [Test]
+        public void Constructor_SimpleAssemblyNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
+                CreateSection(),
+                null,
+                CreateSectionResult(),
+                CreateSectionResult());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("simpleAssembly", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_TailorMadeAssemblyNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
+                CreateSection(),
+                CreateSectionResult(),
+                null,
+                CreateSectionResult());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("tailorMadeAssembly", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_CombinedAssemblyNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
+                CreateSection(),
+                CreateSectionResult(),
+                CreateSectionResult(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("combinedAssembly", exception.ParamName);
+        }
+
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -27,7 +73,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                                                                       combinedAssembly);
 
             // Assert
-            Assert.IsInstanceOf<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<ExportableSectionAssemblyResult>>(assemblyResult);
+            Assert.IsInstanceOf<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(assemblyResult);
 
             Assert.AreSame(failureMechanismSection, assemblyResult.FailureMechanismSection);
             Assert.AreSame(simpleAssembly, assemblyResult.SimpleAssembly);

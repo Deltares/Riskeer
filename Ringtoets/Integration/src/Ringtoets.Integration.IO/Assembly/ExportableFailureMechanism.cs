@@ -10,7 +10,6 @@ namespace Ringtoets.Integration.IO.Assembly
     /// <typeparam name="TSectionAssemblyResult">The type of <see cref="ExportableSectionAssemblyResult"/>.</typeparam>
     public class ExportableFailureMechanism<TFailureMechanismAssemblyResult, TSectionAssemblyResult>
         where TFailureMechanismAssemblyResult : ExportableFailureMechanismAssemblyResult
-        where TSectionAssemblyResult : ExportableSectionAssemblyResult
     {
         /// <summary>
         /// Creates a new instance of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult, TSectionAssemblyResult}"/>
@@ -24,7 +23,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <paramref name="sections"/> or <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
         public ExportableFailureMechanism(TFailureMechanismAssemblyResult failureMechanismAssembly,
                                           IEnumerable<ExportableFailureMechanismSection> sections,
-                                          IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<TSectionAssemblyResult>> sectionAssemblyResults,
+                                          IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> sectionAssemblyResults,
                                           ExportableFailureMechanismType code,
                                           ExportableFailureMechanismGroup group)
         {
@@ -63,7 +62,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <summary>
         /// Gets the collection of assembly results.
         /// </summary>
-        public IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<TSectionAssemblyResult>> SectionAssemblyResults { get; }
+        public IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> SectionAssemblyResults { get; }
 
         /// <summary>
         /// Gets the code of the failure mechanism.

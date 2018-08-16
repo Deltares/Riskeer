@@ -16,8 +16,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<ExportableSectionAssemblyResult>> sectionAssemblyResults =
-                Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<ExportableSectionAssemblyResult>>();
+            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> sectionAssemblyResults =
+                Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>();
             var code = random.NextEnumValue<ExportableFailureMechanismType>();
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
 
@@ -35,8 +35,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<ExportableSectionAssemblyResult>> sectionAssemblyResults =
-                Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<ExportableSectionAssemblyResult>>();
+            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> sectionAssemblyResults =
+                Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>();
             var code = random.NextEnumValue<ExportableFailureMechanismType>();
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
 
@@ -74,8 +74,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             var random = new Random(21);
             ExportableFailureMechanismAssemblyResult failureMechanismAssembly = CreateFailureMechanismAssemblyResult();
             IEnumerable<ExportableFailureMechanismSection> sections = Enumerable.Empty<ExportableFailureMechanismSection>();
-            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<ExportableSectionAssemblyResult>> sectionAssemblyResults =
-                Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase<ExportableSectionAssemblyResult>>();
+            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> sectionAssemblyResults =
+                Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>();
             var code = random.NextEnumValue<ExportableFailureMechanismType>();
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
 
