@@ -39,7 +39,7 @@ All rights reserved.
             <xs:element ref="faalkansgegevenerosiebodem" minOccurs="0"/>
             <xs:element ref="faalkansherstel" minOccurs="0"/>
             <xs:element ref="factorstormduur" minOccurs="0"/>
-            <xs:element ref="hrlocatie" minOccurs="0"/>
+            <xs:element ref="hblocatie-of-hrlocatie" minOccurs="0"/>
             <xs:element ref="golfreductie" minOccurs="0"/>
             <xs:element ref="orientatie" minOccurs="0"/>
             <xs:element ref="instroommodel" minOccurs="0"/>

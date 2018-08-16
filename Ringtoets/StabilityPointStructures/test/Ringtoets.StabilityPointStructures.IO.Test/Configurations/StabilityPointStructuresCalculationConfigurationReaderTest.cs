@@ -131,6 +131,9 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
                                               "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
+                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");
 
                 yield return new TestCaseData("invalidCalculationInflowModelTypeEmpty.xml",
                                               "The 'instroommodel' element is invalid - The value '' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
