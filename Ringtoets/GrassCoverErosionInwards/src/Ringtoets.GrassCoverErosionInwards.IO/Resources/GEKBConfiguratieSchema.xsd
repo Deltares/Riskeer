@@ -30,7 +30,7 @@ All rights reserved.
       <xs:complexContent>
         <xs:extension base="berekeningType">
           <xs:all>
-            <xs:element ref="hrlocatie" minOccurs="0"/>
+            <xs:element ref="hblocatie-of-hrlocatie" minOccurs="0"/>
             <xs:element ref="dijkprofiel" minOccurs="0"/>
             <xs:element ref="orientatie" minOccurs="0"/>
             <xs:element ref="dijkhoogte" minOccurs="0"/>

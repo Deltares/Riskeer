@@ -48,6 +48,9 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
                 yield return new TestCaseData("invalidMultipleHydraulicBoundaryLocations.xml",
                                               "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleHydraulicBoundaryLocations");
+                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");
 
                 yield return new TestCaseData("invalidDikeProfileEmpty.xml",
                                               "The 'dijkprofiel' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
