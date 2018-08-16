@@ -124,7 +124,7 @@
     <value>Steen (zuilen)</value>
   </data>
   <data name="WaveConditionsExporter_Error_Exception_0_no_WaveConditions_exported" xml:space="preserve">
-    <value>{0} Er zijn geen golfrandvoorwaarden geëxporteerd.</value>
+    <value>{0} Er zijn geen golfcondities geëxporteerd.</value>
   </data>
   <data name="WaveConditionsWriter_HeaderLine" xml:space="preserve">
     <value>Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]</value>

@@ -127,7 +127,7 @@
     <value>Er is geen resultaat voor convergentie gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
   <data name="DunesBoundaryConditionsCalculationParser_No_dunes_hydraulic_boundaries_found_in_output_file" xml:space="preserve">
-    <value>Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase.</value>
+    <value>Er zijn geen berekende hydraulische belastingen voor duinen gevonden in de Hydra-Ring uitvoerdatabase.</value>
   </data>
   <data name="ExceedanceProbabilityCalculationParser_No_beta_found_in_output_file" xml:space="preserve">
     <value>Er is geen resultaat voor de betrouwbaarheidsindex van de faalkans gevonden in de Hydra-Ring uitvoerdatabase.</value>

@@ -88,7 +88,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
 
             // Assert
             string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{invalidFilePath}'. " +
-                                     "Er zijn geen golfrandvoorwaarden geëxporteerd.";
+                                     "Er zijn geen golfcondities geëxporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             Assert.IsFalse(isExported);
         }

@@ -243,7 +243,7 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Er zijn geen golfrandvoorwaarden geëxporteerd..
+        ///   Looks up a localized string similar to {0} Er zijn geen golfcondities geëxporteerd..
         /// </summary>
         internal static string WaveConditionsExporter_Error_Exception_0_no_WaveConditions_exported {
             get {
