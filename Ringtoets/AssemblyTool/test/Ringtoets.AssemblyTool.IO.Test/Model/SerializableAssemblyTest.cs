@@ -223,7 +223,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                    {
                                                                        new Point2D(0.23, 0.24),
                                                                        new Point2D(10.23, 10.24)
-                                                                   });
+                                                                   },
+                                                                   SerializableAssemblyMethod.WBI3B1);
 
             var result1 = new SerializableFailureMechanismSectionAssembly("sr1",
                                                                           failureMechanism1,

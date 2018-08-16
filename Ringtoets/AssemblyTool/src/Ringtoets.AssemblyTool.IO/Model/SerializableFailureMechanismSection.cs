@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
+using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.AssemblyTool.IO.Properties;
 
 namespace Ringtoets.AssemblyTool.IO.Model
@@ -50,12 +51,14 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="startDistance">The distance over the reference line where this section starts.</param>
         /// <param name="endDistance">The distance over the reference line where this section ends.</param>
         /// <param name="geometry">The geometry of the section.</param>
+        /// <param name="assemblyMethod">The assembly method used to create this section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableFailureMechanismSection(string id,
                                                    SerializableFailureMechanismSections failureMechanismSections,
                                                    double startDistance,
                                                    double endDistance,
-                                                   IEnumerable<Point2D> geometry) : this()
+                                                   IEnumerable<Point2D> geometry,
+                                                   SerializableAssemblyMethod? assemblyMethod = null) : this()
         {
             if (id == null)
             {
@@ -78,6 +81,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
             FailureMechanismSectionsId = failureMechanismSections.Id;
             Geometry = new SerializableLine(geometry);
             Length = new SerializableMeasure("m", Math2D.Length(geometry));
+            AssemblyMethod = assemblyMethod;
         }
 
         /// <summary>
@@ -117,9 +121,24 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public SerializableMeasure Length { get; set; }
 
         /// <summary>
+        /// Gets or sets the assembly method used to create this section.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.AssemblyMethod)]
+        public SerializableAssemblyMethod? AssemblyMethod { get; set; }
+
+        /// <summary>
         /// Gets or sets the section type.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionType)]
         public string FailureMechanismSectionType { get; set; }
+
+        /// <summary>
+        /// Determines whether <see cref="AssemblyMethod"/> should be serialized.
+        /// </summary>
+        /// <returns><c>true</c> if <see cref="AssemblyMethod"/> has a value, <c>false</c> otherwise.</returns>
+        public bool ShouldSerializeAssemblyMethod()
+        {
+            return AssemblyMethod.HasValue;
+        }
     }
 }
