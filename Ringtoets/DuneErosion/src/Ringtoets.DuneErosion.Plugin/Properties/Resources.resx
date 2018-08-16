@@ -127,6 +127,6 @@
     <value>bnd</value>
   </data>
   <data name="DuneErosionPlugin_CreateCalculateAllItem_No_calculatable_locations_present" xml:space="preserve">
-    <value>Geen van de locaties is geschikt voor een hydraulische belastingen berekening.</value>
+    <value>Geen van de locaties is geschikt voor een hydraulische belastingenberekening.</value>
   </data>
 </root>

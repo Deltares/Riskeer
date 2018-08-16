@@ -65,7 +65,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             string description = provider.GetActivityDescription(name);
 
             // Assert
-            string expectedDescription = $"Hydraulische randvoorwaarden berekenen voor locatie '{name}' (Categorie {categoryBoundaryName})";
+            string expectedDescription = $"Hydraulische belastingen berekenen voor locatie '{name}' (Categorie {categoryBoundaryName})";
             Assert.AreEqual(expectedDescription, description);
         }
 
@@ -83,7 +83,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             string message = provider.GetCalculationFailedMessage(name);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening '{name}' (Categorie {categoryBoundaryName}). " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de hydraulische belastingenberekening '{name}' (Categorie {categoryBoundaryName}). " +
                                      "Er is geen foutrapport beschikbaar.";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -103,7 +103,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             string message = provider.GetCalculationFailedWithErrorReportMessage(name, failureMessage);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening '{name}' (Categorie {categoryBoundaryName}). " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de hydraulische belastingenberekening '{name}' (Categorie {categoryBoundaryName}). " +
                                      $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -123,7 +123,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             string message = provider.GetCalculationFailedWithErrorReportMessage(name, failureMessage);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening '{name}' (Categorie {categoryBoundaryName}). " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de hydraulische belastingenberekening '{name}' (Categorie {categoryBoundaryName}). " +
                                      $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -142,7 +142,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             string message = provider.GetCalculatedNotConvergedMessage(name);
 
             // Assert
-            string expectedMessage = $"Hydraulische randvoorwaarden berekening voor locatie '{name}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.";
+            string expectedMessage = $"Hydraulische belastingenberekening voor locatie '{name}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.";
             Assert.AreEqual(expectedMessage, message);
         }
     }

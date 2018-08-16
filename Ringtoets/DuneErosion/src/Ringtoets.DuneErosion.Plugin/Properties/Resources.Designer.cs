@@ -82,7 +82,7 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen van de locaties is geschikt voor een hydraulische belastingen berekening..
+        ///   Looks up a localized string similar to Geen van de locaties is geschikt voor een hydraulische belastingenberekening..
         /// </summary>
         internal static string DuneErosionPlugin_CreateCalculateAllItem_No_calculatable_locations_present {
             get {

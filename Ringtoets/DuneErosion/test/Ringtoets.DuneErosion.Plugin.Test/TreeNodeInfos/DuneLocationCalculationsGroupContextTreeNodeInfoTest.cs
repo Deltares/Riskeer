@@ -387,7 +387,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                         ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
 
                         Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
-                        StringAssert.Contains("Geen van de locaties is geschikt voor een hydraulische belastingen berekening.", contextMenuItem.ToolTipText);
+                        StringAssert.Contains("Geen van de locaties is geschikt voor een hydraulische belastingenberekening.", contextMenuItem.ToolTipText);
                         TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                         Assert.IsFalse(contextMenuItem.Enabled);
                     }

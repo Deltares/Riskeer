@@ -288,7 +288,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
                                                                             "Resultaat",
                                                                             "Convergentie",
-                                                                            "Is convergentie bereikt in de berekening voor de hydraulische randvoorwaarden van de duinlocatie?",
+                                                                            "Is convergentie bereikt in de berekening van de hydraulische belastingen voor de duinlocatie?",
                                                                             true);
         }
 

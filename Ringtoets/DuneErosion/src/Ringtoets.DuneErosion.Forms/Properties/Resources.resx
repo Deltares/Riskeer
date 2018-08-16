@@ -124,7 +124,7 @@
     <value>Kustvaknummer</value>
   </data>
   <data name="DuneLocation_Convergence_Description" xml:space="preserve">
-    <value>Is convergentie bereikt in de berekening voor de hydraulische randvoorwaarden van de duinlocatie?</value>
+    <value>Is convergentie bereikt in de berekening van de hydraulische belastingen voor de duinlocatie?</value>
   </data>
   <data name="DuneLocation_D50_Description" xml:space="preserve">
     <value>Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>

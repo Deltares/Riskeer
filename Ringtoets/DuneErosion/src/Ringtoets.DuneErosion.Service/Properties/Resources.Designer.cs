@@ -82,7 +82,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie &apos;{0}&apos; moet voldoen aan het formaat &apos;Naam_Vaknummer_Metrering&apos;. Deze locatie is niet toegevoegd aan de hydraulische randvoorwaarden voor toetsspoor duinen..
+        ///   Looks up a localized string similar to Locatie &apos;{0}&apos; moet voldoen aan het formaat &apos;Naam_Vaknummer_Metrering&apos;. Deze locatie is niet toegevoegd aan de hydraulische belastingen voor toetsspoor duinen..
         /// </summary>
         internal static string DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format {
             get {
@@ -92,7 +92,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekenen voor locatie &apos;{0}&apos; (Categorie {1}).
+        ///   Looks up a localized string similar to Hydraulische belastingen berekenen voor locatie &apos;{0}&apos; (Categorie {1}).
         /// </summary>
         internal static string DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_Category_1 {
             get {
@@ -102,7 +102,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
+        ///   Looks up a localized string similar to Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
         /// </summary>
         internal static string DuneLocationCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0 {
             get {
@@ -112,7 +112,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening &apos;{0}&apos; (Categorie {1}). Bekijk het foutrapport door op details te klikken.
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de hydraulische belastingenberekening &apos;{0}&apos; (Categorie {1}). Bekijk het foutrapport door op details te klikken.
         ///{2}.
         /// </summary>
         internal static string DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_click_details_for_last_error_report_1 {
@@ -123,7 +123,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening &apos;{0}&apos; (Categorie {1}). Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de hydraulische belastingenberekening &apos;{0}&apos; (Categorie {1}). Er is geen foutrapport beschikbaar..
         /// </summary>
         internal static string DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_no_error_report {
             get {
@@ -133,7 +133,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; (Categorie {1}) is niet geconvergeerd..
+        ///   Looks up a localized string similar to Hydraulische belastingenberekening voor locatie &apos;{0}&apos; (Categorie {1}) is niet geconvergeerd..
         /// </summary>
         internal static string DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_Category_1_not_converged {
             get {
