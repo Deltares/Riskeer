@@ -603,13 +603,13 @@ handmatig</value>
     <value>Hydraulische gegevens</value>
   </data>
   <data name="HydraulicBoundaryLocation_Description" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden.</value>
+    <value>De locatie met hydraulische belastingen.</value>
   </data>
   <data name="HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
-    <value>Locatie met hydraulische randvoorwaarden</value>
+    <value>Locatie met hydraulische belastingen</value>
   </data>
   <data name="HydraulicBoundaryLocation_Description_with_assessment_level" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden waarvan de berekende waterstand wordt gebruikt.</value>
+    <value>De locatie met hydraulische belastingen waarvan de berekende waterstand wordt gebruikt.</value>
   </data>
   <data name="AssessmentLevel_Description" xml:space="preserve">
     <value>Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.</value>

@@ -2222,7 +2222,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden..
+        ///   Looks up a localized string similar to De locatie met hydraulische belastingen..
         /// </summary>
         public static string HydraulicBoundaryLocation_Description {
             get {
@@ -2231,7 +2231,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden waarvan de berekende waterstand wordt gebruikt..
+        ///   Looks up a localized string similar to De locatie met hydraulische belastingen waarvan de berekende waterstand wordt gebruikt..
         /// </summary>
         public static string HydraulicBoundaryLocation_Description_with_assessment_level {
             get {
@@ -2240,7 +2240,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie met hydraulische randvoorwaarden.
+        ///   Looks up a localized string similar to Locatie met hydraulische belastingen.
         /// </summary>
         public static string HydraulicBoundaryLocation_DisplayName {
             get {
