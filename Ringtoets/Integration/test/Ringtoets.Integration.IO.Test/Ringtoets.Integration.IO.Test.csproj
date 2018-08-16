@@ -23,6 +23,7 @@
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityTest.cs" />
     <Compile Include="Assembly\ExportableCombinedFailureMechanismSectionTest.cs" />
     <Compile Include="Assembly\ExportableCombinedSectionAssemblyResultTest.cs" />
+    <Compile Include="Assembly\ExportableCombinedSectionAssemblyTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismSectionTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismAssemblyResultTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismAssemblyResultWithProbablityTest.cs" />
