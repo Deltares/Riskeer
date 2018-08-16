@@ -38,7 +38,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
     /// </summary>
     public class StabilityPointStructuresCalculationConfigurationReader : CalculationConfigurationReader<StabilityPointStructuresCalculationConfiguration>
     {
-        private const string hrLocatieSchemaName = "HrLocatieSchema.xsd";
+        private const string hbLocatieSchemaName = "HbLocatieSchema.xsd";
         private const string orientatieSchemaName = "OrientatieSchema.xsd";
         private const string golfReductieSchemaName = "GolfReductieSchema.xsd";
         private const string voorlandProfielSchemaName = "VoorlandProfielSchema.xsd";
@@ -66,7 +66,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                    new Dictionary<string, string>
                    {
                        {
-                           hrLocatieSchemaName, RingtoetsCommonIOResources.HbLocatieSchema
+                           hbLocatieSchemaName, RingtoetsCommonIOResources.HbLocatieSchema
                        },
                        {
                            orientatieSchemaName, RingtoetsCommonIOResources.OrientatieSchema

@@ -40,7 +40,7 @@ namespace Ringtoets.Revetment.IO.Configurations
     public abstract class WaveConditionsCalculationConfigurationReader<T> : CalculationConfigurationReader<T>
         where T : WaveConditionsCalculationConfiguration
     {
-        private const string hydraulicBoundaryLocationSchemaName = "HrLocatieSchema.xsd";
+        private const string hbLocationSchemaName = "HbLocatieSchema.xsd";
         private const string orientationSchemaName = "OrientatieSchema.xsd";
         private const string foreshoreProfileSchemaName = "VoorlandProfielSchema.xsd";
         private const string waveReductionSchemaName = "GolfReductieSchema.xsd";
@@ -69,7 +69,7 @@ namespace Ringtoets.Revetment.IO.Configurations
                            revetmentBaseSchemaName,  Resources.BekledingenHrConfiguratieSchemaBasis
                        },
                        {
-                           hydraulicBoundaryLocationSchemaName, RingtoetsCommonIOResources.HbLocatieSchema
+                           hbLocationSchemaName, RingtoetsCommonIOResources.HbLocatieSchema
                        },
                        {
                            orientationSchemaName, RingtoetsCommonIOResources.OrientatieSchema

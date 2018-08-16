@@ -37,7 +37,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
     /// </summary>
     public class HeightStructuresCalculationConfigurationReader : CalculationConfigurationReader<HeightStructuresCalculationConfiguration>
     {
-        private const string hrLocatieSchemaName = "HrLocatieSchema.xsd";
+        private const string hbLocatieSchemaName = "HbLocatieSchema.xsd";
         private const string orientatieSchemaName = "OrientatieSchema.xsd";
         private const string golfReductieSchemaName = "GolfReductieSchema.xsd";
         private const string voorlandProfielSchemaName = "VoorlandProfielSchema.xsd";
@@ -65,7 +65,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                    new Dictionary<string, string>
                    {
                        {
-                           hrLocatieSchemaName, RingtoetsCommonIOResources.HbLocatieSchema
+                           hbLocatieSchemaName, RingtoetsCommonIOResources.HbLocatieSchema
                        },
                        {
                            orientatieSchemaName, RingtoetsCommonIOResources.OrientatieSchema
