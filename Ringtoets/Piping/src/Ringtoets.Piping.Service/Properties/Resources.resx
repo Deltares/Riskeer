@@ -132,9 +132,6 @@
   <data name="PipingCalculationService_ValidateInput_No_SurfaceLine_selected" xml:space="preserve">
     <value>Er is geen profielschematisatie geselecteerd.</value>
   </data>
-  <data name="PipingCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected" xml:space="preserve">
-    <value>Er is geen hydraulische randvoorwaardenlocatie geselecteerd.</value>
-  </data>
   <data name="PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit" xml:space="preserve">
     <value>Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.</value>
   </data>

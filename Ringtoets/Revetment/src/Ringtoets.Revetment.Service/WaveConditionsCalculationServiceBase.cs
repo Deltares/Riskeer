@@ -38,6 +38,7 @@ using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Revetment.Service
 {
@@ -399,7 +400,7 @@ namespace Ringtoets.Revetment.Service
 
             if (input.HydraulicBoundaryLocation == null)
             {
-                messages.Add(Resources.WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
+                messages.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
             else if (double.IsNaN(assessmentLevel))
             {

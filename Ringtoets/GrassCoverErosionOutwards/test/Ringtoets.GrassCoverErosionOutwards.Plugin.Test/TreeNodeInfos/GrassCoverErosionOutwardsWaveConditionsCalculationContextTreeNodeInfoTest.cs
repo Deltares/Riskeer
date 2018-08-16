@@ -1049,7 +1049,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                         if (!validCalculation)
                         {
-                            Assert.AreEqual("Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
+                            Assert.AreEqual("Er is geen hydraulische belastingenlocatie geselecteerd.", messages[1]);
                         }
 
                         CalculationServiceTestHelper.AssertValidationEndMessage(messages.Last());
