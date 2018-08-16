@@ -171,8 +171,8 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                                                    filePath),
                 IsEnabled = context => context.WrappedData.Any(calculation => calculation.Output != null),
                 FileFilterGenerator = new FileFilterGenerator(
-                    Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension,
-                    Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description)
+                    Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
+                    Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description)
             };
 
             yield return new ExportInfo<DuneLocationCalculationsGroupContext>
@@ -181,8 +181,8 @@ namespace Ringtoets.DuneErosion.Plugin
                 CreateFileExporter = CreateDuneLocationCalculationsGroupContextFileExporter,
                 IsEnabled = IsDuneLocationCalculationsGroupContextExportMenuItemEnabled,
                 FileFilterGenerator = new FileFilterGenerator(
-                    Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension,
-                    Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description)
+                    Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
+                    Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description)
             };
         }
 

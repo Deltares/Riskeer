@@ -102,20 +102,18 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hydraulische belastingen duinen.
         /// </summary>
-        internal static string DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description {
+        internal static string DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description {
             get {
-                return ResourceManager.GetString("DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Descript" +
-                        "ion", resourceCulture);
+                return ResourceManager.GetString("DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to bnd.
         /// </summary>
-        internal static string DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension {
+        internal static string DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension {
             get {
-                return ResourceManager.GetString("DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extensio" +
-                        "n", resourceCulture);
+                return ResourceManager.GetString("DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension", resourceCulture);
             }
         }
     }
