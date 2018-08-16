@@ -183,6 +183,38 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_AssessmentSectionWithReferenceLine_ExpectedValues()
+        {
+            // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowAssemblyResultPerSectionView())
+            {
+                DataGridView dataGridView = GetDataGridView();
+                DataGridViewRowCollection rows = dataGridView.Rows;
+
+                // Assert
+                Assert.AreEqual(1, rows.Count);
+            }
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionWithoutReferenceLine_ExpectedValues()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            // Call
+            using (ShowAssemblyResultPerSectionView(assessmentSection))
+            {
+                DataGridView dataGridView = GetDataGridView();
+                DataGridViewRowCollection rows = dataGridView.Rows;
+
+                // Assert
+                Assert.AreEqual(0, rows.Count);
+            }
+        }
+
+        [Test]
         [TestCaseSource(nameof(CellFormattingStates))]
         public void GivenFormWithAssemblyResultPerSectionView_WhenRefreshingAssemblyResults_ThenCategoryColumnSetToColumnStateDefinition(
             bool readOnly, string errorText, CellStyle style)
@@ -275,7 +307,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-            var assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
