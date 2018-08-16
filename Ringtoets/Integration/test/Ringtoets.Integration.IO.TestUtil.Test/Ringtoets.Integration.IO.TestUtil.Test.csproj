@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\..\packages\NUnit.3.10.1\build\NUnit.props" Condition="Exists('..\..\..\..\packages\NUnit.3.10.1\build\NUnit.props')" />
   <PropertyGroup>
     <ProjectGuid>{C4EE67E7-6E00-4735-9439-32D9B2054E40}</ProjectGuid>
     <RootNamespace>Ringtoets.Integration.IO.TestUtil.Test</RootNamespace>
@@ -7,16 +8,46 @@
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.3.10.1\lib\net40\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExportableFailureMechanismSectionTestFactoryTest.cs" />
+    <Compile Include="ExportableSectionAssemblyResultTestFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Ringtoets.AssemblyTool.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.IO\Ringtoets.Integration.IO.csproj">
+      <Project>{d693d18e-c257-4fde-96bc-f6e6fb043ecf}</Project>
+      <Name>Ringtoets.Integration.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.IO.TestUtil\Ringtoets.Integration.IO.TestUtil.csproj">
+      <Project>{1C002B07-DDF6-4849-B8ED-551163AC9423}</Project>
+      <Name>Ringtoets.Integration.IO.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\packages\NUnit.3.10.1\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\NUnit.3.10.1\build\NUnit.props'))" />
+  </Target>
 </Project>
