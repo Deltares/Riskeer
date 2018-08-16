@@ -103,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende resultaten voor de hydraulische randvoorwaarden voor gras..
+        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor gras..
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description {
             get {
@@ -113,7 +113,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden voor gras.
+        ///   Looks up a localized string similar to Hydraulische belastingen voor gras.
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName {
             get {

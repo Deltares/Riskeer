@@ -114,8 +114,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.IsTrue(itemsProperty.IsReadOnly);
             Assert.IsInstanceOf<ExpandableArrayConverter>(itemsProperty.Converter);
             Assert.AreEqual("Resultaat", itemsProperty.Category);
-            Assert.AreEqual("Hydraulische randvoorwaarden voor asfalt", itemsProperty.DisplayName);
-            Assert.AreEqual("Berekende resultaten voor de hydraulische randvoorwaarden voor asfalt.", itemsProperty.Description);
+            Assert.AreEqual("Hydraulische belastingen voor asfalt", itemsProperty.DisplayName);
+            Assert.AreEqual("Berekende hydraulische belastingen voor asfalt.", itemsProperty.Description);
         }
     }
 }

@@ -109,7 +109,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende resultaten voor de hydraulische randvoorwaarden voor asfalt..
+        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor asfalt..
         /// </summary>
         public static string WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description {
             get {
@@ -119,7 +119,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden voor asfalt.
+        ///   Looks up a localized string similar to Hydraulische belastingen voor asfalt.
         /// </summary>
         public static string WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName {
             get {
