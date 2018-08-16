@@ -112,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertyDescriptor itemsProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(itemsProperty,
                                                                             "Resultaat",
-                                                                            "Hydraulische randvoorwaarden voor gras",
+                                                                            "Hydraulische belastingen voor gras",
                                                                             "Berekende hydraulische belastingen voor gras.",
                                                                             true);
         }

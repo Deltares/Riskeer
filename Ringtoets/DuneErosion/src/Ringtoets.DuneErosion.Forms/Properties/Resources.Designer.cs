@@ -82,18 +82,6 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u deze parameter wijzigt, zal de uitvoer van alle randvoorwaarden locaties in dit toetsspoor verwijderd worden.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        internal static string DuneErosionFailureMechanismPropertyChangeHandler_Confirm_change_and_clearing_dune_locations {
-            get {
-                return ResourceManager.GetString("DuneErosionFailureMechanismPropertyChangeHandler_Confirm_change_and_clearing_dune" +
-                        "_locations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Nummer van het kustvak waar de locatie onderdeel van uitmaakt..
         /// </summary>
         internal static string DuneLocation_CoastalAreaId_Description {

@@ -24,7 +24,6 @@ using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Forms.Properties;
 using Ringtoets.DuneErosion.Service;
 
 namespace Ringtoets.DuneErosion.Forms
@@ -35,14 +34,6 @@ namespace Ringtoets.DuneErosion.Forms
     /// </summary>
     public class DuneErosionFailureMechanismPropertyChangeHandler : FailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>
     {
-        protected override string ConfirmationMessage
-        {
-            get
-            {
-                return Resources.DuneErosionFailureMechanismPropertyChangeHandler_Confirm_change_and_clearing_dune_locations;
-            }
-        }
-
         protected override bool RequiresConfirmation(DuneErosionFailureMechanism failureMechanism)
         {
             return base.RequiresConfirmation(failureMechanism)
