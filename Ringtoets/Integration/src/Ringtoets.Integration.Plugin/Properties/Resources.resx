@@ -139,7 +139,7 @@ Wilt u doorgaan?</value>
     <value>De resultaten van {0} berekeningen zijn verwijderd.</value>
   </data>
   <data name="FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
-    <value>Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.</value>
+    <value>Alle berekende hydraulische belastingen zijn verwijderd.</value>
   </data>
   <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_data" xml:space="preserve">
     <value>Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische randvoorwaarden en toetssporen verwijderd.

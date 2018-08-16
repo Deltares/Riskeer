@@ -2141,7 +2141,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coördinaten van de hydraulische randvoorwaardenlocatie..
+        ///   Looks up a localized string similar to Coördinaten van de hydraulische belastingenlocatie..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Coordinates_Description {
             get {
@@ -2159,7 +2159,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID van de hydraulische randvoorwaardenlocatie in de database..
+        ///   Looks up a localized string similar to ID van de hydraulische belastingenlocatie in de database..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Id_Description {
             get {
@@ -2177,7 +2177,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van de hydraulische randvoorwaardenlocatie..
+        ///   Looks up a localized string similar to Naam van de hydraulische belastingenlocatie..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Name_Description {
             get {
@@ -2278,7 +2278,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaardenlocatie.
+        ///   Looks up a localized string similar to Hydraulische belastingenlocatie.
         /// </summary>
         public static string HydraulicBoundaryLocationSelectionDialog_Location_Name {
             get {
@@ -2287,7 +2287,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer hydraulische randvoorwaardenlocaties.
+        ///   Looks up a localized string similar to Selecteer hydraulische belastingenlocaties.
         /// </summary>
         public static string HydraulicBoundaryLocationSelectionDialog_Select_HydraulicBoundaryLocations {
             get {

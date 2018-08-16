@@ -197,14 +197,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
                                                                             "Algemeen",
                                                                             "ID",
-                                                                            "ID van de hydraulische randvoorwaardenlocatie in de database.",
+                                                                            "ID van de hydraulische belastingenlocatie in de database.",
                                                                             true);
 
             PropertyDescriptor nameProperty = dynamicProperties[requiredNamePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             "Algemeen",
                                                                             "Naam",
-                                                                            "Naam van de hydraulische randvoorwaardenlocatie.",
+                                                                            "Naam van de hydraulische belastingenlocatie.",
                                                                             true);
 
             PropertyDescriptor coastalAreaIdProperty = dynamicProperties[requiredCoastalAreaIdPropertyIndex];
@@ -225,7 +225,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationProperty,
                                                                             "Algemeen",
                                                                             "Coördinaten [m]",
-                                                                            "Coördinaten van de hydraulische randvoorwaardenlocatie.",
+                                                                            "Coördinaten van de hydraulische belastingenlocatie.",
                                                                             true);
 
             PropertyDescriptor waterLevelProperty = dynamicProperties[requiredWaterLevelPropertyIndex];
