@@ -6,6 +6,7 @@ namespace Ringtoets.Integration.IO.Assembly
     /// Class that holds all the information to export a failure mechanism section assembly result with probability.
     /// </summary>
     public class ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability
+        : ExportableAggregatedFailureMechanismSectionAssemblyResultBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.
@@ -21,12 +22,8 @@ namespace Ringtoets.Integration.IO.Assembly
                                                                                         ExportableSectionAssemblyResultWithProbability detailedAssembly,
                                                                                         ExportableSectionAssemblyResultWithProbability tailorMadeAssembly,
                                                                                         ExportableSectionAssemblyResultWithProbability combinedAssembly)
+            : base(failureMechanismSection)
         {
-            if (failureMechanismSection == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSection));
-            }
-
             if (simpleAssembly == null)
             {
                 throw new ArgumentNullException(nameof(simpleAssembly));
@@ -47,17 +44,11 @@ namespace Ringtoets.Integration.IO.Assembly
                 throw new ArgumentNullException(nameof(combinedAssembly));
             }
 
-            FailureMechanismSection = failureMechanismSection;
             SimpleAssembly = simpleAssembly;
             DetailedAssembly = detailedAssembly;
             TailorMadeAssembly = tailorMadeAssembly;
             CombinedAssembly = combinedAssembly;
         }
-
-        /// <summary>
-        /// Gets the failure mechanism section.
-        /// </summary>
-        public ExportableFailureMechanismSection FailureMechanismSection { get; }
 
         /// <summary>
         /// Gets the simple assembly result.

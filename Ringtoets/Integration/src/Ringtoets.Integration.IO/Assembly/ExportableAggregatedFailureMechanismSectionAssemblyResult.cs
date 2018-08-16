@@ -6,6 +6,7 @@ namespace Ringtoets.Integration.IO.Assembly
     /// Class that holds all the information to export the assembly result of a failure mechanism section.
     /// </summary>
     public class ExportableAggregatedFailureMechanismSectionAssemblyResult
+        : ExportableAggregatedFailureMechanismSectionAssemblyResultBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.
@@ -21,12 +22,8 @@ namespace Ringtoets.Integration.IO.Assembly
                                                                          ExportableSectionAssemblyResult detailedAssembly,
                                                                          ExportableSectionAssemblyResult tailorMadeAssembly,
                                                                          ExportableSectionAssemblyResult combinedAssembly)
+            : base(failureMechanismSection)
         {
-            if (failureMechanismSection == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSection));
-            }
-
             if (simpleAssembly == null)
             {
                 throw new ArgumentNullException(nameof(simpleAssembly));
@@ -47,17 +44,11 @@ namespace Ringtoets.Integration.IO.Assembly
                 throw new ArgumentNullException(nameof(combinedAssembly));
             }
 
-            FailureMechanismSection = failureMechanismSection;
             SimpleAssembly = simpleAssembly;
             DetailedAssembly = detailedAssembly;
             TailorMadeAssembly = tailorMadeAssembly;
             CombinedAssembly = combinedAssembly;
         }
-
-        /// <summary>
-        /// Gets the failure mechanism section.
-        /// </summary>
-        public ExportableFailureMechanismSection FailureMechanismSection { get; }
 
         /// <summary>
         /// Gets the simple assembly result.
