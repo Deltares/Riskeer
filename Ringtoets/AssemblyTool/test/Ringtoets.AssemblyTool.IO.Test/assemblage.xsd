@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:gml="http://www.opengis.net/gml/3.2"
+  xmlns:asm="http://localhost/standaarden/assemblage"
+  elementFormDefault="qualified"
+  targetNamespace="http://localhost/standaarden/assemblage" version="1.0.0">
+  <!--XML Schema document created by Wijnand van Riel for IHW/-->
+
+  <import namespace="http://www.opengis.net/gml/3.2"
+      schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+
+  <!-- toetsspoor:toetsoordeel optioneel
+    toets.toetsoordeel optioneel
+    waterkeringsectie.afstandBegin optioneel
+    waterkeringsectie.afstandEinde optioneel-->
+
+  <!-- Onderstaand schema definition is gebaseerd op het UML class-diagram zoals dat is geformuleerd in het Informatiemodel Waterveiligheid
+    In deze omzetting van diagram naar schema zijn composities (wiebertjes) vertaald naar 'element met type ref' en een attribuut met type IDREF  
+    De associatierelaties zijn vertaald (open pijlen)als key-refkey, analoog aan Primary-keyForeign-key relaties in Relationele databases -->
+  <!-- 12-06-2018 Wijzigingen t.o.v. v1.0.0: Aan GecombineerdToetsoordeel is veld assemblagemethodeToetsoordeelGecombineerd toegevoegd
+    Gewijzigd: verwijziging naar localhost naar "http://www.aquo.nl/Aquo/schemas/imwakern.xsd"
+    -->
+  <!-- 14-06-2018 Wijzigingen t.o.v. v1.0.1 ToetsspoorOordeel gewijzigd naar TootsspoorOordeelPropertyType (in UML is dat een DataType) -->
+
+  <!--16-08-2018 Wijzigingen t.o.v. v1.0.3:
+    * element en type "Waterkering" verwijderd met bijbehorende relaties
+    * Logische volgorde featuremembers toegepast
+    * PropertyTypes gecorrigeerd
+    * PropertyTypes toegevoegd voor ToetsoordeelVak, ToetsoordeelTraject en ToetsoordeelGecombineerdVak
+    * Relaties tussen Toetsspoor en Boordelingsproces aangepast naar relatie tussen Toetsspoor en veiligheidsoordeel
+    * Extra relatie gelegd tussen vakindeling en veiligheidsoordeel (ofwel relatie met veiligheidsoordeel, ofwel met toetsspoor).
+    -->
+  <element name="Assemblage" type="asm:AssemblageType" substitutionGroup="gml:AbstractFeature">
+    <!-- Dit is de root-definition 
+        Eerst de Primary Key van de elementen -->
+    <key name="PKBeoordelingsproces">
+      <selector xpath="Beoordelingsproces"/>
+      <field xpath="@BeoordelingsprocesID"/>
+    </key>
+    <key name="PKVeiligheidsoordeel">
+      <selector xpath="Veiligheidsoordeel"/>
+      <field xpath="@VeiligheidsoordeelID"/>
+    </key>
+    <key name="PKToetsspoor">
+      <selector xpath="Toetsspoor"/>
+      <field xpath="@ToetsspoorID"/>
+    </key>
+    <key name="PKToets">
+      <selector xpath="Toets"/>
+      <field xpath="@ToetsID"/>
+    </key>
+    <key name="PKGecombineerdToetsoordeel">
+      <selector xpath="GecombineerdToetsoordeel"/>
+      <field xpath="@GecombineerdToetsoordeelID"/>
+    </key>
+    <key name="PKVakindeling">
+      <selector xpath="Vakindeling"/>
+      <field xpath="@VakindelingID"/>
+    </key>
+    <key name="PKWaterkeringsectie">
+      <selector xpath="Waterkeringsectie"/>
+      <field xpath="@WaterkeringsectieID"/>
+    </key>
+    <key name="PKWaterkeringstelsel">
+      <selector xpath="Waterkeringstelsel"/>
+      <field xpath="@WaterkeringstelselID"/>
+    </key>
+
+    <!-- Vervolgens de Foreign Key relaties -->
+    <keyref name="FKBeoordelingsproces2Waterkeringstelsel" refer="asm:PKWaterkeringstelsel">
+      <selector xpath="Beoordelingsproces/Waterkeringstelsel"/>
+      <field xpath="@refid"/>
+    </keyref>
+    <keyref name="FKVeiligheidsoordeel2Beoordelingsproces" refer="asm:PKBeoordelingsproces">
+      <selector xpath="Veiligheidsoordeel/Beoordelingsproces"/>
+      <field xpath="@refid"/>
+    </keyref>
+
+    <keyref name="FKGecombineerdToetsoordeel2Veiligheidsoordeel"
+            refer="asm:PKVeiligheidsoordeel">
+      <selector xpath="GecombineerdToetsoordeel/Veiligheidsoordeel"/>
+      <field xpath="@refid"/>
+    </keyref>
+    <keyref name="FKToetsspoor2Veiligheidsoordeel" refer="asm:PKVeiligheidsoordeel">
+      <selector xpath="Toetsspoor/Veiligheidsoordeel"/>
+      <field xpath="@refid"/>
+    </keyref>
+    <keyref name="FKVakindeling2Veiligheidsoordeel" refer="asm:PKVeiligheidsoordeel">
+      <selector xpath="Vakindeling/Veiligheidsoordeel"/>
+      <field xpath="@refid"/>
+    </keyref>
+
+    <keyref name="FKToets2Toetsspoor" refer="asm:PKToetsspoor">
+      <selector xpath="Toets/Toetsspoor"/>
+      <field xpath="@refid"/>
+    </keyref>
+    <keyref name="FKVakindeling2Toetsspoor" refer="asm:PKToetsspoor">
+      <selector xpath="Vakindeling/Toetsspoor"/>
+      <field xpath="@refid"/>
+    </keyref>
+
+    <keyref name="FKToets2Waterkeringsectie" refer="asm:PKWaterkeringsectie">
+      <selector xpath="Toets/Waterkeringsectie"/>
+      <field xpath="@refid"/>
+    </keyref>
+    <keyref name="FKGecombineerdToetsoordeel2Waterkeringsectie" refer="asm:PKWaterkeringsectie">
+      <selector xpath="GecombineerdToetsoordeel/Waterkeringsectie"/>
+      <field xpath="@refid"/>
+    </keyref>
+
+    <keyref name="FKWaterkeringsectie2Vakindeling" refer="asm:PKVakindeling">
+      <selector xpath="Waterkeringsectie/Vakindeling"/>
+      <field xpath="@refid"/>
+    </keyref>
+    <!--      
+         Alle elementen van Root
+        -->
+  </element>
+  <complexType name="AssemblageType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence minOccurs="0" maxOccurs="unbounded">
+          <element name="featureMember">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence>
+                    <!-- <element ref="gml:AbstractFeature"/> -->
+                    <element ref="asm:Waterkeringstelsel" minOccurs="1" maxOccurs="1"/>
+                    <element ref="asm:Beoordelingsproces" minOccurs="1" maxOccurs="1"/>
+                    <element ref="asm:Veiligheidsoordeel" minOccurs="1" maxOccurs="unbounded"/>
+                    <element ref="asm:Toetsspoor" minOccurs="1" maxOccurs="unbounded"/>
+                    <element ref="asm:Toets" minOccurs="1" maxOccurs="unbounded"/>
+                    <element ref="asm:GecombineerdToetsoordeel" minOccurs="0" maxOccurs="1"/>
+                    <element ref="asm:Vakindeling" minOccurs="0" maxOccurs="unbounded"/>
+                    <element ref="asm:Waterkeringsectie" minOccurs="1" maxOccurs="unbounded"/>
+                  </sequence>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <!-- Definitie van alle elementen -->
+  <element name="Veiligheidsoordeel" type="asm:VeiligheidsoordeelType">
+    <annotation>
+      <documentation>
+        Geüniformeerd oordeel over het dijktraject rekening houdend met alle
+        toetssporen.
+      </documentation>
+    </annotation>
+  </element>
+
+  <complexType name="VeiligheidsoordeelType">
+    <all>
+      <element name="toetsoordeelMetKansschatting" minOccurs="1" maxOccurs="1" type="asm:ToetsoordeelTrajectPropertyType"/>
+      <element name="toetsoordeelZonderKansschatting" minOccurs="1" maxOccurs="1" type="asm:ToetsoordeelTrajectPropertyType"/>
+      <element name="veiligheidsoordeel" minOccurs="1" maxOccurs="1" type="asm:VeiligheidsoordeelPropertyType">
+        <annotation>
+          <documentation>
+            Resultaat van de veiligheidstoetsing. - voldoet aan de norm -
+            voldoet niet aan de norm - nader onderzoek nodig
+          </documentation>
+        </annotation>
+      </element>
+    </all>
+    <attribute name="VeiligheidsoordeelID" type="ID" use="required"/>
+    <attribute name="BeoordelingsprocesIDRef" type="IDREF" use="required"/>
+  </complexType>
+  <complexType name="ToetsoordeelTrajectPropertyType">
+    <all>
+      <element name="assemblagemethode" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+      <element name="categorieTraject" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+      <element name="faalkans" minOccurs="0" maxOccurs="1" type="double"/>
+      <element name="status" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+    </all>
+  </complexType>
+  <complexType name="VeiligheidsoordeelPropertyType">
+    <all>
+      <element name="assemblagemethode" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+      <element name="categorie" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+      <element name="status" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+    </all>
+  </complexType>
+  <element name="Toetsspoor" type="asm:ToetsspoorType">
+    <annotation>
+      <documentation>
+        De wijze waarop een mechanisme of een onderdeel van de waterkering wordt
+        beoordeeld.
+      </documentation>
+    </annotation>
+  </element>
+  <complexType name="ToetsspoorType">
+    <all>
+      <element name="typeToetsspoor" type="gml:CodeType" minOccurs="1" maxOccurs="1">
+        <annotation>
+          <documentation>
+            Naam/code van het toetsspoor, zoals STPH (piping)
+            etc.
+          </documentation>
+        </annotation>
+      </element>
+      <element name="toetsspoorGroep" minOccurs="1" maxOccurs="1" type="gml:CodeType">
+        <annotation>
+          <documentation>
+            Groep van toetssporen gebaseerd op een onderverdeling op grond
+            van de beschikbare berekeningswijze en of betrekking hebben op directe of
+            indirecte mechanismen (FO Assemblagetool)
+          </documentation>
+        </annotation>
+      </element>
+      <element name="typeFaalmechanisme" minOccurs="1" maxOccurs="1" type="gml:CodeType">
+        <annotation>
+          <documentation>
+            Aanduiding van het type faalmechanimse:
+            direct/indirect.
+          </documentation>
+        </annotation>
+      </element>
+      <element name="toetsoordeel" minOccurs="1" maxOccurs="1" type="asm:ToetsoordeelTrajectPropertyType">
+        <annotation>
+          <documentation>
+            Aanduiding van het type oordeel: tussentijds /
+            volledig
+          </documentation>
+        </annotation>
+      </element>
+      <element name="toetsvoorschrift" minOccurs="0" maxOccurs="1" type="string"/>
+    </all>
+    <attribute name="ToetsspoorID" type="ID" use="required"/>
+    <attribute name="VeiligheidsoordeelIDRef" type="IDREF" use="required"/>
+  </complexType>
+  <element name="Beoordelingsproces">
+    <annotation>
+      <documentation>
+        Geheel van activiteiten gericht op het (periodiek) beoordelen of de
+        momentane toestand van een object voldoet aan de vigerende functionele en/of
+        wettelijke eisen.
+      </documentation>
+    </annotation>
+    <complexType>
+      <all>
+        <element name="beginJaarBeoordelingsronde" type="positiveInteger">
+          <annotation>
+            <documentation>
+              Jaartal begin van de beoordelingsronde. Toelichting: een
+              waterkeringstelsel wordt in meerdere beoordelingsrondes beoordeeld (in de
+              tijd). Bijvoorbeeld de beoordelingsronde die loopt van 2017 tot en met
+              2023.
+            </documentation>
+          </annotation>
+        </element>
+        <element name="eindJaarBeoordelingsronde" type="positiveInteger">
+          <annotation>
+            <documentation>
+              Jaartal einde van de beoordelingsronde. Toelichting: een
+              waterkeringstelsel wordt in meerdere beoordelingsrondes beoordeeld (in de
+              tijd). Bijvoorbeeld de beoordelingsronde die loopt van 2017 tot en met
+              2023.
+            </documentation>
+          </annotation>
+        </element>
+        <element name="omschrijving" minOccurs="0" type="string"/>
+      </all>
+      <attribute name="BeoordelingsprocesID" type="ID" use="required"/>
+      <attribute name="WaterkeringstelselIDRef" type="IDREF" use="required"/>
+    </complexType>
+  </element>
+  <element name="Toets" type="asm:ToetsType">
+    <annotation>
+      <documentation>
+        Geen definitie in Aquo-lex Domein: goed, voldoende, onvoldoende, geen
+        oordeel
+      </documentation>
+    </annotation>
+  </element>
+  <complexType name="ToetsType">
+    <sequence>
+      <element name="eindtoetsoordeel" minOccurs="1" maxOccurs="1" type="asm:ToetsoordeelVakPropertyType"/>
+      <element name="toetsoordeelVak" minOccurs="0" maxOccurs="unbounded" type="asm:ToetsoordeelVakPropertyType"/>
+    </sequence>
+    <attribute name="ToetsID" type="ID" use="required"/>
+    <attribute name="ToetsspoorIDRef" type="IDREF" use="required"/>
+    <attribute name="WaterkeringsectieIDRef" type="IDREF" use="required"/>
+  </complexType>
+  <complexType name="ToetsoordeelVakPropertyType">
+    <all>
+      <element name="assemblagemethode" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+      <element name="categorieVak" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+      <element name="faalkans" minOccurs="0" maxOccurs="1" type="double"/>
+      <element name="toets" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+    </all>
+  </complexType>
+  <element name="GecombineerdToetsoordeel" type="asm:GecombineerdToetsoordeelType">
+    <annotation>
+      <documentation>
+        Gecombineerd oordeel van de toetsoordelen van de verschillende
+        toetssporen op (deel)vakniveau.
+      </documentation>
+    </annotation>
+  </element>
+  <complexType name="GecombineerdToetsoordeelType">
+    <sequence>
+      <element name="toetsoordeelGecombineerd" minOccurs="1" maxOccurs="1" type="asm:ToetsoordeelVakPropertyType"/>
+      <element name="eindtoetsoordeelToetsspoor" minOccurs="1" maxOccurs="unbounded" type="asm:ToetsoordeelGecombineerdVakPropertyType"/>
+    </sequence>
+    <attribute name="GecombineerdToetsoordeelID" type="ID" use="required"/>
+    <attribute name="VeiligheidsoordeelIDRef" type="IDREF" use="required"/>
+    <attribute name="WaterkeringsectieIDRef" type="IDREF" use="required"/>
+  </complexType>
+  <complexType name="ToetsoordeelGecombineerdVakPropertyType">
+    <all>
+      <element name="assemblagemethode" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+      <element name="categorieVak" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+      <element name="status" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+      <element name="typeToetsspoor" minOccurs="0" maxOccurs="1" type="gml:CodeType"/>
+    </all>
+  </complexType>
+  <element name="Waterkeringsectie" substitutionGroup="gml:AbstractFeature"
+      type="asm:WaterkeringsectieType">
+    <annotation>
+      <documentation>
+        Deel van een waterkeringstelsel met min of meer gelijke eigenschappen (Aquo,
+        'Toetsvak'). Voorbeelden: toetssectie, inspectievak, onderhoudsvak.
+      </documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterkeringsectieType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="afstandBegin" minOccurs="1" maxOccurs="1" type="gml:MeasureType">
+            <annotation>
+              <documentation>
+                Afstand (in meters) van het begin van de sectie t.o.v.
+                het nulpunt van het referentiestelsel van de
+                waterkeringstelsel.
+              </documentation>
+            </annotation>
+          </element>
+          <element name="afstandEinde" minOccurs="1" maxOccurs="1" type="gml:MeasureType">
+            <annotation>
+              <documentation>
+                Afstand (in meters) van het einde van de sectie t.o.v.
+                het nulpunt van het referentiestelsel van de
+                waterkeringstelsel.
+              </documentation>
+            </annotation>
+          </element>
+          <element name="geometrieLijn2D" type="gml:CurvePropertyType" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <documentation>Geometrische representatie van het object als lijn.</documentation>
+            </annotation>
+          </element>
+          <element name="lengte" minOccurs="1" maxOccurs="1" type="gml:MeasureType"/>
+          <element name="typeWaterkeringsectie" minOccurs="1" maxOccurs="1" type="gml:CodeType">
+            <annotation>
+              <documentation>
+                WaterkeringsectieType: Nadere aanduiding van het type
+                waterkeringsectie.
+              </documentation>
+            </annotation>
+          </element>
+          <element name="assemblagemethode" minOccurs="0" maxOccurs="1" type="gml:CodeType"/>
+        </sequence>
+        <!-- Bij gml:abstractfeautres kun je geen andere ID hebben dan gml:id
+                <attribute name="WaterkeringsectieID" type="ID" use="required"/>
+                -->
+        <attribute name="VakindelingIDRef" type="IDREF" use="required"/>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <element name="Vakindeling" type="asm:VakindelingType"/>
+  <complexType name="VakindelingType">
+    <attribute name="VakindelingID" type="ID" use="required"/>
+    <!--In gebruik moet (verplicht) precies een (1) van de volgende twee attributen worden gebruikt. Dit wordt in deze xsd niet afgedwongen.-->
+    <attribute name="ToetsspoorIDRef" type="IDREF" use="optional"/>
+    <attribute name="VeiligheidsoordeelIDRef" type="IDREF" use="optional"/>
+  </complexType>
+
+  <element name="Waterkeringstelsel" substitutionGroup="gml:AbstractFeature"
+          type="asm:WaterkeringstelselType">
+    <annotation>
+      <documentation>Een logisch samenhangend stelsel van waterkeringen.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WaterkeringstelselType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element minOccurs="0" name="naam" type="string">
+            <annotation>
+              <documentation>Naam van het waterkeringstelsel.</documentation>
+            </annotation>
+          </element>
+          <element name="geometrie2D" minOccurs="1" maxOccurs="1" type="gml:GeometryPropertyType">
+            <annotation>
+              <documentation>
+                Geometrische representatie van het object als lijn of
+                vlak.
+              </documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="lengte" type="gml:MeasureType"/>
+          <element name="typeWaterkeringstelsel" minOccurs="1" maxOccurs="1" type="gml:CodeType">
+            <annotation>
+              <documentation>
+                WaterkeringstelselType: Nadere aanduiding van het type
+                waterkeringstelsel.
+              </documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+</schema>

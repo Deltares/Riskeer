@@ -24,6 +24,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Xml.Linq;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Reflection;
@@ -179,8 +183,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             xmlns.Add("gml", AssemblyXmlIdentifiers.GmlNamespace);
             xmlns.Add("asm", AssemblyXmlIdentifiers.AssemblyNamespace);
 
-            var writer = new StringWriter();
-
+            var writer = new StringWriterUtf8();
             var assessmentSection = new SerializableAssessmentSection
             {
                 Id = "section1",
@@ -224,8 +227,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                    {
                                                                        new Point2D(0.23, 0.24),
                                                                        new Point2D(10.23, 10.24)
-                                                                   },
-                                                                   SerializableAssemblyMethod.WBI3B1);
+                                                                   });
 
             var result1 = new SerializableFailureMechanismSectionAssembly("resultaat_GABI_1",
                                                                           failureMechanism1,
@@ -249,14 +251,14 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                    },
                                                                    SerializableAssemblyMethod.WBI3B1);
             var combinedResult = new SerializableCombinedFailureMechanismSectionAssembly("resultaat_gecombineerd_1",
-                totalAssemblyResult,
-                section2,
-                new[]
-                {
-                    new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.HTKW, SerializableFailureMechanismSectionCategoryGroup.IIIv), 
-                    new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.STPH, SerializableFailureMechanismSectionCategoryGroup.IVv), 
-                },
-                new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3B1, SerializableAssessmentLevel.CombinedSectionAssessment, SerializableFailureMechanismSectionCategoryGroup.VIv));
+                                                                                         totalAssemblyResult,
+                                                                                         section2,
+                                                                                         new[]
+                                                                                         {
+                                                                                             new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.HTKW, SerializableFailureMechanismSectionCategoryGroup.IIIv),
+                                                                                             new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.STPH, SerializableFailureMechanismSectionCategoryGroup.IVv)
+                                                                                         },
+                                                                                         new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3B1, SerializableAssessmentLevel.CombinedSectionAssessment, SerializableFailureMechanismSectionCategoryGroup.VIv));
 
             var assembly = new SerializableAssembly("assemblage_1", new Point2D(12.0, 34.0), new Point2D(56.053, 78.0002345),
                                                     new SerializableFeatureMember[]
@@ -266,15 +268,37 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                         totalAssemblyResult,
                                                         failureMechanism1,
                                                         result1,
+                                                        combinedResult,
                                                         sections1,
-                                                        section1,
                                                         sections2,
-                                                        section2,
-                                                        combinedResult
+                                                        section1,
+                                                        section2
                                                     });
 
             serializer.Serialize(writer, assembly, xmlns);
-            Console.WriteLine(writer.ToString());
+            string xml = writer.ToString();
+            Console.WriteLine(xml);
+
+            var schema = new XmlSchemaSet();
+            Assembly ass = Assembly.GetExecutingAssembly();
+            string path = Path.GetDirectoryName(ass.Location);
+            schema.Add("http://localhost/standaarden/assemblage", Path.Combine(path, "assemblage.xsd"));
+
+            XDocument doc = XDocument.Parse(xml);
+            var msg = "";
+            doc.Validate(schema, (o, e) => { msg += e.Message + Environment.NewLine; });
+            Console.WriteLine(msg == "" ? "Document is valid" : "Document invalid: " + msg);
+        }
+
+        public class StringWriterUtf8 : StringWriter
+        {
+            public override Encoding Encoding
+            {
+                get
+                {
+                    return Encoding.UTF8;
+                }
+            }
         }
 
         private class TestFeatureMember : SerializableFeatureMember {}
