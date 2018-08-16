@@ -137,7 +137,7 @@
     <value>De uitvoer van alle afhankelijke berekeningen is verwijderd.</value>
   </data>
   <data name="Delete_Calculations_Text" xml:space="preserve">
-    <value>U heeft een ander hydraulische randvoorwaarden bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
+    <value>U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
     
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
