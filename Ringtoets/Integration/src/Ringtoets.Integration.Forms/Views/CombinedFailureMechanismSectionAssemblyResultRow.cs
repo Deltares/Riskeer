@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return new RoundedDouble(3, combinedFailureMechanismSectionAssemblyResult.SectionStart);
+                return new RoundedDouble(3, combinedFailureMechanismSectionAssemblyResult.SectionStart / 1000);
             }
         }
 
@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return new RoundedDouble(3, combinedFailureMechanismSectionAssemblyResult.SectionEnd);
+                return new RoundedDouble(3, combinedFailureMechanismSectionAssemblyResult.SectionEnd / 1000);
             }
         }
 

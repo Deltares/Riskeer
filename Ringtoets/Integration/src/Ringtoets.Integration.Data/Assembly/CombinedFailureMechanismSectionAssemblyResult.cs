@@ -75,13 +75,13 @@ namespace Ringtoets.Integration.Data.Assembly
 
         /// <summary>
         /// Gets the start of the section from the beginning of the reference line.
-        /// [km]
+        /// [m]
         /// </summary>
         public double SectionStart { get; }
 
         /// <summary>
         /// Gets the end of the section from the beginning of the reference line.
-        /// [km]
+        /// [m]
         /// </summary>
         public double SectionEnd { get; }
 
