@@ -69,7 +69,7 @@ namespace Ringtoets.Revetment.IO.Configurations
                            revetmentBaseSchemaName,  Resources.BekledingenHrConfiguratieSchemaBasis
                        },
                        {
-                           hydraulicBoundaryLocationSchemaName, RingtoetsCommonIOResources.HrLocatieSchema
+                           hydraulicBoundaryLocationSchemaName, RingtoetsCommonIOResources.HbLocatieSchema
                        },
                        {
                            orientationSchemaName, RingtoetsCommonIOResources.OrientatieSchema

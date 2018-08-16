@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
                    new Dictionary<string, string>
                    {
                        {
-                           hrLocatieSchemaName, RingtoetsCommonIOResources.HrLocatieSchema
+                           hrLocatieSchemaName, RingtoetsCommonIOResources.HbLocatieSchema
                        },
                        {
                            orientatieSchemaName, RingtoetsCommonIOResources.OrientatieSchema
