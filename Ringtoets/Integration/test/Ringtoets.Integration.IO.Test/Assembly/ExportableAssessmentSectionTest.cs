@@ -22,7 +22,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>();
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability =
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>();
-            IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults = Enumerable.Empty<ExportableCombinedSectionAssembly>();
 
             // Call
             TestDelegate call = () => new ExportableAssessmentSection(null,
@@ -30,7 +29,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                       assessmentSectionAssembly,
                                                                       failureMechanismsWithProbability,
                                                                       failureMechanismsWithoutProbability,
-                                                                      combinedSectionAssemblyResults);
+                                                                      CreateCombinedSectionAssemblyCollection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -46,7 +45,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>();
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability =
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>();
-            IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults = Enumerable.Empty<ExportableCombinedSectionAssembly>();
 
             // Call
             TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
@@ -54,7 +52,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                       assessmentSectionAssembly,
                                                                       failureMechanismsWithProbability,
                                                                       failureMechanismsWithoutProbability,
-                                                                      combinedSectionAssemblyResults);
+                                                                      CreateCombinedSectionAssemblyCollection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -70,7 +68,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>();
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability =
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>();
-            IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults = Enumerable.Empty<ExportableCombinedSectionAssembly>();
 
             // Call
             TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
@@ -78,7 +75,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                       null,
                                                                       failureMechanismsWithProbability,
                                                                       failureMechanismsWithoutProbability,
-                                                                      combinedSectionAssemblyResults);
+                                                                      CreateCombinedSectionAssemblyCollection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -93,7 +90,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly = CreateAssessmentSectionAssembly();
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability =
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>();
-            IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults = Enumerable.Empty<ExportableCombinedSectionAssembly>();
 
             // Call
             TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
@@ -101,7 +97,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                       assessmentSectionAssembly,
                                                                       null,
                                                                       failureMechanismsWithoutProbability,
-                                                                      combinedSectionAssemblyResults);
+                                                                      CreateCombinedSectionAssemblyCollection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -116,7 +112,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly = CreateAssessmentSectionAssembly();
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> failureMechanismsWithProbability =
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>();
-            IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults = Enumerable.Empty<ExportableCombinedSectionAssembly>();
 
             // Call
             TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
@@ -124,7 +119,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                       assessmentSectionAssembly,
                                                                       failureMechanismsWithProbability,
                                                                       null,
-                                                                      combinedSectionAssemblyResults);
+                                                                      CreateCombinedSectionAssemblyCollection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -167,7 +162,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>();
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability =
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>();
-            IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults = Enumerable.Empty<ExportableCombinedSectionAssembly>();
+            ExportableCombinedSectionAssemblyCollection combinedSectionAssemblyResults = CreateCombinedSectionAssemblyCollection();
 
             // Call
             var assessmentSection = new ExportableAssessmentSection(name,
@@ -184,6 +179,12 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             Assert.AreSame(failureMechanismsWithProbability, assessmentSection.FailureMechanismsWithProbability);
             Assert.AreSame(failureMechanismsWithoutProbability, assessmentSection.FailureMechanismsWithoutProbability);
             Assert.AreSame(combinedSectionAssemblyResults, assessmentSection.CombinedSectionAssemblyResults);
+        }
+
+        private static ExportableCombinedSectionAssemblyCollection CreateCombinedSectionAssemblyCollection()
+        {
+            return new ExportableCombinedSectionAssemblyCollection(Enumerable.Empty<ExportableCombinedFailureMechanismSection>(),
+                                                                   Enumerable.Empty<ExportableCombinedSectionAssembly>());
         }
 
         private static ExportableAssessmentSectionAssemblyResult CreateAssessmentSectionAssembly()

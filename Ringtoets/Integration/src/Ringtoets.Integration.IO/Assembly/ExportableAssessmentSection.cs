@@ -29,7 +29,7 @@ namespace Ringtoets.Integration.IO.Assembly
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> failureMechanismsWithProbability,
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability,
-            IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults)
+            ExportableCombinedSectionAssemblyCollection combinedSectionAssemblyResults)
         {
             if (name == null)
             {
@@ -97,6 +97,6 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <summary>
         /// Gets the collection of combined section assembly results of this assessment section.
         /// </summary>
-        public IEnumerable<ExportableCombinedSectionAssembly> CombinedSectionAssemblyResults { get; }
+        public ExportableCombinedSectionAssemblyCollection CombinedSectionAssemblyResults { get; }
     }
 }
