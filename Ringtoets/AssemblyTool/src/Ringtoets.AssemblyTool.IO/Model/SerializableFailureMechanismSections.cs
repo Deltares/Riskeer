@@ -43,19 +43,47 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableFailureMechanismSections(string id,
                                                     SerializableFailureMechanism failureMechanism)
+            : this(id)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            FailureMechanismId = failureMechanism.Id;
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SerializableFailureMechanismSections"/>.
+        /// </summary>
+        /// <param name="id">The unique ID of the sections.</param>
+        /// <param name="totalAssemblyResult">The total assembly result the sections belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public SerializableFailureMechanismSections(string id,
+                                                    SerializableTotalAssemblyResult totalAssemblyResult)
+            : this(id)
+        {
+            if (totalAssemblyResult == null)
+            {
+                throw new ArgumentNullException(nameof(totalAssemblyResult));
+            }
+
+            TotalAssemblyResultId = totalAssemblyResult.Id;
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SerializableFailureMechanismSections"/>.
+        /// </summary>
+        /// <param name="id">The unique ID of the sections.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/> is <c>null</c>.</exception>
+        private SerializableFailureMechanismSections(string id)
         {
             if (id == null)
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             Id = id;
-            FailureMechanismId = failureMechanism.Id;
         }
 
         /// <summary>
@@ -69,5 +97,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         [XmlAttribute(AssemblyXmlIdentifiers.FailureMechanismIdRef)]
         public string FailureMechanismId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ID of the parent total assembly result.
+        /// </summary>
+        [XmlAttribute(AssemblyXmlIdentifiers.TotalAssemblyResultIdRef)]
+        public string TotalAssemblyResultId { get; set; }
     }
 }

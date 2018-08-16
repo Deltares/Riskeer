@@ -42,15 +42,18 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsInstanceOf<SerializableFeatureMember>(sections);
             Assert.IsNull(sections.Id);
             Assert.IsNull(sections.FailureMechanismId);
+            Assert.IsNull(sections.TotalAssemblyResultId);
 
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSections>(
                 nameof(SerializableFailureMechanismSections.Id), "VakindelingID");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSections>(
                 nameof(SerializableFailureMechanismSections.FailureMechanismId), "ToetsspoorIDRef");
+            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSections>(
+                nameof(SerializableFailureMechanismSections.TotalAssemblyResultId), "VeiligheidsoordeelIDRef");
         }
 
         [Test]
-        public void Constructor_IdNull_ThrowsArgumentNullException()
+        public void ConstructorWithFailureMechanism_IdNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new SerializableFailureMechanismSections(null,
@@ -62,11 +65,11 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ConstructorWithFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new SerializableFailureMechanismSections("id",
-                                                                               null);
+                                                                               (SerializableFailureMechanism) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -74,7 +77,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_WithValidData_ReturnsExpectedValues()
+        public void ConstructorWithFailureMechanism_WithValidData_ReturnsExpectedValues()
         {
             // Setup
             const string id = "section id";
@@ -93,6 +96,53 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Assert
             Assert.AreEqual(id, sections.Id);
             Assert.AreEqual(failureMechanism.Id, sections.FailureMechanismId);
+            Assert.IsNull(sections.TotalAssemblyResultId);
+        }
+
+        [Test]
+        public void ConstructorWithTotalAssemblyResult_IdNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new SerializableFailureMechanismSections(null,
+                                                                               new SerializableTotalAssemblyResult());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("id", exception.ParamName);
+        }
+
+        [Test]
+        public void ConstructorWithTotalAssemblyResult_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new SerializableFailureMechanismSections("id",
+                                                                               (SerializableTotalAssemblyResult) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("totalAssemblyResult", exception.ParamName);
+        }
+
+        [Test]
+        public void ConstructorWithTotalAssemblyResult_WithValidData_ReturnsExpectedValues()
+        {
+            // Setup
+            const string id = "section id";
+
+            var totalAssemblyResult = new SerializableTotalAssemblyResult("result id",
+                                                                          new SerializableAssessmentProcess(),
+                                                                          new SerializableFailureMechanismAssemblyResult(),
+                                                                          new SerializableFailureMechanismAssemblyResult(),
+                                                                          new SerializableAssessmentSectionAssemblyResult());
+
+            // Call
+            var sections = new SerializableFailureMechanismSections(id,
+                                                                    totalAssemblyResult);
+
+            // Assert
+            Assert.AreEqual(id, sections.Id);
+            Assert.AreEqual(totalAssemblyResult.Id, sections.TotalAssemblyResultId);
+            Assert.IsNull(sections.FailureMechanismId);
         }
     }
 }

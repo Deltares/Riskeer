@@ -237,7 +237,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                           },
                                                                           new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0A1, SerializableAssessmentLevel.CombinedAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv));
 
-            var sections2 = new SerializableFailureMechanismSections("vakindeling_gecombineerd", failureMechanism1);
+            var sections2 = new SerializableFailureMechanismSections("vakindeling_gecombineerd", totalAssemblyResult);
             var section2 = new SerializableFailureMechanismSection("vak_gecombineerd_1",
                                                                    sections2,
                                                                    0.12,
