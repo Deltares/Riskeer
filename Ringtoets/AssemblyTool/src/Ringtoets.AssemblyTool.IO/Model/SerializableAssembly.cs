@@ -97,6 +97,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         [XmlArrayItem(typeof(SerializableFailureMechanismSectionAssembly))]
         [XmlArrayItem(typeof(SerializableFailureMechanismSections))]
         [XmlArrayItem(typeof(SerializableFailureMechanismSection))]
+        [XmlArrayItem(typeof(SerializableCombinedFailureMechanismSectionAssembly))]
         public SerializableFeatureMember[] FeatureMembers { get; set; }
     }
 }

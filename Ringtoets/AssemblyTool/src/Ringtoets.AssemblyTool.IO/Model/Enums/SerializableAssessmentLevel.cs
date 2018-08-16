@@ -56,12 +56,6 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         /// Represents the cmbined section assessment level.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelCombinedSectionAssessment)]
-        CombinedSectionAssessment = 5,
-
-        /// <summary>
-        /// Represents the combined section per failure mechanism assessment level.
-        /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelCombinedSectionFailureMechanismAssessment)]
-        CombinedSectionFailureMechanismAssessment = 6
+        CombinedSectionAssessment = 5
     }
 }

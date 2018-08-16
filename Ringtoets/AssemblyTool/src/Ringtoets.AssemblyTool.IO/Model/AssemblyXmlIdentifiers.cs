@@ -113,19 +113,34 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string BoundedBy = "boundedBy";
 
         /// <summary>
+        /// Identifier for a combined failure mechanism section assembly element.
+        /// </summary>
+        public const string CombinedFailureMechanismSectionAssembly = "GecombineerdToetsoordeel";
+        
+        /// <summary>
+        /// Identifier for a combined failure mechanism section assembly ID attribute.
+        /// </summary>
+        public const string CombinedFailureMechanismSectionAssemblyId = "GecombineerdToetsoordeelID";
+
+        /// <summary>
+        /// Identifier for a combined section result element.
+        /// </summary>
+        public const string CombinedCombinedSectionResult = "toetsoordeelGecombineerd";
+        
+        /// <summary>
         /// Identifier for a combined section result element.
         /// </summary>
         public const string CombinedSectionResult = "eindtoetsoordeel";
 
         /// <summary>
+        /// Identifier for a combined section failure mechanism result element.
+        /// </summary>
+        public const string CombinedSectionFailureMechanismResult = "eindtoetsoordeelToetsspoor";
+
+        /// <summary>
         /// Identifier for a coordinate system type attribute.
         /// </summary>
         public const string CoordinateSystem = "srsName";
-
-        /// <summary>
-        /// Identifier for a description element.
-        /// </summary>
-        public const string Description = "omschrijving";
 
         /// <summary>
         /// Identifier for a direct failure mechanism element.
@@ -180,12 +195,12 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <summary>
         /// Identifier for a failure mechanism section assembly element.
         /// </summary>
-        public const string FailureMechanismSectionAssemblyResult = "Toets";
+        public const string FailureMechanismSectionAssembly = "Toets";
 
         /// <summary>
         /// Identifier for a failure mechanism section assembly element.
         /// </summary>
-        public const string FailureMechanismSectionAssemblyResultId = "ToetsID";
+        public const string FailureMechanismSectionAssemblyId = "ToetsID";
 
         /// <summary>
         /// Identifier for a failure mechanism section category group element.

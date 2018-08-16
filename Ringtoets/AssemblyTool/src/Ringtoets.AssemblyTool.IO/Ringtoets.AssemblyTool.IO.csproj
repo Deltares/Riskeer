@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Include="Model\AssemblyXmlIdentifiers.cs" />
     <Compile Include="Model\DataTypes\SerializableAssessmentSectionAssemblyResult.cs" />
+    <Compile Include="Model\DataTypes\SerializableCombinedFailureMechanismSectionAssemblyResult.cs" />
     <Compile Include="Model\DataTypes\SerializableFailureMechanismSectionAssemblyResult.cs" />
     <Compile Include="Model\Enums\AssemblyXmlEnumIdentifiers.cs" />
     <Compile Include="Model\Enums\SerializableAssessmentLevel.cs" />
@@ -32,6 +33,7 @@
     <Compile Include="Model\Gml\SerializableBoundary.cs" />
     <Compile Include="Model\Helpers\GeometrySerializationFormatter.cs" />
     <Compile Include="Model\SerializableFailureMechanismSection.cs" />
+    <Compile Include="Model\SerializableCombinedFailureMechanismSectionAssembly.cs" />
     <Compile Include="Model\SerializableFailureMechanismSections.cs" />
     <Compile Include="Model\SerializableFailureMechanism.cs" />
     <Compile Include="Model\SerializableFailureMechanismSectionAssembly.cs" />

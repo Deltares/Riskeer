@@ -66,7 +66,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual("featureMember", xmlArrayAttribute.ElementName);
 
             IEnumerable<XmlArrayItemAttribute> xmlArrayItemAttributes = TypeUtils.GetPropertyAttributes<SerializableAssembly, XmlArrayItemAttribute>(nameof(SerializableAssembly.FeatureMembers));
-            Assert.AreEqual(7, xmlArrayItemAttributes.Count());
+            Assert.AreEqual(8, xmlArrayItemAttributes.Count());
             Assert.AreEqual(typeof(SerializableAssessmentProcess), xmlArrayItemAttributes.ElementAt(0).Type);
             Assert.AreEqual(typeof(SerializableAssessmentSection), xmlArrayItemAttributes.ElementAt(1).Type);
             Assert.AreEqual(typeof(SerializableTotalAssemblyResult), xmlArrayItemAttributes.ElementAt(2).Type);
@@ -74,6 +74,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual(typeof(SerializableFailureMechanismSectionAssembly), xmlArrayItemAttributes.ElementAt(4).Type);
             Assert.AreEqual(typeof(SerializableFailureMechanismSections), xmlArrayItemAttributes.ElementAt(5).Type);
             Assert.AreEqual(typeof(SerializableFailureMechanismSection), xmlArrayItemAttributes.ElementAt(6).Type);
+            Assert.AreEqual(typeof(SerializableCombinedFailureMechanismSectionAssembly), xmlArrayItemAttributes.ElementAt(7).Type);
         }
 
         [Test]
@@ -196,26 +197,26 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                 })
             };
 
-            var assessmentProcess = new SerializableAssessmentProcess("process1",
+            var assessmentProcess = new SerializableAssessmentProcess("beoordelingsproces1",
                                                                       assessmentSection,
                                                                       2018,
                                                                       2020);
 
             var totalAssemblyResult = new SerializableTotalAssemblyResult(
-                "total id",
+                "veiligheidsoordeel_1",
                 assessmentProcess,
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI2B1, SerializableFailureMechanismCategoryGroup.IIt),
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismCategoryGroup.NotApplicable, 0.000124),
                 new SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethod.WBI2C1, SerializableAssessmentSectionCategoryGroup.B));
 
-            var failureMechanism1 = new SerializableFailureMechanism("fm1",
+            var failureMechanism1 = new SerializableFailureMechanism("toetsspoorGABI",
                                                                      totalAssemblyResult,
                                                                      SerializableFailureMechanismType.GABI,
                                                                      SerializableAssemblyGroup.Group4,
                                                                      new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI1A1, SerializableFailureMechanismCategoryGroup.IIt));
 
-            var sections1 = new SerializableFailureMechanismSections("sections1", failureMechanism1);
-            var section1 = new SerializableFailureMechanismSection("s1",
+            var sections1 = new SerializableFailureMechanismSections("vakindelingGABI", failureMechanism1);
+            var section1 = new SerializableFailureMechanismSection("vak_GABI_1",
                                                                    sections1,
                                                                    0.12,
                                                                    10.23,
@@ -226,7 +227,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                    },
                                                                    SerializableAssemblyMethod.WBI3B1);
 
-            var result1 = new SerializableFailureMechanismSectionAssembly("sr1",
+            var result1 = new SerializableFailureMechanismSectionAssembly("resultaat_GABI_1",
                                                                           failureMechanism1,
                                                                           section1,
                                                                           new[]
@@ -236,7 +237,28 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                           },
                                                                           new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0A1, SerializableAssessmentLevel.CombinedAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv));
 
-            var assembly = new SerializableAssembly("assembly_1", new Point2D(12.0, 34.0), new Point2D(56.053, 78.0002345),
+            var sections2 = new SerializableFailureMechanismSections("vakindeling_gecombineerd", failureMechanism1);
+            var section2 = new SerializableFailureMechanismSection("vak_gecombineerd_1",
+                                                                   sections2,
+                                                                   0.12,
+                                                                   10.23,
+                                                                   new[]
+                                                                   {
+                                                                       new Point2D(0.23, 0.24),
+                                                                       new Point2D(10.23, 10.24)
+                                                                   },
+                                                                   SerializableAssemblyMethod.WBI3B1);
+            var combinedResult = new SerializableCombinedFailureMechanismSectionAssembly("resultaat_gecombineerd_1",
+                totalAssemblyResult,
+                section2,
+                new[]
+                {
+                    new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.HTKW, SerializableFailureMechanismSectionCategoryGroup.IIIv), 
+                    new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.STPH, SerializableFailureMechanismSectionCategoryGroup.IVv), 
+                },
+                new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3B1, SerializableAssessmentLevel.CombinedSectionAssessment, SerializableFailureMechanismSectionCategoryGroup.VIv));
+
+            var assembly = new SerializableAssembly("assemblage_1", new Point2D(12.0, 34.0), new Point2D(56.053, 78.0002345),
                                                     new SerializableFeatureMember[]
                                                     {
                                                         assessmentSection,
@@ -245,7 +267,10 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                         failureMechanism1,
                                                         result1,
                                                         sections1,
-                                                        section1
+                                                        section1,
+                                                        sections2,
+                                                        section2,
+                                                        combinedResult
                                                     });
 
             serializer.Serialize(writer, assembly, xmlns);

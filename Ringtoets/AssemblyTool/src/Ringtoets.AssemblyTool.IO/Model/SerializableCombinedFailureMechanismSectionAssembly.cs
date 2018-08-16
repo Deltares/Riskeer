@@ -26,39 +26,39 @@ using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 namespace Ringtoets.AssemblyTool.IO.Model
 {
     /// <summary>
-    /// Class describing a serializable failure mechanism section assembly.
+    /// Class describing a serializable combined failure mechanism section assembly.
     /// </summary>
-    [XmlType(AssemblyXmlIdentifiers.FailureMechanismSectionAssembly)]
-    public class SerializableFailureMechanismSectionAssembly : SerializableFeatureMember
+    [XmlType(AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssembly)]
+    public class SerializableCombinedFailureMechanismSectionAssembly : SerializableFeatureMember
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SerializableFailureMechanismSectionAssembly"/>.
+        /// Creates a new instance of <see cref="SerializableCombinedFailureMechanismSectionAssembly"/>.
         /// </summary>
-        public SerializableFailureMechanismSectionAssembly() {}
+        public SerializableCombinedFailureMechanismSectionAssembly() {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="SerializableFailureMechanismSectionAssembly"/>.
+        /// Creates a new instance of <see cref="SerializableCombinedFailureMechanismSectionAssembly"/>.
         /// </summary>
         /// <param name="id">The unique ID of the assembly.</param>
-        /// <param name="failureMechanism">The failure mechanism this assembly belongs to.</param>
+        /// <param name="totalAssemblyResult">The total assembly result this assembly belongs to.</param>
         /// <param name="section">The section this assembly belongs to.</param>
-        /// <param name="sectionResults">The collection of assembly results for this section assembly.</param>
-        /// <param name="combinedSectionResult">The combined assembly result for this section assembly.</param>
+        /// <param name="failureMechanismResults">The collection of assembly results for this assembly per failure mechanism.</param>
+        /// <param name="combinedSectionResult">The combined assembly result for this assembly.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public SerializableFailureMechanismSectionAssembly(string id,
-                                                           SerializableFailureMechanism failureMechanism,
-                                                           SerializableFailureMechanismSection section,
-                                                           SerializableFailureMechanismSectionAssemblyResult[] sectionResults,
-                                                           SerializableFailureMechanismSectionAssemblyResult combinedSectionResult) : this()
+        public SerializableCombinedFailureMechanismSectionAssembly(string id,
+                                                                   SerializableTotalAssemblyResult totalAssemblyResult,
+                                                                   SerializableFailureMechanismSection section,
+                                                                   SerializableCombinedFailureMechanismSectionAssemblyResult[] failureMechanismResults,
+                                                                   SerializableFailureMechanismSectionAssemblyResult combinedSectionResult) : this()
         {
             if (id == null)
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            if (failureMechanism == null)
+            if (totalAssemblyResult == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(totalAssemblyResult));
             }
 
             if (section == null)
@@ -66,9 +66,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(section));
             }
 
-            if (sectionResults == null)
+            if (failureMechanismResults == null)
             {
-                throw new ArgumentNullException(nameof(sectionResults));
+                throw new ArgumentNullException(nameof(failureMechanismResults));
             }
 
             if (combinedSectionResult == null)
@@ -77,23 +77,23 @@ namespace Ringtoets.AssemblyTool.IO.Model
             }
 
             Id = id;
-            FailureMechanismId = failureMechanism.Id;
+            TotalAssemblyResultId = totalAssemblyResult.Id;
             FailureMechanismSectionId = section.Id;
-            SectionResults = sectionResults;
+            FailureMechanismResults = failureMechanismResults;
             CombinedSectionResult = combinedSectionResult;
         }
 
         /// <summary>
         /// Gets or sets the ID.
         /// </summary>
-        [XmlAttribute(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyId)]
+        [XmlAttribute(AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssemblyId)]
         public string Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the parent failure mechanism ID.
+        /// Gets or sets the parent total assembly result ID.
         /// </summary>
-        [XmlAttribute(AssemblyXmlIdentifiers.FailureMechanismIdRef)]
-        public string FailureMechanismId { get; set; }
+        [XmlAttribute(AssemblyXmlIdentifiers.TotalAssemblyResultIdRef)]
+        public string TotalAssemblyResultId { get; set; }
 
         /// <summary>
         /// Gets or sets the parent failure mechanism section ID.
@@ -104,13 +104,13 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <summary>
         /// Gets or sets the combined assembly result.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.CombinedSectionResult)]
+        [XmlElement(AssemblyXmlIdentifiers.CombinedCombinedSectionResult)]
         public SerializableFailureMechanismSectionAssemblyResult CombinedSectionResult { get; set; }
 
         /// <summary>
-        /// Gets or sets the array of results for this section.
+        /// Gets or sets the array of results for this section per failure mechanism.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.SectionResults)]
-        public SerializableFailureMechanismSectionAssemblyResult[] SectionResults { get; set; }
+        [XmlElement(AssemblyXmlIdentifiers.CombinedSectionFailureMechanismResult)]
+        public SerializableCombinedFailureMechanismSectionAssemblyResult[] FailureMechanismResults { get; set; }
     }
 }

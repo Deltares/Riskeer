@@ -49,9 +49,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
                     },
                     {
                         SerializableAssessmentLevel.CombinedSectionAssessment, 5
-                    },
-                    {
-                        SerializableAssessmentLevel.CombinedSectionFailureMechanismAssessment, 6
                     }
                 };
             }
@@ -77,9 +74,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
                     },
                     {
                         SerializableAssessmentLevel.CombinedSectionAssessment, "GECBNTRDV"
-                    },
-                    {
-                        SerializableAssessmentLevel.CombinedSectionFailureMechanismAssessment, "GECBNTRDVTS"
                     }
                 };
             }
