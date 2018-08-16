@@ -543,7 +543,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     // Assert
                     ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndex];
                     Assert.IsFalse(calculateItem.Enabled);
-                    Assert.AreEqual("Er is geen hydraulische randvoorwaardendatabase geïmporteerd.", calculateItem.ToolTipText);
+                    Assert.AreEqual("Er is geen hydraulische belastingendatabase geïmporteerd.", calculateItem.ToolTipText);
                 }
             }
         }

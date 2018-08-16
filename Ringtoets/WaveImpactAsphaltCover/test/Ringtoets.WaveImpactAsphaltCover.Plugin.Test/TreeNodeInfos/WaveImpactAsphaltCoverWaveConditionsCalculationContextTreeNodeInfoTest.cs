@@ -582,7 +582,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   validateMenuItemIndex,
                                                                   "&Valideren",
-                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.ValidateIcon,
                                                                   false);
                 }
@@ -1324,7 +1324,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   calculateMenuItemIndex,
                                                                   "Be&rekenen",
-                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.CalculateIcon,
                                                                   false);
                 }

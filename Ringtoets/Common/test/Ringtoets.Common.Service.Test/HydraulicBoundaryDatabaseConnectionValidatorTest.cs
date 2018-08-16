@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Service.Test
             string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
 
             // Assert
-            const string expectedMessage = "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.";
+            const string expectedMessage = "Er is geen hydraulische belastingendatabase geïmporteerd.";
             Assert.AreEqual(expectedMessage, message);
         }
 

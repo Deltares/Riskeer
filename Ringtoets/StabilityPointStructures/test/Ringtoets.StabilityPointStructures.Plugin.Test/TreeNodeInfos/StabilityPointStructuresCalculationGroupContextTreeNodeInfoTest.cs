@@ -362,13 +362,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
                                                                   "Alles be&rekenen",
-                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
-                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.ValidateAllIcon,
                                                                   false);
                 }

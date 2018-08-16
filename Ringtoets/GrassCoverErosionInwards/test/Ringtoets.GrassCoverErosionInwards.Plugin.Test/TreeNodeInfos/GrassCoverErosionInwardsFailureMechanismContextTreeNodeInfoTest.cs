@@ -441,7 +441,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
                                                                   "Alles be&rekenen",
-                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
                                                                   false);
                 }
@@ -547,7 +547,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
                                                                   "Alles &valideren",
-                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.ValidateAllIcon,
                                                                   false);
                 }

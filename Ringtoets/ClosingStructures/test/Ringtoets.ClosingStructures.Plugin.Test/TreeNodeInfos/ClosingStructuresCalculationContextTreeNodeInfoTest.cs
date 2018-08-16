@@ -558,13 +558,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
                                                                   "Be&rekenen",
-                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.CalculateIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
                                                                   "&Valideren",
-                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.ValidateIcon,
                                                                   false);
                 }

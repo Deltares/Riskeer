@@ -186,7 +186,7 @@
 {2}</value>
   </data>
   <data name="HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported" xml:space="preserve">
-    <value>Er is geen hydraulische randvoorwaardendatabase geïmporteerd.</value>
+    <value>Er is geen hydraulische belastingendatabase geïmporteerd.</value>
   </data>
   <data name="RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_Range_0_" xml:space="preserve">
     <value>De norm moet in het bereik {0} liggen.</value>
