@@ -637,7 +637,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Koppel aan hydraulische randvoorwaardendatabase..
+        ///   Looks up a localized string similar to Koppel aan hydraulische belastingendatabase..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Connect_ToolTip {
             get {
@@ -655,7 +655,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie van het hydraulische randvoorwaardendatabase bestand..
+        ///   Looks up a localized string similar to Locatie van het hydraulische belastingendatabase bestand..
         /// </summary>
         public static string HydraulicBoundaryDatabase_FilePath_Description {
             get {
@@ -664,7 +664,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaardendatabase.
+        ///   Looks up a localized string similar to Hydraulische belastingendatabase.
         /// </summary>
         public static string HydraulicBoundaryDatabase_FilePath_DisplayName {
             get {
@@ -863,7 +863,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaardendatabase.
+        ///   Looks up a localized string similar to Hydraulische belastingendatabase.
         /// </summary>
         public static string SelectHydraulicBoundaryDatabaseFile_FilterName {
             get {

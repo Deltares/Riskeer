@@ -2195,7 +2195,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locaties uit de hydraulische randvoorwaardendatabase..
+        ///   Looks up a localized string similar to Locaties uit de hydraulische belastingendatabase..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Locations_Description {
             get {

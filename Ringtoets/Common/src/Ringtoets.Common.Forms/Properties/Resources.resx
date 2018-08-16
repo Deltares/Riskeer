@@ -507,7 +507,7 @@ handmatig</value>
     <value>Coördinaten [m]</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Description" xml:space="preserve">
-    <value>Locaties uit de hydraulische randvoorwaardendatabase.</value>
+    <value>Locaties uit de hydraulische belastingendatabase.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_DisplayName" xml:space="preserve">
     <value>Locaties</value>

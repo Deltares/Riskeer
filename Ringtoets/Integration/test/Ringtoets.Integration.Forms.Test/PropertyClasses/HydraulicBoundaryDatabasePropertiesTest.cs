@@ -100,8 +100,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             "Algemeen",
-                                                                            "Hydraulische randvoorwaardendatabase",
-                                                                            "Locatie van het hydraulische randvoorwaardendatabase bestand.",
+                                                                            "Hydraulische belastingendatabase",
+                                                                            "Locatie van het hydraulische belastingendatabase bestand.",
                                                                             true);
 
             PropertyDescriptor usePreprocessorProperty = dynamicProperties[usePreprocessorPropertyIndex];
@@ -134,8 +134,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             "Algemeen",
-                                                                            "Hydraulische randvoorwaardendatabase",
-                                                                            "Locatie van het hydraulische randvoorwaardendatabase bestand.",
+                                                                            "Hydraulische belastingendatabase",
+                                                                            "Locatie van het hydraulische belastingendatabase bestand.",
                                                                             true);
         }
 
@@ -155,8 +155,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             "Algemeen",
-                                                                            "Hydraulische randvoorwaardendatabase",
-                                                                            "Locatie van het hydraulische randvoorwaardendatabase bestand.",
+                                                                            "Hydraulische belastingendatabase",
+                                                                            "Locatie van het hydraulische belastingendatabase bestand.",
                                                                             true);
         }
 
