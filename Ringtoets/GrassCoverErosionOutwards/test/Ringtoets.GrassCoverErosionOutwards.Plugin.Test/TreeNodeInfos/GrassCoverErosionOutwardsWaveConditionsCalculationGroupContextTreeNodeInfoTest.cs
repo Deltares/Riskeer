@@ -300,7 +300,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
-                                                                  "Er is geen hydraulische belastingendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
+                                                                  "Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
@@ -501,7 +501,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
-                                                                  "Er is geen hydraulische belastingendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
+                                                                  "Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
@@ -604,7 +604,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
-                                                                  "Genereer randvoorwaardenberekeningen.",
+                                                                  "Genereer belastingenberekeningen.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",

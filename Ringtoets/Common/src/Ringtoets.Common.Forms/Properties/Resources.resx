@@ -657,7 +657,7 @@ handmatig</value>
     <value>Hydraulische randvoorwaardenlocatie</value>
   </data>
   <data name="CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip" xml:space="preserve">
-    <value>Genereer randvoorwaardenberekeningen.</value>
+    <value>Genereer belastingenberekeningen.</value>
   </data>
   <data name="CalculationGroup_No_HRD_To_Generate_ToolTip" xml:space="preserve">
     <value>Er is geen hydraulische belastingendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.</value>

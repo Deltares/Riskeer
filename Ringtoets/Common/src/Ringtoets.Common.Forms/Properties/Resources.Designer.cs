@@ -463,7 +463,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genereer randvoorwaardenberekeningen..
+        ///   Looks up a localized string similar to Genereer belastingenberekeningen..
         /// </summary>
         public static string CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip {
             get {
