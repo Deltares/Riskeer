@@ -17,7 +17,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Setup
             ExportableFailureMechanismAssemblyResult combinedAssemblyResult = CreateFailureMechanismAssemblyResult();
-            IEnumerable<ExportableCombinedSectionAssemblyResult> failureMechanismResults = Enumerable.Empty<ExportableCombinedSectionAssemblyResult>();
+            IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults = Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
 
             // Call
             TestDelegate call = () => new ExportableCombinedSectionAssembly(null, combinedAssemblyResult, failureMechanismResults);
@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextEnumValue<ExportableAssemblyMethod>());
-            IEnumerable<ExportableCombinedSectionAssemblyResult> failureMechanismResults = Enumerable.Empty<ExportableCombinedSectionAssemblyResult>();
+            IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults = Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
 
             // Call
             TestDelegate call = () => new ExportableCombinedSectionAssembly(section, null, failureMechanismResults);
@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                         random.NextDouble(),
                                                                         random.NextEnumValue<ExportableAssemblyMethod>());
             ExportableFailureMechanismAssemblyResult combinedAssemblyResult = CreateFailureMechanismAssemblyResult();
-            IEnumerable<ExportableCombinedSectionAssemblyResult> failureMechanismResults = Enumerable.Empty<ExportableCombinedSectionAssemblyResult>();
+            IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults = Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
 
             // Call
             var result = new ExportableCombinedSectionAssembly(section, combinedAssemblyResult, failureMechanismResults);

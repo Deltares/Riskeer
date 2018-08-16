@@ -7,7 +7,7 @@ using Ringtoets.Integration.IO.Assembly;
 namespace Ringtoets.Integration.IO.Test.Assembly
 {
     [TestFixture]
-    public class ExportableCombinedSectionAssemblyResultTest
+    public class ExportableFailureMechanismCombinedSectionAssemblyResultTest
     {
         [Test]
         public void Constructor_CombinedSectionAssemblyNull_ThrowsArgumentNullException()
@@ -17,7 +17,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             var code = random.NextEnumValue<ExportableFailureMechanismType>();
 
             // Call
-            TestDelegate call = () => new ExportableCombinedSectionAssemblyResult(null, code);
+            TestDelegate call = () => new ExportableFailureMechanismCombinedSectionAssemblyResult(null, code);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             ExportableFailureMechanismAssemblyResult combinedSectionAssembly = CreateFailureMechanismAssemblyResult();
 
             // Call
-            var assemblyResult = new ExportableCombinedSectionAssemblyResult(combinedSectionAssembly, code);
+            var assemblyResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(combinedSectionAssembly, code);
 
             // Assert
             Assert.AreSame(combinedSectionAssembly, assemblyResult.CombinedSectionAssembly);

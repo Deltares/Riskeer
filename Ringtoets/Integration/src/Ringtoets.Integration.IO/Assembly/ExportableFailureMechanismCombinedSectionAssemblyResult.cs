@@ -3,17 +3,17 @@
 namespace Ringtoets.Integration.IO.Assembly
 {
     /// <summary>
-    /// Class that holds all the information to export a combined section assembly result.
+    /// Class that holds all the information to export a combined section assembly result of a failure mechanism.
     /// </summary>
-    public class ExportableCombinedSectionAssemblyResult
+    public class ExportableFailureMechanismCombinedSectionAssemblyResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ExportableCombinedSectionAssemblyResult"/>
+        /// Creates a new instance of <see cref="ExportableFailureMechanismCombinedSectionAssemblyResult"/>
         /// </summary>
         /// <param name="combinedSectionAssembly">The assembly result of the combined section.</param>
         /// <param name="code">The code of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="combinedSectionAssembly"/> is <c>null</c>.</exception>
-        public ExportableCombinedSectionAssemblyResult(ExportableFailureMechanismAssemblyResult combinedSectionAssembly,
+        public ExportableFailureMechanismCombinedSectionAssemblyResult(ExportableFailureMechanismAssemblyResult combinedSectionAssembly,
                                                        ExportableFailureMechanismType code)
         {
             if (combinedSectionAssembly == null)

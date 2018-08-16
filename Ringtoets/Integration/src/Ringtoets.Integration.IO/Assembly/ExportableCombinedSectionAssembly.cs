@@ -17,7 +17,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ExportableCombinedSectionAssembly(ExportableCombinedFailureMechanismSection section,
                                                  ExportableFailureMechanismAssemblyResult combinedAssemblyResult,
-                                                 IEnumerable<ExportableCombinedSectionAssemblyResult> failureMechanismResults)
+                                                 IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults)
         {
             if (section == null)
             {
@@ -52,6 +52,6 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <summary>
         /// Gets the assembly results per failure mechanism.
         /// </summary>
-        public IEnumerable<ExportableCombinedSectionAssemblyResult> FailureMechanismResults { get; }
+        public IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> FailureMechanismResults { get; }
     }
 }
