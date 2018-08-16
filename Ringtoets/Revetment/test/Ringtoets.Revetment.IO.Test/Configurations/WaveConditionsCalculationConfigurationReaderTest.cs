@@ -30,7 +30,6 @@ using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Import;
 using Ringtoets.Revetment.IO.Configurations;
-using Ringtoets.Revetment.IO.Properties;
 
 namespace Ringtoets.Revetment.IO.Test.Configurations
 {
@@ -49,6 +48,9 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
                                               "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
+                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");
                 yield return new TestCaseData("invalidCalculationMultipleForeshoreProfile.xml",
                                               "Element 'voorlandprofiel' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleForeshoreProfile");
