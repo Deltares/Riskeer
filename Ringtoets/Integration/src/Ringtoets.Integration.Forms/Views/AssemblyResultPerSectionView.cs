@@ -197,6 +197,12 @@ namespace Ringtoets.Integration.Forms.Views
         private void SetDataSource()
         {
             ClearCurrentData();
+
+            if (AssessmentSection.ReferenceLine == null)
+            {
+                return;
+            }
+
             try
             {
                 dataGridViewControl.SetDataSource(AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(AssessmentSection)
