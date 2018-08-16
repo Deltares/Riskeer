@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.AreEqual("Bevestigen", title);
-            string expectedMessage = "Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische randvoorwaarden en toetssporen verwijderd."
+            string expectedMessage = "Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische belastingenlocaties en toetssporen verwijderd."
                                      + Environment.NewLine
                                      + Environment.NewLine +
                                      "Weet u zeker dat u wilt doorgaan?";

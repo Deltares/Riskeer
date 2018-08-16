@@ -264,7 +264,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             string[] expectedMessage =
             {
                 "De resultaten van 28 berekeningen zijn verwijderd.",
-                "Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd."
+                "Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessage, 2);
 
@@ -317,7 +317,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
-            const string expectedMessage = "Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd.";
+            const string expectedMessage = "Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
@@ -365,7 +365,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd.", 1);
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
@@ -408,7 +408,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd.", 1);
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
