@@ -58,6 +58,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             data = assessmentSection;
         }
 
+        [DynamicVisible]
         [PropertyOrder(lengthPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
@@ -70,6 +71,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(geometryPropertyIndex)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
@@ -81,6 +83,12 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 return data.ReferenceLine.Points.ToArray();
             }
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.ReferenceLine != null;
         }
     }
 }
