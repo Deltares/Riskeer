@@ -56,6 +56,9 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmpty.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String'")
                     .SetName("invalidCalculationHydraulicBoundaryLocationEmpty");
+                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");
 
                 yield return new TestCaseData("invalidCalculationMultipleFailureProbabilityStructureWithErosion.xml",
                                               "Element 'faalkansgegevenerosiebodem' cannot appear more than once if content model type is \"all\".")
