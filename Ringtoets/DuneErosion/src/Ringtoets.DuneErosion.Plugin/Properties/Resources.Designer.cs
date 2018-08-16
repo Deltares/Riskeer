@@ -91,7 +91,7 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle hydraulische randvoorwaarden berekenen..
+        ///   Looks up a localized string similar to Alle hydraulische belastingen berekenen..
         /// </summary>
         internal static string DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_All_ToolTip {
             get {
@@ -100,7 +100,7 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MorphAn randvoorwaarden.
+        ///   Looks up a localized string similar to Hydraulische belastingen duinen.
         /// </summary>
         internal static string DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description {
             get {

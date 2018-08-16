@@ -463,7 +463,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(40, msgs.Length);
 
-                            const string duneCalculationName = "Hydraulische randvoorwaarden";
+                            const string duneCalculationName = "Hydraulische belastingen";
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 duneLocation.Name, duneCalculationName, "Iv->IIv", msgs, 0);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(

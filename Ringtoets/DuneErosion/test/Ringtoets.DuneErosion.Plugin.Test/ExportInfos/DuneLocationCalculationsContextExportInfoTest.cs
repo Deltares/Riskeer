@@ -98,7 +98,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                 FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
 
                 // Assert
-                Assert.AreEqual("MorphAn randvoorwaarden (*.bnd)|*.bnd", fileFilterGenerator.Filter);
+                Assert.AreEqual("Hydraulische belastingen duinen (*.bnd)|*.bnd", fileFilterGenerator.Filter);
             }
         }
 
