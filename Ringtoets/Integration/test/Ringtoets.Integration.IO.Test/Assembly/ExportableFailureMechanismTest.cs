@@ -22,7 +22,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
 
             // Call
-            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult, ExportableSectionAssemblyResult>(
+            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 null, Enumerable.Empty<ExportableFailureMechanismSection>(), sectionAssemblyResults, code, group);
 
             // Assert
@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
 
             // Call
-            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult, ExportableSectionAssemblyResult>(
+            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 CreateFailureMechanismAssemblyResult(), null, sectionAssemblyResults, code, group);
 
             // Assert
@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
 
             // Call
-            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult, ExportableSectionAssemblyResult>(
+            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 CreateFailureMechanismAssemblyResult(), sections, null, code, group);
 
             // Assert
@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
 
             // Call
-            var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult, ExportableSectionAssemblyResult>(
+            var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 failureMechanismAssembly, sections, sectionAssemblyResults, code, group);
 
             // Assert

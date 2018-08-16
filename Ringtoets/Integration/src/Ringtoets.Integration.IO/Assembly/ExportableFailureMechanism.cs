@@ -7,12 +7,11 @@ namespace Ringtoets.Integration.IO.Assembly
     /// Class that holds all the information to export the assembly of a failure mechanism.
     /// </summary>
     /// <typeparam name="TFailureMechanismAssemblyResult">The type of <see cref="ExportableFailureMechanismAssemblyResult"/>.</typeparam>
-    /// <typeparam name="TSectionAssemblyResult">The type of <see cref="ExportableSectionAssemblyResult"/>.</typeparam>
-    public class ExportableFailureMechanism<TFailureMechanismAssemblyResult, TSectionAssemblyResult>
+    public class ExportableFailureMechanism<TFailureMechanismAssemblyResult>
         where TFailureMechanismAssemblyResult : ExportableFailureMechanismAssemblyResult
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult, TSectionAssemblyResult}"/>
+        /// Creates a new instance of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// </summary>
         /// <param name="failureMechanismAssembly">The assembly result of the failure mechanism.</param>
         /// <param name="sections">The failure mechanism sections belonging to this failure mechanism.</param>
