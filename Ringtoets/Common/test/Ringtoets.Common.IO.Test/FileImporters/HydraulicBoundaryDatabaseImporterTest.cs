@@ -204,7 +204,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                StringAssert.EndsWith("De hydraulische randvoorwaardenlocaties zijn ingelezen.", messageArray[0]);
+                StringAssert.EndsWith("De hydraulische belastingenlocaties zijn ingelezen.", messageArray[0]);
             });
             Assert.IsTrue(importResult);
             IEnumerable<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;

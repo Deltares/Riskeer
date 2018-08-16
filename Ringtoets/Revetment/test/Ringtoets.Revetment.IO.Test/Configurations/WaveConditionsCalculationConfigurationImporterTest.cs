@@ -137,7 +137,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "De locatie met hydraulische randvoorwaarden 'HRlocatie' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
+            const string expectedMessage = "De hydraulische belastingenlocatie 'HRlocatie' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);

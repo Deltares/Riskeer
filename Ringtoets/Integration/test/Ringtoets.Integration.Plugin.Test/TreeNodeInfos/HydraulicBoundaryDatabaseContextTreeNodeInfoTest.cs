@@ -329,7 +329,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(2, msgs.Length);
-                        Assert.AreEqual("De hydraulische randvoorwaardenlocaties zijn ingelezen.", msgs[0]);
+                        Assert.AreEqual("De hydraulische belastingenlocaties zijn ingelezen.", msgs[0]);
                         Assert.AreEqual($"Database op pad '{testFile}' gekoppeld.", msgs[1]);
                     });
 
