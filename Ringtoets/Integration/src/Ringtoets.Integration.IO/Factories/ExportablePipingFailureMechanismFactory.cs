@@ -20,20 +20,30 @@ namespace Ringtoets.Integration.IO.Factories
         /// Creates a <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// with assmebly results based on the input parameters.
         /// </summary>
-        /// <param name="pipingFailureMechanism">The piping failure mechanism to create a
+        /// <param name="failureMechanism">The piping failure mechanism to create a
         /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> for.</param>
         /// <param name="assessmentSection">The assessment section this failure mechanism belongs to.</param>
         /// <returns>A <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with assembly results.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> CreateExportablePipingFailureMechanism(
-            PipingFailureMechanism pipingFailureMechanism,
+            PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
-            FailureMechanismAssembly failureMechanismAssembly = PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(pipingFailureMechanism, assessmentSection);
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            FailureMechanismAssembly failureMechanismAssembly = PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
             Dictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                pipingFailureMechanism.SectionResults
+                failureMechanism.SectionResults
                                       .ToDictionary(s => s, sectionResult => CreateExportableFailureMechanismSection(sectionResult.Section));
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
@@ -41,7 +51,7 @@ namespace Ringtoets.Integration.IO.Factories
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
                 failureMechanismSectionsLookup.Values, CreateExportablePipingFailureMechanismSectionResults(failureMechanismSectionsLookup,
-                                                                                                            pipingFailureMechanism, assessmentSection),
+                                                                                                            failureMechanism, assessmentSection),
                 ExportableFailureMechanismType.STPH,
                 ExportableFailureMechanismGroup.Group2);
         }
