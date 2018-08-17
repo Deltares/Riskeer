@@ -49,6 +49,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsNull(section.Geometry);
             Assert.AreEqual("TOETSSSTE", section.FailureMechanismSectionType);
 
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSection), "Waterkeringsectie");
+
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSection>(
                 nameof(SerializableFailureMechanismSection.Id), "id", "http://www.opengis.net/gml/3.2");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSection>(

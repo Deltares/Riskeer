@@ -43,6 +43,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.Zero(assessmentProcess.StartYear);
             Assert.Zero(assessmentProcess.EndYear);
 
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableAssessmentProcess), "Beoordelingsproces");
+
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableAssessmentProcess>(
                 nameof(SerializableAssessmentProcess.Id), "BeoordelingsprocesID");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableAssessmentProcess>(

@@ -47,6 +47,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsNull(sectionAssembly.CombinedSectionResult);
             Assert.IsNull(sectionAssembly.SectionResults);
 
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSectionAssembly), "Toets");
+
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionAssembly>(
                 nameof(SerializableFailureMechanismSectionAssembly.Id), "ToetsID");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionAssembly>(

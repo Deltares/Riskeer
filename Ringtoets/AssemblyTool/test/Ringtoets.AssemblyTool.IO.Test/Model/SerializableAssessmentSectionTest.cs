@@ -45,6 +45,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsNull(assessmentSection.SurfaceLineGeometry);
             Assert.IsNull(assessmentSection.SurfaceLineLength);
 
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableAssessmentSection), "Waterkeringstelsel");
+
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableAssessmentSection>(
                 nameof(SerializableAssessmentSection.Id), "id", "http://www.opengis.net/gml/3.2");
 

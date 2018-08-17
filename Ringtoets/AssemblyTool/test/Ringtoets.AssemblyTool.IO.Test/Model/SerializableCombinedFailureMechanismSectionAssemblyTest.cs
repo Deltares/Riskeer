@@ -45,6 +45,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsNull(combinedSectionAssembly.CombinedSectionResult);
             Assert.IsNull(combinedSectionAssembly.FailureMechanismResults);
 
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableCombinedFailureMechanismSectionAssembly), "GecombineerdToetsoordeel");
+
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableCombinedFailureMechanismSectionAssembly>(
                 nameof(SerializableCombinedFailureMechanismSectionAssembly.Id), "GecombineerdToetsoordeelID");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableCombinedFailureMechanismSectionAssembly>(

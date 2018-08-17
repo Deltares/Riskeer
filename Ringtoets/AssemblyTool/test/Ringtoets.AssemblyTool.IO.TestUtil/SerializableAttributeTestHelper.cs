@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using System.Xml.Serialization;
 using Core.Common.Util.Reflection;
@@ -31,6 +32,19 @@ namespace Ringtoets.AssemblyTool.IO.TestUtil
     /// </summary>
     public static class SerializableAttributeTestHelper
     {
+        /// <summary>
+        /// Asserts whether the <paramref name="type"/> has a <see cref="XmlTypeAttribute"/> with the correct values.
+        /// </summary>
+        /// <param name="type">The type to assert.</param>
+        /// <param name="typeName">The expected XML type name.</param>
+        /// <exception cref="AssertionException">Thrown when the <paramref name="typeName"/>
+        /// does not match with the actual attribute.</exception>
+        public static void AssertXmlTypeAttribute(Type type, string typeName)
+        {
+            var attribute = (XmlTypeAttribute) type.GetCustomAttributes(typeof(XmlTypeAttribute), false).Single();
+            Assert.AreEqual(typeName, attribute.TypeName);
+        }
+
         /// <summary>
         /// Asserts whether the property <paramref name="propertyName"/> in class <typeparamref name="T"/>
         /// has a <see cref="XmlElementAttribute"/> with the correct values.

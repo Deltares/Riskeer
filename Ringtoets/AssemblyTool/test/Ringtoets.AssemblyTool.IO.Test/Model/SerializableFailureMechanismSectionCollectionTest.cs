@@ -30,7 +30,7 @@ using Ringtoets.AssemblyTool.IO.TestUtil;
 namespace Ringtoets.AssemblyTool.IO.Test.Model
 {
     [TestFixture]
-    public class SerializableFailureMechanismSectionsTest
+    public class SerializableFailureMechanismSectionCollectionTest
     {
         [Test]
         public void DefaultConstructor_ReturnsDefaultValues()
@@ -43,6 +43,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsNull(sections.Id);
             Assert.IsNull(sections.FailureMechanismId);
             Assert.IsNull(sections.TotalAssemblyResultId);
+
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSectionCollection), "Vakindeling");
 
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionCollection>(
                 nameof(SerializableFailureMechanismSectionCollection.Id), "VakindelingID");

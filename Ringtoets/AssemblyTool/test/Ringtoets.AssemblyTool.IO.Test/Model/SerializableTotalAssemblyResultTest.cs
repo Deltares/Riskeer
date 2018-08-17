@@ -43,6 +43,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsNull(totalAssemblyResult.AssemblyResultWithProbability);
             Assert.IsNull(totalAssemblyResult.AssemblyResultWithoutProbability);
 
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableTotalAssemblyResult), "Veiligheidsoordeel");
+
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableTotalAssemblyResult>(
                 nameof(SerializableTotalAssemblyResult.Id), "VeiligheidsoordeelID");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableTotalAssemblyResult>(

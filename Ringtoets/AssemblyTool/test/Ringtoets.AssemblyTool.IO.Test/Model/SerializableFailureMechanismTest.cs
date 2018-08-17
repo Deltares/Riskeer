@@ -47,6 +47,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual((SerializableAssemblyGroup) 0, failureMechanism.AssemblyGroup);
             Assert.AreEqual((SerializableFailureMechanismType) 0, failureMechanism.FailureMechanismType);
 
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanism), "Toetsspoor");
+
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanism>(
                 nameof(SerializableFailureMechanism.Id), "ToetsspoorID");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanism>(

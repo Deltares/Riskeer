@@ -32,7 +32,7 @@
     <Compile Include="Model\Helpers\GeometrySerializationFormatterTest.cs" />
     <Compile Include="Model\SerializableCombinedFailureMechanismSectionAssemblyTest.cs" />
     <Compile Include="Model\SerializableFailureMechanismSectionTest.cs" />
-    <Compile Include="Model\SerializableFailureMechanismSectionsTest.cs" />
+    <Compile Include="Model\SerializableFailureMechanismSectionCollectionTest.cs" />
     <Compile Include="Model\SerializableFailureMechanismTest.cs" />
     <Compile Include="Model\SerializableFailureMechanismSectionAssemblyTest.cs" />
     <Compile Include="Model\SerializableTotalAssemblyResultTest.cs" />
