@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
+using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.AssemblyTool.IO.TestUtil;
 
 namespace Ringtoets.AssemblyTool.IO.Test.Model
@@ -154,7 +155,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                   new[]
                                                                   {
                                                                       new Point2D(random.NextDouble(), random.NextDouble())
-                                                                  });
+                                                                  },
+                                                                  SerializableFailureMechanismSectionType.Combined);
             var sectionResults = new SerializableCombinedFailureMechanismSectionAssemblyResult[0];
             var combinedSectionResult = new SerializableFailureMechanismSectionAssemblyResult();
 

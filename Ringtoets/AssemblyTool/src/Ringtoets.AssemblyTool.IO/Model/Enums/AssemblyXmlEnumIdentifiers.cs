@@ -399,5 +399,19 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         public const string SerializableAssessmentLevelCombinedSectionAssessment = "GECBNTRDV";
 
         #endregion
+
+        #region SerializableFailureMechanismSectionType
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionType.FailureMechanism"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionTypeFailureMechanism = "TOETSSSTE";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionType.Combined"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionTypeCombined = "GECBNETSSTE";
+
+        #endregion
     }
 }

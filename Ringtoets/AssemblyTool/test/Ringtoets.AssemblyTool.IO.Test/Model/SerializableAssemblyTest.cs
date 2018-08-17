@@ -456,7 +456,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                    {
                                                                        new Point2D(0.23, 0.24),
                                                                        new Point2D(10.23, 10.24)
-                                                                   });
+                                                                   },
+                                                                   SerializableFailureMechanismSectionType.FailureMechanism);
 
             var result = new SerializableFailureMechanismSectionAssembly("resultaat_GABI_1",
                                                                          failureMechanism,
@@ -478,6 +479,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                        new Point2D(0.23, 0.24),
                                                                        new Point2D(10.23, 10.24)
                                                                    },
+                                                                   SerializableFailureMechanismSectionType.Combined,
                                                                    SerializableAssemblyMethod.WBI3B1);
             var combinedResult = new SerializableCombinedFailureMechanismSectionAssembly("resultaat_gecombineerd_1",
                                                                                          totalAssemblyResult,

@@ -123,12 +123,6 @@
   <data name="DirectFailureMechanism" xml:space="preserve">
     <value>DIRECT</value>
   </data>
-  <data name="FailureMechanismSectionType_Combined" xml:space="preserve">
-    <value>GECBNETSSTE</value>
-  </data>
-  <data name="FailureMechanismSectionType_FailureMechanism" xml:space="preserve">
-    <value>TOETSSSTE</value>
-  </data>
   <data name="FullAssembly" xml:space="preserve">
     <value>VOLLDG</value>
   </data>

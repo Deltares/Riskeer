@@ -38,10 +38,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanismSection"/>.
         /// </summary>
-        public SerializableFailureMechanismSection()
-        {
-            FailureMechanismSectionType = Resources.FailureMechanismSectionType_FailureMechanism;
-        }
+        public SerializableFailureMechanismSection() {}
 
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanismSection"/>.
@@ -51,14 +48,17 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="startDistance">The distance over the reference line where this section starts in meters.</param>
         /// <param name="endDistance">The distance over the reference line where this section ends in meters.</param>
         /// <param name="geometry">The geometry of the section.</param>
+        /// <param name="sectionType">The type of the section.</param>
         /// <param name="assemblyMethod">The assembly method used to create this section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/>, <paramref name="failureMechanismSectionCollection"/>,
+        /// or <paramref name="geometry"/> is <c>null</c>.</exception>
         public SerializableFailureMechanismSection(string id,
                                                    SerializableFailureMechanismSectionCollection failureMechanismSectionCollection,
                                                    double startDistance,
                                                    double endDistance,
                                                    IEnumerable<Point2D> geometry,
-                                                   SerializableAssemblyMethod? assemblyMethod = null) : this()
+                                                   SerializableFailureMechanismSectionType sectionType,
+                                                   SerializableAssemblyMethod? assemblyMethod = null)
         {
             if (id == null)
             {
@@ -82,6 +82,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
             Geometry = new SerializableLine(geometry);
             Length = new SerializableMeasure("m", Math2D.Length(geometry));
             AssemblyMethod = assemblyMethod;
+            FailureMechanismSectionType = sectionType;
         }
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Gets or sets the section type.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionType)]
-        public string FailureMechanismSectionType { get; set; }
+        public SerializableFailureMechanismSectionType FailureMechanismSectionType { get; set; }
 
         /// <summary>
         /// Gets or sets the assembly method used to create this section.

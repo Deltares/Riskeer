@@ -156,7 +156,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                   new[]
                                                                   {
                                                                       new Point2D(random.NextDouble(), random.NextDouble())
-                                                                  });
+                                                                  },
+                                                                  SerializableFailureMechanismSectionType.FailureMechanism);
             var sectionResults = new SerializableFailureMechanismSectionAssemblyResult[0];
             var combinedSectionResult = new SerializableFailureMechanismSectionAssemblyResult();
 

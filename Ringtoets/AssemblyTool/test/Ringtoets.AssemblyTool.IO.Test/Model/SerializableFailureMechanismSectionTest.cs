@@ -47,7 +47,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsNull(section.StartDistance);
             Assert.IsNull(section.EndDistance);
             Assert.IsNull(section.Geometry);
-            Assert.AreEqual("TOETSSSTE", section.FailureMechanismSectionType);
+            Assert.AreEqual((SerializableFailureMechanismSectionType) 0, section.FailureMechanismSectionType);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSection), "Waterkeringsectie");
 
@@ -81,7 +81,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                               new SerializableFailureMechanismSectionCollection(),
                                                                               random.NextDouble(),
                                                                               random.NextDouble(),
-                                                                              Enumerable.Empty<Point2D>());
+                                                                              Enumerable.Empty<Point2D>(),
+                random.NextEnumValue<SerializableFailureMechanismSectionType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -99,7 +100,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                               null,
                                                                               random.NextDouble(),
                                                                               random.NextDouble(),
-                                                                              Enumerable.Empty<Point2D>());
+                                                                              Enumerable.Empty<Point2D>(),
+                                                                              random.NextEnumValue<SerializableFailureMechanismSectionType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -117,7 +119,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                               new SerializableFailureMechanismSectionCollection(),
                                                                               random.NextDouble(),
                                                                               random.NextDouble(),
-                                                                              null);
+                                                                              null,
+                                                                              random.NextEnumValue<SerializableFailureMechanismSectionType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -135,6 +138,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             double startDistance = random.NextDouble();
             double endDistance = random.NextDouble();
             var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
+            var sectionType = random.NextEnumValue<SerializableFailureMechanismSectionType>();
             var geometry = new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble()),
@@ -147,6 +151,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                   startDistance,
                                                                   endDistance,
                                                                   geometry,
+                                                                  sectionType,
                                                                   assemblyMethod);
 
             // Assert
@@ -159,8 +164,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual(GeometrySerializationFormatter.Format(geometry), section.Geometry.LineString.Geometry);
             Assert.AreEqual("m", section.Length.UnitOfMeasure);
             Assert.AreEqual(Math2D.Length(geometry), section.Length.Value);
-            Assert.AreEqual("TOETSSSTE", section.FailureMechanismSectionType);
             Assert.AreEqual(assemblyMethod, section.AssemblyMethod);
+            Assert.AreEqual(sectionType, section.FailureMechanismSectionType);
         }
 
         [Test]
@@ -178,6 +183,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                   {
                                                                       new Point2D(random.NextDouble(), random.NextDouble())
                                                                   },
+                                                                  random.NextEnumValue<SerializableFailureMechanismSectionType>(),
                                                                   assemblyMethod);
 
             // Call

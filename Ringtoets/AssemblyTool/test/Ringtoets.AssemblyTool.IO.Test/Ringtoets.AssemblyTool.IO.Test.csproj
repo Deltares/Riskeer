@@ -22,6 +22,7 @@
     <Compile Include="Model\DataTypes\SerializableFailureMechanismAssemblyResultTest.cs" />
     <Compile Include="Model\AssemblyXmlIdentifiersTest.cs" />
     <Compile Include="Model\Enums\AssemblyXmlEnumIdentifiersTest.cs" />
+    <Compile Include="Model\Enums\SerializableFailureMechanismSectionTypeTest.cs" />
     <Compile Include="Model\Enums\SerializableAssessmentLevelTest.cs" />
     <Compile Include="Model\Enums\SerializableAssemblyMethodTest.cs" />
     <Compile Include="Model\Enums\SerializableAssessmentSectionCategoryGroupTest.cs" />
