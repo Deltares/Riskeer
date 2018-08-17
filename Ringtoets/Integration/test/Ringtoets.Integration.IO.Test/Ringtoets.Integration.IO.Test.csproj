@@ -41,6 +41,7 @@
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriterTest.cs" />
     <Compile Include="Factories\ExportableMacroStabilityInwardsFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportablePipingFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableSectionAssemblyResultFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

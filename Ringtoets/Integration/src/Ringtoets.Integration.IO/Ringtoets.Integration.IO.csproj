@@ -39,6 +39,7 @@
     <Compile Include="Factories\ExportableAssessmentSectionFactory.cs" />
     <Compile Include="Factories\ExportableMacroStabilityInwardsFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportablePipingFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableSectionAssemblyResultFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
