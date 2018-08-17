@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Linq;
-using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
 
 namespace Ringtoets.Integration.IO.Factories
@@ -21,6 +22,8 @@ namespace Ringtoets.Integration.IO.Factories
         /// <returns>A <see cref="ExportableAssessmentSection"/> with assembly results.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created
+        /// for <paramref name="assessmentSection"/>.</exception>
         public static ExportableAssessmentSection CreateExportableAssessmentSection(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
@@ -30,11 +33,26 @@ namespace Ringtoets.Integration.IO.Factories
 
             return new ExportableAssessmentSection(assessmentSection.Name,
                                                    assessmentSection.ReferenceLine.Points,
-                                                   new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI0A1, AssessmentSectionAssemblyCategoryGroup.A),
+                                                   CreateExportableAssessmentSectionAssemblyResult(assessmentSection),
                                                    Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
                                                    Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
                                                    new ExportableCombinedSectionAssemblyCollection(Enumerable.Empty<ExportableCombinedFailureMechanismSection>(),
                                                                                                    Enumerable.Empty<ExportableCombinedSectionAssembly>()));
+        }
+
+        /// <summary>
+        /// Creates a <see cref="ExportableAssessmentSectionAssemblyResult"/> with the assembly result
+        /// based on <paramref name="assessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section to create a
+        /// <see cref="ExportableAssessmentSectionAssemblyResult"/> for.</param>
+        /// <returns>A <see cref="ExportableAssessmentSectionAssemblyResult"/> with assembly results.</returns>
+        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created
+        /// for <paramref name="assessmentSection"/>.</exception>
+        private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult(AssessmentSection assessmentSection)
+        {
+            return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI2C1,
+                                                                 AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection));
         }
     }
 }
