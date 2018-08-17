@@ -354,7 +354,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var failureMechanismSection = new SerializableFailureMechanismSection();
 
             // Call
-
             var assembly = new SerializableAssembly(id,
                                                     lowerCorner,
                                                     upperCorner,
@@ -390,6 +389,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                     {
                                                         failureMechanismSection
                                                     });
+
             // Assert
             Assert.AreEqual(id, assembly.Id);
             Assert.AreEqual(lowerCorner.X.ToString(CultureInfo.InvariantCulture) + " " + lowerCorner.Y.ToString(CultureInfo.InvariantCulture),
@@ -441,91 +441,99 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismCategoryGroup.NotApplicable, 0.000124),
                 new SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethod.WBI2C1, SerializableAssessmentSectionCategoryGroup.B));
 
-            var failureMechanism = new SerializableFailureMechanism("toetsspoorGABI",
-                                                                    totalAssemblyResult,
-                                                                    SerializableFailureMechanismType.GABI,
-                                                                    SerializableAssemblyGroup.Group4,
-                                                                    new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI1A1, SerializableFailureMechanismCategoryGroup.IIt));
+            var failureMechanism = new SerializableFailureMechanism(
+                "toetsspoorGABI",
+                totalAssemblyResult,
+                SerializableFailureMechanismType.GABI,
+                SerializableAssemblyGroup.Group4,
+                new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI1A1, SerializableFailureMechanismCategoryGroup.IIt));
 
             var sections1 = new SerializableFailureMechanismSectionCollection("vakindelingGABI", failureMechanism);
-            var section1 = new SerializableFailureMechanismSection("vak_GABI_1",
-                                                                   sections1,
-                                                                   0.12,
-                                                                   10.23,
-                                                                   new[]
-                                                                   {
-                                                                       new Point2D(0.23, 0.24),
-                                                                       new Point2D(10.23, 10.24)
-                                                                   },
-                                                                   SerializableFailureMechanismSectionType.FailureMechanism);
+            var section1 = new SerializableFailureMechanismSection(
+                "vak_GABI_1",
+                sections1,
+                0.12,
+                10.23,
+                new[]
+                {
+                    new Point2D(0.23, 0.24),
+                    new Point2D(10.23, 10.24)
+                },
+                SerializableFailureMechanismSectionType.FailureMechanism);
 
-            var result = new SerializableFailureMechanismSectionAssembly("resultaat_GABI_1",
-                                                                         failureMechanism,
-                                                                         section1,
-                                                                         new[]
-                                                                         {
-                                                                             new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0E1, SerializableAssessmentLevel.SimpleAssessment, SerializableFailureMechanismSectionCategoryGroup.IIv, 0.5),
-                                                                             new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0T5, SerializableAssessmentLevel.TailorMadeAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv)
-                                                                         },
-                                                                         new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0A1, SerializableAssessmentLevel.CombinedAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv));
+            var result = new SerializableFailureMechanismSectionAssembly(
+                "resultaat_GABI_1",
+                failureMechanism,
+                section1,
+                new[]
+                {
+                    new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0E1, SerializableAssessmentLevel.SimpleAssessment, SerializableFailureMechanismSectionCategoryGroup.IIv, 0.5),
+                    new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0T5, SerializableAssessmentLevel.TailorMadeAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv)
+                },
+                new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0A1, SerializableAssessmentLevel.CombinedAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv));
 
             var sections2 = new SerializableFailureMechanismSectionCollection("vakindeling_gecombineerd", totalAssemblyResult);
-            var section2 = new SerializableFailureMechanismSection("vak_gecombineerd_1",
-                                                                   sections2,
-                                                                   0.12,
-                                                                   10.23,
-                                                                   new[]
-                                                                   {
-                                                                       new Point2D(0.23, 0.24),
-                                                                       new Point2D(10.23, 10.24)
-                                                                   },
-                                                                   SerializableFailureMechanismSectionType.Combined,
-                                                                   SerializableAssemblyMethod.WBI3B1);
-            var combinedResult = new SerializableCombinedFailureMechanismSectionAssembly("resultaat_gecombineerd_1",
-                                                                                         totalAssemblyResult,
-                                                                                         section2,
-                                                                                         new[]
-                                                                                         {
-                                                                                             new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.HTKW, SerializableFailureMechanismSectionCategoryGroup.IIIv),
-                                                                                             new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.STPH, SerializableFailureMechanismSectionCategoryGroup.IVv)
-                                                                                         },
-                                                                                         new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3B1, SerializableAssessmentLevel.CombinedSectionAssessment, SerializableFailureMechanismSectionCategoryGroup.VIv));
+            var section2 = new SerializableFailureMechanismSection(
+                "vak_gecombineerd_1",
+                sections2,
+                0.12,
+                10.23,
+                new[]
+                {
+                    new Point2D(0.23, 0.24),
+                    new Point2D(10.23, 10.24)
+                },
+                SerializableFailureMechanismSectionType.Combined,
+                SerializableAssemblyMethod.WBI3B1);
+            var combinedResult = new SerializableCombinedFailureMechanismSectionAssembly(
+                "resultaat_gecombineerd_1",
+                totalAssemblyResult,
+                section2,
+                new[]
+                {
+                    new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.HTKW, SerializableFailureMechanismSectionCategoryGroup.IIIv),
+                    new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.STPH, SerializableFailureMechanismSectionCategoryGroup.IVv)
+                },
+                new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3B1, SerializableAssessmentLevel.CombinedSectionAssessment, SerializableFailureMechanismSectionCategoryGroup.VIv));
 
-            var assembly = new SerializableAssembly("assemblage_1", new Point2D(12.0, 34.0), new Point2D(56.053, 78.0002345),
-                                                    new[]
-                                                    {
-                                                        assessmentSection
-                                                    },
-                                                    new[]
-                                                    {
-                                                        assessmentProcess
-                                                    },
-                                                    new[]
-                                                    {
-                                                        totalAssemblyResult
-                                                    },
-                                                    new[]
-                                                    {
-                                                        failureMechanism
-                                                    },
-                                                    new[]
-                                                    {
-                                                        result
-                                                    },
-                                                    new[]
-                                                    {
-                                                        combinedResult
-                                                    },
-                                                    new[]
-                                                    {
-                                                        sections1,
-                                                        sections2
-                                                    },
-                                                    new[]
-                                                    {
-                                                        section1,
-                                                        section2
-                                                    });
+            var assembly = new SerializableAssembly(
+                "assemblage_1",
+                new Point2D(12.0, 34.0),
+                new Point2D(56.053, 78.0002345),
+                new[]
+                {
+                    assessmentSection
+                },
+                new[]
+                {
+                    assessmentProcess
+                },
+                new[]
+                {
+                    totalAssemblyResult
+                },
+                new[]
+                {
+                    failureMechanism
+                },
+                new[]
+                {
+                    result
+                },
+                new[]
+                {
+                    combinedResult
+                },
+                new[]
+                {
+                    sections1,
+                    sections2
+                },
+                new[]
+                {
+                    section1,
+                    section2
+                });
 
             var serializer = new XmlSerializer(typeof(SerializableAssembly));
             var xmlns = new XmlSerializerNamespaces();
@@ -552,7 +560,5 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                 Assert.Fail("Serialized document is invalid:" + Environment.NewLine + msg);
             }
         }
-
-        private class TestFeatureMember : SerializableFeatureMember {}
     }
 }

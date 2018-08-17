@@ -99,12 +99,14 @@ namespace Ringtoets.AssemblyTool.IO.Model
 
         /// <summary>
         /// Gets or sets the section starting distance.
+        /// [m]
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.StartDistance)]
         public SerializableMeasure StartDistance { get; set; }
 
         /// <summary>
         /// Gets or sets the section ending distance.
+        /// [m]
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.EndDistance)]
         public SerializableMeasure EndDistance { get; set; }
@@ -117,6 +119,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
 
         /// <summary>
         /// Gets or sets the section length.
+        /// [m]
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Length)]
         public SerializableMeasure Length { get; set; }

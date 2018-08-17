@@ -71,7 +71,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual("Toets", AssemblyXmlIdentifiers.FailureMechanismSectionAssembly);
             Assert.AreEqual("ToetsID", AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyId);
             Assert.AreEqual("categorieVak", AssemblyXmlIdentifiers.FailureMechanismSectionCategoryGroup);
-            Assert.AreEqual("Vakindeling", AssemblyXmlIdentifiers.FailureMechanismSections);
+            Assert.AreEqual("Vakindeling", AssemblyXmlIdentifiers.FailureMechanismSectionCollection);
             Assert.AreEqual("VakindelingID", AssemblyXmlIdentifiers.FailureMechanismSectionCollectionId);
             Assert.AreEqual("VakindelingIDRef", AssemblyXmlIdentifiers.FailureMechanismSectionCollectionIdRef);
             Assert.AreEqual("typeWaterkeringsectie", AssemblyXmlIdentifiers.FailureMechanismSectionType);

@@ -27,7 +27,7 @@ using Ringtoets.AssemblyTool.IO.Model.Helpers;
 namespace Ringtoets.AssemblyTool.IO.Model.Gml
 {
     /// <summary>
-    /// Class containing the data describing a GML Envelope object
+    /// Class describing a GML envelope object.
     /// </summary>
     public class SerializableEnvelope
     {

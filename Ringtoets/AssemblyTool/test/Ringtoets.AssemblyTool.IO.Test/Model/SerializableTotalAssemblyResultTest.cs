@@ -42,6 +42,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsNull(totalAssemblyResult.AssessmentProcessId);
             Assert.IsNull(totalAssemblyResult.AssemblyResultWithProbability);
             Assert.IsNull(totalAssemblyResult.AssemblyResultWithoutProbability);
+            Assert.IsNull(totalAssemblyResult.AssessmentSectionAssemblyResult);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableTotalAssemblyResult), "Veiligheidsoordeel");
 
@@ -54,6 +55,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                 nameof(SerializableTotalAssemblyResult.AssemblyResultWithProbability), "toetsoordeelMetKansschatting");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableTotalAssemblyResult>(
                 nameof(SerializableTotalAssemblyResult.AssemblyResultWithoutProbability), "toetsoordeelZonderKansschatting");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableTotalAssemblyResult>(
+                nameof(SerializableTotalAssemblyResult.AssessmentSectionAssemblyResult), "veiligheidsoordeel");
         }
 
         [Test]

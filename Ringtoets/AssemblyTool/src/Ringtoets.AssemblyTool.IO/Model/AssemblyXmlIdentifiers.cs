@@ -213,9 +213,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string FailureMechanismSectionCategoryGroup = "categorieVak";
 
         /// <summary>
-        /// Identifier for a failure mechanism sections element.
+        /// Identifier for a failure mechanism section collection element.
         /// </summary>
-        public const string FailureMechanismSections = "Vakindeling";
+        public const string FailureMechanismSectionCollection = "Vakindeling";
 
         /// <summary>
         /// Identifier for a failure mechanism section collection ID attribute.

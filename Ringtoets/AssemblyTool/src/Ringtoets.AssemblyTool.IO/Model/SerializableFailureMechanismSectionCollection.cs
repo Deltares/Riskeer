@@ -27,7 +27,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
     /// <summary>
     /// Class describing a serializable failure mechanism section collection object.
     /// </summary>
-    [XmlType(AssemblyXmlIdentifiers.FailureMechanismSections)]
+    [XmlType(AssemblyXmlIdentifiers.FailureMechanismSectionCollection)]
     public class SerializableFailureMechanismSectionCollection : SerializableFeatureMember
     {
         /// <summary>
