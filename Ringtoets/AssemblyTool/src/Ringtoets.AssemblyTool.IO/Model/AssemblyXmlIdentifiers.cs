@@ -108,11 +108,6 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string AssessmentSection = "Waterkeringstelsel";
 
         /// <summary>
-        /// Identifier for a failure mechanism category group element.
-        /// </summary>
-        public const string FailureMechanismCategoryGroup = "categorieTraject";
-
-        /// <summary>
         /// Identifier for a bounded by element.
         /// </summary>
         public const string BoundedBy = "boundedBy";
@@ -171,6 +166,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Identifier for a failure mechanism element.
         /// </summary>
         public const string FailureMechanism = "Toetsspoor";
+
+        /// <summary>
+        /// Identifier for a failure mechanism category group element.
+        /// </summary>
+        public const string FailureMechanismCategoryGroup = "categorieTraject";
 
         /// <summary>
         /// Identifier for a failure mechanism assembly result element.
