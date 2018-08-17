@@ -854,15 +854,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingendatabase.
-        /// </summary>
-        public static string SelectHydraulicBoundaryDatabaseFile_FilterName {
-            get {
-                return ResourceManager.GetString("SelectHydraulicBoundaryDatabaseFile_FilterName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M..
         /// </summary>
         public static string SignalingNorm_Description {

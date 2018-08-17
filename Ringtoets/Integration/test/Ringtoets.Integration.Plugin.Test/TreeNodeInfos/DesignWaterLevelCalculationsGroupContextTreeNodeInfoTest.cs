@@ -349,15 +349,18 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         {
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(32, msgs.Length);
-                            const string designWaterLevelName = "Waterstand";
+
+                            const string calculationTypeDisplayName = "Waterstand";
+                            const string calculationDisplayName = "Waterstand berekening";
+
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, designWaterLevelName, "A+->A", msgs, 0);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "A+->A", msgs, 0);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, designWaterLevelName, "A->B", msgs, 8);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "A->B", msgs, 8);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, designWaterLevelName, "B->C", msgs, 16);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "B->C", msgs, 16);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, designWaterLevelName, "C->D", msgs, 24);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "C->D", msgs, 24);
                         });
 
                         AssertHydraulicBoundaryLocationCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output);

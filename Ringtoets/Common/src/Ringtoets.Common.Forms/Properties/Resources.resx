@@ -653,9 +653,6 @@ handmatig</value>
   <data name="SelectionDialogBase_SelectionDialogBase_Cancel" xml:space="preserve">
     <value>Annuleren</value>
   </data>
-  <data name="HydraulicBoundaryLocationSelectionDialog_Location_Name" xml:space="preserve">
-    <value>Hydraulische belastingenlocatie</value>
-  </data>
   <data name="CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip" xml:space="preserve">
     <value>Genereer belastingenberekeningen.</value>
   </data>

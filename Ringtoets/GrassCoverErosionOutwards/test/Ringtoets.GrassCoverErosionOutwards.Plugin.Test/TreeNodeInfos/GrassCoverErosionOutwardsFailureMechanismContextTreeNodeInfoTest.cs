@@ -592,29 +592,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(95, msgs.Length);
 
-                        const string designWaterLevelName = "Waterstand";
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelName, "Iv->IIv", msgs, 0);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelName, "IIv->IIIv", msgs, 8);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelName, "IIIv->IVv", msgs, 16);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelName, "IVv->Vv", msgs, 24);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelName, "Vv->VIv", msgs, 32);
+                        const string designWaterLevelCalculationTypeDisplayName = "Waterstand";
+                        const string designWaterLevelCalculationDisplayName = "Waterstand berekening";
 
-                        const string waveHeightName = "Golfhoogte";
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightName, "Iv->IIv", msgs, 40);
+                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "Iv->IIv", msgs, 0);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightName, "IIv->IIIv", msgs, 48);
+                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "IIv->IIIv", msgs, 8);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightName, "IIIv->IVv", msgs, 56);
+                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "IIIv->IVv", msgs, 16);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightName, "IVv->Vv", msgs, 64);
+                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "IVv->Vv", msgs, 24);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightName, "Vv->VIv", msgs, 72);
+                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "Vv->VIv", msgs, 32);
+
+                        const string waveHeightCalculationTypeDisplayName = "Golfhoogte";
+                        const string waveHeightCalculationDisplayName = "Golfhoogte berekening";
+
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "Iv->IIv", msgs, 40);
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "IIv->IIIv", msgs, 48);
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "IIIv->IVv", msgs, 56);
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "IVv->Vv", msgs, 64);
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "Vv->VIv", msgs, 72);
 
                         Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs.ElementAt(80));
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs.ElementAt(81));

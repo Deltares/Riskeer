@@ -351,15 +351,17 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(32, msgs.Length);
 
-                            const string waveHeightName = "Golfhoogte";
+                            const string calculationTypeDisplayName = "Golfhoogte";
+                            const string calculationDisplayName = "Golfhoogte berekening";
+
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, waveHeightName, "A+->A", msgs, 0);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "A+->A", msgs, 0);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, waveHeightName, "A->B", msgs, 8);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "A->B", msgs, 8);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, waveHeightName, "B->C", msgs, 16);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "B->C", msgs, 16);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, waveHeightName, "C->D", msgs, 24);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "C->D", msgs, 24);
                         });
 
                         AssertHydraulicBoundaryLocationCalculationOutput(waveHeightCalculator, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Single().Output);

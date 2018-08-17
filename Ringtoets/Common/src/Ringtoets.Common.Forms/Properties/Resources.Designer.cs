@@ -2278,15 +2278,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingenlocatie.
-        /// </summary>
-        public static string HydraulicBoundaryLocationSelectionDialog_Location_Name {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationSelectionDialog_Location_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Selecteer hydraulische belastingenlocaties.
         /// </summary>
         public static string HydraulicBoundaryLocationSelectionDialog_Select_HydraulicBoundaryLocations {

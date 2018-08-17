@@ -371,17 +371,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(40, msgs.Length);
 
-                            const string designWaterLevelName = "Waterstand";
+                            const string calculationTypeDisplayName = "Waterstand";
+                            const string calculationDisplayName = "Waterstand berekening";
+
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, designWaterLevelName, "Iv->IIv", msgs, 0);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Iv->IIv", msgs, 0);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, designWaterLevelName, "IIv->IIIv", msgs, 8);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIv->IIIv", msgs, 8);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, designWaterLevelName, "IIIv->IVv", msgs, 16);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIIv->IVv", msgs, 16);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, designWaterLevelName, "IVv->Vv", msgs, 24);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IVv->Vv", msgs, 24);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, designWaterLevelName, "Vv->VIv", msgs, 32);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Vv->VIv", msgs, 32);
                         });
 
                         AssertHydraulicBoundaryLocationCalculationOutput(designWaterLevelCalculator, failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output);

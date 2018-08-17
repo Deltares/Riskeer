@@ -2097,7 +2097,7 @@ namespace Ringtoets.Integration.Plugin
         {
             using (var dialog = new OpenFileDialog
             {
-                Filter = $@"{RingtoetsFormsResources.SelectHydraulicBoundaryDatabaseFile_FilterName} (*.sqlite)|*.sqlite",
+                Filter = $@"{RingtoetsFormsResources.HydraulicBoundaryDatabase_FilePath_DisplayName} (*.sqlite)|*.sqlite",
                 Title = GuiResources.OpenFileDialog_Title
             })
             {

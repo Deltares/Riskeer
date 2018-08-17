@@ -156,9 +156,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked" xml:space="preserve">
     <value>Database op pad '{0}' gekoppeld.</value>
   </data>
-  <data name="SelectHydraulicBoundaryDatabaseFile_FilterName" xml:space="preserve">
-    <value>Hydraulische belastingendatabase</value>
-  </data>
   <data name="FailureMechanismContributionView_ProbabilityPerYear_Not_applicable" xml:space="preserve">
     <value>n.v.t</value>
   </data>
