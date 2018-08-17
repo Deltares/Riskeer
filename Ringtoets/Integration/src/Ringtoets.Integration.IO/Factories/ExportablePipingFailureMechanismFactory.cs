@@ -51,7 +51,8 @@ namespace Ringtoets.Integration.IO.Factories
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
                 failureMechanismSectionsLookup.Values, CreateExportablePipingFailureMechanismSectionResults(failureMechanismSectionsLookup,
-                                                                                                            failureMechanism, assessmentSection),
+                                                                                                            failureMechanism, 
+                                                                                                            assessmentSection),
                 ExportableFailureMechanismType.STPH,
                 ExportableFailureMechanismGroup.Group2);
         }
@@ -98,19 +99,13 @@ namespace Ringtoets.Integration.IO.Factories
                 exportableResults.Add(
                     new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
                         failureMechanismSectionPair.Value,
-                        CreateExportableSectionAssemblyResultWithProbability(simpleAssembly, ExportableAssemblyMethod.WBI0E1),
-                        CreateExportableSectionAssemblyResultWithProbability(detailedAssembly, ExportableAssemblyMethod.WBI0G5),
-                        CreateExportableSectionAssemblyResultWithProbability(tailorMadeAssembly, ExportableAssemblyMethod.WBI0T5),
-                        CreateExportableSectionAssemblyResultWithProbability(combinedAssembly, ExportableAssemblyMethod.WBI0A1)));
+                        ExportableSectionAssemblyResultFactory.CreateExportableSectionAssemblyResultWithProbability(simpleAssembly, ExportableAssemblyMethod.WBI0E1),
+                        ExportableSectionAssemblyResultFactory.CreateExportableSectionAssemblyResultWithProbability(detailedAssembly, ExportableAssemblyMethod.WBI0G5),
+                        ExportableSectionAssemblyResultFactory.CreateExportableSectionAssemblyResultWithProbability(tailorMadeAssembly, ExportableAssemblyMethod.WBI0T5),
+                        ExportableSectionAssemblyResultFactory.CreateExportableSectionAssemblyResultWithProbability(combinedAssembly, ExportableAssemblyMethod.WBI0A1)));
             }
 
             return exportableResults;
-        }
-
-        private static ExportableSectionAssemblyResultWithProbability CreateExportableSectionAssemblyResultWithProbability(FailureMechanismSectionAssembly assembly,
-                                                                                                                           ExportableAssemblyMethod exportableAssemblyMethod)
-        {
-            return new ExportableSectionAssemblyResultWithProbability(exportableAssemblyMethod, assembly.Group, assembly.Probability);
         }
 
         private static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(FailureMechanismSection failureMechanismSection)
