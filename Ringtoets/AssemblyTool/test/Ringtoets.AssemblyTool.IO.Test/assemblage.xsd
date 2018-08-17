@@ -129,10 +129,10 @@
                     <!-- <element ref="gml:AbstractFeature"/> -->
                     <element ref="asm:Waterkeringstelsel" minOccurs="1" maxOccurs="1"/>
                     <element ref="asm:Beoordelingsproces" minOccurs="1" maxOccurs="1"/>
-                    <element ref="asm:Veiligheidsoordeel" minOccurs="1" maxOccurs="unbounded"/>
+                    <element ref="asm:Veiligheidsoordeel" minOccurs="1" maxOccurs="1"/>
                     <element ref="asm:Toetsspoor" minOccurs="1" maxOccurs="unbounded"/>
                     <element ref="asm:Toets" minOccurs="1" maxOccurs="unbounded"/>
-                    <element ref="asm:GecombineerdToetsoordeel" minOccurs="0" maxOccurs="1"/>
+                    <element ref="asm:GecombineerdToetsoordeel" minOccurs="0" maxOccurs="unbounded"/>
                     <element ref="asm:Vakindeling" minOccurs="0" maxOccurs="unbounded"/>
                     <element ref="asm:Waterkeringsectie" minOccurs="1" maxOccurs="unbounded"/>
                   </sequence>
