@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model.Gml;
@@ -132,7 +131,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
 
             Id = id;
             Boundary = new SerializableBoundary(lowerCorner, upperCorner);
-            
+
             var featureMembers = new List<SerializableFeatureMember>();
             featureMembers.AddRange(assessmentSections);
             featureMembers.AddRange(assessmentProcesses);

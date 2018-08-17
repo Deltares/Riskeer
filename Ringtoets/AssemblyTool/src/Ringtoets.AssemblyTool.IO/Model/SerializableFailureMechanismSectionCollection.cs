@@ -42,7 +42,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="failureMechanism">The failure mechanism the sections belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableFailureMechanismSectionCollection(string id,
-                                                    SerializableFailureMechanism failureMechanism)
+                                                             SerializableFailureMechanism failureMechanism)
             : this(id)
         {
             if (failureMechanism == null)
@@ -60,7 +60,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="totalAssemblyResult">The total assembly result the sections belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableFailureMechanismSectionCollection(string id,
-                                                    SerializableTotalAssemblyResult totalAssemblyResult)
+                                                             SerializableTotalAssemblyResult totalAssemblyResult)
             : this(id)
         {
             if (totalAssemblyResult == null)

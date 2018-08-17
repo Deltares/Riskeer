@@ -73,9 +73,9 @@ namespace Ringtoets.AssemblyTool.IO.Test
                 Enumerable.Empty<SerializableAssessmentSection>(),
                 Enumerable.Empty<SerializableAssessmentProcess>(),
                 Enumerable.Empty<SerializableTotalAssemblyResult>(),
-                new []
+                new[]
                 {
-                    new SerializableFailureMechanism() 
+                    new SerializableFailureMechanism()
                 },
                 Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
                 Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),

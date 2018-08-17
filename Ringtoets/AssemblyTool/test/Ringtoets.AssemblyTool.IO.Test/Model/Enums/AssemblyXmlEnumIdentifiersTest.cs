@@ -47,7 +47,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("V-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVv);
             Assert.AreEqual("VI-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVIv);
             Assert.AreEqual("VII-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVIIv);
-            
+
             Assert.AreEqual("A+", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupAPlus);
             Assert.AreEqual("A", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupA);
             Assert.AreEqual("B", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupB);

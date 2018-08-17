@@ -86,7 +86,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Identifier for an assessment section category group element.
         /// </summary>
         public const string AssessmentSectionAssemblyResult = "veiligheidsoordeel";
-        
+
         /// <summary>
         /// Identifier for an assessment section category group element.
         /// </summary>
@@ -121,7 +121,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Identifier for a combined failure mechanism section assembly element.
         /// </summary>
         public const string CombinedFailureMechanismSectionAssembly = "GecombineerdToetsoordeel";
-        
+
         /// <summary>
         /// Identifier for a combined failure mechanism section assembly ID attribute.
         /// </summary>
@@ -131,7 +131,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Identifier for a combined section result element.
         /// </summary>
         public const string CombinedCombinedSectionResult = "toetsoordeelGecombineerd";
-        
+
         /// <summary>
         /// Identifier for a combined section result element.
         /// </summary>
