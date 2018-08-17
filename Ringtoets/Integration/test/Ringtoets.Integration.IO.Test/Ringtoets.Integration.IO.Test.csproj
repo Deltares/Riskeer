@@ -39,6 +39,7 @@
     <Compile Include="Factories\ExportableAssessmentSectionFactoryTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriterTest.cs" />
+    <Compile Include="Factories\ExportableMacroStabilityInwardsFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportablePipingFailureMechanismFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -88,6 +89,10 @@
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Util.TestUtil\Ringtoets.Common.Util.TestUtil.csproj">
       <Project>{54DF6303-BF9A-4AE9-BE09-4AF50EF27412}</Project>
       <Name>Ringtoets.Common.Util.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+      <Project>{83D6B73E-91D5-46B0-9218-955DA1F75F7C}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
