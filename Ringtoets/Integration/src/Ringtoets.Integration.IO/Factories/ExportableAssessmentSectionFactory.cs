@@ -62,80 +62,9 @@ namespace Ringtoets.Integration.IO.Factories
         private static IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> CreateExportableFailureMechanismsWithProbability(AssessmentSection assessmentSection)
         {
             var exportableFailureMechanisms = new List<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>();
-            exportableFailureMechanisms.Add(CreateExportablePipingFailureMechanism(assessmentSection));
+            exportableFailureMechanisms.Add(ExportablePipingFailureMechanismFactory.CreateExportablePipingFailureMechanism(assessmentSection.Piping, assessmentSection));
 
             return exportableFailureMechanisms;
-        }
-
-        private static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> CreateExportablePipingFailureMechanism(AssessmentSection assessmentSection)
-        {
-            FailureMechanismAssembly failureMechanismAssembly = PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Piping, assessmentSection);
-
-            Dictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                assessmentSection.Piping
-                                 .SectionResults
-                                 .ToDictionary(s => s, sectionResult => CreateExportableFailureMechanismSection(sectionResult.Section));
-
-            return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
-                new ExportableFailureMechanismAssemblyResultWithProbability(ExportableAssemblyMethod.WBI1B1,
-                                                                            failureMechanismAssembly.Group,
-                                                                            failureMechanismAssembly.Probability),
-                failureMechanismSectionsLookup.Values,
-                CreateExportablePipingFailureMechanismSectionResults(failureMechanismSectionsLookup, assessmentSection),
-                ExportableFailureMechanismType.STPH,
-                ExportableFailureMechanismGroup.Group2);
-        }
-
-        private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportablePipingFailureMechanismSectionResults(
-            Dictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections,
-            AssessmentSection assessmentSection)
-        {
-            PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
-            IEnumerable<PipingCalculationScenario> pipingCalculationScenarios = pipingFailureMechanism.Calculations.Cast<PipingCalculationScenario>();
-
-            var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
-            foreach (KeyValuePair<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSections)
-            {
-                PipingFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
-                FailureMechanismSectionAssembly simpleAssembly =
-                    PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-
-                FailureMechanismSectionAssembly detailedAssembly =
-                    PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
-                                                                                     pipingCalculationScenarios,
-                                                                                     pipingFailureMechanism,
-                                                                                     assessmentSection);
-                FailureMechanismSectionAssembly tailorMadeAssembly =
-                    PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult,
-                                                                                       pipingFailureMechanism,
-                                                                                       assessmentSection);
-                FailureMechanismSectionAssembly combinedAssembly =
-                    PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
-                                                                                     pipingCalculationScenarios,
-                                                                                     pipingFailureMechanism,
-                                                                                     assessmentSection);
-
-                exportableResults.Add(
-                    new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
-                        failureMechanismSectionPair.Value,
-                        CreateExportableSectionAssemblyResultWithProbability(simpleAssembly, ExportableAssemblyMethod.WBI0E1),
-                        CreateExportableSectionAssemblyResultWithProbability(detailedAssembly, ExportableAssemblyMethod.WBI0G5),
-                        CreateExportableSectionAssemblyResultWithProbability(tailorMadeAssembly, ExportableAssemblyMethod.WBI0T5),
-                        CreateExportableSectionAssemblyResultWithProbability(combinedAssembly, ExportableAssemblyMethod.WBI1B1)));
-            }
-
-            return exportableResults;
-        }
-
-        private static ExportableSectionAssemblyResultWithProbability CreateExportableSectionAssemblyResultWithProbability(FailureMechanismSectionAssembly assembly,
-                                                                                                                           ExportableAssemblyMethod exportableAssemblyMethod)
-        {
-            return new ExportableSectionAssemblyResultWithProbability(exportableAssemblyMethod, assembly.Group, assembly.Probability);
-        }
-
-        private static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(FailureMechanismSection failureMechanismSection)
-        {
-            return new ExportableFailureMechanismSection(failureMechanismSection.Points, double.NaN, double.NaN);
         }
     }
 }
