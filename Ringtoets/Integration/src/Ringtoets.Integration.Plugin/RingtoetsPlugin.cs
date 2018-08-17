@@ -900,7 +900,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
             {
-                Text = hydraulicBoundaryDatabase => RingtoetsFormsResources.HydraulicBoundaryDatabase_DisplayName,
+                Text = hydraulicBoundaryDatabase => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = hydraulicBoundaryDatabase => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)

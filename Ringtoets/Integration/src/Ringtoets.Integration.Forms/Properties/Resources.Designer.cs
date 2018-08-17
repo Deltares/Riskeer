@@ -646,15 +646,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingen.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Locatie van het hydraulische belastingendatabase bestand..
         /// </summary>
         public static string HydraulicBoundaryDatabase_FilePath_Description {

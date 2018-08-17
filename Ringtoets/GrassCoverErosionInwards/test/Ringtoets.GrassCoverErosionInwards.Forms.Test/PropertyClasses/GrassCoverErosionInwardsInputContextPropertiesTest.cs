@@ -729,8 +729,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hydraulicBoundaryLocationProperty,
                                                                             hydraulicDataCategoryName,
-                                                                            "Locatie met hydraulische belastingen",
-                                                                            "De locatie met hydraulische belastingen.");
+                                                                            "Hydraulische belastingenlocatie",
+                                                                            "De hydraulische belastingenlocatie.");
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculateDikeHeightPropertyIndex],
                                                                             dikeHeightCategoryName,

@@ -252,8 +252,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hydraulicBoundaryLocationProperty,
                                                                             hydraulicParametersCategory,
-                                                                            "Locatie met hydraulische belastingen",
-                                                                            "De locatie met hydraulische belastingen.");
+                                                                            "Hydraulische belastingenlocatie",
+                                                                            "De hydraulische belastingenlocatie.");
 
             PropertyDescriptor categoryTypeProperty = dynamicProperties[categoryTypePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(categoryTypeProperty,

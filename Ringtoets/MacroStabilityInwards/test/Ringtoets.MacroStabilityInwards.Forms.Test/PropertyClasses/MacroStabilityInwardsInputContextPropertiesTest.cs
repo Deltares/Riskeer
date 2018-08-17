@@ -216,8 +216,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 hydraulicBoundaryLocationProperty,
                 hydraulicDataCategory,
-                "Locatie met hydraulische belastingen",
-                "De locatie met hydraulische belastingen waarvan de berekende waterstand wordt gebruikt.");
+                "Hydraulische belastingenlocatie",
+                "De hydraulische belastingenlocatie waarvan de berekende waterstand wordt gebruikt.");
 
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[expectedAssessmentLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -360,8 +360,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                     hydraulicBoundaryLocationProperty,
                     hydraulicDataCategory,
-                    "Locatie met hydraulische belastingen",
-                    "De locatie met hydraulische belastingen waarvan de berekende waterstand wordt gebruikt.");
+                    "Hydraulische belastingenlocatie",
+                    "De hydraulische belastingenlocatie waarvan de berekende waterstand wordt gebruikt.");
 
                 PropertyDescriptor assessmentLevelProperty = dynamicProperties[expectedAssessmentLevelPropertyIndex];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(

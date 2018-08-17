@@ -600,13 +600,13 @@ handmatig</value>
     <value>Hydraulische gegevens</value>
   </data>
   <data name="HydraulicBoundaryLocation_Description" xml:space="preserve">
-    <value>De locatie met hydraulische belastingen.</value>
+    <value>De hydraulische belastingenlocatie.</value>
   </data>
   <data name="HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
-    <value>Locatie met hydraulische belastingen</value>
+    <value>Hydraulische belastingenlocatie</value>
   </data>
   <data name="HydraulicBoundaryLocation_Description_with_assessment_level" xml:space="preserve">
-    <value>De locatie met hydraulische belastingen waarvan de berekende waterstand wordt gebruikt.</value>
+    <value>De hydraulische belastingenlocatie waarvan de berekende waterstand wordt gebruikt.</value>
   </data>
   <data name="AssessmentLevel_Description" xml:space="preserve">
     <value>Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.</value>

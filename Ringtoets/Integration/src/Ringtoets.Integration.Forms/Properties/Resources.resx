@@ -147,9 +147,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_Connect_ToolTip" xml:space="preserve">
     <value>Koppel aan hydraulische belastingendatabase.</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
-    <value>Hydraulische belastingen</value>
-  </data>
   <data name="HydraulicBoundaryDatabase_FilePath_Description" xml:space="preserve">
     <value>Locatie van het hydraulische belastingendatabase bestand.</value>
   </data>

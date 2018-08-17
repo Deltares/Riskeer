@@ -385,7 +385,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[linearLowSillForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[linearLowSillUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[linearLowSillUseForeshorePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie met hydraulische belastingen", dynamicProperties[linearLowSillHydraulicBoundaryLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Hydraulische belastingenlocatie", dynamicProperties[linearLowSillHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[linearLowSillStormDurationPropertyIndex].DisplayName);
             Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[linearLowSillCalculateIllustrationPointsPropertyIndex].DisplayName);
 
@@ -614,7 +614,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[quadraticLowSillForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[quadraticLowSillUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[quadraticLowSillUseForeshorePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie met hydraulische belastingen", dynamicProperties[quadraticLowSillHydraulicBoundaryLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Hydraulische belastingenlocatie", dynamicProperties[quadraticLowSillHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[quadraticLowSillStormDurationPropertyIndex].DisplayName);
             Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[quadraticLowSillCalculateIllustrationPointsPropertyIndex].DisplayName);
 
@@ -861,7 +861,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[linearFloodedCulvertForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[linearFloodedCulvertUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[linearFloodedCulvertUseForeshorePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie met hydraulische belastingen", dynamicProperties[linearFloodedCulvertHydraulicBoundaryLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Hydraulische belastingenlocatie", dynamicProperties[linearFloodedCulvertHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[linearFloodedCulvertStormDurationPropertyIndex].DisplayName);
             Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[linearFloodedCulvertCalculateIllustrationPointsPropertyIndex].DisplayName);
 
@@ -1108,7 +1108,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[quadraticFloodedCulvertForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[quadraticFloodedCulvertUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[quadraticFloodedCulvertUseForeshorePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie met hydraulische belastingen", dynamicProperties[quadraticFloodedCulvertHydraulicBoundaryLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Hydraulische belastingenlocatie", dynamicProperties[quadraticFloodedCulvertHydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[quadraticFloodedCulvertStormDurationPropertyIndex].DisplayName);
             Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[quadraticFloodedCulvertCalculateIllustrationPointsPropertyIndex].DisplayName);
 

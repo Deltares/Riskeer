@@ -267,8 +267,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[constructionProperties.HydraulicBoundaryLocationPropertyIndex];
             Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
             Assert.AreEqual(hydraulicDataCategory, hydraulicBoundaryLocationProperty.Category);
-            Assert.AreEqual("Locatie met hydraulische belastingen", hydraulicBoundaryLocationProperty.DisplayName);
-            Assert.AreEqual("De locatie met hydraulische belastingen.", hydraulicBoundaryLocationProperty.Description);
+            Assert.AreEqual("Hydraulische belastingenlocatie", hydraulicBoundaryLocationProperty.DisplayName);
+            Assert.AreEqual("De hydraulische belastingenlocatie.", hydraulicBoundaryLocationProperty.Description);
 
             PropertyDescriptor stormDurationProperty = dynamicProperties[constructionProperties.StormDurationPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(stormDurationProperty.Converter);
