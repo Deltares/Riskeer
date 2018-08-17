@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -8,7 +7,6 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Assembly;
@@ -50,7 +48,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 ReferenceLine = referenceLine
             };
 
-            AddFailureMechanismSections(assessmentSection.Piping);
+            FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -81,31 +79,6 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 CollectionAssert.IsEmpty(exportableAssessmentSection.FailureMechanismsWithoutProbability);
                 Assert.IsNotNull(exportableAssessmentSection.CombinedSectionAssemblyResults);
             }
-        }
-
-        private static void AddFailureMechanismSections(IFailureMechanism failureMechanism)
-        {
-            const int numberOfSections = 3;
-
-            var startPoint = new Point2D(-1, -1);
-            var endPoint = new Point2D(15, 15);
-            double endPointStepsX = (endPoint.X - startPoint.X) / numberOfSections;
-            double endPointStepsY = (endPoint.Y - startPoint.Y) / numberOfSections;
-
-            var sections = new List<FailureMechanismSection>();
-            for (var i = 1; i <= numberOfSections; i++)
-            {
-                endPoint = new Point2D(startPoint.X + endPointStepsX, startPoint.Y + endPointStepsY);
-                sections.Add(new FailureMechanismSection(i.ToString(),
-                                                         new[]
-                                                         {
-                                                             startPoint,
-                                                             endPoint
-                                                         }));
-                startPoint = endPoint;
-            }
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, sections);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
@@ -9,7 +8,6 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
@@ -56,8 +54,9 @@ namespace Ringtoets.Integration.IO.Test.Factories
         public void CreateExportablePipingFailureMechanism_WithValidArguments_ReturnsExportableFailureMechanism()
         {
             // Setup
+            var random = new Random(21);
             var failureMechanism = new PipingFailureMechanism();
-            AddFailureMechanismSections(failureMechanism);
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -78,21 +77,21 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 Assert.AreEqual(ExportableFailureMechanismGroup.Group2, assemblyResult.Group);
 
                 ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, assemblyResult.Sections);
-                AssertExportablePipingFailureMechanismSectionResults(failureMechanismSectionAssemblyCalculator.SimpleAssessmentAssemblyOutput,
-                                                                     failureMechanismSectionAssemblyCalculator.DetailedAssessmentAssemblyOutput,
-                                                                     failureMechanismSectionAssemblyCalculator.TailorMadeAssessmentAssemblyOutput,
-                                                                     failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput,
-                                                                     assemblyResult.Sections,
-                                                                     assemblyResult.SectionAssemblyResults.Cast<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>());
+                AssertExportableFailureMechanismSectionResults(failureMechanismSectionAssemblyCalculator.SimpleAssessmentAssemblyOutput,
+                                                               failureMechanismSectionAssemblyCalculator.DetailedAssessmentAssemblyOutput,
+                                                               failureMechanismSectionAssemblyCalculator.TailorMadeAssessmentAssemblyOutput,
+                                                               failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput,
+                                                               assemblyResult.Sections,
+                                                               assemblyResult.SectionAssemblyResults.Cast<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>());
             }
         }
 
-        private static void AssertExportablePipingFailureMechanismSectionResults(FailureMechanismSectionAssembly expectedSimpleAssembly,
-                                                                                 FailureMechanismSectionAssembly expectedDetailedAssembly,
-                                                                                 FailureMechanismSectionAssembly expectedTailorMadeAssembly,
-                                                                                 FailureMechanismSectionAssembly expectedCombinedAssembly,
-                                                                                 IEnumerable<ExportableFailureMechanismSection> sections,
-                                                                                 IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> results)
+        private static void AssertExportableFailureMechanismSectionResults(FailureMechanismSectionAssembly expectedSimpleAssembly,
+                                                                           FailureMechanismSectionAssembly expectedDetailedAssembly,
+                                                                           FailureMechanismSectionAssembly expectedTailorMadeAssembly,
+                                                                           FailureMechanismSectionAssembly expectedCombinedAssembly,
+                                                                           IEnumerable<ExportableFailureMechanismSection> sections,
+                                                                           IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> results)
         {
             int expectedNrOfResults = sections.Count();
             Assert.AreEqual(expectedNrOfResults, results.Count());
@@ -102,21 +101,21 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 ExportableFailureMechanismSection section = sections.ElementAt(i);
                 ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability result = results.ElementAt(i);
 
-                AssertExportablePipingFailureMechanismSectionResult(expectedSimpleAssembly,
-                                                                    expectedDetailedAssembly,
-                                                                    expectedTailorMadeAssembly,
-                                                                    expectedCombinedAssembly,
-                                                                    section,
-                                                                    result);
+                AssertExportableFailureMechanismSectionResult(expectedSimpleAssembly,
+                                                              expectedDetailedAssembly,
+                                                              expectedTailorMadeAssembly,
+                                                              expectedCombinedAssembly,
+                                                              section,
+                                                              result);
             }
         }
 
-        private static void AssertExportablePipingFailureMechanismSectionResult(FailureMechanismSectionAssembly expectedSimpleAssembly,
-                                                                                FailureMechanismSectionAssembly expectedDetailedAssembly,
-                                                                                FailureMechanismSectionAssembly expectedTailorMadeAssembly,
-                                                                                FailureMechanismSectionAssembly expectedCombinedAssembly,
-                                                                                ExportableFailureMechanismSection expectedSection,
-                                                                                ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability actualResult)
+        private static void AssertExportableFailureMechanismSectionResult(FailureMechanismSectionAssembly expectedSimpleAssembly,
+                                                                          FailureMechanismSectionAssembly expectedDetailedAssembly,
+                                                                          FailureMechanismSectionAssembly expectedTailorMadeAssembly,
+                                                                          FailureMechanismSectionAssembly expectedCombinedAssembly,
+                                                                          ExportableFailureMechanismSection expectedSection,
+                                                                          ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability actualResult)
         {
             Assert.AreSame(expectedSection, actualResult.FailureMechanismSection);
 
@@ -135,31 +134,6 @@ namespace Ringtoets.Integration.IO.Test.Factories
             ExportableSectionAssemblyResultTestHelper.AssertExportableSectionAssemblyResult(expectedCombinedAssembly,
                                                                                             ExportableAssemblyMethod.WBI1B1,
                                                                                             actualResult.CombinedAssembly);
-        }
-
-        private static void AddFailureMechanismSections(IFailureMechanism failureMechanism)
-        {
-            const int numberOfSections = 3;
-
-            var startPoint = new Point2D(-1, -1);
-            var endPoint = new Point2D(15, 15);
-            double endPointStepsX = (endPoint.X - startPoint.X) / numberOfSections;
-            double endPointStepsY = (endPoint.Y - startPoint.Y) / numberOfSections;
-
-            var sections = new List<FailureMechanismSection>();
-            for (var i = 1; i <= numberOfSections; i++)
-            {
-                endPoint = new Point2D(startPoint.X + endPointStepsX, startPoint.Y + endPointStepsY);
-                sections.Add(new FailureMechanismSection(i.ToString(),
-                                                         new[]
-                                                         {
-                                                             startPoint,
-                                                             endPoint
-                                                         }));
-                startPoint = endPoint;
-            }
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, sections);
         }
     }
 }
