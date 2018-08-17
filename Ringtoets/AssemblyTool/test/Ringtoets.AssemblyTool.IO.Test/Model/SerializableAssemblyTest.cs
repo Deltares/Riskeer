@@ -411,8 +411,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
         [Test]
         [Explicit("XSD validation requires internet connection and takes about 30 seconds to complete.")]
-        public void GivenAssembly_WhenExported_ReturnsValidSerializedObject()
+        public void GivenFullyConfiguredAssembly_WhenExported_ThenCreatesValidSerializedFile()
         {
+            // Given
             var assessmentSection = new SerializableAssessmentSection
             {
                 Id = "section1",
@@ -541,14 +542,17 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             xmlns.Add("asm", AssemblyXmlIdentifiers.AssemblyNamespace);
 
             var writer = new StringWriter();
+            
+            // When
             serializer.Serialize(writer, assembly, xmlns);
             string xml = writer.ToString();
             Console.WriteLine(xml);
 
+            // Then
             var schema = new XmlSchemaSet();
             schema.Add("http://localhost/standaarden/assemblage", Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.AssemblyTool.IO), "assemblage.xsd"));
-
-            XDocument doc = XDocument.Parse(xml);
+            XDocument doc = XDocument.Parse(xml);            
+            
             string msg = string.Empty;
             doc.Validate(schema, (o, e) => { msg += e.Message + Environment.NewLine; });
             if (msg == string.Empty)
