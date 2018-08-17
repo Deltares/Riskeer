@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                                             actualResult.TailorMadeAssembly);
 
             ExportableSectionAssemblyResultTestHelper.AssertExportableSectionAssemblyResult(expectedCombinedAssembly,
-                                                                                            ExportableAssemblyMethod.WBI1B1,
+                                                                                            ExportableAssemblyMethod.WBI0A1,
                                                                                             actualResult.CombinedAssembly);
         }
     }
