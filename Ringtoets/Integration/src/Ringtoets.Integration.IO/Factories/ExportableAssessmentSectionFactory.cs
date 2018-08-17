@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.IO.Factories
 {
@@ -61,10 +58,11 @@ namespace Ringtoets.Integration.IO.Factories
 
         private static IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> CreateExportableFailureMechanismsWithProbability(AssessmentSection assessmentSection)
         {
-            var exportableFailureMechanisms = new List<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>();
-            exportableFailureMechanisms.Add(ExportablePipingFailureMechanismFactory.CreateExportablePipingFailureMechanism(assessmentSection.Piping, assessmentSection));
-
-            return exportableFailureMechanisms;
+            return new []
+            {
+                ExportablePipingFailureMechanismFactory.CreateExportablePipingFailureMechanism(assessmentSection.Piping, assessmentSection),
+                ExportableMacroStabilityInwardsFailureMechanismFactory.CreateExportableMacroStabilityInwardsFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection)
+            };
         }
     }
 }
