@@ -8,7 +8,6 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data;
@@ -81,31 +80,6 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
                 CollectionAssert.IsEmpty(exportableAssessmentSection.FailureMechanismsWithoutProbability);
                 Assert.IsNotNull(exportableAssessmentSection.CombinedSectionAssemblyResults);
-            }
-        }
-
-        [Test]
-        public void CreateExportableAssessmentSection_AssessmentSectionAssemblyCalculatorThrowsException_ThrowsAssemblyException()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
-            {
-                Name = "assessmentSectionName",
-                ReferenceLine = new ReferenceLine()
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
-
-                // Call
-                TestDelegate call = () => ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
-
-                // Assert
-                Assert.Throws<AssemblyException>(call);
             }
         }
 
