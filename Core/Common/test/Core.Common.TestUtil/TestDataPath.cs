@@ -55,6 +55,11 @@ namespace Core.Common.TestUtil
 
         public static class Ringtoets
         {
+            public static class AssemblyTool
+            {
+                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "AssemblyTool", "test", "Ringtoets.AssemblyTool.IO.Test");
+            }
+
             public static class ClosingStructures
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "ClosingStructures", "test", "Ringtoets.ClosingStructures.IO.Test");

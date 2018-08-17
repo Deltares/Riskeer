@@ -30,6 +30,7 @@ using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
@@ -176,14 +177,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void GivenAssembly_WhenExported_ReturnsSerializedObject()
+        [Explicit("XSD validation requires internet connection and takes about 30 seconds to complete.")]
+        public void GivenAssembly_WhenExported_ReturnsValidSerializedObject()
         {
-            var serializer = new XmlSerializer(typeof(SerializableAssembly));
-            var xmlns = new XmlSerializerNamespaces();
-            xmlns.Add("gml", AssemblyXmlIdentifiers.GmlNamespace);
-            xmlns.Add("asm", AssemblyXmlIdentifiers.AssemblyNamespace);
-
-            var writer = new StringWriterUtf8();
             var assessmentSection = new SerializableAssessmentSection
             {
                 Id = "section1",
@@ -275,29 +271,29 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                         section2
                                                     });
 
+            var serializer = new XmlSerializer(typeof(SerializableAssembly));
+            var xmlns = new XmlSerializerNamespaces();
+            xmlns.Add("gml", AssemblyXmlIdentifiers.GmlNamespace);
+            xmlns.Add("asm", AssemblyXmlIdentifiers.AssemblyNamespace);
+
+            var writer = new StringWriter();
             serializer.Serialize(writer, assembly, xmlns);
             string xml = writer.ToString();
             Console.WriteLine(xml);
 
             var schema = new XmlSchemaSet();
-            Assembly ass = Assembly.GetExecutingAssembly();
-            string path = Path.GetDirectoryName(ass.Location);
-            schema.Add("http://localhost/standaarden/assemblage", Path.Combine(path, "assemblage.xsd"));
+            schema.Add("http://localhost/standaarden/assemblage", Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.AssemblyTool.IO), "assemblage.xsd"));
 
             XDocument doc = XDocument.Parse(xml);
-            var msg = "";
+            string msg = string.Empty;
             doc.Validate(schema, (o, e) => { msg += e.Message + Environment.NewLine; });
-            Console.WriteLine(msg == "" ? "Document is valid" : "Document invalid: " + msg);
-        }
-
-        public class StringWriterUtf8 : StringWriter
-        {
-            public override Encoding Encoding
+            if (msg == string.Empty)
             {
-                get
-                {
-                    return Encoding.UTF8;
-                }
+                Assert.Pass("Serialized document is valid" + Environment.NewLine);
+            }
+            else
+            {
+                Assert.Fail("Serialized document is invalid:" + Environment.NewLine + msg);
             }
         }
 

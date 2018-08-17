@@ -58,6 +58,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string AssemblyNamespace = "http://localhost/standaarden/assemblage";
 
         /// <summary>
+        /// The XML namespace identifier for assembly objects.
+        /// </summary>
+        public const string AssemblyNamespaceIdentifier = "asm";
+
+        /// <summary>
         /// Identifier for an assessment level element.
         /// </summary>
         public const string AssessmentLevel = "toets";
@@ -256,6 +261,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// The XML namespace for GML objects.
         /// </summary>
         public const string GmlNamespace = "http://www.opengis.net/gml/3.2";
+
+        /// <summary>
+        /// The XML namespace identifier for GML objects.
+        /// </summary>
+        public const string GmlNamespaceIdentifier = "gml";
 
         /// <summary>
         /// Identifier for an ID attribute.
