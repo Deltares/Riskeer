@@ -32,10 +32,5 @@ namespace Ringtoets.Revetment.Forms.Views
         /// Gets the color of the revetment chart line.
         /// </summary>
         Color RevetmentLineColor { get; }
-
-        /// <summary>
-        /// Gets the name of the design water level chart line.
-        /// </summary>
-        string DesignWaterLevelName { get; }
     }
 }

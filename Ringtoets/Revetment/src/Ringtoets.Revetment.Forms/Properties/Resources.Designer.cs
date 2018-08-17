@@ -217,6 +217,33 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie..
+        /// </summary>
+        public static string WaveConditionsInput_AssessmentLevel_Description {
+            get {
+                return ResourceManager.GetString("WaveConditionsInput_AssessmentLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstand bij categoriegrens [m+NAP].
+        /// </summary>
+        public static string WaveConditionsInput_AssessmentLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsInput_AssessmentLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstand bij categoriegrens.
+        /// </summary>
+        public static string WaveConditionsInput_AssessmentLevel_DisplayName_without_unit {
+            get {
+                return ResourceManager.GetString("WaveConditionsInput_AssessmentLevel_DisplayName_without_unit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categoriegrens (kans) waarvoor de berekening moet worden uitgevoerd..
         /// </summary>
         public static string WaveConditionsInput_CategoryType_Description {
@@ -307,20 +334,20 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bovengrens bepaald aan de hand van de waarde van het toetspeil op de geselecteerde hydraulische locatie..
+        ///   Looks up a localized string similar to Bovengrens bepaald aan de hand van de waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie..
         /// </summary>
-        public static string WaveConditionsInput_UpperBoundaryDesignWaterLevel_Description {
+        public static string WaveConditionsInput_UpperBoundaryAssessmentLevel_Description {
             get {
-                return ResourceManager.GetString("WaveConditionsInput_UpperBoundaryDesignWaterLevel_Description", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsInput_UpperBoundaryAssessmentLevel_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bovengrens op basis van toetspeil [m+NAP].
+        ///   Looks up a localized string similar to Bovengrens op basis van waterstand bij categoriegrens [m+NAP].
         /// </summary>
-        public static string WaveConditionsInput_UpperBoundaryDesignWaterLevel_DisplayName {
+        public static string WaveConditionsInput_UpperBoundaryAssessmentLevel_DisplayName {
             get {
-                return ResourceManager.GetString("WaveConditionsInput_UpperBoundaryDesignWaterLevel_DisplayName", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsInput_UpperBoundaryAssessmentLevel_DisplayName", resourceCulture);
             }
         }
         

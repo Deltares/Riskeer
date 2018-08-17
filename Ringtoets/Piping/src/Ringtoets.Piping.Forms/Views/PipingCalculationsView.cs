@@ -40,6 +40,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -225,7 +226,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
                 nameof(PipingCalculationRow.SelectableHydraulicBoundaryLocation),
-                Resources.PipingInput_HydraulicBoundaryLocation_DisplayName,
+                RingtoetsCommonFormsResources.HydraulicBoundaryLocation_DisplayName,
                 null,
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));

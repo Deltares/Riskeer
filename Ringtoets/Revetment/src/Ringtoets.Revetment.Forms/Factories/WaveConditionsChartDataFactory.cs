@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
@@ -116,20 +115,11 @@ namespace Ringtoets.Revetment.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="ChartLineData"/> with default styling for design water level.
+        /// Create <see cref="ChartLineData"/> with default styling for the assessment level.
         /// </summary>
-        /// <param name="chartDataName">The name of the <see cref="ChartLineData"/>.</param>
-        /// <returns>The created <see cref="ChartLineData"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="chartDataName"/>
-        /// is <c>null</c>.</exception>
-        public static ChartLineData CreateDesignWaterLevelChartData(string chartDataName)
+        public static ChartLineData CreateAssessmentLevelChartData()
         {
-            if (chartDataName == null)
-            {
-                throw new ArgumentNullException(nameof(chartDataName));
-            }
-
-            return new ChartLineData(chartDataName,
+            return new ChartLineData(Resources.WaveConditionsInput_AssessmentLevel_DisplayName_without_unit,
                                      new ChartLineStyle
                                      {
                                          Color = Color.LightCoral,

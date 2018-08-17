@@ -53,7 +53,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
             // Call
@@ -69,7 +68,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithData_ReturnExpectedValues()
+        public void GetProperties_AssessmentSectionWithReferenceLine_ReturnExpectedValues()
         {
             // Setup
             var random = new Random(39);
@@ -85,9 +84,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
 
+            // Call
             var properties = new ReferenceLineProperties(assessmentSection);
 
-            // Call & Assert
+            // Assert
             Assert.AreEqual(2, properties.Length.NumberOfDecimalPlaces);
             Assert.AreEqual(referenceLine.Length, properties.Length, properties.Length.GetAccuracy());
             CollectionAssert.AreEqual(geometry, properties.Geometry);
@@ -95,13 +95,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_AssessmentSectionWithReferenceLine_PropertiesHaveExpectedAttributeValues()
         {
-            // Call
+            // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            assessmentSection.ReferenceLine = new ReferenceLine();
+
+            // Call
             var properties = new ReferenceLineProperties(assessmentSection);
 
             // Assert
@@ -125,6 +128,24 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Lijst van alle coördinaten (X-coördinaat, Y-coördinaat) " +
                                                                             "die samen de referentielijn vormen.",
                                                                             true);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionWithoutReferenceLine_PropertiesHaveExpectedAttributeValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            var properties = new ReferenceLineProperties(assessmentSection);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+
+            Assert.AreEqual(0, dynamicProperties.Count);
             mocks.VerifyAll();
         }
     }

@@ -188,9 +188,9 @@ namespace Ringtoets.Revetment.Forms.Factories
         }
 
         /// <summary>
-        /// Create design water level geometry points in 2D space based on the provided <paramref name="input"/>.
+        /// Create assessment level geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
-        /// <param name="input">The <see cref="WaveConditionsInput"/> to create the design water level geometry points for.</param>
+        /// <param name="input">The <see cref="WaveConditionsInput"/> to create the assessment level geometry points for.</param>
         /// <param name="assessmentLevel">The assessment level to use while determining water levels.</param>
         /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
@@ -199,8 +199,8 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// <item>the assessment level is <see cref="RoundedDouble.NaN"/>.</item>
         /// </list>
         /// </returns>
-        public static IEnumerable<Point2D> CreateDesignWaterLevelGeometryPoints(WaveConditionsInput input,
-                                                                                RoundedDouble assessmentLevel)
+        public static IEnumerable<Point2D> CreateAssessmentLevelGeometryPoints(WaveConditionsInput input,
+                                                                               RoundedDouble assessmentLevel)
         {
             return input != null
                        ? CreateGeometryPoints(input, () => assessmentLevel)

@@ -94,7 +94,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
                                                                                 "Algemeen",
                                                                                 "Locaties",
-                                                                                "Locaties uit de hydraulische randvoorwaardendatabase.",
+                                                                                "Locaties uit de hydraulische belastingendatabase.",
                                                                                 true);
             }
         }

@@ -37,6 +37,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         /// </summary>
         /// <param name="locationName">The name of the location.</param>
         /// <param name="calculationTypeDisplayName">The display name of the type of calculation being performed.</param>
+        /// <param name="calculationDisplayName">The display name of the calculation being performed.</param>
         /// <param name="categoryName">The category boundary name of the calculation.</param>
         /// <param name="actualMessages">The log messages to assert.</param>
         /// <param name="startIndex">The index to start asserting from.</param>
@@ -44,21 +45,22 @@ namespace Ringtoets.Common.Plugin.TestUtil
         /// contains incorrect messages.</exception>
         public static void AssertHydraulicBoundaryLocationCalculationMessages(string locationName,
                                                                               string calculationTypeDisplayName,
+                                                                              string calculationDisplayName,
                                                                               string categoryName,
                                                                               IEnumerable<string> actualMessages,
                                                                               int startIndex)
         {
-            Assert.AreEqual($"{calculationTypeDisplayName} berekenen voor locatie '{locationName}' (Categorie {categoryName}) is gestart.", 
+            Assert.AreEqual($"{calculationTypeDisplayName} berekenen voor locatie '{locationName}' (Categorie {categoryName}) is gestart.",
                             actualMessages.ElementAt(startIndex));
             CalculationServiceTestHelper.AssertValidationStartMessage(actualMessages.ElementAt(startIndex + 1));
             CalculationServiceTestHelper.AssertValidationEndMessage(actualMessages.ElementAt(startIndex + 2));
             CalculationServiceTestHelper.AssertCalculationStartMessage(actualMessages.ElementAt(startIndex + 3));
-            Assert.AreEqual($"{calculationTypeDisplayName} berekening voor locatie '{locationName}' (Categorie {categoryName}) is niet geconvergeerd.", 
+            Assert.AreEqual($"{calculationDisplayName} voor locatie '{locationName}' (Categorie {categoryName}) is niet geconvergeerd.",
                             actualMessages.ElementAt(startIndex + 4));
-            StringAssert.StartsWith($"{calculationTypeDisplayName} berekening is uitgevoerd op de tijdelijke locatie", 
+            StringAssert.StartsWith($"{calculationDisplayName} is uitgevoerd op de tijdelijke locatie",
                                     actualMessages.ElementAt(startIndex + 5));
             CalculationServiceTestHelper.AssertCalculationEndMessage(actualMessages.ElementAt(startIndex + 6));
-            Assert.AreEqual($"{calculationTypeDisplayName} berekenen voor locatie '{locationName}' (Categorie {categoryName}) is gelukt.", 
+            Assert.AreEqual($"{calculationTypeDisplayName} berekenen voor locatie '{locationName}' (Categorie {categoryName}) is gelukt.",
                             actualMessages.ElementAt(startIndex + 7));
         }
     }

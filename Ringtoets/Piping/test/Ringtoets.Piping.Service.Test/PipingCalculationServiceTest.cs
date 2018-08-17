@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(7, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
+                Assert.AreEqual("Er is geen hydraulische belastingenlocatie geselecteerd.", msgs[1]);
                 Assert.AreEqual("Er is geen profielschematisatie geselecteerd.", msgs[2]);
                 Assert.AreEqual("Er is geen ondergrondschematisatie geselecteerd.", msgs[3]);
                 Assert.AreEqual("De waarde voor 'uittredepunt' moet een concreet getal zijn.", msgs[4]);
@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Kan het toetspeil niet afleiden op basis van de invoer.", msgs[1]);
+                Assert.AreEqual("Kan de waterstand niet afleiden op basis van de invoer.", msgs[1]);
                 Assert.AreEqual("Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
@@ -167,7 +167,7 @@ namespace Ringtoets.Piping.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("De waarde voor 'toetspeil' moet een concreet getal zijn.", msgs[1]);
+                Assert.AreEqual("De waarde voor 'waterstand' moet een concreet getal zijn.", msgs[1]);
                 Assert.AreEqual("Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });

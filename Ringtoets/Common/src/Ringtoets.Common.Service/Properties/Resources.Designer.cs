@@ -119,7 +119,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardenlocatie geselecteerd..
+        ///   Looks up a localized string similar to Er is geen hydraulische belastingenlocatie geselecteerd..
         /// </summary>
         public static string CalculationService_ValidateInput_No_hydraulic_boundary_location_selected {
             get {
@@ -148,7 +148,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos; (Categorie {1}). Bekijk het foutrapport door op details te klikken.
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de waterstand berekening &apos;{0}&apos; (Categorie {1}). Bekijk het foutrapport door op details te klikken.
         ///{2}.
         /// </summary>
         public static string DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_Category_1_click_details_for_last_error_report_2 {
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos; (Categorie {1}). Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de waterstand berekening &apos;{0}&apos; (Categorie {1}). Er is geen foutrapport beschikbaar..
         /// </summary>
         public static string DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_Category_1_no_error_report {
             get {
@@ -179,7 +179,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}.
+        ///   Looks up a localized string similar to Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. {0}.
         /// </summary>
         public static string Hydraulic_boundary_database_connection_failed_0_ {
             get {
@@ -188,7 +188,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase geïmporteerd..
+        ///   Looks up a localized string similar to Er is geen hydraulische belastingendatabase geïmporteerd..
         /// </summary>
         public static string HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported {
             get {

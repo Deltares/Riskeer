@@ -422,7 +422,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             Action validate = () => valid = importer.PublicTryReadHydraulicBoundaryLocation(locationName, calculationName, Enumerable.Empty<HydraulicBoundaryLocation>(), out location);
 
             // Assert
-            string expectedMessage = $"De locatie met hydraulische randvoorwaarden '{locationName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
+            string expectedMessage = $"De hydraulische belastingenlocatie '{locationName}' bestaat niet. Berekening '{calculationName}' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(validate, Tuple.Create(expectedMessage, LogLevelConstant.Error));
             Assert.IsFalse(valid);
             Assert.IsNull(location);

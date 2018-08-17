@@ -277,7 +277,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 }
             };
 
-            string expectedLogMessage = $"Hydraulische randvoorwaarden berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.";
+            string expectedLogMessage = $"Hydraulische belastingen berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.";
 
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
             DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = calculator.ReceivedInputs.Last();

@@ -51,7 +51,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         private const int upperBoundaryRevetmentChartDataIndex = 2;
         private const int lowerBoundaryWaterLevelsChartDataIndex = 3;
         private const int upperBoundaryWaterLevelsChartDataIndex = 4;
-        private const int designWaterLevelChartDataIndex = 5;
+        private const int assessmentLevelChartDataIndex = 5;
         private const int waterLevelsChartDataIndex = 6;
         private const int revetmentBaseChartDataIndex = 7;
         private const int revetmentChartDataIndex = 8;
@@ -168,7 +168,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                 chartData.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex), "Bovengrens waterstanden");
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
-                                chartData.Collection.ElementAt(designWaterLevelChartDataIndex), "Toetspeil");
+                                chartData.Collection.ElementAt(assessmentLevelChartDataIndex), "Waterstand bij categoriegrens");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(assessmentLevel),
@@ -250,7 +250,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 var upperBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex);
                 var lowerBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex);
                 var upperBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex);
-                var designWaterLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex);
+                var assessmentLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(assessmentLevelChartDataIndex);
                 var waterLevelsChartData = (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex);
                 var revetmentBaseChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex);
                 var revetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex);
@@ -260,7 +260,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 upperBoundaryRevetmentChartData.Attach(observer);
                 lowerBoundaryWaterLevelsChartData.Attach(observer);
                 upperBoundaryWaterLevelsChartData.Attach(observer);
-                designWaterLevelChartData.Attach(observer);
+                assessmentLevelChartData.Attach(observer);
                 waterLevelsChartData.Attach(observer);
                 revetmentBaseChartData.Attach(observer);
                 revetmentChartData.Attach(observer);
@@ -283,7 +283,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Assert.AreSame(upperBoundaryRevetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex));
                 Assert.AreSame(lowerBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex));
                 Assert.AreSame(upperBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex));
-                Assert.AreSame(designWaterLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex));
+                Assert.AreSame(assessmentLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(assessmentLevelChartDataIndex));
                 Assert.AreSame(waterLevelsChartData, (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex));
                 Assert.AreSame(revetmentBaseChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex));
                 Assert.AreSame(revetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex));
@@ -301,7 +301,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
-                                designWaterLevelChartData, "Toetspeil");
+                                assessmentLevelChartData, "Waterstand bij categoriegrens");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(assessmentLevel),
@@ -352,7 +352,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 var upperBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex);
                 var lowerBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex);
                 var upperBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex);
-                var designWaterLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex);
+                var assessmentLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(assessmentLevelChartDataIndex);
                 var waterLevelsChartData = (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex);
                 var revetmentBaseChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex);
                 var revetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex);
@@ -368,7 +368,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Assert.AreSame(upperBoundaryRevetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex));
                 Assert.AreSame(lowerBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex));
                 Assert.AreSame(upperBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex));
-                Assert.AreSame(designWaterLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex));
+                Assert.AreSame(assessmentLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(assessmentLevelChartDataIndex));
                 Assert.AreSame(waterLevelsChartData, (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex));
                 Assert.AreSame(revetmentBaseChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex));
                 Assert.AreSame(revetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex));
@@ -386,7 +386,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
-                                designWaterLevelChartData, "Toetspeil");
+                                assessmentLevelChartData, "Waterstand bij categoriegrens");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(assessmentLevel),
@@ -434,7 +434,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 var upperBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex);
                 var lowerBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex);
                 var upperBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex);
-                var designWaterLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex);
+                var assessmentLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(assessmentLevelChartDataIndex);
                 var waterLevelsChartData = (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex);
                 var revetmentBaseChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex);
                 var revetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex);
@@ -449,7 +449,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Assert.AreSame(upperBoundaryRevetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex));
                 Assert.AreSame(lowerBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex));
                 Assert.AreSame(upperBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex));
-                Assert.AreSame(designWaterLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex));
+                Assert.AreSame(assessmentLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(assessmentLevelChartDataIndex));
                 Assert.AreSame(waterLevelsChartData, (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex));
                 Assert.AreSame(revetmentBaseChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex));
                 Assert.AreSame(revetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex));
@@ -466,8 +466,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.UpperBoundaryWaterLevels,
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
-                CollectionAssert.IsEmpty(designWaterLevelChartData.Points);
-                Assert.AreEqual("Toetspeil", designWaterLevelChartData.Name);
+                CollectionAssert.IsEmpty(assessmentLevelChartData.Points);
+                Assert.AreEqual("Waterstand bij categoriegrens", assessmentLevelChartData.Name);
                 CollectionAssert.IsEmpty(waterLevelsChartData.Lines);
                 Assert.AreEqual("Waterstanden in berekening", waterLevelsChartData.Name);
 
@@ -513,7 +513,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 var upperBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex);
                 var lowerBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex);
                 var upperBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex);
-                var designWaterLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex);
+                var assessmentLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(assessmentLevelChartDataIndex);
                 var waterLevelsChartData = (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex);
                 var revetmentBaseChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex);
                 var revetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex);
@@ -528,7 +528,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Assert.AreSame(upperBoundaryRevetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex));
                 Assert.AreSame(lowerBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex));
                 Assert.AreSame(upperBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex));
-                Assert.AreSame(designWaterLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex));
+                Assert.AreSame(assessmentLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(assessmentLevelChartDataIndex));
                 Assert.AreSame(waterLevelsChartData, (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex));
                 Assert.AreSame(revetmentBaseChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex));
                 Assert.AreSame(revetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex));
@@ -546,7 +546,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
-                                designWaterLevelChartData, "Toetspeil");
+                                assessmentLevelChartData, "Waterstand bij categoriegrens");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(assessmentLevel),
@@ -597,7 +597,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 var upperBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex);
                 var lowerBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex);
                 var upperBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex);
-                var designWaterLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex);
+                var assessmentLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(assessmentLevelChartDataIndex);
                 var waterLevelsChartData = (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex);
                 var revetmentBaseChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex);
                 var revetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex);
@@ -614,7 +614,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Assert.AreSame(upperBoundaryRevetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex));
                 Assert.AreSame(lowerBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex));
                 Assert.AreSame(upperBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex));
-                Assert.AreSame(designWaterLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex));
+                Assert.AreSame(assessmentLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(assessmentLevelChartDataIndex));
                 Assert.AreSame(waterLevelsChartData, (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex));
                 Assert.AreSame(revetmentBaseChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex));
                 Assert.AreSame(revetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex));
@@ -633,7 +633,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
                 RoundedDouble expectedAssessmentLevel = newHydraulicBoundaryLocationCalculation.Output.Result;
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, expectedAssessmentLevel,
-                                designWaterLevelChartData, "Toetspeil");
+                                assessmentLevelChartData, "Waterstand bij categoriegrens");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(expectedAssessmentLevel),

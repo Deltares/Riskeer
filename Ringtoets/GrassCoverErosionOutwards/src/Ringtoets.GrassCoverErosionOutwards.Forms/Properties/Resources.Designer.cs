@@ -82,27 +82,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis.
-        /// </summary>
-        public static string DesignWaterLevel_DisplayName {
-            get {
-                return ResourceManager.GetString("DesignWaterLevel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Als u deze parameter wijzigt, zal de uitvoer van alle randvoorwaarden locaties en berekeningen in dit toetsspoor verwijderd worden.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler_Confirm_change_com" +
-                        "position_and_clear_dependent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gras.
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType {
@@ -112,37 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende waterstand op de geselecteerde locatie..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_De" +
-                        "scription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bovengrens bepaald aan de hand van de waarde van de waterstand op de geselecteerde hydraulische locatie..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesign" +
-                        "WaterLevel_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bovengrens op basis van waterstand [m+NAP].
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesign" +
-                        "WaterLevel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekende resultaten voor de hydraulische randvoorwaarden voor gras..
+        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor gras..
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description {
             get {
@@ -152,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden voor gras.
+        ///   Looks up a localized string similar to Hydraulische belastingen voor gras.
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName {
             get {

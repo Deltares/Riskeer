@@ -92,8 +92,6 @@ namespace Ringtoets.Integration.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            dataGridViewControl.CellFormatting -= HandleCellStyling;
-
             if (disposing)
             {
                 components?.Dispose();
@@ -199,6 +197,12 @@ namespace Ringtoets.Integration.Forms.Views
         private void SetDataSource()
         {
             ClearCurrentData();
+
+            if (AssessmentSection.ReferenceLine == null)
+            {
+                return;
+            }
+
             try
             {
                 dataGridViewControl.SetDataSource(AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(AssessmentSection)

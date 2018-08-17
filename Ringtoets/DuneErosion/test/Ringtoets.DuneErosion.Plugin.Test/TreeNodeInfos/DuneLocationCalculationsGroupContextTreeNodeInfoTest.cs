@@ -98,7 +98,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Hydraulische randvoorwaarden", text);
+                Assert.AreEqual("Hydraulische belastingen", text);
             }
         }
 
@@ -338,7 +338,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                         ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
 
                         Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
-                        StringAssert.Contains("Er is geen hydraulische randvoorwaardendatabase geïmporteerd.", contextMenuItem.ToolTipText);
+                        StringAssert.Contains("Er is geen hydraulische belastingendatabase geïmporteerd.", contextMenuItem.ToolTipText);
                         TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                         Assert.IsFalse(contextMenuItem.Enabled);
                     }
@@ -387,7 +387,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                         ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
 
                         Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
-                        StringAssert.Contains("Geen van de locaties is geschikt voor een hydraulische belastingen berekening.", contextMenuItem.ToolTipText);
+                        StringAssert.Contains("Geen van de locaties is geschikt voor een hydraulische belastingenberekening.", contextMenuItem.ToolTipText);
                         TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                         Assert.IsFalse(contextMenuItem.Enabled);
                     }
@@ -463,17 +463,19 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(40, msgs.Length);
 
-                            const string duneCalculationName = "Hydraulische randvoorwaarden";
+                            const string calculationTypeDisplayName = "Hydraulische belastingen";
+                            const string calculationDisplayName = "Hydraulische belastingenberekening";
+
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, duneCalculationName, "Iv->IIv", msgs, 0);
+                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Iv->IIv", msgs, 0);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, duneCalculationName, "IIv->IIIv", msgs, 8);
+                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIv->IIIv", msgs, 8);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, duneCalculationName, "IIIv->IVv", msgs, 16);
+                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIIv->IVv", msgs, 16);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, duneCalculationName, "IVv->Vv", msgs, 24);
+                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IVv->Vv", msgs, 24);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, duneCalculationName, "Vv->VIv", msgs, 32);
+                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Vv->VIv", msgs, 32);
                         });
                     }
                 }

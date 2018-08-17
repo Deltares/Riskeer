@@ -1606,7 +1606,7 @@ SELECT
 	"17.2",
 	CASE
 		WHEN [NrRemaining] > 0
-			THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' waarbij het toetspeil handmatig is ingevuld."
+			THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld."
 			ELSE "* Alle berekende resultaten zijn verwijderd."
 	END
 	FROM TempLogOutputDeleted

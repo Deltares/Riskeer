@@ -37,13 +37,5 @@ namespace Ringtoets.Revetment.Forms.TestUtil
                 return Color.Fuchsia;
             }
         }
-
-        public string DesignWaterLevelName
-        {
-            get
-            {
-                return "Toetspeil";
-            }
-        }
     }
 }

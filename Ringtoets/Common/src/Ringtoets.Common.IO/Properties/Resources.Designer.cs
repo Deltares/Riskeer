@@ -206,7 +206,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden &apos;{0}&apos; bestaat niet..
+        ///   Looks up a localized string similar to De hydraulische belastingenlocatie &apos;{0}&apos; bestaat niet..
         /// </summary>
         public static string CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist {
             get {
@@ -947,7 +947,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De hydraulische randvoorwaardenlocaties zijn ingelezen..
+        ///   Looks up a localized string similar to De hydraulische belastingenlocaties zijn ingelezen..
         /// </summary>
         public static string HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read {
             get {
@@ -956,7 +956,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd..
+        ///   Looks up a localized string similar to {0} Er zijn geen hydraulische belastingenlocaties geëxporteerd..
         /// </summary>
         public static string HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported {
             get {

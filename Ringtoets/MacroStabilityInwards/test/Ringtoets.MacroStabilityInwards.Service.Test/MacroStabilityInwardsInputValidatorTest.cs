@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                "Er is geen hydraulische randvoorwaardenlocatie geselecteerd.",
+                "Er is geen hydraulische belastingenlocatie geselecteerd.",
                 "Er is geen profielschematisatie geselecteerd.",
                 "Er is geen ondergrondschematisatie geselecteerd."
             }, messages);
@@ -97,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                "Kan het toetspeil niet afleiden op basis van de invoer."
+                "Kan de waterstand niet afleiden op basis van de invoer."
             }, messages);
         }
 
@@ -118,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                "De waarde voor 'toetspeil' moet een concreet getal zijn."
+                "De waarde voor 'waterstand' moet een concreet getal zijn."
             }, messages);
         }
 

@@ -127,7 +127,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Export
                     StandardDeviation = 1.1
                 },
                 ForeshoreProfileId = "Voorland",
-                HydraulicBoundaryLocationName = "Randvoorwaardelocatie",
+                HydraulicBoundaryLocationName = "Belastingenlocatie",
                 ModelFactorSuperCriticalFlow = new StochastConfiguration
                 {
                     Mean = 322.2,

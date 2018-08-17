@@ -133,12 +133,6 @@
   <data name="MacroStabilityInwardsInput_StochasticSoilProfile_DisplayName" xml:space="preserve">
     <value>Ondergrondschematisatie</value>
   </data>
-  <data name="MacroStabilityInwardsInput_HydraulicBoundaryLocation_Description" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.</value>
-  </data>
-  <data name="MacroStabilityInwardsInput_HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
-    <value>Locatie met hydraulische randvoorwaarden</value>
-  </data>
   <data name="MacroStabilityInwardsOutput_MacroStabilityInwardsFactorOfSafety_Description" xml:space="preserve">
     <value>De veiligheidsfactor voor deze berekening.</value>
   </data>
@@ -204,12 +198,6 @@
   </data>
   <data name="MacroStabilityInwardsSurfaceLineSelectionDialog_Select_SurfaceLines" xml:space="preserve">
     <value>Selecteer profielschematisaties</value>
-  </data>
-  <data name="MacroStabilityInwardsInput_UseAssessmentLevelManualInput_Description" xml:space="preserve">
-    <value>Sta toe om het toetspeil handmatig te specificeren?</value>
-  </data>
-  <data name="MacroStabilityInwardsInput_UseAssessmentLevelManualInput_DisplayName" xml:space="preserve">
-    <value>Handmatig toetspeil invoeren</value>
   </data>
   <data name="MacroStabilityInwardsSoilLayerData_MaterialName_DisplayName" xml:space="preserve">
     <value>Naam</value>
@@ -332,13 +320,13 @@
     <value>PL 1 offset onder teen dijk binnenwaarts [m]</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeTopAtPolder_Description" xml:space="preserve">
-    <value>Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin binnentalud.</value>
+    <value>Verschil tussen de waterstand en de freatische lijn onder kruin binnentalud.</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeTopAtPolder_DisplayName" xml:space="preserve">
     <value>PL 1 offset onder binnenkruin [m]</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeTopAtRiver_Description" xml:space="preserve">
-    <value>Waterstandsverschil tussen toetspeil en de freatische lijn onder kruin buitentalud.</value>
+    <value>Verschil tussen de waterstand en de freatische lijn onder kruin buitentalud.</value>
   </data>
   <data name="PhreaticLineOffsetBelowDikeTopAtRiver_DisplayName" xml:space="preserve">
     <value>PL 1 offset onder buitenkruin [m]</value>

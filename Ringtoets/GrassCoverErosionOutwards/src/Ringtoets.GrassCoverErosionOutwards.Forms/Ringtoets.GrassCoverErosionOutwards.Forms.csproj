@@ -22,12 +22,10 @@
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsInputContext.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightCalculationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightCalculationsContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsFailureMechanismSectionsContext.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsInputContextProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsOutputProperties.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelCalculationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsFailureMechanismContext.cs" />

@@ -30,7 +30,6 @@ using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
-using Ringtoets.Revetment.Service.Properties;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Service
@@ -40,33 +39,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
     /// </summary>
     public class WaveImpactAsphaltCoverWaveConditionsCalculationService : WaveConditionsCalculationServiceBase
     {
-        /// <summary>
-        /// Performs validation over the input parameters. Error and status information is logged during the execution of the operation.
-        /// </summary>
-        /// <param name="calculation">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> for which to validate the values.</param>
-        /// <param name="assessmentLevel">The assessment level to use for determining water levels.</param>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to validate.</param>
-        /// <param name="norm">The norm to validate.</param>
-        /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// or <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        public static bool Validate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
-                                    RoundedDouble assessmentLevel,
-                                    HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                    double norm)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
-            return ValidateWaveConditionsInput(calculation.InputParameters,
-                                               assessmentLevel,
-                                               hydraulicBoundaryDatabase,
-                                               norm,
-                                               Resources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
-        }
-
         /// <summary>
         /// Performs a wave conditions calculation for the wave impact on asphalt failure mechanism based on the supplied 
         /// <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>  and sets 

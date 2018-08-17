@@ -28,7 +28,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
@@ -40,33 +39,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsCalculationService : WaveConditionsCalculationServiceBase
     {
-        /// <summary>
-        /// Performs validation over the input parameters. Error and status information is logged during the execution of the operation.
-        /// </summary>
-        /// <param name="calculation">The <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> for which to validate the values.</param>
-        /// <param name="assessmentLevel">The assessment level to use for determining water levels.</param>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to validate.</param>
-        /// <param name="norm">The norm to validate.</param>
-        /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// or <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        public static bool Validate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                                    RoundedDouble assessmentLevel,
-                                    HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                    double norm)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
-            return ValidateWaveConditionsInput(calculation.InputParameters,
-                                               assessmentLevel,
-                                               hydraulicBoundaryDatabase,
-                                               norm,
-                                               Resources.GrassCoverErosionOutwardsWaveConditionsCalculationService_LogMessage_DesignWaterLevel_name);
-        }
-
         /// <summary>
         /// Performs a wave conditions calculation for the grass cover erosion outwards failure mechanism based on the supplied 
         /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>  and sets 

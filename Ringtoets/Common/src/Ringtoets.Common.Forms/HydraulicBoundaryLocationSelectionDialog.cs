@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Forms
             }
 
             Text = Resources.HydraulicBoundaryLocationSelectionDialog_Select_HydraulicBoundaryLocations;
-            InitializeDataGridView(Resources.HydraulicBoundaryLocationSelectionDialog_Location_Name);
+            InitializeDataGridView(Resources.HydraulicBoundaryLocation_DisplayName);
 
             SetDataSource(hydraulicBoundaryLocations.Select(loc => new SelectableRow<HydraulicBoundaryLocation>(loc, loc.Name)).ToArray());
         }

@@ -762,36 +762,36 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDesignWaterLevelGeometryPoints_InputNull_ReturnsEmptyPointsCollection()
+        public void CreateAssessmentLevelGeometryPoints_InputNull_ReturnsEmptyPointsCollection()
         {
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(null, RoundedDouble.NaN);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateAssessmentLevelGeometryPoints(null, RoundedDouble.NaN);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDesignWaterLevelGeometryPoints_AssessmentLevelNaN_ReturnsEmptyPointsCollection()
+        public void CreateAssessmentLevelGeometryPoints_AssessmentLevelNaN_ReturnsEmptyPointsCollection()
         {
             // Setup
             var input = new TestWaveConditionsInput();
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, RoundedDouble.NaN);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateAssessmentLevelGeometryPoints(input, RoundedDouble.NaN);
 
             // Assert
             CollectionAssert.IsEmpty(points);
         }
 
         [Test]
-        public void CreateDesignWaterLevelGeometryPoints_NoForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsCollection()
+        public void CreateAssessmentLevelGeometryPoints_NoForeshoreProfile_ReturnsAssessmentLevelGeometryPointsCollection()
         {
             // Setup
             var input = new TestWaveConditionsInput();
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetValidAssessmentLevel());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateAssessmentLevelGeometryPoints(input, GetValidAssessmentLevel());
 
             // Assert
             var expectedPoints = new[]
@@ -803,7 +803,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDesignWaterLevelGeometryPoints_UseForeshoreProfileFalse_ReturnsDesignWaterLevelGeometryPointsCollection()
+        public void CreateAssessmentLevelGeometryPoints_UseForeshoreProfileFalse_ReturnsAssessmentLevelGeometryPointsCollection()
         {
             // Setup
             var input = new TestWaveConditionsInput
@@ -817,7 +817,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetValidAssessmentLevel());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateAssessmentLevelGeometryPoints(input, GetValidAssessmentLevel());
 
             // Assert
             var expectedPoints = new[]
@@ -831,9 +831,9 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetForeshoreProfileGeometries), new object[]
         {
-            "CreateDesignWaterLevelGeometryPoints_WithForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsCollection({0})"
+            "CreateAssessmentLevelGeometryPoints_WithForeshoreProfile_ReturnsAssessmentLevelGeometryPointsCollection({0})"
         })]
-        public void CreateDesignWaterLevelGeometryPoints_WithForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsCollection(
+        public void CreateAssessmentLevelGeometryPoints_WithForeshoreProfile_ReturnsAssessmentLevelGeometryPointsCollection(
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
@@ -844,7 +844,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, assessmentLevel);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateAssessmentLevelGeometryPoints(input, assessmentLevel);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();

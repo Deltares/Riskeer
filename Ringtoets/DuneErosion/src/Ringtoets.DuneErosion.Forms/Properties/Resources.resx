@@ -117,11 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DuneErosionFailureMechanismPropertyChangeHandler_Confirm_change_and_clearing_dune_locations" xml:space="preserve">
-    <value>Als u deze parameter wijzigt, zal de uitvoer van alle randvoorwaarden locaties in dit toetsspoor verwijderd worden.
-
-Weet u zeker dat u wilt doorgaan?</value>
-  </data>
   <data name="DuneLocation_CoastalAreaId_Description" xml:space="preserve">
     <value>Nummer van het kustvak waar de locatie onderdeel van uitmaakt.</value>
   </data>
@@ -129,7 +124,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Kustvaknummer</value>
   </data>
   <data name="DuneLocation_Convergence_Description" xml:space="preserve">
-    <value>Is convergentie bereikt in de berekening voor de hydraulische randvoorwaarden van de duinlocatie?</value>
+    <value>Is convergentie bereikt in de berekening van de hydraulische belastingen voor de duinlocatie?</value>
   </data>
   <data name="DuneLocation_D50_Description" xml:space="preserve">
     <value>Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>

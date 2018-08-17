@@ -38,6 +38,7 @@ using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Revetment.Service
 {
@@ -63,11 +64,6 @@ namespace Ringtoets.Revetment.Service
         }
 
         /// <summary>
-        /// Gets whether the calculation is canceled or not.
-        /// </summary>
-        protected bool Canceled { get; private set; }
-
-        /// <summary>
         /// Performs validation over the given input parameters. Error and status information is logged
         /// during the execution of the operation.
         /// </summary>
@@ -75,15 +71,13 @@ namespace Ringtoets.Revetment.Service
         /// <param name="assessmentLevel">The assessment level to use for determining water levels.</param>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to validate.</param>
         /// <param name="norm">The norm to validate.</param>
-        /// <param name="designWaterLevelName">The name of the design water level property.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>,
-        /// <paramref name="designWaterLevelName"/> or <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        protected static bool ValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,
-                                                          RoundedDouble assessmentLevel,
-                                                          HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                          double norm,
-                                                          string designWaterLevelName)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> or
+        /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        public static bool Validate(WaveConditionsInput waveConditionsInput,
+                                    RoundedDouble assessmentLevel,
+                                    HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                    double norm)
         {
             if (waveConditionsInput == null)
             {
@@ -95,18 +89,12 @@ namespace Ringtoets.Revetment.Service
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
-            if (designWaterLevelName == null)
-            {
-                throw new ArgumentNullException(nameof(designWaterLevelName));
-            }
-
             CalculationServiceHelper.LogValidationBegin();
 
             string[] messages = ValidateInput(hydraulicBoundaryDatabase,
                                               waveConditionsInput,
                                               assessmentLevel,
-                                              norm,
-                                              designWaterLevelName);
+                                              norm);
 
             CalculationServiceHelper.LogMessagesAsError(messages);
 
@@ -114,6 +102,11 @@ namespace Ringtoets.Revetment.Service
 
             return !messages.Any();
         }
+
+        /// <summary>
+        /// Gets whether the calculation is canceled or not.
+        /// </summary>
+        protected bool Canceled { get; private set; }
 
         /// <summary>
         /// Performs a wave conditions calculation based on the supplied <see cref="WaveConditionsInput"/>
@@ -215,8 +208,7 @@ namespace Ringtoets.Revetment.Service
         private static string[] ValidateInput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                               WaveConditionsInput input,
                                               RoundedDouble assessmentLevel,
-                                              double norm,
-                                              string designWaterLevelName)
+                                              double norm)
         {
             var validationResults = new List<string>();
 
@@ -239,7 +231,7 @@ namespace Ringtoets.Revetment.Service
                 return validationResults.ToArray();
             }
 
-            validationResults.AddRange(ValidateWaveConditionsInput(input, assessmentLevel, designWaterLevelName));
+            validationResults.AddRange(ValidateWaveConditionsInput(input, assessmentLevel));
 
             return validationResults.ToArray();
         }
@@ -402,20 +394,17 @@ namespace Ringtoets.Revetment.Service
         }
 
         private static IEnumerable<string> ValidateWaveConditionsInput(WaveConditionsInput input,
-                                                                       RoundedDouble assessmentLevel,
-                                                                       string designWaterLevelName)
+                                                                       RoundedDouble assessmentLevel)
         {
             var messages = new List<string>();
 
             if (input.HydraulicBoundaryLocation == null)
             {
-                messages.Add(Resources.WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
+                messages.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
             else if (double.IsNaN(assessmentLevel))
             {
-                messages.Add(string.Format(CultureInfo.CurrentCulture,
-                                           Resources.WaveConditionsCalculationService_ValidateInput_No_0_DesignWaterLevel_calculated,
-                                           designWaterLevelName));
+                messages.Add(Resources.WaveConditionsCalculationService_ValidateInput_No_AssessmentLevel_calculated);
             }
             else
             {

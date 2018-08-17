@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Forms.Test
                     // Assert
                     Assert.IsInstanceOf<SelectionDialogBase<HydraulicBoundaryLocation>>(dialog);
                     CollectionAssert.IsEmpty(dialog.SelectedItems);
-                    Assert.AreEqual("Selecteer hydraulische randvoorwaardenlocaties", dialog.Text);
+                    Assert.AreEqual("Selecteer hydraulische belastingenlocaties", dialog.Text);
                 }
             }
         }
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Forms.Test
                 Assert.IsFalse(locationCalculateColumn.ReadOnly);
 
                 var nameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
-                Assert.AreEqual("Hydraulische randvoorwaardenlocatie", nameColumn.HeaderText);
+                Assert.AreEqual("Hydraulische belastingenlocatie", nameColumn.HeaderText);
                 Assert.AreEqual("Name", nameColumn.DataPropertyName);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.Fill, nameColumn.AutoSizeMode);
                 Assert.IsTrue(nameColumn.ReadOnly);

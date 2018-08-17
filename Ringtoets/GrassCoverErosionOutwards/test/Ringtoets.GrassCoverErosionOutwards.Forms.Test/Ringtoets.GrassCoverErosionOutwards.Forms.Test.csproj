@@ -33,11 +33,9 @@
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsInputContextTest.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightCalculationsContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextTest.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsFailureMechanismSectionsContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -165,11 +165,11 @@
   <data name="WaveConditionsInput_StepSize_DisplayName" xml:space="preserve">
     <value>Stapgrootte [m]</value>
   </data>
-  <data name="WaveConditionsInput_UpperBoundaryDesignWaterLevel_Description" xml:space="preserve">
-    <value>Bovengrens bepaald aan de hand van de waarde van het toetspeil op de geselecteerde hydraulische locatie.</value>
+  <data name="WaveConditionsInput_UpperBoundaryAssessmentLevel_Description" xml:space="preserve">
+    <value>Bovengrens bepaald aan de hand van de waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie.</value>
   </data>
-  <data name="WaveConditionsInput_UpperBoundaryDesignWaterLevel_DisplayName" xml:space="preserve">
-    <value>Bovengrens op basis van toetspeil [m+NAP]</value>
+  <data name="WaveConditionsInput_UpperBoundaryAssessmentLevel_DisplayName" xml:space="preserve">
+    <value>Bovengrens op basis van waterstand bij categoriegrens [m+NAP]</value>
   </data>
   <data name="WaveConditionsInput_UpperBoundaryRevetment_Description" xml:space="preserve">
     <value>Bovengrens van de bekleding.</value>
@@ -275,5 +275,14 @@
   </data>
   <data name="WaveConditionsInput_CategoryType_DisplayName" xml:space="preserve">
     <value>Categoriegrens</value>
+  </data>
+  <data name="WaveConditionsInput_AssessmentLevel_DisplayName" xml:space="preserve">
+    <value>Waterstand bij categoriegrens [m+NAP]</value>
+  </data>
+  <data name="WaveConditionsInput_AssessmentLevel_Description" xml:space="preserve">
+    <value>Waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie.</value>
+  </data>
+  <data name="WaveConditionsInput_AssessmentLevel_DisplayName_without_unit" xml:space="preserve">
+    <value>Waterstand bij categoriegrens</value>
   </data>
 </root>

@@ -141,7 +141,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd..
+        ///   Looks up a localized string similar to Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd..
         /// </summary>
         public static string AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared {
             get {
@@ -262,7 +262,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische randvoorwaarden en toetssporen verwijderd.
+        ///   Looks up a localized string similar to Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische belastingenlocaties en toetssporen verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
@@ -274,7 +274,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd..
+        ///   Looks up a localized string similar to Alle berekende hydraulische belastingen zijn verwijderd..
         /// </summary>
         public static string FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared {
             get {
@@ -303,7 +303,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle hydraulische randvoorwaarden berekenen..
+        ///   Looks up a localized string similar to Alle hydraulische belastingen berekenen..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Calculate_All_ToolTip {
             get {

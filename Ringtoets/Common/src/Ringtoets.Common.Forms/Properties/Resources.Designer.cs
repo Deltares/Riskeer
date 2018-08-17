@@ -137,7 +137,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetspeil [m+NAP].
+        ///   Looks up a localized string similar to Waterstand [m+NAP].
         /// </summary>
         public static string AssessmentLevel_DisplayName {
             get {
@@ -463,7 +463,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genereer randvoorwaardenberekeningen..
+        ///   Looks up a localized string similar to Genereer belastingenberekeningen..
         /// </summary>
         public static string CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip {
             get {
@@ -490,7 +490,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren..
+        ///   Looks up a localized string similar to Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren..
         /// </summary>
         public static string CalculationGroup_No_HRD_To_Generate_ToolTip {
             get {
@@ -1106,15 +1106,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string DesignWaterLevel_Calculate_All_ToolTip {
             get {
                 return ResourceManager.GetString("DesignWaterLevel_Calculate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetspeil.
-        /// </summary>
-        public static string DesignWaterLevel_DisplayName {
-            get {
-                return ResourceManager.GetString("DesignWaterLevel_DisplayName", resourceCulture);
             }
         }
         
@@ -2150,16 +2141,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
-        /// </summary>
-        public static string HydraulicBoundaryConditions_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryConditions_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Coördinaten van de hydraulische randvoorwaardenlocatie..
+        ///   Looks up a localized string similar to Coördinaten van de hydraulische belastingenlocatie..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Coordinates_Description {
             get {
@@ -2177,7 +2159,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID van de hydraulische randvoorwaardenlocatie in de database..
+        ///   Looks up a localized string similar to ID van de hydraulische belastingenlocatie in de database..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Id_Description {
             get {
@@ -2195,7 +2177,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van de hydraulische randvoorwaardenlocatie..
+        ///   Looks up a localized string similar to Naam van de hydraulische belastingenlocatie..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Name_Description {
             get {
@@ -2213,7 +2195,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locaties uit de hydraulische randvoorwaardendatabase..
+        ///   Looks up a localized string similar to Locaties uit de hydraulische belastingendatabase..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Locations_Description {
             get {
@@ -2231,7 +2213,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden..
+        ///   Looks up a localized string similar to De hydraulische belastingenlocatie..
         /// </summary>
         public static string HydraulicBoundaryLocation_Description {
             get {
@@ -2240,7 +2222,16 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie met hydraulische randvoorwaarden.
+        ///   Looks up a localized string similar to De hydraulische belastingenlocatie waarvan de berekende waterstand wordt gebruikt..
+        /// </summary>
+        public static string HydraulicBoundaryLocation_Description_with_assessment_level {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocation_Description_with_assessment_level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingenlocatie.
         /// </summary>
         public static string HydraulicBoundaryLocation_DisplayName {
             get {
@@ -2287,16 +2278,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaardenlocatie.
-        /// </summary>
-        public static string HydraulicBoundaryLocationSelectionDialog_Location_Name {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationSelectionDialog_Location_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer hydraulische randvoorwaardenlocaties.
+        ///   Looks up a localized string similar to Selecteer hydraulische belastingenlocaties.
         /// </summary>
         public static string HydraulicBoundaryLocationSelectionDialog_Select_HydraulicBoundaryLocations {
             get {
@@ -2305,7 +2287,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden en golfhoogtes uit marginale statistiek.
+        ///   Looks up a localized string similar to Waterstanden en golfhoogten uit marginale statistiek.
         /// </summary>
         public static string HydraulicBoundaryLocationsExporter_DisplayName {
             get {
@@ -3887,6 +3869,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sta toe om de waterstand handmatig te specificeren?.
+        /// </summary>
+        public static string UseAssessmentLevelManualInput_Description {
+            get {
+                return ResourceManager.GetString("UseAssessmentLevelManualInput_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handmatig waterstand invoeren.
+        /// </summary>
+        public static string UseAssessmentLevelManualInput_DisplayName {
+            get {
+                return ResourceManager.GetString("UseAssessmentLevelManualInput_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Valideren.
         /// </summary>
         public static string Validate {
@@ -4011,6 +4011,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waterstanden.
+        /// </summary>
+        public static string WaterLevelCalculations_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterLevelCalculations_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekende belastingen bij verschillende waterstanden.
         /// </summary>
         public static string WaveConditionsExporter_DisplayName {
@@ -4052,6 +4061,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string WaveHeightCalculation_Result_DisplayName {
             get {
                 return ResourceManager.GetString("WaveHeightCalculation_Result_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogten.
+        /// </summary>
+        public static string WaveHeightCalculations_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveHeightCalculations_DisplayName", resourceCulture);
             }
         }
         

@@ -113,14 +113,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             var lowerBoundaryRevetmentChartData = (ChartLineData) chartData.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
             var upperBoundaryRevetmentChartData = (ChartLineData) chartData.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex);
-            var designWaterLevelChartData = (ChartLineData) chartData.Collection.ElementAt(designWaterLevelChartDataIndex);
             var revetmentBaseChartData = (ChartLineData) chartData.Collection.ElementAt(revetmentBaseChartDataIndex);
             var revetmentChartData = (ChartLineData) chartData.Collection.ElementAt(revetmentChartDataIndex);
 
             Color revetmentLineColor = Color.Green;
             Assert.AreEqual(revetmentLineColor, lowerBoundaryRevetmentChartData.Style.Color);
             Assert.AreEqual(revetmentLineColor, upperBoundaryRevetmentChartData.Style.Color);
-            Assert.AreEqual("Waterstand bij doorsnede-eis", designWaterLevelChartData.Name);
             Assert.AreEqual(Color.FromArgb(120, revetmentLineColor), revetmentBaseChartData.Style.Color);
             Assert.AreEqual(revetmentLineColor, revetmentChartData.Style.Color);
         }

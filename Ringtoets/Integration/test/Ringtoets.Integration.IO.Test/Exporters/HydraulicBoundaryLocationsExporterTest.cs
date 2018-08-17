@@ -154,7 +154,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
 
                     // Assert
                     string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
-                                             "Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd.";
+                                             "Er zijn geen hydraulische belastingenlocaties geëxporteerd.";
                     TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
                     Assert.IsFalse(isExported);
                 }

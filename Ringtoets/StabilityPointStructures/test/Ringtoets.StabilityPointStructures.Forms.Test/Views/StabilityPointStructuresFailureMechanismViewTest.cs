@@ -709,7 +709,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual("Vakindeling (eindpunten)", sectionEndsData.Name);
 
                 var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
-                Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicLocationsData.Name);
+                Assert.AreEqual("Hydraulische belastingen", hydraulicLocationsData.Name);
 
                 var foreshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", foreshoreProfilesData.Name);
@@ -746,7 +746,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual("Vakindeling (eindpunten)", actualSectionEndsData.Name);
 
                 var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
-                Assert.AreEqual("Hydraulische randvoorwaarden", actualHydraulicLocationsData.Name);
+                Assert.AreEqual("Hydraulische belastingen", actualHydraulicLocationsData.Name);
 
                 var actualForeshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
                 Assert.AreEqual("Voorlandprofielen", actualForeshoreProfilesData.Name);
@@ -815,7 +815,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             Assert.AreEqual("Kunstwerken", structuresMapData.Name);
             Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
-            Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
+            Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);
         }
 

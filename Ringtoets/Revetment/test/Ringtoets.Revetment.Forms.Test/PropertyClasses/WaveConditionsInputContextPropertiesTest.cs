@@ -53,7 +53,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
         private const int categoryTypePropertyIndex = 1;
         private const int assessmentLevelPropertyIndex = 2;
-        private const int upperBoundaryDesignWaterLevelPropertyIndex = 3;
+        private const int upperBoundaryAssessmentLevelPropertyIndex = 3;
         private const int upperBoundaryRevetmentPropertyIndex = 4;
         private const int lowerBoundaryRevetmentPropertyIndex = 5;
         private const int upperBoundaryWaterLevelsPropertyIndex = 6;
@@ -185,8 +185,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
             Assert.IsInstanceOf<IHasForeshoreProfileProperty>(properties);
 
-            Assert.AreEqual(assessmentLevel - 0.01, properties.UpperBoundaryDesignWaterLevel.Value, properties.UpperBoundaryDesignWaterLevel.GetAccuracy());
-            Assert.AreEqual(2, properties.UpperBoundaryDesignWaterLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(assessmentLevel - 0.01, properties.UpperBoundaryAssessmentLevel.Value, properties.UpperBoundaryAssessmentLevel.GetAccuracy());
+            Assert.AreEqual(2, properties.UpperBoundaryAssessmentLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(upperBoundaryRevetment, properties.UpperBoundaryRevetment.Value, properties.UpperBoundaryRevetment.GetAccuracy());
             Assert.AreEqual(2, properties.UpperBoundaryRevetment.NumberOfDecimalPlaces);
             Assert.AreEqual(lowerBoundaryRevetment, properties.LowerBoundaryRevetment.Value, properties.LowerBoundaryRevetment.GetAccuracy());
@@ -252,8 +252,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hydraulicBoundaryLocationProperty,
                                                                             hydraulicParametersCategory,
-                                                                            "Locatie met hydraulische randvoorwaarden",
-                                                                            "De locatie met hydraulische randvoorwaarden.");
+                                                                            "Hydraulische belastingenlocatie",
+                                                                            "De hydraulische belastingenlocatie.");
 
             PropertyDescriptor categoryTypeProperty = dynamicProperties[categoryTypePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(categoryTypeProperty,
@@ -264,15 +264,15 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[assessmentLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentLevelProperty,
                                                                             hydraulicParametersCategory,
-                                                                            "Toetspeil [m+NAP]",
-                                                                            "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.",
+                                                                            "Waterstand bij categoriegrens [m+NAP]",
+                                                                            "Waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie.",
                                                                             true);
 
-            PropertyDescriptor upperBoundaryDesignWaterLevelProperty = dynamicProperties[upperBoundaryDesignWaterLevelPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryDesignWaterLevelProperty,
+            PropertyDescriptor upperBoundaryAssessmentLevelProperty = dynamicProperties[upperBoundaryAssessmentLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryAssessmentLevelProperty,
                                                                             hydraulicParametersCategory,
-                                                                            "Bovengrens op basis van toetspeil [m+NAP]",
-                                                                            "Bovengrens bepaald aan de hand van de waarde van het toetspeil op de geselecteerde hydraulische locatie.",
+                                                                            "Bovengrens op basis van waterstand bij categoriegrens [m+NAP]",
+                                                                            "Bovengrens bepaald aan de hand van de waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie.",
                                                                             true);
 
             PropertyDescriptor upperBoundaryRevetmentProperty = dynamicProperties[upperBoundaryRevetmentPropertyIndex];
@@ -464,9 +464,9 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         [Test]
         public void Orientation_Always_InputChangedAndObservablesNotified()
         {
-            RoundedDouble upperBoundaryDesignWaterLevel = new Random(21).NextRoundedDouble();
+            RoundedDouble orientation = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(
-                properties => properties.Orientation = upperBoundaryDesignWaterLevel);
+                properties => properties.Orientation = orientation);
         }
 
         [Test]

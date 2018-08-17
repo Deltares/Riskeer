@@ -47,7 +47,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             Assert.AreEqual(3, failureMechanism.Group);
             Assert.IsInstanceOf<GeneralStabilityStoneCoverWaveConditionsInput>(failureMechanism.GeneralInput);
 
-            Assert.AreEqual("Hydraulische randvoorwaarden", failureMechanism.WaveConditionsCalculationGroup.Name);
+            Assert.AreEqual("Hydraulische belastingen", failureMechanism.WaveConditionsCalculationGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.Sections);

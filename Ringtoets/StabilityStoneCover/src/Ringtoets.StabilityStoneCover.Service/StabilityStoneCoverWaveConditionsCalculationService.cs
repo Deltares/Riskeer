@@ -33,7 +33,6 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service.Properties;
-using RingtoetsRevetmentsServicesResources = Ringtoets.Revetment.Service.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Service
 {
@@ -43,33 +42,6 @@ namespace Ringtoets.StabilityStoneCover.Service
     public class StabilityStoneCoverWaveConditionsCalculationService : WaveConditionsCalculationServiceBase
     {
         private readonly ILog log = LogManager.GetLogger(typeof(StabilityStoneCoverWaveConditionsCalculationService));
-
-        /// <summary>
-        /// Performs validation over the input parameters. Error and status information is logged during the execution of the operation.
-        /// </summary>
-        /// <param name="calculation">The <see cref="StabilityStoneCoverWaveConditionsCalculation"/> for which to validate the values.</param>
-        /// <param name="assessmentLevel">The assessment level to use for determining water levels.</param>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to validate.</param>
-        /// <param name="norm">The norm to validate.</param>
-        /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// or <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        public static bool Validate(StabilityStoneCoverWaveConditionsCalculation calculation,
-                                    RoundedDouble assessmentLevel,
-                                    HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                    double norm)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
-            return ValidateWaveConditionsInput(calculation.InputParameters,
-                                               assessmentLevel,
-                                               hydraulicBoundaryDatabase,
-                                               norm,
-                                               RingtoetsRevetmentsServicesResources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
-        }
 
         /// <summary>
         /// Performs a wave conditions calculation for the stability of stone revetment failure mechanism based on the supplied 

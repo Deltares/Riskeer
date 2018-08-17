@@ -38,11 +38,11 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(0.0, -0.01)]
         [TestCase(0.5, 0.49)]
         [TestCase(double.NaN, double.NaN)]
-        public void GetUpperBoundaryDesignWaterLevel_DifferentAssessmentLevels_ReturnsExpectedUpperBoundary(double assessmentLevel,
-                                                                                                            double expectedUpperBoundary)
+        public void GetUpperBoundaryAssessmentLevel_DifferentAssessmentLevels_ReturnsExpectedUpperBoundary(double assessmentLevel,
+                                                                                                           double expectedUpperBoundary)
         {
             // Call
-            RoundedDouble upperBoundary = WaveConditionsInputHelper.GetUpperBoundaryDesignWaterLevel((RoundedDouble) assessmentLevel);
+            RoundedDouble upperBoundary = WaveConditionsInputHelper.GetUpperBoundaryAssessmentLevel((RoundedDouble) assessmentLevel);
 
             // Assert
             Assert.AreEqual(2, upperBoundary.NumberOfDecimalPlaces);

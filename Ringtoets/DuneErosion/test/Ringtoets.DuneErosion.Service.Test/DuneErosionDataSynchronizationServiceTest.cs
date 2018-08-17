@@ -188,7 +188,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             // Assert
             string expectedMessage = $"Locatie '{locationName}' moet voldoen aan het formaat 'Naam_Vaknummer_Metrering'. " +
-                                     "Deze locatie is niet toegevoegd aan de hydraulische randvoorwaarden voor toetsspoor duinen.";
+                                     "Deze locatie is niet toegevoegd aan de hydraulische belastingen voor toetsspoor duinen.";
             TestHelper.AssertLogMessageIsGenerated(test, expectedMessage, 1);
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
         }

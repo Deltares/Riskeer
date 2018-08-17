@@ -100,21 +100,21 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
                                                                             generalCategory,
                                                                             "ID",
-                                                                            "ID van de hydraulische randvoorwaardenlocatie in de database.",
+                                                                            "ID van de hydraulische belastingenlocatie in de database.",
                                                                             true);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
-                                                                            "Naam van de hydraulische randvoorwaardenlocatie.",
+                                                                            "Naam van de hydraulische belastingenlocatie.",
                                                                             true);
 
             PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
                                                                             generalCategory,
                                                                             "Coördinaten [m]",
-                                                                            "Coördinaten van de hydraulische randvoorwaardenlocatie.",
+                                                                            "Coördinaten van de hydraulische belastingenlocatie.",
                                                                             true);
         }
 

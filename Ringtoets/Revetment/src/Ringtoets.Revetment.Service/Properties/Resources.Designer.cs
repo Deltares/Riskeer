@@ -40,7 +40,7 @@ namespace Ringtoets.Revetment.Service.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -150,20 +150,11 @@ namespace Ringtoets.Revetment.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to het toetspeil.
+        ///   Looks up a localized string similar to Kan waterstand bij categoriegrens niet afleiden op basis van de invoer..
         /// </summary>
-        public static string WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name {
+        public static string WaveConditionsCalculationService_ValidateInput_No_AssessmentLevel_calculated {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan {0} niet afleiden op basis van de invoer..
-        /// </summary>
-        public static string WaveConditionsCalculationService_ValidateInput_No_0_DesignWaterLevel_calculated {
-            get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_0_DesignWaterLevel_calculated", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_AssessmentLevel_calculated", resourceCulture);
             }
         }
         
@@ -173,16 +164,6 @@ namespace Ringtoets.Revetment.Service.Properties {
         public static string WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardenlocatie geselecteerd..
-        /// </summary>
-        public static string WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected {
-            get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selec" +
-                        "ted", resourceCulture);
             }
         }
     }

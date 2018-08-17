@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Service.Test
                 Assert.AreEqual(4, msgs.Length);
                 Assert.AreEqual($"{GetActivityDescription(locationName, categoryBoundaryName)} is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[2]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
@@ -326,8 +326,8 @@ namespace Ringtoets.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
 
                     string expectedFailureMessage = string.IsNullOrEmpty(lastErrorFileContent)
-                                                        ? $"Er is een fout opgetreden tijdens de toetspeil berekening '{locationName}' (Categorie {categoryBoundaryName}). Er is geen foutrapport beschikbaar."
-                                                        : $"Er is een fout opgetreden tijdens de toetspeil berekening '{locationName}' (Categorie {categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
+                                                        ? $"Er is een fout opgetreden tijdens de waterstand berekening '{locationName}' (Categorie {categoryBoundaryName}). Er is geen foutrapport beschikbaar."
+                                                        : $"Er is een fout opgetreden tijdens de waterstand berekening '{locationName}' (Categorie {categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
                     Assert.AreEqual(expectedFailureMessage, messages[4]);
 
                     StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", messages[5]);

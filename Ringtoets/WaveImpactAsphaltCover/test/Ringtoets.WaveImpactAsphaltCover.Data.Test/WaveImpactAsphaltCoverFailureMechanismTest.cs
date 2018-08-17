@@ -48,7 +48,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             Assert.IsNotNull(failureMechanism.GeneralWaveImpactAsphaltCoverInput);
             Assert.IsNotNull(failureMechanism.GeneralInput);
 
-            Assert.AreEqual("Hydraulische randvoorwaarden", failureMechanism.WaveConditionsCalculationGroup.Name);
+            Assert.AreEqual("Hydraulische belastingen", failureMechanism.WaveConditionsCalculationGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.Sections);

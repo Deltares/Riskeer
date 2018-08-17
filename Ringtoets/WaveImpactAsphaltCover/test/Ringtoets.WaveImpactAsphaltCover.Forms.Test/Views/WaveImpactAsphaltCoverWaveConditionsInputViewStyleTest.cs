@@ -38,7 +38,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<IWaveConditionsInputViewStyle>(style);
             Assert.AreEqual(Color.Gray, style.RevetmentLineColor);
-            Assert.AreEqual("Toetspeil", style.DesignWaterLevelName);
         }
     }
 }

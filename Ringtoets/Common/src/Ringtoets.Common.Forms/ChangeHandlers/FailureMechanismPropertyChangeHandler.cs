@@ -46,10 +46,12 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (value == null)
             {
                 throw new ArgumentNullException(nameof(value));
             }
+
             if (setValue == null)
             {
                 throw new ArgumentNullException(nameof(setValue));
@@ -76,17 +78,6 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
         }
 
         /// <summary>
-        /// Gets the message that is shown when conformation is inquired.
-        /// </summary>
-        protected virtual string ConfirmationMessage
-        {
-            get
-            {
-                return Resources.FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data;
-            }
-        }
-
-        /// <summary>
         /// Checks whether a call to <see cref="PropertyChanged"/> would have any effect in the given
         /// <paramref name="failureMechanism"/>.
         /// </summary>
@@ -101,6 +92,7 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             return failureMechanism.Calculations.Any(c => c.HasOutput);
         }
 
@@ -118,12 +110,14 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             var affected = new List<IObservable>();
             foreach (ICalculation calculation in failureMechanism.Calculations.Where(c => c.HasOutput))
             {
                 affected.Add(calculation);
                 calculation.ClearOutput();
             }
+
             return affected;
         }
 
@@ -131,11 +125,12 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
         /// Checks to see if the change of the failure mechanism property should occur or not.
         /// </summary>
         /// <returns><c>true</c> if the change should occur, <c>false</c> otherwise.</returns>
-        private bool ConfirmPropertyChange()
+        private static bool ConfirmPropertyChange()
         {
-            DialogResult result = MessageBox.Show(ConfirmationMessage,
+            DialogResult result = MessageBox.Show(Resources.FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
+
             return result == DialogResult.OK;
         }
     }

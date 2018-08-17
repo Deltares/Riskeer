@@ -31,6 +31,7 @@ using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Piping.Service
 {
@@ -153,7 +154,7 @@ namespace Ringtoets.Piping.Service
             var validationResults = new List<string>();
             if (!inputParameters.UseAssessmentLevelManualInput && inputParameters.HydraulicBoundaryLocation == null)
             {
-                validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
+                validationResults.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
             else
             {

@@ -478,22 +478,13 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to U heeft een ander hydraulische randvoorwaarden bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
+        ///   Looks up a localized string similar to U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
         ///    
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
         public static string Delete_Calculations_Text {
             get {
                 return ResourceManager.GetString("Delete_Calculations_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetspeilen.
-        /// </summary>
-        public static string DesignWaterLevelCalculationsContext_DisplayName {
-            get {
-                return ResourceManager.GetString("DesignWaterLevelCalculationsContext_DisplayName", resourceCulture);
             }
         }
         
@@ -646,7 +637,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Koppel aan hydraulische randvoorwaardendatabase..
+        ///   Looks up a localized string similar to Koppel aan hydraulische belastingendatabase..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Connect_ToolTip {
             get {
@@ -655,16 +646,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie van het hydraulische randvoorwaardendatabase bestand..
+        ///   Looks up a localized string similar to Locatie van het hydraulische belastingendatabase bestand..
         /// </summary>
         public static string HydraulicBoundaryDatabase_FilePath_Description {
             get {
@@ -673,7 +655,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaardendatabase.
+        ///   Looks up a localized string similar to Hydraulische belastingendatabase.
         /// </summary>
         public static string HydraulicBoundaryDatabase_FilePath_DisplayName {
             get {
@@ -872,15 +854,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaardendatabase.
-        /// </summary>
-        public static string SelectHydraulicBoundaryDatabaseFile_FilterName {
-            get {
-                return ResourceManager.GetString("SelectHydraulicBoundaryDatabaseFile_FilterName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M..
         /// </summary>
         public static string SignalingNorm_Description {
@@ -895,15 +868,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string SignalingNorm_DisplayName {
             get {
                 return ResourceManager.GetString("SignalingNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfhoogtes.
-        /// </summary>
-        public static string WaveHeightCalculationsContext_DisplayName {
-            get {
-                return ResourceManager.GetString("WaveHeightCalculationsContext_DisplayName", resourceCulture);
             }
         }
     }

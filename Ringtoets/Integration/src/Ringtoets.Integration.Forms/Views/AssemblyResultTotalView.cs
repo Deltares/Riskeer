@@ -53,8 +53,11 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultTotalView : UserControl, IView
     {
+        private readonly Observer assessmentSectionObserver;
         private readonly Observer assessmentSectionResultObserver;
         private IEnumerable<FailureMechanismAssemblyResultRowBase> assemblyResultRows;
+
+        private bool updateDataSource;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultTotalView"/>.
@@ -72,6 +75,15 @@ namespace Ringtoets.Integration.Forms.Views
             AssessmentSection = assessmentSection;
 
             InitializeComponent();
+
+            assessmentSectionObserver = new Observer(() =>
+            {
+                updateDataSource = true;
+                EnableRefreshButton();
+            })
+            {
+                Observable = assessmentSection
+            };
 
             assessmentSectionResultObserver = new Observer(EnableRefreshButton)
             {
@@ -98,11 +110,10 @@ namespace Ringtoets.Integration.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            dataGridViewControl.CellFormatting -= HandleCellStyling;
-
             if (disposing)
             {
                 components?.Dispose();
+                assessmentSectionObserver.Dispose();
                 assessmentSectionResultObserver.Dispose();
             }
 
@@ -141,10 +152,10 @@ namespace Ringtoets.Integration.Forms.Views
                                                  Resources.AssemblyResultTotalView_Probability_DisplayName,
                                                  true);
 
-            InitializeRows();
+            SetDataSource();
         }
 
-        private void InitializeRows()
+        private void SetDataSource()
         {
             assemblyResultRows = new List<FailureMechanismAssemblyResultRowBase>
             {
@@ -169,6 +180,7 @@ namespace Ringtoets.Integration.Forms.Views
             };
 
             dataGridViewControl.SetDataSource(assemblyResultRows);
+            updateDataSource = false;
         }
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
@@ -176,8 +188,16 @@ namespace Ringtoets.Integration.Forms.Views
             refreshAssemblyResultsButton.Enabled = false;
             warningProvider.SetError(refreshAssemblyResultsButton, string.Empty);
 
-            assemblyResultRows.ForEachElementDo(row => row.Update());
-            dataGridViewControl.RefreshDataGridView();
+            if (updateDataSource)
+            {
+                SetDataSource();
+            }
+            else
+            {
+                assemblyResultRows.ForEachElementDo(row => row.Update());
+                dataGridViewControl.RefreshDataGridView();
+            }
+
             UpdateAssemblyResultControls();
         }
 

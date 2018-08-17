@@ -190,7 +190,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[foreshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[useBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[useForeshorePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[hydraulicBoundaryLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Hydraulische belastingenlocatie", dynamicProperties[hydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[stormDurationPropertyIndex].DisplayName);
             Assert.AreEqual("Illustratiepunten inlezen", dynamicProperties[calculateIllustrationPointsPropertyIndex].DisplayName);
 

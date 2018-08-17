@@ -289,12 +289,6 @@
   <data name="PipingInput_ExitPointL_DisplayName" xml:space="preserve">
     <value>Uittredepunt</value>
   </data>
-  <data name="PipingInput_HydraulicBoundaryLocation_Description" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.</value>
-  </data>
-  <data name="PipingInput_HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
-    <value>Locatie met hydraulische randvoorwaarden</value>
-  </data>
   <data name="PipingOutput_PipingFactorOfSafety_Description" xml:space="preserve">
     <value>De veiligheidsfactor voor deze berekening.</value>
   </data>
@@ -444,12 +438,6 @@
   </data>
   <data name="PipingInput_EffectiveThicknessCoverageLayer_DisplayName" xml:space="preserve">
     <value>Effectieve deklaagdikte bij uittredepunt [m]</value>
-  </data>
-  <data name="PipingInput_UseAssessmentLevelManualInput_Description" xml:space="preserve">
-    <value>Sta toe om het toetspeil handmatig te specificeren?</value>
-  </data>
-  <data name="PipingInput_UseAssessmentLevelManualInput_DisplayName" xml:space="preserve">
-    <value>Handmatig toetspeil invoeren</value>
   </data>
   <data name="PipingOutput_UpliftEffectiveStress_Description" xml:space="preserve">
     <value>Het effectieve gewicht van de deklaag.</value>

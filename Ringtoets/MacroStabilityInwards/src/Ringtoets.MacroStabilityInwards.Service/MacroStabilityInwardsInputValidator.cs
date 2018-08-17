@@ -32,6 +32,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service.Properties;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Service
 {
@@ -196,6 +197,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
                 xCoordinates.AddRange(GetDiscretizedXCoordinatesBetweenInterval(firstXCoordinate, secondXCoordinate));
             }
+
             xCoordinates.Add(uniqueClippedXCoordinates.Last());
 
             return xCoordinates;
@@ -252,7 +254,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             var validationResults = new List<string>();
             if (!inputParameters.UseAssessmentLevelManualInput && inputParameters.HydraulicBoundaryLocation == null)
             {
-                validationResults.Add(Resources.MacroStabilityInwardsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected);
+                validationResults.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
             else
             {

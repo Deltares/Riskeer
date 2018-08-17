@@ -440,7 +440,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<DesignWaterLevelCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsFormsResources.DesignWaterLevelCalculationsContext_DisplayName} - " +
+                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaterLevelCalculations_DisplayName} - " +
                                                  $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -454,7 +454,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsFormsResources.WaveHeightCalculationsContext_DisplayName} - " +
+                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaveHeightCalculations_DisplayName} - " +
                                                  $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -900,7 +900,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
             {
-                Text = hydraulicBoundaryDatabase => RingtoetsFormsResources.HydraulicBoundaryDatabase_DisplayName,
+                Text = hydraulicBoundaryDatabase => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = hydraulicBoundaryDatabase => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
@@ -911,7 +911,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsGroupContext>
             {
-                Text = context => RingtoetsFormsResources.DesignWaterLevelCalculationsContext_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.WaterLevelCalculations_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = DesignWaterLevelCalculationsGroupContextMenuStrip,
                 ChildNodeObjects = DesignWaterLevelCalculationsGroupContextChildNodeObjects
@@ -926,7 +926,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<WaveHeightCalculationsGroupContext>
             {
-                Text = context => RingtoetsFormsResources.WaveHeightCalculationsContext_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.WaveHeightCalculations_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = WaveHeightCalculationsGroupContextMenuStrip,
                 ChildNodeObjects = WaveHeightCalculationsGroupContextChildNodeObjects
@@ -2097,7 +2097,7 @@ namespace Ringtoets.Integration.Plugin
         {
             using (var dialog = new OpenFileDialog
             {
-                Filter = $@"{RingtoetsFormsResources.SelectHydraulicBoundaryDatabaseFile_FilterName} (*.sqlite)|*.sqlite",
+                Filter = $@"{RingtoetsFormsResources.HydraulicBoundaryDatabase_FilePath_DisplayName} (*.sqlite)|*.sqlite",
                 Title = GuiResources.OpenFileDialog_Title
             })
             {
