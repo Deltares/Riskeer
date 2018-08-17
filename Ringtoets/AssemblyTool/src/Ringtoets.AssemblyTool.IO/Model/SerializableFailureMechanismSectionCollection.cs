@@ -25,23 +25,23 @@ using System.Xml.Serialization;
 namespace Ringtoets.AssemblyTool.IO.Model
 {
     /// <summary>
-    /// Class describing a serializable failure mechanism sections object.
+    /// Class describing a serializable failure mechanism section collection object.
     /// </summary>
     [XmlType(AssemblyXmlIdentifiers.FailureMechanismSections)]
-    public class SerializableFailureMechanismSections : SerializableFeatureMember
+    public class SerializableFailureMechanismSectionCollection : SerializableFeatureMember
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SerializableFailureMechanismSections"/>.
+        /// Creates a new instance of <see cref="SerializableFailureMechanismSectionCollection"/>.
         /// </summary>
-        public SerializableFailureMechanismSections() {}
+        public SerializableFailureMechanismSectionCollection() {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="SerializableFailureMechanismSections"/>.
+        /// Creates a new instance of <see cref="SerializableFailureMechanismSectionCollection"/>.
         /// </summary>
         /// <param name="id">The unique ID of the sections.</param>
         /// <param name="failureMechanism">The failure mechanism the sections belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public SerializableFailureMechanismSections(string id,
+        public SerializableFailureMechanismSectionCollection(string id,
                                                     SerializableFailureMechanism failureMechanism)
             : this(id)
         {
@@ -54,12 +54,12 @@ namespace Ringtoets.AssemblyTool.IO.Model
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="SerializableFailureMechanismSections"/>.
+        /// Creates a new instance of <see cref="SerializableFailureMechanismSectionCollection"/>.
         /// </summary>
         /// <param name="id">The unique ID of the sections.</param>
         /// <param name="totalAssemblyResult">The total assembly result the sections belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public SerializableFailureMechanismSections(string id,
+        public SerializableFailureMechanismSectionCollection(string id,
                                                     SerializableTotalAssemblyResult totalAssemblyResult)
             : this(id)
         {
@@ -72,11 +72,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="SerializableFailureMechanismSections"/>.
+        /// Creates a new instance of <see cref="SerializableFailureMechanismSectionCollection"/>.
         /// </summary>
         /// <param name="id">The unique ID of the sections.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/> is <c>null</c>.</exception>
-        private SerializableFailureMechanismSections(string id)
+        private SerializableFailureMechanismSectionCollection(string id)
         {
             if (id == null)
             {
@@ -89,7 +89,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <summary>
         /// Gets or sets the ID.
         /// </summary>
-        [XmlAttribute(AssemblyXmlIdentifiers.FailureMechanismSectionsId)]
+        [XmlAttribute(AssemblyXmlIdentifiers.FailureMechanismSectionCollectionId)]
         public string Id { get; set; }
 
         /// <summary>

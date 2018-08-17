@@ -36,7 +36,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         public void DefaultConstructor_ReturnsDefaultValues()
         {
             // Call
-            var sections = new SerializableFailureMechanismSections();
+            var sections = new SerializableFailureMechanismSectionCollection();
 
             // Assert
             Assert.IsInstanceOf<SerializableFeatureMember>(sections);
@@ -44,20 +44,20 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsNull(sections.FailureMechanismId);
             Assert.IsNull(sections.TotalAssemblyResultId);
 
-            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSections>(
-                nameof(SerializableFailureMechanismSections.Id), "VakindelingID");
-            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSections>(
-                nameof(SerializableFailureMechanismSections.FailureMechanismId), "ToetsspoorIDRef");
-            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSections>(
-                nameof(SerializableFailureMechanismSections.TotalAssemblyResultId), "VeiligheidsoordeelIDRef");
+            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionCollection>(
+                nameof(SerializableFailureMechanismSectionCollection.Id), "VakindelingID");
+            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionCollection>(
+                nameof(SerializableFailureMechanismSectionCollection.FailureMechanismId), "ToetsspoorIDRef");
+            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionCollection>(
+                nameof(SerializableFailureMechanismSectionCollection.TotalAssemblyResultId), "VeiligheidsoordeelIDRef");
         }
 
         [Test]
         public void ConstructorWithFailureMechanism_IdNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSections(null,
-                                                                               new SerializableFailureMechanism());
+            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(null,
+                                                                                        new SerializableFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -68,8 +68,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         public void ConstructorWithFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSections("id",
-                                                                               (SerializableFailureMechanism) null);
+            TestDelegate call = () => new SerializableFailureMechanismSectionCollection("id",
+                                                                                        (SerializableFailureMechanism) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -90,8 +90,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                     new SerializableFailureMechanismAssemblyResult());
 
             // Call
-            var sections = new SerializableFailureMechanismSections(id,
-                                                                    failureMechanism);
+            var sections = new SerializableFailureMechanismSectionCollection(id,
+                                                                             failureMechanism);
 
             // Assert
             Assert.AreEqual(id, sections.Id);
@@ -103,8 +103,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         public void ConstructorWithTotalAssemblyResult_IdNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSections(null,
-                                                                               new SerializableTotalAssemblyResult());
+            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(null,
+                                                                                        new SerializableTotalAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -115,8 +115,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         public void ConstructorWithTotalAssemblyResult_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSections("id",
-                                                                               (SerializableTotalAssemblyResult) null);
+            TestDelegate call = () => new SerializableFailureMechanismSectionCollection("id",
+                                                                                        (SerializableTotalAssemblyResult) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -136,8 +136,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                           new SerializableAssessmentSectionAssemblyResult());
 
             // Call
-            var sections = new SerializableFailureMechanismSections(id,
-                                                                    totalAssemblyResult);
+            var sections = new SerializableFailureMechanismSectionCollection(id,
+                                                                             totalAssemblyResult);
 
             // Assert
             Assert.AreEqual(id, sections.Id);

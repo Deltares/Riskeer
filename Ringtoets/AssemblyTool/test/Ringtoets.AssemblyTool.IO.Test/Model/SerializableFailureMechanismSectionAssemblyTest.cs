@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -149,12 +148,12 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                     random.NextEnumValue<SerializableAssemblyGroup>(),
                                                                     new SerializableFailureMechanismAssemblyResult());
             var section = new SerializableFailureMechanismSection("section ID",
-                                                                  new SerializableFailureMechanismSections(),
+                                                                  new SerializableFailureMechanismSectionCollection(),
                                                                   random.NextDouble(),
                                                                   random.NextDouble(),
-                                                                  new []
+                                                                  new[]
                                                                   {
-                                                                      new Point2D(random.NextDouble(), random.NextDouble()) 
+                                                                      new Point2D(random.NextDouble(), random.NextDouble())
                                                                   });
             var sectionResults = new SerializableFailureMechanismSectionAssemblyResult[0];
             var combinedSectionResult = new SerializableFailureMechanismSectionAssemblyResult();

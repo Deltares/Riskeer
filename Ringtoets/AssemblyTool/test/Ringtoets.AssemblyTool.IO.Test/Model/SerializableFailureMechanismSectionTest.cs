@@ -43,7 +43,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Assert
             Assert.IsInstanceOf<SerializableFeatureMember>(section);
             Assert.IsNull(section.Id);
-            Assert.IsNull(section.FailureMechanismSectionsId);
+            Assert.IsNull(section.FailureMechanismSectionCollectionId);
             Assert.IsNull(section.StartDistance);
             Assert.IsNull(section.EndDistance);
             Assert.IsNull(section.Geometry);
@@ -52,7 +52,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSection>(
                 nameof(SerializableFailureMechanismSection.Id), "id", "http://www.opengis.net/gml/3.2");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSection>(
-                nameof(SerializableFailureMechanismSection.FailureMechanismSectionsId), "VakindelingIDRef");
+                nameof(SerializableFailureMechanismSection.FailureMechanismSectionCollectionId), "VakindelingIDRef");
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSection>(
                 nameof(SerializableFailureMechanismSection.StartDistance), "afstandBegin");
@@ -76,7 +76,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Call
             TestDelegate call = () => new SerializableFailureMechanismSection(null,
-                                                                              new SerializableFailureMechanismSections(),
+                                                                              new SerializableFailureMechanismSectionCollection(),
                                                                               random.NextDouble(),
                                                                               random.NextDouble(),
                                                                               Enumerable.Empty<Point2D>());
@@ -87,7 +87,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_FailureMechanismSectionsNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismSectionCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(39);
@@ -101,7 +101,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSections", exception.ParamName);
+            Assert.AreEqual("failureMechanismSectionCollection", exception.ParamName);
         }
 
         [Test]
@@ -112,7 +112,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Call
             TestDelegate call = () => new SerializableFailureMechanismSection("id",
-                                                                              new SerializableFailureMechanismSections(),
+                                                                              new SerializableFailureMechanismSectionCollection(),
                                                                               random.NextDouble(),
                                                                               random.NextDouble(),
                                                                               null);
@@ -129,7 +129,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             const string id = "section id";
 
             var random = new Random(39);
-            var sections = new SerializableFailureMechanismSections("sections id", new SerializableFailureMechanism());
+            var sectionCollection = new SerializableFailureMechanismSectionCollection("sections id", new SerializableFailureMechanism());
             double startDistance = random.NextDouble();
             double endDistance = random.NextDouble();
             var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
@@ -141,7 +141,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Call
             var section = new SerializableFailureMechanismSection(id,
-                                                                  sections,
+                                                                  sectionCollection,
                                                                   startDistance,
                                                                   endDistance,
                                                                   geometry,
@@ -149,7 +149,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Assert
             Assert.AreEqual(id, section.Id);
-            Assert.AreEqual(sections.Id, section.FailureMechanismSectionsId);
+            Assert.AreEqual(sectionCollection.Id, section.FailureMechanismSectionCollectionId);
             Assert.AreEqual("m", section.StartDistance.UnitOfMeasure);
             Assert.AreEqual(startDistance, section.StartDistance.Value);
             Assert.AreEqual("m", section.EndDistance.UnitOfMeasure);
@@ -169,7 +169,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Setup
             var random = new Random(39);
             var section = new SerializableFailureMechanismSection("id",
-                                                                  new SerializableFailureMechanismSections(),
+                                                                  new SerializableFailureMechanismSectionCollection(),
                                                                   random.NextDouble(),
                                                                   random.NextDouble(),
                                                                   new[]

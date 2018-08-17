@@ -218,14 +218,14 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string FailureMechanismSections = "Vakindeling";
 
         /// <summary>
-        /// Identifier for a failure mechanism sections ID attribute.
+        /// Identifier for a failure mechanism section collection ID attribute.
         /// </summary>
-        public const string FailureMechanismSectionsId = "VakindelingID";
+        public const string FailureMechanismSectionCollectionId = "VakindelingID";
 
         /// <summary>
-        /// Identifier for a failure mechanism sections ID reference attribute.
+        /// Identifier for a failure mechanism section collection ID reference attribute.
         /// </summary>
-        public const string FailureMechanismSectionsIdRef = "VakindelingIDRef";
+        public const string FailureMechanismSectionCollectionIdRef = "VakindelingIDRef";
 
         /// <summary>
         /// Identifier for a failure mechanism section type element.

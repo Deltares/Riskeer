@@ -34,7 +34,7 @@
     <Compile Include="Model\Helpers\GeometrySerializationFormatter.cs" />
     <Compile Include="Model\SerializableFailureMechanismSection.cs" />
     <Compile Include="Model\SerializableCombinedFailureMechanismSectionAssembly.cs" />
-    <Compile Include="Model\SerializableFailureMechanismSections.cs" />
+    <Compile Include="Model\SerializableFailureMechanismSectionCollection.cs" />
     <Compile Include="Model\SerializableFailureMechanism.cs" />
     <Compile Include="Model\SerializableFailureMechanismSectionAssembly.cs" />
     <Compile Include="Model\SerializableTotalAssemblyResult.cs" />

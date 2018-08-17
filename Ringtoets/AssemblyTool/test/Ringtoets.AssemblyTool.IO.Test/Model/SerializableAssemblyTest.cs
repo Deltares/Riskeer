@@ -24,8 +24,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -77,7 +75,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual(typeof(SerializableTotalAssemblyResult), xmlArrayItemAttributes.ElementAt(2).Type);
             Assert.AreEqual(typeof(SerializableFailureMechanism), xmlArrayItemAttributes.ElementAt(3).Type);
             Assert.AreEqual(typeof(SerializableFailureMechanismSectionAssembly), xmlArrayItemAttributes.ElementAt(4).Type);
-            Assert.AreEqual(typeof(SerializableFailureMechanismSections), xmlArrayItemAttributes.ElementAt(5).Type);
+            Assert.AreEqual(typeof(SerializableFailureMechanismSectionCollection), xmlArrayItemAttributes.ElementAt(5).Type);
             Assert.AreEqual(typeof(SerializableFailureMechanismSection), xmlArrayItemAttributes.ElementAt(6).Type);
             Assert.AreEqual(typeof(SerializableCombinedFailureMechanismSectionAssembly), xmlArrayItemAttributes.ElementAt(7).Type);
         }
@@ -92,7 +90,14 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableAssembly(null,
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
-                                                               new SerializableFeatureMember[0]);
+                                                               Enumerable.Empty<SerializableAssessmentSection>(),
+                                                               Enumerable.Empty<SerializableAssessmentProcess>(),
+                                                               Enumerable.Empty<SerializableTotalAssemblyResult>(),
+                                                               Enumerable.Empty<SerializableFailureMechanism>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSection>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -109,7 +114,14 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableAssembly(string.Empty,
                                                                null,
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
-                                                               new SerializableFeatureMember[0]);
+                                                               Enumerable.Empty<SerializableAssessmentSection>(),
+                                                               Enumerable.Empty<SerializableAssessmentProcess>(),
+                                                               Enumerable.Empty<SerializableTotalAssemblyResult>(),
+                                                               Enumerable.Empty<SerializableFailureMechanism>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSection>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -126,14 +138,21 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableAssembly(string.Empty,
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                null,
-                                                               new SerializableFeatureMember[0]);
+                                                               Enumerable.Empty<SerializableAssessmentSection>(),
+                                                               Enumerable.Empty<SerializableAssessmentProcess>(),
+                                                               Enumerable.Empty<SerializableTotalAssemblyResult>(),
+                                                               Enumerable.Empty<SerializableFailureMechanism>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSection>());
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("upperCorner", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_FeatureMembersNull_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionsNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(39);
@@ -142,10 +161,178 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableAssembly(string.Empty,
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               null,
+                                                               Enumerable.Empty<SerializableAssessmentProcess>(),
+                                                               Enumerable.Empty<SerializableTotalAssemblyResult>(),
+                                                               Enumerable.Empty<SerializableFailureMechanism>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSection>());
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSections", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_AssessmentProcessesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate call = () => new SerializableAssembly(string.Empty,
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               Enumerable.Empty<SerializableAssessmentSection>(),
+                                                               null,
+                                                               Enumerable.Empty<SerializableTotalAssemblyResult>(),
+                                                               Enumerable.Empty<SerializableFailureMechanism>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSection>());
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentProcesses", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_TotalAssemblyResultsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate call = () => new SerializableAssembly(string.Empty,
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               Enumerable.Empty<SerializableAssessmentSection>(),
+                                                               Enumerable.Empty<SerializableAssessmentProcess>(),
+                                                               null,
+                                                               Enumerable.Empty<SerializableFailureMechanism>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSection>());
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("totalAssemblyResults", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate call = () => new SerializableAssembly(string.Empty,
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               Enumerable.Empty<SerializableAssessmentSection>(),
+                                                               Enumerable.Empty<SerializableAssessmentProcess>(),
+                                                               Enumerable.Empty<SerializableTotalAssemblyResult>(),
+                                                               null,
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSection>());
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanisms", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismSectionAssembliesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate call = () => new SerializableAssembly(string.Empty,
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               Enumerable.Empty<SerializableAssessmentSection>(),
+                                                               Enumerable.Empty<SerializableAssessmentProcess>(),
+                                                               Enumerable.Empty<SerializableTotalAssemblyResult>(),
+                                                               Enumerable.Empty<SerializableFailureMechanism>(),
+                                                               null,
+                                                               Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSection>());
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismSectionAssemblies", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_CombinedFailureMechanismSectionAssembliesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate call = () => new SerializableAssembly(string.Empty,
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               Enumerable.Empty<SerializableAssessmentSection>(),
+                                                               Enumerable.Empty<SerializableAssessmentProcess>(),
+                                                               Enumerable.Empty<SerializableTotalAssemblyResult>(),
+                                                               Enumerable.Empty<SerializableFailureMechanism>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                                                               null,
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSection>());
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("combinedFailureMechanismSectionAssemblies", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismSectionCollectionsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate call = () => new SerializableAssembly(string.Empty,
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               Enumerable.Empty<SerializableAssessmentSection>(),
+                                                               Enumerable.Empty<SerializableAssessmentProcess>(),
+                                                               Enumerable.Empty<SerializableTotalAssemblyResult>(),
+                                                               Enumerable.Empty<SerializableFailureMechanism>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                                                               null,
+                                                               Enumerable.Empty<SerializableFailureMechanismSection>());
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismSectionCollections", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismSectionsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate call = () => new SerializableAssembly(string.Empty,
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               Enumerable.Empty<SerializableAssessmentSection>(),
+                                                               Enumerable.Empty<SerializableAssessmentProcess>(),
+                                                               Enumerable.Empty<SerializableTotalAssemblyResult>(),
+                                                               Enumerable.Empty<SerializableFailureMechanism>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
                                                                null);
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("featureMembers", exception.ParamName);
+            Assert.AreEqual("failureMechanismSections", exception.ParamName);
         }
 
         [Test]
@@ -157,15 +344,51 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var random = new Random(39);
             var lowerCorner = new Point2D(random.NextDouble(), random.NextDouble());
             var upperCorner = new Point2D(random.NextDouble(), random.NextDouble());
-            var featureMember = new TestFeatureMember();
+            var assessmentSection = new SerializableAssessmentSection();
+            var assessmentProcess = new SerializableAssessmentProcess();
+            var totalAssemblyResult = new SerializableTotalAssemblyResult();
+            var failureMechanism = new SerializableFailureMechanism();
+            var failureMechanismSectionAssembly = new SerializableFailureMechanismSectionAssembly();
+            var combinedFailureMechanismSectionAssembly = new SerializableCombinedFailureMechanismSectionAssembly();
+            var failureMechanismSections = new SerializableFailureMechanismSectionCollection();
+            var failureMechanismSection = new SerializableFailureMechanismSection();
 
             // Call
+
             var assembly = new SerializableAssembly(id,
                                                     lowerCorner,
                                                     upperCorner,
-                                                    new SerializableFeatureMember[]
+                                                    new[]
                                                     {
-                                                        featureMember
+                                                        assessmentSection
+                                                    },
+                                                    new[]
+                                                    {
+                                                        assessmentProcess
+                                                    },
+                                                    new[]
+                                                    {
+                                                        totalAssemblyResult
+                                                    },
+                                                    new[]
+                                                    {
+                                                        failureMechanism
+                                                    },
+                                                    new[]
+                                                    {
+                                                        failureMechanismSectionAssembly
+                                                    },
+                                                    new[]
+                                                    {
+                                                        combinedFailureMechanismSectionAssembly
+                                                    },
+                                                    new[]
+                                                    {
+                                                        failureMechanismSections
+                                                    },
+                                                    new[]
+                                                    {
+                                                        failureMechanismSection
                                                     });
             // Assert
             Assert.AreEqual(id, assembly.Id);
@@ -173,7 +396,17 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                             assembly.Boundary.Envelope.LowerCorner);
             Assert.AreEqual(upperCorner.X.ToString(CultureInfo.InvariantCulture) + " " + upperCorner.Y.ToString(CultureInfo.InvariantCulture),
                             assembly.Boundary.Envelope.UpperCorner);
-            Assert.AreSame(featureMember, assembly.FeatureMembers.Single());
+            CollectionAssert.AreEqual(new SerializableFeatureMember[]
+            {
+                assessmentSection,
+                assessmentProcess,
+                totalAssemblyResult,
+                failureMechanism,
+                failureMechanismSectionAssembly,
+                combinedFailureMechanismSectionAssembly,
+                failureMechanismSections,
+                failureMechanismSection
+            }, assembly.FeatureMembers);
         }
 
         [Test]
@@ -208,13 +441,13 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismCategoryGroup.NotApplicable, 0.000124),
                 new SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethod.WBI2C1, SerializableAssessmentSectionCategoryGroup.B));
 
-            var failureMechanism1 = new SerializableFailureMechanism("toetsspoorGABI",
-                                                                     totalAssemblyResult,
-                                                                     SerializableFailureMechanismType.GABI,
-                                                                     SerializableAssemblyGroup.Group4,
-                                                                     new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI1A1, SerializableFailureMechanismCategoryGroup.IIt));
+            var failureMechanism = new SerializableFailureMechanism("toetsspoorGABI",
+                                                                    totalAssemblyResult,
+                                                                    SerializableFailureMechanismType.GABI,
+                                                                    SerializableAssemblyGroup.Group4,
+                                                                    new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI1A1, SerializableFailureMechanismCategoryGroup.IIt));
 
-            var sections1 = new SerializableFailureMechanismSections("vakindelingGABI", failureMechanism1);
+            var sections1 = new SerializableFailureMechanismSectionCollection("vakindelingGABI", failureMechanism);
             var section1 = new SerializableFailureMechanismSection("vak_GABI_1",
                                                                    sections1,
                                                                    0.12,
@@ -225,17 +458,17 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                        new Point2D(10.23, 10.24)
                                                                    });
 
-            var result1 = new SerializableFailureMechanismSectionAssembly("resultaat_GABI_1",
-                                                                          failureMechanism1,
-                                                                          section1,
-                                                                          new[]
-                                                                          {
-                                                                              new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0E1, SerializableAssessmentLevel.SimpleAssessment, SerializableFailureMechanismSectionCategoryGroup.IIv, 0.5),
-                                                                              new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0T5, SerializableAssessmentLevel.TailorMadeAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv)
-                                                                          },
-                                                                          new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0A1, SerializableAssessmentLevel.CombinedAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv));
+            var result = new SerializableFailureMechanismSectionAssembly("resultaat_GABI_1",
+                                                                         failureMechanism,
+                                                                         section1,
+                                                                         new[]
+                                                                         {
+                                                                             new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0E1, SerializableAssessmentLevel.SimpleAssessment, SerializableFailureMechanismSectionCategoryGroup.IIv, 0.5),
+                                                                             new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0T5, SerializableAssessmentLevel.TailorMadeAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv)
+                                                                         },
+                                                                         new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0A1, SerializableAssessmentLevel.CombinedAssessment, SerializableFailureMechanismSectionCategoryGroup.IIIv));
 
-            var sections2 = new SerializableFailureMechanismSections("vakindeling_gecombineerd", totalAssemblyResult);
+            var sections2 = new SerializableFailureMechanismSectionCollection("vakindeling_gecombineerd", totalAssemblyResult);
             var section2 = new SerializableFailureMechanismSection("vak_gecombineerd_1",
                                                                    sections2,
                                                                    0.12,
@@ -257,16 +490,37 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                                          new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3B1, SerializableAssessmentLevel.CombinedSectionAssessment, SerializableFailureMechanismSectionCategoryGroup.VIv));
 
             var assembly = new SerializableAssembly("assemblage_1", new Point2D(12.0, 34.0), new Point2D(56.053, 78.0002345),
-                                                    new SerializableFeatureMember[]
+                                                    new[]
                                                     {
-                                                        assessmentSection,
-                                                        assessmentProcess,
-                                                        totalAssemblyResult,
-                                                        failureMechanism1,
-                                                        result1,
-                                                        combinedResult,
+                                                        assessmentSection
+                                                    },
+                                                    new[]
+                                                    {
+                                                        assessmentProcess
+                                                    },
+                                                    new[]
+                                                    {
+                                                        totalAssemblyResult
+                                                    },
+                                                    new[]
+                                                    {
+                                                        failureMechanism
+                                                    },
+                                                    new[]
+                                                    {
+                                                        result
+                                                    },
+                                                    new[]
+                                                    {
+                                                        combinedResult
+                                                    },
+                                                    new[]
+                                                    {
                                                         sections1,
-                                                        sections2,
+                                                        sections2
+                                                    },
+                                                    new[]
+                                                    {
                                                         section1,
                                                         section2
                                                     });

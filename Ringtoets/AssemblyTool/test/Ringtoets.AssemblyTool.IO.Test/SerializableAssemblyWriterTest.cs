@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Xml.Serialization;
@@ -69,10 +70,17 @@ namespace Ringtoets.AssemblyTool.IO.Test
                 "id",
                 new Point2D(0.0, 10.0),
                 new Point2D(10.0, 20.0),
-                new SerializableFeatureMember[]
+                Enumerable.Empty<SerializableAssessmentSection>(),
+                Enumerable.Empty<SerializableAssessmentProcess>(),
+                Enumerable.Empty<SerializableTotalAssemblyResult>(),
+                new []
                 {
-                    new SerializableFailureMechanism()
-                });
+                    new SerializableFailureMechanism() 
+                },
+                Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                Enumerable.Empty<SerializableFailureMechanismSection>());
 
             try
             {
@@ -172,11 +180,23 @@ namespace Ringtoets.AssemblyTool.IO.Test
                 "id",
                 new Point2D(0.0, 10.0),
                 new Point2D(10.0, 20.0),
-                new SerializableFeatureMember[]
+                new[]
                 {
-                    new SerializableAssessmentSection(),
+                    new SerializableAssessmentSection()
+                },
+                new[]
+                {
                     new SerializableAssessmentProcess()
-                });
+                },
+                new[]
+                {
+                    new SerializableTotalAssemblyResult()
+                },
+                Enumerable.Empty<SerializableFailureMechanism>(),
+                Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                Enumerable.Empty<SerializableFailureMechanismSection>());
 
             try
             {

@@ -146,7 +146,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                     new SerializableFailureMechanismAssemblyResult(),
                                                                     new SerializableAssessmentSectionAssemblyResult());
             var section = new SerializableFailureMechanismSection("section ID",
-                                                                  new SerializableFailureMechanismSections(),
+                                                                  new SerializableFailureMechanismSectionCollection(),
                                                                   random.NextDouble(),
                                                                   random.NextDouble(),
                                                                   new[]

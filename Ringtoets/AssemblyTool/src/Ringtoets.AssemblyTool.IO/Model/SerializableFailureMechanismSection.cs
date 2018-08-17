@@ -47,14 +47,14 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Creates a new instance of <see cref="SerializableFailureMechanismSection"/>.
         /// </summary>
         /// <param name="id">The unique ID of the section.</param>
-        /// <param name="failureMechanismSections">The failure mechanism sections object the section belong to.</param>
+        /// <param name="failureMechanismSectionCollection">The failure mechanism sections object the section belong to.</param>
         /// <param name="startDistance">The distance over the reference line where this section starts in meters.</param>
         /// <param name="endDistance">The distance over the reference line where this section ends in meters.</param>
         /// <param name="geometry">The geometry of the section.</param>
         /// <param name="assemblyMethod">The assembly method used to create this section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableFailureMechanismSection(string id,
-                                                   SerializableFailureMechanismSections failureMechanismSections,
+                                                   SerializableFailureMechanismSectionCollection failureMechanismSectionCollection,
                                                    double startDistance,
                                                    double endDistance,
                                                    IEnumerable<Point2D> geometry,
@@ -65,9 +65,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(id));
             }
 
-            if (failureMechanismSections == null)
+            if (failureMechanismSectionCollection == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanismSections));
+                throw new ArgumentNullException(nameof(failureMechanismSectionCollection));
             }
 
             if (geometry == null)
@@ -78,7 +78,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
             Id = id;
             StartDistance = new SerializableMeasure("m", startDistance);
             EndDistance = new SerializableMeasure("m", endDistance);
-            FailureMechanismSectionsId = failureMechanismSections.Id;
+            FailureMechanismSectionCollectionId = failureMechanismSectionCollection.Id;
             Geometry = new SerializableLine(geometry);
             Length = new SerializableMeasure("m", Math2D.Length(geometry));
             AssemblyMethod = assemblyMethod;
@@ -91,10 +91,10 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public string Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the ID of the parent failure mechanism sections.
+        /// Gets or sets the ID of the parent failure mechanism section collection.
         /// </summary>
-        [XmlAttribute(AssemblyXmlIdentifiers.FailureMechanismSectionsIdRef)]
-        public string FailureMechanismSectionsId { get; set; }
+        [XmlAttribute(AssemblyXmlIdentifiers.FailureMechanismSectionCollectionIdRef)]
+        public string FailureMechanismSectionCollectionId { get; set; }
 
         /// <summary>
         /// Gets or sets the section starting distance.
