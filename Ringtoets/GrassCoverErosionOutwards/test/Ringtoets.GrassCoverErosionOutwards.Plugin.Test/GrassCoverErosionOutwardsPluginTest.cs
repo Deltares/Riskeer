@@ -133,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(9, propertyInfos.Length);
+                Assert.AreEqual(7, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -159,16 +159,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                     propertyInfos,
                     typeof(GrassCoverErosionOutwardsWaveConditionsInputContext),
                     typeof(GrassCoverErosionOutwardsWaveConditionsInputContextProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
-                    typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationContext),
-                    typeof(DesignWaterLevelCalculationProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
-                    typeof(GrassCoverErosionOutwardsWaveHeightCalculationContext),
-                    typeof(WaveHeightCalculationProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
