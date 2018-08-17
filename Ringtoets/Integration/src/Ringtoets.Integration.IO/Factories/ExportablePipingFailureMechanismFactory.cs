@@ -4,7 +4,6 @@ using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Piping.Data;
 
@@ -44,14 +43,15 @@ namespace Ringtoets.Integration.IO.Factories
 
             Dictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 failureMechanism.SectionResults
-                                      .ToDictionary(s => s, sectionResult => CreateExportableFailureMechanismSection(sectionResult.Section));
+                                .ToDictionary(sectionResult => sectionResult,
+                                              sectionResult => ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(sectionResult.Section));
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 new ExportableFailureMechanismAssemblyResultWithProbability(ExportableAssemblyMethod.WBI1B1,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
                 failureMechanismSectionsLookup.Values, CreateExportablePipingFailureMechanismSectionResults(failureMechanismSectionsLookup,
-                                                                                                            failureMechanism, 
+                                                                                                            failureMechanism,
                                                                                                             assessmentSection),
                 ExportableFailureMechanismType.STPH,
                 ExportableFailureMechanismGroup.Group2);
@@ -106,11 +106,6 @@ namespace Ringtoets.Integration.IO.Factories
             }
 
             return exportableResults;
-        }
-
-        private static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(FailureMechanismSection failureMechanismSection)
-        {
-            return new ExportableFailureMechanismSection(failureMechanismSection.Points, double.NaN, double.NaN);
         }
     }
 }
