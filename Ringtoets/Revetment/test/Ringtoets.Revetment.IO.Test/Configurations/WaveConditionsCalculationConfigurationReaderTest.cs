@@ -45,9 +45,12 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         {
             get
             {
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationOld.xml",
                                               "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationOld");
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationNew.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationNew");
                 yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");
@@ -87,9 +90,12 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleForeshoreUsage.xml",
                                               "Element 'voorlandgebruiken' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleForeshoreUsage");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
+                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation_old.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation");
+                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationOld");
+                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation_new.xml",
+                                              "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
+                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationNew");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyForeshoreProfile.xml",
                                               "The 'voorlandprofiel' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptyForeshoreProfile");
@@ -292,8 +298,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculation.xml")]
-        [TestCase("validConfigurationFullCalculation_differentOrder.xml")]
+        [TestCase("validConfigurationFullCalculation_old.xml")]
+        [TestCase("validConfigurationFullCalculation_differentOrder_old.xml")]
+        [TestCase("validConfigurationFullCalculation_new.xml")]
+        [TestCase("validConfigurationFullCalculation_differentOrder_new.xml")]
         public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadWaveConditionsCalculation(string fileName)
         {
             // Setup
@@ -307,7 +315,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
 
             Assert.IsNotNull(calculation);
-            Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual("HBlocatie", calculation.HydraulicBoundaryLocationName);
             Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
             Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
             Assert.AreEqual(3.3, calculation.UpperBoundaryWaterLevels);
