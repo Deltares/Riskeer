@@ -2,7 +2,7 @@
 <configuratie>
   <map naam="Testmap">
     <berekening naam="full config">
-      <hrlocatie>Locatie1</hrlocatie>
+      <hblocatie>Locatie1</hblocatie>
       <kunstwerk>kunstwerk1</kunstwerk>
       <orientatie>7</orientatie>
       <faalkansgegevenerosiebodem>0.0001</faalkansgegevenerosiebodem>
