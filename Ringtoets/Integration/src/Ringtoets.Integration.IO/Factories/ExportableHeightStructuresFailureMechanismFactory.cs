@@ -61,9 +61,9 @@ namespace Ringtoets.Integration.IO.Factories
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                failureMechanismSectionsLookup.Values, CreateExportablePipingFailureMechanismSectionResults(failureMechanismSectionsLookup,
-                                                                                                            failureMechanism,
-                                                                                                            assessmentSection),
+                failureMechanismSectionsLookup.Values, CreateExportableFailureMechanismSectionResults(failureMechanismSectionsLookup,
+                                                                                                      failureMechanism,
+                                                                                                      assessmentSection),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <param name="assessmentSection">The assessment section the sections belong to.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
-        private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportablePipingFailureMechanismSectionResults(
+        private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportableFailureMechanismSectionResults(
             Dictionary<HeightStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections,
             HeightStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -92,16 +92,16 @@ namespace Ringtoets.Integration.IO.Factories
 
                 FailureMechanismSectionAssembly detailedAssembly =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
-                                                                                                       failureMechanism,
-                                                                                                       assessmentSection);
+                                                                                               failureMechanism,
+                                                                                               assessmentSection);
                 FailureMechanismSectionAssembly tailorMadeAssembly =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult,
-                                                                                                         failureMechanism,
-                                                                                                         assessmentSection);
+                                                                                                 failureMechanism,
+                                                                                                 assessmentSection);
                 FailureMechanismSectionAssembly combinedAssembly =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
-                                                                                                       failureMechanism,
-                                                                                                       assessmentSection);
+                                                                                               failureMechanism,
+                                                                                               assessmentSection);
 
                 exportableResults.Add(
                     new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(

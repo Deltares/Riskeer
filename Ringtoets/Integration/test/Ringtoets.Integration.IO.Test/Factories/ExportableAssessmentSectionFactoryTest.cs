@@ -60,6 +60,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionInwards, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.HeightStructures, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.ClosingStructures, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.StabilityPointStructures, random.Next(1, 10));
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

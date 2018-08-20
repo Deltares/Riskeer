@@ -62,9 +62,9 @@ namespace Ringtoets.Integration.IO.Factories
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                failureMechanismSectionsLookup.Values, CreateExportableMacroStabilityInwardsFailureMechanismSectionResults(failureMechanismSectionsLookup,
-                                                                                                                           failureMechanism,
-                                                                                                                           assessmentSection),
+                failureMechanismSectionsLookup.Values, CreateExportableFailureMechanismSectionResults(failureMechanismSectionsLookup,
+                                                                                                      failureMechanism,
+                                                                                                      assessmentSection),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <param name="assessmentSection">The assessment section the sections belong to.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
-        private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportableMacroStabilityInwardsFailureMechanismSectionResults(
+        private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportableFailureMechanismSectionResults(
             Dictionary<MacroStabilityInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections,
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
             IAssessmentSection assessmentSection)
