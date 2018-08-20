@@ -156,7 +156,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             Assert.AreSame(expectedSection, actualResult.FailureMechanismSection);
 
             ExportableSectionAssemblyResultTestHelper.AssertExportableSectionAssemblyResult(expectedSimpleAssembly,
-                                                                                            ExportableAssemblyMethod.WBI0E3,
+                                                                                            ExportableAssemblyMethod.WBI0E1,
                                                                                             actualResult.SimpleAssembly);
 
             ExportableSectionAssemblyResultTestHelper.AssertExportableSectionAssemblyResult(expectedDetailedAssembly,
