@@ -13,7 +13,24 @@ namespace Ringtoets.Integration.IO.Factories
         /// Creates an instance of <see cref="ExportableSectionAssemblyResultWithProbability"/>
         /// based on the <paramref name="failureMechanismSectionAssembly"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionAssembly"></param>
+        /// <param name="failureMechanismSectionAssembly">The assembly result of this section.</param>
+        /// <param name="assemblyMethod">The assembly method <see cref="ExportableAssemblyMethod"/>
+        /// which was used to generate the result.</param>
+        /// <returns>A <see cref="ExportableSectionAssemblyResultWithProbability"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssembly"/>
+        /// is <c>null</c>.</exception>
+        public static ExportableSectionAssemblyResult CreateExportableSectionAssemblyResult(
+            FailureMechanismSectionAssemblyCategoryGroup failureMechanismSectionAssembly,
+            ExportableAssemblyMethod assemblyMethod)
+        {
+            return new ExportableSectionAssemblyResult(assemblyMethod, failureMechanismSectionAssembly);
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="ExportableSectionAssemblyResultWithProbability"/>
+        /// based on the <paramref name="failureMechanismSectionAssembly"/>.
+        /// </summary>
+        /// <param name="failureMechanismSectionAssembly">The assembly result of this section.</param>
         /// <param name="assemblyMethod">The assembly method <see cref="ExportableAssemblyMethod"/>
         /// which was used to generate the result.</param>
         /// <returns>A <see cref="ExportableSectionAssemblyResultWithProbability"/>.</returns>

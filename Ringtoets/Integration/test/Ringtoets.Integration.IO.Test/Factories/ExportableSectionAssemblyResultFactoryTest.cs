@@ -11,6 +11,23 @@ namespace Ringtoets.Integration.IO.Test.Factories
     public class ExportableSectionAssemblyResultFactoryTest
     {
         [Test]
+        public void CreateExportableSectionAssemblyResult_WithValidArguments_ReturnsExportableAssemblyResult()
+        {
+            // Setup
+            var random = new Random(21);
+            var assembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
+
+            // Call
+            ExportableSectionAssemblyResult exportableAssemblyResult =
+                ExportableSectionAssemblyResultFactory.CreateExportableSectionAssemblyResult(assembly, assemblyMethod);
+
+            // Assert
+            Assert.AreEqual(assembly, exportableAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(assemblyMethod, exportableAssemblyResult.AssemblyMethod);
+        }
+
+        [Test]
         public void CreateExportableSectionAssemblyResultWithProbability_FailureMechanismSectionAssemblyNull_ThrowsArgumentNullException()
         {
             // Setiup
@@ -35,7 +52,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            ExportableSectionAssemblyResultWithProbability exportableAssemblyResult = 
+            ExportableSectionAssemblyResultWithProbability exportableAssemblyResult =
                 ExportableSectionAssemblyResultFactory.CreateExportableSectionAssemblyResultWithProbability(assembly, assemblyMethod);
 
             // Assert
