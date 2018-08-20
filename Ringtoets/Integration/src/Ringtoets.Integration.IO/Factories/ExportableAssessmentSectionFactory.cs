@@ -95,7 +95,8 @@ namespace Ringtoets.Integration.IO.Factories
             {
                 ExportableStabilityStoneCoverFailureMechanismFactory.CreateExportableStabilityStoneCoverFailureMechanism(assessmentSection.StabilityStoneCover),
                 ExportableWaveImpactAsphaltCoverFailureMechanismFactory.CreateExportableWaveImpactAsphaltCoverFailureMechanism(assessmentSection.WaveImpactAsphaltCover),
-                ExportableGrassCoverErosionOutwardsFailureMechanismFactory.CreateExportableGrassCoverErosionOutwardsFailureMechanism(assessmentSection.GrassCoverErosionOutwards)
+                ExportableGrassCoverErosionOutwardsFailureMechanismFactory.CreateExportableGrassCoverErosionOutwardsFailureMechanism(assessmentSection.GrassCoverErosionOutwards),
+                ExportableDuneErosionFailureMechanismFactory.CreateExportableDuneErosionFailureMechanism(assessmentSection.DuneErosion)
             };
         }
     }

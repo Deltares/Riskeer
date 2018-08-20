@@ -40,6 +40,7 @@
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriterTest.cs" />
     <Compile Include="Factories\ExportableClosingStructuresFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableDuneErosionFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableFailureMechanismSectionFactoryTest.cs" />
     <Compile Include="Factories\ExportableGrassCoverErosionInwardsFailureMechanismFactoryTest.cs" />
@@ -103,6 +104,10 @@
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Util.TestUtil\Ringtoets.Common.Util.TestUtil.csproj">
       <Project>{54DF6303-BF9A-4AE9-BE09-4AF50EF27412}</Project>
       <Name>Ringtoets.Common.Util.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+      <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
+      <Name>Ringtoets.DuneErosion.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
       <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>

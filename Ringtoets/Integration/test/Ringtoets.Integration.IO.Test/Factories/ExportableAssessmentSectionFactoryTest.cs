@@ -61,6 +61,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.StabilityStoneCover, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.WaveImpactAsphaltCover, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionOutwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.DuneErosion, random.Next(1, 10));
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -166,7 +167,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator,
             AssessmentSection assessmentSection)
         {
-            Assert.AreEqual(3, exportableFailureMechanisms.Count());
+            Assert.AreEqual(4, exportableFailureMechanisms.Count());
 
             FailureMechanismAssemblyCategoryGroup expectedFailureMechanismAssemblyOutput = failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput.Value;
             AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
@@ -189,6 +190,13 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                ExportableFailureMechanismGroup.Group3,
                                                                assessmentSection.GrassCoverErosionOutwards,
                                                                exportableFailureMechanisms.ElementAt(2));
+
+            AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
+                                                               ExportableAssemblyMethod.WBI1A1,
+                                                               ExportableFailureMechanismType.DA,
+                                                               ExportableFailureMechanismGroup.Group3,
+                                                               assessmentSection.DuneErosion,
+                                                               exportableFailureMechanisms.ElementAt(3));
         }
 
         private static void AssertExportableFailureMechanismWithoutProbability(FailureMechanismAssemblyCategoryGroup expectedAssemblyOutput,
