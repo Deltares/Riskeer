@@ -96,7 +96,8 @@ namespace Ringtoets.Integration.IO.Factories
                 ExportableStabilityStoneCoverFailureMechanismFactory.CreateExportableStabilityStoneCoverFailureMechanism(assessmentSection.StabilityStoneCover),
                 ExportableWaveImpactAsphaltCoverFailureMechanismFactory.CreateExportableWaveImpactAsphaltCoverFailureMechanism(assessmentSection.WaveImpactAsphaltCover),
                 ExportableGrassCoverErosionOutwardsFailureMechanismFactory.CreateExportableGrassCoverErosionOutwardsFailureMechanism(assessmentSection.GrassCoverErosionOutwards),
-                ExportableDuneErosionFailureMechanismFactory.CreateExportableDuneErosionFailureMechanism(assessmentSection.DuneErosion)
+                ExportableDuneErosionFailureMechanismFactory.CreateExportableDuneErosionFailureMechanism(assessmentSection.DuneErosion),
+                ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableMacroStabilityOutwardsFailureMechanism(assessmentSection.MacroStabilityOutwards, assessmentSection)
             };
         }
     }

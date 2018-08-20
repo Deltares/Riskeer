@@ -45,6 +45,7 @@
     <Compile Include="Factories\ExportableGrassCoverErosionOutwardsFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableHeightStructuresFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableMacroStabilityInwardsFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableMacroStabilityOutwardsFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportablePipingFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableSectionAssemblyResultFactory.cs" />
     <Compile Include="Factories\ExportableStabilityPointStructuresFailureMechanismFactory.cs" />
