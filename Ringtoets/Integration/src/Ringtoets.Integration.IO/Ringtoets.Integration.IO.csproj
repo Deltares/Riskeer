@@ -41,6 +41,7 @@
     <Compile Include="Factories\ExportableFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableFailureMechanismSectionFactory.cs" />
     <Compile Include="Factories\ExportableGrassCoverErosionInwardsFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableGrassCoverErosionOutwardsFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableHeightStructuresFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableMacroStabilityInwardsFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportablePipingFailureMechanismFactory.cs" />
@@ -116,6 +117,11 @@
     <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
       <Project>{90de728e-48ef-4665-ab38-3d88e41d9f4d}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
+      <Project>{e7225477-577f-4a17-b7ec-6721158e1543}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">

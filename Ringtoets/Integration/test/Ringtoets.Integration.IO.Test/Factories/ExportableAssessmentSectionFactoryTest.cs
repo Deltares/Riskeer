@@ -11,6 +11,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Assembly;
@@ -163,7 +164,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator,
             AssessmentSection assessmentSection)
         {
-            Assert.AreEqual(2, exportableFailureMechanisms.Count());
+            Assert.AreEqual(3, exportableFailureMechanisms.Count());
 
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableStabilityStoneCover = exportableFailureMechanisms.First();
             Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput, exportableStabilityStoneCover.FailureMechanismAssembly.AssemblyCategory);
@@ -180,6 +181,14 @@ namespace Ringtoets.Integration.IO.Test.Factories
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = assessmentSection.WaveImpactAsphaltCover;
             Assert.AreEqual(waveImpactAsphaltCover.Sections.Count(), exportableWaveImpactAsphaltCover.Sections.Count());
             Assert.AreEqual(waveImpactAsphaltCover.SectionResults.Count(), exportableWaveImpactAsphaltCover.SectionAssemblyResults.Count());
+
+            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableGrassCoverErosionOutwards = exportableFailureMechanisms.ElementAt(2);
+            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput, exportableGrassCoverErosionOutwards.FailureMechanismAssembly.AssemblyCategory);
+            Assert.AreEqual(ExportableFailureMechanismType.GEBU, exportableGrassCoverErosionOutwards.Code);
+            Assert.AreEqual(ExportableFailureMechanismGroup.Group3, exportableGrassCoverErosionOutwards.Group);
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards = assessmentSection.GrassCoverErosionOutwards;
+            Assert.AreEqual(grassCoverErosionOutwards.Sections.Count(), exportableGrassCoverErosionOutwards.Sections.Count());
+            Assert.AreEqual(grassCoverErosionOutwards.SectionResults.Count(), exportableGrassCoverErosionOutwards.SectionAssemblyResults.Count());
         }
     }
 }
