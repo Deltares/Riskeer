@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// for <paramref name="assessmentSection"/>.</exception>
         private static IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> CreateExportableFailureMechanismsWithProbability(AssessmentSection assessmentSection)
         {
-            return new []
+            return new[]
             {
                 ExportablePipingFailureMechanismFactory.CreateExportablePipingFailureMechanism(assessmentSection.Piping, assessmentSection),
                 ExportableMacroStabilityInwardsFailureMechanismFactory.CreateExportableMacroStabilityInwardsFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection),
@@ -93,7 +93,8 @@ namespace Ringtoets.Integration.IO.Factories
         {
             return new[]
             {
-               ExportableStabilityStoneCoverFailureMechanismFactory.CreateExportableStabilityStoneCoverFailureMechanism(assessmentSection.StabilityStoneCover)
+                ExportableStabilityStoneCoverFailureMechanismFactory.CreateExportableStabilityStoneCoverFailureMechanism(assessmentSection.StabilityStoneCover),
+                ExportableWaveImpactAsphaltCoverFailureMechanismFactory.CreateExportableWaveImpactAsphaltCoverFailureMechanism(assessmentSection.WaveImpactAsphaltCover)
             };
         }
     }

@@ -49,6 +49,7 @@
     <Compile Include="Factories\ExportableSectionAssemblyResultFactoryTest.cs" />
     <Compile Include="Factories\ExportableStabilityPointStructuresFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableStabilityStoneCoverFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableWaveImpactAsphaltCoverFailureMechanismFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +126,10 @@
     <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
       <Name>Ringtoets.StabilityStoneCover.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
+      <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>

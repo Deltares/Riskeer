@@ -19,6 +19,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {
@@ -64,6 +65,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.StabilityPointStructures, random.Next(1, 10));
 
             FailureMechanismTestHelper.AddSections(assessmentSection.StabilityStoneCover, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.WaveImpactAsphaltCover, random.Next(1, 10));
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -161,7 +163,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator,
             AssessmentSection assessmentSection)
         {
-            Assert.AreEqual(1, exportableFailureMechanisms.Count());
+            Assert.AreEqual(2, exportableFailureMechanisms.Count());
 
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableStabilityStoneCover = exportableFailureMechanisms.First();
             Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput, exportableStabilityStoneCover.FailureMechanismAssembly.AssemblyCategory);
@@ -170,6 +172,14 @@ namespace Ringtoets.Integration.IO.Test.Factories
             StabilityStoneCoverFailureMechanism stabilityStoneCover = assessmentSection.StabilityStoneCover;
             Assert.AreEqual(stabilityStoneCover.Sections.Count(), exportableStabilityStoneCover.Sections.Count());
             Assert.AreEqual(stabilityStoneCover.SectionResults.Count(), exportableStabilityStoneCover.SectionAssemblyResults.Count());
+
+            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableWaveImpactAsphaltCover = exportableFailureMechanisms.ElementAt(1);
+            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput, exportableWaveImpactAsphaltCover.FailureMechanismAssembly.AssemblyCategory);
+            Assert.AreEqual(ExportableFailureMechanismType.AGK, exportableWaveImpactAsphaltCover.Code);
+            Assert.AreEqual(ExportableFailureMechanismGroup.Group3, exportableWaveImpactAsphaltCover.Group);
+            WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = assessmentSection.WaveImpactAsphaltCover;
+            Assert.AreEqual(waveImpactAsphaltCover.Sections.Count(), exportableWaveImpactAsphaltCover.Sections.Count());
+            Assert.AreEqual(waveImpactAsphaltCover.SectionResults.Count(), exportableWaveImpactAsphaltCover.SectionAssemblyResults.Count());
         }
     }
 }
