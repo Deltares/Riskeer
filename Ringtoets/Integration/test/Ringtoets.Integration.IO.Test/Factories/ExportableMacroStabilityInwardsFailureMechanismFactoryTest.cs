@@ -53,7 +53,37 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableMacroStabilityInwardsFailureMechanism_WithValidArguments_ReturnsExportableFailureMechanism()
+        public void CreateExportableMacroStabilityInwardsFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
+        {
+            // Setup
+            var random = new Random(21);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism
+            {
+                IsRelevant = false
+            };
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            // Call
+            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
+                ExportableMacroStabilityInwardsFailureMechanismFactory.CreateExportableMacroStabilityInwardsFailureMechanism(failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.AreEqual(ExportableFailureMechanismType.STBI, exportableFailureMechanism.Code);
+            Assert.AreEqual(ExportableFailureMechanismGroup.Group2, exportableFailureMechanism.Group);
+
+            ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyResult = exportableFailureMechanism.FailureMechanismAssembly;
+            Assert.AreEqual(ExportableAssemblyMethod.WBI1B1, failureMechanismAssemblyResult.AssemblyMethod);
+            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(0, failureMechanismAssemblyResult.Probability);
+
+            CollectionAssert.IsEmpty(exportableFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(exportableFailureMechanism.SectionAssemblyResults);
+        }
+
+        [Test]
+        public void CreateExportableMacroStabilityInwardsFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -69,22 +99,26 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> assemblyResult =
+                ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
                     ExportableMacroStabilityInwardsFailureMechanismFactory.CreateExportableMacroStabilityInwardsFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
-                Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, assemblyResult.FailureMechanismAssembly.AssemblyCategory);
-                Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, assemblyResult.FailureMechanismAssembly.Probability);
-                Assert.AreEqual(ExportableFailureMechanismType.STBI, assemblyResult.Code);
-                Assert.AreEqual(ExportableFailureMechanismGroup.Group2, assemblyResult.Group);
+                Assert.AreEqual(ExportableFailureMechanismType.STBI, exportableFailureMechanism.Code);
+                Assert.AreEqual(ExportableFailureMechanismGroup.Group2, exportableFailureMechanism.Group);
 
-                ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, assemblyResult.Sections);
+                FailureMechanismAssembly calculatorOutput = failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput;
+                ExportableFailureMechanismAssemblyResultWithProbability exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
+                Assert.AreEqual(ExportableAssemblyMethod.WBI1B1, exportableFailureMechanismAssembly.AssemblyMethod);
+                Assert.AreEqual(calculatorOutput.Group, exportableFailureMechanismAssembly.AssemblyCategory);
+                Assert.AreEqual(calculatorOutput.Probability, exportableFailureMechanismAssembly.Probability);
+                
+                ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanism.Sections);
                 AssertExportableFailureMechanismSectionResults(failureMechanismSectionAssemblyCalculator.SimpleAssessmentAssemblyOutput,
                                                                failureMechanismSectionAssemblyCalculator.DetailedAssessmentAssemblyOutput,
                                                                failureMechanismSectionAssemblyCalculator.TailorMadeAssessmentAssemblyOutput,
                                                                failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput,
-                                                               assemblyResult.Sections,
-                                                               assemblyResult.SectionAssemblyResults.Cast<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>());
+                                                               exportableFailureMechanism.Sections,
+                                                               exportableFailureMechanism.SectionAssemblyResults.Cast<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>());
             }
         }
 

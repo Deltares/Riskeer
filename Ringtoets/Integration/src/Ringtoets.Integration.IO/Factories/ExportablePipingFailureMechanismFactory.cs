@@ -15,6 +15,10 @@ namespace Ringtoets.Integration.IO.Factories
     /// </summary>
     public static class ExportablePipingFailureMechanismFactory
     {
+        private const ExportableFailureMechanismType failureMechanismCode = ExportableFailureMechanismType.STPH;
+        private const ExportableFailureMechanismGroup failureMechanismGroup = ExportableFailureMechanismGroup.Group2;
+        private const ExportableAssemblyMethod failureMechanismAssemblyMethod = ExportableAssemblyMethod.WBI1B1;
+
         /// <summary>
         /// Creates a <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// with assmebly results based on the input parameters.
@@ -39,6 +43,13 @@ namespace Ringtoets.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (!failureMechanism.IsRelevant)
+            {
+                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(failureMechanismCode,
+                                                                                                                failureMechanismGroup,
+                                                                                                                failureMechanismAssemblyMethod);
+            }
+
             FailureMechanismAssembly failureMechanismAssembly = PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
             Dictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
@@ -47,14 +58,14 @@ namespace Ringtoets.Integration.IO.Factories
                                               sectionResult => ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(sectionResult.Section));
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
-                new ExportableFailureMechanismAssemblyResultWithProbability(ExportableAssemblyMethod.WBI1B1,
+                new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
                 failureMechanismSectionsLookup.Values, CreateExportablePipingFailureMechanismSectionResults(failureMechanismSectionsLookup,
                                                                                                             failureMechanism,
                                                                                                             assessmentSection),
-                ExportableFailureMechanismType.STPH,
-                ExportableFailureMechanismGroup.Group2);
+                failureMechanismCode,
+                failureMechanismGroup);
         }
 
         /// <summary>
