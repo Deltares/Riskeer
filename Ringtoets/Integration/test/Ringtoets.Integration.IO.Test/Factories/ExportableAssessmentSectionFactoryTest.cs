@@ -83,7 +83,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator,
             AssessmentSection assessmentSection)
         {
-            Assert.AreEqual(3, exportableFailureMechanisms.Count());
+            Assert.AreEqual(4, exportableFailureMechanisms.Count());
+
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> piping = exportableFailureMechanisms.First();
             Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, piping.FailureMechanismAssembly.AssemblyCategory);
             Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, piping.FailureMechanismAssembly.Probability);
@@ -107,6 +108,14 @@ namespace Ringtoets.Integration.IO.Test.Factories
             Assert.AreEqual(ExportableFailureMechanismGroup.Group1, grassCoverErosionInwards.Group);
             Assert.AreEqual(assessmentSection.GrassCoverErosionInwards.Sections.Count(), grassCoverErosionInwards.Sections.Count());
             Assert.AreEqual(assessmentSection.GrassCoverErosionInwards.SectionResults.Count(), grassCoverErosionInwards.SectionAssemblyResults.Count());
+
+            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> heightStructures = exportableFailureMechanisms.ElementAt(3);
+            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, heightStructures.FailureMechanismAssembly.AssemblyCategory);
+            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, heightStructures.FailureMechanismAssembly.Probability);
+            Assert.AreEqual(ExportableFailureMechanismType.HTKW, heightStructures.Code);
+            Assert.AreEqual(ExportableFailureMechanismGroup.Group1, heightStructures.Group);
+            Assert.AreEqual(assessmentSection.HeightStructures.Sections.Count(), heightStructures.Sections.Count());
+            Assert.AreEqual(assessmentSection.HeightStructures.SectionResults.Count(), heightStructures.SectionAssemblyResults.Count());
         }
     }
 }

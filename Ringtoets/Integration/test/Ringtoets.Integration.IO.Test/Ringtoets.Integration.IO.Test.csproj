@@ -42,6 +42,7 @@
     <Compile Include="Factories\ExportableFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableFailureMechanismSectionFactoryTest.cs" />
     <Compile Include="Factories\ExportableGrassCoverErosionInwardsFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableHeightStructuresFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableMacroStabilityInwardsFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportablePipingFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableSectionAssemblyResultFactoryTest.cs" />
@@ -97,6 +98,10 @@
     <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
       <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
       <Project>{83D6B73E-91D5-46B0-9218-955DA1F75F7C}</Project>
