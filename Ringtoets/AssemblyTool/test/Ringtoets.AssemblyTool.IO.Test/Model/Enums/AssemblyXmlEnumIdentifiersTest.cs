@@ -106,7 +106,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("TOETSOPMT", AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelTailorMadeAssessment);
             Assert.AreEqual("GECBNTR", AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelCombinedAssessment);
             Assert.AreEqual("GECBNTRDV", AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelCombinedSectionAssessment);
-            
+
             Assert.AreEqual("TOETSSSTE", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionTypeFailureMechanism);
             Assert.AreEqual("GECBNETSSTE", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionTypeCombined);
         }

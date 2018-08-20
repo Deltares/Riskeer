@@ -105,7 +105,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             Assert.AreEqual("uom", AssemblyXmlIdentifiers.UnitOfMeasure);
             Assert.AreEqual("upperCorner", AssemblyXmlIdentifiers.UpperCorner);
-
         }
     }
 }

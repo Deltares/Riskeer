@@ -25,7 +25,6 @@ using System.ComponentModel;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentResultTypes;
-using Assembly.Kernel.Model.CategoryLimits;
 using Assembly.Kernel.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -800,8 +799,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleDetailedAssessment(
                     detailedAssessment,
                     probability,
-                    normativeNorm, 
-                    n, 
+                    normativeNorm,
+                    n,
                     failureMechanismContribution);
 
                 // Assert
@@ -3106,7 +3105,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
                                               kernel);
-
             }
         }
 

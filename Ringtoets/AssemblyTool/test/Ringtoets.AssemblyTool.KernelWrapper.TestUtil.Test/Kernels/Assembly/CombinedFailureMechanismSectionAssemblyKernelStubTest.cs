@@ -190,7 +190,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             return new FailureMechanismSectionList(string.Empty, new[]
             {
-                new FailureMechanismSection(0, 1) 
+                new FailureMechanismSection(0, 1)
             });
         }
     }

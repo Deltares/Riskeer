@@ -82,7 +82,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                               random.NextDouble(),
                                                                               random.NextDouble(),
                                                                               Enumerable.Empty<Point2D>(),
-                random.NextEnumValue<SerializableFailureMechanismSectionType>());
+                                                                              random.NextEnumValue<SerializableFailureMechanismSectionType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

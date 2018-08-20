@@ -38,6 +38,6 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         /// Represents a combined failure mechanism section.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionTypeCombined)]
-        Combined = 2,
+        Combined = 2
     }
 }
