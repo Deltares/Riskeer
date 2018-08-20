@@ -338,8 +338,10 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validFullConfiguration")]
-        [TestCase("validFullConfiguration_differentOrder")]
+        [TestCase("validFullConfigurationOld")]
+        [TestCase("validFullConfiguration_differentOrder_old")]
+        [TestCase("validFullConfigurationNew")]
+        [TestCase("validFullConfiguration_differentOrder_new")]
         public void Read_ValidFullConfigurations_ExpectedValues(string fileName)
         {
             // Setup
@@ -507,10 +509,12 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidPartialConfigurations_ExpectedValues()
+        [TestCase("validPartialConfigurationOld")]
+        [TestCase("validPartialConfigurationNew")]
+        public void Read_ValidPartialConfigurations_ExpectedValues(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validPartialConfiguration.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
