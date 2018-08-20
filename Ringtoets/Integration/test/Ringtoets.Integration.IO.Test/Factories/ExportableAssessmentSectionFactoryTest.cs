@@ -17,6 +17,7 @@ using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {
@@ -91,7 +92,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator,
             AssessmentSection assessmentSection)
         {
-            Assert.AreEqual(5, exportableFailureMechanisms.Count());
+            Assert.AreEqual(6, exportableFailureMechanisms.Count());
 
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportablePiping = exportableFailureMechanisms.First();
             Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, exportablePiping.FailureMechanismAssembly.AssemblyCategory);
@@ -137,6 +138,15 @@ namespace Ringtoets.Integration.IO.Test.Factories
             ClosingStructuresFailureMechanism closingStructures = assessmentSection.ClosingStructures;
             Assert.AreEqual(closingStructures.Sections.Count(), closingStructures.Sections.Count());
             Assert.AreEqual(closingStructures.SectionResults.Count(), exportableClosingStructures.SectionAssemblyResults.Count());
+
+            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableStabilityPointStructures = exportableFailureMechanisms.ElementAt(5);
+            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, exportableStabilityPointStructures.FailureMechanismAssembly.AssemblyCategory);
+            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, exportableStabilityPointStructures.FailureMechanismAssembly.Probability);
+            Assert.AreEqual(ExportableFailureMechanismType.STKWp, exportableStabilityPointStructures.Code);
+            Assert.AreEqual(ExportableFailureMechanismGroup.Group1, exportableStabilityPointStructures.Group);
+            StabilityPointStructuresFailureMechanism stabilityPointStructures = assessmentSection.StabilityPointStructures;
+            Assert.AreEqual(stabilityPointStructures.Sections.Count(), stabilityPointStructures.Sections.Count());
+            Assert.AreEqual(stabilityPointStructures.SectionResults.Count(), exportableStabilityPointStructures.SectionAssemblyResults.Count());
         }
     }
 }

@@ -45,6 +45,7 @@
     <Compile Include="Factories\ExportableMacroStabilityInwardsFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportablePipingFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableSectionAssemblyResultFactory.cs" />
+    <Compile Include="Factories\ExportableStabilityPointStructuresFailureMechanismFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +129,11 @@
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Ringtoets.Piping.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+      <Project>{3d4b9740-8348-4434-8d77-b611fc6ee57f}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
