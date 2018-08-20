@@ -18,6 +18,7 @@ using Ringtoets.Integration.IO.Factories;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {
@@ -62,6 +63,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.ClosingStructures, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.StabilityPointStructures, random.Next(1, 10));
 
+            FailureMechanismTestHelper.AddSections(assessmentSection.StabilityStoneCover, random.Next(1, 10));
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -83,7 +86,10 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                  failureMechanismAssemblyCalculator,
                                                                  assessmentSection);
 
-                CollectionAssert.IsEmpty(exportableAssessmentSection.FailureMechanismsWithoutProbability);
+                AssertExportableFailureMechanismsWithoutProbability(exportableAssessmentSection.FailureMechanismsWithoutProbability,
+                                                                    failureMechanismAssemblyCalculator,
+                                                                    assessmentSection);
+
                 Assert.IsNotNull(exportableAssessmentSection.CombinedSectionAssemblyResults);
             }
         }
@@ -148,6 +154,22 @@ namespace Ringtoets.Integration.IO.Test.Factories
             StabilityPointStructuresFailureMechanism stabilityPointStructures = assessmentSection.StabilityPointStructures;
             Assert.AreEqual(stabilityPointStructures.Sections.Count(), stabilityPointStructures.Sections.Count());
             Assert.AreEqual(stabilityPointStructures.SectionResults.Count(), exportableStabilityPointStructures.SectionAssemblyResults.Count());
+        }
+
+        private static void AssertExportableFailureMechanismsWithoutProbability(
+            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> exportableFailureMechanisms,
+            FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator,
+            AssessmentSection assessmentSection)
+        {
+            Assert.AreEqual(1, exportableFailureMechanisms.Count());
+
+            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableStabilityStoneCover = exportableFailureMechanisms.First();
+            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput, exportableStabilityStoneCover.FailureMechanismAssembly.AssemblyCategory);
+            Assert.AreEqual(ExportableFailureMechanismType.ZST, exportableStabilityStoneCover.Code);
+            Assert.AreEqual(ExportableFailureMechanismGroup.Group3, exportableStabilityStoneCover.Group);
+            StabilityStoneCoverFailureMechanism stabilityStoneCover = assessmentSection.StabilityStoneCover;
+            Assert.AreEqual(stabilityStoneCover.Sections.Count(), exportableStabilityStoneCover.Sections.Count());
+            Assert.AreEqual(stabilityStoneCover.SectionResults.Count(), exportableStabilityStoneCover.SectionAssemblyResults.Count());
         }
     }
 }

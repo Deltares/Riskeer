@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.IO.Factories
                                                    assessmentSection.ReferenceLine.Points,
                                                    CreateExportableAssessmentSectionAssemblyResult(assessmentSection),
                                                    CreateExportableFailureMechanismsWithProbability(assessmentSection),
-                                                   Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
+                                                   CreateExportableFailureMechanismsWithoutProbability(assessmentSection),
                                                    new ExportableCombinedSectionAssemblyCollection(Enumerable.Empty<ExportableCombinedFailureMechanismSection>(),
                                                                                                    Enumerable.Empty<ExportableCombinedSectionAssembly>()));
         }
@@ -58,13 +58,12 @@ namespace Ringtoets.Integration.IO.Factories
 
         /// <summary>
         /// Creates a collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
-        /// for failure mechanisms with an assembly result that contains a probability.
-        /// based on <paramref name="assessmentSection"/>.
+        /// for failure mechanisms with an assembly result with a probability based on <paramref name="assessmentSection"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section to create a
-        /// collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with probability for.</param>
+        /// <param name="assessmentSection">The assessment section to create a collection of
+        /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with probability for.</param>
         /// <returns>A a collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> based on failure
-        /// mechanisms with assembly results that have a probability.</returns>
+        /// mechanisms with assembly results with a probability.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created
         /// for <paramref name="assessmentSection"/>.</exception>
         private static IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> CreateExportableFailureMechanismsWithProbability(AssessmentSection assessmentSection)
@@ -77,6 +76,24 @@ namespace Ringtoets.Integration.IO.Factories
                 ExportableHeightStructuresFailureMechanismFactory.CreateExportableHeightStructuresFailureMechanism(assessmentSection.HeightStructures, assessmentSection),
                 ExportableClosingStructuresFailureMechanismFactory.CreateExportableClosingStructuresFailureMechanism(assessmentSection.ClosingStructures, assessmentSection),
                 ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableStabilityPointStructuresFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection)
+            };
+        }
+
+        /// <summary>
+        /// Creates a collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+        /// for failure mechanisms with an assembly result without a probability based on <paramref name="assessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section to create a collection of
+        /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with probability for.</param>
+        /// <returns>A a collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> based on failure
+        /// mechanisms with assembly results without a probability.</returns>
+        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created
+        /// for <paramref name="assessmentSection"/>.</exception>
+        private static IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> CreateExportableFailureMechanismsWithoutProbability(AssessmentSection assessmentSection)
+        {
+            return new[]
+            {
+               ExportableStabilityStoneCoverFailureMechanismFactory.CreateExportableStabilityStoneCoverFailureMechanism(assessmentSection.StabilityStoneCover)
             };
         }
     }
