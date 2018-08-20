@@ -48,6 +48,7 @@
     <Compile Include="Factories\ExportableHeightStructuresFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableMacroStabilityInwardsFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableMacroStabilityOutwardsFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableMicrostabilityFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportablePipingFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableSectionAssemblyResultFactoryTest.cs" />
     <Compile Include="Factories\ExportableStabilityPointStructuresFailureMechanismFactoryTest.cs" />
