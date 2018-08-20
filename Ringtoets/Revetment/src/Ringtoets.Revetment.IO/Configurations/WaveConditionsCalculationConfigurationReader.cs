@@ -86,7 +86,7 @@ namespace Ringtoets.Revetment.IO.Configurations
 
         protected void ParseCalculationElementData(XElement calculationElement, T configuration)
         {
-            configuration.HydraulicBoundaryLocationName = GetHydraulicBoundaryLocationName(calculationElement);
+            configuration.HydraulicBoundaryLocationName = calculationElement.GetHydraulicBoundaryLocationName();
             configuration.UpperBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryRevetment);
             configuration.LowerBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment);
             configuration.UpperBoundaryWaterLevels = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels);
@@ -95,12 +95,6 @@ namespace Ringtoets.Revetment.IO.Configurations
             configuration.ForeshoreProfileId = calculationElement.GetStringValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile);
             configuration.Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation);
             configuration.WaveReduction = calculationElement.GetWaveReductionParameters();
-        }
-
-        private static string GetHydraulicBoundaryLocationName(XElement calculationElement)
-        {
-            return calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew)
-                   ?? calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld);
         }
     }
 }
