@@ -90,10 +90,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleForeshoreUsage.xml",
                                               "Element 'voorlandgebruiken' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleForeshoreUsage");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation_old.xml",
+                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationOld.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation_new.xml",
+                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationNew.xml",
                                               "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationNew");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyForeshoreProfile.xml",
@@ -298,9 +298,9 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculation_old.xml")]
+        [TestCase("validConfigurationFullCalculationOld.xml")]
         [TestCase("validConfigurationFullCalculation_differentOrder_old.xml")]
-        [TestCase("validConfigurationFullCalculation_new.xml")]
+        [TestCase("validConfigurationFullCalculationNew.xml")]
         [TestCase("validConfigurationFullCalculation_differentOrder_new.xml")]
         public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadWaveConditionsCalculation(string fileName)
         {
