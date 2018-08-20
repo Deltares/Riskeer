@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -55,6 +56,9 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionInwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.HeightStructures, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.ClosingStructures, random.Next(1, 10));
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -73,7 +77,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleAssessmentSectionCategoryGroupOutput, exportableAssessmentSectionAssemblyResult.AssemblyCategory);
                 Assert.AreEqual(ExportableAssemblyMethod.WBI2C1, exportableAssessmentSectionAssemblyResult.AssemblyMethod);
 
-                AssertExportableFailureMechanismsWithProbability(exportableAssessmentSection.FailureMechanismsWithProbability, 
+                AssertExportableFailureMechanismsWithProbability(exportableAssessmentSection.FailureMechanismsWithProbability,
                                                                  failureMechanismAssemblyCalculator,
                                                                  assessmentSection);
 
@@ -87,9 +91,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator,
             AssessmentSection assessmentSection)
         {
-            Assert.AreEqual(4, exportableFailureMechanisms.Count());
+            Assert.AreEqual(5, exportableFailureMechanisms.Count());
 
-            
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportablePiping = exportableFailureMechanisms.First();
             Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, exportablePiping.FailureMechanismAssembly.AssemblyCategory);
             Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, exportablePiping.FailureMechanismAssembly.Probability);
@@ -125,6 +128,15 @@ namespace Ringtoets.Integration.IO.Test.Factories
             HeightStructuresFailureMechanism heightStructures = assessmentSection.HeightStructures;
             Assert.AreEqual(heightStructures.Sections.Count(), heightStructures.Sections.Count());
             Assert.AreEqual(heightStructures.SectionResults.Count(), exportableHeightStructures.SectionAssemblyResults.Count());
+
+            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableClosingStructures = exportableFailureMechanisms.ElementAt(4);
+            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, exportableClosingStructures.FailureMechanismAssembly.AssemblyCategory);
+            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, exportableClosingStructures.FailureMechanismAssembly.Probability);
+            Assert.AreEqual(ExportableFailureMechanismType.BSKW, exportableClosingStructures.Code);
+            Assert.AreEqual(ExportableFailureMechanismGroup.Group1, exportableClosingStructures.Group);
+            ClosingStructuresFailureMechanism closingStructures = assessmentSection.ClosingStructures;
+            Assert.AreEqual(closingStructures.Sections.Count(), closingStructures.Sections.Count());
+            Assert.AreEqual(closingStructures.SectionResults.Count(), exportableClosingStructures.SectionAssemblyResults.Count());
         }
     }
 }
