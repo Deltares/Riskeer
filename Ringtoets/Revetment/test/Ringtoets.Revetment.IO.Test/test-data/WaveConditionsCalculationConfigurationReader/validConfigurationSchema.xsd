@@ -8,7 +8,7 @@
       <xs:complexContent>
         <xs:extension base="berekeningType">
           <xs:all>
-            <xs:element ref="hrlocatie" minOccurs="0"/>
+            <xs:element ref="hblocatie-of-hrlocatie" minOccurs="0"/>
             <xs:element ref="bovengrensbekleding" minOccurs="0"/>
             <xs:element ref="ondergrensbekleding" minOccurs="0"/>
             <xs:element ref="bovengrenswaterstanden" minOccurs="0"/>
