@@ -104,9 +104,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 Assert.AreEqual(ExportableFailureMechanismType.STBU, exportableFailureMechanism.Code);
                 Assert.AreEqual(ExportableFailureMechanismGroup.Group4, exportableFailureMechanism.Group);
 
-                FailureMechanismAssemblyCategoryGroup? calculatorOutput = failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput;
                 ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
-                Assert.AreEqual(calculatorOutput, exportableFailureMechanismAssembly.AssemblyCategory);
+                Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput, exportableFailureMechanismAssembly.AssemblyCategory);
                 Assert.AreEqual(ExportableAssemblyMethod.WBI1A1, exportableFailureMechanismAssembly.AssemblyMethod);
 
                 ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanism.Sections);

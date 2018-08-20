@@ -111,7 +111,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 Assert.AreEqual(ExportableAssemblyMethod.WBI1B1, exportableFailureMechanismAssembly.AssemblyMethod);
                 Assert.AreEqual(calculatorOutput.Group, exportableFailureMechanismAssembly.AssemblyCategory);
                 Assert.AreEqual(calculatorOutput.Probability, exportableFailureMechanismAssembly.Probability);
-                
+
                 ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanism.Sections);
                 AssertExportableFailureMechanismSectionResults(failureMechanismSectionAssemblyCalculator.SimpleAssessmentAssemblyOutput,
                                                                failureMechanismSectionAssemblyCalculator.DetailedAssessmentAssemblyOutput,

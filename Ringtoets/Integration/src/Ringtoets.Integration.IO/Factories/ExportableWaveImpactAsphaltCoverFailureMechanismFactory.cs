@@ -20,7 +20,7 @@ namespace Ringtoets.Integration.IO.Factories
 
         /// <summary>
         /// Creates a <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
-        /// with assmebly results based on the input parameters.
+        /// with assembly results based on the input parameters.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="WaveImpactAsphaltCoverFailureMechanism"/> to create a
         /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> for.</param>
