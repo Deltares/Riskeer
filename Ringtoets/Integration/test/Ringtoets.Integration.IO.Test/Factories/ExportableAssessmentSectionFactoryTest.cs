@@ -83,7 +83,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator,
             AssessmentSection assessmentSection)
         {
-            Assert.AreEqual(2, exportableFailureMechanisms.Count());
+            Assert.AreEqual(3, exportableFailureMechanisms.Count());
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> piping = exportableFailureMechanisms.First();
             Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, piping.FailureMechanismAssembly.AssemblyCategory);
             Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, piping.FailureMechanismAssembly.Probability);
@@ -99,6 +99,14 @@ namespace Ringtoets.Integration.IO.Test.Factories
             Assert.AreEqual(ExportableFailureMechanismGroup.Group2, macroStabilityInwards.Group);
             Assert.AreEqual(assessmentSection.MacroStabilityInwards.Sections.Count(), macroStabilityInwards.Sections.Count());
             Assert.AreEqual(assessmentSection.MacroStabilityInwards.SectionResults.Count(), macroStabilityInwards.SectionAssemblyResults.Count());
+
+            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> grassCoverErosionInwards = exportableFailureMechanisms.ElementAt(2);
+            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, grassCoverErosionInwards.FailureMechanismAssembly.AssemblyCategory);
+            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, grassCoverErosionInwards.FailureMechanismAssembly.Probability);
+            Assert.AreEqual(ExportableFailureMechanismType.GEKB, grassCoverErosionInwards.Code);
+            Assert.AreEqual(ExportableFailureMechanismGroup.Group1, grassCoverErosionInwards.Group);
+            Assert.AreEqual(assessmentSection.GrassCoverErosionInwards.Sections.Count(), grassCoverErosionInwards.Sections.Count());
+            Assert.AreEqual(assessmentSection.GrassCoverErosionInwards.SectionResults.Count(), grassCoverErosionInwards.SectionAssemblyResults.Count());
         }
     }
 }

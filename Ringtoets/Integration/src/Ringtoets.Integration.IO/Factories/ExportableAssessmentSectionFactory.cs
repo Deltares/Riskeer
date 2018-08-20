@@ -56,12 +56,24 @@ namespace Ringtoets.Integration.IO.Factories
                                                                  AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection));
         }
 
+        /// <summary>
+        /// Creates a collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+        /// for failure mechanisms with an assembly result that contains a probability.
+        /// based on <paramref name="assessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section to create a
+        /// collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with probability for.</param>
+        /// <returns>A a collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> based on failure
+        /// mechanisms with assembly results that have a probability.</returns>
+        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created
+        /// for <paramref name="assessmentSection"/>.</exception>
         private static IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> CreateExportableFailureMechanismsWithProbability(AssessmentSection assessmentSection)
         {
             return new []
             {
                 ExportablePipingFailureMechanismFactory.CreateExportablePipingFailureMechanism(assessmentSection.Piping, assessmentSection),
-                ExportableMacroStabilityInwardsFailureMechanismFactory.CreateExportableMacroStabilityInwardsFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection)
+                ExportableMacroStabilityInwardsFailureMechanismFactory.CreateExportableMacroStabilityInwardsFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection),
+                ExportableGrassCoverErosionInwardsFailureMechanismFactory.CreateExportableGrassCoverErosionInwardsFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection)
             };
         }
     }

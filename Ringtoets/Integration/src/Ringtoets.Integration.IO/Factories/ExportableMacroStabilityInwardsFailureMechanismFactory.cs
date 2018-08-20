@@ -23,7 +23,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// Creates a <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// with assmebly results based on the input parameters.
         /// </summary>
-        /// <param name="failureMechanism">The MmcroStabilityInwards failure mechanism to create a
+        /// <param name="failureMechanism">The <see cref="MacroStabilityInwardsFailureMechanism"/> to create a
         /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> for.</param>
         /// <param name="assessmentSection">The assessment section this failure mechanism belongs to.</param>
         /// <returns>A <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with assembly results.</returns>
@@ -74,8 +74,8 @@ namespace Ringtoets.Integration.IO.Factories
         /// with assembly results based on the sections in <paramref name="failureMechanismSections"/>.
         /// </summary>
         /// <param name="failureMechanismSections">The mapping between the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>
-        /// and <see cref="ExportableFailureMechanismSection"/></param>
-        /// <param name="macroStabilityInwardsFailureMechanism">The MacroStabilityInwards failure mechanism the sections belong to.</param>
+        /// and <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// <param name="macroStabilityInwardsFailureMechanism">The <see cref="MacroStabilityInwardsFailureMechanism"/> the sections belong to.</param>
         /// <param name="assessmentSection">The assessment section the sections belong to.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
