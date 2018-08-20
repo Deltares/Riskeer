@@ -34,7 +34,8 @@ namespace Ringtoets.Common.IO.Test.Configurations
             Assert.AreEqual("berekening", ConfigurationSchemaIdentifiers.CalculationElement);
             Assert.AreEqual("map", ConfigurationSchemaIdentifiers.FolderElement);
             Assert.AreEqual("naam", ConfigurationSchemaIdentifiers.NameAttribute);
-            Assert.AreEqual("hrlocatie", ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement);
+            Assert.AreEqual("hrlocatie", ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld);
+            Assert.AreEqual("hblocatie", ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew);
             Assert.AreEqual("orientatie", ConfigurationSchemaIdentifiers.Orientation);
             Assert.AreEqual("illustratiepunteninlezen", ConfigurationSchemaIdentifiers.ShouldIllustrationPointsBeCalculatedElement);
 

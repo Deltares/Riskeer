@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
                                              configuration.AssessmentLevel);
             WriteElementWhenContentAvailable(writer,
-                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld,
                                              configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(writer,

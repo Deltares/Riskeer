@@ -111,7 +111,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 FlowVelocityStructureClosable = calculationElement.GetStochastConfiguration(StabilityPointStructuresConfigurationSchemaIdentifiers.FlowVelocityStructureClosableStochastName),
                 FlowWidthAtBottomProtection = calculationElement.GetStochastConfiguration(ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName),
                 ForeshoreProfileId = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement),
-                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
+                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld),
                 InflowModelType = (ConfigurationStabilityPointStructuresInflowModelType?)
                     calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationStabilityPointStructuresInflowModelTypeConverter>(
                         StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelTypeElement),

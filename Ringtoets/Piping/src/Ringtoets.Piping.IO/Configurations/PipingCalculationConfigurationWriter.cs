@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.IO.Configurations
                                              PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
                                              configuration.AssessmentLevel);
             WriteElementWhenContentAvailable(writer,
-                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld,
                                              configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(writer,

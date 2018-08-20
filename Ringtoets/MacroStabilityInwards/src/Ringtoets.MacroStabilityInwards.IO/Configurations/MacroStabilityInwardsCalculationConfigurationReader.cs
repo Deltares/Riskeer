@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement),
                 HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(
-                    ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
+                    ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld),
                 SurfaceLineName = calculationElement.GetStringValueFromDescendantElement(
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
                 StochasticSoilModelName = calculationElement.GetStringValueFromDescendantElement(
