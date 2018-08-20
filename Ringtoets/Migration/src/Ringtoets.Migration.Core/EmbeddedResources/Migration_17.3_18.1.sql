@@ -77,7 +77,7 @@ SELECT
 	END,
 	[FailureProbabilityOpenStructure],
 	CASE
-		WHEN [IdenticalApertures] = 0
+		WHEN [IdenticalApertures] < 1
 			THEN 1
 		ELSE 
 			[IdenticalApertures]
@@ -166,7 +166,7 @@ SELECT
 	[ProbabilityOrFrequencyOpenStructureBeforeFlooding],
 	[FailureProbabilityOpenStructure],
 	CASE
-		WHEN [IdenticalApertures] = 0
+		WHEN [IdenticalApertures] < 1
 			THEN 1
 		ELSE 
 			[IdenticalApertures]
