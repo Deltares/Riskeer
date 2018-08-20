@@ -4,23 +4,16 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
-using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
-using Ringtoets.MacroStabilityInwards.Data;
-using Ringtoets.Piping.Data;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {
@@ -67,6 +60,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             FailureMechanismTestHelper.AddSections(assessmentSection.StabilityStoneCover, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.WaveImpactAsphaltCover, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionOutwards, random.Next(1, 10));
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -104,59 +98,67 @@ namespace Ringtoets.Integration.IO.Test.Factories
         {
             Assert.AreEqual(6, exportableFailureMechanisms.Count());
 
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportablePiping = exportableFailureMechanisms.First();
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, exportablePiping.FailureMechanismAssembly.AssemblyCategory);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, exportablePiping.FailureMechanismAssembly.Probability);
-            Assert.AreEqual(ExportableFailureMechanismType.STPH, exportablePiping.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group2, exportablePiping.Group);
-            PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
-            Assert.AreEqual(pipingFailureMechanism.Sections.Count(), exportablePiping.Sections.Count());
-            Assert.AreEqual(pipingFailureMechanism.SectionResults.Count(), exportablePiping.SectionAssemblyResults.Count());
+            FailureMechanismAssembly expectedFailureMechanismAssemblyOutput = failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput;
+            AssertExportableFailureMechanismWithProbability(expectedFailureMechanismAssemblyOutput,
+                                                            ExportableAssemblyMethod.WBI1B1,
+                                                            ExportableFailureMechanismType.STPH,
+                                                            ExportableFailureMechanismGroup.Group2,
+                                                            assessmentSection.ClosingStructures,
+                                                            exportableFailureMechanisms.First());
 
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableMacroStabilityInwards = exportableFailureMechanisms.ElementAt(1);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, exportableMacroStabilityInwards.FailureMechanismAssembly.AssemblyCategory);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, exportableMacroStabilityInwards.FailureMechanismAssembly.Probability);
-            Assert.AreEqual(ExportableFailureMechanismType.STBI, exportableMacroStabilityInwards.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group2, exportableMacroStabilityInwards.Group);
-            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
-            Assert.AreEqual(macroStabilityInwardsFailureMechanism.Sections.Count(), exportableMacroStabilityInwards.Sections.Count());
-            Assert.AreEqual(macroStabilityInwardsFailureMechanism.SectionResults.Count(), exportableMacroStabilityInwards.SectionAssemblyResults.Count());
+            AssertExportableFailureMechanismWithProbability(expectedFailureMechanismAssemblyOutput,
+                                                            ExportableAssemblyMethod.WBI1B1,
+                                                            ExportableFailureMechanismType.STBI,
+                                                            ExportableFailureMechanismGroup.Group2,
+                                                            assessmentSection.MacroStabilityInwards,
+                                                            exportableFailureMechanisms.ElementAt(1));
 
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableGrassCoverErosionInwards = exportableFailureMechanisms.ElementAt(2);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, exportableGrassCoverErosionInwards.FailureMechanismAssembly.AssemblyCategory);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, exportableGrassCoverErosionInwards.FailureMechanismAssembly.Probability);
-            Assert.AreEqual(ExportableFailureMechanismType.GEKB, exportableGrassCoverErosionInwards.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group1, exportableGrassCoverErosionInwards.Group);
-            GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
-            Assert.AreEqual(grassCoverErosionInwardsFailureMechanism.Sections.Count(), exportableGrassCoverErosionInwards.Sections.Count());
-            Assert.AreEqual(grassCoverErosionInwardsFailureMechanism.SectionResults.Count(), exportableGrassCoverErosionInwards.SectionAssemblyResults.Count());
+            AssertExportableFailureMechanismWithProbability(expectedFailureMechanismAssemblyOutput,
+                                                            ExportableAssemblyMethod.WBI1B1,
+                                                            ExportableFailureMechanismType.GEKB,
+                                                            ExportableFailureMechanismGroup.Group1,
+                                                            assessmentSection.GrassCoverErosionInwards,
+                                                            exportableFailureMechanisms.ElementAt(2));
 
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableHeightStructures = exportableFailureMechanisms.ElementAt(3);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, exportableHeightStructures.FailureMechanismAssembly.AssemblyCategory);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, exportableHeightStructures.FailureMechanismAssembly.Probability);
-            Assert.AreEqual(ExportableFailureMechanismType.HTKW, exportableHeightStructures.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group1, exportableHeightStructures.Group);
-            HeightStructuresFailureMechanism heightStructures = assessmentSection.HeightStructures;
-            Assert.AreEqual(heightStructures.Sections.Count(), heightStructures.Sections.Count());
-            Assert.AreEqual(heightStructures.SectionResults.Count(), exportableHeightStructures.SectionAssemblyResults.Count());
+            AssertExportableFailureMechanismWithProbability(expectedFailureMechanismAssemblyOutput,
+                                                            ExportableAssemblyMethod.WBI1B1,
+                                                            ExportableFailureMechanismType.HTKW,
+                                                            ExportableFailureMechanismGroup.Group1,
+                                                            assessmentSection.HeightStructures,
+                                                            exportableFailureMechanisms.ElementAt(3));
 
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableClosingStructures = exportableFailureMechanisms.ElementAt(4);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, exportableClosingStructures.FailureMechanismAssembly.AssemblyCategory);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, exportableClosingStructures.FailureMechanismAssembly.Probability);
-            Assert.AreEqual(ExportableFailureMechanismType.BSKW, exportableClosingStructures.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group1, exportableClosingStructures.Group);
-            ClosingStructuresFailureMechanism closingStructures = assessmentSection.ClosingStructures;
-            Assert.AreEqual(closingStructures.Sections.Count(), closingStructures.Sections.Count());
-            Assert.AreEqual(closingStructures.SectionResults.Count(), exportableClosingStructures.SectionAssemblyResults.Count());
+            AssertExportableFailureMechanismWithProbability(expectedFailureMechanismAssemblyOutput,
+                                                            ExportableAssemblyMethod.WBI1B1,
+                                                            ExportableFailureMechanismType.BSKW,
+                                                            ExportableFailureMechanismGroup.Group1,
+                                                            assessmentSection.ClosingStructures,
+                                                            exportableFailureMechanisms.ElementAt(4));
 
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableStabilityPointStructures = exportableFailureMechanisms.ElementAt(5);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Group, exportableStabilityPointStructures.FailureMechanismAssembly.AssemblyCategory);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput.Probability, exportableStabilityPointStructures.FailureMechanismAssembly.Probability);
-            Assert.AreEqual(ExportableFailureMechanismType.STKWp, exportableStabilityPointStructures.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group1, exportableStabilityPointStructures.Group);
-            StabilityPointStructuresFailureMechanism stabilityPointStructures = assessmentSection.StabilityPointStructures;
-            Assert.AreEqual(stabilityPointStructures.Sections.Count(), stabilityPointStructures.Sections.Count());
-            Assert.AreEqual(stabilityPointStructures.SectionResults.Count(), exportableStabilityPointStructures.SectionAssemblyResults.Count());
+            AssertExportableFailureMechanismWithProbability(expectedFailureMechanismAssemblyOutput,
+                                                            ExportableAssemblyMethod.WBI1B1,
+                                                            ExportableFailureMechanismType.STKWp,
+                                                            ExportableFailureMechanismGroup.Group1,
+                                                            assessmentSection.StabilityPointStructures,
+                                                            exportableFailureMechanisms.ElementAt(5));
+        }
+
+        private static void AssertExportableFailureMechanismWithProbability(FailureMechanismAssembly expectedAssemblyOutput,
+                                                                            ExportableAssemblyMethod expectedAssemblyMethod,
+                                                                            ExportableFailureMechanismType expectedFailureMechanismCode,
+                                                                            ExportableFailureMechanismGroup expecteFailureMechanismGroup,
+                                                                            IHasSectionResults<FailureMechanismSectionResult> failureMechanism,
+                                                                            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> actualExportableFailureMechanism)
+        {
+            Assert.AreEqual(expectedFailureMechanismCode, actualExportableFailureMechanism.Code);
+            Assert.AreEqual(expecteFailureMechanismGroup, actualExportableFailureMechanism.Group);
+
+            ExportableFailureMechanismAssemblyResultWithProbability exportableFailureMechanismAssemblyResult = actualExportableFailureMechanism.FailureMechanismAssembly;
+            Assert.AreEqual(expectedAssemblyOutput.Group, exportableFailureMechanismAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedAssemblyOutput.Probability, exportableFailureMechanismAssemblyResult.Probability);
+            Assert.AreEqual(expectedAssemblyMethod, exportableFailureMechanismAssemblyResult.AssemblyMethod);
+
+            Assert.AreEqual(failureMechanism.Sections.Count(), actualExportableFailureMechanism.Sections.Count());
+            Assert.AreEqual(failureMechanism.SectionResults.Count(), actualExportableFailureMechanism.SectionAssemblyResults.Count());
         }
 
         private static void AssertExportableFailureMechanismsWithoutProbability(
@@ -166,29 +168,45 @@ namespace Ringtoets.Integration.IO.Test.Factories
         {
             Assert.AreEqual(3, exportableFailureMechanisms.Count());
 
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableStabilityStoneCover = exportableFailureMechanisms.First();
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput, exportableStabilityStoneCover.FailureMechanismAssembly.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.ZST, exportableStabilityStoneCover.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group3, exportableStabilityStoneCover.Group);
-            StabilityStoneCoverFailureMechanism stabilityStoneCover = assessmentSection.StabilityStoneCover;
-            Assert.AreEqual(stabilityStoneCover.Sections.Count(), exportableStabilityStoneCover.Sections.Count());
-            Assert.AreEqual(stabilityStoneCover.SectionResults.Count(), exportableStabilityStoneCover.SectionAssemblyResults.Count());
+            FailureMechanismAssemblyCategoryGroup expectedFailureMechanismAssemblyOutput = failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput.Value;
+            AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
+                                                               ExportableAssemblyMethod.WBI1A1,
+                                                               ExportableFailureMechanismType.ZST,
+                                                               ExportableFailureMechanismGroup.Group3,
+                                                               assessmentSection.StabilityStoneCover,
+                                                               exportableFailureMechanisms.First());
 
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableWaveImpactAsphaltCover = exportableFailureMechanisms.ElementAt(1);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput, exportableWaveImpactAsphaltCover.FailureMechanismAssembly.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.AGK, exportableWaveImpactAsphaltCover.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group3, exportableWaveImpactAsphaltCover.Group);
-            WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = assessmentSection.WaveImpactAsphaltCover;
-            Assert.AreEqual(waveImpactAsphaltCover.Sections.Count(), exportableWaveImpactAsphaltCover.Sections.Count());
-            Assert.AreEqual(waveImpactAsphaltCover.SectionResults.Count(), exportableWaveImpactAsphaltCover.SectionAssemblyResults.Count());
+            AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
+                                                               ExportableAssemblyMethod.WBI1A1,
+                                                               ExportableFailureMechanismType.AGK,
+                                                               ExportableFailureMechanismGroup.Group3,
+                                                               assessmentSection.WaveImpactAsphaltCover,
+                                                               exportableFailureMechanisms.ElementAt(1));
 
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableGrassCoverErosionOutwards = exportableFailureMechanisms.ElementAt(2);
-            Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput, exportableGrassCoverErosionOutwards.FailureMechanismAssembly.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.GEBU, exportableGrassCoverErosionOutwards.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group3, exportableGrassCoverErosionOutwards.Group);
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards = assessmentSection.GrassCoverErosionOutwards;
-            Assert.AreEqual(grassCoverErosionOutwards.Sections.Count(), exportableGrassCoverErosionOutwards.Sections.Count());
-            Assert.AreEqual(grassCoverErosionOutwards.SectionResults.Count(), exportableGrassCoverErosionOutwards.SectionAssemblyResults.Count());
+            AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
+                                                               ExportableAssemblyMethod.WBI1A1,
+                                                               ExportableFailureMechanismType.GEBU,
+                                                               ExportableFailureMechanismGroup.Group3,
+                                                               assessmentSection.GrassCoverErosionOutwards,
+                                                               exportableFailureMechanisms.ElementAt(2));
+        }
+
+        private static void AssertExportableFailureMechanismWithoutProbability(FailureMechanismAssemblyCategoryGroup expectedAssemblyOutput,
+                                                                               ExportableAssemblyMethod expectedAssemblyMethod,
+                                                                               ExportableFailureMechanismType expectedFailureMechanismCode,
+                                                                               ExportableFailureMechanismGroup expecteFailureMechanismGroup,
+                                                                               IHasSectionResults<FailureMechanismSectionResult> failureMechanism,
+                                                                               ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> actualExportableFailureMechanism)
+        {
+            Assert.AreEqual(expectedFailureMechanismCode, actualExportableFailureMechanism.Code);
+            Assert.AreEqual(expecteFailureMechanismGroup, actualExportableFailureMechanism.Group);
+
+            ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssemblyResult = actualExportableFailureMechanism.FailureMechanismAssembly;
+            Assert.AreEqual(expectedAssemblyOutput, exportableFailureMechanismAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedAssemblyMethod, exportableFailureMechanismAssemblyResult.AssemblyMethod);
+
+            Assert.AreEqual(failureMechanism.Sections.Count(), actualExportableFailureMechanism.Sections.Count());
+            Assert.AreEqual(failureMechanism.SectionResults.Count(), actualExportableFailureMechanism.SectionAssemblyResults.Count());
         }
     }
 }
