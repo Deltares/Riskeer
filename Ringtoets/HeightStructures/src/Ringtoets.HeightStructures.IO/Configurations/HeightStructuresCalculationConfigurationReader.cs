@@ -97,7 +97,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 FailureProbabilityStructureWithErosion = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.FailureProbabilityStructureWithErosionElement),
                 StructureNormalOrientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
                 ForeshoreProfileId = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement),
-                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld),
+                HydraulicBoundaryLocationName = calculationElement.GetHydraulicBoundaryLocationName(),
                 StructureId = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.StructureElement),
                 WaveReduction = calculationElement.GetWaveReductionParameters(),
                 LevelCrestStructure = calculationElement.GetStochastConfiguration(HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName),
