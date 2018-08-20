@@ -58,7 +58,7 @@ namespace Ringtoets.Revetment.IO.Configurations
 
             WriteElementWhenContentAvailable(
                 writer,
-                ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld,
+                ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
                 configuration.HydraulicBoundaryLocationName);
 
             WriteConfigurationCategoryTypeWhenAvailable(writer, configuration);
