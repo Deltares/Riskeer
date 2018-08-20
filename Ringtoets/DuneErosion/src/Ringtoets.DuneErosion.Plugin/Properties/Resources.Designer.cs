@@ -82,7 +82,7 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen van de locaties is geschikt voor een hydraulische belastingen berekening..
+        ///   Looks up a localized string similar to Geen van de locaties is geschikt voor een hydraulische belastingenberekening..
         /// </summary>
         internal static string DuneErosionPlugin_CreateCalculateAllItem_No_calculatable_locations_present {
             get {
@@ -91,7 +91,7 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle hydraulische randvoorwaarden berekenen..
+        ///   Looks up a localized string similar to Alle hydraulische belastingen berekenen..
         /// </summary>
         internal static string DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_All_ToolTip {
             get {
@@ -100,22 +100,20 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MorphAn randvoorwaarden.
+        ///   Looks up a localized string similar to Hydraulische belastingen duinen.
         /// </summary>
-        internal static string DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description {
+        internal static string DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description {
             get {
-                return ResourceManager.GetString("DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Descript" +
-                        "ion", resourceCulture);
+                return ResourceManager.GetString("DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to bnd.
         /// </summary>
-        internal static string DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension {
+        internal static string DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension {
             get {
-                return ResourceManager.GetString("DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extensio" +
-                        "n", resourceCulture);
+                return ResourceManager.GetString("DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension", resourceCulture);
             }
         }
     }

@@ -187,7 +187,7 @@
     <value>Muur</value>
   </data>
   <data name="HydraulicBoundaryConditions_DisplayName" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden</value>
+    <value>Hydraulische belastingen</value>
   </data>
   <data name="N_Value_should_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor 'N' moet in het bereik {0} liggen.</value>

@@ -613,7 +613,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",
             "Het voorlandprofiel met ID 'unknown' bestaat niet.")]
         [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
-            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.")]
+            "De hydraulische belastingenlocatie 'unknown' bestaat niet.")]
         [TestCase("validConfigurationUnknownStructure.xml",
             "Het kunstwerk met ID 'unknown' bestaat niet.")]
         public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)

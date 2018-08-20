@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Service.Test
             string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
 
             // Assert
-            const string expectedMessage = "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.";
+            const string expectedMessage = "Er is geen hydraulische belastingendatabase geïmporteerd.";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Service.Test
             string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
 
             // Assert
-            const string expectedMessage = "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand 'I_do_not_exist.db': het bestand bestaat niet.";
+            const string expectedMessage = "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand 'I_do_not_exist.db': het bestand bestaat niet.";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Service.Test
             string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
 
             // Assert
-            const string expectedMessage = "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. De rekeninstellingen database heeft niet het juiste schema.";
+            const string expectedMessage = "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. De rekeninstellingen database heeft niet het juiste schema.";
             Assert.AreEqual(expectedMessage, message);
         }
 

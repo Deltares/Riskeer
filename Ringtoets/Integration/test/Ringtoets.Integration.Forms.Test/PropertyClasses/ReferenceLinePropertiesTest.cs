@@ -53,7 +53,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
             // Call
@@ -69,7 +68,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithReferenceLine_ReturnExpectedValues()
+        public void GetProperties_AssessmentSectionWithReferenceLine_ReturnExpectedValues()
         {
             // Setup
             var random = new Random(39);
@@ -96,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithReferenceLine_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_AssessmentSectionWithReferenceLine_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -133,7 +132,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ReferenceLineNull_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_AssessmentSectionWithoutReferenceLine_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var mocks = new MockRepository();

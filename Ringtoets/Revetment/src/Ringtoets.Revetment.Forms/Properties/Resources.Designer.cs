@@ -217,7 +217,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij categoriegrens voor de geselecteerde hydraulische locatie..
+        ///   Looks up a localized string similar to Waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie..
         /// </summary>
         public static string WaveConditionsInput_AssessmentLevel_Description {
             get {
@@ -334,7 +334,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bovengrens bepaald aan de hand van de waterstand bij categoriegrens voor de geselecteerde hydraulische locatie..
+        ///   Looks up a localized string similar to Bovengrens bepaald aan de hand van de waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie..
         /// </summary>
         public static string WaveConditionsInput_UpperBoundaryAssessmentLevel_Description {
             get {

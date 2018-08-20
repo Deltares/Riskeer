@@ -118,18 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description" xml:space="preserve">
-    <value>Berekende resultaten voor de hydraulische randvoorwaarden voor gras.</value>
+    <value>Berekende hydraulische belastingen voor gras.</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden voor gras</value>
+    <value>Hydraulische belastingen voor gras</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType" xml:space="preserve">
     <value>Gras</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data" xml:space="preserve">
-    <value>Als u deze parameter wijzigt, zal de uitvoer van alle randvoorwaarden locaties en berekeningen in dit toetsspoor verwijderd worden.
-
-Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm" xml:space="preserve">
     <value>h(Vv-&gt;VIv)</value>

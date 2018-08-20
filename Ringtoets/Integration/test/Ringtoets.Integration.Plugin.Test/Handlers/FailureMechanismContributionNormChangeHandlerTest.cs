@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.AreEqual("Bevestigen", title);
-            string expectedMessage = "Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische randvoorwaarden en toetssporen verwijderd."
+            string expectedMessage = "Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische belastingenlocaties en toetssporen verwijderd."
                                      + Environment.NewLine
                                      + Environment.NewLine +
                                      "Weet u zeker dat u wilt doorgaan?";
@@ -160,7 +160,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var expectedMessages = new[]
             {
                 "De resultaten van 36 berekeningen zijn verwijderd.",
-                "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd."
+                "Alle berekende hydraulische belastingen zijn verwijderd."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
 
@@ -210,7 +210,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende hydraulische belastingen zijn verwijderd.", 1);
 
             AssertHydraulicBoundaryLocationCalculationOutput(assessmentSection, false);
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(assessmentSection.DuneErosion);

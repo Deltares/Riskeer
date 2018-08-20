@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_All_ToolTip" xml:space="preserve">
-    <value>Alle hydraulische randvoorwaarden berekenen.</value>
+    <value>Alle hydraulische belastingen berekenen.</value>
   </data>
-  <data name="DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description" xml:space="preserve">
-    <value>MorphAn randvoorwaarden</value>
+  <data name="DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description" xml:space="preserve">
+    <value>Hydraulische belastingen duinen</value>
   </data>
-  <data name="DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension" xml:space="preserve">
+  <data name="DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension" xml:space="preserve">
     <value>bnd</value>
   </data>
   <data name="DuneErosionPlugin_CreateCalculateAllItem_No_calculatable_locations_present" xml:space="preserve">
-    <value>Geen van de locaties is geschikt voor een hydraulische belastingen berekening.</value>
+    <value>Geen van de locaties is geschikt voor een hydraulische belastingenberekening.</value>
   </data>
 </root>

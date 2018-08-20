@@ -166,15 +166,5 @@ namespace Ringtoets.Revetment.Service.Properties {
                 return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardenlocatie geselecteerd..
-        /// </summary>
-        public static string WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected {
-            get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selec" +
-                        "ted", resourceCulture);
-            }
-        }
     }
 }

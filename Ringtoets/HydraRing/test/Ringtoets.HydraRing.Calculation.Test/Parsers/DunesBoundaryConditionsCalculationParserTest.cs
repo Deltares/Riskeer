@@ -106,7 +106,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
-            Assert.AreEqual("Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.AreEqual("Er zijn geen berekende hydraulische belastingen voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
         }
 
         [Test]
@@ -145,7 +145,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
-            Assert.AreEqual("Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.AreEqual("Er zijn geen berekende hydraulische belastingen voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
             Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
         }
 
@@ -161,7 +161,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 
             // Assert
             var exception = Assert.Throws<HydraRingFileParserException>(test);
-            Assert.AreEqual("Er zijn geen berekende hydraulische randvoorwaarden voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
+            Assert.AreEqual("Er zijn geen berekende hydraulische belastingen voor duinen gevonden in de Hydra-Ring uitvoerdatabase.", exception.Message);
         }
 
         [Test]

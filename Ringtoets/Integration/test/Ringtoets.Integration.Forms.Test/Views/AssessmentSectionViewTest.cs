@@ -279,7 +279,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
 
                 var hrLocationsMapData = (MapPointData) mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex - 1);
-                Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
+                Assert.AreEqual("Hydraulische belastingen", hrLocationsMapData.Name);
 
                 // Call
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -293,7 +293,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual("Referentielijn", actualReferenceLineMapData.Name);
 
                 var actualHrLocationsMapData = (MapPointData) mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex - 1);
-                Assert.AreEqual("Hydraulische randvoorwaarden", actualHrLocationsMapData.Name);
+                Assert.AreEqual("Hydraulische belastingen", actualHrLocationsMapData.Name);
             }
         }
 
@@ -318,7 +318,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
 
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
-            Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
+            Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
         }
 
         /// <summary>

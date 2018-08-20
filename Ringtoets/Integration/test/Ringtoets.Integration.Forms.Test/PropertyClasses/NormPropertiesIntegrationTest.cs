@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class NormPropertiesIntegrationTest : NUnitFormTest
     {
-        private const string messageAllHydraulicBoundaryOutputCleared = "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.";
+        private const string messageAllHydraulicBoundaryOutputCleared = "Alle berekende hydraulische belastingen zijn verwijderd.";
         private const string messageCalculationsRemoved = "De resultaten van {0} berekeningen zijn verwijderd.";
         private const NormType newNormativeNorm = NormType.Signaling;
         private const double newLowerLimitNorm = 0.01;

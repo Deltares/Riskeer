@@ -82,18 +82,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u deze parameter wijzigt, zal de uitvoer van alle randvoorwaarden locaties en berekeningen in dit toetsspoor verwijderd worden.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler_Confirm_change_com" +
-                        "position_and_clear_dependent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gras.
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType {
@@ -103,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende resultaten voor de hydraulische randvoorwaarden voor gras..
+        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor gras..
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description {
             get {
@@ -113,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden voor gras.
+        ///   Looks up a localized string similar to Hydraulische belastingen voor gras.
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName {
             get {

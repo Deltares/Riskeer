@@ -139,10 +139,10 @@ Wilt u doorgaan?</value>
     <value>De resultaten van {0} berekeningen zijn verwijderd.</value>
   </data>
   <data name="FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
-    <value>Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.</value>
+    <value>Alle berekende hydraulische belastingen zijn verwijderd.</value>
   </data>
   <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_data" xml:space="preserve">
-    <value>Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische randvoorwaarden en toetssporen verwijderd.
+    <value>Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische belastingenlocaties en toetssporen verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
@@ -150,7 +150,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Achtergrondkaart</value>
   </data>
   <data name="AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
-    <value>Alle berekende hydraulische randvoorwaarden van de relevante toetssporen zijn verwijderd.</value>
+    <value>Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd.</value>
   </data>
   <data name="AssessmentSectionCompositionChangeHandler_Confirm_change_composition_and_clear_dependent_data" xml:space="preserve">
     <value>Als u het trajecttype aanpast, dan worden alle rekenresultaten van alle relevante toetssporen verwijderd.
@@ -201,7 +201,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Samenvoegen van trajectinformatie is mislukt.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Calculate_All_ToolTip" xml:space="preserve">
-    <value>Alle hydraulische randvoorwaarden berekenen.</value>
+    <value>Alle hydraulische belastingen berekenen.</value>
   </data>
   <data name="AssessmentSection_Calculate_All_ToolTip" xml:space="preserve">
     <value>Voer alle berekeningen binnen dit traject uit.</value>

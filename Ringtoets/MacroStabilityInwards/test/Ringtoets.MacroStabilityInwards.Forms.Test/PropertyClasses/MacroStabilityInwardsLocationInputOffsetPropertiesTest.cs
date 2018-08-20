@@ -130,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 phreaticLineOffsetBelowDikeTopAtRiverProperty,
                 offsetCategory,
                 "PL 1 offset onder buitenkruin [m]",
-                "Verschil tussen waterstand en de freatische lijn onder kruin buitentalud.",
+                "Verschil tussen de waterstand en de freatische lijn onder kruin buitentalud.",
                 useDefaultOffsets);
 
             PropertyDescriptor phreaticLineOffsetBelowDikeTopAtPolderProperty = dynamicProperties[expectedPhreaticLineOffsetBelowDikeTopAtPolderPropertyIndex];
@@ -138,7 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 phreaticLineOffsetBelowDikeTopAtPolderProperty,
                 offsetCategory,
                 "PL 1 offset onder binnenkruin [m]",
-                "Verschil tussen waterstand en de freatische lijn onder kruin binnentalud.",
+                "Verschil tussen de waterstand en de freatische lijn onder kruin binnentalud.",
                 useDefaultOffsets);
 
             PropertyDescriptor phreaticLineOffsetBelowShoulderBaseInsideProperty = dynamicProperties[expectedPhreaticLineOffsetBelowShoulderBaseInsidePropertyIndex];

@@ -252,8 +252,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hydraulicBoundaryLocationProperty,
                                                                             hydraulicParametersCategory,
-                                                                            "Locatie met hydraulische randvoorwaarden",
-                                                                            "De locatie met hydraulische randvoorwaarden.");
+                                                                            "Hydraulische belastingenlocatie",
+                                                                            "De hydraulische belastingenlocatie.");
 
             PropertyDescriptor categoryTypeProperty = dynamicProperties[categoryTypePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(categoryTypeProperty,
@@ -265,14 +265,14 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentLevelProperty,
                                                                             hydraulicParametersCategory,
                                                                             "Waterstand bij categoriegrens [m+NAP]",
-                                                                            "Waterstand bij categoriegrens voor de geselecteerde hydraulische locatie.",
+                                                                            "Waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie.",
                                                                             true);
 
             PropertyDescriptor upperBoundaryAssessmentLevelProperty = dynamicProperties[upperBoundaryAssessmentLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryAssessmentLevelProperty,
                                                                             hydraulicParametersCategory,
                                                                             "Bovengrens op basis van waterstand bij categoriegrens [m+NAP]",
-                                                                            "Bovengrens bepaald aan de hand van de waterstand bij categoriegrens voor de geselecteerde hydraulische locatie.",
+                                                                            "Bovengrens bepaald aan de hand van de waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie.",
                                                                             true);
 
             PropertyDescriptor upperBoundaryRevetmentProperty = dynamicProperties[upperBoundaryRevetmentPropertyIndex];

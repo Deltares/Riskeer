@@ -166,7 +166,7 @@
     <value>Stapgrootte [m]</value>
   </data>
   <data name="WaveConditionsInput_UpperBoundaryAssessmentLevel_Description" xml:space="preserve">
-    <value>Bovengrens bepaald aan de hand van de waterstand bij categoriegrens voor de geselecteerde hydraulische locatie.</value>
+    <value>Bovengrens bepaald aan de hand van de waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie.</value>
   </data>
   <data name="WaveConditionsInput_UpperBoundaryAssessmentLevel_DisplayName" xml:space="preserve">
     <value>Bovengrens op basis van waterstand bij categoriegrens [m+NAP]</value>
@@ -280,7 +280,7 @@
     <value>Waterstand bij categoriegrens [m+NAP]</value>
   </data>
   <data name="WaveConditionsInput_AssessmentLevel_Description" xml:space="preserve">
-    <value>Waterstand bij categoriegrens voor de geselecteerde hydraulische locatie.</value>
+    <value>Waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie.</value>
   </data>
   <data name="WaveConditionsInput_AssessmentLevel_DisplayName_without_unit" xml:space="preserve">
     <value>Waterstand bij categoriegrens</value>

@@ -146,16 +146,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.IsTrue(blocksProperty.IsReadOnly);
             Assert.IsInstanceOf<ExpandableArrayConverter>(blocksProperty.Converter);
             Assert.AreEqual("Resultaat", blocksProperty.Category);
-            Assert.AreEqual("Hydraulische randvoorwaarden voor blokken", blocksProperty.DisplayName);
-            Assert.AreEqual("Berekende resultaten voor de hydraulische randvoorwaarden voor blokken.", blocksProperty.Description);
+            Assert.AreEqual("Hydraulische belastingen voor blokken", blocksProperty.DisplayName);
+            Assert.AreEqual("Berekende hydraulische belastingen voor blokken.", blocksProperty.Description);
 
             PropertyDescriptor columnsProperty = dynamicProperties[requiredColumnPropertyIndex];
             Assert.IsNotNull(columnsProperty);
             Assert.IsTrue(columnsProperty.IsReadOnly);
             Assert.IsInstanceOf<ExpandableArrayConverter>(columnsProperty.Converter);
             Assert.AreEqual("Resultaat", columnsProperty.Category);
-            Assert.AreEqual("Hydraulische randvoorwaarden voor zuilen", columnsProperty.DisplayName);
-            Assert.AreEqual("Berekende resultaten voor de hydraulische randvoorwaarden voor zuilen.", columnsProperty.Description);
+            Assert.AreEqual("Hydraulische belastingen voor zuilen", columnsProperty.DisplayName);
+            Assert.AreEqual("Berekende hydraulische belastingen voor zuilen.", columnsProperty.Description);
         }
     }
 }

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CalculationService_ValidateInput_No_hydraulic_boundary_location_selected" xml:space="preserve">
-    <value>Er is geen hydraulische randvoorwaardenlocatie geselecteerd.</value>
+    <value>Er is geen hydraulische belastingenlocatie geselecteerd.</value>
   </data>
   <data name="CalculationService_ValidateInput_No_dike_profile_selected" xml:space="preserve">
     <value>Er is geen dijkprofiel geselecteerd.</value>
@@ -142,7 +142,7 @@
     <value>Waterstand berekenen voor locatie '{0}' (Categorie {1})</value>
   </data>
   <data name="Hydraulic_boundary_database_connection_failed_0_" xml:space="preserve">
-    <value>Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}</value>
+    <value>Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. {0}</value>
   </data>
   <data name="WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_Category_1_not_converged" xml:space="preserve">
     <value>Golfhoogte berekening voor locatie '{0}' (Categorie {1}) is niet geconvergeerd.</value>
@@ -186,7 +186,7 @@
 {2}</value>
   </data>
   <data name="HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported" xml:space="preserve">
-    <value>Er is geen hydraulische randvoorwaardendatabase geïmporteerd.</value>
+    <value>Er is geen hydraulische belastingendatabase geïmporteerd.</value>
   </data>
   <data name="RingtoetsCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_Range_0_" xml:space="preserve">
     <value>De norm moet in het bereik {0} liggen.</value>

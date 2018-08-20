@@ -1149,7 +1149,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verschil tussen waterstand en de freatische lijn onder kruin binnentalud..
+        ///   Looks up a localized string similar to Verschil tussen de waterstand en de freatische lijn onder kruin binnentalud..
         /// </summary>
         public static string PhreaticLineOffsetBelowDikeTopAtPolder_Description {
             get {
@@ -1167,7 +1167,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verschil tussen waterstand en de freatische lijn onder kruin buitentalud..
+        ///   Looks up a localized string similar to Verschil tussen de waterstand en de freatische lijn onder kruin buitentalud..
         /// </summary>
         public static string PhreaticLineOffsetBelowDikeTopAtRiver_Description {
             get {

@@ -189,7 +189,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                         Assert.AreEqual(3, msgs.Length);
 
                         CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                        StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
+                        StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                     });
                 double targetReliability = StatisticsConverter.ProbabilityToReliability(norm);
@@ -252,7 +252,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
                         CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                         Assert.AreEqual(failedConvergenceMessage, msgs[1]);
-                        StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                        StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                     });
             }
@@ -355,7 +355,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
                         CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                         Assert.AreEqual(errorMessage, msgs[1]);
-                        StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                        StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                     });
                 Assert.IsTrue(exceptionThrown);
@@ -420,7 +420,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
                         CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                         Assert.AreEqual(errorMessage, msgs[1]);
-                        StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                        StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                     });
                 Assert.IsTrue(exceptionThrown);
@@ -489,7 +489,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
                         CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                         Assert.AreEqual(errorMessage, msgs[1]);
-                        StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
+                        StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", msgs[2]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                     });
                 Assert.IsTrue(exceptionThrown);

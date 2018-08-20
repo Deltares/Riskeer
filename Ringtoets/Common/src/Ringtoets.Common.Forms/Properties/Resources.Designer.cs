@@ -463,7 +463,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genereer randvoorwaardenberekeningen..
+        ///   Looks up a localized string similar to Genereer belastingenberekeningen..
         /// </summary>
         public static string CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip {
             get {
@@ -490,7 +490,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren..
+        ///   Looks up a localized string similar to Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren..
         /// </summary>
         public static string CalculationGroup_No_HRD_To_Generate_ToolTip {
             get {
@@ -2141,16 +2141,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
-        /// </summary>
-        public static string HydraulicBoundaryConditions_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryConditions_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Coördinaten van de hydraulische randvoorwaardenlocatie..
+        ///   Looks up a localized string similar to Coördinaten van de hydraulische belastingenlocatie..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Coordinates_Description {
             get {
@@ -2168,7 +2159,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID van de hydraulische randvoorwaardenlocatie in de database..
+        ///   Looks up a localized string similar to ID van de hydraulische belastingenlocatie in de database..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Id_Description {
             get {
@@ -2186,7 +2177,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van de hydraulische randvoorwaardenlocatie..
+        ///   Looks up a localized string similar to Naam van de hydraulische belastingenlocatie..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Name_Description {
             get {
@@ -2204,7 +2195,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locaties uit de hydraulische randvoorwaardendatabase..
+        ///   Looks up a localized string similar to Locaties uit de hydraulische belastingendatabase..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Locations_Description {
             get {
@@ -2222,7 +2213,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden..
+        ///   Looks up a localized string similar to De hydraulische belastingenlocatie..
         /// </summary>
         public static string HydraulicBoundaryLocation_Description {
             get {
@@ -2231,7 +2222,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden waarvan de berekende waterstand wordt gebruikt..
+        ///   Looks up a localized string similar to De hydraulische belastingenlocatie waarvan de berekende waterstand wordt gebruikt..
         /// </summary>
         public static string HydraulicBoundaryLocation_Description_with_assessment_level {
             get {
@@ -2240,7 +2231,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie met hydraulische randvoorwaarden.
+        ///   Looks up a localized string similar to Hydraulische belastingenlocatie.
         /// </summary>
         public static string HydraulicBoundaryLocation_DisplayName {
             get {
@@ -2287,16 +2278,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaardenlocatie.
-        /// </summary>
-        public static string HydraulicBoundaryLocationSelectionDialog_Location_Name {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationSelectionDialog_Location_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer hydraulische randvoorwaardenlocaties.
+        ///   Looks up a localized string similar to Selecteer hydraulische belastingenlocaties.
         /// </summary>
         public static string HydraulicBoundaryLocationSelectionDialog_Select_HydraulicBoundaryLocations {
             get {

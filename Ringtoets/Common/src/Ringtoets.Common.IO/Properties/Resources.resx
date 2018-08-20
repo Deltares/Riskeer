@@ -298,7 +298,7 @@ Er is geen referentielijn geëxporteerd.</value>
     <value>De locatie parameter 'X0' bevat een ongeldig getal.</value>
   </data>
   <data name="HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported" xml:space="preserve">
-    <value>{0} Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd.</value>
+    <value>{0} Er zijn geen hydraulische belastingenlocaties geëxporteerd.</value>
   </data>
   <data name="StructuresReader_GetNextStructure_Invalid_KWKIDENT" xml:space="preserve">
     <value>Het kunstwerk heeft geen geldige waarde voor attribuut '{0}'.</value>
@@ -376,7 +376,7 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
     <value>Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
   </data>
   <data name="HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read" xml:space="preserve">
-    <value>De hydraulische randvoorwaardenlocaties zijn ingelezen.</value>
+    <value>De hydraulische belastingenlocaties zijn ingelezen.</value>
   </data>
   <data name="ProfilesImporter_AddNextProfileLocation_Location_with_id_0_outside_referenceline" xml:space="preserve">
     <value>De profiellocatie met ID '{0}' ligt niet op de referentielijn.</value>
@@ -526,7 +526,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
     <value>..\Resources\VoorlandProfielSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="CalculationConfigurationImporter_ReadHydraulicBoundaryLocation_HydraulicBoundaryLocation_0_does_not_exist" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden '{0}' bestaat niet.</value>
+    <value>De hydraulische belastingenlocatie '{0}' bestaat niet.</value>
   </data>
   <data name="CalculationConfigurationImporter_ReadStructure_Structure_0_does_not_exist" xml:space="preserve">
     <value>Het kunstwerk met ID '{0}' bestaat niet.</value>

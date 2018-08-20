@@ -478,7 +478,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to U heeft een ander hydraulische randvoorwaarden bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
+        ///   Looks up a localized string similar to U heeft een ander hydraulische belastingendatabase bestand geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
         ///    
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
@@ -637,7 +637,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Koppel aan hydraulische randvoorwaardendatabase..
+        ///   Looks up a localized string similar to Koppel aan hydraulische belastingendatabase..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Connect_ToolTip {
             get {
@@ -646,16 +646,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie van het hydraulische randvoorwaardendatabase bestand..
+        ///   Looks up a localized string similar to Locatie van het hydraulische belastingendatabase bestand..
         /// </summary>
         public static string HydraulicBoundaryDatabase_FilePath_Description {
             get {
@@ -664,7 +655,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaardendatabase.
+        ///   Looks up a localized string similar to Hydraulische belastingendatabase.
         /// </summary>
         public static string HydraulicBoundaryDatabase_FilePath_DisplayName {
             get {
@@ -859,15 +850,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string RingtoetsRibbon_AddAssessmentSection {
             get {
                 return ResourceManager.GetString("RingtoetsRibbon_AddAssessmentSection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaardendatabase.
-        /// </summary>
-        public static string SelectHydraulicBoundaryDatabaseFile_FilterName {
-            get {
-                return ResourceManager.GetString("SelectHydraulicBoundaryDatabaseFile_FilterName", resourceCulture);
             }
         }
         

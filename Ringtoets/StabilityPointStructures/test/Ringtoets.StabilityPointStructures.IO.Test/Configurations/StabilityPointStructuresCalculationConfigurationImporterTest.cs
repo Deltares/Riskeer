@@ -1152,7 +1152,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             "Het voorlandprofiel met ID 'unknown' bestaat niet.",
             TestName = "Import_UnknownData({0:80})")]
         [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
-            "De locatie met hydraulische randvoorwaarden 'unknown' bestaat niet.",
+            "De hydraulische belastingenlocatie 'unknown' bestaat niet.",
             TestName = "Import_UnknownData({0:80})")]
         [TestCase("validConfigurationUnknownStructure.xml",
             "Het kunstwerk met ID 'unknown' bestaat niet.",

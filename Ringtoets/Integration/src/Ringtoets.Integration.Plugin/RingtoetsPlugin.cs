@@ -900,7 +900,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
             {
-                Text = hydraulicBoundaryDatabase => RingtoetsFormsResources.HydraulicBoundaryDatabase_DisplayName,
+                Text = hydraulicBoundaryDatabase => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = hydraulicBoundaryDatabase => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
@@ -2097,7 +2097,7 @@ namespace Ringtoets.Integration.Plugin
         {
             using (var dialog = new OpenFileDialog
             {
-                Filter = $@"{RingtoetsFormsResources.SelectHydraulicBoundaryDatabaseFile_FilterName} (*.sqlite)|*.sqlite",
+                Filter = $@"{RingtoetsFormsResources.HydraulicBoundaryDatabase_FilePath_DisplayName} (*.sqlite)|*.sqlite",
                 Title = GuiResources.OpenFileDialog_Title
             })
             {

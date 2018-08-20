@@ -363,7 +363,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Assert.AreEqual("Vakindeling (eindpunten)", sectionEndsData.Name);
 
                 var duneLocationsData = (MapPointData) mapDataList[updatedDuneLocationsLayerIndex];
-                Assert.AreEqual("Hydraulische randvoorwaarden", duneLocationsData.Name);
+                Assert.AreEqual("Hydraulische belastingen", duneLocationsData.Name);
 
                 var points = new List<Point2D>
                 {
@@ -391,7 +391,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Assert.AreEqual("Vakindeling (eindpunten)", actualSectionEndsData.Name);
 
                 var actualDuneLocationsData = (MapPointData) mapDataList[updatedDuneLocationsLayerIndex];
-                Assert.AreEqual("Hydraulische randvoorwaarden", actualDuneLocationsData.Name);
+                Assert.AreEqual("Hydraulische belastingen", actualDuneLocationsData.Name);
             }
         }
 
@@ -419,14 +419,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual("Vakindeling", sectionsMapData.Name);
             Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
-            Assert.AreEqual("Hydraulische randvoorwaarden", duneLocationsMapData.Name);
+            Assert.AreEqual("Hydraulische belastingen", duneLocationsMapData.Name);
         }
 
         private static void AssertDuneLocationsMapData(DuneErosionFailureMechanism failureMechanism,
                                                        MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
-            Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
+            Assert.AreEqual("Hydraulische belastingen", mapData.Name);
 
             var duneLocationsMapData = (MapPointData) mapData;
             DuneErosionMapFeaturesTestHelper.AssertDuneLocationFeaturesData(failureMechanism, duneLocationsMapData.Features);

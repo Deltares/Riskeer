@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                "Er is geen hydraulische randvoorwaardenlocatie geselecteerd.",
+                "Er is geen hydraulische belastingenlocatie geselecteerd.",
                 "Er is geen profielschematisatie geselecteerd.",
                 "Er is geen ondergrondschematisatie geselecteerd."
             }, messages);

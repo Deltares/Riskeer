@@ -500,29 +500,26 @@ handmatig</value>
   <data name="FailureMechanism_N_DisplayName" xml:space="preserve">
     <value>N [-]</value>
   </data>
-  <data name="HydraulicBoundaryConditions_DisplayName" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden</value>
-  </data>
   <data name="HydraulicBoundaryDatabase_Location_Coordinates_Description" xml:space="preserve">
-    <value>Coördinaten van de hydraulische randvoorwaardenlocatie.</value>
+    <value>Coördinaten van de hydraulische belastingenlocatie.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Location_Coordinates_DisplayName" xml:space="preserve">
     <value>Coördinaten [m]</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Description" xml:space="preserve">
-    <value>Locaties uit de hydraulische randvoorwaardendatabase.</value>
+    <value>Locaties uit de hydraulische belastingendatabase.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_DisplayName" xml:space="preserve">
     <value>Locaties</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Location_Id_Description" xml:space="preserve">
-    <value>ID van de hydraulische randvoorwaardenlocatie in de database.</value>
+    <value>ID van de hydraulische belastingenlocatie in de database.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Location_Id_DisplayName" xml:space="preserve">
     <value>ID</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Location_Name_Description" xml:space="preserve">
-    <value>Naam van de hydraulische randvoorwaardenlocatie.</value>
+    <value>Naam van de hydraulische belastingenlocatie.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Location_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
@@ -603,13 +600,13 @@ handmatig</value>
     <value>Hydraulische gegevens</value>
   </data>
   <data name="HydraulicBoundaryLocation_Description" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden.</value>
+    <value>De hydraulische belastingenlocatie.</value>
   </data>
   <data name="HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
-    <value>Locatie met hydraulische randvoorwaarden</value>
+    <value>Hydraulische belastingenlocatie</value>
   </data>
   <data name="HydraulicBoundaryLocation_Description_with_assessment_level" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden waarvan de berekende waterstand wordt gebruikt.</value>
+    <value>De hydraulische belastingenlocatie waarvan de berekende waterstand wordt gebruikt.</value>
   </data>
   <data name="AssessmentLevel_Description" xml:space="preserve">
     <value>Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.</value>
@@ -656,14 +653,11 @@ handmatig</value>
   <data name="SelectionDialogBase_SelectionDialogBase_Cancel" xml:space="preserve">
     <value>Annuleren</value>
   </data>
-  <data name="HydraulicBoundaryLocationSelectionDialog_Location_Name" xml:space="preserve">
-    <value>Hydraulische randvoorwaardenlocatie</value>
-  </data>
   <data name="CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip" xml:space="preserve">
-    <value>Genereer randvoorwaardenberekeningen.</value>
+    <value>Genereer belastingenberekeningen.</value>
   </data>
   <data name="CalculationGroup_No_HRD_To_Generate_ToolTip" xml:space="preserve">
-    <value>Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.</value>
+    <value>Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren.</value>
   </data>
   <data name="DataTypeDisplayName_csv_file_filter_Description" xml:space="preserve">
     <value>Kommagescheiden bestand</value>
@@ -705,7 +699,7 @@ handmatig</value>
     <value>..\Resources\Structures.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HydraulicBoundaryLocationSelectionDialog_Select_HydraulicBoundaryLocations" xml:space="preserve">
-    <value>Selecteer hydraulische randvoorwaardenlocaties</value>
+    <value>Selecteer hydraulische belastingenlocaties</value>
   </data>
   <data name="Structure_Location_Description" xml:space="preserve">
     <value>De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.</value>

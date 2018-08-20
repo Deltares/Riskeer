@@ -123,9 +123,6 @@
   <data name="MacroStabilityInwardsCalculationService_ValidateInput_No_SurfaceLine_selected" xml:space="preserve">
     <value>Er is geen profielschematisatie geselecteerd.</value>
   </data>
-  <data name="MacroStabilityInwardsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected" xml:space="preserve">
-    <value>Er is geen hydraulische randvoorwaardenlocatie geselecteerd.</value>
-  </data>
   <data name="MacroStabilityInwardsCalculationService_ValidateInput_Cannot_determine_AssessmentLevel" xml:space="preserve">
     <value>Kan de waterstand niet afleiden op basis van de invoer.</value>
   </data>
