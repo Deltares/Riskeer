@@ -100,7 +100,8 @@ namespace Ringtoets.Integration.IO.Factories
                 ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableMacroStabilityOutwardsFailureMechanism(assessmentSection.MacroStabilityOutwards, assessmentSection),
                 ExportableMicrostabilityFailureMechanismFactory.CreateExportableMicrostabilityFailureMechanism(assessmentSection.Microstability),
                 ExportableGrassCoverSlipOffOutwardsFailureMechanismFactory.CreateExportableGrassCoverSlipOffOutwardsFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards),
-                ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableGrassCoverSlipOffInwardsFailureMechanism(assessmentSection.GrassCoverSlipOffInwards)
+                ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableGrassCoverSlipOffInwardsFailureMechanism(assessmentSection.GrassCoverSlipOffInwards),
+                ExportablePipingStructureFailureMechanismFactory.CreateExportablePipingStructureFailureMechanism(assessmentSection.PipingStructure)
             };
         }
     }
