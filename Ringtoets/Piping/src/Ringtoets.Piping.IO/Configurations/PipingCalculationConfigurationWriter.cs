@@ -65,10 +65,10 @@ namespace Ringtoets.Piping.IO.Configurations
         private static void WriteCalculationElements(XmlWriter writer, PipingCalculationConfiguration configuration)
         {
             WriteElementWhenContentAvailable(writer,
-                                             PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
+                                             PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement,
                                              configuration.AssessmentLevel);
             WriteElementWhenContentAvailable(writer,
-                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
                                              configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(writer,

@@ -2,7 +2,7 @@
 <configuratie>
   <map naam="PK001_0001">
     <berekening naam="PK001_0001 W1-6_0_1D1">
-      <hrlocatie>PUNT_KAT_18</hrlocatie>
+      <hblocatie>PUNT_KAT_18</hblocatie>
       <profielschematisatie>PK001_0001</profielschematisatie>
       <intredepunt>0</intredepunt>
       <uittredepunt>10</uittredepunt>
@@ -25,7 +25,7 @@
     </berekening>
     <map naam="PK001_0002">
       <berekening naam="PK001_0001 W1-6_0_1D1">
-        <hrlocatie>PUNT_KAT_18</hrlocatie>
+        <hblocatie>PUNT_KAT_18</hblocatie>
         <profielschematisatie>PK001_0001</profielschematisatie>
         <intredepunt>0</intredepunt>
         <uittredepunt>10</uittredepunt>
