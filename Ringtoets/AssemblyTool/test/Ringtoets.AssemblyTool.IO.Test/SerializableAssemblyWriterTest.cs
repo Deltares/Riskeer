@@ -178,28 +178,7 @@ namespace Ringtoets.AssemblyTool.IO.Test
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(WriteAssembly_ValidData_ValidFile));
-
-            var assembly = new SerializableAssembly(
-                "id",
-                new Point2D(0.0, 10.0),
-                new Point2D(10.0, 20.0),
-                new[]
-                {
-                    new SerializableAssessmentSection()
-                },
-                new[]
-                {
-                    new SerializableAssessmentProcess()
-                },
-                new[]
-                {
-                    new SerializableTotalAssemblyResult()
-                },
-                Enumerable.Empty<SerializableFailureMechanism>(),
-                Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
-                Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
-                Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
-                Enumerable.Empty<SerializableFailureMechanismSection>());
+            SerializableAssembly assembly = CreateSerializableAssembly();
 
             try
             {
