@@ -52,19 +52,25 @@ namespace Ringtoets.Integration.IO.Factories
 
             FailureMechanismAssembly failureMechanismAssembly = MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
+            IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections =
+                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSections(failureMechanism.Sections);
             Dictionary<MacroStabilityInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 failureMechanism.SectionResults
-                                .ToDictionary(sectionResult => sectionResult,
-                                              sectionResult =>
-                                                  ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(sectionResult.Section));
+                                .Zip(exportableFailureMechanismSections, (sectionResult, exportableSection) => new
+                                {
+                                    key = sectionResult,
+                                    value = exportableSection
+                                })
+                                .ToDictionary(pair => pair.key, pair => pair.value);
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                failureMechanismSectionsLookup.Values, CreateExportableFailureMechanismSectionResults(failureMechanismSectionsLookup,
-                                                                                                      failureMechanism,
-                                                                                                      assessmentSection),
+                failureMechanismSectionsLookup.Values,
+                CreateExportableFailureMechanismSectionResults(failureMechanismSectionsLookup,
+                                                               failureMechanism,
+                                                               assessmentSection),
                 failureMechanismCode,
                 failureMechanismGroup);
         }

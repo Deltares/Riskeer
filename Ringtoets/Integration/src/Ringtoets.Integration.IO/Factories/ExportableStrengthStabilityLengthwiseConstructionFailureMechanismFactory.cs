@@ -46,10 +46,16 @@ namespace Ringtoets.Integration.IO.Factories
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
+            IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections =
+                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSections(failureMechanism.Sections);
             Dictionary<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 failureMechanism.SectionResults
-                                .ToDictionary(sectionResult => sectionResult,
-                                              sectionResult => ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSection(sectionResult.Section));
+                                .Zip(exportableFailureMechanismSections, (sectionResult, exportableSection) => new
+                                {
+                                    key = sectionResult,
+                                    value = exportableSection
+                                })
+                                .ToDictionary(pair => pair.key, pair => pair.value);
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,

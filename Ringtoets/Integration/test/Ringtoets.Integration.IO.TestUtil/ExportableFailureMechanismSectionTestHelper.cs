@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.IO.Assembly;
@@ -28,21 +29,21 @@ namespace Ringtoets.Integration.IO.TestUtil
         {
             int expectedNrOfSections = expectedSections.Count();
             Assert.AreEqual(expectedNrOfSections, actualSections.Count());
+
+            double expectedStartDistance = 0;
             for (var i = 0; i < expectedNrOfSections; i++)
             {
                 FailureMechanismSection expectedSection = expectedSections.ElementAt(i);
                 ExportableFailureMechanismSection actualSection = actualSections.ElementAt(i);
 
-                AssertExportableFailureMechanismSection(expectedSection, actualSection);
-            }
-        }
+                double expectedEndDistance = expectedStartDistance + Math2D.Length(expectedSection.Points);
 
-        private static void AssertExportableFailureMechanismSection(FailureMechanismSection expectedSection,
-                                                                    ExportableFailureMechanismSection actualSection)
-        {
-            Assert.IsNaN(actualSection.StartDistance);
-            Assert.IsNaN(actualSection.EndDistance);
-            CollectionAssert.AreEqual(expectedSection.Points, actualSection.Geometry);
+                Assert.AreEqual(expectedStartDistance, actualSection.StartDistance);
+                Assert.AreEqual(expectedEndDistance, actualSection.EndDistance);
+                CollectionAssert.AreEqual(expectedSection.Points, actualSection.Geometry);
+
+                expectedStartDistance = expectedEndDistance;
+            }
         }
     }
 }
