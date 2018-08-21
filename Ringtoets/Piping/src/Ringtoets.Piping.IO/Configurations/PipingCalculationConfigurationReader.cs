@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.IO.Configurations
             return new PipingCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
                 AssessmentLevel = GetWaterLevel(calculationElement),
-                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld),
+                HydraulicBoundaryLocationName = calculationElement.GetHydraulicBoundaryLocationName(),
                 SurfaceLineName = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
                 EntryPointL = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.EntryPointLElement),
                 ExitPointL = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.ExitPointLElement),

@@ -315,14 +315,14 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnPipingCalculation(HydraulicBoundaryLocation)")]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnPipingCalculation(HydraulicBoundaryLocation_differentOrder)")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationOld")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationNew")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_old")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_new")]
         public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, fileName);
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -333,7 +333,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.AssessmentLevel);
-            Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual("HBlocatie", calculation.HydraulicBoundaryLocationName);
             Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
             Assert.AreEqual(2.2, calculation.EntryPointL);
             Assert.AreEqual(3.3, calculation.ExitPointL);
