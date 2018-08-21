@@ -102,7 +102,8 @@ namespace Ringtoets.Integration.IO.Factories
                 ExportableGrassCoverSlipOffOutwardsFailureMechanismFactory.CreateExportableGrassCoverSlipOffOutwardsFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards),
                 ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableGrassCoverSlipOffInwardsFailureMechanism(assessmentSection.GrassCoverSlipOffInwards),
                 ExportablePipingStructureFailureMechanismFactory.CreateExportablePipingStructureFailureMechanism(assessmentSection.PipingStructure),
-                ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableWaterPressureAsphaltCoverFailureMechanism(assessmentSection.WaterPressureAsphaltCover)
+                ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableWaterPressureAsphaltCoverFailureMechanism(assessmentSection.WaterPressureAsphaltCover),
+                ExportableStrengthStabilityLengthwiseConstructionFailureMechanismFactory.CreateExportableStrengthStabilityLengthwiseConstructionFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction)
             };
         }
     }
