@@ -25,9 +25,9 @@ namespace Ringtoets.Integration.IO.Factories
         /// <param name="failureMechanism">The <see cref="StabilityStoneCoverFailureMechanism"/> to create a
         /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> for.</param>
         /// <returns>A <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with assembly results.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
-        public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateExportableStabilityStoneCoverFailureMechanism(
+        public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateExportableFailureMechanism(
             StabilityStoneCoverFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
@@ -58,12 +58,12 @@ namespace Ringtoets.Integration.IO.Factories
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>
+        /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>
         /// with assembly results based on the sections in <paramref name="failureMechanismSections"/>.
         /// </summary>
         /// <param name="failureMechanismSections">The mapping between the <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>
         /// and <see cref="ExportableFailureMechanismSection"/>.</param>
-        /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
+        /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResult> CreateFailureMechanismSectionResults(
             Dictionary<StabilityStoneCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections)
