@@ -2,8 +2,8 @@
 <configuratie>
   <map naam="PK001_0001">
     <berekening naam="PK001_0001 W1-6_0_1D1">
-      <toetspeil>10</toetspeil>
-      <hrlocatie>PUNT_KAT_18</hrlocatie>
+      <waterstand>10</waterstand>
+      <hblocatie>PUNT_KAT_18</hblocatie>
       <profielschematisatie>PK001_0001</profielschematisatie>
       <ondergrondmodel>PK001_0001_Macrostabiliteit</ondergrondmodel>
       <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
