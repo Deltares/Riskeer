@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
@@ -40,8 +41,7 @@ namespace Ringtoets.Integration.IO.Factories
                                                    CreateExportableFailureMechanismAssemblyResultWithoutProbability(assessmentSection),
                                                    CreateExportableFailureMechanismsWithProbability(assessmentSection),
                                                    CreateExportableFailureMechanismsWithoutProbability(assessmentSection),
-                                                   new ExportableCombinedSectionAssemblyCollection(Enumerable.Empty<ExportableCombinedFailureMechanismSection>(),
-                                                                                                   Enumerable.Empty<ExportableCombinedSectionAssembly>()));
+                                                   CreateExportableCombinedSectionAssemblyCollection(assessmentSection));
         }
 
         /// <summary>
@@ -141,6 +141,64 @@ namespace Ringtoets.Integration.IO.Factories
                 ExportableStrengthStabilityLengthwiseConstructionFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction),
                 ExportableTechnicalInnovationFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.TechnicalInnovation)
             };
+        }
+
+        private static ExportableCombinedSectionAssemblyCollection CreateExportableCombinedSectionAssemblyCollection(AssessmentSection assessmentSection)
+        {
+            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
+
+            var sections = new List<ExportableCombinedFailureMechanismSection>();
+            var sectionResult = new List<ExportableCombinedSectionAssembly>();
+
+            foreach (CombinedFailureMechanismSectionAssemblyResult assemblyResult in assemblyResults)
+            {
+                var exportableSection = new ExportableCombinedFailureMechanismSection(Enumerable.Empty<Point2D>(),
+                                                                                      assemblyResult.SectionStart,
+                                                                                      assemblyResult.SectionEnd,
+                                                                                      ExportableAssemblyMethod.WBI3A1);
+
+                var exportableSectionResult = new ExportableCombinedSectionAssembly(exportableSection,
+                                                                                    new ExportableSectionAssemblyResult(ExportableAssemblyMethod.WBI3C1, assemblyResult.TotalResult),
+                                                                                    CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult));
+
+                sections.Add(exportableSection);
+                sectionResult.Add(exportableSectionResult);
+            }
+
+            return new ExportableCombinedSectionAssemblyCollection(sections, sectionResult);
+        }
+
+        private static IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> CreateFailureMechanismCombinedSectionAssemblyResults(CombinedFailureMechanismSectionAssemblyResult assemblyResult)
+        {
+            return new []
+            {
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.Piping, ExportableFailureMechanismType.STPH),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.GrassCoverErosionInwards, ExportableFailureMechanismType.GEKB),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.MacroStabilityInwards, ExportableFailureMechanismType.STBI),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.MacroStabilityOutwards, ExportableFailureMechanismType.STBU),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.Microstability, ExportableFailureMechanismType.STMI),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.StabilityStoneCover, ExportableFailureMechanismType.ZST),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.WaveImpactAsphaltCover, ExportableFailureMechanismType.AGK),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.WaterPressureAsphaltCover, ExportableFailureMechanismType.AWO),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.GrassCoverErosionOutwards, ExportableFailureMechanismType.GEBU),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.GrassCoverSlipOffOutwards, ExportableFailureMechanismType.GABU),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.GrassCoverSlipOffInwards, ExportableFailureMechanismType.GABI),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.HeightStructures, ExportableFailureMechanismType.HTKW),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.ClosingStructures, ExportableFailureMechanismType.BSKW),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.PipingStructure, ExportableFailureMechanismType.PKW),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.StabilityPointStructures, ExportableFailureMechanismType.STKWp),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.StrengthStabilityLengthwiseConstruction, ExportableFailureMechanismType.STKWl),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.DuneErosion, ExportableFailureMechanismType.DA),
+                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.TechnicalInnovation, ExportableFailureMechanismType.INN)
+            };
+        }
+
+        private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateExportableFailureMechanismCombinedSectionAssemblyResult(FailureMechanismSectionAssemblyCategoryGroup sectionAssemblyResult,
+                                                                                                                                             ExportableFailureMechanismType failureMechanismCode)
+        {
+            return new ExportableFailureMechanismCombinedSectionAssemblyResult(new ExportableSectionAssemblyResult(ExportableAssemblyMethod.WBI3B1,
+                                                                                                                   sectionAssemblyResult),
+                                                                               failureMechanismCode);
         }
     }
 }
