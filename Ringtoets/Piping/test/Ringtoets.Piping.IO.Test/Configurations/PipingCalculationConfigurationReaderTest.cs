@@ -256,10 +256,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadPipingCalculation()
+        [TestCase("validConfigurationCalculationContainingAssessmentLevelAndNaNs")]
+        [TestCase("validConfigurationCalculationContainingWaterLevelAndNaNs")]
+        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingNaNs.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -279,10 +281,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadPipingCalculation()
+        [TestCase("validConfigurationCalculationContainingAssessmentLevelAndInfinities")]
+        [TestCase("validConfigurationCalculationContainingWaterLevelAndInfinities")]
+        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingInfinities.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -344,14 +348,14 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnPipingCalculation(AssessmentLevel)")]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnPipingCalculation(AssessmentLevel_differentOrder)")]
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel")]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel")]
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder")]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel_differentOrder")]
         public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, fileName);
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -390,7 +394,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.AreEqual("Calculation", calculation.Name);
-            Assert.AreEqual(1.1, calculation.AssessmentLevel);
+            Assert.IsNull(calculation.AssessmentLevel);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.SurfaceLineName);
             Assert.IsNull(calculation.EntryPointL);
