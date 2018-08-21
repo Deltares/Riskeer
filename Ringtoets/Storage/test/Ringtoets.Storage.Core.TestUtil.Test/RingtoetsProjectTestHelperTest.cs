@@ -514,9 +514,9 @@ namespace Ringtoets.Storage.Core.TestUtil.Test
             Assert.AreEqual(5293.8, hydraulicBoundaryLocationWithIllustrationPoints.Location.Y);
         }
 
-        private static void AssertFailureMechanismSections(AssessmentSection asssessmentSection)
+        private static void AssertFailureMechanismSections(AssessmentSection assessmentSection)
         {
-            foreach (IFailureMechanism failureMechanism in asssessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 Assert.IsNotEmpty(failureMechanism.FailureMechanismSectionSourcePath);
                 Assert.IsNotEmpty(failureMechanism.Sections);

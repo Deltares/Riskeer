@@ -395,7 +395,7 @@ namespace Ringtoets.DuneErosion.Plugin
         {
             var calculateAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
-                Resources.DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -436,7 +436,7 @@ namespace Ringtoets.DuneErosion.Plugin
         {
             var calculateAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
-                Resources.DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {

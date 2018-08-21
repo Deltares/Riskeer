@@ -513,7 +513,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
             string waveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
                                                                                             ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
-                                                                                            : RingtoetsCommonFormsResources.CalculationGroup_No_HRD_To_Generate_ToolTip;
+                                                                                            : RingtoetsCommonFormsResources.CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                              waveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip,

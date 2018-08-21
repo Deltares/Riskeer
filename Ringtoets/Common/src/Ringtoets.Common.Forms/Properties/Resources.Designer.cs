@@ -492,9 +492,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren..
         /// </summary>
-        public static string CalculationGroup_No_HRD_To_Generate_ToolTip {
+        public static string CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip {
             get {
-                return ResourceManager.GetString("CalculationGroup_No_HRD_To_Generate_ToolTip", resourceCulture);
+                return ResourceManager.GetString("CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip", resourceCulture);
             }
         }
         
@@ -2292,6 +2292,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string HydraulicBoundaryLocationsExporter_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryLocationsExporter_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle hydraulische belastingen berekenen..
+        /// </summary>
+        public static string HydraulicLoads_Calculate_All_ToolTip {
+            get {
+                return ResourceManager.GetString("HydraulicLoads_Calculate_All_ToolTip", resourceCulture);
             }
         }
         

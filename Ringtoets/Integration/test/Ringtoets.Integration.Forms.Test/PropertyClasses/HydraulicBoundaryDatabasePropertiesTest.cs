@@ -140,27 +140,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_HydraulicBoundaryDatabaseNotLinked_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            // Call
-            var properties = new HydraulicBoundaryDatabaseProperties(hydraulicBoundaryDatabase);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(1, dynamicProperties.Count);
-
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            "Algemeen",
-                                                                            "Hydraulische belastingendatabase",
-                                                                            "Locatie van het hydraulische belastingendatabase bestand.",
-                                                                            true);
-        }
-
-        [Test]
         public void UsePreprocessor_SetNewValue_ValueSetToHydraulicBoundaryDatabaseAndObserversNotified([Values(true, false)] bool usePreprocessor)
         {
             // Setup

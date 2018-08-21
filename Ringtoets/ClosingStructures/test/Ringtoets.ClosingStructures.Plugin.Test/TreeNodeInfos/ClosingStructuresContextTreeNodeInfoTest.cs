@@ -124,7 +124,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var asssessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -136,7 +136,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsNotEmpty(failureMechanism.ClosingStructures);
 
-            var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, asssessmentSection);
+            var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
 
             // Call
             Color color = info.ForeColor(closingStructuresContext);
@@ -180,7 +180,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var asssessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -188,7 +188,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.ClosingStructures);
 
-            var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, asssessmentSection);
+            var closingStructuresContext = new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection);
 
             // Call
             Color color = info.ForeColor(closingStructuresContext);

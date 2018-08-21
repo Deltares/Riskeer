@@ -656,7 +656,7 @@ handmatig</value>
   <data name="CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip" xml:space="preserve">
     <value>Genereer belastingenberekeningen.</value>
   </data>
-  <data name="CalculationGroup_No_HRD_To_Generate_ToolTip" xml:space="preserve">
+  <data name="CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip" xml:space="preserve">
     <value>Er is geen hydraulische belastingendatabase beschikbaar om de belastingenberekeningen te genereren.</value>
   </data>
   <data name="DataTypeDisplayName_csv_file_filter_Description" xml:space="preserve">
@@ -1463,5 +1463,8 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   </data>
   <data name="WaveHeightCalculations_DisplayName" xml:space="preserve">
     <value>Golfhoogten</value>
+  </data>
+  <data name="HydraulicLoads_Calculate_All_ToolTip" xml:space="preserve">
+    <value>Alle hydraulische belastingen berekenen.</value>
   </data>
 </root>
