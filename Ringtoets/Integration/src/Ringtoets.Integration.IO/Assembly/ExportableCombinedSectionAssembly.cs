@@ -12,11 +12,11 @@ namespace Ringtoets.Integration.IO.Assembly
         /// Creates a new instance of <see cref="ExportableCombinedSectionAssembly"/>.
         /// </summary>
         /// <param name="section">The section that belongs to the assembly result.</param>
-        /// <param name="combinedAssemblyResult">The combined assembly result of this section.</param>
+        /// <param name="combinedSectionAssemblyResult">The combined assembly result of this section.</param>
         /// <param name="failureMechanismResults">The assembly results per failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ExportableCombinedSectionAssembly(ExportableCombinedFailureMechanismSection section,
-                                                 ExportableFailureMechanismAssemblyResult combinedAssemblyResult,
+                                                 ExportableSectionAssemblyResult combinedSectionAssemblyResult,
                                                  IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults)
         {
             if (section == null)
@@ -24,9 +24,9 @@ namespace Ringtoets.Integration.IO.Assembly
                 throw new ArgumentNullException(nameof(section));
             }
 
-            if (combinedAssemblyResult == null)
+            if (combinedSectionAssemblyResult == null)
             {
-                throw new ArgumentNullException(nameof(combinedAssemblyResult));
+                throw new ArgumentNullException(nameof(combinedSectionAssemblyResult));
             }
 
             if (failureMechanismResults == null)
@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.IO.Assembly
             }
 
             Section = section;
-            CombinedAssemblyResult = combinedAssemblyResult;
+            CombinedSectionAssemblyResult = combinedSectionAssemblyResult;
             FailureMechanismResults = failureMechanismResults;
         }
 
@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <summary>
         /// Gets the assembly result of this section.
         /// </summary>
-        public ExportableFailureMechanismAssemblyResult CombinedAssemblyResult { get; }
+        public ExportableSectionAssemblyResult CombinedSectionAssemblyResult { get; }
 
         /// <summary>
         /// Gets the assembly results per failure mechanism.

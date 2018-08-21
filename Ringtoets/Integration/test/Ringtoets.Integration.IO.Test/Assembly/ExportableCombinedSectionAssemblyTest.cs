@@ -4,8 +4,8 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Assembly
 {
@@ -16,7 +16,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            ExportableFailureMechanismAssemblyResult combinedAssemblyResult = CreateFailureMechanismAssemblyResult();
+            ExportableSectionAssemblyResult combinedAssemblyResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults = Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
 
             // Call
@@ -28,7 +28,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         }
 
         [Test]
-        public void Constructor_CombinedAssemblyResultNull_ThrowsArgumentNullException()
+        public void Constructor_CombinedSectionAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("combinedAssemblyResult", exception.ParamName);
+            Assert.AreEqual("combinedSectionAssemblyResult", exception.ParamName);
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextEnumValue<ExportableAssemblyMethod>());
-            ExportableFailureMechanismAssemblyResult combinedAssemblyResult = CreateFailureMechanismAssemblyResult();
+            ExportableSectionAssemblyResult combinedAssemblyResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
 
             // Call
             TestDelegate call = () => new ExportableCombinedSectionAssembly(section, combinedAssemblyResult, null);
@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextEnumValue<ExportableAssemblyMethod>());
-            ExportableFailureMechanismAssemblyResult combinedAssemblyResult = CreateFailureMechanismAssemblyResult();
+            ExportableSectionAssemblyResult combinedAssemblyResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults = Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
 
             // Call
@@ -82,15 +82,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
 
             // Assert
             Assert.AreSame(section, result.Section);
-            Assert.AreSame(combinedAssemblyResult, result.CombinedAssemblyResult);
+            Assert.AreSame(combinedAssemblyResult, result.CombinedSectionAssemblyResult);
             Assert.AreSame(failureMechanismResults, result.FailureMechanismResults);
-        }
-
-        private static ExportableFailureMechanismAssemblyResult CreateFailureMechanismAssemblyResult()
-        {
-            var random = new Random(21);
-            return new ExportableFailureMechanismAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
         }
     }
 }
