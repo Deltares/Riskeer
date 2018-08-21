@@ -57,6 +57,7 @@
     <Compile Include="Factories\ExportableStabilityPointStructuresFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableStabilityStoneCoverFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableStrengthStabilityLengthwiseConstructionFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableTechnicalInnovationFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableWaterPressureAsphaltCoverFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableWaveImpactAsphaltCoverFailureMechanismFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
