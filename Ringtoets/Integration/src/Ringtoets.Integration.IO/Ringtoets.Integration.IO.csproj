@@ -54,6 +54,7 @@
     <Compile Include="Factories\ExportableSectionAssemblyResultFactory.cs" />
     <Compile Include="Factories\ExportableStabilityPointStructuresFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableStabilityStoneCoverFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableWaterPressureAsphaltCoverFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableWaveImpactAsphaltCoverFailureMechanismFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
