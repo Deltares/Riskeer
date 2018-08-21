@@ -20,7 +20,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
     public class ExportableStabilityPointStructuresFailureMechanismFactoryTest
     {
         [Test]
-        public void CreateExportableStabilityPointStructuresFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        public void CreateExportableFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -29,8 +29,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             TestDelegate call = () =>
-                ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableStabilityPointStructuresFailureMechanism(null,
-                                                                                                                                   assessmentSection);
+                ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableFailureMechanism(null,
+                                                                                                           assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -40,12 +40,12 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableStabilityPointStructuresFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void CreateExportableFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () =>
-                ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableStabilityPointStructuresFailureMechanism(new StabilityPointStructuresFailureMechanism(),
-                                                                                                                                   null);
+                ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableFailureMechanism(new StabilityPointStructuresFailureMechanism(),
+                                                                                                           null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableStabilityPointStructuresFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
-                ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableStabilityPointStructuresFailureMechanism(failureMechanism, assessmentSection);
+                ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(ExportableFailureMechanismType.STKWp, exportableFailureMechanism.Code);
@@ -83,7 +83,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableStabilityPointStructuresFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
                 // Call
                 ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
-                    ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableStabilityPointStructuresFailureMechanism(failureMechanism, assessmentSection);
+                    ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreEqual(ExportableFailureMechanismType.STKWp, exportableFailureMechanism.Code);

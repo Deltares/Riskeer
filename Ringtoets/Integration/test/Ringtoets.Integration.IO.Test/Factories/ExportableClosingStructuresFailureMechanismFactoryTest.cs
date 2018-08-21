@@ -20,7 +20,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
     public class ExportableClosingStructuresFailureMechanismFactoryTest
     {
         [Test]
-        public void CreateExportableClosingStructuresFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        public void CreateExportableFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -29,8 +29,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             TestDelegate call = () =>
-                ExportableClosingStructuresFailureMechanismFactory.CreateExportableClosingStructuresFailureMechanism(null,
-                                                                                                                     assessmentSection);
+                ExportableClosingStructuresFailureMechanismFactory.CreateExportableFailureMechanism(null,
+                                                                                                    assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -40,12 +40,12 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableClosingStructuresFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void CreateExportableFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () =>
-                ExportableClosingStructuresFailureMechanismFactory.CreateExportableClosingStructuresFailureMechanism(new ClosingStructuresFailureMechanism(),
-                                                                                                                     null);
+                ExportableClosingStructuresFailureMechanismFactory.CreateExportableFailureMechanism(new ClosingStructuresFailureMechanism(),
+                                                                                                    null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableClosingStructuresFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
-                ExportableClosingStructuresFailureMechanismFactory.CreateExportableClosingStructuresFailureMechanism(failureMechanism, assessmentSection);
+                ExportableClosingStructuresFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(ExportableFailureMechanismType.BSKW, exportableFailureMechanism.Code);
@@ -83,7 +83,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableClosingStructuresFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
                 // Call
                 ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
-                    ExportableClosingStructuresFailureMechanismFactory.CreateExportableClosingStructuresFailureMechanism(failureMechanism, assessmentSection);
+                    ExportableClosingStructuresFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreEqual(ExportableFailureMechanismType.BSKW, exportableFailureMechanism.Code);

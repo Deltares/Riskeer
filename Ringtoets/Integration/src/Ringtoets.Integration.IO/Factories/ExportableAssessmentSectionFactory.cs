@@ -70,12 +70,12 @@ namespace Ringtoets.Integration.IO.Factories
         {
             return new[]
             {
-                ExportablePipingFailureMechanismFactory.CreateExportablePipingFailureMechanism(assessmentSection.Piping, assessmentSection),
-                ExportableMacroStabilityInwardsFailureMechanismFactory.CreateExportableMacroStabilityInwardsFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection),
-                ExportableGrassCoverErosionInwardsFailureMechanismFactory.CreateExportableGrassCoverErosionInwardsFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection),
-                ExportableHeightStructuresFailureMechanismFactory.CreateExportableHeightStructuresFailureMechanism(assessmentSection.HeightStructures, assessmentSection),
-                ExportableClosingStructuresFailureMechanismFactory.CreateExportableClosingStructuresFailureMechanism(assessmentSection.ClosingStructures, assessmentSection),
-                ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableStabilityPointStructuresFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection)
+                ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.Piping, assessmentSection),
+                ExportableMacroStabilityInwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection),
+                ExportableGrassCoverErosionInwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection),
+                ExportableHeightStructuresFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.HeightStructures, assessmentSection),
+                ExportableClosingStructuresFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.ClosingStructures, assessmentSection),
+                ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection)
             };
         }
 

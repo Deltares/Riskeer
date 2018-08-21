@@ -20,7 +20,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
     public class ExportablePipingFailureMechanismFactoryTest
     {
         [Test]
-        public void CreateExportablePipingFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        public void CreateExportableFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -28,7 +28,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ExportablePipingFailureMechanismFactory.CreateExportablePipingFailureMechanism(null,
+            TestDelegate call = () => ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(null,
                                                                                                                      assessmentSection);
 
             // Assert
@@ -39,10 +39,10 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportablePipingFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void CreateExportableFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportablePipingFailureMechanismFactory.CreateExportablePipingFailureMechanism(new PipingFailureMechanism(),
+            TestDelegate call = () => ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(new PipingFailureMechanism(),
                                                                                                                      null);
 
             // Assert
@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportablePipingFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
-                ExportablePipingFailureMechanismFactory.CreateExportablePipingFailureMechanism(failureMechanism, assessmentSection);
+                ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(ExportableFailureMechanismType.STPH, exportableFailureMechanism.Code);
@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportablePipingFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
                 // Call
                 ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
-                    ExportablePipingFailureMechanismFactory.CreateExportablePipingFailureMechanism(failureMechanism, assessmentSection);
+                    ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreEqual(ExportableFailureMechanismType.STPH, exportableFailureMechanism.Code);
