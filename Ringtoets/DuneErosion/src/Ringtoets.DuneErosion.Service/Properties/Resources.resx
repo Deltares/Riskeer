@@ -131,7 +131,7 @@
     <value>Hydraulische belastingenberekening voor locatie '{0}' (Categorie {1}) is niet geconvergeerd.</value>
   </data>
   <data name="DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format" xml:space="preserve">
-    <value>Locatie '{0}' moet voldoen aan het formaat 'Naam_Vaknummer_Metrering'. Deze locatie is niet toegevoegd aan de hydraulische belastingen voor toetsspoor duinen.</value>
+    <value>Locatie '{0}' moet voldoen aan het formaat 'Naam_Vaknummer_Metrering'. Deze locatie is niet toegevoegd aan de hydraulische belastingen voor het toetsspoor duinen.</value>
   </data>
   <data name="DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_Category_1" xml:space="preserve">
     <value>Hydraulische belastingen berekenen voor locatie '{0}' (Categorie {1})</value>

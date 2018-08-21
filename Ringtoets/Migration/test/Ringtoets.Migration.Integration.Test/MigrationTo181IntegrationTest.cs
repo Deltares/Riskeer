@@ -170,7 +170,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "SELECT " +
                 "CASE WHEN (NEW.[IdenticalApertures] != OLD.[IdenticalApertures] " +
                 "AND OLD.[IdenticalApertures] >= 1)  " +
-                "OR (NEW.[IdenticalApertures] != 1 AND OLD.[IdenticalApertures] = 0) " +
+                "OR (NEW.[IdenticalApertures] != 1 AND OLD.[IdenticalApertures] < 1) " +
                 "THEN 1 " +
                 "ELSE 0 " +
                 "END AS [IsInvalid] " +
@@ -227,7 +227,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "SELECT " +
                 "CASE WHEN (NEW.[IdenticalApertures] != OLD.[IdenticalApertures] " +
                 "AND OLD.[IdenticalApertures] >= 1)  " +
-                "OR (NEW.[IdenticalApertures] != 1 AND OLD.[IdenticalApertures] = 0) " +
+                "OR (NEW.[IdenticalApertures] != 1 AND OLD.[IdenticalApertures] < 1) " +
                 "THEN 1 " +
                 "ELSE 0 " +
                 "END AS [IsInvalid] " +
@@ -512,7 +512,7 @@ namespace Ringtoets.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(70, messages.Count);
+                Assert.AreEqual(72, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "Gevolgen van de migratie van versie 17.3 naar versie 18.1:"),
@@ -739,6 +739,12 @@ namespace Ringtoets.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - De waarde van '-11' van parameter 'Aantal identieke doorstroomopeningen' van berekening 'Invalid Identical Apertures - Negative Value' is ongeldig en is veranderd naar 1."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - De waarde van '-11' van parameter 'Aantal identieke doorstroomopeningen' van kunstwerk 'Gemaal Leemans (Negatieve doorstroomopeningen)' is ongeldig en is veranderd naar 1."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - De waarde van '0' van parameter 'Aantal identieke doorstroomopeningen' van berekening 'Invalid Identical Apertures' is ongeldig en is veranderd naar 1."),

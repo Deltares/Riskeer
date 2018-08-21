@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var asssessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -113,7 +113,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsEmpty(failureMechanism.DikeProfiles);
 
-            var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, asssessmentSection);
+            var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
             // Call
             Color color = info.ForeColor(context);
@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var asssessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -140,7 +140,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsNotEmpty(failureMechanism.DikeProfiles);
 
-            var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, asssessmentSection);
+            var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);
 
             // Call
             Color color = info.ForeColor(context);

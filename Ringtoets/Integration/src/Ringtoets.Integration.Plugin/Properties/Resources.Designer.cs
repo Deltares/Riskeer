@@ -303,15 +303,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle hydraulische belastingen berekenen..
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Calculate_All_ToolTip {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Calculate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist.
         ///
         ///Wilt u doorgaan?.

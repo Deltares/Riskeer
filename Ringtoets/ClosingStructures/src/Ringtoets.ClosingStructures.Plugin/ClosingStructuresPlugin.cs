@@ -432,6 +432,8 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
                           .Build();
         }
 

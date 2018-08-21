@@ -126,7 +126,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var asssessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -139,7 +139,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             CollectionAssert.IsNotEmpty(failureMechanism.HeightStructures);
 
             var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures,
-                                                                      failureMechanism, asssessmentSection);
+                                                                      failureMechanism, assessmentSection);
 
             // Call
             Color color = info.ForeColor(heightStructuresContext);
@@ -180,7 +180,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var asssessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -189,7 +189,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
 
             var heightStructuresContext = new HeightStructuresContext(failureMechanism.HeightStructures,
-                                                                      failureMechanism, asssessmentSection);
+                                                                      failureMechanism, assessmentSection);
 
             // Call
             Color color = info.ForeColor(heightStructuresContext);

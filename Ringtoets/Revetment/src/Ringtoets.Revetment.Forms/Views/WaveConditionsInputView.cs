@@ -31,7 +31,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Factories;
-using Ringtoets.Revetment.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Revetment.Forms.Views

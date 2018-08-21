@@ -1604,6 +1604,8 @@ namespace Ringtoets.Integration.Plugin
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
                           .Build();
         }
 
@@ -2068,7 +2070,7 @@ namespace Ringtoets.Integration.Plugin
 
             var calculateAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
-                Resources.HydraulicBoundaryDatabase_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {

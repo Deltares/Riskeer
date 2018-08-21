@@ -657,6 +657,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
                           .Build();
         }
 

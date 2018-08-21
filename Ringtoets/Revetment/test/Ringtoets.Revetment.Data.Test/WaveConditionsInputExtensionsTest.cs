@@ -47,7 +47,7 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(1.0, 10.0, double.NaN)]
         public void GetWaterLevels_InvalidWaveConditionsInput_ReturnsEmptyEnumerable(double lowerBoundaryRevetments,
                                                                                      double upperBoundaryRevetments,
-                                                                                     double assesmentLevel)
+                                                                                     double assessmentLevel)
         {
             // Setup
             var waveConditionsInput = new TestWaveConditionsInput
@@ -60,7 +60,7 @@ namespace Ringtoets.Revetment.Data.Test
             };
 
             // Call
-            IEnumerable<RoundedDouble> waterLevels = waveConditionsInput.GetWaterLevels((RoundedDouble) assesmentLevel);
+            IEnumerable<RoundedDouble> waterLevels = waveConditionsInput.GetWaterLevels((RoundedDouble) assessmentLevel);
 
             // Assert
             CollectionAssert.IsEmpty(waterLevels);

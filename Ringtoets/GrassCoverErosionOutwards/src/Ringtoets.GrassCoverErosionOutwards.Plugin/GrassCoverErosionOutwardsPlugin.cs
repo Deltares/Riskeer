@@ -560,6 +560,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
                           .Build();
         }
 
@@ -781,7 +783,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             string grassCoverErosionOutwardsWaveConditionsCalculationGroupContextToolTip = locationsAvailable
                                                                                                ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
-                                                                                               : RingtoetsCommonFormsResources.CalculationGroup_No_HRD_To_Generate_ToolTip;
+                                                                                               : RingtoetsCommonFormsResources.CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                              grassCoverErosionOutwardsWaveConditionsCalculationGroupContextToolTip,

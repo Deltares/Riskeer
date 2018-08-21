@@ -590,6 +590,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.Build()).Return(null);
                 }
 
