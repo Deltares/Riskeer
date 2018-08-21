@@ -70,7 +70,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
 
             Id = id;
             Name = name;
-            SurfaceLineLength = new SerializableMeasure("m", Math2D.Length(geometry));
+            SurfaceLineLength = new SerializableMeasure(Math2D.Length(geometry));
             SurfaceLineGeometry = new SerializableLine(geometry);
         }
 

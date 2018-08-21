@@ -40,7 +40,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
             var measure = new SerializableMeasure();
 
             // Assert
-            Assert.IsNull(measure.UnitOfMeasure);
+            Assert.AreEqual("m", measure.UnitOfMeasure);
             Assert.IsNaN(measure.Value);
 
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableMeasure>(
@@ -52,28 +52,16 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
         }
 
         [Test]
-        public void Constructor_UnitOfMeasureNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new SerializableMeasure(null, new Random(39).NextDouble());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("unitOfMeasure", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_WithValidData_ReturnsExpectedValues()
         {
             // Setup
-            const string unit = "absolute";
             double value = new Random(39).NextDouble();
 
             // Call
-            var measure = new SerializableMeasure(unit, value);
+            var measure = new SerializableMeasure(value);
 
             // Assert
-            Assert.AreEqual(unit, measure.UnitOfMeasure);
+            Assert.AreEqual("m", measure.UnitOfMeasure);
             Assert.AreEqual(value, measure.Value);
         }
     }

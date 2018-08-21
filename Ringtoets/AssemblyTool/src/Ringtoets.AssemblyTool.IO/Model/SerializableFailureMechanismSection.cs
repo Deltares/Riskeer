@@ -75,11 +75,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
             }
 
             Id = id;
-            StartDistance = new SerializableMeasure("m", startDistance);
-            EndDistance = new SerializableMeasure("m", endDistance);
+            StartDistance = new SerializableMeasure(startDistance);
+            EndDistance = new SerializableMeasure(endDistance);
             FailureMechanismSectionCollectionId = failureMechanismSectionCollection.Id;
             Geometry = new SerializableLine(geometry);
-            Length = new SerializableMeasure("m", Math2D.Length(geometry));
+            Length = new SerializableMeasure(Math2D.Length(geometry));
             AssemblyMethod = assemblyMethod;
             FailureMechanismSectionType = sectionType;
         }

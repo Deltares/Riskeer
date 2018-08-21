@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Xml.Serialization;
+using Ringtoets.AssemblyTool.IO.Properties;
 
 namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
 {
@@ -35,21 +35,15 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         public SerializableMeasure()
         {
             Value = double.NaN;
+            UnitOfMeasure = Resources.SerializableMeasure_Meter;
         }
 
         /// <summary>
         /// Creates a new instance of <see cref="SerializableMeasure"/>.
         /// </summary>
-        /// <param name="unitOfMeasure">The unit of measure.</param>
-        /// <param name="value">The value of the measure.</param>
-        public SerializableMeasure(string unitOfMeasure, double value)
+        /// <param name="value">The value of the measure in meters.</param>
+        public SerializableMeasure(double value) : this()
         {
-            if (unitOfMeasure == null)
-            {
-                throw new ArgumentNullException(nameof(unitOfMeasure));
-            }
-
-            UnitOfMeasure = unitOfMeasure;
             Value = value;
         }
 
@@ -61,6 +55,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
 
         /// <summary>
         /// Gets or sets the value of the measure.
+        /// [m]
         /// </summary>
         [XmlText]
         public double Value { get; set; }

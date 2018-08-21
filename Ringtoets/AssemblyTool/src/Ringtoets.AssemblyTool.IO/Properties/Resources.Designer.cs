@@ -109,6 +109,15 @@ namespace Ringtoets.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to m.
+        /// </summary>
+        internal static string SerializableMeasure_Meter {
+            get {
+                return ResourceManager.GetString("SerializableMeasure_Meter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EPSG:28992.
         /// </summary>
         internal static string SrsName {

@@ -157,12 +157,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Assert
             Assert.AreEqual(id, section.Id);
             Assert.AreEqual(sectionCollection.Id, section.FailureMechanismSectionCollectionId);
-            Assert.AreEqual("m", section.StartDistance.UnitOfMeasure);
             Assert.AreEqual(startDistance, section.StartDistance.Value);
-            Assert.AreEqual("m", section.EndDistance.UnitOfMeasure);
             Assert.AreEqual(endDistance, section.EndDistance.Value);
             Assert.AreEqual(GeometrySerializationFormatter.Format(geometry), section.Geometry.LineString.Geometry);
-            Assert.AreEqual("m", section.Length.UnitOfMeasure);
             Assert.AreEqual(Math2D.Length(geometry), section.Length.Value);
             Assert.AreEqual(assemblyMethod, section.AssemblyMethod);
             Assert.AreEqual(sectionType, section.FailureMechanismSectionType);

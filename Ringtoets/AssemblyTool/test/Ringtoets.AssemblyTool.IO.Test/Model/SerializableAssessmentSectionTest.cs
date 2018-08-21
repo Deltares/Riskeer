@@ -119,7 +119,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Assert
             Assert.AreEqual(id, assessmentSection.Id);
             Assert.AreEqual(name, assessmentSection.Name);
-            Assert.AreEqual("m", assessmentSection.SurfaceLineLength.UnitOfMeasure);
             Assert.AreEqual(Math2D.Length(geometry), assessmentSection.SurfaceLineLength.Value);
             Assert.IsNotNull(assessmentSection.SurfaceLineGeometry);
         }
