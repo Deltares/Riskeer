@@ -449,6 +449,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
                           .Build();
         }
 

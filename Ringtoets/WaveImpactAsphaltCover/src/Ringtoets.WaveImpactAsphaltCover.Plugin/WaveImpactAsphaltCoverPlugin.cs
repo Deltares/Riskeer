@@ -372,6 +372,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
                           .Build();
         }
 
