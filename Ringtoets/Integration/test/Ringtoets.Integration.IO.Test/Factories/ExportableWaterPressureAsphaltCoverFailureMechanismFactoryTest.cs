@@ -18,11 +18,11 @@ namespace Ringtoets.Integration.IO.Test.Factories
     public class ExportableWaterPressureAsphaltCoverFailureMechanismFactoryTest
     {
         [Test]
-        public void CreateExportableWaterPressureAsphaltCoverFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        public void CreateExportableFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () =>
-                ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableWaterPressureAsphaltCoverFailureMechanism(null);
+                ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -30,7 +30,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableWaterPressureAsphaltCoverFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
-                ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableWaterPressureAsphaltCoverFailureMechanism(failureMechanism);
+                ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism);
 
             // Assert
             Assert.AreEqual(ExportableFailureMechanismType.AWO, exportableFailureMechanism.Code);
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableWaterPressureAsphaltCoverFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
                 // Call
                 ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
-                    ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableWaterPressureAsphaltCoverFailureMechanism(failureMechanism);
+                    ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism);
 
                 // Assert
                 Assert.AreEqual(ExportableFailureMechanismType.AWO, exportableFailureMechanism.Code);

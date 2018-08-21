@@ -20,7 +20,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
     public class ExportableMacroStabilityOutwardsFailureMechanismFactoryTest
     {
         [Test]
-        public void CreateExportableMacroStabilityOutwardsFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        public void CreateExportableFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -28,8 +28,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableMacroStabilityOutwardsFailureMechanism(null,
-                                                                                                                                                     assessmentSection);
+            TestDelegate call = () => ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(null,
+                                                                                                                               assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -39,12 +39,12 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableMacroStabilityOutwardsFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void CreateExportableFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () =>
-                ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableMacroStabilityOutwardsFailureMechanism(new MacroStabilityOutwardsFailureMechanism(),
-                                                                                                                               null);
+                ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(new MacroStabilityOutwardsFailureMechanism(),
+                                                                                                         null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableMacroStabilityOutwardsFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
-                ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableMacroStabilityOutwardsFailureMechanism(failureMechanism, assessmentSection);
+                ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(ExportableFailureMechanismType.STBU, exportableFailureMechanism.Code);
@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableMacroStabilityOutwardsFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
                 // Call
                 ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
-                    ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableMacroStabilityOutwardsFailureMechanism(failureMechanism, assessmentSection);
+                    ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreEqual(ExportableFailureMechanismType.STBU, exportableFailureMechanism.Code);

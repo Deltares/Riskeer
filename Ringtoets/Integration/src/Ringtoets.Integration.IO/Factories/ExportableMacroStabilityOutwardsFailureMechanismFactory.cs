@@ -31,7 +31,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <returns>A <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with assembly results.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
-        public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateExportableMacroStabilityOutwardsFailureMechanism(
+        public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateExportableFailureMechanism(
             MacroStabilityOutwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -64,22 +64,23 @@ namespace Ringtoets.Integration.IO.Factories
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
                                                              failureMechanismAssembly),
-                failureMechanismSectionsLookup.Values, CreateExportableFailureMechanismSectionResults(failureMechanismSectionsLookup,
-                                                                                                      failureMechanism,
-                                                                                                      assessmentSection),
+                failureMechanismSectionsLookup.Values,
+                CreateExportableFailureMechanismSectionResults(failureMechanismSectionsLookup,
+                                                               failureMechanism,
+                                                               assessmentSection),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>
+        /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>
         /// with assembly results based on the sections in <paramref name="failureMechanismSections"/>.
         /// </summary>
         /// <param name="failureMechanismSections">The mapping between the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>
         /// and <see cref="ExportableFailureMechanismSection"/>.</param>
         /// <param name="macroStabilityOutwardsFailureMechanism">The <see cref="MacroStabilityOutwardsFailureMechanism"/> the sections belong to.</param>
         /// <param name="assessmentSection">The assessment section the sections belong to.</param>
-        /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
+        /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResult> CreateExportableFailureMechanismSectionResults(
             Dictionary<MacroStabilityOutwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections,

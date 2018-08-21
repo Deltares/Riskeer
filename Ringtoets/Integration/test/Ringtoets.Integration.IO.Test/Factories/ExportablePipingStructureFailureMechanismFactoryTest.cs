@@ -18,11 +18,11 @@ namespace Ringtoets.Integration.IO.Test.Factories
     public class ExportablePipingStructureFailureMechanismFactoryTest
     {
         [Test]
-        public void CreateExportablePipingStructureFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        public void CreateExportableFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () =>
-                ExportablePipingStructureFailureMechanismFactory.CreateExportablePipingStructureFailureMechanism(null);
+                ExportablePipingStructureFailureMechanismFactory.CreateExportableFailureMechanism(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -30,7 +30,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportablePipingStructureFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
-                ExportablePipingStructureFailureMechanismFactory.CreateExportablePipingStructureFailureMechanism(failureMechanism);
+                ExportablePipingStructureFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism);
 
             // Assert
             Assert.AreEqual(ExportableFailureMechanismType.PKW, exportableFailureMechanism.Code);
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportablePipingStructureFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
                 // Call
                 ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
-                    ExportablePipingStructureFailureMechanismFactory.CreateExportablePipingStructureFailureMechanism(failureMechanism);
+                    ExportablePipingStructureFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism);
 
                 // Assert
                 Assert.AreEqual(ExportableFailureMechanismType.PKW, exportableFailureMechanism.Code);

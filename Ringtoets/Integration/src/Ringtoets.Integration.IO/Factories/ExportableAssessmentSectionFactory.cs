@@ -97,14 +97,14 @@ namespace Ringtoets.Integration.IO.Factories
                 ExportableWaveImpactAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.WaveImpactAsphaltCover),
                 ExportableGrassCoverErosionOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.GrassCoverErosionOutwards),
                 ExportableDuneErosionFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.DuneErosion),
-                ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableMacroStabilityOutwardsFailureMechanism(assessmentSection.MacroStabilityOutwards, assessmentSection),
-                ExportableMicrostabilityFailureMechanismFactory.CreateExportableMicrostabilityFailureMechanism(assessmentSection.Microstability),
-                ExportableGrassCoverSlipOffOutwardsFailureMechanismFactory.CreateExportableGrassCoverSlipOffOutwardsFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards),
-                ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableGrassCoverSlipOffInwardsFailureMechanism(assessmentSection.GrassCoverSlipOffInwards),
-                ExportablePipingStructureFailureMechanismFactory.CreateExportablePipingStructureFailureMechanism(assessmentSection.PipingStructure),
-                ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableWaterPressureAsphaltCoverFailureMechanism(assessmentSection.WaterPressureAsphaltCover),
-                ExportableStrengthStabilityLengthwiseConstructionFailureMechanismFactory.CreateExportableStrengthStabilityLengthwiseConstructionFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction),
-                ExportableTechnicalInnovationFailureMechanismFactory.CreateExportableTechnicalInnovationFailureMechanism(assessmentSection.TechnicalInnovation)
+                ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.MacroStabilityOutwards, assessmentSection),
+                ExportableMicrostabilityFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.Microstability),
+                ExportableGrassCoverSlipOffOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards),
+                ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.GrassCoverSlipOffInwards),
+                ExportablePipingStructureFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.PipingStructure),
+                ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.WaterPressureAsphaltCover),
+                ExportableStrengthStabilityLengthwiseConstructionFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction),
+                ExportableTechnicalInnovationFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.TechnicalInnovation)
             };
         }
     }

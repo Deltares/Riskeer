@@ -27,9 +27,9 @@ namespace Ringtoets.Integration.IO.Factories
         /// <param name="failureMechanism">The <see cref="TechnicalInnovationFailureMechanism"/> to create a
         /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> for.</param>
         /// <returns>A <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with assembly results.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
-        public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateExportableTechnicalInnovationFailureMechanism(
+        public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateExportableFailureMechanism(
             TechnicalInnovationFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
