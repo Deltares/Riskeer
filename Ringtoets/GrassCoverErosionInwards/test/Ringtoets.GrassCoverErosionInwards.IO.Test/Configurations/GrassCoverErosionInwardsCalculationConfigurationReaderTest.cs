@@ -323,10 +323,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculation.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadCalculation(FullCalculation)")]
-        [TestCase("validConfigurationFullCalculation_differentOrder.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadCalculation(FullCalculation_differentOrder)")]
+        [TestCase("validConfigurationFullCalculationOld.xml")]
+        [TestCase("validConfigurationFullCalculationNew.xml")]
+        [TestCase("validConfigurationFullCalculation_differentOrder_old.xml")]
+        [TestCase("validConfigurationFullCalculation_differentOrder_new.xml")]
         public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadCalculation(string fileName)
         {
             // Setup
