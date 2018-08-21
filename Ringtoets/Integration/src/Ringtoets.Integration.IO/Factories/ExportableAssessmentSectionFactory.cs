@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
@@ -25,8 +23,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <returns>A <see cref="ExportableAssessmentSection"/> with assembly results.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created
-        /// for <paramref name="assessmentSection"/>.</exception>
+        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
         public static ExportableAssessmentSection CreateExportableAssessmentSection(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
@@ -51,8 +48,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <param name="assessmentSection">The assessment section to create a
         /// <see cref="ExportableAssessmentSectionAssemblyResult"/> for.</param>
         /// <returns>A <see cref="ExportableAssessmentSectionAssemblyResult"/> with assembly result.</returns>
-        /// <exception cref="AssemblyException">Thrown when assembly result cannot be created
-        /// for <paramref name="assessmentSection"/>.</exception>
+        /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult(AssessmentSection assessmentSection)
         {
             return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI2C1,
@@ -66,8 +62,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <param name="assessmentSection">The assessment section to create a
         /// <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> for.</param>
         /// <returns>A <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> with assembly result.</returns>
-        /// <exception cref="AssemblyException">Thrown when assembly result cannot be created
-        /// for <paramref name="assessmentSection"/>.</exception>
+        /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static ExportableFailureMechanismAssemblyResultWithProbability CreateExportableFailureMechanismAssemblyResultWithProbability(AssessmentSection assessmentSection)
         {
             FailureMechanismAssembly assemblyResult = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection);
@@ -83,8 +78,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <param name="assessmentSection">The assessment section to create a
         /// <see cref="ExportableFailureMechanismAssemblyResult"/> for.</param>
         /// <returns>A <see cref="ExportableFailureMechanismAssemblyResult"/> with assembly result.</returns>
-        /// <exception cref="AssemblyException">Thrown when assembly result cannot be created
-        /// for <paramref name="assessmentSection"/>.</exception>
+        /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static ExportableFailureMechanismAssemblyResult CreateExportableFailureMechanismAssemblyResultWithoutProbability(AssessmentSection assessmentSection)
         {
             return new ExportableFailureMechanismAssemblyResult(ExportableAssemblyMethod.WBI2A1,
@@ -97,10 +91,9 @@ namespace Ringtoets.Integration.IO.Factories
         /// </summary>
         /// <param name="assessmentSection">The assessment section to create a collection of
         /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with probability for.</param>
-        /// <returns>A a collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> based on failure
+        /// <returns>A collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> based on failure
         /// mechanisms with assembly results with a probability.</returns>
-        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created
-        /// for <paramref name="assessmentSection"/>.</exception>
+        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created  for <paramref name="assessmentSection"/>.</exception>
         private static IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> CreateExportableFailureMechanismsWithProbability(AssessmentSection assessmentSection)
         {
             return new[]
@@ -120,10 +113,9 @@ namespace Ringtoets.Integration.IO.Factories
         /// </summary>
         /// <param name="assessmentSection">The assessment section to create a collection of
         /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with probability for.</param>
-        /// <returns>A a collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> based on failure
+        /// <returns>A collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> based on failure
         /// mechanisms with assembly results without a probability.</returns>
-        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created
-        /// for <paramref name="assessmentSection"/>.</exception>
+        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> CreateExportableFailureMechanismsWithoutProbability(AssessmentSection assessmentSection)
         {
             return new[]
@@ -143,62 +135,16 @@ namespace Ringtoets.Integration.IO.Factories
             };
         }
 
+        /// <summary>
+        /// Creates a <see cref="ExportableCombinedSectionAssemblyCollection"/> based on <paramref name="assessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section to a <see cref="ExportableCombinedSectionAssemblyCollection"/> for.</param>
+        /// <returns>A <see cref="CreateExportableCombinedSectionAssemblyCollection"/>.</returns>
+        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static ExportableCombinedSectionAssemblyCollection CreateExportableCombinedSectionAssemblyCollection(AssessmentSection assessmentSection)
         {
             IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
-
-            var sections = new List<ExportableCombinedFailureMechanismSection>();
-            var sectionResult = new List<ExportableCombinedSectionAssembly>();
-
-            foreach (CombinedFailureMechanismSectionAssemblyResult assemblyResult in assemblyResults)
-            {
-                var exportableSection = new ExportableCombinedFailureMechanismSection(Enumerable.Empty<Point2D>(),
-                                                                                      assemblyResult.SectionStart,
-                                                                                      assemblyResult.SectionEnd,
-                                                                                      ExportableAssemblyMethod.WBI3A1);
-
-                var exportableSectionResult = new ExportableCombinedSectionAssembly(exportableSection,
-                                                                                    new ExportableSectionAssemblyResult(ExportableAssemblyMethod.WBI3C1, assemblyResult.TotalResult),
-                                                                                    CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult));
-
-                sections.Add(exportableSection);
-                sectionResult.Add(exportableSectionResult);
-            }
-
-            return new ExportableCombinedSectionAssemblyCollection(sections, sectionResult);
-        }
-
-        private static IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> CreateFailureMechanismCombinedSectionAssemblyResults(CombinedFailureMechanismSectionAssemblyResult assemblyResult)
-        {
-            return new []
-            {
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.Piping, ExportableFailureMechanismType.STPH),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.GrassCoverErosionInwards, ExportableFailureMechanismType.GEKB),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.MacroStabilityInwards, ExportableFailureMechanismType.STBI),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.MacroStabilityOutwards, ExportableFailureMechanismType.STBU),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.Microstability, ExportableFailureMechanismType.STMI),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.StabilityStoneCover, ExportableFailureMechanismType.ZST),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.WaveImpactAsphaltCover, ExportableFailureMechanismType.AGK),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.WaterPressureAsphaltCover, ExportableFailureMechanismType.AWO),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.GrassCoverErosionOutwards, ExportableFailureMechanismType.GEBU),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.GrassCoverSlipOffOutwards, ExportableFailureMechanismType.GABU),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.GrassCoverSlipOffInwards, ExportableFailureMechanismType.GABI),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.HeightStructures, ExportableFailureMechanismType.HTKW),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.ClosingStructures, ExportableFailureMechanismType.BSKW),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.PipingStructure, ExportableFailureMechanismType.PKW),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.StabilityPointStructures, ExportableFailureMechanismType.STKWp),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.StrengthStabilityLengthwiseConstruction, ExportableFailureMechanismType.STKWl),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.DuneErosion, ExportableFailureMechanismType.DA),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.TechnicalInnovation, ExportableFailureMechanismType.INN)
-            };
-        }
-
-        private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateExportableFailureMechanismCombinedSectionAssemblyResult(FailureMechanismSectionAssemblyCategoryGroup sectionAssemblyResult,
-                                                                                                                                             ExportableFailureMechanismType failureMechanismCode)
-        {
-            return new ExportableFailureMechanismCombinedSectionAssemblyResult(new ExportableSectionAssemblyResult(ExportableAssemblyMethod.WBI3B1,
-                                                                                                                   sectionAssemblyResult),
-                                                                               failureMechanismCode);
+            return ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults);
         }
     }
 }

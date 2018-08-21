@@ -40,6 +40,7 @@
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriterTest.cs" />
     <Compile Include="Factories\ExportableClosingStructuresFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableCombinedSectionAssemblyCollectionFactoryTest.cs" />
     <Compile Include="Factories\ExportableDuneErosionFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableFailureMechanismSectionFactoryTest.cs" />

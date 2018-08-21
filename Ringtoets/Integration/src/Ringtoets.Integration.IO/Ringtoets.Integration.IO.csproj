@@ -38,6 +38,7 @@
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriter.cs" />
     <Compile Include="Factories\ExportableAssessmentSectionFactory.cs" />
     <Compile Include="Factories\ExportableClosingStructuresFailureMechanismFactory.cs" />
+    <Compile Include="Factories\ExportableCombinedSectionAssemblyCollectionFactory.cs" />
     <Compile Include="Factories\ExportableDuneErosionFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableFailureMechanismSectionFactory.cs" />
