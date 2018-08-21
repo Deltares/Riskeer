@@ -10,25 +10,25 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <summary>
         /// Creates a new instance of <see cref="ExportableFailureMechanismCombinedSectionAssemblyResult"/>
         /// </summary>
-        /// <param name="combinedSectionAssembly">The assembly result of the combined section.</param>
+        /// <param name="sectionAssemblyResult">The assembly result of the combined section.</param>
         /// <param name="code">The code of the failure mechanism.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="combinedSectionAssembly"/> is <c>null</c>.</exception>
-        public ExportableFailureMechanismCombinedSectionAssemblyResult(ExportableFailureMechanismAssemblyResult combinedSectionAssembly,
-                                                       ExportableFailureMechanismType code)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionAssemblyResult"/> is <c>null</c>.</exception>
+        public ExportableFailureMechanismCombinedSectionAssemblyResult(ExportableSectionAssemblyResult sectionAssemblyResult,
+                                                                       ExportableFailureMechanismType code)
         {
-            if (combinedSectionAssembly == null)
+            if (sectionAssemblyResult == null)
             {
-                throw new ArgumentNullException(nameof(combinedSectionAssembly));
+                throw new ArgumentNullException(nameof(sectionAssemblyResult));
             }
 
-            CombinedSectionAssembly = combinedSectionAssembly;
+            SectionAssemblyResult = sectionAssemblyResult;
             Code = code;
         }
 
         /// <summary>
         /// Gets the assembly result.
         /// </summary>
-        public ExportableFailureMechanismAssemblyResult CombinedSectionAssembly { get; }
+        public ExportableSectionAssemblyResult SectionAssemblyResult { get; }
 
         /// <summary>
         /// Gets the code of the failure mechanism.

@@ -1,8 +1,8 @@
 ﻿using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Assembly
 {
@@ -10,7 +10,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
     public class ExportableFailureMechanismCombinedSectionAssemblyResultTest
     {
         [Test]
-        public void Constructor_CombinedSectionAssemblyNull_ThrowsArgumentNullException()
+        public void Constructor_SectionAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -21,7 +21,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("combinedSectionAssembly", exception.ParamName);
+            Assert.AreEqual("sectionAssemblyResult", exception.ParamName);
         }
 
         [Test]
@@ -30,21 +30,14 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             // Setup
             var random = new Random(21);
             var code = random.NextEnumValue<ExportableFailureMechanismType>();
-            ExportableFailureMechanismAssemblyResult combinedSectionAssembly = CreateFailureMechanismAssemblyResult();
+            ExportableSectionAssemblyResult combinedSectionAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
 
             // Call
             var assemblyResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(combinedSectionAssembly, code);
 
             // Assert
-            Assert.AreSame(combinedSectionAssembly, assemblyResult.CombinedSectionAssembly);
+            Assert.AreSame(combinedSectionAssembly, assemblyResult.SectionAssemblyResult);
             Assert.AreEqual(code, assemblyResult.Code);
-        }
-
-        private static ExportableFailureMechanismAssemblyResult CreateFailureMechanismAssemblyResult()
-        {
-            var random = new Random(21);
-            return new ExportableFailureMechanismAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
         }
     }
 }
