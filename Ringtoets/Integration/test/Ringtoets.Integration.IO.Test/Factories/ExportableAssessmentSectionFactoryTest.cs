@@ -85,6 +85,15 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 Assert.AreEqual(name, exportableAssessmentSection.Name);
                 CollectionAssert.AreEqual(referenceLine.Points, exportableAssessmentSection.Geometry);
 
+                ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyWithProbablity = exportableAssessmentSection.FailureMechanismAssemblyWithProbability;
+                Assert.AreEqual(ExportableAssemblyMethod.WBI2B1, failureMechanismAssemblyWithProbablity.AssemblyMethod);
+                Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput.Group, failureMechanismAssemblyWithProbablity.AssemblyCategory);
+                Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput.Probability, failureMechanismAssemblyWithProbablity.Probability);
+
+                ExportableFailureMechanismAssemblyResult failureMechanismAssemblyWithoutProbablity = exportableAssessmentSection.FailureMechanismAssemblyWithoutProbability;
+                Assert.AreEqual(ExportableAssemblyMethod.WBI2A1, failureMechanismAssemblyWithoutProbablity.AssemblyMethod);
+                Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput, failureMechanismAssemblyWithoutProbablity.AssemblyCategory);
+
                 ExportableAssessmentSectionAssemblyResult exportableAssessmentSectionAssemblyResult = exportableAssessmentSection.AssessmentSectionAssembly;
                 Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleAssessmentSectionCategoryGroupOutput, exportableAssessmentSectionAssemblyResult.AssemblyCategory);
                 Assert.AreEqual(ExportableAssemblyMethod.WBI2C1, exportableAssessmentSectionAssemblyResult.AssemblyMethod);

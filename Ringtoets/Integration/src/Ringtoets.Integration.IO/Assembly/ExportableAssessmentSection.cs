@@ -16,6 +16,10 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <param name="name">The name of the assessment section.</param>
         /// <param name="geometry">The geometry of the assessment section.</param>
         /// <param name="assessmentSectionAssembly">The assembly result of the assessment section.</param>
+        /// <param name="failureMechanismAssemblyWithProbability">The total assembly result with probability
+        /// of the failure mechanisms.</param>
+        /// <param name="failureMechanismAssemblyWithoutProbability">The total assembly result without probability
+        /// of the failure mechanisms.</param>
         /// <param name="failureMechanismsWithProbability">The assembly results with probability of failure
         /// mechanisms belonging to this assessment section.</param>
         /// <param name="failureMechanismsWithoutProbability">The assembly results without probability
@@ -23,13 +27,14 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <param name="combinedSectionAssemblyResults">The combined section assembly results
         /// of this assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ExportableAssessmentSection(
-            string name,
-            IEnumerable<Point2D> geometry,
-            ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
-            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> failureMechanismsWithProbability,
-            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability,
-            ExportableCombinedSectionAssemblyCollection combinedSectionAssemblyResults)
+        public ExportableAssessmentSection(string name,
+                                           IEnumerable<Point2D> geometry,
+                                           ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
+                                           ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyWithProbability,
+                                           ExportableFailureMechanismAssemblyResult failureMechanismAssemblyWithoutProbability,
+                                           IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> failureMechanismsWithProbability,
+                                           IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability,
+                                           ExportableCombinedSectionAssemblyCollection combinedSectionAssemblyResults)
         {
             if (name == null)
             {
@@ -44,6 +49,16 @@ namespace Ringtoets.Integration.IO.Assembly
             if (assessmentSectionAssembly == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSectionAssembly));
+            }
+
+            if (failureMechanismAssemblyWithProbability == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismAssemblyWithProbability));
+            }
+
+            if (failureMechanismAssemblyWithoutProbability == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismAssemblyWithoutProbability));
             }
 
             if (failureMechanismsWithProbability == null)
@@ -64,6 +79,8 @@ namespace Ringtoets.Integration.IO.Assembly
             Name = name;
             Geometry = geometry;
             AssessmentSectionAssembly = assessmentSectionAssembly;
+            FailureMechanismAssemblyWithProbability = failureMechanismAssemblyWithProbability;
+            FailureMechanismAssemblyWithoutProbability = failureMechanismAssemblyWithoutProbability;
             FailureMechanismsWithProbability = failureMechanismsWithProbability;
             FailureMechanismsWithoutProbability = failureMechanismsWithoutProbability;
             CombinedSectionAssemblyResults = combinedSectionAssemblyResults;
@@ -83,6 +100,16 @@ namespace Ringtoets.Integration.IO.Assembly
         /// Gets the assembly result of the assessment section.
         /// </summary>
         public ExportableAssessmentSectionAssemblyResult AssessmentSectionAssembly { get; }
+
+        /// <summary>
+        /// Gets the total assembly result of the failure mechanisms with probability.
+        /// </summary>
+        public ExportableFailureMechanismAssemblyResultWithProbability FailureMechanismAssemblyWithProbability { get; }
+
+        /// <summary>
+        /// Gets the total assembly result of the failure mechanism without probability.
+        /// </summary>
+        public ExportableFailureMechanismAssemblyResult FailureMechanismAssemblyWithoutProbability { get; }
 
         /// <summary>
         /// Gets the collection of assembly results with probability of failure mechanisms belonging to this assessment section.
