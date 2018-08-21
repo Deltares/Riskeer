@@ -66,6 +66,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityOutwards, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.Microstability, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffOutwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffInwards, random.Next(1, 10));
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -164,7 +165,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator,
             AssessmentSection assessmentSection)
         {
-            Assert.AreEqual(7, exportableFailureMechanisms.Count());
+            Assert.AreEqual(8, exportableFailureMechanisms.Count());
 
             FailureMechanismAssemblyCategoryGroup expectedFailureMechanismAssemblyOutput = failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput.Value;
             AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
@@ -208,6 +209,12 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                ExportableFailureMechanismGroup.Group4,
                                                                assessmentSection.GrassCoverSlipOffOutwards,
                                                                exportableFailureMechanisms.ElementAt(6));
+
+            AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
+                                                               ExportableFailureMechanismType.GABI,
+                                                               ExportableFailureMechanismGroup.Group4,
+                                                               assessmentSection.GrassCoverSlipOffInwards,
+                                                               exportableFailureMechanisms.ElementAt(7));
         }
 
         private static void AssertExportableFailureMechanismWithoutProbability(FailureMechanismAssemblyCategoryGroup expectedAssemblyOutput,
