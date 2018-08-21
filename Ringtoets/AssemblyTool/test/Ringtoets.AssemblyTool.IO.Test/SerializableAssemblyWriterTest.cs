@@ -280,9 +280,7 @@ namespace Ringtoets.AssemblyTool.IO.Test
             };
 
             var assessmentProcess = new SerializableAssessmentProcess("beoordelingsproces1",
-                                                                      assessmentSection,
-                                                                      2018,
-                                                                      2020);
+                                                                      assessmentSection);
 
             var totalAssemblyResult = new SerializableTotalAssemblyResult(
                 "veiligheidsoordeel_1",

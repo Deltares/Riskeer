@@ -40,8 +40,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsInstanceOf<SerializableFeatureMember>(assessmentProcess);
             Assert.IsNull(assessmentProcess.Id);
             Assert.IsNull(assessmentProcess.AssessmentSectionId);
-            Assert.Zero(assessmentProcess.StartYear);
-            Assert.Zero(assessmentProcess.EndYear);
+            Assert.AreEqual(2017, assessmentProcess.StartYear);
+            Assert.AreEqual(2023, assessmentProcess.EndYear);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableAssessmentProcess), "Beoordelingsproces");
 
@@ -59,14 +59,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         [Test]
         public void Constructor_IdNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = new Random(39);
-
             // Call
             TestDelegate call = () => new SerializableAssessmentProcess(null,
-                                                                        new SerializableAssessmentSection(),
-                                                                        random.Next(),
-                                                                        random.Next());
+                                                                        new SerializableAssessmentSection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -76,14 +71,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = new Random(39);
-
             // Call
             TestDelegate call = () => new SerializableAssessmentProcess("id",
-                                                                        null,
-                                                                        random.Next(),
-                                                                        random.Next());
+                                                                        null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -105,20 +95,16 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                     new Point2D(random.NextDouble(), random.NextDouble()),
                     new Point2D(random.NextDouble(), random.NextDouble())
                 });
-            int startYear = random.Next();
-            int endYear = random.Next();
 
             // Call
             var assessmentProcess = new SerializableAssessmentProcess(id,
-                                                                      assessmentSection,
-                                                                      startYear,
-                                                                      endYear);
+                                                                      assessmentSection);
 
             // Assert
             Assert.AreEqual(id, assessmentProcess.Id);
             Assert.AreEqual(assessmentSection.Id, assessmentProcess.AssessmentSectionId);
-            Assert.AreEqual(startYear, assessmentProcess.StartYear);
-            Assert.AreEqual(endYear, assessmentProcess.EndYear);
+            Assert.AreEqual(2017, assessmentProcess.StartYear);
+            Assert.AreEqual(2023, assessmentProcess.EndYear);
         }
     }
 }

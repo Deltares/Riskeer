@@ -18,8 +18,8 @@
       <asm:typeWaterkeringstelsel>Dijktraject</asm:typeWaterkeringstelsel>
     </asm:Waterkeringstelsel>
     <asm:Beoordelingsproces BeoordelingsprocesID="beoordelingsproces1" WaterkeringstelselIDRef="section1">
-      <asm:beginJaarBeoordelingsronde>2018</asm:beginJaarBeoordelingsronde>
-      <asm:eindJaarBeoordelingsronde>2020</asm:eindJaarBeoordelingsronde>
+      <asm:beginJaarBeoordelingsronde>2017</asm:beginJaarBeoordelingsronde>
+      <asm:eindJaarBeoordelingsronde>2023</asm:eindJaarBeoordelingsronde>
     </asm:Beoordelingsproces>
     <asm:Veiligheidsoordeel VeiligheidsoordeelID="veiligheidsoordeel_1" BeoordelingsprocesIDRef="beoordelingsproces1">
       <asm:toetsoordeelMetKansschatting>

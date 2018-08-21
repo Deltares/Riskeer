@@ -140,11 +140,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Setup
             const string id = "id";
 
-            var random = new Random(39);
             var assessmentProcess = new SerializableAssessmentProcess("process id",
-                                                                      new SerializableAssessmentSection(),
-                                                                      random.Next(),
-                                                                      random.Next());
+                                                                      new SerializableAssessmentSection());
             var resultWithoutProbability = new SerializableFailureMechanismAssemblyResult();
             var resultWithProbability = new SerializableFailureMechanismAssemblyResult();
             var assessmentSectionResult = new SerializableAssessmentSectionAssemblyResult();

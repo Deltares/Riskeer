@@ -33,21 +33,21 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="SerializableAssessmentProcess"/>.
         /// </summary>
-        public SerializableAssessmentProcess() {}
+        public SerializableAssessmentProcess()
+        {
+            StartYear = 2017;
+            EndYear = 2023;
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="SerializableAssessmentProcess"/>.
         /// </summary>
         /// <param name="id">The unique ID of the assessment process.</param>
         /// <param name="assessmentSection">The assessment section this process belongs to.</param>
-        /// <param name="startYear">The starting year of the assessment process.</param>
-        /// <param name="endYear">The end year of the assessment process.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/>
         /// or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public SerializableAssessmentProcess(string id,
-                                             SerializableAssessmentSection assessmentSection,
-                                             int startYear,
-                                             int endYear)
+                                             SerializableAssessmentSection assessmentSection) : this()
         {
             if (id == null)
             {
@@ -61,8 +61,6 @@ namespace Ringtoets.AssemblyTool.IO.Model
 
             Id = id;
             AssessmentSectionId = assessmentSection.Id;
-            StartYear = startYear;
-            EndYear = endYear;
         }
 
         /// <summary>
