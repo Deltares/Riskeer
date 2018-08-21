@@ -125,12 +125,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                                               "Element 'voorlandprofiel' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleForeshoreProfile");
 
-                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmpty.xml",
+                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmptyOld.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String'")
-                    .SetName("invalidCalculationHydraulicBoundaryLocationEmpty");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
+                    .SetName("invalidCalculationHydraulicBoundaryLocationEmptyOld");
+                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmptyNew.xml",
+                                              "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String'")
+                    .SetName("invalidCalculationHydraulicBoundaryLocationEmptyNew");
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationOld.xml",
                                               "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationOld");
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationNew.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationNew");
                 yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");
