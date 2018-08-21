@@ -42,12 +42,18 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
         {
             get
             {
-                yield return new TestCaseData("invalidHydraulicBoundaryLocationEmpty.xml",
+                yield return new TestCaseData("invalidHydraulicBoundaryLocationEmptyOld.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidHydraulicBoundaryLocationEmpty");
-                yield return new TestCaseData("invalidMultipleHydraulicBoundaryLocations.xml",
+                    .SetName("invalidHydraulicBoundaryLocationEmptyOld");
+                yield return new TestCaseData("invalidHydraulicBoundaryLocationEmptyNew.xml",
+                                              "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
+                    .SetName("invalidHydraulicBoundaryLocationEmptyNew");
+                yield return new TestCaseData("invalidMultipleHydraulicBoundaryLocationsOld.xml",
                                               "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidMultipleHydraulicBoundaryLocations");
+                    .SetName("invalidMultipleHydraulicBoundaryLocationsOld");
+                yield return new TestCaseData("invalidMultipleHydraulicBoundaryLocationsNew.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidMultipleHydraulicBoundaryLocationsNew");
                 yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");
