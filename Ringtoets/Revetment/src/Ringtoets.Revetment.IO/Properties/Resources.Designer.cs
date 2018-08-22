@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -131,9 +131,9 @@ namespace Ringtoets.Revetment.IO.Properties {
         ///This program is distributed in the hope that it will be useful,
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BekledingenHrConfiguratieSchema {
+        internal static string BekledingenHbConfiguratieSchema {
             get {
-                return ResourceManager.GetString("BekledingenHrConfiguratieSchema", resourceCulture);
+                return ResourceManager.GetString("BekledingenHbConfiguratieSchema", resourceCulture);
             }
         }
         
@@ -151,9 +151,9 @@ namespace Ringtoets.Revetment.IO.Properties {
         ///This program is distributed in the hope that it will be useful,
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BekledingenHrConfiguratieSchemaBasis {
+        internal static string BekledingenHbConfiguratieSchemaBasis {
             get {
-                return ResourceManager.GetString("BekledingenHrConfiguratieSchemaBasis", resourceCulture);
+                return ResourceManager.GetString("BekledingenHbConfiguratieSchemaBasis", resourceCulture);
             }
         }
         

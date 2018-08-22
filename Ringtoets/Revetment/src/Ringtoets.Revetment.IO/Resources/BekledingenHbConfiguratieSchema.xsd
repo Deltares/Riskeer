@@ -22,7 +22,7 @@ All rights reserved.
 -->
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  
+
   <!--Basis elementen voor een bekledingen configuratie.-->
   <xs:include schemaLocation="BekledingenHbConfiguratieSchemaBasis.xsd" />
   <xs:include schemaLocation="ConfiguratieSchema.xsd" />
@@ -31,11 +31,10 @@ All rights reserved.
   <xs:redefine schemaLocation="BekledingenHbConfiguratieSchemaBasis.xsd">
     <xs:simpleType name="categoriegrensType">
       <xs:restriction base="categoriegrensType">
-        <xs:enumeration value="Iv-IIv"/>
-        <xs:enumeration value="IIv-IIIv"/>
-        <xs:enumeration value="IIIv-IVv"/>
-        <xs:enumeration value="IVv-Vv"/>
-        <xs:enumeration value="Vv-VIv"/>
+        <xs:enumeration value="A+-A"/>
+        <xs:enumeration value="A-B"/>
+        <xs:enumeration value="B-C"/>
+        <xs:enumeration value="C-D"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:redefine>
