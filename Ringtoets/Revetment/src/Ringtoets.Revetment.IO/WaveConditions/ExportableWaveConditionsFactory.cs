@@ -44,20 +44,24 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
         /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
         public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
-            string name, WaveConditionsInput waveConditionsInput, IEnumerable<WaveConditionsOutput> columnsOutput, IEnumerable<WaveConditionsOutput> blocksOutput)
+            string name, WaveConditionsInput waveConditionsInput,
+            IEnumerable<WaveConditionsOutput> columnsOutput, IEnumerable<WaveConditionsOutput> blocksOutput)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
+
             if (columnsOutput == null)
             {
                 throw new ArgumentNullException(nameof(columnsOutput));
             }
+
             if (blocksOutput == null)
             {
                 throw new ArgumentNullException(nameof(blocksOutput));
@@ -67,12 +71,14 @@ namespace Ringtoets.Revetment.IO.WaveConditions
 
             foreach (WaveConditionsOutput waveConditionsOutput in columnsOutput)
             {
-                exportableWaveConditionsCollection.Add(new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput, CoverType.StoneCoverColumns));
+                exportableWaveConditionsCollection.Add(new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput,
+                                                                                    CoverType.StoneCoverColumns));
             }
 
             foreach (WaveConditionsOutput blocksConditionsOutput in blocksOutput)
             {
-                exportableWaveConditionsCollection.Add(new ExportableWaveConditions(name, waveConditionsInput, blocksConditionsOutput, CoverType.StoneCoverBlocks));
+                exportableWaveConditionsCollection.Add(new ExportableWaveConditions(name, waveConditionsInput, blocksConditionsOutput,
+                                                                                    CoverType.StoneCoverBlocks));
             }
 
             return exportableWaveConditionsCollection;
@@ -93,21 +99,25 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         /// </list></exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
         /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
-        public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(string name, WaveConditionsInput waveConditionsInput,
-                                                                                                     IEnumerable<WaveConditionsOutput> output, CoverType coverType)
+        public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
+            string name, WaveConditionsInput waveConditionsInput,
+            IEnumerable<WaveConditionsOutput> output, CoverType coverType)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
+
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
             }
+
             if (coverType == null)
             {
                 throw new ArgumentNullException(nameof(coverType));

@@ -155,7 +155,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
-        public void CreateExportableWaveConditionsCollection_NameNullWithCoverType_ThrowArgumentNullException()
+        public void CreateExportableWaveConditionsCollectionWithCoverType_NameNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null,
@@ -169,7 +169,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
-        public void CreateExportableWaveConditionsCollection_WaveConditionsInputNullWithCoverType_ThrowArgumentNullException()
+        public void CreateExportableWaveConditionsCollectionWithCoverType_WaveConditionsInputNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName",
@@ -183,7 +183,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
-        public void CreateExportableWaveConditionsCollection_OutputNull_ThrowArgumentNullException()
+        public void CreateExportableWaveConditionsCollectionWithCoverType_OutputNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName",
@@ -197,7 +197,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
-        public void CreateExportableWaveConditionsCollection_CoverTypeNull_ThrowArgumentNullException()
+        public void CreateExportableWaveConditionsCollectionWithCoverType_CoverTypeNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName",
@@ -211,7 +211,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
-        public void CreateExportableWaveConditionsCollection_ValidDataWithCoverType_ReturnsValidCollection()
+        public void CreateExportableWaveConditionsCollectionWithCoverType_ValidDataWithCoverType_ReturnsValidCollection()
         {
             // Setup
             var waveConditionsInput = new TestWaveConditionsInput
