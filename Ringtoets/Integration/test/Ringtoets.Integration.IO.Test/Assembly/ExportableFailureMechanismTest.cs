@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithValidArguments_ExpectedValues()
         {
             // Setup
             var random = new Random(21);

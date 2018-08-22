@@ -26,7 +26,7 @@ namespace Ringtoets.Integration.IO.Assembly
         }
 
         /// <summary>
-        /// Gets the assembly result.
+        /// Gets the assembly result of this combined section.
         /// </summary>
         public ExportableSectionAssemblyResult SectionAssemblyResult { get; }
 

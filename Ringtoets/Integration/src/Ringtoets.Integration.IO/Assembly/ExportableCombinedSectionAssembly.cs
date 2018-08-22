@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.IO.Assembly
         public ExportableCombinedFailureMechanismSection Section { get; }
 
         /// <summary>
-        /// Gets the assembly result of this section.
+        /// Gets the combined assembly result of this section.
         /// </summary>
         public ExportableSectionAssemblyResult CombinedSectionAssemblyResult { get; }
 

@@ -208,7 +208,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         [Test]
         [TestCase("")]
         [TestCase("Valid name")]
-        public void Constructor_ExpectedValues(string name)
+        public void Constructor_WithValidArguments_ExpectedValues(string name)
         {
             // Setup
             IEnumerable<Point2D> geometry = Enumerable.Empty<Point2D>();

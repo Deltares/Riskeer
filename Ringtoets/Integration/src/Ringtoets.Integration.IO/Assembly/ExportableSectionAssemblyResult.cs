@@ -11,7 +11,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// Creates a new instance of <see cref="ExportableSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
-        /// <param name="assemblyCategory">The assembly result.</param>
+        /// <param name="assemblyCategory">The assembly result of this section.</param>
         public ExportableSectionAssemblyResult(ExportableAssemblyMethod assemblyMethod,
                                                FailureMechanismSectionAssemblyCategoryGroup assemblyCategory)
         {
@@ -25,7 +25,7 @@ namespace Ringtoets.Integration.IO.Assembly
         public ExportableAssemblyMethod AssemblyMethod { get; }
 
         /// <summary>
-        /// Gets the assembly category.
+        /// Gets the assembly result of this section.
         /// </summary>
         public FailureMechanismSectionAssemblyCategoryGroup AssemblyCategory { get; }
     }

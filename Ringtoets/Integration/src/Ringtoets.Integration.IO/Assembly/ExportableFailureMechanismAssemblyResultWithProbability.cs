@@ -22,7 +22,7 @@ namespace Ringtoets.Integration.IO.Assembly
         }
 
         /// <summary>
-        /// Gets the probability.
+        /// Gets the probability of the assembly result of this failure mechanism.
         /// </summary>
         public double Probability { get; }
     }

@@ -10,7 +10,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
     public class ExportableFailureMechanismSectionAssemblyResultWithProbabilityTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
             var random = new Random(21);

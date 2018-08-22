@@ -25,7 +25,7 @@ namespace Ringtoets.Integration.IO.Assembly
         public ExportableAssemblyMethod AssemblyMethod { get; }
 
         /// <summary>
-        /// Gets the assembly category.
+        /// Gets the assembly category result.
         /// </summary>
         public FailureMechanismAssemblyCategoryGroup AssemblyCategory { get; }
     }

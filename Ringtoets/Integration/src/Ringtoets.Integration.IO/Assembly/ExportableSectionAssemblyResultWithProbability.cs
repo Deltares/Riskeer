@@ -11,8 +11,8 @@ namespace Ringtoets.Integration.IO.Assembly
         /// Creates a new instance of <see cref="ExportableSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
-        /// <param name="assemblyCategory">The assembly result.</param>
-        /// <param name="probability">The probability of the assembly result.</param>
+        /// <param name="assemblyCategory">The assembly result of this section.</param>
+        /// <param name="probability">The probability of the assembly result of this section.</param>
         public ExportableSectionAssemblyResultWithProbability(ExportableAssemblyMethod assemblyMethod,
                                                               FailureMechanismSectionAssemblyCategoryGroup assemblyCategory,
                                                               double probability)
@@ -22,7 +22,7 @@ namespace Ringtoets.Integration.IO.Assembly
         }
 
         /// <summary>
-        /// Gets the probability of the assembly result.
+        /// Gets the probability of the assembly result of this section.
         /// </summary>
         public double Probability { get; }
     }

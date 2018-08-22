@@ -20,7 +20,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithFailureMechanismSection_ExpectedValues()
         {
             // Setup
             ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection();

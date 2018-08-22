@@ -31,18 +31,18 @@ namespace Ringtoets.Integration.IO.Assembly
         }
 
         /// <summary>
-        /// Gets the geometry of the failure mechanism section.
+        /// Gets the geometry of this failure mechanism section.
         /// </summary>
         public IEnumerable<Point2D> Geometry { get; }
 
         /// <summary>
-        /// Gets the start distance between the failure mechanism section and the start of the reference line.
+        /// Gets the start distance between this failure mechanism section and the start of the reference line.
         /// [m]
         /// </summary>
         public double StartDistance { get; }
 
         /// <summary>
-        /// Gets the end distance between the failure mechanism section and the reference line.
+        /// Gets the end distance between this failure mechanism section and the reference line.
         /// [m]
         /// </summary>
         public double EndDistance { get; }

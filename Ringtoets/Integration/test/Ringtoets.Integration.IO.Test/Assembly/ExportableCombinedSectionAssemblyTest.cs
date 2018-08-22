@@ -17,7 +17,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Setup
             ExportableSectionAssemblyResult combinedAssemblyResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
-            IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults = Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
+            IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults =
+                Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
 
             // Call
             TestDelegate call = () => new ExportableCombinedSectionAssembly(null, combinedAssemblyResult, failureMechanismResults);
@@ -36,7 +37,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextEnumValue<ExportableAssemblyMethod>());
-            IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults = Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
+            IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults =
+                Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
 
             // Call
             TestDelegate call = () => new ExportableCombinedSectionAssembly(section, null, failureMechanismResults);
@@ -66,7 +68,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithValidArguments_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
@@ -75,7 +77,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                         random.NextDouble(),
                                                                         random.NextEnumValue<ExportableAssemblyMethod>());
             ExportableSectionAssemblyResult combinedAssemblyResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
-            IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults = Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
+            IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults =
+                Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
 
             // Call
             var result = new ExportableCombinedSectionAssembly(section, combinedAssemblyResult, failureMechanismResults);
