@@ -235,14 +235,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnCalculation(HydraulicBoundaryLocation)")]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnCalculation(HydraulicBoundaryLocation_differentOrder)")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationOld")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationNew")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_old")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_new")]
         public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadMacroStabilityInwardsCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, fileName);
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
@@ -253,7 +253,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             Assert.AreEqual("Calculation", configuration.Name);
             Assert.IsNull(configuration.AssessmentLevel);
-            Assert.AreEqual("HRlocatie", configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual("HBlocatie", configuration.HydraulicBoundaryLocationName);
 
             Assert.AreEqual("Profielschematisatie", configuration.SurfaceLineName);
             Assert.AreEqual("Ondergrondmodel", configuration.StochasticSoilModelName);
