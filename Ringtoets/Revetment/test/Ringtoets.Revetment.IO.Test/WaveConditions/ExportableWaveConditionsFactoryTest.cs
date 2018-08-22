@@ -23,6 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
@@ -119,7 +121,8 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
                 ForeshoreProfile = new TestForeshoreProfile(),
-                UseForeshore = true
+                UseForeshore = true,
+                CategoryType = AssessmentSectionCategoryType.SignalingNorm
             };
 
             // Call
@@ -143,6 +146,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
+            Assert.AreEqual("A->B", exportableWaveConditions.CategoryBoundaryName);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
@@ -201,7 +205,8 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
                 ForeshoreProfile = new TestForeshoreProfile(),
-                UseForeshore = true
+                UseForeshore = true,
+                CategoryType = FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm
             };
 
             // Call
@@ -221,6 +226,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.Grass, exportableWaveConditions.CoverType);
+            Assert.AreEqual("Iv->IIv", exportableWaveConditions.CategoryBoundaryName);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
@@ -279,7 +285,8 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
                 ForeshoreProfile = new TestForeshoreProfile(),
-                UseForeshore = true
+                UseForeshore = true,
+                CategoryType = AssessmentSectionCategoryType.LowerLimitNorm
             };
 
             // Call
@@ -299,6 +306,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.Asphalt, exportableWaveConditions.CoverType);
+            Assert.AreEqual("B->C", exportableWaveConditions.CategoryBoundaryName);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);

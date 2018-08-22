@@ -37,11 +37,12 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         /// <param name="waveConditionsInput">The input parameters of the parent calculation.</param>
         /// <param name="waveConditionsOutput">The output parameters of the parent calculation.</param>
         /// <param name="coverType">The type of dike cover.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>, <paramref name="waveConditionsInput"/>, or 
-        /// <paramref name="waveConditionsOutput"/> is <c>null</c>.</exception>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <exception cref="ArgumentNullException">Thrown when parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
         /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
-        public ExportableWaveConditions(string name, WaveConditionsInput waveConditionsInput, WaveConditionsOutput waveConditionsOutput, CoverType coverType)
+        public ExportableWaveConditions(string name, WaveConditionsInput waveConditionsInput, WaveConditionsOutput waveConditionsOutput, CoverType coverType,
+                                        string categoryBoundaryName)
         {
             if (name == null)
             {
@@ -54,6 +55,16 @@ namespace Ringtoets.Revetment.IO.WaveConditions
             if (waveConditionsOutput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsOutput));
+            }
+
+            if (coverType == null)
+            {
+                throw new ArgumentNullException(nameof(coverType));
+            }
+
+            if (categoryBoundaryName == null)
+            {
+                throw new ArgumentNullException(nameof(categoryBoundaryName));
             }
 
             if (waveConditionsInput.HydraulicBoundaryLocation == null)
@@ -72,6 +83,7 @@ namespace Ringtoets.Revetment.IO.WaveConditions
             UseForeshore = waveConditionsInput.UseForeshore;
             UseBreakWater = waveConditionsInput.UseBreakWater;
             CoverType = coverType;
+            CategoryBoundaryName = categoryBoundaryName;
             WaterLevel = waveConditionsOutput.WaterLevel;
             WaveHeight = waveConditionsOutput.WaveHeight;
             WavePeriod = waveConditionsOutput.WavePeakPeriod;
@@ -108,6 +120,11 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         /// Gets the type of dike cover.
         /// </summary>
         public CoverType CoverType { get; }
+
+        /// <summary>
+        /// Gets the name of the category boundary.
+        /// </summary>
+        public string CategoryBoundaryName { get; }
 
         /// <summary>
         /// Gets the id of the foreshore.

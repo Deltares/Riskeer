@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Util;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.IO.WaveConditions
@@ -67,13 +68,15 @@ namespace Ringtoets.Revetment.IO.WaveConditions
                 throw new ArgumentNullException(nameof(blocksOutput));
             }
 
+            string categoryBoundaryName = GetCategoryBoundaryName(waveConditionsInput.CategoryType);
+
             var exportableWaveConditionsCollection = new List<ExportableWaveConditions>();
-
             exportableWaveConditionsCollection.AddRange(CreateExportableWaveConditionsCollection(name, waveConditionsInput,
-                                                                                                 columnsOutput, CoverType.StoneCoverColumns));
+                                                                                                 columnsOutput, CoverType.StoneCoverColumns,
+                                                                                                 categoryBoundaryName));
             exportableWaveConditionsCollection.AddRange(CreateExportableWaveConditionsCollection(name, waveConditionsInput,
-                                                                                                 blocksOutput, CoverType.StoneCoverBlocks));
-
+                                                                                                 blocksOutput, CoverType.StoneCoverBlocks,
+                                                                                                 categoryBoundaryName));
             return exportableWaveConditionsCollection;
         }
 
@@ -95,7 +98,13 @@ namespace Ringtoets.Revetment.IO.WaveConditions
             string name, FailureMechanismCategoryWaveConditionsInput waveConditionsInput,
             IEnumerable<WaveConditionsOutput> output)
         {
-            return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, CoverType.Grass);
+            if (waveConditionsInput == null)
+            {
+                throw new ArgumentNullException(nameof(waveConditionsInput));
+            }
+
+            return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, CoverType.Grass,
+                                                            GetCategoryBoundaryName(waveConditionsInput.CategoryType));
         }
 
         /// <summary>
@@ -116,7 +125,18 @@ namespace Ringtoets.Revetment.IO.WaveConditions
             string name, AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
             IEnumerable<WaveConditionsOutput> output)
         {
-            return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, CoverType.Asphalt);
+            if (waveConditionsInput == null)
+            {
+                throw new ArgumentNullException(nameof(waveConditionsInput));
+            }
+
+            return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, CoverType.Asphalt,
+                                                            GetCategoryBoundaryName(waveConditionsInput.CategoryType));
+        }
+
+        private static string GetCategoryBoundaryName<T>(T enumValue)
+        {
+            return new EnumDisplayWrapper<T>(enumValue).DisplayName;
         }
 
         /// <summary>
@@ -126,6 +146,7 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> used in the calculations.</param>
         /// <param name="output">The <see cref="WaveConditionsOutput"/> objects resulting from the calculations.</param>
         /// <param name="coverType">The type of cover.</param>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
         /// <returns>A container of <see cref="ExportableWaveConditions"/> objects.</returns>
         /// <exception cref="ArgumentNullException">Thrown when:
         /// <list type="bullet">
@@ -137,17 +158,12 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
         /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
         private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
-            string name, WaveConditionsInput waveConditionsInput,
-            IEnumerable<WaveConditionsOutput> output, CoverType coverType)
+            string name, WaveConditionsInput waveConditionsInput, IEnumerable<WaveConditionsOutput> output,
+            CoverType coverType, string categoryBoundaryName)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
-            }
-
-            if (waveConditionsInput == null)
-            {
-                throw new ArgumentNullException(nameof(waveConditionsInput));
             }
 
             if (output == null)
@@ -155,7 +171,8 @@ namespace Ringtoets.Revetment.IO.WaveConditions
                 throw new ArgumentNullException(nameof(output));
             }
 
-            return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput, coverType)).ToArray();
+            return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput,
+                                                                                      coverType, categoryBoundaryName)).ToArray();
         }
     }
 }
