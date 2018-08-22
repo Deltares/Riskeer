@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="PK001_0001 W1-6_0_1D1">
-    <hrlocatie>PUNT_KAT_18</hrlocatie>
+    <hblocatie>PUNT_KAT_18</hblocatie>
     <ondergrondmodel>PK001_0001_Piping</ondergrondmodel>
     <ondergrondschematisatie>W1-6_0_1D1</ondergrondschematisatie>
     <stochasten>

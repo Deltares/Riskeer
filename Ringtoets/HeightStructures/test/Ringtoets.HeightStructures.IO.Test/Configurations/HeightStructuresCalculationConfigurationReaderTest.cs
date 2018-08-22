@@ -53,9 +53,15 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                                               "The 'voorlandprofiel' element is invalid - The value '' is invalid according to its datatype 'String'")
                     .SetName("invalidCalculationForeshoreProfileEmpty");
 
-                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmpty.xml",
+                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmptyOld.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String'")
-                    .SetName("invalidCalculationHydraulicBoundaryLocationEmpty");
+                    .SetName("invalidCalculationHydraulicBoundaryLocationEmptyOld");
+                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmptyNew.xml",
+                                              "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String'")
+                    .SetName("invalidCalculationHydraulicBoundaryLocationEmptyNew");
+                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");
 
                 yield return new TestCaseData("invalidCalculationMultipleFailureProbabilityStructureWithErosion.xml",
                                               "Element 'faalkansgegevenerosiebodem' cannot appear more than once if content model type is \"all\".")
@@ -63,9 +69,12 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleForeshoreProfile.xml",
                                               "Element 'voorlandprofiel' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleForeshoreProfile");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationOld.xml",
                                               "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationOld");
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationNew.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationNew");
                 yield return new TestCaseData("invalidCalculationMultipleOrientation.xml",
                                               "Element 'orientatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleOrientation");
@@ -255,8 +264,10 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validFullConfiguration")]
-        [TestCase("validFullConfiguration_differentOrder")]
+        [TestCase("validFullConfigurationOld")]
+        [TestCase("validFullConfigurationNew")]
+        [TestCase("validFullConfiguration_differentOrder_old")]
+        [TestCase("validFullConfiguration_differentOrder_new")]
         public void Read_ValidFullConfigurations_ExpectedValues(string fileName)
         {
             // Setup
@@ -389,10 +400,12 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidPartialConfigurations_ExpectedValues()
+        [TestCase("validPartialConfigurationOld")]
+        [TestCase("validPartialConfigurationNew")]
+        public void Read_ValidPartialConfigurations_ExpectedValues(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validPartialConfiguration.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new HeightStructuresCalculationConfigurationReader(filePath);
 
             // Call

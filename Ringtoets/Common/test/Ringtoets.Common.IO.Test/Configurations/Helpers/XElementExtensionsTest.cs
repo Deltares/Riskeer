@@ -1199,6 +1199,49 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             Assert.AreEqual(isRelevant, configuration.IsRelevant);
         }
 
+        [Test]
+        public void GetHydraulicBoundaryLocationName_CalculationElementNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((XElement) null).GetHydraulicBoundaryLocationName();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationElement", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase("hrlocatie")]
+        [TestCase("hblocatie")]
+        public void GetHydraulicBoundaryLocationName_WithHydraulicBoundaryLocation_ReturnHydraulicBoundaryLocationName(string tagName)
+        {
+            // Setup
+            const string locationName = "Location1";
+
+            var locationElement = new XElement(tagName, locationName);
+            var configurationElement = new XElement("scenario", locationElement);
+            var xElement = new XElement("root", configurationElement);
+
+            // Call
+            string configuration = xElement.GetHydraulicBoundaryLocationName();
+
+            // Assert
+            Assert.AreEqual(locationName, configuration);
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryLocationName_OtherDescendantElement_ReturnsNull()
+        {
+            // Setup
+            var xElement = new XElement("root", new XElement("OtherDescendantElement"));
+
+            // Call
+            string configuration = xElement.GetHydraulicBoundaryLocationName();
+
+            // Assert
+            Assert.IsNull(configuration);
+        }
+
         private class DoubleToBooleanConverter : TypeConverter
         {
             public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)

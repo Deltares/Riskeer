@@ -13,7 +13,7 @@
         <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\GolfReductieSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationHydraulicBoundaryLocationSchema" Guid="{8F244250-0E36-4720-9CC8-7D4BC623267D}">
-        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\HrLocatieSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\HbLocatieSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationStructureBaseSchema" Guid="65966C2B-1940-42AC-A423-1A8FFBC421E1">
         <File Source="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.IO\Resources\KunstwerkenBasisSchema.xsd" KeyPath="yes"/>
@@ -69,10 +69,10 @@
       </Component>
       <!-- Revetment -->
       <Component Id="CalculationConfigurationRevetmentBaseFile" Guid="07E3754B-7CE9-4698-84D6-AA66F90B324B">
-        <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenHrConfiguratieSchemaBasis.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenHbConfiguratieSchemaBasis.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationRevetmentFile" Guid="5A4CFA52-4341-464E-AA35-CE57B09BCB15">
-        <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenHrConfiguratieSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenHbConfiguratieSchema.xsd" KeyPath="yes"/>
       </Component>
       <!-- Grass Cover Erosion Outwards-->
       <Component Id="CalculationConfigurationGrassCoverErosionOutwardsFile" Guid="CAE4325D-8C3F-44F3-A651-C42CAD5033F3">

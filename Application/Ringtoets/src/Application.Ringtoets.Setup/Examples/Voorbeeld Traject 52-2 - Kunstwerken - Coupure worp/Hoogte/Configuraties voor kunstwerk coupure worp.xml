@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="Coupure Worp">
-    <hrlocatie>IJ_1_52-2_dk_00487</hrlocatie>
+    <hblocatie>IJ_1_52-2_dk_00487</hblocatie>
     <kunstwerk>KWK_1</kunstwerk>
     <orientatie>45</orientatie>
     <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
@@ -41,7 +41,7 @@
   </berekening>
   <map naam="Gevoeligheid">
     <berekening naam="Faalkans gegeven erosie bodem 1 in 1000">
-      <hrlocatie>IJ_1_52-2_dk_00487</hrlocatie>
+      <hblocatie>IJ_1_52-2_dk_00487</hblocatie>
       <kunstwerk>KWK_1</kunstwerk>
       <orientatie>45</orientatie>
       <faalkansgegevenerosiebodem>0.001</faalkansgegevenerosiebodem>

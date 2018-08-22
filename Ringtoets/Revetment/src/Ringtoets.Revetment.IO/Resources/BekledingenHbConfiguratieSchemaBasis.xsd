@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+Copyright (C) Stichting Deltares 2017. All rights reserved.
+
+This file is part of Ringtoets.
+
+Ringtoets is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--Algemene structuur met configuratie, mappen en berekeningen.-->
+  
+  <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft.-->
+  <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
+    <xs:complexType name="berekeningType">
+      <xs:complexContent>
+        <xs:extension base="berekeningType">
+          <xs:all>
+            <xs:element ref="hblocatie-of-hrlocatie" minOccurs="0"/>
+            <xs:element ref="bovengrensbekleding" minOccurs="0"/>
+            <xs:element ref="ondergrensbekleding" minOccurs="0"/>
+            <xs:element ref="bovengrenswaterstanden" minOccurs="0"/>
+            <xs:element ref="ondergrenswaterstanden" minOccurs="0"/>
+            <xs:element ref="stapgrootte" minOccurs="0"/>
+            <xs:element ref="voorlandprofiel" minOccurs="0"/>
+            <xs:element ref="orientatie" minOccurs="0"/>
+            <xs:element ref="golfreductie" minOccurs="0"/>
+            <xs:element ref="categoriegrens" minOccurs="0"/>
+          </xs:all>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:redefine>
+  
+  <!--Generieke definitie van de geselecteerde HB locatie voor alle toetssporen.-->
+  <xs:include schemaLocation="HbLocatieSchema.xsd"/>
+
+  <!--Generieke definitie voor de orientatie voor alle toetssporen.-->
+  <xs:include schemaLocation="OrientatieSchema.xsd"/>
+
+  <!--Generieke definitie voor het voorlandprofiel voor alle toetssporen.-->
+  <xs:include schemaLocation="VoorlandProfielSchema.xsd"/>
+
+  <!--Generieke definitie voor golfreducerende parameters voor alle toetssporen.-->
+  <xs:include schemaLocation="GolfReductieSchema.xsd"/>
+
+  <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
+  
+  <!--Specificeert de bovengrens van de bekleding (of maximale berekeningsrange 
+  voor het toetsen van de bekleding voor het specifieke toetsspoor).-->
+  <xs:element name="bovengrensbekleding">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de ondergrens van de bekleding (of maximale berekeningsrange 
+  voor het toetsen van de bekleding voor het specifieke toetsspoor).-->
+  <xs:element name="ondergrensbekleding">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de bovengrens van de waterstanden waarin de gebruiker geinteresseerd is.-->
+  <xs:element name="bovengrenswaterstanden">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de ondergrens van de waterstanden waarin de gebruiker geinteresseerd is.-->
+  <xs:element name="ondergrenswaterstanden">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de stapgrootte voor bepaling van de door te rekenen waterstanden.-->
+  <xs:element name="stapgrootte">
+    <xs:simpleType>
+      <xs:restriction base="xs:double">
+        <xs:enumeration value="0.5"/>
+        <xs:enumeration value="1.0"/>
+        <xs:enumeration value="2.0"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de categoriegrens waarmee de berekening uitgevoerd moet worden.-->
+  <xs:element name="categoriegrens" type="categoriegrensType"/>
+
+  <xs:simpleType name="categoriegrensType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  
+</xs:schema>

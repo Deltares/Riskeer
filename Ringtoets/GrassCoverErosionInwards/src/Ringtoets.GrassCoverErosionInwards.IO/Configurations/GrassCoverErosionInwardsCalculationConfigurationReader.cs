@@ -39,7 +39,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
     /// </summary>
     public class GrassCoverErosionInwardsCalculationConfigurationReader : CalculationConfigurationReader<GrassCoverErosionInwardsCalculationConfiguration>
     {
-        private const string hrLocatieSchemaName = "HrLocatieSchema.xsd";
+        private const string hbLocatieSchemaName = "HbLocatieSchema.xsd";
         private const string orientatieSchemaName = "OrientatieSchema.xsd";
         private const string golfReductieSchemaName = "GolfReductieSchema.xsd";
         private const string stochastSchemaName = "StochastSchema.xsd";
@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
                    new Dictionary<string, string>
                    {
                        {
-                           hrLocatieSchemaName, RingtoetsCommonIOResources.HrLocatieSchema
+                           hbLocatieSchemaName, RingtoetsCommonIOResources.HbLocatieSchema
                        },
                        {
                            orientatieSchemaName, RingtoetsCommonIOResources.OrientatieSchema
@@ -84,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
         {
             var configuration = new GrassCoverErosionInwardsCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
-                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
+                HydraulicBoundaryLocationName = calculationElement.GetHydraulicBoundaryLocationName(),
                 DikeProfileId = calculationElement.GetStringValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement),
                 Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
                 DikeHeight = calculationElement.GetDoubleValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement),

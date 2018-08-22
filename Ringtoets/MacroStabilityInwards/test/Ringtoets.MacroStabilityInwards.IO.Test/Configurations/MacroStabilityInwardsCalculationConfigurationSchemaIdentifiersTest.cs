@@ -31,6 +31,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         public void MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers_ExpectedValues()
         {
             Assert.AreEqual("toetspeil", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement);
+            Assert.AreEqual("waterstand", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelElement);
             Assert.AreEqual("profielschematisatie", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement);
             Assert.AreEqual("ondergrondmodel", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement);
             Assert.AreEqual("ondergrondschematisatie", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement);

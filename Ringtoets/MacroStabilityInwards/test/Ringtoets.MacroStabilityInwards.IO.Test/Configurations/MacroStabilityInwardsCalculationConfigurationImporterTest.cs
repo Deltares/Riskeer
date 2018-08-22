@@ -41,9 +41,6 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
     [TestFixture]
     public class MacroStabilityInwardsCalculationConfigurationImporterTest
     {
-        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
-                                                                        nameof(MacroStabilityInwardsCalculationConfigurationReader));
-
         private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.MacroStabilityInwards.IO,
                                                                           nameof(MacroStabilityInwardsCalculationConfigurationImporter));
 
@@ -105,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "De hydraulische belastingenlocatie 'HRlocatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
+            const string expectedMessage = "De hydraulische belastingenlocatie 'HBlocatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -822,11 +819,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
         [Test]
         [TestCase(false, "validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml")]
-        [TestCase(true, "validConfigurationFullCalculationContainingAssessmentLevel.xml")]
+        [TestCase(true, "validConfigurationFullCalculationContainingWaterLevel.xml")]
         public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(bool manualAssessmentLevel, string file)
         {
             // Setup
-            string filePath = Path.Combine(readerPath, file);
+            string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Profielschematisatie");
@@ -860,7 +857,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 stochasticSoilModel
             }, "readerPath");
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HBlocatie", 10, 20);
             var importer = new MacroStabilityInwardsCalculationConfigurationImporter(filePath,
                                                                                      calculationGroup,
                                                                                      new[]

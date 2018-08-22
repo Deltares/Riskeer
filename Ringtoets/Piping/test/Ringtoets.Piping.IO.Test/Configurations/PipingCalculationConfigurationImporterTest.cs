@@ -42,7 +42,6 @@ namespace Ringtoets.Piping.IO.Test.Configurations
     [TestFixture]
     public class PipingCalculationConfigurationImporterTest
     {
-        private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, nameof(PipingCalculationConfigurationReader));
         private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, nameof(PipingCalculationConfigurationImporter));
 
         private static IEnumerable<TestCaseData> ValidConfigurationInvalidData
@@ -165,7 +164,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "De hydraulische belastingenlocatie 'HRlocatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
+            const string expectedMessage = "De hydraulische belastingenlocatie 'HBlocatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -572,11 +571,11 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 
         [Test]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml", false)]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml", true)]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel.xml", true)]
         public void Import_ValidConfigurationWithValidHydraulicBoundaryData_DataAddedToModel(string file, bool manualAssessmentLevel)
         {
             // Setup
-            string filePath = Path.Combine(readerPath, file);
+            string filePath = Path.Combine(importerPath, file);
 
             var calculationGroup = new CalculationGroup();
             var surfaceLine = new PipingSurfaceLine("Profielschematisatie");
@@ -610,7 +609,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 stochasticSoilModel
             }, "readerPath");
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HBlocatie", 10, 20);
             var importer = new PipingCalculationConfigurationImporter(filePath,
                                                                       calculationGroup,
                                                                       new[]

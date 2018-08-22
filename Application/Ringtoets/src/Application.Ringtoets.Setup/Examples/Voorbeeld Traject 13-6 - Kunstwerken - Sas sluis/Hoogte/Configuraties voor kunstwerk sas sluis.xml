@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="Sassluis">
-    <hrlocatie>YM_2_13-6_dk_00284</hrlocatie>
+    <hblocatie>YM_2_13-6_dk_00284</hblocatie>
     <kunstwerk>17k6</kunstwerk>
     <orientatie>180</orientatie>
     <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
@@ -41,7 +41,7 @@
   </berekening>
   <map naam="Gevoeligheid">
     <berekening naam="Stormduur 8 uur">
-      <hrlocatie>YM_2_13-6_dk_00284</hrlocatie>
+      <hblocatie>YM_2_13-6_dk_00284</hblocatie>
       <kunstwerk>17k6</kunstwerk>
       <orientatie>180</orientatie>
       <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
