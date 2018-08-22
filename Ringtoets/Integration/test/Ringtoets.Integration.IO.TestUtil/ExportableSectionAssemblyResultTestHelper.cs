@@ -5,7 +5,7 @@ using Ringtoets.Integration.IO.Assembly;
 namespace Ringtoets.Integration.IO.TestUtil
 {
     /// <summary>
-    /// Helper class to assert <see cref="ExportableSectionAssemblyResult"/>
+    /// Helper class to assert <see cref="ExportableSectionAssemblyResult"/>.
     /// </summary>
     public static class ExportableSectionAssemblyResultTestHelper
     {

@@ -23,6 +23,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
 
             // Assert
             Assert.IsInstanceOf<ExportableFailureMechanismAssemblyResult>(assemblyResult);
+
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
             Assert.AreEqual(assemblyCategory, assemblyResult.AssemblyCategory);
             Assert.AreEqual(probability, assemblyResult.Probability);
