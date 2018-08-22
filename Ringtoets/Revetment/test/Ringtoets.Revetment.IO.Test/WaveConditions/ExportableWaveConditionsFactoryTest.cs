@@ -173,7 +173,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
         {
             // Call
             TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName",
-                                                                                                               null,
+                                                                                                               (WaveConditionsInput) null,
                                                                                                                waveConditionsOutputCollection,
                                                                                                                CoverType.Asphalt);
 
@@ -269,7 +269,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
         {
             // Call
             TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName",
-                                                                                                               null,
+                                                                                                               (WaveConditionsInput) null,
                                                                                                                waveConditionsOutputCollection,
                                                                                                                CoverType.Asphalt);
 
@@ -311,6 +311,102 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
         {
             // Setup
             var waveConditionsInput = new FailureMechanismCategoryWaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
+                ForeshoreProfile = new TestForeshoreProfile(),
+                UseForeshore = true
+            };
+
+            // Call
+            ExportableWaveConditions[] exportableWaveConditionsCollection =
+                ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("ewcName",
+                                                                                         waveConditionsInput,
+                                                                                         waveConditionsOutputCollection,
+                                                                                         CoverType.Grass).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, exportableWaveConditionsCollection.Length);
+            ExportableWaveConditions exportableWaveConditions = exportableWaveConditionsCollection[0];
+            Assert.AreEqual("ewcName", exportableWaveConditions.CalculationName);
+            Assert.AreEqual("hblName", exportableWaveConditions.LocationName);
+            Assert.AreEqual(1.0, exportableWaveConditions.LocationXCoordinate);
+            Assert.AreEqual(8.0, exportableWaveConditions.LocationYCoordinate);
+            Assert.AreEqual("id", exportableWaveConditions.ForeshoreId);
+            Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
+            Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
+            Assert.AreEqual(CoverType.Grass, exportableWaveConditions.CoverType);
+            Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
+            Assert.AreEqual(2, exportableWaveConditions.WaveAngle.NumberOfDecimalPlaces);
+            Assert.AreEqual(waveConditionsOutput.WaterLevel, exportableWaveConditions.WaterLevel);
+            Assert.AreEqual(waveConditionsOutput.WaveHeight, exportableWaveConditions.WaveHeight);
+            Assert.AreEqual(waveConditionsOutput.WavePeakPeriod, exportableWaveConditions.WavePeriod);
+            Assert.AreEqual(waveConditionsOutput.WaveAngle, exportableWaveConditions.WaveAngle);
+            Assert.AreEqual(waveConditionsOutput.WaveDirection, exportableWaveConditions.WaveDirection);
+        }
+
+        [Test]
+        public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_NameNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null,
+                                                                                                               new AssessmentSectionCategoryWaveConditionsInput(),
+                                                                                                               waveConditionsOutputCollection,
+                                                                                                               CoverType.Asphalt);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_WaveConditionsInputNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName",
+                                                                                                               (AssessmentSectionCategoryWaveConditionsInput) null,
+                                                                                                               waveConditionsOutputCollection,
+                                                                                                               CoverType.Asphalt);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("waveConditionsInput", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_OutputNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName",
+                                                                                                               new AssessmentSectionCategoryWaveConditionsInput(),
+                                                                                                               null,
+                                                                                                               CoverType.Asphalt);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("output", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInputt_CoverTypeNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName",
+                                                                                                               new AssessmentSectionCategoryWaveConditionsInput(),
+                                                                                                               Enumerable.Empty<WaveConditionsOutput>(),
+                                                                                                               (CoverType) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("coverType", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_ValidDataWithCoverType_ReturnsValidCollection()
+        {
+            // Setup
+            var waveConditionsInput = new AssessmentSectionCategoryWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
                 ForeshoreProfile = new TestForeshoreProfile(),
