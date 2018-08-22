@@ -565,7 +565,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
         private static IEnumerable<NameAdapter> GetNameAdaptersOfStringProperties()
         {
-            yield return new NameAdapter("HydraulicBoundaryLocation", "hrlocatie");
+            yield return new NameAdapter("HydraulicBoundaryLocationOld", "hrlocatie");
+            yield return new NameAdapter("HydraulicBoundaryLocationNew", "hblocatie");
             yield return new NameAdapter("SurfaceLine", "profielschematisatie");
             yield return new NameAdapter("StochasticSoilModel", "ondergrondmodel");
             yield return new NameAdapter("StochasticSoilProfile", "ondergrondschematisatie");
@@ -593,6 +594,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         private static IEnumerable<NameAdapter> GetNameAdaptersOfDoubleProperties()
         {
             yield return new NameAdapter("AssessmentLevel", "toetspeil");
+            yield return new NameAdapter("WaterLevel", "waterstand");
             yield return new NameAdapter("ScenarioContribution", "bijdrage");
             yield return new NameAdapter("SlipPlaneMinimumDepth", "minimaleglijvlakdiepte");
             yield return new NameAdapter("SlipPlaneMinimumLength", "minimaleglijvlaklengte");
@@ -674,8 +676,18 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                                               string.Format(message, tagElement));
             }
 
-            yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml",
+            yield return new TestCaseData("invalidContainingBothAssessmentLevelAndWaterLevel.xml",
+                                          string.Format(message, "toetspeil"));
+            yield return new TestCaseData("invalidContainingBothHydraulicBoundaryLocationOldAndNew.xml",
                                           string.Format(message, "hrlocatie"));
+            yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationOld.xml",
+                                          string.Format(message, "hrlocatie"));
+            yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationNew.xml",
+                                          string.Format(message, "hblocatie"));
+            yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationOld.xml",
+                                          string.Format(message, "hrlocatie"));
+            yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationNew.xml",
+                                          string.Format(message, "hblocatie"));
         }
 
         private static IEnumerable<NameAdapter> GetNameAdaptersOfAllProperties()
