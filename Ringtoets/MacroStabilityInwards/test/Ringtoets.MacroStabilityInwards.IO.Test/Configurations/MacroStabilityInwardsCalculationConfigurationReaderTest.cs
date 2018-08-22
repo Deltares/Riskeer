@@ -124,10 +124,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadMacroStabilityInwardsCalculation()
+        [TestCase("validConfigurationCalculationContainingAssessmentLevelAndNaNs")]
+        [TestCase("validConfigurationCalculationContainingWaterLevelAndNaNs")]
+        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadMacroStabilityInwardsCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingNaNs.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
@@ -176,10 +178,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadMacroStabilityInwardsCalculation()
+        [TestCase("validConfigurationCalculationContainingAssessmentLevelAndInfinities")]
+        [TestCase("validConfigurationCalculationContainingWaterLevelAndInfinities")]
+        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadMacroStabilityInwardsCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingInfinities.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
@@ -335,14 +339,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnCalculation(AssessmentLevel)")]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnCalculation(AssessmentLevel_differentOrder)")]
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel")]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel")]
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder")]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel_differentOrder")]
         public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadMacroStabilityInwardsCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, fileName);
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
@@ -451,7 +455,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.AreEqual("Calculation", configuration.Name);
-            Assert.AreEqual(1.1, configuration.AssessmentLevel);
+            Assert.IsNull(configuration.AssessmentLevel);
             Assert.IsNull(configuration.HydraulicBoundaryLocationName);
             Assert.IsNull(configuration.SurfaceLineName);
             Assert.IsNull(configuration.StochasticSoilModelName);
