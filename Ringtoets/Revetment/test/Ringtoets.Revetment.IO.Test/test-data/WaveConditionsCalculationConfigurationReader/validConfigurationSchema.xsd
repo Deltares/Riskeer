@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   
-  <xs:include schemaLocation="BekledingenHrConfiguratieSchemaBasis.xsd" />
+  <xs:include schemaLocation="BekledingenHbConfiguratieSchemaBasis.xsd" />
   
   <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
     <xs:complexType name="berekeningType">
