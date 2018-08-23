@@ -267,11 +267,26 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                                                                                                     macroStabilityInwardsInput.TangentLineZTop,
                                                                                                     macroStabilityInwardsInput.TangentLineNumber,
                                                                                                     macroStabilityInwardsInput.SurfaceLine);
+
+            currentSoilProfile = soilProfile;
+            if (surfaceLine != null)
+            {
+                if (currentSurfaceLine == null)
+                {
+                    currentSurfaceLine = new MacroStabilityInwardsSurfaceLine(surfaceLine.Name);
+                }
+
+                currentSurfaceLine.CopyProperties(surfaceLine);
+            }
+            else
+            {
+                currentSurfaceLine = null;
+            }
         }
 
         private void SetWaternetExtremeChartData(MacroStabilityInwardsWaternet waternet, MacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            if (!waternet.Equals(currentWaternetExtreme))
+            if (!waternet.Equals(currentWaternetExtreme) || !SurfaceLineEqual(surfaceLine))
             {
                 currentWaternetExtreme = waternet;
                 SetWaternetZonesChartData(waternet, surfaceLine, waternetZonesExtremeChartData);
@@ -280,7 +295,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void SetWaternetDailyChartData(MacroStabilityInwardsWaternet waternet, MacroStabilityInwardsSurfaceLine surfaceLine)
         {
-            if (!waternet.Equals(currentWaternetDaily))
+            if (!waternet.Equals(currentWaternetDaily) || !SurfaceLineEqual(surfaceLine))
             {
                 currentWaternetDaily = waternet;
                 SetWaternetZonesChartData(waternet, surfaceLine, waternetZonesDailyChartData);
@@ -329,15 +344,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private void SetSoilProfileChartData(MacroStabilityInwardsSurfaceLine surfaceLine,
                                              IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)
         {
-            if (!ReferenceEquals(currentSoilProfile, soilProfile) || !ReferenceEquals(currentSurfaceLine, surfaceLine))
+            if (!ReferenceEquals(currentSoilProfile, soilProfile) || !SurfaceLineEqual(surfaceLine))
             {
-                currentSoilProfile = soilProfile;
-                currentSurfaceLine = surfaceLine;
-
                 SetSoilProfileChartData();
             }
 
             SetSoilLayerAreas();
+        }
+
+        private bool SurfaceLineEqual(MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return (surfaceLine != null || currentSurfaceLine != null) && currentSurfaceLine != null && currentSurfaceLine.Equals(surfaceLine);
         }
 
         private void SetSoilProfileChartData()
