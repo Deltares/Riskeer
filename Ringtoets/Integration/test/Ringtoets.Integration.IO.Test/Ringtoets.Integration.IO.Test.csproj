@@ -43,7 +43,6 @@
     <Compile Include="Factories\ExportableCombinedSectionAssemblyCollectionFactoryTest.cs" />
     <Compile Include="Factories\ExportableDuneErosionFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableFailureMechanismFactoryTest.cs" />
-    <Compile Include="Factories\ExportableFailureMechanismSectionFactoryTest.cs" />
     <Compile Include="Factories\ExportableGrassCoverErosionInwardsFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableGrassCoverErosionOutwardsFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableGrassCoverSlipOffInwardsFailureMechanismFactoryTest.cs" />

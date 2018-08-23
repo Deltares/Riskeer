@@ -41,7 +41,6 @@
     <Compile Include="Factories\ExportableCombinedSectionAssemblyCollectionFactory.cs" />
     <Compile Include="Factories\ExportableDuneErosionFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableFailureMechanismFactory.cs" />
-    <Compile Include="Factories\ExportableFailureMechanismSectionFactory.cs" />
     <Compile Include="Factories\ExportableGrassCoverErosionInwardsFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableGrassCoverErosionOutwardsFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.cs" />
