@@ -623,13 +623,16 @@ namespace Core.Common.Util.Test.Reflection
         }
 
         [Test]
-        public void GetPropertyAttributes_WithPropertyName_ReturnsTestingAttribute()
+        public void GetPropertyAttributes_WithPropertyName_ReturnsTestingAttributes()
         {
             // Call
             IEnumerable<TestingAttribute> attributes = TypeUtils.GetPropertyAttributes<AttributeClass, TestingAttribute>(nameof(AttributeClass.Property));
 
             // Assert
-            Assert.IsInstanceOf<TestingAttribute>(attributes.Single());
+            Assert.AreEqual(2, attributes.Count());
+            CollectionAssert.AllItemsAreInstancesOfType(attributes, typeof(TestingAttribute));
+            Assert.AreEqual("attribute 1", attributes.First().Name);
+            Assert.AreEqual("attribute 2", attributes.ElementAt(1).Name);
         }
 
         private enum TestEnum
@@ -686,10 +689,15 @@ namespace Core.Common.Util.Test.Reflection
 
         private class AttributeClass
         {
-            [Testing]
-            public int Property { get; set; }
+            [Testing(Name = "attribute 1")]
+            [Testing(Name = "attribute 2")]
+            public int Property { get; }
         }
 
-        private class TestingAttribute : Attribute {}
+        [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+        private class TestingAttribute : Attribute
+        {
+            public string Name { get; set; }
+        }
     }
 }
