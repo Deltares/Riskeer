@@ -46,9 +46,9 @@ namespace Ringtoets.AssemblyTool.IO.TestUtil
         /// </exception>
         public static void AssertXmlTypeAttribute(Type type, string typeName)
         {
-            var attribute = (XmlTypeAttribute) type.GetCustomAttributes(typeof(XmlTypeAttribute), false).SingleOrDefault();
-            Assert.IsNotNull(attribute);
-            Assert.AreEqual(typeName, attribute.TypeName);
+            var attributes = (XmlTypeAttribute[]) type.GetCustomAttributes(typeof(XmlTypeAttribute), false);
+            Assert.AreEqual(1, attributes.Length);
+            Assert.AreEqual(typeName, attributes.Single().TypeName);
         }
 
         /// <summary>
