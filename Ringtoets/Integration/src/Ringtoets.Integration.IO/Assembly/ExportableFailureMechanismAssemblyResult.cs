@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.IO.Assembly
         }
 
         /// <summary>
-        /// Gets the assembly method that was used to assembly the assembly result.
+        /// Gets the assembly method that was used to assemble the assembly result.
         /// </summary>
         public ExportableAssemblyMethod AssemblyMethod { get; }
 

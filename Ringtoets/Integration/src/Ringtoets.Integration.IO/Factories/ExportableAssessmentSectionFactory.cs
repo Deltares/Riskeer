@@ -40,8 +40,8 @@ namespace Ringtoets.Integration.IO.Factories
         /// based on <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to create
-        /// a <see cref="ExportableAssessmentSection"/> for.</param>
-        /// <returns>A <see cref="ExportableAssessmentSection"/> with assembly results.</returns>
+        /// an <see cref="ExportableAssessmentSection"/> for.</param>
+        /// <returns>An <see cref="ExportableAssessmentSection"/> with assembly results.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
@@ -63,11 +63,11 @@ namespace Ringtoets.Integration.IO.Factories
         }
 
         /// <summary>
-        /// Creates a <see cref="ExportableAssessmentSectionAssemblyResult"/> with the assembly result
+        /// Creates an <see cref="ExportableAssessmentSectionAssemblyResult"/> with the assembly result
         /// based on <paramref name="assessmentSection"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section to create a <see cref="ExportableAssessmentSectionAssemblyResult"/> for.</param>
-        /// <returns>A <see cref="ExportableAssessmentSectionAssemblyResult"/> with assembly result.</returns>
+        /// <param name="assessmentSection">The assessment section to create an <see cref="ExportableAssessmentSectionAssemblyResult"/> for.</param>
+        /// <returns>An <see cref="ExportableAssessmentSectionAssemblyResult"/> with assembly result.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult(AssessmentSection assessmentSection)
         {
@@ -76,11 +76,11 @@ namespace Ringtoets.Integration.IO.Factories
         }
 
         /// <summary>
-        /// Creates a <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> with the assembly result
+        /// Creates an <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> with the assembly result
         /// based on <paramref name="assessmentSection"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section to create a  <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> for.</param>
-        /// <returns>A <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> with assembly result.</returns>
+        /// <param name="assessmentSection">The assessment section to create an <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> for.</param>
+        /// <returns>An <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> with assembly result.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static ExportableFailureMechanismAssemblyResultWithProbability CreateExportableFailureMechanismAssemblyResultWithProbability(AssessmentSection assessmentSection)
         {
@@ -91,11 +91,11 @@ namespace Ringtoets.Integration.IO.Factories
         }
 
         /// <summary>
-        /// Creates a <see cref="ExportableFailureMechanismAssemblyResult"/> with the assembly result
+        /// Creates an <see cref="ExportableFailureMechanismAssemblyResult"/> with the assembly result
         /// based on <paramref name="assessmentSection"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section to create a  <see cref="ExportableFailureMechanismAssemblyResult"/> for.</param>
-        /// <returns>A <see cref="ExportableFailureMechanismAssemblyResult"/> with assembly result.</returns>
+        /// <param name="assessmentSection">The assessment section to create an <see cref="ExportableFailureMechanismAssemblyResult"/> for.</param>
+        /// <returns>An <see cref="ExportableFailureMechanismAssemblyResult"/> with assembly result.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static ExportableFailureMechanismAssemblyResult CreateExportableFailureMechanismAssemblyResultWithoutProbability(AssessmentSection assessmentSection)
         {
@@ -154,9 +154,9 @@ namespace Ringtoets.Integration.IO.Factories
         }
 
         /// <summary>
-        /// Creates a <see cref="ExportableCombinedSectionAssemblyCollection"/> based on <paramref name="assessmentSection"/>.
+        /// Creates an <see cref="ExportableCombinedSectionAssemblyCollection"/> based on <paramref name="assessmentSection"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section to a <see cref="ExportableCombinedSectionAssemblyCollection"/> for.</param>
+        /// <param name="assessmentSection">The assessment section to an <see cref="ExportableCombinedSectionAssemblyCollection"/> for.</param>
         /// <returns>A <see cref="CreateExportableCombinedSectionAssemblyCollection"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static ExportableCombinedSectionAssemblyCollection CreateExportableCombinedSectionAssemblyCollection(AssessmentSection assessmentSection)

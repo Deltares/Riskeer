@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <param name="failureMechanismSectionAssembly">The assembly result of this section.</param>
         /// <param name="assemblyMethod">The assembly method <see cref="ExportableAssemblyMethod"/>
         /// which was used to generate the result.</param>
-        /// <returns>A <see cref="ExportableSectionAssemblyResultWithProbability"/>.</returns>
+        /// <returns>An <see cref="ExportableSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssembly"/>
         /// is <c>null</c>.</exception>
         public static ExportableSectionAssemblyResult CreateExportableSectionAssemblyResult(
@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <param name="failureMechanismSectionAssembly">The assembly result of this section.</param>
         /// <param name="assemblyMethod">The assembly method <see cref="ExportableAssemblyMethod"/>
         /// which was used to generate the result.</param>
-        /// <returns>A <see cref="ExportableSectionAssemblyResultWithProbability"/>.</returns>
+        /// <returns>An <see cref="ExportableSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssembly"/>
         /// is <c>null</c>.</exception>
         public static ExportableSectionAssemblyResultWithProbability CreateExportableSectionAssemblyResultWithProbability(

@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.IO.Assembly
         DA = 12,
 
         /// <summary>
-        /// Represents the failure mechanism height structurews.
+        /// Represents the failure mechanism height structures.
         /// </summary>
         HTKW = 13,
 

@@ -35,12 +35,12 @@ namespace Ringtoets.Integration.IO.Factories
     public static class ExportableCombinedSectionAssemblyCollectionFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ExportableCombinedSectionAssemblyCollection"/>
+        /// Creates an new instance of <see cref="ExportableCombinedSectionAssemblyCollection"/>
         /// based on <paramref name="combinedSectionAssemblyResults"/>.
         /// </summary>
         /// <param name="combinedSectionAssemblyResults">A collection of combined section results to
-        /// create a <see cref="ExportableCombinedSectionAssemblyCollection"/> for.</param>
-        /// <returns>A <see cref="ExportableCombinedSectionAssemblyCollection"/>.</returns>
+        /// create an <see cref="ExportableCombinedSectionAssemblyCollection"/> for.</param>
+        /// <returns>An <see cref="ExportableCombinedSectionAssemblyCollection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="combinedSectionAssemblyResults"/>
         /// is <c>null</c>.</exception>
         public static ExportableCombinedSectionAssemblyCollection CreateExportableCombinedSectionAssemblyCollection(

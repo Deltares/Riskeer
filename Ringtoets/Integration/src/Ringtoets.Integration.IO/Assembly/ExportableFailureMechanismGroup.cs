@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.IO.Assembly
         Group2 = 2,
 
         /// <summary>
-        /// Represnts the failure mechanism group 3.
+        /// Represents the failure mechanism group 3.
         /// </summary>
         Group3 = 3,
 

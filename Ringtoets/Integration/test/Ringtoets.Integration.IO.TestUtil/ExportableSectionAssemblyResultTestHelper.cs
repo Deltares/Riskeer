@@ -10,7 +10,7 @@ namespace Ringtoets.Integration.IO.TestUtil
     public static class ExportableSectionAssemblyResultTestHelper
     {
         /// <summary>
-        /// Asserts a <see cref="ExportableSectionAssemblyResultWithProbability"/>
+        /// Asserts an <see cref="ExportableSectionAssemblyResultWithProbability"/>
         /// against the assembly result and the method which was used to generate the result.
         /// </summary>
         /// <param name="assemblyResult">The expected <see cref="FailureMechanismSectionAssembly"/>.</param>
@@ -26,7 +26,7 @@ namespace Ringtoets.Integration.IO.TestUtil
         }
 
         /// <summary>
-        /// Asserts a <see cref="ExportableSectionAssemblyResult"/>
+        /// Asserts an <see cref="ExportableSectionAssemblyResult"/>
         /// against the assembly result and the method which was used to generate the result.
         /// </summary>
         /// <param name="assemblyResult">The expected <see cref="FailureMechanismSectionAssembly"/>.</param>

@@ -40,12 +40,12 @@ namespace Ringtoets.Integration.IO.Factories
         private const ExportableAssemblyMethod failureMechanismAssemblyMethod = ExportableAssemblyMethod.WBI1A1;
 
         /// <summary>
-        /// Creates a <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+        /// Creates an <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// with assembly results based on the input parameters.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="WaveImpactAsphaltCoverFailureMechanism"/> to create a
+        /// <param name="failureMechanism">The <see cref="WaveImpactAsphaltCoverFailureMechanism"/> to create an
         /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> for.</param>
-        /// <returns>A <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with assembly results.</returns>
+        /// <returns>An <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with assembly results.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateExportableFailureMechanism(
