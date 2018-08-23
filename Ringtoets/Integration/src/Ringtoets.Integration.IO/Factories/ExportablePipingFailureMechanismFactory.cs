@@ -26,6 +26,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.IO.Factories
@@ -72,18 +73,8 @@ namespace Ringtoets.Integration.IO.Factories
             }
 
             FailureMechanismAssembly failureMechanismAssembly = PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
-
-            IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections =
-                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSections(failureMechanism.Sections);
-            Dictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                failureMechanism.SectionResults
-                                .Zip(exportableFailureMechanismSections, (sectionResult, exportableSection) => new
-                                {
-                                    key = sectionResult,
-                                    value = exportableSection
-                                })
-                                .ToDictionary(pair => pair.key, pair => pair.value);
-
+            IDictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
@@ -107,7 +98,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportableFailureMechanismSectionResults(
-            Dictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections,
+            IDictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections,
             PipingFailureMechanism pipingFailureMechanism,
             IAssessmentSection assessmentSection)
         {

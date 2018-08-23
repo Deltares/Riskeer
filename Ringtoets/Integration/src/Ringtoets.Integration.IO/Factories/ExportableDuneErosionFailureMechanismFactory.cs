@@ -21,11 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Helpers;
 
 namespace Ringtoets.Integration.IO.Factories
 {
@@ -64,18 +64,8 @@ namespace Ringtoets.Integration.IO.Factories
             }
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
-
-            IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections =
-                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSections(failureMechanism.Sections);
-            Dictionary<DuneErosionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                failureMechanism.SectionResults
-                                .Zip(exportableFailureMechanismSections, (sectionResult, exportableSection) => new
-                                {
-                                    key = sectionResult,
-                                    value = exportableSection
-                                })
-                                .ToDictionary(pair => pair.key, pair => pair.value);
-
+            IDictionary<DuneErosionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
                                                              failureMechanismAssembly),
@@ -94,7 +84,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResult> CreateFailureMechanismSectionResults(
-            Dictionary<DuneErosionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections)
+            IDictionary<DuneErosionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections)
         {
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
             foreach (KeyValuePair<DuneErosionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSections)

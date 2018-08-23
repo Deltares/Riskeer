@@ -21,12 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Helpers;
 
 namespace Ringtoets.Integration.IO.Factories
 {
@@ -72,18 +72,8 @@ namespace Ringtoets.Integration.IO.Factories
             }
 
             FailureMechanismAssembly failureMechanismAssembly = ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
-
-            IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections =
-                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSections(failureMechanism.Sections);
-            Dictionary<ClosingStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                failureMechanism.SectionResults
-                                .Zip(exportableFailureMechanismSections, (sectionResult, exportableSection) => new
-                                {
-                                    key = sectionResult,
-                                    value = exportableSection
-                                })
-                                .ToDictionary(pair => pair.key, pair => pair.value);
-
+            IDictionary<ClosingStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
@@ -107,7 +97,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportableFailureMechanismSectionResults(
-            Dictionary<ClosingStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections,
+            IDictionary<ClosingStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections,
             ClosingStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {

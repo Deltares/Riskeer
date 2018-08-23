@@ -21,13 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Helpers;
 
 namespace Ringtoets.Integration.IO.Factories
 {
@@ -66,18 +66,8 @@ namespace Ringtoets.Integration.IO.Factories
             }
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
-
-            IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections =
-                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSections(failureMechanism.Sections);
-            Dictionary<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                failureMechanism.SectionResults
-                                .Zip(exportableFailureMechanismSections, (sectionResult, exportableSection) => new
-                                {
-                                    key = sectionResult,
-                                    value = exportableSection
-                                })
-                                .ToDictionary(pair => pair.key, pair => pair.value);
-
+            IDictionary<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
                                                              failureMechanismAssembly),
@@ -96,7 +86,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly> CreateFailureMechanismSectionResults(
-            Dictionary<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections)
+            IDictionary<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections)
         {
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly>();
             foreach (KeyValuePair<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSections)
