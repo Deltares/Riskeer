@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.ClosingStructures.Data.Test
 {
     [TestFixture]
-    public class ClosingStructureInflowModelTypeTest : EnumWithDisplayNameTestFixture<ClosingStructureInflowModelType>
+    public class ClosingStructureInflowModelTypeTest : EnumWithResourcesDisplayNameTestFixture<ClosingStructureInflowModelType>
     {
         protected override IDictionary<ClosingStructureInflowModelType, int> ExpectedValueForEnumValues
         {

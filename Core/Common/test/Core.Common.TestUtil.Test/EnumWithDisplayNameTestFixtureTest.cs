@@ -40,7 +40,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [TestFixture]
-        private class DisplayNameEnumTest : EnumWithDisplayNameTestFixture<EnumDisplayName>
+        private class DisplayNameEnumTest : EnumWithResourcesDisplayNameTestFixture<EnumDisplayName>
         {
             protected override IDictionary<EnumDisplayName, string> ExpectedDisplayNameForEnumValues
             {

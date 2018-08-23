@@ -27,7 +27,7 @@ using NUnit.Framework;
 namespace Core.Components.Gis.Test.Style
 {
     [TestFixture]
-    public class PointSymbolTest : EnumWithDisplayNameTestFixture<PointSymbol>
+    public class PointSymbolTest : EnumWithResourcesDisplayNameTestFixture<PointSymbol>
     {
         protected override IDictionary<PointSymbol, string> ExpectedDisplayNameForEnumValues
         {

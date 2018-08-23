@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.Common.Primitives.Test
 {
     [TestFixture]
-    public class DetailedAssessmentProbabilityOnlyResultTypeTest : EnumWithDisplayNameTestFixture<DetailedAssessmentProbabilityOnlyResultType>
+    public class DetailedAssessmentProbabilityOnlyResultTypeTest : EnumWithResourcesDisplayNameTestFixture<DetailedAssessmentProbabilityOnlyResultType>
     {
         protected override IDictionary<DetailedAssessmentProbabilityOnlyResultType, int> ExpectedValueForEnumValues
         {

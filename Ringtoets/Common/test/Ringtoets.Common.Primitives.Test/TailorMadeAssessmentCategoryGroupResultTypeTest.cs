@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.Common.Primitives.Test
 {
     [TestFixture]
-    public class TailorMadeAssessmentCategoryGroupResultTypeTest : EnumWithDisplayNameTestFixture<TailorMadeAssessmentCategoryGroupResultType>
+    public class TailorMadeAssessmentCategoryGroupResultTypeTest : EnumWithResourcesDisplayNameTestFixture<TailorMadeAssessmentCategoryGroupResultType>
     {
         protected override IDictionary<TailorMadeAssessmentCategoryGroupResultType, int> ExpectedValueForEnumValues
         {

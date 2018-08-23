@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Contribution;
 namespace Ringtoets.Common.Data.Test.Contribution
 {
     [TestFixture]
-    public class NormTypeTest : EnumWithDisplayNameTestFixture<NormType>
+    public class NormTypeTest : EnumWithResourcesDisplayNameTestFixture<NormType>
     {
         protected override IDictionary<NormType, string> ExpectedDisplayNameForEnumValues
         {

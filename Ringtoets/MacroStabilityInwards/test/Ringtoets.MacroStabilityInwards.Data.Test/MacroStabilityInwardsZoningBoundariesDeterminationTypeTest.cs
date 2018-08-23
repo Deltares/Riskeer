@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsZoningBoundariesDeterminationTypeTest : EnumWithDisplayNameTestFixture<MacroStabilityInwardsZoningBoundariesDeterminationType>
+    public class MacroStabilityInwardsZoningBoundariesDeterminationTypeTest : EnumWithResourcesDisplayNameTestFixture<MacroStabilityInwardsZoningBoundariesDeterminationType>
     {
         protected override IDictionary<MacroStabilityInwardsZoningBoundariesDeterminationType, string> ExpectedDisplayNameForEnumValues
         {

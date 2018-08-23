@@ -19,17 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Xml.Serialization;
+using Core.Common.Util.Attributes;
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil
 {
     [TestFixture]
-    public abstract class EnumWithXmlEnumNameTestFixture<TEnum> : EnumWithNameTestFixture<TEnum, int, XmlEnumAttribute>
+    public abstract class EnumWithResourcesDisplayNameTestFixture<TEnum> : EnumWithNameTestFixture<TEnum, int, ResourcesDisplayNameAttribute>
     {
-        protected override string GetDisplayName(XmlEnumAttribute attribute)
+        protected override string GetDisplayName(ResourcesDisplayNameAttribute attribute)
         {
-            return attribute.Name;
+            return attribute.DisplayName;
         }
     }
 }

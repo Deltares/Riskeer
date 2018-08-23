@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class FailureMechanismCategoryTypeTest : EnumWithDisplayNameTestFixture<FailureMechanismCategoryType>
+    public class FailureMechanismCategoryTypeTest : EnumWithResourcesDisplayNameTestFixture<FailureMechanismCategoryType>
     {
         protected override IDictionary<FailureMechanismCategoryType, string> ExpectedDisplayNameForEnumValues
         {

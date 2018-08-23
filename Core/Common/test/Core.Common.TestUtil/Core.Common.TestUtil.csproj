@@ -36,8 +36,9 @@
     <Compile Include="DirectoryDisposeHelper.cs" />
     <Compile Include="DoubleWithToleranceComparer.cs" />
     <Compile Include="EnumValuesTestFixture.cs" />
+    <Compile Include="EnumWithNameTestFixture.cs" />
     <Compile Include="EnumWithXmlEnumNameTestFixture.cs" />
-    <Compile Include="EnumWithDisplayNameTestFixture.cs" />
+    <Compile Include="EnumWithResourcesDisplayNameTestFixture.cs" />
     <Compile Include="EqualsTestFixture.cs" />
     <Compile Include="FileDisposeHelper.cs" />
     <Compile Include="DirectoryPermissionsRevoker.cs" />

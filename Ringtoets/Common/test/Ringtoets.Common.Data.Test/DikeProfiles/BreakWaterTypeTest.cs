@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 namespace Ringtoets.Common.Data.Test.DikeProfiles
 {
     [TestFixture]
-    public class BreakWaterTypeTest : EnumWithDisplayNameTestFixture<BreakWaterType>
+    public class BreakWaterTypeTest : EnumWithResourcesDisplayNameTestFixture<BreakWaterType>
     {
         protected override IDictionary<BreakWaterType, string> ExpectedDisplayNameForEnumValues
         {
