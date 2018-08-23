@@ -56,6 +56,12 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         /// Represents the assembly category IVt for an assessment section.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupD)]
-        D = 5
+        D = 5,
+
+        /// <summary>
+        /// Represents the assembly category NGO (Not assessed) for an assessment section.
+        /// </summary>
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupNotAssessed)]
+        NotAssessed = 6
     }
 }

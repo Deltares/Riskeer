@@ -49,6 +49,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
                     },
                     {
                         SerializableAssessmentSectionCategoryGroup.D, 5
+                    },
+                    {
+                        SerializableAssessmentSectionCategoryGroup.NotAssessed, 6
                     }
                 };
             }
@@ -74,6 +77,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
                     },
                     {
                         SerializableAssessmentSectionCategoryGroup.D, "D"
+                    },
+                    {
+                        SerializableAssessmentSectionCategoryGroup.NotAssessed, "NGO"
                     }
                 };
             }

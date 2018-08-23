@@ -53,6 +53,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("B", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupB);
             Assert.AreEqual("C", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupC);
             Assert.AreEqual("D", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupD);
+            Assert.AreEqual("NGO", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupNotAssessed);
 
             Assert.AreEqual("WBI-0E-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0E1);
             Assert.AreEqual("WBI-0E-3", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0E3);

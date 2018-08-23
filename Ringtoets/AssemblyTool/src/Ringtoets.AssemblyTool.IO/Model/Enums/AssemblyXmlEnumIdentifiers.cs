@@ -137,6 +137,11 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         /// </summary>
         public const string SerializableAssessmentSectionCategoryGroupD = "D";
 
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssessmentSectionCategoryGroup.NotAssessed"/>.
+        /// </summary>
+        public const string SerializableAssessmentSectionCategoryGroupNotAssessed = "NGO";
+
         #endregion
 
         #region SerializableAssemblyMethod
