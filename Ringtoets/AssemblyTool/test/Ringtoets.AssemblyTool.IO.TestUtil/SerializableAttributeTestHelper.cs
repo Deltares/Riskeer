@@ -68,7 +68,7 @@ namespace Ringtoets.AssemblyTool.IO.TestUtil
         /// </list>
         /// </exception>
         public static void AssertXmlElementAttribute<T>(string propertyName, string elementName, string namespaceUrl = null)
-            where T : class 
+            where T : class
         {
             XmlElementAttribute attribute = GetPropertyAttribute<T, XmlElementAttribute>(propertyName);
             Assert.AreEqual(elementName, attribute.ElementName);
@@ -92,7 +92,7 @@ namespace Ringtoets.AssemblyTool.IO.TestUtil
         /// </list>
         /// </exception>
         public static void AssertXmlAttributeAttribute<T>(string propertyName, string elementName, string namespaceUrl = null)
-            where T : class 
+            where T : class
         {
             XmlAttributeAttribute attribute = GetPropertyAttribute<T, XmlAttributeAttribute>(propertyName);
             Assert.AreEqual(elementName, attribute.AttributeName);
