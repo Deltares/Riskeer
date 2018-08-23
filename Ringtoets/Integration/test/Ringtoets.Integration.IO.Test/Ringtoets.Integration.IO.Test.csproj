@@ -29,7 +29,7 @@
     <Compile Include="Assembly\ExportableCombinedSectionAssemblyTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismSectionTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismAssemblyResultTest.cs" />
-    <Compile Include="Assembly\ExportableFailureMechanismAssemblyResultWithProbablityTest.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismAssemblyResultWithProbabilityTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismTypeTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismGroupTest.cs" />
     <Compile Include="Assembly\ExportableAssemblyMethodTest.cs" />

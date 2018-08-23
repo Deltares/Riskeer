@@ -108,14 +108,14 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 Assert.AreEqual(name, exportableAssessmentSection.Name);
                 CollectionAssert.AreEqual(referenceLine.Points, exportableAssessmentSection.Geometry);
 
-                ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyWithProbablity = exportableAssessmentSection.FailureMechanismAssemblyWithProbability;
-                Assert.AreEqual(ExportableAssemblyMethod.WBI2B1, failureMechanismAssemblyWithProbablity.AssemblyMethod);
-                Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput.Group, failureMechanismAssemblyWithProbablity.AssemblyCategory);
-                Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput.Probability, failureMechanismAssemblyWithProbablity.Probability);
+                ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyWithProbability = exportableAssessmentSection.FailureMechanismAssemblyWithProbability;
+                Assert.AreEqual(ExportableAssemblyMethod.WBI2B1, failureMechanismAssemblyWithProbability.AssemblyMethod);
+                Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput.Group, failureMechanismAssemblyWithProbability.AssemblyCategory);
+                Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput.Probability, failureMechanismAssemblyWithProbability.Probability);
 
-                ExportableFailureMechanismAssemblyResult failureMechanismAssemblyWithoutProbablity = exportableAssessmentSection.FailureMechanismAssemblyWithoutProbability;
-                Assert.AreEqual(ExportableAssemblyMethod.WBI2A1, failureMechanismAssemblyWithoutProbablity.AssemblyMethod);
-                Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput, failureMechanismAssemblyWithoutProbablity.AssemblyCategory);
+                ExportableFailureMechanismAssemblyResult failureMechanismAssemblyWithoutProbability = exportableAssessmentSection.FailureMechanismAssemblyWithoutProbability;
+                Assert.AreEqual(ExportableAssemblyMethod.WBI2A1, failureMechanismAssemblyWithoutProbability.AssemblyMethod);
+                Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput, failureMechanismAssemblyWithoutProbability.AssemblyCategory);
 
                 ExportableAssessmentSectionAssemblyResult exportableAssessmentSectionAssemblyResult = exportableAssessmentSection.AssessmentSectionAssembly;
                 Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleAssessmentSectionCategoryGroupOutput, exportableAssessmentSectionAssemblyResult.AssemblyCategory);

@@ -28,7 +28,7 @@ using Ringtoets.Integration.IO.Assembly;
 namespace Ringtoets.Integration.IO.Test.Assembly
 {
     [TestFixture]
-    public class ExportableFailureMechanismAssemblyResultWithProbablityTest
+    public class ExportableFailureMechanismAssemblyResultWithProbabilityTest
     {
         [Test]
         public void Constructor_WithArguments_ExpectedValues()
