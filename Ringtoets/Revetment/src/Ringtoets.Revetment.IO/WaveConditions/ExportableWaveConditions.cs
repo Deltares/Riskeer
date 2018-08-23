@@ -48,10 +48,12 @@ namespace Ringtoets.Revetment.IO.WaveConditions
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
+
             if (waveConditionsOutput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsOutput));
@@ -80,6 +82,7 @@ namespace Ringtoets.Revetment.IO.WaveConditions
             {
                 ForeshoreId = waveConditionsInput.ForeshoreProfile.Id;
             }
+
             UseForeshore = waveConditionsInput.UseForeshore;
             UseBreakWater = waveConditionsInput.UseBreakWater;
             CoverType = coverType;
