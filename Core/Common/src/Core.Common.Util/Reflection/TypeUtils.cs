@@ -275,8 +275,8 @@ namespace Core.Common.Util.Reflection
         /// Gets the attributes of type <typeparamref name="TAttribute"/> from a property on
         /// <typeparamref name="TObject"/>.
         /// </summary>
-        /// <returns>A collection of the attributes found on the property.</returns>
         /// <param name="propertyName">Name of the property to be get the attributes from.</param>
+        /// <returns>A collection of the attributes found on the property.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="propertyName"/> is <c>null</c>.</exception>
         /// <exception cref="AmbiguousMatchException">Thrown when more than one property is found with the specified name.</exception>
         /// <exception cref="TypeLoadException">Thrown when a custom attribute type cannot be loaded.</exception>

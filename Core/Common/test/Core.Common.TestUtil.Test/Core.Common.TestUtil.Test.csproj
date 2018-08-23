@@ -29,8 +29,6 @@
     <Compile Include="ControlsTestHelperTest.cs" />
     <Compile Include="DirectoryDisposeHelperTest.cs" />
     <Compile Include="DoubleWithToleranceComparerTest.cs" />
-    <Compile Include="EnumWithDisplayNameTestFixtureTest.cs" />
-    <Compile Include="EnumValuesTestFixtureTest.cs" />
     <Compile Include="FileDisposeHelperTest.cs" />
     <Compile Include="DirectoryPermissionsRevokerTest.cs" />
     <Compile Include="InvalidPathHelperTest.cs" />
