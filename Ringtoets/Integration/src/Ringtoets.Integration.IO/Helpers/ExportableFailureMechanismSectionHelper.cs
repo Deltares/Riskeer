@@ -21,10 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Factories;
 
 namespace Ringtoets.Integration.IO.Helpers
 {
@@ -49,16 +48,22 @@ namespace Ringtoets.Integration.IO.Helpers
                 throw new ArgumentNullException(nameof(failureMechanismSectionResults));
             }
 
-            IEnumerable<FailureMechanismSection> sections = failureMechanismSectionResults.Select(sr => sr.Section);
-            IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections =
-                ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSections(sections);
+            var failureMechanismSectionsLookup = new Dictionary<TSectionResult, ExportableFailureMechanismSection>();
 
-            return failureMechanismSectionResults.Zip(exportableFailureMechanismSections, (sectionResult, exportableSection) => new
-                                                 {
-                                                     key = sectionResult,
-                                                     value = exportableSection
-                                                 })
-                                                 .ToDictionary(pair => pair.key, pair => pair.value);
+            double startDistance = 0;
+            foreach (TSectionResult sectionResult in failureMechanismSectionResults)
+            {
+                FailureMechanismSection failureMechanismSection = sectionResult.Section;
+                double endDistance = startDistance + Math2D.Length(failureMechanismSection.Points);
+
+                failureMechanismSectionsLookup[sectionResult] = new ExportableFailureMechanismSection(failureMechanismSection.Points,
+                                                                                                      startDistance,
+                                                                                                      endDistance);
+
+                startDistance = endDistance;
+            }
+
+            return failureMechanismSectionsLookup;
         }
     }
 }
