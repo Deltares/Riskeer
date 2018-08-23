@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(failureMechanismCode, row.Code);
             Assert.AreEqual(failureMechanismGroup, row.Group);
             Assert.AreEqual(failureMechanismAssemblyCategoryGroup, row.CategoryGroup);
-            Assert.IsNaN(row.Probablity);
+            Assert.IsNaN(row.Probability);
 
             mocks.VerifyAll();
         }
@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var row = new FailureMechanismAssemblyCategoryGroupResultRow(failureMechanism, getFailureMechanismAssembly);
 
             // Precondition
-            Assert.IsNaN(row.Probablity);
+            Assert.IsNaN(row.Probability);
             Assert.AreEqual(failureMechanismAssemblyCategoryGroup, row.CategoryGroup);
 
             // When
@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[categoryIndex].ErrorText);
 
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.None, row.CategoryGroup);
-            Assert.IsNaN(row.Probablity);
+            Assert.IsNaN(row.Probability);
         }
 
         [Test]

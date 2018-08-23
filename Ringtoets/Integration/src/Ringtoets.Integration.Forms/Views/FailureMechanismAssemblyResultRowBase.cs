@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// Gets the probability of the failure mechanism assembly.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double Probablity { get; protected set; }
+        public double Probability { get; protected set; }
 
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
 

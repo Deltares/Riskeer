@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             this.getFailureMechanismAssemblyCategoryGroup = getFailureMechanismAssemblyCategoryGroup;
-            Probablity = double.NaN;
+            Probability = double.NaN;
 
             Update();
         }

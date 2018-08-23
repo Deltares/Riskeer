@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             TestHelper.AssertTypeConverter<FailureMechanismAssemblyResultRowBase,
                 NoProbabilityValueDoubleConverter>(
-                nameof(FailureMechanismAssemblyResultRowBase.Probablity));
+                nameof(FailureMechanismAssemblyResultRowBase.Probability));
             TestHelper.AssertTypeConverter<FailureMechanismAssemblyResultRowBase,
                 EnumTypeConverter>(
                 nameof(FailureMechanismAssemblyResultRowBase.CategoryGroup));
@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
             Assert.AreEqual(failureMechanismGroup, row.Group);
-            Assert.AreEqual(0, row.Probablity);
+            Assert.AreEqual(0, row.Probability);
             Assert.AreEqual((FailureMechanismAssemblyCategoryGroup) 0, row.CategoryGroup);
 
             mocks.VerifyAll();
