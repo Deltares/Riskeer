@@ -60,9 +60,11 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
 
             // Call
             var assemblyResult = new SerializableAssessmentSectionAssemblyResult(assemblyMethod, category);
+
             // Assert
             Assert.AreEqual(category, assemblyResult.CategoryGroup);
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
+            Assert.AreEqual("VOLLDG", assemblyResult.Status);
         }
     }
 }

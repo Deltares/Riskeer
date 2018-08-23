@@ -42,7 +42,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="id">The unique ID of the assembly result.</param>
         /// <param name="assessmentProcess">The assessment process this result belongs to.</param>
         /// <param name="assemblyResultWithoutProbability">The assembly result for failure mechanisms with a probability.</param>
-        /// <param name="assemblyResultWithProbability">The assembly result for failure mechanisms without a probablilty.</param>
+        /// <param name="assemblyResultWithProbability">The assembly result for failure mechanisms without a probability.</param>
         /// <param name="assessmentSectionAssemblyResult">The assembly result for the assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableTotalAssemblyResult(string id,

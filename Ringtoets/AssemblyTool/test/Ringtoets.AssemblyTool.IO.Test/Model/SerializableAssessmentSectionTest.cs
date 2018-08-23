@@ -42,8 +42,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual("Dijktraject", assessmentSection.AssessmentSectionType);
             Assert.IsNull(assessmentSection.Id);
             Assert.IsNull(assessmentSection.Name);
-            Assert.IsNull(assessmentSection.SurfaceLineGeometry);
-            Assert.IsNull(assessmentSection.SurfaceLineLength);
+            Assert.IsNull(assessmentSection.ReferenceLineGeometry);
+            Assert.IsNull(assessmentSection.ReferenceLineLength);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableAssessmentSection), "Waterkeringstelsel");
 
@@ -55,9 +55,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSection>(
                 nameof(SerializableAssessmentSection.Name), "naam");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSection>(
-                nameof(SerializableAssessmentSection.SurfaceLineLength), "lengte");
+                nameof(SerializableAssessmentSection.ReferenceLineLength), "lengte");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSection>(
-                nameof(SerializableAssessmentSection.SurfaceLineGeometry), "geometrie2D");
+                nameof(SerializableAssessmentSection.ReferenceLineGeometry), "geometrie2D");
         }
 
         [Test]
@@ -119,8 +119,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Assert
             Assert.AreEqual(id, assessmentSection.Id);
             Assert.AreEqual(name, assessmentSection.Name);
-            Assert.AreEqual(Math2D.Length(geometry), assessmentSection.SurfaceLineLength.Value);
-            Assert.IsNotNull(assessmentSection.SurfaceLineGeometry);
+            Assert.AreEqual(Math2D.Length(geometry), assessmentSection.ReferenceLineLength.Value);
+            Assert.IsNotNull(assessmentSection.ReferenceLineGeometry);
+            Assert.AreEqual("Dijktraject", assessmentSection.AssessmentSectionType);
         }
     }
 }

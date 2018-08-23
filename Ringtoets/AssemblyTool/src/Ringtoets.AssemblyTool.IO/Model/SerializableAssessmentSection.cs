@@ -47,7 +47,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique ID of the assessment section.</param>
         /// <param name="name">The name of the assessment section.</param>
-        /// <param name="geometry">The geometry of the surface line.</param>
+        /// <param name="geometry">The geometry of the reference line.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/> contains no elements.</exception>
         public SerializableAssessmentSection(string id,
@@ -71,8 +71,8 @@ namespace Ringtoets.AssemblyTool.IO.Model
 
             Id = id;
             Name = name;
-            SurfaceLineLength = new SerializableMeasure(Math2D.Length(geometry));
-            SurfaceLineGeometry = new SerializableLine(geometry);
+            ReferenceLineLength = new SerializableMeasure(Math2D.Length(geometry));
+            ReferenceLineGeometry = new SerializableLine(geometry);
         }
 
         /// <summary>
@@ -88,17 +88,17 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the geometry of the surface line.
+        /// Gets or sets the geometry of the reference line.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Geometry2D)]
-        public SerializableLine SurfaceLineGeometry { get; set; }
+        public SerializableLine ReferenceLineGeometry { get; set; }
 
         /// <summary>
-        /// Gets or sets the length of the surface line.
+        /// Gets or sets the length of the reference line.
         /// [m]
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Length)]
-        public SerializableMeasure SurfaceLineLength { get; set; }
+        public SerializableMeasure ReferenceLineLength { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the assessment section.

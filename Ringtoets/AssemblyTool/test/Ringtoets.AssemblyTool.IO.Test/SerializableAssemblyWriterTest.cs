@@ -137,8 +137,9 @@ namespace Ringtoets.AssemblyTool.IO.Test
         public void WriteAssembly_InvalidDirectoryRights_ThrowsCriticalFileWriteException()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteAssembly_InvalidDirectoryRights_ThrowsCriticalFileWriteException));
-            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(WriteAssembly_InvalidDirectoryRights_ThrowsCriticalFileWriteException)))
+            const string directoryName = nameof(WriteAssembly_InvalidDirectoryRights_ThrowsCriticalFileWriteException);
+            string directoryPath = TestHelper.GetScratchPadPath(directoryName);
+            using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), directoryName))
             {
                 string filePath = Path.Combine(directoryPath, "test.bnd");
                 disposeHelper.LockDirectory(FileSystemRights.Write);
@@ -266,12 +267,12 @@ namespace Ringtoets.AssemblyTool.IO.Test
             var assessmentSection = new SerializableAssessmentSection
             {
                 Id = "section1",
-                SurfaceLineLength = new SerializableMeasure
+                ReferenceLineLength = new SerializableMeasure
                 {
                     UnitOfMeasure = "m", Value = 100
                 },
                 Name = "Traject A",
-                SurfaceLineGeometry = new SerializableLine(new[]
+                ReferenceLineGeometry = new SerializableLine(new[]
                 {
                     new Point2D(0.35, 10.642),
                     new Point2D(10.1564, 20.23)

@@ -165,7 +165,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                Enumerable.Empty<SerializableFailureMechanismSection>());
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSections", exception.ParamName);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -188,7 +188,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                Enumerable.Empty<SerializableFailureMechanismSection>());
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentProcesses", exception.ParamName);
+            Assert.AreEqual("assessmentProcess", exception.ParamName);
         }
 
         [Test]
@@ -211,7 +211,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                Enumerable.Empty<SerializableFailureMechanismSection>());
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("totalAssemblyResults", exception.ParamName);
+            Assert.AreEqual("totalAssemblyResult", exception.ParamName);
         }
 
         [Test]

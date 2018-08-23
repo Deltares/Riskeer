@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model.Helpers;
 
@@ -50,9 +51,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Helpers
             TestDelegate call = () => GeometrySerializationFormatter.Format(Enumerable.Empty<Point2D>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("geometry", exception.ParamName);
-            Assert.AreEqual("Geometry cannot be empty.", exception.Message);
+            const string message = "Geometry cannot be empty.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
         }
 
         [Test]

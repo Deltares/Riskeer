@@ -20,11 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
+using Ringtoets.AssemblyTool.IO.Model.Helpers;
 using Ringtoets.AssemblyTool.IO.TestUtil;
 
 namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
@@ -71,8 +70,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
             var line = new SerializableLine(geometry);
 
             // Assert
-            Assert.AreEqual(geometry.Select(c => c.X.ToString(CultureInfo.InvariantCulture) + " " + c.Y.ToString(CultureInfo.InvariantCulture))
-                                    .Aggregate((c1, c2) => c1 + " " + c2), line.LineString.Geometry);
+            Assert.AreEqual(GeometrySerializationFormatter.Format(geometry), line.LineString.Geometry);
         }
     }
 }

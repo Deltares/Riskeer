@@ -75,6 +75,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
 
         [Test]
         [TestCase(0.5, true)]
+        [TestCase(double.NaN, true)]
         [TestCase(null, false)]
         public void ShouldSerializeProbability_WithProbabilityValues_ReturnsExpectedValue(double? probability, bool expectedShouldSerialize)
         {
