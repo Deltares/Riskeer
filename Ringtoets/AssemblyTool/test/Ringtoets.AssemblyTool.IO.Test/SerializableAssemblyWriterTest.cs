@@ -264,20 +264,11 @@ namespace Ringtoets.AssemblyTool.IO.Test
 
         private static SerializableAssembly CreateSerializableAssembly()
         {
-            var assessmentSection = new SerializableAssessmentSection
+            var assessmentSection = new SerializableAssessmentSection("section1", "Traject A", new[]
             {
-                Id = "section1",
-                ReferenceLineLength = new SerializableMeasure
-                {
-                    UnitOfMeasure = "m", Value = 100
-                },
-                Name = "Traject A",
-                ReferenceLineGeometry = new SerializableLine(new[]
-                {
-                    new Point2D(0.35, 10.642),
-                    new Point2D(10.1564, 20.23)
-                })
-            };
+                new Point2D(0, 0),
+                new Point2D(100.0, 0.0)
+            });
 
             var assessmentProcess = new SerializableAssessmentProcess("beoordelingsproces1",
                                                                       assessmentSection);

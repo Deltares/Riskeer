@@ -44,16 +44,17 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="assemblyResultWithoutProbability">The assembly result for failure mechanisms with a probability.</param>
         /// <param name="assemblyResultWithProbability">The assembly result for failure mechanisms without a probability.</param>
         /// <param name="assessmentSectionAssemblyResult">The assembly result for the assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         public SerializableTotalAssemblyResult(string id,
                                                SerializableAssessmentProcess assessmentProcess,
                                                SerializableFailureMechanismAssemblyResult assemblyResultWithoutProbability,
                                                SerializableFailureMechanismAssemblyResult assemblyResultWithProbability,
                                                SerializableAssessmentSectionAssemblyResult assessmentSectionAssemblyResult) : this()
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id));
+                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
             }
 
             if (assessmentProcess == null)

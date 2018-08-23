@@ -55,15 +55,17 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void ConstructorWithFailureMechanism_IdNull_ThrowsArgumentNullException()
+        [TestCase(null)]
+        [TestCase("")]
+        public void ConstructorWithFailureMechanism_IdInvalid_ThrowsArgumentException(string id)
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(null,
+            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(id,
                                                                                         new SerializableFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("id", exception.ParamName);
+            const string expectedMessage = "'id' must have a value.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
@@ -102,15 +104,17 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void ConstructorWithTotalAssemblyResult_IdNull_ThrowsArgumentNullException()
+        [TestCase(null)]
+        [TestCase("")]
+        public void ConstructorWithTotalAssemblyResult_IdInvalid_ThrowsArgumentException(string id)
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(null,
+            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(id,
                                                                                         new SerializableTotalAssemblyResult());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("id", exception.ParamName);
+            const string expectedMessage = "'id' must have a value.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]

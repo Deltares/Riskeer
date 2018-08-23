@@ -63,18 +63,20 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_IdNull_ThrowsArgumentNullException()
+        [TestCase(null)]
+        [TestCase("")]
+        public void Constructor_IdInvalid_ThrowsArgumentException(string id)
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionAssembly(null,
+            TestDelegate call = () => new SerializableFailureMechanismSectionAssembly(id,
                                                                                       new SerializableFailureMechanism(),
                                                                                       new SerializableFailureMechanismSection(),
                                                                                       new SerializableFailureMechanismSectionAssemblyResult[0],
                                                                                       new SerializableFailureMechanismSectionAssemblyResult());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("id", exception.ParamName);
+            const string expectedMessage = "'id' must have a value.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]

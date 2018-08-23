@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
@@ -60,18 +61,20 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_IdNull_ThrowsArgumentNullException()
+        [TestCase(null)]
+        [TestCase("")]
+        public void Constructor_IdInvalid_ThrowsArgumentException(string id)
         {
             // Call
-            TestDelegate call = () => new SerializableTotalAssemblyResult(null,
+            TestDelegate call = () => new SerializableTotalAssemblyResult(id,
                                                                           new SerializableAssessmentProcess(),
                                                                           new SerializableFailureMechanismAssemblyResult(),
                                                                           new SerializableFailureMechanismAssemblyResult(),
                                                                           new SerializableAssessmentSectionAssemblyResult());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("id", exception.ParamName);
+            const string expectedMessage = "'id' must have a value.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]

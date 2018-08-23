@@ -48,15 +48,20 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="id">The unique ID of the assessment section.</param>
         /// <param name="name">The name of the assessment section.</param>
         /// <param name="geometry">The geometry of the reference line.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/> contains no elements.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="geometry"/> contains no elements;</item>
+        /// <item><paramref name="id"/> is <c>null</c> or empty.</item>
+        /// </list>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="geometry"/> is <c>null</c>.</exception>
         public SerializableAssessmentSection(string id,
                                              string name,
                                              IEnumerable<Point2D> geometry) : this()
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id));
+                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
             }
 
             if (name == null)

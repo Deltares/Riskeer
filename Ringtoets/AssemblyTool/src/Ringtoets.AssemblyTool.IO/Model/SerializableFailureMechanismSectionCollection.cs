@@ -40,7 +40,8 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique ID of the sections.</param>
         /// <param name="failureMechanism">The failure mechanism the sections belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> parameter is <c>null</c>.</exception>
         public SerializableFailureMechanismSectionCollection(string id,
                                                              SerializableFailureMechanism failureMechanism)
             : this(id)
@@ -58,7 +59,8 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique ID of the sections.</param>
         /// <param name="totalAssemblyResult">The total assembly result the sections belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="totalAssemblyResult"/> parameter is <c>null</c>.</exception>
         public SerializableFailureMechanismSectionCollection(string id,
                                                              SerializableTotalAssemblyResult totalAssemblyResult)
             : this(id)
@@ -75,12 +77,12 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Creates a new instance of <see cref="SerializableFailureMechanismSectionCollection"/>.
         /// </summary>
         /// <param name="id">The unique ID of the sections.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
         private SerializableFailureMechanismSectionCollection(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id));
+                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
             }
 
             Id = id;

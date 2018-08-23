@@ -44,14 +44,14 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique ID of the assessment process.</param>
         /// <param name="assessmentSection">The assessment section this process belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/>
-        /// or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public SerializableAssessmentProcess(string id,
                                              SerializableAssessmentSection assessmentSection) : this()
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id));
+                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
             }
 
             if (assessmentSection == null)

@@ -11,7 +11,7 @@
       <asm:naam>Traject A</asm:naam>
       <asm:geometrie2D>
         <gml:LineString srsName="EPSG:28992">
-          <gml:posList>0.35 10.642 10.1564 20.23</gml:posList>
+          <gml:posList>0 0 100 0</gml:posList>
         </gml:LineString>
       </asm:geometrie2D>
       <asm:lengte uom="m">100</asm:lengte>

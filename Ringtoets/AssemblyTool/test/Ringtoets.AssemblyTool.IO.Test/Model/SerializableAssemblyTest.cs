@@ -25,6 +25,7 @@ using System.Globalization;
 using System.Linq;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
@@ -75,13 +76,15 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_IdNull_ThrowsArgumentNullException()
+        [TestCase(null)]
+        [TestCase("")]
+        public void Constructor_IdInvalid_ThrowsArgumentException(string id)
         {
             // Setup
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new SerializableAssembly(null,
+            TestDelegate call = () => new SerializableAssembly(id,
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new SerializableAssessmentSection(),
@@ -94,8 +97,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                Enumerable.Empty<SerializableFailureMechanismSection>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("id", exception.ParamName);
+            const string expectedMessage = "'id' must have a value.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
@@ -105,7 +108,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new SerializableAssembly(string.Empty,
+            TestDelegate call = () => new SerializableAssembly("id",
                                                                null,
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new SerializableAssessmentSection(),
@@ -129,7 +132,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new SerializableAssembly(string.Empty,
+            TestDelegate call = () => new SerializableAssembly("id",
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                null,
                                                                new SerializableAssessmentSection(),
@@ -152,7 +155,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new SerializableAssembly(string.Empty,
+            TestDelegate call = () => new SerializableAssembly("id",
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                null,
@@ -175,7 +178,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new SerializableAssembly(string.Empty,
+            TestDelegate call = () => new SerializableAssembly("id",
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new SerializableAssessmentSection(),
@@ -198,7 +201,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new SerializableAssembly(string.Empty,
+            TestDelegate call = () => new SerializableAssembly("id",
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new SerializableAssessmentSection(),
@@ -221,7 +224,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new SerializableAssembly(string.Empty,
+            TestDelegate call = () => new SerializableAssembly("id",
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new SerializableAssessmentSection(),
@@ -244,7 +247,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new SerializableAssembly(string.Empty,
+            TestDelegate call = () => new SerializableAssembly("id",
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new SerializableAssessmentSection(),
@@ -267,7 +270,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new SerializableAssembly(string.Empty,
+            TestDelegate call = () => new SerializableAssembly("id",
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new SerializableAssessmentSection(),
@@ -290,7 +293,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new SerializableAssembly(string.Empty,
+            TestDelegate call = () => new SerializableAssembly("id",
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new SerializableAssessmentSection(),
@@ -313,7 +316,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new SerializableAssembly(string.Empty,
+            TestDelegate call = () => new SerializableAssembly("id",
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new SerializableAssessmentSection(),

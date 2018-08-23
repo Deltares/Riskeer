@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.TestUtil;
@@ -57,15 +58,17 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_IdNull_ThrowsArgumentNullException()
+        [TestCase(null)]
+        [TestCase("")]
+        public void Constructor_IdInvalid_ThrowsArgumentException(string id)
         {
             // Call
-            TestDelegate call = () => new SerializableAssessmentProcess(null,
+            TestDelegate call = () => new SerializableAssessmentProcess(id,
                                                                         new SerializableAssessmentSection());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("id", exception.ParamName);
+            const string expectedMessage = "'id' must have a value.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]

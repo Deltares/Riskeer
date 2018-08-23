@@ -49,16 +49,18 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="failureMechanismType">The type of the failure mechanism.</param>
         /// <param name="failureMechanismGroup">The group of the failure mechanism.</param>
         /// <param name="failureMechanismAssemblyResult">The total failure mechanism assembly result.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="totalAssemblyResult"/>
+        /// or <paramref name="failureMechanismAssemblyResult"/> is <c>null</c>.</exception>
         public SerializableFailureMechanism(string id,
                                             SerializableTotalAssemblyResult totalAssemblyResult,
                                             SerializableFailureMechanismType failureMechanismType,
                                             SerializableFailureMechanismGroup failureMechanismGroup,
                                             SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResult) : this()
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id));
+                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
             }
 
             if (totalAssemblyResult == null)

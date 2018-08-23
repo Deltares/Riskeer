@@ -44,16 +44,17 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="section">The section this assembly belongs to.</param>
         /// <param name="failureMechanismResults">The collection of assembly results for this assembly per failure mechanism.</param>
         /// <param name="combinedSectionResult">The combined assembly result for this assembly.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         public SerializableCombinedFailureMechanismSectionAssembly(string id,
                                                                    SerializableTotalAssemblyResult totalAssemblyResult,
                                                                    SerializableFailureMechanismSection section,
                                                                    SerializableCombinedFailureMechanismSectionAssemblyResult[] failureMechanismResults,
                                                                    SerializableFailureMechanismSectionAssemblyResult combinedSectionResult) : this()
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id));
+                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
             }
 
             if (totalAssemblyResult == null)

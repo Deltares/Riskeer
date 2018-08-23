@@ -58,7 +58,8 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// belong to the assembly.</param>
         /// <param name="failureMechanismSections">The collection of <see cref="SerializableFailureMechanismSection"/> that
         /// belong to the assembly.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         public SerializableAssembly(string id,
                                     Point2D lowerCorner,
                                     Point2D upperCorner,
@@ -71,9 +72,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
                                     IEnumerable<SerializableFailureMechanismSectionCollection> failureMechanismSectionCollections,
                                     IEnumerable<SerializableFailureMechanismSection> failureMechanismSections)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id));
+                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
             }
 
             if (lowerCorner == null)

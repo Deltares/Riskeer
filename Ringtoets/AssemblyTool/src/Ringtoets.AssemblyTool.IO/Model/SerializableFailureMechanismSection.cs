@@ -49,9 +49,14 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="geometry">The geometry of the section.</param>
         /// <param name="sectionType">The type of the section.</param>
         /// <param name="assemblyMethod">The assembly method used to create this section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/>, <paramref name="failureMechanismSectionCollection"/>,
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="geometry"/> contains no elements;</item>
+        /// <item><paramref name="id"/> is <c>null</c> or empty.</item>
+        /// </list>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionCollection"/>
         /// or <paramref name="geometry"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/> contains no elements.</exception>
         public SerializableFailureMechanismSection(string id,
                                                    SerializableFailureMechanismSectionCollection failureMechanismSectionCollection,
                                                    double startDistance,
@@ -60,9 +65,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
                                                    SerializableFailureMechanismSectionType sectionType,
                                                    SerializableAssemblyMethod? assemblyMethod = null)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
-                throw new ArgumentNullException(nameof(id));
+                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
             }
 
             if (failureMechanismSectionCollection == null)
