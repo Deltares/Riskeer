@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.IO.Assembly;
 
@@ -64,6 +65,16 @@ namespace Ringtoets.Integration.IO.Helpers
             }
 
             return failureMechanismSectionsLookup;
+        }
+
+        public static IEnumerable<Point2D> GetFailureMechanismSectionGeometry(ReferenceLine referenceLine, int sectionStart, int sectionEnd)
+        {
+            if (referenceLine == null)
+            {
+                throw new ArgumentNullException(nameof(referenceLine));
+            }
+
+            return null;
         }
     }
 }

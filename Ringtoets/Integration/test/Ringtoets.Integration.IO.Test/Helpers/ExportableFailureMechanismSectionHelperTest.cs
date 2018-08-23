@@ -92,5 +92,16 @@ namespace Ringtoets.Integration.IO.Test.Helpers
             Assert.AreEqual(20, thirdExportableSection.StartDistance);
             Assert.AreEqual(40, thirdExportableSection.EndDistance);
         }
+
+        [Test]
+        public void GetFailureMechanismSectionGeometry_ReferenceLineNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ExportableFailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(null, 0, 0);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("referenceLine", exception.ParamName);
+        }
     }
 }
