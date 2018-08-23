@@ -80,7 +80,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// <summary>
         /// Determines whether <see cref="Probability"/> should be serialized.
         /// </summary>
-        /// <returns><c>true</c> if <see cref="Probability"/> has a value, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if <see cref="Probability"/> should be serialized, <c>false</c> otherwise.</returns>
         public bool ShouldSerializeProbability()
         {
             return Probability.HasValue;

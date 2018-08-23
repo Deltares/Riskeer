@@ -91,6 +91,15 @@ namespace Ringtoets.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EPSG:28992.
+        /// </summary>
+        internal static string CoordinateSystemName {
+            get {
+                return ResourceManager.GetString("CoordinateSystemName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DIRECT.
         /// </summary>
         internal static string DirectFailureMechanism {
@@ -114,15 +123,6 @@ namespace Ringtoets.AssemblyTool.IO.Properties {
         internal static string SerializableMeasure_Meter {
             get {
                 return ResourceManager.GetString("SerializableMeasure_Meter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to EPSG:28992.
-        /// </summary>
-        internal static string SrsName {
-            get {
-                return ResourceManager.GetString("SrsName", resourceCulture);
             }
         }
     }

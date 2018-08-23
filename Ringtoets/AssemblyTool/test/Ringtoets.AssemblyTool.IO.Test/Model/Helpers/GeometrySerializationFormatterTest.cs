@@ -44,6 +44,18 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Helpers
         }
 
         [Test]
+        public void Format_GeometryEmpty_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => GeometrySerializationFormatter.Format(Enumerable.Empty<Point2D>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("geometry", exception.ParamName);
+            Assert.AreEqual("Geometry cannot be empty.", exception.Message);
+        }
+
+        [Test]
         public void Format_WithGeometry_ReturnsFormattedString()
         {
             // Setup

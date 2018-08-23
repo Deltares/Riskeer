@@ -44,7 +44,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsNull(failureMechanism.Id);
             Assert.IsNull(failureMechanism.TotalAssemblyResultId);
             Assert.IsNull(failureMechanism.FailureMechanismAssemblyResult);
-            Assert.AreEqual((SerializableAssemblyGroup) 0, failureMechanism.AssemblyGroup);
+            Assert.AreEqual((SerializableFailureMechanismGroup) 0, failureMechanism.FailureMechanismGroup);
             Assert.AreEqual((SerializableFailureMechanismType) 0, failureMechanism.FailureMechanismType);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanism), "Toetsspoor");
@@ -57,7 +57,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
                 nameof(SerializableFailureMechanism.FailureMechanismType), "typeToetsspoor");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
-                nameof(SerializableFailureMechanism.AssemblyGroup), "toetsspoorGroep");
+                nameof(SerializableFailureMechanism.FailureMechanismGroup), "toetsspoorGroep");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
                 nameof(SerializableFailureMechanism.DirectFailureMechanism), "typeFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
@@ -74,7 +74,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableFailureMechanism(null,
                                                                        new SerializableTotalAssemblyResult(),
                                                                        random.NextEnumValue<SerializableFailureMechanismType>(),
-                                                                       random.NextEnumValue<SerializableAssemblyGroup>(),
+                                                                       random.NextEnumValue<SerializableFailureMechanismGroup>(),
                                                                        new SerializableFailureMechanismAssemblyResult());
 
             // Assert
@@ -92,7 +92,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableFailureMechanism("id",
                                                                        null,
                                                                        random.NextEnumValue<SerializableFailureMechanismType>(),
-                                                                       random.NextEnumValue<SerializableAssemblyGroup>(),
+                                                                       random.NextEnumValue<SerializableFailureMechanismGroup>(),
                                                                        new SerializableFailureMechanismAssemblyResult());
 
             // Assert
@@ -110,7 +110,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             TestDelegate call = () => new SerializableFailureMechanism("id",
                                                                        new SerializableTotalAssemblyResult(),
                                                                        random.NextEnumValue<SerializableFailureMechanismType>(),
-                                                                       random.NextEnumValue<SerializableAssemblyGroup>(),
+                                                                       random.NextEnumValue<SerializableFailureMechanismGroup>(),
                                                                        null);
 
             // Assert
@@ -127,7 +127,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             var random = new Random(39);
             var type = random.NextEnumValue<SerializableFailureMechanismType>();
-            var group = random.NextEnumValue<SerializableAssemblyGroup>();
+            var group = random.NextEnumValue<SerializableFailureMechanismGroup>();
             var assemblyResult = new SerializableFailureMechanismAssemblyResult();
 
             // Call
@@ -145,7 +145,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual(id, failureMechanism.Id);
             Assert.AreEqual(totalResultId, failureMechanism.TotalAssemblyResultId);
             Assert.AreEqual(type, failureMechanism.FailureMechanismType);
-            Assert.AreEqual(group, failureMechanism.AssemblyGroup);
+            Assert.AreEqual(group, failureMechanism.FailureMechanismGroup);
             Assert.AreEqual("DIRECT", failureMechanism.DirectFailureMechanism);
             Assert.AreSame(assemblyResult, failureMechanism.FailureMechanismAssemblyResult);
         }

@@ -39,7 +39,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
 
             // Assert
             Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
-            Assert.AreEqual((SerializableAssessmentLevel) 0, assemblyResult.AssessmentLevel);
+            Assert.AreEqual((SerializableAssessmentType) 0, assemblyResult.AssessmentType);
             Assert.AreEqual((SerializableFailureMechanismSectionCategoryGroup) 0, assemblyResult.CategoryGroup);
             Assert.IsNull(assemblyResult.Probability);
 
@@ -50,7 +50,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableFailureMechanismSectionAssemblyResult.Probability), "faalkans");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
-                nameof(SerializableFailureMechanismSectionAssemblyResult.AssessmentLevel), "toets");
+                nameof(SerializableFailureMechanismSectionAssemblyResult.AssessmentType), "toets");
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
             var random = new Random(39);
             var category = random.NextEnumValue<SerializableFailureMechanismSectionCategoryGroup>();
             var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
-            var assessmentLevel = random.NextEnumValue<SerializableAssessmentLevel>();
+            var assessmentLevel = random.NextEnumValue<SerializableAssessmentType>();
             double probability = random.NextDouble();
 
             // Call
@@ -68,7 +68,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
 
             // Assert
             Assert.AreEqual(category, assemblyResult.CategoryGroup);
-            Assert.AreEqual(assessmentLevel, assemblyResult.AssessmentLevel);
+            Assert.AreEqual(assessmentLevel, assemblyResult.AssessmentType);
             Assert.AreEqual(probability, assemblyResult.Probability);
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
         }
@@ -82,7 +82,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
             var random = new Random(39);
             var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(
                 random.NextEnumValue<SerializableAssemblyMethod>(),
-                random.NextEnumValue<SerializableAssessmentLevel>(),
+                random.NextEnumValue<SerializableAssessmentType>(),
                 random.NextEnumValue<SerializableFailureMechanismSectionCategoryGroup>(),
                 probability);
 

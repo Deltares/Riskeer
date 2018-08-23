@@ -51,6 +51,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="assemblyMethod">The assembly method used to create this section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/>, <paramref name="failureMechanismSectionCollection"/>,
         /// or <paramref name="geometry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/> contains no elements.</exception>
         public SerializableFailureMechanismSection(string id,
                                                    SerializableFailureMechanismSectionCollection failureMechanismSectionCollection,
                                                    double startDistance,
@@ -138,7 +139,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <summary>
         /// Determines whether <see cref="AssemblyMethod"/> should be serialized.
         /// </summary>
-        /// <returns><c>true</c> if <see cref="AssemblyMethod"/> has a value, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if <see cref="AssemblyMethod"/> should be serialized, <c>false</c> otherwise.</returns>
         public bool ShouldSerializeAssemblyMethod()
         {
             return AssemblyMethod.HasValue;

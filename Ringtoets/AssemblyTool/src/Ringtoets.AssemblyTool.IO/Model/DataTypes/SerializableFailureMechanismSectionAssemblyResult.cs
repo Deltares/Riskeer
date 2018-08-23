@@ -38,18 +38,18 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// Creates a new instance of <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="assemblyMethod">The method used to assemble this result.</param>
-        /// <param name="assessmentLevel">The assessment level of this assembly result.</param>
+        /// <param name="assessmentType">The assessment type of this assembly result.</param>
         /// <param name="categoryGroup">The category group of this assembly result.</param>
         /// <param name="probability">The probability of this assembly result.</param>
         public SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod assemblyMethod,
-                                                                 SerializableAssessmentLevel assessmentLevel,
+                                                                 SerializableAssessmentType assessmentType,
                                                                  SerializableFailureMechanismSectionCategoryGroup categoryGroup,
                                                                  double? probability = null) : this()
         {
             CategoryGroup = categoryGroup;
             Probability = probability;
             AssemblyMethod = assemblyMethod;
-            AssessmentLevel = assessmentLevel;
+            AssessmentType = assessmentType;
         }
 
         /// <summary>
@@ -71,10 +71,10 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         public double? Probability { get; set; }
 
         /// <summary>
-        /// Gets or sets the assessment level of this result.
+        /// Gets or sets the assessment type of this result.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.AssessmentLevel)]
-        public SerializableAssessmentLevel AssessmentLevel { get; set; }
+        [XmlElement(AssemblyXmlIdentifiers.AssessmentType)]
+        public SerializableAssessmentType AssessmentType { get; set; }
 
         /// <summary>
         /// Determines whether <see cref="Probability"/> should be serialized.

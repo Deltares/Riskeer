@@ -268,8 +268,7 @@ namespace Ringtoets.AssemblyTool.IO.Test
                 Id = "section1",
                 SurfaceLineLength = new SerializableMeasure
                 {
-                    UnitOfMeasure = "m",
-                    Value = 100
+                    UnitOfMeasure = "m", Value = 100
                 },
                 Name = "Traject A",
                 SurfaceLineGeometry = new SerializableLine(new[]
@@ -293,7 +292,7 @@ namespace Ringtoets.AssemblyTool.IO.Test
                 "toetsspoorGABI",
                 totalAssemblyResult,
                 SerializableFailureMechanismType.GABI,
-                SerializableAssemblyGroup.Group4,
+                SerializableFailureMechanismGroup.Group4,
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI1A1, SerializableFailureMechanismCategoryGroup.IIt));
 
             var sections1 = new SerializableFailureMechanismSectionCollection("vakindelingGABI", failureMechanism);
@@ -316,14 +315,14 @@ namespace Ringtoets.AssemblyTool.IO.Test
                 new[]
                 {
                     new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0E1,
-                                                                          SerializableAssessmentLevel.SimpleAssessment,
+                                                                          SerializableAssessmentType.SimpleAssessment,
                                                                           SerializableFailureMechanismSectionCategoryGroup.IIv, 0.5),
                     new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0T5,
-                                                                          SerializableAssessmentLevel.TailorMadeAssessment,
+                                                                          SerializableAssessmentType.TailorMadeAssessment,
                                                                           SerializableFailureMechanismSectionCategoryGroup.IIIv)
                 },
                 new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0A1,
-                                                                      SerializableAssessmentLevel.CombinedAssessment,
+                                                                      SerializableAssessmentType.CombinedAssessment,
                                                                       SerializableFailureMechanismSectionCategoryGroup.IIIv));
 
             var sections2 = new SerializableFailureMechanismSectionCollection("vakindeling_gecombineerd", totalAssemblyResult);
@@ -348,7 +347,7 @@ namespace Ringtoets.AssemblyTool.IO.Test
                     new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.HTKW, SerializableFailureMechanismSectionCategoryGroup.IIIv),
                     new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.STPH, SerializableFailureMechanismSectionCategoryGroup.IVv)
                 },
-                new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3B1, SerializableAssessmentLevel.CombinedSectionAssessment, SerializableFailureMechanismSectionCategoryGroup.VIv));
+                new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3B1, SerializableAssessmentType.CombinedSectionAssessment, SerializableFailureMechanismSectionCategoryGroup.VIv));
 
             var assembly = new SerializableAssembly(
                 "assemblage_1",

@@ -27,53 +27,53 @@ using Ringtoets.AssemblyTool.IO.Model.Enums;
 namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
 {
     [TestFixture]
-    public class SerializableAssessmentLevelTest : EnumWithXmlEnumNameTestFixture<SerializableAssessmentLevel>
+    public class SerializableAssessmentTypeTest : EnumWithXmlEnumNameTestFixture<SerializableAssessmentType>
     {
-        protected override IDictionary<SerializableAssessmentLevel, int> ExpectedValueForEnumValues
+        protected override IDictionary<SerializableAssessmentType, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<SerializableAssessmentLevel, int>
+                return new Dictionary<SerializableAssessmentType, int>
                 {
                     {
-                        SerializableAssessmentLevel.SimpleAssessment, 1
+                        SerializableAssessmentType.SimpleAssessment, 1
                     },
                     {
-                        SerializableAssessmentLevel.DetailedAssessment, 2
+                        SerializableAssessmentType.DetailedAssessment, 2
                     },
                     {
-                        SerializableAssessmentLevel.TailorMadeAssessment, 3
+                        SerializableAssessmentType.TailorMadeAssessment, 3
                     },
                     {
-                        SerializableAssessmentLevel.CombinedAssessment, 4
+                        SerializableAssessmentType.CombinedAssessment, 4
                     },
                     {
-                        SerializableAssessmentLevel.CombinedSectionAssessment, 5
+                        SerializableAssessmentType.CombinedSectionAssessment, 5
                     }
                 };
             }
         }
 
-        protected override IDictionary<SerializableAssessmentLevel, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<SerializableAssessmentType, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<SerializableAssessmentLevel, string>
+                return new Dictionary<SerializableAssessmentType, string>
                 {
                     {
-                        SerializableAssessmentLevel.SimpleAssessment, "EENVDGETS"
+                        SerializableAssessmentType.SimpleAssessment, "EENVDGETS"
                     },
                     {
-                        SerializableAssessmentLevel.DetailedAssessment, "GEDTETS"
+                        SerializableAssessmentType.DetailedAssessment, "GEDTETS"
                     },
                     {
-                        SerializableAssessmentLevel.TailorMadeAssessment, "TOETSOPMT"
+                        SerializableAssessmentType.TailorMadeAssessment, "TOETSOPMT"
                     },
                     {
-                        SerializableAssessmentLevel.CombinedAssessment, "GECBNTR"
+                        SerializableAssessmentType.CombinedAssessment, "GECBNTR"
                     },
                     {
-                        SerializableAssessmentLevel.CombinedSectionAssessment, "GECBNTRDV"
+                        SerializableAssessmentType.CombinedSectionAssessment, "GECBNTRDV"
                     }
                 };
             }

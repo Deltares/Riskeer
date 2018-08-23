@@ -256,22 +256,22 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
         #region SerializableFailureMechanismGroup
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssemblyGroup.Group1"/>.
+        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group1"/>.
         /// </summary>
         public const string SerializableFailureMechanismGroup1 = "GEDPROB";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssemblyGroup.Group2"/>.
+        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group2"/>.
         /// </summary>
         public const string SerializableFailureMechanismGroup2 = "GEDSPROBEX";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssemblyGroup.Group3"/>.
+        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group3"/>.
         /// </summary>
         public const string SerializableFailureMechanismGroup3 = "GEDSPROB";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssemblyGroup.Group4"/>.
+        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group4"/>.
         /// </summary>
         public const string SerializableFailureMechanismGroup4 = "GEEN";
 
@@ -371,32 +371,32 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
 
         #endregion
 
-        #region SerializableAssessmentLevel
+        #region SerializableAssessmentType
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentLevel.SimpleAssessment"/>.
+        /// Identifier for <see cref="SerializableAssessmentType.SimpleAssessment"/>.
         /// </summary>
-        public const string SerializableAssessmentLevelSimpleAssessment = "EENVDGETS";
+        public const string SerializableAssessmentTypeSimpleAssessment = "EENVDGETS";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentLevel.DetailedAssessment"/>.
+        /// Identifier for <see cref="SerializableAssessmentType.DetailedAssessment"/>.
         /// </summary>
-        public const string SerializableAssessmentLevelDetailedAssessment = "GEDTETS";
+        public const string SerializableAssessmentTypeDetailedAssessment = "GEDTETS";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentLevel.TailorMadeAssessment"/>.
+        /// Identifier for <see cref="SerializableAssessmentType.TailorMadeAssessment"/>.
         /// </summary>
-        public const string SerializableAssessmentLevelTailorMadeAssessment = "TOETSOPMT";
+        public const string SerializableAssessmentTypeTailorMadeAssessment = "TOETSOPMT";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentLevel.CombinedAssessment"/>.
+        /// Identifier for <see cref="SerializableAssessmentType.CombinedAssessment"/>.
         /// </summary>
-        public const string SerializableAssessmentLevelCombinedAssessment = "GECBNTR";
+        public const string SerializableAssessmentTypeCombinedAssessment = "GECBNTR";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentLevel.CombinedSectionAssessment"/>.
+        /// Identifier for <see cref="SerializableAssessmentType.CombinedSectionAssessment"/>.
         /// </summary>
-        public const string SerializableAssessmentLevelCombinedSectionAssessment = "GECBNTRDV";
+        public const string SerializableAssessmentTypeCombinedSectionAssessment = "GECBNTRDV";
 
         #endregion
 

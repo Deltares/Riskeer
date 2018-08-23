@@ -23,12 +23,12 @@
     <Compile Include="Model\AssemblyXmlIdentifiersTest.cs" />
     <Compile Include="Model\Enums\AssemblyXmlEnumIdentifiersTest.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismSectionTypeTest.cs" />
-    <Compile Include="Model\Enums\SerializableAssessmentLevelTest.cs" />
+    <Compile Include="Model\Enums\SerializableAssessmentTypeTest.cs" />
     <Compile Include="Model\Enums\SerializableAssemblyMethodTest.cs" />
     <Compile Include="Model\Enums\SerializableAssessmentSectionCategoryGroupTest.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismSectionCategoryGroupTest.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismTypeTest.cs" />
-    <Compile Include="Model\Enums\SerializableAssemblyGroupTest.cs" />
+    <Compile Include="Model\Enums\SerializableFailureMechanismGroupTest.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismCategoryGroupTest.cs" />
     <Compile Include="Model\Helpers\GeometrySerializationFormatterTest.cs" />
     <Compile Include="Model\SerializableCombinedFailureMechanismSectionAssemblyTest.cs" />
@@ -40,7 +40,7 @@
     <Compile Include="Model\SerializableAssessmentProcessTest.cs" />
     <Compile Include="Model\SerializableAssessmentSectionTest.cs" />
     <Compile Include="Model\DataTypes\SerializableLineTest.cs" />
-    <Compile Include="Model\DataTypes\SerializableLineStringTest.cs" />
+    <Compile Include="Model\Gml\SerializableLineStringTest.cs" />
     <Compile Include="Model\DataTypes\SerializableMeasureTest.cs" />
     <Compile Include="Model\SerializableAssemblyTest.cs" />
     <Compile Include="Model\Gml\SerializableEnvelopeTest.cs" />

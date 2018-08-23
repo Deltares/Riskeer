@@ -26,7 +26,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.Enums
     /// <summary>
     /// Serializable enum defining the failure mechanism groups.
     /// </summary>
-    public enum SerializableAssemblyGroup
+    public enum SerializableFailureMechanismGroup
     {
         /// <summary>
         /// Represents the failure mechanism group 1.

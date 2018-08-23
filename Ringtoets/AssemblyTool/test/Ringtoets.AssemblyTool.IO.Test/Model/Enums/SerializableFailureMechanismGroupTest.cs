@@ -27,47 +27,47 @@ using Ringtoets.AssemblyTool.IO.Model.Enums;
 namespace Ringtoets.AssemblyTool.IO.Test.Model.Enums
 {
     [TestFixture]
-    public class SerializableAssemblyGroupTest : EnumWithXmlEnumNameTestFixture<SerializableAssemblyGroup>
+    public class SerializableFailureMechanismGroupTest : EnumWithXmlEnumNameTestFixture<SerializableFailureMechanismGroup>
     {
-        protected override IDictionary<SerializableAssemblyGroup, int> ExpectedValueForEnumValues
+        protected override IDictionary<SerializableFailureMechanismGroup, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<SerializableAssemblyGroup, int>
+                return new Dictionary<SerializableFailureMechanismGroup, int>
                 {
                     {
-                        SerializableAssemblyGroup.Group1, 1
+                        SerializableFailureMechanismGroup.Group1, 1
                     },
                     {
-                        SerializableAssemblyGroup.Group2, 2
+                        SerializableFailureMechanismGroup.Group2, 2
                     },
                     {
-                        SerializableAssemblyGroup.Group3, 3
+                        SerializableFailureMechanismGroup.Group3, 3
                     },
                     {
-                        SerializableAssemblyGroup.Group4, 4
+                        SerializableFailureMechanismGroup.Group4, 4
                     }
                 };
             }
         }
 
-        protected override IDictionary<SerializableAssemblyGroup, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<SerializableFailureMechanismGroup, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<SerializableAssemblyGroup, string>
+                return new Dictionary<SerializableFailureMechanismGroup, string>
                 {
                     {
-                        SerializableAssemblyGroup.Group1, "GEDPROB"
+                        SerializableFailureMechanismGroup.Group1, "GEDPROB"
                     },
                     {
-                        SerializableAssemblyGroup.Group2, "GEDSPROBEX"
+                        SerializableFailureMechanismGroup.Group2, "GEDSPROBEX"
                     },
                     {
-                        SerializableAssemblyGroup.Group3, "GEDSPROB"
+                        SerializableFailureMechanismGroup.Group3, "GEDSPROB"
                     },
                     {
-                        SerializableAssemblyGroup.Group4, "GEEN"
+                        SerializableFailureMechanismGroup.Group4, "GEEN"
                     }
                 };
             }

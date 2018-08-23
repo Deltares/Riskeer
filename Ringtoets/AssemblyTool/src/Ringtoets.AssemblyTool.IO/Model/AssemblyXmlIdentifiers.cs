@@ -33,11 +33,6 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string Assembly = "Assemblage";
 
         /// <summary>
-        /// Identifier for an assembly group element.
-        /// </summary>
-        public const string AssemblyGroup = "toetsspoorGroep";
-
-        /// <summary>
         /// Identifier for an assembly element.
         /// </summary>
         public const string AssemblyMethod = "assemblagemethode";
@@ -48,7 +43,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string AssemblyResultWithoutProbability = "toetsoordeelZonderKansschatting";
 
         /// <summary>
-        /// Identifier for an assembly result without probability element.
+        /// Identifier for an assembly result with probability element.
         /// </summary>
         public const string AssemblyResultWithProbability = "toetsoordeelMetKansschatting";
 
@@ -63,9 +58,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string AssemblyNamespaceIdentifier = "asm";
 
         /// <summary>
-        /// Identifier for an assessment level element.
+        /// Identifier for an assessment type element.
         /// </summary>
-        public const string AssessmentLevel = "toets";
+        public const string AssessmentType = "toets";
 
         /// <summary>
         /// Identifier for an assessment process element.
@@ -176,6 +171,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Identifier for a failure mechanism assembly result element.
         /// </summary>
         public const string FailureMechanismAssemblyResult = "toetsoordeel";
+
+        /// <summary>
+        /// Identifier for a failure mechanism group element.
+        /// </summary>
+        public const string FailureMechanismGroup = "toetsspoorGroep";
 
         /// <summary>
         /// Identifier for a failure mechanism ID attribute.
@@ -338,7 +338,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public const string UnitOfMeasure = "uom";
 
         /// <summary>
-        /// Identifier for a lower corner attribute.
+        /// Identifier for an upper corner attribute.
         /// </summary>
         public const string UpperCorner = "upperCorner";
     }

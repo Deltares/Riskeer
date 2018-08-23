@@ -49,6 +49,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="name">The name of the assessment section.</param>
         /// <param name="geometry">The geometry of the surface line.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/> contains no elements.</exception>
         public SerializableAssessmentSection(string id,
                                              string name,
                                              IEnumerable<Point2D> geometry) : this()

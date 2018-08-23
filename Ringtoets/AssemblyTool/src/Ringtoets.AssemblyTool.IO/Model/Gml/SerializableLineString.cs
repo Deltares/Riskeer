@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model.Helpers;
 using Ringtoets.AssemblyTool.IO.Properties;
 
-namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
+namespace Ringtoets.AssemblyTool.IO.Model.Gml
 {
     /// <summary>
     /// Class describing a serializable line string.
@@ -38,7 +38,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// </summary>
         public SerializableLineString()
         {
-            CoordinateSystem = Resources.SrsName;
+            CoordinateSystem = Resources.CoordinateSystemName;
         }
 
         /// <summary>
@@ -47,6 +47,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// <param name="geometry">The geometry of the line.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/> contains no elements.</exception>
         public SerializableLineString(IEnumerable<Point2D> geometry) : this()
         {
             if (geometry == null)

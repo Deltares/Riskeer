@@ -24,38 +24,38 @@ using System.Xml.Serialization;
 namespace Ringtoets.AssemblyTool.IO.Model.Enums
 {
     /// <summary>
-    /// Serializable enum defining the assessment levels.
+    /// Serializable enum defining the assessment types.
     /// </summary>
-    public enum SerializableAssessmentLevel
+    public enum SerializableAssessmentType
     {
         /// <summary>
-        /// Represents the simple assessment level.
+        /// Represents the simple assessment type.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelSimpleAssessment)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentTypeSimpleAssessment)]
         SimpleAssessment = 1,
 
         /// <summary>
-        /// Represents the detailed assessment level.
+        /// Represents the detailed assessment type.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelDetailedAssessment)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentTypeDetailedAssessment)]
         DetailedAssessment = 2,
 
         /// <summary>
-        /// Represents the tailor made assessment level.
+        /// Represents the tailor made assessment type.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelTailorMadeAssessment)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentTypeTailorMadeAssessment)]
         TailorMadeAssessment = 3,
 
         /// <summary>
-        /// Represents the combined assessment level.
+        /// Represents the combined assessment type.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelCombinedAssessment)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentTypeCombinedAssessment)]
         CombinedAssessment = 4,
 
         /// <summary>
-        /// Represents the cmbined section assessment level.
+        /// Represents the cmbined section assessment type.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentLevelCombinedSectionAssessment)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentTypeCombinedSectionAssessment)]
         CombinedSectionAssessment = 5
     }
 }

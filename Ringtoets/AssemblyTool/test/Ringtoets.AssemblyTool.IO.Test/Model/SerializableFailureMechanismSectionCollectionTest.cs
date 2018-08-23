@@ -88,7 +88,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             var failureMechanism = new SerializableFailureMechanism("fm id",
                                                                     new SerializableTotalAssemblyResult(),
                                                                     random.NextEnumValue<SerializableFailureMechanismType>(),
-                                                                    random.NextEnumValue<SerializableAssemblyGroup>(),
+                                                                    random.NextEnumValue<SerializableFailureMechanismGroup>(),
                                                                     new SerializableFailureMechanismAssemblyResult());
 
             // Call

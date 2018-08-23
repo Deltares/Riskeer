@@ -47,13 +47,13 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="id">The unique ID of the assembly result.</param>
         /// <param name="totalAssemblyResult">The total assembly result this failure mechanism belongs to.</param>
         /// <param name="failureMechanismType">The type of the failure mechanism.</param>
-        /// <param name="assemblyGroup">The group of the failure mechanism.</param>
+        /// <param name="failureMechanismGroup">The group of the failure mechanism.</param>
         /// <param name="failureMechanismAssemblyResult">The total failure mechanism assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableFailureMechanism(string id,
                                             SerializableTotalAssemblyResult totalAssemblyResult,
                                             SerializableFailureMechanismType failureMechanismType,
-                                            SerializableAssemblyGroup assemblyGroup,
+                                            SerializableFailureMechanismGroup failureMechanismGroup,
                                             SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResult) : this()
         {
             if (id == null)
@@ -74,7 +74,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
             Id = id;
             TotalAssemblyResultId = totalAssemblyResult.Id;
             FailureMechanismType = failureMechanismType;
-            AssemblyGroup = assemblyGroup;
+            FailureMechanismGroup = failureMechanismGroup;
             FailureMechanismAssemblyResult = failureMechanismAssemblyResult;
         }
 
@@ -97,10 +97,10 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public SerializableFailureMechanismType FailureMechanismType { get; set; }
 
         /// <summary>
-        /// Gets or sets the assembly group.
+        /// Gets or sets the failure mechanism group.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.AssemblyGroup)]
-        public SerializableAssemblyGroup AssemblyGroup { get; set; }
+        [XmlElement(AssemblyXmlIdentifiers.FailureMechanismGroup)]
+        public SerializableFailureMechanismGroup FailureMechanismGroup { get; set; }
 
         /// <summary>
         /// Gets or sets the direct failure mechanism indicator.

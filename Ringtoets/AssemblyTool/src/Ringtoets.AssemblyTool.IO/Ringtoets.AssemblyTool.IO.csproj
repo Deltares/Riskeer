@@ -23,12 +23,12 @@
     <Compile Include="Model\DataTypes\SerializableFailureMechanismSectionAssemblyResult.cs" />
     <Compile Include="Model\Enums\AssemblyXmlEnumIdentifiers.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismSectionType.cs" />
-    <Compile Include="Model\Enums\SerializableAssessmentLevel.cs" />
+    <Compile Include="Model\Enums\SerializableAssessmentType.cs" />
     <Compile Include="Model\Enums\SerializableAssemblyMethod.cs" />
     <Compile Include="Model\Enums\SerializableAssessmentSectionCategoryGroup.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismSectionCategoryGroup.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismType.cs" />
-    <Compile Include="Model\Enums\SerializableAssemblyGroup.cs" />
+    <Compile Include="Model\Enums\SerializableFailureMechanismGroup.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismCategoryGroup.cs" />
     <Compile Include="Model\Gml\SerializableEnvelope.cs" />
     <Compile Include="Model\Gml\SerializableBoundary.cs" />
@@ -43,7 +43,7 @@
     <Compile Include="Model\SerializableAssessmentProcess.cs" />
     <Compile Include="Model\DataTypes\SerializableLine.cs" />
     <Compile Include="Model\DataTypes\SerializableFailureMechanismAssemblyResult.cs" />
-    <Compile Include="Model\DataTypes\SerializableLineString.cs" />
+    <Compile Include="Model\Gml\SerializableLineString.cs" />
     <Compile Include="Model\DataTypes\SerializableMeasure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\SerializableAssembly.cs" />

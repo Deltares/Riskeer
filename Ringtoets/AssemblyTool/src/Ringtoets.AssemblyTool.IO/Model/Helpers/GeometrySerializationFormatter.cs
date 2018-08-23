@@ -28,7 +28,7 @@ using Core.Common.Base.Geometry;
 namespace Ringtoets.AssemblyTool.IO.Model.Helpers
 {
     /// <summary>
-    /// Formatter for instances and collections of <see cref="Point2D"/> for serialization.
+    /// Helper methods to format geometry for serialization.
     /// </summary>
     public static class GeometrySerializationFormatter
     {
@@ -39,11 +39,17 @@ namespace Ringtoets.AssemblyTool.IO.Model.Helpers
         /// <returns>A formatted string of all given points.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/> contains no elements.</exception>
         public static string Format(IEnumerable<Point2D> geometry)
         {
             if (geometry == null)
             {
                 throw new ArgumentNullException(nameof(geometry));
+            }
+
+            if (!geometry.Any())
+            {
+                throw new ArgumentException(@"Geometry cannot be empty.", nameof(geometry));
             }
 
             return geometry.Select(Format).Aggregate((c1, c2) => c1 + " " + c2);

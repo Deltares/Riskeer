@@ -31,12 +31,12 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         public void AssemblyXmlIdentifiers_ExpectedValues()
         {
             Assert.AreEqual("Assemblage", AssemblyXmlIdentifiers.Assembly);
-            Assert.AreEqual("toetsspoorGroep", AssemblyXmlIdentifiers.AssemblyGroup);
+            Assert.AreEqual("toetsspoorGroep", AssemblyXmlIdentifiers.FailureMechanismGroup);
             Assert.AreEqual("toetsoordeelZonderKansschatting", AssemblyXmlIdentifiers.AssemblyResultWithoutProbability);
             Assert.AreEqual("toetsoordeelMetKansschatting", AssemblyXmlIdentifiers.AssemblyResultWithProbability);
             Assert.AreEqual("http://localhost/standaarden/assemblage", AssemblyXmlIdentifiers.AssemblyNamespace);
             Assert.AreEqual("asm", AssemblyXmlIdentifiers.AssemblyNamespaceIdentifier);
-            Assert.AreEqual("toets", AssemblyXmlIdentifiers.AssessmentLevel);
+            Assert.AreEqual("toets", AssemblyXmlIdentifiers.AssessmentType);
             Assert.AreEqual("Beoordelingsproces", AssemblyXmlIdentifiers.AssessmentProcess);
             Assert.AreEqual("BeoordelingsprocesID", AssemblyXmlIdentifiers.AssessmentProcessId);
             Assert.AreEqual("BeoordelingsprocesIDRef", AssemblyXmlIdentifiers.AssessmentProcessIdRef);

@@ -23,11 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
+using Ringtoets.AssemblyTool.IO.Model.Gml;
 
 namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
 {
     /// <summary>
-    /// Class that describes a serializable GML line.
+    /// Class that describes a serializable line.
     /// </summary>
     public class SerializableLine
     {
@@ -42,6 +43,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// <param name="geometry">The geometry of the line.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="geometry"/> contains no elements.</exception>
         public SerializableLine(IEnumerable<Point2D> geometry)
         {
             if (geometry == null)

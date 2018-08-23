@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 namespace Ringtoets.AssemblyTool.IO.Model.Gml
 {
     /// <summary>
-    /// Class describing a GML bounded by object.
+    /// Class describing a boundary object.
     /// </summary>
     public class SerializableBoundary
     {

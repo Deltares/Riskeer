@@ -129,7 +129,7 @@
   <data name="SerializableMeasure_Meter" xml:space="preserve">
     <value>m</value>
   </data>
-  <data name="SrsName" xml:space="preserve">
+  <data name="CoordinateSystemName" xml:space="preserve">
     <value>EPSG:28992</value>
   </data>
 </root>
