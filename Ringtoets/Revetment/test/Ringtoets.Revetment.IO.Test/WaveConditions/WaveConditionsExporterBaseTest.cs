@@ -127,7 +127,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 2.689,
                     UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247
-                }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks, string.Empty),
+                }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks, "A->B"),
                 new ExportableWaveConditions("columnsName", new TestWaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
@@ -136,7 +136,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
                     StepSize = WaveConditionsInputStepSize.Half,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                     UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
-                }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns, string.Empty)
+                }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns, "B->C")
             };
 
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_ValidData_ValidFile));
@@ -150,9 +150,9 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
-                                      $"blocksName, , 0.000, 0.000, , nee, nee, Steen (blokken), 1.11, 2.22, 3.33, 4.40, 5.56{Environment.NewLine}" +
-                                      $"columnsName, aLocation, 44.000, 123.456, , nee, nee, Steen (zuilen), 3.33, 1.11, 4.44, 2.20, 6.67{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
+                                      $"blocksName, , 0.000, 0.000, , nee, nee, Steen (blokken), A->B, 1.11, 2.22, 3.33, 4.40, 5.56{Environment.NewLine}" +
+                                      $"columnsName, aLocation, 44.000, 123.456, , nee, nee, Steen (zuilen), B->C, 3.33, 1.11, 4.44, 2.20, 6.67{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
