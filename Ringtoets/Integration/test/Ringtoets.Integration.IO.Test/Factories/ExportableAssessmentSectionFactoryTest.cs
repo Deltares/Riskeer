@@ -195,12 +195,12 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
         private static void AssertExportableFailureMechanismWithProbability(FailureMechanismAssembly expectedAssemblyOutput,
                                                                             ExportableFailureMechanismType expectedFailureMechanismCode,
-                                                                            ExportableFailureMechanismGroup expecteFailureMechanismGroup,
+                                                                            ExportableFailureMechanismGroup expectedFailureMechanismGroup,
                                                                             IHasSectionResults<FailureMechanismSectionResult> failureMechanism,
                                                                             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> actualExportableFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanismCode, actualExportableFailureMechanism.Code);
-            Assert.AreEqual(expecteFailureMechanismGroup, actualExportableFailureMechanism.Group);
+            Assert.AreEqual(expectedFailureMechanismGroup, actualExportableFailureMechanism.Group);
 
             ExportableFailureMechanismAssemblyResultWithProbability exportableFailureMechanismAssemblyResult = actualExportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(expectedAssemblyOutput.Group, exportableFailureMechanismAssemblyResult.AssemblyCategory);
@@ -298,12 +298,12 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
         private static void AssertExportableFailureMechanismWithoutProbability(FailureMechanismAssemblyCategoryGroup expectedAssemblyOutput,
                                                                                ExportableFailureMechanismType expectedFailureMechanismCode,
-                                                                               ExportableFailureMechanismGroup expecteFailureMechanismGroup,
+                                                                               ExportableFailureMechanismGroup expectedFailureMechanismGroup,
                                                                                IHasSectionResults<FailureMechanismSectionResult> failureMechanism,
                                                                                ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> actualExportableFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanismCode, actualExportableFailureMechanism.Code);
-            Assert.AreEqual(expecteFailureMechanismGroup, actualExportableFailureMechanism.Group);
+            Assert.AreEqual(expectedFailureMechanismGroup, actualExportableFailureMechanism.Group);
 
             ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssemblyResult = actualExportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(expectedAssemblyOutput, exportableFailureMechanismAssemblyResult.AssemblyCategory);

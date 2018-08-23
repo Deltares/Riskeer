@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Call
             TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResult(
-                ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection(),
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 null,
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Call
             TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResult(
-                ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection(),
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 null,
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Call
             TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResult(
-                ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection(),
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 null,
@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Call
             TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResult(
-                ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection(),
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         public void Constructor_WithValidArguments_ExpectedValues()
         {
             // Setup
-            ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection();
+            ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
             ExportableSectionAssemblyResult simpleAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
             ExportableSectionAssemblyResult detailedAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
             ExportableSectionAssemblyResult tailorMadeAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();

@@ -28,7 +28,7 @@ using Ringtoets.Integration.IO.Assembly;
 namespace Ringtoets.Integration.IO.Factories
 {
     /// <summary>
-    /// Factory to create instance of <see cref="ExportableAssessmentSection"/>.
+    /// Factory to create instances of <see cref="ExportableAssessmentSection"/>.
     /// </summary>
     public static class ExportableFailureMechanismSectionFactory
     {

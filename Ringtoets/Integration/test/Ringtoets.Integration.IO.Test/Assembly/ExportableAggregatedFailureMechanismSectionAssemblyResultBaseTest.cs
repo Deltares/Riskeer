@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         public void Constructor_WithFailureMechanismSection_ExpectedValues()
         {
             // Setup
-            ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection();
+            ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
 
             // Call
             var assemblyResult = new TestExportableAggregatedFailureMechanismSectionAssemblyResultBase(failureMechanismSection);

@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Call
             TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
-                ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection(),
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 null,
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability(),
@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Call
             TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
-                ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection(),
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability(),
                 null,
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability(),
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Call
             TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
-                ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection(),
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability(),
                 null,
@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Call
             TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
-                ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection(),
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability(),
@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         public void Constructor_WithValidArguments_ExpectedValues()
         {
             // Setup
-            ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreatExportableFailureMechanismSection();
+            ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
             ExportableSectionAssemblyResultWithProbability simpleAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability();
             ExportableSectionAssemblyResultWithProbability detailedAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability();
             ExportableSectionAssemblyResultWithProbability tailorMadeAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability();
