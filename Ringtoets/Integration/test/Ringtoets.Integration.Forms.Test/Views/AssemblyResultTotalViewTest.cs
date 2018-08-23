@@ -140,8 +140,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual("Totaal", totalResultLabel.Text);
                 var failureMechanismsWithProbabilityLabel = (Label) tableLayoutPanel.GetControlFromPosition(0, 1);
                 Assert.AreEqual("Groepen 1 en 2", failureMechanismsWithProbabilityLabel.Text);
-                var failureMechanismsWithoutProbablityLabel = (Label) tableLayoutPanel.GetControlFromPosition(0, 2);
-                Assert.AreEqual("Groepen 3 en 4", failureMechanismsWithoutProbablityLabel.Text);
+                var failureMechanismsWithoutProbabilityLabel = (Label) tableLayoutPanel.GetControlFromPosition(0, 2);
+                Assert.AreEqual("Groepen 3 en 4", failureMechanismsWithoutProbabilityLabel.Text);
                 Assert.IsInstanceOf<AssessmentSectionAssemblyCategoryGroupControl>(tableLayoutPanel.GetControlFromPosition(1, 0));
                 Assert.IsInstanceOf<FailureMechanismAssemblyControl>(tableLayoutPanel.GetControlFromPosition(1, 1));
                 Assert.IsInstanceOf<FailureMechanismAssemblyCategoryGroupControl>(tableLayoutPanel.GetControlFromPosition(1, 2));

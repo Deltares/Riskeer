@@ -803,7 +803,7 @@ CREATE TABLE 'PipingSectionResultEntity'
 	'FailureMechanismSectionEntityId' INTEGER NOT NULL,
 	'SimpleAssessmentResult' TINYINT (1) NOT NULL, -- Enum: 1 = None, 2 = NotApplicable, 3 = ProbabilityNegligible, 4 = AssessFurther
 	'DetailedAssessmentResult' TINYINT (1) NOT NULL, -- Enum:  1 = Probability, 2 = NotAssessed
-	'TailorMadeAssessmentResult' TINYINT (1) NOT NULL, -- Enum: 1 = None, 2 = ProbablityNegligible, 3 = Probability, 4 = NotAssessed
+	'TailorMadeAssessmentResult' TINYINT (1) NOT NULL, -- Enum: 1 = None, 2 = ProbabilityNegligible, 3 = Probability, 4 = NotAssessed
 	'TailorMadeAssessmentProbability' REAL,
 	'UseManualAssemblyProbability' TINYINT (1) NOT NULL, -- true or false
 	'ManualAssemblyProbability' REAL,

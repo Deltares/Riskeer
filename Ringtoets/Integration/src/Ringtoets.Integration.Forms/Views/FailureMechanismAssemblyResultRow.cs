@@ -61,12 +61,12 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 FailureMechanismAssembly failureMechanismAssembly = getFailureMechanismAssembly();
                 CategoryGroup = failureMechanismAssembly.Group;
-                Probablity = failureMechanismAssembly.Probability;
+                Probability = failureMechanismAssembly.Probability;
             }
             catch (AssemblyException e)
             {
                 CategoryGroup = FailureMechanismAssemblyCategoryGroup.None;
-                Probablity = double.NaN;
+                Probability = double.NaN;
                 GetCategoryGroupColumnStateDefinition().ErrorText = e.Message;
             }
         }
