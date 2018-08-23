@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// Creates a new instance of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultBase"/>.
         /// </summary>
         /// <param name="failureMechanismSection">The failure mechanism section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSection"/> is <c>null.</c></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSection"/> is <c>null</c>.</exception>
         protected ExportableAggregatedFailureMechanismSectionAssemblyResultBase(ExportableFailureMechanismSection failureMechanismSection)
         {
             if (failureMechanismSection == null)

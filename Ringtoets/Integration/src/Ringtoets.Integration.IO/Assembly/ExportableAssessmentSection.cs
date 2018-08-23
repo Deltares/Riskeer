@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.IO.Assembly
         public IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> FailureMechanismsWithProbability { get; }
 
         /// <summary>
-        /// Gets the collection of assembly results without probabiliyt of failure mechanisms belonging to this assessment section.
+        /// Gets the collection of assembly results without probability of failure mechanisms belonging to this assessment section.
         /// </summary>
         public IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> FailureMechanismsWithoutProbability { get; }
 

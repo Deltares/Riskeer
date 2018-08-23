@@ -33,9 +33,9 @@ namespace Ringtoets.Integration.Data.Assembly
         /// Creates a new instance of <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="sectionStart">The start of the section from the beginning of the reference line
-        /// in kilometers.</param>
+        /// in meters.</param>
         /// <param name="sectionEnd">The end of the section from the beginning of the reference line
-        /// in kilometers.</param>
+        /// in meters.</param>
         /// <param name="totalResult">The total result of the section.</param>
         /// <param name="properties">The container of the properties for the
         /// <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</param>
