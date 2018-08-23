@@ -45,12 +45,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="id">The unique ID of the assembly.</param>
         /// <param name="lowerCorner">The lower corner of the assembly map boundary.</param>
         /// <param name="upperCorner">The upper corner of the assembly map boundary.</param>
-        /// <param name="assessmentSections">The collection of <see cref="SerializableAssessmentSection"/> that
-        /// belong to the assembly.</param>
-        /// <param name="assessmentProcesses">The collection of <see cref="SerializableAssessmentProcess"/> that
-        /// belong to the assembly.</param>
-        /// <param name="totalAssemblyResults">The collection of <see cref="SerializableTotalAssemblyResult"/> that
-        /// belong to the assembly.</param>
+        /// <param name="assessmentSection">The <see cref="SerializableAssessmentSection"/> that belongs to the assembly.</param>
+        /// <param name="assessmentProcess">The <see cref="SerializableAssessmentProcess"/> that belongs to the assembly.</param>
+        /// <param name="totalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/> that belongs to the assembly.</param>
         /// <param name="failureMechanisms">The collection of <see cref="SerializableFailureMechanism"/> that
         /// belong to the assembly.</param>
         /// <param name="failureMechanismSectionAssemblies">The collection of <see cref="SerializableFailureMechanismSectionAssembly"/> that
@@ -65,9 +62,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public SerializableAssembly(string id,
                                     Point2D lowerCorner,
                                     Point2D upperCorner,
-                                    IEnumerable<SerializableAssessmentSection> assessmentSections,
-                                    IEnumerable<SerializableAssessmentProcess> assessmentProcesses,
-                                    IEnumerable<SerializableTotalAssemblyResult> totalAssemblyResults,
+                                    SerializableAssessmentSection assessmentSection,
+                                    SerializableAssessmentProcess assessmentProcess,
+                                    SerializableTotalAssemblyResult totalAssemblyResult,
                                     IEnumerable<SerializableFailureMechanism> failureMechanisms,
                                     IEnumerable<SerializableFailureMechanismSectionAssembly> failureMechanismSectionAssemblies,
                                     IEnumerable<SerializableCombinedFailureMechanismSectionAssembly> combinedFailureMechanismSectionAssemblies,
@@ -89,19 +86,19 @@ namespace Ringtoets.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(upperCorner));
             }
 
-            if (assessmentSections == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSections));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (assessmentProcesses == null)
+            if (assessmentProcess == null)
             {
-                throw new ArgumentNullException(nameof(assessmentProcesses));
+                throw new ArgumentNullException(nameof(assessmentProcess));
             }
 
-            if (totalAssemblyResults == null)
+            if (totalAssemblyResult == null)
             {
-                throw new ArgumentNullException(nameof(totalAssemblyResults));
+                throw new ArgumentNullException(nameof(totalAssemblyResult));
             }
 
             if (failureMechanisms == null)
@@ -133,9 +130,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
             Boundary = new SerializableBoundary(lowerCorner, upperCorner);
 
             var featureMembers = new List<SerializableFeatureMember>();
-            featureMembers.AddRange(assessmentSections);
-            featureMembers.AddRange(assessmentProcesses);
-            featureMembers.AddRange(totalAssemblyResults);
+            featureMembers.Add(assessmentSection);
+            featureMembers.Add(assessmentProcess);
+            featureMembers.Add(totalAssemblyResult);
             featureMembers.AddRange(failureMechanisms);
             featureMembers.AddRange(failureMechanismSectionAssemblies);
             featureMembers.AddRange(combinedFailureMechanismSectionAssemblies);

@@ -75,9 +75,9 @@ namespace Ringtoets.AssemblyTool.IO.Test
                 "id",
                 new Point2D(0.0, 10.0),
                 new Point2D(10.0, 20.0),
-                Enumerable.Empty<SerializableAssessmentSection>(),
-                Enumerable.Empty<SerializableAssessmentProcess>(),
-                Enumerable.Empty<SerializableTotalAssemblyResult>(),
+                new SerializableAssessmentSection(),
+                new SerializableAssessmentProcess(),
+                new SerializableTotalAssemblyResult(),
                 new[]
                 {
                     new SerializableFailureMechanism()
@@ -353,18 +353,9 @@ namespace Ringtoets.AssemblyTool.IO.Test
                 "assemblage_1",
                 new Point2D(12.0, 34.0),
                 new Point2D(56.053, 78.0002345),
-                new[]
-                {
-                    assessmentSection
-                },
-                new[]
-                {
-                    assessmentProcess
-                },
-                new[]
-                {
-                    totalAssemblyResult
-                },
+                assessmentSection,
+                assessmentProcess,
+                totalAssemblyResult,
                 new[]
                 {
                     failureMechanism
