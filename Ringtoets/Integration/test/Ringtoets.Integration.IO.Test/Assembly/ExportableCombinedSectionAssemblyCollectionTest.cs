@@ -54,7 +54,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             Assert.AreEqual("combinedSectionAssemblyResults", exception.ParamName);
         }
 
-
         [Test]
         public void Constructor_WithArguments_ExpectedValues()
         {

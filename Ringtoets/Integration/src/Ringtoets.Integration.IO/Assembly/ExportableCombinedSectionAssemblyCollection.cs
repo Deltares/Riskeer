@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <param name="combinedSectionAssemblyResults">The collection of <see cref="ExportableCombinedSectionAssembly"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ExportableCombinedSectionAssemblyCollection(IEnumerable<ExportableCombinedFailureMechanismSection> sections,
-                                                  IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults)
+                                                           IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults)
         {
             if (sections == null)
             {

@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.IO.Factories
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
                                                              failureMechanismAssembly),
-                failureMechanismSectionsLookup.Values, 
+                failureMechanismSectionsLookup.Values,
                 CreateFailureMechanismSectionResults(failureMechanismSectionsLookup),
                 failureMechanismCode,
                 failureMechanismGroup);

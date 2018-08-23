@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.IO.Factories
                                                                                       ExportableAssemblyMethod.WBI3A1);
 
                 var exportableSectionResult = new ExportableCombinedSectionAssembly(exportableSection,
-                                                                                    new ExportableSectionAssemblyResult(ExportableAssemblyMethod.WBI3C1, 
+                                                                                    new ExportableSectionAssemblyResult(ExportableAssemblyMethod.WBI3C1,
                                                                                                                         assemblyResult.TotalResult),
                                                                                     CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult));
 

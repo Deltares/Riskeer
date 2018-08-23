@@ -67,7 +67,6 @@ namespace Ringtoets.Integration.IO.Factories
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
-
             IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections =
                 ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSections(failureMechanism.Sections);
             Dictionary<MicrostabilityFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
@@ -82,7 +81,7 @@ namespace Ringtoets.Integration.IO.Factories
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
                                                              failureMechanismAssembly),
-                failureMechanismSectionsLookup.Values, 
+                failureMechanismSectionsLookup.Values,
                 CreateFailureMechanismSectionResults(failureMechanismSectionsLookup),
                 failureMechanismCode,
                 failureMechanismGroup);

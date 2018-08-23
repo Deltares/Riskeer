@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.IO.Assembly
             AssemblyMethod = assemblyMethod;
             AssemblyCategory = assemblyCategory;
         }
-        
+
         /// <summary>
         /// Gets the assembly method that was used to assembly the assembly result.
         /// </summary>

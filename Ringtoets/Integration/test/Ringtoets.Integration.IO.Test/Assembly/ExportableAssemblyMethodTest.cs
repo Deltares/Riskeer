@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             {
                 return new Dictionary<ExportableAssemblyMethod, int>
                 {
-                     {
+                    {
                         ExportableAssemblyMethod.WBI0E1, 1
                     },
                     {

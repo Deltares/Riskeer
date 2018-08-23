@@ -65,7 +65,6 @@ namespace Ringtoets.Integration.IO.Factories
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
-
             IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections =
                 ExportableFailureMechanismSectionFactory.CreateExportableFailureMechanismSections(failureMechanism.Sections);
             Dictionary<DuneErosionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =

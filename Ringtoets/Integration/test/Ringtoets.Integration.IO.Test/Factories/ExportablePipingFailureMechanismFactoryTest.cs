@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             TestDelegate call = () => ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(null,
-                                                                                                                     assessmentSection);
+                                                                                                               assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         {
             // Call
             TestDelegate call = () => ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(new PipingFailureMechanism(),
-                                                                                                                     null);
+                                                                                                               null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
