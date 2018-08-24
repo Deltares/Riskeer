@@ -333,7 +333,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.AssessmentLevel);
-            Assert.AreEqual("HBlocatie", calculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual("Locatie", calculation.HydraulicBoundaryLocationName);
             Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
             Assert.AreEqual(2.2, calculation.EntryPointL);
             Assert.AreEqual(3.3, calculation.ExitPointL);

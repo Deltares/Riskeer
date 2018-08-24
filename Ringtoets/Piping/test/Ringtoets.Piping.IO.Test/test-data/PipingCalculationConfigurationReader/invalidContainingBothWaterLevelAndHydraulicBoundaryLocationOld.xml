@@ -2,6 +2,6 @@
 <configuratie>
   <berekening naam="Calculation">
     <waterstand>1.1</waterstand>
-    <hrlocatie>HBlocatie</hrlocatie>
+    <hrlocatie>Locatie</hrlocatie>
   </berekening>
 </configuratie>

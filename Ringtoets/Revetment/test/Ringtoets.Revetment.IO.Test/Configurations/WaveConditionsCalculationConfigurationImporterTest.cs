@@ -137,7 +137,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "De hydraulische belastingenlocatie 'HBlocatie' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
+            const string expectedMessage = "De hydraulische belastingenlocatie 'Locatie' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -264,7 +264,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
 
             var calculationGroup = new CalculationGroup();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HBlocatie", 10, 20);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20);
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new[]
             {
                 new Point2D(0, 0),

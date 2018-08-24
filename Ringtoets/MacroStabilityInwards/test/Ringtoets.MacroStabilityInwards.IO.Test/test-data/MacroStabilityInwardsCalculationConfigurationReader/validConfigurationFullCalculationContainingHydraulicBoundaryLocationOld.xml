@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="Calculation">
-    <hrlocatie>HBlocatie</hrlocatie>
+    <hrlocatie>Locatie</hrlocatie>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
