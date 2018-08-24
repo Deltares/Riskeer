@@ -47,14 +47,18 @@ namespace Core.Common.Util
             {
                 throw new NotSupportedException("Cannot convert from (null).");
             }
+
             var valueString = value as string;
             if (valueString != null)
             {
-                foreach (FieldInfo fieldInfo in UnderlyingType.GetFields().Where(fieldInfo => valueString == GetDisplayName(fieldInfo)))
+                FieldInfo fieldInfo = UnderlyingType.GetFields().FirstOrDefault(info => valueString == GetDisplayName(info));
+
+                if (fieldInfo != null)
                 {
                     return Enum.Parse(UnderlyingType, fieldInfo.Name);
                 }
             }
+
             return base.ConvertFrom(context, culture, value);
         }
 
