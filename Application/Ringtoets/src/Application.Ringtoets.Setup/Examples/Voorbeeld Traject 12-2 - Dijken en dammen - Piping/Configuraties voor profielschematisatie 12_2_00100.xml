@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="12_2_00100 Segment_12004_1D1">
-    <hrlocatie>YM_2_12-2_dk_00012</hrlocatie>
+    <hblocatie>YM_2_12-2_dk_00012</hblocatie>
     <profielschematisatie>12_2_00100</profielschematisatie>
     <intredepunt>0.5</intredepunt>
     <uittredepunt>69</uittredepunt>
@@ -23,7 +23,7 @@
     </scenario>
   </berekening>
   <berekening naam="12_2_00100 Segment_12004_1D2">
-    <hrlocatie>YM_2_12-2_dk_00012</hrlocatie>
+    <hblocatie>YM_2_12-2_dk_00012</hblocatie>
     <profielschematisatie>12_2_00100</profielschematisatie>
     <intredepunt>0.5</intredepunt>
     <uittredepunt>69</uittredepunt>
@@ -45,8 +45,8 @@
     </scenario>
   </berekening>
   <map naam="Gevoeligheid">
-    <berekening naam="1D2 met ander toetspeil">
-      <toetspeil>1.4</toetspeil>
+    <berekening naam="1D2 met andere waterstand">
+      <waterstand>1.4</waterstand>
       <profielschematisatie>12_2_00100</profielschematisatie>
       <intredepunt>0.5</intredepunt>
       <uittredepunt>69</uittredepunt>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="some other name">
-    <hrlocatie>Belastingenlocatie</hrlocatie>
+    <hblocatie>Belastingenlocatie</hblocatie>
     <kunstwerk>Kunstwerk</kunstwerk>
     <orientatie>5.6</orientatie>
     <faalkansgegevenerosiebodem>2.1</faalkansgegevenerosiebodem>

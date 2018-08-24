@@ -24,8 +24,8 @@ All rights reserved.
 
   <!--Algemene structuur met configuratie, mappen en berekeningen.-->
 
-  <!--Generieke definitie van de geselecteerde HR locatie voor alle toetssporen.-->
-  <xs:include schemaLocation="HrLocatieSchema.xsd"/>
+  <!--Generieke definitie van de geselecteerde HB locatie voor alle toetssporen.-->
+  <xs:include schemaLocation="HbLocatieSchema.xsd"/>
 
   <!--Generieke definitie voor de orientatie voor alle toetssporen.-->
   <xs:include schemaLocation="OrientatieSchema.xsd"/>

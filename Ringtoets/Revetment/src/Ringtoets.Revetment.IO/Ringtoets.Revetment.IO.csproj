@@ -25,16 +25,16 @@
     <Compile Include="Configurations\ConfigurationAssessmentSectionCategoryType.cs" />
     <Compile Include="Configurations\Converters\ConfigurationAssessmentSectionCategoryTypeConverter.cs" />
     <Compile Include="Configurations\WaveConditionsCalculationConfigurationExporter.cs" />
-    <Compile Include="WaveConditions\CoverType.cs" />
-    <Compile Include="WaveConditions\ExportableWaveConditions.cs" />
-    <Compile Include="WaveConditions\ExportableWaveConditionsFactory.cs" />
-    <Compile Include="Configurations\WaveConditionsCalculationConfigurationImporter.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="WaveConditions\CoverType.cs" />
+    <Compile Include="WaveConditions\ExportableWaveConditions.cs" />
+    <Compile Include="WaveConditions\ExportableWaveConditionsFactory.cs" />
+    <Compile Include="Configurations\WaveConditionsCalculationConfigurationImporter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configurations\WaveConditionsCalculationConfiguration.cs" />
     <Compile Include="Configurations\ConfigurationWaveConditionsInputStepSize.cs" />
     <Compile Include="Configurations\WaveConditionsCalculationConfigurationReader.cs" />
@@ -49,10 +49,10 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
-    <None Include="Resources\BekledingenHrConfiguratieSchemaBasis.xsd">
+    <None Include="Resources\BekledingenHbConfiguratieSchemaBasis.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\BekledingenHrConfiguratieSchema.xsd">
+    <None Include="Resources\BekledingenHbConfiguratieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -91,8 +91,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

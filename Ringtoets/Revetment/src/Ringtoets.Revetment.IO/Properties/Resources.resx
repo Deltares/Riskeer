@@ -127,7 +127,7 @@
     <value>{0} Er zijn geen golfcondities geëxporteerd.</value>
   </data>
   <data name="WaveConditionsWriter_HeaderLine" xml:space="preserve">
-    <value>Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]</value>
+    <value>Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>ja</value>
@@ -142,8 +142,8 @@
     <value>Gras</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BekledingenHrConfiguratieSchemaBasis" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BekledingenHrConfiguratieSchemaBasis.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="BekledingenHbConfiguratieSchemaBasis" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BekledingenHbConfiguratieSchemaBasis.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="WaveConditionsCalculationConfigurationImporter_UpperBoundaryRevetment_DisplayName" xml:space="preserve">
     <value>bovengrens bekledingen</value>
@@ -169,7 +169,7 @@
   <data name="AssessmentSectionCategoryType_SignalingNorm_DisplayName" xml:space="preserve">
     <value>A-B</value>
   </data>
-  <data name="BekledingenHrConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\BekledingenHrConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="BekledingenHbConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\BekledingenHbConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

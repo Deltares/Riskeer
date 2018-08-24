@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Util;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.IO.WaveConditions
@@ -35,47 +36,107 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         /// Create a collection of <see cref="ExportableWaveConditions"/>.
         /// </summary>
         /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> objects belong.</param>
-        /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> used in the calculations.</param>
+        /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/> used in the calculations.</param>
         /// <param name="columnsOutput">The <see cref="WaveConditionsOutput"/> objects resulting from columns calculations.</param>
         /// <param name="blocksOutput">The <see cref="WaveConditionsOutput"/> objects resulting from blocks calculations.</param>
         /// <returns>A container of <see cref="ExportableWaveConditions"/> objects.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c> or 
         /// when <see cref="WaveConditionsOutput"/> is <c>null</c> for <paramref name="columnsOutput"/> or <paramref name="blocksOutput"/>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
+        /// <exception cref="ArgumentException">Thrown when <see cref="AssessmentSectionCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
         /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
         public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
-            string name, WaveConditionsInput waveConditionsInput, IEnumerable<WaveConditionsOutput> columnsOutput, IEnumerable<WaveConditionsOutput> blocksOutput)
+            string name, AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
+            IEnumerable<WaveConditionsOutput> columnsOutput, IEnumerable<WaveConditionsOutput> blocksOutput)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
+
             if (columnsOutput == null)
             {
                 throw new ArgumentNullException(nameof(columnsOutput));
             }
+
             if (blocksOutput == null)
             {
                 throw new ArgumentNullException(nameof(blocksOutput));
             }
 
+            string categoryBoundaryName = GetCategoryBoundaryName(waveConditionsInput.CategoryType);
+
             var exportableWaveConditionsCollection = new List<ExportableWaveConditions>();
-
-            foreach (WaveConditionsOutput waveConditionsOutput in columnsOutput)
-            {
-                exportableWaveConditionsCollection.Add(new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput, CoverType.StoneCoverColumns));
-            }
-
-            foreach (WaveConditionsOutput blocksConditionsOutput in blocksOutput)
-            {
-                exportableWaveConditionsCollection.Add(new ExportableWaveConditions(name, waveConditionsInput, blocksConditionsOutput, CoverType.StoneCoverBlocks));
-            }
-
+            exportableWaveConditionsCollection.AddRange(CreateExportableWaveConditionsCollection(name, waveConditionsInput,
+                                                                                                 columnsOutput, CoverType.StoneCoverColumns,
+                                                                                                 categoryBoundaryName));
+            exportableWaveConditionsCollection.AddRange(CreateExportableWaveConditionsCollection(name, waveConditionsInput,
+                                                                                                 blocksOutput, CoverType.StoneCoverBlocks,
+                                                                                                 categoryBoundaryName));
             return exportableWaveConditionsCollection;
+        }
+
+        /// <summary>
+        /// Create a collection of <see cref="ExportableWaveConditions"/>.
+        /// </summary>
+        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> objects belong.</param>
+        /// <param name="waveConditionsInput">The <see cref="FailureMechanismCategoryWaveConditionsInput"/> used in the calculations.</param>
+        /// <param name="output">The <see cref="WaveConditionsOutput"/> objects resulting from the calculations.</param>
+        /// <returns>A container of <see cref="ExportableWaveConditions"/> objects.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when:
+        /// <list type="bullet">
+        /// <item>any parameter is <c>null</c></item>
+        /// <item>any item in <paramref name="output"/> is <c>null</c></item>
+        /// </list></exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="FailureMechanismCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
+        /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
+        public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
+            string name, FailureMechanismCategoryWaveConditionsInput waveConditionsInput,
+            IEnumerable<WaveConditionsOutput> output)
+        {
+            if (waveConditionsInput == null)
+            {
+                throw new ArgumentNullException(nameof(waveConditionsInput));
+            }
+
+            return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, CoverType.Grass,
+                                                            GetCategoryBoundaryName(waveConditionsInput.CategoryType));
+        }
+
+        /// <summary>
+        /// Create a collection of <see cref="ExportableWaveConditions"/>.
+        /// </summary>
+        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> objects belong.</param>
+        /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/> used in the calculations.</param>
+        /// <param name="output">The <see cref="WaveConditionsOutput"/> objects resulting from the calculations.</param>
+        /// <returns>A container of <see cref="ExportableWaveConditions"/> objects.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when:
+        /// <list type="bullet">
+        /// <item>any parameter is <c>null</c></item>
+        /// <item>any item in <paramref name="output"/> is <c>null</c></item>
+        /// </list></exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="AssessmentSectionCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
+        /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
+        public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
+            string name, AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
+            IEnumerable<WaveConditionsOutput> output)
+        {
+            if (waveConditionsInput == null)
+            {
+                throw new ArgumentNullException(nameof(waveConditionsInput));
+            }
+
+            return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, CoverType.Asphalt,
+                                                            GetCategoryBoundaryName(waveConditionsInput.CategoryType));
+        }
+
+        private static string GetCategoryBoundaryName<T>(T enumValue)
+        {
+            return new EnumDisplayWrapper<T>(enumValue).DisplayName;
         }
 
         /// <summary>
@@ -85,35 +146,33 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> used in the calculations.</param>
         /// <param name="output">The <see cref="WaveConditionsOutput"/> objects resulting from the calculations.</param>
         /// <param name="coverType">The type of cover.</param>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
         /// <returns>A container of <see cref="ExportableWaveConditions"/> objects.</returns>
         /// <exception cref="ArgumentNullException">Thrown when:
         /// <list type="bullet">
-        /// <item>any parameter is <c>null</c></item>
+        /// <item><paramref name="name"/> is <c>null</c></item>
+        /// <item><paramref name="waveConditionsInput"/> is <c>null</c></item>
+        /// <item><paramref name="output"/> is <c>null</c></item>
         /// <item>any item in <paramref name="output"/> is <c>null</c></item>
         /// </list></exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
         /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
-        public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(string name, WaveConditionsInput waveConditionsInput,
-                                                                                                     IEnumerable<WaveConditionsOutput> output, CoverType coverType)
+        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
+            string name, WaveConditionsInput waveConditionsInput, IEnumerable<WaveConditionsOutput> output,
+            CoverType coverType, string categoryBoundaryName)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
-            if (waveConditionsInput == null)
-            {
-                throw new ArgumentNullException(nameof(waveConditionsInput));
-            }
+
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
             }
-            if (coverType == null)
-            {
-                throw new ArgumentNullException(nameof(coverType));
-            }
 
-            return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput, coverType)).ToArray();
+            return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput,
+                                                                                      coverType, categoryBoundaryName)).ToArray();
         }
     }
 }

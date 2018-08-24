@@ -49,7 +49,14 @@ namespace Ringtoets.Common.IO.Configurations
         /// <summary>
         /// The identifier for hydraulic boundary location elements.
         /// </summary>
-        public const string HydraulicBoundaryLocationElement = "hrlocatie";
+        /// <remarks>This represents the element before the rename.</remarks>
+        public const string HydraulicBoundaryLocationElementOld = "hrlocatie";
+
+        /// <summary>
+        /// The identifier for hydraulic boundary location elements.
+        /// </summary>
+        /// <remarks>This represents the element after the rename.</remarks>
+        public const string HydraulicBoundaryLocationElementNew = "hblocatie";
 
         /// <summary>
         /// The tag of elements containing the orientation of the profile.

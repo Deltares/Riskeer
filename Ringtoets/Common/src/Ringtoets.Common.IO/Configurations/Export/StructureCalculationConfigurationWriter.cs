@@ -100,7 +100,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
         private void WriteParameters(T configuration, XmlWriter writer)
         {
             WriteElementWhenContentAvailable(writer,
-                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
                                              configuration.HydraulicBoundaryLocationName);
             WriteElementWhenContentAvailable(writer,
                                              ConfigurationSchemaIdentifiers.StructureElement,

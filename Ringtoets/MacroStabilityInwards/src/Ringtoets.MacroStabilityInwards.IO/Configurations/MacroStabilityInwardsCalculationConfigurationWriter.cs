@@ -68,10 +68,10 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                                                      MacroStabilityInwardsCalculationConfiguration configuration)
         {
             WriteElementWhenContentAvailable(writer,
-                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement,
+                                             MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelElement,
                                              configuration.AssessmentLevel);
             WriteElementWhenContentAvailable(writer,
-                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
                                              configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(writer,

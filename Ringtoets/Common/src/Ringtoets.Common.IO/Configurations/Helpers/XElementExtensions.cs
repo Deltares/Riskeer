@@ -125,6 +125,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 return null;
             }
+
             return new TConverter().ConvertFromInvariantString(stringValue);
         }
 
@@ -152,6 +153,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 return null;
             }
+
             return new TConverter().ConvertFrom(doubleValue);
         }
 
@@ -169,6 +171,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(parentElement));
             }
+
             if (stochastName == null)
             {
                 throw new ArgumentNullException(nameof(stochastName));
@@ -194,6 +197,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(parentElement));
             }
+
             if (descendantElementName == null)
             {
                 throw new ArgumentNullException(nameof(descendantElementName));
@@ -207,6 +211,8 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// </summary>
         /// <param name="calculationElement">The element containing values for stochast parameters.</param>
         /// <param name="stochastName">The name of the stochast to find the parameter values for.</param>
+        /// <returns>The configuration, or <c>null</c> when the <paramref name="calculationElement"/>
+        /// does not have stochast elements with the name <paramref name="stochastName"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="FormatException">Thrown when the value for a parameter isn't in the correct format.</exception>
         /// <exception cref="OverflowException">Thrown when the value for a parameter represents a number less
@@ -217,6 +223,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(calculationElement));
             }
+
             if (stochastName == null)
             {
                 throw new ArgumentNullException(nameof(stochastName));
@@ -233,6 +240,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                     VariationCoefficient = element.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.VariationCoefficientElement)
                 };
             }
+
             return null;
         }
 
@@ -240,6 +248,8 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// Gets a wave reduction configuration based on the values found in the <paramref name="calculationElement"/>.
         /// </summary>
         /// <param name="calculationElement">The element containing values for wave reduction parameters.</param>
+        /// <returns>The configuration, or <c>null</c> when the <paramref name="calculationElement"/> does not
+        /// have wave reduction elements. </returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationElement"/> is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the value for break water type isn't valid.</exception>
         /// <exception cref="FormatException">Thrown when the value for break water height, use foreshore profile or
@@ -259,6 +269,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                     UseForeshoreProfile = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.UseForeshore)
                 };
             }
+
             return null;
         }
 
@@ -266,6 +277,8 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// Gets a scenario configuration based on the values found in the <paramref name="calculationElement"/>.
         /// </summary>
         /// <param name="calculationElement">The element containing values for scenario parameters.</param>
+        /// <returns>The configuration, or <c>null</c> when the <paramref name="calculationElement"/> does not
+        /// have scenario elements.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationElement"/> is <c>null</c>.</exception>
         /// <exception cref="FormatException">Thrown when the value for contribution or is relevant 
         /// for scenario is not in the correct format to convert to a value.</exception>
@@ -287,7 +300,26 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                     Contribution = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.ScenarioContribution)
                 };
             }
+
             return null;
+        }
+
+        /// <summary>
+        /// Gets a hydraulic boundary location name based on the values found in the <paramref name="calculationElement"/>.
+        /// </summary>
+        /// <param name="calculationElement">The element containing values for scenario parameters.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationElement"/> is <c>null</c>.</exception>
+        /// <returns>The hydraulic boundary location name, or <c>null</c> when the <paramref name="calculationElement"/> does not
+        /// have hydraulic boundary location elements.</returns>
+        public static string GetHydraulicBoundaryLocationName(this XElement calculationElement)
+        {
+            if (calculationElement == null)
+            {
+                throw new ArgumentNullException(nameof(calculationElement));
+            }
+
+            return calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew)
+                   ?? calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld);
         }
     }
 }

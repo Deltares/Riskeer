@@ -86,6 +86,7 @@ namespace Ringtoets.Revetment.IO.WaveConditions
                 exportableWaveConditions.UseBreakWater ? Resources.Yes : Resources.No,
                 exportableWaveConditions.UseForeshore ? Resources.Yes : Resources.No,
                 exportableWaveConditions.CoverType.Name,
+                exportableWaveConditions.CategoryBoundaryName,
                 new RoundedDouble(2, exportableWaveConditions.WaterLevel).ToString(null, CultureInfo.InvariantCulture),
                 new RoundedDouble(2, exportableWaveConditions.WaveHeight).ToString(null, CultureInfo.InvariantCulture),
                 new RoundedDouble(2, exportableWaveConditions.WavePeriod).ToString(null, CultureInfo.InvariantCulture),

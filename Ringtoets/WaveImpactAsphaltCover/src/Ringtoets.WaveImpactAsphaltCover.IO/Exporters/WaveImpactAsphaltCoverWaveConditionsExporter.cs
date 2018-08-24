@@ -59,7 +59,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO.Exporters
             {
                 exportableWaveConditions.AddRange(
                     ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                        calculation.Name, calculation.InputParameters, calculation.Output.Items, CoverType.Asphalt));
+                        calculation.Name, calculation.InputParameters, calculation.Output.Items));
             }
 
             return exportableWaveConditions;

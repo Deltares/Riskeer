@@ -124,10 +124,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadMacroStabilityInwardsCalculation()
+        [TestCase("validConfigurationCalculationContainingAssessmentLevelAndNaNs")]
+        [TestCase("validConfigurationCalculationContainingWaterLevelAndNaNs")]
+        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadMacroStabilityInwardsCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingNaNs.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
@@ -176,10 +178,12 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadMacroStabilityInwardsCalculation()
+        [TestCase("validConfigurationCalculationContainingAssessmentLevelAndInfinities")]
+        [TestCase("validConfigurationCalculationContainingWaterLevelAndInfinities")]
+        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadMacroStabilityInwardsCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingInfinities.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
@@ -231,14 +235,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnCalculation(HydraulicBoundaryLocation)")]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnCalculation(HydraulicBoundaryLocation_differentOrder)")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationOld")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationNew")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_old")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_new")]
         public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadMacroStabilityInwardsCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, fileName);
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
@@ -249,7 +253,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             Assert.AreEqual("Calculation", configuration.Name);
             Assert.IsNull(configuration.AssessmentLevel);
-            Assert.AreEqual("HRlocatie", configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual("HBlocatie", configuration.HydraulicBoundaryLocationName);
 
             Assert.AreEqual("Profielschematisatie", configuration.SurfaceLineName);
             Assert.AreEqual("Ondergrondmodel", configuration.StochasticSoilModelName);
@@ -335,14 +339,14 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnCalculation(AssessmentLevel)")]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnCalculation(AssessmentLevel_differentOrder)")]
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel")]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel")]
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder")]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel_differentOrder")]
         public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadMacroStabilityInwardsCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, fileName);
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Call
@@ -451,7 +455,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             var configuration = (MacroStabilityInwardsCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.AreEqual("Calculation", configuration.Name);
-            Assert.AreEqual(1.1, configuration.AssessmentLevel);
+            Assert.IsNull(configuration.AssessmentLevel);
             Assert.IsNull(configuration.HydraulicBoundaryLocationName);
             Assert.IsNull(configuration.SurfaceLineName);
             Assert.IsNull(configuration.StochasticSoilModelName);
@@ -565,7 +569,8 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
         private static IEnumerable<NameAdapter> GetNameAdaptersOfStringProperties()
         {
-            yield return new NameAdapter("HydraulicBoundaryLocation", "hrlocatie");
+            yield return new NameAdapter("HydraulicBoundaryLocationOld", "hrlocatie");
+            yield return new NameAdapter("HydraulicBoundaryLocationNew", "hblocatie");
             yield return new NameAdapter("SurfaceLine", "profielschematisatie");
             yield return new NameAdapter("StochasticSoilModel", "ondergrondmodel");
             yield return new NameAdapter("StochasticSoilProfile", "ondergrondschematisatie");
@@ -593,6 +598,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
         private static IEnumerable<NameAdapter> GetNameAdaptersOfDoubleProperties()
         {
             yield return new NameAdapter("AssessmentLevel", "toetspeil");
+            yield return new NameAdapter("WaterLevel", "waterstand");
             yield return new NameAdapter("ScenarioContribution", "bijdrage");
             yield return new NameAdapter("SlipPlaneMinimumDepth", "minimaleglijvlakdiepte");
             yield return new NameAdapter("SlipPlaneMinimumLength", "minimaleglijvlaklengte");
@@ -674,8 +680,18 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                                               string.Format(message, tagElement));
             }
 
-            yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml",
+            yield return new TestCaseData("invalidContainingBothAssessmentLevelAndWaterLevel.xml",
+                                          string.Format(message, "toetspeil"));
+            yield return new TestCaseData("invalidContainingBothHydraulicBoundaryLocationOldAndNew.xml",
                                           string.Format(message, "hrlocatie"));
+            yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationOld.xml",
+                                          string.Format(message, "hrlocatie"));
+            yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationNew.xml",
+                                          string.Format(message, "hblocatie"));
+            yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationOld.xml",
+                                          string.Format(message, "hrlocatie"));
+            yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationNew.xml",
+                                          string.Format(message, "hblocatie"));
         }
 
         private static IEnumerable<NameAdapter> GetNameAdaptersOfAllProperties()

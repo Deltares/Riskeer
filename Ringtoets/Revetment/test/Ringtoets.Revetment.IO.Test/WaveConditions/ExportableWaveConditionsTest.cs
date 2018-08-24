@@ -38,7 +38,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableWaveConditions(null, CreateValidWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns);
+            TestDelegate call = () => new ExportableWaveConditions(null, CreateValidWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,7 +49,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
         public void Constructor_WaveConditionsInputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableWaveConditions("aName", null, waveConditionsOutput, CoverType.StoneCoverColumns);
+            TestDelegate call = () => new ExportableWaveConditions("aName", null, waveConditionsOutput, CoverType.StoneCoverColumns, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -60,7 +60,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
         public void Constructor_WaveConditionsOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), null, CoverType.StoneCoverColumns);
+            TestDelegate call = () => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), null, CoverType.StoneCoverColumns, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -68,10 +68,32 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
+        public void Constructor_CoverTypeNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), waveConditionsOutput, null, string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("coverType", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_CategoryBoundaryNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), waveConditionsOutput, CoverType.Asphalt, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("categoryBoundaryName", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_WaveConditionsInputHydraulicBoundaryLocationNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new ExportableWaveConditions("aName", new TestWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns);
+            TestDelegate call = () => new ExportableWaveConditions("aName", new TestWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -86,6 +108,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             [Values(true, false)] bool useForeshore)
         {
             // Setup
+            const string categoryBoundaryName = "category";
             WaveConditionsInput waveConditionsInput = CreateValidWaveConditionsInput();
             waveConditionsInput.UseBreakWater = useBreakWater;
             waveConditionsInput.UseForeshore = useForeshore;
@@ -95,7 +118,8 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
                 new ExportableWaveConditions("ewcName",
                                              waveConditionsInput,
                                              waveConditionsOutput,
-                                             CoverType.StoneCoverColumns);
+                                             CoverType.StoneCoverColumns,
+                                             categoryBoundaryName);
 
             // Assert
             Assert.AreEqual("ewcName", exportableWaveConditions.CalculationName);
@@ -106,6 +130,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(useBreakWater, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(useForeshore, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
+            Assert.AreEqual(categoryBoundaryName, exportableWaveConditions.CategoryBoundaryName);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
@@ -124,6 +149,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             [Values(true, false)] bool useForeshore)
         {
             // Setup
+            const string categoryBoundaryName = "category";
             WaveConditionsInput waveConditionsInput = CreateValidWaveConditionsInput();
             waveConditionsInput.ForeshoreProfile = new TestForeshoreProfile("profile");
             waveConditionsInput.UseBreakWater = useBreakWater;
@@ -134,7 +160,8 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
                 new ExportableWaveConditions("ewcName",
                                              waveConditionsInput,
                                              waveConditionsOutput,
-                                             CoverType.StoneCoverColumns);
+                                             CoverType.StoneCoverColumns,
+                                             categoryBoundaryName);
 
             // Assert
             Assert.AreEqual("ewcName", exportableWaveConditions.CalculationName);
@@ -145,6 +172,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(useBreakWater, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(useForeshore, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
+            Assert.AreEqual(categoryBoundaryName, exportableWaveConditions.CategoryBoundaryName);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);

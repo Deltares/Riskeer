@@ -60,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
             {
                 exportableWaveConditions.AddRange(
                     ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                        calculation.Name, calculation.InputParameters, calculation.Output.Items, CoverType.Grass));
+                        calculation.Name, calculation.InputParameters, calculation.Output.Items));
             }
 
             return exportableWaveConditions;

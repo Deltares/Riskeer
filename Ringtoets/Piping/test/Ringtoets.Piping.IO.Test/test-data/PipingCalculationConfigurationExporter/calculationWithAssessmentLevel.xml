@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="PK001_0001 W1-6_0_1D1">
-    <toetspeil>3</toetspeil>
+    <waterstand>3</waterstand>
     <profielschematisatie>PK001_0001</profielschematisatie>
     <intredepunt>0</intredepunt>
     <uittredepunt>10</uittredepunt>

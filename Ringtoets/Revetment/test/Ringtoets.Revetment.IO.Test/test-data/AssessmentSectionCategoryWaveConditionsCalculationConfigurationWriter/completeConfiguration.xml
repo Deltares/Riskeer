@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="Berekening 1">
-    <hrlocatie>Locatie1</hrlocatie>
+    <hblocatie>Locatie1</hblocatie>
     <categoriegrens>B-C</categoriegrens>
     <bovengrensbekleding>1.5</bovengrensbekleding>
     <ondergrensbekleding>0.5</ondergrensbekleding>

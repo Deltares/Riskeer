@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -131,9 +131,9 @@ namespace Ringtoets.Revetment.IO.Properties {
         ///This program is distributed in the hope that it will be useful,
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BekledingenHrConfiguratieSchema {
+        internal static string BekledingenHbConfiguratieSchema {
             get {
-                return ResourceManager.GetString("BekledingenHrConfiguratieSchema", resourceCulture);
+                return ResourceManager.GetString("BekledingenHbConfiguratieSchema", resourceCulture);
             }
         }
         
@@ -151,9 +151,9 @@ namespace Ringtoets.Revetment.IO.Properties {
         ///This program is distributed in the hope that it will be useful,
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BekledingenHrConfiguratieSchemaBasis {
+        internal static string BekledingenHbConfiguratieSchemaBasis {
             get {
-                return ResourceManager.GetString("BekledingenHrConfiguratieSchemaBasis", resourceCulture);
+                return ResourceManager.GetString("BekledingenHbConfiguratieSchemaBasis", resourceCulture);
             }
         }
         
@@ -252,7 +252,7 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°].
+        ///   Looks up a localized string similar to Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°].
         /// </summary>
         internal static string WaveConditionsWriter_HeaderLine {
             get {

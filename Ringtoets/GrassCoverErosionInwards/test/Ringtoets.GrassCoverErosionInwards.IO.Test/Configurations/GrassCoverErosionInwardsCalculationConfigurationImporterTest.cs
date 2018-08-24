@@ -215,7 +215,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "De hydraulische belastingenlocatie 'HRlocatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
+            const string expectedMessage = "De hydraulische belastingenlocatie 'HBlocatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -357,7 +357,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             string filePath = Path.Combine(path, "validConfigurationCalculationNotUseForeshoreWithoutGeometry.xml");
 
             var calculationGroup = new CalculationGroup();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HBlocatie", 10, 20);
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile("Dijkprofiel", "Dijkprofiel ID");
 
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -503,7 +503,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
 
             var calculationGroup = new CalculationGroup();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HBlocatie", 10, 20);
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new[]
             {
                 new RoughnessPoint(new Point2D(0, 0), 2.1),

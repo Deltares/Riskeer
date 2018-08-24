@@ -32,6 +32,11 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
         public const string AssessmentLevelElement = "toetspeil";
 
         /// <summary>
+        /// The identifier for water level elements.
+        /// </summary>
+        public const string WaterLevelElement = "waterstand";
+
+        /// <summary>
         /// The identifier for surface line elements.
         /// </summary>
         public const string SurfaceLineElement = "profielschematisatie";

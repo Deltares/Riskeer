@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="Berekening 1">
-    <hrlocatie>HRlocatie</hrlocatie>
+    <hblocatie>HBlocatie</hblocatie>
     <dijkprofiel>Dijkprofiel ID</dijkprofiel>
     <orientatie>5.5</orientatie>
     <dijkhoogte>3.45</dijkhoogte>

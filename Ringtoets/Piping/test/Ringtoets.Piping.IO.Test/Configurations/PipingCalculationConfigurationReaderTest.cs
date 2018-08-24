@@ -48,6 +48,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidAssessmentLevelNoDouble.xml",
                                               "The 'toetspeil' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidAssessmentLevelNoDouble");
+                yield return new TestCaseData("invalidWaterLevelEmpty.xml",
+                                              "The 'waterstand' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidWaterLevelEmpty");
+                yield return new TestCaseData("invalidWaterLevelNoDouble.xml",
+                                              "The 'waterstand' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                    .SetName("invalidWaterLevelNoDouble");
                 yield return new TestCaseData("invalidEntryPointEmpty.xml",
                                               "The 'intredepunt' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidEntryPointEmpty");
@@ -90,15 +96,30 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidMultipleDampingFactorExitStochast.xml",
                                               "There is a duplicate key sequence 'dempingsfactor' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultipleDampingFactorExitStochast");
-                yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml",
+                yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationOld.xml",
                                               "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocation");
+                    .SetName("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationOld");
+                yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationNew.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationNew");
+                yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationOld.xml",
+                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationOld");
+                yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationNew.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationNew");
                 yield return new TestCaseData("invalidCalculationMultipleAssessmentLevel.xml",
                                               "Element 'toetspeil' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleAssessmentLevel");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
+                yield return new TestCaseData("invalidCalculationMultipleWaterLevel.xml",
+                                              "Element 'waterstand' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleWaterLevel");
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationOld.xml",
                                               "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationOld");
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationNew.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationNew");
                 yield return new TestCaseData("invalidCalculationMultipleSurfaceLine.xml",
                                               "Element 'profielschematisatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleSurfaceLine");
@@ -117,9 +138,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleStochasts.xml",
                                               "Element 'stochasten' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleStochasts");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
+                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationOld.xml",
                                               "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation");
+                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationOld");
+                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationNew.xml",
+                                              "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
+                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationNew");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySurfaceLine.xml",
                                               "The 'profielschematisatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptySurfaceLine");
@@ -150,6 +174,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidScenarioRelevantNoBoolean");
+                yield return new TestCaseData("invalidContainingBothAssessmentLevelAndWaterLevel.xml",
+                                              "Element 'toetspeil' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidContainingBothAssessmentLevelAndWaterLevel");
+                yield return new TestCaseData("invalidContainingBothHydraulicBoundaryLocationOldAndNew.xml",
+                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidContainingBothHydraulicBoundaryLocationOldAndNew");
             }
         }
 
@@ -226,10 +256,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadPipingCalculation()
+        [TestCase("validConfigurationCalculationContainingAssessmentLevelAndNaNs")]
+        [TestCase("validConfigurationCalculationContainingWaterLevelAndNaNs")]
+        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingNaNs.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -249,10 +281,12 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadPipingCalculation()
+        [TestCase("validConfigurationCalculationContainingAssessmentLevelAndInfinities")]
+        [TestCase("validConfigurationCalculationContainingWaterLevelAndInfinities")]
+        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingInfinities.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -281,14 +315,14 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnPipingCalculation(HydraulicBoundaryLocation)")]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnPipingCalculation(HydraulicBoundaryLocation_differentOrder)")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationOld")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationNew")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_old")]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_new")]
         public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, fileName);
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -299,7 +333,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 
             Assert.AreEqual("Calculation", calculation.Name);
             Assert.IsNull(calculation.AssessmentLevel);
-            Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual("HBlocatie", calculation.HydraulicBoundaryLocationName);
             Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
             Assert.AreEqual(2.2, calculation.EntryPointL);
             Assert.AreEqual(3.3, calculation.ExitPointL);
@@ -314,14 +348,14 @@ namespace Ringtoets.Piping.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnPipingCalculation(AssessmentLevel)")]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder.xml",
-            TestName = "Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnPipingCalculation(AssessmentLevel_differentOrder)")]
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel")]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel")]
+        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder")]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel_differentOrder")]
         public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, fileName);
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -360,7 +394,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.AreEqual("Calculation", calculation.Name);
-            Assert.AreEqual(1.1, calculation.AssessmentLevel);
+            Assert.IsNull(calculation.AssessmentLevel);
             Assert.IsNull(calculation.HydraulicBoundaryLocationName);
             Assert.IsNull(calculation.SurfaceLineName);
             Assert.IsNull(calculation.EntryPointL);

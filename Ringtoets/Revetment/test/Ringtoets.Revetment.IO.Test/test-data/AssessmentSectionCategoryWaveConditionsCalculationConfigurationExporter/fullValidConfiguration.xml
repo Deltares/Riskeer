@@ -19,7 +19,7 @@
     </berekening>
     <map naam="PK001_0002">
       <berekening naam="PK001_0002 W1-6_4_1D1">
-        <hrlocatie>HydraulicLocationA</hrlocatie>
+        <hblocatie>HydraulicLocationA</hblocatie>
         <categoriegrens>C-D</categoriegrens>
         <bovengrensbekleding>NaN</bovengrensbekleding>
         <ondergrensbekleding>NaN</ondergrensbekleding>

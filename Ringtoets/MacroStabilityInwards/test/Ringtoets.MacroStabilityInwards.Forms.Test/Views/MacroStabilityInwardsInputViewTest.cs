@@ -1142,9 +1142,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithWaternets_WhenObserversNotifiedAndWaternetSame_ThenChartDataNotUpdated()
+        public void GivenViewWithWaternets_WhenObserversNotifiedAndWaternetAndSurfaceLineSame_ThenChartDataNotUpdated()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -1176,15 +1176,72 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
                                                                                       waternetDailyChartDataCollection);
 
-                IEnumerable<ChartData> waternetExtremeChartData = waternetExtremeChartDataCollection.Collection;
-                IEnumerable<ChartData> waternetDailyChartData = waternetDailyChartDataCollection.Collection;
+                ChartData[] waternetExtremeChartData = waternetExtremeChartDataCollection.Collection.ToArray();
+                ChartData[] waternetDailyChartData = waternetDailyChartDataCollection.Collection.ToArray();
 
-                // Call
+                // When
                 calculation.InputParameters.NotifyObservers();
 
-                // Assert
+                // Then
                 CollectionAssert.AreEqual(waternetExtremeChartData, ((ChartDataCollection) chartData[waternetZonesExtremeIndex]).Collection);
                 CollectionAssert.AreEqual(waternetDailyChartData, ((ChartDataCollection) chartData[waternetZonesDailyIndex]).Collection);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenViewWithWaternets_WhenObserversNotifiedAndSurfaceLineChanged_ThenChartDataUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilProfile = stochasticSoilProfile
+                }
+            };
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
+                                                                 GetHydraulicBoundaryLocationCalculation))
+            {
+                // Precondition
+                ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                var waternetExtremeChartDataCollection = (ChartDataCollection) chartData[waternetZonesExtremeIndex];
+                var waternetDailyChartDataCollection = (ChartDataCollection) chartData[waternetZonesDailyIndex];
+
+                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
+                                                                                      waternetExtremeChartDataCollection);
+                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                                                                                      waternetDailyChartDataCollection);
+
+                ChartData[] waternetExtremeChartData = waternetExtremeChartDataCollection.Collection.ToArray();
+                ChartData[] waternetDailyChartData = waternetDailyChartDataCollection.Collection.ToArray();
+
+                List<Point3D> surfaceLineGeometry = surfaceLine.Points.ToList();
+                surfaceLineGeometry.Insert(1, new Point3D(1.95, 2.55, 5.0));
+                
+                // When
+                calculation.InputParameters.SurfaceLine.SetGeometry(surfaceLineGeometry);
+                calculation.InputParameters.NotifyObservers();
+
+                // Then
+                CollectionAssert.AreNotEqual(waternetExtremeChartData, ((ChartDataCollection) chartData[waternetZonesExtremeIndex]).Collection);
+                CollectionAssert.AreNotEqual(waternetDailyChartData, ((ChartDataCollection) chartData[waternetZonesDailyIndex]).Collection);
+                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
+                                                                                      waternetExtremeChartDataCollection);
+                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                                                                                      waternetDailyChartDataCollection);
             }
 
             mocks.VerifyAll();
