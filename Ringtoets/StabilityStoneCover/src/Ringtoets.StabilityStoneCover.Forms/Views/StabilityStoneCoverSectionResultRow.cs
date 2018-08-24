@@ -230,7 +230,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(simpleAssemblyCategoryGroup);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(simpleAssemblyCategoryGroup);
             }
         }
 
@@ -241,7 +241,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(detailedAssemblyCategoryGroup);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(detailedAssemblyCategoryGroup);
             }
         }
 
@@ -252,7 +252,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(tailorMadeAssemblyCategoryGroup);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(tailorMadeAssemblyCategoryGroup);
             }
         }
 
@@ -263,7 +263,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedAssemblyCategoryGroup);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedAssemblyCategoryGroup);
             }
         }
 
