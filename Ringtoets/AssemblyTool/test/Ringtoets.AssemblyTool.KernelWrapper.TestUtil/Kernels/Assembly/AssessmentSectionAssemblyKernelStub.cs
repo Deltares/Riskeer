@@ -102,13 +102,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         }
 
         public FailureMechanismAssemblyResult AssembleAssessmentSectionWbi2B1(IEnumerable<FailureMechanismAssemblyResult> failureMechanismAssemblyResults,
-                                                                              CategoriesList<FailureMechanismCategory> failureMechanismCategories,
+                                                                              CategoriesList<FailureMechanismCategory> categories,
                                                                               bool partialAssembly)
         {
             ThrowException();
 
             PartialAssembly = partialAssembly;
-            FailureMechanismCategories = failureMechanismCategories;
+            FailureMechanismCategories = categories;
             FailureMechanismAssemblyResults = failureMechanismAssemblyResults;
 
             Calculated = true;

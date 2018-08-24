@@ -83,13 +83,11 @@ namespace Core.Common.Base.Geometry
             Point3D lastPoint = null;
             foreach (Point3D point in points)
             {
-                if (lastPoint != null)
+                if (lastPoint != null && !Equals(lastPoint, point))
                 {
-                    if (!Equals(lastPoint, point))
-                    {
-                        return false;
-                    }
+                    return false;
                 }
+
                 lastPoint = point;
             }
             return true;

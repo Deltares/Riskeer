@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(simpleAssemblyCategoryGroup);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(simpleAssemblyCategoryGroup);
             }
         }
 
@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(tailorMadeAssemblyCategoryGroup);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(tailorMadeAssemblyCategoryGroup);
             }
         }
 
@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedAssemblyCategoryGroup);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedAssemblyCategoryGroup);
             }
         }
 

@@ -38,10 +38,13 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         /// <param name="waveConditionsOutput">The output parameters of the parent calculation.</param>
         /// <param name="coverType">The type of dike cover.</param>
         /// <param name="categoryBoundaryName">The name of the category boundary.</param>
-        /// <exception cref="ArgumentNullException">Thrown when parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
-        /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
-        public ExportableWaveConditions(string name, WaveConditionsInput waveConditionsInput, WaveConditionsOutput waveConditionsOutput, CoverType coverType,
+        /// is <c>null</c> in <paramref name="waveConditionsInput"/>.</exception>
+        public ExportableWaveConditions(string name,
+                                        WaveConditionsInput waveConditionsInput,
+                                        WaveConditionsOutput waveConditionsOutput,
+                                        CoverType coverType,
                                         string categoryBoundaryName)
         {
             if (name == null)

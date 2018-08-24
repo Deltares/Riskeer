@@ -46,15 +46,19 @@ namespace Core.Common.Util
             var valueString = value as string;
             if (valueString != null)
             {
-                foreach (FieldInfo fieldInfo in EnumType.GetFields().Where(fieldInfo => valueString == GetDisplayName(fieldInfo, fieldInfo.Name)))
+                FieldInfo fieldInfo = EnumType.GetFields().FirstOrDefault(info => valueString == GetDisplayName(info, info.Name));
+
+                if (fieldInfo == null)
                 {
-                    return Enum.Parse(EnumType, fieldInfo.Name);
+                    throw new FormatException(string.Format(CultureInfo.CurrentCulture,
+                                                            Resources.ConvertFrom_Only_following_values_are_accepted_ParameterValues_0_,
+                                                            string.Join(", ", EnumType.GetFields(BindingFlags.Public | BindingFlags.Static)
+                                                                                      .Select(fi => GetDisplayName(fi, fi.Name)))));
                 }
-                throw new FormatException(string.Format(CultureInfo.CurrentCulture,
-                                                        Resources.ConvertFrom_Only_following_values_are_accepted_ParameterValues_0_,
-                                                        string.Join(", ", EnumType.GetFields(BindingFlags.Public | BindingFlags.Static)
-                                                                                  .Select(fi => GetDisplayName(fi, fi.Name)))));
+
+                return Enum.Parse(EnumType, fieldInfo.Name);
             }
+
             return base.ConvertFrom(context, culture, value);
         }
 
@@ -64,6 +68,7 @@ namespace Core.Common.Util
             {
                 return base.ConvertTo(context, culture, value, destinationType);
             }
+
             string valueString = value.ToString();
             FieldInfo fieldInfo = EnumType.GetField(valueString);
             return fieldInfo != null ? GetDisplayName(fieldInfo, valueString) : string.Empty;

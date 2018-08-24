@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.TestUtil
     /// <summary>
     /// Class that can be used to test stochastic distributions
     /// </summary>
-    public class DistributionTestHelper
+    public static class DistributionTestHelper
     {
         /// <summary>
         /// Asserts whether the values of a distribution are correctly set 

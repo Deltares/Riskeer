@@ -43,7 +43,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
             StructuresCalculation<HeightStructuresInput> calculation)
             : base(configuration, calculation) {}
 
-        protected override IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool onlyStructureDependent = false)
+        protected override IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool structureDependent = false)
         {
             yield return new StandardDeviationDefinition(
                 HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
@@ -69,7 +69,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 i => i.WidthFlowApertures,
                 (i, d) => i.WidthFlowApertures = (NormalDistribution) d);
 
-            if (!onlyStructureDependent)
+            if (!structureDependent)
             {
                 yield return new StandardDeviationDefinition(
                     ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
@@ -79,7 +79,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
             }
         }
 
-        protected override IEnumerable<VariationCoefficientDefinition> GetVariationCoefficientStochasts(bool onlyStructureDependent = false)
+        protected override IEnumerable<VariationCoefficientDefinition> GetVariationCoefficientStochasts(bool structureDependent = false)
         {
             yield return new VariationCoefficientDefinition(
                 ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
@@ -93,7 +93,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 i => i.StorageStructureArea,
                 (i, d) => i.StorageStructureArea = (VariationCoefficientLogNormalDistribution) d);
 
-            if (!onlyStructureDependent)
+            if (!structureDependent)
             {
                 yield return new VariationCoefficientDefinition(
                     ConfigurationSchemaIdentifiers.StormDurationStochastName,

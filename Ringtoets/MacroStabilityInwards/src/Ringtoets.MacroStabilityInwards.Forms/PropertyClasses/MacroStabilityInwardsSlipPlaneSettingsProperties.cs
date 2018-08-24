@@ -140,12 +140,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             if (propertyName == nameof(ZoningBoundariesDeterminationType))
             {
-                return CreateZones == false;
+                return !CreateZones;
             }
 
             if (propertyName == nameof(ZoneBoundaryLeft) || propertyName == nameof(ZoneBoundaryRight))
             {
-                return CreateZones == false || ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic;
+                return !CreateZones || ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic;
             }
 
             return false;

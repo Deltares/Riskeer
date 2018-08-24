@@ -67,14 +67,17 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
+
             if (dikeProfiles == null)
             {
                 throw new ArgumentNullException(nameof(dikeProfiles));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableDikeProfiles = dikeProfiles;
             this.failureMechanism = failureMechanism;
@@ -114,6 +117,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
                 SetShouldIllustrationPointsBeCalculated(calculationConfiguration, calculation);
                 return calculation;
             }
+
             return null;
         }
 
@@ -209,8 +213,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 
                     return false;
                 }
+
                 calculation.InputParameters.DikeHeight = (RoundedDouble) calculationConfiguration.DikeHeight.Value;
             }
+
             return true;
         }
 
@@ -254,10 +260,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             {
                 calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated = calculationConfiguration.ShouldOvertoppingOutputIllustrationPointsBeCalculated.Value;
             }
+
             if (calculationConfiguration.ShouldDikeHeightIllustrationPointsBeCalculated.HasValue)
             {
                 calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated = calculationConfiguration.ShouldDikeHeightIllustrationPointsBeCalculated.Value;
             }
+
             if (calculationConfiguration.ShouldOvertoppingRateIllustrationPointsBeCalculated.HasValue)
             {
                 calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated = calculationConfiguration.ShouldOvertoppingRateIllustrationPointsBeCalculated.Value;
@@ -309,17 +317,17 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
                     return false;
                 }
             }
-            else if (!calculation.InputParameters.ForeshoreGeometry.Any())
+            else if (!calculation.InputParameters.ForeshoreGeometry.Any()
+                     && waveReductionConfiguration?.UseForeshoreProfile != null
+                     && waveReductionConfiguration.UseForeshoreProfile.Value)
             {
-                if (waveReductionConfiguration?.UseForeshoreProfile != null && waveReductionConfiguration.UseForeshoreProfile.Value)
-                {
-                    Log.LogCalculationConversionError(string.Format(
-                                                          Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_DikeProfile_0_has_no_geometry_and_cannot_be_used,
-                                                          calculationConfiguration.DikeProfileId),
-                                                      calculation.Name);
-                    return false;
-                }
+                Log.LogCalculationConversionError(string.Format(
+                                                      Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_DikeProfile_0_has_no_geometry_and_cannot_be_used,
+                                                      calculationConfiguration.DikeProfileId),
+                                                  calculation.Name);
+                return false;
             }
+
             return true;
         }
     }

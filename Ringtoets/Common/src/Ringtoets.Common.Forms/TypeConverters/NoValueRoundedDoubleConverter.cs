@@ -52,12 +52,9 @@ namespace Ringtoets.Common.Forms.TypeConverters
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             var roundedDoubleValue = (RoundedDouble) value;
-            if (destinationType == typeof(string))
+            if (destinationType == typeof(string) && double.IsNaN(roundedDoubleValue))
             {
-                if (double.IsNaN(roundedDoubleValue))
-                {
-                    return Resources.RoundedDouble_No_result_dash;
-                }
+                return Resources.RoundedDouble_No_result_dash;
             }
 
             return base.ConvertTo(context, culture, value, destinationType);

@@ -68,13 +68,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(distribution));
             }
-            if (!propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.All))
+
+            if (!propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.All) && handler == null)
             {
-                if (handler == null)
-                {
-                    throw new ArgumentException(@"Change handler required if changes are possible.", nameof(handler));
-                }
+                throw new ArgumentException(@"Change handler required if changes are possible.", nameof(handler));
             }
+
             Data = distribution;
 
             isMeanReadOnly = propertiesReadOnly.HasFlag(VariationCoefficientDistributionPropertiesReadOnly.Mean);
@@ -135,17 +134,18 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 return isMeanReadOnly;
             }
+
             if (propertyName == variationCoefficientPropertyName)
             {
                 return isVariationCoefficientReadOnly;
             }
+
             return false;
         }
 
         public override string ToString()
         {
-            return data == null ? string.Empty :
-                       $"{Mean} ({Resources.Distribution_VariationCoefficient_DisplayName} = {CoefficientOfVariation})";
+            return data == null ? string.Empty : $"{Mean} ({Resources.Distribution_VariationCoefficient_DisplayName} = {CoefficientOfVariation})";
         }
     }
 }

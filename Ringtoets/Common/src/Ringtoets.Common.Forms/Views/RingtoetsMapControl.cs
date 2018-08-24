@@ -81,9 +81,7 @@ namespace Ringtoets.Common.Forms.Views
             backgroundDataObserver.Observable = backgroundData;
 
             mapControl.Data = data;
-            mapControl.BackgroundMapData = backgroundData != null
-                                               ? BackgroundDataConverter.ConvertFrom(backgroundData)
-                                               : null;
+            mapControl.BackgroundMapData = BackgroundDataConverter.ConvertFrom(backgroundData);
         }
 
         /// <summary>
