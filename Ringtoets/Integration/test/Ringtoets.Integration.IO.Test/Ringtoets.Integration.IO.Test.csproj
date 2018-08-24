@@ -36,7 +36,6 @@
     <Compile Include="Assembly\ExportableFailureMechanismSectionAssemblyResultWithProbabilityTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismTest.cs" />
     <Compile Include="Assembly\ExportableSectionAssemblyResultTest.cs" />
-    <Compile Include="Creators\SerializableAssemblyCreatorTest.cs" />
     <Compile Include="Factories\ExportableAssessmentSectionFactoryTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriterTest.cs" />
@@ -83,10 +82,6 @@
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
       <Name>Ringtoets.AssemblyTool.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.IO\Ringtoets.AssemblyTool.IO.csproj">
-      <Project>{B9838495-B090-4B84-A387-A8974F4F9CC4}</Project>
-      <Name>Ringtoets.AssemblyTool.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
       <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
