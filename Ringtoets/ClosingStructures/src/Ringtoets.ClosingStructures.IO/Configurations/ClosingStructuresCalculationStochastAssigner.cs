@@ -45,7 +45,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             StructuresCalculation<ClosingStructuresInput> calculation)
             : base(configuration, calculation) {}
 
-        protected override IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool onlyStructureDependent = false)
+        protected override IEnumerable<StandardDeviationDefinition> GetStandardDeviationStochasts(bool structureDependent = false)
         {
             yield return new StandardDeviationDefinition(
                 ClosingStructuresConfigurationSchemaIdentifiers.LevelCrestStructureNotClosingStochastName,
@@ -89,7 +89,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 i => i.WidthFlowApertures,
                 (i, d) => i.WidthFlowApertures = (NormalDistribution) d);
 
-            if (!onlyStructureDependent)
+            if (!structureDependent)
             {
                 yield return new StandardDeviationDefinition(
                     ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName,
@@ -105,7 +105,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             }
         }
 
-        protected override IEnumerable<VariationCoefficientDefinition> GetVariationCoefficientStochasts(bool onlyStructureDependent = false)
+        protected override IEnumerable<VariationCoefficientDefinition> GetVariationCoefficientStochasts(bool structureDependent = false)
         {
             yield return new VariationCoefficientDefinition(
                 ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
@@ -119,7 +119,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 i => i.StorageStructureArea,
                 (i, d) => i.StorageStructureArea = (VariationCoefficientLogNormalDistribution) d);
 
-            if (!onlyStructureDependent)
+            if (!structureDependent)
             {
                 yield return new VariationCoefficientDefinition(
                     ConfigurationSchemaIdentifiers.StormDurationStochastName,
