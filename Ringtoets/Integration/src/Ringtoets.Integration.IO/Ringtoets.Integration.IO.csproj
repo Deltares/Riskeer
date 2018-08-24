@@ -34,6 +34,7 @@
     <Compile Include="Assembly\ExportableSectionAssemblyResultWithProbability.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResult.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability.cs" />
+    <Compile Include="Creators\SerializableAssemblyCreator.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriter.cs" />
     <Compile Include="Factories\ExportableAssessmentSectionFactory.cs" />
@@ -98,6 +99,11 @@
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
       <Project>{420ed9c3-0c33-47ea-b893-121a9c0db4f1}</Project>
       <Name>Ringtoets.AssemblyTool.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.IO\Ringtoets.AssemblyTool.IO.csproj">
+      <Project>{b9838495-b090-4b84-a387-a8974f4f9cc4}</Project>
+      <Name>Ringtoets.AssemblyTool.IO</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
