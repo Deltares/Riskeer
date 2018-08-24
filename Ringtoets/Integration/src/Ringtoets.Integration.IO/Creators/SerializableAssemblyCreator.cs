@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.IO.Creators
             }
 
             var idGenerator = new UniqueIdentifierGenerator();
-            string serializableAssemblyId = idGenerator.GetNewId().ToString();
+            string serializableAssemblyId = idGenerator.GetNewId();
 
             return new SerializableAssembly(serializableAssemblyId,
                                             GetLowerCorner(assessmentSection.Geometry),

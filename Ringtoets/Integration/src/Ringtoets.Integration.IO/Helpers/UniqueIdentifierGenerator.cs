@@ -40,9 +40,9 @@ namespace Ringtoets.Integration.IO.Helpers
         /// Gets a new unique id.
         /// </summary>
         /// <returns>An unique id.</returns>
-        public int GetNewId()
+        public string GetNewId()
         {
-            return currentId++;
+            return $"{currentId++}";
         }
     }
 }

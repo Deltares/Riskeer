@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.Integration.IO.Helpers;
 
@@ -35,10 +34,10 @@ namespace Ringtoets.Integration.IO.Test.Helpers
             var generator = new UniqueIdentifierGenerator();
 
             // Call
-            int id = generator.GetNewId();
+            string id = generator.GetNewId();
 
             // Assert
-            Assert.Zero(id);
+            Assert.AreEqual("0", id);
         }
 
         [Test]
@@ -46,13 +45,13 @@ namespace Ringtoets.Integration.IO.Test.Helpers
         {
             // Given
             var generator = new UniqueIdentifierGenerator();
-            int currentId = generator.GetNewId();
+            string currentId = generator.GetNewId();
 
             // Precondition
-            Assert.Zero(currentId);
+            Assert.AreEqual("0", currentId);
 
             // When
-            var generatedIds = new List<int>
+            string[] generatedIds =
             {
                 generator.GetNewId(),
                 generator.GetNewId()
@@ -61,8 +60,8 @@ namespace Ringtoets.Integration.IO.Test.Helpers
             // Then
             CollectionAssert.AreEqual(new[]
             {
-                1,
-                2
+                "1",
+                "2"
             }, generatedIds);
         }
     }
