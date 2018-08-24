@@ -392,13 +392,10 @@ namespace Core.Components.DotSpatial.Forms
 
         private void DrawInitialMapData()
         {
-            if (backgroundMapData != null && backgroundMapData.IsConfigured)
+            if (backgroundMapData != null && backgroundMapData.IsConfigured && InitializeBackgroundLayer())
             {
-                if (InitializeBackgroundLayer())
-                {
-                    Projection = backgroundLayerStatus.BackgroundLayer.Projection;
-                    map.Layers.Add(backgroundLayerStatus.BackgroundLayer);
-                }
+                Projection = backgroundLayerStatus.BackgroundLayer.Projection;
+                map.Layers.Add(backgroundLayerStatus.BackgroundLayer);
             }
 
             if (Data != null)

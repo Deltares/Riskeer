@@ -122,6 +122,7 @@ namespace Core.Components.DotSpatial.Projections
                     targetTileColorAccess[ppair.Item2.X, ppair.Item2.Y] = c;
                 }
             }
+
             // Copy to output tile
             targetTileColorAccess.SetBufferToImageAtOriginalLocation(targetTile);
 
@@ -176,13 +177,12 @@ namespace Core.Components.DotSpatial.Projections
             {
                 return false;
             }
-            if (sourcePixelLocation.X < area.Width)
+
+            if (sourcePixelLocation.X < area.Width && sourcePixelLocation.Y < area.Height)
             {
-                if (sourcePixelLocation.Y < area.Height)
-                {
-                    return true;
-                }
+                return true;
             }
+
             return false;
         }
     }

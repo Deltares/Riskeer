@@ -143,7 +143,7 @@ namespace Core.Components.DotSpatial.MapFunctions
                 }
                 isDragging = false;
 
-                if (handled == false)
+                if (!handled)
                 {
                     e.Map.MapFrame.ResetExtents();
                 }

@@ -344,16 +344,14 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         private static ProjectionInfo GetTileSourceProjectionInfo(string spatialReferenceSystemString)
         {
             ProjectionInfo projectionInfo;
-            if (!TryParseProjectionEsri(spatialReferenceSystemString, out projectionInfo))
+            if (!TryParseProjectionEsri(spatialReferenceSystemString, out projectionInfo) 
+                && !TryParseProjectionProj4(spatialReferenceSystemString, out projectionInfo))
             {
-                if (!TryParseProjectionProj4(spatialReferenceSystemString, out projectionInfo))
-                {
-                    // For WMTS, 'spatialReferenceSystemString' might be some crude value (urn-string):
-                    string authorityCode = ToAuthorityCode(spatialReferenceSystemString);
-                    projectionInfo = !string.IsNullOrWhiteSpace(authorityCode)
-                                         ? AuthorityCodeHandler.Instance[authorityCode]
-                                         : null;
-                }
+                // For WMTS, 'spatialReferenceSystemString' might be some crude value (urn-string):
+                string authorityCode = ToAuthorityCode(spatialReferenceSystemString);
+                projectionInfo = !string.IsNullOrWhiteSpace(authorityCode)
+                                     ? AuthorityCodeHandler.Instance[authorityCode]
+                                     : null;
             }
 
             if (projectionInfo == null)
