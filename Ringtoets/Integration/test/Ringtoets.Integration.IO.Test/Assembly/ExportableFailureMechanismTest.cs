@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
 
             // Call
             TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithoutProbability(),
+                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
                 null, sectionAssemblyResults, code, group);
 
             // Assert
@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
 
             // Call
             TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithoutProbability(),
+                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
                 sections, null, code, group);
 
             // Assert
@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             // Setup
             var random = new Random(21);
             ExportableFailureMechanismAssemblyResult failureMechanismAssembly =
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithoutProbability();
+                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability();
             IEnumerable<ExportableFailureMechanismSection> sections = Enumerable.Empty<ExportableFailureMechanismSection>();
             IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> sectionAssemblyResults =
                 Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>();

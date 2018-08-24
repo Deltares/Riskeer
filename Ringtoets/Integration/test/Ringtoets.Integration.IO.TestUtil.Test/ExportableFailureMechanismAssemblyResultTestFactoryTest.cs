@@ -29,11 +29,11 @@ namespace Ringtoets.Integration.IO.TestUtil.Test
     public class ExportableFailureMechanismAssemblyResultTestFactoryTest
     {
         [Test]
-        public void CreateFailureMechanismAssemblyResultWithProbability_Always_ReturnsFailureMechanismAssemblyResultWithProbability()
+        public void CreateResultWithProbability_Always_ReturnsFailureMechanismAssemblyResultWithProbability()
         {
             // Call
             ExportableFailureMechanismAssemblyResultWithProbability result = 
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithProbability();
+                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability();
 
             // Assert
             Assert.AreEqual(0.75, result.Probability);
@@ -42,11 +42,11 @@ namespace Ringtoets.Integration.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateFailureMechanismAssemblyResultWithoutProbability_Always_ReturnsFailureMechanismAssemblyResultWithProbability()
+        public void CreateResultWithoutProbability_Always_ReturnsFailureMechanismAssemblyResultWithProbability()
         {
             // Call
-            ExportableFailureMechanismAssemblyResult result =
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithoutProbability();
+            ExportableFailureMechanismAssemblyResult result = 
+                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability();
 
             // Assert
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.IVt, result.AssemblyCategory);
