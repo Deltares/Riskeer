@@ -2,6 +2,6 @@
 <configuratie>
   <berekening naam="Calculation">
     <toetspeil>1.1</toetspeil>
-    <hrlocatie>HBlocatie</hrlocatie>
+    <hrlocatie>Locatie</hrlocatie>
   </berekening>
 </configuratie>

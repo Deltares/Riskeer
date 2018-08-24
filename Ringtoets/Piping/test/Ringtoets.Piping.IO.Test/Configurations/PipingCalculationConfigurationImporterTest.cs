@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "De hydraulische belastingenlocatie 'HBlocatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
+            const string expectedMessage = "De hydraulische belastingenlocatie 'Locatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -609,7 +609,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
                 stochasticSoilModel
             }, "readerPath");
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HBlocatie", 10, 20);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20);
             var importer = new PipingCalculationConfigurationImporter(filePath,
                                                                       calculationGroup,
                                                                       new[]

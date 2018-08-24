@@ -94,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
             var calculation = (GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration) readItems.Single();
 
             Assert.IsNotNull(calculation);
-            Assert.AreEqual("HBlocatie", calculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual("Locatie", calculation.HydraulicBoundaryLocationName);
             Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
             Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
             Assert.AreEqual(3.3, calculation.UpperBoundaryWaterLevels);

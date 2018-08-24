@@ -253,7 +253,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
 
             Assert.AreEqual("Calculation", configuration.Name);
             Assert.IsNull(configuration.AssessmentLevel);
-            Assert.AreEqual("HBlocatie", configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
 
             Assert.AreEqual("Profielschematisatie", configuration.SurfaceLineName);
             Assert.AreEqual("Ondergrondmodel", configuration.StochasticSoilModelName);
