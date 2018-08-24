@@ -249,7 +249,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// </summary>
         /// <param name="calculationElement">The element containing values for wave reduction parameters.</param>
         /// <returns>The configuration, or <c>null</c> when the <paramref name="calculationElement"/> does not
-        /// have wave reduction elements. </returns>
+        /// have wave reduction elements.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationElement"/> is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the value for break water type isn't valid.</exception>
         /// <exception cref="FormatException">Thrown when the value for break water height, use foreshore profile or
@@ -307,7 +307,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// <summary>
         /// Gets a hydraulic boundary location name based on the values found in the <paramref name="calculationElement"/>.
         /// </summary>
-        /// <param name="calculationElement">The element containing values for scenario parameters.</param>
+        /// <param name="calculationElement">The element containing values for hydraulic boundary location parameters.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationElement"/> is <c>null</c>.</exception>
         /// <returns>The hydraulic boundary location name, or <c>null</c> when the <paramref name="calculationElement"/> does not
         /// have hydraulic boundary location elements.</returns>

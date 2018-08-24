@@ -22,10 +22,9 @@ All rights reserved.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <!--Generiek element voor het specificeren van de keuse van een 
-  geselecteerde HB of HR locatie. 
-  In dit element moet de naam van de HB locatie zoals ook zichtbaar in 
-  Ringtoets worden opgenomen.-->
+  <!--Generiek element voor het specificeren van de keuze van een geselecteerde
+  HB of HR locatie. In dit element moet de naam van de hydraulische belastingenlocatie
+  zoals ook zichtbaar in Ringtoets worden opgenomen.-->
   <xs:element name="hblocatie-of-hrlocatie" abstract="true" />
 
   <!--Specificeert de HB locatie. Indien dit element is opgenomen, mag geen 

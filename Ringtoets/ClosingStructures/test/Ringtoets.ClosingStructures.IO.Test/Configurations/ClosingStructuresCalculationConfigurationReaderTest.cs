@@ -58,7 +58,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
                     .SetName("invalidCalculationHydraulicBoundaryLocationEmptyOld");
                 yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmptyNew.xml",
                                               "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String'")
-                    .SetName("invalidCalculationHydraulicBoundaryLocationEmptynew");
+                    .SetName("invalidCalculationHydraulicBoundaryLocationEmptyNew");
                 yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");

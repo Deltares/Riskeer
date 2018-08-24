@@ -47,15 +47,15 @@ namespace Ringtoets.Common.IO.Configurations
         public const string NameAttribute = "naam";
 
         /// <summary>
-        /// The identifier for hydraulic boundary location elements.
+        /// The old identifier for hydraulic boundary location elements.
         /// </summary>
-        /// <remarks>This represents the element before the rename.</remarks>
+        /// <remarks>This property represents the element name before the rename.</remarks>
         public const string HydraulicBoundaryLocationElementOld = "hrlocatie";
 
         /// <summary>
-        /// The identifier for hydraulic boundary location elements.
+        /// The new identifier for hydraulic boundary location elements.
         /// </summary>
-        /// <remarks>This represents the element after the rename.</remarks>
+        /// <remarks>This property represents the element name after the rename.</remarks>
         public const string HydraulicBoundaryLocationElementNew = "hblocatie";
 
         /// <summary>

@@ -1219,14 +1219,33 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             const string locationName = "Location1";
 
             var locationElement = new XElement(tagName, locationName);
-            var configurationElement = new XElement("scenario", locationElement);
+            var configurationElement = new XElement("configuratie", locationElement);
             var xElement = new XElement("root", configurationElement);
 
             // Call
-            string configuration = xElement.GetHydraulicBoundaryLocationName();
+            string hydraulicBoundaryLocationName = xElement.GetHydraulicBoundaryLocationName();
 
             // Assert
-            Assert.AreEqual(locationName, configuration);
+            Assert.AreEqual(locationName, hydraulicBoundaryLocationName);
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryLocationName_WithBothHrLocationAndHbLocationElement_ReturnHbLocationName()
+        {
+            // Setup
+            const string hrLocationName = "HRlocatie";
+            const string hbLocationName = "HBlocatie";
+
+            var hrLocationElement = new XElement("hrlocatie", hrLocationName);
+            var hbLocationElement = new XElement("hblocatie", hbLocationName);
+            var configurationElement = new XElement("configuratie", hrLocationElement, hbLocationElement);
+            var xElement = new XElement("root", configurationElement);
+
+            // Call
+            string hydraulicBoundaryLocationName = xElement.GetHydraulicBoundaryLocationName();
+
+            // Assert
+            Assert.AreEqual(hbLocationName, hydraulicBoundaryLocationName);
         }
 
         [Test]
@@ -1236,10 +1255,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             var xElement = new XElement("root", new XElement("OtherDescendantElement"));
 
             // Call
-            string configuration = xElement.GetHydraulicBoundaryLocationName();
+            string hydraulicBoundaryLocationName = xElement.GetHydraulicBoundaryLocationName();
 
             // Assert
-            Assert.IsNull(configuration);
+            Assert.IsNull(hydraulicBoundaryLocationName);
         }
 
         private class DoubleToBooleanConverter : TypeConverter
