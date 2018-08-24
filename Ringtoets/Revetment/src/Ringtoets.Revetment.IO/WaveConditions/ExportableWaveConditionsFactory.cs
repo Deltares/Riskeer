@@ -28,25 +28,26 @@ using Ringtoets.Revetment.Data;
 namespace Ringtoets.Revetment.IO.WaveConditions
 {
     /// <summary>
-    /// Class for constructing <see cref="ExportableWaveConditions"/> objects.
+    /// Class for creating instances of <see cref="ExportableWaveConditions"/>.
     /// </summary>
     public static class ExportableWaveConditionsFactory
     {
         /// <summary>
-        /// Create a collection of <see cref="ExportableWaveConditions"/>.
+        /// Creates a collection of <see cref="ExportableWaveConditions"/>.
         /// </summary>
-        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> objects belong.</param>
+        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> belong.</param>
         /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/> used in the calculations.</param>
-        /// <param name="columnsOutput">The <see cref="WaveConditionsOutput"/> objects resulting from columns calculations.</param>
-        /// <param name="blocksOutput">The <see cref="WaveConditionsOutput"/> objects resulting from blocks calculations.</param>
-        /// <returns>A container of <see cref="ExportableWaveConditions"/> objects.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c> or 
-        /// when <see cref="WaveConditionsOutput"/> is <c>null</c> for <paramref name="columnsOutput"/> or <paramref name="blocksOutput"/>.</exception>
+        /// <param name="columnsOutput">The <see cref="WaveConditionsOutput"/> resulting from columns calculations.</param>
+        /// <param name="blocksOutput">The <see cref="WaveConditionsOutput"/> resulting from blocks calculations.</param>
+        /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="AssessmentSectionCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
-        /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
+        /// is <c>null</c> in <paramref name="waveConditionsInput"/>.</exception>
         public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
-            string name, AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
-            IEnumerable<WaveConditionsOutput> columnsOutput, IEnumerable<WaveConditionsOutput> blocksOutput)
+            string name,
+            AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
+            IEnumerable<WaveConditionsOutput> columnsOutput,
+            IEnumerable<WaveConditionsOutput> blocksOutput)
         {
             if (name == null)
             {
@@ -81,21 +82,18 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         }
 
         /// <summary>
-        /// Create a collection of <see cref="ExportableWaveConditions"/>.
+        /// Creates a collection of <see cref="ExportableWaveConditions"/>.
         /// </summary>
-        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> objects belong.</param>
+        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> belong.</param>
         /// <param name="waveConditionsInput">The <see cref="FailureMechanismCategoryWaveConditionsInput"/> used in the calculations.</param>
-        /// <param name="output">The <see cref="WaveConditionsOutput"/> objects resulting from the calculations.</param>
-        /// <returns>A container of <see cref="ExportableWaveConditions"/> objects.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when:
-        /// <list type="bullet">
-        /// <item>any parameter is <c>null</c></item>
-        /// <item>any item in <paramref name="output"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <param name="output">The <see cref="WaveConditionsOutput"/> resulting from the calculations.</param>
+        /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="FailureMechanismCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
-        /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
+        /// is <c>null</c> in <paramref name="waveConditionsInput"/>.</exception>
         public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
-            string name, FailureMechanismCategoryWaveConditionsInput waveConditionsInput,
+            string name,
+            FailureMechanismCategoryWaveConditionsInput waveConditionsInput,
             IEnumerable<WaveConditionsOutput> output)
         {
             if (waveConditionsInput == null)
@@ -108,21 +106,18 @@ namespace Ringtoets.Revetment.IO.WaveConditions
         }
 
         /// <summary>
-        /// Create a collection of <see cref="ExportableWaveConditions"/>.
+        /// Creates a collection of <see cref="ExportableWaveConditions"/>.
         /// </summary>
-        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> objects belong.</param>
+        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> belong.</param>
         /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/> used in the calculations.</param>
-        /// <param name="output">The <see cref="WaveConditionsOutput"/> objects resulting from the calculations.</param>
-        /// <returns>A container of <see cref="ExportableWaveConditions"/> objects.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when:
-        /// <list type="bullet">
-        /// <item>any parameter is <c>null</c></item>
-        /// <item>any item in <paramref name="output"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <param name="output">The <see cref="WaveConditionsOutput"/> resulting from the calculations.</param>
+        /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="AssessmentSectionCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
-        /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
+        /// is <c>null</c> in <paramref name="waveConditionsInput"/>.</exception>
         public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
-            string name, AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
+            string name,
+            AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
             IEnumerable<WaveConditionsOutput> output)
         {
             if (waveConditionsInput == null)
@@ -134,32 +129,24 @@ namespace Ringtoets.Revetment.IO.WaveConditions
                                                             GetCategoryBoundaryName(waveConditionsInput.CategoryType));
         }
 
-        private static string GetCategoryBoundaryName<T>(T enumValue)
-        {
-            return new EnumDisplayWrapper<T>(enumValue).DisplayName;
-        }
-
         /// <summary>
-        /// Create a collection of <see cref="ExportableWaveConditions"/>.
+        /// Creates a collection of <see cref="ExportableWaveConditions"/>.
         /// </summary>
-        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> objects belong.</param>
+        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> belong.</param>
         /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> used in the calculations.</param>
-        /// <param name="output">The <see cref="WaveConditionsOutput"/> objects resulting from the calculations.</param>
+        /// <param name="output">The <see cref="WaveConditionsOutput"/> resulting from the calculations.</param>
         /// <param name="coverType">The type of cover.</param>
         /// <param name="categoryBoundaryName">The name of the category boundary.</param>
-        /// <returns>A container of <see cref="ExportableWaveConditions"/> objects.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="name"/> is <c>null</c></item>
-        /// <item><paramref name="waveConditionsInput"/> is <c>null</c></item>
-        /// <item><paramref name="output"/> is <c>null</c></item>
-        /// <item>any item in <paramref name="output"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
-        /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
+        /// is <c>null</c> in <paramref name="waveConditionsInput"/>.</exception>
         private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
-            string name, WaveConditionsInput waveConditionsInput, IEnumerable<WaveConditionsOutput> output,
-            CoverType coverType, string categoryBoundaryName)
+            string name,
+            WaveConditionsInput waveConditionsInput,
+            IEnumerable<WaveConditionsOutput> output,
+            CoverType coverType,
+            string categoryBoundaryName)
         {
             if (name == null)
             {
@@ -173,6 +160,11 @@ namespace Ringtoets.Revetment.IO.WaveConditions
 
             return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput,
                                                                                       coverType, categoryBoundaryName)).ToArray();
+        }
+
+        private static string GetCategoryBoundaryName<T>(T enumValue)
+        {
+            return new EnumDisplayWrapper<T>(enumValue).DisplayName;
         }
     }
 }
