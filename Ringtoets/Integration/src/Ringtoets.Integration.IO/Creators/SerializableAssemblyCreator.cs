@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model;
+using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Helpers;
 
@@ -56,12 +57,18 @@ namespace Ringtoets.Integration.IO.Creators
             SerializableAssessmentSection serializableAssessmentSection = SerializableAssessmentSectionCreator.Create(idGenerator,
                                                                                                                       assessmentSection.Name,
                                                                                                                       assessmentSection.Geometry);
+            SerializableAssessmentProcess serializableAssessmentProcess = SerializableAssessmentProcessCreator.Create(idGenerator, serializableAssessmentSection);
+
             return new SerializableAssembly(serializableAssemblyId,
                                             GetLowerCorner(assessmentSection.Geometry),
                                             GetUpperCorner(assessmentSection.Geometry),
                                             serializableAssessmentSection,
-                                            SerializableAssessmentProcessCreator.Create(idGenerator, serializableAssessmentSection),
-                                            new SerializableTotalAssemblyResult(),
+                                            serializableAssessmentProcess,
+                                            SerializableTotalAssemblyResultCreator.Create(idGenerator,
+                                                                                          serializableAssessmentProcess,
+                                                                                          new SerializableFailureMechanismAssemblyResult(),
+                                                                                          new SerializableFailureMechanismAssemblyResult(),
+                                                                                          new SerializableAssessmentSectionAssemblyResult()),
                                             Enumerable.Empty<SerializableFailureMechanism>(),
                                             Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
                                             Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),

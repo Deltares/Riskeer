@@ -85,7 +85,14 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             var serializableAssessmentSection = (SerializableAssessmentSection) serializableAssembly.FeatureMembers[0];
             AssertSerializableAssessmentSection("1", assessmentSectionName, geometry, serializableAssessmentSection);
-            AssertSerializableAssessmentProcess("2", serializableAssessmentSection, (SerializableAssessmentProcess) serializableAssembly.FeatureMembers[1]);
+            var serializableAssessmentProcess = (SerializableAssessmentProcess) serializableAssembly.FeatureMembers[1];
+            AssertSerializableAssessmentProcess("2", serializableAssessmentSection, serializableAssessmentProcess);
+            AssertSerializableTotalAssemblyResult("3",
+                                                  failureMechanismAssemblyResultWithoutProbability,
+                                                  failureMechanismAssemblyResultWithProbability,
+                                                  assessmentSectionAssembly,
+                                                  serializableAssessmentProcess,
+                                                  (SerializableTotalAssemblyResult) serializableAssembly.FeatureMembers[2]);
         }
 
         private static IEnumerable<Point2D> CreateGeometry()
@@ -132,11 +139,22 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         private static void AssertSerializableAssessmentProcess(string expectedId,
-                                                                SerializableAssessmentSection expectedSerializableAssessmentSection,
+                                                                SerializableAssessmentSection expectedAssessmentSection,
                                                                 SerializableAssessmentProcess serializableAssessmentProcess)
         {
             Assert.AreEqual(expectedId, serializableAssessmentProcess.Id);
-            Assert.AreEqual(expectedSerializableAssessmentSection.Id, serializableAssessmentProcess.AssessmentSectionId);
+            Assert.AreEqual(expectedAssessmentSection.Id, serializableAssessmentProcess.AssessmentSectionId);
+        }
+
+        private static void AssertSerializableTotalAssemblyResult(string expectedId,
+                                                                  ExportableFailureMechanismAssemblyResult expectedFailureMechanismAssemblyResultWithoutProbability,
+                                                                  ExportableFailureMechanismAssemblyResultWithProbability expectedFailureMechanismAssemblyResultWithProbability,
+                                                                  ExportableAssessmentSectionAssemblyResult expectedAssessmentSectionAssemblyResult,
+                                                                  SerializableAssessmentProcess expectedAssessmentProcess,
+                                                                  SerializableTotalAssemblyResult serializableTotalAssembly)
+        {
+            Assert.AreEqual(expectedId, serializableTotalAssembly.Id);
+            Assert.AreEqual(expectedAssessmentProcess.Id, serializableTotalAssembly.AssessmentProcessId);
         }
     }
 }

@@ -37,6 +37,7 @@
     <Compile Include="Creators\SerializableAssemblyCreator.cs" />
     <Compile Include="Creators\SerializableAssessmentProcessCreator.cs" />
     <Compile Include="Creators\SerializableAssessmentSectionCreator.cs" />
+    <Compile Include="Creators\SerializableTotalAssemblyResultCreator.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriter.cs" />
     <Compile Include="Factories\ExportableAssessmentSectionFactory.cs" />
