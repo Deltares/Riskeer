@@ -38,7 +38,9 @@
     <Compile Include="Assembly\ExportableSectionAssemblyResultTest.cs" />
     <Compile Include="Creators\SerializableAssemblyCreatorTest.cs" />
     <Compile Include="Creators\SerializableAssessmentProcessCreatorTest.cs" />
+    <Compile Include="Creators\SerializableAssessmentSectionCategoryGroupCreatorTest.cs" />
     <Compile Include="Creators\SerializableAssessmentSectionCreatorTest.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismGroupCreatorTest.cs" />
     <Compile Include="Creators\SerializableTotalAssemblyResultCreatorTest.cs" />
     <Compile Include="Factories\ExportableAssessmentSectionFactoryTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporterTest.cs" />
