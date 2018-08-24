@@ -2,7 +2,7 @@
 <configuratie>
   <map naam="Testmap">
     <berekening naam="Berekening 1">
-      <hrlocatie>Locatie1</hrlocatie>
+      <hblocatie>Locatie1</hblocatie>
       <dijkprofiel>id</dijkprofiel>
       <orientatie>67.1</orientatie>
       <dijkhoogte>0</dijkhoogte>

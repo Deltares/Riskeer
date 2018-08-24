@@ -2,6 +2,7 @@
 <configuratie>
   <map naam="Testmap">
     <berekening naam="Berekening 1">
+      <hblocatie>Location1</hblocatie>
       <illustratiepunteninlezen>false</illustratiepunteninlezen>
       <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
       <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>

@@ -24,6 +24,7 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Configurations;
@@ -44,7 +45,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Name = "Berekening 1"
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Location1")
+                }
             };
             var calculation2 = new GrassCoverErosionInwardsCalculation
             {
