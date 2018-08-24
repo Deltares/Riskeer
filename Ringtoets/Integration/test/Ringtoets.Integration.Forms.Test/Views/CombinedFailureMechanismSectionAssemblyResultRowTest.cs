@@ -106,25 +106,25 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(result.SectionStart, row.SectionStart, row.SectionStart.GetAccuracy());
             Assert.AreEqual(3, row.SectionStart.NumberOfDecimalPlaces);
             Assert.AreEqual(result.SectionEnd, row.SectionEnd, row.SectionEnd.GetAccuracy());
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.TotalResult), row.TotalResult);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.Piping), row.Piping);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.GrassCoverErosionInwards), row.GrassCoverErosionInwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.MacroStabilityInwards), row.MacroStabilityInwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.MacroStabilityOutwards), row.MacroStabilityOutwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.Microstability), row.Microstability);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.StabilityStoneCover), row.StabilityStoneCover);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.WaveImpactAsphaltCover), row.WaveImpactAsphaltCover);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.WaterPressureAsphaltCover), row.WaterPressureAsphaltCover);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.GrassCoverErosionOutwards), row.GrassCoverErosionOutwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.GrassCoverSlipOffOutwards), row.GrassCoverSlipOffOutwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.GrassCoverSlipOffInwards), row.GrassCoverSlipOffInwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.HeightStructures), row.HeightStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.ClosingStructures), row.ClosingStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.PipingStructure), row.PipingStructure);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.StabilityPointStructures), row.StabilityPointStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.StrengthStabilityLengthwiseConstruction), row.StrengthStabilityLengthwiseConstruction);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.DuneErosion), row.DuneErosion);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.TechnicalInnovation), row.TechnicalInnovation);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.TotalResult), row.TotalResult);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.Piping), row.Piping);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.GrassCoverErosionInwards), row.GrassCoverErosionInwards);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.MacroStabilityInwards), row.MacroStabilityInwards);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.MacroStabilityOutwards), row.MacroStabilityOutwards);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.Microstability), row.Microstability);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.StabilityStoneCover), row.StabilityStoneCover);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.WaveImpactAsphaltCover), row.WaveImpactAsphaltCover);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.WaterPressureAsphaltCover), row.WaterPressureAsphaltCover);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.GrassCoverErosionOutwards), row.GrassCoverErosionOutwards);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.GrassCoverSlipOffOutwards), row.GrassCoverSlipOffOutwards);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.GrassCoverSlipOffInwards), row.GrassCoverSlipOffInwards);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.HeightStructures), row.HeightStructures);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.ClosingStructures), row.ClosingStructures);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.PipingStructure), row.PipingStructure);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.StabilityPointStructures), row.StabilityPointStructures);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.StrengthStabilityLengthwiseConstruction), row.StrengthStabilityLengthwiseConstruction);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.DuneErosion), row.DuneErosion);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.TechnicalInnovation), row.TechnicalInnovation);
         }
 
         [Test]
