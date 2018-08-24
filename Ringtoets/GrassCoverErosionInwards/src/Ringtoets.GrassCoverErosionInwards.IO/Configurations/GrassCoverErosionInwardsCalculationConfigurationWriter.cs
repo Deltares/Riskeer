@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
 
             WriteElementWhenContentAvailable(
                 writer,
-                ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld,
+                ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
                 configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(
