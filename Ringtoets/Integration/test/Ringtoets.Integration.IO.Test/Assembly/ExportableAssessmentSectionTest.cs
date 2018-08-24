@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Assembly
 {
@@ -47,8 +48,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             TestDelegate call = () => new ExportableAssessmentSection(null,
                                                                       geometry,
                                                                       CreateAssessmentSectionAssembly(),
-                                                                      CreateFailureMechanismAssemblyResultWithProbability(),
-                                                                      CreateFailureMechanismAssemblyResultWithoutProbability(),
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithProbability(),
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithoutProbability(),
                                                                       failureMechanismsWithProbability,
                                                                       failureMechanismsWithoutProbability,
                                                                       CreateCombinedSectionAssemblyCollection());
@@ -70,9 +71,9 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             // Call
             TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
                                                                       null,
-                                                                      CreateAssessmentSectionAssembly(),
-                                                                      CreateFailureMechanismAssemblyResultWithProbability(),
-                                                                      CreateFailureMechanismAssemblyResultWithoutProbability(),
+                                                                      CreateAssessmentSectionAssembly(), 
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithProbability(),
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithoutProbability(),
                                                                       failureMechanismsWithProbability,
                                                                       failureMechanismsWithoutProbability,
                                                                       CreateCombinedSectionAssemblyCollection());
@@ -96,8 +97,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
                                                                       geometry,
                                                                       null,
-                                                                      CreateFailureMechanismAssemblyResultWithProbability(),
-                                                                      CreateFailureMechanismAssemblyResultWithoutProbability(),
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithProbability(), 
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithoutProbability(),
                                                                       failureMechanismsWithProbability,
                                                                       failureMechanismsWithoutProbability, CreateCombinedSectionAssemblyCollection());
 
@@ -121,7 +122,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                       geometry,
                                                                       CreateAssessmentSectionAssembly(),
                                                                       null,
-                                                                      CreateFailureMechanismAssemblyResultWithoutProbability(),
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithoutProbability(),
                                                                       failureMechanismsWithProbability,
                                                                       failureMechanismsWithoutProbability,
                                                                       CreateCombinedSectionAssemblyCollection());
@@ -145,7 +146,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
                                                                       geometry,
                                                                       CreateAssessmentSectionAssembly(),
-                                                                      CreateFailureMechanismAssemblyResultWithProbability(),
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithProbability(),
                                                                       null,
                                                                       failureMechanismsWithProbability,
                                                                       failureMechanismsWithoutProbability,
@@ -167,9 +168,9 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             // Call
             TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
                                                                       geometry,
-                                                                      CreateAssessmentSectionAssembly(),
-                                                                      CreateFailureMechanismAssemblyResultWithProbability(),
-                                                                      CreateFailureMechanismAssemblyResultWithoutProbability(),
+                                                                      CreateAssessmentSectionAssembly(), 
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithProbability(), 
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithoutProbability(),
                                                                       null,
                                                                       failureMechanismsWithoutProbability, CreateCombinedSectionAssemblyCollection());
 
@@ -189,9 +190,9 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             // Call
             TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
                                                                       geometry,
-                                                                      CreateAssessmentSectionAssembly(),
-                                                                      CreateFailureMechanismAssemblyResultWithProbability(),
-                                                                      CreateFailureMechanismAssemblyResultWithoutProbability(),
+                                                                      CreateAssessmentSectionAssembly(), 
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithProbability(), 
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithoutProbability(),
                                                                       failureMechanismsWithProbability,
                                                                       null,
                                                                       CreateCombinedSectionAssemblyCollection());
@@ -214,9 +215,9 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             // Call
             TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
                                                                       geometry,
-                                                                      CreateAssessmentSectionAssembly(),
-                                                                      CreateFailureMechanismAssemblyResultWithProbability(),
-                                                                      CreateFailureMechanismAssemblyResultWithoutProbability(),
+                                                                      CreateAssessmentSectionAssembly(), 
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithProbability(), 
+                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithoutProbability(),
                                                                       failureMechanismsWithProbability,
                                                                       failureMechanismsWithoutProbability,
                                                                       null);
@@ -234,8 +235,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             // Setup
             IEnumerable<Point2D> geometry = Enumerable.Empty<Point2D>();
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly = CreateAssessmentSectionAssembly();
-            ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyResultWithProbability = CreateFailureMechanismAssemblyResultWithProbability();
-            ExportableFailureMechanismAssemblyResult failureMechanismAssemblyResultWithoutProbability = CreateFailureMechanismAssemblyResultWithoutProbability();
+            ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyResultWithProbability = ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithProbability();
+            ExportableFailureMechanismAssemblyResult failureMechanismAssemblyResultWithoutProbability = ExportableFailureMechanismAssemblyResultTestFactory.CreateFailureMechanismAssemblyResultWithoutProbability();
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> failureMechanismsWithProbability =
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>();
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability =
@@ -249,7 +250,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
                                                                     failureMechanismAssemblyResultWithProbability,
                                                                     failureMechanismAssemblyResultWithoutProbability,
                                                                     failureMechanismsWithProbability,
-                                                                    failureMechanismsWithoutProbability, combinedSectionAssemblyResults);
+                                                                    failureMechanismsWithoutProbability,
+                                                                    combinedSectionAssemblyResults);
 
             // Assert
             Assert.AreEqual(name, assessmentSection.Name);
@@ -260,21 +262,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             Assert.AreSame(failureMechanismsWithProbability, assessmentSection.FailureMechanismsWithProbability);
             Assert.AreSame(failureMechanismsWithoutProbability, assessmentSection.FailureMechanismsWithoutProbability);
             Assert.AreSame(combinedSectionAssemblyResults, assessmentSection.CombinedSectionAssemblyResults);
-        }
-
-        private static ExportableFailureMechanismAssemblyResult CreateFailureMechanismAssemblyResultWithoutProbability()
-        {
-            var random = new Random(21);
-            return new ExportableFailureMechanismAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
-        }
-
-        private static ExportableFailureMechanismAssemblyResultWithProbability CreateFailureMechanismAssemblyResultWithProbability()
-        {
-            var random = new Random(21);
-            return new ExportableFailureMechanismAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                               random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>(),
-                                                                               random.NextDouble());
         }
 
         private static ExportableCombinedSectionAssemblyCollection CreateCombinedSectionAssemblyCollection()

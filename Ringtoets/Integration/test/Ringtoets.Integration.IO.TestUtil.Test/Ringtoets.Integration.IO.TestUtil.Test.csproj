@@ -9,6 +9,7 @@
   <ItemGroup>
     <Compile Include="ExportableFailureMechanismSectionTestFactoryTest.cs" />
     <Compile Include="ExportableSectionAssemblyResultTestFactoryTest.cs" />
+    <Compile Include="ExportableFailureMechanismAssemblyResultTestFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

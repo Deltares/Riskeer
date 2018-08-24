@@ -18,6 +18,7 @@
     <Compile Include="ExportableFailureMechanismSectionTestHelper.cs" />
     <Compile Include="ExportableSectionAssemblyResultTestFactory.cs" />
     <Compile Include="ExportableSectionAssemblyResultTestHelper.cs" />
+    <Compile Include="ExportableFailureMechanismAssemblyResultTestFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
