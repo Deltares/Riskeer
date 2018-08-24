@@ -61,6 +61,7 @@
     <Compile Include="Factories\ExportableWaterPressureAsphaltCoverFailureMechanismFactoryTest.cs" />
     <Compile Include="Factories\ExportableWaveImpactAsphaltCoverFailureMechanismFactoryTest.cs" />
     <Compile Include="Helpers\ExportableFailureMechanismSectionHelperTest.cs" />
+    <Compile Include="Helpers\UniqueIdentifierGeneratorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
