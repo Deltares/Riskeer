@@ -50,6 +50,7 @@ namespace Ringtoets.Common.Data
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             Name = name;
             Points = new Point3D[0];
             LocalGeometry = new RoundedPoint2DCollection(numberOfDecimalPlaces, new Point2D[0]);
@@ -97,10 +98,12 @@ namespace Ringtoets.Common.Data
             {
                 throw new ArgumentNullException(nameof(points), Resources.MechanismSurfaceLineBase_Collection_of_points_for_geometry_is_null);
             }
+
             if (points.Any(p => p == null))
             {
                 throw new ArgumentException(Resources.MechanismSurfaceLineBase_A_point_in_the_collection_was_null);
             }
+
             Points = points.Select(p => new Point3D(p)).ToArray();
 
             if (Points.Any())
@@ -207,6 +210,7 @@ namespace Ringtoets.Common.Data
             {
                 throw new ArgumentNullException(nameof(point), @"Cannot find a point in geometry using a null point.");
             }
+
             return Points.FirstOrDefault(p => p.Equals(point));
         }
 

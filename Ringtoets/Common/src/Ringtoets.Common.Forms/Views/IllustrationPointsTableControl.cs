@@ -92,13 +92,10 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdateClosingSituationVisibility()
         {
-            if (data != null)
+            if (data != null && data.HasMultipleUniqueValues(item => item.ClosingSituation))
             {
-                if (data.HasMultipleUniqueValues(item => item.ClosingSituation))
-                {
-                    illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, true);
-                    return;
-                }
+                illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, true);
+                return;
             }
 
             illustrationPointsDataGridViewControl.SetColumnVisibility(closingSituationColumnIndex, false);

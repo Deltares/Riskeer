@@ -31,10 +31,10 @@ namespace Ringtoets.Common.Forms.Test.Helpers
     public class FailureMechanismSectionAssemblyCategoryGroupHelperTest
     {
         [Test]
-        public void GetCategoryGroupDisplayname_InvalidValue_ThrowsInvalidEnumArgumentException()
+        public void GetCategoryGroupDisplayName_InvalidValue_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname((FailureMechanismSectionAssemblyCategoryGroup) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName((FailureMechanismSectionAssemblyCategoryGroup) 99);
 
             // Assert
             string expectedMessage = $"The value of argument 'assemblyCategoryGroup' (99) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyCategoryGroup)}'.";
@@ -51,11 +51,11 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, "Vv")]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, "VIv")]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, "VIIv")]
-        public void GetCategoryGroupDisplayname_ValidValue_ReturnsDisplayName(FailureMechanismSectionAssemblyCategoryGroup categoryGroup,
+        public void GetCategoryGroupDisplayName_ValidValue_ReturnsDisplayName(FailureMechanismSectionAssemblyCategoryGroup categoryGroup,
                                                                               string expectedDisplayName)
         {
             // Call
-            string displayName = FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(categoryGroup);
+            string displayName = FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(categoryGroup);
 
             // Assert
             Assert.AreEqual(expectedDisplayName, displayName);

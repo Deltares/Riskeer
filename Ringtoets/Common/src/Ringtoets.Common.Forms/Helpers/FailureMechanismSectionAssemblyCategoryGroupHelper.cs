@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Forms.Helpers
     /// <summary>
     /// Helper class for displaying <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
     /// </summary>
-    public class FailureMechanismSectionAssemblyCategoryGroupHelper
+    public static class FailureMechanismSectionAssemblyCategoryGroupHelper
     {
         /// <summary>
         /// Gets the display name of the given <paramref name="assemblyCategoryGroup"/>.
@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public static string GetCategoryGroupDisplayname(FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup)
+        public static string GetCategoryGroupDisplayName(FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup)
         {
             if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), assemblyCategoryGroup))
             {
