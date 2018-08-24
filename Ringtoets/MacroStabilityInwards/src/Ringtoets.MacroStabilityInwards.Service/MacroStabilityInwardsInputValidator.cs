@@ -88,12 +88,10 @@ namespace Ringtoets.MacroStabilityInwards.Service
             }
 
             var soilProfile2D = inputParameters.StochasticSoilProfile.SoilProfile as MacroStabilityInwardsSoilProfile2D;
-            if (soilProfile2D != null)
+            if (soilProfile2D != null
+                && !ValidateSurfaceLineIsNearSoilProfile(inputParameters, soilProfile2D))
             {
-                if (!ValidateSurfaceLineIsNearSoilProfile(inputParameters, soilProfile2D))
-                {
-                    yield return Resources.MacroStabilityInwardsCalculationService_ValidateInput_SurfaceLine_must_be_on_SoilLayer;
-                }
+                yield return Resources.MacroStabilityInwardsCalculationService_ValidateInput_SurfaceLine_must_be_on_SoilLayer;
             }
         }
 
