@@ -107,24 +107,24 @@ namespace Ringtoets.HeightStructures.IO.Configurations
             return new HeightStructuresCalculationConfigurationReader(xmlFilePath);
         }
 
-        protected override ICalculation ParseReadCalculation(HeightStructuresCalculationConfiguration readCalculation)
+        protected override ICalculation ParseReadCalculation(HeightStructuresCalculationConfiguration calculationConfiguration)
         {
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Name = readCalculation.Name
+                Name = calculationConfiguration.Name
             };
 
-            if (TrySetStructure(readCalculation.StructureId, calculation)
-                && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
-                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, calculation)
-                && TrySetStochasts(readCalculation, calculation)
-                && TrySetOrientation(readCalculation, calculation)
-                && TrySetFailureProbabilityStructureWithErosion(readCalculation, calculation)
-                && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile,
+            if (TrySetStructure(calculationConfiguration.StructureId, calculation)
+                && TrySetHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, calculation)
+                && TrySetForeshoreProfile(calculationConfiguration.ForeshoreProfileId, calculation)
+                && TrySetStochasts(calculationConfiguration, calculation)
+                && TrySetOrientation(calculationConfiguration, calculation)
+                && TrySetFailureProbabilityStructureWithErosion(calculationConfiguration, calculation)
+                && calculationConfiguration.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile,
                                                                        calculation.Name, Log))
             {
-                SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
-                SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
+                SetWaveReductionParameters(calculationConfiguration.WaveReduction, calculation.InputParameters);
+                SetShouldIllustrationPointsBeCalculated(calculationConfiguration, calculation);
                 return calculation;
             }
 

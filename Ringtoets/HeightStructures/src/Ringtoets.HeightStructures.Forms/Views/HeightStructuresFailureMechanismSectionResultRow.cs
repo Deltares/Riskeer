@@ -203,7 +203,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(simpleAssemblyCategoryGroup);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(simpleAssemblyCategoryGroup);
             }
         }
 
@@ -214,7 +214,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(detailedAssemblyCategoryGroup);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(detailedAssemblyCategoryGroup);
             }
         }
 
@@ -225,7 +225,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(tailorMadeAssemblyCategoryGroup);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(tailorMadeAssemblyCategoryGroup);
             }
         }
 
@@ -236,7 +236,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedAssemblyCategoryGroup);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedAssemblyCategoryGroup);
             }
         }
 
