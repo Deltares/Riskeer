@@ -35,6 +35,7 @@
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResult.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability.cs" />
     <Compile Include="Creators\SerializableAssemblyCreator.cs" />
+    <Compile Include="Creators\SerializableAssessmentProcessCreator.cs" />
     <Compile Include="Creators\SerializableAssessmentSectionCreator.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriter.cs" />

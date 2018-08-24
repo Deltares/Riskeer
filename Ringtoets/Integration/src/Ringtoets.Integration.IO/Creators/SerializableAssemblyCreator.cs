@@ -53,13 +53,14 @@ namespace Ringtoets.Integration.IO.Creators
             var idGenerator = new UniqueIdentifierGenerator();
             string serializableAssemblyId = idGenerator.GetNewId();
 
+            SerializableAssessmentSection serializableAssessmentSection = SerializableAssessmentSectionCreator.Create(idGenerator,
+                                                                                                                      assessmentSection.Name,
+                                                                                                                      assessmentSection.Geometry);
             return new SerializableAssembly(serializableAssemblyId,
                                             GetLowerCorner(assessmentSection.Geometry),
                                             GetUpperCorner(assessmentSection.Geometry),
-                                            SerializableAssessmentSectionCreator.Create(idGenerator, 
-                                                                                        assessmentSection.Name, 
-                                                                                        assessmentSection.Geometry),
-                                            new SerializableAssessmentProcess(),
+                                            serializableAssessmentSection,
+                                            SerializableAssessmentProcessCreator.Create(idGenerator, serializableAssessmentSection),
                                             new SerializableTotalAssemblyResult(),
                                             Enumerable.Empty<SerializableFailureMechanism>(),
                                             Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),

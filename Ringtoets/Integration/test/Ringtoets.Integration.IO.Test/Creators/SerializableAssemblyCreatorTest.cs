@@ -83,7 +83,9 @@ namespace Ringtoets.Integration.IO.Test.Creators
             AssertSerializableBoundary(exportableAssessmentSection.Geometry, serializableAssembly.Boundary);
             Assert.AreEqual(3, serializableAssembly.FeatureMembers.Length);
 
-            AssertSerializableAssessmentSection("1", assessmentSectionName, geometry, (SerializableAssessmentSection) serializableAssembly.FeatureMembers[0]);
+            var serializableAssessmentSection = (SerializableAssessmentSection) serializableAssembly.FeatureMembers[0];
+            AssertSerializableAssessmentSection("1", assessmentSectionName, geometry, serializableAssessmentSection);
+            AssertSerializableAssessmentProcess("2", serializableAssessmentSection, (SerializableAssessmentProcess) serializableAssembly.FeatureMembers[1]);
         }
 
         private static IEnumerable<Point2D> CreateGeometry()
@@ -127,6 +129,14 @@ namespace Ringtoets.Integration.IO.Test.Creators
             Assert.AreEqual(expectedId, actualAssessmentSection.Id);
             Assert.AreEqual(expectedAssessmentSectionName, actualAssessmentSection.Name);
             Assert.AreEqual(GeometrySerializationFormatter.Format(expectedGeometry), actualAssessmentSection.ReferenceLineGeometry.LineString.Geometry);
+        }
+
+        private static void AssertSerializableAssessmentProcess(string expectedId,
+                                                                SerializableAssessmentSection expectedSerializableAssessmentSection,
+                                                                SerializableAssessmentProcess serializableAssessmentProcess)
+        {
+            Assert.AreEqual(expectedId, serializableAssessmentProcess.Id);
+            Assert.AreEqual(expectedSerializableAssessmentSection.Id, serializableAssessmentProcess.AssessmentSectionId);
         }
     }
 }
