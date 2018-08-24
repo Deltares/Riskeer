@@ -33,6 +33,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
 using Ringtoets.MacroStabilityInwards.Service.Properties;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Service
 {
@@ -151,7 +152,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             }
             catch (UpliftVanCalculatorException e)
             {
-                CalculationServiceHelper.LogExceptionAsError(Resources.MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_calculation, e);
+                CalculationServiceHelper.LogExceptionAsError(RingtoetsCommonServiceResources.CalculationService_Calculate_unexpected_error, e);
                 throw;
             }
             finally

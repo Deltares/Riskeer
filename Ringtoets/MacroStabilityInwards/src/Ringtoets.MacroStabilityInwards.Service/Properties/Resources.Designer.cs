@@ -82,16 +82,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Macrostabiliteit binnenwaarts berekening mislukt..
-        /// </summary>
-        internal static string MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_calculation {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_" +
-                        "calculation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er zijn waarschuwingsberichten naar aanleiding van de berekening. Klik op details voor meer informatie..
         /// </summary>
         internal static string MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation {

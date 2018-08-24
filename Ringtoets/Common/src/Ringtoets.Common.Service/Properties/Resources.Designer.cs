@@ -100,6 +100,15 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het uitvoeren van de berekening..
+        /// </summary>
+        public static string CalculationService_Calculate_unexpected_error {
+            get {
+                return ResourceManager.GetString("CalculationService_Calculate_unexpected_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fout bij het uitlezen van de illustratiepunten voor berekening {0}: {1} Het uitlezen van illustratiepunten wordt overgeslagen..
         /// </summary>
         public static string CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1 {

@@ -496,7 +496,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[0].Item1);
 
                     Tuple<string, Level, Exception> tuple1 = messages[1];
-                    Assert.AreEqual("Macrostabiliteit binnenwaarts berekening mislukt.", tuple1.Item1);
+                    Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het uitvoeren van de berekening.", tuple1.Item1);
                     Assert.AreEqual(Level.Error, tuple1.Item2);
                     Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple1.Item3);
 
