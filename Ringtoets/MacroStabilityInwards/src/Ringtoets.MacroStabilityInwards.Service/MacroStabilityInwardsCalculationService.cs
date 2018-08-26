@@ -134,9 +134,10 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Error))
             {
-                CalculationServiceHelper.LogMessagesAsError(macroStabilityInwardsResult.CalculationMessages
-                                                                                       .Where(cm => cm.ResultType == UpliftVanKernelMessageType.Error)
-                                                                                       .Select(cm => cm.Message).ToArray());
+                CalculationServiceHelper.LogMessagesAsError(new[]
+                {
+                    CreateAggregatedLogMessage(Resources.MacroStabilityInwardsCalculationService_Calculate_Errors_in_MacroStabilityInwards_calculation, macroStabilityInwardsResult)
+                });
             }
             else
             {
@@ -144,10 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 {
                     CalculationServiceHelper.LogMessagesAsWarning(new[]
                     {
-                        Resources.MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation + Environment.NewLine +
-                        macroStabilityInwardsResult.CalculationMessages
-                                                   .Where(cm => cm.ResultType == UpliftVanKernelMessageType.Warning)
-                                                   .Aggregate(string.Empty, (current, logMessage) => current + $"* {logMessage.Message}{Environment.NewLine}").Trim()
+                        CreateAggregatedLogMessage(Resources.MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation, macroStabilityInwardsResult)
                     });
                 }
 
@@ -204,6 +202,14 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     MoveGrid = inputParameters.MoveGrid,
                     MaximumSliceWidth = inputParameters.MaximumSliceWidth
                 });
+        }
+
+        private static string CreateAggregatedLogMessage(string baseMessage, UpliftVanCalculatorResult macroStabilityInwardsResult)
+        {
+            return baseMessage
+                   + Environment.NewLine
+                   + macroStabilityInwardsResult.CalculationMessages
+                                                .Aggregate(string.Empty, (current, logMessage) => current + $"* {logMessage.Message}{Environment.NewLine}").Trim();
         }
     }
 }
