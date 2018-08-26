@@ -508,7 +508,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationError_LogsErrorAndReturnsFalse()
+        public void Calculate_KernelReturnsCalculationError_LogsAggregatedErrorAndReturnsFalse()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -525,15 +525,20 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
+
+                    string expectedErrorMessage = "Er zijn een of meerdere fouten opgetreden. Klik op details voor meer informatie."
+                                                  + $"{Environment.NewLine}"
+                                                  + "* Calculation Error";
+
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual("Calculation Error", msgs[1]);
+                    Assert.AreEqual(expectedErrorMessage, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
             }
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationWarning_LogsWarningAndReturnsTrue()
+        public void Calculate_KernelReturnsCalculationWarning_LogsAggregatedWarningAndReturnsTrue()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -550,12 +555,15 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
+
+                    string expectedWarningMessage = "Er zijn een of meerdere waarschuwingsberichten. Klik op details voor meer informatie."
+                                                    + $"{Environment.NewLine}"
+                                                    + "* Calculation Warning 1"
+                                                    + $"{Environment.NewLine}"
+                                                    + "* Calculation Warning 2";
+
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual("Er zijn waarschuwingsberichten naar aanleiding van de berekening. Klik op details voor meer informatie." +
-                                    $"{Environment.NewLine}" +
-                                    "* Calculation Warning 1" +
-                                    $"{Environment.NewLine}" +
-                                    "* Calculation Warning 2", msgs[1]);
+                    Assert.AreEqual(expectedWarningMessage, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
             }
