@@ -138,28 +138,30 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 {
                     CreateAggregatedLogMessage(Resources.MacroStabilityInwardsCalculationService_Calculate_Errors_in_MacroStabilityInwards_calculation, macroStabilityInwardsResult)
                 });
-            }
-            else
-            {
-                if (macroStabilityInwardsResult.CalculationMessages.Any())
-                {
-                    CalculationServiceHelper.LogMessagesAsWarning(new[]
-                    {
-                        CreateAggregatedLogMessage(Resources.MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation, macroStabilityInwardsResult)
-                    });
-                }
 
-                calculation.Output = new MacroStabilityInwardsOutput(
-                    MacroStabilityInwardsSlidingCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurveResult),
-                    MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(macroStabilityInwardsResult.CalculationGridResult),
-                    new MacroStabilityInwardsOutput.ConstructionProperties
-                    {
-                        FactorOfStability = macroStabilityInwardsResult.FactorOfStability,
-                        ZValue = macroStabilityInwardsResult.ZValue,
-                        ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
-                        ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
-                    });
+                CalculationServiceHelper.LogCalculationEnd();
+
+                throw new UpliftVanCalculatorException();
             }
+
+            if (macroStabilityInwardsResult.CalculationMessages.Any())
+            {
+                CalculationServiceHelper.LogMessagesAsWarning(new[]
+                {
+                    CreateAggregatedLogMessage(Resources.MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation, macroStabilityInwardsResult)
+                });
+            }
+
+            calculation.Output = new MacroStabilityInwardsOutput(
+                MacroStabilityInwardsSlidingCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurveResult),
+                MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(macroStabilityInwardsResult.CalculationGridResult),
+                new MacroStabilityInwardsOutput.ConstructionProperties
+                {
+                    FactorOfStability = macroStabilityInwardsResult.FactorOfStability,
+                    ZValue = macroStabilityInwardsResult.ZValue,
+                    ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
+                    ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
+                });
 
             CalculationServiceHelper.LogCalculationEnd();
         }

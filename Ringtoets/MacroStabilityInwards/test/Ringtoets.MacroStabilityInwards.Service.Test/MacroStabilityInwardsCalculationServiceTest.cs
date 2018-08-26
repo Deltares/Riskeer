@@ -502,13 +502,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
                     CalculationServiceTestHelper.AssertCalculationEndMessage(messages[2].Item1);
                 });
+
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(testCalculation.Output);
             }
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationErrors_LogAggregatedErrorMessageAndReturnFalse()
+        public void Calculate_KernelReturnsCalculationErrors_LogAggregatedErrorMessageAndThrowException()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -516,9 +517,21 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
 
+                var exceptionThrown = false;
+
                 // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation,
-                                                                                      AssessmentSectionHelper.GetTestAssessmentLevel());
+                Action call = () =>
+                {
+                    try
+                    {
+                        MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                          AssessmentSectionHelper.GetTestAssessmentLevel());
+                    }
+                    catch (UpliftVanCalculatorException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -540,11 +553,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
                     Assert.AreEqual(Level.Error, tupleArray[1].Item2);
                 });
+
+                Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(testCalculation.Output);
             }
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationWarnings_LogAggregatedWarningMessageAndReturnTrue()
+        public void Calculate_KernelReturnsCalculationWarnings_LogAggregatedWarningMessageAndSetOutput()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -577,10 +593,12 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     Assert.AreEqual(Level.Warn, tupleArray[1].Item2);
                 });
             }
+
+            Assert.IsNotNull(testCalculation.Output);
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationErrorsAndWarnings_LogAggregatedErrorMessageAndReturnFalse()
+        public void Calculate_KernelReturnsCalculationErrorsAndWarnings_LogAggregatedErrorMessageAndThrowException()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -589,9 +607,21 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationWarning = true;
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
 
+                var exceptionThrown = false;
+
                 // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation,
-                                                                                      AssessmentSectionHelper.GetTestAssessmentLevel());
+                Action call = () =>
+                {
+                    try
+                    {
+                        MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                          AssessmentSectionHelper.GetTestAssessmentLevel());
+                    }
+                    catch (UpliftVanCalculatorException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -617,6 +647,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
                     Assert.AreEqual(Level.Error, tupleArray[1].Item2);
                 });
+
+                Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(testCalculation.Output);
             }
         }
 
