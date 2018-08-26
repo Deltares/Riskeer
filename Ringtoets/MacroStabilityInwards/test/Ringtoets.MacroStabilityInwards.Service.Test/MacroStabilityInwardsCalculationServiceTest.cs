@@ -508,7 +508,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationErrors_LogsAggregatedErrorAndReturnsFalse()
+        public void Calculate_KernelReturnsCalculationErrors_LogAggregatedErrorMessageAndReturnFalse()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -521,9 +521,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                                                                       AssessmentSectionHelper.GetTestAssessmentLevel());
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
-                    string[] msgs = messages.ToArray();
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
                     Assert.AreEqual(3, msgs.Length);
 
                     string expectedErrorMessage = "Er zijn een of meerdere fouten opgetreden. Klik op details voor meer informatie."
@@ -535,12 +537,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual(expectedErrorMessage, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
+
+                    Assert.AreEqual(Level.Error, tupleArray[1].Item2);
                 });
             }
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationWarnings_LogsAggregatedWarningAndReturnsTrue()
+        public void Calculate_KernelReturnsCalculationWarnings_LogAggregatedWarningMessageAndReturnTrue()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -553,9 +557,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                                                                       AssessmentSectionHelper.GetTestAssessmentLevel());
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
-                    string[] msgs = messages.ToArray();
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
                     Assert.AreEqual(3, msgs.Length);
 
                     string expectedWarningMessage = "Er zijn een of meerdere waarschuwingsberichten. Klik op details voor meer informatie."
@@ -567,12 +573,14 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual(expectedWarningMessage, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
+
+                    Assert.AreEqual(Level.Warn, tupleArray[1].Item2);
                 });
             }
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationErrorsAndWarnings_LogsAggregatedErrorAndReturnsFalse()
+        public void Calculate_KernelReturnsCalculationErrorsAndWarnings_LogAggregatedErrorMessageAndReturnFalse()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -586,9 +594,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                                                                       AssessmentSectionHelper.GetTestAssessmentLevel());
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
-                    string[] msgs = messages.ToArray();
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
                     Assert.AreEqual(3, msgs.Length);
 
                     string expectedErrorMessage = "Er zijn een of meerdere fouten opgetreden. Klik op details voor meer informatie."
@@ -604,6 +614,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual(expectedErrorMessage, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
+
+                    Assert.AreEqual(Level.Error, tupleArray[1].Item2);
                 });
             }
         }
