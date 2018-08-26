@@ -528,7 +528,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
                     string expectedErrorMessage = "Er zijn een of meerdere fouten opgetreden. Klik op details voor meer informatie."
                                                   + $"{Environment.NewLine}"
-                                                  + "* Calculation Error";
+                                                  + "* Calculation Error 1"
+                                                  + $"{Environment.NewLine}"
+                                                  + "* Calculation Error 2";
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual(expectedErrorMessage, msgs[1]);
@@ -591,9 +593,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
                     string expectedErrorMessage = "Er zijn een of meerdere fouten opgetreden. Klik op details voor meer informatie."
                                                   + $"{Environment.NewLine}"
-                                                  + "* Calculation Error"
+                                                  + "* Calculation Error 1"
                                                   + $"{Environment.NewLine}"
                                                   + "* Calculation Warning 1"
+                                                  + $"{Environment.NewLine}"
+                                                  + "* Calculation Error 2"
                                                   + $"{Environment.NewLine}"
                                                   + "* Calculation Warning 2";
 
