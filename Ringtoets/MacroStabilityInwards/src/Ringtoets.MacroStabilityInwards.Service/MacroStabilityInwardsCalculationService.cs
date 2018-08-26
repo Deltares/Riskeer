@@ -140,24 +140,27 @@ namespace Ringtoets.MacroStabilityInwards.Service
             }
             else
             {
+                if (macroStabilityInwardsResult.CalculationMessages.Any())
+                {
+                    CalculationServiceHelper.LogMessagesAsWarning(new[]
+                    {
+                        Resources.MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation + Environment.NewLine +
+                        macroStabilityInwardsResult.CalculationMessages
+                                                   .Where(cm => cm.ResultType == UpliftVanKernelMessageType.Warning)
+                                                   .Aggregate(string.Empty, (current, logMessage) => current + $"* {logMessage.Message}{Environment.NewLine}").Trim()
+                    });
+                }
+
                 calculation.Output = new MacroStabilityInwardsOutput(
                     MacroStabilityInwardsSlidingCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurveResult),
                     MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(macroStabilityInwardsResult.CalculationGridResult),
                     new MacroStabilityInwardsOutput.ConstructionProperties
                     {
-                        FactorOfStability = macroStabilityInwardsResult.FactorOfStability, ZValue = macroStabilityInwardsResult.ZValue, ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin, ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
+                        FactorOfStability = macroStabilityInwardsResult.FactorOfStability,
+                        ZValue = macroStabilityInwardsResult.ZValue,
+                        ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
+                        ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
                     });
-            }
-
-            if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Warning))
-            {
-                CalculationServiceHelper.LogMessagesAsWarning(new[]
-                {
-                    Resources.MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation + Environment.NewLine +
-                    macroStabilityInwardsResult.CalculationMessages
-                                               .Where(cm => cm.ResultType == UpliftVanKernelMessageType.Warning)
-                                               .Aggregate(string.Empty, (current, logMessage) => current + $"* {logMessage.Message}{Environment.NewLine}").Trim()
-                });
             }
 
             CalculationServiceHelper.LogCalculationEnd();
