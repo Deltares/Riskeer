@@ -96,15 +96,15 @@ namespace Ringtoets.MacroStabilityInwards.Service
         }
 
         /// <summary>
-        /// Performs a macro stability inwards calculation based on the supplied <see cref="MacroStabilityInwardsCalculation"/> and sets <see cref="MacroStabilityInwardsCalculation.Output"/>
-        /// based on the result if the calculation was successful. Error and status information is logged during
-        /// the execution of the operation.
+        /// Performs a macro stability inwards calculation based on the supplied <see cref="MacroStabilityInwardsCalculation"/>
+        /// and sets <see cref="MacroStabilityInwardsCalculation.Output"/> based on the result if the calculation was successful.
+        /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> to base the input for the calculation upon.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <exception cref="UpliftVanCalculatorException">Thrown when an error (both expected or unexpected) occurred during the calculation.</exception>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
-        /// <exception cref="UpliftVanCalculatorException">Thrown when an error occurred during the calculation.</exception>
         public static void Calculate(MacroStabilityInwardsCalculation calculation, RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)

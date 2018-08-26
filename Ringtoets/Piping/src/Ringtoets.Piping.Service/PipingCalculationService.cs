@@ -87,6 +87,7 @@ namespace Ringtoets.Piping.Service
         /// <param name="calculation">The <see cref="PipingCalculation"/> to base the input for the calculation upon.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <exception cref="PipingCalculatorException">Thrown when an unexpected error occurred during the calculation.</exception>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
         public static void Calculate(PipingCalculation calculation, RoundedDouble normativeAssessmentLevel)
         {
@@ -119,7 +120,9 @@ namespace Ringtoets.Piping.Service
             }
             catch (PipingCalculatorException e)
             {
-                CalculationServiceHelper.LogExceptionAsError(Resources.Error_in_piping_calculation, e);
+                CalculationServiceHelper.LogExceptionAsError(RingtoetsCommonServiceResources.CalculationService_Calculate_unexpected_error, e);
+
+                throw;
             }
             finally
             {
