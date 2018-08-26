@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using Deltares.WTIPiping;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
 namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
@@ -39,6 +41,11 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         /// </summary>
         public bool Validated { get; private set; }
 
+        /// <summary>
+        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// </summary>
+        public bool ThrowExceptionOnCalculate { get; set; }
+
         public double EffectiveStress { get; set; }
         public double HExit { get; set; }
         public double HRiver { get; set; }
@@ -52,6 +59,11 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
 
         public void Calculate()
         {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new WTIUpliftCalculatorException($"Message 1{Environment.NewLine}Message 2");
+            }
+
             Calculated = true;
         }
 
