@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
@@ -32,6 +33,7 @@ using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
@@ -961,6 +963,51 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void Calculate_ErrorWhileCalculating_LogErrorMessageAndThrowException()
+        {
+            // Setup
+            using (new PipingSubCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
+                calculatorFactory.LastCreatedUpliftCalculator.ThrowExceptionOnCalculate = true;
+
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        PipingCalculationService.Calculate(testCalculation, AssessmentSectionHelper.GetTestAssessmentLevel());
+                    }
+                    catch (Exception)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
+                {
+                    Tuple<string, Level, Exception>[] messages = tuples as Tuple<string, Level, Exception>[] ?? tuples.ToArray();
+                    Assert.AreEqual(3, messages.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(messages[0].Item1);
+
+                    Tuple<string, Level, Exception> tuple1 = messages[1];
+                    Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het uitvoeren van de berekening.", tuple1.Item1);
+                    Assert.AreEqual(Level.Error, tuple1.Item2);
+                    Assert.IsInstanceOf<PipingCalculatorException>(tuple1.Item3);
+
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(messages[2].Item1);
+                });
+
+                Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(testCalculation.Output);
+            }
         }
 
         [Test]
