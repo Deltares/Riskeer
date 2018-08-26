@@ -508,7 +508,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationError_LogsAggregatedErrorAndReturnsFalse()
+        public void Calculate_KernelReturnsCalculationErrors_LogsAggregatedErrorAndReturnsFalse()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -540,7 +540,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationWarning_LogsAggregatedWarningAndReturnsTrue()
+        public void Calculate_KernelReturnsCalculationWarnings_LogsAggregatedWarningAndReturnsTrue()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -572,7 +572,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationErrorAndWarning_LogsAggregatedErrorAndReturnsFalse()
+        public void Calculate_KernelReturnsCalculationErrorsAndWarnings_LogsAggregatedErrorAndReturnsFalse()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
