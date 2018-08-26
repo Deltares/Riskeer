@@ -66,6 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 CalculationServiceHelper.LogMessagesAsError(inputValidationResults);
                 CalculationServiceHelper.LogValidationEnd();
+
                 return false;
             }
 
@@ -81,6 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 CalculationServiceHelper.LogExceptionAsError(Resources.MacroStabilityInwardsCalculationService_Validate_Error_in_MacroStabilityInwards_validation, e);
                 CalculationServiceHelper.LogValidationEnd();
+
                 return false;
             }
 
@@ -110,6 +112,8 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 throw new ArgumentNullException(nameof(calculation));
             }
 
+            UpliftVanCalculatorResult macroStabilityInwardsResult;
+
             CalculationServiceHelper.LogCalculationBegin();
 
             try
@@ -117,48 +121,46 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(
                     CreateInputFromData(calculation.InputParameters, normativeAssessmentLevel),
                     MacroStabilityInwardsKernelWrapperFactory.Instance);
-                UpliftVanCalculatorResult macroStabilityInwardsResult = calculator.Calculate();
 
-                if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Error))
-                {
-                    CalculationServiceHelper.LogMessagesAsError(macroStabilityInwardsResult.CalculationMessages
-                                                                                           .Where(cm => cm.ResultType == UpliftVanKernelMessageType.Error)
-                                                                                           .Select(cm => cm.Message).ToArray());
-                }
-                else
-                {
-                    calculation.Output = new MacroStabilityInwardsOutput(
-                        MacroStabilityInwardsSlidingCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurveResult),
-                        MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(macroStabilityInwardsResult.CalculationGridResult),
-                        new MacroStabilityInwardsOutput.ConstructionProperties
-                        {
-                            FactorOfStability = macroStabilityInwardsResult.FactorOfStability,
-                            ZValue = macroStabilityInwardsResult.ZValue,
-                            ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
-                            ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
-                        });
-                }
-
-                if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Warning))
-                {
-                    CalculationServiceHelper.LogMessagesAsWarning(new[]
-                    {
-                        Resources.MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation + Environment.NewLine +
-                        macroStabilityInwardsResult.CalculationMessages
-                                                   .Where(cm => cm.ResultType == UpliftVanKernelMessageType.Warning)
-                                                   .Aggregate(string.Empty, (current, logMessage) => current + $"* {logMessage.Message}{Environment.NewLine}").Trim()
-                    });
-                }
+                macroStabilityInwardsResult = calculator.Calculate();
             }
             catch (UpliftVanCalculatorException e)
             {
                 CalculationServiceHelper.LogExceptionAsError(RingtoetsCommonServiceResources.CalculationService_Calculate_unexpected_error, e);
+                CalculationServiceHelper.LogCalculationEnd();
+
                 throw;
             }
-            finally
+
+            if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Error))
             {
-                CalculationServiceHelper.LogCalculationEnd();
+                CalculationServiceHelper.LogMessagesAsError(macroStabilityInwardsResult.CalculationMessages
+                                                                                       .Where(cm => cm.ResultType == UpliftVanKernelMessageType.Error)
+                                                                                       .Select(cm => cm.Message).ToArray());
             }
+            else
+            {
+                calculation.Output = new MacroStabilityInwardsOutput(
+                    MacroStabilityInwardsSlidingCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurveResult),
+                    MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(macroStabilityInwardsResult.CalculationGridResult),
+                    new MacroStabilityInwardsOutput.ConstructionProperties
+                    {
+                        FactorOfStability = macroStabilityInwardsResult.FactorOfStability, ZValue = macroStabilityInwardsResult.ZValue, ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin, ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
+                    });
+            }
+
+            if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Warning))
+            {
+                CalculationServiceHelper.LogMessagesAsWarning(new[]
+                {
+                    Resources.MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation + Environment.NewLine +
+                    macroStabilityInwardsResult.CalculationMessages
+                                               .Where(cm => cm.ResultType == UpliftVanKernelMessageType.Warning)
+                                               .Aggregate(string.Empty, (current, logMessage) => current + $"* {logMessage.Message}{Environment.NewLine}").Trim()
+                });
+            }
+
+            CalculationServiceHelper.LogCalculationEnd();
         }
 
         private static UpliftVanCalculatorInput CreateInputFromData(MacroStabilityInwardsInput inputParameters, RoundedDouble normativeAssessmentLevel)
