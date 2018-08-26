@@ -562,7 +562,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationErrorAndWarning_LogsErrorAndWarningAndReturnsFalse()
+        public void Calculate_KernelReturnsCalculationErrorAndWarning_LogsAggregatedErrorAndReturnsFalse()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -579,15 +579,19 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(4, msgs.Length);
+                    Assert.AreEqual(3, msgs.Length);
+
+                    string expectedErrorMessage = "Er zijn een of meerdere fouten opgetreden. Klik op details voor meer informatie."
+                                                  + $"{Environment.NewLine}"
+                                                  + "* Calculation Error"
+                                                  + $"{Environment.NewLine}"
+                                                  + "* Calculation Warning 1"
+                                                  + $"{Environment.NewLine}"
+                                                  + "* Calculation Warning 2";
+
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual("Calculation Error", msgs[1]);
-                    Assert.AreEqual("Er zijn waarschuwingsberichten naar aanleiding van de berekening. Klik op details voor meer informatie." +
-                                    $"{Environment.NewLine}" +
-                                    "* Calculation Warning 1" +
-                                    $"{Environment.NewLine}" +
-                                    "* Calculation Warning 2", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                    Assert.AreEqual(expectedErrorMessage, msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
             }
         }
