@@ -28,7 +28,7 @@ All rights reserved.
   <xs:include schemaLocation="ConfiguratieSchema.xsd" />
 
   <!--Herdefinieer categorie grens, zodat deze de juiste inhoud heeft.-->
-  <xs:redefine schemaLocation="BekledingenConfiguratieBaisSchema.xsd">
+  <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema.xsd">
     <xs:simpleType name="categoriegrensType">
       <xs:restriction base="categoriegrensType">
         <xs:enumeration value="A+-A"/>
