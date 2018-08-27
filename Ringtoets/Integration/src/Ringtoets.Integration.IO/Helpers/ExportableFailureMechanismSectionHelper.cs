@@ -68,6 +68,15 @@ namespace Ringtoets.Integration.IO.Helpers
             return failureMechanismSectionsLookup;
         }
 
+        /// <summary>
+        /// Gets the geometry of a failure mechanism section based on the geometry
+        /// of the <paramref name="referenceLine"/>, <paramref name="sectionStart"/> and <paramref name="sectionEnd"/>.
+        /// </summary>
+        /// <param name="referenceLine">The reference line to get the geometry from.</param>
+        /// <param name="sectionStart">The start of the section from the beginning of the reference line in meters.</param>
+        /// <param name="sectionEnd">The end of the section from the beginning of the reference line in meters.</param>
+        /// <returns>A geometry based on the reference line and the section start and end.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/> is <c>null</c>.</exception>
         public static IEnumerable<Point2D> GetFailureMechanismSectionGeometry(ReferenceLine referenceLine, int sectionStart, int sectionEnd)
         {
             if (referenceLine == null)
@@ -157,10 +166,11 @@ namespace Ringtoets.Integration.IO.Helpers
             return startPoint;
         }
 
-        private static Point2D InterpolatePoint(Point2D a, Point2D b, double distance)
+        private static Point2D InterpolatePoint(Point2D startPoint, Point2D endPoint, double distance)
         {
-            double magnitude = Math.Sqrt(Math.Pow(b.Y - a.Y, 2) + Math.Pow(b.X - a.X, 2));
-            return new Point2D(a.X + (distance * ((b.X - a.X) / magnitude)), a.Y + (distance * ((b.Y - a.Y) / magnitude)));
+            double magnitude = Math.Sqrt(Math.Pow(endPoint.Y - startPoint.Y, 2) + Math.Pow(endPoint.X - startPoint.X, 2));
+            return new Point2D(startPoint.X + (distance * ((endPoint.X - startPoint.X) / magnitude)),
+                               startPoint.Y + (distance * ((endPoint.Y - startPoint.Y) / magnitude)));
         }
     }
 }
