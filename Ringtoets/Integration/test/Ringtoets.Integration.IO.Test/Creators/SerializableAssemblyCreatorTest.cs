@@ -53,6 +53,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         {
             // Setup
             const string assessmentSectionName = "assessmentSectionName";
+            const string assessmentSectionId = "assessmentSectionId";
 
             IEnumerable<Point2D> geometry = CreateGeometry();
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly =
@@ -68,6 +69,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             ExportableCombinedSectionAssemblyCollection combinedSectionAssemblyResults = CreateCombinedSectionAssemblyCollection();
 
             var exportableAssessmentSection = new ExportableAssessmentSection(assessmentSectionName,
+                                                                              assessmentSectionId,
                                                                               geometry,
                                                                               assessmentSectionAssembly,
                                                                               failureMechanismAssemblyResultWithProbability,

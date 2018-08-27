@@ -52,7 +52,8 @@ namespace Ringtoets.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return new ExportableAssessmentSection(assessmentSection.Name,
+            return new ExportableAssessmentSection(assessmentSection.Name, 
+                                                   assessmentSection.Id,
                                                    assessmentSection.ReferenceLine.Points,
                                                    CreateExportableAssessmentSectionAssemblyResult(assessmentSection),
                                                    CreateExportableFailureMechanismAssemblyResultWithProbability(assessmentSection),

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -58,6 +58,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         {
             // Setup
             const string name = "assessmentSectionName";
+            const string id = "assessmentSectionId";
 
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
@@ -69,7 +70,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             {
-                Name = name,
+                Name = name, 
+                Id = id,
                 ReferenceLine = referenceLine
             };
 
@@ -106,6 +108,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
                 // Assert
                 Assert.AreEqual(name, exportableAssessmentSection.Name);
+                Assert.AreEqual(id, exportableAssessmentSection.Id);
                 CollectionAssert.AreEqual(referenceLine.Points, exportableAssessmentSection.Geometry);
 
                 ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyWithProbability = exportableAssessmentSection.FailureMechanismAssemblyWithProbability;

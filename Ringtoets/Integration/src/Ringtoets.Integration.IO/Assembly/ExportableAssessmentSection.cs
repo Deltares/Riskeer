@@ -35,6 +35,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// Creates an instance of <see cref="ExportableAssessmentSection"/>.
         /// </summary>
         /// <param name="name">The name of the assessment section.</param>
+        /// <param name="id">The id of the assessment section.</param>
         /// <param name="geometry">The geometry of the assessment section.</param>
         /// <param name="assessmentSectionAssembly">The assembly result of the assessment section.</param>
         /// <param name="failureMechanismAssemblyWithProbability">The total assembly result with probability
@@ -47,8 +48,10 @@ namespace Ringtoets.Integration.IO.Assembly
         /// of failure mechanisms belonging to this assessment section.</param>
         /// <param name="combinedSectionAssemblyResults">The combined section assembly results
         /// of this assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter, except <paramref name="id"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c>, empty or consists only of whitespaces.</exception>
         public ExportableAssessmentSection(string name,
+                                           string id,
                                            IEnumerable<Point2D> geometry,
                                            ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
                                            ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyWithProbability,
@@ -60,6 +63,11 @@ namespace Ringtoets.Integration.IO.Assembly
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
+            }
+
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentException($@"'{nameof(id)}' must have a value.", nameof(id));
             }
 
             if (geometry == null)
@@ -98,6 +106,7 @@ namespace Ringtoets.Integration.IO.Assembly
             }
 
             Name = name;
+            Id = id;
             Geometry = geometry;
             AssessmentSectionAssembly = assessmentSectionAssembly;
             FailureMechanismAssemblyWithProbability = failureMechanismAssemblyWithProbability;
@@ -111,6 +120,11 @@ namespace Ringtoets.Integration.IO.Assembly
         /// Gets the name of the assessment section.
         /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// Gets the id of the assessment section.
+        /// </summary>
+        public string Id { get; }
 
         /// <summary>
         /// Gets the geometry of the assessment section.
