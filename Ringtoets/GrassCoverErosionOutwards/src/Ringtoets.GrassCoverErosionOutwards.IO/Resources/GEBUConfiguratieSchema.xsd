@@ -24,11 +24,11 @@ All rights reserved.
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   
   <!--Basis elementen voor een bekledingen configuratie.-->
-  <xs:include schemaLocation="BekledingenConfiguratieSchemaBasis.xsd" />
+  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema.xsd" />
   <xs:include schemaLocation="ConfiguratieSchema.xsd" />
 
   <!--Herdefinieer categorie grens, zodat deze de juiste inhoud heeft.-->
-  <xs:redefine schemaLocation="BekledingenConfiguratieSchemaBasis.xsd">
+  <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema.xsd">
     <xs:simpleType name="categoriegrensType">
       <xs:restriction base="categoriegrensType">
         <xs:enumeration value="Iv-IIv"/>
