@@ -120,4 +120,13 @@
   <data name="SerializableAssessmentSection_IdPrefix" xml:space="preserve">
     <value>Wks</value>
   </data>
+  <data name="SerializableTotalAssemblyResult_IdPrefix" xml:space="preserve">
+    <value>Vo</value>
+  </data>
+  <data name="SerializableAssembly_IdPrefix" xml:space="preserve">
+    <value>Assemblage</value>
+  </data>
+  <data name="SerializableAssessmentProcess_IdPrefix" xml:space="preserve">
+    <value>Bp</value>
+  </data>
 </root>

@@ -22,6 +22,7 @@
 using System;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.Helpers;
+using Ringtoets.Integration.IO.Properties;
 
 namespace Ringtoets.Integration.IO.Creators
 {
@@ -48,7 +49,7 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(idGenerator));
             }
 
-            return new SerializableAssessmentProcess(idGenerator.GetNewId(),
+            return new SerializableAssessmentProcess(idGenerator.GetNewId(Resources.SerializableAssessmentProcess_IdPrefix),
                                                      assessmentSection);
         }
     }

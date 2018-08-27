@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -82,11 +82,38 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assemblage.
+        /// </summary>
+        internal static string SerializableAssembly_IdPrefix {
+            get {
+                return ResourceManager.GetString("SerializableAssembly_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bp.
+        /// </summary>
+        internal static string SerializableAssessmentProcess_IdPrefix {
+            get {
+                return ResourceManager.GetString("SerializableAssessmentProcess_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wks.
         /// </summary>
         internal static string SerializableAssessmentSection_IdPrefix {
             get {
                 return ResourceManager.GetString("SerializableAssessmentSection_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vo.
+        /// </summary>
+        internal static string SerializableTotalAssemblyResult_IdPrefix {
+            get {
+                return ResourceManager.GetString("SerializableTotalAssemblyResult_IdPrefix", resourceCulture);
             }
         }
     }

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.Integration.IO.Helpers
 {
     /// <summary>
@@ -37,12 +39,20 @@ namespace Ringtoets.Integration.IO.Helpers
         }
 
         /// <summary>
-        /// Gets a new unique id.
+        /// Gets a new unique id prefixed by <paramref name="prefix"/>.
         /// </summary>
+        /// <param name="prefix">The prefix to be used for the generated id.</param>
         /// <returns>An unique id.</returns>
-        public string GetNewId()
+        /// <exception cref="ArgumentException">Thrown when <paramref name="prefix"/> is
+        /// <c>null</c>, empty or consists of only whitespaces.</exception>
+        public string GetNewId(string prefix)
         {
-            return $"{currentId++}";
+            if (string.IsNullOrWhiteSpace(prefix))
+            {
+                throw new ArgumentException($@"'{nameof(prefix)}' is null, empty or consists of whitespace.", nameof(prefix));
+            }
+
+            return $"{prefix}.{currentId++}";
         }
     }
 }

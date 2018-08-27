@@ -127,7 +127,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                               assessmentSectionAssemblyResult);
 
             // Assert
-            Assert.AreEqual("0", serializableTotalAssembly.Id);
+            Assert.AreEqual("Vo.0", serializableTotalAssembly.Id);
             Assert.AreEqual(serializableAssessmentProcess.Id, serializableTotalAssembly.AssessmentProcessId);
             Assert.AreSame(failureMechanismAssemblyResultWithProbability, serializableTotalAssembly.AssemblyResultWithProbability);
             Assert.AreSame(failureMechanismAssemblyResultWithoutProbability, serializableTotalAssembly.AssemblyResultWithoutProbability);

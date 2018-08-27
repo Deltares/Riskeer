@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model;
-using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Helpers;
+using Ringtoets.Integration.IO.Properties;
 
 namespace Ringtoets.Integration.IO.Creators
 {
@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.IO.Creators
             }
 
             var idGenerator = new UniqueIdentifierGenerator();
-            string serializableAssemblyId = idGenerator.GetNewId();
+            string serializableAssemblyId = idGenerator.GetNewId(Resources.SerializableAssembly_IdPrefix);
 
             SerializableAssessmentSection serializableAssessmentSection = SerializableAssessmentSectionCreator.Create(assessmentSection);
             SerializableAssessmentProcess serializableAssessmentProcess = SerializableAssessmentProcessCreator.Create(idGenerator, serializableAssessmentSection);

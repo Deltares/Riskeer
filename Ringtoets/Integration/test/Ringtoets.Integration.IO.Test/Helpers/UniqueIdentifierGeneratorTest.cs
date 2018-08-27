@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.IO.Helpers;
 
@@ -28,40 +30,59 @@ namespace Ringtoets.Integration.IO.Test.Helpers
     public class UniqueIdentifierGeneratorTest
     {
         [Test]
-        public void GetNewId_Always_ReturnsExpectedValue()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void GetNewId_InvalidPrefix_ThrowsArgumentException(string invalidPrefix)
         {
             // Setup
             var generator = new UniqueIdentifierGenerator();
 
             // Call
-            string id = generator.GetNewId();
+            TestDelegate call = () => generator.GetNewId(invalidPrefix);
 
             // Assert
-            Assert.AreEqual("0", id);
+            const string expectedMessage = "'prefix' is null, empty or consists of whitespace.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void GetNewId_WithPrefix_ReturnsExpectedValue()
+        {
+            // Setup
+            const string prefix = "prefix";
+            var generator = new UniqueIdentifierGenerator();
+
+            // Call
+            string id = generator.GetNewId(prefix);
+
+            // Assert
+            Assert.AreEqual($"{prefix}.0", id);
         }
 
         [Test]
         public void GivenGeneratedId_WhenGetNewIdCalled_ThenNewIdGenerated()
         {
             // Given
+            const string prefix = "prefix";
             var generator = new UniqueIdentifierGenerator();
-            string currentId = generator.GetNewId();
+            string currentId = generator.GetNewId(prefix);
 
             // Precondition
-            Assert.AreEqual("0", currentId);
+            Assert.AreEqual($"{prefix}.0", currentId);
 
             // When
             string[] generatedIds =
             {
-                generator.GetNewId(),
-                generator.GetNewId()
+                generator.GetNewId(prefix),
+                generator.GetNewId(prefix)
             };
 
             // Then
             CollectionAssert.AreEqual(new[]
             {
-                "1",
-                "2"
+                $"{prefix}.1",
+                $"{prefix}.2"
             }, generatedIds);
         }
     }

@@ -82,15 +82,15 @@ namespace Ringtoets.Integration.IO.Test.Creators
             SerializableAssembly serializableAssembly = SerializableAssemblyCreator.Create(exportableAssessmentSection);
 
             // Assert
-            Assert.AreEqual("0", serializableAssembly.Id);
+            Assert.AreEqual("Assemblage.0", serializableAssembly.Id);
             AssertSerializableBoundary(exportableAssessmentSection.Geometry, serializableAssembly.Boundary);
             Assert.AreEqual(3, serializableAssembly.FeatureMembers.Length);
 
             var serializableAssessmentSection = (SerializableAssessmentSection) serializableAssembly.FeatureMembers[0];
             AssertSerializableAssessmentSection($"Wks.{assessmentSectionId}", assessmentSectionName, geometry, serializableAssessmentSection);
             var serializableAssessmentProcess = (SerializableAssessmentProcess) serializableAssembly.FeatureMembers[1];
-            AssertSerializableAssessmentProcess("2", serializableAssessmentSection, serializableAssessmentProcess);
-            AssertSerializableTotalAssemblyResult("3",
+            AssertSerializableAssessmentProcess("Bp.1", serializableAssessmentSection, serializableAssessmentProcess);
+            AssertSerializableTotalAssemblyResult("Vo.2",
                                                   failureMechanismAssemblyResultWithoutProbability,
                                                   failureMechanismAssemblyResultWithProbability,
                                                   assessmentSectionAssembly,

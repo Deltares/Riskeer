@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                 SerializableAssessmentProcessCreator.Create(idGenerator, serializableAssessmentSection);
 
             // Assert
-            Assert.AreEqual("0", serializableProcess.Id);
+            Assert.AreEqual("Bp.0", serializableProcess.Id);
             Assert.AreEqual(serializableAssessmentSection.Id, serializableProcess.AssessmentSectionId);
         }
 

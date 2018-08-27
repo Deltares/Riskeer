@@ -23,6 +23,7 @@ using System;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.Integration.IO.Helpers;
+using Ringtoets.Integration.IO.Properties;
 
 namespace Ringtoets.Integration.IO.Creators
 {
@@ -53,7 +54,7 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(idGenerator));
             }
 
-            return new SerializableTotalAssemblyResult(idGenerator.GetNewId(),
+            return new SerializableTotalAssemblyResult(idGenerator.GetNewId(Resources.SerializableTotalAssemblyResult_IdPrefix),
                                                        assessmentProcess,
                                                        failureMechanismAssemblyResultWithoutProbability,
                                                        failureMechanismAssemblyResultWithProbability,
