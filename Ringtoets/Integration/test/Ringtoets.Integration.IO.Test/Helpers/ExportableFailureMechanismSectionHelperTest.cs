@@ -126,5 +126,34 @@ namespace Ringtoets.Integration.IO.Test.Helpers
             // Assert
             CollectionAssert.AreEqual(points, sectionPoints);
         }
+
+        [Test]
+        public void GetFailureMechanismSectionGeometry_SectionStartAndEndExactlyOnReferenceLinePoints_ReturnExpectedPoints()
+        {
+            // Setup
+            const int sectionStart = 10;
+            const int sectionEnd = 30;
+            var points = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(sectionStart, 0),
+                new Point2D(20, 0),
+                new Point2D(sectionEnd, 0)
+            };
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(points);
+
+            // Call
+            IEnumerable<Point2D> sectionPoints = ExportableFailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(referenceLine, sectionStart, sectionEnd);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(sectionStart, 0),
+                new Point2D(20, 0),
+                new Point2D(sectionEnd, 0)
+            }, sectionPoints);
+        }
     }
 }

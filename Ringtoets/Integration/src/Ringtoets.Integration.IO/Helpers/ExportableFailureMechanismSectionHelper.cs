@@ -76,26 +76,24 @@ namespace Ringtoets.Integration.IO.Helpers
             }
 
             Point2D[] referenceLinePoints = referenceLine.Points.ToArray();
-            Point2D startPoint = referenceLinePoints[0];
-            var sectionPoints = new List<Point2D>();
-
-            if (sectionStart == 0)
+            Point2D startPoint = GetStartPoint(referenceLinePoints, sectionStart);
+            var sectionPoints = new List<Point2D>
             {
-                sectionPoints.Add(startPoint);
-            }
+                startPoint
+            };
 
             int sectionLength = sectionEnd - sectionStart;
             double sectionLengthOnReferenceLine = 0;
-
-            for (int i = 1; i < referenceLinePoints.Length; i++)
+            
+            for (int i = Array.IndexOf(referenceLinePoints, startPoint) + 1; i < referenceLinePoints.Length; i++)
             {
-                double pointLength = Math2D.Length(new[]
+                double pointsLength = Math2D.Length(new[]
                 {
                     referenceLinePoints[i - 1],
                     referenceLinePoints[i]
                 });
 
-                sectionLengthOnReferenceLine = sectionLengthOnReferenceLine + pointLength;
+                sectionLengthOnReferenceLine = sectionLengthOnReferenceLine + pointsLength;
 
                 if (sectionLength >= sectionLengthOnReferenceLine)
                 {
@@ -104,6 +102,38 @@ namespace Ringtoets.Integration.IO.Helpers
             }
 
             return sectionPoints;
+        }
+
+        private static Point2D GetStartPoint(Point2D[] referenceLinePoints, int sectionStart)
+        {
+            Point2D startPoint = null;
+
+            if (sectionStart == 0)
+            {
+                startPoint = referenceLinePoints[0];
+            }
+            else
+            {
+                double totalLength = 0;
+
+                for (int i = 1; i < referenceLinePoints.Length; i++)
+                {
+                    double pointsLength = Math2D.Length(new[]
+                    {
+                        referenceLinePoints[i - 1],
+                        referenceLinePoints[i]
+                    });
+
+                    totalLength = totalLength + pointsLength;
+
+                    if (Math.Abs(totalLength - sectionStart) < 1e-6)
+                    {
+                        startPoint = referenceLinePoints[i];
+                    }
+                }
+            }
+
+            return startPoint;
         }
     }
 }
