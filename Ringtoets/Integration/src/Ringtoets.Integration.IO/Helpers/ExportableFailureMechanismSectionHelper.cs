@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -74,7 +75,35 @@ namespace Ringtoets.Integration.IO.Helpers
                 throw new ArgumentNullException(nameof(referenceLine));
             }
 
-            return null;
+            Point2D[] referenceLinePoints = referenceLine.Points.ToArray();
+            Point2D startPoint = referenceLinePoints[0];
+            var sectionPoints = new List<Point2D>();
+
+            if (sectionStart == 0)
+            {
+                sectionPoints.Add(startPoint);
+            }
+
+            int sectionLength = sectionEnd - sectionStart;
+            double sectionLengthOnReferenceLine = 0;
+
+            for (int i = 1; i < referenceLinePoints.Length; i++)
+            {
+                double pointLength = Math2D.Length(new[]
+                {
+                    referenceLinePoints[i - 1],
+                    referenceLinePoints[i]
+                });
+
+                sectionLengthOnReferenceLine = sectionLengthOnReferenceLine + pointLength;
+
+                if (sectionLength >= sectionLengthOnReferenceLine)
+                {
+                    sectionPoints.Add(referenceLinePoints[i]);
+                }
+            }
+
+            return sectionPoints;
         }
     }
 }

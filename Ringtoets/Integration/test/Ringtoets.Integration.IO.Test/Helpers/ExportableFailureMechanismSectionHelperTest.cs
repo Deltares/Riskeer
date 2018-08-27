@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Helpers;
@@ -102,6 +103,28 @@ namespace Ringtoets.Integration.IO.Test.Helpers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("referenceLine", exception.ParamName);
+        }
+
+        [Test]
+        public void GetFailureMechanismSectionGeometry_SectionStartZeroAndEndExactlyOnConsecutiveReferenceLinePoints_ReturnExpectedPoints()
+        {
+            // Setup
+            const int sectionStart = 0;
+            const int sectionEnd = 10;
+            var points = new[]
+            {
+                new Point2D(sectionStart, 0),
+                new Point2D(sectionEnd, 0)
+            };
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(points);
+
+            // Call
+            IEnumerable<Point2D> sectionPoints = ExportableFailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(referenceLine, sectionStart, sectionEnd);
+
+            // Assert
+            CollectionAssert.AreEqual(points, sectionPoints);
         }
     }
 }
