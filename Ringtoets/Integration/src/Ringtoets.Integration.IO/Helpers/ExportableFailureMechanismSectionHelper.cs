@@ -75,8 +75,9 @@ namespace Ringtoets.Integration.IO.Helpers
                 throw new ArgumentNullException(nameof(referenceLine));
             }
 
+            int index;
             Point2D[] referenceLinePoints = referenceLine.Points.ToArray();
-            Point2D startPoint = GetStartPoint(referenceLinePoints, sectionStart);
+            Point2D startPoint = GetStartPoint(referenceLinePoints, sectionStart, out index);
             var sectionPoints = new List<Point2D>
             {
                 startPoint
@@ -84,56 +85,82 @@ namespace Ringtoets.Integration.IO.Helpers
 
             int sectionLength = sectionEnd - sectionStart;
             double sectionLengthOnReferenceLine = 0;
-            
-            for (int i = Array.IndexOf(referenceLinePoints, startPoint) + 1; i < referenceLinePoints.Length; i++)
+            Point2D lastPoint = startPoint;
+
+            foreach (Point2D point in referenceLinePoints.Skip(index + 1))
             {
                 double pointsLength = Math2D.Length(new[]
                 {
-                    referenceLinePoints[i - 1],
-                    referenceLinePoints[i]
+                    lastPoint,
+                    point
                 });
 
                 sectionLengthOnReferenceLine = sectionLengthOnReferenceLine + pointsLength;
 
-                if (sectionLength >= sectionLengthOnReferenceLine)
+                if (sectionLength > sectionLengthOnReferenceLine)
                 {
-                    sectionPoints.Add(referenceLinePoints[i]);
+                    sectionPoints.Add(point);
+                    lastPoint = point;
+                }
+                else if (Math.Abs(sectionLength - sectionLengthOnReferenceLine) < 1e-6)
+                {
+                    sectionPoints.Add(point);
+                    break;
+                }
+                else if (sectionLength < sectionLengthOnReferenceLine)
+                {
+                    sectionPoints.Add(InterpolatePoint(lastPoint, point, sectionLengthOnReferenceLine - sectionLength));
+                    break;
                 }
             }
 
             return sectionPoints;
         }
 
-        private static Point2D GetStartPoint(Point2D[] referenceLinePoints, int sectionStart)
+        private static Point2D GetStartPoint(Point2D[] referenceLinePoints, int sectionStart, out int index)
         {
+            index = 0;
             Point2D startPoint = null;
 
             if (sectionStart == 0)
             {
-                startPoint = referenceLinePoints[0];
+                return referenceLinePoints[0];
             }
-            else
+
+            double totalLength = 0;
+
+            for (var i = 1; i < referenceLinePoints.Length; i++)
             {
-                double totalLength = 0;
-
-                for (int i = 1; i < referenceLinePoints.Length; i++)
+                index = i;
+                double pointsLength = Math2D.Length(new[]
                 {
-                    double pointsLength = Math2D.Length(new[]
-                    {
-                        referenceLinePoints[i - 1],
-                        referenceLinePoints[i]
-                    });
+                    referenceLinePoints[i - 1],
+                    referenceLinePoints[i]
+                });
 
-                    totalLength = totalLength + pointsLength;
+                totalLength = totalLength + pointsLength;
 
-                    if (Math.Abs(totalLength - sectionStart) < 1e-6)
-                    {
-                        startPoint = referenceLinePoints[i];
-                    }
+                if (Math.Abs(totalLength - sectionStart) < 1e-6)
+                {
+                    startPoint = referenceLinePoints[i];
+                    break;
+                }
+
+                if (totalLength > sectionStart)
+                {
+                    startPoint = InterpolatePoint(referenceLinePoints[i - 1], referenceLinePoints[i], sectionStart - (totalLength - pointsLength));
+                    index = i - 1;
+                    break;
                 }
             }
 
             return startPoint;
+        }
+
+        private static Point2D InterpolatePoint(Point2D a, Point2D b, double distance)
+        {
+            double magnitude = Math.Sqrt(Math.Pow(b.Y - a.Y, 2) + Math.Pow(b.X - a.X, 2));
+            return new Point2D(a.X + (distance * ((b.X - a.X) / magnitude)), a.Y + (distance * ((b.Y - a.Y) / magnitude)));
         }
     }
 }

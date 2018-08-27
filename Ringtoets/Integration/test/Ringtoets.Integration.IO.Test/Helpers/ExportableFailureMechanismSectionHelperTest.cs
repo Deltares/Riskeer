@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.IO.Test.Helpers
         }
 
         [Test]
-        public void GetFailureMechanismSectionGeometry_SectionStartZeroAndEndExactlyOnConsecutiveReferenceLinePoints_ReturnExpectedPoints()
+        public void GetFailureMechanismSectionGeometry_SectionStartZeroAndSectionEndExactlyOnConsecutiveReferenceLinePoints_ReturnExpectedPoints()
         {
             // Setup
             const int sectionStart = 0;
@@ -152,6 +152,35 @@ namespace Ringtoets.Integration.IO.Test.Helpers
             {
                 new Point2D(sectionStart, 0),
                 new Point2D(20, 0),
+                new Point2D(sectionEnd, 0)
+            }, sectionPoints);
+        }
+
+        [Test]
+        public void GetFailureMechanismSectionGeometry_SectionStartAndEndBetweenTwoReferenceLinePoint_ReturnExpectedPoints()
+        {
+            // Setup
+            const int sectionStart = 10;
+            const int sectionEnd = 30;
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new []
+            {
+                new Point2D(0, 0), 
+                new Point2D(5, 0), 
+                new Point2D(15, 0),
+                new Point2D(25, 0),
+                new Point2D(35, 0)
+            });
+
+            // Call
+            IEnumerable<Point2D> sectionPoints = ExportableFailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(referenceLine, sectionStart, sectionEnd);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(sectionStart, 0),
+                new Point2D(15, 0),
+                new Point2D(25, 0),
                 new Point2D(sectionEnd, 0)
             }, sectionPoints);
         }
