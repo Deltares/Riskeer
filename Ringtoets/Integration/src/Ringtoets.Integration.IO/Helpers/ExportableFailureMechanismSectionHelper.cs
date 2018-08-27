@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.IO.Helpers
         /// <param name="sectionEnd">The end of the section from the beginning of the reference line in meters.</param>
         /// <returns>A geometry based on the reference line and the section start and end.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/> is <c>null</c>.</exception>
-        public static IEnumerable<Point2D> GetFailureMechanismSectionGeometry(ReferenceLine referenceLine, int sectionStart, int sectionEnd)
+        public static IEnumerable<Point2D> GetFailureMechanismSectionGeometry(ReferenceLine referenceLine, double sectionStart, double sectionEnd)
         {
             if (referenceLine == null)
             {
@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.IO.Helpers
                 startPoint
             };
 
-            int sectionLength = sectionEnd - sectionStart;
+            double sectionLength = sectionEnd - sectionStart;
             double sectionLengthOnReferenceLine = 0;
             Point2D lastPoint = startPoint;
 
@@ -126,12 +126,12 @@ namespace Ringtoets.Integration.IO.Helpers
             return sectionPoints;
         }
 
-        private static Point2D GetStartPoint(Point2D[] referenceLinePoints, int sectionStart, out int index)
+        private static Point2D GetStartPoint(Point2D[] referenceLinePoints, double sectionStart, out int index)
         {
             index = 0;
             Point2D startPoint = null;
 
-            if (sectionStart == 0)
+            if (Math.Abs(sectionStart) < 1e-6)
             {
                 return referenceLinePoints[0];
             }
