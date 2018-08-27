@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
@@ -32,6 +33,7 @@ using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
@@ -964,28 +966,68 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidPipingCalculation_LogStartAndEndOfValidatingInputsAndCalculation()
+        public void Calculate_ErrorWhileCalculating_LogErrorMessageAndThrowException()
         {
             // Setup
-            RoundedDouble normativeAssessmentLevel = AssessmentSectionHelper.GetTestAssessmentLevel();
-
-            Action call = () =>
+            using (new PipingSubCalculatorFactoryConfig())
             {
-                // Precondition
-                Assert.IsTrue(PipingCalculationService.Validate(testCalculation, normativeAssessmentLevel));
+                var calculatorFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
+                calculatorFactory.LastCreatedUpliftCalculator.ThrowExceptionOnCalculate = true;
+
+                var exceptionThrown = false;
 
                 // Call
-                PipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+                Action call = () =>
+                {
+                    try
+                    {
+                        PipingCalculationService.Calculate(testCalculation, AssessmentSectionHelper.GetTestAssessmentLevel());
+                    }
+                    catch (Exception)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
+                {
+                    Tuple<string, Level, Exception>[] messages = tuples as Tuple<string, Level, Exception>[] ?? tuples.ToArray();
+                    Assert.AreEqual(3, messages.Length);
+
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(messages[0].Item1);
+
+                    Tuple<string, Level, Exception> tuple1 = messages[1];
+                    Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het uitvoeren van de berekening.", tuple1.Item1);
+                    Assert.AreEqual(Level.Error, tuple1.Item2);
+                    Assert.IsInstanceOf<PipingCalculatorException>(tuple1.Item3);
+
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(messages[2].Item1);
+                });
+
+                Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(testCalculation.Output);
+            }
+        }
+
+        [Test]
+        public void Calculate_ValidPipingCalculation_LogStartAndEndOfCalculation()
+        {
+            // Call
+            Action call = () =>
+            {
+                using (new PipingSubCalculatorFactoryConfig())
+                {
+                    PipingCalculationService.Calculate(testCalculation, AssessmentSectionHelper.GetTestAssessmentLevel());
+                }
             };
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
-                CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[2]);
-                CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
+                CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[1]);
             });
         }
 
@@ -997,10 +1039,12 @@ namespace Ringtoets.Piping.Service.Test
 
             // Precondition
             Assert.IsNull(testCalculation.Output);
-            Assert.IsTrue(PipingCalculationService.Validate(testCalculation, normativeAssessmentLevel));
 
             // Call
-            PipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+            using (new PipingSubCalculatorFactoryConfig())
+            {
+                PipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+            }
 
             // Assert
             PipingOutput pipingOutput = testCalculation.Output;
@@ -1023,11 +1067,11 @@ namespace Ringtoets.Piping.Service.Test
 
             testCalculation.Output = output;
 
-            // Precondition
-            Assert.IsTrue(PipingCalculationService.Validate(testCalculation, normativeAssessmentLevel));
-
             // Call
-            PipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+            using (new PipingSubCalculatorFactoryConfig())
+            {
+                PipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+            }
 
             // Assert
             Assert.AreNotSame(output, testCalculation.Output);

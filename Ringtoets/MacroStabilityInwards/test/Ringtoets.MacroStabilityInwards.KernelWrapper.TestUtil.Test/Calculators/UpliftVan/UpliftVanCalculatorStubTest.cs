@@ -78,10 +78,10 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
 
             // Assert
             IEnumerable<UpliftVanKernelMessage> messages = calculator.Output.CalculationMessages.ToList();
-            Assert.AreEqual(3, messages.Count());
+            Assert.AreEqual(4, messages.Count());
 
             UpliftVanKernelMessage firstMessage = messages.ElementAt(0);
-            Assert.AreEqual("Calculation Error", firstMessage.Message);
+            Assert.AreEqual("Calculation Error 1", firstMessage.Message);
             Assert.AreEqual(UpliftVanKernelMessageType.Error, firstMessage.ResultType);
 
             UpliftVanKernelMessage secondMessage = messages.ElementAt(1);
@@ -89,8 +89,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculator
             Assert.AreEqual(UpliftVanKernelMessageType.Warning, secondMessage.ResultType);
 
             UpliftVanKernelMessage thirdMessage = messages.ElementAt(2);
-            Assert.AreEqual("Calculation Warning 2", thirdMessage.Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Warning, thirdMessage.ResultType);
+            Assert.AreEqual("Calculation Error 2", thirdMessage.Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Error, thirdMessage.ResultType);
+
+            UpliftVanKernelMessage fourthMessage = messages.ElementAt(3);
+            Assert.AreEqual("Calculation Warning 2", fourthMessage.Message);
+            Assert.AreEqual(UpliftVanKernelMessageType.Warning, fourthMessage.ResultType);
         }
 
         [Test]

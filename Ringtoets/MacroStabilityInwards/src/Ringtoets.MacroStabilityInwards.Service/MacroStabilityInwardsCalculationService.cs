@@ -33,6 +33,7 @@ using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
 using Ringtoets.MacroStabilityInwards.Service.Converters;
 using Ringtoets.MacroStabilityInwards.Service.Properties;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Service
 {
@@ -65,6 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 CalculationServiceHelper.LogMessagesAsError(inputValidationResults);
                 CalculationServiceHelper.LogValidationEnd();
+
                 return false;
             }
 
@@ -80,6 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 CalculationServiceHelper.LogExceptionAsError(Resources.MacroStabilityInwardsCalculationService_Validate_Error_in_MacroStabilityInwards_validation, e);
                 CalculationServiceHelper.LogValidationEnd();
+
                 return false;
             }
 
@@ -93,21 +96,23 @@ namespace Ringtoets.MacroStabilityInwards.Service
         }
 
         /// <summary>
-        /// Performs a macro stability inwards calculation based on the supplied <see cref="MacroStabilityInwardsCalculation"/> and sets <see cref="MacroStabilityInwardsCalculation.Output"/>
-        /// based on the result if the calculation was successful. Error and status information is logged during
-        /// the execution of the operation.
+        /// Performs a macro stability inwards calculation based on the supplied <see cref="MacroStabilityInwardsCalculation"/>
+        /// and sets <see cref="MacroStabilityInwardsCalculation.Output"/> based on the result if the calculation was successful.
+        /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> to base the input for the calculation upon.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <exception cref="UpliftVanCalculatorException">Thrown when an error (both expected or unexpected) occurred during the calculation.</exception>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
-        /// <exception cref="UpliftVanCalculatorException">Thrown when an error occurred during the calculation.</exception>
         public static void Calculate(MacroStabilityInwardsCalculation calculation, RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
+            UpliftVanCalculatorResult macroStabilityInwardsResult;
 
             CalculationServiceHelper.LogCalculationBegin();
 
@@ -116,48 +121,49 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(
                     CreateInputFromData(calculation.InputParameters, normativeAssessmentLevel),
                     MacroStabilityInwardsKernelWrapperFactory.Instance);
-                UpliftVanCalculatorResult macroStabilityInwardsResult = calculator.Calculate();
 
-                if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Error))
-                {
-                    CalculationServiceHelper.LogMessagesAsError(macroStabilityInwardsResult.CalculationMessages
-                                                                                           .Where(cm => cm.ResultType == UpliftVanKernelMessageType.Error)
-                                                                                           .Select(cm => cm.Message).ToArray());
-                }
-                else
-                {
-                    calculation.Output = new MacroStabilityInwardsOutput(
-                        MacroStabilityInwardsSlidingCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurveResult),
-                        MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(macroStabilityInwardsResult.CalculationGridResult),
-                        new MacroStabilityInwardsOutput.ConstructionProperties
-                        {
-                            FactorOfStability = macroStabilityInwardsResult.FactorOfStability,
-                            ZValue = macroStabilityInwardsResult.ZValue,
-                            ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
-                            ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
-                        });
-                }
-
-                if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Warning))
-                {
-                    CalculationServiceHelper.LogMessagesAsWarning(new[]
-                    {
-                        Resources.MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation + Environment.NewLine +
-                        macroStabilityInwardsResult.CalculationMessages
-                                                   .Where(cm => cm.ResultType == UpliftVanKernelMessageType.Warning)
-                                                   .Aggregate(string.Empty, (current, logMessage) => current + $"* {logMessage.Message}{Environment.NewLine}").Trim()
-                    });
-                }
+                macroStabilityInwardsResult = calculator.Calculate();
             }
             catch (UpliftVanCalculatorException e)
             {
-                CalculationServiceHelper.LogExceptionAsError(Resources.MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_calculation, e);
+                CalculationServiceHelper.LogExceptionAsError(RingtoetsCommonServiceResources.CalculationService_Calculate_unexpected_error, e);
+                CalculationServiceHelper.LogCalculationEnd();
+
                 throw;
             }
-            finally
+
+            if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Error))
             {
+                CalculationServiceHelper.LogMessagesAsError(new[]
+                {
+                    CreateAggregatedLogMessage(Resources.MacroStabilityInwardsCalculationService_Calculate_Errors_in_MacroStabilityInwards_calculation, macroStabilityInwardsResult)
+                });
+
                 CalculationServiceHelper.LogCalculationEnd();
+
+                throw new UpliftVanCalculatorException();
             }
+
+            if (macroStabilityInwardsResult.CalculationMessages.Any())
+            {
+                CalculationServiceHelper.LogMessagesAsWarning(new[]
+                {
+                    CreateAggregatedLogMessage(Resources.MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation, macroStabilityInwardsResult)
+                });
+            }
+
+            calculation.Output = new MacroStabilityInwardsOutput(
+                MacroStabilityInwardsSlidingCurveConverter.Convert(macroStabilityInwardsResult.SlidingCurveResult),
+                MacroStabilityInwardsSlipPlaneUpliftVanConverter.Convert(macroStabilityInwardsResult.CalculationGridResult),
+                new MacroStabilityInwardsOutput.ConstructionProperties
+                {
+                    FactorOfStability = macroStabilityInwardsResult.FactorOfStability,
+                    ZValue = macroStabilityInwardsResult.ZValue,
+                    ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
+                    ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
+                });
+
+            CalculationServiceHelper.LogCalculationEnd();
         }
 
         private static UpliftVanCalculatorInput CreateInputFromData(MacroStabilityInwardsInput inputParameters, RoundedDouble normativeAssessmentLevel)
@@ -198,6 +204,14 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     MoveGrid = inputParameters.MoveGrid,
                     MaximumSliceWidth = inputParameters.MaximumSliceWidth
                 });
+        }
+
+        private static string CreateAggregatedLogMessage(string baseMessage, UpliftVanCalculatorResult macroStabilityInwardsResult)
+        {
+            return baseMessage
+                   + Environment.NewLine
+                   + macroStabilityInwardsResult.CalculationMessages
+                                                .Aggregate(string.Empty, (current, logMessage) => current + $"* {logMessage.Message}{Environment.NewLine}").Trim();
         }
     }
 }

@@ -496,19 +496,20 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[0].Item1);
 
                     Tuple<string, Level, Exception> tuple1 = messages[1];
-                    Assert.AreEqual("Macrostabiliteit binnenwaarts berekening mislukt.", tuple1.Item1);
+                    Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het uitvoeren van de berekening.", tuple1.Item1);
                     Assert.AreEqual(Level.Error, tuple1.Item2);
                     Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple1.Item3);
 
                     CalculationServiceTestHelper.AssertCalculationEndMessage(messages[2].Item1);
                 });
+
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(testCalculation.Output);
             }
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationError_LogsErrorAndReturnsFalse()
+        public void Calculate_KernelReturnsCalculationErrors_LogAggregatedErrorMessageAndThrowException()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -516,24 +517,50 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
 
+                var exceptionThrown = false;
+
                 // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation,
-                                                                                      AssessmentSectionHelper.GetTestAssessmentLevel());
+                Action call = () =>
+                {
+                    try
+                    {
+                        MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                          AssessmentSectionHelper.GetTestAssessmentLevel());
+                    }
+                    catch (UpliftVanCalculatorException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
-                    string[] msgs = messages.ToArray();
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
                     Assert.AreEqual(3, msgs.Length);
+
+                    string expectedErrorMessage = "Er zijn een of meerdere fouten opgetreden. Klik op details voor meer informatie."
+                                                  + $"{Environment.NewLine}"
+                                                  + "* Calculation Error 1"
+                                                  + $"{Environment.NewLine}"
+                                                  + "* Calculation Error 2";
+
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual("Calculation Error", msgs[1]);
+                    Assert.AreEqual(expectedErrorMessage, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
+
+                    Assert.AreEqual(Level.Error, tupleArray[1].Item2);
                 });
+
+                Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(testCalculation.Output);
             }
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationWarning_LogsWarningAndReturnsTrue()
+        public void Calculate_KernelReturnsCalculationWarnings_LogAggregatedWarningMessageAndSetOutput()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -546,23 +573,32 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                                                                       AssessmentSectionHelper.GetTestAssessmentLevel());
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
-                    string[] msgs = messages.ToArray();
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
                     Assert.AreEqual(3, msgs.Length);
+
+                    string expectedWarningMessage = "Er zijn een of meerdere waarschuwingsberichten. Klik op details voor meer informatie."
+                                                    + $"{Environment.NewLine}"
+                                                    + "* Calculation Warning 1"
+                                                    + $"{Environment.NewLine}"
+                                                    + "* Calculation Warning 2";
+
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual("Er zijn waarschuwingsberichten naar aanleiding van de berekening. Klik op details voor meer informatie." +
-                                    $"{Environment.NewLine}" +
-                                    "* Calculation Warning 1" +
-                                    $"{Environment.NewLine}" +
-                                    "* Calculation Warning 2", msgs[1]);
+                    Assert.AreEqual(expectedWarningMessage, msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
+
+                    Assert.AreEqual(Level.Warn, tupleArray[1].Item2);
                 });
             }
+
+            Assert.IsNotNull(testCalculation.Output);
         }
 
         [Test]
-        public void Calculate_KernelReturnsCalculationErrorAndWarning_LogsErrorAndWarningAndReturnsFalse()
+        public void Calculate_KernelReturnsCalculationErrorsAndWarnings_LogAggregatedErrorMessageAndThrowException()
         {
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -571,24 +607,49 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationWarning = true;
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
 
+                var exceptionThrown = false;
+
                 // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation,
-                                                                                      AssessmentSectionHelper.GetTestAssessmentLevel());
+                Action call = () =>
+                {
+                    try
+                    {
+                        MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                          AssessmentSectionHelper.GetTestAssessmentLevel());
+                    }
+                    catch (UpliftVanCalculatorException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
                 {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(4, msgs.Length);
+                    Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
+                    string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
+
+                    Assert.AreEqual(3, msgs.Length);
+
+                    string expectedErrorMessage = "Er zijn een of meerdere fouten opgetreden. Klik op details voor meer informatie."
+                                                  + $"{Environment.NewLine}"
+                                                  + "* Calculation Error 1"
+                                                  + $"{Environment.NewLine}"
+                                                  + "* Calculation Warning 1"
+                                                  + $"{Environment.NewLine}"
+                                                  + "* Calculation Error 2"
+                                                  + $"{Environment.NewLine}"
+                                                  + "* Calculation Warning 2";
+
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual("Calculation Error", msgs[1]);
-                    Assert.AreEqual("Er zijn waarschuwingsberichten naar aanleiding van de berekening. Klik op details voor meer informatie." +
-                                    $"{Environment.NewLine}" +
-                                    "* Calculation Warning 1" +
-                                    $"{Environment.NewLine}" +
-                                    "* Calculation Warning 2", msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                    Assert.AreEqual(expectedErrorMessage, msgs[1]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
+
+                    Assert.AreEqual(Level.Error, tupleArray[1].Item2);
                 });
+
+                Assert.IsTrue(exceptionThrown);
+                Assert.IsNull(testCalculation.Output);
             }
         }
 

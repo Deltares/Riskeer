@@ -126,11 +126,11 @@
   <data name="MacroStabilityInwardsCalculationService_ValidateInput_Cannot_determine_AssessmentLevel" xml:space="preserve">
     <value>Kan de waterstand niet afleiden op basis van de invoer.</value>
   </data>
-  <data name="MacroStabilityInwardsCalculationService_Calculate_Error_in_MacroStabilityInwards_calculation" xml:space="preserve">
-    <value>Macrostabiliteit binnenwaarts berekening mislukt.</value>
+  <data name="MacroStabilityInwardsCalculationService_Calculate_Errors_in_MacroStabilityInwards_calculation" xml:space="preserve">
+    <value>Er zijn een of meerdere fouten opgetreden. Klik op details voor meer informatie.</value>
   </data>
   <data name="MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation" xml:space="preserve">
-    <value>Er zijn waarschuwingsberichten naar aanleiding van de berekening. Klik op details voor meer informatie.</value>
+    <value>Er zijn een of meerdere waarschuwingsberichten. Klik op details voor meer informatie.</value>
   </data>
   <data name="MacroStabilityInwardsCalculationService_Validate_Error_in_MacroStabilityInwards_validation" xml:space="preserve">
     <value>Macrostabiliteit binnenwaarts validatie mislukt.</value>

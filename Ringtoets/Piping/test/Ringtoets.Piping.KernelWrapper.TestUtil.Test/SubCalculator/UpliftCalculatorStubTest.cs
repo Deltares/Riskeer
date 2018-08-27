@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using Deltares.WTIPiping;
 using NUnit.Framework;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 
@@ -35,6 +37,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             var upliftCalculator = new UpliftCalculatorStub();
 
             // Assert
+            Assert.IsFalse(upliftCalculator.ThrowExceptionOnCalculate);
             Assert.AreEqual(0, upliftCalculator.EffectiveStress);
             Assert.AreEqual(0, upliftCalculator.HExit);
             Assert.AreEqual(0, upliftCalculator.HRiver);
@@ -43,7 +46,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             Assert.AreEqual(0, upliftCalculator.PhiPolder);
             Assert.AreEqual(0, upliftCalculator.RExit);
             Assert.AreEqual(0, upliftCalculator.VolumetricWeightOfWater);
-
             Assert.AreEqual(0, upliftCalculator.FoSu);
             Assert.AreEqual(0, upliftCalculator.Zu);
         }
@@ -73,6 +75,25 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
 
             // Assert
             Assert.IsTrue(upliftCalculator.Calculated);
+        }
+
+        [Test]
+        public void Calculate_ThrowExceptionOnCalculateTrue_ThrowWTIUpliftCalculatorException()
+        {
+            // Setup
+            var upliftCalculator = new UpliftCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => upliftCalculator.Calculate();
+
+            // Assert
+            var exception = Assert.Throws<WTIUpliftCalculatorException>(test);
+            Assert.IsNull(exception.InnerException);
+            Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
+            Assert.IsFalse(upliftCalculator.Calculated);
         }
     }
 }

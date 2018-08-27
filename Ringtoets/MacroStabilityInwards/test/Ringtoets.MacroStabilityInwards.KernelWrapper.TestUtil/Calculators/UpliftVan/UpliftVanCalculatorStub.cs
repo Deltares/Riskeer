@@ -81,13 +81,24 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
             }
 
             var calculationMessages = new List<UpliftVanKernelMessage>();
+
             if (ReturnCalculationError)
             {
-                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Calculation Error"));
+                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Calculation Error 1"));
             }
+
             if (ReturnCalculationWarning)
             {
                 calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Calculation Warning 1"));
+            }
+
+            if (ReturnCalculationError)
+            {
+                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Calculation Error 2"));
+            }
+
+            if (ReturnCalculationWarning)
+            {
                 calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Calculation Warning 2"));
             }
 
@@ -105,6 +116,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Upl
             {
                 yield return new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Validation Error");
             }
+
             if (ReturnValidationWarning)
             {
                 yield return new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Validation Warning");

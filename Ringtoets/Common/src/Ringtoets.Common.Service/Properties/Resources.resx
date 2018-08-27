@@ -224,4 +224,7 @@
   <data name="TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probability_too_small" xml:space="preserve">
     <value>Doelkans is te klein om een berekening uit te kunnen voeren.</value>
   </data>
+  <data name="CalculationService_Calculate_unexpected_error" xml:space="preserve">
+    <value>Er is een onverwachte fout opgetreden tijdens het uitvoeren van de berekening.</value>
+  </data>
 </root>

@@ -82,15 +82,6 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Piping berekening mislukt..
-        /// </summary>
-        internal static string Error_in_piping_calculation {
-            get {
-                return ResourceManager.GetString("Error_in_piping_calculation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Meerdere aaneengesloten watervoerende lagen gevonden. Er wordt geprobeerd de d70 en doorlatendheid van de bovenste watervoerende laag af te leiden..
         /// </summary>
         internal static string PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_determine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer {
