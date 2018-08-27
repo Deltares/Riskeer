@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
@@ -49,7 +48,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableAssessmentProcessCreator.Create(new UniqueIdentifierGenerator(), 
+            TestDelegate call = () => SerializableAssessmentProcessCreator.Create(new UniqueIdentifierGenerator(),
                                                                                   null);
 
             // Assert
