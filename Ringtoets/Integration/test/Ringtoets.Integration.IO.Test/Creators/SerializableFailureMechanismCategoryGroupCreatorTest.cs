@@ -30,7 +30,7 @@ using Ringtoets.Integration.IO.Creators;
 namespace Ringtoets.Integration.IO.Test.Creators
 {
     [TestFixture]
-    public class SerializableFailureMechanismGroupCreatorTest
+    public class SerializableFailureMechanismCategoryGroupCreatorTest
     {
         [Test]
         public void Create_InvalidFailureMechanismAssemblyCategoryGroup_ThrowInvalidEnumArgumentException()
