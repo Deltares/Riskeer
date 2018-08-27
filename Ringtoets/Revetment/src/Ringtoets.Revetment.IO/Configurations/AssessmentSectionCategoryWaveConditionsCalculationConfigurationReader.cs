@@ -49,7 +49,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// </list>
         /// </exception>
         public AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath, Resources.BekledingenHbConfiguratieSchema) {}
+            : base(xmlFilePath, Resources.BekledingenConfiguratieSchema) {}
 
         protected override AssessmentSectionCategoryWaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
