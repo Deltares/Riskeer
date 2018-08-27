@@ -39,6 +39,7 @@
     <Compile Include="Creators\SerializableAssemblyCreatorTest.cs" />
     <Compile Include="Creators\SerializableAssemblyMethodCreatorTest.cs" />
     <Compile Include="Creators\SerializableAssessmentProcessCreatorTest.cs" />
+    <Compile Include="Creators\SerializableAssessmentSectionAssemblyResultCreatorTest.cs" />
     <Compile Include="Creators\SerializableAssessmentSectionCategoryGroupCreatorTest.cs" />
     <Compile Include="Creators\SerializableAssessmentSectionCreatorTest.cs" />
     <Compile Include="Creators\SerializableFailureMechanismCategoryGroupCreatorTest.cs" />

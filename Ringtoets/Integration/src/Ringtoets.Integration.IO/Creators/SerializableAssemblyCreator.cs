@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.IO.Creators
                                                                                           serializableAssessmentProcess,
                                                                                           SerializableFailureMechanismResultCreator.Create(assessmentSection.FailureMechanismAssemblyWithProbability),
                                                                                           SerializableFailureMechanismResultCreator.Create(assessmentSection.FailureMechanismAssemblyWithoutProbability),
-                                                                                          new SerializableAssessmentSectionAssemblyResult()),
+                                                                                          SerializableAssessmentSectionAssemblyResultCreator.Create(assessmentSection.AssessmentSectionAssembly)),
                                             Enumerable.Empty<SerializableFailureMechanism>(),
                                             Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
                                             Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),

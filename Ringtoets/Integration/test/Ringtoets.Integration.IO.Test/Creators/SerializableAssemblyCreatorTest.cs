@@ -171,6 +171,12 @@ namespace Ringtoets.Integration.IO.Test.Creators
                             serializableAssemblyResultWithProbability.AssemblyMethod);
             Assert.AreEqual(expectedFailureMechanismAssemblyResultWithProbability.Probability,
                             serializableAssemblyResultWithProbability.Probability);
+
+            SerializableAssessmentSectionAssemblyResult serializableAssessmentSectionAssemblyResult = serializableTotalAssembly.AssessmentSectionAssemblyResult;
+            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyMethod),
+                            serializableAssessmentSectionAssemblyResult.AssemblyMethod);
+            Assert.AreEqual(SerializableAssessmentSectionCategoryGroupCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyCategory),
+                            serializableAssessmentSectionAssemblyResult.CategoryGroup);
         }
     }
 }
