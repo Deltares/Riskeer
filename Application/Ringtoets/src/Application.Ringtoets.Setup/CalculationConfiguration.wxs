@@ -69,7 +69,7 @@
       </Component>
       <!-- Revetment -->
       <Component Id="CalculationConfigurationRevetmentBaseFile" Guid="07E3754B-7CE9-4698-84D6-AA66F90B324B">
-        <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenConfiguratieSchemaBasis.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenConfiguratieBasisSchema.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationRevetmentFile" Guid="5A4CFA52-4341-464E-AA35-CE57B09BCB15">
         <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenConfiguratieSchema.xsd" KeyPath="yes"/>
