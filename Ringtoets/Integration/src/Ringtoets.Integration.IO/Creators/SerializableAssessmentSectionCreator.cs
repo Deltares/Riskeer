@@ -20,10 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model;
-using Ringtoets.Integration.IO.Helpers;
+using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Properties;
 
 namespace Ringtoets.Integration.IO.Creators
 {
@@ -34,26 +33,22 @@ namespace Ringtoets.Integration.IO.Creators
     {
         /// <summary>
         /// Creates an instance of <see cref="SerializableAssessmentSection"/>
-        /// based on its input parameters.
+        /// based on a <see cref="ExportableAssessmentSection"/>.
         /// </summary>
-        /// <param name="idGenerator">The generator to generate an id for the
-        /// <see cref="SerializableAssessmentSection"/>.</param>
-        /// <param name="assessmentSectionName">The name of the assessment section.</param>
-        /// <param name="geometry">The geometry of the assessment section.</param>
+        /// <param name="assessmentSection">The <see cref="ExportableAssessmentSection"/>
+        /// to create a <see cref="SerializableAssessmentSection"/> for.</param>
         /// <returns>A <see cref="SerializableAssessmentSection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static SerializableAssessmentSection Create(UniqueIdentifierGenerator idGenerator,
-                                                           string assessmentSectionName,
-                                                           IEnumerable<Point2D> geometry)
+        public static SerializableAssessmentSection Create(ExportableAssessmentSection assessmentSection)
         {
-            if (idGenerator == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(idGenerator));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return new SerializableAssessmentSection(idGenerator.GetNewId(),
-                                                     assessmentSectionName,
-                                                     geometry);
+            return new SerializableAssessmentSection($"{Resources.SerializableAssessmentSection_IdPrefix}.{assessmentSection.Id}",
+                                                     assessmentSection.Name,
+                                                     assessmentSection.Geometry);
         }
     }
 }

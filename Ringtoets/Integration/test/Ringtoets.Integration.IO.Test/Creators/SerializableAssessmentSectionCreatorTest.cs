@@ -21,12 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.Model.Helpers;
+using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
-using Ringtoets.Integration.IO.Helpers;
+using Ringtoets.Integration.IO.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {
@@ -34,65 +36,52 @@ namespace Ringtoets.Integration.IO.Test.Creators
     public class SerializableAssessmentSectionCreatorTest
     {
         [Test]
-        public void Create_IdGeneratorNull_ThrowsArgumentNullException()
+        public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableAssessmentSectionCreator.Create(null,
-                                                                                  string.Empty,
-                                                                                  CreateGeometry());
+            TestDelegate call = () => SerializableAssessmentSectionCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("idGenerator", exception.ParamName);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
-        public void Create_AssessmentSectionNameNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => SerializableAssessmentSectionCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                  null,
-                                                                                  CreateGeometry());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("name", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_GeometryNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => SerializableAssessmentSectionCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                  string.Empty,
-                                                                                  null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("geometry", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_WithValidArguments_ReturnsSerializableAssessmentSection()
+        public void Create_WithAssessmentSection_ReturnsSerializableAssessmentSection()
         {
             // Setup
             const string assessmentSectionName = "Assessment Section Name";
+            const string assessmentSectionId = "Assessment Section Id";
 
-            var idGenerator = new UniqueIdentifierGenerator();
-            IEnumerable<Point2D> geometry = CreateGeometry();
+            ExportableAssessmentSection assessmentSection = CreateAssessmentSection(assessmentSectionName,
+                                                                                    assessmentSectionId);
 
             // Call
             SerializableAssessmentSection serializableAssessmentSection =
-                SerializableAssessmentSectionCreator.Create(idGenerator,
-                                                            assessmentSectionName,
-                                                            geometry);
+                SerializableAssessmentSectionCreator.Create(assessmentSection);
 
             // Assert
-            Assert.AreEqual("0", serializableAssessmentSection.Id);
+            Assert.AreEqual($"Wks.{assessmentSection.Id}", serializableAssessmentSection.Id);
             Assert.AreEqual(assessmentSectionName, serializableAssessmentSection.Name);
-            Assert.AreEqual(Math2D.Length(geometry), serializableAssessmentSection.ReferenceLineLength.Value);
-            Assert.AreEqual(GeometrySerializationFormatter.Format(geometry),
+
+            IEnumerable<Point2D> expectedGeometry = assessmentSection.Geometry;
+            Assert.AreEqual(Math2D.Length(expectedGeometry), serializableAssessmentSection.ReferenceLineLength.Value);
+            Assert.AreEqual(GeometrySerializationFormatter.Format(expectedGeometry),
                             serializableAssessmentSection.ReferenceLineGeometry.LineString.Geometry);
+        }
+
+        private static ExportableAssessmentSection CreateAssessmentSection(string name, string id)
+        {
+            return new ExportableAssessmentSection(name,
+                                                   id,
+                                                   CreateGeometry(),
+                                                   ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                                                   ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
+                                                   ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
+                                                   Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
+                                                   Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
+                                                   new ExportableCombinedSectionAssemblyCollection(Enumerable.Empty<ExportableCombinedFailureMechanismSection>(),
+                                                                                                   Enumerable.Empty<ExportableCombinedSectionAssembly>()));
         }
 
         private static IEnumerable<Point2D> CreateGeometry()

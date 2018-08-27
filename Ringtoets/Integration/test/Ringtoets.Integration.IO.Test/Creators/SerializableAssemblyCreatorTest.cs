@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             Assert.AreEqual(3, serializableAssembly.FeatureMembers.Length);
 
             var serializableAssessmentSection = (SerializableAssessmentSection) serializableAssembly.FeatureMembers[0];
-            AssertSerializableAssessmentSection("1", assessmentSectionName, geometry, serializableAssessmentSection);
+            AssertSerializableAssessmentSection($"Wks.{assessmentSectionId}", assessmentSectionName, geometry, serializableAssessmentSection);
             var serializableAssessmentProcess = (SerializableAssessmentProcess) serializableAssembly.FeatureMembers[1];
             AssertSerializableAssessmentProcess("2", serializableAssessmentSection, serializableAssessmentProcess);
             AssertSerializableTotalAssemblyResult("3",
