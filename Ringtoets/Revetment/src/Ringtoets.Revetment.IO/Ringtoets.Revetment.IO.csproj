@@ -49,10 +49,10 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
-    <None Include="Resources\BekledingenHbConfiguratieSchemaBasis.xsd">
+    <None Include="Resources\BekledingenConfiguratieBasisSchema.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\BekledingenHbConfiguratieSchema.xsd">
+    <None Include="Resources\BekledingenConfiguratieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
