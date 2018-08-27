@@ -131,9 +131,9 @@ namespace Ringtoets.Revetment.IO.Properties {
         ///This program is distributed in the hope that it will be useful,
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BekledingenHbConfiguratieSchema {
+        internal static string BekledingenConfiguratieSchema {
             get {
-                return ResourceManager.GetString("BekledingenHbConfiguratieSchema", resourceCulture);
+                return ResourceManager.GetString("BekledingenConfiguratieSchema", resourceCulture);
             }
         }
         
@@ -151,9 +151,9 @@ namespace Ringtoets.Revetment.IO.Properties {
         ///This program is distributed in the hope that it will be useful,
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BekledingenHbConfiguratieSchemaBasis {
+        internal static string BekledingenConfiguratieSchemaBasis {
             get {
-                return ResourceManager.GetString("BekledingenHbConfiguratieSchemaBasis", resourceCulture);
+                return ResourceManager.GetString("BekledingenConfiguratieSchemaBasis", resourceCulture);
             }
         }
         

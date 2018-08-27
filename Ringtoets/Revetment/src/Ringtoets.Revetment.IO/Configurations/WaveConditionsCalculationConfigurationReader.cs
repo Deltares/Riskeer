@@ -44,7 +44,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         private const string orientationSchemaName = "OrientatieSchema.xsd";
         private const string foreshoreProfileSchemaName = "VoorlandProfielSchema.xsd";
         private const string waveReductionSchemaName = "GolfReductieSchema.xsd";
-        private const string revetmentBaseSchemaName = "BekledingenHbConfiguratieSchemaBasis.xsd";
+        private const string revetmentBaseSchemaName = "BekledingenConfiguratieSchemaBasis.xsd";
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationReader{T]"/>.
@@ -66,7 +66,7 @@ namespace Ringtoets.Revetment.IO.Configurations
                    new Dictionary<string, string>
                    {
                        {
-                           revetmentBaseSchemaName,  Resources.BekledingenHbConfiguratieSchemaBasis
+                           revetmentBaseSchemaName,  Resources.BekledingenConfiguratieSchemaBasis
                        },
                        {
                            hbLocationSchemaName, RingtoetsCommonIOResources.HbLocatieSchema

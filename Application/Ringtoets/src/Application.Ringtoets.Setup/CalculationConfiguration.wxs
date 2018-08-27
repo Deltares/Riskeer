@@ -69,10 +69,10 @@
       </Component>
       <!-- Revetment -->
       <Component Id="CalculationConfigurationRevetmentBaseFile" Guid="07E3754B-7CE9-4698-84D6-AA66F90B324B">
-        <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenHbConfiguratieSchemaBasis.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenConfiguratieSchemaBasis.xsd" KeyPath="yes"/>
       </Component>
       <Component Id="CalculationConfigurationRevetmentFile" Guid="5A4CFA52-4341-464E-AA35-CE57B09BCB15">
-        <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenHbConfiguratieSchema.xsd" KeyPath="yes"/>
+        <File Source="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.IO\Resources\BekledingenConfiguratieSchema.xsd" KeyPath="yes"/>
       </Component>
       <!-- Grass Cover Erosion Outwards-->
       <Component Id="CalculationConfigurationGrassCoverErosionOutwardsFile" Guid="CAE4325D-8C3F-44F3-A651-C42CAD5033F3">
