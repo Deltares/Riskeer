@@ -2,18 +2,18 @@
 <configuratie>
   <berekening naam="Berekening 1">
     <hblocatie>Locatie</hblocatie>
-	<bovengrensbekleding>10</bovengrensbekleding>
-	<ondergrensbekleding>2</ondergrensbekleding>
-	<bovengrenswaterstanden>9</bovengrenswaterstanden>
-	<ondergrenswaterstanden>4</ondergrenswaterstanden>
-	<stapgrootte>0.5</stapgrootte>
-	<voorlandprofiel>Voorlandprofiel</voorlandprofiel>
-	<orientatie>5.5</orientatie>
-	<golfreductie>
-	  <damgebruiken>true</damgebruiken>
-	  <damtype>caisson</damtype>
-	  <damhoogte>6.6</damhoogte>
-	  <voorlandgebruiken>false</voorlandgebruiken>
-	</golfreductie>
+    <bovengrensbekleding>10</bovengrensbekleding>
+    <ondergrensbekleding>2</ondergrensbekleding>
+    <bovengrenswaterstanden>9</bovengrenswaterstanden>
+    <ondergrenswaterstanden>4</ondergrenswaterstanden>
+    <stapgrootte>0.5</stapgrootte>
+    <voorlandprofiel>Voorlandprofiel</voorlandprofiel>
+    <orientatie>5.5</orientatie>
+    <golfreductie>
+      <damgebruiken>true</damgebruiken>
+      <damtype>caisson</damtype>
+      <damhoogte>6.6</damhoogte>
+      <voorlandgebruiken>false</voorlandgebruiken>
+    </golfreductie>
   </berekening>
 </configuratie>
