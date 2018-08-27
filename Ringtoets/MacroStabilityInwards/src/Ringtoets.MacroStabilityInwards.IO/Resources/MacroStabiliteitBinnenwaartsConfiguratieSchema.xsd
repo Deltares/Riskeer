@@ -28,8 +28,8 @@ All rights reserved.
   <xs:include schemaLocation="ScenarioSchema.xsd"/>
 
   <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft. Hierin
-  wordt een keuze gegeven voor specificatie van een HR locatie of een 
-  toetspeil (handmatig gespecificeerd toetspeil) vergelijkbaar met een
+  wordt een keuze gegeven voor specificatie van een HB locatie of een 
+  waterstand (handmatig gespecificeerde waterstand) vergelijkbaar met een
   macrostabiliteit binnenwaarts berekening in Ringtoets.-->
   <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
     <xs:complexType name="berekeningType">
@@ -75,7 +75,7 @@ All rights reserved.
   <xs:element name="hblocatie-of-hrlocatie" abstract="true" substitutionGroup="hblocatie-of-waterstand" />
 
   <!--Specificeert de handmatig ingevoerde waterstand. Indien dit element is
-  opgenomen, mag geen handmatig ingevoerde toetspeil element worden opgenomen (en andersom).-->
+  opgenomen, mag geen handmatig ingevoerd toetspeil element worden opgenomen (en andersom).-->
   <xs:element name="waterstand" substitutionGroup="waterstand-of-toetspeil" >
     <xs:simpleType>
       <xs:restriction base="xs:double"/>

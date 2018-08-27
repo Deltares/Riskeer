@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             var configuration = new MacroStabilityInwardsCalculationConfiguration(
                 calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
-                AssessmentLevel = GetWaterLevel(calculationElement),
+                AssessmentLevel = GetAssessmentLevel(calculationElement),
                 HydraulicBoundaryLocationName = calculationElement.GetHydraulicBoundaryLocationName(),
                 SurfaceLineName = calculationElement.GetStringValueFromDescendantElement(
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
@@ -129,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             return configuration;
         }
 
-        private static double? GetWaterLevel(XElement calculationElement)
+        private static double? GetAssessmentLevel(XElement calculationElement)
         {
             return calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelElement)
                    ?? calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement);

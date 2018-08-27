@@ -75,7 +75,7 @@ All rights reserved.
   <xs:element name="hblocatie-of-hrlocatie" abstract="true" substitutionGroup="hblocatie-of-waterstand" />
 
   <!--Specificeert de handmatig ingevoerde waterstand. Indien dit element is
-  opgenomen, mag geen handmatig ingevoerde toetspeil element worden opgenomen (en andersom).-->
+  opgenomen, mag geen handmatig ingevoerd toetspeil element worden opgenomen (en andersom).-->
   <xs:element name="waterstand" substitutionGroup="waterstand-of-toetspeil" >
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
