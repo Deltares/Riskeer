@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
+using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Gml;
 using Ringtoets.AssemblyTool.IO.Model.Helpers;
 using Ringtoets.Integration.IO.Assembly;
@@ -155,6 +156,21 @@ namespace Ringtoets.Integration.IO.Test.Creators
         {
             Assert.AreEqual(expectedId, serializableTotalAssembly.Id);
             Assert.AreEqual(expectedAssessmentProcess.Id, serializableTotalAssembly.AssessmentProcessId);
+
+            SerializableFailureMechanismAssemblyResult serializableAssemblyResultWithoutProbability = serializableTotalAssembly.AssemblyResultWithoutProbability;
+            Assert.AreEqual(SerializableFailureMechanismCategoryGroupCreator.Create(expectedFailureMechanismAssemblyResultWithoutProbability.AssemblyCategory),
+                            serializableAssemblyResultWithoutProbability.CategoryGroup);
+            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedFailureMechanismAssemblyResultWithoutProbability.AssemblyMethod),
+                            serializableAssemblyResultWithoutProbability.AssemblyMethod);
+            Assert.IsNull(serializableAssemblyResultWithoutProbability.Probability);
+
+            SerializableFailureMechanismAssemblyResult serializableAssemblyResultWithProbability = serializableTotalAssembly.AssemblyResultWithProbability;
+            Assert.AreEqual(SerializableFailureMechanismCategoryGroupCreator.Create(expectedFailureMechanismAssemblyResultWithProbability.AssemblyCategory),
+                            serializableAssemblyResultWithProbability.CategoryGroup);
+            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedFailureMechanismAssemblyResultWithProbability.AssemblyMethod),
+                            serializableAssemblyResultWithProbability.AssemblyMethod);
+            Assert.AreEqual(expectedFailureMechanismAssemblyResultWithProbability.Probability,
+                            serializableAssemblyResultWithProbability.Probability);
         }
     }
 }
