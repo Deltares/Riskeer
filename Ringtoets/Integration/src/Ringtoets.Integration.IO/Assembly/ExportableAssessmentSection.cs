@@ -48,8 +48,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// of failure mechanisms belonging to this assessment section.</param>
         /// <param name="combinedSectionAssemblyResults">The combined section assembly results
         /// of this assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter, except <paramref name="id"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c>, empty or consists only of whitespaces.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ExportableAssessmentSection(string name,
                                            string id,
                                            IEnumerable<Point2D> geometry,
@@ -65,9 +64,9 @@ namespace Ringtoets.Integration.IO.Assembly
                 throw new ArgumentNullException(nameof(name));
             }
 
-            if (string.IsNullOrWhiteSpace(id))
+            if (id == null)
             {
-                throw new ArgumentException($@"'{nameof(id)}' must have a value.", nameof(id));
+                throw new ArgumentNullException(nameof(id));
             }
 
             if (geometry == null)
