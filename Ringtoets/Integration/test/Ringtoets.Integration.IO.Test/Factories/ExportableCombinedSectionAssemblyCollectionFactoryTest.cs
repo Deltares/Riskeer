@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
@@ -29,6 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
+using Ringtoets.Integration.IO.Helpers;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {
@@ -62,6 +64,12 @@ namespace Ringtoets.Integration.IO.Test.Factories
         public void CreateExportableCombinedSectionAssemblyCollection_WithAssemblyResults_ReturnsExportableCombinedSectionAssemblyCollection()
         {
             // Setup
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(2, 2)
+            });
             CombinedFailureMechanismSectionAssemblyResult[] assemblyResults =
             {
                 CreateCombinedFailureMechanismSectionAssemblyResult(21),
@@ -70,11 +78,10 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             ExportableCombinedSectionAssemblyCollection exportableCombinedSectionAssembly =
-                ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, new ReferenceLine());
+                ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, referenceLine);
 
             // Assert
-            AssertCombinedFailureMechanismSectionAssemblyResults(assemblyResults,
-                                                                 exportableCombinedSectionAssembly);
+            AssertCombinedFailureMechanismSectionAssemblyResults(assemblyResults, exportableCombinedSectionAssembly, referenceLine);
         }
 
         private static CombinedFailureMechanismSectionAssemblyResult CreateCombinedFailureMechanismSectionAssemblyResult(int seed)
@@ -108,7 +115,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         private static void AssertCombinedFailureMechanismSectionAssemblyResults(IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedSections,
-                                                                                 ExportableCombinedSectionAssemblyCollection collection)
+                                                                                 ExportableCombinedSectionAssemblyCollection collection,
+                                                                                 ReferenceLine referenceLine)
         {
             int expectedNrOfSections = expectedSections.Count();
             Assert.AreEqual(expectedNrOfSections, collection.Sections.Count());
@@ -120,17 +128,20 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 ExportableCombinedFailureMechanismSection actualSection = collection.Sections.ElementAt(i);
                 ExportableCombinedSectionAssembly actualSectionResult = collection.CombinedSectionAssemblyResults.ElementAt(i);
 
-                AssertExportableCombinedFailureMechanismSection(expectedSection, actualSection);
+                AssertExportableCombinedFailureMechanismSection(expectedSection, actualSection, referenceLine);
                 AssertExportableCombinedFailureMechanismSectionResult(actualSectionResult, actualSection, expectedSection);
             }
         }
 
         private static void AssertExportableCombinedFailureMechanismSection(CombinedFailureMechanismSectionAssemblyResult expectedSection,
-                                                                            ExportableCombinedFailureMechanismSection actualSection)
+                                                                            ExportableCombinedFailureMechanismSection actualSection,
+                                                                            ReferenceLine referenceLine)
         {
             Assert.AreEqual(expectedSection.SectionStart, actualSection.StartDistance);
             Assert.AreEqual(expectedSection.SectionEnd, actualSection.EndDistance);
-            CollectionAssert.IsEmpty(actualSection.Geometry);
+            CollectionAssert.AreEqual(ExportableFailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                                          referenceLine, actualSection.StartDistance, actualSection.EndDistance),
+                                      actualSection.Geometry);
             Assert.AreEqual(ExportableAssemblyMethod.WBI3A1, actualSection.AssemblyMethod);
         }
 

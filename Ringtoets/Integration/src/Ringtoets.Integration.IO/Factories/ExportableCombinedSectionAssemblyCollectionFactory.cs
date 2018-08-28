@@ -27,6 +27,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Helpers;
 
 namespace Ringtoets.Integration.IO.Factories
 {
@@ -63,10 +64,12 @@ namespace Ringtoets.Integration.IO.Factories
 
             foreach (CombinedFailureMechanismSectionAssemblyResult assemblyResult in combinedSectionAssemblyResults)
             {
-                var exportableSection = new ExportableCombinedFailureMechanismSection(Enumerable.Empty<Point2D>(),
-                                                                                      assemblyResult.SectionStart,
-                                                                                      assemblyResult.SectionEnd,
-                                                                                      ExportableAssemblyMethod.WBI3A1);
+                var exportableSection = new ExportableCombinedFailureMechanismSection(
+                    ExportableFailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                        referenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
+                    assemblyResult.SectionStart,
+                    assemblyResult.SectionEnd,
+                    ExportableAssemblyMethod.WBI3A1);
 
                 var exportableSectionResult = new ExportableCombinedSectionAssembly(exportableSection,
                                                                                     new ExportableSectionAssemblyResult(ExportableAssemblyMethod.WBI3C1,
