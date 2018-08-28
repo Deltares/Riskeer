@@ -26,6 +26,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
+using Ringtoets.Integration.IO.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {
@@ -55,9 +56,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             SerializableFailureMechanismAssemblyResult serializableAssemblyResult = SerializableFailureMechanismResultCreator.Create(result);
 
             // Assert
-            Assert.AreEqual(SerializableFailureMechanismCategoryGroupCreator.Create(result.AssemblyCategory), serializableAssemblyResult.CategoryGroup);
-            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(result.AssemblyMethod), serializableAssemblyResult.AssemblyMethod);
-            Assert.IsNull(serializableAssemblyResult.Probability);
+            SerializableFailureMechanismAssemblyResultTestHelper.AssertSerializableFailureMechanismAssemblyResult(result, serializableAssemblyResult);
         }
 
         [Test]
@@ -87,9 +86,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             SerializableFailureMechanismAssemblyResult serializableAssemblyResult = SerializableFailureMechanismResultCreator.Create(result);
 
             // Assert
-            Assert.AreEqual(SerializableFailureMechanismCategoryGroupCreator.Create(result.AssemblyCategory), serializableAssemblyResult.CategoryGroup);
-            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(result.AssemblyMethod), serializableAssemblyResult.AssemblyMethod);
-            Assert.AreEqual(result.Probability, serializableAssemblyResult.Probability);
+            SerializableFailureMechanismAssemblyResultTestHelper.AssertSerializableFailureMechanismAssemblyResult(result, serializableAssemblyResult);
         }
     }
 }
