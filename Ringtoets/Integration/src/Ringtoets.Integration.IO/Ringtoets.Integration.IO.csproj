@@ -41,6 +41,7 @@
     <Compile Include="Creators\SerializableAssessmentSectionCategoryGroupCreator.cs" />
     <Compile Include="Creators\SerializableAssessmentSectionCreator.cs" />
     <Compile Include="Creators\SerializableFailureMechanismCategoryGroupCreator.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismCreator.cs" />
     <Compile Include="Creators\SerializableFailureMechanismGroupCreator.cs" />
     <Compile Include="Creators\SerializableFailureMechanismResultCreator.cs" />
     <Compile Include="Creators\SerializableFailureMechanismTypeCreator.cs" />
