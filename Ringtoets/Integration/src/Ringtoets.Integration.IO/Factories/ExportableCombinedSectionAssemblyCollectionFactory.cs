@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
 
@@ -40,15 +41,21 @@ namespace Ringtoets.Integration.IO.Factories
         /// </summary>
         /// <param name="combinedSectionAssemblyResults">A collection of combined section results to
         /// create an <see cref="ExportableCombinedSectionAssemblyCollection"/> for.</param>
+        /// <param name="referenceLine">The reference line to map the sections to.</param>
         /// <returns>An <see cref="ExportableCombinedSectionAssemblyCollection"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="combinedSectionAssemblyResults"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static ExportableCombinedSectionAssemblyCollection CreateExportableCombinedSectionAssemblyCollection(
-            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults)
+            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults,
+            ReferenceLine referenceLine)
         {
             if (combinedSectionAssemblyResults == null)
             {
                 throw new ArgumentNullException(nameof(combinedSectionAssemblyResults));
+            }
+
+            if (referenceLine == null)
+            {
+                throw new ArgumentNullException(nameof(referenceLine));
             }
 
             var sections = new List<ExportableCombinedFailureMechanismSection>();

@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
@@ -38,11 +39,23 @@ namespace Ringtoets.Integration.IO.Test.Factories
         public void CreateExportableCombinedSectionAssemblyCollection_CombinedSectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(null);
+            TestDelegate call = () => ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(null, new ReferenceLine());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("combinedSectionAssemblyResults", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableCombinedSectionAssemblyCollection_ReferenceLineNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(
+                Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("referenceLine", exception.ParamName);
         }
 
         [Test]
@@ -57,7 +70,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             ExportableCombinedSectionAssemblyCollection exportableCombinedSectionAssembly =
-                ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults);
+                ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, new ReferenceLine());
 
             // Assert
             AssertCombinedFailureMechanismSectionAssemblyResults(assemblyResults,
