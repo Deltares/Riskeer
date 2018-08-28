@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.IO.Helpers
                     point
                 });
 
-                sectionLengthOnReferenceLine = sectionLengthOnReferenceLine + pointsLength;
+                sectionLengthOnReferenceLine += pointsLength;
 
                 if (sectionLength > sectionLengthOnReferenceLine)
                 {
@@ -118,7 +118,8 @@ namespace Ringtoets.Integration.IO.Helpers
                 }
                 else if (sectionLength < sectionLengthOnReferenceLine)
                 {
-                    sectionPoints.Add(InterpolatePoint(lastPoint, point, sectionLengthOnReferenceLine - sectionLength));
+                    double distance = pointsLength - (sectionLengthOnReferenceLine - sectionLength);
+                    sectionPoints.Add(InterpolatePoint(lastPoint, point, distance));
                     break;
                 }
             }
@@ -147,7 +148,7 @@ namespace Ringtoets.Integration.IO.Helpers
                     referenceLinePoints[i]
                 });
 
-                totalLength = totalLength + pointsLength;
+                totalLength += pointsLength;
 
                 if (Math.Abs(totalLength - sectionStart) < 1e-6)
                 {
@@ -157,7 +158,8 @@ namespace Ringtoets.Integration.IO.Helpers
 
                 if (totalLength > sectionStart)
                 {
-                    startPoint = InterpolatePoint(referenceLinePoints[i - 1], referenceLinePoints[i], sectionStart - (totalLength - pointsLength));
+                    double distance = sectionStart - (totalLength - pointsLength);
+                    startPoint = InterpolatePoint(referenceLinePoints[i - 1], referenceLinePoints[i], distance);
                     index = i - 1;
                     break;
                 }
