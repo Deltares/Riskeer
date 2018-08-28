@@ -132,4 +132,7 @@
   <data name="SerializableFailureMechanismCreator_IdPrefix" xml:space="preserve">
     <value>Ts</value>
   </data>
+  <data name="SerializableFailureMechanismSection_IdPrefix" xml:space="preserve">
+    <value>Wks</value>
+  </data>
 </root>

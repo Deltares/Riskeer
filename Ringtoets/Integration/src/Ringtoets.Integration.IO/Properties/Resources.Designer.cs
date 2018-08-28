@@ -118,6 +118,15 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wks.
+        /// </summary>
+        internal static string SerializableFailureMechanismSection_IdPrefix {
+            get {
+                return ResourceManager.GetString("SerializableFailureMechanismSection_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vo.
         /// </summary>
         internal static string SerializableTotalAssemblyResult_IdPrefix {

@@ -46,6 +46,7 @@
     <Compile Include="Creators\SerializableFailureMechanismResultCreator.cs" />
     <Compile Include="Creators\SerializableFailureMechanismSectionCategoryGroupCreator.cs" />
     <Compile Include="Creators\SerializableFailureMechanismSectionAssemblyResultCreator.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismSectionCreator.cs" />
     <Compile Include="Creators\SerializableFailureMechanismTypeCreator.cs" />
     <Compile Include="Creators\SerializableTotalAssemblyResultCreator.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporter.cs" />
