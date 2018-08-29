@@ -22,7 +22,6 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
-using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 
 namespace Ringtoets.Integration.IO.Test
 {
@@ -34,7 +33,7 @@ namespace Ringtoets.Integration.IO.Test
         {
             // Call
             TestDelegate call = () =>
-                new AggregatedSerializableFailureMechanismSectionAssembly(null, new SerializableFailureMechanismSectionAssemblyResult());
+                new AggregatedSerializableFailureMechanismSectionAssembly(null, new SerializableFailureMechanismSectionAssembly());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -58,7 +57,7 @@ namespace Ringtoets.Integration.IO.Test
         {
             // Setup
             var section = new SerializableFailureMechanismSection();
-            var sectionAssemblyResult = new SerializableFailureMechanismSectionAssemblyResult();
+            var sectionAssemblyResult = new SerializableFailureMechanismSectionAssembly();
 
             // Call
             var aggregatedResult =
@@ -66,7 +65,7 @@ namespace Ringtoets.Integration.IO.Test
 
             // Assert
             Assert.AreSame(section, aggregatedResult.FailureMechanismSection);
-            Assert.AreSame(sectionAssemblyResult, aggregatedResult.FailureMechanismSectionAssemblyResult);
+            Assert.AreSame(sectionAssemblyResult, aggregatedResult.FailureMechanismSectionAssembly);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Ringtoets.Integration.IO
 {
     /// <summary>
     /// Class that holds all the information related to creating a
-    /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.
+    /// <see cref="SerializableFailureMechanismSectionAssembly"/>.
     /// </summary>
     public class AggregatedSerializableFailureMechanismSectionAssembly
     {
@@ -35,24 +35,24 @@ namespace Ringtoets.Integration.IO
         /// Instantiates a <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.
         /// </summary>
         /// <param name="failureMechanismSection">The <see cref="SerializableFailureMechanismSection"/></param>
-        /// <param name="failureMechanismSectionAssemblyResult">The <see cref="SerializableFailureMechanismSectionAssemblyResult"/>
+        /// <param name="failureMechanismSectionAssembly">The <see cref="SerializableFailureMechanismSectionAssembly"/>
         /// that is associated with <paramref name="failureMechanismSection"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public AggregatedSerializableFailureMechanismSectionAssembly(SerializableFailureMechanismSection failureMechanismSection,
-                                                                     SerializableFailureMechanismSectionAssemblyResult failureMechanismSectionAssemblyResult)
+                                                                     SerializableFailureMechanismSectionAssembly failureMechanismSectionAssembly)
         {
             if (failureMechanismSection == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSection));
             }
 
-            if (failureMechanismSectionAssemblyResult == null)
+            if (failureMechanismSectionAssembly == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanismSectionAssemblyResult));
+                throw new ArgumentNullException(nameof(failureMechanismSectionAssembly));
             }
 
             FailureMechanismSection = failureMechanismSection;
-            FailureMechanismSectionAssemblyResult = failureMechanismSectionAssemblyResult;
+            FailureMechanismSectionAssembly = failureMechanismSectionAssembly;
         }
 
         /// <summary>
@@ -63,6 +63,6 @@ namespace Ringtoets.Integration.IO
         /// <summary>
         /// Gets the failure mechanism section assembly result.
         /// </summary>
-        public SerializableFailureMechanismSectionAssemblyResult FailureMechanismSectionAssemblyResult { get; }
+        public SerializableFailureMechanismSectionAssembly FailureMechanismSectionAssembly { get; }
     }
 }
