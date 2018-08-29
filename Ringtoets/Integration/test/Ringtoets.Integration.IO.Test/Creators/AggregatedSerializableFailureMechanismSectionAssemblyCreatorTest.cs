@@ -34,21 +34,21 @@ using Ringtoets.Integration.IO.TestUtil;
 namespace Ringtoets.Integration.IO.Test.Creators
 {
     [TestFixture]
-    public class SerializableFailureMechanismSectionAssemblyCreatorTest
+    public class AggregatedSerializableFailureMechanismSectionAssemblyCreatorTest
     {
         [Test]
         public void CreateWithoutProbability_IdGeneratorNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyCreator.Create(null,
-                                                                                                new SerializableFailureMechanismSectionCollection(),
-                                                                                                new SerializableFailureMechanism(),
-                                                                                                new ExportableAggregatedFailureMechanismSectionAssemblyResult(
-                                                                                                    ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                                                                                                    CreateSectionAssemblyResult(10),
-                                                                                                    CreateSectionAssemblyResult(11),
-                                                                                                    CreateSectionAssemblyResult(12),
-                                                                                                    CreateSectionAssemblyResult(13)));
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(null,
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResult(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResult(10),
+                                                                                                              CreateSectionAssemblyResult(11),
+                                                                                                              CreateSectionAssemblyResult(12),
+                                                                                                              CreateSectionAssemblyResult(13)));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,15 +59,15 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutProbability_SerializableFailureMechanismSectionCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                                null,
-                                                                                                new SerializableFailureMechanism(),
-                                                                                                new ExportableAggregatedFailureMechanismSectionAssemblyResult(
-                                                                                                    ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                                                                                                    CreateSectionAssemblyResult(10),
-                                                                                                    CreateSectionAssemblyResult(11),
-                                                                                                    CreateSectionAssemblyResult(12),
-                                                                                                    CreateSectionAssemblyResult(13)));
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                                          null,
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResult(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResult(10),
+                                                                                                              CreateSectionAssemblyResult(11),
+                                                                                                              CreateSectionAssemblyResult(12),
+                                                                                                              CreateSectionAssemblyResult(13)));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -78,15 +78,15 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutProbability_SerializableFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                                new SerializableFailureMechanismSectionCollection(),
-                                                                                                null,
-                                                                                                new ExportableAggregatedFailureMechanismSectionAssemblyResult(
-                                                                                                    ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                                                                                                    CreateSectionAssemblyResult(10),
-                                                                                                    CreateSectionAssemblyResult(11),
-                                                                                                    CreateSectionAssemblyResult(12),
-                                                                                                    CreateSectionAssemblyResult(13)));
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          null,
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResult(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResult(10),
+                                                                                                              CreateSectionAssemblyResult(11),
+                                                                                                              CreateSectionAssemblyResult(12),
+                                                                                                              CreateSectionAssemblyResult(13)));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -97,10 +97,10 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                                new SerializableFailureMechanismSectionCollection(),
-                                                                                                new SerializableFailureMechanism(),
-                                                                                                (ExportableAggregatedFailureMechanismSectionAssemblyResult) null);
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          (ExportableAggregatedFailureMechanismSectionAssemblyResult) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Call
             SerializableFailureMechanismSectionAssembly serializableSectionAssembly =
-                SerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, sectionResult);
+                AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, sectionResult);
 
             // Assert
             Assert.AreEqual("T.0", serializableSectionAssembly.Id);
@@ -160,15 +160,15 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithProbability_IdGeneratorNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyCreator.Create(null,
-                                                                                                new SerializableFailureMechanismSectionCollection(),
-                                                                                                new SerializableFailureMechanism(),
-                                                                                                new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
-                                                                                                    ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                                                                                                    CreateSectionAssemblyResultWithProbability(10),
-                                                                                                    CreateSectionAssemblyResultWithProbability(11),
-                                                                                                    CreateSectionAssemblyResultWithProbability(12),
-                                                                                                    CreateSectionAssemblyResultWithProbability(13)));
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(null,
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResultWithProbability(10),
+                                                                                                              CreateSectionAssemblyResultWithProbability(11),
+                                                                                                              CreateSectionAssemblyResultWithProbability(12),
+                                                                                                              CreateSectionAssemblyResultWithProbability(13)));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -179,15 +179,15 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithProbability_SerializableFailureMechanismSectionCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                                null,
-                                                                                                new SerializableFailureMechanism(),
-                                                                                                new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
-                                                                                                    ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                                                                                                    CreateSectionAssemblyResultWithProbability(10),
-                                                                                                    CreateSectionAssemblyResultWithProbability(11),
-                                                                                                    CreateSectionAssemblyResultWithProbability(12),
-                                                                                                    CreateSectionAssemblyResultWithProbability(13)));
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                                          null,
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResultWithProbability(10),
+                                                                                                              CreateSectionAssemblyResultWithProbability(11),
+                                                                                                              CreateSectionAssemblyResultWithProbability(12),
+                                                                                                              CreateSectionAssemblyResultWithProbability(13)));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -198,15 +198,15 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithProbability_SerializableFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                                new SerializableFailureMechanismSectionCollection(),
-                                                                                                null,
-                                                                                                new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
-                                                                                                    ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                                                                                                    CreateSectionAssemblyResultWithProbability(10),
-                                                                                                    CreateSectionAssemblyResultWithProbability(11),
-                                                                                                    CreateSectionAssemblyResultWithProbability(12),
-                                                                                                    CreateSectionAssemblyResultWithProbability(13)));
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          null,
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResultWithProbability(10),
+                                                                                                              CreateSectionAssemblyResultWithProbability(11),
+                                                                                                              CreateSectionAssemblyResultWithProbability(12),
+                                                                                                              CreateSectionAssemblyResultWithProbability(13)));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -217,10 +217,10 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                                new SerializableFailureMechanismSectionCollection(),
-                                                                                                new SerializableFailureMechanism(),
-                                                                                                (ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability) null);
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          (ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -253,7 +253,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Call
             SerializableFailureMechanismSectionAssembly serializableSectionAssembly =
-                SerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, sectionResult);
+                AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, sectionResult);
 
             // Assert
             Assert.AreEqual("T.0", serializableSectionAssembly.Id);
@@ -280,14 +280,14 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutDetailedAssembly_IdGeneratorNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyCreator.Create(null,
-                                                                                                new SerializableFailureMechanismSectionCollection(),
-                                                                                                new SerializableFailureMechanism(),
-                                                                                                new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
-                                                                                                    ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                                                                                                    CreateSectionAssemblyResultWithProbability(10),
-                                                                                                    CreateSectionAssemblyResultWithProbability(11),
-                                                                                                    CreateSectionAssemblyResultWithProbability(12)));
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(null,
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResultWithProbability(10),
+                                                                                                              CreateSectionAssemblyResultWithProbability(11),
+                                                                                                              CreateSectionAssemblyResultWithProbability(12)));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -298,14 +298,14 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutDetailedAssembly_SerializableFailureMechanismSectionCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                                null,
-                                                                                                new SerializableFailureMechanism(),
-                                                                                                new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
-                                                                                                    ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                                                                                                    CreateSectionAssemblyResultWithProbability(10),
-                                                                                                    CreateSectionAssemblyResultWithProbability(11),
-                                                                                                    CreateSectionAssemblyResultWithProbability(12)));
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                                          null,
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResultWithProbability(10),
+                                                                                                              CreateSectionAssemblyResultWithProbability(11),
+                                                                                                              CreateSectionAssemblyResultWithProbability(12)));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -316,14 +316,14 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutDetailedAssembly_SerializableFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                                new SerializableFailureMechanismSectionCollection(),
-                                                                                                null,
-                                                                                                new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
-                                                                                                    ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                                                                                                    CreateSectionAssemblyResultWithProbability(10),
-                                                                                                    CreateSectionAssemblyResultWithProbability(11),
-                                                                                                    CreateSectionAssemblyResultWithProbability(12)));
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          null,
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResultWithProbability(10),
+                                                                                                              CreateSectionAssemblyResultWithProbability(11),
+                                                                                                              CreateSectionAssemblyResultWithProbability(12)));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -334,10 +334,10 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutDetailedAssembly_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                                new SerializableFailureMechanismSectionCollection(),
-                                                                                                new SerializableFailureMechanism(),
-                                                                                                (ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly)null);
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          (ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -369,7 +369,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Call
             SerializableFailureMechanismSectionAssembly serializableSectionAssembly =
-                SerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, sectionResult);
+                AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, sectionResult);
 
             // Assert
             Assert.AreEqual("T.0", serializableSectionAssembly.Id);

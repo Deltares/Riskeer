@@ -48,7 +48,7 @@
     <Compile Include="Creators\SerializableFailureMechanismCreatorTest.cs" />
     <Compile Include="Creators\SerializableFailureMechanismGroupCreatorTest.cs" />
     <Compile Include="Creators\SerializableFailureMechanismResultCreatorTest.cs" />
-    <Compile Include="Creators\SerializableFailureMechanismSectionAssemblyCreatorTest.cs" />
+    <Compile Include="Creators\AggregatedSerializableFailureMechanismSectionAssemblyCreatorTest.cs" />
     <Compile Include="Creators\SerializableFailureMechanismSectionCreatorTest.cs" />
     <Compile Include="Creators\SerializableFailureMechanismSectionCategoryGroupCreatorTest.cs" />
     <Compile Include="Creators\SerializableFailureMechanismSectionAssemblyResultCreatorTest.cs" />
