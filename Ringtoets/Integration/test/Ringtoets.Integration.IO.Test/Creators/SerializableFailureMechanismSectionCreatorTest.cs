@@ -22,8 +22,6 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
-using Ringtoets.AssemblyTool.IO.Model.Enums;
-using Ringtoets.AssemblyTool.IO.Model.Helpers;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
 using Ringtoets.Integration.IO.Helpers;
@@ -51,7 +49,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void Create_CollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new UniqueIdentifierGenerator(), 
+            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new UniqueIdentifierGenerator(),
                                                                                         null,
                                                                                         ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection());
 
@@ -64,7 +62,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void Create_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new UniqueIdentifierGenerator(), 
+            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new UniqueIdentifierGenerator(),
                                                                                         new SerializableFailureMechanismSectionCollection(),
                                                                                         null);
 
@@ -88,16 +86,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                 SerializableFailureMechanismSectionCreator.Create(idGenerator, collection, section);
 
             // Assert
-            Assert.AreEqual("Wks.0", serializableSection.Id);
-            Assert.AreEqual(collection.Id, serializableSection.FailureMechanismSectionCollectionId);
-
-            Assert.AreEqual(GeometrySerializationFormatter.Format(section.Geometry),
-                            serializableSection.Geometry.LineString.Geometry);
-            Assert.AreEqual(section.StartDistance, serializableSection.StartDistance.Value);
-            Assert.AreEqual(section.EndDistance, serializableSection.EndDistance.Value);
-            Assert.AreEqual(SerializableFailureMechanismSectionType.FailureMechanism,
-                            serializableSection.FailureMechanismSectionType);
-            Assert.IsNull(serializableSection.AssemblyMethod);
+            SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(section, collection, serializableSection);
         }
     }
 }
