@@ -32,12 +32,18 @@ namespace Core.Common.TestUtil
         /// Returns a collection of invalid paths.
         /// </summary>
         /// <example>[TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]</example>
-        public static readonly string[] InvalidPaths =
+        public static string[] InvalidPaths
         {
-            "",
-            "   ",
-            $@"C:{Path.DirectorySeparatorChar}>",
-            $@"C:{Path.DirectorySeparatorChar}"
-        };
+            get
+            {
+                return new[]
+                {
+                    "",
+                    "   ",
+                    $@"C:{Path.DirectorySeparatorChar}>",
+                    $@"C:{Path.DirectorySeparatorChar}"
+                };
+            }
+        }
     }
 }
