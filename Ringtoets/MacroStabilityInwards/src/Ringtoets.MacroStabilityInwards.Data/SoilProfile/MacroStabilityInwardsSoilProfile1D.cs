@@ -148,10 +148,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 int hashCode = Bottom.GetHashCode();
                 hashCode = (hashCode * 397) ^ Name.GetHashCode();
-                foreach (MacroStabilityInwardsSoilLayer1D layer in layers)
-                {
-                    hashCode = (hashCode * 397) ^ layer.GetHashCode();
-                }
                 return hashCode;
             }
         }

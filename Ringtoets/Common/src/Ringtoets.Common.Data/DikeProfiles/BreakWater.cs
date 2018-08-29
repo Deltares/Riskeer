@@ -81,11 +81,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hashCode = height.GetHashCode();
-                return (hashCode * 397) ^ (int) Type;
-            }
+            return 0;
         }
 
         public object Clone()

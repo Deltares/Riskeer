@@ -268,12 +268,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         {
             unchecked
             {
-                int hashCode = StringComparer.InvariantCulture.GetHashCode(materialName);
-                hashCode = (hashCode * 397) ^ IsAquifer.GetHashCode();
-                hashCode = (hashCode * 397) ^ Color.GetHashCode();
-                hashCode = (hashCode * 397) ^ UsePop.GetHashCode();
-                hashCode = (hashCode * 397) ^ ShearStrengthModel.GetHashCode();
-                hashCode = (hashCode * 397) ^ AbovePhreaticLevel.GetHashCode();
+                int hashCode = AbovePhreaticLevel.GetHashCode();
                 hashCode = (hashCode * 397) ^ BelowPhreaticLevel.GetHashCode();
                 hashCode = (hashCode * 397) ^ Cohesion.GetHashCode();
                 hashCode = (hashCode * 397) ^ FrictionAngle.GetHashCode();
