@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregatedSerializableFailureMechanism.cs" />
+    <Compile Include="AggregatedSerializableFailureMechanismSectionAssembly.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultBase.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly.cs" />
     <Compile Include="Assembly\ExportableAssessmentSection.cs" />
