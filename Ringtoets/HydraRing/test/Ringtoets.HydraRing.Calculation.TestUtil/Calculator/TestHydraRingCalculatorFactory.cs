@@ -105,11 +105,20 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 
     public class TestHydraRingCalculator<T>
     {
-        public readonly List<T> ReceivedInputs = new List<T>();
         public readonly HydraRingCalculationException HydraRingCalculationException = new HydraRingCalculationException();
+        private readonly List<T> receivedInputs = new List<T>();
         public event EventHandler CalculationFinishedHandler;
+
         public bool EndInFailure { get; set; }
         public bool IsCanceled { get; private set; }
+
+        public IEnumerable<T> ReceivedInputs
+        {
+            get
+            {
+                return receivedInputs;
+            }
+        }
 
         public GeneralResult IllustrationPointsResult { get; set; }
 
@@ -119,7 +128,8 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
             {
                 throw HydraRingCalculationException;
             }
-            ReceivedInputs.Add(input);
+
+            receivedInputs.Add(input);
 
             CalculationFinished(EventArgs.Empty);
         }
