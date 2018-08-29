@@ -83,30 +83,30 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
             return new MacroStabilityInwardsCalculationConfigurationReader(xmlFilePath);
         }
 
-        protected override ICalculation ParseReadCalculation(MacroStabilityInwardsCalculationConfiguration calculationConfiguration)
+        protected override ICalculation ParseReadCalculation(MacroStabilityInwardsCalculationConfiguration readCalculation)
         {
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
-                Name = calculationConfiguration.Name
+                Name = readCalculation.Name
             };
 
-            if (TrySetHydraulicBoundaryData(calculationConfiguration, calculation)
-                && TrySetSurfaceLine(calculationConfiguration, calculation)
-                && TrySetStochasticSoilModel(calculationConfiguration, calculation)
-                && TrySetStochasticSoilProfile(calculationConfiguration, calculation)
-                && TrySetScenarioParameters(calculationConfiguration.Scenario, calculation)
-                && TrySetTangentLineZTopBottom(calculationConfiguration, calculation)
-                && TrySetTangentLineNumber(calculationConfiguration, calculation)
-                && TrySetGrids(calculationConfiguration, calculation))
+            if (TrySetHydraulicBoundaryData(readCalculation, calculation)
+                && TrySetSurfaceLine(readCalculation, calculation)
+                && TrySetStochasticSoilModel(readCalculation, calculation)
+                && TrySetStochasticSoilProfile(readCalculation, calculation)
+                && TrySetScenarioParameters(readCalculation.Scenario, calculation)
+                && TrySetTangentLineZTopBottom(readCalculation, calculation)
+                && TrySetTangentLineNumber(readCalculation, calculation)
+                && TrySetGrids(readCalculation, calculation))
             {
-                SetSimpleProperties(calculationConfiguration, calculation.InputParameters);
+                SetSimpleProperties(readCalculation, calculation.InputParameters);
 
-                SetZoningBoundariesDeterminationType(calculationConfiguration, calculation.InputParameters);
-                SetDikeSoilScenario(calculationConfiguration, calculation.InputParameters);
-                SetGridDeterminationType(calculationConfiguration, calculation.InputParameters);
-                SetTangentLineDeterminationType(calculationConfiguration, calculation.InputParameters);
-                SetMacroStabilityInwardsLocationInput(calculationConfiguration.LocationInputDaily, calculation.InputParameters.LocationInputDaily);
-                SetMacroStabilityInwardsLocationInputExtreme(calculationConfiguration.LocationInputExtreme, calculation.InputParameters.LocationInputExtreme);
+                SetZoningBoundariesDeterminationType(readCalculation, calculation.InputParameters);
+                SetDikeSoilScenario(readCalculation, calculation.InputParameters);
+                SetGridDeterminationType(readCalculation, calculation.InputParameters);
+                SetTangentLineDeterminationType(readCalculation, calculation.InputParameters);
+                SetMacroStabilityInwardsLocationInput(readCalculation.LocationInputDaily, calculation.InputParameters.LocationInputDaily);
+                SetMacroStabilityInwardsLocationInputExtreme(readCalculation.LocationInputExtreme, calculation.InputParameters.LocationInputExtreme);
                 return calculation;
             }
 
