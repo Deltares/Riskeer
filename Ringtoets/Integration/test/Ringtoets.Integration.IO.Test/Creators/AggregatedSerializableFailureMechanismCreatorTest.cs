@@ -40,6 +40,140 @@ namespace Ringtoets.Integration.IO.Test.Creators
     public class AggregatedSerializableFailureMechanismCreatorTest
     {
         [Test]
+        public void CreateFailureMechanismWithoutProbability_IdGeneratorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismCreator.Create(null,
+                                                                                           new SerializableTotalAssemblyResult(),
+                                                                                           new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+                                                                                               ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
+                                                                                               Enumerable.Empty<ExportableFailureMechanismSection>(),
+                                                                                               Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
+                                                                                               random.NextEnumValue<ExportableFailureMechanismType>(),
+                                                                                               random.NextEnumValue<ExportableFailureMechanismGroup>()));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("idGenerator", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateFailureMechanismWithoutProbability_TotalAssemblyResultNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                           null,
+                                                                                           new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+                                                                                               ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
+                                                                                               Enumerable.Empty<ExportableFailureMechanismSection>(),
+                                                                                               Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
+                                                                                               random.NextEnumValue<ExportableFailureMechanismType>(),
+                                                                                               random.NextEnumValue<ExportableFailureMechanismGroup>()));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("serializableTotalAssemblyResult", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateFailureMechanismWithoutProbability_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                           new SerializableTotalAssemblyResult(),
+                                                                                           (ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateFailureMechanismWithoutProbability_WithUnsupportedAggregatedSectionResult_ThrowsNotSupportedException()
+        {
+            // Setup
+            var random = new Random(21);
+            ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
+
+            var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
+                Enumerable.Empty<ExportableFailureMechanismSection>(),
+                new[]
+                {
+                    new UnsupportedExportableAggregatedFailureMechanismSectionAssemblyResult(section)
+                },
+                random.NextEnumValue<ExportableFailureMechanismType>(),
+                random.NextEnumValue<ExportableFailureMechanismGroup>());
+
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                           new SerializableTotalAssemblyResult(),
+                                                                                           failureMechanism);
+
+            // Assert
+            var exception = Assert.Throws<NotSupportedException>(call);
+            Assert.AreEqual($"{nameof(UnsupportedExportableAggregatedFailureMechanismSectionAssemblyResult)} is not supported.",
+                            exception.Message);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetSectionAssemblyConfigurations))]
+        public void CreateFailureMechanismWithoutProbabilityAndSectionAssemblyResultsWithProbability_WithValidArguments_ReturnsAggregatedSerializableFailureMechanism(
+            IEnumerable<ExportableFailureMechanismSection> failureMechanismSections,
+            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> failureMechanismSectionAssemblyResults,
+            Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase, SerializableFailureMechanismSectionAssembly> assertSectionAssemblyResultsAction)
+        {
+            // Setup
+            var random = new Random(21);
+            var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
+                failureMechanismSections,
+                failureMechanismSectionAssemblyResults,
+                random.NextEnumValue<ExportableFailureMechanismType>(),
+                random.NextEnumValue<ExportableFailureMechanismGroup>());
+
+            var idGenerator = new UniqueIdentifierGenerator();
+
+            const string totalAssemblyId = "totalAssemblyId";
+            SerializableTotalAssemblyResult serializableTotalAssembly = CreateSerializableTotalAssembly(totalAssemblyId);
+
+            // Precondition
+            Assert.AreEqual(failureMechanism.Sections.Count(), failureMechanism.SectionAssemblyResults.Count());
+
+            // Call
+            AggregatedSerializableFailureMechanism aggregatedFailureMechanism =
+                AggregatedSerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssembly, failureMechanism);
+
+            // Assert
+            SerializableFailureMechanism serializableFailureMechanism = aggregatedFailureMechanism.FailureMechanism;
+            Assert.AreEqual("Ts.0", serializableFailureMechanism.Id);
+            Assert.AreEqual(serializableTotalAssembly.Id, serializableFailureMechanism.TotalAssemblyResultId);
+            Assert.AreEqual(SerializableFailureMechanismGroupCreator.Create(failureMechanism.Group), serializableFailureMechanism.FailureMechanismGroup);
+            Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(failureMechanism.Code), serializableFailureMechanism.FailureMechanismType);
+
+            SerializableFailureMechanismAssemblyResultTestHelper.AssertSerializableFailureMechanismAssemblyResult(failureMechanism.FailureMechanismAssembly,
+                                                                                                                  serializableFailureMechanism.FailureMechanismAssemblyResult);
+
+            SerializableFailureMechanismSectionCollection serializableFailureMechanismSectionCollection = aggregatedFailureMechanism.FailureMechanismSectionCollection;
+            Assert.AreEqual("Vi.1", serializableFailureMechanismSectionCollection.Id);
+            Assert.AreEqual(serializableFailureMechanism.Id, serializableFailureMechanismSectionCollection.FailureMechanismId);
+
+            AssertFailureMechanismSectionAssemblies(2,
+                                                    failureMechanism,
+                                                    serializableFailureMechanismSectionCollection,
+                                                    serializableFailureMechanism,
+                                                    aggregatedFailureMechanism.FailureMechanismSections,
+                                                    aggregatedFailureMechanism.FailureMechanismSectionAssemblyResults,
+                                                    assertSectionAssemblyResultsAction);
+        }
+
+        [Test]
         public void CreateFailureMechanismWithProbability_IdGeneratorNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -87,7 +221,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Call
             TestDelegate call = () => AggregatedSerializableFailureMechanismCreator.Create(new UniqueIdentifierGenerator(),
                                                                                            new SerializableTotalAssemblyResult(),
-                                                                                           null);
+                                                                                           (ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

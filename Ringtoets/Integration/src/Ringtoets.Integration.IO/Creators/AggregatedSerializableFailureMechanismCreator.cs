@@ -37,6 +37,53 @@ namespace Ringtoets.Integration.IO.Creators
         /// </summary>
         /// <param name="idGenerator">The id generator to generate an id for the serializable components.</param>
         /// <param name="serializableTotalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/> the serializable components belong to.</param>
+        /// <param name="failureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> without a probability to
+        /// create a <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
+        /// <returns>A <see cref="AggregatedSerializableFailureMechanism"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+        /// contains unsupported items in the failure mechanism section assembly results.</exception>
+        public static AggregatedSerializableFailureMechanism Create(UniqueIdentifierGenerator idGenerator,
+                                                                    SerializableTotalAssemblyResult serializableTotalAssemblyResult,
+                                                                    ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism)
+        {
+            if (idGenerator == null)
+            {
+                throw new ArgumentNullException(nameof(idGenerator));
+            }
+
+            if (serializableTotalAssemblyResult == null)
+            {
+                throw new ArgumentNullException(nameof(serializableTotalAssemblyResult));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            SerializableFailureMechanism serializableFailureMechanism = SerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(idGenerator.GetNewId("Vi"), serializableFailureMechanism);
+
+            AggregatedSerializableFailureMechanismSectionAssembly[] serializableFailureMechanismSectionAssemblyResults =
+                failureMechanism.SectionAssemblyResults
+                                .Select(sectionAssemblyResult => CreateFailureMechanismSectionAssembly(idGenerator,
+                                                                                                       serializableFailureMechanism,
+                                                                                                       serializableCollection,
+                                                                                                       sectionAssemblyResult))
+                                .ToArray();
+
+            return new AggregatedSerializableFailureMechanism(serializableFailureMechanism,
+                                                              serializableCollection,
+                                                              serializableFailureMechanismSectionAssemblyResults.Select(fmr => fmr.FailureMechanismSection),
+                                                              serializableFailureMechanismSectionAssemblyResults.Select(fmr => fmr.FailureMechanismSectionAssembly));
+        }
+
+        /// <summary>
+        /// Creates an instance of an <see cref="AggregatedSerializableFailureMechanism"/> based on its input parameters.
+        /// </summary>
+        /// <param name="idGenerator">The id generator to generate an id for the serializable components.</param>
+        /// <param name="serializableTotalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/> the serializable components belong to.</param>
         /// <param name="failureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with a probability to
         /// create a <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
         /// <returns>A <see cref="AggregatedSerializableFailureMechanism"/>.</returns>
