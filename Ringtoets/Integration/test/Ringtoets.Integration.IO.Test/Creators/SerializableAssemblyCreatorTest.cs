@@ -94,13 +94,15 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Assert
             Assert.AreEqual("Assemblage.0", serializableAssembly.Id);
             AssertSerializableBoundary(exportableAssessmentSection.Geometry, serializableAssembly.Boundary);
-            Assert.AreEqual(15, serializableAssembly.FeatureMembers.Length);
 
-            var serializableAssessmentSection = (SerializableAssessmentSection) serializableAssembly.FeatureMembers[0];
+            SerializableFeatureMember[] serializableAssemblyFeatureMembers = serializableAssembly.FeatureMembers;
+            Assert.AreEqual(19, serializableAssemblyFeatureMembers.Length);
+
+            var serializableAssessmentSection = (SerializableAssessmentSection) serializableAssemblyFeatureMembers[0];
             AssertSerializableAssessmentSection($"Wks.{assessmentSectionId}", assessmentSectionName, geometry, serializableAssessmentSection);
-            var serializableAssessmentProcess = (SerializableAssessmentProcess) serializableAssembly.FeatureMembers[1];
+            var serializableAssessmentProcess = (SerializableAssessmentProcess) serializableAssemblyFeatureMembers[1];
             AssertSerializableAssessmentProcess("Bp.1", serializableAssessmentSection, serializableAssessmentProcess);
-            var serializableTotalAssemblyResult = (SerializableTotalAssemblyResult) serializableAssembly.FeatureMembers[2];
+            var serializableTotalAssemblyResult = (SerializableTotalAssemblyResult) serializableAssemblyFeatureMembers[2];
             AssertSerializableTotalAssemblyResult("Vo.2",
                                                   failureMechanismAssemblyResultWithoutProbability,
                                                   failureMechanismAssemblyResultWithProbability,
@@ -108,49 +110,71 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                   serializableAssessmentProcess,
                                                   serializableTotalAssemblyResult);
 
-            var failureMechanismWithProbability1 = (SerializableFailureMechanism) serializableAssembly.FeatureMembers[3];
+            var failureMechanismWithProbability1 = (SerializableFailureMechanism) serializableAssemblyFeatureMembers[3];
             AssertSerializableFailureMechanism("Ts.3",
                                                serializableTotalAssemblyResult,
                                                failureMechanismWithProbability1);
-            var failureMechanismSectionCollection1 = (SerializableFailureMechanismSectionCollection) serializableAssembly.FeatureMembers[7];
+            var failureMechanismSectionCollection1 = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[11];
             AssertSerializableFailureMechanismSectionCollection("Vi.4",
                                                                 failureMechanismWithProbability1,
                                                                 failureMechanismSectionCollection1);
-            AssertSerializableFailureMechanismSection("Wks.5", failureMechanismSectionCollection1,
-                                                      (SerializableFailureMechanismSection) serializableAssembly.FeatureMembers[11]);
+            var serializableFailureMechanismSection1 = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[15];
+            AssertSerializableFailureMechanismSection("Wks.5", 
+                                                      failureMechanismSectionCollection1,
+                                                      serializableFailureMechanismSection1);
+            AssertSerializableFailureMechanismSectionAssembly("T.6",
+                                                              failureMechanismWithProbability1, 
+                                                              serializableFailureMechanismSection1, 
+                                                              (SerializableFailureMechanismSectionAssembly) serializableAssemblyFeatureMembers[7]);
 
-            var failureMechanismWithProbability2 = (SerializableFailureMechanism) serializableAssembly.FeatureMembers[4];
+            var failureMechanismWithProbability2 = (SerializableFailureMechanism) serializableAssemblyFeatureMembers[4];
             AssertSerializableFailureMechanism("Ts.7",
                                                serializableTotalAssemblyResult,
                                                failureMechanismWithProbability2);
-            var failureMechanismSectionCollection2 = (SerializableFailureMechanismSectionCollection) serializableAssembly.FeatureMembers[8];
+            var failureMechanismSectionCollection2 = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[12];
             AssertSerializableFailureMechanismSectionCollection("Vi.8",
                                                                 failureMechanismWithProbability2,
                                                                 failureMechanismSectionCollection2);
-            AssertSerializableFailureMechanismSection("Wks.9", failureMechanismSectionCollection2,
-                                                      (SerializableFailureMechanismSection) serializableAssembly.FeatureMembers[12]);
+            var serializableFailureMechanismSection2 = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[16];
+            AssertSerializableFailureMechanismSection("Wks.9", 
+                                                      failureMechanismSectionCollection2,
+                                                      serializableFailureMechanismSection2);
+            AssertSerializableFailureMechanismSectionAssembly("T.10",
+                                                              failureMechanismWithProbability2,
+                                                              serializableFailureMechanismSection2,
+                                                              (SerializableFailureMechanismSectionAssembly)serializableAssemblyFeatureMembers[8]);
 
-            var failureMechanismWithoutProbability1 = (SerializableFailureMechanism) serializableAssembly.FeatureMembers[5];
+            var failureMechanismWithoutProbability1 = (SerializableFailureMechanism) serializableAssemblyFeatureMembers[5];
             AssertSerializableFailureMechanism("Ts.11",
                                                serializableTotalAssemblyResult,
                                                failureMechanismWithoutProbability1);
-            var failureMechanismSectionCollection3 = (SerializableFailureMechanismSectionCollection) serializableAssembly.FeatureMembers[9];
+            var failureMechanismSectionCollection3 = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[13];
             AssertSerializableFailureMechanismSectionCollection("Vi.12",
                                                                 failureMechanismWithoutProbability1,
                                                                 failureMechanismSectionCollection3);
+            var serializableFailureMechanismSection3 = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[17];
             AssertSerializableFailureMechanismSection("Wks.13", failureMechanismSectionCollection3,
-                                                      (SerializableFailureMechanismSection) serializableAssembly.FeatureMembers[13]);
+                                                      serializableFailureMechanismSection3);
+            AssertSerializableFailureMechanismSectionAssembly("T.14",
+                                                              failureMechanismWithoutProbability1,
+                                                              serializableFailureMechanismSection3,
+                                                              (SerializableFailureMechanismSectionAssembly)serializableAssemblyFeatureMembers[9]);
 
-            var failureMechanismWithoutProbability2 = (SerializableFailureMechanism) serializableAssembly.FeatureMembers[6];
+            var failureMechanismWithoutProbability2 = (SerializableFailureMechanism) serializableAssemblyFeatureMembers[6];
             AssertSerializableFailureMechanism("Ts.15",
                                                serializableTotalAssemblyResult,
                                                failureMechanismWithoutProbability2);
-            var failureMechanismSectionCollection4 = (SerializableFailureMechanismSectionCollection) serializableAssembly.FeatureMembers[10];
+            var failureMechanismSectionCollection4 = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[14];
             AssertSerializableFailureMechanismSectionCollection("Vi.16",
                                                                 failureMechanismWithoutProbability2,
                                                                 failureMechanismSectionCollection4);
+            var serializableFailureMechanismSection4 = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[18];
             AssertSerializableFailureMechanismSection("Wks.17", failureMechanismSectionCollection4,
-                                                      (SerializableFailureMechanismSection) serializableAssembly.FeatureMembers[14]);
+                                                      serializableFailureMechanismSection4);
+            AssertSerializableFailureMechanismSectionAssembly("T.18",
+                                                              failureMechanismWithoutProbability2,
+                                                              serializableFailureMechanismSection4,
+                                                              (SerializableFailureMechanismSectionAssembly)serializableAssemblyFeatureMembers[10]);
         }
 
         private static IEnumerable<Point2D> CreateGeometry()
@@ -312,11 +336,21 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         private static void AssertSerializableFailureMechanismSection(string expectedId,
-                                                                      SerializableFailureMechanismSectionCollection expectedFailureMechanismSectionCollection,
+                                                                      SerializableFailureMechanismSectionCollection expectedSerializableFailureMechanismSectionCollection,
                                                                       SerializableFailureMechanismSection serializableFailureMechanismSection)
         {
-            Assert.AreEqual(expectedFailureMechanismSectionCollection.Id, serializableFailureMechanismSection.FailureMechanismSectionCollectionId);
+            Assert.AreEqual(expectedSerializableFailureMechanismSectionCollection.Id, serializableFailureMechanismSection.FailureMechanismSectionCollectionId);
             Assert.AreEqual(expectedId, serializableFailureMechanismSection.Id);
+        }
+
+        private static void AssertSerializableFailureMechanismSectionAssembly(string expectedId,
+                                                                              SerializableFailureMechanism expectedSerializableFailureMechanism,
+                                                                              SerializableFailureMechanismSection expectedSerializableFailureMechanismSection,
+                                                                              SerializableFailureMechanismSectionAssembly serializableFailureMechanismSectionAssembly)
+        {
+            Assert.AreEqual(expectedSerializableFailureMechanism.Id, serializableFailureMechanismSectionAssembly.FailureMechanismId);
+            Assert.AreEqual(expectedSerializableFailureMechanismSection.Id, serializableFailureMechanismSectionAssembly.FailureMechanismSectionId);
+            Assert.AreEqual(expectedId, serializableFailureMechanismSectionAssembly.Id);
         }
     }
 }
