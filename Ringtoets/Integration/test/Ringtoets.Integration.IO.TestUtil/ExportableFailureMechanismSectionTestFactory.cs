@@ -42,5 +42,18 @@ namespace Ringtoets.Integration.IO.TestUtil
                 new Point2D(2, 2) 
             }, 1, 2);
         }
+
+        /// <summary>
+        /// Creates a default <see cref="ExportableCombinedFailureMechanismSection"/>.
+        /// </summary>
+        /// <returns>A default <see cref="ExportableCombinedFailureMechanismSection"/>.</returns>
+        public static ExportableCombinedFailureMechanismSection CreateExportableCombinedFailureMechanismSection()
+        {
+            return new ExportableCombinedFailureMechanismSection(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(3, 3)
+            }, 1, 3, ExportableAssemblyMethod.WBI3A1);
+        }
     }
 }

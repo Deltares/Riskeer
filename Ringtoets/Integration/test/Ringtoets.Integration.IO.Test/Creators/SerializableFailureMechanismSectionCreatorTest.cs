@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Call
             TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(null,
                                                                                         new SerializableFailureMechanismSectionCollection(),
-                                                                                        CreateCombinedFailureMechanismSection());
+                                                                                        ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -110,7 +110,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Call
             TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new UniqueIdentifierGenerator(),
                                                                                         null,
-                                                                                        CreateCombinedFailureMechanismSection());
+                                                                                        ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -141,7 +141,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             var collection = new SerializableFailureMechanismSectionCollection(collectionId, new SerializableFailureMechanism());
 
             var idGenerator = new UniqueIdentifierGenerator();
-            ExportableCombinedFailureMechanismSection section = CreateCombinedFailureMechanismSection();
+            ExportableCombinedFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();
 
             // Call
             SerializableFailureMechanismSection serializableSection =
@@ -149,16 +149,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(section, collection, serializableSection);
-        }
-
-        private static ExportableCombinedFailureMechanismSection CreateCombinedFailureMechanismSection()
-        {
-            var random = new Random(21);
-            return new ExportableCombinedFailureMechanismSection(new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            }, random.NextDouble(), random.NextDouble(), random.NextEnumValue<ExportableAssemblyMethod>());
         }
     }
 }

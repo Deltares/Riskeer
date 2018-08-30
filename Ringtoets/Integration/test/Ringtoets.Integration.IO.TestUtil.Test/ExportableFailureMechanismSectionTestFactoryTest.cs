@@ -43,5 +43,22 @@ namespace Ringtoets.Integration.IO.TestUtil.Test
             Assert.AreEqual(1, section.StartDistance);
             Assert.AreEqual(2, section.EndDistance);
         }
+
+        [Test]
+        public void CreateCombinedFailureMechanismSection_Always_ReturnsCombinedFailureMechanismSection()
+        {
+            // Call
+            ExportableCombinedFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(3, 3)
+            }, section.Geometry);
+            Assert.AreEqual(1, section.StartDistance);
+            Assert.AreEqual(3, section.EndDistance);
+            Assert.AreEqual(ExportableAssemblyMethod.WBI3A1, section.AssemblyMethod);
+        }
     }
 }
