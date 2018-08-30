@@ -59,7 +59,7 @@ namespace Core.Components.BruTile
         /// <remarks>When a <see cref="FileCache"/> for the given <paramref name="cacheDirectoryPath"/>
         /// already exists, this one is returned. A new <see cref="FileCache"/> is created otherwise.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="cacheDirectoryPath"/> is <c>null</c>.</exception>
-        public FileCache GetfileChache(string cacheDirectoryPath)
+        public FileCache GetFileCache(string cacheDirectoryPath)
         {
             if (cacheDirectoryPath == null)
             {
@@ -71,7 +71,7 @@ namespace Core.Components.BruTile
                 if (registeredFileCache.CacheDirectoryPath == cacheDirectoryPath)
                 {
                     registeredFileCache.CallCount++;
-                    return registeredFileCache.FileChache;
+                    return registeredFileCache.FileCache;
                 }
             }
 
@@ -98,7 +98,7 @@ namespace Core.Components.BruTile
 
             foreach (RegisteredFileCache registeredFileCache in registeredFileCaches)
             {
-                if (registeredFileCache.FileChache.Equals(fileCache))
+                if (registeredFileCache.FileCache.Equals(fileCache))
                 {
                     registeredFileCache.CallCount--;
 
@@ -127,11 +127,11 @@ namespace Core.Components.BruTile
             /// <summary>
             /// Creates a new <see cref="RegisteredFileCache"/>.
             /// </summary>
-            /// <param name="fileChache">The <see cref="FileChache"/> to register.</param>
+            /// <param name="fileCache">The <see cref="FileCache"/> to register.</param>
             /// <param name="cacheDirectoryPath">The directory path used by the <see cref="FileCache"/>.</param>
-            public RegisteredFileCache(FileCache fileChache, string cacheDirectoryPath)
+            public RegisteredFileCache(FileCache fileCache, string cacheDirectoryPath)
             {
-                FileChache = fileChache;
+                FileCache = fileCache;
                 CacheDirectoryPath = cacheDirectoryPath;
                 CallCount = 1;
             }
@@ -144,7 +144,7 @@ namespace Core.Components.BruTile
             /// <summary>
             /// Gets the <see cref="FileCache"/>.
             /// </summary>
-            public FileCache FileChache { get; private set; }
+            public FileCache FileCache { get; private set; }
 
             /// <summary>
             /// Gets the directory path used by the <see cref="FileCache"/>.
@@ -153,7 +153,7 @@ namespace Core.Components.BruTile
 
             public void Dispose()
             {
-                FileChache = null;
+                FileCache = null;
             }
         }
     }
