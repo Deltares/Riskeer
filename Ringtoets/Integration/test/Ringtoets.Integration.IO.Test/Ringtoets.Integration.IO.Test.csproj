@@ -38,6 +38,7 @@
     <Compile Include="Assembly\ExportableFailureMechanismSectionAssemblyResultWithProbabilityTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismTest.cs" />
     <Compile Include="Assembly\ExportableSectionAssemblyResultTest.cs" />
+    <Compile Include="Creators\AggregatedSerializableFailureMechanismCreatorTest.cs" />
     <Compile Include="Creators\SerializableAssemblyCreatorTest.cs" />
     <Compile Include="Creators\SerializableAssemblyMethodCreatorTest.cs" />
     <Compile Include="Creators\SerializableAssessmentProcessCreatorTest.cs" />
