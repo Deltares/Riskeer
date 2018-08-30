@@ -121,13 +121,6 @@ namespace Core.Plugins.ProjectExplorer
             active = true;
         }
 
-        public override void Dispose()
-        {
-            Deactivate();
-
-            base.Dispose();
-        }
-
         public override void Deactivate()
         {
             base.Deactivate();
@@ -138,6 +131,16 @@ namespace Core.Plugins.ProjectExplorer
                 projectExplorerViewController.Dispose();
                 active = false;
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Deactivate();
+            }
+
+            base.Dispose(disposing);
         }
 
         private void ApplicationProjectOpened(IProject project)

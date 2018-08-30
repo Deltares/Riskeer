@@ -51,6 +51,7 @@ namespace Core.Common.Util.IO
             {
                 throw new ArgumentNullException(nameof(assembly));
             }
+
             if (embeddedResourceFileNames == null)
             {
                 throw new ArgumentNullException(nameof(embeddedResourceFileNames));
@@ -73,12 +74,18 @@ namespace Core.Common.Util.IO
         /// </summary>
         public string TargetFolderPath { get; }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
         /// Disposes the <see cref="EmbeddedResourceFileWriter"/> instance.
         /// </summary>
-        public void Dispose()
+        protected virtual void Dispose(bool disposing)
         {
-            if (removeFilesOnDispose)
+            if (removeFilesOnDispose && disposing)
             {
                 Directory.Delete(TargetFolderPath, true);
             }

@@ -154,12 +154,15 @@ namespace Ringtoets.Common.IO.SurfaceLines
             return null;
         }
 
-        /// <summary>
-        /// Disposes the current <see cref="fileReader"/>.
-        /// </summary>
         public void Dispose()
         {
-            if (fileReader != null)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (fileReader != null && disposing)
             {
                 fileReader.Dispose();
                 fileReader = null;
@@ -185,6 +188,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                     break;
                 }
             }
+
             return readText;
         }
 
@@ -305,6 +309,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 locationIdColumnIndex = Array.IndexOf(tokenizedHeader, surfaceLineKey);
             }
+
             if (locationIdColumnIndex > -1)
             {
                 columnsInFile[locationIdKey] = locationIdColumnIndex;
@@ -313,6 +318,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 return false;
             }
+
             return true;
         }
 
@@ -334,8 +340,10 @@ namespace Ringtoets.Common.IO.SurfaceLines
                 {
                     count++;
                 }
+
                 lineNumberForMessage++;
             }
+
             return count;
         }
 
@@ -357,6 +365,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 throw CreateLineParseException(lineNumber, locationName, Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points);
             }
+
             var location = new CharacteristicPoints(locationName);
 
             SetCharacteristicPoints(tokenizedString, location);
@@ -428,6 +437,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                         point = null;
                     }
                 }
+
                 return point;
             }
             catch (FormatException e)
@@ -454,6 +464,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 throw CreateLineParseException(lineNumber, Resources.CharacteristicPointsCsvReader_ReadLine_Line_lacks_ID);
             }
+
             return name;
         }
 
@@ -470,6 +481,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                 throw CreateLineParseException(lineNumber, string.Format(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_,
                                                                          separator));
             }
+
             return readText.Split(separator)
                            .TakeWhile(text => !string.IsNullOrEmpty(text))
                            .ToArray();

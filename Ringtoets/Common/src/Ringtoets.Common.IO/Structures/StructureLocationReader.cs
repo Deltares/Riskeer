@@ -103,12 +103,22 @@ namespace Ringtoets.Common.IO.Structures
             {
                 throw new LineParseException(string.Format(Resources.StructuresReader_GetNextStructure_Invalid_KWKIDENT, idAttributeName));
             }
+
             return new StructureLocation(attributeIdValue, attributeNameValue, point);
         }
 
         public void Dispose()
         {
-            pointsShapeFileReader.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                pointsShapeFileReader.Dispose();
+            }
         }
 
         private static string GetIdAttributeValue(IDictionary<string, object> attributes)
@@ -123,6 +133,7 @@ namespace Ringtoets.Common.IO.Structures
             {
                 return defaultName;
             }
+
             var attributeNameValue = attributes[nameAttributeName] as string;
             return string.IsNullOrWhiteSpace(attributeNameValue) ? defaultName : attributeNameValue;
         }

@@ -64,12 +64,21 @@ namespace Core.Common.Base
 
         public void Dispose()
         {
-            Observable = null;
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public void UpdateObserver()
         {
             updateObserverAction();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Observable = null;
+            }
         }
     }
 }

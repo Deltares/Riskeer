@@ -50,19 +50,17 @@ namespace Core.Components.DotSpatial
             {
                 throw new ArgumentNullException(nameof(map), @"An extension cannot be initialized without map.");
             }
+
             this.map = map;
 
             xLabel = new Label
             {
-                AutoSize = true,
-                BorderStyle = BorderStyle.None,
-                Margin = new Padding(0, 0, 10, 0)
+                AutoSize = true, BorderStyle = BorderStyle.None, Margin = new Padding(0, 0, 10, 0)
             };
 
             yLabel = new Label
             {
-                AutoSize = true,
-                BorderStyle = BorderStyle.None
+                AutoSize = true, BorderStyle = BorderStyle.None
             };
 
             panel = new TableLayoutPanel
@@ -72,8 +70,7 @@ namespace Core.Components.DotSpatial
                 Height = 16,
                 Controls =
                 {
-                    xLabel,
-                    yLabel
+                    xLabel, yLabel
                 },
                 RowCount = 1,
                 ColumnCount = 2
@@ -103,9 +100,18 @@ namespace Core.Components.DotSpatial
 
         public void Dispose()
         {
-            xLabel.Dispose();
-            yLabel.Dispose();
-            panel.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                xLabel.Dispose();
+                yLabel.Dispose();
+                panel.Dispose();
+            }
         }
 
         private void OnMouseMove(object sender, GeoMouseArgs e)
@@ -115,7 +121,7 @@ namespace Core.Components.DotSpatial
 
             if (!targetProjection.Equals(map.Projection))
             {
-                var xy = new[]
+                double[] xy =
                 {
                     x,
                     y
@@ -127,6 +133,7 @@ namespace Core.Components.DotSpatial
                 x = xy[0];
                 y = xy[1];
             }
+
             xLabel.Text = $@"X: {x:0.#####}";
             yLabel.Text = $@"Y: {y:0.#####}";
         }

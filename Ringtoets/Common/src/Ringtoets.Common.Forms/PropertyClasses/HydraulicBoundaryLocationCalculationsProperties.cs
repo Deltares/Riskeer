@@ -55,7 +55,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         public void Dispose()
         {
-            hydraulicBoundaryLocationCalculationsObserver.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                hydraulicBoundaryLocationCalculationsObserver.Dispose();
+            }
         }
     }
 }

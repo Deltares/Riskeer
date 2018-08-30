@@ -113,7 +113,16 @@ namespace Ringtoets.Common.IO.DikeProfiles
 
         public void Dispose()
         {
-            pointsShapeFileReader.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                pointsShapeFileReader.Dispose();
+            }
         }
 
         /// <summary>

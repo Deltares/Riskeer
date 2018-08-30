@@ -814,8 +814,17 @@ namespace Core.Common.Controls.TreeView
 
             public void Dispose()
             {
-                var observable = treeNode.Tag as IObservable;
-                observable?.Detach(this);
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            protected virtual void Dispose(bool disposing)
+            {
+                if (disposing)
+                {
+                    var observable = treeNode.Tag as IObservable;
+                    observable?.Detach(this);
+                }
             }
 
             public void UpdateObserver()

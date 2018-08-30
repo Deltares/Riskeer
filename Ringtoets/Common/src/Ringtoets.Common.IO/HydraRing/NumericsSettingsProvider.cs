@@ -107,7 +107,16 @@ namespace Ringtoets.Common.IO.HydraRing
 
         public void Dispose()
         {
-            numericsSettingsReader.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                numericsSettingsReader.Dispose();
+            }
         }
 
         private void InitializeDefaultNumericsSettings()

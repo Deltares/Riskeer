@@ -158,7 +158,13 @@ namespace Ringtoets.Common.IO.SurfaceLines
 
         public void Dispose()
         {
-            if (fileReader != null)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (fileReader != null && disposing)
             {
                 fileReader.Dispose();
                 fileReader = null;
@@ -184,6 +190,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                     break;
                 }
             }
+
             return readText;
         }
 
@@ -223,6 +230,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                 throw CreateLineParseException(lineNumber, string.Format(Resources.SurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_,
                                                                          separator));
             }
+
             return readText.Split(separator)
                            .TakeWhile(text => !string.IsNullOrEmpty(text))
                            .ToArray();
@@ -260,6 +268,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                 double z = worldCoordinateValues[i * expectedValuesForPoint + 2];
                 points[i] = new Point3D(x, y, z);
             }
+
             return points;
         }
 
@@ -276,6 +285,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 throw CreateLineParseException(lineNumber, Resources.SurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
             }
+
             return name;
         }
 
@@ -396,8 +406,10 @@ namespace Ringtoets.Common.IO.SurfaceLines
                 {
                     count++;
                 }
+
                 lineNumberForMessage++;
             }
+
             return count;
         }
 
@@ -450,6 +462,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 valid = tokenizedHeader[startGeometryColumnIndex + i].Equals(expectedFirstCoordinateHeader[i]);
             }
+
             return valid;
         }
 

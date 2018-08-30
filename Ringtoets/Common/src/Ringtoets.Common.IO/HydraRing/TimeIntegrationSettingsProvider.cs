@@ -70,7 +70,16 @@ namespace Ringtoets.Common.IO.HydraRing
 
         public void Dispose()
         {
-            timeIntegrationSettingsReader.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                timeIntegrationSettingsReader.Dispose();
+            }
         }
     }
 }
