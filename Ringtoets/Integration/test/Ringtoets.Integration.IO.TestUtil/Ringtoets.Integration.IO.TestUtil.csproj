@@ -22,6 +22,7 @@
     <Compile Include="ExportableFailureMechanismAssemblyResultTestFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializableFailureMechanismAssemblyResultTestHelper.cs" />
+    <Compile Include="SerializableFailureMechanismSectionAssemblyResultTestHelper.cs" />
     <Compile Include="SerializableFailureMechanismSectionTestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
