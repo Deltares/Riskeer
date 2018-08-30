@@ -17,6 +17,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregatedSerializableCombinedFailureMechanismSectionAssembliesTest.cs" />
     <Compile Include="AggregatedSerializableCombinedFailureMechanismSectionAssemblyTest.cs" />
     <Compile Include="AggregatedSerializableFailureMechanismSectionAssemblyTest.cs" />
     <Compile Include="AggregatedSerializableFailureMechanismTest.cs" />

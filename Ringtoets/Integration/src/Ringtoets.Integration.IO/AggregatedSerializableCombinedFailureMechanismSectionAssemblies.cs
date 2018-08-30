@@ -26,31 +26,24 @@ using Ringtoets.AssemblyTool.IO.Model;
 namespace Ringtoets.Integration.IO
 {
     /// <summary>
-    /// Class that holds all the information that is related when generating a <see cref="SerializableFailureMechanism"/>.
+    /// Class that holds all the information that is related when generating a collection of
+    /// <see cref="SerializableCombinedFailureMechanismSectionAssembly"/>.
     /// </summary>
-    public class AggregatedSerializableFailureMechanism
+    public class AggregatedSerializableCombinedFailureMechanismSectionAssemblies
     {
         /// <summary>
         /// An instance of <see cref="AggregatedSerializableFailureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="SerializableFailureMechanism"/>.</param>
         /// <param name="failureMechanismSectionCollection">The <see cref="SerializableFailureMechanismSectionCollection"/>
-        /// that belongs to the failure mechanism.</param>
+        /// that the <paramref name="failureMechanismSections"/> belong to.</param>
         /// <param name="failureMechanismSections">A collection of <see cref="SerializableFailureMechanismSection"/>
-        /// that belongs to the failure mechanism.</param>
-        /// <param name="failureMechanismSectionAssemblyResults">A collection of <see cref="SerializableFailureMechanismSectionAssembly"/>
-        /// that belongs to the failure mechanism.</param>
+        /// that is associated with <paramref name="combinedFailureMechanismSectionAssemblies"/>.</param>
+        /// <param name="combinedFailureMechanismSectionAssemblies">A collection of <see cref="SerializableCombinedFailureMechanismSectionAssembly"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AggregatedSerializableFailureMechanism(SerializableFailureMechanism failureMechanism,
-                                                      SerializableFailureMechanismSectionCollection failureMechanismSectionCollection,
-                                                      IEnumerable<SerializableFailureMechanismSection> failureMechanismSections,
-                                                      IEnumerable<SerializableFailureMechanismSectionAssembly> failureMechanismSectionAssemblyResults)
+        public AggregatedSerializableCombinedFailureMechanismSectionAssemblies(SerializableFailureMechanismSectionCollection failureMechanismSectionCollection,
+                                                                               IEnumerable<SerializableFailureMechanismSection> failureMechanismSections,
+                                                                               IEnumerable<SerializableCombinedFailureMechanismSectionAssembly> combinedFailureMechanismSectionAssemblies)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             if (failureMechanismSectionCollection == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSectionCollection));
@@ -61,26 +54,20 @@ namespace Ringtoets.Integration.IO
                 throw new ArgumentNullException(nameof(failureMechanismSections));
             }
 
-            if (failureMechanismSectionAssemblyResults == null)
+            if (combinedFailureMechanismSectionAssemblies == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanismSectionAssemblyResults));
+                throw new ArgumentNullException(nameof(combinedFailureMechanismSectionAssemblies));
             }
 
-            FailureMechanism = failureMechanism;
             FailureMechanismSectionCollection = failureMechanismSectionCollection;
             FailureMechanismSections = failureMechanismSections;
-            FailureMechanismSectionAssemblyResults = failureMechanismSectionAssemblyResults;
+            CombinedFailureMechanismSectionAssemblies = combinedFailureMechanismSectionAssemblies;
         }
-
-        /// <summary>
-        /// Gets the serializable failure mechanism.
-        /// </summary>
-        public SerializableFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Gets the collection where the serializable failure mechanism sections belong to.
         /// </summary>
-        public SerializableFailureMechanismSectionCollection FailureMechanismSectionCollection { get; }
+        public SerializableFailureMechanismSectionCollection FailureMechanismSectionCollection { get;}
 
         /// <summary>
         /// Gets the collection of serializable failure mechanism sections.
@@ -88,8 +75,8 @@ namespace Ringtoets.Integration.IO
         public IEnumerable<SerializableFailureMechanismSection> FailureMechanismSections { get; }
 
         /// <summary>
-        /// Gets the collection of serializable failure mechanism section assembly results.
+        /// Gets the collection of serializable combined failure mechanism section assemblies.
         /// </summary>
-        public IEnumerable<SerializableFailureMechanismSectionAssembly> FailureMechanismSectionAssemblyResults { get; }
+        public IEnumerable<SerializableCombinedFailureMechanismSectionAssembly> CombinedFailureMechanismSectionAssemblies { get; }
     }
 }
