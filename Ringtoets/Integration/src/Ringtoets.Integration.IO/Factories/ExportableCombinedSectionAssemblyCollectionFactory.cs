@@ -21,8 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data.Assembly;

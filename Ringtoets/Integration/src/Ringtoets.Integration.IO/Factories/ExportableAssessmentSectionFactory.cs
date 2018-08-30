@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.IO.Factories
                 throw new ArgumentException("reference line of assessment section cannot be null.");
             }
 
-            return new ExportableAssessmentSection(assessmentSection.Name, 
+            return new ExportableAssessmentSection(assessmentSection.Name,
                                                    assessmentSection.Id,
                                                    assessmentSection.ReferenceLine.Points,
                                                    CreateExportableAssessmentSectionAssemblyResult(assessmentSection),
