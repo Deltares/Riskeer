@@ -74,6 +74,10 @@ namespace Ringtoets.Integration.IO.Creators
             serializableFailureMechanisms.AddRange(aggregatedFailureMechanismsWithProbability.Select(afm => afm.FailureMechanism));
             serializableFailureMechanisms.AddRange(aggregatedFailureMechanismsWithoutProbability.Select(afm => afm.FailureMechanism));
 
+            var serializableFailureMechanismSectionCollection = new List<SerializableFailureMechanismSectionCollection>();
+            serializableFailureMechanismSectionCollection.AddRange(aggregatedFailureMechanismsWithProbability.Select(afm => afm.FailureMechanismSectionCollection));
+            serializableFailureMechanismSectionCollection.AddRange(aggregatedFailureMechanismsWithoutProbability.Select(afm => afm.FailureMechanismSectionCollection));
+
             return new SerializableAssembly(serializableAssemblyId,
                                             GetLowerCorner(assessmentSection.Geometry),
                                             GetUpperCorner(assessmentSection.Geometry),
@@ -83,7 +87,7 @@ namespace Ringtoets.Integration.IO.Creators
                                             serializableFailureMechanisms,
                                             Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
                                             Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
-                                            Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                                            serializableFailureMechanismSectionCollection,
                                             Enumerable.Empty<SerializableFailureMechanismSection>());
         }
 
