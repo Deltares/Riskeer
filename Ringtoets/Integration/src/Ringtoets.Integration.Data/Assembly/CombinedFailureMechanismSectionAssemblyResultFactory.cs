@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Data.Assembly
             }
 
             return output.Select(assembly => new CombinedFailureMechanismSectionAssemblyResult(
-                                     assembly.Section.SectionStart / 1000 ,
+                                     assembly.Section.SectionStart / 1000,
                                      assembly.Section.SectionEnd / 1000,
                                      assembly.Section.CategoryGroup,
                                      CreateFailureMechanismResults(assembly.FailureMechanismResults,
@@ -76,63 +76,36 @@ namespace Ringtoets.Integration.Data.Assembly
         {
             var constructionProperties = new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
             {
-                Piping = failureMechanisms.ContainsKey(assessmentSection.Piping)
-                             ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.Piping])
-                             : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                GrassCoverErosionInwards = failureMechanisms.ContainsKey(assessmentSection.GrassCoverErosionInwards)
-                                               ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverErosionInwards])
-                                               : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                MacroStabilityInwards = failureMechanisms.ContainsKey(assessmentSection.MacroStabilityInwards)
-                                            ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.MacroStabilityInwards])
-                                            : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                MacroStabilityOutwards = failureMechanisms.ContainsKey(assessmentSection.MacroStabilityOutwards)
-                                             ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.MacroStabilityOutwards])
-                                             : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                Microstability = failureMechanisms.ContainsKey(assessmentSection.Microstability)
-                                     ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.Microstability])
-                                     : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                StabilityStoneCover = failureMechanisms.ContainsKey(assessmentSection.StabilityStoneCover)
-                                          ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.StabilityStoneCover])
-                                          : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                WaveImpactAsphaltCover = failureMechanisms.ContainsKey(assessmentSection.WaveImpactAsphaltCover)
-                                             ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.WaveImpactAsphaltCover])
-                                             : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                WaterPressureAsphaltCover = failureMechanisms.ContainsKey(assessmentSection.WaterPressureAsphaltCover)
-                                                ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.WaterPressureAsphaltCover])
-                                                : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                GrassCoverErosionOutwards = failureMechanisms.ContainsKey(assessmentSection.GrassCoverErosionOutwards)
-                                                ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverErosionOutwards])
-                                                : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                GrassCoverSlipOffOutwards = failureMechanisms.ContainsKey(assessmentSection.GrassCoverSlipOffOutwards)
-                                                ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverSlipOffOutwards])
-                                                : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                GrassCoverSlipOffInwards = failureMechanisms.ContainsKey(assessmentSection.GrassCoverSlipOffInwards)
-                                               ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverSlipOffInwards])
-                                               : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                HeightStructures = failureMechanisms.ContainsKey(assessmentSection.HeightStructures)
-                                       ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.HeightStructures])
-                                       : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                ClosingStructures = failureMechanisms.ContainsKey(assessmentSection.ClosingStructures)
-                                        ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.ClosingStructures])
-                                        : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                PipingStructure = failureMechanisms.ContainsKey(assessmentSection.PipingStructure)
-                                      ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.PipingStructure])
-                                      : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                StabilityPointStructures = failureMechanisms.ContainsKey(assessmentSection.StabilityPointStructures)
-                                               ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.StabilityPointStructures])
-                                               : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                StrengthStabilityLengthwiseConstruction = failureMechanisms.ContainsKey(assessmentSection.StrengthStabilityLengthwiseConstruction)
-                                                  ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.StrengthStabilityLengthwiseConstruction])
-                                                  : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                DuneErosion = failureMechanisms.ContainsKey(assessmentSection.DuneErosion)
-                                  ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.DuneErosion])
-                                  : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                TechnicalInnovation = failureMechanisms.ContainsKey(assessmentSection.TechnicalInnovation)
-                                          ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.TechnicalInnovation])
-                                          : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable
+                Piping = GetCategoryGroup(assessmentSection.Piping, failureMechanisms, failureMechanismResults),
+                GrassCoverErosionInwards = GetCategoryGroup(assessmentSection.GrassCoverErosionInwards, failureMechanisms, failureMechanismResults),
+                MacroStabilityInwards = GetCategoryGroup(assessmentSection.MacroStabilityInwards, failureMechanisms, failureMechanismResults),
+                MacroStabilityOutwards = GetCategoryGroup(assessmentSection.MacroStabilityOutwards, failureMechanisms, failureMechanismResults),
+                Microstability = GetCategoryGroup(assessmentSection.Microstability, failureMechanisms, failureMechanismResults),
+                StabilityStoneCover = GetCategoryGroup(assessmentSection.StabilityStoneCover, failureMechanisms, failureMechanismResults),
+                WaveImpactAsphaltCover = GetCategoryGroup(assessmentSection.WaveImpactAsphaltCover, failureMechanisms, failureMechanismResults),
+                WaterPressureAsphaltCover = GetCategoryGroup(assessmentSection.WaterPressureAsphaltCover, failureMechanisms, failureMechanismResults),
+                GrassCoverErosionOutwards = GetCategoryGroup(assessmentSection.GrassCoverErosionOutwards, failureMechanisms, failureMechanismResults),
+                GrassCoverSlipOffOutwards = GetCategoryGroup(assessmentSection.GrassCoverSlipOffOutwards, failureMechanisms, failureMechanismResults),
+                GrassCoverSlipOffInwards = GetCategoryGroup(assessmentSection.GrassCoverSlipOffInwards, failureMechanisms, failureMechanismResults),
+                HeightStructures = GetCategoryGroup(assessmentSection.HeightStructures, failureMechanisms, failureMechanismResults),
+                ClosingStructures = GetCategoryGroup(assessmentSection.ClosingStructures, failureMechanisms, failureMechanismResults),
+                PipingStructure = GetCategoryGroup(assessmentSection.PipingStructure, failureMechanisms, failureMechanismResults),
+                StabilityPointStructures = GetCategoryGroup(assessmentSection.StabilityPointStructures, failureMechanisms, failureMechanismResults),
+                StrengthStabilityLengthwiseConstruction = GetCategoryGroup(assessmentSection.StrengthStabilityLengthwiseConstruction, failureMechanisms, failureMechanismResults),
+                DuneErosion = GetCategoryGroup(assessmentSection.DuneErosion, failureMechanisms, failureMechanismResults),
+                TechnicalInnovation = GetCategoryGroup(assessmentSection.TechnicalInnovation, failureMechanisms, failureMechanismResults)
             };
 
             return constructionProperties;
+        }
+
+        private static FailureMechanismSectionAssemblyCategoryGroup GetCategoryGroup(IFailureMechanism failureMechanism,
+                                                                                     IDictionary<IFailureMechanism, int> failureMechanisms,
+                                                                                     IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismResults)
+        {
+            return failureMechanisms.ContainsKey(failureMechanism)
+                       ? failureMechanismResults.ElementAt(failureMechanisms[failureMechanism])
+                       : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
         }
     }
 }
