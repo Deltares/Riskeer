@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSectionAssemblyResult", exception.ParamName);
+            Assert.AreEqual("failureMechanismSectionAssembly", exception.ParamName);
         }
 
         [Test]

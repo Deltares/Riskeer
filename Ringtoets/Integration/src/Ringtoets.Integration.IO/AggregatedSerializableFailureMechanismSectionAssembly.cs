@@ -21,7 +21,6 @@
 
 using System;
 using Ringtoets.AssemblyTool.IO.Model;
-using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 
 namespace Ringtoets.Integration.IO
 {
