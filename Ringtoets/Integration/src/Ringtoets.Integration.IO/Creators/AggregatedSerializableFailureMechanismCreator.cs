@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.Assembly;
@@ -33,21 +32,46 @@ namespace Ringtoets.Integration.IO.Creators
     /// </summary>
     public static class AggregatedSerializableFailureMechanismCreator
     {
+        /// <summary>
+        /// Creates an instance of an <see cref="AggregatedSerializableFailureMechanism"/> based on its input parameters.
+        /// </summary>
+        /// <param name="idGenerator">The id generator to generate an id for the serializable components.</param>
+        /// <param name="serializableTotalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/> the serializable components belong to.</param>
+        /// <param name="failureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with a probability to
+        /// create a <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
+        /// <returns>A <see cref="AggregatedSerializableFailureMechanism"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+        /// contains unsupported items in the failure mechanism section assembly results.</exception>
         public static AggregatedSerializableFailureMechanism Create(UniqueIdentifierGenerator idGenerator,
-                                                                    SerializableTotalAssemblyResult serializableTotalAssembly,
+                                                                    SerializableTotalAssemblyResult serializableTotalAssemblyResult,
                                                                     ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> failureMechanism)
         {
-            SerializableFailureMechanism serializableFailureMechanism = SerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssembly, failureMechanism);
+            if (idGenerator == null)
+            {
+                throw new ArgumentNullException(nameof(idGenerator));
+            }
+
+            if (serializableTotalAssemblyResult == null)
+            {
+                throw new ArgumentNullException(nameof(serializableTotalAssemblyResult));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            SerializableFailureMechanism serializableFailureMechanism = SerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
             var serializableCollection = new SerializableFailureMechanismSectionCollection(idGenerator.GetNewId("Vi"), serializableFailureMechanism);
 
-            var serializableFailureMechanismSectionAssemblyResults = new List<AggregatedSerializableFailureMechanismSectionAssembly>();
-            foreach (ExportableAggregatedFailureMechanismSectionAssemblyResultBase sectionAssemblyResult in failureMechanism.SectionAssemblyResults)
-            {
-                serializableFailureMechanismSectionAssemblyResults.Add(CreateFailureMechanismSectionAssembly(idGenerator, 
-                                                                                                             serializableFailureMechanism, 
-                                                                                                             serializableCollection,
-                                                                                                             sectionAssemblyResult));
-            }
+            AggregatedSerializableFailureMechanismSectionAssembly[] serializableFailureMechanismSectionAssemblyResults =
+                failureMechanism.SectionAssemblyResults
+                                .Select(sectionAssemblyResult => CreateFailureMechanismSectionAssembly(idGenerator,
+                                                                                                       serializableFailureMechanism,
+                                                                                                       serializableCollection,
+                                                                                                       sectionAssemblyResult))
+                                .ToArray();
 
             return new AggregatedSerializableFailureMechanism(serializableFailureMechanism,
                                                               serializableCollection,
@@ -55,9 +79,20 @@ namespace Ringtoets.Integration.IO.Creators
                                                               serializableFailureMechanismSectionAssemblyResults.Select(fmr => fmr.FailureMechanismSectionAssembly));
         }
 
+        /// <summary>
+        /// Creates an instance of <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> based on its input parameters.
+        /// </summary>
+        /// <param name="idGenerator">The id generator to generate the id for the serializable components.</param>
+        /// <param name="serializableFailureMechanism">The <see cref="SerializableFailureMechanism"/> the section assembly belongs to.</param>
+        /// <param name="serializableCollection">The <see cref="SerializableFailureMechanismSectionCollection"/> the section assembly belongs to.</param>
+        /// <param name="failureMechanismSectionAssemblyResult">An aggregated failure mechanism section assembly result to
+        /// create a <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
+        /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when an <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>
+        /// cannot be created for <paramref name="failureMechanismSectionAssemblyResult"/>.</exception>
         private static AggregatedSerializableFailureMechanismSectionAssembly CreateFailureMechanismSectionAssembly(
             UniqueIdentifierGenerator idGenerator,
-            SerializableFailureMechanism serializableFailureMechanism, 
+            SerializableFailureMechanism serializableFailureMechanism,
             SerializableFailureMechanismSectionCollection serializableCollection,
             ExportableAggregatedFailureMechanismSectionAssemblyResultBase failureMechanismSectionAssemblyResult)
         {
@@ -67,7 +102,19 @@ namespace Ringtoets.Integration.IO.Creators
                 return AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, resultWithProbability);
             }
 
-            throw new NotSupportedException();
+            var resultWithoutProbability = failureMechanismSectionAssemblyResult as ExportableAggregatedFailureMechanismSectionAssemblyResult;
+            if (resultWithoutProbability != null)
+            {
+                return AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, resultWithoutProbability);
+            }
+
+            var resultWithoutDetailedAssembly = failureMechanismSectionAssemblyResult as ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly;
+            if (resultWithoutDetailedAssembly != null)
+            {
+                return AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, resultWithoutDetailedAssembly);
+            }
+
+            throw new NotSupportedException($"{failureMechanismSectionAssemblyResult.GetType().Name} is not supported.");
         }
     }
 }
