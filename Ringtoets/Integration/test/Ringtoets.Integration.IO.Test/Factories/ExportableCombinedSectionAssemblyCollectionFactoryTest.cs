@@ -137,11 +137,15 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                             ExportableCombinedFailureMechanismSection actualSection,
                                                                             ReferenceLine referenceLine)
         {
+            IEnumerable<Point2D> expectedGeometry = ExportableFailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                referenceLine,
+                actualSection.StartDistance,
+                actualSection.EndDistance).ToArray();
+            Assert.IsTrue(expectedGeometry.Any());
+
             Assert.AreEqual(expectedSection.SectionStart, actualSection.StartDistance);
             Assert.AreEqual(expectedSection.SectionEnd, actualSection.EndDistance);
-            CollectionAssert.AreEqual(ExportableFailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
-                                          referenceLine, actualSection.StartDistance, actualSection.EndDistance),
-                                      actualSection.Geometry);
+            CollectionAssert.AreEqual(expectedGeometry, actualSection.Geometry);
             Assert.AreEqual(ExportableAssemblyMethod.WBI3A1, actualSection.AssemblyMethod);
         }
 
