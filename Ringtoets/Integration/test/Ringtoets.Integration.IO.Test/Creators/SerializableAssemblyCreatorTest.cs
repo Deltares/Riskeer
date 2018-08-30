@@ -23,7 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Gml;
@@ -63,9 +65,17 @@ namespace Ringtoets.Integration.IO.Test.Creators
             ExportableFailureMechanismAssemblyResult failureMechanismAssemblyResultWithoutProbability =
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability();
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> failureMechanismsWithProbability =
-                Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>();
+                new[]
+                {
+                    CreateFailureMechanismWithProbability(),
+                    CreateFailureMechanismWithProbability()
+                };
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability =
-                Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>();
+                new[]
+                {
+                    CreateFailureMechanismWithoutProbability(),
+                    CreateFailureMechanismWithoutProbability()
+                };
             ExportableCombinedSectionAssemblyCollection combinedSectionAssemblyResults = CreateCombinedSectionAssemblyCollection();
 
             var exportableAssessmentSection = new ExportableAssessmentSection(assessmentSectionName,
@@ -84,18 +94,32 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Assert
             Assert.AreEqual("Assemblage.0", serializableAssembly.Id);
             AssertSerializableBoundary(exportableAssessmentSection.Geometry, serializableAssembly.Boundary);
-            Assert.AreEqual(3, serializableAssembly.FeatureMembers.Length);
+            Assert.AreEqual(7, serializableAssembly.FeatureMembers.Length);
 
             var serializableAssessmentSection = (SerializableAssessmentSection) serializableAssembly.FeatureMembers[0];
             AssertSerializableAssessmentSection($"Wks.{assessmentSectionId}", assessmentSectionName, geometry, serializableAssessmentSection);
             var serializableAssessmentProcess = (SerializableAssessmentProcess) serializableAssembly.FeatureMembers[1];
             AssertSerializableAssessmentProcess("Bp.1", serializableAssessmentSection, serializableAssessmentProcess);
+            var serializableTotalAssemblyResult = (SerializableTotalAssemblyResult) serializableAssembly.FeatureMembers[2];
             AssertSerializableTotalAssemblyResult("Vo.2",
                                                   failureMechanismAssemblyResultWithoutProbability,
                                                   failureMechanismAssemblyResultWithProbability,
                                                   assessmentSectionAssembly,
                                                   serializableAssessmentProcess,
-                                                  (SerializableTotalAssemblyResult) serializableAssembly.FeatureMembers[2]);
+                                                  serializableTotalAssemblyResult);
+
+            AssertSerializableFailureMechanism("Ts.3",
+                                               serializableTotalAssemblyResult, 
+                                               (SerializableFailureMechanism)serializableAssembly.FeatureMembers[3]);
+            AssertSerializableFailureMechanism("Ts.7",
+                                               serializableTotalAssemblyResult,
+                                               (SerializableFailureMechanism)serializableAssembly.FeatureMembers[4]);
+            AssertSerializableFailureMechanism("Ts.11",
+                                               serializableTotalAssemblyResult,
+                                               (SerializableFailureMechanism)serializableAssembly.FeatureMembers[5]);
+            AssertSerializableFailureMechanism("Ts.15",
+                                               serializableTotalAssemblyResult,
+                                               (SerializableFailureMechanism)serializableAssembly.FeatureMembers[6]);
         }
 
         private static IEnumerable<Point2D> CreateGeometry()
@@ -112,6 +136,64 @@ namespace Ringtoets.Integration.IO.Test.Creators
         {
             return new ExportableCombinedSectionAssemblyCollection(Enumerable.Empty<ExportableCombinedFailureMechanismSection>(),
                                                                    Enumerable.Empty<ExportableCombinedSectionAssembly>());
+        }
+
+        private static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> CreateFailureMechanismWithProbability()
+        {
+            var random = new Random(21);
+            ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
+            return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
+                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
+                new[]
+                {
+                    failureMechanismSection
+                },
+                new[]
+                {
+                    CreateSectionResult(failureMechanismSection)
+                },
+                random.NextEnumValue<ExportableFailureMechanismType>(),
+                random.NextEnumValue<ExportableFailureMechanismGroup>());
+        }
+
+        private static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateFailureMechanismWithoutProbability()
+        {
+            var random = new Random(21);
+            ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
+            return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
+                new[]
+                {
+                    failureMechanismSection
+                },
+                new[]
+                {
+                    CreateSectionResult(failureMechanismSection)
+                },
+                random.NextEnumValue<ExportableFailureMechanismType>(),
+                random.NextEnumValue<ExportableFailureMechanismGroup>());
+        }
+
+        private static ExportableAggregatedFailureMechanismSectionAssemblyResult CreateSectionResult(ExportableFailureMechanismSection section)
+        {
+            return new ExportableAggregatedFailureMechanismSectionAssemblyResult(section,
+                                                                                 CreateSectionAssemblyResult(),
+                                                                                 CreateSectionAssemblyResult(),
+                                                                                 CreateSectionAssemblyResult(),
+                                                                                 CreateSectionAssemblyResult());
+        }
+
+        private static ExportableSectionAssemblyResult CreateSectionAssemblyResult()
+        {
+            var random = new Random(30);
+            var assemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            if (assemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                assemblyCategory = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
+            }
+
+            return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
+                                                       assemblyCategory);
         }
 
         private static void AssertSerializableBoundary(IEnumerable<Point2D> geometry,
@@ -179,6 +261,14 @@ namespace Ringtoets.Integration.IO.Test.Creators
                             serializableAssessmentSectionAssemblyResult.AssemblyMethod);
             Assert.AreEqual(SerializableAssessmentSectionCategoryGroupCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyCategory),
                             serializableAssessmentSectionAssemblyResult.CategoryGroup);
+        }
+
+        private static void AssertSerializableFailureMechanism(string expectedId,
+                                                               SerializableTotalAssemblyResult expectedSerializableTotalAssembly,
+                                                               SerializableFailureMechanism serializableFailureMechanism)
+        {
+            Assert.AreEqual(expectedSerializableTotalAssembly.Id, serializableFailureMechanism.TotalAssemblyResultId);
+            Assert.AreEqual(expectedId, serializableFailureMechanism.Id);
         }
     }
 }

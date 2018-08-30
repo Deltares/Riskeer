@@ -56,18 +56,31 @@ namespace Ringtoets.Integration.IO.Creators
 
             SerializableAssessmentSection serializableAssessmentSection = SerializableAssessmentSectionCreator.Create(assessmentSection);
             SerializableAssessmentProcess serializableAssessmentProcess = SerializableAssessmentProcessCreator.Create(idGenerator, serializableAssessmentSection);
+            SerializableTotalAssemblyResult serializableTotalAssemblyResult =
+                SerializableTotalAssemblyResultCreator.Create(idGenerator,
+                                                              serializableAssessmentProcess,
+                                                              SerializableFailureMechanismResultCreator.Create(assessmentSection.FailureMechanismAssemblyWithProbability),
+                                                              SerializableFailureMechanismResultCreator.Create(assessmentSection.FailureMechanismAssemblyWithoutProbability),
+                                                              SerializableAssessmentSectionAssemblyResultCreator.Create(assessmentSection.AssessmentSectionAssembly));
+
+            AggregatedSerializableFailureMechanism[] aggregatedFailureMechanismsWithProbability = assessmentSection.FailureMechanismsWithProbability
+                                                                                                                   .Select(fm => CreateFailureMechanismsWithProbability(idGenerator, serializableTotalAssemblyResult, fm))
+                                                                                                                   .ToArray();
+            AggregatedSerializableFailureMechanism[] aggregatedFailureMechanismsWithoutProbability = assessmentSection.FailureMechanismsWithoutProbability
+                                                                                                                      .Select(fm => CreateFailureMechanismsWithoutProbability(idGenerator, serializableTotalAssemblyResult, fm))
+                                                                                                                      .ToArray();
+
+            var serializableFailureMechanisms = new List<SerializableFailureMechanism>();
+            serializableFailureMechanisms.AddRange(aggregatedFailureMechanismsWithProbability.Select(afm => afm.FailureMechanism));
+            serializableFailureMechanisms.AddRange(aggregatedFailureMechanismsWithoutProbability.Select(afm => afm.FailureMechanism));
 
             return new SerializableAssembly(serializableAssemblyId,
                                             GetLowerCorner(assessmentSection.Geometry),
                                             GetUpperCorner(assessmentSection.Geometry),
                                             serializableAssessmentSection,
                                             serializableAssessmentProcess,
-                                            SerializableTotalAssemblyResultCreator.Create(idGenerator,
-                                                                                          serializableAssessmentProcess,
-                                                                                          SerializableFailureMechanismResultCreator.Create(assessmentSection.FailureMechanismAssemblyWithProbability),
-                                                                                          SerializableFailureMechanismResultCreator.Create(assessmentSection.FailureMechanismAssemblyWithoutProbability),
-                                                                                          SerializableAssessmentSectionAssemblyResultCreator.Create(assessmentSection.AssessmentSectionAssembly)),
-                                            Enumerable.Empty<SerializableFailureMechanism>(),
+                                            serializableTotalAssemblyResult,
+                                            serializableFailureMechanisms,
                                             Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
                                             Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
                                             Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
@@ -84,6 +97,20 @@ namespace Ringtoets.Integration.IO.Creators
         {
             return new Point2D(geometry.Select(p => p.X).Max(),
                                geometry.Select(p => p.Y).Max());
+        }
+
+        private static AggregatedSerializableFailureMechanism CreateFailureMechanismsWithProbability(UniqueIdentifierGenerator idGenerator,
+                                                                                                     SerializableTotalAssemblyResult serializableTotalAssemblyResult,
+                                                                                                     ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> failureMechanism)
+        {
+            return AggregatedSerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
+        }
+
+        private static AggregatedSerializableFailureMechanism CreateFailureMechanismsWithoutProbability(UniqueIdentifierGenerator idGenerator,
+                                                                                                        SerializableTotalAssemblyResult serializableTotalAssemblyResult,
+                                                                                                        ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism)
+        {
+            return AggregatedSerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
         }
     }
 }
