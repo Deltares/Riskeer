@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{06C448C6-CBDE-4579-B5B6-1B8074E022ED}</ProjectGuid>
@@ -39,6 +39,7 @@
     <Compile Include="Assembly\ExportableFailureMechanismSectionAssemblyResultWithProbabilityTest.cs" />
     <Compile Include="Assembly\ExportableFailureMechanismTest.cs" />
     <Compile Include="Assembly\ExportableSectionAssemblyResultTest.cs" />
+    <Compile Include="Creators\AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreatorTest.cs" />
     <Compile Include="Creators\AggregatedSerializableFailureMechanismCreatorTest.cs" />
     <Compile Include="Creators\SerializableAssemblyCreatorTest.cs" />
     <Compile Include="Creators\SerializableAssemblyMethodCreatorTest.cs" />

@@ -141,4 +141,7 @@
   <data name="SerializableFailureMechanismSectionCollection_IdPrefix" xml:space="preserve">
     <value>Vi</value>
   </data>
+  <data name="SerializableCombinedFailureMechanismSectionAssembly_IdPrefix" xml:space="preserve">
+    <value>Gto</value>
+  </data>
 </root>

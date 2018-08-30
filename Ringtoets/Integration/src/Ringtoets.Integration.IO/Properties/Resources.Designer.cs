@@ -109,6 +109,15 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gto.
+        /// </summary>
+        internal static string SerializableCombinedFailureMechanismSectionAssembly_IdPrefix {
+            get {
+                return ResourceManager.GetString("SerializableCombinedFailureMechanismSectionAssembly_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ts.
         /// </summary>
         internal static string SerializableFailureMechanismCreator_IdPrefix {

@@ -37,6 +37,7 @@
     <Compile Include="Assembly\ExportableSectionAssemblyResultWithProbability.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResult.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability.cs" />
+    <Compile Include="Creators\AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.cs" />
     <Compile Include="Creators\AggregatedSerializableFailureMechanismCreator.cs" />
     <Compile Include="Creators\SerializableAssemblyCreator.cs" />
     <Compile Include="Creators\SerializableAssemblyMethodCreator.cs" />
