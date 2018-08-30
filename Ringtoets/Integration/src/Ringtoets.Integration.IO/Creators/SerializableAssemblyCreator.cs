@@ -78,6 +78,10 @@ namespace Ringtoets.Integration.IO.Creators
             serializableFailureMechanismSectionCollection.AddRange(aggregatedFailureMechanismsWithProbability.Select(afm => afm.FailureMechanismSectionCollection));
             serializableFailureMechanismSectionCollection.AddRange(aggregatedFailureMechanismsWithoutProbability.Select(afm => afm.FailureMechanismSectionCollection));
 
+            var serializableFailureMechanismSections = new List<SerializableFailureMechanismSection>();
+            serializableFailureMechanismSections.AddRange(aggregatedFailureMechanismsWithProbability.SelectMany(afm => afm.FailureMechanismSections));
+            serializableFailureMechanismSections.AddRange(aggregatedFailureMechanismsWithoutProbability.SelectMany(afm => afm.FailureMechanismSections));
+
             return new SerializableAssembly(serializableAssemblyId,
                                             GetLowerCorner(assessmentSection.Geometry),
                                             GetUpperCorner(assessmentSection.Geometry),
@@ -88,7 +92,7 @@ namespace Ringtoets.Integration.IO.Creators
                                             Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
                                             Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
                                             serializableFailureMechanismSectionCollection,
-                                            Enumerable.Empty<SerializableFailureMechanismSection>());
+                                            serializableFailureMechanismSections);
         }
 
         private static Point2D GetLowerCorner(IEnumerable<Point2D> geometry)
