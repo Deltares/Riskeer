@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.Assembly;
@@ -87,6 +89,76 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(section, collection, serializableSection);
+        }
+
+        [Test]
+        public void CreateWithCombinedAssemblySection_IdGeneratorNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(null,
+                                                                                        new SerializableFailureMechanismSectionCollection(),
+                                                                                        CreateCombinedFailureMechanismSection());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("idGenerator", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWithCombinedAssemblySection_CollectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                        null,
+                                                                                        CreateCombinedFailureMechanismSection());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("serializableCollection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWithCombinedAssemblySection_SectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var section = (ExportableCombinedFailureMechanismSection) null;
+
+            // Call
+            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new UniqueIdentifierGenerator(),
+                                                                                        new SerializableFailureMechanismSectionCollection(),
+                                                                                        section);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("section", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWithCombinedAssemblySection_WithSection_ReturnsSerializableFailureMechanismSection()
+        {
+            // Setup
+            const string collectionId = "collectionId";
+            var collection = new SerializableFailureMechanismSectionCollection(collectionId, new SerializableFailureMechanism());
+
+            var idGenerator = new UniqueIdentifierGenerator();
+            ExportableCombinedFailureMechanismSection section = CreateCombinedFailureMechanismSection();
+
+            // Call
+            SerializableFailureMechanismSection serializableSection =
+                SerializableFailureMechanismSectionCreator.Create(idGenerator, collection, section);
+
+            // Assert
+            SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(section, collection, serializableSection);
+        }
+
+        private static ExportableCombinedFailureMechanismSection CreateCombinedFailureMechanismSection()
+        {
+            var random = new Random(21);
+            return new ExportableCombinedFailureMechanismSection(new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble())
+            }, random.NextDouble(), random.NextDouble(), random.NextEnumValue<ExportableAssemblyMethod>());
         }
     }
 }

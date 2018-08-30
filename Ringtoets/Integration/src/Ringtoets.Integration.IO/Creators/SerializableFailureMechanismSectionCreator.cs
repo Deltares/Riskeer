@@ -71,5 +71,45 @@ namespace Ringtoets.Integration.IO.Creators
                                                            section.Geometry,
                                                            SerializableFailureMechanismSectionType.FailureMechanism);
         }
+
+        /// <summary>
+        /// Creates a <see cref="SerializableFailureMechanismSection"/> based on
+        /// an <see cref="ExportableCombinedFailureMechanismSection"/>.
+        /// </summary>
+        /// <param name="idGenerator">The id generator to generate an id
+        /// for <see cref="SerializableFailureMechanismSection"/>.</param>
+        /// <param name="serializableCollection">The <see cref="SerializableFailureMechanismSectionCollection"/>
+        /// this section belongs to.</param>
+        /// <param name="section">The <see cref="ExportableCombinedFailureMechanismSection"/>
+        /// to create a <see cref="SerializableFailureMechanismSection"/> for.</param>
+        /// <returns>A <see cref="SerializableFailureMechanismSection"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static SerializableFailureMechanismSection Create(UniqueIdentifierGenerator idGenerator,
+                                                                 SerializableFailureMechanismSectionCollection serializableCollection,
+                                                                 ExportableCombinedFailureMechanismSection section)
+        {
+            if (idGenerator == null)
+            {
+                throw new ArgumentNullException(nameof(idGenerator));
+            }
+
+            if (serializableCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serializableCollection));
+            }
+
+            if (section == null)
+            {
+                throw new ArgumentNullException(nameof(section));
+            }
+
+            return new SerializableFailureMechanismSection(idGenerator.GetNewId(Resources.SerializableFailureMechanismSection_IdPrefix),
+                                                           serializableCollection,
+                                                           section.StartDistance,
+                                                           section.EndDistance,
+                                                           section.Geometry,
+                                                           SerializableFailureMechanismSectionType.Combined,
+                                                           SerializableAssemblyMethodCreator.Create(section.AssemblyMethod));
+        }
     }
 }

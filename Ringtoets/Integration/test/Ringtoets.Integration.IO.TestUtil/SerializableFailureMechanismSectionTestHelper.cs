@@ -24,6 +24,7 @@ using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.AssemblyTool.IO.Model.Helpers;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Creators;
 
 namespace Ringtoets.Integration.IO.TestUtil
 {
@@ -66,5 +67,40 @@ namespace Ringtoets.Integration.IO.TestUtil
             Assert.IsNull(actualSerializableSection.AssemblyMethod);
         }
 
+
+        /// <summary>
+        /// Asserts a <see cref="SerializableFailureMechanismSection"/> against
+        /// an <see cref="ExportableCombinedFailureMechanismSection"/>.
+        /// </summary>
+        /// <param name="expectedSection">The <see cref="ExportableCombinedFailureMechanismSection"/> to assert against.</param>
+        /// <param name="expectedCollection">The <see cref="SerializableFailureMechanismSectionCollection"/> the section belongs to.</param>
+        /// <param name="actualSerializableSection">The <see cref="SerializableFailureMechanismSection"/> to assert.</param>
+        /// <param name="expectedId">The expected id for the <see cref="SerializableFailureMechanismSection"/>.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The id does not match with the expected id.</item>
+        /// <item>The id of the failure mechanism section collection does not match.</item>
+        /// <item>The geometry, start distance or the end distance of the failure mechanism section does not match.</item>
+        /// <item>The failure mechanism section type does not match.</item>
+        /// <item>The used assembly method to obtain the section does not match.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertFailureMechanismSection(ExportableCombinedFailureMechanismSection expectedSection,
+                                                         SerializableFailureMechanismSectionCollection expectedCollection,
+                                                         SerializableFailureMechanismSection actualSerializableSection,
+                                                         int expectedId = 0)
+        {
+            Assert.AreEqual($"Wks.{expectedId}", actualSerializableSection.Id);
+            Assert.AreEqual(expectedCollection.Id, actualSerializableSection.FailureMechanismSectionCollectionId);
+
+            Assert.AreEqual(GeometrySerializationFormatter.Format(expectedSection.Geometry),
+                            actualSerializableSection.Geometry.LineString.Geometry);
+            Assert.AreEqual(expectedSection.StartDistance, actualSerializableSection.StartDistance.Value);
+            Assert.AreEqual(expectedSection.EndDistance, actualSerializableSection.EndDistance.Value);
+            Assert.AreEqual(SerializableFailureMechanismSectionType.Combined,
+                            actualSerializableSection.FailureMechanismSectionType);
+            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedSection.AssemblyMethod),
+                            actualSerializableSection.AssemblyMethod);
+        }
     }
 }
