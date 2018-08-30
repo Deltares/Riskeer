@@ -138,4 +138,7 @@
   <data name="SerializableFailureMechanismSectionAssembly_IdPrefix" xml:space="preserve">
     <value>T</value>
   </data>
+  <data name="SerializableFailureMechanismSectionCollection_IdPrefix" xml:space="preserve">
+    <value>Vi</value>
+  </data>
 </root>

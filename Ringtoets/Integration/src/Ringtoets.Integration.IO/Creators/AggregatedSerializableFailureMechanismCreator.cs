@@ -24,6 +24,7 @@ using System.Linq;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Helpers;
+using Ringtoets.Integration.IO.Properties;
 
 namespace Ringtoets.Integration.IO.Creators
 {
@@ -63,7 +64,8 @@ namespace Ringtoets.Integration.IO.Creators
             }
 
             SerializableFailureMechanism serializableFailureMechanism = SerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
-            var serializableCollection = new SerializableFailureMechanismSectionCollection(idGenerator.GetNewId("Vi"), serializableFailureMechanism);
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionCollection_IdPrefix),
+                                                                                           serializableFailureMechanism);
 
             AggregatedSerializableFailureMechanismSectionAssembly[] serializableFailureMechanismSectionAssemblyResults =
                 failureMechanism.SectionAssemblyResults
@@ -110,7 +112,8 @@ namespace Ringtoets.Integration.IO.Creators
             }
 
             SerializableFailureMechanism serializableFailureMechanism = SerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
-            var serializableCollection = new SerializableFailureMechanismSectionCollection(idGenerator.GetNewId("Vi"), serializableFailureMechanism);
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionCollection_IdPrefix),
+                                                                                           serializableFailureMechanism);
 
             AggregatedSerializableFailureMechanismSectionAssembly[] serializableFailureMechanismSectionAssemblyResults =
                 failureMechanism.SectionAssemblyResults
