@@ -54,7 +54,25 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableAssessmentSection_WithAssessmentSection_ReturnsExpectedValues()
+        public void CreateExportableAssessmentSection_WithAssessmentSectionWithoutReferenceLine_ThrowsArgumentException()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            // Call
+            TestDelegate call = () =>
+            {
+                ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
+            };
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("reference line of assessment section cannot be null.", exception.Message);
+        }
+
+        [Test]
+        public void CreateExportableAssessmentSection_WithAssessmentSectionWithReferenceLine_ReturnsExpectedValues()
         {
             // Setup
             const string name = "assessmentSectionName";

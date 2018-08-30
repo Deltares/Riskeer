@@ -44,12 +44,18 @@ namespace Ringtoets.Integration.IO.Factories
         /// <returns>An <see cref="ExportableAssessmentSection"/> with assembly results.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when no reference line is set for <paramref name="assessmentSection"/>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
         public static ExportableAssessmentSection CreateExportableAssessmentSection(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (assessmentSection.ReferenceLine == null)
+            {
+                throw new ArgumentException("reference line of assessment section cannot be null.");
             }
 
             return new ExportableAssessmentSection(assessmentSection.Name, 
