@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Service.Test
             string result = ParameterNameExtractor.GetFromDisplayName(parameterName);
 
             // Assert
-            Assert.AreEqual("a", result);
+            Assert.AreEqual("A", result);
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Service.Test
             string result = ParameterNameExtractor.GetFromDisplayName(parameterWithUnits);
 
             // Assert
-            Assert.AreEqual("a", result);
+            Assert.AreEqual("A", result);
         }
     }
 }

@@ -72,7 +72,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                                                                        validFilePath);
             mockRepository.ReplayAll();
 
-            const string expectedValidationMessage = "De waarde voor 'oriëntatie' moet een concreet getal zijn.";
+            const string expectedValidationMessage = "De waarde voor 'Oriëntatie' moet een concreet getal zijn.";
 
             var calculation = new TestHeightStructuresCalculation
             {
@@ -868,17 +868,17 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             get
             {
-                yield return new TestCaseData(double.NaN, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
-                yield return new TestCaseData(double.PositiveInfinity, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
-                yield return new TestCaseData(double.NegativeInfinity, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.NaN, 1, 2, "Modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, "Modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.NegativeInfinity, 1, 2, "Modelfactor overloopdebiet volkomen overlaat");
 
-                yield return new TestCaseData(1, double.NaN, 2, "kerende hoogte");
-                yield return new TestCaseData(1, double.PositiveInfinity, 2, "kerende hoogte");
-                yield return new TestCaseData(1, double.NegativeInfinity, 2, "kerende hoogte");
+                yield return new TestCaseData(1, double.NaN, 2, "Kerende hoogte");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, "Kerende hoogte");
+                yield return new TestCaseData(1, double.NegativeInfinity, 2, "Kerende hoogte");
 
-                yield return new TestCaseData(1, 2, double.NaN, "breedte van doorstroomopening");
-                yield return new TestCaseData(1, 2, double.PositiveInfinity, "breedte van doorstroomopening");
-                yield return new TestCaseData(1, 2, double.NegativeInfinity, "breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, double.NaN, "Breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, "Breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, double.NegativeInfinity, "Breedte van doorstroomopening");
             }
         }
 
@@ -886,20 +886,20 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             get
             {
-                yield return new TestCaseData(double.NaN, 1, 2, 3, 4, "stormduur");
-                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, 4, "stormduur");
+                yield return new TestCaseData(double.NaN, 1, 2, 3, 4, "Stormduur");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, 4, "Stormduur");
 
-                yield return new TestCaseData(1, double.NaN, 2, 3, 4, "toegestane peilverhoging komberging");
-                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, 4, "toegestane peilverhoging komberging");
+                yield return new TestCaseData(1, double.NaN, 2, 3, 4, "Toegestane peilverhoging komberging");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, 4, "Toegestane peilverhoging komberging");
 
-                yield return new TestCaseData(1, 2, double.NaN, 3, 4, "kombergend oppervlak");
-                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, 4, "kombergend oppervlak");
+                yield return new TestCaseData(1, 2, double.NaN, 3, 4, "Kombergend oppervlak");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, 4, "Kombergend oppervlak");
 
-                yield return new TestCaseData(1, 2, 3, double.NaN, 4, "stroomvoerende breedte bodembescherming");
-                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, 4, "stroomvoerende breedte bodembescherming");
+                yield return new TestCaseData(1, 2, 3, double.NaN, 4, "Stroomvoerende breedte bodembescherming");
+                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, 4, "Stroomvoerende breedte bodembescherming");
 
-                yield return new TestCaseData(1, 2, 3, 4, double.NaN, "kritiek instromend debiet");
-                yield return new TestCaseData(1, 2, 3, 4, double.PositiveInfinity, "kritiek instromend debiet");
+                yield return new TestCaseData(1, 2, 3, 4, double.NaN, "Kritiek instromend debiet");
+                yield return new TestCaseData(1, 2, 3, 4, double.PositiveInfinity, "Kritiek instromend debiet");
             }
         }
 
@@ -907,20 +907,20 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             get
             {
-                yield return new TestCaseData(double.NaN, 1, 2, 3, 4, "modelfactor overloopdebiet volkomen overlaat");
-                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, 4, "modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.NaN, 1, 2, 3, 4, "Modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, 4, "Modelfactor overloopdebiet volkomen overlaat");
 
-                yield return new TestCaseData(1, double.NaN, 2, 3, 4, "kerende hoogte");
-                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, 4, "kerende hoogte");
+                yield return new TestCaseData(1, double.NaN, 2, 3, 4, "Kerende hoogte");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, 4, "Kerende hoogte");
 
-                yield return new TestCaseData(1, 2, double.NaN, 3, 4, "toegestane peilverhoging komberging");
-                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, 4, "toegestane peilverhoging komberging");
+                yield return new TestCaseData(1, 2, double.NaN, 3, 4, "Toegestane peilverhoging komberging");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, 4, "Toegestane peilverhoging komberging");
 
-                yield return new TestCaseData(1, 2, 3, double.NaN, 4, "stroomvoerende breedte bodembescherming");
-                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, 4, "stroomvoerende breedte bodembescherming");
+                yield return new TestCaseData(1, 2, 3, double.NaN, 4, "Stroomvoerende breedte bodembescherming");
+                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, 4, "Stroomvoerende breedte bodembescherming");
 
-                yield return new TestCaseData(1, 2, 3, 4, double.NaN, "breedte van doorstroomopening");
-                yield return new TestCaseData(1, 2, 3, 4, double.PositiveInfinity, "breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, 3, 4, double.NaN, "Breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, 3, 4, double.PositiveInfinity, "Breedte van doorstroomopening");
             }
         }
 
@@ -928,14 +928,14 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             get
             {
-                yield return new TestCaseData(double.NaN, 1, 2, "stormduur");
-                yield return new TestCaseData(double.PositiveInfinity, 1, 2, "stormduur");
+                yield return new TestCaseData(double.NaN, 1, 2, "Stormduur");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, "Stormduur");
 
-                yield return new TestCaseData(1, double.NaN, 2, "kombergend oppervlak");
-                yield return new TestCaseData(1, double.PositiveInfinity, 2, "kombergend oppervlak");
+                yield return new TestCaseData(1, double.NaN, 2, "Kombergend oppervlak");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, "Kombergend oppervlak");
 
-                yield return new TestCaseData(1, 2, double.NaN, "kritiek instromend debiet");
-                yield return new TestCaseData(1, 2, double.PositiveInfinity, "kritiek instromend debiet");
+                yield return new TestCaseData(1, 2, double.NaN, "Kritiek instromend debiet");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, "Kritiek instromend debiet");
             }
         }
 

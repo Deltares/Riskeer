@@ -1954,33 +1954,33 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
         #region Parametername mappings
 
-        private const string volumicWeightWaterParameterName = "volumiek gewicht van water";
-        private const string insideWaterLevelFailureConstructionParameterName = "binnenwaterstand bij constructief falen";
-        private const string insideWaterLevelParameterName = "binnenwaterstand";
-        private const string stormDurationParameterName = "stormduur";
-        private const string factorStormDurationOpenStructureParameterName = "factor voor stormduur hoogwater";
-        private const string modelFactorSuperCriticalFlowParameterName = "modelfactor overloopdebiet volkomen overlaat";
-        private const string flowVelocityStructureClosableParameterName = "kritieke stroomsnelheid sluiting eerste keermiddel";
-        private const string drainCoefficientParameterName = "afvoercoëfficiënt";
-        private const string structureNormalOrientationParameterName = "oriëntatie";
-        private const string levelCrestStructureParameterName = "kerende hoogte";
-        private const string thresholdHeightOpenWeirParameterName = "drempelhoogte";
-        private const string areaFlowAperturesParameterName = "doorstroomoppervlak";
-        private const string constructiveStrengthLinearLoadModelParameterName = "lineaire belastingschematisering constructieve sterkte";
-        private const string constructiveStrengthQuadraticLoadModelParameterName = "kwadratische belastingschematisering constructieve sterkte";
-        private const string stabilityLinearLoadModelParameterName = "lineaire belastingschematisering stabiliteit";
-        private const string stabilityQuadraticLoadModelParameterName = "kwadratische belastingschematisering stabiliteit";
-        private const string failureCollisionEnergyParameterName = "bezwijkwaarde aanvaarenergie";
-        private const string shipMassParameterName = "massa van het schip";
-        private const string shipVelocityParameterName = "aanvaarsnelheid";
-        private const string allowedLevelIncreaseStorageParameterName = "toegestane peilverhoging komberging";
-        private const string storageStructureAreaParameterName = "kombergend oppervlak";
-        private const string flowWidthAtBottomProtectionParameterName = "stroomvoerende breedte bodembescherming";
-        private const string criticalOvertoppingDischargeParameterName = "kritiek instromend debiet";
-        private const string widthFlowAperturesParameterName = "breedte van doorstroomopening";
-        private const string bankWidthParameterName = "bermbreedte";
-        private const string evaluationLevelParameterName = "analysehoogte";
-        private const string verticalDistanceParameterName = "afstand onderkant wand en teen van de dijk/berm";
+        private const string volumicWeightWaterParameterName = "Volumiek gewicht van water";
+        private const string insideWaterLevelFailureConstructionParameterName = "Binnenwaterstand bij constructief falen";
+        private const string insideWaterLevelParameterName = "Binnenwaterstand";
+        private const string stormDurationParameterName = "Stormduur";
+        private const string factorStormDurationOpenStructureParameterName = "Factor voor stormduur hoogwater";
+        private const string modelFactorSuperCriticalFlowParameterName = "Modelfactor overloopdebiet volkomen overlaat";
+        private const string flowVelocityStructureClosableParameterName = "Kritieke stroomsnelheid sluiting eerste keermiddel";
+        private const string drainCoefficientParameterName = "Afvoercoëfficiënt";
+        private const string structureNormalOrientationParameterName = "Oriëntatie";
+        private const string levelCrestStructureParameterName = "Kerende hoogte";
+        private const string thresholdHeightOpenWeirParameterName = "Drempelhoogte";
+        private const string areaFlowAperturesParameterName = "Doorstroomoppervlak";
+        private const string constructiveStrengthLinearLoadModelParameterName = "Lineaire belastingschematisering constructieve sterkte";
+        private const string constructiveStrengthQuadraticLoadModelParameterName = "Kwadratische belastingschematisering constructieve sterkte";
+        private const string stabilityLinearLoadModelParameterName = "Lineaire belastingschematisering stabiliteit";
+        private const string stabilityQuadraticLoadModelParameterName = "Kwadratische belastingschematisering stabiliteit";
+        private const string failureCollisionEnergyParameterName = "Bezwijkwaarde aanvaarenergie";
+        private const string shipMassParameterName = "Massa van het schip";
+        private const string shipVelocityParameterName = "Aanvaarsnelheid";
+        private const string allowedLevelIncreaseStorageParameterName = "Toegestane peilverhoging komberging";
+        private const string storageStructureAreaParameterName = "Kombergend oppervlak";
+        private const string flowWidthAtBottomProtectionParameterName = "Stroomvoerende breedte bodembescherming";
+        private const string criticalOvertoppingDischargeParameterName = "Kritiek instromend debiet";
+        private const string widthFlowAperturesParameterName = "Breedte van doorstroomopening";
+        private const string bankWidthParameterName = "Bermbreedte";
+        private const string evaluationLevelParameterName = "Analysehoogte";
+        private const string verticalDistanceParameterName = "Afstand onderkant wand en teen van de dijk/berm";
 
         #endregion
     }
