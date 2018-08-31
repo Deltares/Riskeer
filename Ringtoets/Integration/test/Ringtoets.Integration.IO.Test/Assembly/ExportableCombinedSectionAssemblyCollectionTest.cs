@@ -65,7 +65,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             var assembly = new ExportableCombinedSectionAssemblyCollection(sections, combinedSectionAssemblyResults);
 
             // Assert
-            Assert.AreSame(sections, assembly.Sections);
             Assert.AreSame(combinedSectionAssemblyResults, assembly.CombinedSectionAssemblyResults);
         }
     }

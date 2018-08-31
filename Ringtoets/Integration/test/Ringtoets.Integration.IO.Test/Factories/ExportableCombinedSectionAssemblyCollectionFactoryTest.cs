@@ -119,17 +119,15 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                                  ReferenceLine referenceLine)
         {
             int expectedNrOfSections = expectedSections.Count();
-            Assert.AreEqual(expectedNrOfSections, collection.Sections.Count());
             Assert.AreEqual(expectedNrOfSections, collection.CombinedSectionAssemblyResults.Count());
 
             for (var i = 0; i < expectedNrOfSections; i++)
             {
                 CombinedFailureMechanismSectionAssemblyResult expectedSection = expectedSections.ElementAt(i);
-                ExportableCombinedFailureMechanismSection actualSection = collection.Sections.ElementAt(i);
                 ExportableCombinedSectionAssembly actualSectionResult = collection.CombinedSectionAssemblyResults.ElementAt(i);
 
-                AssertExportableCombinedFailureMechanismSection(expectedSection, actualSection, referenceLine);
-                AssertExportableCombinedFailureMechanismSectionResult(actualSectionResult, actualSection, expectedSection);
+                AssertExportableCombinedFailureMechanismSection(expectedSection, actualSectionResult.Section, referenceLine);
+                AssertExportableCombinedFailureMechanismSectionResult(actualSectionResult, actualSectionResult.Section, expectedSection);
             }
         }
 

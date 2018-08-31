@@ -145,20 +145,12 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                     failureMechanismAssemblyCalculator,
                                                                     assessmentSection);
 
-                AssertCombinedFailureMechanismSectionAssemblyResults(AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection),
-                                                                     exportableAssessmentSection.CombinedSectionAssemblyResults);
+                int expectedNrOfSections = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection).Count();
+                Assert.AreEqual(expectedNrOfSections, exportableAssessmentSection.CombinedSectionAssemblyResults.CombinedSectionAssemblyResults.Count());
             }
         }
 
         #region TestHelper CombinedFailureMechanismSection
-
-        private static void AssertCombinedFailureMechanismSectionAssemblyResults(IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedSections,
-                                                                                 ExportableCombinedSectionAssemblyCollection collection)
-        {
-            int expectedNrOfSections = expectedSections.Count();
-            Assert.AreEqual(expectedNrOfSections, collection.Sections.Count());
-            Assert.AreEqual(expectedNrOfSections, collection.CombinedSectionAssemblyResults.Count());
-        }
 
         #endregion
 

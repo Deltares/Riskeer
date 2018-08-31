@@ -49,14 +49,8 @@ namespace Ringtoets.Integration.IO.Assembly
                 throw new ArgumentNullException(nameof(combinedSectionAssemblyResults));
             }
 
-            Sections = sections;
             CombinedSectionAssemblyResults = combinedSectionAssemblyResults;
         }
-
-        /// <summary>
-        /// Gets the sections belonging to this collection of <see cref="ExportableCombinedSectionAssembly"/>.
-        /// </summary>
-        public IEnumerable<ExportableCombinedFailureMechanismSection> Sections { get; }
 
         /// <summary>
         /// Gets the collection of <see cref="ExportableCombinedSectionAssembly"/>.

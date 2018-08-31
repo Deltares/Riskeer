@@ -107,9 +107,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
             var idGenerator = new UniqueIdentifierGenerator();
             SerializableTotalAssemblyResult totalAssemblyResult = CreateSerializableTotalAssembly("totalAssemblyResultId");
 
-            // Precondition
-            Assert.AreEqual(exportableCombinedSectionAssemblyCollection.Sections.Count(), exportableCombinedSectionAssemblyCollection.CombinedSectionAssemblyResults.Count());
-
             // Call
             AggregatedSerializableCombinedFailureMechanismSectionAssemblies aggregate =
                 AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(idGenerator,
@@ -138,7 +135,8 @@ namespace Ringtoets.Integration.IO.Test.Creators
             IEnumerable<SerializableFailureMechanismSection> serializableFailureMechanismSections,
             IEnumerable<SerializableCombinedFailureMechanismSectionAssembly> serializableFailureMechanismSectionAssemblies)
         {
-            IEnumerable<ExportableCombinedFailureMechanismSection> expectedSections = expectedCombinedSectionAssemblyCollection.Sections;
+            IEnumerable<ExportableCombinedFailureMechanismSection> expectedSections = expectedCombinedSectionAssemblyCollection.CombinedSectionAssemblyResults
+                                                                                                                               .Select(csar => csar.Section);
             int expectedNrOfSections = expectedSections.Count();
             Assert.AreEqual(expectedNrOfSections, serializableFailureMechanismSections.Count());
 
