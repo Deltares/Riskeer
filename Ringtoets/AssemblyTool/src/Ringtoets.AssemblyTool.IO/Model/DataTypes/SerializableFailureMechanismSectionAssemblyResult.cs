@@ -43,7 +43,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// <param name="probability">The probability of this assembly result.</param>
         public SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod assemblyMethod,
                                                                  SerializableAssessmentType assessmentType,
-                                                                 SerializableFailureMechanismSectionCategoryGroup categoryGroup,
+                                                                 SerializableFailureMechanismSectionCategoryGroup? categoryGroup = null,
                                                                  double? probability = null) : this()
         {
             CategoryGroup = categoryGroup;
@@ -62,7 +62,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// Gets or sets the category group of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionCategoryGroup)]
-        public SerializableFailureMechanismSectionCategoryGroup CategoryGroup { get; set; }
+        public SerializableFailureMechanismSectionCategoryGroup? CategoryGroup { get; set; }
 
         /// <summary>
         /// Gets or sets the probability of this assembly result.
@@ -83,6 +83,15 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         public bool ShouldSerializeProbability()
         {
             return Probability.HasValue;
+        }
+
+        /// <summary>
+        /// Determines whether <see cref="CategoryGroup"/> should be serialized.
+        /// </summary>
+        /// <returns><c>true</c> if <see cref="CategoryGroup"/> should be serialized, <c>false</c> otherwise.</returns>
+        public bool ShouldSerializeCategoryGroup()
+        {
+            return CategoryGroup.HasValue;
         }
     }
 }
