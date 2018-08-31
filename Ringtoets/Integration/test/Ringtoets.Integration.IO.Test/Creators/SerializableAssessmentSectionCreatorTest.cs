@@ -80,8 +80,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                    ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
                                                    Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
                                                    Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
-                                                   new ExportableCombinedSectionAssemblyCollection(Enumerable.Empty<ExportableCombinedFailureMechanismSection>(),
-                                                                                                   Enumerable.Empty<ExportableCombinedSectionAssembly>()));
+                                                   Enumerable.Empty<ExportableCombinedSectionAssembly>());
         }
 
         private static IEnumerable<Point2D> CreateGeometry()

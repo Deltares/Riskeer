@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.AggregatedSerializable;
@@ -40,13 +41,13 @@ namespace Ringtoets.Integration.IO.Creators
         /// </summary>
         /// <param name="idGenerator">The id generator to generate ids for the serializable components.</param>
         /// <param name="totalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/> the serializable components belong to.</param>
-        /// <param name="combinedSectionAssemblyCollection">The <see cref="ExportableCombinedSectionAssemblyCollection"/>
+        /// <param name="combinedSectionAssemblyCollection">The collection of <see cref="ExportableCombinedSectionAssembly"/>
         /// to create am <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssemblies"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssemblies"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static AggregatedSerializableCombinedFailureMechanismSectionAssemblies Create(UniqueIdentifierGenerator idGenerator,
                                                                                              SerializableTotalAssemblyResult totalAssemblyResult,
-                                                                                             ExportableCombinedSectionAssemblyCollection combinedSectionAssemblyCollection)
+                                                                                             IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyCollection)
         {
             if (idGenerator == null)
             {
@@ -67,10 +68,10 @@ namespace Ringtoets.Integration.IO.Creators
                                                                                totalAssemblyResult);
 
             AggregatedSerializableCombinedFailureMechanismSectionAssembly[] aggregates =
-                combinedSectionAssemblyCollection.CombinedSectionAssemblyResults
-                                                 .Select(csar => AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.Create(idGenerator,
+                combinedSectionAssemblyCollection.Select(csar => AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.Create(idGenerator,
                                                                                                                                              totalAssemblyResult,
-                                                                                                                                             collection, csar))
+                                                                                                                                             collection,
+                                                                                                                                             csar))
                                                  .ToArray();
 
             return new AggregatedSerializableCombinedFailureMechanismSectionAssemblies(collection,

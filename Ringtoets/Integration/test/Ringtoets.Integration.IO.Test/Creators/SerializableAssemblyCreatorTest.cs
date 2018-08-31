@@ -76,7 +76,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
                     CreateFailureMechanismWithoutProbability(),
                     CreateFailureMechanismWithoutProbability()
                 };
-            ExportableCombinedSectionAssemblyCollection combinedSectionAssemblyResults = CreateCombinedSectionAssemblyCollection();
 
             var exportableAssessmentSection = new ExportableAssessmentSection(assessmentSectionName,
                                                                               assessmentSectionId,
@@ -86,7 +85,11 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                               failureMechanismAssemblyResultWithoutProbability,
                                                                               failureMechanismsWithProbability,
                                                                               failureMechanismsWithoutProbability,
-                                                                              combinedSectionAssemblyResults);
+                                                                              new[]
+                                                                              {
+                                                                                  CreateCombinedSectionAssembly(CreateCombinedFailureMechanismSection()),
+                                                                                  CreateCombinedSectionAssembly(CreateCombinedFailureMechanismSection())
+                                                                              });
 
             // Call
             SerializableAssembly serializableAssembly = SerializableAssemblyCreator.Create(exportableAssessmentSection);
@@ -133,21 +136,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
                 new Point2D(4, 4),
                 new Point2D(5, -1)
             };
-        }
-
-        private static ExportableCombinedSectionAssemblyCollection CreateCombinedSectionAssemblyCollection()
-        {
-            ExportableCombinedFailureMechanismSection[] sections =
-            {
-                CreateCombinedFailureMechanismSection(),
-                CreateCombinedFailureMechanismSection()
-            };
-            return new ExportableCombinedSectionAssemblyCollection(sections,
-                                                                   new[]
-                                                                   {
-                                                                       CreateCombinedSectionAssembly(sections[0]),
-                                                                       CreateCombinedSectionAssembly(sections[1])
-                                                                   });
         }
 
         private static ExportableCombinedFailureMechanismSection CreateCombinedFailureMechanismSection()

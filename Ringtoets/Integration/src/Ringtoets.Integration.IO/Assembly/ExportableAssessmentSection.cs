@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.IO.Assembly
                                            ExportableFailureMechanismAssemblyResult failureMechanismAssemblyWithoutProbability,
                                            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> failureMechanismsWithProbability,
                                            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability,
-                                           ExportableCombinedSectionAssemblyCollection combinedSectionAssemblyResults)
+                                           IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults)
         {
             if (name == null)
             {
