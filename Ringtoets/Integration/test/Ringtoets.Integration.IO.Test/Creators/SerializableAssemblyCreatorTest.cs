@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             AssertSerializableBoundary(exportableAssessmentSection.Geometry, serializableAssembly.Boundary);
 
             SerializableFeatureMember[] serializableAssemblyFeatureMembers = serializableAssembly.FeatureMembers;
-            Assert.AreEqual(20, serializableAssemblyFeatureMembers.Length);
+            Assert.AreEqual(22, serializableAssemblyFeatureMembers.Length);
 
             var serializableAssessmentSection = (SerializableAssessmentSection) serializableAssemblyFeatureMembers[0];
             AssertSerializableAssessmentSection($"Wks.{assessmentSectionId}", assessmentSectionName, geometry, serializableAssessmentSection);
@@ -176,9 +176,19 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                               serializableFailureMechanismSection4,
                                                               (SerializableFailureMechanismSectionAssembly) serializableAssemblyFeatureMembers[10]);
 
+            var combinedFailureMechanismSectionCollection = (SerializableFailureMechanismSectionCollection)serializableAssemblyFeatureMembers[15];
             AssertSerializableFailureMechanismSectionCollection("Vi.19",
                                                                 serializableTotalAssemblyResult,
-                                                                (SerializableFailureMechanismSectionCollection)serializableAssemblyFeatureMembers[15]);
+                                                                combinedFailureMechanismSectionCollection);
+            var combinedFailureMechanismSection1 = (SerializableFailureMechanismSection)serializableAssemblyFeatureMembers[20];
+            AssertSerializableFailureMechanismSection("Wks.20",
+                                                      combinedFailureMechanismSectionCollection,
+                                                      combinedFailureMechanismSection1);
+
+            var combinedFailureMechanismSection2 = (SerializableFailureMechanismSection)serializableAssemblyFeatureMembers[21];
+            AssertSerializableFailureMechanismSection("Wks.22",
+                                                      combinedFailureMechanismSectionCollection,
+                                                      combinedFailureMechanismSection2);
         }
 
         private static IEnumerable<Point2D> CreateGeometry()

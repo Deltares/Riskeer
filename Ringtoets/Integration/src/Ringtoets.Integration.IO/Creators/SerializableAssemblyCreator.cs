@@ -85,6 +85,7 @@ namespace Ringtoets.Integration.IO.Creators
             var serializableFailureMechanismSections = new List<SerializableFailureMechanismSection>();
             serializableFailureMechanismSections.AddRange(aggregatedFailureMechanismsWithProbability.SelectMany(afm => afm.FailureMechanismSections));
             serializableFailureMechanismSections.AddRange(aggregatedFailureMechanismsWithoutProbability.SelectMany(afm => afm.FailureMechanismSections));
+            serializableFailureMechanismSections.AddRange(aggregatedSerializableCombinedFailureMechanismSectionAssemblies.FailureMechanismSections);
 
             var serializableFailureMechanismSectionAssemblies = new List<SerializableFailureMechanismSectionAssembly>();
             serializableFailureMechanismSectionAssemblies.AddRange(aggregatedFailureMechanismsWithProbability.SelectMany(afm => afm.FailureMechanismSectionAssemblyResults));
