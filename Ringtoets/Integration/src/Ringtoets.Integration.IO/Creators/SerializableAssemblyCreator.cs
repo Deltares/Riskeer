@@ -71,25 +71,9 @@ namespace Ringtoets.Integration.IO.Creators
                                                                                                                       .ToArray();
 
             AggregatedSerializableCombinedFailureMechanismSectionAssemblies aggregatedSerializableCombinedFailureMechanismSectionAssemblies =
-                AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(idGenerator, serializableTotalAssemblyResult, assessmentSection.CombinedSectionAssemblyResults);
-
-            var serializableFailureMechanisms = new List<SerializableFailureMechanism>();
-            serializableFailureMechanisms.AddRange(aggregatedFailureMechanismsWithProbability.Select(afm => afm.FailureMechanism));
-            serializableFailureMechanisms.AddRange(aggregatedFailureMechanismsWithoutProbability.Select(afm => afm.FailureMechanism));
-
-            var serializableFailureMechanismSectionCollection = new List<SerializableFailureMechanismSectionCollection>();
-            serializableFailureMechanismSectionCollection.AddRange(aggregatedFailureMechanismsWithProbability.Select(afm => afm.FailureMechanismSectionCollection));
-            serializableFailureMechanismSectionCollection.AddRange(aggregatedFailureMechanismsWithoutProbability.Select(afm => afm.FailureMechanismSectionCollection));
-            serializableFailureMechanismSectionCollection.Add(aggregatedSerializableCombinedFailureMechanismSectionAssemblies.FailureMechanismSectionCollection);
-
-            var serializableFailureMechanismSections = new List<SerializableFailureMechanismSection>();
-            serializableFailureMechanismSections.AddRange(aggregatedFailureMechanismsWithProbability.SelectMany(afm => afm.FailureMechanismSections));
-            serializableFailureMechanismSections.AddRange(aggregatedFailureMechanismsWithoutProbability.SelectMany(afm => afm.FailureMechanismSections));
-            serializableFailureMechanismSections.AddRange(aggregatedSerializableCombinedFailureMechanismSectionAssemblies.FailureMechanismSections);
-
-            var serializableFailureMechanismSectionAssemblies = new List<SerializableFailureMechanismSectionAssembly>();
-            serializableFailureMechanismSectionAssemblies.AddRange(aggregatedFailureMechanismsWithProbability.SelectMany(afm => afm.FailureMechanismSectionAssemblyResults));
-            serializableFailureMechanismSectionAssemblies.AddRange(aggregatedFailureMechanismsWithoutProbability.SelectMany(afm => afm.FailureMechanismSectionAssemblyResults));
+                AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(idGenerator, 
+                                                                                              serializableTotalAssemblyResult,
+                                                                                              assessmentSection.CombinedSectionAssemblyResults);
 
             return new SerializableAssembly(serializableAssemblyId,
                                             GetLowerCorner(assessmentSection.Geometry),
@@ -97,23 +81,17 @@ namespace Ringtoets.Integration.IO.Creators
                                             serializableAssessmentSection,
                                             serializableAssessmentProcess,
                                             serializableTotalAssemblyResult,
-                                            serializableFailureMechanisms,
-                                            serializableFailureMechanismSectionAssemblies,
+                                            GetAllSerializableFailureMechanisms(aggregatedFailureMechanismsWithProbability,
+                                                                                aggregatedFailureMechanismsWithoutProbability),
+                                            GetAllSerializableFailureMechanismSectionAssemblies(aggregatedFailureMechanismsWithProbability,
+                                                                                                aggregatedFailureMechanismsWithoutProbability),
                                             aggregatedSerializableCombinedFailureMechanismSectionAssemblies.CombinedFailureMechanismSectionAssemblies,
-                                            serializableFailureMechanismSectionCollection,
-                                            serializableFailureMechanismSections);
-        }
-
-        private static Point2D GetLowerCorner(IEnumerable<Point2D> geometry)
-        {
-            return new Point2D(geometry.Select(p => p.X).Min(),
-                               geometry.Select(p => p.Y).Min());
-        }
-
-        private static Point2D GetUpperCorner(IEnumerable<Point2D> geometry)
-        {
-            return new Point2D(geometry.Select(p => p.X).Max(),
-                               geometry.Select(p => p.Y).Max());
+                                            GetAllSerializableFailureMechanismSectionCollections(aggregatedFailureMechanismsWithProbability,
+                                                                                                 aggregatedFailureMechanismsWithoutProbability,
+                                                                                                 aggregatedSerializableCombinedFailureMechanismSectionAssemblies),
+                                            GetAllSerializableFailureMechanismSections(aggregatedFailureMechanismsWithProbability,
+                                                                                       aggregatedFailureMechanismsWithoutProbability, 
+                                                                                       aggregatedSerializableCombinedFailureMechanismSectionAssemblies));
         }
 
         private static AggregatedSerializableFailureMechanism CreateFailureMechanismsWithProbability(UniqueIdentifierGenerator idGenerator,
@@ -128,6 +106,62 @@ namespace Ringtoets.Integration.IO.Creators
                                                                                                         ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism)
         {
             return AggregatedSerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
+        }
+
+        private static IEnumerable<SerializableFailureMechanismSectionAssembly> GetAllSerializableFailureMechanismSectionAssemblies(
+            IEnumerable<AggregatedSerializableFailureMechanism> aggregatedFailureMechanismsWithProbability,
+            IEnumerable<AggregatedSerializableFailureMechanism> aggregatedFailureMechanismsWithoutProbability)
+        {
+            var serializableFailureMechanismSectionAssemblies = new List<SerializableFailureMechanismSectionAssembly>();
+            serializableFailureMechanismSectionAssemblies.AddRange(aggregatedFailureMechanismsWithProbability.SelectMany(afm => afm.FailureMechanismSectionAssemblyResults));
+            serializableFailureMechanismSectionAssemblies.AddRange(aggregatedFailureMechanismsWithoutProbability.SelectMany(afm => afm.FailureMechanismSectionAssemblyResults));
+            return serializableFailureMechanismSectionAssemblies;
+        }
+
+        private static IEnumerable<SerializableFailureMechanismSection> GetAllSerializableFailureMechanismSections(
+            IEnumerable<AggregatedSerializableFailureMechanism> aggregatedFailureMechanismsWithProbability,
+            IEnumerable<AggregatedSerializableFailureMechanism> aggregatedFailureMechanismsWithoutProbability,
+            AggregatedSerializableCombinedFailureMechanismSectionAssemblies aggregatedSerializableCombinedFailureMechanismSectionAssemblies)
+        {
+            var serializableFailureMechanismSections = new List<SerializableFailureMechanismSection>();
+            serializableFailureMechanismSections.AddRange(aggregatedFailureMechanismsWithProbability.SelectMany(afm => afm.FailureMechanismSections));
+            serializableFailureMechanismSections.AddRange(aggregatedFailureMechanismsWithoutProbability.SelectMany(afm => afm.FailureMechanismSections));
+            serializableFailureMechanismSections.AddRange(aggregatedSerializableCombinedFailureMechanismSectionAssemblies.FailureMechanismSections);
+            return serializableFailureMechanismSections;
+        }
+
+        private static IEnumerable<SerializableFailureMechanismSectionCollection> GetAllSerializableFailureMechanismSectionCollections(
+            IEnumerable<AggregatedSerializableFailureMechanism> aggregatedFailureMechanismsWithProbability,
+            IEnumerable<AggregatedSerializableFailureMechanism> aggregatedFailureMechanismsWithoutProbability,
+            AggregatedSerializableCombinedFailureMechanismSectionAssemblies aggregatedSerializableCombinedFailureMechanismSectionAssemblies)
+        {
+            var serializableFailureMechanismSectionCollection = new List<SerializableFailureMechanismSectionCollection>();
+            serializableFailureMechanismSectionCollection.AddRange(aggregatedFailureMechanismsWithProbability.Select(afm => afm.FailureMechanismSectionCollection));
+            serializableFailureMechanismSectionCollection.AddRange(aggregatedFailureMechanismsWithoutProbability.Select(afm => afm.FailureMechanismSectionCollection));
+            serializableFailureMechanismSectionCollection.Add(aggregatedSerializableCombinedFailureMechanismSectionAssemblies.FailureMechanismSectionCollection);
+            return serializableFailureMechanismSectionCollection;
+        }
+
+        private static IEnumerable<SerializableFailureMechanism> GetAllSerializableFailureMechanisms(
+            IEnumerable<AggregatedSerializableFailureMechanism> aggregatedFailureMechanismsWithProbability,
+            IEnumerable<AggregatedSerializableFailureMechanism> aggregatedFailureMechanismsWithoutProbability)
+        {
+            var serializableFailureMechanisms = new List<SerializableFailureMechanism>();
+            serializableFailureMechanisms.AddRange(aggregatedFailureMechanismsWithProbability.Select(afm => afm.FailureMechanism));
+            serializableFailureMechanisms.AddRange(aggregatedFailureMechanismsWithoutProbability.Select(afm => afm.FailureMechanism));
+            return serializableFailureMechanisms;
+        }
+
+        private static Point2D GetLowerCorner(IEnumerable<Point2D> geometry)
+        {
+            return new Point2D(geometry.Select(p => p.X).Min(),
+                               geometry.Select(p => p.Y).Min());
+        }
+
+        private static Point2D GetUpperCorner(IEnumerable<Point2D> geometry)
+        {
+            return new Point2D(geometry.Select(p => p.X).Max(),
+                               geometry.Select(p => p.Y).Max());
         }
     }
 }
