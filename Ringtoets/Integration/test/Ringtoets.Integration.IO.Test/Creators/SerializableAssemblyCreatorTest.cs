@@ -168,10 +168,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
                 new[]
                 {
-                    failureMechanismSection
-                },
-                new[]
-                {
                     CreateSectionResult(failureMechanismSection)
                 },
                 random.NextEnumValue<ExportableFailureMechanismType>(),
@@ -202,10 +198,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
             ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                new[]
-                {
-                    failureMechanismSection
-                },
                 new[]
                 {
                     CreateSectionResult(failureMechanismSection)

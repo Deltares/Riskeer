@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
 
             // Call
             TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                null, Enumerable.Empty<ExportableFailureMechanismSection>(), sectionAssemblyResults, code, group);
+                null, sectionAssemblyResults, code, group);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,38 +52,16 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         }
 
         [Test]
-        public void Constructor_SectionsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var random = new Random(21);
-            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> sectionAssemblyResults =
-                Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>();
-            var code = random.NextEnumValue<ExportableFailureMechanismType>();
-            var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
-
-            // Call
-            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                null, sectionAssemblyResults, code, group);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("sections", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_SectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
-            IEnumerable<ExportableFailureMechanismSection> sections = Enumerable.Empty<ExportableFailureMechanismSection>();
             var code = random.NextEnumValue<ExportableFailureMechanismType>();
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
 
             // Call
             TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                sections, null, code, group);
+                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(), null, code, @group);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -97,7 +75,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             var random = new Random(21);
             ExportableFailureMechanismAssemblyResult failureMechanismAssembly =
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability();
-            IEnumerable<ExportableFailureMechanismSection> sections = Enumerable.Empty<ExportableFailureMechanismSection>();
             IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> sectionAssemblyResults =
                 Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>();
             var code = random.NextEnumValue<ExportableFailureMechanismType>();
@@ -105,7 +82,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
 
             // Call
             var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                failureMechanismAssembly, sections, sectionAssemblyResults, code, group);
+                failureMechanismAssembly, sectionAssemblyResults, code, group);
 
             // Assert
             Assert.AreSame(failureMechanismAssembly, failureMechanism.FailureMechanismAssembly);

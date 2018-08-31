@@ -80,7 +80,6 @@ namespace Ringtoets.Integration.IO.Factories
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
                                                              failureMechanismAssembly),
-                failureMechanismSectionsLookup.Values,
                 CreateExportableFailureMechanismSectionResults(failureMechanismSectionsLookup,
                                                                failureMechanism,
                                                                assessmentSection),

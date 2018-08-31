@@ -47,7 +47,6 @@ namespace Ringtoets.Integration.IO.Factories
                 new ExportableFailureMechanismAssemblyResultWithProbability(assemblyMethod,
                                                                             FailureMechanismAssemblyCategoryGroup.NotApplicable,
                                                                             0),
-                Enumerable.Empty<ExportableFailureMechanismSection>(),
                 Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>(),
                 failureMechanismCode,
                 failureMechanismGroup);
@@ -69,7 +68,6 @@ namespace Ringtoets.Integration.IO.Factories
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(assemblyMethod,
                                                              FailureMechanismAssemblyCategoryGroup.NotApplicable),
-                Enumerable.Empty<ExportableFailureMechanismSection>(),
                 Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResult>(),
                 failureMechanismCode,
                 failureMechanismGroup);

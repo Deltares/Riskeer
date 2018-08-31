@@ -79,7 +79,6 @@ namespace Ringtoets.Integration.IO.Factories
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                failureMechanismSectionsLookup.Values,
                 CreateExportableFailureMechanismSectionResults(failureMechanismSectionsLookup,
                                                                failureMechanism,
                                                                assessmentSection),

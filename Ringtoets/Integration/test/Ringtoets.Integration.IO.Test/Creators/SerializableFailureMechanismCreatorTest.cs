@@ -168,7 +168,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
             var random = new Random(21);
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                Enumerable.Empty<ExportableFailureMechanismSection>(),
                 Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
                 random.NextEnumValue<ExportableFailureMechanismType>(),
                 random.NextEnumValue<ExportableFailureMechanismGroup>());
@@ -179,7 +178,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
             var random = new Random(21);
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                Enumerable.Empty<ExportableFailureMechanismSection>(),
                 Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
                 random.NextEnumValue<ExportableFailureMechanismType>(),
                 random.NextEnumValue<ExportableFailureMechanismGroup>());
