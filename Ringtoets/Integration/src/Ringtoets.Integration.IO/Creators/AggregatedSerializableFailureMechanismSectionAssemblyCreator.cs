@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.IO.Creators
     /// <summary>
     /// Creator to create instance of <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>
     /// </summary>
-    public static class AggregatedSerializableFailureMechanismSectionAssemblyCreator
+    internal static class AggregatedSerializableFailureMechanismSectionAssemblyCreator
     {
         /// <summary>
         /// Creates an instance of <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>

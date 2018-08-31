@@ -28,7 +28,7 @@ namespace Ringtoets.Integration.IO.AggregatedSerializable
     /// Class that holds all the information related to creating a
     /// <see cref="SerializableFailureMechanismSection"/>
     /// </summary>
-    public class AggregatedSerializableCombinedFailureMechanismSectionAssembly
+    internal class AggregatedSerializableCombinedFailureMechanismSectionAssembly
     {
         /// <summary>
         /// Instantiates a <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.
