@@ -262,7 +262,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 assessmentLevelProperty,
                 hydraulicDataCategory,
                 "Waterstand [m+NAP]",
-                "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.",
+                "Waterstand met een overschrijdingsfrequentie gelijk aan de norm van het dijktraject.",
                 true);
 
             PropertyDescriptor useHydraulicBoundaryLocationProperty = dynamicProperties[expectedUseHydraulicBoundaryLocationPropertyIndex];
@@ -496,7 +496,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     assessmentLevelProperty,
                     hydraulicDataCategory,
                     "Waterstand [m+NAP]",
-                    "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.",
+                    "Waterstand met een overschrijdingsfrequentie gelijk aan de norm van het dijktraject.",
                     true);
             }
             else
@@ -508,7 +508,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     assessmentLevelProperty,
                     hydraulicDataCategory,
                     "Waterstand [m+NAP]",
-                    "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.");
+                    "Waterstand met een overschrijdingsfrequentie gelijk aan de norm van het dijktraject.");
             }
 
             mocks.VerifyAll();

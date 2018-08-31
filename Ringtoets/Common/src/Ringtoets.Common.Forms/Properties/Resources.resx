@@ -609,7 +609,7 @@ handmatig</value>
     <value>De hydraulische belastingenlocatie waarvan de berekende waterstand wordt gebruikt.</value>
   </data>
   <data name="AssessmentLevel_Description" xml:space="preserve">
-    <value>Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.</value>
+    <value>Waterstand met een overschrijdingsfrequentie gelijk aan de norm van het dijktraject.</value>
   </data>
   <data name="WaterLevel_DisplayName" xml:space="preserve">
     <value>Waterstand [m+NAP]</value>

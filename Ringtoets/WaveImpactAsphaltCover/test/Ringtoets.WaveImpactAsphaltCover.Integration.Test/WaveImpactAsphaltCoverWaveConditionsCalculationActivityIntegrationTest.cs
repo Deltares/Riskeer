@@ -214,7 +214,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                 // Assert
                 for (var i = 0; i < waterLevels.Length; i++)
                 {
-                    string text = $"Stap {i + 1} van {waterLevels.Length} | Waterstand '{waterLevels[i]}' berekenen.";
+                    string text = $"Stap {i + 1} van {waterLevels.Length} | Berekenen voor een waterstand van '{waterLevels[i]}' [m+NAP].";
                     Assert.AreEqual(text, progessTexts[i]);
                 }
             }
