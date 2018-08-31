@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.IO
         /// <summary>
         /// Gets the collection where the serializable failure mechanism sections belong to.
         /// </summary>
-        public SerializableFailureMechanismSectionCollection FailureMechanismSectionCollection { get;}
+        public SerializableFailureMechanismSectionCollection FailureMechanismSectionCollection { get; }
 
         /// <summary>
         /// Gets the collection of serializable failure mechanism sections.

@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.IO.Creators
                                                                                                                       .ToArray();
 
             AggregatedSerializableCombinedFailureMechanismSectionAssemblies aggregatedSerializableCombinedFailureMechanismSectionAssemblies =
-                AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(idGenerator, 
+                AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(idGenerator,
                                                                                               serializableTotalAssemblyResult,
                                                                                               assessmentSection.CombinedSectionAssemblyResults);
 
@@ -90,7 +90,7 @@ namespace Ringtoets.Integration.IO.Creators
                                                                                                  aggregatedFailureMechanismsWithoutProbability,
                                                                                                  aggregatedSerializableCombinedFailureMechanismSectionAssemblies),
                                             GetAllSerializableFailureMechanismSections(aggregatedFailureMechanismsWithProbability,
-                                                                                       aggregatedFailureMechanismsWithoutProbability, 
+                                                                                       aggregatedFailureMechanismsWithoutProbability,
                                                                                        aggregatedSerializableCombinedFailureMechanismSectionAssemblies));
         }
 

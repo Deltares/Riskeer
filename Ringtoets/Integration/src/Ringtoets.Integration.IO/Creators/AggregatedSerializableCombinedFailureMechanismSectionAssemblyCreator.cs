@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(combinedSectionAssembly));
             }
 
-            SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator, 
+            SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
                                                                                                                             serializableFailureMechanismSectionCollection,
                                                                                                                             combinedSectionAssembly.Section);
 

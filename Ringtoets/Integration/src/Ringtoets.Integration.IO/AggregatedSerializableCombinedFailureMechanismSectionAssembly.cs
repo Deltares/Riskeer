@@ -31,16 +31,6 @@ namespace Ringtoets.Integration.IO
     public class AggregatedSerializableCombinedFailureMechanismSectionAssembly
     {
         /// <summary>
-        /// Gets the failure mechanism section.
-        /// </summary>
-        public SerializableFailureMechanismSection FailureMechanismSection { get; }
-
-        /// <summary>
-        /// Gets the combined failure mechanism section assembly.
-        /// </summary>
-        public SerializableCombinedFailureMechanismSectionAssembly CombinedFailureMechanismSectionAssembly { get; }
-
-        /// <summary>
         /// Instantiates a <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.
         /// </summary>
         /// <param name="failureMechanismSection">The <see cref="SerializableFailureMechanismSection"/></param>
@@ -63,5 +53,15 @@ namespace Ringtoets.Integration.IO
             FailureMechanismSection = failureMechanismSection;
             CombinedFailureMechanismSectionAssembly = combinedFailureMechanismSectionAssembly;
         }
+
+        /// <summary>
+        /// Gets the failure mechanism section.
+        /// </summary>
+        public SerializableFailureMechanismSection FailureMechanismSection { get; }
+
+        /// <summary>
+        /// Gets the combined failure mechanism section assembly.
+        /// </summary>
+        public SerializableCombinedFailureMechanismSectionAssembly CombinedFailureMechanismSectionAssembly { get; }
     }
 }

@@ -91,7 +91,6 @@ namespace Ringtoets.Integration.IO.Creators
                 default:
                     throw new NotSupportedException();
             }
-
         }
     }
 }
