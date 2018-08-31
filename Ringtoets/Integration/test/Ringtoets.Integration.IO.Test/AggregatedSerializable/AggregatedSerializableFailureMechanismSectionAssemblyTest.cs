@@ -24,17 +24,17 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.AggregatedSerializable;
 
-namespace Ringtoets.Integration.IO.Test
+namespace Ringtoets.Integration.IO.Test.AggregatedSerializable
 {
     [TestFixture]
-    public class AggregatedSerializableCombinedFailureMechanismSectionAssemblyTest
+    public class AggregatedSerializableFailureMechanismSectionAssemblyTest
     {
         [Test]
         public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AggregatedSerializableCombinedFailureMechanismSectionAssembly(null,
-                                                                                                        new SerializableCombinedFailureMechanismSectionAssembly());
+            TestDelegate call = () =>
+                new AggregatedSerializableFailureMechanismSectionAssembly(null, new SerializableFailureMechanismSectionAssembly());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -42,31 +42,31 @@ namespace Ringtoets.Integration.IO.Test
         }
 
         [Test]
-        public void Constructor_CombinedFailureMechanismSectionAssemblyNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismSectionAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AggregatedSerializableCombinedFailureMechanismSectionAssembly(new SerializableFailureMechanismSection(),
-                                                                                                        null);
+            TestDelegate call = () =>
+                new AggregatedSerializableFailureMechanismSectionAssembly(new SerializableFailureMechanismSection(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("combinedFailureMechanismSectionAssembly", exception.ParamName);
+            Assert.AreEqual("failureMechanismSectionAssembly", exception.ParamName);
         }
 
         [Test]
         public void Constructor_WithValidArguments_ExpectedValues()
         {
             // Setup
-            var failureMechanismSection = new SerializableFailureMechanismSection();
-            var sectionAssemblyResult = new SerializableCombinedFailureMechanismSectionAssembly();
+            var section = new SerializableFailureMechanismSection();
+            var sectionAssemblyResult = new SerializableFailureMechanismSectionAssembly();
 
             // Call
-            var aggregate =
-                new AggregatedSerializableCombinedFailureMechanismSectionAssembly(failureMechanismSection, sectionAssemblyResult);
+            var aggregatedResult =
+                new AggregatedSerializableFailureMechanismSectionAssembly(section, sectionAssemblyResult);
 
             // Assert
-            Assert.AreSame(failureMechanismSection, aggregate.FailureMechanismSection);
-            Assert.AreSame(sectionAssemblyResult, aggregate.CombinedFailureMechanismSectionAssembly);
+            Assert.AreSame(section, aggregatedResult.FailureMechanismSection);
+            Assert.AreSame(sectionAssemblyResult, aggregatedResult.FailureMechanismSectionAssembly);
         }
     }
 }

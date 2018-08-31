@@ -17,10 +17,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AggregatedSerializableCombinedFailureMechanismSectionAssembliesTest.cs" />
-    <Compile Include="AggregatedSerializableCombinedFailureMechanismSectionAssemblyTest.cs" />
-    <Compile Include="AggregatedSerializableFailureMechanismSectionAssemblyTest.cs" />
-    <Compile Include="AggregatedSerializableFailureMechanismTest.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableCombinedFailureMechanismSectionAssembliesTest.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableCombinedFailureMechanismSectionAssemblyTest.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableFailureMechanismSectionAssemblyTest.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableFailureMechanismTest.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultBaseTest.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultTest.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssemblyTest.cs" />
