@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             Assert.AreEqual(expectedNrOfFailureMechanismResult, serializedFailureMechanismSectionResults.Length);
             for (var i = 0; i < expectedNrOfFailureMechanismResult; i++)
             {
-                AssertCombinedSectionAssemblyResults(expectedFailureMechanismSectionResults.ElementAt(i),
+                AssertCombinedSectionAssemblyResult(expectedFailureMechanismSectionResults.ElementAt(i),
                                                      serializedFailureMechanismSectionResults[i]);
             }
         }
@@ -185,7 +185,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                        assemblyCategoryGroup);
         }
 
-        private static void AssertCombinedSectionAssemblyResults(ExportableFailureMechanismCombinedSectionAssemblyResult expectedSectionResult,
+        private static void AssertCombinedSectionAssemblyResult(ExportableFailureMechanismCombinedSectionAssemblyResult expectedSectionResult,
                                                                  SerializableCombinedFailureMechanismSectionAssemblyResult actualSectionResult)
         {
             Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(expectedSectionResult.Code),
