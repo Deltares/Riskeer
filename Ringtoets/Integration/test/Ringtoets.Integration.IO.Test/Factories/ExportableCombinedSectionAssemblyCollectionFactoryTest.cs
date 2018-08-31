@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             };
 
             // Call
-            ExportableCombinedSectionAssemblyCollection exportableCombinedSectionAssembly =
+            IEnumerable<ExportableCombinedSectionAssembly> exportableCombinedSectionAssembly =
                 ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, referenceLine);
 
             // Assert
@@ -114,17 +114,17 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                      });
         }
 
-        private static void AssertCombinedFailureMechanismSectionAssemblyResults(IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedSections,
-                                                                                 ExportableCombinedSectionAssemblyCollection collection,
+        private static void AssertCombinedFailureMechanismSectionAssemblyResults(IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedSectionResults,
+                                                                                 IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblies,
                                                                                  ReferenceLine referenceLine)
         {
-            int expectedNrOfSections = expectedSections.Count();
-            Assert.AreEqual(expectedNrOfSections, collection.CombinedSectionAssemblyResults.Count());
+            int expectedNrOfSections = expectedSectionResults.Count();
+            Assert.AreEqual(expectedNrOfSections, combinedSectionAssemblies.Count());
 
             for (var i = 0; i < expectedNrOfSections; i++)
             {
-                CombinedFailureMechanismSectionAssemblyResult expectedSection = expectedSections.ElementAt(i);
-                ExportableCombinedSectionAssembly actualSectionResult = collection.CombinedSectionAssemblyResults.ElementAt(i);
+                CombinedFailureMechanismSectionAssemblyResult expectedSection = expectedSectionResults.ElementAt(i);
+                ExportableCombinedSectionAssembly actualSectionResult = combinedSectionAssemblies.ElementAt(i);
 
                 AssertExportableCombinedFailureMechanismSection(expectedSection, actualSectionResult.Section, referenceLine);
                 AssertExportableCombinedFailureMechanismSectionResult(actualSectionResult, actualSectionResult.Section, expectedSection);

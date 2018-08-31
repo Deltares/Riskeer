@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <param name="assessmentSection">The assessment section to an <see cref="ExportableCombinedSectionAssemblyCollection"/> for.</param>
         /// <returns>A <see cref="CreateExportableCombinedSectionAssemblyCollection"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
-        private static ExportableCombinedSectionAssemblyCollection CreateExportableCombinedSectionAssemblyCollection(AssessmentSection assessmentSection)
+        private static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(AssessmentSection assessmentSection)
         {
             IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
             return ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, assessmentSection.ReferenceLine);

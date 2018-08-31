@@ -30,20 +30,20 @@ using Ringtoets.Integration.IO.Helpers;
 namespace Ringtoets.Integration.IO.Factories
 {
     /// <summary>
-    /// Factory to create instances of <see cref="ExportableCombinedSectionAssemblyCollection"/>
+    /// Factory to create a collection of <see cref="ExportableCombinedSectionAssembly"/>
     /// </summary>
     public static class ExportableCombinedSectionAssemblyCollectionFactory
     {
         /// <summary>
-        /// Creates an new instance of <see cref="ExportableCombinedSectionAssemblyCollection"/>
+        /// Creates a collection of <see cref="ExportableCombinedSectionAssembly"/>
         /// based on <paramref name="combinedSectionAssemblyResults"/>.
         /// </summary>
         /// <param name="combinedSectionAssemblyResults">A collection of combined section results to
-        /// create an <see cref="ExportableCombinedSectionAssemblyCollection"/> for.</param>
+        /// create a collection of <see cref="ExportableCombinedSectionAssembly"/> for.</param>
         /// <param name="referenceLine">The reference line to map the sections to.</param>
-        /// <returns>An <see cref="ExportableCombinedSectionAssemblyCollection"/>.</returns>
+        /// <returns>A collection of <see cref="ExportableCombinedSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static ExportableCombinedSectionAssemblyCollection CreateExportableCombinedSectionAssemblyCollection(
+        public static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(
             IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults,
             ReferenceLine referenceLine)
         {
@@ -57,9 +57,7 @@ namespace Ringtoets.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(referenceLine));
             }
 
-            var sections = new List<ExportableCombinedFailureMechanismSection>();
             var sectionResults = new List<ExportableCombinedSectionAssembly>();
-
             foreach (CombinedFailureMechanismSectionAssemblyResult assemblyResult in combinedSectionAssemblyResults)
             {
                 var exportableSection = new ExportableCombinedFailureMechanismSection(
@@ -74,11 +72,10 @@ namespace Ringtoets.Integration.IO.Factories
                                                                                                                         assemblyResult.TotalResult),
                                                                                     CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult));
 
-                sections.Add(exportableSection);
                 sectionResults.Add(exportableSectionResult);
             }
 
-            return new ExportableCombinedSectionAssemblyCollection(sections, sectionResults);
+            return sectionResults;
         }
 
         private static IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> CreateFailureMechanismCombinedSectionAssemblyResults(

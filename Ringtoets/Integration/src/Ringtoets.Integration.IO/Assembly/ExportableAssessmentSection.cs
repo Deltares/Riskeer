@@ -112,6 +112,7 @@ namespace Ringtoets.Integration.IO.Assembly
             FailureMechanismAssemblyWithoutProbability = failureMechanismAssemblyWithoutProbability;
             FailureMechanismsWithProbability = failureMechanismsWithProbability;
             FailureMechanismsWithoutProbability = failureMechanismsWithoutProbability;
+            CombinedSectionAssemblies = combinedSectionAssemblyResults;
         }
 
         /// <summary>
