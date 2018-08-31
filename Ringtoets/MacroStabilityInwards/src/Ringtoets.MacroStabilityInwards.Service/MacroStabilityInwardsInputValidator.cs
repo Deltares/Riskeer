@@ -274,7 +274,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 if (double.IsNaN(normativeAssessmentLevel))
                 {
-                    validationResult.Add(Resources.MacroStabilityInwardsCalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
+                    validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
                 }
             }
 

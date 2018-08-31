@@ -227,4 +227,7 @@
   <data name="CalculationService_Calculate_unexpected_error" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden tijdens het uitvoeren van de berekening.</value>
   </data>
+  <data name="CalculationService_ValidateInput_Cannot_determine_AssessmentLevel" xml:space="preserve">
+    <value>Kan de waterstand niet afleiden op basis van de invoer.</value>
+  </data>
 </root>

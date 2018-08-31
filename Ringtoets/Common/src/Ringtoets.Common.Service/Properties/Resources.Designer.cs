@@ -119,6 +119,15 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan de waterstand niet afleiden op basis van de invoer..
+        /// </summary>
+        public static string CalculationService_ValidateInput_Cannot_determine_AssessmentLevel {
+            get {
+                return ResourceManager.GetString("CalculationService_ValidateInput_Cannot_determine_AssessmentLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is geen dijkprofiel geselecteerd..
         /// </summary>
         public static string CalculationService_ValidateInput_No_dike_profile_selected {

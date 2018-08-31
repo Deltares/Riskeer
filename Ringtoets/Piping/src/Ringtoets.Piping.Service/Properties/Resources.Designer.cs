@@ -139,15 +139,6 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan de waterstand niet afleiden op basis van de invoer..
-        /// </summary>
-        internal static string PipingCalculationService_ValidateInput_Cannot_determine_AssessmentLevel {
-            get {
-                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_determine_AssessmentLevel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer..
         /// </summary>
         internal static string PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit {

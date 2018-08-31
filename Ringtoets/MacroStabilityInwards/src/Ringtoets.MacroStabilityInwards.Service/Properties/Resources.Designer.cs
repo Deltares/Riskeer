@@ -112,16 +112,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan de waterstand niet afleiden op basis van de invoer..
-        /// </summary>
-        internal static string MacroStabilityInwardsCalculationService_ValidateInput_Cannot_determine_AssessmentLevel {
-            get {
-                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_ValidateInput_Cannot_determine_Assessment" +
-                        "Level", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er is geen ondergrondschematisatie geselecteerd..
         /// </summary>
         internal static string MacroStabilityInwardsCalculationService_ValidateInput_No_StochasticSoilProfile_selected {
