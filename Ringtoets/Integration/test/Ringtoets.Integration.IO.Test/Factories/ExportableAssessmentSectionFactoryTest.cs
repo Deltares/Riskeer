@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                     assessmentSection);
 
                 int expectedNrOfSections = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection).Count();
-                Assert.AreEqual(expectedNrOfSections, exportableAssessmentSection.CombinedSectionAssemblyResults.CombinedSectionAssemblyResults.Count());
+                Assert.AreEqual(expectedNrOfSections, exportableAssessmentSection.CombinedSectionAssemblies.Count());
             }
         }
 

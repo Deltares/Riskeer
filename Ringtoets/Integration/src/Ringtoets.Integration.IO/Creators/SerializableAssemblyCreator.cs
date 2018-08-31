@@ -71,10 +71,10 @@ namespace Ringtoets.Integration.IO.Creators
                                                                                                                       .Select(fm => CreateFailureMechanismsWithoutProbability(idGenerator, serializableTotalAssemblyResult, fm))
                                                                                                                       .ToArray();
 
-            AggregatedSerializableCombinedFailureMechanismSectionAssemblies aggregatedSerializableCombinedFailureMechanismSectionAssemblies =
+           AggregatedSerializableCombinedFailureMechanismSectionAssemblies aggregatedSerializableCombinedFailureMechanismSectionAssemblies =
                 AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(idGenerator,
                                                                                               serializableTotalAssemblyResult,
-                                                                                              assessmentSection.CombinedSectionAssemblyResults);
+                                                                                              assessmentSection.CombinedSectionAssemblies);
 
             return new SerializableAssembly(serializableAssemblyId,
                                             GetLowerCorner(assessmentSection.Geometry),

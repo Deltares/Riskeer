@@ -112,7 +112,6 @@ namespace Ringtoets.Integration.IO.Assembly
             FailureMechanismAssemblyWithoutProbability = failureMechanismAssemblyWithoutProbability;
             FailureMechanismsWithProbability = failureMechanismsWithProbability;
             FailureMechanismsWithoutProbability = failureMechanismsWithoutProbability;
-            CombinedSectionAssemblyResults = combinedSectionAssemblyResults;
         }
 
         /// <summary>
@@ -158,6 +157,6 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <summary>
         /// Gets the collection of combined section assembly results of this assessment section.
         /// </summary>
-        public ExportableCombinedSectionAssemblyCollection CombinedSectionAssemblyResults { get; }
+        public IEnumerable<ExportableCombinedSectionAssembly> CombinedSectionAssemblies { get; }
     }
 }

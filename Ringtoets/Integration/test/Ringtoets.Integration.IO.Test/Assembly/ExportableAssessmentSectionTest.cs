@@ -298,7 +298,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             Assert.AreSame(failureMechanismAssemblyResultWithoutProbability, assessmentSection.FailureMechanismAssemblyWithoutProbability);
             Assert.AreSame(failureMechanismsWithProbability, assessmentSection.FailureMechanismsWithProbability);
             Assert.AreSame(failureMechanismsWithoutProbability, assessmentSection.FailureMechanismsWithoutProbability);
-            Assert.AreSame(combinedSectionAssemblyResults, assessmentSection.CombinedSectionAssemblyResults);
+            Assert.AreSame(combinedSectionAssemblyResults, assessmentSection.CombinedSectionAssemblies);
         }
 
         private static ExportableCombinedSectionAssemblyCollection CreateCombinedSectionAssemblyCollection()
