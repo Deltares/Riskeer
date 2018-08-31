@@ -177,7 +177,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de waterstand berekening &apos;{0}&apos; (Categorie {1}). Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de waterstand berekening &apos;{0}&apos; voor locatie (Categorie {1}). Er is geen foutrapport beschikbaar..
         /// </summary>
         public static string DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_Category_1_no_error_report {
             get {
@@ -417,7 +417,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening &apos;{0}&apos; (Categorie {1}). Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening &apos;{0}&apos; voor locatie (Categorie {1}). Er is geen foutrapport beschikbaar..
         /// </summary>
         public static string WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_1_no_error_report {
             get {
