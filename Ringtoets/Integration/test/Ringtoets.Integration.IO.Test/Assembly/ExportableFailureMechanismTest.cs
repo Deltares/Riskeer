@@ -109,7 +109,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
 
             // Assert
             Assert.AreSame(failureMechanismAssembly, failureMechanism.FailureMechanismAssembly);
-            Assert.AreSame(sections, failureMechanism.Sections);
             Assert.AreSame(sectionAssemblyResults, failureMechanism.SectionAssemblyResults);
             Assert.AreEqual(code, failureMechanism.Code);
             Assert.AreEqual(group, failureMechanism.Group);

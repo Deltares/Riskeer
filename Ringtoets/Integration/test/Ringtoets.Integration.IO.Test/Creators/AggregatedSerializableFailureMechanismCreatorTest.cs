@@ -144,9 +144,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
             const string totalAssemblyId = "totalAssemblyId";
             SerializableTotalAssemblyResult serializableTotalAssembly = CreateSerializableTotalAssembly(totalAssemblyId);
 
-            // Precondition
-            Assert.AreEqual(failureMechanism.Sections.Count(), failureMechanism.SectionAssemblyResults.Count());
-
             // Call
             AggregatedSerializableFailureMechanism aggregatedFailureMechanism =
                 AggregatedSerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssembly, failureMechanism);
@@ -278,9 +275,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
             const string totalAssemblyId = "totalAssemblyId";
             SerializableTotalAssemblyResult serializableTotalAssembly = CreateSerializableTotalAssembly(totalAssemblyId);
 
-            // Precondition
-            Assert.AreEqual(failureMechanism.Sections.Count(), failureMechanism.SectionAssemblyResults.Count());
-
             // Call
             AggregatedSerializableFailureMechanism aggregatedFailureMechanism =
                 AggregatedSerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssembly, failureMechanism);
@@ -318,7 +312,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase, SerializableFailureMechanismSectionAssembly> assertSectionAssemblyResultAction)
             where T : ExportableFailureMechanismAssemblyResult
         {
-            IEnumerable<ExportableFailureMechanismSection> expectedSections = expectedFailureMechanism.Sections;
+            IEnumerable<ExportableFailureMechanismSection> expectedSections = expectedFailureMechanism.SectionAssemblyResults.Select(sar => sar.FailureMechanismSection);
             int expectedNrOfSections = expectedSections.Count();
             Assert.AreEqual(expectedNrOfSections, serializableFailureMechanismSections.Count());
 

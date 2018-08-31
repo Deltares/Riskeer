@@ -53,7 +53,6 @@ namespace Ringtoets.Integration.IO.Test.Factories
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
             Assert.AreEqual(0, failureMechanismAssemblyResult.Probability);
 
-            CollectionAssert.IsEmpty(exportableFailureMechanism.Sections);
             CollectionAssert.IsEmpty(exportableFailureMechanism.SectionAssemblyResults);
         }
 
@@ -78,7 +77,6 @@ namespace Ringtoets.Integration.IO.Test.Factories
             Assert.AreEqual(assemblyMethod, failureMechanismAssemblyResult.AssemblyMethod);
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
 
-            CollectionAssert.IsEmpty(exportableFailureMechanism.Sections);
             CollectionAssert.IsEmpty(exportableFailureMechanism.SectionAssemblyResults);
         }
     }

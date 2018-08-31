@@ -97,7 +97,6 @@ namespace Ringtoets.Integration.IO.Test.Factories
             Assert.AreEqual(ExportableAssemblyMethod.WBI1A1, failureMechanismAssemblyResult.AssemblyMethod);
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
 
-            CollectionAssert.IsEmpty(exportableFailureMechanism.Sections);
             CollectionAssert.IsEmpty(exportableFailureMechanism.SectionAssemblyResults);
         }
 
@@ -129,12 +128,14 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 Assert.AreEqual(failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput, exportableFailureMechanismAssembly.AssemblyCategory);
                 Assert.AreEqual(ExportableAssemblyMethod.WBI1A1, exportableFailureMechanismAssembly.AssemblyMethod);
 
-                ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanism.Sections);
+                IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections = exportableFailureMechanism.SectionAssemblyResults
+                                                                                                                              .Select(sar => sar.FailureMechanismSection);
+                ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanismSections);
                 AssertExportableFailureMechanismSectionResults(failureMechanismSectionAssemblyCalculator.SimpleAssessmentAssemblyOutput.Group,
                                                                failureMechanismSectionAssemblyCalculator.DetailedAssessmentAssemblyOutput.Group,
                                                                failureMechanismSectionAssemblyCalculator.TailorMadeAssessmentAssemblyOutput.Group,
                                                                failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput.Value,
-                                                               exportableFailureMechanism.Sections,
+                                                               exportableFailureMechanismSections,
                                                                exportableFailureMechanism.SectionAssemblyResults.Cast<ExportableAggregatedFailureMechanismSectionAssemblyResult>());
             }
         }

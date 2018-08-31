@@ -99,7 +99,6 @@ namespace Ringtoets.Integration.IO.Test.Factories
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
             Assert.AreEqual(0, failureMechanismAssemblyResult.Probability);
 
-            CollectionAssert.IsEmpty(exportableFailureMechanism.Sections);
             CollectionAssert.IsEmpty(exportableFailureMechanism.SectionAssemblyResults);
         }
 
@@ -133,12 +132,14 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 Assert.AreEqual(calculatorOutput.Probability, exportableFailureMechanismAssembly.Probability);
                 Assert.AreEqual(ExportableAssemblyMethod.WBI1B1, exportableFailureMechanismAssembly.AssemblyMethod);
 
-                ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanism.Sections);
+                IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections = exportableFailureMechanism.SectionAssemblyResults
+                                                                                                                              .Select(sar => sar.FailureMechanismSection);
+                ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanismSections);
                 AssertExportableFailureMechanismSectionResults(failureMechanismSectionAssemblyCalculator.SimpleAssessmentAssemblyOutput,
                                                                failureMechanismSectionAssemblyCalculator.DetailedAssessmentAssemblyOutput,
                                                                failureMechanismSectionAssemblyCalculator.TailorMadeAssessmentAssemblyOutput,
                                                                failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput,
-                                                               exportableFailureMechanism.Sections,
+                                                               exportableFailureMechanismSections,
                                                                exportableFailureMechanism.SectionAssemblyResults.Cast<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>());
             }
         }

@@ -63,7 +63,6 @@ namespace Ringtoets.Integration.IO.Assembly
             }
 
             FailureMechanismAssembly = failureMechanismAssembly;
-            Sections = sections;
             SectionAssemblyResults = sectionAssemblyResults;
             Code = code;
             Group = group;
@@ -73,11 +72,6 @@ namespace Ringtoets.Integration.IO.Assembly
         /// Gets the assembly result of the failure mechanism.
         /// </summary>
         public TFailureMechanismAssemblyResult FailureMechanismAssembly { get; }
-
-        /// <summary>
-        /// Gets the collection of sections.
-        /// </summary>
-        public IEnumerable<ExportableFailureMechanismSection> Sections { get; }
 
         /// <summary>
         /// Gets the collection of assembly results.
