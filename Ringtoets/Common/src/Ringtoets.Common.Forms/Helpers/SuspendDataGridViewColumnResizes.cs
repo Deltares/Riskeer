@@ -51,7 +51,16 @@ namespace Ringtoets.Common.Forms.Helpers
 
         public void Dispose()
         {
-            column.AutoSizeMode = originalValue;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                column.AutoSizeMode = originalValue;
+            }
         }
     }
 }

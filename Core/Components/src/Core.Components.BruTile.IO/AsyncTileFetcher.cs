@@ -253,7 +253,11 @@ namespace Core.Components.BruTile.IO
                 openTileRequests.TryAdd(tileInfo.Index, 1);
                 result = provider.GetTile(tileInfo);
             }
-            catch {}
+            catch
+            {
+                // Nothing has to be done with the exception.
+                // Result should stay null
+            }
 
             //Try at least once again
             if (result == null)
@@ -262,7 +266,11 @@ namespace Core.Components.BruTile.IO
                 {
                     result = provider.GetTile(tileInfo);
                 }
-                catch {}
+                catch
+                {
+                    // Nothing has to be done with the exception.
+                    // Result should stay null
+                }
             }
             return result;
         }

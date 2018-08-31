@@ -173,13 +173,10 @@ namespace Ringtoets.Piping.Primitives
         {
             unchecked
             {
-                int hashCode = materialName?.GetHashCode() ?? 0;
-                hashCode = (hashCode * 397) ^ Top.GetHashCode();
-                hashCode = (hashCode * 397) ^ IsAquifer.GetHashCode();
+                int hashCode = Top.GetHashCode();
                 hashCode = (hashCode * 397) ^ BelowPhreaticLevel.GetHashCode();
                 hashCode = (hashCode * 397) ^ DiameterD70.GetHashCode();
                 hashCode = (hashCode * 397) ^ Permeability.GetHashCode();
-                hashCode = (hashCode * 397) ^ Color.GetHashCode();
                 return hashCode;
             }
         }

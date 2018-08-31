@@ -268,13 +268,13 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             if (inputParameters.UseAssessmentLevelManualInput)
             {
-                validationResult.AddRange(new NumericInputRule(inputParameters.AssessmentLevel, ParameterNameExtractor.GetFromDisplayName(Common.Forms.Properties.Resources.AssessmentLevel_DisplayName)).Validate());
+                validationResult.AddRange(new NumericInputRule(inputParameters.AssessmentLevel, ParameterNameExtractor.GetFromDisplayName(Common.Forms.Properties.Resources.WaterLevel_DisplayName)).Validate());
             }
             else
             {
                 if (double.IsNaN(normativeAssessmentLevel))
                 {
-                    validationResult.Add(Resources.MacroStabilityInwardsCalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
+                    validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_Cannot_determine_AssessmentLevel);
                 }
             }
 

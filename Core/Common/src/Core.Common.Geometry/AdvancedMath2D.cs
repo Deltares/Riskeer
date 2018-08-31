@@ -82,10 +82,16 @@ namespace Core.Common.Geometry
                 throw new ArgumentException(@"The line needs to have at least two points to be able to create a complete polygon.", nameof(line));
             }
 
+            return GetPointsFromLine(line, completingPointsLevel);
+        }
+
+        private static IEnumerable<Point2D> GetPointsFromLine(IEnumerable<Point2D> line, double completingPointsLevel)
+        {
             foreach (Point2D point in line)
             {
                 yield return point;
             }
+
             yield return new Point2D(line.Last().X, completingPointsLevel);
             yield return new Point2D(line.First().X, completingPointsLevel);
         }

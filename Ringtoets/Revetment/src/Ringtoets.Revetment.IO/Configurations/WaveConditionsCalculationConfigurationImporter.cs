@@ -80,24 +80,24 @@ namespace Ringtoets.Revetment.IO.Configurations
             availableForeshoreProfiles = foreshoreProfiles;
         }
 
-        protected override ICalculation ParseReadCalculation(TCalculationConfiguration calculationConfiguration)
+        protected override ICalculation ParseReadCalculation(TCalculationConfiguration readCalculation)
         {
             var waveConditionsCalculation = new TCalculation
             {
-                Name = calculationConfiguration.Name
+                Name = readCalculation.Name
             };
 
-            SetStepSize(calculationConfiguration, waveConditionsCalculation);
-            SetCategoryType(calculationConfiguration, waveConditionsCalculation);
+            SetStepSize(readCalculation, waveConditionsCalculation);
+            SetCategoryType(readCalculation, waveConditionsCalculation);
 
-            if (TrySetHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, waveConditionsCalculation)
-                && TrySetBoundaries(calculationConfiguration, waveConditionsCalculation)
-                && TrySetForeshoreProfile(calculationConfiguration.ForeshoreProfileId, waveConditionsCalculation)
-                && TrySetOrientation(calculationConfiguration, waveConditionsCalculation)
-                && calculationConfiguration.WaveReduction.ValidateWaveReduction(waveConditionsCalculation.InputParameters.ForeshoreProfile,
+            if (TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, waveConditionsCalculation)
+                && TrySetBoundaries(readCalculation, waveConditionsCalculation)
+                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, waveConditionsCalculation)
+                && TrySetOrientation(readCalculation, waveConditionsCalculation)
+                && readCalculation.WaveReduction.ValidateWaveReduction(waveConditionsCalculation.InputParameters.ForeshoreProfile,
                                                                                 waveConditionsCalculation.Name, Log))
             {
-                SetWaveReductionParameters(calculationConfiguration.WaveReduction, waveConditionsCalculation.InputParameters);
+                SetWaveReductionParameters(readCalculation.WaveReduction, waveConditionsCalculation.InputParameters);
                 return waveConditionsCalculation;
             }
 

@@ -339,7 +339,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 activity.Run();
 
-                Assert.AreEqual(nrOfCalculations, testCalculator.ReceivedInputs.Count);
+                Assert.AreEqual(nrOfCalculations, testCalculator.ReceivedInputs.Count());
                 foreach (WaveConditionsCosineCalculationInput input in testCalculator.ReceivedInputs)
                 {
                     Assert.AreEqual(calculation.InputParameters.BreakWater.Height, input.BreakWater.Height);

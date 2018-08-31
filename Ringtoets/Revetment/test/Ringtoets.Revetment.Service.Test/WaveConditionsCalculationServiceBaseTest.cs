@@ -564,7 +564,7 @@ namespace Ringtoets.Revetment.Service.Test
                 for (var i = 0; i < nrOfCalculators; i++)
                 {
                     WaveConditionsCosineCalculationInput expectedInput = CreateInput(waterLevels[i], a, b, c, norm, input, useForeshore, false);
-                    HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs[i]);
+                    HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs.ElementAt(i));
                 }
             }
 
@@ -630,7 +630,7 @@ namespace Ringtoets.Revetment.Service.Test
                 for (var i = 0; i < nrOfCalculators; i++)
                 {
                     WaveConditionsCosineCalculationInput expectedInput = CreateInput(waterLevels[i], a, b, c, norm, input, true, true);
-                    HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs[i]);
+                    HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs.ElementAt(i));
                 }
             }
 
@@ -690,7 +690,7 @@ namespace Ringtoets.Revetment.Service.Test
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
                 {
-                    Assert.AreEqual(usePreprocessor, calculator.ReceivedInputs[i].PreprocessorSetting.RunPreprocessor);
+                    Assert.AreEqual(usePreprocessor, calculator.ReceivedInputs.ElementAt(i).PreprocessorSetting.RunPreprocessor);
                 }
             }
 

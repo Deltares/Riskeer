@@ -94,6 +94,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 {
                     throw new ArgumentNullException(nameof(value));
                 }
+
                 name = value;
             }
         }
@@ -109,14 +110,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((MacroStabilityInwardsSoilProfile2D) obj);
         }
 
@@ -125,15 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             unchecked
             {
                 int hashCode = Name.GetHashCode();
-                foreach (MacroStabilityInwardsSoilLayer2D layer in layers)
-                {
-                    hashCode = (hashCode * 397) ^ layer.GetHashCode();
-                }
-                foreach (MacroStabilityInwardsPreconsolidationStress stress in PreconsolidationStresses)
-                {
-                    hashCode = (hashCode * 397) ^ stress.GetHashCode();
-                }
-                return hashCode;
+                return PreconsolidationStresses.Aggregate(hashCode, (currentHashCode, stress) => (currentHashCode * 397) ^ stress.GetHashCode());
             }
         }
 
@@ -156,6 +152,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(collection), string.Format(Resources.Error_Cannot_Construct_MacroStabilityInwardsSoilProfile_Without_Layers));
             }
+
             if (!collection.Any())
             {
                 throw new ArgumentException(Resources.Error_Cannot_Construct_MacroStabilityInwardsSoilProfile_Without_Layers);

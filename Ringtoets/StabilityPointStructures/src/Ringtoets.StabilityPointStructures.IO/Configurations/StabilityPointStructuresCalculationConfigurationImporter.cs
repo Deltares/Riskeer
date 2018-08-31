@@ -112,32 +112,32 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             return new StabilityPointStructuresCalculationConfigurationReader(xmlFilePath);
         }
 
-        protected override ICalculation ParseReadCalculation(StabilityPointStructuresCalculationConfiguration calculationConfiguration)
+        protected override ICalculation ParseReadCalculation(StabilityPointStructuresCalculationConfiguration readCalculation)
         {
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
-                Name = calculationConfiguration.Name
+                Name = readCalculation.Name
             };
 
-            if (TrySetStructure(calculationConfiguration.StructureId, calculation)
-                && TrySetHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, calculation)
-                && TrySetForeshoreProfile(calculationConfiguration.ForeshoreProfileId, calculation)
-                && TrySetEvaluationLevel(calculationConfiguration, calculation)
-                && TrySetFailureProbabilityRepairClosure(calculationConfiguration, calculation)
-                && TrySetFailureProbabilityStructureWithErosion(calculationConfiguration, calculation)
-                && TrySetInflowModelType(calculationConfiguration, calculation)
-                && TrySetLevellingCount(calculationConfiguration, calculation)
-                && TrySetLoadSchematizationType(calculationConfiguration, calculation)
-                && TrySetProbabilityCollisionSecondaryStructure(calculationConfiguration, calculation)
-                && TrySetStochasts(calculationConfiguration, calculation)
-                && TrySetStructureNormalOrientation(calculationConfiguration, calculation)
-                && TrySetVerticalDistance(calculationConfiguration, calculation)
-                && calculationConfiguration.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile, calculation.Name, Log))
+            if (TrySetStructure(readCalculation.StructureId, calculation)
+                && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
+                && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, calculation)
+                && TrySetEvaluationLevel(readCalculation, calculation)
+                && TrySetFailureProbabilityRepairClosure(readCalculation, calculation)
+                && TrySetFailureProbabilityStructureWithErosion(readCalculation, calculation)
+                && TrySetInflowModelType(readCalculation, calculation)
+                && TrySetLevellingCount(readCalculation, calculation)
+                && TrySetLoadSchematizationType(readCalculation, calculation)
+                && TrySetProbabilityCollisionSecondaryStructure(readCalculation, calculation)
+                && TrySetStochasts(readCalculation, calculation)
+                && TrySetStructureNormalOrientation(readCalculation, calculation)
+                && TrySetVerticalDistance(readCalculation, calculation)
+                && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile, calculation.Name, Log))
             {
-                SetFactorStormDurationOpenStructure(calculationConfiguration, calculation);
-                SetVolumicWeightWater(calculationConfiguration, calculation);
-                SetWaveReductionParameters(calculationConfiguration.WaveReduction, calculation.InputParameters);
-                SetShouldIllustrationPointsBeCalculated(calculationConfiguration, calculation);
+                SetFactorStormDurationOpenStructure(readCalculation, calculation);
+                SetVolumicWeightWater(readCalculation, calculation);
+                SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
+                SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
                 return calculation;
             }
 

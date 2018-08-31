@@ -697,7 +697,7 @@ namespace Ringtoets.Integration.Data
         /// is not equal to the contribution of <paramref name="oldFailureMechanism"/>.</exception>
         private static void ValidateContribution(IFailureMechanism oldFailureMechanism, IFailureMechanism newFailureMechanism)
         {
-            if (!(Math.Abs(oldFailureMechanism.Contribution - newFailureMechanism.Contribution) < double.Epsilon))
+            if (Math.Abs(oldFailureMechanism.Contribution - newFailureMechanism.Contribution) >= double.Epsilon)
             {
                 throw new ArgumentException(Resources.AssessmentSection_ValidateContribution_Contribution_new_FailureMechanism_must_be_equal_to_old_FailureMechanism);
             }

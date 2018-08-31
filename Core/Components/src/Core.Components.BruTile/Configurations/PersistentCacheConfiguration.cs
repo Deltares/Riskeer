@@ -196,7 +196,7 @@ namespace Core.Components.BruTile.Configurations
                 }
             }
 
-            fileCache = FileCacheManager.Instance.GetfileChache(PersistentCacheDirectoryPath);
+            fileCache = FileCacheManager.Instance.GetFileCache(PersistentCacheDirectoryPath);
             return fileCache;
         }
 

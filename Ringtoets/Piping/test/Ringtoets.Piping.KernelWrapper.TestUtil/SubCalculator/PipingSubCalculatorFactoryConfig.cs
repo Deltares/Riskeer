@@ -56,13 +56,22 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
             PipingSubCalculatorFactory.Instance = new TestPipingSubCalculatorFactory();
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
         /// Reverts the <see cref="PipingSubCalculatorFactory.Instance"/> to the value
         /// it had at time of construction of the <see cref="PipingSubCalculatorFactoryConfig"/>.
         /// </summary>
-        public void Dispose()
+        protected virtual void Dispose(bool disposing)
         {
-            PipingSubCalculatorFactory.Instance = previousFactory;
+            if (disposing)
+            {
+                PipingSubCalculatorFactory.Instance = previousFactory;
+            }
         }
     }
 }

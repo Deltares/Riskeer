@@ -55,13 +55,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators
             AssemblyToolCalculatorFactory.Instance = new TestAssemblyToolCalculatorFactory();
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
         /// Reverts the <see cref="AssemblyToolCalculatorFactory.Instance"/> to the value
         /// it had at time of construction of the <see cref="AssemblyToolCalculatorFactory"/>.
         /// </summary>
-        public void Dispose()
+        protected virtual void Dispose(bool disposing)
         {
-            AssemblyToolCalculatorFactory.Instance = previousFactory;
+            if (disposing)
+            {
+                AssemblyToolCalculatorFactory.Instance = previousFactory;
+            }
         }
     }
 }

@@ -79,20 +79,20 @@ namespace Ringtoets.Piping.IO.Configurations
             return new PipingCalculationConfigurationReader(xmlFilePath);
         }
 
-        protected override ICalculation ParseReadCalculation(PipingCalculationConfiguration calculationConfiguration)
+        protected override ICalculation ParseReadCalculation(PipingCalculationConfiguration readCalculation)
         {
             var pipingCalculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
             {
-                Name = calculationConfiguration.Name
+                Name = readCalculation.Name
             };
 
-            if (TrySetHydraulicBoundaryData(calculationConfiguration, pipingCalculation)
-                && TrySetSurfaceLine(calculationConfiguration, pipingCalculation)
-                && TrySetEntryExitPoint(calculationConfiguration, pipingCalculation)
-                && TrySetStochasticSoilModel(calculationConfiguration, pipingCalculation)
-                && TrySetStochasticSoilProfile(calculationConfiguration, pipingCalculation)
-                && TrySetStochasts(calculationConfiguration, pipingCalculation)
-                && TrySetScenarioParameters(calculationConfiguration.Scenario, pipingCalculation))
+            if (TrySetHydraulicBoundaryData(readCalculation, pipingCalculation)
+                && TrySetSurfaceLine(readCalculation, pipingCalculation)
+                && TrySetEntryExitPoint(readCalculation, pipingCalculation)
+                && TrySetStochasticSoilModel(readCalculation, pipingCalculation)
+                && TrySetStochasticSoilProfile(readCalculation, pipingCalculation)
+                && TrySetStochasts(readCalculation, pipingCalculation)
+                && TrySetScenarioParameters(readCalculation.Scenario, pipingCalculation))
             {
                 return pipingCalculation;
             }

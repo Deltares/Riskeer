@@ -97,24 +97,24 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
             return new GrassCoverErosionInwardsCalculationConfigurationReader(xmlFilePath);
         }
 
-        protected override ICalculation ParseReadCalculation(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration)
+        protected override ICalculation ParseReadCalculation(GrassCoverErosionInwardsCalculationConfiguration readCalculation)
         {
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Name = calculationConfiguration.Name
+                Name = readCalculation.Name
             };
 
-            if (TrySetCriticalFlowRate(calculationConfiguration, calculation)
-                && TrySetHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, calculation)
-                && TrySetDikeProfile(calculationConfiguration.DikeProfileId, calculation)
-                && TrySetOrientation(calculationConfiguration, calculation)
-                && TrySetDikeHeight(calculationConfiguration, calculation)
-                && ValidateWaveReduction(calculationConfiguration, calculation))
+            if (TrySetCriticalFlowRate(readCalculation, calculation)
+                && TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, calculation)
+                && TrySetDikeProfile(readCalculation.DikeProfileId, calculation)
+                && TrySetOrientation(readCalculation, calculation)
+                && TrySetDikeHeight(readCalculation, calculation)
+                && ValidateWaveReduction(readCalculation, calculation))
             {
-                SetWaveReductionParameters(calculationConfiguration.WaveReduction, calculation.InputParameters);
-                SetDikeHeightCalculationType(calculationConfiguration, calculation);
-                SetOvertoppingRateCalculationType(calculationConfiguration, calculation);
-                SetShouldIllustrationPointsBeCalculated(calculationConfiguration, calculation);
+                SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
+                SetDikeHeightCalculationType(readCalculation, calculation);
+                SetOvertoppingRateCalculationType(readCalculation, calculation);
+                SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
                 return calculation;
             }
 

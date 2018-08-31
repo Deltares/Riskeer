@@ -846,11 +846,11 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                 return new CalculationConfigurationReader(xmlFilePath);
             }
 
-            protected override ICalculation ParseReadCalculation(ReadCalculation calculationConfiguration)
+            protected override ICalculation ParseReadCalculation(ReadCalculation readCalculation)
             {
                 return new TestCalculation
                 {
-                    Name = calculationConfiguration.Name
+                    Name = readCalculation.Name
                 };
             }
         }

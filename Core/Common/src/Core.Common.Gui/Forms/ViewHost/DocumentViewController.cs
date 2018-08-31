@@ -67,7 +67,8 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         public void Dispose()
         {
-            viewHost.ViewClosed -= ViewHostOnViewClosed;
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public bool OpenViewForData(object data, bool alwaysShowDialog = false)
@@ -130,6 +131,14 @@ namespace Core.Common.Gui.Forms.ViewHost
         public IEnumerable<ViewInfo> GetViewInfosFor(object data)
         {
             return viewInfos.Where(vi => data.GetType().Implements(vi.DataType) && vi.AdditionalDataCheck(data));
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                viewHost.ViewClosed -= ViewHostOnViewClosed;
+            }
         }
 
         private static IEnumerable<ViewInfo> FilterOnInheritance(IEnumerable<ViewInfo> compatibleStandaloneViewInfos)
@@ -250,8 +259,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             Dictionary<string, ViewInfo> viewTypeDictionary = viewInfoList.ToDictionary(vi => vi.Description ?? vi.ViewType.Name);
             using (var viewSelector = new SelectViewDialog(dialogParent)
             {
-                DefaultViewName = defaultViewName,
-                Items = viewTypeDictionary.Keys.ToList()
+                DefaultViewName = defaultViewName, Items = viewTypeDictionary.Keys.ToList()
             })
             {
                 if (viewSelector.ShowDialog() != DialogResult.OK)

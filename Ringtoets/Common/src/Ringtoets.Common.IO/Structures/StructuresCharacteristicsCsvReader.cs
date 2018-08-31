@@ -140,7 +140,13 @@ namespace Ringtoets.Common.IO.Structures
 
         public void Dispose()
         {
-            if (fileReader != null)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (fileReader != null && disposing)
             {
                 fileReader.Dispose();
                 fileReader = null;
@@ -178,8 +184,10 @@ namespace Ringtoets.Common.IO.Structures
                 {
                     count++;
                 }
+
                 lineNumberForMessage++;
             }
+
             return count;
         }
 
@@ -270,6 +278,7 @@ namespace Ringtoets.Common.IO.Structures
                     }
                 }
             }
+
             return requiredHeaderColumnIndices;
         }
 
@@ -319,6 +328,7 @@ namespace Ringtoets.Common.IO.Structures
                     break;
                 }
             }
+
             return readText;
         }
 
@@ -380,6 +390,7 @@ namespace Ringtoets.Common.IO.Structures
                                                separator);
                 throw CreateLineParseException(lineNumber, message);
             }
+
             return readText.Split(separator)
                            .ToArray();
         }
@@ -418,6 +429,7 @@ namespace Ringtoets.Common.IO.Structures
                                                parameterName);
                 throw CreateLineParseException(lineNumber, message);
             }
+
             return parameterTextValue;
         }
 
@@ -468,6 +480,7 @@ namespace Ringtoets.Common.IO.Structures
             {
                 return double.NaN;
             }
+
             try
             {
                 return double.Parse(doubleValueText, CultureInfo.InvariantCulture);
@@ -497,6 +510,7 @@ namespace Ringtoets.Common.IO.Structures
             {
                 return VarianceType.NotSpecified;
             }
+
             try
             {
                 int typeValue = int.Parse(varianceTypeText, CultureInfo.InvariantCulture);
@@ -504,10 +518,12 @@ namespace Ringtoets.Common.IO.Structures
                 {
                     return VarianceType.CoefficientOfVariation;
                 }
+
                 if (typeValue == 1)
                 {
                     return VarianceType.StandardDeviation;
                 }
+
                 throw CreateLineParseException(lineNumber,
                                                string.Format(Resources.StructuresCharacteristicsCsvReader_ParseVarianceType_ParameterName_0_only_allows_certain_values,
                                                              StructureFilesKeywords.VariationTypeColumnName.FirstToUpper()));

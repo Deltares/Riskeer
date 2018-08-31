@@ -67,10 +67,12 @@ namespace Core.Plugins.ProjectExplorer
             {
                 throw new ArgumentNullException(nameof(viewCommands));
             }
+
             if (viewController == null)
             {
                 throw new ArgumentNullException(nameof(viewController));
             }
+
             if (treeNodeInfos == null)
             {
                 throw new ArgumentNullException(nameof(treeNodeInfos));
@@ -121,12 +123,19 @@ namespace Core.Plugins.ProjectExplorer
 
         public void Dispose()
         {
-            if (projectExplorer != null)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (projectExplorer != null && disposing)
             {
                 if (IsProjectExplorerOpen)
                 {
                     CloseProjectExplorer();
                 }
+
                 projectExplorer.Dispose();
             }
         }

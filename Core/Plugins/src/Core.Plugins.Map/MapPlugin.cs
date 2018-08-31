@@ -90,18 +90,22 @@ namespace Core.Plugins.Map
             };
         }
 
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            if (activated)
+            if (disposing)
             {
-                Gui.ViewHost.ViewOpened -= OnViewOpened;
-                Gui.ViewHost.ViewBroughtToFront -= OnViewBroughtToFront;
-                Gui.ViewHost.ViewClosed -= OnViewClosed;
-                Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
-            }
-            mapLegendController?.Dispose();
+                if (activated)
+                {
+                    Gui.ViewHost.ViewOpened -= OnViewOpened;
+                    Gui.ViewHost.ViewBroughtToFront -= OnViewBroughtToFront;
+                    Gui.ViewHost.ViewClosed -= OnViewClosed;
+                    Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
+                }
 
-            base.Dispose();
+                mapLegendController?.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
 
         private MapLegendController CreateLegendController(IViewController viewController)

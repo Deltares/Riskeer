@@ -58,11 +58,13 @@ namespace Core.Plugins.Map.Legend
                 throw new ArgumentNullException(nameof(viewController),
                                                 $@"Cannot create a {typeof(MapLegendController).Name} when the view controller is null.");
             }
+
             if (contextMenuBuilderProvider == null)
             {
                 throw new ArgumentNullException(nameof(contextMenuBuilderProvider),
                                                 $@"Cannot create a {typeof(MapLegendController).Name} when the context menu builder provider is null.");
             }
+
             this.viewController = viewController;
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
         }
@@ -109,7 +111,16 @@ namespace Core.Plugins.Map.Legend
 
         public void Dispose()
         {
-            CloseLegendView();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                CloseLegendView();
+            }
         }
 
         /// <summary>

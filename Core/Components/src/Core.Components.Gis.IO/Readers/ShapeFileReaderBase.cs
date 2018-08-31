@@ -104,13 +104,22 @@ namespace Core.Components.Gis.IO.Readers
 
         public void Dispose()
         {
-            ShapeFile?.Close();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>
         /// Gets the path to the shapefile.
         /// </summary>
         protected string FilePath { get; }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                ShapeFile?.Close();
+            }
+        }
 
         /// <summary>
         /// Adds shapefile feature attributes to a <see cref="MapFeature"/> as metadata.

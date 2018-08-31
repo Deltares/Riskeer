@@ -505,15 +505,6 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand [m+NAP].
-        /// </summary>
-        public static string WaveConditionsOutput_WaterLevel_DisplayName {
-            get {
-                return ResourceManager.GetString("WaveConditionsOutput_WaterLevel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekende maatgevende golfrichting ten opzichte van de dijknormaal..
         /// </summary>
         public static string WaveConditionsOutput_WaveAngle_Description {

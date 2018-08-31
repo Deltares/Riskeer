@@ -250,9 +250,9 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        public void Dispose()
+        protected virtual void Dispose(bool disposing)
         {
-            if (IsWindowDisposed)
+            if (IsWindowDisposed || !disposing)
             {
                 return;
             }
@@ -279,6 +279,13 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             SetGui(null);
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
 
         /// <summary>
         /// Initializes and shows the property grid tool window.

@@ -125,8 +125,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             };
             var layoutDocument = new LayoutDocument
             {
-                Title = view.Text,
-                Content = hostControl
+                Title = view.Text, Content = hostControl
             };
 
             PerformWithoutChangingActiveContent(() => AddLayoutDocument(layoutDocument));
@@ -162,8 +161,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             };
             var layoutAnchorable = new LayoutAnchorable
             {
-                Content = hostControl,
-                Title = view.Text
+                Content = hostControl, Title = view.Text
             };
 
             PerformWithoutChangingActiveContent(() => AddLayoutAnchorable(layoutAnchorable, toolViewLocation));
@@ -232,6 +230,17 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing)
+            {
+                return;
+            }
+
             foreach (IView view in documentViews.Concat(toolViews).ToArray())
             {
                 Remove(view);
@@ -420,7 +429,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             LayoutAnchorablePaneGroup layoutAnchorablePaneGroup;
             if (!Enum.IsDefined(typeof(ToolViewLocation), toolViewLocation))
             {
-                throw new InvalidEnumArgumentException(nameof(toolViewLocation), (int)toolViewLocation, typeof(ToolViewLocation));
+                throw new InvalidEnumArgumentException(nameof(toolViewLocation), (int) toolViewLocation, typeof(ToolViewLocation));
             }
 
             switch (toolViewLocation)
@@ -431,6 +440,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                         LeftLayoutAnchorablePaneGroup.Children.Add(new LayoutAnchorablePane());
                         LeftRightLayoutTarget.Children.Insert(0, LeftLayoutAnchorablePaneGroup);
                     }
+
                     layoutAnchorablePaneGroup = LeftLayoutAnchorablePaneGroup;
                     break;
                 case ToolViewLocation.Bottom:
@@ -439,6 +449,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                         BottomLayoutAnchorablePaneGroup.Children.Add(new LayoutAnchorablePane());
                         BottomLayoutTarget.Children.Add(BottomLayoutAnchorablePaneGroup);
                     }
+
                     layoutAnchorablePaneGroup = BottomLayoutAnchorablePaneGroup;
                     break;
                 case ToolViewLocation.Right:
@@ -447,6 +458,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                         RightLayoutAnchorablePaneGroup.Children.Add(new LayoutAnchorablePane());
                         LeftRightLayoutTarget.Children.Add(RightLayoutAnchorablePaneGroup);
                     }
+
                     layoutAnchorablePaneGroup = RightLayoutAnchorablePaneGroup;
                     break;
                 default:

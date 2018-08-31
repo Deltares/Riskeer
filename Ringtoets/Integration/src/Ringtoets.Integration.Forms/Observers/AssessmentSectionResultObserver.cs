@@ -145,6 +145,17 @@ namespace Ringtoets.Integration.Forms.Observers
 
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing)
+            {
+                return;
+            }
+
             assessmentSectionObserver.Dispose();
             closingStructuresObserver.Dispose();
             duneErosionObserver.Dispose();

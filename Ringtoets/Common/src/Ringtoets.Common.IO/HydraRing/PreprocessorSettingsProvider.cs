@@ -79,7 +79,16 @@ namespace Ringtoets.Common.IO.HydraRing
 
         public void Dispose()
         {
-            preprocessorSettingsReader.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                preprocessorSettingsReader.Dispose();
+            }
         }
 
         /// <summary>

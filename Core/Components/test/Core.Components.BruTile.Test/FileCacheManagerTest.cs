@@ -46,7 +46,7 @@ namespace Core.Components.BruTile.Test
         public void GetFileCache_PathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FileCacheManager.Instance.GetfileChache(null);
+            TestDelegate test = () => FileCacheManager.Instance.GetFileCache(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -54,15 +54,15 @@ namespace Core.Components.BruTile.Test
         }
 
         [Test]
-        public void GetfileCache_FileCacheNotRegistered_ReturnNewFileCache()
+        public void GetFileCache_FileCacheNotRegistered_ReturnNewFileCache()
         {
             // Setup
-            string path = TestHelper.GetScratchPadPath(nameof(GetfileCache_FileCacheNotRegistered_ReturnNewFileCache));
+            string path = TestHelper.GetScratchPadPath(nameof(GetFileCache_FileCacheNotRegistered_ReturnNewFileCache));
 
-            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GetfileCache_FileCacheNotRegistered_ReturnNewFileCache)))
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GetFileCache_FileCacheNotRegistered_ReturnNewFileCache)))
             {
                 // Call
-                FileCache fileCache = FileCacheManager.Instance.GetfileChache(path);
+                FileCache fileCache = FileCacheManager.Instance.GetFileCache(path);
 
                 // Assert
                 Assert.IsNotNull(fileCache);
@@ -77,10 +77,10 @@ namespace Core.Components.BruTile.Test
             string path = TestHelper.GetScratchPadPath(nameof(GetFileCache_FileCacheAlreadyRegistered_ReturnSameFileCache));
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GetFileCache_FileCacheAlreadyRegistered_ReturnSameFileCache)))
             {
-                FileCache fileCache1 = manager.GetfileChache(path);
+                FileCache fileCache1 = manager.GetFileCache(path);
 
                 // Call
-                FileCache fileCache2 = manager.GetfileChache(path);
+                FileCache fileCache2 = manager.GetFileCache(path);
 
                 // Assert
                 Assert.AreSame(fileCache1, fileCache2);
@@ -106,12 +106,12 @@ namespace Core.Components.BruTile.Test
             string path = TestHelper.GetScratchPadPath(nameof(GivenFileCache_WhenUnsubscribingButFileCacheStillUsed_ThenFileCacheNotDisposed));
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GivenFileCache_WhenUnsubscribingButFileCacheStillUsed_ThenFileCacheNotDisposed)))
             {
-                FileCache fileCache1 = manager.GetfileChache(path);
-                FileCache fileCache2 = manager.GetfileChache(path);
+                FileCache fileCache1 = manager.GetFileCache(path);
+                FileCache fileCache2 = manager.GetFileCache(path);
 
                 // When
                 manager.UnsubscribeFileCache(fileCache1);
-                FileCache fileCache3 = manager.GetfileChache(path);
+                FileCache fileCache3 = manager.GetFileCache(path);
 
                 // Then
                 Assert.AreSame(fileCache2, fileCache3);
@@ -126,11 +126,11 @@ namespace Core.Components.BruTile.Test
             string path = TestHelper.GetScratchPadPath(nameof(GivenFileCache_WhenUnsubscribingAndFileCacheNotUsed_ThenFileCacheDisposed));
             using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(GivenFileCache_WhenUnsubscribingAndFileCacheNotUsed_ThenFileCacheDisposed)))
             {
-                FileCache fileCache1 = manager.GetfileChache(path);
+                FileCache fileCache1 = manager.GetFileCache(path);
 
                 // When
                 manager.UnsubscribeFileCache(fileCache1);
-                FileCache fileCache2 = manager.GetfileChache(path);
+                FileCache fileCache2 = manager.GetFileCache(path);
 
                 // Then
                 Assert.AreNotSame(fileCache1, fileCache2);

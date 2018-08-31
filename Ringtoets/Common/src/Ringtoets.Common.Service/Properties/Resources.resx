@@ -178,11 +178,11 @@
     <value>Golfhoogte berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
   <data name="DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_Category_1_click_details_for_last_error_report_2" xml:space="preserve">
-    <value>Er is een fout opgetreden tijdens de waterstand berekening '{0}' (Categorie {1}). Bekijk het foutrapport door op details te klikken.
+    <value>Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{0}' (Categorie {1}). Bekijk het foutrapport door op details te klikken.
 {2}</value>
   </data>
   <data name="WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_1_click_details_for_last_error_report_2" xml:space="preserve">
-    <value>Er is een fout opgetreden tijdens de golfhoogte berekening '{0}' (Categorie {1}). Bekijk het foutrapport door op details te klikken.
+    <value>Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie '{0}' (Categorie {1}). Bekijk het foutrapport door op details te klikken.
 {2}</value>
   </data>
   <data name="HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported" xml:space="preserve">
@@ -226,5 +226,8 @@
   </data>
   <data name="CalculationService_Calculate_unexpected_error" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden tijdens het uitvoeren van de berekening.</value>
+  </data>
+  <data name="CalculationService_ValidateInput_Cannot_determine_AssessmentLevel" xml:space="preserve">
+    <value>Kan de waterstand niet afleiden op basis van de invoer.</value>
   </data>
 </root>

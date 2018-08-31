@@ -55,13 +55,22 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators
             MacroStabilityInwardsCalculatorFactory.Instance = new TestMacroStabilityInwardsCalculatorFactory();
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
         /// Reverts the <see cref="MacroStabilityInwardsCalculatorFactory.Instance"/> to the value
         /// it had at time of construction of the <see cref="MacroStabilityInwardsCalculatorFactoryConfig"/>.
         /// </summary>
-        public void Dispose()
+        protected virtual void Dispose(bool disposing)
         {
-            MacroStabilityInwardsCalculatorFactory.Instance = previousFactory;
+            if (disposing)
+            {
+                MacroStabilityInwardsCalculatorFactory.Instance = previousFactory;
+            }
         }
     }
 }

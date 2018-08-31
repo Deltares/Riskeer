@@ -55,13 +55,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
             AssemblyToolKernelFactory.Instance = new TestAssemblyToolKernelFactory();
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
         /// Reverts the <see cref="AssemblyToolKernelFactory.Instance"/> to the value
         /// it had at time of construction of the <see cref="AssemblyToolKernelFactoryConfig"/>.
         /// </summary>
-        public void Dispose()
+        protected virtual void Dispose(bool disposing)
         {
-            AssemblyToolKernelFactory.Instance = previousFactory;
+            if (disposing)
+            {
+                AssemblyToolKernelFactory.Instance = previousFactory;
+            }
         }
     }
 }

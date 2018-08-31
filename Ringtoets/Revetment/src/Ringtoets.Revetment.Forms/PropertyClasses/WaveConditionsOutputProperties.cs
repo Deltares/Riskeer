@@ -40,7 +40,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     {
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaterLevel_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.WaterLevel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsOutput_WaterLevel_Description))]
         public RoundedDouble WaterLevel
         {

@@ -96,7 +96,16 @@ namespace Ringtoets.Common.IO
 
         public void Dispose()
         {
-            polylineShapeFileReader.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                polylineShapeFileReader.Dispose();
+            }
         }
 
         /// <summary>

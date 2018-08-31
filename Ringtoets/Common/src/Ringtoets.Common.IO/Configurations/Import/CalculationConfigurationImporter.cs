@@ -110,11 +110,11 @@ namespace Ringtoets.Common.IO.Configurations.Import
         protected abstract TCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath);
 
         /// <summary>
-        /// Parses a calculation from the provided <paramref name="calculationConfiguration"/>.
+        /// Parses a calculation from the provided <paramref name="readCalculation"/>.
         /// </summary>
-        /// <param name="calculationConfiguration">The calculation read from XML.</param>
+        /// <param name="readCalculation">The calculation read from XML.</param>
         /// <returns>A parsed calculation instance, or <c>null</c> when parsing failed.</returns>
-        protected abstract ICalculation ParseReadCalculation(TReadCalculation calculationConfiguration);
+        protected abstract ICalculation ParseReadCalculation(TReadCalculation readCalculation);
 
         /// <summary>
         /// Tries to find the hydraulic boundary location with the given <paramref name="locationName"/> 

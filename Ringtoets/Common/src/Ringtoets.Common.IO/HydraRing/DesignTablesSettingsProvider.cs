@@ -74,7 +74,16 @@ namespace Ringtoets.Common.IO.HydraRing
 
         public void Dispose()
         {
-            designTablesSettingsReader.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                designTablesSettingsReader.Dispose();
+            }
         }
 
         private void InitializeDefaultDesignTablesSettings()
@@ -82,52 +91,40 @@ namespace Ringtoets.Common.IO.HydraRing
             defaultDesignTablesSettings = new Dictionary<HydraRingFailureMechanismType, DesignTablesSetting>
             {
                 {
-                    HydraRingFailureMechanismType.AssessmentLevel,
-                    new DesignTablesSetting(2, 4)
+                    HydraRingFailureMechanismType.AssessmentLevel, new DesignTablesSetting(2, 4)
                 },
                 {
-                    HydraRingFailureMechanismType.WaveHeight,
-                    new DesignTablesSetting(1, 4)
+                    HydraRingFailureMechanismType.WaveHeight, new DesignTablesSetting(1, 4)
                 },
                 {
-                    HydraRingFailureMechanismType.WavePeakPeriod,
-                    new DesignTablesSetting(5, 15)
+                    HydraRingFailureMechanismType.WavePeakPeriod, new DesignTablesSetting(5, 15)
                 },
                 {
-                    HydraRingFailureMechanismType.WaveSpectralPeriod,
-                    new DesignTablesSetting(5, 15)
+                    HydraRingFailureMechanismType.WaveSpectralPeriod, new DesignTablesSetting(5, 15)
                 },
                 {
-                    HydraRingFailureMechanismType.QVariant,
-                    new DesignTablesSetting(10, 50)
+                    HydraRingFailureMechanismType.QVariant, new DesignTablesSetting(10, 50)
                 },
                 {
-                    HydraRingFailureMechanismType.DikeHeight,
-                    new DesignTablesSetting(2, 4)
+                    HydraRingFailureMechanismType.DikeHeight, new DesignTablesSetting(2, 4)
                 },
                 {
-                    HydraRingFailureMechanismType.DikesOvertopping,
-                    new DesignTablesSetting(double.NaN, double.NaN)
+                    HydraRingFailureMechanismType.DikesOvertopping, new DesignTablesSetting(double.NaN, double.NaN)
                 },
                 {
-                    HydraRingFailureMechanismType.StructuresOvertopping,
-                    new DesignTablesSetting(double.NaN, double.NaN)
+                    HydraRingFailureMechanismType.StructuresOvertopping, new DesignTablesSetting(double.NaN, double.NaN)
                 },
                 {
-                    HydraRingFailureMechanismType.StructuresClosure,
-                    new DesignTablesSetting(double.NaN, double.NaN)
+                    HydraRingFailureMechanismType.StructuresClosure, new DesignTablesSetting(double.NaN, double.NaN)
                 },
                 {
-                    HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    new DesignTablesSetting(double.NaN, double.NaN)
+                    HydraRingFailureMechanismType.StructuresStructuralFailure, new DesignTablesSetting(double.NaN, double.NaN)
                 },
                 {
-                    HydraRingFailureMechanismType.DunesBoundaryConditions,
-                    new DesignTablesSetting(3.5, 6)
+                    HydraRingFailureMechanismType.DunesBoundaryConditions, new DesignTablesSetting(3.5, 6)
                 },
                 {
-                    HydraRingFailureMechanismType.OvertoppingRate,
-                    new DesignTablesSetting(0.001, 0.01)
+                    HydraRingFailureMechanismType.OvertoppingRate, new DesignTablesSetting(0.001, 0.01)
                 }
             };
         }

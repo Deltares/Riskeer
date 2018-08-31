@@ -326,8 +326,8 @@ namespace Ringtoets.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
 
                     string expectedFailureMessage = string.IsNullOrEmpty(lastErrorFileContent)
-                                                        ? $"Er is een fout opgetreden tijdens de waterstand berekening '{locationName}' (Categorie {categoryBoundaryName}). Er is geen foutrapport beschikbaar."
-                                                        : $"Er is een fout opgetreden tijdens de waterstand berekening '{locationName}' (Categorie {categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
+                                                        ? $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{locationName}' (Categorie {categoryBoundaryName}). Er is geen foutrapport beschikbaar."
+                                                        : $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{locationName}' (Categorie {categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
                     Assert.AreEqual(expectedFailureMessage, messages[4]);
 
                     StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", messages[5]);

@@ -74,9 +74,9 @@ namespace Core.Plugins.Chart
             yield return new PropertyInfo<ChartPointData, ChartPointDataProperties>();
         }
 
-        public override void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            if (activated)
+            if (activated && disposing)
             {
                 Gui.ViewHost.ViewOpened -= OnViewOpened;
                 Gui.ViewHost.ViewBroughtToFront -= OnViewBroughtToFront;
@@ -84,7 +84,7 @@ namespace Core.Plugins.Chart
                 Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
             }
 
-            base.Dispose();
+            base.Dispose(disposing);
         }
 
         /// <summary>
