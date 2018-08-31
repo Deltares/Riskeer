@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.Assembly;

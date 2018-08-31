@@ -43,8 +43,8 @@ namespace Ringtoets.Integration.IO.Test.Creators
         {
             // Call
             TestDelegate call = () => AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.Create(null,
-                                                                                                                  new SerializableTotalAssemblyResult(), 
-                                                                                                                  new SerializableFailureMechanismSectionCollection(), 
+                                                                                                                  new SerializableTotalAssemblyResult(),
+                                                                                                                  new SerializableFailureMechanismSectionCollection(),
                                                                                                                   CreateExportableCombinedSectionAssembly());
 
             // Assert
@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void Create_TotalAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(), 
+            TestDelegate call = () => AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
                                                                                                                   null,
                                                                                                                   new SerializableFailureMechanismSectionCollection(),
                                                                                                                   CreateExportableCombinedSectionAssembly());
@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         {
             // Call
             TestDelegate call = () => AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                                                  new SerializableTotalAssemblyResult(), 
+                                                                                                                  new SerializableTotalAssemblyResult(),
                                                                                                                   null,
                                                                                                                   CreateExportableCombinedSectionAssembly());
 
@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         {
             // Call
             TestDelegate call = () => AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                                                  new SerializableTotalAssemblyResult(), 
+                                                                                                                  new SerializableTotalAssemblyResult(),
                                                                                                                   new SerializableFailureMechanismSectionCollection(),
                                                                                                                   null);
 
@@ -93,7 +93,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("combinedSectionAssembly", exception.ParamName);
         }
-
 
         [Test]
         public void Create_WithValidArguments_ReturnsAggregatedSerializableCombinedFailureMechanismSectionAssembly()
@@ -145,7 +144,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             for (var i = 0; i < expectedNrOfFailureMechanismResult; i++)
             {
                 AssertCombinedSectionAssemblyResult(expectedFailureMechanismSectionResults.ElementAt(i),
-                                                     serializedFailureMechanismSectionResults[i]);
+                                                    serializedFailureMechanismSectionResults[i]);
             }
         }
 
@@ -186,7 +185,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         private static void AssertCombinedSectionAssemblyResult(ExportableFailureMechanismCombinedSectionAssemblyResult expectedSectionResult,
-                                                                 SerializableCombinedFailureMechanismSectionAssemblyResult actualSectionResult)
+                                                                SerializableCombinedFailureMechanismSectionAssemblyResult actualSectionResult)
         {
             Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(expectedSectionResult.Code),
                             actualSectionResult.FailureMechanismType);

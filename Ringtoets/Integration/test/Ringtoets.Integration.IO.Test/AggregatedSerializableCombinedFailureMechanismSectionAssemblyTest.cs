@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.IO.Test
         public void Constructor_CombinedFailureMechanismSectionAssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AggregatedSerializableCombinedFailureMechanismSectionAssembly(new SerializableFailureMechanismSection(), 
+            TestDelegate call = () => new AggregatedSerializableCombinedFailureMechanismSectionAssembly(new SerializableFailureMechanismSection(),
                                                                                                         null);
 
             // Assert
@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.IO.Test
             var sectionAssemblyResult = new SerializableCombinedFailureMechanismSectionAssembly();
 
             // Call
-            AggregatedSerializableCombinedFailureMechanismSectionAssembly aggregate =
+            var aggregate =
                 new AggregatedSerializableCombinedFailureMechanismSectionAssembly(failureMechanismSection, sectionAssemblyResult);
 
             // Assert

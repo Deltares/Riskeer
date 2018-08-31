@@ -352,16 +352,16 @@ namespace Ringtoets.Integration.IO.Test.Creators
             SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = actualSectionAssemblyResult.SectionResults;
             Assert.AreEqual(3, serializedSectionResults.Length);
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithProbability.SimpleAssembly,
-                                                                                             SerializableAssessmentType.SimpleAssessment, 
+                                                                                             SerializableAssessmentType.SimpleAssessment,
                                                                                              serializedSectionResults[0]);
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithProbability.DetailedAssembly,
                                                                                              SerializableAssessmentType.DetailedAssessment,
                                                                                              serializedSectionResults[1]);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithProbability.TailorMadeAssembly, 
+            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithProbability.TailorMadeAssembly,
                                                                                              SerializableAssessmentType.TailorMadeAssessment,
                                                                                              serializedSectionResults[2]);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithProbability.CombinedAssembly, 
-                                                                                             SerializableAssessmentType.CombinedAssessment, 
+            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithProbability.CombinedAssembly,
+                                                                                             SerializableAssessmentType.CombinedAssessment,
                                                                                              actualSectionAssemblyResult.CombinedSectionResult);
         }
 
@@ -372,8 +372,8 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = actualSectionAssemblyResult.SectionResults;
             Assert.AreEqual(3, serializedSectionResults.Length);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.SimpleAssembly, 
-                                                                                             SerializableAssessmentType.SimpleAssessment, 
+            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.SimpleAssembly,
+                                                                                             SerializableAssessmentType.SimpleAssessment,
                                                                                              serializedSectionResults[0]);
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.DetailedAssembly,
                                                                                              SerializableAssessmentType.DetailedAssessment,
@@ -392,12 +392,12 @@ namespace Ringtoets.Integration.IO.Test.Creators
             SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = actualSectionAssemblyResult.SectionResults;
             Assert.AreEqual(2, serializedSectionResults.Length);
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.SimpleAssembly,
-                                                                                             SerializableAssessmentType.SimpleAssessment, 
+                                                                                             SerializableAssessmentType.SimpleAssessment,
                                                                                              serializedSectionResults[0]);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.TailorMadeAssembly, 
+            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.TailorMadeAssembly,
                                                                                              SerializableAssessmentType.TailorMadeAssessment,
                                                                                              serializedSectionResults[1]);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly, 
+            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
                                                                                              actualSectionAssemblyResult.CombinedSectionResult);
         }

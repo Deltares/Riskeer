@@ -24,10 +24,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
-using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
-using Ringtoets.Integration.IO.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {

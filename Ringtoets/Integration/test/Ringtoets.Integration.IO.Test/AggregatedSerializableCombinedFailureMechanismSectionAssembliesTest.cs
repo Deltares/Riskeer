@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.IO.Test
         public void Constructor_FailureMechanismSectionsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AggregatedSerializableCombinedFailureMechanismSectionAssemblies(new SerializableFailureMechanismSectionCollection(), 
+            TestDelegate call = () => new AggregatedSerializableCombinedFailureMechanismSectionAssemblies(new SerializableFailureMechanismSectionCollection(),
                                                                                                           null,
                                                                                                           Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>());
 
@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.IO.Test
             var failureMechanismSectionCollection = new SerializableFailureMechanismSectionCollection();
             IEnumerable<SerializableFailureMechanismSection> failureMechanismSections =
                 Enumerable.Empty<SerializableFailureMechanismSection>();
-            IEnumerable<SerializableCombinedFailureMechanismSectionAssembly> failureMechanismSectionAssemblies = 
+            IEnumerable<SerializableCombinedFailureMechanismSectionAssembly> failureMechanismSectionAssemblies =
                 Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>();
 
             // Call
