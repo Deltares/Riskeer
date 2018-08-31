@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.IO.Creators
                                             serializableTotalAssemblyResult,
                                             serializableFailureMechanisms,
                                             serializableFailureMechanismSectionAssemblies,
-                                            Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                                            aggregatedSerializableCombinedFailureMechanismSectionAssemblies.CombinedFailureMechanismSectionAssemblies,
                                             serializableFailureMechanismSectionCollection,
                                             serializableFailureMechanismSections);
         }
