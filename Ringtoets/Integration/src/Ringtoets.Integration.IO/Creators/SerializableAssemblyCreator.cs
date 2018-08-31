@@ -70,6 +70,9 @@ namespace Ringtoets.Integration.IO.Creators
                                                                                                                       .Select(fm => CreateFailureMechanismsWithoutProbability(idGenerator, serializableTotalAssemblyResult, fm))
                                                                                                                       .ToArray();
 
+            AggregatedSerializableCombinedFailureMechanismSectionAssemblies aggregatedSerializableCombinedFailureMechanismSectionAssemblies =
+                AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(idGenerator, serializableTotalAssemblyResult, assessmentSection.CombinedSectionAssemblyResults);
+
             var serializableFailureMechanisms = new List<SerializableFailureMechanism>();
             serializableFailureMechanisms.AddRange(aggregatedFailureMechanismsWithProbability.Select(afm => afm.FailureMechanism));
             serializableFailureMechanisms.AddRange(aggregatedFailureMechanismsWithoutProbability.Select(afm => afm.FailureMechanism));
@@ -77,6 +80,7 @@ namespace Ringtoets.Integration.IO.Creators
             var serializableFailureMechanismSectionCollection = new List<SerializableFailureMechanismSectionCollection>();
             serializableFailureMechanismSectionCollection.AddRange(aggregatedFailureMechanismsWithProbability.Select(afm => afm.FailureMechanismSectionCollection));
             serializableFailureMechanismSectionCollection.AddRange(aggregatedFailureMechanismsWithoutProbability.Select(afm => afm.FailureMechanismSectionCollection));
+            serializableFailureMechanismSectionCollection.Add(aggregatedSerializableCombinedFailureMechanismSectionAssemblies.FailureMechanismSectionCollection);
 
             var serializableFailureMechanismSections = new List<SerializableFailureMechanismSection>();
             serializableFailureMechanismSections.AddRange(aggregatedFailureMechanismsWithProbability.SelectMany(afm => afm.FailureMechanismSections));
