@@ -611,7 +611,7 @@ handmatig</value>
   <data name="AssessmentLevel_Description" xml:space="preserve">
     <value>Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.</value>
   </data>
-  <data name="AssessmentLevel_DisplayName" xml:space="preserve">
+  <data name="WaterLevel_DisplayName" xml:space="preserve">
     <value>Waterstand [m+NAP]</value>
   </data>
   <data name="UseAssessmentLevelManualInput_Description" xml:space="preserve">
@@ -1427,9 +1427,6 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   </data>
   <data name="AssemblyCategory_UpperBoundary_DisplayName" xml:space="preserve">
     <value>Bovengrens [1/jaar]</value>
-  </data>
-  <data name="DesignWaterLevelCalculation_Result_DisplayName" xml:space="preserve">
-    <value>Waterstand [m+NAP]</value>
   </data>
   <data name="DesignWaterLevelCalculation_Result_Description" xml:space="preserve">
     <value>Berekende waterstand.</value>

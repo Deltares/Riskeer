@@ -222,9 +222,6 @@
   <data name="WaveConditionsOutput_WaterLevel_Description" xml:space="preserve">
     <value>De waterstand waarvoor de golfhoogte, -periode en -richting zijn berekend.</value>
   </data>
-  <data name="WaveConditionsOutput_WaterLevel_DisplayName" xml:space="preserve">
-    <value>Waterstand [m+NAP]</value>
-  </data>
   <data name="WaveConditionsOutput_WaveAngle_Description" xml:space="preserve">
     <value>Berekende maatgevende golfrichting ten opzichte van de dijknormaal.</value>
   </data>

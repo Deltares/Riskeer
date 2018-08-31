@@ -268,7 +268,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             if (inputParameters.UseAssessmentLevelManualInput)
             {
-                validationResult.AddRange(new NumericInputRule(inputParameters.AssessmentLevel, ParameterNameExtractor.GetFromDisplayName(Common.Forms.Properties.Resources.AssessmentLevel_DisplayName)).Validate());
+                validationResult.AddRange(new NumericInputRule(inputParameters.AssessmentLevel, ParameterNameExtractor.GetFromDisplayName(Common.Forms.Properties.Resources.WaterLevel_DisplayName)).Validate());
             }
             else
             {

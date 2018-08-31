@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.Service
 
             if (inputParameters.UseAssessmentLevelManualInput)
             {
-                validationResult.AddRange(new NumericInputRule(inputParameters.AssessmentLevel, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.AssessmentLevel_DisplayName)).Validate());
+                validationResult.AddRange(new NumericInputRule(inputParameters.AssessmentLevel, ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.WaterLevel_DisplayName)).Validate());
             }
             else
             {

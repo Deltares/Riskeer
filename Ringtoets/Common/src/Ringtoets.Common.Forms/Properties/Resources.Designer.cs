@@ -137,15 +137,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand [m+NAP].
-        /// </summary>
-        public static string AssessmentLevel_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentLevel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Is er een dam aanwezig?.
         /// </summary>
         public static string BreakWater_HasBreakWater_Description {
@@ -1124,15 +1115,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string DesignWaterLevelCalculation_Result_Description {
             get {
                 return ResourceManager.GetString("DesignWaterLevelCalculation_Result_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waterstand [m+NAP].
-        /// </summary>
-        public static string DesignWaterLevelCalculation_Result_DisplayName {
-            get {
-                return ResourceManager.GetString("DesignWaterLevelCalculation_Result_DisplayName", resourceCulture);
             }
         }
         
@@ -4016,6 +3998,15 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("warning", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstand [m+NAP].
+        /// </summary>
+        public static string WaterLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterLevel_DisplayName", resourceCulture);
             }
         }
         

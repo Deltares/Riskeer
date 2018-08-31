@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             base.InitializeDataGridView();
             dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Result),
-                                                 RingtoetsCommonFormsResources.DesignWaterLevelCalculation_Result_DisplayName);
+                                                 RingtoetsCommonFormsResources.WaterLevel_DisplayName);
         }
     }
 }
