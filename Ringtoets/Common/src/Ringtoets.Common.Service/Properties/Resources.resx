@@ -207,10 +207,10 @@
     <value>Het uitlezen van illustratiepunten is mislukt.</value>
   </data>
   <data name="DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_Category_1_no_error_report" xml:space="preserve">
-    <value>Er is een fout opgetreden tijdens de waterstand berekening '{0}' (Categorie {1}). Er is geen foutrapport beschikbaar.</value>
+    <value>Er is een fout opgetreden tijdens de waterstand berekening '{0}' voor locatie (Categorie {1}). Er is geen foutrapport beschikbaar.</value>
   </data>
   <data name="WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_1_no_error_report" xml:space="preserve">
-    <value>Er is een fout opgetreden tijdens de golfhoogte berekening '{0}' (Categorie {1}). Er is geen foutrapport beschikbaar.</value>
+    <value>Er is een fout opgetreden tijdens de golfhoogte berekening '{0}' voor locatie (Categorie {1}). Er is geen foutrapport beschikbaar.</value>
   </data>
   <data name="CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1" xml:space="preserve">
     <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0}: {1} Het uitlezen van illustratiepunten wordt overgeslagen.</value>
