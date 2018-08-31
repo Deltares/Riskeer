@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
             string message = provider.GetCalculationFailedWithErrorReportMessage(name, failureMessage);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de waterstand berekening '{name}' (Categorie {categoryBoundaryName}). " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{name}' (Categorie {categoryBoundaryName}). " +
                                      $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
             string message = provider.GetCalculationFailedWithErrorReportMessage(name, failureMessage);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de waterstand berekening '{name}' (Categorie {categoryBoundaryName}). " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{name}' (Categorie {categoryBoundaryName}). " +
                                      $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
