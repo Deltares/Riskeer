@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.AssemblyTool.IO.Model;
 
-namespace Ringtoets.Integration.IO
+namespace Ringtoets.Integration.IO.AggregatedSerializable
 {
     /// <summary>
     /// Class that holds all the information related to creating a

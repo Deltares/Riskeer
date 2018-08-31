@@ -15,10 +15,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AggregatedSerializableCombinedFailureMechanismSectionAssemblies.cs" />
-    <Compile Include="AggregatedSerializableCombinedFailureMechanismSectionAssembly.cs" />
-    <Compile Include="AggregatedSerializableFailureMechanism.cs" />
-    <Compile Include="AggregatedSerializableFailureMechanismSectionAssembly.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableCombinedFailureMechanismSectionAssemblies.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableCombinedFailureMechanismSectionAssembly.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableFailureMechanism.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableFailureMechanismSectionAssembly.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultBase.cs" />
     <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly.cs" />
     <Compile Include="Assembly\ExportableAssessmentSection.cs" />

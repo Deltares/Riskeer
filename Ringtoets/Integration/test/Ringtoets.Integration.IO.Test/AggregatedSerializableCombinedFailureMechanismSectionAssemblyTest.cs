@@ -22,6 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model;
+using Ringtoets.Integration.IO.AggregatedSerializable;
 
 namespace Ringtoets.Integration.IO.Test
 {

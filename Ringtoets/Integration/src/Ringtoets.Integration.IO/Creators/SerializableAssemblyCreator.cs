@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model;
+using Ringtoets.Integration.IO.AggregatedSerializable;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Integration.IO.Properties;

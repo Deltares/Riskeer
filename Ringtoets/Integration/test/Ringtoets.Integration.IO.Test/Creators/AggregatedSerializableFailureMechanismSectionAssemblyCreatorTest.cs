@@ -26,6 +26,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
+using Ringtoets.Integration.IO.AggregatedSerializable;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
 using Ringtoets.Integration.IO.Helpers;

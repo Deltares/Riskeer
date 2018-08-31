@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
+using Ringtoets.Integration.IO.AggregatedSerializable;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Integration.IO.Properties;
