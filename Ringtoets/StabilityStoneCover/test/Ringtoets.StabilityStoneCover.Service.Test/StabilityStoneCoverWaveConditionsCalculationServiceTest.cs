@@ -293,7 +293,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 stabilityStoneCoverWaveConditionsCalculationService.OnProgress += (description, step, steps) =>
                 {
                     // Assert
-                    string text = $"Waterstand '{waterLevels[(step - 1) % waterLevels.Length]}' berekenen.";
+                    string text = $"Berekenen voor een waterstand van '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP].";
                     Assert.AreEqual(text, description);
                     Assert.AreEqual(currentStep++, step);
                     Assert.AreEqual(nrOfCalculators, steps);

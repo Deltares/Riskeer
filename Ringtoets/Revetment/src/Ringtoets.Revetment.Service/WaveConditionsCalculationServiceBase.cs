@@ -238,7 +238,7 @@ namespace Ringtoets.Revetment.Service
 
         private void NotifyProgress(RoundedDouble waterLevel, int currentStepNumber, int totalStepsNumber)
         {
-            string message = string.Format(Resources.WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_, waterLevel);
+            string message = string.Format(Resources.WaveConditionsCalculationService_OnRun_Calculate_for_waterlevel_0_, waterLevel);
             OnProgress?.Invoke(message, currentStepNumber, totalStepsNumber);
         }
 

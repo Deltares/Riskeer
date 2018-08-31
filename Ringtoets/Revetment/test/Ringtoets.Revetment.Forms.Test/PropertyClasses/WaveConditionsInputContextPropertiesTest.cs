@@ -311,7 +311,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterLevelsProperty,
                                                                             hydraulicParametersCategory,
                                                                             "Waterstanden in berekening [m+NAP]",
-                                                                            "De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen, en van de stapgrootte.",
+                                                                            "De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen en op basis van de stapgrootte.",
                                                                             true);
 
             PropertyDescriptor foreshoreProfileProperty = dynamicProperties[foreshoreProfilePropertyIndex];

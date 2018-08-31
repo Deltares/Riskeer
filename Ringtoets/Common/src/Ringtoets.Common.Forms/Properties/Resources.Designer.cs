@@ -128,7 +128,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm..
+        ///   Looks up a localized string similar to Waterstand met een overschrijdingsfrequentie gelijk aan de norm van het dijktraject..
         /// </summary>
         public static string AssessmentLevel_Description {
             get {

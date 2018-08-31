@@ -215,7 +215,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 int totalSteps = waterLevels.Length * 2;
                 for (var i = 0; i < totalSteps; i++)
                 {
-                    string text = $"Stap {i + 1} van {totalSteps} | Waterstand '{waterLevels[i % waterLevels.Length]}' berekenen.";
+                    string text = $"Stap {i + 1} van {totalSteps} | Berekenen voor een waterstand van '{waterLevels[i % waterLevels.Length]}' [m+NAP].";
                     Assert.AreEqual(text, progessTexts[i]);
                 }
             }

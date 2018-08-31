@@ -123,11 +123,11 @@ namespace Ringtoets.Revetment.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand &apos;{0}&apos; berekenen..
+        ///   Looks up a localized string similar to Berekenen voor een waterstand van &apos;{0}&apos; [m+NAP]..
         /// </summary>
-        public static string WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_ {
+        public static string WaveConditionsCalculationService_OnRun_Calculate_for_waterlevel_0_ {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsCalculationService_OnRun_Calculate_for_waterlevel_0_", resourceCulture);
             }
         }
         

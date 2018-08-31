@@ -184,7 +184,7 @@
     <value>Bovengrens waterstanden [m+NAP]</value>
   </data>
   <data name="WaveConditionsInput_WaterLevels_Description" xml:space="preserve">
-    <value>De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen, en van de stapgrootte.</value>
+    <value>De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen en op basis van de stapgrootte.</value>
   </data>
   <data name="WaveConditionsInput_WaterLevels_DisplayName" xml:space="preserve">
     <value>Waterstanden in berekening [m+NAP]</value>

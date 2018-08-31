@@ -388,7 +388,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen, en van de stapgrootte..
+        ///   Looks up a localized string similar to De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen en op basis van de stapgrootte..
         /// </summary>
         public static string WaveConditionsInput_WaterLevels_Description {
             get {
