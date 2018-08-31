@@ -27,17 +27,18 @@ namespace Ringtoets.Common.Service
     public static class ParameterNameExtractor
     {
         /// <summary>
-        /// Gets parameter name from a display name formatted text.
+        /// Gets the parameter name from a display name formatted text.
         /// </summary>
         /// <param name="parameterNameWithUnits">The parameter name with units.</param>
-        /// <returns>The parameter name (lower case).</returns>
-        /// <remarks>display name format: {Name of the parameter} [{unit of the parameter}]</remarks>
+        /// <returns>The parameter name.</returns>
+        /// <remarks>Display name format: {Name of the parameter} [{unit of the parameter}].</remarks>
         public static string GetFromDisplayName(string parameterNameWithUnits)
         {
             string[] splitString = parameterNameWithUnits.Split('[');
-            return splitString.Length != 0 ?
-                       splitString[0].ToLower().Trim() :
-                       string.Empty;
+
+            return splitString.Length != 0
+                       ? splitString[0].Trim()
+                       : string.Empty;
         }
     }
 }

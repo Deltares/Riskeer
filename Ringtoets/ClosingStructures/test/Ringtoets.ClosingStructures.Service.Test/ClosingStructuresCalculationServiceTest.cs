@@ -1181,20 +1181,20 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
         #region Parameter name mappings
 
-        private const string insideWaterLevel = "binnenwaterstand";
-        private const string stormDuration = "stormduur";
-        private const string factorStormDurationOpenStructure = "factor voor stormduur hoogwater";
-        private const string modelFactorSuperCriticalFlow = "modelfactor overloopdebiet volkomen overlaat";
-        private const string drainCoefficient = "afvoercoëfficiënt";
-        private const string structureNormalOrientation = "oriëntatie";
-        private const string thresholdHeightOpenWeir = "drempelhoogte";
-        private const string areaFlowApertures = "doorstroomoppervlak";
-        private const string levelCrestStructureNotClosing = "kruinhoogte niet gesloten kering";
-        private const string allowedLevelIncreaseStorage = "toegestane peilverhoging komberging";
-        private const string storageStructureArea = "kombergend oppervlak";
-        private const string flowWidthAtBottomProtection = "stroomvoerende breedte bodembescherming";
-        private const string criticalOvertoppingDischarge = "kritiek instromend debiet";
-        private const string widthFlowApertures = "breedte van doorstroomopening";
+        private const string insideWaterLevel = "Binnenwaterstand";
+        private const string stormDuration = "Stormduur";
+        private const string factorStormDurationOpenStructure = "Factor voor stormduur hoogwater";
+        private const string modelFactorSuperCriticalFlow = "Modelfactor overloopdebiet volkomen overlaat";
+        private const string drainCoefficient = "Afvoercoëfficiënt";
+        private const string structureNormalOrientation = "Oriëntatie";
+        private const string thresholdHeightOpenWeir = "Drempelhoogte";
+        private const string areaFlowApertures = "Doorstroomoppervlak";
+        private const string levelCrestStructureNotClosing = "Kruinhoogte niet gesloten kering";
+        private const string allowedLevelIncreaseStorage = "Toegestane peilverhoging komberging";
+        private const string storageStructureArea = "Kombergend oppervlak";
+        private const string flowWidthAtBottomProtection = "Stroomvoerende breedte bodembescherming";
+        private const string criticalOvertoppingDischarge = "Kritiek instromend debiet";
+        private const string widthFlowApertures = "Breedte van doorstroomopening";
 
         #endregion
     }
