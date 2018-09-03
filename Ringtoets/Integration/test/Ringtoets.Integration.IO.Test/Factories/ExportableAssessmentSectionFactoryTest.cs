@@ -64,8 +64,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             TestDelegate call = () => ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("reference line of assessment section cannot be null.", exception.Message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "reference line of assessment section cannot be null.");
         }
 
         [Test]

@@ -139,7 +139,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 referenceLine,
                 actualSection.StartDistance,
                 actualSection.EndDistance).ToArray();
-            Assert.IsTrue(expectedGeometry.Any());
+            CollectionAssert.IsNotEmpty(expectedGeometry);
 
             Assert.AreEqual(expectedSection.SectionStart, actualSection.StartDistance);
             Assert.AreEqual(expectedSection.SectionEnd, actualSection.EndDistance);
