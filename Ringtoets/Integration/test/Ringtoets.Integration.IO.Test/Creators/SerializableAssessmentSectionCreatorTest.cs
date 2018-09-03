@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         {
             // Setup
             const string assessmentSectionName = "Assessment Section Name";
-            const string assessmentSectionId = "Assessment Section Id";
+            const string assessmentSectionId = "assessmentSectionId";
 
             ExportableAssessmentSection assessmentSection = CreateAssessmentSection(assessmentSectionName,
                                                                                     assessmentSectionId);

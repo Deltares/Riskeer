@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void Create_WithValidArguments_ReturnsSerializableAssessmentProcess()
         {
             // Setup
-            const string assessmentSectionId = "assessmentSection Id";
+            const string assessmentSectionId = "assessmentSectionId";
             var serializableAssessmentSection = new SerializableAssessmentSection(assessmentSectionId,
                                                                                   string.Empty,
                                                                                   CreateGeometry());

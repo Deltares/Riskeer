@@ -112,7 +112,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Setup
             var idGenerator = new UniqueIdentifierGenerator();
 
-            const string assessmentProcessId = "serializable assessment process id";
+            const string assessmentProcessId = "assessmentProcessId";
             var serializableAssessmentProcess = new SerializableAssessmentProcess(assessmentProcessId, new SerializableAssessmentSection());
             var failureMechanismAssemblyResultWithProbability = new SerializableFailureMechanismAssemblyResult();
             var failureMechanismAssemblyResultWithoutProbability = new SerializableFailureMechanismAssemblyResult();
