@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model.Gml;
+using Ringtoets.AssemblyTool.IO.Model.Helpers;
 
 namespace Ringtoets.AssemblyTool.IO.Model
 {
@@ -58,8 +59,8 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// belong to the assembly.</param>
         /// <param name="failureMechanismSections">The collection of <see cref="SerializableFailureMechanismSection"/> that
         /// belong to the assembly.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SerializableAssembly(string id,
                                     Point2D lowerCorner,
                                     Point2D upperCorner,
@@ -72,9 +73,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
                                     IEnumerable<SerializableFailureMechanismSectionCollection> failureMechanismSectionCollections,
                                     IEnumerable<SerializableFailureMechanismSection> failureMechanismSections)
         {
-            if (string.IsNullOrEmpty(id))
+            if (!IdValidator.Validate(id))
             {
-                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
+                throw new ArgumentException($@"'{nameof(id)}' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.");
             }
 
             if (lowerCorner == null)

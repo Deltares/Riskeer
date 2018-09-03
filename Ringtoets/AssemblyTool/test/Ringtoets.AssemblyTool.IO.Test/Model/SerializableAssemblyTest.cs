@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -76,15 +76,13 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        public void Constructor_IdInvalid_ThrowsArgumentException(string id)
+        public void Constructor_IdNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(39);
 
             // Call
-            TestDelegate call = () => new SerializableAssembly(id,
+            TestDelegate call = () => new SerializableAssembly(null,
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new Point2D(random.NextDouble(), random.NextDouble()),
                                                                new SerializableAssessmentSection(),
@@ -97,7 +95,34 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
                                                                Enumerable.Empty<SerializableFailureMechanismSection>());
 
             // Assert
-            const string expectedMessage = "'id' must have a value.";
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("id", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(" ")]
+        [TestCase("")]
+        [TestCase(" InvalidId")]
+        public void Constructor_InvalidId_ThrowsArgumentNullException(string invalidId)
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate call = () => new SerializableAssembly(invalidId,
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new Point2D(random.NextDouble(), random.NextDouble()),
+                                                               new SerializableAssessmentSection(),
+                                                               new SerializableAssessmentProcess(),
+                                                               new SerializableTotalAssemblyResult(),
+                                                               Enumerable.Empty<SerializableFailureMechanism>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableCombinedFailureMechanismSectionAssembly>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSectionCollection>(),
+                                                               Enumerable.Empty<SerializableFailureMechanismSection>());
+
+            // Assert
+            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -336,7 +361,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         public void Constructor_WithValidData_ReturnsExpectedValues()
         {
             // Setup
-            const string id = "assembly id 1";
+            const string id = "assemblyId1";
 
             var random = new Random(39);
             var lowerCorner = new Point2D(random.NextDouble(), random.NextDouble());
