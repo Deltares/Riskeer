@@ -165,19 +165,19 @@
     <attribute name="BeoordelingsprocesIDRef" type="IDREF" use="required"/>
   </complexType>
   <complexType name="ToetsoordeelTrajectPropertyType">
-    <all>
+    <sequence>
       <element name="assemblagemethode" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
       <element name="categorieTraject" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
       <element name="faalkans" minOccurs="0" maxOccurs="1" type="double"/>
       <element name="status" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
-    </all>
+    </sequence>
   </complexType>
   <complexType name="VeiligheidsoordeelPropertyType">
-    <all>
+    <sequence>
       <element name="assemblagemethode" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
       <element name="categorie" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
       <element name="status" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
-    </all>
+    </sequence>
   </complexType>
   <element name="Toetsspoor" type="asm:ToetsspoorType">
     <annotation>
@@ -188,7 +188,7 @@
     </annotation>
   </element>
   <complexType name="ToetsspoorType">
-    <all>
+    <sequence>
       <element name="typeToetsspoor" type="gml:CodeType" minOccurs="1" maxOccurs="1">
         <annotation>
           <documentation>
@@ -223,7 +223,7 @@
         </annotation>
       </element>
       <element name="toetsvoorschrift" minOccurs="0" maxOccurs="1" type="string"/>
-    </all>
+    </sequence>
     <attribute name="ToetsspoorID" type="ID" use="required"/>
     <attribute name="VeiligheidsoordeelIDRef" type="IDREF" use="required"/>
   </complexType>
@@ -236,7 +236,7 @@
       </documentation>
     </annotation>
     <complexType>
-      <all>
+      <sequence>
         <element name="beginJaarBeoordelingsronde" type="positiveInteger">
           <annotation>
             <documentation>
@@ -258,7 +258,7 @@
           </annotation>
         </element>
         <element name="omschrijving" minOccurs="0" type="string"/>
-      </all>
+      </sequence>
       <attribute name="BeoordelingsprocesID" type="ID" use="required"/>
       <attribute name="WaterkeringstelselIDRef" type="IDREF" use="required"/>
     </complexType>
