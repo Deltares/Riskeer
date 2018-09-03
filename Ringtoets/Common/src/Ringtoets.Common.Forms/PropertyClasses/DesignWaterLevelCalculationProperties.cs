@@ -24,7 +24,6 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
@@ -41,7 +40,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public DesignWaterLevelCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
             : base(hydraulicBoundaryLocationCalculation) {}
 
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.WaterLevel_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaterLevel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DesignWaterLevelCalculation_Result_Description))]
         public override RoundedDouble Result
         {
