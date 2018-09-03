@@ -67,9 +67,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        [TestCase(" ")]
-        [TestCase("")]
-        [TestCase(" InvalidId")]
+        [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
         public void ConstructorWithFailureMechanism_InvalidId_ThrowsArgumentNullException(string invalidId)
         {
             // Call
@@ -129,9 +127,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        [TestCase(" ")]
-        [TestCase("")]
-        [TestCase(" InvalidId")]
+        [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
         public void ConstructorWithTotalAssemblyResult_InvalidId_ThrowsArgumentNullException(string invalidId)
         {
             // Call
