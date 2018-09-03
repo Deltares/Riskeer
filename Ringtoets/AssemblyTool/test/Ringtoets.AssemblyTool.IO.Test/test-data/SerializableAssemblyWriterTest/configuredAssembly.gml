@@ -22,6 +22,11 @@
       <asm:eindJaarBeoordelingsronde>2023</asm:eindJaarBeoordelingsronde>
     </asm:Beoordelingsproces>
     <asm:Veiligheidsoordeel VeiligheidsoordeelID="veiligheidsoordeel_1" BeoordelingsprocesIDRef="beoordelingsproces1">
+      <asm:veiligheidsoordeel>
+        <asm:assemblagemethode>WBI-2C-1</asm:assemblagemethode>
+        <asm:categorie>B</asm:categorie>
+        <asm:status>VOLLDG</asm:status>
+      </asm:veiligheidsoordeel>
       <asm:toetsoordeelMetKansschatting>
         <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
         <asm:categorieTraject>NVT</asm:categorieTraject>
@@ -33,11 +38,6 @@
         <asm:categorieTraject>II-traject</asm:categorieTraject>
         <asm:status>VOLLDG</asm:status>
       </asm:toetsoordeelZonderKansschatting>
-      <asm:veiligheidsoordeel>
-        <asm:assemblagemethode>WBI-2C-1</asm:assemblagemethode>
-        <asm:categorie>B</asm:categorie>
-        <asm:status>VOLLDG</asm:status>
-      </asm:veiligheidsoordeel>
     </asm:Veiligheidsoordeel>
     <asm:Toetsspoor ToetsspoorID="toetsspoorGABI" VeiligheidsoordeelIDRef="veiligheidsoordeel_1">
       <asm:typeToetsspoor>GABI</asm:typeToetsspoor>
@@ -52,38 +52,38 @@
     <asm:Toets ToetsID="resultaat_GABI_1" ToetsspoorIDRef="toetsspoorGABI" WaterkeringsectieIDRef="vak_GABI_1">
       <asm:eindtoetsoordeel>
         <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:categorieVak>III-vak</asm:categorieVak>
         <asm:toets>GECBNTR</asm:toets>
+        <asm:categorieVak>III-vak</asm:categorieVak>
       </asm:eindtoetsoordeel>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
+        <asm:toets>EENVDGETS</asm:toets>
         <asm:categorieVak>II-vak</asm:categorieVak>
         <asm:faalkans>0.5</asm:faalkans>
-        <asm:toets>EENVDGETS</asm:toets>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-5</asm:assemblagemethode>
-        <asm:categorieVak>III-vak</asm:categorieVak>
         <asm:toets>TOETSOPMT</asm:toets>
+        <asm:categorieVak>III-vak</asm:categorieVak>
       </asm:toetsoordeelVak>
     </asm:Toets>
     <asm:GecombineerdToetsoordeel GecombineerdToetsoordeelID="resultaat_gecombineerd_1" VeiligheidsoordeelIDRef="veiligheidsoordeel_1" WaterkeringsectieIDRef="vak_gecombineerd_1">
       <asm:toetsoordeelGecombineerd>
         <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
         <asm:toets>GECBNTRDV</asm:toets>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
       </asm:toetsoordeelGecombineerd>
       <asm:eindtoetsoordeelToetsspoor>
         <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
+        <asm:typeToetsspoor>HTKW</asm:typeToetsspoor>
         <asm:categorieVak>III-vak</asm:categorieVak>
         <asm:status>VOLLDG</asm:status>
-        <asm:typeToetsspoor>HTKW</asm:typeToetsspoor>
       </asm:eindtoetsoordeelToetsspoor>
       <asm:eindtoetsoordeelToetsspoor>
         <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
+        <asm:typeToetsspoor>STPH</asm:typeToetsspoor>
         <asm:categorieVak>IV-vak</asm:categorieVak>
         <asm:status>VOLLDG</asm:status>
-        <asm:typeToetsspoor>STPH</asm:typeToetsspoor>
       </asm:eindtoetsoordeelToetsspoor>
     </asm:GecombineerdToetsoordeel>
     <asm:Vakindeling VakindelingID="vakindelingGABI" ToetsspoorIDRef="toetsspoorGABI" />
