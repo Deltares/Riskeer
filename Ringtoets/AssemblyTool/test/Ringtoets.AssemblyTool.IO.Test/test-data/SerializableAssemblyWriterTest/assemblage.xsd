@@ -281,12 +281,12 @@
     <attribute name="WaterkeringsectieIDRef" type="IDREF" use="required"/>
   </complexType>
   <complexType name="ToetsoordeelVakPropertyType">
-    <all>
+    <sequence>
       <element name="assemblagemethode" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+      <element name="toets" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
       <element name="categorieVak" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
       <element name="faalkans" minOccurs="0" maxOccurs="1" type="double"/>
-      <element name="toets" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
-    </all>
+    </sequence>
   </complexType>
   <element name="GecombineerdToetsoordeel" type="asm:GecombineerdToetsoordeelType">
     <annotation>

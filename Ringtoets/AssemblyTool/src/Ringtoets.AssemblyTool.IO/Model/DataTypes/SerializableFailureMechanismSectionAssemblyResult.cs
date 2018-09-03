@@ -59,6 +59,12 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         public SerializableAssemblyMethod AssemblyMethod { get; set; }
 
         /// <summary>
+        /// Gets or sets the assessment type of this result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.AssessmentType)]
+        public SerializableAssessmentType AssessmentType { get; set; }
+
+        /// <summary>
         /// Gets or sets the category group of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionCategoryGroup)]
@@ -69,12 +75,6 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Probability)]
         public double? Probability { get; set; }
-
-        /// <summary>
-        /// Gets or sets the assessment type of this result.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.AssessmentType)]
-        public SerializableAssessmentType AssessmentType { get; set; }
 
         /// <summary>
         /// Determines whether <see cref="Probability"/> should be serialized.
