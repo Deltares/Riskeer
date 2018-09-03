@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
+using Ringtoets.AssemblyTool.IO.Model.Helpers;
 using Ringtoets.AssemblyTool.IO.Properties;
 
 namespace Ringtoets.AssemblyTool.IO.Model
@@ -48,20 +49,19 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="id">The unique ID of the assessment section.</param>
         /// <param name="name">The name of the assessment section.</param>
         /// <param name="geometry">The geometry of the reference line.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="geometry"/> contains no elements;</item>
-        /// <item><paramref name="id"/> is <c>null</c> or empty.</item>
-        /// </list>
-        /// </exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or <paramref name="geometry"/> is <c>null</c>.</exception>
+        ///<list type="bullet">
+        /// <item><paramref name="geometry"/> contains no elements.</item>
+        /// <item><paramref name="id"/> is invalid.</item>
+        /// </list></exception>
         public SerializableAssessmentSection(string id,
                                              string name,
                                              IEnumerable<Point2D> geometry) : this()
         {
-            if (string.IsNullOrEmpty(id))
+            if (!IdValidator.Validate(id))
             {
-                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
+                throw new ArgumentException($@"'{nameof(id)}' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.");
             }
 
             if (name == null)
