@@ -32,8 +32,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     {
         private readonly double modelFactorSuperCriticalFlowMean;
         private readonly double modelFactorSuperCriticalFlowStandardDeviation;
-        private readonly double modelFactorSubCriticalFlowMean;
-        private readonly double modelFactorSubCriticalFlowVariation;
         private readonly double thresholdHeightOpenWeirMean;
         private readonly double thresholdHeightOpenWeirStandardDeviation;
         private readonly double insideWaterLevelMean;
@@ -70,8 +68,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="probabilityOpenStructureBeforeFlooding">The probability of an open structure before flooding.</param>
         /// <param name="modelFactorSuperCriticalFlowMean">The mean of the model factor super critical flow.</param>
         /// <param name="modelFactorSuperCriticalFlowStandardDeviation">The standard deviation of the model factor super critical flow.</param>
-        /// <param name="modelFactorSubCriticalFlowMean">The mean of the model factor sub critical flow.</param>
-        /// <param name="modelFactorSubCriticalFlowVariation">The variation of the model factor sub critical flow.</param>
         /// <param name="thresholdHeightOpenWeirMean">The mean of the threshold height open weir.</param>
         /// <param name="thresholdHeightOpenWeirStandardDeviation">The standard deviation of the threshold height open weir.</param>
         /// <param name="insideWaterLevelMean">The mean of the inside water level.</param>
@@ -97,7 +93,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                         double stormDurationMean, double stormDurationVariation,
                                                         double probabilityOpenStructureBeforeFlooding,
                                                         double modelFactorSuperCriticalFlowMean, double modelFactorSuperCriticalFlowStandardDeviation,
-                                                        double modelFactorSubCriticalFlowMean, double modelFactorSubCriticalFlowVariation,
                                                         double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
                                                         double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
                                                         double widthFlowAperturesMean, double widthFlowAperturesStandardDeviation)
@@ -121,8 +116,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         {
             this.modelFactorSuperCriticalFlowMean = modelFactorSuperCriticalFlowMean;
             this.modelFactorSuperCriticalFlowStandardDeviation = modelFactorSuperCriticalFlowStandardDeviation;
-            this.modelFactorSubCriticalFlowMean = modelFactorSubCriticalFlowMean;
-            this.modelFactorSubCriticalFlowVariation = modelFactorSubCriticalFlowVariation;
             this.thresholdHeightOpenWeirMean = thresholdHeightOpenWeirMean;
             this.thresholdHeightOpenWeirStandardDeviation = thresholdHeightOpenWeirStandardDeviation;
             this.insideWaterLevelMean = insideWaterLevelMean;
@@ -158,7 +151,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private IEnumerable<HydraRingVariable> GetVariables()
         {
             yield return new NormalHydraRingVariable(62, HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation);
-            yield return new NormalHydraRingVariable(64, HydraRingDeviationType.Variation, modelFactorSubCriticalFlowMean, modelFactorSubCriticalFlowVariation);
             yield return new NormalHydraRingVariable(65, HydraRingDeviationType.Standard, thresholdHeightOpenWeirMean, thresholdHeightOpenWeirStandardDeviation);
             yield return new NormalHydraRingVariable(93, HydraRingDeviationType.Standard, insideWaterLevelMean, insideWaterLevelStandardDeviation);
             yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
