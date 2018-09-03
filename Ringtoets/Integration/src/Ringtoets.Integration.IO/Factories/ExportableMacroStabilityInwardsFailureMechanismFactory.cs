@@ -73,14 +73,12 @@ namespace Ringtoets.Integration.IO.Factories
             }
 
             FailureMechanismAssembly failureMechanismAssembly = MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
-            IDictionary<MacroStabilityInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                CreateExportableFailureMechanismSectionResults(failureMechanismSectionsLookup,
-                                                               failureMechanism,
+                CreateExportableFailureMechanismSectionResults(failureMechanism,
                                                                assessmentSection),
                 failureMechanismCode,
                 failureMechanismGroup);
@@ -88,24 +86,25 @@ namespace Ringtoets.Integration.IO.Factories
 
         /// <summary>
         /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>
-        /// with assembly results based on the sections in <paramref name="failureMechanismSections"/>.
+        /// with assembly results based on <paramref name="failureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanismSections">The mapping between the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>
-        /// and <see cref="ExportableFailureMechanismSection"/>.</param>
-        /// <param name="macroStabilityInwardsFailureMechanism">The <see cref="MacroStabilityInwardsFailureMechanism"/> the sections belong to.</param>
-        /// <param name="assessmentSection">The assessment section the sections belong to.</param>
+        /// <param name="failureMechanism">The <see cref="MacroStabilityInwardsFailureMechanism"/> to create a collection
+        /// of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/> for.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportableFailureMechanismSectionResults(
-            IDictionary<MacroStabilityInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections,
-            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism,
+            MacroStabilityInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
+            IDictionary<MacroStabilityInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+
             IEnumerable<MacroStabilityInwardsCalculationScenario> macroStabilityInwardsCalculationScenarios =
-                macroStabilityInwardsFailureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>();
+                failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>();
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
-            foreach (KeyValuePair<MacroStabilityInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSections)
+            foreach (KeyValuePair<MacroStabilityInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
                 FailureMechanismSectionAssembly simpleAssembly =
@@ -114,16 +113,16 @@ namespace Ringtoets.Integration.IO.Factories
                 FailureMechanismSectionAssembly detailedAssembly =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
                                                                                                     macroStabilityInwardsCalculationScenarios,
-                                                                                                    macroStabilityInwardsFailureMechanism,
+                                                                                                    failureMechanism,
                                                                                                     assessmentSection);
                 FailureMechanismSectionAssembly tailorMadeAssembly =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult,
-                                                                                                      macroStabilityInwardsFailureMechanism,
+                                                                                                      failureMechanism,
                                                                                                       assessmentSection);
                 FailureMechanismSectionAssembly combinedAssembly =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
                                                                                                     macroStabilityInwardsCalculationScenarios,
-                                                                                                    macroStabilityInwardsFailureMechanism,
+                                                                                                    failureMechanism,
                                                                                                     assessmentSection);
 
                 exportableResults.Add(

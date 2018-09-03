@@ -64,29 +64,30 @@ namespace Ringtoets.Integration.IO.Factories
             }
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
-            IDictionary<StabilityStoneCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
                                                              failureMechanismAssembly),
-                CreateFailureMechanismSectionResults(failureMechanismSectionsLookup),
+                CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
 
         /// <summary>
         /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>
-        /// with assembly results based on the sections in <paramref name="failureMechanismSections"/>.
+        /// with assembly results based on <paramref name="failureMechanismSectionResults"/>.
         /// </summary>
-        /// <param name="failureMechanismSections">The mapping between the <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>
-        /// and <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>
+        /// to create a <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResult> CreateFailureMechanismSectionResults(
-            IDictionary<StabilityStoneCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections)
+            IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> failureMechanismSectionResults)
         {
+            IDictionary<StabilityStoneCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
-            foreach (KeyValuePair<StabilityStoneCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSections)
+            foreach (KeyValuePair<StabilityStoneCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 StabilityStoneCoverFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =

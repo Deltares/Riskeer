@@ -72,14 +72,12 @@ namespace Ringtoets.Integration.IO.Factories
             }
 
             FailureMechanismAssembly failureMechanismAssembly = StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
-            IDictionary<StabilityPointStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                CreateExportableFailureMechanismSectionResults(failureMechanismSectionsLookup,
-                                                               failureMechanism,
+                CreateExportableFailureMechanismSectionResults(failureMechanism,
                                                                assessmentSection),
                 failureMechanismCode,
                 failureMechanismGroup);
@@ -87,21 +85,21 @@ namespace Ringtoets.Integration.IO.Factories
 
         /// <summary>
         /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>
-        /// with assembly results based on the sections in <paramref name="failureMechanismSections"/>.
+        /// with assembly results based on <paramref name="failureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanismSections">The mapping between the <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>
-        /// and <see cref="ExportableFailureMechanismSection"/>.</param>
-        /// <param name="failureMechanism">The <see cref="StabilityPointStructuresFailureMechanism"/> the sections belong to.</param>
-        /// <param name="assessmentSection">The assessment section the sections belong to.</param>
+        /// <param name="failureMechanism">The <see cref="StabilityPointStructuresFailureMechanism"/>
+        /// to create a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/> for.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportableFailureMechanismSectionResults(
-            IDictionary<StabilityPointStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections,
             StabilityPointStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
+            IDictionary<StabilityPointStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
-            foreach (KeyValuePair<StabilityPointStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSections)
+            foreach (KeyValuePair<StabilityPointStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
                 FailureMechanismSectionAssembly simpleAssembly =

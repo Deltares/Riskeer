@@ -73,14 +73,12 @@ namespace Ringtoets.Integration.IO.Factories
             }
 
             FailureMechanismAssembly failureMechanismAssembly = PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
-            IDictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                CreateExportableFailureMechanismSectionResults(failureMechanismSectionsLookup,
-                                                               failureMechanism,
+                CreateExportableFailureMechanismSectionResults(failureMechanism,
                                                                assessmentSection),
                 failureMechanismCode,
                 failureMechanismGroup);
@@ -88,23 +86,24 @@ namespace Ringtoets.Integration.IO.Factories
 
         /// <summary>
         /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>
-        /// with assembly results based on the sections in <paramref name="failureMechanismSections"/>.
+        /// with assembly results based on <paramref name="failureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanismSections">The mapping between the <see cref="PipingFailureMechanismSectionResult"/>
-        /// and <see cref="ExportableFailureMechanismSection"/>.</param>
-        /// <param name="pipingFailureMechanism">The <see cref="PipingFailureMechanism"/> the sections belong to.</param>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to create a
+        /// collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/> for.</param>
         /// <param name="assessmentSection">The assessment section the sections belong to.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportableFailureMechanismSectionResults(
-            IDictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections,
-            PipingFailureMechanism pipingFailureMechanism,
+            PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
-            IEnumerable<PipingCalculationScenario> pipingCalculationScenarios = pipingFailureMechanism.Calculations.Cast<PipingCalculationScenario>();
+            IDictionary<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+
+            IEnumerable<PipingCalculationScenario> pipingCalculationScenarios = failureMechanism.Calculations.Cast<PipingCalculationScenario>();
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
-            foreach (KeyValuePair<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSections)
+            foreach (KeyValuePair<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 PipingFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
                 FailureMechanismSectionAssembly simpleAssembly =
@@ -113,16 +112,16 @@ namespace Ringtoets.Integration.IO.Factories
                 FailureMechanismSectionAssembly detailedAssembly =
                     PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
                                                                                      pipingCalculationScenarios,
-                                                                                     pipingFailureMechanism,
+                                                                                     failureMechanism,
                                                                                      assessmentSection);
                 FailureMechanismSectionAssembly tailorMadeAssembly =
                     PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult,
-                                                                                       pipingFailureMechanism,
+                                                                                       failureMechanism,
                                                                                        assessmentSection);
                 FailureMechanismSectionAssembly combinedAssembly =
                     PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
                                                                                      pipingCalculationScenarios,
-                                                                                     pipingFailureMechanism,
+                                                                                     failureMechanism,
                                                                                      assessmentSection);
 
                 exportableResults.Add(

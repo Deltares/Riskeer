@@ -66,29 +66,29 @@ namespace Ringtoets.Integration.IO.Factories
             }
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
-            IDictionary<GrassCoverSlipOffInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
                                                              failureMechanismAssembly),
-                CreateFailureMechanismSectionResults(failureMechanismSectionsLookup),
+                CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
 
         /// <summary>
         /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>
-        /// with assembly results based on the sections in <paramref name="failureMechanismSections"/>.
+        /// with assembly results based on <paramref name="failureMechanismSectionResults"/>.
         /// </summary>
-        /// <param name="failureMechanismSections">The mapping between the <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>
-        /// and <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>
+        /// to create a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResult> CreateFailureMechanismSectionResults(
-            IDictionary<GrassCoverSlipOffInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections)
+            IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
         {
+            IDictionary<GrassCoverSlipOffInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
-            foreach (KeyValuePair<GrassCoverSlipOffInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSections)
+            foreach (KeyValuePair<GrassCoverSlipOffInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 GrassCoverSlipOffInwardsFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =

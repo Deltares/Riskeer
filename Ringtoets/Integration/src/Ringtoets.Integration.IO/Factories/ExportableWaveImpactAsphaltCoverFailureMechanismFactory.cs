@@ -64,29 +64,30 @@ namespace Ringtoets.Integration.IO.Factories
             }
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
-            IDictionary<WaveImpactAsphaltCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
                                                              failureMechanismAssembly),
-                CreateFailureMechanismSectionResults(failureMechanismSectionsLookup),
+                CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
 
         /// <summary>
         /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>
-        /// with assembly results based on the sections in <paramref name="failureMechanismSections"/>.
+        /// with assembly results based on <paramref name="failureMechanismSectionResults"/>.
         /// </summary>
-        /// <param name="failureMechanismSections">The mapping between the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>
-        /// and <see cref="ExportableFailureMechanismSection"/>.</param>
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>
+        /// to create a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResult> CreateFailureMechanismSectionResults(
-            IDictionary<WaveImpactAsphaltCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections)
+            IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults)
         {
+            IDictionary<WaveImpactAsphaltCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
-            foreach (KeyValuePair<WaveImpactAsphaltCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSections)
+            foreach (KeyValuePair<WaveImpactAsphaltCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =

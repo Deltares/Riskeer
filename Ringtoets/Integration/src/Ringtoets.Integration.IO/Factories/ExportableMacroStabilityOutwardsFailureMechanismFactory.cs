@@ -75,13 +75,10 @@ namespace Ringtoets.Integration.IO.Factories
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
                                                                                                                                                             assessmentSection);
-            IDictionary<MacroStabilityOutwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
                                                              failureMechanismAssembly),
-                CreateExportableFailureMechanismSectionResults(failureMechanismSectionsLookup,
-                                                               failureMechanism,
+                CreateExportableFailureMechanismSectionResults(failureMechanism,
                                                                assessmentSection),
                 failureMechanismCode,
                 failureMechanismGroup);
@@ -89,21 +86,21 @@ namespace Ringtoets.Integration.IO.Factories
 
         /// <summary>
         /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>
-        /// with assembly results based on the sections in <paramref name="failureMechanismSections"/>.
+        /// with assembly results based on <paramref name="failureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanismSections">The mapping between the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>
-        /// and <see cref="ExportableFailureMechanismSection"/>.</param>
-        /// <param name="macroStabilityOutwardsFailureMechanism">The <see cref="MacroStabilityOutwardsFailureMechanism"/> the sections belong to.</param>
-        /// <param name="assessmentSection">The assessment section the sections belong to.</param>
+        /// <param name="failureMechanism">The <see cref="MacroStabilityOutwardsFailureMechanism"/> to create a collection of
+        /// <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> for.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResult> CreateExportableFailureMechanismSectionResults(
-            IDictionary<MacroStabilityOutwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSections,
-            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism,
+            MacroStabilityOutwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
+            IDictionary<MacroStabilityOutwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
-            foreach (KeyValuePair<MacroStabilityOutwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSections)
+            foreach (KeyValuePair<MacroStabilityOutwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
@@ -111,15 +108,15 @@ namespace Ringtoets.Integration.IO.Factories
 
                 FailureMechanismSectionAssemblyCategoryGroup detailedAssembly =
                     MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
-                                                                                                     macroStabilityOutwardsFailureMechanism,
+                                                                                                     failureMechanism,
                                                                                                      assessmentSection);
                 FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly =
                     MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult,
-                                                                                                       macroStabilityOutwardsFailureMechanism,
+                                                                                                       failureMechanism,
                                                                                                        assessmentSection);
                 FailureMechanismSectionAssemblyCategoryGroup combinedAssembly =
                     MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
-                                                                                                     macroStabilityOutwardsFailureMechanism,
+                                                                                                     failureMechanism,
                                                                                                      assessmentSection);
 
                 exportableResults.Add(
