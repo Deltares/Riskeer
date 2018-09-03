@@ -33,6 +33,7 @@
     <Compile Include="Model\Gml\SerializableEnvelope.cs" />
     <Compile Include="Model\Gml\SerializableBoundary.cs" />
     <Compile Include="Model\Helpers\GeometrySerializationFormatter.cs" />
+    <Compile Include="Model\Helpers\IdValidator.cs" />
     <Compile Include="Model\SerializableFailureMechanismSection.cs" />
     <Compile Include="Model\SerializableCombinedFailureMechanismSectionAssembly.cs" />
     <Compile Include="Model\SerializableFailureMechanismSectionCollection.cs" />

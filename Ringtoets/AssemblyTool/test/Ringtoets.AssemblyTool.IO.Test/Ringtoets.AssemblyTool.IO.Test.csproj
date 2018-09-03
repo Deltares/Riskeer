@@ -31,6 +31,7 @@
     <Compile Include="Model\Enums\SerializableFailureMechanismGroupTest.cs" />
     <Compile Include="Model\Enums\SerializableFailureMechanismCategoryGroupTest.cs" />
     <Compile Include="Model\Helpers\GeometrySerializationFormatterTest.cs" />
+    <Compile Include="Model\Helpers\IdValidatorTest.cs" />
     <Compile Include="Model\SerializableCombinedFailureMechanismSectionAssemblyTest.cs" />
     <Compile Include="Model\SerializableFailureMechanismSectionTest.cs" />
     <Compile Include="Model\SerializableFailureMechanismSectionCollectionTest.cs" />
