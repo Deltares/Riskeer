@@ -25,6 +25,7 @@ using System.Xml.Serialization;
 using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
+using Ringtoets.AssemblyTool.IO.Model.Helpers;
 
 namespace Ringtoets.AssemblyTool.IO.Model
 {
@@ -49,14 +50,13 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="geometry">The geometry of the section.</param>
         /// <param name="sectionType">The type of the section.</param>
         /// <param name="assemblyMethod">The assembly method used to create this section.</param>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="geometry"/> contains no elements;</item>
-        /// <item><paramref name="id"/> is <c>null</c> or empty.</item>
-        /// </list>
-        /// </exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionCollection"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/>, <paramref name="failureMechanismSectionCollection"/>,
         /// or <paramref name="geometry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        ///<list type="bullet">
+        /// <item><paramref name="geometry"/> contains no elements.</item>
+        /// <item><paramref name="id"/> is invalid.</item>
+        /// </list></exception>
         public SerializableFailureMechanismSection(string id,
                                                    SerializableFailureMechanismSectionCollection failureMechanismSectionCollection,
                                                    double startDistance,
@@ -65,9 +65,9 @@ namespace Ringtoets.AssemblyTool.IO.Model
                                                    SerializableFailureMechanismSectionType sectionType,
                                                    SerializableAssemblyMethod? assemblyMethod = null)
         {
-            if (string.IsNullOrEmpty(id))
+            if (!IdValidator.Validate(id))
             {
-                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
+                throw new ArgumentException($@"'{nameof(id)}' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.");
             }
 
             if (failureMechanismSectionCollection == null)
