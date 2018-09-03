@@ -540,8 +540,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
@@ -630,8 +628,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -751,8 +747,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -869,8 +863,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -990,8 +982,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -1108,8 +1098,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -1229,8 +1217,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -1347,8 +1333,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -1468,8 +1452,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
