@@ -58,16 +58,29 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        public void Constructor_IdInvalid_ThrowsArgumentException(string id)
+        public void Constructor_IdNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableAssessmentProcess(id,
+            TestDelegate call = () => new SerializableAssessmentProcess(null,
                                                                         new SerializableAssessmentSection());
 
             // Assert
-            const string expectedMessage = "'id' must have a value.";
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("id", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(" ")]
+        [TestCase("")]
+        [TestCase(" InvalidId")]
+        public void Constructor_InvalidId_ThrowsArgumentNullException(string invalidId)
+        {
+            // Call
+            TestDelegate call = () => new SerializableAssessmentProcess(invalidId,
+                                                                        new SerializableAssessmentSection());
+
+            // Assert
+            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -87,11 +100,11 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         public void Constructor_WithValidData_ReturnsExpectedValues()
         {
             // Setup
-            const string id = "section id";
+            const string id = "processId";
 
             var random = new Random(39);
             var assessmentSection = new SerializableAssessmentSection(
-                "assessment section id",
+                "assessmentSectionId",
                 "name",
                 new[]
                 {
