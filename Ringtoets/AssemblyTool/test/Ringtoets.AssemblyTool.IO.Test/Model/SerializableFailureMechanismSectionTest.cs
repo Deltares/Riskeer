@@ -156,7 +156,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             const string id = "sectionId";
 
             var random = new Random(39);
-            var sectionCollection = new SerializableFailureMechanismSectionCollection("sections id", new SerializableFailureMechanism());
+            var sectionCollection = new SerializableFailureMechanismSectionCollection("sectionCollectionId", new SerializableFailureMechanism());
             double startDistance = random.NextDouble();
             double endDistance = random.NextDouble();
             var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();

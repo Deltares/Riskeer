@@ -36,7 +36,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Helpers
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("input", exception.ParamName);
+            Assert.AreEqual("id", exception.ParamName);
         }
 
         [Test]
