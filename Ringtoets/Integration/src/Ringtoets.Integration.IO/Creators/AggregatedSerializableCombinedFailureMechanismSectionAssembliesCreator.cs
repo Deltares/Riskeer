@@ -41,13 +41,13 @@ namespace Ringtoets.Integration.IO.Creators
         /// </summary>
         /// <param name="idGenerator">The id generator to generate ids for the serializable components.</param>
         /// <param name="totalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/> the serializable components belong to.</param>
-        /// <param name="combinedSectionAssemblyCollection">The collection of <see cref="ExportableCombinedSectionAssembly"/>
-        /// to create am <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssemblies"/> for.</param>
+        /// <param name="combinedSectionAssemblies">The collection of <see cref="ExportableCombinedSectionAssembly"/>
+        /// to create an <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssemblies"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssemblies"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static AggregatedSerializableCombinedFailureMechanismSectionAssemblies Create(UniqueIdentifierGenerator idGenerator,
                                                                                              SerializableTotalAssemblyResult totalAssemblyResult,
-                                                                                             IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyCollection)
+                                                                                             IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblies)
         {
             if (idGenerator == null)
             {
@@ -59,24 +59,24 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(totalAssemblyResult));
             }
 
-            if (combinedSectionAssemblyCollection == null)
+            if (combinedSectionAssemblies == null)
             {
-                throw new ArgumentNullException(nameof(combinedSectionAssemblyCollection));
+                throw new ArgumentNullException(nameof(combinedSectionAssemblies));
             }
 
             var collection = new SerializableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionCollection_IdPrefix),
                                                                                totalAssemblyResult);
 
-            AggregatedSerializableCombinedFailureMechanismSectionAssembly[] aggregates =
-                combinedSectionAssemblyCollection.Select(csar => AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.Create(idGenerator,
-                                                                                                                                             totalAssemblyResult,
-                                                                                                                                             collection,
-                                                                                                                                             csar))
-                                                 .ToArray();
+            AggregatedSerializableCombinedFailureMechanismSectionAssembly[] aggregatedAssemblies =
+                combinedSectionAssemblies.Select(assembly => AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.Create(idGenerator,
+                                                                                                                                         totalAssemblyResult,
+                                                                                                                                         collection,
+                                                                                                                                         assembly))
+                                         .ToArray();
 
             return new AggregatedSerializableCombinedFailureMechanismSectionAssemblies(collection,
-                                                                                       aggregates.Select(ag => ag.FailureMechanismSection),
-                                                                                       aggregates.Select(ag => ag.CombinedFailureMechanismSectionAssembly));
+                                                                                       aggregatedAssemblies.Select(ag => ag.FailureMechanismSection),
+                                                                                       aggregatedAssemblies.Select(ag => ag.CombinedFailureMechanismSectionAssembly));
         }
     }
 }

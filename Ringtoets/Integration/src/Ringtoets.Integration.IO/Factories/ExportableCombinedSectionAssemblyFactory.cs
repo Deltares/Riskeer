@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.IO.Factories
     /// <summary>
     /// Factory to create a collection of <see cref="ExportableCombinedSectionAssembly"/>
     /// </summary>
-    public static class ExportableCombinedSectionAssemblyCollectionFactory
+    public static class ExportableCombinedSectionAssemblyFactory
     {
         /// <summary>
         /// Creates a collection of <see cref="ExportableCombinedSectionAssembly"/>

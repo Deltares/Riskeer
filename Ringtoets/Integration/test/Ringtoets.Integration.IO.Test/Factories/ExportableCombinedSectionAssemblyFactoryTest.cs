@@ -35,13 +35,13 @@ using Ringtoets.Integration.IO.Helpers;
 namespace Ringtoets.Integration.IO.Test.Factories
 {
     [TestFixture]
-    public class ExportableCombinedSectionAssemblyCollectionFactoryTest
+    public class ExportableCombinedSectionAssemblyFactoryTest
     {
         [Test]
         public void CreateExportableCombinedSectionAssemblyCollection_CombinedSectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(null, new ReferenceLine());
+            TestDelegate call = () => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(null, new ReferenceLine());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
         public void CreateExportableCombinedSectionAssemblyCollection_ReferenceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(
+            TestDelegate call = () => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
                 Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>(), null);
 
             // Assert
@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             IEnumerable<ExportableCombinedSectionAssembly> exportableCombinedSectionAssembly =
-                ExportableCombinedSectionAssemblyCollectionFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, referenceLine);
+                ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, referenceLine);
 
             // Assert
             AssertCombinedFailureMechanismSectionAssemblyResults(assemblyResults, exportableCombinedSectionAssembly, referenceLine);

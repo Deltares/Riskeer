@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void Create_CombinedSectionAssemblyCollectionNull_ThrowsArgumentNullException()
+        public void Create_CombinedSectionAssembliesNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () =>
@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("combinedSectionAssemblyCollection", exception.ParamName);
+            Assert.AreEqual("combinedSectionAssemblies", exception.ParamName);
         }
 
         [Test]
