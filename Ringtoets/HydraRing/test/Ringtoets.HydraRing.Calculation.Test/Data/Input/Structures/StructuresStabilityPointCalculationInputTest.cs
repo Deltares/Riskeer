@@ -49,51 +49,49 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double levelCrestStructureStandardDeviation = 4.4;
             const double structureNormalOrientation = 5.5;
             const double factorStormDurationOpenStructure = 6.6;
-            const double modelFactorSubCriticalFlowMean = 7.7;
-            const double modelFactorSubCriticalFlowVariation = 8.8;
-            const double thresholdHeightOpenWeirMean = 9.9;
-            const double thresholdHeightOpenWeirStandardDeviation = 10.0;
-            const double insideWaterLevelFailureConstructionMean = 11.1;
-            const double insideWaterLevelFailureConstructionStandardDeviation = 12.2;
-            const double failureProbabilityRepairClosure = 13.3;
-            const double failureCollisionEnergyMean = 14.4;
-            const double failureCollisionEnergyVariation = 15.5;
-            const double modelFactorCollisionLoadMean = 16.6;
-            const double modelFactorCollisionLoadVariation = 17.7;
-            const double shipMassMean = 18.8;
-            const double shipMassVariation = 19.9;
-            const double shipVelocityMean = 20.0;
-            const double shipVelocityVariation = 21.1;
-            const int levellingCount = 22;
-            const double probabilityCollisionSecondaryStructure = 23.3;
-            const double flowVelocityStructureClosableMean = 24.4;
-            const double flowVelocityStructureClosableVariation = 25.5;
-            const double insideWaterLevelMean = 26.6;
-            const double insideWaterLevelStandardDeviation = 27.7;
-            const double allowedLevelIncreaseStorageMean = 28.8;
-            const double allowedLevelIncreaseStorageStandardDeviation = 29.9;
-            const double modelFactorStorageVolumeMean = 30.0;
-            const double modelFactorStorageVolumeStandardDeviation = 31.1;
-            const double storageStructureAreaMean = 32.2;
-            const double storageStructureAreaVariation = 33.3;
-            const double modelFactorInflowVolume = 34.4;
-            const double flowWidthAtBottomProtectionMean = 35.5;
-            const double flowWidthAtBottomProtectionStandardDeviation = 36.6;
-            const double criticalOvertoppingDischargeMean = 37.7;
-            const double criticalOvertoppingDischargeVariation = 38.8;
-            const double failureProbabilityStructureWithErosion = 39.9;
-            const double stormDurationMean = 40.0;
-            const double stormDurationVariation = 41.1;
-            const double bankWidthMean = 42.2;
-            const double bankWidthStandardDeviation = 43.3;
-            const double evaluationLevel = 44.4;
-            const double modelFactorLoadEffectMean = 45.5;
-            const double modelFactorLoadEffectStandardDeviation = 46.6;
-            const double waveRatioMaxHN = 47.7;
-            const double waveRatioMaxHStandardDeviation = 48.8;
-            const double verticalDistance = 49.9;
-            const double modificationFactorWavesSlowlyVaryingPressureComponent = 50.0;
-            const double modificationFactorDynamicOrImpulsivePressureComponent = 51.1;
+            const double thresholdHeightOpenWeirMean = 7.7;
+            const double thresholdHeightOpenWeirStandardDeviation = 8.8;
+            const double insideWaterLevelFailureConstructionMean = 9.9;
+            const double insideWaterLevelFailureConstructionStandardDeviation = 10.0;
+            const double failureProbabilityRepairClosure = 11.1;
+            const double failureCollisionEnergyMean = 12.2;
+            const double failureCollisionEnergyVariation = 13.3;
+            const double modelFactorCollisionLoadMean = 14.4;
+            const double modelFactorCollisionLoadVariation = 15.5;
+            const double shipMassMean = 16.6;
+            const double shipMassVariation = 17.7;
+            const double shipVelocityMean = 18.8;
+            const double shipVelocityVariation = 19.9;
+            const int levellingCount = 20;
+            const double probabilityCollisionSecondaryStructure = 21.1;
+            const double flowVelocityStructureClosableMean = 22.2;
+            const double flowVelocityStructureClosableVariation = 23.3;
+            const double insideWaterLevelMean = 24.4;
+            const double insideWaterLevelStandardDeviation = 25.5;
+            const double allowedLevelIncreaseStorageMean = 26.6;
+            const double allowedLevelIncreaseStorageStandardDeviation = 27.7;
+            const double modelFactorStorageVolumeMean = 38.8;
+            const double modelFactorStorageVolumeStandardDeviation = 29.9;
+            const double storageStructureAreaMean = 30.0;
+            const double storageStructureAreaVariation = 31.1;
+            const double modelFactorInflowVolume = 32.2;
+            const double flowWidthAtBottomProtectionMean = 33.3;
+            const double flowWidthAtBottomProtectionStandardDeviation = 34.4;
+            const double criticalOvertoppingDischargeMean = 35.5;
+            const double criticalOvertoppingDischargeVariation = 36.6;
+            const double failureProbabilityStructureWithErosion = 37.7;
+            const double stormDurationMean = 38.8;
+            const double stormDurationVariation = 39.9;
+            const double bankWidthMean = 40.0;
+            const double bankWidthStandardDeviation = 41.1;
+            const double evaluationLevel = 42.2;
+            const double modelFactorLoadEffectMean = 43.3;
+            const double modelFactorLoadEffectStandardDeviation = 44.4;
+            const double waveRatioMaxHN = 45.5;
+            const double waveRatioMaxHStandardDeviation = 46.6;
+            const double verticalDistance = 47.7;
+            const double modificationFactorWavesSlowlyVaryingPressureComponent = 48.8;
+            const double modificationFactorDynamicOrImpulsivePressureComponent = 49.9;
 
             // Call
             var input = new TestStructuresStabilityPointCalculationInput(hydraulicBoundaryLocationId, sectionNormal,
@@ -103,7 +101,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                          levelCrestStructureMean, levelCrestStructureStandardDeviation,
                                                                          structureNormalOrientation,
                                                                          factorStormDurationOpenStructure,
-                                                                         modelFactorSubCriticalFlowMean, modelFactorSubCriticalFlowVariation,
                                                                          thresholdHeightOpenWeirMean, thresholdHeightOpenWeirStandardDeviation,
                                                                          insideWaterLevelFailureConstructionMean, insideWaterLevelFailureConstructionStandardDeviation,
                                                                          failureProbabilityRepairClosure,
@@ -154,33 +151,32 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             yield return new NormalHydraRingVariable(60, HydraRingDeviationType.Standard, 3.3, 4.4);
             yield return new DeterministicHydraRingVariable(61, 5.5);
             yield return new DeterministicHydraRingVariable(63, 6.6);
-            yield return new NormalHydraRingVariable(64, HydraRingDeviationType.Variation, 7.7, 8.8);
-            yield return new NormalHydraRingVariable(65, HydraRingDeviationType.Standard, 9.9, 10.0);
-            yield return new NormalHydraRingVariable(82, HydraRingDeviationType.Standard, 11.1, 12.2);
-            yield return new DeterministicHydraRingVariable(85, 13.3);
-            yield return new LogNormalHydraRingVariable(86, HydraRingDeviationType.Variation, 14.4, 15.5);
-            yield return new NormalHydraRingVariable(87, HydraRingDeviationType.Variation, 16.6, 17.7);
-            yield return new NormalHydraRingVariable(88, HydraRingDeviationType.Variation, 18.8, 19.9);
-            yield return new NormalHydraRingVariable(89, HydraRingDeviationType.Variation, 20.0, 21.1);
-            yield return new DeterministicHydraRingVariable(90, 22);
-            yield return new DeterministicHydraRingVariable(91, 23.3);
-            yield return new NormalHydraRingVariable(92, HydraRingDeviationType.Variation, 24.4, 25.5);
-            yield return new NormalHydraRingVariable(93, HydraRingDeviationType.Standard, 26.6, 27.7);
-            yield return new LogNormalHydraRingVariable(94, HydraRingDeviationType.Standard, 28.8, 29.9);
-            yield return new LogNormalHydraRingVariable(95, HydraRingDeviationType.Standard, 30.0, 31.1);
-            yield return new LogNormalHydraRingVariable(96, HydraRingDeviationType.Variation, 32.2, 33.3);
-            yield return new DeterministicHydraRingVariable(97, 34.4);
-            yield return new LogNormalHydraRingVariable(103, HydraRingDeviationType.Standard, 35.5, 36.6);
-            yield return new LogNormalHydraRingVariable(104, HydraRingDeviationType.Variation, 37.7, 38.8);
-            yield return new DeterministicHydraRingVariable(105, 39.9);
-            yield return new LogNormalHydraRingVariable(108, HydraRingDeviationType.Variation, 40.0, 41.1);
-            yield return new NormalHydraRingVariable(130, HydraRingDeviationType.Standard, 42.2, 43.3);
-            yield return new DeterministicHydraRingVariable(131, 44.4);
-            yield return new NormalHydraRingVariable(132, HydraRingDeviationType.Standard, 45.5, 46.6);
-            yield return new RayleighNHydraRingVariable(133, HydraRingDeviationType.Standard, 47.7, 48.8);
-            yield return new DeterministicHydraRingVariable(134, 49.9);
-            yield return new DeterministicHydraRingVariable(135, 50.0);
-            yield return new DeterministicHydraRingVariable(136, 51.1);
+            yield return new NormalHydraRingVariable(65, HydraRingDeviationType.Standard, 7.7, 8.8);
+            yield return new NormalHydraRingVariable(82, HydraRingDeviationType.Standard, 9.9, 10.0);
+            yield return new DeterministicHydraRingVariable(85, 11.1);
+            yield return new LogNormalHydraRingVariable(86, HydraRingDeviationType.Variation, 12.2, 13.3);
+            yield return new NormalHydraRingVariable(87, HydraRingDeviationType.Variation, 14.4, 15.5);
+            yield return new NormalHydraRingVariable(88, HydraRingDeviationType.Variation, 16.6, 17.7);
+            yield return new NormalHydraRingVariable(89, HydraRingDeviationType.Variation, 18.8, 19.9);
+            yield return new DeterministicHydraRingVariable(90, 20);
+            yield return new DeterministicHydraRingVariable(91, 21.1);
+            yield return new NormalHydraRingVariable(92, HydraRingDeviationType.Variation, 22.2, 23.3);
+            yield return new NormalHydraRingVariable(93, HydraRingDeviationType.Standard, 24.4, 25.5);
+            yield return new LogNormalHydraRingVariable(94, HydraRingDeviationType.Standard, 26.6, 27.7);
+            yield return new LogNormalHydraRingVariable(95, HydraRingDeviationType.Standard, 28.8, 29.9);
+            yield return new LogNormalHydraRingVariable(96, HydraRingDeviationType.Variation, 30.0, 31.1);
+            yield return new DeterministicHydraRingVariable(97, 32.2);
+            yield return new LogNormalHydraRingVariable(103, HydraRingDeviationType.Standard, 33.3, 34.4);
+            yield return new LogNormalHydraRingVariable(104, HydraRingDeviationType.Variation, 35.5, 36.6);
+            yield return new DeterministicHydraRingVariable(105, 37.7);
+            yield return new LogNormalHydraRingVariable(108, HydraRingDeviationType.Variation, 38.8, 39.9);
+            yield return new NormalHydraRingVariable(130, HydraRingDeviationType.Standard, 40.0, 41.1);
+            yield return new DeterministicHydraRingVariable(131, 42.2);
+            yield return new NormalHydraRingVariable(132, HydraRingDeviationType.Standard, 43.3, 44.4);
+            yield return new RayleighNHydraRingVariable(133, HydraRingDeviationType.Standard, 45.5, 46.6);
+            yield return new DeterministicHydraRingVariable(134, 47.7);
+            yield return new DeterministicHydraRingVariable(135, 48.8);
+            yield return new DeterministicHydraRingVariable(136, 49.9);
         }
 
         private class TestStructuresStabilityPointCalculationInput : StructuresStabilityPointCalculationInput
@@ -193,7 +189,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                 double levelCrestStructureMean, double levelCrestStructureStandardDeviation,
                                                                 double structureNormalOrientation,
                                                                 double factorStormDurationOpenStructure,
-                                                                double modelFactorSubCriticalFlowMean, double modelFactorSubCriticalFlowVariation,
                                                                 double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
                                                                 double insideWaterLevelFailureConstructionMean, double insideWaterLevelFailureConstructionStandardDeviation,
                                                                 double failureProbabilityRepairClosure,
@@ -228,7 +223,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                        levelCrestStructureMean, levelCrestStructureStandardDeviation,
                        structureNormalOrientation,
                        factorStormDurationOpenStructure,
-                       modelFactorSubCriticalFlowMean, modelFactorSubCriticalFlowVariation,
                        thresholdHeightOpenWeirMean, thresholdHeightOpenWeirStandardDeviation,
                        insideWaterLevelFailureConstructionMean, insideWaterLevelFailureConstructionStandardDeviation,
                        failureProbabilityRepairClosure,
