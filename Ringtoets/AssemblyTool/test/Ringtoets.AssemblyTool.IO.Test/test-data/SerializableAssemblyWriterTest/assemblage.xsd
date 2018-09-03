@@ -4,17 +4,10 @@
   xmlns:gml="http://www.opengis.net/gml/3.2"
   xmlns:asm="http://localhost/standaarden/assemblage"
   elementFormDefault="qualified"
-  targetNamespace="http://localhost/standaarden/assemblage" version="1.0.0">
+  targetNamespace="http://localhost/standaarden/assemblage" version="1.1.0">
   <!--XML Schema document created by Wijnand van Riel for IHW/-->
-
   <import namespace="http://www.opengis.net/gml/3.2"
       schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
-
-  <!-- toetsspoor:toetsoordeel optioneel
-    toets.toetsoordeel optioneel
-    waterkeringsectie.afstandBegin optioneel
-    waterkeringsectie.afstandEinde optioneel-->
-
   <!-- Onderstaand schema definition is gebaseerd op het UML class-diagram zoals dat is geformuleerd in het Informatiemodel Waterveiligheid
     In deze omzetting van diagram naar schema zijn composities (wiebertjes) vertaald naar 'element met type ref' en een attribuut met type IDREF  
     De associatierelaties zijn vertaald (open pijlen)als key-refkey, analoog aan Primary-keyForeign-key relaties in Relationele databases -->
@@ -156,9 +149,7 @@
   </element>
 
   <complexType name="VeiligheidsoordeelType">
-    <all>
-      <element name="toetsoordeelMetKansschatting" minOccurs="1" maxOccurs="1" type="asm:ToetsoordeelTrajectPropertyType"/>
-      <element name="toetsoordeelZonderKansschatting" minOccurs="1" maxOccurs="1" type="asm:ToetsoordeelTrajectPropertyType"/>
+    <sequence>
       <element name="veiligheidsoordeel" minOccurs="1" maxOccurs="1" type="asm:VeiligheidsoordeelPropertyType">
         <annotation>
           <documentation>
@@ -167,7 +158,9 @@
           </documentation>
         </annotation>
       </element>
-    </all>
+      <element name="toetsoordeelMetKansschatting" minOccurs="1" maxOccurs="1" type="asm:ToetsoordeelTrajectPropertyType"/>
+      <element name="toetsoordeelZonderKansschatting" minOccurs="1" maxOccurs="1" type="asm:ToetsoordeelTrajectPropertyType"/>
+    </sequence>
     <attribute name="VeiligheidsoordeelID" type="ID" use="required"/>
     <attribute name="BeoordelingsprocesIDRef" type="IDREF" use="required"/>
   </complexType>

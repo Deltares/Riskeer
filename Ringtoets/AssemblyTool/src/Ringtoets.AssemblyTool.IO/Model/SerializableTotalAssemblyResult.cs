@@ -97,6 +97,12 @@ namespace Ringtoets.AssemblyTool.IO.Model
         public string AssessmentProcessId { get; set; }
 
         /// <summary>
+        /// Gets or sets the assessment section assembly result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.AssessmentSectionAssemblyResult)]
+        public SerializableAssessmentSectionAssemblyResult AssessmentSectionAssemblyResult { get; set; }
+
+        /// <summary>
         /// Gets or sets the assembly result with probability.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.AssemblyResultWithProbability)]
@@ -107,11 +113,5 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.AssemblyResultWithoutProbability)]
         public SerializableFailureMechanismAssemblyResult AssemblyResultWithoutProbability { get; set; }
-
-        /// <summary>
-        /// Gets or sets the assessment section assembly result.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.AssessmentSectionAssemblyResult)]
-        public SerializableAssessmentSectionAssemblyResult AssessmentSectionAssemblyResult { get; set; }
     }
 }
