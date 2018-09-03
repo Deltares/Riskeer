@@ -52,8 +52,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="levelCrestStructureStandardDeviation">The standard deviation of the crest level of the structure.</param>
         /// <param name="structureNormalOrientation">The orientation of the normal of the structure.</param>
         /// <param name="factorStormDurationOpenStructure">The factor of the storm duration for an open structure.</param>
-        /// <param name="modelFactorSubCriticalFlowMean">The mean of the model factor sub critical flow.</param>
-        /// <param name="modelFactorSubCriticalFlowVariation">The variation of the model factor sub critical flow.</param>
         /// <param name="thresholdHeightOpenWeirMean">The mean of the threshold height open weir.</param>
         /// <param name="thresholdHeightOpenWeirStandardDeviation">The standard deviation of the threshold height open weir.</param>
         /// <param name="insideWaterLevelFailureConstructionMean">The mean of the inside water level at failure of construction.</param>
@@ -114,7 +112,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                      double levelCrestStructureMean, double levelCrestStructureStandardDeviation,
                                                                      double structureNormalOrientation,
                                                                      double factorStormDurationOpenStructure,
-                                                                     double modelFactorSubCriticalFlowMean, double modelFactorSubCriticalFlowVariation,
                                                                      double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
                                                                      double insideWaterLevelFailureConstructionMean, double insideWaterLevelFailureConstructionStandardDeviation,
                                                                      double failureProbabilityRepairClosure,
@@ -153,7 +150,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    levelCrestStructureMean, levelCrestStructureStandardDeviation,
                    structureNormalOrientation,
                    factorStormDurationOpenStructure,
-                   modelFactorSubCriticalFlowMean, modelFactorSubCriticalFlowVariation,
                    thresholdHeightOpenWeirMean, thresholdHeightOpenWeirStandardDeviation,
                    insideWaterLevelFailureConstructionMean, insideWaterLevelFailureConstructionStandardDeviation,
                    failureProbabilityRepairClosure,
