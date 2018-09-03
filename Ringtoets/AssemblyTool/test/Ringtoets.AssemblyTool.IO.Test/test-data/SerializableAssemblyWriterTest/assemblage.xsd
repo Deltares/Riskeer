@@ -306,12 +306,12 @@
     <attribute name="WaterkeringsectieIDRef" type="IDREF" use="required"/>
   </complexType>
   <complexType name="ToetsoordeelGecombineerdVakPropertyType">
-    <all>
+    <sequence>
       <element name="assemblagemethode" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
+      <element name="typeToetsspoor" minOccurs="0" maxOccurs="1" type="gml:CodeType"/>
       <element name="categorieVak" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
       <element name="status" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
-      <element name="typeToetsspoor" minOccurs="0" maxOccurs="1" type="gml:CodeType"/>
-    </all>
+    </sequence>
   </complexType>
   <element name="Waterkeringsectie" substitutionGroup="gml:AbstractFeature"
       type="asm:WaterkeringsectieType">

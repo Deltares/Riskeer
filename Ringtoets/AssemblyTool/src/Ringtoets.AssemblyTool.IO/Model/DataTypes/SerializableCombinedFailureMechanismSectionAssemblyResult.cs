@@ -60,6 +60,12 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         public SerializableAssemblyMethod AssemblyMethod { get; set; }
 
         /// <summary>
+        /// Gets or sets the failure mechanism type of this assembly result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.FailureMechanismType)]
+        public SerializableFailureMechanismType FailureMechanismType { get; set; }
+
+        /// <summary>
         /// Gets or sets the category group of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionCategoryGroup)]
@@ -70,11 +76,5 @@ namespace Ringtoets.AssemblyTool.IO.Model.DataTypes
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Status)]
         public string Status { get; set; }
-
-        /// <summary>
-        /// Gets or sets the failure mechanism type of this assembly result.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.FailureMechanismType)]
-        public SerializableFailureMechanismType FailureMechanismType { get; set; }
     }
 }
