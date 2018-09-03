@@ -21,6 +21,7 @@
 
 using System;
 using System.Xml.Serialization;
+using Ringtoets.AssemblyTool.IO.Model.Helpers;
 
 namespace Ringtoets.AssemblyTool.IO.Model
 {
@@ -40,8 +41,8 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique ID of the sections.</param>
         /// <param name="failureMechanism">The failure mechanism the sections belong to.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableFailureMechanismSectionCollection(string id,
                                                              SerializableFailureMechanism failureMechanism)
             : this(id)
@@ -59,8 +60,8 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique ID of the sections.</param>
         /// <param name="totalAssemblyResult">The total assembly result the sections belong to.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="totalAssemblyResult"/> parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableFailureMechanismSectionCollection(string id,
                                                              SerializableTotalAssemblyResult totalAssemblyResult)
             : this(id)
@@ -77,12 +78,13 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Creates a new instance of <see cref="SerializableFailureMechanismSectionCollection"/>.
         /// </summary>
         /// <param name="id">The unique ID of the sections.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         private SerializableFailureMechanismSectionCollection(string id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (!IdValidator.Validate(id))
             {
-                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
+                throw new ArgumentException($@"'{nameof(id)}' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.");
             }
 
             Id = id;

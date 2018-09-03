@@ -55,16 +55,29 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        public void ConstructorWithFailureMechanism_IdInvalid_ThrowsArgumentException(string id)
+        public void ConstructorWithFailureMechanism_IdNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(id,
+            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(null,
                                                                                         new SerializableFailureMechanism());
 
             // Assert
-            const string expectedMessage = "'id' must have a value.";
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("id", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(" ")]
+        [TestCase("")]
+        [TestCase(" InvalidId")]
+        public void ConstructorWithFailureMechanism_InvalidId_ThrowsArgumentNullException(string invalidId)
+        {
+            // Call
+            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(invalidId,
+                                                                                        new SerializableFailureMechanism());
+
+            // Assert
+            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -84,36 +97,49 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         public void ConstructorWithFailureMechanism_WithValidData_ReturnsExpectedValues()
         {
             // Setup
-            const string id = "section id";
+            const string id = "collectionId";
 
             var random = new Random(39);
-            var failureMechanism = new SerializableFailureMechanism("fm id",
+            var failureMechanism = new SerializableFailureMechanism("failureMechanismId",
                                                                     new SerializableTotalAssemblyResult(),
                                                                     random.NextEnumValue<SerializableFailureMechanismType>(),
                                                                     random.NextEnumValue<SerializableFailureMechanismGroup>(),
                                                                     new SerializableFailureMechanismAssemblyResult());
 
             // Call
-            var sections = new SerializableFailureMechanismSectionCollection(id,
-                                                                             failureMechanism);
+            var collection = new SerializableFailureMechanismSectionCollection(id,
+                                                                               failureMechanism);
 
             // Assert
-            Assert.AreEqual(id, sections.Id);
-            Assert.AreEqual(failureMechanism.Id, sections.FailureMechanismId);
-            Assert.IsNull(sections.TotalAssemblyResultId);
+            Assert.AreEqual(id, collection.Id);
+            Assert.AreEqual(failureMechanism.Id, collection.FailureMechanismId);
+            Assert.IsNull(collection.TotalAssemblyResultId);
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        public void ConstructorWithTotalAssemblyResult_IdInvalid_ThrowsArgumentException(string id)
+        public void ConstructorWithTotalAssemblyResult_IdNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(id,
+            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(null,
                                                                                         new SerializableTotalAssemblyResult());
 
             // Assert
-            const string expectedMessage = "'id' must have a value.";
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("id", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(" ")]
+        [TestCase("")]
+        [TestCase(" InvalidId")]
+        public void ConstructorWithTotalAssemblyResult_InvalidId_ThrowsArgumentNullException(string invalidId)
+        {
+            // Call
+            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(invalidId,
+                                                                                        new SerializableTotalAssemblyResult());
+
+            // Assert
+            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -133,22 +159,22 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         public void ConstructorWithTotalAssemblyResult_WithValidData_ReturnsExpectedValues()
         {
             // Setup
-            const string id = "section id";
+            const string id = "collectionId";
 
-            var totalAssemblyResult = new SerializableTotalAssemblyResult("result id",
+            var totalAssemblyResult = new SerializableTotalAssemblyResult("resultId",
                                                                           new SerializableAssessmentProcess(),
                                                                           new SerializableFailureMechanismAssemblyResult(),
                                                                           new SerializableFailureMechanismAssemblyResult(),
                                                                           new SerializableAssessmentSectionAssemblyResult());
 
             // Call
-            var sections = new SerializableFailureMechanismSectionCollection(id,
-                                                                             totalAssemblyResult);
+            var collection = new SerializableFailureMechanismSectionCollection(id,
+                                                                               totalAssemblyResult);
 
             // Assert
-            Assert.AreEqual(id, sections.Id);
-            Assert.AreEqual(totalAssemblyResult.Id, sections.TotalAssemblyResultId);
-            Assert.IsNull(sections.FailureMechanismId);
+            Assert.AreEqual(id, collection.Id);
+            Assert.AreEqual(totalAssemblyResult.Id, collection.TotalAssemblyResultId);
+            Assert.IsNull(collection.FailureMechanismId);
         }
     }
 }
