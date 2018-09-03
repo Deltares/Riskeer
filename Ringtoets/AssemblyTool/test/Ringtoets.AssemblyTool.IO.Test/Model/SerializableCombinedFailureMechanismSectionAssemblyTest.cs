@@ -63,19 +63,35 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        public void Constructor_IdInvalid_ThrowsArgumentException(string id)
+        public void Constructor_IdNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableCombinedFailureMechanismSectionAssembly(id,
+            TestDelegate call = () => new SerializableCombinedFailureMechanismSectionAssembly(null,
                                                                                               new SerializableTotalAssemblyResult(),
                                                                                               new SerializableFailureMechanismSection(),
                                                                                               new SerializableCombinedFailureMechanismSectionAssemblyResult[0],
                                                                                               new SerializableFailureMechanismSectionAssemblyResult());
 
             // Assert
-            const string expectedMessage = "'id' must have a value.";
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("id", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(" ")]
+        [TestCase("")]
+        [TestCase(" InvalidId")]
+        public void Constructor_InvalidId_ThrowsArgumentNullException(string invalidId)
+        {
+            // Call
+            TestDelegate call = () => new SerializableCombinedFailureMechanismSectionAssembly(invalidId,
+                                                                                              new SerializableTotalAssemblyResult(),
+                                                                                              new SerializableFailureMechanismSection(),
+                                                                                              new SerializableCombinedFailureMechanismSectionAssemblyResult[0],
+                                                                                              new SerializableFailureMechanismSectionAssemblyResult());
+
+            // Assert
+            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -146,12 +162,12 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             const string id = "id";
 
             var random = new Random(39);
-            var totalAssembly = new SerializableTotalAssemblyResult("total assembly ID",
+            var totalAssembly = new SerializableTotalAssemblyResult("totalAssemblyID",
                                                                     new SerializableAssessmentProcess(),
                                                                     new SerializableFailureMechanismAssemblyResult(),
                                                                     new SerializableFailureMechanismAssemblyResult(),
                                                                     new SerializableAssessmentSectionAssemblyResult());
-            var section = new SerializableFailureMechanismSection("section ID",
+            var section = new SerializableFailureMechanismSection("sectionID",
                                                                   new SerializableFailureMechanismSectionCollection(),
                                                                   random.NextDouble(),
                                                                   random.NextDouble(),

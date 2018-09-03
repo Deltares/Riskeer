@@ -22,6 +22,7 @@
 using System;
 using System.Xml.Serialization;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
+using Ringtoets.AssemblyTool.IO.Model.Helpers;
 
 namespace Ringtoets.AssemblyTool.IO.Model
 {
@@ -44,17 +45,17 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="section">The section this assembly belongs to.</param>
         /// <param name="failureMechanismResults">The collection of assembly results for this assembly per failure mechanism.</param>
         /// <param name="combinedSectionResult">The combined assembly result for this assembly.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is <c>null</c> or empty.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableCombinedFailureMechanismSectionAssembly(string id,
                                                                    SerializableTotalAssemblyResult totalAssemblyResult,
                                                                    SerializableFailureMechanismSection section,
                                                                    SerializableCombinedFailureMechanismSectionAssemblyResult[] failureMechanismResults,
                                                                    SerializableFailureMechanismSectionAssemblyResult combinedSectionResult) : this()
         {
-            if (string.IsNullOrEmpty(id))
+            if (!IdValidator.Validate(id))
             {
-                throw new ArgumentException($@"'{nameof(id)}' must have a value.");
+                throw new ArgumentException($@"'{nameof(id)}' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.");
             }
 
             if (totalAssemblyResult == null)
