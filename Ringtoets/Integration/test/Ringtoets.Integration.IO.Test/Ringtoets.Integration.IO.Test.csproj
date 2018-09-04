@@ -59,6 +59,7 @@
     <Compile Include="Creators\SerializableFailureMechanismSectionAssemblyResultCreatorTest.cs" />
     <Compile Include="Creators\SerializableFailureMechanismTypeCreatorTest.cs" />
     <Compile Include="Creators\SerializableTotalAssemblyResultCreatorTest.cs" />
+    <Compile Include="Exporters\AssemblyExporterTest.cs" />
     <Compile Include="Factories\ExportableAssessmentSectionFactoryTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriterTest.cs" />
