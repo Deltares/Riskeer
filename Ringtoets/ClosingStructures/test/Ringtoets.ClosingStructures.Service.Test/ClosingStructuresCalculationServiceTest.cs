@@ -557,6 +557,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     input.FailureProbabilityReparation,
                     input.IdenticalApertures,
                     input.AllowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
                     input.StorageStructureArea.Mean, input.StorageStructureArea.CoefficientOfVariation,
                     generalInput.ModelFactorInflowVolume,
                     input.FlowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.StandardDeviation,
@@ -565,7 +566,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     input.StormDuration.Mean, input.StormDuration.CoefficientOfVariation,
                     input.ProbabilityOpenStructureBeforeFlooding,
                     input.ModelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.StandardDeviation,
-                    generalInput.ModelFactorSubCriticalFlow.Mean, generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean, input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevel.Mean, input.InsideWaterLevel.StandardDeviation,
                     input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation);
@@ -637,6 +637,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     input.FailureProbabilityReparation,
                     input.IdenticalApertures,
                     input.AllowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
                     input.StorageStructureArea.Mean, input.StorageStructureArea.CoefficientOfVariation,
                     generalInput.ModelFactorInflowVolume,
                     input.FlowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.StandardDeviation,
@@ -645,7 +646,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     input.StormDuration.Mean, input.StormDuration.CoefficientOfVariation,
                     input.ProbabilityOpenStructureBeforeFlooding,
                     input.ModelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.StandardDeviation,
-                    generalInput.ModelFactorSubCriticalFlow.Mean, generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean, input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevel.Mean, input.InsideWaterLevel.StandardDeviation,
                     input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation);
