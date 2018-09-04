@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -1081,6 +1081,19 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<AssemblyResultsContext>
+            {
+                Text = context => RingtoetsFormsResources.AssemblyResults_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ChildNodeObjects = AssemblyResultsContextChildNodeObjects,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddExportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddCollapseAllItem()
+                                                                                 .AddExpandAllItem()
+                                                                                 .Build()
+            };
         }
 
         private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IObservableEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
@@ -1496,12 +1509,7 @@ namespace Ringtoets.Integration.Plugin
             };
 
             childNodes.AddRange(WrapFailureMechanismsInContexts(nodeData));
-            childNodes.Add(new CategoryTreeFolder(RingtoetsFormsResources.AssemblyResultCategoryTreeFolder_DisplayName,
-                                                  new object[]
-                                                  {
-                                                      new AssemblyResultTotalContext(nodeData),
-                                                      new AssemblyResultPerSectionContext(nodeData)
-                                                  }));
+            childNodes.Add(new AssemblyResultsContext(nodeData));
 
             return childNodes.ToArray();
         }
@@ -2317,6 +2325,20 @@ namespace Ringtoets.Integration.Plugin
                                                   context.AssessmentSection,
                                                   () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
                                                   RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
+            };
+        }
+
+        #endregion
+
+        #region AssemblyResults TreeNodeInfo
+
+        private static object[] AssemblyResultsContextChildNodeObjects(AssemblyResultsContext context)
+        {
+            AssessmentSection assessmentSection = context.WrappedData;
+            return new object[]
+            {
+                new AssemblyResultTotalContext(assessmentSection),
+                new AssemblyResultPerSectionContext(assessmentSection)
             };
         }
 

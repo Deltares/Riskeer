@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -101,15 +101,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblage.
-        /// </summary>
-        public static string AssemblyResultCategoryTreeFolder_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultCategoryTreeFolder_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kilometrering* tot [km].
         /// </summary>
         public static string AssemblyResultPerSectionView_GridColumn_SectionEnd {
@@ -133,6 +124,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly {
             get {
                 return ResourceManager.GetString("AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assemblage.
+        /// </summary>
+        public static string AssemblyResults_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResults_DisplayName", resourceCulture);
             }
         }
         
