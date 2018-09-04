@@ -66,28 +66,17 @@ namespace Ringtoets.Integration.IO.Exporters
 
         public bool Export()
         {
-            ExportableAssessmentSection exportableAssessmentSection;
-            try
-            {
-                exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
-            }
-            catch (AssemblyException)
-            {
-                LogErrorMessage();
-                return false;
-            }
-
+            ExportableAssessmentSection exportableAssessmentSection = CreateExportableAssessmentSection();
             if (!ValidateExportableAssessmentSection(exportableAssessmentSection))
             {
                 LogErrorMessage();
                 return false;
             }
 
-            SerializableAssembly serializableAssembly = SerializableAssemblyCreator.Create(exportableAssessmentSection);
-
             try
             {
-                SerializableAssemblyWriter.WriteAssembly(serializableAssembly, filePath);
+                SerializableAssemblyWriter.WriteAssembly(SerializableAssemblyCreator.Create(exportableAssessmentSection), 
+                                                         filePath);
             }
             catch (CriticalFileWriteException e)
             {
@@ -98,10 +87,23 @@ namespace Ringtoets.Integration.IO.Exporters
             return true;
         }
 
+        private ExportableAssessmentSection CreateExportableAssessmentSection()
+        {
+            try
+            {
+                return ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
+            }
+            catch (AssemblyException)
+            {
+                return null;
+            }
+        }
+
         private static bool ValidateExportableAssessmentSection(ExportableAssessmentSection exportableAssessmentSection)
         {
-            return !(exportableAssessmentSection.AssessmentSectionAssembly.AssemblyCategory == AssessmentSectionAssemblyCategoryGroup.None ||
-                     exportableAssessmentSection.AssessmentSectionAssembly.AssemblyCategory == AssessmentSectionAssemblyCategoryGroup.NotApplicable);
+            return exportableAssessmentSection != null
+                   && exportableAssessmentSection.AssessmentSectionAssembly.AssemblyCategory != AssessmentSectionAssemblyCategoryGroup.None
+                   && exportableAssessmentSection.AssessmentSectionAssembly.AssemblyCategory != AssessmentSectionAssemblyCategoryGroup.NotApplicable;
         }
 
         private static void LogErrorMessage()
