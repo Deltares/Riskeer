@@ -58,16 +58,14 @@ namespace Ringtoets.Integration.IO.Factories
 
             if (!failureMechanism.IsRelevant)
             {
-                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(failureMechanismCode,
-                                                                                                                   failureMechanismGroup,
-                                                                                                                   failureMechanismAssemblyMethod);
+                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(
+                    failureMechanismCode, failureMechanismGroup, failureMechanismAssemblyMethod);
             }
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
-                                                             failureMechanismAssembly),
+                new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
                 CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
                 failureMechanismCode,
                 failureMechanismGroup);
@@ -86,13 +84,14 @@ namespace Ringtoets.Integration.IO.Factories
         {
             IDictionary<WaveImpactAsphaltCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
+
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
             foreach (KeyValuePair<WaveImpactAsphaltCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
                     WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-
                 FailureMechanismSectionAssemblyCategoryGroup detailedAssembly =
                     WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult);
                 FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly =

@@ -68,18 +68,15 @@ namespace Ringtoets.Integration.IO.Factories
 
             if (!failureMechanism.IsRelevant)
             {
-                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(failureMechanismCode,
-                                                                                                                   failureMechanismGroup,
-                                                                                                                   failureMechanismAssemblyMethod);
+                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(
+                    failureMechanismCode, failureMechanismGroup, failureMechanismAssemblyMethod);
             }
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
                                                                                                                                                             assessmentSection);
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
-                                                             failureMechanismAssembly),
-                CreateExportableFailureMechanismSectionResults(failureMechanism,
-                                                               assessmentSection),
+                new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
+                CreateExportableFailureMechanismSectionResults(failureMechanism, assessmentSection),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -99,13 +96,14 @@ namespace Ringtoets.Integration.IO.Factories
         {
             IDictionary<MacroStabilityOutwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
             foreach (KeyValuePair<MacroStabilityOutwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
                     MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-
                 FailureMechanismSectionAssemblyCategoryGroup detailedAssembly =
                     MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
                                                                                                      failureMechanism,

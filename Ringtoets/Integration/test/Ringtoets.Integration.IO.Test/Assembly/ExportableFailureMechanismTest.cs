@@ -39,9 +39,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(null,
-                                                                                                               random.NextEnumValue<ExportableFailureMechanismType>(), 
-                                                                                                               random.NextEnumValue<ExportableFailureMechanismGroup>());
+            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+                null, random.NextEnumValue<ExportableFailureMechanismType>(), random.NextEnumValue<ExportableFailureMechanismGroup>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,9 +58,8 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
 
             // Call
-            var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(failureMechanismAssembly, 
-                                                                                                            code, 
-                                                                                                            group);
+            var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+                failureMechanismAssembly, code, group);
 
             // Assert
             Assert.AreSame(failureMechanismAssembly, failureMechanism.FailureMechanismAssembly);

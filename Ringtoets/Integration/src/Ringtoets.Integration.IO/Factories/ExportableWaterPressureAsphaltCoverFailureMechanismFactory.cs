@@ -60,16 +60,14 @@ namespace Ringtoets.Integration.IO.Factories
 
             if (!failureMechanism.IsRelevant)
             {
-                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(failureMechanismCode,
-                                                                                                                   failureMechanismGroup,
-                                                                                                                   failureMechanismAssemblyMethod);
+                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(
+                    failureMechanismCode, failureMechanismGroup, failureMechanismAssemblyMethod);
             }
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
-                                                             failureMechanismAssembly),
+                new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
                 CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
                 failureMechanismCode,
                 failureMechanismGroup);
@@ -88,10 +86,12 @@ namespace Ringtoets.Integration.IO.Factories
         {
             IDictionary<WaterPressureAsphaltCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
+
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly>();
             foreach (KeyValuePair<WaterPressureAsphaltCoverFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 WaterPressureAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
                     WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
                 FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly =

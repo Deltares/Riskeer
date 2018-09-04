@@ -58,16 +58,14 @@ namespace Ringtoets.Integration.IO.Factories
 
             if (!failureMechanism.IsRelevant)
             {
-                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(failureMechanismCode,
-                                                                                                                   failureMechanismGroup,
-                                                                                                                   failureMechanismAssemblyMethod);
+                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(
+                    failureMechanismCode, failureMechanismGroup, failureMechanismAssemblyMethod);
             }
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
-                                                             failureMechanismAssembly),
+                new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
                 CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
                 failureMechanismCode,
                 failureMechanismGroup);
@@ -86,13 +84,14 @@ namespace Ringtoets.Integration.IO.Factories
         {
             IDictionary<GrassCoverErosionOutwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
+
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
             foreach (KeyValuePair<GrassCoverErosionOutwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 GrassCoverErosionOutwardsFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
                     GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-
                 FailureMechanismSectionAssemblyCategoryGroup detailedAssembly =
                     GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult);
                 FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly =

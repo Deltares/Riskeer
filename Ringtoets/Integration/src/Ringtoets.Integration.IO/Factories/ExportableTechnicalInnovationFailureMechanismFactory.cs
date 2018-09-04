@@ -60,16 +60,14 @@ namespace Ringtoets.Integration.IO.Factories
 
             if (!failureMechanism.IsRelevant)
             {
-                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(failureMechanismCode,
-                                                                                                                   failureMechanismGroup,
-                                                                                                                   failureMechanismAssemblyMethod);
+                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(
+                    failureMechanismCode, failureMechanismGroup, failureMechanismAssemblyMethod);
             }
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod,
-                                                             failureMechanismAssembly),
+                new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
                 CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
                 failureMechanismCode,
                 failureMechanismGroup);
@@ -88,13 +86,14 @@ namespace Ringtoets.Integration.IO.Factories
         {
             IDictionary<TechnicalInnovationFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
+
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly>();
             foreach (KeyValuePair<TechnicalInnovationFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 TechnicalInnovationFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
                     TechnicalInnovationFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-
                 FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly =
                     TechnicalInnovationFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult);
                 FailureMechanismSectionAssemblyCategoryGroup combinedAssembly =

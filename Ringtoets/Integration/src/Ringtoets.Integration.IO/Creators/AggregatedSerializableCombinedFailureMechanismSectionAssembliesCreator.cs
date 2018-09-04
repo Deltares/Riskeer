@@ -64,17 +64,16 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(combinedSectionAssemblies));
             }
 
-            var collection = new SerializableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionCollection_IdPrefix),
-                                                                               totalAssemblyResult);
+            var failureMechanismSectionCollection = new SerializableFailureMechanismSectionCollection(
+                idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionCollection_IdPrefix),
+                totalAssemblyResult);
 
             AggregatedSerializableCombinedFailureMechanismSectionAssembly[] aggregatedAssemblies =
-                combinedSectionAssemblies.Select(assembly => AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.Create(idGenerator,
-                                                                                                                                         totalAssemblyResult,
-                                                                                                                                         collection,
-                                                                                                                                         assembly))
+                combinedSectionAssemblies.Select(assembly => AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.Create(
+                                                     idGenerator, totalAssemblyResult, failureMechanismSectionCollection, assembly))
                                          .ToArray();
 
-            return new AggregatedSerializableCombinedFailureMechanismSectionAssemblies(collection,
+            return new AggregatedSerializableCombinedFailureMechanismSectionAssemblies(failureMechanismSectionCollection,
                                                                                        aggregatedAssemblies.Select(ag => ag.FailureMechanismSection),
                                                                                        aggregatedAssemblies.Select(ag => ag.CombinedFailureMechanismSectionAssembly));
         }

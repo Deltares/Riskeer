@@ -67,9 +67,8 @@ namespace Ringtoets.Integration.IO.Factories
 
             if (!failureMechanism.IsRelevant)
             {
-                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(failureMechanismCode,
-                                                                                                                failureMechanismGroup,
-                                                                                                                failureMechanismAssemblyMethod);
+                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(
+                    failureMechanismCode, failureMechanismGroup, failureMechanismAssemblyMethod);
             }
 
             FailureMechanismAssembly failureMechanismAssembly = MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
@@ -78,8 +77,7 @@ namespace Ringtoets.Integration.IO.Factories
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                CreateExportableFailureMechanismSectionResults(failureMechanism,
-                                                               assessmentSection),
+                CreateExportableFailureMechanismSectionResults(failureMechanism, assessmentSection),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -107,9 +105,9 @@ namespace Ringtoets.Integration.IO.Factories
             foreach (KeyValuePair<MacroStabilityInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+
                 FailureMechanismSectionAssembly simpleAssembly =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-
                 FailureMechanismSectionAssembly detailedAssembly =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
                                                                                                     macroStabilityInwardsCalculationScenarios,

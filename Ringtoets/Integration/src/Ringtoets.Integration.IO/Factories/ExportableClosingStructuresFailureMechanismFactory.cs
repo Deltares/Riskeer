@@ -66,9 +66,8 @@ namespace Ringtoets.Integration.IO.Factories
 
             if (!failureMechanism.IsRelevant)
             {
-                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(failureMechanismCode,
-                                                                                                                failureMechanismGroup,
-                                                                                                                failureMechanismAssemblyMethod);
+                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(
+                    failureMechanismCode, failureMechanismGroup, failureMechanismAssemblyMethod);
             }
 
             FailureMechanismAssembly failureMechanismAssembly = ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
@@ -77,8 +76,7 @@ namespace Ringtoets.Integration.IO.Factories
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                CreateExportableFailureMechanismSectionResults(failureMechanism,
-                                                               assessmentSection),
+                CreateExportableFailureMechanismSectionResults(failureMechanism, assessmentSection),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -98,13 +96,14 @@ namespace Ringtoets.Integration.IO.Factories
         {
             IDictionary<ClosingStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
             foreach (KeyValuePair<ClosingStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+
                 FailureMechanismSectionAssembly simpleAssembly =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-
                 FailureMechanismSectionAssembly detailedAssembly =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
                                                                                                 failureMechanism,

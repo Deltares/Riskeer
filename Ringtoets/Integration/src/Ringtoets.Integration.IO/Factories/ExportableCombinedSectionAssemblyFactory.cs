@@ -30,7 +30,7 @@ using Ringtoets.Integration.IO.Helpers;
 namespace Ringtoets.Integration.IO.Factories
 {
     /// <summary>
-    /// Factory to create a collection of <see cref="ExportableCombinedSectionAssembly"/>
+    /// Factory to create instances of <see cref="ExportableCombinedSectionAssembly"/>
     /// </summary>
     public static class ExportableCombinedSectionAssemblyFactory
     {

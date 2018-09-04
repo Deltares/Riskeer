@@ -67,9 +67,8 @@ namespace Ringtoets.Integration.IO.Factories
 
             if (!failureMechanism.IsRelevant)
             {
-                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(failureMechanismCode,
-                                                                                                                failureMechanismGroup,
-                                                                                                                failureMechanismAssemblyMethod);
+                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(
+                    failureMechanismCode, failureMechanismGroup, failureMechanismAssemblyMethod);
             }
 
             FailureMechanismAssembly failureMechanismAssembly = PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
@@ -78,8 +77,7 @@ namespace Ringtoets.Integration.IO.Factories
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                CreateExportableFailureMechanismSectionResults(failureMechanism,
-                                                               assessmentSection),
+                CreateExportableFailureMechanismSectionResults(failureMechanism, assessmentSection),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -106,9 +104,9 @@ namespace Ringtoets.Integration.IO.Factories
             foreach (KeyValuePair<PipingFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 PipingFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+
                 FailureMechanismSectionAssembly simpleAssembly =
                     PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-
                 FailureMechanismSectionAssembly detailedAssembly =
                     PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
                                                                                      pipingCalculationScenarios,
