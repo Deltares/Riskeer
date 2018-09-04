@@ -95,15 +95,42 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_Always_ReturnsTrue()
+        public void IsEnabled_AssessmentSectionWithoutReferenceLine_ReturnsFalse()
         {
             // Setup
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            var context = new AssemblyResultsContext(assessmentSection);
+
             using (var plugin = new RingtoetsPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
                 // Call
-                bool isEnabled = info.IsEnabled(null);
+                bool isEnabled = info.IsEnabled(context);
+
+                // Assert
+                Assert.IsFalse(isEnabled);
+            }
+        }
+
+        [Test]
+        public void IsEnabled_AssessmentSectionWithReferenceLine_ReturnsTrue()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
+            {
+                ReferenceLine = new ReferenceLine()
+            };
+            var context = new AssemblyResultsContext(assessmentSection);
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                ExportInfo info = GetExportInfo(plugin);
+
+                // Call
+                bool isEnabled = info.IsEnabled(context);
 
                 // Assert
                 Assert.IsTrue(isEnabled);

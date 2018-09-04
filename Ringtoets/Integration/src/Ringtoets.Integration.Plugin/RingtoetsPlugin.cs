@@ -696,7 +696,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Name = RingtoetsFormsResources.AssemblyResults_DisplayName,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
-                IsEnabled = context => true,
+                IsEnabled = context => context.WrappedData.ReferenceLine != null,
                 FileFilterGenerator = new FileFilterGenerator("gml",
                                                               "gml file")
             };
