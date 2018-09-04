@@ -21,8 +21,17 @@
 
 using System;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.Util;
+using log4net;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.IO;
+using Ringtoets.AssemblyTool.IO.Model;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Creators;
+using Ringtoets.Integration.IO.Factories;
 
 namespace Ringtoets.Integration.IO.Exporters
 {
@@ -31,8 +40,9 @@ namespace Ringtoets.Integration.IO.Exporters
     /// </summary>
     public class AssemblyExporter : IFileExporter
     {
-        private AssessmentSection assessmentSection;
-        private string filePath;
+        private static readonly ILog log = LogManager.GetLogger(typeof(AssemblyExporter));
+        private readonly AssessmentSection assessmentSection;
+        private readonly string filePath;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyExporter"/>.
@@ -56,7 +66,47 @@ namespace Ringtoets.Integration.IO.Exporters
 
         public bool Export()
         {
-            throw new NotImplementedException();
+            ExportableAssessmentSection exportableAssessmentSection;
+            try
+            {
+                exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
+            }
+            catch (AssemblyException)
+            {
+                LogErrorMessage();
+                return false;
+            }
+
+            if (!ValidateExportableAssessmentSection(exportableAssessmentSection))
+            {
+                LogErrorMessage();
+                return false;
+            }
+
+            SerializableAssembly serializableAssembly = SerializableAssemblyCreator.Create(exportableAssessmentSection);
+
+            try
+            {
+                SerializableAssemblyWriter.WriteAssembly(serializableAssembly, filePath);
+            }
+            catch (CriticalFileWriteException e)
+            {
+                log.ErrorFormat("{0} Er zijn geen assemblageresultaten geëxporteerd.", e.Message);
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool ValidateExportableAssessmentSection(ExportableAssessmentSection exportableAssessmentSection)
+        {
+            return !(exportableAssessmentSection.AssessmentSectionAssembly.AssemblyCategory == AssessmentSectionAssemblyCategoryGroup.None ||
+                     exportableAssessmentSection.AssessmentSectionAssembly.AssemblyCategory == AssessmentSectionAssemblyCategoryGroup.NotApplicable);
+        }
+
+        private static void LogErrorMessage()
+        {
+            log.Error("Het is alleen mogelijk een volledig assemblageresultaat te exporteren.");
         }
     }
 }

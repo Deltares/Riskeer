@@ -191,5 +191,9 @@
       <Project>{1C002B07-DDF6-4849-B8ED-551163AC9423}</Project>
       <Name>Ringtoets.Integration.IO.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
+      <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>
+      <Name>Ringtoets.Integration.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

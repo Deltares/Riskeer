@@ -21,10 +21,16 @@
 
 using System;
 using System.IO;
+using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Exporters;
 
@@ -75,6 +81,156 @@ namespace Ringtoets.Integration.IO.Test.Exporters
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
+        }
+
+        [Test]
+        public void Export_CalculatorThrowsAssemblyException_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_CalculatorThrowsAssemblyException_LogsErrorAndReturnsFalse));
+            AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+
+            var exporter = new AssemblyExporter(assessmentSection, filePath);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                assessmentSectionAssemblyCalculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                var isExported = true;
+                Action call = () => isExported = exporter.Export();
+
+                // Assert
+                var expectedMessage = "Het is alleen mogelijk een volledig assemblageresultaat te exporteren.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                Assert.IsFalse(isExported);
+            }
+        }
+
+        [Test]
+        [TestCase(AssessmentSectionAssemblyCategoryGroup.None)]
+        [TestCase(AssessmentSectionAssemblyCategoryGroup.NotApplicable)]
+        public void Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse(AssessmentSectionAssemblyCategoryGroup invalidAssessmentSectionAssemblyCategoryGroup)
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse));
+            AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+
+            var exporter = new AssemblyExporter(assessmentSection, filePath);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                assessmentSectionAssemblyCalculator.AssembleAssessmentSectionCategoryGroupOutput = invalidAssessmentSectionAssemblyCategoryGroup;
+
+                // Call
+                var isExported = true;
+                Action call = () => isExported = exporter.Export();
+
+                // Assert
+                var expectedMessage = "Het is alleen mogelijk een volledig assemblageresultaat te exporteren.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                Assert.IsFalse(isExported);
+            }
+        }
+
+        [Test]
+        public void Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse));
+            AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+
+            var exporter = new AssemblyExporter(assessmentSection, filePath);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                assessmentSectionAssemblyCalculator.AssembleAssessmentSectionCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.A;
+
+                // Call
+                bool isExported = exporter.Export();
+
+                // Assert
+                Assert.IsTrue(File.Exists(filePath));
+                Assert.IsTrue(isExported);
+
+                string expectedGmlFilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO),
+                                                          nameof(AssemblyExporter), "ExpectedGml.gml");
+                string expectedGml = File.ReadAllText(expectedGmlFilePath);
+                string actualGml = File.ReadAllText(filePath);
+                Assert.AreEqual(expectedGml, actualGml);
+            }
+        }
+
+        [Test]
+        public void Export_InvalidDirectorRights_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectorRights_LogsErrorAndReturnsFalse));
+            AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+
+            var exporter = new AssemblyExporter(assessmentSection, filePath);
+
+            using (var fileDisposeHelper = new FileDisposeHelper(filePath))
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                fileDisposeHelper.LockFiles();
+
+                // Call
+                var isExported = true;
+                Action call = () => isExported = exporter.Export();
+
+                // Assert
+                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
+                                         "Er zijn geen assemblageresultaten geëxporteerd.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                Assert.IsFalse(isExported);
+            }
+        }
+
+        private static AssessmentSection CreateConfiguredAssessmentSection()
+        {
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            });
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                Name = "assessmentSectionName",
+                Id = "assessmentSectionId",
+                ReferenceLine = referenceLine
+            };
+
+            FailureMechanismTestHelper.AddSections(assessmentSection.Piping, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionInwards, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.HeightStructures, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.ClosingStructures, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.StabilityPointStructures, 2);
+
+            FailureMechanismTestHelper.AddSections(assessmentSection.StabilityStoneCover, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.WaveImpactAsphaltCover, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionOutwards, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.DuneErosion, 2);
+
+            FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityOutwards, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.Microstability, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffOutwards, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffInwards, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.PipingStructure, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.WaterPressureAsphaltCover, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction, 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.TechnicalInnovation, 2);
+
+            return assessmentSection;
         }
     }
 }
