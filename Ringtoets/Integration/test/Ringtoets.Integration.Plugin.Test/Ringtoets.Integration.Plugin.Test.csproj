@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{15E7B9D9-A177-42AE-8BC7-91B6DFBAB0EC}</ProjectGuid>
@@ -48,6 +48,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExportInfos\AssemblyResultsContextExportInfoTest.cs" />
     <Compile Include="FileImporters\WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="FileImporters\TechnicalInnovationFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="FileImporters\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateStrategyTest.cs" />

@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -690,6 +690,15 @@ namespace Ringtoets.Integration.Plugin
                 IsEnabled = context => context.WrappedData.IsLinked(),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
+            };
+
+            yield return new ExportInfo<AssemblyResultsContext>
+            {
+                Name = RingtoetsFormsResources.AssemblyResults_DisplayName,
+                CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
+                IsEnabled = context => true,
+                FileFilterGenerator = new FileFilterGenerator("gml",
+                                                              "gml file")
             };
         }
 
