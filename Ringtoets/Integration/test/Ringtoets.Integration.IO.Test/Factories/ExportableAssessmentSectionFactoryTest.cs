@@ -84,7 +84,9 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             {
-                Name = name, Id = id, ReferenceLine = referenceLine
+                Name = name,
+                Id = id,
+                ReferenceLine = referenceLine
             };
 
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
