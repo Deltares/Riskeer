@@ -41,12 +41,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 StandardDeviation = (RoundedDouble) 0.2
             };
 
-            var modelFactorSubCriticalFlow = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
             var modelFactorCollisionLoad = new VariationCoefficientNormalDistribution(1)
             {
                 Mean = (RoundedDouble) 1,
@@ -70,7 +64,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, inputParameters.GravitationalAcceleration.GetAccuracy());
 
             DistributionAssert.AreEqual(modelFactorStorageVolume, inputParameters.ModelFactorStorageVolume);
-            DistributionAssert.AreEqual(modelFactorSubCriticalFlow, inputParameters.ModelFactorSubCriticalFlow);
             DistributionAssert.AreEqual(modelFactorCollisionLoad, inputParameters.ModelFactorCollisionLoad);
             DistributionAssert.AreEqual(modelFactorLoadEffect, inputParameters.ModelFactorLoadEffect);
 
