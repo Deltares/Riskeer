@@ -58,6 +58,12 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 StandardDeviation = RoundedDouble.NaN
             };
 
+            var expectedModelFactorSuperCriticalFlow = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
             var expectedDrainCoefficient = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
@@ -81,7 +87,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 Mean = RoundedDouble.NaN,
                 StandardDeviation = RoundedDouble.NaN
             };
+
             DistributionAssert.AreEqual(expectedInsideWaterLevel, input.InsideWaterLevel);
+            DistributionAssert.AreEqual(expectedModelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
             DistributionAssert.AreEqual(expectedDrainCoefficient, input.DrainCoefficient);
             DistributionAssert.AreEqual(expectedThresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
             DistributionAssert.AreEqual(expectedAreaFlowApertures, input.AreaFlowApertures);

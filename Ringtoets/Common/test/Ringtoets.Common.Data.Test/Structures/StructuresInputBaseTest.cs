@@ -66,12 +66,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
 
-            var expectedModelFactorSuperCriticalFlow = new NormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1.1,
-                StandardDeviation = (RoundedDouble) 0.05
-            };
-
             var expectedAllowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
@@ -108,7 +102,6 @@ namespace Ringtoets.Common.Data.Test.Structures
                 CoefficientOfVariation = (RoundedDouble) 0.25
             };
 
-            DistributionAssert.AreEqual(expectedModelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
             DistributionAssert.AreEqual(expectedAllowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
             DistributionAssert.AreEqual(expectedStorageStructureArea, input.StorageStructureArea);
             DistributionAssert.AreEqual(expectedFlowWidthAtBottomProtection, input.FlowWidthAtBottomProtection);

@@ -44,11 +44,19 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<StructuresInputBase<HeightStructure>>(input);
 
+            var expectedModelFactorSuperCriticalFlow = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
             var expectedLevelCrestStructure = new NormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 StandardDeviation = RoundedDouble.NaN
             };
+
+            DistributionAssert.AreEqual(expectedModelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
             DistributionAssert.AreEqual(expectedLevelCrestStructure, input.LevelCrestStructure);
 
             Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
