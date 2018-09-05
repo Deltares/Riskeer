@@ -26,12 +26,12 @@ using Core.Common.Util;
 using log4net;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO;
-using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
 using Ringtoets.Integration.IO.Factories;
+using Ringtoets.Integration.IO.Properties;
 
 namespace Ringtoets.Integration.IO.Exporters
 {
@@ -75,12 +75,12 @@ namespace Ringtoets.Integration.IO.Exporters
 
             try
             {
-                SerializableAssemblyWriter.WriteAssembly(SerializableAssemblyCreator.Create(exportableAssessmentSection), 
+                SerializableAssemblyWriter.WriteAssembly(SerializableAssemblyCreator.Create(exportableAssessmentSection),
                                                          filePath);
             }
             catch (CriticalFileWriteException e)
             {
-                log.ErrorFormat("{0} Er zijn geen assemblageresultaten geëxporteerd.", e.Message);
+                log.ErrorFormat(Resources.AssemblyExporter_Error_Exception_0_no_AssemblyResults_exported, e.Message);
                 return false;
             }
 
@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.IO.Exporters
 
         private static void LogErrorMessage()
         {
-            log.Error("Het is alleen mogelijk een volledig assemblageresultaat te exporteren.");
+            log.Error(Resources.AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult);
         }
     }
 }

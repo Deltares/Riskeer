@@ -144,4 +144,10 @@
   <data name="SerializableCombinedFailureMechanismSectionAssembly_IdPrefix" xml:space="preserve">
     <value>Gto</value>
   </data>
+  <data name="AssemblyExporter_Error_Exception_0_no_AssemblyResults_exported" xml:space="preserve">
+    <value>{0} Er zijn geen assemblageresultaten geëxporteerd.</value>
+  </data>
+  <data name="AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult" xml:space="preserve">
+    <value>Het is alleen mogelijk een volledig assemblageresultaat te exporteren.</value>
+  </data>
 </root>

@@ -82,6 +82,25 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Er zijn geen assemblageresultaten geëxporteerd..
+        /// </summary>
+        internal static string AssemblyExporter_Error_Exception_0_no_AssemblyResults_exported {
+            get {
+                return ResourceManager.GetString("AssemblyExporter_Error_Exception_0_no_AssemblyResults_exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het is alleen mogelijk een volledig assemblageresultaat te exporteren..
+        /// </summary>
+        internal static string AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult {
+            get {
+                return ResourceManager.GetString("AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResul" +
+                        "t", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assemblage.
         /// </summary>
         internal static string SerializableAssembly_IdPrefix {
