@@ -48,8 +48,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
         private const int modelFactorOvertoppingFlowPropertyIndex = 9;
         private const int modelFactorStorageVolumePropertyIndex = 10;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 11;
-        private const int modelFactorInflowVolumePropertyIndex = 12;
+        private const int modelFactorInflowVolumePropertyIndex = 11;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -117,7 +116,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(13, dynamicProperties.Count);
+            Assert.AreEqual(12, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -195,14 +194,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             modelSettingsCategory,
                                                                             "Modelfactor kombergend vermogen [-]",
                                                                             "Modelfactor kombergend vermogen.",
-                                                                            true);
-
-            PropertyDescriptor modelFactorSubCriticalFlowProperty = dynamicProperties[modelFactorSubCriticalFlowPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSubCriticalFlowProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSubCriticalFlowProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Modelfactor voor onvolkomen stroming [-]",
-                                                                            "Modelfactor voor onvolkomen stroming.",
                                                                             true);
 
             PropertyDescriptor modelFactorInflowVolumeProperty = dynamicProperties[modelFactorInflowVolumePropertyIndex];

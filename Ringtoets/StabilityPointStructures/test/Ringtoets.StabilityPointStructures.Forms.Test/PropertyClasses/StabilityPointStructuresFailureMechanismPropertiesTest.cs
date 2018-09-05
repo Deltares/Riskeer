@@ -44,9 +44,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int gravitationalAccelerationPropertyIndex = 5;
         private const int nPropertyIndex = 6;
         private const int modelFactorStorageVolumePropertyIndex = 7;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 8;
-        private const int modelFactorCollisionLoadPropertyIndex = 9;
-        private const int modelFactorLoadEffectPropertyIndex = 10;
+        private const int modelFactorCollisionLoadPropertyIndex = 8;
+        private const int modelFactorLoadEffectPropertyIndex = 9;
 
         [Test]
         public void Constructor_DataIsNull_ThrowArgumentNullException()
@@ -111,7 +110,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(11, dynamicProperties.Count);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -167,14 +166,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             modelSettingsCategory,
                                                                             "Modelfactor kombergend vermogen [-]",
                                                                             "Modelfactor kombergend vermogen.",
-                                                                            true);
-
-            PropertyDescriptor modelFactorSubCriticalFlowProperty = dynamicProperties[modelFactorSubCriticalFlowPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSubCriticalFlowProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSubCriticalFlowProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Modelfactor voor onvolkomen stroming [-]",
-                                                                            "Modelfactor voor onvolkomen stroming.",
                                                                             true);
 
             PropertyDescriptor modelFactorCollisionLoadProperty = dynamicProperties[modelFactorCollisionLoadPropertyIndex];
