@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.Integration.IO.Assembly;
@@ -52,20 +51,12 @@ namespace Ringtoets.Integration.IO.TestUtil
                                                 SerializableAssessmentType expectedAssessmentType,
                                                 SerializableFailureMechanismSectionAssemblyResult actualResult)
         {
+            Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(expectedResult.AssemblyCategory),
+                            actualResult.CategoryGroup);
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedResult.AssemblyMethod),
                             actualResult.AssemblyMethod);
             Assert.AreEqual(expectedAssessmentType, actualResult.AssessmentType);
             Assert.IsNull(actualResult.Probability);
-
-            if (expectedResult.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(expectedResult.AssemblyCategory),
-                                actualResult.CategoryGroup);
-            }
-            else
-            {
-                Assert.IsNull(actualResult.CategoryGroup);
-            }
         }
 
         /// <summary>
@@ -87,21 +78,12 @@ namespace Ringtoets.Integration.IO.TestUtil
                                                 SerializableAssessmentType expectedAssessmentType,
                                                 SerializableFailureMechanismSectionAssemblyResult actualResult)
         {
+            Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(expectedResult.AssemblyCategory),
+                            actualResult.CategoryGroup);
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedResult.AssemblyMethod),
                             actualResult.AssemblyMethod);
             Assert.AreEqual(expectedAssessmentType, actualResult.AssessmentType);
-
-            if (expectedResult.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(expectedResult.AssemblyCategory),
-                                actualResult.CategoryGroup);
-                Assert.AreEqual(expectedResult.Probability, actualResult.Probability);
-            }
-            else
-            {
-                Assert.IsNull(actualResult.CategoryGroup);
-                Assert.IsNull(actualResult.Probability);
-            }
+            Assert.AreEqual(expectedResult.Probability, actualResult.Probability);
         }
     }
 }

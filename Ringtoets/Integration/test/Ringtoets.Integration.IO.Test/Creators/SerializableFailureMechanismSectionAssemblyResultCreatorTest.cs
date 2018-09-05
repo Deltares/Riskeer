@@ -22,11 +22,11 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
+using Ringtoets.Integration.IO.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {
@@ -48,13 +48,11 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void Create_WithExportableSectionAssemblyResultAndCategory_ReturnsSerializableFailureMechanismAssemblyResult()
+        public void Create_WithExportableSectionAssemblyResult_ReturnsSerializableFailureMechanismAssemblyResult()
         {
             // Setup
-            var random = new Random(21);
-            var assessmentType = random.NextEnumValue<SerializableAssessmentType>();
-            var sectionResult = new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                    FailureMechanismSectionAssemblyCategoryGroup.IIIv);
+            var assessmentType = new Random(21).NextEnumValue<SerializableAssessmentType>();
+            ExportableSectionAssemblyResult sectionResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
 
             // Call
             SerializableFailureMechanismSectionAssemblyResult serializableResult =
@@ -65,27 +63,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod), serializableResult.AssemblyMethod);
             Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(sectionResult.AssemblyCategory), serializableResult.CategoryGroup);
-            Assert.IsNull(serializableResult.Probability);
-        }
-
-        [Test]
-        public void Create_WithExportableSectionAssemblyResultAndCategoryNone_ReturnsSerializableFailureMechanismAssemblyResult()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentType = random.NextEnumValue<SerializableAssessmentType>();
-            var sectionResult = new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                    FailureMechanismSectionAssemblyCategoryGroup.None);
-
-            // Call
-            SerializableFailureMechanismSectionAssemblyResult serializableResult =
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(assessmentType, sectionResult);
-
-            // Assert
-            Assert.AreEqual(assessmentType, serializableResult.AssessmentType);
-
-            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod), serializableResult.AssemblyMethod);
-            Assert.IsNull(serializableResult.CategoryGroup);
             Assert.IsNull(serializableResult.Probability);
         }
 
@@ -105,14 +82,11 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void Create_WithExportableSectionAssemblyResultWithProbabilityAndCategory_ReturnsSerializableFailureMechanismAssemblyResult()
+        public void Create_WithExportableSectionAssemblyResultWithProbability_ReturnsSerializableFailureMechanismAssemblyResult()
         {
             // Setup
-            var random = new Random(21);
-            var assessmentType = random.NextEnumValue<SerializableAssessmentType>();
-            var sectionResult = new ExportableSectionAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                                   FailureMechanismSectionAssemblyCategoryGroup.IIIv,
-                                                                                   random.NextDouble());
+            var assessmentType = new Random(21).NextEnumValue<SerializableAssessmentType>();
+            ExportableSectionAssemblyResultWithProbability sectionResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability();
 
             // Call
             SerializableFailureMechanismSectionAssemblyResult serializableResult =
@@ -124,28 +98,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod), serializableResult.AssemblyMethod);
             Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(sectionResult.AssemblyCategory), serializableResult.CategoryGroup);
             Assert.AreEqual(sectionResult.Probability, serializableResult.Probability);
-        }
-
-        [Test]
-        public void Create_WithExportableSectionAssemblyResultWithProbabilityAndCategoryNone_ReturnsSerializableFailureMechanismAssemblyResult()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentType = random.NextEnumValue<SerializableAssessmentType>();
-            var sectionResult = new ExportableSectionAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                                   FailureMechanismSectionAssemblyCategoryGroup.None,
-                                                                                   random.NextDouble());
-
-            // Call
-            SerializableFailureMechanismSectionAssemblyResult serializableResult =
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(assessmentType, sectionResult);
-
-            // Assert
-            Assert.AreEqual(assessmentType, serializableResult.AssessmentType);
-
-            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod), serializableResult.AssemblyMethod);
-            Assert.IsNull(serializableResult.CategoryGroup);
-            Assert.IsNull(serializableResult.Probability);
         }
     }
 }

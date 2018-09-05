@@ -479,15 +479,27 @@ namespace Ringtoets.Integration.IO.Test.Creators
         private static ExportableSectionAssemblyResult CreateSectionAssemblyResult(int seed)
         {
             var random = new Random(seed);
+            var assemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            if (assemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                assemblyCategory = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
+            }
+
             return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                       random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                                                       assemblyCategory);
         }
 
         private static ExportableSectionAssemblyResultWithProbability CreateSectionAssemblyResultWithProbability(int seed)
         {
             var random = new Random(seed);
+            var assemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            if (assemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                assemblyCategory = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
+            }
+
             return new ExportableSectionAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                      random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
+                                                                      assemblyCategory,
                                                                       random.NextDouble());
         }
 

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.Integration.IO.Assembly;
@@ -49,12 +48,6 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            if (sectionResult.AssemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                return new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod),
-                                                                             assessmentType);
-            }
-
             return new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod),
                                                                          assessmentType,
                                                                          SerializableFailureMechanismSectionCategoryGroupCreator.Create(sectionResult.AssemblyCategory));
@@ -75,12 +68,6 @@ namespace Ringtoets.Integration.IO.Creators
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
-            }
-
-            if (sectionResult.AssemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                return new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod),
-                                                                             assessmentType);
             }
 
             return new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod),
