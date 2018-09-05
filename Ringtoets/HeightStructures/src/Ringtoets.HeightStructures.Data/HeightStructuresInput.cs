@@ -37,16 +37,24 @@ namespace Ringtoets.HeightStructures.Data
         private static readonly Range<RoundedDouble> deviationWaveDirectionValidityRange = new Range<RoundedDouble>(new RoundedDouble(deviationWaveDirectionNumberOfDecimals, -360),
                                                                                                                     new RoundedDouble(deviationWaveDirectionNumberOfDecimals, 360));
 
-        private NormalDistribution levelCrestStructure;
         private RoundedDouble deviationWaveDirection;
+        private NormalDistribution modelFactorSuperCriticalFlow;
+        private NormalDistribution levelCrestStructure;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresInput"/> class.
         /// </summary>
         public HeightStructuresInput()
         {
-            levelCrestStructure = new NormalDistribution(2);
             deviationWaveDirection = new RoundedDouble(deviationWaveDirectionNumberOfDecimals);
+
+            modelFactorSuperCriticalFlow = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
+            levelCrestStructure = new NormalDistribution(2);
 
             SetDefaultSchematizationProperties();
         }
@@ -88,6 +96,26 @@ namespace Ringtoets.HeightStructures.Data
                                                                                        deviationWaveDirectionValidityRange));
                 }
                 deviationWaveDirection = newDeviationWaveDirection;
+            }
+        }
+
+        #endregion
+
+        #region Model factors
+
+        /// <summary>
+        /// Gets or sets the model factor for the super critical flow.
+        /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
+        public NormalDistribution ModelFactorSuperCriticalFlow
+        {
+            get
+            {
+                return modelFactorSuperCriticalFlow;
+            }
+            set
+            {
+                modelFactorSuperCriticalFlow.Mean = value.Mean;
             }
         }
 
