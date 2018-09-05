@@ -26,7 +26,7 @@ namespace Ringtoets.AssemblyTool.IO.Model.Helpers
     /// <summary>
     /// Validator to validate the id of a serializable object.
     /// </summary>
-    public static class IdValidator
+    public static class SerializableIdValidator
     {
         /// <summary>
         /// Validates whether <paramref name="id"/> is a valid id to be used

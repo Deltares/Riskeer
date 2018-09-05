@@ -25,7 +25,7 @@ using Ringtoets.AssemblyTool.IO.Model.Helpers;
 namespace Ringtoets.AssemblyTool.IO.Test.Model.Helpers
 {
     [TestFixture]
-    public class IdValidatorTest
+    public class SerializableIdValidatorTest
     {
         [Test]
         [TestCase("AValidId1-2.3")]
@@ -34,7 +34,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Helpers
         public void Validate_WithValidIds_ReturnsTrue(string validId)
         {
             // Call
-            bool result = IdValidator.Validate(validId);
+            bool result = SerializableIdValidator.Validate(validId);
 
             // Assert
             Assert.IsTrue(result);
@@ -59,7 +59,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Helpers
         public void Validate_WithInvalidIds_ReturnsFalse(string invalidId)
         {
             // Call
-            bool result = IdValidator.Validate(invalidId);
+            bool result = SerializableIdValidator.Validate(invalidId);
 
             // Assert
             Assert.IsFalse(result);

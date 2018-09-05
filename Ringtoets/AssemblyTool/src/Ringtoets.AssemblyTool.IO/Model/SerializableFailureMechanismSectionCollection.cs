@@ -82,7 +82,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         private SerializableFailureMechanismSectionCollection(string id)
         {
-            if (!IdValidator.Validate(id))
+            if (!SerializableIdValidator.Validate(id))
             {
                 throw new ArgumentException($@"'{nameof(id)}' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.");
             }

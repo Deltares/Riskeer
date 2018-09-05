@@ -53,7 +53,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
                                                            SerializableFailureMechanismSectionAssemblyResult[] sectionResults,
                                                            SerializableFailureMechanismSectionAssemblyResult combinedSectionResult) : this()
         {
-            if (!IdValidator.Validate(id))
+            if (!SerializableIdValidator.Validate(id))
             {
                 throw new ArgumentException($@"'{nameof(id)}' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.");
             }

@@ -29,5 +29,4 @@
       <Name>Ringtoets.AssemblyTool.IO.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
