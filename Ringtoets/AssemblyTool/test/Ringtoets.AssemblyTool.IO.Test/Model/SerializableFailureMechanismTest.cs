@@ -65,26 +65,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_IdNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var random = new Random(39);
-
-            // Call
-            TestDelegate call = () => new SerializableFailureMechanism(null,
-                                                                       new SerializableTotalAssemblyResult(),
-                                                                       random.NextEnumValue<SerializableFailureMechanismType>(),
-                                                                       random.NextEnumValue<SerializableFailureMechanismGroup>(),
-                                                                       new SerializableFailureMechanismAssemblyResult());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("id", exception.ParamName);
-        }
-
-        [Test]
         [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
-        public void Constructor_InvalidId_ThrowsArgumentNullException(string invalidId)
+        public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
         {
             // Setup
             var random = new Random(39);

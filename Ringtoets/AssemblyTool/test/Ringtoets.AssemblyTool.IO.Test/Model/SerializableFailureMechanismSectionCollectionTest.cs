@@ -55,20 +55,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void ConstructorWithFailureMechanism_IdNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(null,
-                                                                                        new SerializableFailureMechanism());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("id", exception.ParamName);
-        }
-
-        [Test]
         [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
-        public void ConstructorWithFailureMechanism_InvalidId_ThrowsArgumentNullException(string invalidId)
+        public void ConstructorWithFailureMechanism_InvalidId_ThrowsArgumentException(string invalidId)
         {
             // Call
             TestDelegate call = () => new SerializableFailureMechanismSectionCollection(invalidId,
@@ -115,20 +103,8 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void ConstructorWithTotalAssemblyResult_IdNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(null,
-                                                                                        new SerializableTotalAssemblyResult());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("id", exception.ParamName);
-        }
-
-        [Test]
         [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
-        public void ConstructorWithTotalAssemblyResult_InvalidId_ThrowsArgumentNullException(string invalidId)
+        public void ConstructorWithTotalAssemblyResult_InvalidId_ThrowsArgumentException(string invalidId)
         {
             // Call
             TestDelegate call = () => new SerializableFailureMechanismSectionCollection(invalidId,

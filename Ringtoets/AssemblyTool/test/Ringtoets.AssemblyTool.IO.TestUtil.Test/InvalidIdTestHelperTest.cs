@@ -35,20 +35,16 @@ namespace Ringtoets.AssemblyTool.IO.TestUtil.Test
             IEnumerable<TestCaseData> testCases = InvalidIdTestHelper.InvalidIdCases.ToArray();
 
             // Assert
-            var expectedCases = new[]
-            {
-                new TestCaseData(""),
-                new TestCaseData("   "),
-                new TestCaseData("1nvalidId"),
-                new TestCaseData("invalidId#")
-            };
 
-            int nrOfExpectedCases = expectedCases.Length;
-            Assert.AreEqual(nrOfExpectedCases, testCases.Count());
-            for (var i = 0; i < nrOfExpectedCases; i++)
+            CollectionAssert.AreEqual(new[]
             {
-                Assert.AreEqual(expectedCases[i].Arguments[0], testCases.ElementAt(i).Arguments[0]);
-            }
+                null,
+                "",
+                "   ",
+                "1nvalidId",
+                "invalidId#",
+                "invalid\rId#"
+            }, testCases.Select(tc => tc.Arguments[0]));
         }
     }
 }

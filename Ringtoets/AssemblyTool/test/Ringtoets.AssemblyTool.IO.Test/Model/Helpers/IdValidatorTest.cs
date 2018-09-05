@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.IO.Model.Helpers;
 
@@ -28,17 +27,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Helpers
     [TestFixture]
     public class IdValidatorTest
     {
-        [Test]
-        public void Validate_IdNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => IdValidator.Validate(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("id", exception.ParamName);
-        }
-
         [Test]
         [TestCase("AValidId1-2.3")]
         [TestCase("_AValidId1-2.3")]
@@ -67,6 +55,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.Helpers
         [TestCase("invalidId\r")]
         [TestCase("")]
         [TestCase("  ")]
+        [TestCase(null)]
         public void Validate_WithInvalidIds_ReturnsFalse(string invalidId)
         {
             // Call

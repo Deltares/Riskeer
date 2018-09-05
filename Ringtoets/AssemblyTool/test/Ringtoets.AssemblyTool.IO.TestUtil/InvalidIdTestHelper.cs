@@ -36,10 +36,12 @@ namespace Ringtoets.AssemblyTool.IO.TestUtil
         {
             get
             {
+                yield return new TestCaseData(null);
                 yield return new TestCaseData("");
                 yield return new TestCaseData("   ");
                 yield return new TestCaseData("1nvalidId");
                 yield return new TestCaseData("invalidId#");
+                yield return new TestCaseData("invalid\rId");
             }
         }
     }

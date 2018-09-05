@@ -19,28 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Text.RegularExpressions;
 
 namespace Ringtoets.AssemblyTool.IO.Model.Helpers
 {
     /// <summary>
-    /// Helper to validate if an id is suitable to use as an identifier.
+    /// Validator to validate the id of a serializable object.
     /// </summary>
     public static class IdValidator
     {
         /// <summary>
-        /// Validates if <paramref name="id"/> is a valid id to be used
+        /// Validates whether <paramref name="id"/> is a valid id to be used
         /// as an identifier in an xml context.
         /// </summary>
         /// <param name="id">The identifier to validate.</param>
-        /// <returns><c>true</c> if <paramref name="id"/> is valid, <c>false</c> if otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/> is <c>null</c>.</exception>
+        /// <returns><c>true</c> when <paramref name="id"/> is valid, <c>false</c> otherwise.</returns>
         public static bool Validate(string id)
         {
-            if (id == null)
+            if (string.IsNullOrWhiteSpace(id))
             {
-                throw new ArgumentNullException(nameof(id));
+                return false;
             }
 
             var regex = new Regex(@"^[A-Za-z\\_][A-Za-z\\_\d\-\.]+$");
