@@ -56,12 +56,6 @@ namespace Ringtoets.ClosingStructures.Data
                 StandardDeviation = (RoundedDouble) 0.2
             };
 
-            ModelFactorSubCriticalFlow = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
             ModelFactorInflowVolume = new RoundedDouble(2, 1);
         }
 
@@ -129,11 +123,6 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets the model factor for storage volume.
         /// </summary>
         public LogNormalDistribution ModelFactorStorageVolume { get; }
-
-        /// <summary>
-        /// Gets the model factor for sub critical flow.
-        /// </summary>
-        public VariationCoefficientNormalDistribution ModelFactorSubCriticalFlow { get; }
 
         /// <summary>
         /// Gets the model factor for incoming flow volume.

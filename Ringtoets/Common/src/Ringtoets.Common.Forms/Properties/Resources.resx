@@ -797,12 +797,6 @@ handmatig</value>
   <data name="StructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName" xml:space="preserve">
     <value>Modelfactor kombergend vermogen [-]</value>
   </data>
-  <data name="StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_Description" xml:space="preserve">
-    <value>Modelfactor voor onvolkomen stroming.</value>
-  </data>
-  <data name="StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName" xml:space="preserve">
-    <value>Modelfactor voor onvolkomen stroming [-]</value>
-  </data>
   <data name="Probability_Could_not_parse_string_to_probability" xml:space="preserve">
     <value>De waarde kon niet geïnterpreteerd worden als een kans.</value>
   </data>

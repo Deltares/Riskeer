@@ -3677,24 +3677,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelfactor voor onvolkomen stroming..
-        /// </summary>
-        public static string StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_Description {
-            get {
-                return ResourceManager.GetString("StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modelfactor voor onvolkomen stroming [-].
-        /// </summary>
-        public static string StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName {
-            get {
-                return ResourceManager.GetString("StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alle berekeningen met een kunstwerk bijwerken..
         /// </summary>
         public static string StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip {

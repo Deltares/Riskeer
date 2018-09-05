@@ -50,8 +50,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         private const int modelFactorOvertoppingFlowPropertyIndex = 10;
         private const int modelFactorStorageVolumePropertyIndex = 11;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 12;
-        private const int modelFactorInflowVolumePropertyIndex = 13;
+        private const int modelFactorInflowVolumePropertyIndex = 12;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismProperties"/>.
@@ -81,7 +80,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                    || nameof(GravitationalAcceleration).Equals(propertyName)
                    || nameof(ModelFactorOvertoppingFlow).Equals(propertyName)
                    || nameof(ModelFactorStorageVolume).Equals(propertyName)
-                   || nameof(ModelFactorSubCriticalFlow).Equals(propertyName)
                    || nameof(ModelFactorInflowVolume).Equals(propertyName)
                    || nameof(C).Equals(propertyName)
                    || nameof(N2A).Equals(propertyName)
@@ -241,20 +239,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return new LogNormalDistributionProperties(data.GeneralInput.ModelFactorStorageVolume);
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(modelFactorSubCriticalFlowPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_Description))]
-        public VariationCoefficientNormalDistributionProperties ModelFactorSubCriticalFlow
-        {
-            get
-            {
-                return new VariationCoefficientNormalDistributionProperties(data.GeneralInput.ModelFactorSubCriticalFlow);
             }
         }
 

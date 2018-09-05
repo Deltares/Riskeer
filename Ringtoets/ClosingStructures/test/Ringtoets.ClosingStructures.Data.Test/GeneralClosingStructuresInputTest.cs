@@ -41,12 +41,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 StandardDeviation = (RoundedDouble) 0.06
             };
 
-            var modelFactorSubCriticalFlow = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
             var modelFactorStorageVolume = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1.0,
@@ -65,7 +59,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
             AssertAreEqual(9.81, inputParameters.GravitationalAcceleration);
 
             DistributionAssert.AreEqual(modelFactorOvertoppingFlow, inputParameters.ModelFactorOvertoppingFlow);
-            DistributionAssert.AreEqual(modelFactorSubCriticalFlow, inputParameters.ModelFactorSubCriticalFlow);
             DistributionAssert.AreEqual(modelFactorStorageVolume, inputParameters.ModelFactorStorageVolume);
 
             Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
