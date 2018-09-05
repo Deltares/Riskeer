@@ -50,7 +50,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="geometry">The geometry of the section.</param>
         /// <param name="sectionType">The type of the section.</param>
         /// <param name="assemblyMethod">The assembly method used to create this section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/>, <paramref name="failureMechanismSectionCollection"/>,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionCollection"/>,
         /// or <paramref name="geometry"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         ///<list type="bullet">

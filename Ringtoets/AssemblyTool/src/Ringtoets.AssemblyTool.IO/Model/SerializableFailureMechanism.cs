@@ -50,7 +50,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="failureMechanismType">The type of the failure mechanism.</param>
         /// <param name="failureMechanismGroup">The group of the failure mechanism.</param>
         /// <param name="failureMechanismAssemblyResult">The total failure mechanism assembly result.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableFailureMechanism(string id,
                                             SerializableTotalAssemblyResult totalAssemblyResult,

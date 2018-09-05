@@ -49,7 +49,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="id">The unique ID of the assessment section.</param>
         /// <param name="name">The name of the assessment section.</param>
         /// <param name="geometry">The geometry of the reference line.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         ///<list type="bullet">
         /// <item><paramref name="geometry"/> contains no elements.</item>

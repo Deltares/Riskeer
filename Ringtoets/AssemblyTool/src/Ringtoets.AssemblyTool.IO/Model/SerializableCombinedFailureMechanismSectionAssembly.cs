@@ -45,7 +45,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="section">The section this assembly belongs to.</param>
         /// <param name="failureMechanismResults">The collection of assembly results for this assembly per failure mechanism.</param>
         /// <param name="combinedSectionResult">The combined assembly result for this assembly.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableCombinedFailureMechanismSectionAssembly(string id,
                                                                    SerializableTotalAssemblyResult totalAssemblyResult,
