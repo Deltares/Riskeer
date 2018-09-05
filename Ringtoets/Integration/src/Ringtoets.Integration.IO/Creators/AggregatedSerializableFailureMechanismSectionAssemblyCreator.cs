@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
@@ -187,33 +189,73 @@ namespace Ringtoets.Integration.IO.Creators
 
         private static SerializableFailureMechanismSectionAssemblyResult[] CreateAssemblySectionResults(ExportableAggregatedFailureMechanismSectionAssemblyResult sectionResult)
         {
-            return new[]
+            var serializableSectionAssemblyResults = new List<SerializableFailureMechanismSectionAssemblyResult>();
+
+            if (sectionResult.SimpleAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
             {
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.SimpleAssessment, sectionResult.SimpleAssembly),
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.DetailedAssessment, sectionResult.DetailedAssembly),
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.TailorMadeAssessment, sectionResult.TailorMadeAssembly)
-            };
+                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.SimpleAssessment,
+                                                                                                                       sectionResult.SimpleAssembly));
+            }
+
+            if (sectionResult.DetailedAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.DetailedAssessment,
+                                                                                                                       sectionResult.DetailedAssembly));
+            }
+
+            if (sectionResult.TailorMadeAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.TailorMadeAssessment,
+                                                                                                                       sectionResult.TailorMadeAssembly));
+            }
+
+            return serializableSectionAssemblyResults.ToArray();
         }
 
         private static SerializableFailureMechanismSectionAssemblyResult[] CreateAssemblySectionResults(
             ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability sectionResult)
         {
-            return new[]
+            var serializableSectionAssemblyResults = new List<SerializableFailureMechanismSectionAssemblyResult>();
+
+            if (sectionResult.SimpleAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
             {
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.SimpleAssessment, sectionResult.SimpleAssembly),
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.DetailedAssessment, sectionResult.DetailedAssembly),
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.TailorMadeAssessment, sectionResult.TailorMadeAssembly)
-            };
+                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.SimpleAssessment,
+                                                                                                                       sectionResult.SimpleAssembly));
+            }
+
+            if (sectionResult.DetailedAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.DetailedAssessment,
+                                                                                                                       sectionResult.DetailedAssembly));
+            }
+
+            if (sectionResult.TailorMadeAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.TailorMadeAssessment,
+                                                                                                                       sectionResult.TailorMadeAssembly));
+            }
+
+            return serializableSectionAssemblyResults.ToArray();
         }
 
         private static SerializableFailureMechanismSectionAssemblyResult[] CreateAssemblySectionResults(
             ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly sectionResult)
         {
-            return new[]
+            var serializableSectionAssemblyResults = new List<SerializableFailureMechanismSectionAssemblyResult>();
+
+            if (sectionResult.SimpleAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
             {
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.SimpleAssessment, sectionResult.SimpleAssembly),
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.TailorMadeAssessment, sectionResult.TailorMadeAssembly)
-            };
+                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.SimpleAssessment,
+                                                                                                                       sectionResult.SimpleAssembly));
+            }
+
+            if (sectionResult.TailorMadeAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.TailorMadeAssessment,
+                                                                                                                       sectionResult.TailorMadeAssembly));
+            }
+
+            return serializableSectionAssemblyResults.ToArray();
         }
     }
 }

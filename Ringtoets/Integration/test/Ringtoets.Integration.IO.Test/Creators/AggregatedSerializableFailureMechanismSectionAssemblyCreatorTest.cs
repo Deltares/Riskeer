@@ -109,7 +109,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void CreateWithoutProbability_WithValidArguments_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
+        public void CreateWithoutProbability_WithValidArgumentsAndAllAssemblyTypesHaveResults_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
         {
             // Setup
             var idGenerator = new UniqueIdentifierGenerator();
@@ -152,6 +152,81 @@ namespace Ringtoets.Integration.IO.Test.Creators
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.TailorMadeAssembly,
                                                                                              SerializableAssessmentType.TailorMadeAssessment,
                                                                                              serializedSectionResults[2]);
+            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
+                                                                                             SerializableAssessmentType.CombinedAssessment,
+                                                                                             failureMechanismSectionAssembly.CombinedSectionResult);
+
+            SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(sectionResult.FailureMechanismSection,
+                                                                                        serializableCollection,
+                                                                                        aggregatedSectionAssembly.FailureMechanismSection);
+        }
+
+        [Test]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None,
+            TestName = "SimpleAssembly")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None,
+            TestName = "DetailedAssembly")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv,
+            TestName = "TailorMadeAssembly")]
+        public void CreateWithoutProbability_WithValidArgumentsAndOneAssemblyTypeHasResult_ReturnsAggregatedSerializableFailureMechanismSectionAssembly(
+            FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup,
+            FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup,
+            FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup)
+        {
+            // Setup
+            var idGenerator = new UniqueIdentifierGenerator();
+            var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResult(
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                CreateSectionAssemblyResult(simpleAssemblyCategoryGroup),
+                CreateSectionAssemblyResult(detailedAssemblyCategoryGroup),
+                CreateSectionAssemblyResult(tailorMadeAssemblyCategoryGroup),
+                CreateSectionAssemblyResult(13));
+
+            var random = new Random(21);
+            const string serializableFailureMechanismId = "FailureMechanismId";
+            var serializableFailureMechanism = new SerializableFailureMechanism(serializableFailureMechanismId,
+                                                                                new SerializableTotalAssemblyResult(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismGroup>(),
+                                                                                new SerializableFailureMechanismAssemblyResult());
+
+            const string serializableSectionCollectionId = "CollectionId";
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId,
+                                                                                           serializableFailureMechanism);
+
+            // Call
+            AggregatedSerializableFailureMechanismSectionAssembly aggregatedSectionAssembly =
+                AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, sectionResult);
+
+            // Assert
+            SerializableFailureMechanismSectionAssembly failureMechanismSectionAssembly = aggregatedSectionAssembly.FailureMechanismSectionAssembly;
+            Assert.AreEqual("T.1", failureMechanismSectionAssembly.Id);
+            Assert.AreEqual(serializableFailureMechanism.Id, failureMechanismSectionAssembly.FailureMechanismId);
+
+            SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = failureMechanismSectionAssembly.SectionResults;
+            Assert.AreEqual(1, serializedSectionResults.Length);
+
+            if (simpleAssemblyCategoryGroup != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.SimpleAssembly,
+                                                                                                 SerializableAssessmentType.SimpleAssessment,
+                                                                                                 serializedSectionResults[0]);
+            }
+
+            if (detailedAssemblyCategoryGroup != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.DetailedAssembly,
+                                                                                                 SerializableAssessmentType.DetailedAssessment,
+                                                                                                 serializedSectionResults[0]);
+            }
+
+            if (tailorMadeAssemblyCategoryGroup != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.TailorMadeAssembly,
+                                                                                                 SerializableAssessmentType.TailorMadeAssessment,
+                                                                                                 serializedSectionResults[0]);
+            }
+
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
                                                                                              failureMechanismSectionAssembly.CombinedSectionResult);
@@ -233,7 +308,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void CreateWithProbability_WithValidArguments_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
+        public void CreateWithProbability_WithValidArgumentsAndAllAssemblyTypesHaveResults_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
         {
             // Setup
             var idGenerator = new UniqueIdentifierGenerator();
@@ -276,6 +351,81 @@ namespace Ringtoets.Integration.IO.Test.Creators
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.TailorMadeAssembly,
                                                                                              SerializableAssessmentType.TailorMadeAssessment,
                                                                                              serializedSectionResults[2]);
+            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
+                                                                                             SerializableAssessmentType.CombinedAssessment,
+                                                                                             failureMechanismSectionAssembly.CombinedSectionResult);
+
+            SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(sectionResult.FailureMechanismSection,
+                                                                                        serializableCollection,
+                                                                                        aggregatedSectionAssembly.FailureMechanismSection);
+        }
+
+        [Test]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None,
+            TestName = "SimpleAssembly")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None,
+            TestName = "DetailedAssembly")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv,
+            TestName = "TailorMadeAssembly")]
+        public void CreateWithProbability_WithValidArgumentsAndOneAssemblyTypeHasResult_ReturnsAggregatedSerializableFailureMechanismSectionAssembly(
+            FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup,
+            FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup,
+            FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup)
+        {
+            // Setup
+            var idGenerator = new UniqueIdentifierGenerator();
+            var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                CreateSectionAssemblyResultWithProbability(simpleAssemblyCategoryGroup),
+                CreateSectionAssemblyResultWithProbability(detailedAssemblyCategoryGroup),
+                CreateSectionAssemblyResultWithProbability(tailorMadeAssemblyCategoryGroup),
+                CreateSectionAssemblyResultWithProbability(13));
+
+            var random = new Random(21);
+            const string serializableFailureMechanismId = "FailureMechanismId";
+            var serializableFailureMechanism = new SerializableFailureMechanism(serializableFailureMechanismId,
+                                                                                new SerializableTotalAssemblyResult(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismGroup>(),
+                                                                                new SerializableFailureMechanismAssemblyResult());
+
+            const string serializableSectionCollectionId = "CollectionId";
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId,
+                                                                                           serializableFailureMechanism);
+
+            // Call
+            AggregatedSerializableFailureMechanismSectionAssembly aggregatedSectionAssembly =
+                AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, sectionResult);
+
+            // Assert
+            SerializableFailureMechanismSectionAssembly failureMechanismSectionAssembly = aggregatedSectionAssembly.FailureMechanismSectionAssembly;
+            Assert.AreEqual("T.1", failureMechanismSectionAssembly.Id);
+            Assert.AreEqual(serializableFailureMechanism.Id, failureMechanismSectionAssembly.FailureMechanismId);
+
+            SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = failureMechanismSectionAssembly.SectionResults;
+            Assert.AreEqual(1, serializedSectionResults.Length);
+
+            if (simpleAssemblyCategoryGroup != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.SimpleAssembly,
+                                                                                                 SerializableAssessmentType.SimpleAssessment,
+                                                                                                 serializedSectionResults[0]);
+            }
+
+            if (detailedAssemblyCategoryGroup != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.DetailedAssembly,
+                                                                                                 SerializableAssessmentType.DetailedAssessment,
+                                                                                                 serializedSectionResults[0]);
+            }
+
+            if (tailorMadeAssemblyCategoryGroup != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.TailorMadeAssembly,
+                                                                                                 SerializableAssessmentType.TailorMadeAssessment,
+                                                                                                 serializedSectionResults[0]);
+            }
+
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
                                                                                              failureMechanismSectionAssembly.CombinedSectionResult);
@@ -354,7 +504,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void CreateWithoutDetailedAssembly_WithValidArguments_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
+        public void CreateWithoutDetailedAssembly_WithValidArgumentsAndAllAssemblyTypesHaveResults_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
         {
             // Setup
             var idGenerator = new UniqueIdentifierGenerator();
@@ -402,6 +552,70 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                         aggregatedSectionAssembly.FailureMechanismSection);
         }
 
+        [Test]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.None,
+            TestName = "SimpleAssembly")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.IIv,
+            TestName = "TailorMadeAssembly")]
+        public void CreateWithoutDetailedAssembly_WithValidArgumentsAndOneAssemblyTypeHasResult_ReturnsAggregatedSerializableFailureMechanismSectionAssembly(
+            FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup,
+            FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup)
+        {
+            // Setup
+            var idGenerator = new UniqueIdentifierGenerator();
+            var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                CreateSectionAssemblyResultWithProbability(simpleAssemblyCategoryGroup),
+                CreateSectionAssemblyResultWithProbability(tailorMadeAssemblyCategoryGroup),
+                CreateSectionAssemblyResultWithProbability(13));
+
+            var random = new Random(21);
+            const string serializableFailureMechanismId = "FailureMechanismId";
+            var serializableFailureMechanism = new SerializableFailureMechanism(serializableFailureMechanismId,
+                                                                                new SerializableTotalAssemblyResult(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismGroup>(),
+                                                                                new SerializableFailureMechanismAssemblyResult());
+
+            const string serializableSectionCollectionId = "CollectionId";
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId,
+                                                                                           serializableFailureMechanism);
+
+            // Call
+            AggregatedSerializableFailureMechanismSectionAssembly aggregatedSectionAssembly =
+                AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, sectionResult);
+
+            // Assert
+            SerializableFailureMechanismSectionAssembly failureMechanismSectionAssembly = aggregatedSectionAssembly.FailureMechanismSectionAssembly;
+            Assert.AreEqual("T.1", failureMechanismSectionAssembly.Id);
+            Assert.AreEqual(serializableFailureMechanism.Id, failureMechanismSectionAssembly.FailureMechanismId);
+
+            SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = failureMechanismSectionAssembly.SectionResults;
+            Assert.AreEqual(1, serializedSectionResults.Length);
+
+            if (simpleAssemblyCategoryGroup != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.SimpleAssembly,
+                                                                                                 SerializableAssessmentType.SimpleAssessment,
+                                                                                                 serializedSectionResults[0]);
+            }
+
+            if (tailorMadeAssemblyCategoryGroup != FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.TailorMadeAssembly,
+                                                                                                 SerializableAssessmentType.TailorMadeAssessment,
+                                                                                                 serializedSectionResults[0]);
+            }
+
+            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
+                                                                                             SerializableAssessmentType.CombinedAssessment,
+                                                                                             failureMechanismSectionAssembly.CombinedSectionResult);
+
+            SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(sectionResult.FailureMechanismSection,
+                                                                                        serializableCollection,
+                                                                                        aggregatedSectionAssembly.FailureMechanismSection);
+        }
+
         private static ExportableSectionAssemblyResult CreateSectionAssemblyResult(int seed)
         {
             var random = new Random(seed);
@@ -415,6 +629,13 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                        assemblyCategory);
         }
 
+        private static ExportableSectionAssemblyResult CreateSectionAssemblyResult(FailureMechanismSectionAssemblyCategoryGroup assemblyCategory)
+        {
+            var random = new Random(21);
+            return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
+                                                       assemblyCategory);
+        }
+
         private static ExportableSectionAssemblyResultWithProbability CreateSectionAssemblyResultWithProbability(int seed)
         {
             var random = new Random(seed);
@@ -424,6 +645,15 @@ namespace Ringtoets.Integration.IO.Test.Creators
                 assemblyCategory = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             }
 
+            return new ExportableSectionAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
+                                                                      assemblyCategory,
+                                                                      random.NextDouble());
+        }
+
+        private static ExportableSectionAssemblyResultWithProbability CreateSectionAssemblyResultWithProbability(
+            FailureMechanismSectionAssemblyCategoryGroup assemblyCategory)
+        {
+            var random = new Random(21);
             return new ExportableSectionAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
                                                                       assemblyCategory,
                                                                       random.NextDouble());
