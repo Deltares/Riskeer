@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -82,6 +82,33 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assemblageresultaat.
+        /// </summary>
+        public static string AssemblyResult_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResult_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assemblageresultaat.
+        /// </summary>
+        public static string AssemblyResult_file_filter_Description {
+            get {
+                return ResourceManager.GetString("AssemblyResult_file_filter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to gml.
+        /// </summary>
+        public static string AssemblyResult_file_filter_Extension {
+            get {
+                return ResourceManager.GetString("AssemblyResult_file_filter_Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap AssemblyResultPerSection {
@@ -97,6 +124,15 @@ namespace Ringtoets.Integration.Plugin.Properties {
         public static string AssemblyResultPerSection_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyResultPerSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assemblage.
+        /// </summary>
+        public static string AssemblyResultsCategoryTreeFolder_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultsCategoryTreeFolder_DisplayName", resourceCulture);
             }
         }
         

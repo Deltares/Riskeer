@@ -128,15 +128,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblage.
-        /// </summary>
-        public static string AssemblyResults_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResults_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gecombineerd veiligheidsoordeel.
         /// </summary>
         public static string AssemblyResultTotalView_AssemblyResultGroupBox_Text {

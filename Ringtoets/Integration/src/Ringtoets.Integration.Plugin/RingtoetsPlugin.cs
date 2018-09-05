@@ -694,11 +694,11 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ExportInfo<AssemblyResultsContext>
             {
-                Name = RingtoetsFormsResources.AssemblyResults_DisplayName,
+                Name = Resources.AssemblyResult_DisplayName,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.ReferenceLine != null,
-                FileFilterGenerator = new FileFilterGenerator("gml",
-                                                              "gml file")
+                FileFilterGenerator = new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
+                                                              Resources.AssemblyResult_file_filter_Description)
             };
         }
 
@@ -1093,7 +1093,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyResultsContext>
             {
-                Text = context => RingtoetsFormsResources.AssemblyResults_DisplayName,
+                Text = context => Resources.AssemblyResultsCategoryTreeFolder_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = AssemblyResultsContextChildNodeObjects,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
