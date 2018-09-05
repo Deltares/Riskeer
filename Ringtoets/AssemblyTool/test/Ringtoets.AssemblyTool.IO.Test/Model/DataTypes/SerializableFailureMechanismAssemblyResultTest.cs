@@ -73,10 +73,9 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
         }
 
         [Test]
-        [TestCase(0.5, true)]
-        [TestCase(double.NaN, true)]
-        [TestCase(null, false)]
-        public void ShouldSerializeProbability_WithProbabilityValues_ReturnsExpectedValue(double? probability, bool expectedShouldSerialize)
+        [TestCase(0.5)]
+        [TestCase(double.NaN)]
+        public void ShouldSerializeProbability_WithProbabilityValues_ReturnsTrue(double probability)
         {
             // Setup
             var random = new Random(39);
@@ -89,7 +88,23 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
             bool shouldSerialize = assemblyResult.ShouldSerializeProbability();
 
             // Assert
-            Assert.AreEqual(expectedShouldSerialize, shouldSerialize);
+            Assert.IsTrue(shouldSerialize);
+        }
+
+        [Test]
+        public void ShouldSerializeProbability_WithoutProbability_ReturnsFalse()
+        {
+            // Setup
+            var random = new Random(39);
+            var assemblyResult = new SerializableFailureMechanismAssemblyResult(
+                random.NextEnumValue<SerializableAssemblyMethod>(),
+                random.NextEnumValue<SerializableFailureMechanismCategoryGroup>());
+
+            // Call
+            bool shouldSerialize = assemblyResult.ShouldSerializeProbability();
+
+            // Assert
+            Assert.IsFalse(shouldSerialize);
         }
     }
 }
