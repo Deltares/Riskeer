@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             var expectedModelFactorSuperCriticalFlow = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1.1,
-                StandardDeviation = (RoundedDouble) 0.03
+                StandardDeviation = (RoundedDouble) 0.05
             };
 
             var expectedAllowedLevelIncreaseStorage = new LogNormalDistribution(2)

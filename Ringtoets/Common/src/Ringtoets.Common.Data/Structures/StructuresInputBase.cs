@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Data.Structures
             modelFactorSuperCriticalFlow = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1.1,
-                StandardDeviation = (RoundedDouble) 0.03
+                StandardDeviation = (RoundedDouble) 0.05
             };
 
             stormDuration = new VariationCoefficientLogNormalDistribution(2)
