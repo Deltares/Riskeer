@@ -146,6 +146,7 @@ namespace Ringtoets.HeightStructures.Data
         {
             var clone = (HeightStructuresInput) base.Clone();
 
+            clone.modelFactorSuperCriticalFlow = (NormalDistribution) ModelFactorSuperCriticalFlow.Clone();
             clone.levelCrestStructure = (NormalDistribution) LevelCrestStructure.Clone();
 
             return clone;

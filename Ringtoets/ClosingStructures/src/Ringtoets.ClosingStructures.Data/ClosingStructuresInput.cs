@@ -145,6 +145,7 @@ namespace Ringtoets.ClosingStructures.Data
             var clone = (ClosingStructuresInput) base.Clone();
 
             clone.thresholdHeightOpenWeir = (NormalDistribution) ThresholdHeightOpenWeir.Clone();
+            clone.modelFactorSuperCriticalFlow = (NormalDistribution) ModelFactorSuperCriticalFlow.Clone();
             clone.drainCoefficient = (NormalDistribution) DrainCoefficient.Clone();
             clone.areaFlowApertures = (LogNormalDistribution) AreaFlowApertures.Clone();
             clone.levelCrestStructureNotClosing = (NormalDistribution) LevelCrestStructureNotClosing.Clone();

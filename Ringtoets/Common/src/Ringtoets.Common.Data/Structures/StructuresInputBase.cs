@@ -126,7 +126,6 @@ namespace Ringtoets.Common.Data.Structures
         {
             var clone = (StructuresInputBase<T>) base.Clone();
 
-            clone.modelFactorSuperCriticalFlow = (NormalDistribution) ModelFactorSuperCriticalFlow.Clone();
             clone.allowedLevelIncreaseStorage = (LogNormalDistribution) AllowedLevelIncreaseStorage.Clone();
             clone.storageStructureArea = (VariationCoefficientLogNormalDistribution) StorageStructureArea.Clone();
             clone.flowWidthAtBottomProtection = (LogNormalDistribution) FlowWidthAtBottomProtection.Clone();
