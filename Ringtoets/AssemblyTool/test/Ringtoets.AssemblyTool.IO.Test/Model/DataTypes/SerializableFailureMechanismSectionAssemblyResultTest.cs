@@ -40,7 +40,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
             // Assert
             Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
             Assert.AreEqual((SerializableAssessmentType) 0, assemblyResult.AssessmentType);
-            Assert.IsNull(assemblyResult.CategoryGroup);
+            Assert.AreEqual((SerializableFailureMechanismSectionCategoryGroup) 0, assemblyResult.CategoryGroup);
             Assert.IsNull(assemblyResult.Probability);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
@@ -92,28 +92,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model.DataTypes
 
             // Assert
             Assert.AreEqual(expectedShouldSerialize, shouldSerialize);
-        }
-
-        [Test]
-        [TestCase(SerializableFailureMechanismSectionCategoryGroup.IIIv, true)]
-        [TestCase(null, false)]
-        public void ShouldSerializeCategoryGroup_WithSectionCategoryGroupValues_ReturnsExpectedValue(SerializableFailureMechanismSectionCategoryGroup? categoryGroup, 
-                                                                                                     bool expectedShouldSerialize)
-        {
-            // Setup
-            var random = new Random(39);
-            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(
-                random.NextEnumValue<SerializableAssemblyMethod>(),
-                random.NextEnumValue<SerializableAssessmentType>(),
-                categoryGroup,
-                random.NextDouble());
-
-            // Call
-            bool shouldSerialize = assemblyResult.ShouldSerializeCategoryGroup();
-
-            // Assert
-            Assert.AreEqual(expectedShouldSerialize, shouldSerialize);
-
         }
     }
 }
