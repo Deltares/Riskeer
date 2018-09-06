@@ -81,7 +81,6 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
                 ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
                 UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
                 UseForeshorePropertyIndex = useForeshorePropertyIndex,
-                ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
                 HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
                 StormDurationPropertyIndex = stormDurationPropertyIndex
             }, propertyChangeHandler) {}
@@ -94,7 +93,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_Description))]
-        public virtual NormalDistributionProperties ModelFactorSuperCriticalFlow
+        public NormalDistributionProperties ModelFactorSuperCriticalFlow
         {
             get
             {

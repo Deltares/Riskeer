@@ -77,10 +77,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (constructionProperties == null)
             {
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
+
             if (propertyChangeHandler == null)
             {
                 throw new ArgumentNullException(nameof(propertyChangeHandler));
@@ -90,9 +92,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             Data = data;
             propertyIndexLookup = new Dictionary<string, int>
             {
-                {
-                    nameof(ModelFactorSuperCriticalFlow), constructionProperties.ModelFactorSuperCriticalFlowPropertyIndex
-                },
                 {
                     nameof(Structure), constructionProperties.StructurePropertyIndex
                 },
@@ -220,15 +219,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// </summary>
         public class ConstructionProperties
         {
-            #region Model factors
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.ModelFactorSuperCriticalFlow"/>.
-            /// </summary>
-            public int ModelFactorSuperCriticalFlowPropertyIndex { get; set; }
-
-            #endregion
-
             #region Schematization
 
             /// <summary>
