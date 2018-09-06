@@ -1041,15 +1041,12 @@ namespace Ringtoets.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(queryGenerator.GetDuneLocationCalculationsCountValidationQuery(
                                                  DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForLowerFactorizedLimitNorm));
 
-            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType.SignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType.LowerLimitNorm));
-
-            reader.AssertReturnedDataIsValid(DuneErosionFailureMechanismValidationQueryGenerator.GetNewDuneLocationCalculationOutputValidationQuery(
-                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForMechanismSpecificFactorizedSignalingNorm));
-            reader.AssertReturnedDataIsValid(DuneErosionFailureMechanismValidationQueryGenerator.GetNewDuneLocationCalculationOutputValidationQuery(
-                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForLowerLimitNorm));
-            reader.AssertReturnedDataIsValid(DuneErosionFailureMechanismValidationQueryGenerator.GetNewDuneLocationCalculationOutputValidationQuery(
-                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForLowerFactorizedLimitNorm));
+            string validateDuneLocationOutput =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = 0 " +
+                "FROM DuneLocationCalculationOutputEntity; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateDuneLocationOutput);
         }
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
@@ -1185,53 +1182,6 @@ namespace Ringtoets.Migration.Integration.Test
                        "GROUP BY DuneErosionFailureMechanismMetaEntityId " +
                        ") " +
                        "WHERE NewCount IS NOT OldCount; " +
-                       "DETACH DATABASE SOURCEPROJECT;";
-            }
-
-            /// <summary>
-            /// Generates a query to validate the new dune location outputs that are not based on migrated data.
-            /// </summary>
-            /// <param name="calculationType">The type of calculation on which the output should be validated.</param>
-            /// <returns>The query to validate the dune location output.</returns>
-            public static string GetNewDuneLocationCalculationOutputValidationQuery(CalculationType calculationType)
-            {
-                return "SELECT COUNT() = 0 " +
-                       GetDuneLocationCalculationsQuery(calculationType) +
-                       "JOIN DuneLocationCalculationOutputEntity USING(DuneLocationCalculationEntityId);";
-            }
-
-            /// <summary>
-            /// Generates a query to validate if the dune location outputs are migrated correctly to the 
-            /// corresponding calculation entities.
-            /// </summary>
-            /// <param name="normType">The norm type to generate the query for.</param>
-            /// <returns>A query to validate the dune location outputs.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but unsupported.</exception>
-            public string GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType normType)
-            {
-                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT COUNT() = ( " +
-                       "SELECT COUNT() " +
-                       "FROM [SOURCEPROJECT].DuneLocationOutputEntity " +
-                       "JOIN [SOURCEPROJECT].DuneLocationEntity USING(DuneLocationEntityId) " +
-                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId)  " +
-                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
-                       $"WHERE NormativeNormType = {(int) normType} " +
-                       ") " +
-                       GetDuneLocationCalculationsQuery(ConvertToCalculationType(normType)) +
-                       "JOIN DuneLocationCalculationOutputEntity NEW USING(DuneLocationCalculationEntityId) " +
-                       "JOIN [SOURCEPROJECT].DuneLocationOutputEntity OLD ON OLD.DuneLocationOutputEntityId = NEW.DuneLocationCalculationOutputEntityId " +
-                       "WHERE NEW.WaterLevel IS OLD.WaterLevel " +
-                       "AND NEW.WaveHeight IS OLD.WaveHeight " +
-                       "AND NEW.WavePeriod IS OLD.WavePeriod " +
-                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
-                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
-                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
-                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
-                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -2529,10 +2479,10 @@ namespace Ringtoets.Migration.Integration.Test
             }
 
             /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="Ringtoets.Common.Data.FailureMechanism.FailureMechanismCategoryType"/>.
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="FailureMechanismCategoryType"/>.
             /// </summary>
             /// <param name="normType">The norm type to convert.</param>
-            /// <returns>Returns the converted <see cref="Ringtoets.Common.Data.FailureMechanism.FailureMechanismCategoryType"/>.</returns>
+            /// <returns>Returns the converted <see cref="FailureMechanismCategoryType"/>.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
@@ -2556,10 +2506,10 @@ namespace Ringtoets.Migration.Integration.Test
             }
 
             /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="Ringtoets.Common.Data.AssessmentSection.AssessmentSectionCategoryType"/>.
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="AssessmentSectionCategoryType"/>.
             /// </summary>
             /// <param name="normType">The norm type to convert.</param>
-            /// <returns>Returns the converted <see cref="Ringtoets.Common.Data.AssessmentSection.AssessmentSectionCategoryType"/>.</returns>
+            /// <returns>Returns the converted <see cref="AssessmentSectionCategoryType"/>.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
