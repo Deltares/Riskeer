@@ -52,6 +52,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             Assert.AreEqual("some name", configuration.Name);
             Assert.IsNull(configuration.InflowModelType);
             Assert.IsNull(configuration.InsideWaterLevel);
+            Assert.IsNull(configuration.ModelFactorSuperCriticalFlow);
             Assert.IsNull(configuration.DrainCoefficient);
             Assert.IsNull(configuration.ThresholdHeightOpenWeir);
             Assert.IsNull(configuration.AreaFlowApertures);
@@ -70,6 +71,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             var random = new Random(21);
             var inflowModelType = random.NextEnumValue<ConfigurationClosingStructureInflowModelType>();
             var insideWaterLevel = new StochastConfiguration();
+            var modelFactorSuperCriticalFlow = new StochastConfiguration();
             var drainCoefficient = new StochastConfiguration();
             var thresholdHeightOpenWeir = new StochastConfiguration();
             var areaFlowApertures = new StochastConfiguration();
@@ -85,6 +87,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             // Call
             configuration.InflowModelType = inflowModelType;
             configuration.InsideWaterLevel = insideWaterLevel;
+            configuration.ModelFactorSuperCriticalFlow = modelFactorSuperCriticalFlow;
             configuration.DrainCoefficient = drainCoefficient;
             configuration.ThresholdHeightOpenWeir = thresholdHeightOpenWeir;
             configuration.AreaFlowApertures = areaFlowApertures;
@@ -98,6 +101,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             // Assert
             Assert.AreEqual(inflowModelType, configuration.InflowModelType);
             Assert.AreSame(insideWaterLevel, configuration.InsideWaterLevel);
+            Assert.AreSame(modelFactorSuperCriticalFlow, configuration.ModelFactorSuperCriticalFlow);
             Assert.AreSame(drainCoefficient, configuration.DrainCoefficient);
             Assert.AreSame(thresholdHeightOpenWeir, configuration.ThresholdHeightOpenWeir);
             Assert.AreSame(areaFlowApertures, configuration.AreaFlowApertures);
