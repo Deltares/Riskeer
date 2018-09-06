@@ -75,41 +75,6 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             return true;
         }
 
-        /// <summary>
-        /// Validates the parameters of shared stochasts in a structure calculation.
-        /// </summary>
-        /// <param name="configuration">Configuration of the structure calculation.</param>
-        /// <param name="log">Log used to write out errors.</param>
-        /// <returns><c>false</c> when there is an invalid stochast parameter defined, <c>true</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static bool ValidateStructureBaseStochasts(this StructuresCalculationConfiguration configuration, ILog log)
-        {
-            if (configuration == null)
-            {
-                throw new ArgumentNullException(nameof(configuration));
-            }
-            if (log == null)
-            {
-                throw new ArgumentNullException(nameof(log));
-            }
-
-            if (configuration.StormDuration?.StandardDeviation != null
-                || configuration.StormDuration?.VariationCoefficient != null)
-            {
-                log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_StormDuration,
-                                                  configuration.Name);
-                return false;
-            }
-            if (configuration.ModelFactorSuperCriticalFlow?.StandardDeviation != null
-                || configuration.ModelFactorSuperCriticalFlow?.VariationCoefficient != null)
-            {
-                log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow,
-                                                  configuration.Name);
-                return false;
-            }
-            return true;
-        }
-
         private static bool HasParametersDefined(WaveReductionConfiguration waveReduction)
         {
             return waveReduction != null
