@@ -142,6 +142,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<HeightStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
                 nameof(HeightStructuresInputContextProperties.FailureProbabilityStructureWithErosion));
 
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ModelFactorSuperCriticalFlow, false, true);
+
             mockRepository.VerifyAll();
         }
 
