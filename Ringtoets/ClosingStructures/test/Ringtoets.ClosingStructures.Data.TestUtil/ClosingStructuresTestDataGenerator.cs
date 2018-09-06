@@ -47,6 +47,11 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                 StandardDeviation = random.NextRoundedDouble()
             };
 
+            input.ModelFactorSuperCriticalFlow = new NormalDistribution
+            {
+                Mean = random.NextRoundedDouble()
+            };
+
             input.DrainCoefficient = new NormalDistribution
             {
                 Mean = random.NextRoundedDouble()
