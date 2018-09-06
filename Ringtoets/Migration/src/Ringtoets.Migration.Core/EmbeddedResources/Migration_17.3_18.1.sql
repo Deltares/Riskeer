@@ -1951,41 +1951,6 @@ JOIN (
 	FROM TempDuneLocationCalculationCollectionEntity WHERE CalculationType = 4
 ) USING (DuneErosionFailureMechanismMetaEntityId);
 
--- Migrate the dune location outputs
-INSERT INTO DuneLocationCalculationOutputEntity (
-	[DuneLocationCalculationOutputEntityId],
-	[DuneLocationCalculationEntityId],
-	[WaterLevel],
-	[WaveHeight],
-	[WavePeriod],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence])
-SELECT
-	[DuneLocationOutputEntityId],
-	[DuneLocationCalculationEntityId],
-	[WaterLevel],
-	[WaveHeight],
-	[WavePeriod],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence]
-FROM DuneErosionFailureMechanismMetaEntity defmme
-JOIN FailureMechanismEntity fm USING(FailureMechanismEntityId)
-JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId)
-JOIN DuneLocationCalculationCollectionEntity dlcce 
-ON defmme.DuneLocationCalculationCollectionEntity2Id = dlcce.DuneLocationCalculationCollectionEntityId
-OR defmme.DuneLocationCalculationCollectionEntity3Id = dlcce.DuneLocationCalculationCollectionEntityId 
-JOIN DuneLocationCalculationEntity USING(DuneLocationCalculationCollectionEntityId)
-JOIN DuneLocationEntity dl USING(DuneLocationEntityId)
-JOIN [SOURCEPROJECT].DuneLocationOutputEntity USING(DuneLocationEntityId)
-WHERE (NormativeNormType = 2 AND defmme.DuneLocationCalculationCollectionEntity2Id = dlcce.DuneLocationCalculationCollectionEntityId)
-OR (NormativeNormType = 1 AND defmme.DuneLocationCalculationCollectionEntity3Id = dlcce.DuneLocationCalculationCollectionEntityId);
-
 -- Cleanup
 DROP TABLE TempCalculationTypes;
 DROP TABLE TempHydraulicLocationCalculationEntity;
