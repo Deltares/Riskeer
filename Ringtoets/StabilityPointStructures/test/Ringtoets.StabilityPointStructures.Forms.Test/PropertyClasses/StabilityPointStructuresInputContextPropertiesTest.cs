@@ -64,7 +64,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new StabilityPointStructuresInputContextProperties(null, handler);
+            TestDelegate test = () => snew StabilityPointStructuresInputContextProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -193,7 +193,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(36, dynamicProperties.Count);
+            Assert.AreEqual(35, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[linearLowSillVolumicWeightWaterPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -380,7 +380,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[linearLowSillAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[linearLowSillCriticalOvertoppingDischargePropertyIndex].DisplayName);
             Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[linearLowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[linearLowSillModelFactorSuperCriticalFlowPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[linearLowSillForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[linearLowSillUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[linearLowSillUseForeshorePropertyIndex].DisplayName);
@@ -422,7 +421,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(36, dynamicProperties.Count);
+            Assert.AreEqual(35, dynamicProperties.Count);
 
             PropertyDescriptor volumicWeightWaterProperty = dynamicProperties[quadraticLowSillVolumicWeightWaterPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -609,7 +608,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[quadraticLowSillAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[quadraticLowSillCriticalOvertoppingDischargePropertyIndex].DisplayName);
             Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[quadraticLowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[quadraticLowSillModelFactorSuperCriticalFlowPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[quadraticLowSillForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[quadraticLowSillUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[quadraticLowSillUseForeshorePropertyIndex].DisplayName);
@@ -1303,14 +1301,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObservablesNotified()
-        {
-            RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
-        }
-
-        [Test]
         public void WidthFlowApertures_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
@@ -1489,7 +1479,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.ModelFactorSuperCriticalFlow)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.DrainCoefficient)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.AreaFlowApertures)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.WidthFlowApertures)));
@@ -1522,7 +1511,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.ModelFactorSuperCriticalFlow)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.DrainCoefficient)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.AreaFlowApertures)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.WidthFlowApertures)));
@@ -1555,7 +1543,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Call & Assert
-            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.ModelFactorSuperCriticalFlow)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.DrainCoefficient)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.AreaFlowApertures)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(StabilityPointStructuresInputContextProperties.WidthFlowApertures)));
@@ -1669,37 +1656,36 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int linearLowSillStormDurationPropertyIndex = 2;
         private const int linearLowSillInsideWaterLevelPropertyIndex = 3;
         private const int linearLowSillInsideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int linearLowSillModelFactorSuperCriticalFlowPropertyIndex = 5;
-        private const int linearLowSillFactorStormDurationOpenStructurePropertyIndex = 6;
-        private const int linearLowSillStructurePropertyIndex = 7;
-        private const int linearLowSillStructureLocationPropertyIndex = 8;
-        private const int linearLowSillStructureNormalOrientationPropertyIndex = 9;
-        private const int linearLowSillInflowModelTypePropertyIndex = 10;
-        private const int linearLowSillLoadSchematizationTypePropertyIndex = 11;
-        private const int linearLowSillWidthFlowAperturesPropertyIndex = 12;
-        private const int linearLowSillFlowWidthAtBottomProtectionPropertyIndex = 13;
-        private const int linearLowSillStorageStructureAreaPropertyIndex = 14;
-        private const int linearLowSillAllowedLevelIncreaseStoragePropertyIndex = 15;
-        private const int linearLowSillLevelCrestStructurePropertyIndex = 16;
-        private const int linearLowSillThresholdHeightOpenWeirPropertyIndex = 17;
-        private const int linearLowSillCriticalOvertoppingDischargePropertyIndex = 18;
-        private const int linearLowSillFlowVelocityStructureClosablePropertyIndex = 19;
-        private const int linearLowSillConstructiveStrengthLinearLoadModelPropertyIndex = 20;
-        private const int linearLowSillBankWidthPropertyIndex = 21;
-        private const int linearLowSillEvaluationLevelPropertyIndex = 22;
-        private const int linearLowSillVerticalDistancePropertyIndex = 23;
-        private const int linearLowSillFailureProbabilityRepairClosurePropertyIndex = 24;
-        private const int linearLowSillFailureCollisionEnergyPropertyIndex = 25;
-        private const int linearLowSillShipMassPropertyIndex = 26;
-        private const int linearLowSillShipVelocityPropertyIndex = 27;
-        private const int linearLowSillLevellingCountPropertyIndex = 28;
-        private const int linearLowSillProbabilityCollisionSecondaryStructurePropertyIndex = 29;
-        private const int linearLowSillStabilityLinearLoadModelPropertyIndex = 30;
-        private const int linearLowSillFailureProbabilityStructureWithErosionPropertyIndex = 31;
-        private const int linearLowSillForeshoreProfilePropertyIndex = 32;
-        private const int linearLowSillUseBreakWaterPropertyIndex = 33;
-        private const int linearLowSillUseForeshorePropertyIndex = 34;
-        private const int linearLowSillCalculateIllustrationPointsPropertyIndex = 35;
+        private const int linearLowSillFactorStormDurationOpenStructurePropertyIndex = 5;
+        private const int linearLowSillStructurePropertyIndex = 6;
+        private const int linearLowSillStructureLocationPropertyIndex = 7;
+        private const int linearLowSillStructureNormalOrientationPropertyIndex = 8;
+        private const int linearLowSillInflowModelTypePropertyIndex = 9;
+        private const int linearLowSillLoadSchematizationTypePropertyIndex = 10;
+        private const int linearLowSillWidthFlowAperturesPropertyIndex = 11;
+        private const int linearLowSillFlowWidthAtBottomProtectionPropertyIndex = 12;
+        private const int linearLowSillStorageStructureAreaPropertyIndex = 13;
+        private const int linearLowSillAllowedLevelIncreaseStoragePropertyIndex = 14;
+        private const int linearLowSillLevelCrestStructurePropertyIndex = 15;
+        private const int linearLowSillThresholdHeightOpenWeirPropertyIndex = 16;
+        private const int linearLowSillCriticalOvertoppingDischargePropertyIndex = 17;
+        private const int linearLowSillFlowVelocityStructureClosablePropertyIndex = 18;
+        private const int linearLowSillConstructiveStrengthLinearLoadModelPropertyIndex = 19;
+        private const int linearLowSillBankWidthPropertyIndex = 20;
+        private const int linearLowSillEvaluationLevelPropertyIndex = 21;
+        private const int linearLowSillVerticalDistancePropertyIndex = 22;
+        private const int linearLowSillFailureProbabilityRepairClosurePropertyIndex = 23;
+        private const int linearLowSillFailureCollisionEnergyPropertyIndex = 24;
+        private const int linearLowSillShipMassPropertyIndex = 25;
+        private const int linearLowSillShipVelocityPropertyIndex = 26;
+        private const int linearLowSillLevellingCountPropertyIndex = 27;
+        private const int linearLowSillProbabilityCollisionSecondaryStructurePropertyIndex = 28;
+        private const int linearLowSillStabilityLinearLoadModelPropertyIndex = 29;
+        private const int linearLowSillFailureProbabilityStructureWithErosionPropertyIndex = 30;
+        private const int linearLowSillForeshoreProfilePropertyIndex = 31;
+        private const int linearLowSillUseBreakWaterPropertyIndex = 32;
+        private const int linearLowSillUseForeshorePropertyIndex = 33;
+        private const int linearLowSillCalculateIllustrationPointsPropertyIndex = 34;
 
         #endregion
 
@@ -1751,37 +1737,36 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int quadraticLowSillStormDurationPropertyIndex = 2;
         private const int quadraticLowSillInsideWaterLevelPropertyIndex = 3;
         private const int quadraticLowSillInsideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int quadraticLowSillModelFactorSuperCriticalFlowPropertyIndex = 5;
-        private const int quadraticLowSillFactorStormDurationOpenStructurePropertyIndex = 6;
-        private const int quadraticLowSillStructurePropertyIndex = 7;
-        private const int quadraticLowSillStructureLocationPropertyIndex = 8;
-        private const int quadraticLowSillStructureNormalOrientationPropertyIndex = 9;
-        private const int quadraticLowSillInflowModelTypePropertyIndex = 10;
-        private const int quadraticLowSillLoadSchematizationTypePropertyIndex = 11;
-        private const int quadraticLowSillWidthFlowAperturesPropertyIndex = 12;
-        private const int quadraticLowSillFlowWidthAtBottomProtectionPropertyIndex = 13;
-        private const int quadraticLowSillStorageStructureAreaPropertyIndex = 14;
-        private const int quadraticLowSillAllowedLevelIncreaseStoragePropertyIndex = 15;
-        private const int quadraticLowSillLevelCrestStructurePropertyIndex = 16;
-        private const int quadraticLowSillThresholdHeightOpenWeirPropertyIndex = 17;
-        private const int quadraticLowSillCriticalOvertoppingDischargePropertyIndex = 18;
-        private const int quadraticLowSillFlowVelocityStructureClosablePropertyIndex = 19;
-        private const int quadraticLowSillConstructiveStrengthQuadraticLoadModelPropertyIndex = 20;
-        private const int quadraticLowSillBankWidthPropertyIndex = 21;
-        private const int quadraticLowSillEvaluationLevelPropertyIndex = 22;
-        private const int quadraticLowSillVerticalDistancePropertyIndex = 23;
-        private const int quadraticLowSillFailureProbabilityRepairClosurePropertyIndex = 24;
-        private const int quadraticLowSillFailureCollisionEnergyPropertyIndex = 25;
-        private const int quadraticLowSillShipMassPropertyIndex = 26;
-        private const int quadraticLowSillShipVelocityPropertyIndex = 27;
-        private const int quadraticLowSillLevellingCountPropertyIndex = 28;
-        private const int quadraticLowSillProbabilityCollisionSecondaryStructurePropertyIndex = 29;
-        private const int quadraticLowSillStabilityQuadraticLoadModelPropertyIndex = 30;
-        private const int quadraticLowSillFailureProbabilityStructureWithErosionPropertyIndex = 31;
-        private const int quadraticLowSillForeshoreProfilePropertyIndex = 32;
-        private const int quadraticLowSillUseBreakWaterPropertyIndex = 33;
-        private const int quadraticLowSillUseForeshorePropertyIndex = 34;
-        private const int quadraticLowSillCalculateIllustrationPointsPropertyIndex = 35;
+        private const int quadraticLowSillFactorStormDurationOpenStructurePropertyIndex = 5;
+        private const int quadraticLowSillStructurePropertyIndex = 6;
+        private const int quadraticLowSillStructureLocationPropertyIndex = 7;
+        private const int quadraticLowSillStructureNormalOrientationPropertyIndex = 8;
+        private const int quadraticLowSillInflowModelTypePropertyIndex = 9;
+        private const int quadraticLowSillLoadSchematizationTypePropertyIndex = 10;
+        private const int quadraticLowSillWidthFlowAperturesPropertyIndex = 11;
+        private const int quadraticLowSillFlowWidthAtBottomProtectionPropertyIndex = 12;
+        private const int quadraticLowSillStorageStructureAreaPropertyIndex = 13;
+        private const int quadraticLowSillAllowedLevelIncreaseStoragePropertyIndex = 14;
+        private const int quadraticLowSillLevelCrestStructurePropertyIndex = 15;
+        private const int quadraticLowSillThresholdHeightOpenWeirPropertyIndex = 16;
+        private const int quadraticLowSillCriticalOvertoppingDischargePropertyIndex = 17;
+        private const int quadraticLowSillFlowVelocityStructureClosablePropertyIndex = 18;
+        private const int quadraticLowSillConstructiveStrengthQuadraticLoadModelPropertyIndex = 19;
+        private const int quadraticLowSillBankWidthPropertyIndex = 20;
+        private const int quadraticLowSillEvaluationLevelPropertyIndex = 21;
+        private const int quadraticLowSillVerticalDistancePropertyIndex = 22;
+        private const int quadraticLowSillFailureProbabilityRepairClosurePropertyIndex = 23;
+        private const int quadraticLowSillFailureCollisionEnergyPropertyIndex = 24;
+        private const int quadraticLowSillShipMassPropertyIndex = 25;
+        private const int quadraticLowSillShipVelocityPropertyIndex = 26;
+        private const int quadraticLowSillLevellingCountPropertyIndex = 27;
+        private const int quadraticLowSillProbabilityCollisionSecondaryStructurePropertyIndex = 28;
+        private const int quadraticLowSillStabilityQuadraticLoadModelPropertyIndex = 29;
+        private const int quadraticLowSillFailureProbabilityStructureWithErosionPropertyIndex = 30;
+        private const int quadraticLowSillForeshoreProfilePropertyIndex = 31;
+        private const int quadraticLowSillUseBreakWaterPropertyIndex = 32;
+        private const int quadraticLowSillUseForeshorePropertyIndex = 33;
+        private const int quadraticLowSillCalculateIllustrationPointsPropertyIndex = 34;
 
         #endregion
 
