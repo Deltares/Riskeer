@@ -85,16 +85,13 @@ namespace Ringtoets.Migration.Integration.Test
                     AssertHydraulicBoundaryLocationsOnAssessmentSection(reader, sourceFilePath);
                     AssertHydraulicBoundaryLocationsOnGrassCoverErosionOutwardsFailureMechanism(reader, sourceFilePath);
                     AssertFailureMechanisms(reader, sourceFilePath);
+                    AssertFailureMechanismRelatedOutput(reader);
 
                     AssertPipingSoilLayers(reader);
                     AssertStabilityStoneCoverFailureMechanism(reader);
                     AssertMacroStabilityOutwardsFailureMechanism(reader);
                     AssertPipingStructureFailureMechanism(reader);
                     AssertWaveImpactAsphaltCoverFailureMechanism(reader);
-                    AssertGrassCoverErosionInwardsOutput(reader, sourceFilePath);
-                    AssertClosingStructuresOutput(reader, sourceFilePath);
-                    AssertHeightStructuresOutput(reader, sourceFilePath);
-                    AssertStabilityPointStructuresOutput(reader, sourceFilePath);
 
                     AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
 
@@ -409,7 +406,6 @@ namespace Ringtoets.Migration.Integration.Test
                 "ClosingStructureEntity",
                 "ClosingStructuresCalculationEntity",
                 "ClosingStructuresFailureMechanismMetaEntity",
-                "ClosingStructuresOutputEntity",
                 "ClosingStructuresSectionResultEntity",
                 "DikeProfileEntity",
                 "DuneErosionFailureMechanismMetaEntity",
@@ -417,30 +413,18 @@ namespace Ringtoets.Migration.Integration.Test
                 "DuneLocationEntity",
                 "FailureMechanismEntity",
                 "FailureMechanismSectionEntity",
-                "FaultTreeIllustrationPointEntity",
-                "FaultTreeIllustrationPointStochastEntity",
-                "FaultTreeSubmechanismIllustrationPointEntity",
                 "ForeshoreProfileEntity",
-                "GeneralResultFaultTreeIllustrationPointEntity",
-                "GeneralResultFaultTreeIllustrationPointStochastEntity",
-                "GeneralResultSubMechanismIllustrationPointEntity",
-                "GeneralResultSubMechanismIllustrationPointStochastEntity",
                 "GrassCoverErosionInwardsCalculationEntity",
-                "GrassCoverErosionInwardsDikeHeightOutputEntity",
                 "GrassCoverErosionInwardsFailureMechanismMetaEntity",
-                "GrassCoverErosionInwardsOutputEntity",
-                "GrassCoverErosionInwardsOvertoppingRateOutputEntity",
                 "GrassCoverErosionInwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionOutwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
-                "GrassCoverErosionOutwardsWaveConditionsOutputEntity",
                 "GrassCoverSlipOffInwardsSectionResultEntity",
                 "GrassCoverSlipOffOutwardsSectionResultEntity",
                 "HeightStructureEntity",
                 "HeightStructuresCalculationEntity",
                 "HeightStructuresFailureMechanismMetaEntity",
-                "HeightStructuresOutputEntity",
                 "HeightStructuresSectionResultEntity",
                 "HydraulicLocationEntity",
                 "IllustrationPointResultEntity",
@@ -473,26 +457,18 @@ namespace Ringtoets.Migration.Integration.Test
                 "StabilityPointStructureEntity",
                 "StabilityPointStructuresCalculationEntity",
                 "StabilityPointStructuresFailureMechanismMetaEntity",
-                "StabilityPointStructuresOutputEntity",
                 "StabilityPointStructuresSectionResultEntity",
                 "StabilityStoneCoverSectionResultEntity",
                 "StabilityStoneCoverWaveConditionsCalculationEntity",
-                "StabilityStoneCoverWaveConditionsOutputEntity",
-                "StochastEntity",
                 "StochasticSoilModelEntity",
                 "StrengthStabilityLengthwiseConstructionSectionResultEntity",
-                "SubMechanismIllustrationPointEntity",
-                "SubMechanismIllustrationPointStochastEntity",
                 "SurfaceLineEntity",
                 "TechnicalInnovationSectionResultEntity",
-                "TopLevelFaultTreeIllustrationPointEntity",
-                "TopLevelSubMechanismIllustrationPointEntity",
                 "VersionEntity",
                 "WaterPressureAsphaltCoverSectionResultEntity",
                 "WaveImpactAsphaltCoverFailureMechanismMetaEntity",
                 "WaveImpactAsphaltCoverSectionResultEntity",
-                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity",
-                "WaveImpactAsphaltCoverWaveConditionsOutputEntity"
+                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity"
             };
 
             foreach (string table in tables)
@@ -883,64 +859,6 @@ namespace Ringtoets.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateWaveImpactAsphaltCoverFailureMechanisms);
         }
 
-        private static void AssertGrassCoverErosionInwardsOutput(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateGrassCoverErosionInwardsOutputEntities =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity) " +
-                "FROM GrassCoverErosionInwardsOutputEntity NEW " +
-                "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity OLD USING(GrassCoverErosionInwardsOutputEntityId) " +
-                "WHERE NEW.GrassCoverErosionInwardsCalculationEntityId = OLD.GrassCoverErosionInwardsCalculationEntityId " +
-                "AND NEW.GeneralResultFaultTreeIllustrationPointEntityId IS OLD.GeneralResultFaultTreeIllustrationPointEntityId " +
-                "AND NEW.IsOvertoppingDominant = OLD.IsOvertoppingDominant " +
-                "AND NEW.WaveHeight IS OLD.WaveHeight " +
-                "AND NEW.Reliability IS OLD.Reliability;" +
-                "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateGrassCoverErosionInwardsOutputEntities);
-        }
-
-        private static void AssertClosingStructuresOutput(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateClosingStructuresOutputEntities =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructuresOutputEntity) " +
-                "FROM ClosingStructuresOutputEntity NEW " +
-                "JOIN [SOURCEPROJECT].ClosingStructuresOutputEntity OLD USING(ClosingStructuresOutputEntityId) " +
-                "WHERE NEW.ClosingStructuresCalculationEntityId = OLD.ClosingStructuresCalculationEntityId " +
-                "AND NEW.GeneralResultFaultTreeIllustrationPointEntityId IS OLD.GeneralResultFaultTreeIllustrationPointEntityId " +
-                "AND NEW.Reliability IS OLD.Reliability;" +
-                "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateClosingStructuresOutputEntities);
-        }
-
-        private static void AssertHeightStructuresOutput(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateHeightStructuresOutputEntities =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].HeightStructuresOutputEntity) " +
-                "FROM HeightStructuresOutputEntity NEW " +
-                "JOIN [SOURCEPROJECT].HeightStructuresOutputEntity OLD USING(HeightStructuresOutputEntityId) " +
-                "WHERE NEW.HeightStructuresCalculationEntityId = OLD.HeightStructuresCalculationEntityId " +
-                "AND NEW.GeneralResultFaultTreeIllustrationPointEntityId IS OLD.GeneralResultFaultTreeIllustrationPointEntityId " +
-                "AND NEW.Reliability IS OLD.Reliability;" +
-                "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateHeightStructuresOutputEntities);
-        }
-
-        private static void AssertStabilityPointStructuresOutput(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateStabilityPointStructuresOutputEntities =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity) " +
-                "FROM StabilityPointStructuresOutputEntity NEW " +
-                "JOIN [SOURCEPROJECT].StabilityPointStructuresOutputEntity OLD ON OLD.StabilityPointStructuresOutputEntity = NEW.StabilityPointStructuresOutputEntityId " +
-                "WHERE NEW.StabilityPointStructuresCalculationEntityId = OLD.StabilityPointStructuresCalculationEntityId " +
-                "AND NEW.GeneralResultFaultTreeIllustrationPointEntityId IS OLD.GeneralResultFaultTreeIllustrationPointEntityId " +
-                "AND NEW.Reliability IS OLD.Reliability;" +
-                "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateStabilityPointStructuresOutputEntities);
-        }
-
         private static void AssertAssessmentSection(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateAssessmentSectionEntities =
@@ -1078,6 +996,43 @@ namespace Ringtoets.Migration.Integration.Test
                 "DETACH DATABASE SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertFailureMechanismRelatedOutput(MigratedDatabaseReader reader)
+        {
+            var tables = new[]
+            {
+                "ClosingStructuresOutputEntity",
+                "GrassCoverErosionOutwardsWaveConditionsOutputEntity",
+                "GrassCoverErosionInwardsDikeHeightOutputEntity",
+                "GrassCoverErosionInwardsOutputEntity",
+                "GrassCoverErosionInwardsOvertoppingRateOutputEntity",
+                "HeightStructuresOutputEntity",
+                "StabilityPointStructuresOutputEntity",
+                "StabilityStoneCoverWaveConditionsOutputEntity",
+                "WaveImpactAsphaltCoverWaveConditionsOutputEntity",
+                "TopLevelFaultTreeIllustrationPointEntity",
+                "TopLevelSubMechanismIllustrationPointEntity",
+                "GeneralResultFaultTreeIllustrationPointEntity",
+                "GeneralResultFaultTreeIllustrationPointStochastEntity",
+                "GeneralResultSubMechanismIllustrationPointEntity",
+                "GeneralResultSubMechanismIllustrationPointStochastEntity",
+                "SubMechanismIllustrationPointEntity",
+                "SubMechanismIllustrationPointStochastEntity",
+                "FaultTreeIllustrationPointEntity",
+                "FaultTreeIllustrationPointStochastEntity",
+                "FaultTreeSubmechanismIllustrationPointEntity",
+                "StochastEntity"
+            };
+
+            foreach (string table in tables)
+            {
+                string validateMigratedTable =
+                    "SELECT COUNT() = 0 " +
+                    $"FROM {table};" +
+                    "DETACH SOURCEPROJECT;";
+                reader.AssertReturnedDataIsValid(validateMigratedTable);
+            }
         }
 
         #region Dune Locations
