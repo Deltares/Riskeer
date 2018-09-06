@@ -131,7 +131,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             ClosingStructuresInput input = calculation.InputParameters;
 
-            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
             Assert.AreSame(input.InsideWaterLevel, properties.InsideWaterLevel.Data);
             Assert.AreEqual(input.InflowModelType, properties.InflowModelType);
@@ -237,6 +236,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Factor voor stormduur hoogwater [-]",
                                                                             "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
 
+            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[verticalWallModelFactorSuperCriticalFlowPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Modelfactor overloopdebiet volkomen overlaat [-]",
+                                                                            "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
+                                                                            true);
+
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[verticalWallStructurePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[verticalWallStructureLocationPropertyIndex].DisplayName);
@@ -247,7 +254,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[verticalWallAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[verticalWallCriticalOvertoppingDischargePropertyIndex].DisplayName);
             Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[verticalWallFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[verticalWallModelFactorSuperCriticalFlowPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[verticalWallForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[verticalWallUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[verticalWallUseForeshorePropertyIndex].DisplayName);
@@ -457,6 +463,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Factor voor stormduur hoogwater [-]",
                                                                             "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
 
+            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[lowSillModelFactorSuperCriticalFlowPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Modelfactor overloopdebiet volkomen overlaat [-]",
+                                                                            "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
+                                                                            true);
+
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[lowSillStructurePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[lowSillStructureLocationPropertyIndex].DisplayName);
@@ -466,7 +480,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[lowSillAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[lowSillCriticalOvertoppingDischargePropertyIndex].DisplayName);
             Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[lowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[lowSillModelFactorSuperCriticalFlowPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[lowSillForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[lowSillUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[lowSillUseForeshorePropertyIndex].DisplayName);

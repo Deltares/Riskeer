@@ -171,21 +171,19 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                modelFactorSuperCriticalFlowProperty,
-                modelSettingsCategory,
-                "Modelfactor overloopdebiet volkomen overlaat [-]",
-                "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
-                true);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Modelfactor overloopdebiet volkomen overlaat [-]",
+                                                                            "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
+                                                                            true);
 
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                levelCrestStructureProperty,
-                schematizationCategory,
-                "Kerende hoogte [m+NAP]",
-                "Kerende hoogte van het kunstwerk.",
-                true);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(levelCrestStructureProperty,
+                                                                            schematizationCategory,
+                                                                            "Kerende hoogte [m+NAP]",
+                                                                            "Kerende hoogte van het kunstwerk.",
+                                                                            true);
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[structurePropertyIndex].DisplayName);
@@ -197,7 +195,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[allowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[criticalOvertoppingDischargePropertyIndex].DisplayName);
             Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[foreshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[useBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[useForeshorePropertyIndex].DisplayName);
