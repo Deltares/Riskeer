@@ -205,11 +205,19 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         #region Model factors
 
         [DynamicVisible]
-        public override NormalDistributionProperties ModelFactorSuperCriticalFlow
+        [PropertyOrder(modelFactorSuperCriticalFlowPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_Description))]
+        public virtual NormalDistributionProperties ModelFactorSuperCriticalFlow
         {
             get
             {
-                return base.ModelFactorSuperCriticalFlow;
+                return new NormalDistributionProperties(
+                    DistributionPropertiesReadOnly.StandardDeviation,
+                    data.WrappedData.ModelFactorSuperCriticalFlow,
+                    PropertyChangeHandler);
             }
         }
 

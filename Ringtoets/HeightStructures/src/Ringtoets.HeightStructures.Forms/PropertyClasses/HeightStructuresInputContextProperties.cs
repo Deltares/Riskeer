@@ -86,6 +86,27 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
                 StormDurationPropertyIndex = stormDurationPropertyIndex
             }, propertyChangeHandler) {}
 
+        #region Model factors
+
+        [DynamicVisible]
+        [PropertyOrder(modelFactorSuperCriticalFlowPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_Description))]
+        public virtual NormalDistributionProperties ModelFactorSuperCriticalFlow
+        {
+            get
+            {
+                return new NormalDistributionProperties(
+                    DistributionPropertiesReadOnly.StandardDeviation,
+                    data.WrappedData.ModelFactorSuperCriticalFlow,
+                    PropertyChangeHandler);
+            }
+        }
+
+        #endregion
+
         #region Schematization
 
         [PropertyOrder(levelCrestStructurePropertyIndex)]

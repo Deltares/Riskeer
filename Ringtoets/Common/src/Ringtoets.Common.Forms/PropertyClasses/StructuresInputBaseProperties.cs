@@ -138,26 +138,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             };
         }
 
-        #region Model factors
-
-        [DynamicPropertyOrder]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ModelFactorSuperCriticalFlow_Description))]
-        public virtual NormalDistributionProperties ModelFactorSuperCriticalFlow
-        {
-            get
-            {
-                return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.StandardDeviation,
-                    data.WrappedData.ModelFactorSuperCriticalFlow,
-                    PropertyChangeHandler);
-            }
-        }
-
-        #endregion
-
         #region Output Settings
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OutputSettings))]
