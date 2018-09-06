@@ -146,9 +146,6 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new VariationCoefficientNormalDistributionRule(
                     input.FlowVelocityStructureClosable,
                     ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
-                new NormalDistributionRule(
-                    input.ModelFactorSuperCriticalFlow,
-                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
                 new NumericInputRule(
                     input.FactorStormDurationOpenStructure,
                     ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName)),
@@ -223,9 +220,6 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new VariationCoefficientNormalDistributionRule(
                     input.FlowVelocityStructureClosable,
                     ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_FlowVelocityStructureClosable_DisplayName)),
-                new NormalDistributionRule(
-                    input.ModelFactorSuperCriticalFlow,
-                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
                 new NumericInputRule(
                     input.FactorStormDurationOpenStructure,
                     ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName)),

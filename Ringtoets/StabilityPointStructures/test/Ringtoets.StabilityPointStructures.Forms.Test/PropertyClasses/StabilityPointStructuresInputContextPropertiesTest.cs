@@ -64,7 +64,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => snew StabilityPointStructuresInputContextProperties(null, handler);
+            TestDelegate test = () => new StabilityPointStructuresInputContextProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
