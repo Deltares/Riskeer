@@ -42,6 +42,11 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         public StochastConfiguration InsideWaterLevel { get; set; }
 
         /// <summary>
+        /// Gets or sets the stochast configuration for the model factor super critical flow.
+        /// </summary>
+        public StochastConfiguration ModelFactorSuperCriticalFlow { get; set; }
+
+        /// <summary>
         /// Gets or sets the stochast configuration for the drain coefficient for the structure.
         /// </summary>
         public StochastConfiguration DrainCoefficient { get; set; }

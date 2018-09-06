@@ -37,6 +37,11 @@ namespace Ringtoets.HeightStructures.IO.Configurations
         public HeightStructuresCalculationConfiguration(string name) : base(name) {}
 
         /// <summary>
+        /// Gets or sets the stochast configuration for the model factor super critical flow.
+        /// </summary>
+        public StochastConfiguration ModelFactorSuperCriticalFlow { get; set; }
+
+        /// <summary>
         /// Gets or sets the stochast configuration for the crest level for the structure.
         /// </summary>
         public StochastConfiguration LevelCrestStructure { get; set; }

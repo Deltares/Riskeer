@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             if (!Enum.IsDefined(typeof(StabilityPointStructureInflowModelType), inflowModelType))
             {
                 throw new InvalidEnumArgumentException(nameof(input),
-                                                       (int)inflowModelType,
+                                                       (int) inflowModelType,
                                                        typeof(StabilityPointStructureInflowModelType));
             }
 
