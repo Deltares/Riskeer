@@ -732,7 +732,14 @@ SELECT
 	1
 FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
 INSERT INTO PipingCalculationEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationEntity;
-INSERT INTO PipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
+INSERT INTO PipingCalculationOutputEntity 
+SELECT *
+	FROM [SOURCEPROJECT].PipingCalculationOutputEntity
+	WHERE PipingCalculationEntityId IN (
+		SELECT PipingCalculationEntityId 
+		FROM [SOURCEPROJECT].PipingCalculationEntity
+		WHERE UseAssessmentLevelManualInput IS 1
+	);
 INSERT INTO PipingCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].PipingCharacteristicPointEntity;
 INSERT INTO PipingFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
 INSERT INTO PipingSectionResultEntity (

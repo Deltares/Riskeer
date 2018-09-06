@@ -85,7 +85,9 @@ namespace Ringtoets.Migration.Integration.Test
                     AssertHydraulicBoundaryLocationsOnAssessmentSection(reader, sourceFilePath);
                     AssertHydraulicBoundaryLocationsOnGrassCoverErosionOutwardsFailureMechanism(reader, sourceFilePath);
                     AssertFailureMechanisms(reader, sourceFilePath);
+
                     AssertFailureMechanismRelatedOutput(reader);
+                    AssertPipingOutput(reader, sourceFilePath);
 
                     AssertPipingSoilLayers(reader);
                     AssertStabilityStoneCoverFailureMechanism(reader);
@@ -444,7 +446,6 @@ namespace Ringtoets.Migration.Integration.Test
                 "MacroStabilityOutwardsSectionResultEntity",
                 "MicrostabilitySectionResultEntity",
                 "PipingCalculationEntity",
-                "PipingCalculationOutputEntity",
                 "PipingCharacteristicPointEntity",
                 "PipingFailureMechanismMetaEntity",
                 "PipingSectionResultEntity",
@@ -1033,6 +1034,22 @@ namespace Ringtoets.Migration.Integration.Test
                     "DETACH SOURCEPROJECT;";
                 reader.AssertReturnedDataIsValid(validateMigratedTable);
             }
+        }
+
+        private static void AssertPipingOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateOutputCount =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].PipingCalculationOutputEntity " +
+                "JOIN [SOURCEPROJECT].PipingCalculationEntity USING(PipingCalculationEntityId) " +
+                "WHERE [UseAssessmentLevelManualInput] = 1 " +
+                ") " +
+                "FROM PipingCalculationOutputEntity;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateOutputCount);
         }
 
         #region Dune Locations
