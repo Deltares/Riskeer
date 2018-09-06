@@ -177,7 +177,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             const string schematizationCategory = "Schematisatie";
             const string hydraulicDataCategory = "Hydraulische gegevens";
-            const string modelSettingsCategory = "Modelinstellingen";
             const string outputSettingsCategory = "Uitvoer";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -236,12 +235,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(schematizationCategory, failureProbabilityStructureWithErosionProperty.Category);
             Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", failureProbabilityStructureWithErosionProperty.DisplayName);
             Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem.", failureProbabilityStructureWithErosionProperty.Description);
-
-            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[constructionProperties.ModelFactorSuperCriticalFlowPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
-            Assert.AreEqual(modelSettingsCategory, modelFactorSuperCriticalFlowProperty.Category);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", modelFactorSuperCriticalFlowProperty.DisplayName);
-            Assert.AreEqual("Modelfactor voor het overloopdebiet over een volkomen overlaat.", modelFactorSuperCriticalFlowProperty.Description);
 
             PropertyDescriptor foreshoreProfileProperty = dynamicProperties[constructionProperties.ForeshoreProfilePropertyIndex];
             Assert.IsFalse(foreshoreProfileProperty.IsReadOnly);
@@ -952,7 +945,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var foreshoreProfileObject = new object();
             var useBreakWaterObject = new object();
             var useForeshoreObject = new object();
-            var modelFactorSuperCriticalFlowObject = new object();
             var hydraulicBoundaryLocationObject = new object();
             var stormDurationObject = new object();
 
@@ -971,7 +963,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     foreshoreProfileObject,
                     useBreakWaterObject,
                     useForeshoreObject,
-                    modelFactorSuperCriticalFlowObject,
                     hydraulicBoundaryLocationObject,
                     stormDurationObject
                 }.OrderBy(p => random.Next())
@@ -996,7 +987,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 ForeshoreProfilePropertyIndex = randomObjectLookup.IndexOf(foreshoreProfileObject),
                 UseBreakWaterPropertyIndex = randomObjectLookup.IndexOf(useBreakWaterObject),
                 UseForeshorePropertyIndex = randomObjectLookup.IndexOf(useForeshoreObject),
-                ModelFactorSuperCriticalFlowPropertyIndex = randomObjectLookup.IndexOf(modelFactorSuperCriticalFlowObject),
                 HydraulicBoundaryLocationPropertyIndex = randomObjectLookup.IndexOf(hydraulicBoundaryLocationObject),
                 StormDurationPropertyIndex = randomObjectLookup.IndexOf(stormDurationObject)
             };

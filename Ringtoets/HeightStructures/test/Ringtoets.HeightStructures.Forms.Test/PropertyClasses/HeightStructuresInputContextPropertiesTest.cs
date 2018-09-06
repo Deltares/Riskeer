@@ -76,7 +76,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithoutData_ExpectedValues()
+        public void Constructor_WithoutData_ThrowsArgumentNullException()
         {
             // Setup
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
@@ -91,7 +91,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithoutHandler_ExpectedValues()
+        public void Constructor_WithoutHandler_ThrowsArgumentNullException()
         {
             // Setup
             mockRepository.ReplayAll();
@@ -113,7 +113,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidData_ExpectedValues()
+        public void Constructor_WithData_ExpectedValues()
         {
             // Setup
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();

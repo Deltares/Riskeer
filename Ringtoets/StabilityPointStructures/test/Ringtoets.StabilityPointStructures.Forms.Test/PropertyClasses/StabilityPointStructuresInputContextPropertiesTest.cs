@@ -115,7 +115,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                         failureMechanism,
                                                                         assessmentSection);
 
-            // Call            
+            // Call
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
             // Assert
@@ -124,7 +124,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             StabilityPointStructuresInput input = calculation.InputParameters;
 
-            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
             Assert.AreEqual(input.VolumicWeightWater, properties.VolumicWeightWater);
             Assert.AreSame(input.InsideWaterLevelFailureConstruction, properties.InsideWaterLevelFailureConstruction.Data);
