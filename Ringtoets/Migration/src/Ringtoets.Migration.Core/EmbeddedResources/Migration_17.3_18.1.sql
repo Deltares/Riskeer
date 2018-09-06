@@ -1949,6 +1949,81 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[LogMessage])
 VALUES ("17.3", "18.1", "Gevolgen van de migratie van versie 17.3 naar versie 18.1:");
 
+CREATE TEMP TABLE TempLogOutputDeleted 
+(
+	'NrDeleted' INTEGER NOT NULL
+);
+
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].DuneLocationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOvertoppingRateOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+	FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
+	WHERE MacroStabilityInwardsCalculationEntityId IN (
+		SELECT MacroStabilityInwardsCalculationEntityId
+		FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity
+		WHERE UseAssessmentLevelManualInput IS 0
+	);
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+	FROM [SOURCEPROJECT].PipingCalculationOutputEntity
+	WHERE PipingCalculationEntityId IN (
+		SELECT PipingCalculationEntityId
+		FROM [SOURCEPROJECT].PipingCalculationEntity
+		WHERE UseAssessmentLevelManualInput IS 0
+	);
+
+CREATE TEMP TABLE TempLogOutputRemaining
+(
+	'NrRemaining' INTEGER NOT NULL
+);
+INSERT INTO TempLogOutputRemaining
+SELECT COUNT()
+	FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
+	WHERE MacroStabilityInwardsCalculationEntityId IN (
+		SELECT MacroStabilityInwardsCalculationEntityId
+		FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity
+		WHERE UseAssessmentLevelManualInput IS 1
+	);
+INSERT INTO TempLogOutputRemaining
+SELECT COUNT()
+	FROM [SOURCEPROJECT].PipingCalculationOutputEntity
+	WHERE PipingCalculationEntityId IN (
+		SELECT PipingCalculationEntityId
+		FROM [SOURCEPROJECT].PipingCalculationEntity
+		WHERE UseAssessmentLevelManualInput IS 1
+	);
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+	[FromVersion],
+	[ToVersion],
+	[LogMessage])
+SELECT
+	"17.3",
+	"18.1",
+	CASE
+		WHEN [NrRemaining] > 0
+			THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' en 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."
+			ELSE "* Alle berekende resultaten zijn verwijderd."
+	END
+	FROM TempLogOutputDeleted
+	LEFT JOIN TempLogOutputRemaining
+	WHERE [NrDeleted] > 0
+	LIMIT 1;
+
+DROP TABLE TempLogOutputDeleted;
+DROP TABLE TempLogOutputRemaining;
+
 CREATE TEMP TABLE TempFailureMechanisms
 (
 	'FailureMechanismType' INTEGER NOT NULL,
