@@ -136,6 +136,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreSame(inputContext, properties.Data);
 
             HeightStructuresInput input = calculation.InputParameters;
+            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
 
             TestHelper.AssertTypeConverter<HeightStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(

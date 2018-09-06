@@ -162,7 +162,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             Assert.IsNull(properties.Structure);
             Assert.IsNull(properties.StructureLocation);
-            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
             Assert.AreSame(input.AllowedLevelIncreaseStorage, properties.AllowedLevelIncreaseStorage.Data);
             Assert.AreSame(input.StorageStructureArea, properties.StorageStructureArea.Data);
