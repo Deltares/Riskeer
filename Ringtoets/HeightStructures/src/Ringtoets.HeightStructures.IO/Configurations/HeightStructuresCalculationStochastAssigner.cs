@@ -23,7 +23,9 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.HeightStructures.Data;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.IO.Configurations
 {
@@ -101,6 +103,20 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                     i => i.StormDuration,
                     (i, d) => i.StormDuration = (VariationCoefficientLogNormalDistribution) d);
             }
+        }
+
+        protected override bool ValidateSpecificStochasts()
+        {
+            if (Configuration.ModelFactorSuperCriticalFlow?.StandardDeviation != null
+                || Configuration.ModelFactorSuperCriticalFlow?.VariationCoefficient != null)
+            {
+                Log.LogCalculationConversionError(
+                    RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow,
+                    Configuration.Name);
+                return false;
+            }
+
+            return true;
         }
     }
 }

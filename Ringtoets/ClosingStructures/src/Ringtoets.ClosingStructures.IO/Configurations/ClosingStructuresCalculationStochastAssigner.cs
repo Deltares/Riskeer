@@ -131,6 +131,15 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
         protected override bool ValidateSpecificStochasts()
         {
+            if (Configuration.ModelFactorSuperCriticalFlow?.StandardDeviation != null
+                || Configuration.ModelFactorSuperCriticalFlow?.VariationCoefficient != null)
+            {
+                Log.LogCalculationConversionError(
+                    RingtoetsCommonIOResources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow,
+                    Configuration.Name);
+                return false;
+            }
+
             if (Configuration.DrainCoefficient?.StandardDeviation != null
                 || Configuration.DrainCoefficient?.VariationCoefficient != null)
             {
@@ -139,6 +148,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                     Configuration.Name);
                 return false;
             }
+
             return true;
         }
     }

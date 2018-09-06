@@ -48,6 +48,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(calculationName));
             }
+
             if (log == null)
             {
                 throw new ArgumentNullException(nameof(log));
@@ -72,6 +73,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
 
                 return false;
             }
+
             return true;
         }
 
