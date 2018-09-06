@@ -163,10 +163,20 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             // Assert
+            const string modelSettingsCategory = "Modelinstellingen";
             const string schematizationCategory = "Schematisatie";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(17, dynamicProperties.Count);
+
+            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
+                modelFactorSuperCriticalFlowProperty,
+                modelSettingsCategory,
+                "Modelfactor overloopdebiet volkomen overlaat [-]",
+                "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
+                true);
 
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
