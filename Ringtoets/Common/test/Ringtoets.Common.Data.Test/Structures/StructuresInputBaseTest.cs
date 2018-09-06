@@ -160,7 +160,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             };
 
             VariationCoefficientLogNormalDistribution expectedStormDuration = input.StormDuration;
-            NormalDistribution expectedModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow;
             double expectedFailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
             // Precondition
@@ -171,7 +170,6 @@ namespace Ringtoets.Common.Data.Test.Structures
 
             // Then
             DistributionAssert.AreEqual(expectedStormDuration, input.StormDuration);
-            DistributionAssert.AreEqual(expectedModelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
 
             AssertAreEqual(double.NaN, input.StructureNormalOrientation);
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
@@ -214,35 +212,6 @@ namespace Ringtoets.Common.Data.Test.Structures
 
             Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, input.FailureProbabilityStructureWithErosion);
         }
-
-        #region Model factors
-
-        [Test]
-        public void ModelFactorSuperCriticalFlow_Always_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(22);
-            var input = new SimpleStructuresInput();
-            RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
-            var expectedDistribution = new NormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = input.ModelFactorSuperCriticalFlow.StandardDeviation
-            };
-            var distributionToSet = new NormalDistribution(5)
-            {
-                Mean = mean,
-                StandardDeviation = random.NextRoundedDouble()
-            };
-
-            // Call
-            input.ModelFactorSuperCriticalFlow = distributionToSet;
-
-            // Assert
-            DistributionTestHelper.AssertDistributionCorrectlySet(input.ModelFactorSuperCriticalFlow, distributionToSet, expectedDistribution);
-        }
-
-        #endregion
 
         #region Hydraulic data
 

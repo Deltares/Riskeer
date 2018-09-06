@@ -125,6 +125,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             };
 
             RoundedDouble expectedFactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure;
+            NormalDistribution expectedModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow;
             NormalDistribution expectedDrainCoefficient = input.DrainCoefficient;
             RoundedDouble expectedDeviationWaveDirection = input.DeviationWaveDirection;
             double expectedFailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
@@ -145,6 +146,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
             Assert.AreEqual(expectedDeviationWaveDirection, input.DeviationWaveDirection,
                             input.DeviationWaveDirection.GetAccuracy());
+            DistributionAssert.AreEqual(expectedModelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
             DistributionAssert.AreEqual(expectedDrainCoefficient, input.DrainCoefficient);
             Assert.AreEqual(expectedFailureProbabilityStructureWithErosion,
                             input.FailureProbabilityStructureWithErosion);
@@ -383,6 +385,31 @@ namespace Ringtoets.ClosingStructures.Data.Test
         #endregion
 
         #region Model factors
+
+        [Test]
+        public void ModelFactorSuperCriticalFlow_Always_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            var input = new ClosingStructuresInput();
+            RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = input.ModelFactorSuperCriticalFlow.StandardDeviation
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = random.NextRoundedDouble()
+            };
+
+            // Call
+            input.ModelFactorSuperCriticalFlow = distributionToSet;
+
+            // Assert
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.ModelFactorSuperCriticalFlow, distributionToSet, expectedDistribution);
+        }
 
         [Test]
         public void DrainCoefficient_Always_ExpectedValues()
