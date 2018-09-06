@@ -809,14 +809,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObservablesNotified()
-        {
-            RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
-        }
-
-        [Test]
         public void FlowWidthAtBottomProtection_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();

@@ -631,14 +631,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObservablesNotified()
-        {
-            RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
-        }
-
-        [Test]
         public void WidthFlowApertures_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
@@ -660,6 +652,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.AreaFlowApertures.Mean = newMean);
+        }
+
+        [Test]
+        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObservablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotificationsAndOutput(
+                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
         }
 
         [Test]
