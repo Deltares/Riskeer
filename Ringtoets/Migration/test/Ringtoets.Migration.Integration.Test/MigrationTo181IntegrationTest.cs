@@ -88,6 +88,7 @@ namespace Ringtoets.Migration.Integration.Test
 
                     AssertFailureMechanismRelatedOutput(reader);
                     AssertPipingOutput(reader, sourceFilePath);
+                    AssertMacroStabilityInwardsOutput(reader, sourceFilePath);
 
                     AssertPipingSoilLayers(reader);
                     AssertStabilityStoneCoverFailureMechanism(reader);
@@ -431,7 +432,6 @@ namespace Ringtoets.Migration.Integration.Test
                 "HydraulicLocationEntity",
                 "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
-                "MacroStabilityInwardsCalculationOutputEntity",
                 "MacroStabilityInwardsCharacteristicPointEntity",
                 "MacroStabilityInwardsFailureMechanismMetaEntity",
                 "MacroStabilityInwardsPreconsolidationStressEntity",
@@ -1050,6 +1050,72 @@ namespace Ringtoets.Migration.Integration.Test
                 "FROM PipingCalculationOutputEntity;" +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateOutputCount);
+        }
+
+        private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateOutputCount =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity " +
+                "JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId) " +
+                "WHERE [UseAssessmentLevelManualInput] = 1 " +
+                ") " +
+                "FROM MacroStabilityInwardsCalculationOutputEntity;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateOutputCount);
+
+            string validateOutputContent =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT " +
+                "COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity " +
+                "JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId) " +
+                "WHERE [UseAssessmentLevelManualInput] = 1 " +
+                ") " +
+                "FROM MacroStabilityInwardsCalculationOutputEntity NEW " +
+                "JOIN [SourceProject].MacroStabilityInwardsCalculationOutputEntity AS OLD USING(MacroStabilityInwardsCalculationOutputEntityId) " +
+                "WHERE NEW.MacroStabilityInwardsCalculationEntityId = OLD.MacroStabilityInwardsCalculationEntityId " +
+                "AND NEW.FactorOfStability IS OLD.FactorOfStability " +
+                "AND NEW.ZValue IS OLD.ZValue " +
+                "AND NEW.ForbiddenZonesXEntryMin IS OLD.ForbiddenZonesXEntryMin " +
+                "AND NEW.ForbiddenZonesXEntryMax IS OLD.ForbiddenZonesXEntryMax " +
+                "AND NEW.SlidingCurveLeftSlidingCircleCenterX IS OLD.SlidingCurveLeftSlidingCircleCenterX " +
+                "AND NEW.SlidingCurveLeftSlidingCircleCenterY IS OLD.SlidingCurveLeftSlidingCircleCenterY " +
+                "AND NEW.SlidingCurveLeftSlidingCircleRadius IS OLD.SlidingCurveLeftSlidingCircleRadius " +
+                "AND NEW.SlidingCurveLeftSlidingCircleIsActive = OLD.SlidingCurveLeftSlidingCircleIsActive " +
+                "AND NEW.SlidingCurveLeftSlidingCircleNonIteratedForce IS OLD.SlidingCurveLeftSlidingCircleNonIteratedForce " +
+                "AND NEW.SlidingCurveLeftSlidingCircleIteratedForce IS OLD.SlidingCurveLeftSlidingCircleIteratedForce " +
+                "AND NEW.SlidingCurveLeftSlidingCircleDrivingMoment IS OLD.SlidingCurveLeftSlidingCircleDrivingMoment " +
+                "AND NEW.SlidingCurveLeftSlidingCircleResistingMoment IS OLD.SlidingCurveLeftSlidingCircleResistingMoment " +
+                "AND NEW.SlidingCurveRightSlidingCircleCenterX IS OLD.SlidingCurveRightSlidingCircleCenterX " +
+                "AND NEW.SlidingCurveRightSlidingCircleCenterY IS OLD.SlidingCurveRightSlidingCircleCenterY " +
+                "AND NEW.SlidingCurveRightSlidingCircleRadius IS OLD.SlidingCurveRightSlidingCircleRadius " +
+                "AND NEW.SlidingCurveRightSlidingCircleIsActive = OLD.SlidingCurveRightSlidingCircleIsActive " +
+                "AND NEW.SlidingCurveRightSlidingCircleNonIteratedForce IS OLD.SlidingCurveRightSlidingCircleNonIteratedForce " +
+                "AND NEW.SlidingCurveRightSlidingCircleIteratedForce IS OLD.SlidingCurveRightSlidingCircleIteratedForce " +
+                "AND NEW.SlidingCurveRightSlidingCircleDrivingMoment IS OLD.SlidingCurveRightSlidingCircleDrivingMoment " +
+                "AND NEW.SlidingCurveRightSlidingCircleResistingMoment IS OLD.SlidingCurveRightSlidingCircleResistingMoment " +
+                "AND NEW.SlidingCurveNonIteratedHorizontalForce IS OLD.SlidingCurveNonIteratedHorizontalForce " +
+                "AND NEW.SlidingCurveIteratedHorizontalForce IS OLD.SlidingCurveIteratedHorizontalForce " +
+                "AND NEW.SlipPlaneLeftGridXLeft IS OLD.SlipPlaneLeftGridXLeft " +
+                "AND NEW.SlipPlaneLeftGridXRight IS OLD.SlipPlaneLeftGridXRight " +
+                "AND NEW.SlipPlaneLeftGridNrOfHorizontalPoints = OLD.SlipPlaneLeftGridNrOfHorizontalPoints " +
+                "AND NEW.SlipPlaneLeftGridZTop IS OLD.SlipPlaneLeftGridZTop " +
+                "AND NEW.SlipPlaneLeftGridZBottom IS OLD.SlipPlaneLeftGridZBottom " +
+                "AND NEW.SlipPlaneLeftGridNrOfVerticalPoints = OLD.SlipPlaneLeftGridNrOfVerticalPoints " +
+                "AND NEW.SlipPlaneRightGridXLeft IS OLD.SlipPlaneRightGridXLeft " +
+                "AND NEW.SlipPlaneRightGridXRight IS OLD.SlipPlaneRightGridXRight " +
+                "AND NEW.SlipPlaneRightGridNrOfHorizontalPoints = OLD.SlipPlaneRightGridNrOfHorizontalPoints " +
+                "AND NEW.SlipPlaneRightGridZTop IS OLD.SlipPlaneRightGridZTop " +
+                "AND NEW.SlipPlaneRightGridZBottom IS OLD.SlipPlaneRightGridZBottom " +
+                "AND NEW.SlipPlaneRightGridNrOfVerticalPoints = OLD.SlipPlaneRightGridNrOfVerticalPoints;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateOutputContent);
         }
 
         #region Dune Locations

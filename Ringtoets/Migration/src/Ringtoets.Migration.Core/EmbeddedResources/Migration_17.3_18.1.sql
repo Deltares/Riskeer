@@ -588,7 +588,9 @@ SELECT
 		'TangentLinesXmlSerializer.SerializableTangentLine',
 		'SerializableTangentLine'
 	)
-FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity;
+FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
+JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+WHERE [UseAssessmentLevelManualInput] = 1;
 INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCharacteristicPointEntity;
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
 INSERT INTO MacroStabilityInwardsPreconsolidationStressEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsPreconsolidationStressEntity;
@@ -1310,6 +1312,33 @@ FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity calc
 JOIN [SOURCEPROJECT].CalculationGroupEntity USING(CalculationGroupEntityId)
 JOIN [SOURCEPROJECT].FailureMechanismEntity USING(CalculationGroupEntityId)
 JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId);
+
+/*
+Outputs that used HydraRing are not migrated
+*/
+-- ClosingStructuresOutputEntity
+-- GrassCoverErosionOutwardsWaveConditionsOutputEntity
+-- GrassCoverErosionInwardsDikeHeightOutputEntity
+-- GrassCoverErosionInwardsOutputEntity
+-- GrassCoverErosionInwardsOvertoppingRateOutputEntity
+-- HeightStructuresOutputEntity
+-- StabilityPointStructuresOutputEntity
+-- StabilityStoneCoverWaveConditionsOutputEntity
+-- WaveImpactAsphaltCoverWaveConditionsOutputEntity
+-- TopLevelFaultTreeIllustrationPointEntity
+-- TopLevelSubMechanismIllustrationPointEntity
+-- GeneralResultFaultTreeIllustrationPointEntity
+-- GeneralResultFaultTreeIllustrationPointStochastEntity
+-- GeneralResultSubMechanismIllustrationPointEntity
+-- GeneralResultSubMechanismIllustrationPointStochastEntity
+-- SubMechanismIllustrationPointEntity
+-- SubMechanismIllustrationPointStochastEntity
+-- FaultTreeIllustrationPointEntity
+-- FaultTreeIllustrationPointStochastEntity
+-- FaultTreeSubmechanismIllustrationPointEntity
+-- StochastEntity
+-- (Conditional) MacroStabilityInwardsCalculationOutputEntity
+-- (Conditional) PipingCalculationOutputEntity
 
 /*
 Insert new data
