@@ -32,7 +32,7 @@ using Ringtoets.Integration.IO.Properties;
 namespace Ringtoets.Integration.IO.Creators
 {
     /// <summary>
-    /// Creator class which creates instances of <see cref="SerializableAssembly"/>.
+    /// Creator to create instances of <see cref="SerializableAssembly"/>.
     /// </summary>
     public static class SerializableAssemblyCreator
     {
