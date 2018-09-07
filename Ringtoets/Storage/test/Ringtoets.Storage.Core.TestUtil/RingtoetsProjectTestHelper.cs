@@ -590,10 +590,6 @@ namespace Ringtoets.Storage.Core.TestUtil
                             ForeshoreProfile = foreshoreProfile,
                             HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                             LoadSchematizationType = LoadSchematizationType.Quadratic,
-                            ModelFactorSuperCriticalFlow =
-                            {
-                                Mean = random.NextRoundedDouble()
-                            },
                             VolumicWeightWater = random.NextRoundedDouble(),
                             UseForeshore = random.NextBoolean(),
                             UseBreakWater = random.NextBoolean(),
@@ -629,10 +625,6 @@ namespace Ringtoets.Storage.Core.TestUtil
                             ForeshoreProfile = foreshoreProfile,
                             HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                             LoadSchematizationType = LoadSchematizationType.Quadratic,
-                            ModelFactorSuperCriticalFlow =
-                            {
-                                Mean = random.NextRoundedDouble()
-                            },
                             VolumicWeightWater = random.NextRoundedDouble(),
                             UseForeshore = random.NextBoolean(),
                             UseBreakWater = random.NextBoolean(),
