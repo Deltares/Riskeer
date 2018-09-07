@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             SerializableFailureMechanismSectionAssembly failureMechanismSectionAssembly = aggregatedSectionAssembly.FailureMechanismSectionAssembly;
-            Assert.AreEqual("T.1", failureMechanismSectionAssembly.Id);
+            Assert.AreEqual("T.0", failureMechanismSectionAssembly.Id);
             Assert.AreEqual(serializableFailureMechanism.Id, failureMechanismSectionAssembly.FailureMechanismId);
 
             SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = failureMechanismSectionAssembly.SectionResults;
@@ -200,7 +200,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             SerializableFailureMechanismSectionAssembly failureMechanismSectionAssembly = aggregatedSectionAssembly.FailureMechanismSectionAssembly;
-            Assert.AreEqual("T.1", failureMechanismSectionAssembly.Id);
+            Assert.AreEqual("T.0", failureMechanismSectionAssembly.Id);
             Assert.AreEqual(serializableFailureMechanism.Id, failureMechanismSectionAssembly.FailureMechanismId);
 
             SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = failureMechanismSectionAssembly.SectionResults;
@@ -337,7 +337,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             SerializableFailureMechanismSectionAssembly failureMechanismSectionAssembly = aggregatedSectionAssembly.FailureMechanismSectionAssembly;
-            Assert.AreEqual("T.1", failureMechanismSectionAssembly.Id);
+            Assert.AreEqual("T.0", failureMechanismSectionAssembly.Id);
             Assert.AreEqual(serializableFailureMechanism.Id, failureMechanismSectionAssembly.FailureMechanismId);
 
             SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = failureMechanismSectionAssembly.SectionResults;
@@ -399,7 +399,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             SerializableFailureMechanismSectionAssembly failureMechanismSectionAssembly = aggregatedSectionAssembly.FailureMechanismSectionAssembly;
-            Assert.AreEqual("T.1", failureMechanismSectionAssembly.Id);
+            Assert.AreEqual("T.0", failureMechanismSectionAssembly.Id);
             Assert.AreEqual(serializableFailureMechanism.Id, failureMechanismSectionAssembly.FailureMechanismId);
 
             SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = failureMechanismSectionAssembly.SectionResults;
@@ -532,7 +532,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             SerializableFailureMechanismSectionAssembly failureMechanismSectionAssembly = aggregatedSectionAssembly.FailureMechanismSectionAssembly;
-            Assert.AreEqual("T.1", failureMechanismSectionAssembly.Id);
+            Assert.AreEqual("T.0", failureMechanismSectionAssembly.Id);
             Assert.AreEqual(serializableFailureMechanism.Id, failureMechanismSectionAssembly.FailureMechanismId);
 
             SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = failureMechanismSectionAssembly.SectionResults;
@@ -587,7 +587,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             SerializableFailureMechanismSectionAssembly failureMechanismSectionAssembly = aggregatedSectionAssembly.FailureMechanismSectionAssembly;
-            Assert.AreEqual("T.1", failureMechanismSectionAssembly.Id);
+            Assert.AreEqual("T.0", failureMechanismSectionAssembly.Id);
             Assert.AreEqual(serializableFailureMechanism.Id, failureMechanismSectionAssembly.FailureMechanismId);
 
             SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = failureMechanismSectionAssembly.SectionResults;

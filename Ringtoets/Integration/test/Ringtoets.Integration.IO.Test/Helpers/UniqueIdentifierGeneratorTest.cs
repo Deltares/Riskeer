@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.IO.Test.Helpers
         }
 
         [Test]
-        public void GivenGeneratedId_WhenGetNewIdCalled_ThenNewIdGenerated()
+        public void GivenGeneratedId_WhenGetNewIdCalledWithSamePrefix_ThenNewIdGenerated()
         {
             // Given
             const string prefix = "prefix";
@@ -84,6 +84,26 @@ namespace Ringtoets.Integration.IO.Test.Helpers
                 $"{prefix}.1",
                 $"{prefix}.2"
             }, generatedIds);
+        }
+
+        [Test]
+        public void GivenGeneratedId_WhenGetNewIdCalledWithDifferentPrefix_ThenNewIdGenerated()
+        {
+            // Given
+            const string prefix = "prefix";
+            var generator = new UniqueIdentifierGenerator();
+            generator.GetNewId(prefix);
+
+            // Precondition
+            Assert.AreEqual($"{prefix}.1", generator.GetNewId(prefix));
+
+            const string newPrefix = "NewPrefix";
+
+            // When
+            string newPrefixId = generator.GetNewId(newPrefix);
+
+            // Then
+            Assert.AreEqual($"{newPrefix}.0", newPrefixId);
         }
     }
 }

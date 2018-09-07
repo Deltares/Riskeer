@@ -104,26 +104,26 @@ namespace Ringtoets.Integration.IO.Test.Creators
             var serializableAssessmentSection = (SerializableAssessmentSection) serializableAssemblyFeatureMembers[0];
             AssertSerializableAssessmentSection($"Wks.{assessmentSectionId}", assessmentSectionName, geometry, serializableAssessmentSection);
             var serializableAssessmentProcess = (SerializableAssessmentProcess) serializableAssemblyFeatureMembers[1];
-            AssertSerializableAssessmentProcess("Bp.1", serializableAssessmentSection, serializableAssessmentProcess);
+            AssertSerializableAssessmentProcess("Bp.0", serializableAssessmentSection, serializableAssessmentProcess);
             var serializableTotalAssemblyResult = (SerializableTotalAssemblyResult) serializableAssemblyFeatureMembers[2];
-            AssertSerializableTotalAssemblyResult("Vo.2",
+            AssertSerializableTotalAssemblyResult("Vo.0",
                                                   failureMechanismAssemblyResultWithoutProbability,
                                                   failureMechanismAssemblyResultWithProbability,
                                                   assessmentSectionAssembly,
                                                   serializableAssessmentProcess,
                                                   serializableTotalAssemblyResult);
 
-            AssertFailureMechanismConnections(3, 3, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
-            AssertFailureMechanismConnections(4, 7, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
-            AssertFailureMechanismConnections(5, 11, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
-            AssertFailureMechanismConnections(6, 15, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
+            AssertFailureMechanismConnections(3, 0, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
+            AssertFailureMechanismConnections(4, 1, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
+            AssertFailureMechanismConnections(5, 2, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
+            AssertFailureMechanismConnections(6, 3, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
 
             var combinedFailureMechanismSectionCollection = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[17];
-            AssertSerializableFailureMechanismSectionCollection("Vi.19",
+            AssertSerializableFailureMechanismSectionCollection("Vi.4",
                                                                 serializableTotalAssemblyResult,
                                                                 combinedFailureMechanismSectionCollection);
-            AssertCombinedFailureMechanismSectionAssemblyConnections(11, 20, combinedFailureMechanismSectionCollection, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
-            AssertCombinedFailureMechanismSectionAssemblyConnections(12, 22, combinedFailureMechanismSectionCollection, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
+            AssertCombinedFailureMechanismSectionAssemblyConnections(11, 4, 0, combinedFailureMechanismSectionCollection, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
+            AssertCombinedFailureMechanismSectionAssemblyConnections(12, 5, 1, combinedFailureMechanismSectionCollection, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
         }
 
         #region Test Helpers: Factory Methods
@@ -302,25 +302,25 @@ namespace Ringtoets.Integration.IO.Test.Creators
         #region Failure mechanisms
 
         private static void AssertFailureMechanismConnections(int indexSerializableFailureMechanism,
-                                                              int startId,
+                                                              int expectedId,
                                                               SerializableTotalAssemblyResult expectedSerializableTotalAssemblyResult,
                                                               SerializableFeatureMember[] serializableAssemblyFeatureMembers)
         {
-            var failureMechanismWithProbability1 = (SerializableFailureMechanism) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism];
-            AssertSerializableFailureMechanism($"Ts.{startId++}",
+            var failureMechanismWithProbability = (SerializableFailureMechanism) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism];
+            AssertSerializableFailureMechanism($"Ts.{expectedId}",
                                                expectedSerializableTotalAssemblyResult,
-                                               failureMechanismWithProbability1);
-            var failureMechanismSectionCollection1 = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 10];
-            AssertSerializableFailureMechanismSectionCollection($"Vi.{startId++}",
-                                                                failureMechanismWithProbability1,
-                                                                failureMechanismSectionCollection1);
-            var serializableFailureMechanismSection1 = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 15];
-            AssertSerializableFailureMechanismSection($"Wks.{startId++}",
-                                                      failureMechanismSectionCollection1,
-                                                      serializableFailureMechanismSection1);
-            AssertSerializableFailureMechanismSectionAssembly($"T.{startId}",
-                                                              failureMechanismWithProbability1,
-                                                              serializableFailureMechanismSection1,
+                                               failureMechanismWithProbability);
+            var failureMechanismSectionCollection = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 10];
+            AssertSerializableFailureMechanismSectionCollection($"Vi.{expectedId}",
+                                                                failureMechanismWithProbability,
+                                                                failureMechanismSectionCollection);
+            var serializableFailureMechanismSection = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 15];
+            AssertSerializableFailureMechanismSection($"Wks.{expectedId}",
+                                                      failureMechanismSectionCollection,
+                                                      serializableFailureMechanismSection);
+            AssertSerializableFailureMechanismSectionAssembly($"T.{expectedId}",
+                                                              failureMechanismWithProbability,
+                                                              serializableFailureMechanismSection,
                                                               (SerializableFailureMechanismSectionAssembly) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 4]);
         }
 
@@ -356,18 +356,19 @@ namespace Ringtoets.Integration.IO.Test.Creators
         #region Combined failure mechanism sections
 
         private static void AssertCombinedFailureMechanismSectionAssemblyConnections(int indexSerializableCombinedSectionAssembly,
-                                                                                     int startId,
+                                                                                     int expectedSectionId,
+                                                                                     int expectedCombinedSectionAssemblyId,
                                                                                      SerializableFailureMechanismSectionCollection expectedCombinedFailureMechanismSectionCollection,
                                                                                      SerializableTotalAssemblyResult expectedSerializableTotalAssemblyResult,
                                                                                      SerializableFeatureMember[] serializableAssemblyFeatureMembers)
         {
-            var combinedFailureMechanismSection1 = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[indexSerializableCombinedSectionAssembly + 11];
-            AssertSerializableFailureMechanismSection($"Wks.{startId++}",
+            var combinedFailureMechanismSection = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[indexSerializableCombinedSectionAssembly + 11];
+            AssertSerializableFailureMechanismSection($"Wks.{expectedSectionId}",
                                                       expectedCombinedFailureMechanismSectionCollection,
-                                                      combinedFailureMechanismSection1);
-            AssertSerializableCombinedFailureMechanismSectionAssembly($"Gto.{startId}",
+                                                      combinedFailureMechanismSection);
+            AssertSerializableCombinedFailureMechanismSectionAssembly($"Gto.{expectedCombinedSectionAssemblyId}",
                                                                       expectedSerializableTotalAssemblyResult,
-                                                                      combinedFailureMechanismSection1,
+                                                                      combinedFailureMechanismSection,
                                                                       (SerializableCombinedFailureMechanismSectionAssembly) serializableAssemblyFeatureMembers[indexSerializableCombinedSectionAssembly]);
         }
 

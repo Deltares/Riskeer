@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 
 namespace Ringtoets.Integration.IO.Helpers
 {
@@ -28,14 +29,14 @@ namespace Ringtoets.Integration.IO.Helpers
     /// </summary>
     public class UniqueIdentifierGenerator
     {
-        private int currentId;
+        private readonly Dictionary<string, int> idLookup;
 
         /// <summary>
         /// Creates a new instance of <see cref="UniqueIdentifierGenerator"/>.
         /// </summary>
         public UniqueIdentifierGenerator()
         {
-            currentId = 0;
+            idLookup = new Dictionary<string, int>();
         }
 
         /// <summary>
@@ -52,7 +53,13 @@ namespace Ringtoets.Integration.IO.Helpers
                 throw new ArgumentException($@"'{nameof(prefix)}' is null, empty or consists of whitespace.", nameof(prefix));
             }
 
-            return $"{prefix}.{currentId++}";
+            if (idLookup.ContainsKey(prefix))
+            {
+                return $"{prefix}.{idLookup[prefix]++}";
+            }
+
+            idLookup[prefix] = 0;
+            return $"{prefix}.{idLookup[prefix]++}";
         }
     }
 }

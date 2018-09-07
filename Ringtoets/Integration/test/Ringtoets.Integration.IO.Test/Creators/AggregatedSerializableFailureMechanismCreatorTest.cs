@@ -155,11 +155,10 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                                                   serializableFailureMechanism.FailureMechanismAssemblyResult);
 
             SerializableFailureMechanismSectionCollection serializableFailureMechanismSectionCollection = aggregatedFailureMechanism.FailureMechanismSectionCollection;
-            Assert.AreEqual("Vi.1", serializableFailureMechanismSectionCollection.Id);
+            Assert.AreEqual("Vi.0", serializableFailureMechanismSectionCollection.Id);
             Assert.AreEqual(serializableFailureMechanism.Id, serializableFailureMechanismSectionCollection.FailureMechanismId);
 
-            AssertFailureMechanismSectionAssemblies(2,
-                                                    failureMechanism,
+            AssertFailureMechanismSectionAssemblies(failureMechanism,
                                                     serializableFailureMechanismSectionCollection,
                                                     serializableFailureMechanism,
                                                     aggregatedFailureMechanism.FailureMechanismSections,
@@ -282,11 +281,10 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                                                   serializableFailureMechanism.FailureMechanismAssemblyResult);
 
             SerializableFailureMechanismSectionCollection serializableFailureMechanismSectionCollection = aggregatedFailureMechanism.FailureMechanismSectionCollection;
-            Assert.AreEqual("Vi.1", serializableFailureMechanismSectionCollection.Id);
+            Assert.AreEqual("Vi.0", serializableFailureMechanismSectionCollection.Id);
             Assert.AreEqual(serializableFailureMechanism.Id, serializableFailureMechanismSectionCollection.FailureMechanismId);
 
-            AssertFailureMechanismSectionAssemblies(2,
-                                                    failureMechanism,
+            AssertFailureMechanismSectionAssemblies(failureMechanism,
                                                     serializableFailureMechanismSectionCollection,
                                                     serializableFailureMechanism,
                                                     aggregatedFailureMechanism.FailureMechanismSections,
@@ -295,7 +293,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         private static void AssertFailureMechanismSectionAssemblies<T>(
-            int idStartIndex,
             ExportableFailureMechanism<T> expectedFailureMechanism,
             SerializableFailureMechanismSectionCollection expectedSerializableFailureMechanismSectionCollection,
             SerializableFailureMechanism expectedSerializableFailureMechanism,
@@ -311,7 +308,8 @@ namespace Ringtoets.Integration.IO.Test.Creators
             IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> expectedSectionAssemblyResults = expectedFailureMechanism.SectionAssemblyResults;
             Assert.AreEqual(expectedSectionAssemblyResults.Count(), serializableFailureMechanismSectionAssemblies.Count());
 
-            int expectedIdIndex = idStartIndex;
+            var sectionId = 0;
+            var sectionAssemblyId = 0;
             for (var i = 0; i < expectedNrOfSections; i++)
             {
                 ExportableFailureMechanismSection expectedSection = expectedSections.ElementAt(i);
@@ -320,10 +318,10 @@ namespace Ringtoets.Integration.IO.Test.Creators
                 SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(expectedSection,
                                                                                             expectedSerializableFailureMechanismSectionCollection,
                                                                                             actualSection,
-                                                                                            expectedIdIndex++);
+                                                                                            sectionId++);
 
                 SerializableFailureMechanismSectionAssembly actualSectionAssemblyResult = serializableFailureMechanismSectionAssemblies.ElementAt(i);
-                Assert.AreEqual($"T.{expectedIdIndex++}", actualSectionAssemblyResult.Id);
+                Assert.AreEqual($"T.{sectionAssemblyId++}", actualSectionAssemblyResult.Id);
                 Assert.AreEqual(expectedSerializableFailureMechanism.Id, actualSectionAssemblyResult.FailureMechanismId);
                 Assert.AreEqual(actualSection.Id, actualSectionAssemblyResult.FailureMechanismSectionId);
 

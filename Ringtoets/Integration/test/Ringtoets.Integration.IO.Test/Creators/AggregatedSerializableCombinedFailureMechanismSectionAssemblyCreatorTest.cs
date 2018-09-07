@@ -130,7 +130,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                         serializableFailureMechanismSection);
 
             SerializableCombinedFailureMechanismSectionAssembly serializableCombinedFailureMechanismSectionAssembly = aggregate.CombinedFailureMechanismSectionAssembly;
-            Assert.AreEqual("Gto.1", serializableCombinedFailureMechanismSectionAssembly.Id);
+            Assert.AreEqual("Gto.0", serializableCombinedFailureMechanismSectionAssembly.Id);
             Assert.AreEqual(serializableFailureMechanismSection.Id, serializableCombinedFailureMechanismSectionAssembly.FailureMechanismSectionId);
             Assert.AreEqual(serializableTotalAssembly.Id, serializableCombinedFailureMechanismSectionAssembly.TotalAssemblyResultId);
 
