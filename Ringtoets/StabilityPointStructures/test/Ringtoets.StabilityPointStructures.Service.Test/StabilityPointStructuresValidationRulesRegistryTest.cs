@@ -112,7 +112,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Assert
             ValidationRule[] validationRules = rules.ToArray();
 
-            Assert.AreEqual(24, validationRules.Length);
+            Assert.AreEqual(23, validationRules.Length);
 
             Assert.IsInstanceOf<UseBreakWaterRule>(validationRules[0]);
             Assert.IsInstanceOf<NumericInputRule>(validationRules[1]);
@@ -120,24 +120,23 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             Assert.IsInstanceOf<NormalDistributionRule>(validationRules[3]);
             Assert.IsInstanceOf<NormalDistributionRule>(validationRules[4]);
             Assert.IsInstanceOf<VariationCoefficientNormalDistributionRule>(validationRules[5]);
-            Assert.IsInstanceOf<NormalDistributionRule>(validationRules[6]);
+            Assert.IsInstanceOf<NumericInputRule>(validationRules[6]);
             Assert.IsInstanceOf<NumericInputRule>(validationRules[7]);
-            Assert.IsInstanceOf<NumericInputRule>(validationRules[8]);
-            Assert.IsInstanceOf<NormalDistributionRule>(validationRules[9]);
-            Assert.IsInstanceOf<LogNormalDistributionRule>(validationRules[10]);
-            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionRule>(validationRules[11]);
-            Assert.IsInstanceOf<LogNormalDistributionRule>(validationRules[12]);
+            Assert.IsInstanceOf<NormalDistributionRule>(validationRules[8]);
+            Assert.IsInstanceOf<LogNormalDistributionRule>(validationRules[9]);
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionRule>(validationRules[10]);
+            Assert.IsInstanceOf<LogNormalDistributionRule>(validationRules[11]);
+            Assert.IsInstanceOf<NormalDistributionRule>(validationRules[12]);
             Assert.IsInstanceOf<NormalDistributionRule>(validationRules[13]);
-            Assert.IsInstanceOf<NormalDistributionRule>(validationRules[14]);
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionRule>(validationRules[14]);
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionRule>(validationRules[15]);
-            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionRule>(validationRules[16]);
-            Assert.IsInstanceOf<NormalDistributionRule>(validationRules[17]);
+            Assert.IsInstanceOf<NormalDistributionRule>(validationRules[16]);
+            Assert.IsInstanceOf<NumericInputRule>(validationRules[17]);
             Assert.IsInstanceOf<NumericInputRule>(validationRules[18]);
-            Assert.IsInstanceOf<NumericInputRule>(validationRules[19]);
-            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionRule>(validationRules[20]);
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionRule>(validationRules[19]);
+            Assert.IsInstanceOf<VariationCoefficientNormalDistributionRule>(validationRules[20]);
             Assert.IsInstanceOf<VariationCoefficientNormalDistributionRule>(validationRules[21]);
-            Assert.IsInstanceOf<VariationCoefficientNormalDistributionRule>(validationRules[22]);
-            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionRule>(validationRules[23]);
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionRule>(validationRules[22]);
         }
 
         [Test]

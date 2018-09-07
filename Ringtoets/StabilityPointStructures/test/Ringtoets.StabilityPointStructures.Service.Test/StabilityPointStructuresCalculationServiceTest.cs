@@ -222,7 +222,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                Assert.AreEqual(43, msgs.Length);
+                Assert.AreEqual(41, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual($"De waarde voor '{volumicWeightWaterParameterName}' moet een concreet getal zijn.", msgs[1]);
                 Assert.AreEqual($"De verwachtingswaarde voor '{stormDurationParameterName}' moet een positief getal zijn.", msgs[2]);
