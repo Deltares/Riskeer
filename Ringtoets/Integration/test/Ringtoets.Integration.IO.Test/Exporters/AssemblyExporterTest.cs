@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
                 Action call = () => isExported = exporter.Export();
 
                 // Assert
-                var expectedMessage = "Het is alleen mogelijk een volledig assemblageresultaat te exporteren.";
+                const string expectedMessage = "Het is alleen mogelijk een volledig assemblageresultaat te exporteren.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
                 Action call = () => isExported = exporter.Export();
 
                 // Assert
-                var expectedMessage = "Het is alleen mogelijk een volledig assemblageresultaat te exporteren.";
+                const string expectedMessage = "Het is alleen mogelijk een volledig assemblageresultaat te exporteren.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }

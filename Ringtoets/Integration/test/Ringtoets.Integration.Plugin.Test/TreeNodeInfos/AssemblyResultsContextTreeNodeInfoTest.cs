@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
         {
             // Setup
             var random = new Random(21);
@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
+        public void ChildNodeObjects_WithContext_ReturnsChildrenOfData()
         {
             // Setup
             var random = new Random(21);

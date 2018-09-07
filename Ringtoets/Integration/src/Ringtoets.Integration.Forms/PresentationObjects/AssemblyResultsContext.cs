@@ -26,7 +26,7 @@ using Ringtoets.Integration.Data;
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for presenting all the assembly results of a <see cref="AssessmentSection"/>
+    /// Presentation object for presenting all the assembly results of an <see cref="AssessmentSection"/>
     /// </summary>
     public class AssemblyResultsContext : ObservableWrappedObjectContextBase<AssessmentSection>
     {
