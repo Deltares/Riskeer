@@ -87,7 +87,6 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         #region Model factors
 
-        [DynamicVisible]
         [PropertyOrder(modelFactorSuperCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]

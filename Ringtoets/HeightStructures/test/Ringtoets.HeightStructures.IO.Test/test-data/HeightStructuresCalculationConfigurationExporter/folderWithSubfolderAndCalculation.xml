@@ -30,15 +30,15 @@
           <verwachtingswaarde>2</verwachtingswaarde>
           <variatiecoefficient>0.1</variatiecoefficient>
         </stochast>
-        <stochast naam="modelfactoroverloopdebiet">
-          <verwachtingswaarde>1.1</verwachtingswaarde>
-        </stochast>
         <stochast naam="peilverhogingkomberging">
           <verwachtingswaarde>0.2</verwachtingswaarde>
           <standaardafwijking>0.01</standaardafwijking>
         </stochast>
         <stochast naam="stormduur">
           <verwachtingswaarde>6</verwachtingswaarde>
+        </stochast>
+        <stochast naam="modelfactoroverloopdebiet">
+          <verwachtingswaarde>1.1</verwachtingswaarde>
         </stochast>
         <stochast naam="kerendehoogte">
           <verwachtingswaarde>4.3</verwachtingswaarde>
@@ -50,11 +50,11 @@
     <map naam="Nested">
       <berekening naam="sparse config">
         <stochasten>
-          <stochast naam="modelfactoroverloopdebiet">
-            <verwachtingswaarde>1.1</verwachtingswaarde>
-          </stochast>
           <stochast naam="stormduur">
             <verwachtingswaarde>6</verwachtingswaarde>
+          </stochast>
+          <stochast naam="modelfactoroverloopdebiet">
+            <verwachtingswaarde>1.1</verwachtingswaarde>
           </stochast>
         </stochasten>
         <illustratiepunteninlezen>false</illustratiepunteninlezen>

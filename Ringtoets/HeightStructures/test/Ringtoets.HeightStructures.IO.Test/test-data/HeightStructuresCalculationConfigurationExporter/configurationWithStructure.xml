@@ -21,15 +21,15 @@
         <verwachtingswaarde>456.79</verwachtingswaarde>
         <variatiecoefficient>0.46</variatiecoefficient>
       </stochast>
-      <stochast naam="modelfactoroverloopdebiet">
-        <verwachtingswaarde>1.1</verwachtingswaarde>
-      </stochast>
       <stochast naam="peilverhogingkomberging">
         <verwachtingswaarde>225.34</verwachtingswaarde>
         <standaardafwijking>0.23</standaardafwijking>
       </stochast>
       <stochast naam="stormduur">
         <verwachtingswaarde>6</verwachtingswaarde>
+      </stochast>
+      <stochast naam="modelfactoroverloopdebiet">
+        <verwachtingswaarde>1.1</verwachtingswaarde>
       </stochast>
       <stochast naam="kerendehoogte">
         <verwachtingswaarde>234.57</verwachtingswaarde>

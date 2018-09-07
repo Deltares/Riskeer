@@ -180,7 +180,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const string outputSettingsCategory = "Uitvoer";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(16, dynamicProperties.Count);
+            Assert.AreEqual(15, dynamicProperties.Count);
 
             PropertyDescriptor structureProperty = dynamicProperties[constructionProperties.StructurePropertyIndex];
             Assert.IsFalse(structureProperty.IsReadOnly);
