@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         }
 
         [Test]
-        public void Constructor_InvalidId_ThrowsArgumentException()
+        public void Constructor_InvalidId_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
