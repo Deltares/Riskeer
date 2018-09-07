@@ -43,7 +43,7 @@ namespace Ringtoets.AssemblyTool.IO.TestUtil.Test
                 "   ",
                 "1nvalidId",
                 "invalidId#",
-                "invalid\rId#"
+                "invalid\rId"
             }, testCases.Select(tc => tc.Arguments[0]));
         }
     }
