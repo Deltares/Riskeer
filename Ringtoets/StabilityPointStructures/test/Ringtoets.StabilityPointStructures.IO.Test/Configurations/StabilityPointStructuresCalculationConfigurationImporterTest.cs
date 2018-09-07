@@ -702,10 +702,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     {
                         Mean = (RoundedDouble) 4.3
                     },
-                    ModelFactorSuperCriticalFlow =
-                    {
-                        Mean = (RoundedDouble) 1.10
-                    },
                     ShipMass =
                     {
                         Mean = (RoundedDouble) 16000
@@ -1014,10 +1010,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     },
                     LevellingCount = 1,
                     LoadSchematizationType = LoadSchematizationType.Quadratic,
-                    ModelFactorSuperCriticalFlow =
-                    {
-                        Mean = (RoundedDouble) 1.10
-                    },
                     ProbabilityCollisionSecondaryStructure = 0.00001,
                     UseBreakWater = true,
                     UseForeshore = false,
@@ -1224,7 +1216,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.InsideWaterLevel, actualCalculation.InputParameters.InsideWaterLevel);
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.InsideWaterLevelFailureConstruction, actualCalculation.InputParameters.InsideWaterLevelFailureConstruction);
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.LevelCrestStructure, actualCalculation.InputParameters.LevelCrestStructure);
-            DistributionAssert.AreEqual(expectedCalculation.InputParameters.ModelFactorSuperCriticalFlow, actualCalculation.InputParameters.ModelFactorSuperCriticalFlow);
 
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.ShipMass, actualCalculation.InputParameters.ShipMass);
             DistributionAssert.AreEqual(expectedCalculation.InputParameters.ShipVelocity, actualCalculation.InputParameters.ShipVelocity);
