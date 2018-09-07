@@ -25,13 +25,12 @@ using Ringtoets.AssemblyTool.IO.Model;
 namespace Ringtoets.Integration.IO.AggregatedSerializable
 {
     /// <summary>
-    /// Class that holds all the information related to creating a
-    /// <see cref="SerializableFailureMechanismSection"/>
+    /// Class that holds all the information that is related when creating a <see cref="SerializableFailureMechanismSection"/>.
     /// </summary>
     internal class AggregatedSerializableCombinedFailureMechanismSectionAssembly
     {
         /// <summary>
-        /// Instantiates a <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.
+        /// Creates a new instance of <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.
         /// </summary>
         /// <param name="failureMechanismSection">The <see cref="SerializableFailureMechanismSection"/></param>
         /// <param name="combinedFailureMechanismSectionAssembly">The <see cref="SerializableCombinedFailureMechanismSectionAssembly"/>
