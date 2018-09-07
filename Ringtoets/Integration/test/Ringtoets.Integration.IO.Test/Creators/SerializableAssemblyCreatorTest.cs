@@ -206,14 +206,18 @@ namespace Ringtoets.Integration.IO.Test.Creators
         private static ExportableSectionAssemblyResult CreateSectionAssemblyResult()
         {
             var random = new Random(30);
-            var assemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            if (assemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                assemblyCategory = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
-            }
-
             return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                       assemblyCategory);
+                                                       random.NextEnumValue(new[]
+                                                       {
+                                                           FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
+                                                           FailureMechanismSectionAssemblyCategoryGroup.Iv,
+                                                           FailureMechanismSectionAssemblyCategoryGroup.IIv,
+                                                           FailureMechanismSectionAssemblyCategoryGroup.IIIv,
+                                                           FailureMechanismSectionAssemblyCategoryGroup.IVv,
+                                                           FailureMechanismSectionAssemblyCategoryGroup.Vv,
+                                                           FailureMechanismSectionAssemblyCategoryGroup.VIv,
+                                                           FailureMechanismSectionAssemblyCategoryGroup.VIIv
+                                                       }));
         }
 
         #endregion

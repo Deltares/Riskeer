@@ -49,7 +49,14 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Setup
             var random = new Random(21);
             var result = new ExportableAssessmentSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                       random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                                                                       random.NextEnumValue(new[]
+                                                                       {
+                                                                           AssessmentSectionAssemblyCategoryGroup.NotAssessed,
+                                                                           AssessmentSectionAssemblyCategoryGroup.A,
+                                                                           AssessmentSectionAssemblyCategoryGroup.B,
+                                                                           AssessmentSectionAssemblyCategoryGroup.C,
+                                                                           AssessmentSectionAssemblyCategoryGroup.D
+                                                                       }));
 
             // Call
             SerializableAssessmentSectionAssemblyResult serializableResult =

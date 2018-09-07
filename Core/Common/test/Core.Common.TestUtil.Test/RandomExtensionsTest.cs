@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 
@@ -152,7 +153,7 @@ namespace Core.Common.TestUtil.Test
         [Test]
         [TestCase(0, TestEnum.ValueTwo)]
         [TestCase(1, TestEnum.ValueOne)]
-        public void NextEnumValue_TypeIsEnum_ThrowsArgumentException(int seed, TestEnum expectedFirstCallResult)
+        public void NextEnumValue_TypeIsEnum_ReturnsEnum(int seed, TestEnum expectedFirstCallResult)
         {
             // Setup
             var random = new Random(seed);
@@ -193,10 +194,94 @@ namespace Core.Common.TestUtil.Test
             Assert.AreEqual(seededRandomB.NextDouble(), result.Value, 1e-15);
         }
 
+        [Test]
+        public void NextEnumValueWithEnumValues_RandomIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = (Random) null;
+
+            // Call
+            TestDelegate call = () => random.NextEnumValue(Enumerable.Empty<TestEnum>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("random", exception.ParamName);
+        }
+
+        [Test]
+        public void NextEnumValueWithEnumValues_ValidEnumValuesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            TestDelegate call = () => random.NextEnumValue<TestEnum>(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("enumValues", exception.ParamName);
+        }
+
+        [Test]
+        public void NextItemWithEnumValues_EnumValuesEmpty_ThrowsArgumentException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            TestDelegate call = () => random.NextEnumValue(Enumerable.Empty<TestEnum>());
+
+            // Assert
+            const string expectedMessage = "'enumValues' cannot be an empty collection.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void NextItemWithEnumValues_TypeIsNoEnum_ThrowsArgumentException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            TestDelegate call = () => random.NextEnumValue(Enumerable.Empty<object>());
+
+            // Assert
+            const string expectedMessage = "'Object' is not an enum.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(0, 1)]
+        [TestCase(1, 0)]
+        public void NextItemWithEnumValues_ReturnsRandomEnum(int seed, int expectedIndex)
+        {
+            // Setup
+            var random = new Random(seed);
+            var enumValues = new[]
+            {
+                TestEnum2.ValueThree,
+                TestEnum2.ValueFour
+            };
+
+            // Call
+            object randomItem = random.NextEnumValue(enumValues);
+
+            // Assert
+            Assert.AreEqual(enumValues[expectedIndex], randomItem);
+        }
+
         public enum TestEnum
         {
             ValueOne,
             ValueTwo
+        }
+
+        public enum TestEnum2
+        {
+            ValueOne,
+            ValueTwo,
+            ValueThree,
+            ValueFour
         }
     }
 }
