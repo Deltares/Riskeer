@@ -61,8 +61,8 @@ namespace Ringtoets.Integration.IO.Test.AggregatedSerializable
             var sectionAssemblyResult = new SerializableCombinedFailureMechanismSectionAssembly();
 
             // Call
-            var aggregate =
-                new AggregatedSerializableCombinedFailureMechanismSectionAssembly(failureMechanismSection, sectionAssemblyResult);
+            var aggregate = new AggregatedSerializableCombinedFailureMechanismSectionAssembly(failureMechanismSection, 
+                                                                                              sectionAssemblyResult);
 
             // Assert
             Assert.AreSame(failureMechanismSection, aggregate.FailureMechanismSection);

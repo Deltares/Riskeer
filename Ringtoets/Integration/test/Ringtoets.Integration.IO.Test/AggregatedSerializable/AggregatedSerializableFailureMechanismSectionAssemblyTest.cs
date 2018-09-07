@@ -33,8 +33,8 @@ namespace Ringtoets.Integration.IO.Test.AggregatedSerializable
         public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-                new AggregatedSerializableFailureMechanismSectionAssembly(null, new SerializableFailureMechanismSectionAssembly());
+            TestDelegate call = () => new AggregatedSerializableFailureMechanismSectionAssembly(null, 
+                                                                                                new SerializableFailureMechanismSectionAssembly());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -45,8 +45,8 @@ namespace Ringtoets.Integration.IO.Test.AggregatedSerializable
         public void Constructor_FailureMechanismSectionAssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-                new AggregatedSerializableFailureMechanismSectionAssembly(new SerializableFailureMechanismSection(), null);
+            TestDelegate call = () => new AggregatedSerializableFailureMechanismSectionAssembly(new SerializableFailureMechanismSection(),
+                                                                                                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -61,8 +61,8 @@ namespace Ringtoets.Integration.IO.Test.AggregatedSerializable
             var sectionAssemblyResult = new SerializableFailureMechanismSectionAssembly();
 
             // Call
-            var aggregatedResult =
-                new AggregatedSerializableFailureMechanismSectionAssembly(section, sectionAssemblyResult);
+            var aggregatedResult = new AggregatedSerializableFailureMechanismSectionAssembly(section,
+                                                                                             sectionAssemblyResult);
 
             // Assert
             Assert.AreSame(section, aggregatedResult.FailureMechanismSection);

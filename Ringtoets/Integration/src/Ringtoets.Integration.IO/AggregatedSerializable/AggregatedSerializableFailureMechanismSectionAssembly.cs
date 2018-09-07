@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.IO.AggregatedSerializable
         /// <summary>
         /// Creates a new instance of see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.
         /// </summary>
-        /// <param name="failureMechanismSection">The <see cref="SerializableFailureMechanismSection"/></param>
+        /// <param name="failureMechanismSection">The <see cref="SerializableFailureMechanismSection"/>.</param>
         /// <param name="failureMechanismSectionAssembly">The <see cref="SerializableFailureMechanismSectionAssembly"/>
         /// that is associated with <paramref name="failureMechanismSection"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
