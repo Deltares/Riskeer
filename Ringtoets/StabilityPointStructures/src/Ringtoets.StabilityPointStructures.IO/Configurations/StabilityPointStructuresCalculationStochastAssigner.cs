@@ -111,12 +111,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                     Configuration.DrainCoefficient,
                     i => i.DrainCoefficient,
                     (i, d) => i.DrainCoefficient = (NormalDistribution) d);
-
-                yield return new StandardDeviationDefinition(
-                    ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
-                    Configuration.ModelFactorSuperCriticalFlow,
-                    i => i.ModelFactorSuperCriticalFlow,
-                    (i, d) => i.ModelFactorSuperCriticalFlow = (NormalDistribution) d);
             }
         }
 
@@ -201,6 +195,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                                                   Configuration.Name);
                 return false;
             }
+
             if (Configuration.FlowVelocityStructureClosable?.StandardDeviation != null
                 || Configuration.FlowVelocityStructureClosable?.VariationCoefficient != null)
             {
@@ -208,6 +203,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                                                   Configuration.Name);
                 return false;
             }
+
             return true;
         }
     }
