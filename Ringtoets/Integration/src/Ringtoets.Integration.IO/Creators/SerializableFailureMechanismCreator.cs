@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// without a probability assembly result to create a <see cref="SerializableFailureMechanism"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanism"/></returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static SerializableFailureMechanism Create(UniqueIdentifierGenerator idGenerator,
+        public static SerializableFailureMechanism Create(IdentifierGenerator idGenerator,
                                                           SerializableTotalAssemblyResult serializableTotalAssembly,
                                                           ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism)
         {
@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// with a probability assembly result to create a <see cref="SerializableFailureMechanism"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanism"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static SerializableFailureMechanism Create(UniqueIdentifierGenerator idGenerator,
+        public static SerializableFailureMechanism Create(IdentifierGenerator idGenerator,
                                                           SerializableTotalAssemblyResult serializableTotalAssembly,
                                                           ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> failureMechanism)
         {

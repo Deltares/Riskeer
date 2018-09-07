@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
             string serializableAssemblyId = idGenerator.GetNewId(Resources.SerializableAssembly_IdPrefix);
 
             SerializableAssessmentSection serializableAssessmentSection = SerializableAssessmentSectionCreator.Create(assessmentSection);
@@ -95,14 +95,14 @@ namespace Ringtoets.Integration.IO.Creators
                                                                                        aggregatedSerializableCombinedFailureMechanismSectionAssemblies));
         }
 
-        private static AggregatedSerializableFailureMechanism CreateFailureMechanismsWithProbability(UniqueIdentifierGenerator idGenerator,
+        private static AggregatedSerializableFailureMechanism CreateFailureMechanismsWithProbability(IdentifierGenerator idGenerator,
                                                                                                      SerializableTotalAssemblyResult serializableTotalAssemblyResult,
                                                                                                      ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> failureMechanism)
         {
             return AggregatedSerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
         }
 
-        private static AggregatedSerializableFailureMechanism CreateFailureMechanismsWithoutProbability(UniqueIdentifierGenerator idGenerator,
+        private static AggregatedSerializableFailureMechanism CreateFailureMechanismsWithoutProbability(IdentifierGenerator idGenerator,
                                                                                                         SerializableTotalAssemblyResult serializableTotalAssemblyResult,
                                                                                                         ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism)
         {

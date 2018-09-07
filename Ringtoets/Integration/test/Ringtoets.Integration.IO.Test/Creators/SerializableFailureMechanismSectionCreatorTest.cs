@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void Create_CollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new IdentifierGenerator(),
                                                                                         null,
                                                                                         ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection());
 
@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void Create_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new IdentifierGenerator(),
                                                                                         new SerializableFailureMechanismSectionCollection(),
                                                                                         null);
 
@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             const string collectionId = "collectionId";
             var collection = new SerializableFailureMechanismSectionCollection(collectionId, new SerializableFailureMechanism());
 
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
             ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
 
             // Call
@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithCombinedAssemblySection_CollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new IdentifierGenerator(),
                                                                                         null,
                                                                                         ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection());
 
@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             var section = (ExportableCombinedFailureMechanismSection) null;
 
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new IdentifierGenerator(),
                                                                                         new SerializableFailureMechanismSectionCollection(),
                                                                                         section);
 
@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             const string collectionId = "collectionId";
             var collection = new SerializableFailureMechanismSectionCollection(collectionId, new SerializableFailureMechanism());
 
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
             ExportableCombinedFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();
 
             // Call

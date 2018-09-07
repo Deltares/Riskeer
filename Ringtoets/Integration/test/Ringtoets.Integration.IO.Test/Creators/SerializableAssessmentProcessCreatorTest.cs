@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                   string.Empty,
                                                                                   CreateGeometry());
 
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
 
             // Call
             SerializableAssessmentProcess serializableProcess =

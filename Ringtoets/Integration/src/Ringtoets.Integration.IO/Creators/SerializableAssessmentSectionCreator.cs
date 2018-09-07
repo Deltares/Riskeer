@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return new SerializableAssessmentSection(UniqueIdentifierGenerator.GeneratedId(assessmentSection),
+            return new SerializableAssessmentSection(IdentifierGenerator.GeneratedId(assessmentSection),
                                                      assessmentSection.Name,
                                                      assessmentSection.Geometry);
         }

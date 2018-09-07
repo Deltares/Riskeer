@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// to create a <see cref="SerializableFailureMechanismSection"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanismSection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static SerializableFailureMechanismSection Create(UniqueIdentifierGenerator idGenerator,
+        public static SerializableFailureMechanismSection Create(IdentifierGenerator idGenerator,
                                                                  SerializableFailureMechanismSectionCollection serializableCollection,
                                                                  ExportableFailureMechanismSection section)
         {
@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// to create a <see cref="SerializableFailureMechanismSection"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanismSection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static SerializableFailureMechanismSection Create(UniqueIdentifierGenerator idGenerator,
+        public static SerializableFailureMechanismSection Create(IdentifierGenerator idGenerator,
                                                                  SerializableFailureMechanismSectionCollection serializableCollection,
                                                                  ExportableCombinedFailureMechanismSection section)
         {

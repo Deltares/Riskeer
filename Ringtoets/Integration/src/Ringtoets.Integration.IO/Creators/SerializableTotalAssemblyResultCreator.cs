@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <param name="assessmentSectionAssemblyResult">The assembly result for the assessment section.</param>
         /// <returns>A <see cref="SerializableTotalAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static SerializableTotalAssemblyResult Create(UniqueIdentifierGenerator idGenerator,
+        public static SerializableTotalAssemblyResult Create(IdentifierGenerator idGenerator,
                                                              SerializableAssessmentProcess assessmentProcess,
                                                              SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResultWithProbability,
                                                              SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResultWithoutProbability,

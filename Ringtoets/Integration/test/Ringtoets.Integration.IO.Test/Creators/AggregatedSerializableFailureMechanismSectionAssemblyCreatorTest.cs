@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutProbability_SerializableFailureMechanismSectionCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
                                                                                                           null,
                                                                                                           new SerializableFailureMechanism(),
                                                                                                           new ExportableAggregatedFailureMechanismSectionAssemblyResult(
@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutProbability_SerializableFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
                                                                                                           new SerializableFailureMechanismSectionCollection(),
                                                                                                           null,
                                                                                                           new ExportableAggregatedFailureMechanismSectionAssemblyResult(
@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
                                                                                                           new SerializableFailureMechanismSectionCollection(),
                                                                                                           new SerializableFailureMechanism(),
                                                                                                           (ExportableAggregatedFailureMechanismSectionAssemblyResult) null);
@@ -112,7 +112,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutProbability_WithValidArgumentsAndAllAssemblyTypesHaveResults_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
         {
             // Setup
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
             var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResult(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 CreateSectionAssemblyResult(10),
@@ -174,7 +174,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup)
         {
             // Setup
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
             var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResult(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 CreateSectionAssemblyResult(simpleAssemblyCategoryGroup),
@@ -259,7 +259,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithProbability_SerializableFailureMechanismSectionCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
                                                                                                           null,
                                                                                                           new SerializableFailureMechanism(),
                                                                                                           new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
@@ -278,7 +278,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithProbability_SerializableFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
                                                                                                           new SerializableFailureMechanismSectionCollection(),
                                                                                                           null,
                                                                                                           new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
@@ -297,7 +297,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
                                                                                                           new SerializableFailureMechanismSectionCollection(),
                                                                                                           new SerializableFailureMechanism(),
                                                                                                           (ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability) null);
@@ -311,7 +311,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithProbability_WithValidArgumentsAndAllAssemblyTypesHaveResults_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
         {
             // Setup
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
             var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 CreateSectionAssemblyResultWithProbability(10),
@@ -373,7 +373,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup)
         {
             // Setup
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
             var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 CreateSectionAssemblyResultWithProbability(simpleAssemblyCategoryGroup),
@@ -457,7 +457,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutDetailedAssembly_SerializableFailureMechanismSectionCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
                                                                                                           null,
                                                                                                           new SerializableFailureMechanism(),
                                                                                                           new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
@@ -475,7 +475,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutDetailedAssembly_SerializableFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
                                                                                                           new SerializableFailureMechanismSectionCollection(),
                                                                                                           null,
                                                                                                           new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
@@ -493,7 +493,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutDetailedAssembly_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
                                                                                                           new SerializableFailureMechanismSectionCollection(),
                                                                                                           new SerializableFailureMechanism(),
                                                                                                           (ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly) null);
@@ -507,7 +507,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithoutDetailedAssembly_WithValidArgumentsAndAllAssemblyTypesHaveResults_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
         {
             // Setup
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
             var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 CreateSectionAssemblyResult(10),
@@ -562,7 +562,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup)
         {
             // Setup
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
             var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 CreateSectionAssemblyResultWithProbability(simpleAssemblyCategoryGroup),

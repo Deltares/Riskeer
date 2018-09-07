@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void Create_WithValidArguments_ReturnsSerializableTotalAssemblyResult()
         {
             // Setup
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
 
             const string assessmentProcessId = "assessmentProcessId";
             var serializableAssessmentProcess = new SerializableAssessmentProcess(assessmentProcessId, new SerializableAssessmentSection());

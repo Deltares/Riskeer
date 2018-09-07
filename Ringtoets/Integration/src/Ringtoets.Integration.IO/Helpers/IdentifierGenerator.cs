@@ -29,14 +29,14 @@ namespace Ringtoets.Integration.IO.Helpers
     /// <summary>
     /// Class to generate unique ids.
     /// </summary>
-    public class UniqueIdentifierGenerator
+    public class IdentifierGenerator
     {
         private readonly Dictionary<string, int> idLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="UniqueIdentifierGenerator"/>.
+        /// Creates a new instance of <see cref="IdentifierGenerator"/>.
         /// </summary>
-        public UniqueIdentifierGenerator()
+        public IdentifierGenerator()
         {
             idLookup = new Dictionary<string, int>();
         }

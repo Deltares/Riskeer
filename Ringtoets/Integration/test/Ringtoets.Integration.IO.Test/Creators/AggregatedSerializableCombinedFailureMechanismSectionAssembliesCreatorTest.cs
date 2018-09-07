@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Call
             TestDelegate call = () =>
                 AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(
-                    new UniqueIdentifierGenerator(),
+                    new IdentifierGenerator(),
                     null,
                     Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Call
             TestDelegate call = () =>
                 AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(
-                    new UniqueIdentifierGenerator(),
+                    new IdentifierGenerator(),
                     new SerializableTotalAssemblyResult(),
                     null);
 
@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                 CreateCombinedSectionAssembly(CreateSection(2), 2)
             };
 
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
             SerializableTotalAssemblyResult totalAssemblyResult = CreateSerializableTotalAssembly("totalAssemblyResultId");
 
             // Call

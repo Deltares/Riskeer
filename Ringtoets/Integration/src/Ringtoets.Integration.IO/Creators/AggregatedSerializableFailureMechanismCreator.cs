@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// contains unsupported items in the failure mechanism section assembly results.</exception>
-        public static AggregatedSerializableFailureMechanism Create(UniqueIdentifierGenerator idGenerator,
+        public static AggregatedSerializableFailureMechanism Create(IdentifierGenerator idGenerator,
                                                                     SerializableTotalAssemblyResult serializableTotalAssemblyResult,
                                                                     ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism)
         {
@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// contains unsupported items in the failure mechanism section assembly results.</exception>
-        public static AggregatedSerializableFailureMechanism Create(UniqueIdentifierGenerator idGenerator,
+        public static AggregatedSerializableFailureMechanism Create(IdentifierGenerator idGenerator,
                                                                     SerializableTotalAssemblyResult serializableTotalAssemblyResult,
                                                                     ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> failureMechanism)
         {
@@ -142,7 +142,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <exception cref="NotSupportedException">Thrown when an <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>
         /// cannot be created for <paramref name="failureMechanismSectionAssemblyResult"/>.</exception>
         private static AggregatedSerializableFailureMechanismSectionAssembly CreateFailureMechanismSectionAssembly(
-            UniqueIdentifierGenerator idGenerator,
+            IdentifierGenerator idGenerator,
             SerializableFailureMechanism serializableFailureMechanism,
             SerializableFailureMechanismSectionCollection serializableCollection,
             ExportableAggregatedFailureMechanismSectionAssemblyResultBase failureMechanismSectionAssemblyResult)

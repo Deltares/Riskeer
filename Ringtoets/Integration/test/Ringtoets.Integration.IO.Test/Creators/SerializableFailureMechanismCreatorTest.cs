@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithFailureMechanismAssemblyResult_SerializableTotalAssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => SerializableFailureMechanismCreator.Create(new IdentifierGenerator(),
                                                                                  null,
                                                                                  CreateExportableFailureMechanismWithoutProbability());
 
@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithFailureMechanismAssemblyResult_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => SerializableFailureMechanismCreator.Create(new IdentifierGenerator(),
                                                                                  CreateSerializableTotalAssembly("id"),
                                                                                  (ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>) null);
 
@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void Create_WithFailureMechanismAssemblyResult_ReturnsSerializableFailureMechanism()
         {
             // Setup
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism = CreateExportableFailureMechanismWithoutProbability();
 
             const string totalAssemblyId = "totalAssemblyId";
@@ -116,7 +116,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithFailureMechanismAssemblyResultWithProbability_SerializableTotalAssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => SerializableFailureMechanismCreator.Create(new IdentifierGenerator(),
                                                                                  null,
                                                                                  CreateExportableFailureMechanismWithProbability());
 
@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void CreateWithFailureMechanismAssemblyResultWithProbability_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismCreator.Create(new UniqueIdentifierGenerator(),
+            TestDelegate call = () => SerializableFailureMechanismCreator.Create(new IdentifierGenerator(),
                                                                                  CreateSerializableTotalAssembly("id"),
                                                                                  (ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>) null);
 
@@ -142,7 +142,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         public void Create_WithFailureMechanismAssemblyResultWithProbability_ReturnsSerializableFailureMechanism()
         {
             // Setup
-            var idGenerator = new UniqueIdentifierGenerator();
+            var idGenerator = new IdentifierGenerator();
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> failureMechanism = CreateExportableFailureMechanismWithProbability();
 
             const string totalAssemblyId = "totalAssemblyId";

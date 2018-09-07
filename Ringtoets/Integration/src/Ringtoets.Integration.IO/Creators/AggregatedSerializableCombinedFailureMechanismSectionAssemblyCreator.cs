@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static AggregatedSerializableCombinedFailureMechanismSectionAssembly Create(UniqueIdentifierGenerator idGenerator,
+        public static AggregatedSerializableCombinedFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                            SerializableTotalAssemblyResult serializableTotalAssemblyResult,
                                                                                            SerializableFailureMechanismSectionCollection serializableFailureMechanismSectionCollection,
                                                                                            ExportableCombinedSectionAssembly combinedSectionAssembly)

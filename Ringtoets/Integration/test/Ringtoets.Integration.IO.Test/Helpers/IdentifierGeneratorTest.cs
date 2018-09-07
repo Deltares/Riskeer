@@ -31,7 +31,7 @@ using Ringtoets.Integration.IO.TestUtil;
 namespace Ringtoets.Integration.IO.Test.Helpers
 {
     [TestFixture]
-    public class UniqueIdentifierGeneratorTest
+    public class IdentifierGeneratorTest
     {
         [Test]
         [TestCase(null)]
@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.IO.Test.Helpers
         public void GetNewId_InvalidPrefix_ThrowsArgumentException(string invalidPrefix)
         {
             // Setup
-            var generator = new UniqueIdentifierGenerator();
+            var generator = new IdentifierGenerator();
 
             // Call
             TestDelegate call = () => generator.GetNewId(invalidPrefix);
@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.IO.Test.Helpers
         {
             // Setup
             const string prefix = "prefix";
-            var generator = new UniqueIdentifierGenerator();
+            var generator = new IdentifierGenerator();
 
             // Call
             string id = generator.GetNewId(prefix);
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.IO.Test.Helpers
         {
             // Given
             const string prefix = "prefix";
-            var generator = new UniqueIdentifierGenerator();
+            var generator = new IdentifierGenerator();
             string currentId = generator.GetNewId(prefix);
 
             // Precondition
@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.IO.Test.Helpers
         {
             // Given
             const string prefix = "prefix";
-            var generator = new UniqueIdentifierGenerator();
+            var generator = new IdentifierGenerator();
             generator.GetNewId(prefix);
 
             // Precondition
@@ -114,7 +114,7 @@ namespace Ringtoets.Integration.IO.Test.Helpers
         public void GenerateId_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => UniqueIdentifierGenerator.GeneratedId(null);
+            TestDelegate call = () => IdentifierGenerator.GeneratedId(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -128,10 +128,10 @@ namespace Ringtoets.Integration.IO.Test.Helpers
             const string assessmentSectionId = "AssessmentSectionId";
             ExportableAssessmentSection assessmentSection = CreateAssessmentSection(assessmentSectionId);
 
-            var generator = new UniqueIdentifierGenerator();
+            var generator = new IdentifierGenerator();
 
             // Call
-            string generatedId = UniqueIdentifierGenerator.GeneratedId(assessmentSection);
+            string generatedId = IdentifierGenerator.GeneratedId(assessmentSection);
 
             // Assert
             Assert.AreEqual($"Wks.{assessmentSection.Id}", generatedId);

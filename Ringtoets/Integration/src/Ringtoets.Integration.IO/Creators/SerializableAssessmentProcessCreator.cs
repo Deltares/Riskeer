@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// this process belongs to.</param>
         /// <returns>A <see cref="SerializableAssessmentProcess"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static SerializableAssessmentProcess Create(UniqueIdentifierGenerator idGenerator,
+        public static SerializableAssessmentProcess Create(IdentifierGenerator idGenerator,
                                                            SerializableAssessmentSection assessmentSection)
         {
             if (idGenerator == null)
