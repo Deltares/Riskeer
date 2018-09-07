@@ -60,7 +60,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             Assert.AreEqual(assessmentType, serializableResult.AssessmentType);
-
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod), serializableResult.AssemblyMethod);
             Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(sectionResult.AssemblyCategory), serializableResult.CategoryGroup);
             Assert.IsNull(serializableResult.Probability);
@@ -94,7 +93,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             Assert.AreEqual(assessmentType, serializableResult.AssessmentType);
-
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod), serializableResult.AssemblyMethod);
             Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(sectionResult.AssemblyCategory), serializableResult.CategoryGroup);
             Assert.AreEqual(sectionResult.Probability, serializableResult.Probability);
