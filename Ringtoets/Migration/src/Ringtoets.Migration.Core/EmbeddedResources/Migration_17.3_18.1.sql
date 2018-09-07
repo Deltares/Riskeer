@@ -1988,21 +1988,16 @@ CREATE TEMP TABLE TempLogOutputRemaining
 	'NrRemaining' INTEGER NOT NULL
 );
 INSERT INTO TempLogOutputRemaining
-SELECT COUNT()
-	FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
-	WHERE MacroStabilityInwardsCalculationEntityId IN (
-		SELECT MacroStabilityInwardsCalculationEntityId
-		FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity
-		WHERE UseAssessmentLevelManualInput IS 1
-	);
-INSERT INTO TempLogOutputRemaining
-SELECT COUNT()
-	FROM [SOURCEPROJECT].PipingCalculationOutputEntity
-	WHERE PipingCalculationEntityId IN (
-		SELECT PipingCalculationEntityId
-		FROM [SOURCEPROJECT].PipingCalculationEntity
-		WHERE UseAssessmentLevelManualInput IS 1
-	);
+SELECT COUNT() + 
+(
+    SELECT COUNT()
+    FROM [SOURCEPROJECT].PipingCalculationOutputEntity
+    JOIN [SOURCEPROJECT].PipingCalculationEntity USING(PipingCalculationEntityId)
+    WHERE UseAssessmentLevelManualInput = 1 
+)
+FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity
+JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId)
+WHERE UseAssessmentLevelManualInput = 1;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
