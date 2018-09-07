@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// Creates an instance of <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssembly"/>
         /// based on its input parameters.
         /// </summary>
-        /// <param name="idGenerator">The id generator to generated ids for the serializable components.</param>
+        /// <param name="idGenerator">The generator to generate ids for the serializable components.</param>
         /// <param name="serializableTotalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/> the serializable
         /// components belongs to.</param>
         /// <param name="serializableFailureMechanismSectionCollection">The <see cref="SerializableFailureMechanismSectionCollection"/>
