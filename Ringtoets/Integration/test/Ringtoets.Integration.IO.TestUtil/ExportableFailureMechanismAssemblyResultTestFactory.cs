@@ -31,9 +31,9 @@ namespace Ringtoets.Integration.IO.TestUtil
     public static class ExportableFailureMechanismAssemblyResultTestFactory
     {
         /// <summary>
-        /// Creates a default instance of <see cref="ExportableFailureMechanismAssemblyResult"/>
+        /// Creates a default instance of <see cref="ExportableFailureMechanismAssemblyResult"/>.
         /// </summary>
-        /// <returns>An instance of <see cref="ExportableFailureMechanismAssemblyResult"/>.</returns>
+        /// <returns>A default instance of <see cref="ExportableFailureMechanismAssemblyResult"/>.</returns>
         public static ExportableFailureMechanismAssemblyResult CreateResultWithoutProbability()
         {
             return new ExportableFailureMechanismAssemblyResult(ExportableAssemblyMethod.WBI1A1,
@@ -41,9 +41,9 @@ namespace Ringtoets.Integration.IO.TestUtil
         }
 
         /// <summary>
-        /// Creates a default instance of <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/>
+        /// Creates a default instance of <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/>.
         /// </summary>
-        /// <returns>An instance of <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/>.</returns>
+        /// <returns>A default instance of <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/>.</returns>
         public static ExportableFailureMechanismAssemblyResultWithProbability CreateResultWithProbability()
         {
             return new ExportableFailureMechanismAssemblyResultWithProbability(ExportableAssemblyMethod.WBI1B1,

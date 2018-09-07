@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateResultWithoutProbability_Always_ReturnsFailureMechanismAssemblyResultWithProbability()
+        public void CreateResultWithoutProbability_Always_ReturnsFailureMechanismAssemblyResultWithoutProbability()
         {
             // Call
             ExportableFailureMechanismAssemblyResult result = 

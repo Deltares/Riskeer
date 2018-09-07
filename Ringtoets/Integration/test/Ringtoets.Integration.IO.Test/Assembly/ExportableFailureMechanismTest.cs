@@ -73,14 +73,12 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> sectionAssemblyResults =
-                Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>();
-            var code = random.NextEnumValue<ExportableFailureMechanismType>();
-            var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
 
             // Call
-            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                null, sectionAssemblyResults, code, group);
+            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(null,
+                                                                                                               Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
+                                                                                                               random.NextEnumValue<ExportableFailureMechanismType>(),
+                                                                                                               random.NextEnumValue<ExportableFailureMechanismGroup>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -92,12 +90,12 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            var code = random.NextEnumValue<ExportableFailureMechanismType>();
-            var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
 
             // Call
-            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(), null, code, group);
+            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
+                                                                                                               null,
+                                                                                                               random.NextEnumValue<ExportableFailureMechanismType>(),
+                                                                                                               random.NextEnumValue<ExportableFailureMechanismGroup>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

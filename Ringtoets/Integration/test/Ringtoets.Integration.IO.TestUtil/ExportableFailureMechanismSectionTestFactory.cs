@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.IO.TestUtil
         /// <summary>
         /// Creates a default <see cref="ExportableFailureMechanismSection"/>.
         /// </summary>
-        /// <returns>A default <see cref="ExportableFailureMechanismSection"/>.</returns>
+        /// <returns>A default instance of <see cref="ExportableFailureMechanismSection"/>.</returns>
         public static ExportableFailureMechanismSection CreateExportableFailureMechanismSection()
         {
             return new ExportableFailureMechanismSection(new []
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.IO.TestUtil
         /// <summary>
         /// Creates a default <see cref="ExportableCombinedFailureMechanismSection"/>.
         /// </summary>
-        /// <returns>A default <see cref="ExportableCombinedFailureMechanismSection"/>.</returns>
+        /// <returns>A default instance of <see cref="ExportableCombinedFailureMechanismSection"/>.</returns>
         public static ExportableCombinedFailureMechanismSection CreateExportableCombinedFailureMechanismSection()
         {
             return new ExportableCombinedFailureMechanismSection(new[]

@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.IO.TestUtil
         /// <summary>
         /// Creates a default instance of <see cref="ExportableAssessmentSectionAssemblyResult"/>.
         /// </summary>
-        /// <returns>A <see cref="ExportableAssessmentSectionAssemblyResult"/>.</returns>
+        /// <returns>A default instance of <see cref="ExportableAssessmentSectionAssemblyResult"/>.</returns>
         public static ExportableAssessmentSectionAssemblyResult CreateResult()
         {
             return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI2C1,

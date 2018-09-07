@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.IO.TestUtil
         /// <summary>
         /// Creates a default <see cref="ExportableSectionAssemblyResult"/>.
         /// </summary>
-        /// <returns>A default <see cref="ExportableSectionAssemblyResult"/>.</returns>
+        /// <returns>A default instance of <see cref="ExportableSectionAssemblyResult"/>.</returns>
         public static ExportableSectionAssemblyResult CreateSectionAssemblyResult()
         {
             return new ExportableSectionAssemblyResult(ExportableAssemblyMethod.WBI0T1,
@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.IO.TestUtil
         /// <summary>
         /// Creates a default <see cref="ExportableSectionAssemblyResultWithProbability"/>.
         /// </summary>
-        /// <returns>A default <see cref="ExportableSectionAssemblyResultWithProbability"/>.</returns>
+        /// <returns>A default instance of <see cref="ExportableSectionAssemblyResultWithProbability"/>.</returns>
         public static ExportableSectionAssemblyResultWithProbability CreateSectionAssemblyResultWithProbability()
         {
             return new ExportableSectionAssemblyResultWithProbability(ExportableAssemblyMethod.WBI0T1,
