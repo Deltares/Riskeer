@@ -42,8 +42,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             string message = $"The value of argument 'failureMechanismGroup' ({(int) failureMechanismGroup}) is invalid for Enum type '{nameof(ExportableFailureMechanismGroup)}'.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
-            Assert.AreEqual("failureMechanismGroup", exception.ParamName);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
         }
 
         [Test]

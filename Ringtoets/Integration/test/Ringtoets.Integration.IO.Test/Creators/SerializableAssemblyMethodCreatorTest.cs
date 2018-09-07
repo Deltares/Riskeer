@@ -42,8 +42,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             // Assert
             string message = $"The value of argument 'assemblyMethod' ({(int) assemblyMethod}) is invalid for Enum type '{nameof(ExportableAssemblyMethod)}'.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
-            Assert.AreEqual("assemblyMethod", exception.ParamName);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
         }
 
         [Test]
