@@ -65,17 +65,17 @@ All rights reserved.
   
   <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
 
-  <!--Specificeert de keus van een HB locatie of een waterstand.-->
+  <!--Specificeert de keuze van een HB locatie of een waterstand.-->
   <xs:element name="hblocatie-of-waterstand" abstract="true" />
 
-  <!--Specificeert de keus van een waterstand of een toetspeil.-->
+  <!--Specificeert een waterstand of een toetspeil.-->
   <xs:element name="waterstand-of-toetspeil" abstract="true" substitutionGroup="hblocatie-of-waterstand" />
 
-  <!--Specificeert de keus van een HB locatie of een HR locatie.-->
+  <!--Specificeert een HB locatie of een HR locatie.-->
   <xs:element name="hblocatie-of-hrlocatie" abstract="true" substitutionGroup="hblocatie-of-waterstand" />
 
   <!--Specificeert de handmatig ingevoerde waterstand. Indien dit element is
-  opgenomen, mag geen handmatig ingevoerd toetspeil element worden opgenomen (en andersom).-->
+  opgenomen, mag geen handmatig ingevoerd toetspeil element worden opgenomen.-->
   <xs:element name="waterstand" substitutionGroup="waterstand-of-toetspeil" >
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
@@ -83,7 +83,7 @@ All rights reserved.
   </xs:element>
 
   <!--Specificeert het handmatig ingevoerde toetspeil. Indien dit element is
-  opgenomen, mag geen handmatig ingevoerde waterstand element worden opgenomen (en andersom).-->
+  opgenomen, mag geen handmatig ingevoerde waterstand element worden opgenomen.-->
   <xs:element name="toetspeil" substitutionGroup="waterstand-of-toetspeil" >
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
@@ -91,7 +91,7 @@ All rights reserved.
   </xs:element>
 
   <!--Specificeert de HB locatie. Indien dit element is opgenomen, mag geen 
-  HR locatie element worden opgenomen (en andersom).-->
+  HR locatie element worden opgenomen.-->
   <xs:element name="hblocatie" substitutionGroup="hblocatie-of-hrlocatie">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -101,7 +101,7 @@ All rights reserved.
   </xs:element>
 
   <!--Specificeert de HR locatie. Indien dit element is opgenomen, mag geen 
-  HB locatie element worden opgenomen (en andersom).-->
+  HB locatie element worden opgenomen.-->
   <xs:element name="hrlocatie" substitutionGroup="hblocatie-of-hrlocatie">
     <xs:simpleType>
       <xs:restriction base="xs:string">
