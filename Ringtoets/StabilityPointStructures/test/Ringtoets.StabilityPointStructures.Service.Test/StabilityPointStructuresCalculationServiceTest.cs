@@ -671,8 +671,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.VerticalDistance,
                     generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                     generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                    input.ModelFactorSuperCriticalFlow.Mean,
-                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    0.0,
+                    0.0,
                     input.ConstructiveStrengthLinearLoadModel.Mean,
                     input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
                     input.StabilityLinearLoadModel.Mean,
@@ -790,8 +790,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.VerticalDistance,
                     generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                     generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                    input.ModelFactorSuperCriticalFlow.Mean,
-                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    0.0,
+                    0.0,
                     input.ConstructiveStrengthLinearLoadModel.Mean,
                     input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
                     input.StabilityLinearLoadModel.Mean,
@@ -906,8 +906,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.VerticalDistance,
                     generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                     generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                    input.ModelFactorSuperCriticalFlow.Mean,
-                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    0.0,
+                    0.0,
                     input.ConstructiveStrengthQuadraticLoadModel.Mean,
                     input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
                     input.StabilityQuadraticLoadModel.Mean,
@@ -1025,8 +1025,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.VerticalDistance,
                     generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                     generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                    input.ModelFactorSuperCriticalFlow.Mean,
-                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    0.0,
+                    0.0,
                     input.ConstructiveStrengthQuadraticLoadModel.Mean,
                     input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
                     input.StabilityQuadraticLoadModel.Mean,
@@ -1832,7 +1832,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             input.InsideWaterLevelFailureConstruction.Mean = value;
             input.InsideWaterLevel.Mean = value;
-            input.ModelFactorSuperCriticalFlow.Mean = value;
             input.FlowVelocityStructureClosable.Mean = value;
             input.DrainCoefficient.Mean = value;
             input.LevelCrestStructure.Mean = value;
@@ -1847,7 +1846,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.InsideWaterLevelFailureConstruction.StandardDeviation = RoundedDouble.NaN;
                 input.InsideWaterLevel.StandardDeviation = RoundedDouble.NaN;
                 input.StormDuration.CoefficientOfVariation = RoundedDouble.NaN;
-                input.ModelFactorSuperCriticalFlow.StandardDeviation = RoundedDouble.NaN;
                 input.FlowVelocityStructureClosable.CoefficientOfVariation = RoundedDouble.NaN;
                 input.DrainCoefficient.StandardDeviation = RoundedDouble.NaN;
                 input.LevelCrestStructure.StandardDeviation = RoundedDouble.NaN;
@@ -1868,7 +1866,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.BankWidth.StandardDeviation = RoundedDouble.NaN;
 
                 input.StormDuration.Mean = RoundedDouble.NaN;
-                input.ModelFactorSuperCriticalFlow.Mean = RoundedDouble.NaN;
                 input.FlowVelocityStructureClosable.Mean = RoundedDouble.NaN;
                 input.DrainCoefficient.Mean = RoundedDouble.NaN;
                 input.LevelCrestStructure.Mean = RoundedDouble.NaN;
@@ -1892,7 +1889,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.InsideWaterLevelFailureConstruction.StandardDeviation = value;
                 input.InsideWaterLevel.StandardDeviation = value;
                 input.StormDuration.CoefficientOfVariation = value;
-                input.ModelFactorSuperCriticalFlow.StandardDeviation = value;
                 input.FlowVelocityStructureClosable.CoefficientOfVariation = value;
                 input.DrainCoefficient.StandardDeviation = value;
                 input.LevelCrestStructure.StandardDeviation = value;
@@ -1913,7 +1909,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.BankWidth.StandardDeviation = value;
 
                 input.StormDuration.Mean = value;
-                input.ModelFactorSuperCriticalFlow.Mean = value;
                 input.FlowVelocityStructureClosable.Mean = value;
                 input.DrainCoefficient.Mean = value;
                 input.LevelCrestStructure.Mean = value;

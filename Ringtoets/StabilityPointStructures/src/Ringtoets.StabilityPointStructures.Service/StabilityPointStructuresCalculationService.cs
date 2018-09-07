@@ -52,7 +52,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             if (!Enum.IsDefined(typeof(StabilityPointStructureInflowModelType), inflowModelType))
             {
                 throw new InvalidEnumArgumentException(nameof(structureInput),
-                                                       (int)inflowModelType,
+                                                       (int) inflowModelType,
                                                        typeof(StabilityPointStructureInflowModelType));
             }
 
@@ -91,7 +91,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             if (!Enum.IsDefined(typeof(LoadSchematizationType), loadSchematizationType))
             {
                 throw new InvalidEnumArgumentException(nameof(structureInput),
-                                                       (int)loadSchematizationType,
+                                                       (int) loadSchematizationType,
                                                        typeof(LoadSchematizationType));
             }
 
@@ -205,8 +205,8 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.VerticalDistance,
                 generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                 generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                structureInput.ModelFactorSuperCriticalFlow.Mean,
-                structureInput.ModelFactorSuperCriticalFlow.StandardDeviation,
+                0.0,
+                0.0,
                 structureInput.ConstructiveStrengthLinearLoadModel.Mean,
                 structureInput.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
                 structureInput.StabilityLinearLoadModel.Mean,
@@ -275,8 +275,8 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.VerticalDistance,
                 generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                 generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                structureInput.ModelFactorSuperCriticalFlow.Mean,
-                structureInput.ModelFactorSuperCriticalFlow.StandardDeviation,
+                0.0,
+                0.0,
                 structureInput.ConstructiveStrengthQuadraticLoadModel.Mean,
                 structureInput.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
                 structureInput.StabilityQuadraticLoadModel.Mean,
