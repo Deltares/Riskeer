@@ -595,7 +595,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                             UseBreakWater = random.NextBoolean(),
                             StormDuration =
                             {
-                                Mean = random.NextRoundedDouble()
+                                Mean = random.NextRoundedDouble(0.1, 1.0)
                             },
                             Structure = stabilityPointStructure,
                             ShouldIllustrationPointsBeCalculated = false
@@ -630,7 +630,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                             UseBreakWater = random.NextBoolean(),
                             StormDuration =
                             {
-                                Mean = random.NextRoundedDouble()
+                                Mean = random.NextRoundedDouble(0.1, 1.0)
                             },
                             Structure = stabilityPointStructure,
                             ShouldIllustrationPointsBeCalculated = true
