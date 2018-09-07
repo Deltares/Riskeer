@@ -45,18 +45,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => SerializableAssessmentProcessCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                  null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Create_WithValidArguments_ReturnsSerializableAssessmentProcess()
         {
             // Setup

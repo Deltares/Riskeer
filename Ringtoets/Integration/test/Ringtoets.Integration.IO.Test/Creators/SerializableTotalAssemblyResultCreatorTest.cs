@@ -47,66 +47,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void Create_AssessmentProcessNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => SerializableTotalAssemblyResultCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                    null,
-                                                                                    new SerializableFailureMechanismAssemblyResult(),
-                                                                                    new SerializableFailureMechanismAssemblyResult(),
-                                                                                    new SerializableAssessmentSectionAssemblyResult());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentProcess", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_FailureMechanismAssemblyResultWithProbabilityNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => SerializableTotalAssemblyResultCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                    new SerializableAssessmentProcess(),
-                                                                                    null,
-                                                                                    new SerializableFailureMechanismAssemblyResult(),
-                                                                                    new SerializableAssessmentSectionAssemblyResult());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assemblyResultWithProbability", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_FailureMechanismAssemblyResultWithoutProbabilityNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => SerializableTotalAssemblyResultCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                    new SerializableAssessmentProcess(),
-                                                                                    new SerializableFailureMechanismAssemblyResult(),
-                                                                                    null,
-                                                                                    new SerializableAssessmentSectionAssemblyResult());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assemblyResultWithoutProbability", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_AssessmentSectionAssemblyResultNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => SerializableTotalAssemblyResultCreator.Create(new UniqueIdentifierGenerator(),
-                                                                                    new SerializableAssessmentProcess(),
-                                                                                    new SerializableFailureMechanismAssemblyResult(),
-                                                                                    new SerializableFailureMechanismAssemblyResult(),
-                                                                                    null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSectionAssemblyResult", exception.ParamName);
-        }
-
-        [Test]
         public void Create_WithValidArguments_ReturnsSerializableTotalAssemblyResult()
         {
             // Setup
