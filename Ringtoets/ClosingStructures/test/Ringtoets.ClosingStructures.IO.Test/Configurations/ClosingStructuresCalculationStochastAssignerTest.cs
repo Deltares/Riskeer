@@ -113,6 +113,47 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
         [Test]
         [TestCase(true)]
         [TestCase(false)]
+        public void Assign_WithSpreadForModelFactorSuperCriticalFlow_LogsErrorReturnFalse(bool withStandardDeviation)
+        {
+            // Setup
+            var configuration = new ClosingStructuresCalculationConfiguration("name")
+            {
+                StructureId = "some structure",
+                ModelFactorSuperCriticalFlow = new StochastConfiguration
+                {
+                    Mean = 8.1
+                }
+            };
+
+            if (withStandardDeviation)
+            {
+                configuration.ModelFactorSuperCriticalFlow.StandardDeviation = 0.8;
+            }
+            else
+            {
+                configuration.ModelFactorSuperCriticalFlow.VariationCoefficient = 0.8;
+            }
+
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+
+            var assigner = new ClosingStructuresCalculationStochastAssigner(
+                configuration,
+                calculation);
+
+            var valid = true;
+
+            // Call
+            Action test = () => valid = assigner.Assign();
+
+            // Assert
+            const string expectedMessage = "Er kan geen spreiding voor stochast 'modelfactor overloopdebiet volkomen overlaat' opgegeven worden. Berekening 'name' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(test, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
         public void Assign_WithSpreadForDrainCoefficient_LogsErrorReturnFalse(bool withStandardDeviation)
         {
             // Setup
@@ -239,6 +280,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.AreaFlowApertures = s,
                 nameof(ClosingStructuresCalculationConfiguration.AreaFlowApertures),
@@ -247,6 +289,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.InsideWaterLevel = s,
                 nameof(ClosingStructuresCalculationConfiguration.InsideWaterLevel),
@@ -255,6 +298,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.ThresholdHeightOpenWeir = s,
                 nameof(ClosingStructuresCalculationConfiguration.ThresholdHeightOpenWeir),
@@ -263,6 +307,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.AllowedLevelIncreaseStorage = s,
                 nameof(ClosingStructuresCalculationConfiguration.AllowedLevelIncreaseStorage),
@@ -271,6 +316,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.FlowWidthAtBottomProtection = s,
                 nameof(ClosingStructuresCalculationConfiguration.FlowWidthAtBottomProtection),
@@ -279,6 +325,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.WidthFlowApertures = s,
                 nameof(ClosingStructuresCalculationConfiguration.WidthFlowApertures),
@@ -287,6 +334,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.CriticalOvertoppingDischarge = s,
                 nameof(ClosingStructuresCalculationConfiguration.CriticalOvertoppingDischarge),
@@ -295,6 +343,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.StorageStructureArea = s,
                 nameof(ClosingStructuresCalculationConfiguration.StorageStructureArea),

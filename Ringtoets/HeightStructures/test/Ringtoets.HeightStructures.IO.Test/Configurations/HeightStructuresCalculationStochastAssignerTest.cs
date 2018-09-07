@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations;
@@ -169,6 +170,47 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             Assert.IsTrue(valid);
         }
 
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Assign_WithSpreadForModelFactorSuperCriticalFlow_LogsErrorReturnFalse(bool withStandardDeviation)
+        {
+            // Setup
+            var configuration = new HeightStructuresCalculationConfiguration("name")
+            {
+                StructureId = "some structure",
+                ModelFactorSuperCriticalFlow = new StochastConfiguration
+                {
+                    Mean = 8.1
+                }
+            };
+
+            if (withStandardDeviation)
+            {
+                configuration.ModelFactorSuperCriticalFlow.StandardDeviation = 0.8;
+            }
+            else
+            {
+                configuration.ModelFactorSuperCriticalFlow.VariationCoefficient = 0.8;
+            }
+
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+
+            var assigner = new HeightStructuresCalculationStochastAssigner(
+                configuration,
+                calculation);
+
+            var valid = true;
+
+            // Call
+            Action test = () => valid = assigner.Assign();
+
+            // Assert
+            const string expectedMessage = "Er kan geen spreiding voor stochast 'modelfactor overloopdebiet volkomen overlaat' opgegeven worden. Berekening 'name' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(test, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+            Assert.IsFalse(valid);
+        }
+
         private static IEnumerable<TestCaseData> GetSetStochastParametersActions(string testNameFormat)
         {
             foreach (TestCaseData caseData in StochastConfigurationCases(
@@ -179,6 +221,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.AllowedLevelIncreaseStorage = s,
                 nameof(HeightStructuresCalculationConfiguration.AllowedLevelIncreaseStorage),
@@ -187,6 +230,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.FlowWidthAtBottomProtection = s,
                 nameof(HeightStructuresCalculationConfiguration.FlowWidthAtBottomProtection),
@@ -195,6 +239,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.WidthFlowApertures = s,
                 nameof(HeightStructuresCalculationConfiguration.WidthFlowApertures),
@@ -203,6 +248,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.CriticalOvertoppingDischarge = s,
                 nameof(HeightStructuresCalculationConfiguration.CriticalOvertoppingDischarge),
@@ -211,6 +257,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.StorageStructureArea = s,
                 nameof(HeightStructuresCalculationConfiguration.StorageStructureArea),

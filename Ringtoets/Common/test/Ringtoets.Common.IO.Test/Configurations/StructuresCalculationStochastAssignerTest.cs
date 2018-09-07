@@ -604,20 +604,6 @@ namespace Ringtoets.Common.IO.Test.Configurations
                         }),
                         "stormduur")
                     .SetName("Assign_SetStormDurationVariationCoefficient");
-                yield return new TestCaseData(
-                        new Action<StructuresCalculationConfiguration>(c => c.ModelFactorSuperCriticalFlow = new StochastConfiguration
-                        {
-                            StandardDeviation = 3.2
-                        }),
-                        "modelfactoroverloopdebiet")
-                    .SetName("Assign_SetModelFactorSuperCriticalFlowStandardDeviation");
-                yield return new TestCaseData(
-                        new Action<StructuresCalculationConfiguration>(c => c.ModelFactorSuperCriticalFlow = new StochastConfiguration
-                        {
-                            VariationCoefficient = 3.2
-                        }),
-                        "modelfactoroverloopdebiet")
-                    .SetName("Assign_SetModelFactorSuperCriticalFlowVariationCoefficient");
             }
         }
 
