@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Properties;
 
 namespace Ringtoets.Integration.IO.Helpers
 {
@@ -60,6 +62,23 @@ namespace Ringtoets.Integration.IO.Helpers
 
             idLookup[prefix] = 0;
             return $"{prefix}.{idLookup[prefix]++}";
+        }
+
+        /// <summary>
+        /// Gets an id based on <paramref name="assessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="ExportableAssessmentSection"/>
+        /// to generate an id for.</param>
+        /// <returns>An id.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static string GeneratedId(ExportableAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return $"{Resources.SerializableAssessmentSection_IdPrefix}.{assessmentSection.Id}";
         }
     }
 }

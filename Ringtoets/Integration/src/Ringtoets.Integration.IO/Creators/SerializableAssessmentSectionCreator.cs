@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.Assembly;
-using Ringtoets.Integration.IO.Properties;
+using Ringtoets.Integration.IO.Helpers;
 
 namespace Ringtoets.Integration.IO.Creators
 {
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return new SerializableAssessmentSection($"{Resources.SerializableAssessmentSection_IdPrefix}.{assessmentSection.Id}",
+            return new SerializableAssessmentSection(UniqueIdentifierGenerator.GeneratedId(assessmentSection),
                                                      assessmentSection.Name,
                                                      assessmentSection.Geometry);
         }

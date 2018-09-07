@@ -20,9 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Helpers;
+using Ringtoets.Integration.IO.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Helpers
 {
@@ -104,6 +108,46 @@ namespace Ringtoets.Integration.IO.Test.Helpers
 
             // Then
             Assert.AreEqual($"{newPrefix}.0", newPrefixId);
+        }
+
+        [Test]
+        public void GenerateId_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => UniqueIdentifierGenerator.GeneratedId(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void GenerateId_WithAssessmentSection_GeneratesId()
+        {
+            // Setup
+            const string assessmentSectionId = "AssessmentSectionId";
+            ExportableAssessmentSection assessmentSection = CreateAssessmentSection(assessmentSectionId);
+
+            var generator = new UniqueIdentifierGenerator();
+
+            // Call
+            string generatedId = UniqueIdentifierGenerator.GeneratedId(assessmentSection);
+
+            // Assert
+            Assert.AreEqual($"Wks.{assessmentSection.Id}", generatedId);
+        }
+
+        private static ExportableAssessmentSection CreateAssessmentSection(string id)
+        {
+            return new ExportableAssessmentSection(string.Empty,
+                                                   id,
+                                                   Enumerable.Empty<Point2D>(),
+                                                   ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                                                   ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
+                                                   ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
+                                                   Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
+                                                   Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
+                                                   Enumerable.Empty<ExportableCombinedSectionAssembly>());
         }
     }
 }
