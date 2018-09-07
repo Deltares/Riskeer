@@ -39,10 +39,6 @@
           <verwachtingswaarde>0.06</verwachtingswaarde>
           <variatiecoefficient>0.16</variatiecoefficient>
         </stochast>
-        <stochast naam="modelfactoroverloopdebiet">
-          <verwachtingswaarde>0.13</verwachtingswaarde>
-          <standaardafwijking>0.23</standaardafwijking>
-        </stochast>
         <stochast naam="peilverhogingkomberging">
           <verwachtingswaarde>0.01</verwachtingswaarde>
           <standaardafwijking>0.11</standaardafwijking>
