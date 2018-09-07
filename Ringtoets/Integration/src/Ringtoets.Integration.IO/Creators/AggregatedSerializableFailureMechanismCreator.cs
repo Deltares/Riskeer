@@ -35,13 +35,13 @@ namespace Ringtoets.Integration.IO.Creators
     internal static class AggregatedSerializableFailureMechanismCreator
     {
         /// <summary>
-        /// Creates an instance of an <see cref="AggregatedSerializableFailureMechanism"/> based on its input parameters.
+        /// Creates an instance of <see cref="AggregatedSerializableFailureMechanism"/> based on its input parameters.
         /// </summary>
         /// <param name="idGenerator">The id generator to generate an id for the serializable components.</param>
         /// <param name="serializableTotalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/> the serializable components belong to.</param>
         /// <param name="failureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> without a probability to
-        /// create a <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
-        /// <returns>A <see cref="AggregatedSerializableFailureMechanism"/>.</returns>
+        /// create an <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
+        /// <returns>An <see cref="AggregatedSerializableFailureMechanism"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// contains unsupported items in the failure mechanism section assembly results.</exception>
@@ -83,13 +83,13 @@ namespace Ringtoets.Integration.IO.Creators
         }
 
         /// <summary>
-        /// Creates an instance of an <see cref="AggregatedSerializableFailureMechanism"/> based on its input parameters.
+        /// Creates an instance of <see cref="AggregatedSerializableFailureMechanism"/> based on its input parameters.
         /// </summary>
         /// <param name="idGenerator">The id generator to generate an id for the serializable components.</param>
         /// <param name="serializableTotalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/> the serializable components belong to.</param>
         /// <param name="failureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with a probability to
-        /// create a <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
-        /// <returns>A <see cref="AggregatedSerializableFailureMechanism"/>.</returns>
+        /// create an <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
+        /// <returns>An <see cref="AggregatedSerializableFailureMechanism"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// contains unsupported items in the failure mechanism section assembly results.</exception>
@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <param name="serializableFailureMechanism">The <see cref="SerializableFailureMechanism"/> the section assembly belongs to.</param>
         /// <param name="serializableCollection">The <see cref="SerializableFailureMechanismSectionCollection"/> the section assembly belongs to.</param>
         /// <param name="failureMechanismSectionAssemblyResult">An aggregated failure mechanism section assembly result to
-        /// create a <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
+        /// create an <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when an <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>
         /// cannot be created for <paramref name="failureMechanismSectionAssemblyResult"/>.</exception>

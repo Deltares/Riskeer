@@ -44,9 +44,9 @@ namespace Ringtoets.Integration.IO.Creators
         /// <param name="idGenerator">The id generator to generate an id for <see cref="SerializableFailureMechanismSectionAssembly"/>.</param>
         /// <param name="serializableCollection">The <see cref="SerializableFailureMechanismSectionCollection"/> the result belongs to.</param>
         /// <param name="serializableFailureMechanism">The <see cref="SerializableFailureMechanism"/> the result belongs to.</param>
-        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> to create a
+        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> to create an
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
-        /// <returns>A <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(UniqueIdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
@@ -94,9 +94,9 @@ namespace Ringtoets.Integration.IO.Creators
         /// <param name="idGenerator">The id generator to generate an id for <see cref="SerializableFailureMechanismSectionAssembly"/>.</param>
         /// <param name="serializableCollection">The <see cref="SerializableFailureMechanismSectionCollection"/> the result belongs to.</param>
         /// <param name="serializableFailureMechanism">The <see cref="SerializableFailureMechanism"/> the result belongs to.</param>
-        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/> to create a
+        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/> to create an
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
-        /// <returns>A <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(UniqueIdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
@@ -144,9 +144,9 @@ namespace Ringtoets.Integration.IO.Creators
         /// <param name="idGenerator">The id generator to generate an id for <see cref="SerializableFailureMechanismSectionAssembly"/>.</param>
         /// <param name="serializableCollection">The <see cref="SerializableFailureMechanismSectionCollection"/> the result belongs to.</param>
         /// <param name="serializableFailureMechanism">The <see cref="SerializableFailureMechanism"/> the result belongs to.</param>
-        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly"/> to create a
+        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly"/> to create an
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
-        /// <returns>A <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(UniqueIdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,

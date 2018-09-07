@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.IO.Creators
     {
         /// <summary>
         /// Creates an instance of <see cref="SerializableFailureMechanismSectionAssemblyResult"/>
-        /// based on a <see cref="ExportableSectionAssemblyResult"/>.
+        /// based on its input parameters.
         /// </summary>
         /// <param name="assessmentType">The type of assessment the
         /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> represents.</param>
@@ -41,7 +41,8 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public static SerializableFailureMechanismSectionAssemblyResult Create(SerializableAssessmentType assessmentType, ExportableSectionAssemblyResult sectionResult)
+        public static SerializableFailureMechanismSectionAssemblyResult Create(SerializableAssessmentType assessmentType,
+                                                                               ExportableSectionAssemblyResult sectionResult)
         {
             if (sectionResult == null)
             {
@@ -55,7 +56,7 @@ namespace Ringtoets.Integration.IO.Creators
 
         /// <summary>
         /// Creates an instance of <see cref="SerializableFailureMechanismSectionAssemblyResult"/>
-        /// based on a <see cref="ExportableSectionAssemblyResultWithProbability"/>.
+        /// based on its input parameters.
         /// </summary>
         /// <param name="assessmentType">The type of assessment the
         /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> represents.</param>
@@ -63,7 +64,8 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public static SerializableFailureMechanismSectionAssemblyResult Create(SerializableAssessmentType assessmentType, ExportableSectionAssemblyResultWithProbability sectionResult)
+        public static SerializableFailureMechanismSectionAssemblyResult Create(SerializableAssessmentType assessmentType, 
+                                                                               ExportableSectionAssemblyResultWithProbability sectionResult)
         {
             if (sectionResult == null)
             {

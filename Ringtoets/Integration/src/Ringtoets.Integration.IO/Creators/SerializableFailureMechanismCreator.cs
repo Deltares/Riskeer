@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.IO.Creators
     public static class SerializableFailureMechanismCreator
     {
         /// <summary>
-        /// Creates a <see cref="SerializableFailureMechanism"/> based on its input parameters.
+        /// Creates an instance of <see cref="SerializableFailureMechanism"/> based on its input parameters.
         /// </summary>
         /// <param name="idGenerator">The generator to generate an id for the <see cref="SerializableFailureMechanism"/>.</param>
         /// <param name="serializableTotalAssembly">The <see cref="SerializableTotalAssemblyResult"/>
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.IO.Creators
         }
 
         /// <summary>
-        /// Creates a <see cref="SerializableFailureMechanism"/> based on its input parameters.
+        /// Creates an instance of <see cref="SerializableFailureMechanism"/> based on its input parameters.
         /// </summary>
         /// <param name="idGenerator">The generator to generate an id for the <see cref="SerializableFailureMechanism"/>.</param>
         /// <param name="serializableTotalAssembly">The <see cref="SerializableTotalAssemblyResult"/>

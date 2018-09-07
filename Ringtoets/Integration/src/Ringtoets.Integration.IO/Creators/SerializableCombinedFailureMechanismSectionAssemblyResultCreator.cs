@@ -31,7 +31,8 @@ namespace Ringtoets.Integration.IO.Creators
     public static class SerializableCombinedFailureMechanismSectionAssemblyResultCreator
     {
         /// <summary>
-        /// Creates an instance of <see cref="SerializableCombinedFailureMechanismSectionAssemblyResult"/>.
+        /// Creates an instance of <see cref="SerializableCombinedFailureMechanismSectionAssemblyResult"/>
+        /// based on <paramref name="sectionResult"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="ExportableFailureMechanismCombinedSectionAssemblyResult"/>
         /// to create a <see cref="SerializableCombinedFailureMechanismSectionAssemblyResult"/> for.</param>

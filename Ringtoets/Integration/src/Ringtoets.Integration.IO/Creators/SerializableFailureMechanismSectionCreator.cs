@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.IO.Creators
     {
         /// <summary>
         /// Creates a <see cref="SerializableFailureMechanismSection"/> based on
-        /// an <see cref="ExportableFailureMechanismSection"/>.
+        /// its input parameters.
         /// </summary>
         /// <param name="idGenerator">The id generator to generate an id
         /// for <see cref="SerializableFailureMechanismSection"/>.</param>
@@ -73,8 +73,8 @@ namespace Ringtoets.Integration.IO.Creators
         }
 
         /// <summary>
-        /// Creates a <see cref="SerializableFailureMechanismSection"/> based on
-        /// an <see cref="ExportableCombinedFailureMechanismSection"/>.
+        /// Creates an instance of <see cref="SerializableFailureMechanismSection"/> based on
+        /// its input parameters.
         /// </summary>
         /// <param name="idGenerator">The id generator to generate an id
         /// for <see cref="SerializableFailureMechanismSection"/>.</param>

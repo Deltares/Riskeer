@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// components belong to.</param>
         /// <param name="serializableFailureMechanismSectionCollection">The <see cref="SerializableFailureMechanismSectionCollection"/>
         /// the serializable failure mechanism sections belong to.</param>
-        /// <param name="combinedSectionAssembly">The <see cref="ExportableCombinedSectionAssembly"/> to create a
+        /// <param name="combinedSectionAssembly">The <see cref="ExportableCombinedSectionAssembly"/> to create an
         /// <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>

@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.IO.Creators
     {
         /// <summary>
         /// Creates an instance of <see cref="SerializableAssessmentSection"/>
-        /// based on a <see cref="ExportableAssessmentSection"/>.
+        /// based on <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="ExportableAssessmentSection"/>
         /// to create a <see cref="SerializableAssessmentSection"/> for.</param>

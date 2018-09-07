@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.IO.Creators
     public static class SerializableFailureMechanismSectionCategoryGroupCreator
     {
         /// <summary>
-        /// Creates a <see cref="SerializableFailureMechanismSectionCategoryGroup"/> based on its input.
+        /// Creates a <see cref="SerializableFailureMechanismSectionCategoryGroup"/> based on <paramref name="categoryGroup"/>.
         /// </summary>
         /// <param name="categoryGroup">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to
         /// create a <see cref="SerializableFailureMechanismSectionCategoryGroup"/> for.</param>
