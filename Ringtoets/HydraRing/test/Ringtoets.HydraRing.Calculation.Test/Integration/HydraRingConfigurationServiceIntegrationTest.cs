@@ -1914,7 +1914,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                           43.3, 44.4, 45.5, 46.6,
                                                                           47.7, 48.8, 49.9, 50.0,
                                                                           51.1, 52.2, 53.3, 54.4,
-                                                                          55.5, 56.6, 57.7)
+                                                                          55.5)
                 {
                     PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(0, 0),

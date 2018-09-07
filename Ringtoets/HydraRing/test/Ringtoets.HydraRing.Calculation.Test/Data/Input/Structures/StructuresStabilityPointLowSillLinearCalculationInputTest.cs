@@ -90,14 +90,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double verticalDistance = 47.47;
             const double modificationFactorWavesSlowlyVaryingPressureComponent = 48.48;
             const double modificationFactorDynamicOrImpulsivePressureComponent = 49.49;
-            const double modelFactorSuperCriticalFlowMean = 50.50;
-            const double modelFactorSuperCriticalFlowStandardDeviation = 51.51;
-            const double constructiveStrengthLinearLoadModelMean = 52.52;
-            const double constructiveStrengthLinearLoadModelVariation = 53.53;
-            const double stabilityLinearLoadModelMean = 54.54;
-            const double stabilityLinearLoadModelVariation = 55.55;
-            const double widthFlowAperturesMean = 56.56;
-            const double widthFlowAperturesStandardDeviation = 57.57;
+            const double constructiveStrengthLinearLoadModelMean = 50.50;
+            const double constructiveStrengthLinearLoadModelVariation = 51.51;
+            const double stabilityLinearLoadModelMean = 52.52;
+            const double stabilityLinearLoadModelVariation = 53.53;
+            const double widthFlowAperturesMean = 54.54;
+            const double widthFlowAperturesStandardDeviation = 55.55;
 
             // Call
             var input = new StructuresStabilityPointLowSillLinearCalculationInput(hydraulicBoundaryLocationId, sectionNormal,
@@ -133,7 +131,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                                   verticalDistance,
                                                                                   modificationFactorWavesSlowlyVaryingPressureComponent,
                                                                                   modificationFactorDynamicOrImpulsivePressureComponent,
-                                                                                  modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation,
                                                                                   constructiveStrengthLinearLoadModelMean, constructiveStrengthLinearLoadModelVariation,
                                                                                   stabilityLinearLoadModelMean, stabilityLinearLoadModelVariation,
                                                                                   widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
@@ -174,7 +171,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                                   32.32, 33.33, 34.34, 35.35, 36.36, 37.37, 38.38,
                                                                                   39.39, 40.40, 41.41, 42.42, 43.43, 44.44, 45.45,
                                                                                   46.46, 47.47, 48.48, 49.49, 50.50, 51.51, 52.52,
-                                                                                  53.53, 54.54, 55.55, 56.56, 57.57);
+                                                                                  53.53, 54.54, 55.55);
 
             // Call
             int? actualSubMechanismModelId = input.GetSubMechanismModelId(subMechanismModelId);
