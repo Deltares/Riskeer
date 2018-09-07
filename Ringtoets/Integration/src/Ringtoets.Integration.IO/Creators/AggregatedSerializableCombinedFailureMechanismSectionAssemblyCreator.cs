@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// </summary>
         /// <param name="idGenerator">The id generator to generated ids for the serializable components.</param>
         /// <param name="serializableTotalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/> the serializable
-        /// components belong to.</param>
+        /// components belongs to.</param>
         /// <param name="serializableFailureMechanismSectionCollection">The <see cref="SerializableFailureMechanismSectionCollection"/>
         /// the serializable failure mechanism sections belong to.</param>
         /// <param name="combinedSectionAssembly">The <see cref="ExportableCombinedSectionAssembly"/> to create an

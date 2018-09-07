@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.IO.AggregatedSerializable
         /// Creates a new instance of <see cref="AggregatedSerializableFailureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanismSectionCollection">The <see cref="SerializableFailureMechanismSectionCollection"/>
-        /// that the <paramref name="failureMechanismSections"/> belong to.</param>
+        /// that the <paramref name="failureMechanismSections"/> belongs to.</param>
         /// <param name="failureMechanismSections">A collection of <see cref="SerializableFailureMechanismSection"/>
         /// that is associated with <paramref name="combinedFailureMechanismSectionAssemblies"/>.</param>
         /// <param name="combinedFailureMechanismSectionAssemblies">A collection of <see cref="SerializableCombinedFailureMechanismSectionAssembly"/>.</param>
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.IO.AggregatedSerializable
         }
 
         /// <summary>
-        /// Gets the collection where the serializable failure mechanism sections belong to.
+        /// Gets the collection where the serializable failure mechanism sections belongs to.
         /// </summary>
         public SerializableFailureMechanismSectionCollection FailureMechanismSectionCollection { get; }
 

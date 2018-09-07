@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.IO.TestUtil
     {
         /// <summary>
         /// Asserts a <see cref="SerializableFailureMechanismSectionAssemblyResult"/>
-        /// against an <see cref="ExportableSectionAssemblyResult"/>
+        /// against an <see cref="ExportableSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="expectedResult">The <see cref="ExportableSectionAssemblyResult"/> to assert against.</param>
         /// <param name="expectedAssessmentType">The expected <see cref="SerializableAssessmentType"/>
@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.IO.TestUtil
         /// <param name="actualResult">The <see cref="SerializableFailureMechanismSectionAssemblyResult"/> to assert.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item>The assembly methods do not match, </item>
+        /// <item>The assembly methods do not match,</item>
         /// <item>The failure mechanism category group assembly results do not match,</item>
         /// <item>The failure mechanism section assembly type do not match,</item>
         /// <item>The probability of <paramref name="actualResult"/> has a value.</item>
@@ -60,8 +60,8 @@ namespace Ringtoets.Integration.IO.TestUtil
         }
 
         /// <summary>
-        /// Asserts a <see cref="ExportableSectionAssemblyResultWithProbability"/>
-        /// against an <see cref="ExportableSectionAssemblyResult"/>
+        /// Asserts a <see cref="SerializableFailureMechanismSectionAssemblyResult"/>
+        /// against an <see cref="ExportableSectionAssemblyResultWithProbability"/>.
         /// </summary>
         /// <param name="expectedResult">The <see cref="ExportableSectionAssemblyResultWithProbability"/> to assert against.</param>
         /// <param name="expectedAssessmentType">The expected <see cref="SerializableAssessmentType"/>
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.IO.TestUtil
         /// <param name="actualResult">The <see cref="SerializableFailureMechanismSectionAssemblyResult"/> to assert.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
-        /// <item>The assembly methods do not match, </item>
+        /// <item>The assembly methods do not match,</item>
         /// <item>The failure mechanism category group assembly results do not match,</item>
         /// <item>The failure mechanism section assembly type do not match,</item>
         /// <item>The probability of <paramref name="actualResult"/> does not match.</item>
