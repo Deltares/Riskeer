@@ -273,8 +273,6 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.VerticalDistance,
                 generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                 generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                0.0,
-                0.0,
                 structureInput.ConstructiveStrengthQuadraticLoadModel.Mean,
                 structureInput.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
                 structureInput.StabilityQuadraticLoadModel.Mean,

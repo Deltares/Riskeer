@@ -30,8 +30,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     /// </summary>
     public class StructuresStabilityPointLowSillQuadraticCalculationInput : StructuresStabilityPointCalculationInput
     {
-        private readonly double modelFactorSuperCriticalFlowMean;
-        private readonly double modelFactorSuperCriticalFlowStandardDeviation;
         private readonly double constructiveStrengthQuadraticLoadModelMean;
         private readonly double constructiveStrengthQuadraticLoadModelVariation;
         private readonly double stabilityQuadraticLoadModelMean;
@@ -95,8 +93,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="verticalDistance">The vertical distance.</param>
         /// <param name="modificationFactorWavesSlowlyVaryingPressureComponent">The modification factor waves slowly-varying pressure component.</param>
         /// <param name="modificationFactorDynamicOrImpulsivePressureComponent">The modification factor dynamic or impulsive pressure component.</param>
-        /// <param name="modelFactorSuperCriticalFlowMean">The mean of the model factor super critical flow.</param>
-        /// <param name="modelFactorSuperCriticalFlowStandardDeviation">The standard deviation of the model factor super critical flow.</param>
         /// <param name="constructiveStrengthQuadraticLoadModelMean">The mean of the constructive strength quadratic load model.</param>
         /// <param name="constructiveStrengthQuadraticLoadModelVariation">The variation of the constructive strength quadratic load model.</param>
         /// <param name="stabilityQuadraticLoadModelMean">The mean of the stability quadratic load model.</param>
@@ -138,7 +134,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                         double verticalDistance,
                                                                         double modificationFactorWavesSlowlyVaryingPressureComponent,
                                                                         double modificationFactorDynamicOrImpulsivePressureComponent,
-                                                                        double modelFactorSuperCriticalFlowMean, double modelFactorSuperCriticalFlowStandardDeviation,
                                                                         double constructiveStrengthQuadraticLoadModelMean, double constructiveStrengthQuadraticLoadModelVariation,
                                                                         double stabilityQuadraticLoadModelMean, double stabilityQuadraticLoadModelVariation,
                                                                         double widthFlowAperturesMean, double widthFlowAperturesStandardDeviation)
@@ -177,8 +172,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    modificationFactorWavesSlowlyVaryingPressureComponent,
                    modificationFactorDynamicOrImpulsivePressureComponent)
         {
-            this.modelFactorSuperCriticalFlowMean = modelFactorSuperCriticalFlowMean;
-            this.modelFactorSuperCriticalFlowStandardDeviation = modelFactorSuperCriticalFlowStandardDeviation;
             this.constructiveStrengthQuadraticLoadModelMean = constructiveStrengthQuadraticLoadModelMean;
             this.constructiveStrengthQuadraticLoadModelVariation = constructiveStrengthQuadraticLoadModelVariation;
             this.stabilityQuadraticLoadModelMean = stabilityQuadraticLoadModelMean;
@@ -217,7 +210,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
 
         private IEnumerable<HydraRingVariable> GetVariables()
         {
-            yield return new NormalHydraRingVariable(62, HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation);
             yield return new LogNormalHydraRingVariable(81, HydraRingDeviationType.Variation, constructiveStrengthQuadraticLoadModelMean, constructiveStrengthQuadraticLoadModelVariation);
             yield return new LogNormalHydraRingVariable(84, HydraRingDeviationType.Variation, stabilityQuadraticLoadModelMean, stabilityQuadraticLoadModelVariation);
             yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
