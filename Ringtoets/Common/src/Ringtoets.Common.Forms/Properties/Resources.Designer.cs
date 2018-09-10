@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -3637,6 +3637,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string StructuresInputFailureMechanismContext_ModelFactorInflowVolume_DisplayName {
             get {
                 return ResourceManager.GetString("StructuresInputFailureMechanismContext_ModelFactorInflowVolume_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelfactor voor een lange overlaat..
+        /// </summary>
+        public static string StructuresInputFailureMechanismContext_ModelFactorLongThreshold_Description {
+            get {
+                return ResourceManager.GetString("StructuresInputFailureMechanismContext_ModelFactorLongThreshold_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelfactor lange overlaat[-].
+        /// </summary>
+        public static string StructuresInputFailureMechanismContext_ModelFactorLongThreshold_DisplayName {
+            get {
+                return ResourceManager.GetString("StructuresInputFailureMechanismContext_ModelFactorLongThreshold_DisplayName", resourceCulture);
             }
         }
         

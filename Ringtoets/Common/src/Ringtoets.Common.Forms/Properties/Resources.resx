@@ -1458,4 +1458,10 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="HydraulicLoads_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle hydraulische belastingen berekenen.</value>
   </data>
+  <data name="StructuresInputFailureMechanismContext_ModelFactorLongThreshold_DisplayName" xml:space="preserve">
+    <value>Modelfactor lange overlaat[-]</value>
+  </data>
+  <data name="StructuresInputFailureMechanismContext_ModelFactorLongThreshold_Description" xml:space="preserve">
+    <value>Modelfactor voor een lange overlaat.</value>
+  </data>
 </root>
