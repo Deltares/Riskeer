@@ -215,6 +215,9 @@
     <None Include="HydraRing\dllStructuresClosure2017.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="HydraRing\dllStructuresClosure2018.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="HydraRing\dllStructuresConstFailure2017.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -231,6 +234,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="HydraRing\feedbackDLL.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="HydraRing\HRutilitiesDll.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="HydraRing\HydraRing.Database.dll">
@@ -348,6 +354,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="HydraRing\structuresClosure2017.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="HydraRing\structuresClosure2018.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="HydraRing\structuresOvertopping2017.dll">
