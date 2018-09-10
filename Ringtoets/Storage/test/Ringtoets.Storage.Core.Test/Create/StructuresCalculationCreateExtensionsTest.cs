@@ -1090,7 +1090,6 @@ namespace Ringtoets.Storage.Core.Test.Create
             Assert.IsNull(entity.FlowWidthAtBottomProtectionStandardDeviation);
             Assert.IsNull(entity.CriticalOvertoppingDischargeMean);
             Assert.IsNull(entity.CriticalOvertoppingDischargeCoefficientOfVariation);
-            Assert.IsNull(entity.ModelFactorSuperCriticalFlowMean);
             Assert.IsNull(entity.WidthFlowAperturesMean);
             Assert.IsNull(entity.WidthFlowAperturesStandardDeviation);
 

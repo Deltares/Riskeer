@@ -26,7 +26,6 @@ namespace Ringtoets.Storage.Core.DbContext
     /// </summary>
     public interface IStructuresCalculationEntity
     {
-        double? ModelFactorSuperCriticalFlowMean { get; set; }
         double? StructureNormalOrientation { get; set; }
         double? AllowedLevelIncreaseStorageMean { get; set; }
         double? AllowedLevelIncreaseStorageStandardDeviation { get; set; }
