@@ -131,7 +131,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(signalingNorm, categoriesKernel.SignalingNorm);
                 Assert.AreEqual(lowerLimitNorm, categoriesKernel.LowerLimitNorm);
                 Assert.AreEqual(1, categoriesKernel.N);
-                Assert.AreEqual(0.54, categoriesKernel.FailureMechanismContribution);
+                Assert.AreEqual(0.58, categoriesKernel.FailureMechanismContribution);
 
                 FailureMechanismAssemblyResult actualFailureMechanismAssemblyInput = kernel.FailureMechanismAssemblyResults.Single();
                 Assert.AreEqual(GetGroup(failureMechanismAssembly.Group), actualFailureMechanismAssemblyInput.Category);

@@ -63,7 +63,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
                 CategoriesList<FailureMechanismCategory> categories = categoriesKernel.CalculateFailureMechanismCategoryLimitsWbi11(
                     new AssessmentSection(1, signalingNorm, lowerLimitNorm),
-                    new FailureMechanism(1, 0.54));
+                    new FailureMechanism(1, 0.58));
 
                 IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
                 FailureMechanismAssemblyResult output = kernel.AssembleAssessmentSectionWbi2B1(
