@@ -57,6 +57,12 @@ namespace Ringtoets.ClosingStructures.Data
             };
 
             ModelFactorInflowVolume = new RoundedDouble(2, 1);
+
+            ModelFactorLongThreshold = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 0.9,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
         }
 
         #region Constants
@@ -128,6 +134,11 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets the model factor for incoming flow volume.
         /// </summary>
         public RoundedDouble ModelFactorInflowVolume { get; }
+
+        /// <summary>
+        /// Gets the model factor for long threshold.
+        /// </summary>
+        public NormalDistribution ModelFactorLongThreshold { get; }
 
         #endregion
     }

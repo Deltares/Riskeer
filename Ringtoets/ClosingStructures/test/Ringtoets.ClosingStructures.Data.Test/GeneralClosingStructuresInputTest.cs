@@ -47,6 +47,12 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 StandardDeviation = (RoundedDouble) 0.2
             };
 
+            var modelFactorLongThreshold = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble)0.9,
+                StandardDeviation = (RoundedDouble)0.05
+            };
+
             // Call
             var inputParameters = new GeneralClosingStructuresInput();
 
@@ -60,7 +66,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             DistributionAssert.AreEqual(modelFactorOvertoppingFlow, inputParameters.ModelFactorOvertoppingFlow);
             DistributionAssert.AreEqual(modelFactorStorageVolume, inputParameters.ModelFactorStorageVolume);
-
+            DistributionAssert.AreEqual(modelFactorLongThreshold, inputParameters.ModelFactorLongThreshold);
+            
             Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
             AssertAreEqual(1.0, inputParameters.ModelFactorInflowVolume);
         }
@@ -98,8 +105,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => inputParameters.N2A = invalidValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
-                                                                                                "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                call, "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.");
         }
 
         private static void AssertAreEqual(double expected, RoundedDouble actual)
