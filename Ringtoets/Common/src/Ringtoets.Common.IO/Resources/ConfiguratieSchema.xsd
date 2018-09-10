@@ -57,7 +57,7 @@ All rights reserved.
   <!--Generieke definitie van een berekening, waarin het naam attribuut is opgenomen. 
   Bij opname van een berekening in een toetsspoor specifieke xsd moet dit type 
   worden uitgebreid met alle elementen die een berekening kan bevatten. Daarbij 
-  is uitbreiding met de geselecteerde hrlocatie niet nodig.-->
+  is uitbreiding met de geselecteerde HB locatie niet nodig.-->
   <xs:complexType name="berekeningType">
     <xs:attribute name="naam" use="required">
       <xs:simpleType>

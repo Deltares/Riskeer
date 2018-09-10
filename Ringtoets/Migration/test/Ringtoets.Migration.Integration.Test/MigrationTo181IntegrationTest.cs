@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -86,15 +86,15 @@ namespace Ringtoets.Migration.Integration.Test
                     AssertHydraulicBoundaryLocationsOnGrassCoverErosionOutwardsFailureMechanism(reader, sourceFilePath);
                     AssertFailureMechanisms(reader, sourceFilePath);
 
+                    AssertFailureMechanismRelatedOutput(reader);
+                    AssertPipingOutput(reader, sourceFilePath);
+                    AssertMacroStabilityInwardsOutput(reader, sourceFilePath);
+
                     AssertPipingSoilLayers(reader);
                     AssertStabilityStoneCoverFailureMechanism(reader);
                     AssertMacroStabilityOutwardsFailureMechanism(reader);
                     AssertPipingStructureFailureMechanism(reader);
                     AssertWaveImpactAsphaltCoverFailureMechanism(reader);
-                    AssertGrassCoverErosionInwardsOutput(reader, sourceFilePath);
-                    AssertClosingStructuresOutput(reader, sourceFilePath);
-                    AssertHeightStructuresOutput(reader, sourceFilePath);
-                    AssertStabilityPointStructuresOutput(reader, sourceFilePath);
 
                     AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
 
@@ -409,7 +409,6 @@ namespace Ringtoets.Migration.Integration.Test
                 "ClosingStructureEntity",
                 "ClosingStructuresCalculationEntity",
                 "ClosingStructuresFailureMechanismMetaEntity",
-                "ClosingStructuresOutputEntity",
                 "ClosingStructuresSectionResultEntity",
                 "DikeProfileEntity",
                 "DuneErosionFailureMechanismMetaEntity",
@@ -417,35 +416,22 @@ namespace Ringtoets.Migration.Integration.Test
                 "DuneLocationEntity",
                 "FailureMechanismEntity",
                 "FailureMechanismSectionEntity",
-                "FaultTreeIllustrationPointEntity",
-                "FaultTreeIllustrationPointStochastEntity",
-                "FaultTreeSubmechanismIllustrationPointEntity",
                 "ForeshoreProfileEntity",
-                "GeneralResultFaultTreeIllustrationPointEntity",
-                "GeneralResultFaultTreeIllustrationPointStochastEntity",
-                "GeneralResultSubMechanismIllustrationPointEntity",
-                "GeneralResultSubMechanismIllustrationPointStochastEntity",
                 "GrassCoverErosionInwardsCalculationEntity",
-                "GrassCoverErosionInwardsDikeHeightOutputEntity",
                 "GrassCoverErosionInwardsFailureMechanismMetaEntity",
-                "GrassCoverErosionInwardsOutputEntity",
-                "GrassCoverErosionInwardsOvertoppingRateOutputEntity",
                 "GrassCoverErosionInwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionOutwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
-                "GrassCoverErosionOutwardsWaveConditionsOutputEntity",
                 "GrassCoverSlipOffInwardsSectionResultEntity",
                 "GrassCoverSlipOffOutwardsSectionResultEntity",
                 "HeightStructureEntity",
                 "HeightStructuresCalculationEntity",
                 "HeightStructuresFailureMechanismMetaEntity",
-                "HeightStructuresOutputEntity",
                 "HeightStructuresSectionResultEntity",
                 "HydraulicLocationEntity",
                 "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
-                "MacroStabilityInwardsCalculationOutputEntity",
                 "MacroStabilityInwardsCharacteristicPointEntity",
                 "MacroStabilityInwardsFailureMechanismMetaEntity",
                 "MacroStabilityInwardsPreconsolidationStressEntity",
@@ -460,7 +446,6 @@ namespace Ringtoets.Migration.Integration.Test
                 "MacroStabilityOutwardsSectionResultEntity",
                 "MicrostabilitySectionResultEntity",
                 "PipingCalculationEntity",
-                "PipingCalculationOutputEntity",
                 "PipingCharacteristicPointEntity",
                 "PipingFailureMechanismMetaEntity",
                 "PipingSectionResultEntity",
@@ -473,26 +458,18 @@ namespace Ringtoets.Migration.Integration.Test
                 "StabilityPointStructureEntity",
                 "StabilityPointStructuresCalculationEntity",
                 "StabilityPointStructuresFailureMechanismMetaEntity",
-                "StabilityPointStructuresOutputEntity",
                 "StabilityPointStructuresSectionResultEntity",
                 "StabilityStoneCoverSectionResultEntity",
                 "StabilityStoneCoverWaveConditionsCalculationEntity",
-                "StabilityStoneCoverWaveConditionsOutputEntity",
-                "StochastEntity",
                 "StochasticSoilModelEntity",
                 "StrengthStabilityLengthwiseConstructionSectionResultEntity",
-                "SubMechanismIllustrationPointEntity",
-                "SubMechanismIllustrationPointStochastEntity",
                 "SurfaceLineEntity",
                 "TechnicalInnovationSectionResultEntity",
-                "TopLevelFaultTreeIllustrationPointEntity",
-                "TopLevelSubMechanismIllustrationPointEntity",
                 "VersionEntity",
                 "WaterPressureAsphaltCoverSectionResultEntity",
                 "WaveImpactAsphaltCoverFailureMechanismMetaEntity",
                 "WaveImpactAsphaltCoverSectionResultEntity",
-                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity",
-                "WaveImpactAsphaltCoverWaveConditionsOutputEntity"
+                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity"
             };
 
             foreach (string table in tables)
@@ -512,12 +489,15 @@ namespace Ringtoets.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(72, messages.Count);
+                Assert.AreEqual(73, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "Gevolgen van de migratie van versie 17.3 naar versie 18.1:"),
                     messages[i++]);
-
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' en 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."),
+                    messages[i++]);
+                
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "* Traject: 'assessmentSectionResults'"),
                     messages[i++]);
@@ -883,64 +863,6 @@ namespace Ringtoets.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateWaveImpactAsphaltCoverFailureMechanisms);
         }
 
-        private static void AssertGrassCoverErosionInwardsOutput(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateGrassCoverErosionInwardsOutputEntities =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity) " +
-                "FROM GrassCoverErosionInwardsOutputEntity NEW " +
-                "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity OLD USING(GrassCoverErosionInwardsOutputEntityId) " +
-                "WHERE NEW.GrassCoverErosionInwardsCalculationEntityId = OLD.GrassCoverErosionInwardsCalculationEntityId " +
-                "AND NEW.GeneralResultFaultTreeIllustrationPointEntityId IS OLD.GeneralResultFaultTreeIllustrationPointEntityId " +
-                "AND NEW.IsOvertoppingDominant = OLD.IsOvertoppingDominant " +
-                "AND NEW.WaveHeight IS OLD.WaveHeight " +
-                "AND NEW.Reliability IS OLD.Reliability;" +
-                "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateGrassCoverErosionInwardsOutputEntities);
-        }
-
-        private static void AssertClosingStructuresOutput(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateClosingStructuresOutputEntities =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructuresOutputEntity) " +
-                "FROM ClosingStructuresOutputEntity NEW " +
-                "JOIN [SOURCEPROJECT].ClosingStructuresOutputEntity OLD USING(ClosingStructuresOutputEntityId) " +
-                "WHERE NEW.ClosingStructuresCalculationEntityId = OLD.ClosingStructuresCalculationEntityId " +
-                "AND NEW.GeneralResultFaultTreeIllustrationPointEntityId IS OLD.GeneralResultFaultTreeIllustrationPointEntityId " +
-                "AND NEW.Reliability IS OLD.Reliability;" +
-                "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateClosingStructuresOutputEntities);
-        }
-
-        private static void AssertHeightStructuresOutput(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateHeightStructuresOutputEntities =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].HeightStructuresOutputEntity) " +
-                "FROM HeightStructuresOutputEntity NEW " +
-                "JOIN [SOURCEPROJECT].HeightStructuresOutputEntity OLD USING(HeightStructuresOutputEntityId) " +
-                "WHERE NEW.HeightStructuresCalculationEntityId = OLD.HeightStructuresCalculationEntityId " +
-                "AND NEW.GeneralResultFaultTreeIllustrationPointEntityId IS OLD.GeneralResultFaultTreeIllustrationPointEntityId " +
-                "AND NEW.Reliability IS OLD.Reliability;" +
-                "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateHeightStructuresOutputEntities);
-        }
-
-        private static void AssertStabilityPointStructuresOutput(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateStabilityPointStructuresOutputEntities =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity) " +
-                "FROM StabilityPointStructuresOutputEntity NEW " +
-                "JOIN [SOURCEPROJECT].StabilityPointStructuresOutputEntity OLD ON OLD.StabilityPointStructuresOutputEntity = NEW.StabilityPointStructuresOutputEntityId " +
-                "WHERE NEW.StabilityPointStructuresCalculationEntityId = OLD.StabilityPointStructuresCalculationEntityId " +
-                "AND NEW.GeneralResultFaultTreeIllustrationPointEntityId IS OLD.GeneralResultFaultTreeIllustrationPointEntityId " +
-                "AND NEW.Reliability IS OLD.Reliability;" +
-                "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateStabilityPointStructuresOutputEntities);
-        }
-
         private static void AssertAssessmentSection(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateAssessmentSectionEntities =
@@ -1005,15 +927,7 @@ namespace Ringtoets.Migration.Integration.Test
 
             string validateHydraulicLocationCalculationOutputCount =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = " +
-                "( " +
-                "SELECT COUNT() + " +
-                "( " +
-                "SELECT COUNT() " +
-                "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity " +
-                ") " +
-                "FROM [SOURCEPROJECT].HydraulicLocationOutputEntity " +
-                ") " +
+                "SELECT COUNT() = 0 " +
                 "FROM HydraulicLocationOutputEntity; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateHydraulicLocationCalculationOutputCount);
@@ -1049,15 +963,12 @@ namespace Ringtoets.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(queryGenerator.GetDuneLocationCalculationsCountValidationQuery(
                                                  DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForLowerFactorizedLimitNorm));
 
-            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType.SignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType.LowerLimitNorm));
-
-            reader.AssertReturnedDataIsValid(DuneErosionFailureMechanismValidationQueryGenerator.GetNewDuneLocationCalculationOutputValidationQuery(
-                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForMechanismSpecificFactorizedSignalingNorm));
-            reader.AssertReturnedDataIsValid(DuneErosionFailureMechanismValidationQueryGenerator.GetNewDuneLocationCalculationOutputValidationQuery(
-                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForLowerLimitNorm));
-            reader.AssertReturnedDataIsValid(DuneErosionFailureMechanismValidationQueryGenerator.GetNewDuneLocationCalculationOutputValidationQuery(
-                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForLowerFactorizedLimitNorm));
+            string validateDuneLocationOutput =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = 0 " +
+                "FROM DuneLocationCalculationOutputEntity; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateDuneLocationOutput);
         }
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
@@ -1089,6 +1000,125 @@ namespace Ringtoets.Migration.Integration.Test
                 "DETACH DATABASE SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertFailureMechanismRelatedOutput(MigratedDatabaseReader reader)
+        {
+            var tables = new[]
+            {
+                "ClosingStructuresOutputEntity",
+                "GrassCoverErosionOutwardsWaveConditionsOutputEntity",
+                "GrassCoverErosionInwardsDikeHeightOutputEntity",
+                "GrassCoverErosionInwardsOutputEntity",
+                "GrassCoverErosionInwardsOvertoppingRateOutputEntity",
+                "HeightStructuresOutputEntity",
+                "StabilityPointStructuresOutputEntity",
+                "StabilityStoneCoverWaveConditionsOutputEntity",
+                "WaveImpactAsphaltCoverWaveConditionsOutputEntity",
+                "TopLevelFaultTreeIllustrationPointEntity",
+                "TopLevelSubMechanismIllustrationPointEntity",
+                "GeneralResultFaultTreeIllustrationPointEntity",
+                "GeneralResultFaultTreeIllustrationPointStochastEntity",
+                "GeneralResultSubMechanismIllustrationPointEntity",
+                "GeneralResultSubMechanismIllustrationPointStochastEntity",
+                "SubMechanismIllustrationPointEntity",
+                "SubMechanismIllustrationPointStochastEntity",
+                "FaultTreeIllustrationPointEntity",
+                "FaultTreeIllustrationPointStochastEntity",
+                "FaultTreeSubmechanismIllustrationPointEntity",
+                "StochastEntity"
+            };
+
+            foreach (string table in tables)
+            {
+                string validateMigratedTable =
+                    "SELECT COUNT() = 0 " +
+                    $"FROM {table};" +
+                    "DETACH SOURCEPROJECT;";
+                reader.AssertReturnedDataIsValid(validateMigratedTable);
+            }
+        }
+
+        private static void AssertPipingOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateOutputCount =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].PipingCalculationOutputEntity " +
+                "JOIN [SOURCEPROJECT].PipingCalculationEntity USING(PipingCalculationEntityId) " +
+                "WHERE [UseAssessmentLevelManualInput] = 1 " +
+                ") " +
+                "FROM PipingCalculationOutputEntity;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateOutputCount);
+        }
+
+        private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateOutputCount =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "( " +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity " +
+                "JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId) " +
+                "WHERE [UseAssessmentLevelManualInput] = 1 " +
+                ") " +
+                "FROM MacroStabilityInwardsCalculationOutputEntity;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateOutputCount);
+
+            string validateOutputContent =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT " +
+                "COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity " +
+                "JOIN [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity USING(MacroStabilityInwardsCalculationEntityId) " +
+                "WHERE [UseAssessmentLevelManualInput] = 1 " +
+                ") " +
+                "FROM MacroStabilityInwardsCalculationOutputEntity NEW " +
+                "JOIN [SourceProject].MacroStabilityInwardsCalculationOutputEntity AS OLD USING(MacroStabilityInwardsCalculationOutputEntityId) " +
+                "WHERE NEW.MacroStabilityInwardsCalculationEntityId = OLD.MacroStabilityInwardsCalculationEntityId " +
+                "AND NEW.FactorOfStability IS OLD.FactorOfStability " +
+                "AND NEW.ZValue IS OLD.ZValue " +
+                "AND NEW.ForbiddenZonesXEntryMin IS OLD.ForbiddenZonesXEntryMin " +
+                "AND NEW.ForbiddenZonesXEntryMax IS OLD.ForbiddenZonesXEntryMax " +
+                "AND NEW.SlidingCurveLeftSlidingCircleCenterX IS OLD.SlidingCurveLeftSlidingCircleCenterX " +
+                "AND NEW.SlidingCurveLeftSlidingCircleCenterY IS OLD.SlidingCurveLeftSlidingCircleCenterY " +
+                "AND NEW.SlidingCurveLeftSlidingCircleRadius IS OLD.SlidingCurveLeftSlidingCircleRadius " +
+                "AND NEW.SlidingCurveLeftSlidingCircleIsActive = OLD.SlidingCurveLeftSlidingCircleIsActive " +
+                "AND NEW.SlidingCurveLeftSlidingCircleNonIteratedForce IS OLD.SlidingCurveLeftSlidingCircleNonIteratedForce " +
+                "AND NEW.SlidingCurveLeftSlidingCircleIteratedForce IS OLD.SlidingCurveLeftSlidingCircleIteratedForce " +
+                "AND NEW.SlidingCurveLeftSlidingCircleDrivingMoment IS OLD.SlidingCurveLeftSlidingCircleDrivingMoment " +
+                "AND NEW.SlidingCurveLeftSlidingCircleResistingMoment IS OLD.SlidingCurveLeftSlidingCircleResistingMoment " +
+                "AND NEW.SlidingCurveRightSlidingCircleCenterX IS OLD.SlidingCurveRightSlidingCircleCenterX " +
+                "AND NEW.SlidingCurveRightSlidingCircleCenterY IS OLD.SlidingCurveRightSlidingCircleCenterY " +
+                "AND NEW.SlidingCurveRightSlidingCircleRadius IS OLD.SlidingCurveRightSlidingCircleRadius " +
+                "AND NEW.SlidingCurveRightSlidingCircleIsActive = OLD.SlidingCurveRightSlidingCircleIsActive " +
+                "AND NEW.SlidingCurveRightSlidingCircleNonIteratedForce IS OLD.SlidingCurveRightSlidingCircleNonIteratedForce " +
+                "AND NEW.SlidingCurveRightSlidingCircleIteratedForce IS OLD.SlidingCurveRightSlidingCircleIteratedForce " +
+                "AND NEW.SlidingCurveRightSlidingCircleDrivingMoment IS OLD.SlidingCurveRightSlidingCircleDrivingMoment " +
+                "AND NEW.SlidingCurveRightSlidingCircleResistingMoment IS OLD.SlidingCurveRightSlidingCircleResistingMoment " +
+                "AND NEW.SlidingCurveNonIteratedHorizontalForce IS OLD.SlidingCurveNonIteratedHorizontalForce " +
+                "AND NEW.SlidingCurveIteratedHorizontalForce IS OLD.SlidingCurveIteratedHorizontalForce " +
+                "AND NEW.SlipPlaneLeftGridXLeft IS OLD.SlipPlaneLeftGridXLeft " +
+                "AND NEW.SlipPlaneLeftGridXRight IS OLD.SlipPlaneLeftGridXRight " +
+                "AND NEW.SlipPlaneLeftGridNrOfHorizontalPoints = OLD.SlipPlaneLeftGridNrOfHorizontalPoints " +
+                "AND NEW.SlipPlaneLeftGridZTop IS OLD.SlipPlaneLeftGridZTop " +
+                "AND NEW.SlipPlaneLeftGridZBottom IS OLD.SlipPlaneLeftGridZBottom " +
+                "AND NEW.SlipPlaneLeftGridNrOfVerticalPoints = OLD.SlipPlaneLeftGridNrOfVerticalPoints " +
+                "AND NEW.SlipPlaneRightGridXLeft IS OLD.SlipPlaneRightGridXLeft " +
+                "AND NEW.SlipPlaneRightGridXRight IS OLD.SlipPlaneRightGridXRight " +
+                "AND NEW.SlipPlaneRightGridNrOfHorizontalPoints = OLD.SlipPlaneRightGridNrOfHorizontalPoints " +
+                "AND NEW.SlipPlaneRightGridZTop IS OLD.SlipPlaneRightGridZTop " +
+                "AND NEW.SlipPlaneRightGridZBottom IS OLD.SlipPlaneRightGridZBottom " +
+                "AND NEW.SlipPlaneRightGridNrOfVerticalPoints = OLD.SlipPlaneRightGridNrOfVerticalPoints;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateOutputContent);
         }
 
         #region Dune Locations
@@ -1196,86 +1226,12 @@ namespace Ringtoets.Migration.Integration.Test
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
-            /// <summary>
-            /// Generates a query to validate the new dune location outputs that are not based on migrated data.
-            /// </summary>
-            /// <param name="calculationType">The type of calculation on which the output should be validated.</param>
-            /// <returns>The query to validate the dune location output.</returns>
-            public static string GetNewDuneLocationCalculationOutputValidationQuery(CalculationType calculationType)
-            {
-                return "SELECT COUNT() = 0 " +
-                       GetDuneLocationCalculationsQuery(calculationType) +
-                       "JOIN DuneLocationCalculationOutputEntity USING(DuneLocationCalculationEntityId);";
-            }
-
-            /// <summary>
-            /// Generates a query to validate if the dune location outputs are migrated correctly to the 
-            /// corresponding calculation entities.
-            /// </summary>
-            /// <param name="normType">The norm type to generate the query for.</param>
-            /// <returns>A query to validate the dune location outputs.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but unsupported.</exception>
-            public string GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType normType)
-            {
-                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT COUNT() = ( " +
-                       "SELECT COUNT() " +
-                       "FROM [SOURCEPROJECT].DuneLocationOutputEntity " +
-                       "JOIN [SOURCEPROJECT].DuneLocationEntity USING(DuneLocationEntityId) " +
-                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId)  " +
-                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
-                       $"WHERE NormativeNormType = {(int) normType} " +
-                       ") " +
-                       GetDuneLocationCalculationsQuery(ConvertToCalculationType(normType)) +
-                       "JOIN DuneLocationCalculationOutputEntity NEW USING(DuneLocationCalculationEntityId) " +
-                       "JOIN [SOURCEPROJECT].DuneLocationOutputEntity OLD ON OLD.DuneLocationOutputEntityId = NEW.DuneLocationCalculationOutputEntityId " +
-                       "WHERE NEW.WaterLevel IS OLD.WaterLevel " +
-                       "AND NEW.WaveHeight IS OLD.WaveHeight " +
-                       "AND NEW.WavePeriod IS OLD.WavePeriod " +
-                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
-                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
-                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
-                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
-                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
-                       "DETACH DATABASE SOURCEPROJECT;";
-            }
-
             private static string GetDuneLocationCalculationsQuery(CalculationType calculationType)
             {
                 return "FROM DuneErosionFailureMechanismMetaEntity fme " +
                        "JOIN DuneLocationCalculationCollectionEntity ON  " +
                        $"DuneLocationCalculationCollectionEntityId = fme.DuneLocationCalculationCollectionEntity{(int) calculationType}Id " +
                        "JOIN DuneLocationCalculationEntity USING(DuneLocationCalculationCollectionEntityId) ";
-            }
-
-            /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding calculation from <see cref="CalculationType"/>.
-            /// </summary>
-            /// <param name="normType">The norm type to convert.</param>
-            /// <returns>Returns the converted <see cref="CalculationType"/>.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but unsupported.</exception>
-            private static CalculationType ConvertToCalculationType(NormativeNormType normType)
-            {
-                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
-                {
-                    throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
-                }
-
-                switch (normType)
-                {
-                    case NormativeNormType.LowerLimitNorm:
-                        return CalculationType.CalculationsForMechanismSpecificLowerLimitNorm;
-                    case NormativeNormType.SignalingNorm:
-                        return CalculationType.CalculationsForMechanismSpecificSignalingNorm;
-                    default:
-                        throw new NotSupportedException();
-                }
             }
         }
 
@@ -1799,16 +1755,10 @@ namespace Ringtoets.Migration.Integration.Test
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationsValidationQuery(NormativeNormType.LowerLimitNorm));
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationsValidationQuery(NormativeNormType.SignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationOutputsValidationQuery(NormativeNormType.LowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationOutputsValidationQuery(NormativeNormType.SignalingNorm));
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
                                                  HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaveHeightCalculationsForFactorizedLowerLimitNorm));
             reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
-                                                 HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaveHeightCalculationsForFactorizedSignalingNorm));
-            reader.AssertReturnedDataIsValid(HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.GetNewCalculationOutputsValidationQuery(
-                                                 HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedLowerLimitNorm));
-            reader.AssertReturnedDataIsValid(HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.GetNewCalculationOutputsValidationQuery(
                                                  HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaveHeightCalculationsForFactorizedSignalingNorm));
         }
 
@@ -1826,16 +1776,10 @@ namespace Ringtoets.Migration.Integration.Test
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationsValidationQuery(NormativeNormType.LowerLimitNorm));
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationsValidationQuery(NormativeNormType.SignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType.LowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType.SignalingNorm));
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
                                                  HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedLowerLimitNorm));
             reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
-                                                 HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedSignalingNorm));
-            reader.AssertReturnedDataIsValid(HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.GetNewCalculationOutputsValidationQuery(
-                                                 HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedLowerLimitNorm));
-            reader.AssertReturnedDataIsValid(HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.GetNewCalculationOutputsValidationQuery(
                                                  HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedSignalingNorm));
         }
 
@@ -1985,35 +1929,6 @@ namespace Ringtoets.Migration.Integration.Test
             }
 
             /// <summary>
-            /// Generates a query to validate if the hydraulic boundary location calculation outputs related to the design water level calculations
-            /// are migrated correctly to the corresponding calculation entities.
-            /// </summary>
-            /// <param name="normType">The norm type to generate the query for.</param>
-            /// <returns>A query to validate the hydraulic boundary location calculation outputs.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but unsupported.</exception>
-            public string GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType normType)
-            {
-                CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
-
-                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT  " +
-                       "COUNT() =  " +
-                       "( " +
-                       "SELECT COUNT() " +
-                       "FROM [SOURCEPROJECT].HydraulicLocationOutputEntity sourceHlo " +
-                       "JOIN [SOURCEPROJECT].HydraulicLocationEntity USING(HydraulicLocationEntityId) " +
-                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse USING(AssessmentSectionEntityId) " +
-                       $"WHERE sourceHlo.HydraulicLocationOutputType = 1 AND sourceAse.NormativeNormType = {(int) normType} " +
-                       ") " +
-                       GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
-                       GetHydraulicLocationCalculationOutputValidationSubQuery() +
-                       "DETACH DATABASE SOURCEPROJECT;";
-            }
-
-            /// <summary>
             /// Generates a query to validate if the hydraulic boundary calculation input for the wave height calculations 
             /// are migrated correctly.
             /// </summary>
@@ -2040,35 +1955,6 @@ namespace Ringtoets.Migration.Integration.Test
             }
 
             /// <summary>
-            /// Generates a query to validate if the hydraulic boundary location calculation outputs related to the wave height calculations 
-            /// are migrated correctly to the corresponding calculation entities.
-            /// </summary>
-            /// <param name="normType">The norm type to generate the query for.</param>
-            /// <returns>A query to validate the hydraulic boundary location calculation outputs.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but unsupported.</exception>
-            public string GetMigratedWaveHeightCalculationOutputsValidationQuery(NormativeNormType normType)
-            {
-                CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
-
-                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT  " +
-                       "COUNT() =  " +
-                       "( " +
-                       "SELECT COUNT() " +
-                       "FROM [SOURCEPROJECT].HydraulicLocationOutputEntity sourceHlo " +
-                       "JOIN [SOURCEPROJECT].HydraulicLocationEntity USING(HydraulicLocationEntityId) " +
-                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse USING(AssessmentSectionEntityId) " +
-                       $"WHERE sourceHlo.HydraulicLocationOutputType = 2 AND sourceAse.NormativeNormType = {(int) normType} " +
-                       ") " +
-                       GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
-                       GetHydraulicLocationCalculationOutputValidationSubQuery() +
-                       "DETACH DATABASE SOURCEPROJECT;";
-            }
-
-            /// <summary>
             /// Generates a query to validate the new hydraulic boundary location calculations that are not based on migrated data.
             /// </summary>
             /// <param name="calculationType">The type of calculation on which the input should be validated.</param>
@@ -2082,38 +1968,12 @@ namespace Ringtoets.Migration.Integration.Test
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
-            /// <summary>
-            /// Generates a query to validate the new hydraulic boundary location calculation outputs that are not based on migrated data.
-            /// </summary>
-            /// <param name="calculationType">The type of calculation on which the output should be validated.</param>
-            /// <returns>The query to validate the hydraulic boundary location calculation output.</returns>
-            public static string GetNewCalculationOutputsValidationQuery(CalculationType calculationType)
-            {
-                return "SELECT  " +
-                       "COUNT() = 0 " +
-                       GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
-                       "JOIN HydraulicLocationOutputEntity USING(HydraulicLocationCalculationEntityId); ";
-            }
-
             private static string GetHydraulicLocationCalculationsFromCollectionQuery(CalculationType calculationType)
             {
                 return "FROM AssessmentSectionEntity ase " +
                        $"JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id " +
                        "= hlcce.HydraulicLocationCalculationCollectionEntityId " +
                        "JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId) ";
-            }
-
-            private static string GetHydraulicLocationCalculationOutputValidationSubQuery()
-            {
-                return "JOIN HydraulicLocationOutputEntity NEW USING(HydraulicLocationCalculationEntityId) " +
-                       "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON " +
-                       "NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
-                       "AND NEW.Result IS OLD.Result " +
-                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
-                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
-                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
-                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
-                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; ";
             }
 
             /// <summary>
@@ -2186,13 +2046,9 @@ namespace Ringtoets.Migration.Integration.Test
                                                  HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm));
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationsValidationQuery(NormativeNormType.SignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType.SignalingNorm));
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationsValidationQuery(NormativeNormType.LowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType.LowerLimitNorm));
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
-                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm));
-            reader.AssertReturnedDataIsValid(HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.GetNewCalculationOutputsValidationQuery(
                                                  HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm));
         }
 
@@ -2207,13 +2063,9 @@ namespace Ringtoets.Migration.Integration.Test
                                                  HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm));
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationsValidationQuery(NormativeNormType.SignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationOutputsValidationQuery(NormativeNormType.SignalingNorm));
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationsValidationQuery(NormativeNormType.LowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationOutputsValidationQuery(NormativeNormType.LowerLimitNorm));
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
-                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm));
-            reader.AssertReturnedDataIsValid(HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.GetNewCalculationOutputsValidationQuery(
                                                  HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm));
         }
 
@@ -2363,35 +2215,6 @@ namespace Ringtoets.Migration.Integration.Test
             }
 
             /// <summary>
-            /// Generates a query to validate if the hydraulic boundary location calculation outputs related to the design water level calculations
-            /// are migrated correctly to the corresponding calculation entities.
-            /// </summary>
-            /// <param name="normType">The norm type to generate the query for.</param>
-            /// <returns>A query to validate the hydraulic boundary location calculation outputs.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but unsupported.</exception>
-            public string GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType normType)
-            {
-                CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
-
-                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT " +
-                       "COUNT() = ( " +
-                       "SELECT COUNT() " +
-                       "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity " +
-                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
-                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
-                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
-                       $"WHERE HydraulicLocationOutputType = 1 AND NormativeNormType = {(int) normType}" +
-                       ") " +
-                       GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
-                       GetHydraulicLocationCalculationOutputValidationSubQuery() +
-                       "DETACH DATABASE SOURCEPROJECT;";
-            }
-
-            /// <summary>
             /// Generates a query to validate if the hydraulic boundary calculation input for the wave height calculations 
             /// are migrated correctly.
             /// </summary>
@@ -2428,35 +2251,6 @@ namespace Ringtoets.Migration.Integration.Test
             }
 
             /// <summary>
-            /// Generates a query to validate if the hydraulic boundary location calculation outputs related to the wave height calculations
-            /// are migrated correctly to the corresponding calculation entities.
-            /// </summary>
-            /// <param name="normType">The norm type to generate the query for.</param>
-            /// <returns>A query to validate the hydraulic boundary location calculation outputs.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but unsupported.</exception>
-            public string GetMigratedWaveHeightCalculationOutputsValidationQuery(NormativeNormType normType)
-            {
-                CalculationType calculationType = ConvertToWaveHeightCalculationType(normType);
-
-                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT " +
-                       "COUNT() = ( " +
-                       "SELECT COUNT() " +
-                       "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity " +
-                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
-                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
-                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
-                       $"WHERE HydraulicLocationOutputType = 2 AND NormativeNormType = {(int) normType}" +
-                       ") " +
-                       GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
-                       GetHydraulicLocationCalculationOutputValidationSubQuery() +
-                       "DETACH DATABASE SOURCEPROJECT;";
-            }
-
-            /// <summary>
             /// Generates a query to validate the new hydraulic boundary location calculations that are not based on migrated data.
             /// </summary>
             /// <param name="calculationType">The type of calculation on which the input should be validated.</param>
@@ -2470,19 +2264,6 @@ namespace Ringtoets.Migration.Integration.Test
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
-            /// <summary>
-            /// Generates a query to validate the new hydraulic boundary location calculation outputs that are not based on migrated data.
-            /// </summary>
-            /// <param name="calculationType">The type of calculation on which the output should be validated.</param>
-            /// <returns>The query to validate the hydraulic boundary location calculation input.</returns>
-            public static string GetNewCalculationOutputsValidationQuery(CalculationType calculationType)
-            {
-                return "SELECT  " +
-                       "COUNT() = 0 " +
-                       GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
-                       "JOIN HydraulicLocationOutputEntity USING(HydraulicLocationCalculationEntityId); ";
-            }
-
             private static string GetHydraulicLocationCalculationsFromFailureMechanismQuery(CalculationType calculationType)
             {
                 return "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmm " +
@@ -2492,33 +2273,6 @@ namespace Ringtoets.Migration.Integration.Test
                        "JOIN HydraulicLocationEntity hl USING(HydraulicLocationEntityId) " +
                        "JOIN FailureMechanismEntity fm USING(FailureMechanismEntityId) " +
                        "JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId) ";
-            }
-
-            private static string GetHydraulicLocationCalculationOutputValidationSubQuery()
-            {
-                return "JOIN HydraulicLocationOutputEntity NEW USING(HydraulicLocationCalculationEntityId) " +
-                       "JOIN ( " +
-                       "SELECT " +
-                       "LocationId, " +
-                       "AssessmentSectionEntityId, " +
-                       "GeneralResultSubMechanismIllustrationPointEntityId, " +
-                       "Result,  " +
-                       "TargetProbability, " +
-                       "TargetReliability, " +
-                       "CalculatedProbability, " +
-                       "CalculatedReliability, " +
-                       "CalculationConvergence " +
-                       "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity " +
-                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
-                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
-                       ") OLD ON (fm.AssessmentSectionEntityId = OLD.AssessmentSectionEntityId AND OLD.LocationId = hl.LocationId)" +
-                       "WHERE NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
-                       "AND NEW.Result IS OLD.Result " +
-                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
-                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
-                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
-                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
-                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; ";
             }
 
             /// <summary>
@@ -2766,10 +2520,10 @@ namespace Ringtoets.Migration.Integration.Test
             }
 
             /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="Ringtoets.Common.Data.FailureMechanism.FailureMechanismCategoryType"/>.
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="FailureMechanismCategoryType"/>.
             /// </summary>
             /// <param name="normType">The norm type to convert.</param>
-            /// <returns>Returns the converted <see cref="Ringtoets.Common.Data.FailureMechanism.FailureMechanismCategoryType"/>.</returns>
+            /// <returns>Returns the converted <see cref="FailureMechanismCategoryType"/>.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
@@ -2793,10 +2547,10 @@ namespace Ringtoets.Migration.Integration.Test
             }
 
             /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="Ringtoets.Common.Data.AssessmentSection.AssessmentSectionCategoryType"/>.
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="AssessmentSectionCategoryType"/>.
             /// </summary>
             /// <param name="normType">The norm type to convert.</param>
-            /// <returns>Returns the converted <see cref="Ringtoets.Common.Data.AssessmentSection.AssessmentSectionCategoryType"/>.</returns>
+            /// <returns>Returns the converted <see cref="AssessmentSectionCategoryType"/>.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
