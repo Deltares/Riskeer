@@ -38,6 +38,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double insideWaterLevelStandardDeviation;
         private readonly double widthFlowAperturesMean;
         private readonly double widthFlowAperturesStandardDeviation;
+        private readonly double modelFactorLongThresholdMean;
+        private readonly double modelFactorLongThresholdStandardDeviation;
 
         /// <summary>
         /// Creates a new instance of <see cref="StructuresClosureLowSillCalculationInput"/>.
@@ -74,6 +76,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="insideWaterLevelStandardDeviation">The standard deviation of the inside water level.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width flow apertures.</param>
         /// <param name="widthFlowAperturesStandardDeviation">The standard deviation of the width flow apertures.</param>
+        /// <param name="modelFactorLongThresholdMean">The mean of the model factor long threshold.</param>
+        /// <param name="modelFactorLongThresholdStandardDeviation">The standard deviation of the model factor long threshold.</param>
         public StructuresClosureLowSillCalculationInput(long hydraulicBoundaryLocationId,
                                                         double sectionNormal,
                                                         IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -95,7 +99,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                         double modelFactorSuperCriticalFlowMean, double modelFactorSuperCriticalFlowStandardDeviation,
                                                         double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
                                                         double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
-                                                        double widthFlowAperturesMean, double widthFlowAperturesStandardDeviation)
+                                                        double widthFlowAperturesMean, double widthFlowAperturesStandardDeviation,
+                                                        double modelFactorLongThresholdMean, double modelFactorLongThresholdStandardDeviation)
             : base(hydraulicBoundaryLocationId,
                    sectionNormal,
                    forelandPoints, breakWater,
@@ -122,6 +127,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.insideWaterLevelStandardDeviation = insideWaterLevelStandardDeviation;
             this.widthFlowAperturesMean = widthFlowAperturesMean;
             this.widthFlowAperturesStandardDeviation = widthFlowAperturesStandardDeviation;
+            this.modelFactorLongThresholdMean = modelFactorLongThresholdMean;
+            this.modelFactorLongThresholdStandardDeviation = modelFactorLongThresholdStandardDeviation;
         }
 
         public override IEnumerable<HydraRingVariable> Variables
@@ -154,7 +161,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             yield return new NormalHydraRingVariable(65, HydraRingDeviationType.Standard, thresholdHeightOpenWeirMean, thresholdHeightOpenWeirStandardDeviation);
             yield return new NormalHydraRingVariable(93, HydraRingDeviationType.Standard, insideWaterLevelMean, insideWaterLevelStandardDeviation);
             yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
-            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, 0.9, 0.05);
+            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, modelFactorLongThresholdMean, modelFactorLongThresholdStandardDeviation);
         }
     }
 }

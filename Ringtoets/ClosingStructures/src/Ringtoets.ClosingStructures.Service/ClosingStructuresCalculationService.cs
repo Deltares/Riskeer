@@ -129,7 +129,8 @@ namespace Ringtoets.ClosingStructures.Service
                 structureInput.ModelFactorSuperCriticalFlow.Mean, structureInput.ModelFactorSuperCriticalFlow.StandardDeviation,
                 structureInput.ThresholdHeightOpenWeir.Mean, structureInput.ThresholdHeightOpenWeir.StandardDeviation,
                 structureInput.InsideWaterLevel.Mean, structureInput.InsideWaterLevel.StandardDeviation,
-                structureInput.WidthFlowApertures.Mean, structureInput.WidthFlowApertures.StandardDeviation);
+                structureInput.WidthFlowApertures.Mean, structureInput.WidthFlowApertures.StandardDeviation,
+                generalInput.ModelFactorLongThreshold.Mean, generalInput.ModelFactorLongThreshold.StandardDeviation);
         }
 
         private static StructuresClosureFloodedCulvertCalculationInput CreateFloodedCulvertCalculationInput(
