@@ -185,7 +185,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual("Label", dataGridViewColumns[failureMechanismCodeColumnIndex].HeaderText);
                 Assert.AreEqual("Groep", dataGridViewColumns[failureMechanismGroupColumnIndex].HeaderText);
                 Assert.AreEqual("Categorie", dataGridViewColumns[failureMechanismAssemblyCategoryColumnIndex].HeaderText);
-                Assert.AreEqual("Benaderde faalkans", dataGridViewColumns[failureMechanisProbabilityColumnIndex].HeaderText);
+                Assert.AreEqual("Benaderde faalkans [1/jaar]", dataGridViewColumns[failureMechanisProbabilityColumnIndex].HeaderText);
 
                 Assert.IsTrue(dataGridViewColumns[failureMechanismNameColumnIndex].ReadOnly);
                 Assert.IsTrue(dataGridViewColumns[failureMechanismCodeColumnIndex].ReadOnly);

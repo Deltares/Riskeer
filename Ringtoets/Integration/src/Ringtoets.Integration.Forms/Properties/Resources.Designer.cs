@@ -164,7 +164,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Benaderde faalkans.
+        ///   Looks up a localized string similar to Benaderde faalkans [1/jaar].
         /// </summary>
         public static string AssemblyResultTotalView_Probability_DisplayName {
             get {

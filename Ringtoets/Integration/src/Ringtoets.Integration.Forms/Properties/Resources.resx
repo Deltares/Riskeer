@@ -313,7 +313,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Assemblage</value>
   </data>
   <data name="AssemblyResultTotalView_Probability_DisplayName" xml:space="preserve">
-    <value>Benaderde faalkans</value>
+    <value>Benaderde faalkans [1/jaar]</value>
   </data>
   <data name="AssemblyResultTotalView_AssemblyResultGroupBox_Text" xml:space="preserve">
     <value>Gecombineerd veiligheidsoordeel</value>
