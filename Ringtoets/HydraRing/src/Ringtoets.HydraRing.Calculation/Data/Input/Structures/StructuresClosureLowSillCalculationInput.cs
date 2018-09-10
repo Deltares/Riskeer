@@ -154,6 +154,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             yield return new NormalHydraRingVariable(65, HydraRingDeviationType.Standard, thresholdHeightOpenWeirMean, thresholdHeightOpenWeirStandardDeviation);
             yield return new NormalHydraRingVariable(93, HydraRingDeviationType.Standard, insideWaterLevelMean, insideWaterLevelStandardDeviation);
             yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
+            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, 0.9, 0.05);
         }
     }
 }

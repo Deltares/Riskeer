@@ -231,6 +231,9 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             108, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
+                            125, new VariableDefaults(notApplicableCorrelationLength)
+                        },
+                        {
                             129, new VariableDefaults(notApplicableCorrelationLength)
                         }
                     }

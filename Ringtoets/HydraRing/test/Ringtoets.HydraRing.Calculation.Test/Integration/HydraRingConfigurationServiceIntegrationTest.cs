@@ -1354,6 +1354,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 105, 17.7, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 106, 0, 2, 27.7, 28.8, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 108, 0, 4, 18.8, NULL, NULL, NULL, 0, 19.9, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 125, 0, 2, 0.9, 0.05, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 129, 20, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
