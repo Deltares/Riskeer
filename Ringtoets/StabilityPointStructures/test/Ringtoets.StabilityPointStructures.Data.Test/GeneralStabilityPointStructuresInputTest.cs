@@ -53,6 +53,12 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
+            var modelFactorLongThreshold = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 0.9,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
             // Call
             var inputParameters = new GeneralStabilityPointStructuresInput();
 
@@ -66,6 +72,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             DistributionAssert.AreEqual(modelFactorStorageVolume, inputParameters.ModelFactorStorageVolume);
             DistributionAssert.AreEqual(modelFactorCollisionLoad, inputParameters.ModelFactorCollisionLoad);
             DistributionAssert.AreEqual(modelFactorLoadEffect, inputParameters.ModelFactorLoadEffect);
+            DistributionAssert.AreEqual(modelFactorLongThreshold, inputParameters.ModelFactorLongThreshold);
 
             Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
             Assert.AreEqual(1, inputParameters.ModelFactorInflowVolume, inputParameters.ModelFactorInflowVolume.GetAccuracy());
