@@ -1246,7 +1246,6 @@
           <Property Name="LoadSchematizationType" Type="tinyint" Nullable="false" />
           <Property Name="VolumicWeightWater" Type="real" />
           <Property Name="StormDurationMean" Type="real" />
-          <Property Name="ModelFactorSuperCriticalFlowMean" Type="real" />
           <Property Name="FactorStormDurationOpenStructure" Type="real" />
           <Property Name="DrainCoefficientMean" Type="real" />
           <Property Name="FailureProbabilityStructureWithErosion" Type="real" Nullable="false" />
@@ -6225,7 +6224,6 @@
           <Property Name="LoadSchematizationType" Type="Byte" Nullable="false" />
           <Property Name="VolumicWeightWater" Type="Double" />
           <Property Name="StormDurationMean" Type="Double" />
-          <Property Name="ModelFactorSuperCriticalFlowMean" Type="Double" />
           <Property Name="FactorStormDurationOpenStructure" Type="Double" />
           <Property Name="DrainCoefficientMean" Type="Double" />
           <Property Name="FailureProbabilityStructureWithErosion" Type="Double" Nullable="false" />
@@ -9521,7 +9519,6 @@
                 <ScalarProperty Name="FailureProbabilityStructureWithErosion" ColumnName="FailureProbabilityStructureWithErosion" />
                 <ScalarProperty Name="DrainCoefficientMean" ColumnName="DrainCoefficientMean" />
                 <ScalarProperty Name="FactorStormDurationOpenStructure" ColumnName="FactorStormDurationOpenStructure" />
-                <ScalarProperty Name="ModelFactorSuperCriticalFlowMean" ColumnName="ModelFactorSuperCriticalFlowMean" />
                 <ScalarProperty Name="StormDurationMean" ColumnName="StormDurationMean" />
                 <ScalarProperty Name="VolumicWeightWater" ColumnName="VolumicWeightWater" />
                 <ScalarProperty Name="LoadSchematizationType" ColumnName="LoadSchematizationType" />

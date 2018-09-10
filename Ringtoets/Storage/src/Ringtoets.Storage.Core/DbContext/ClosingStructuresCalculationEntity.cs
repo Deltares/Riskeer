@@ -66,6 +66,7 @@ namespace Ringtoets.Storage.Core.DbContext
         public byte InflowModelType { get; set; }
         public double? DeviationWaveDirection { get; set; }
         public double? DrainCoefficientMean { get; set; }
+        public double? ModelFactorSuperCriticalFlowMean { get; set; }
         public double? FactorStormDurationOpenStructure { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
@@ -93,7 +94,6 @@ namespace Ringtoets.Storage.Core.DbContext
         public double? FlowWidthAtBottomProtectionMean { get; set; }
         public double? FlowWidthAtBottomProtectionStandardDeviation { get; set; }
         public double FailureProbabilityStructureWithErosion { get; set; }
-        public double? ModelFactorSuperCriticalFlowMean { get; set; }
         public double? StormDurationMean { get; set; }
         public byte ShouldIllustrationPointsBeCalculated { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
