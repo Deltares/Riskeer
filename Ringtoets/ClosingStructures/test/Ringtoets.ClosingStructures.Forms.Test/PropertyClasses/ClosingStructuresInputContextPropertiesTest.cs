@@ -233,12 +233,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Faalkans herstel van gefaalde situatie [1/jaar]",
                                                                             "Faalkans herstel van gefaalde situatie.");
 
-            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[verticalWallFactorStormDurationOpenStructurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Factor voor stormduur hoogwater [-]",
-                                                                            "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
-
             PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[verticalWallModelFactorSuperCriticalFlowPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
@@ -246,6 +240,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor overloopdebiet volkomen overlaat [-]",
                                                                             "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
                                                                             true);
+
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[verticalWallFactorStormDurationOpenStructurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Factor voor stormduur hoogwater [-]",
+                                                                            "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[verticalWallStructurePropertyIndex].DisplayName);
@@ -459,12 +459,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Faalkans herstel van gefaalde situatie [1/jaar]",
                                                                             "Faalkans herstel van gefaalde situatie.");
 
-            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[lowSillFactorStormDurationOpenStructurePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Factor voor stormduur hoogwater [-]",
-                                                                            "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
-
             PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[lowSillModelFactorSuperCriticalFlowPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
@@ -472,6 +466,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor overloopdebiet volkomen overlaat [-]",
                                                                             "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
                                                                             true);
+
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[lowSillFactorStormDurationOpenStructurePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Factor voor stormduur hoogwater [-]",
+                                                                            "Factor voor stormduur hoogwater gegeven geopend kunstwerk.");
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[lowSillStructurePropertyIndex].DisplayName);
