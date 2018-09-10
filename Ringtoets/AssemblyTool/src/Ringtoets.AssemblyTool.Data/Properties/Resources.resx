@@ -135,6 +135,9 @@
   <data name="AssessmentSectionAssemblyCategoryGroup_Empty_DisplayName" xml:space="preserve">
     <value>-</value>
   </data>
+  <data name="AssessmentSectionAssemblyCategoryGroup_NotAssessed_DisplayName" xml:space="preserve">
+    <value>NGO</value>
+  </data>
   <data name="AssessmentSectionAssemblyCategoryGroup_None_DisplayName" xml:space="preserve">
     <value />
   </data>

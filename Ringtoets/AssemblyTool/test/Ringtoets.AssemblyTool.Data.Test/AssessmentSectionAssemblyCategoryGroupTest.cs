@@ -90,7 +90,7 @@ namespace Ringtoets.AssemblyTool.Data.Test
                         AssessmentSectionAssemblyCategoryGroup.NotApplicable, "-"
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.NotAssessed, "-"
+                        AssessmentSectionAssemblyCategoryGroup.NotAssessed, "NGO"
                     }
                 };
             }

@@ -44,7 +44,7 @@ namespace Ringtoets.AssemblyTool.Data
         /// <summary>
         /// Represents the category group NGO (Not assessed) for an assessment section.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_Empty_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_NotAssessed_DisplayName))]
         NotAssessed = 3,
 
         /// <summary>

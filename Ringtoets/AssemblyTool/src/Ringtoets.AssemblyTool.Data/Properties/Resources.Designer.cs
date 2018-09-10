@@ -145,6 +145,15 @@ namespace Ringtoets.AssemblyTool.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NGO.
+        /// </summary>
+        internal static string AssessmentSectionAssemblyCategoryGroup_NotAssessed_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_NotAssessed_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IIIt.
         /// </summary>
         internal static string FailureMechanismAssemblyCategoryGroup_IIIt_DisplayName {
