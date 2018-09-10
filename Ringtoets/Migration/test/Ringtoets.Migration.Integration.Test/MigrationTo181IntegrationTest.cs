@@ -389,7 +389,6 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND OLD.LoadSchematizationType = NEW.LoadSchematizationType " +
                 "AND OLD.VolumicWeightWater IS NEW.VolumicWeightWater " +
                 "AND OLD.StormDurationMean IS NEW.StormDurationMean " +
-                "AND OLD.ModelFactorSuperCriticalFlowMean IS NEW.ModelFactorSuperCriticalFlowMean " +
                 "AND OLD.FactorStormDurationOpenStructure IS NEW.FactorStormDurationOpenStructure " +
                 "AND OLD.DrainCoefficientMean IS NEW.DrainCoefficientMean " +
                 "AND OLD.FailureProbabilityStructureWithErosion = NEW.FailureProbabilityStructureWithErosion " +
