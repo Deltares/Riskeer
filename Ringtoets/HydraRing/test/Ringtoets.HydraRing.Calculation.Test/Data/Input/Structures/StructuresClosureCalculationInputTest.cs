@@ -89,6 +89,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(1, input.CalculationTypeId);
             Assert.AreEqual(58, input.VariableId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresClosure, input.FailureMechanismType);
+            Assert.AreEqual(6, input.IterationMethodId);
 
             HydraRingSection section = input.Section;
             Assert.AreEqual(1, section.SectionId);

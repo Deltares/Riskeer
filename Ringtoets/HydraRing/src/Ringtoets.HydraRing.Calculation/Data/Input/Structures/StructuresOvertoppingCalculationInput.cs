@@ -169,5 +169,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         public override IEnumerable<HydraRingForelandPoint> ForelandsPoints { get; }
 
         public override HydraRingBreakWater BreakWater { get; }
+
+        public override int IterationMethodId
+        {
+            get
+            {
+                return 6;
+            }
+        }
     }
 }

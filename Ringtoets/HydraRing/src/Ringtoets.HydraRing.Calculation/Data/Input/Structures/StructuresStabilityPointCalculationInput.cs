@@ -274,6 +274,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
 
         public override HydraRingBreakWater BreakWater { get; }
 
+        public override int IterationMethodId
+        {
+            get
+            {
+                return 6;
+            }
+        }
+
         public abstract override int? GetSubMechanismModelId(int subMechanismId);
     }
 }

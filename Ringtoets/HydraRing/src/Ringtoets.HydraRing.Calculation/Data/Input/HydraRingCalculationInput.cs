@@ -141,9 +141,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         }
 
         /// <summary>
-        /// Gets the iteration method to use during the calculation.
+        /// Gets the iteration method id to use during the calculation.
         /// </summary>
-        public virtual int IterationMethod
+        public virtual int IterationMethodId
         {
             get
             {

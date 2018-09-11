@@ -45,7 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             CollectionAssert.IsEmpty(hydraRingCalculationInput.ForelandsPoints);
             Assert.IsNull(hydraRingCalculationInput.BreakWater);
             Assert.IsNaN(hydraRingCalculationInput.Beta);
-            Assert.AreEqual(3, hydraRingCalculationInput.IterationMethod);
+            Assert.AreEqual(3, hydraRingCalculationInput.IterationMethodId);
         }
 
         [Test]
