@@ -57,11 +57,15 @@ namespace Ringtoets.Integration.IO.Helpers
 
             if (idLookup.ContainsKey(prefix))
             {
-                return $"{prefix}.{idLookup[prefix]++}";
+                idLookup[prefix]++;
+            }
+            else
+            {
+                idLookup[prefix] = 0;
             }
 
-            idLookup[prefix] = 0;
-            return $"{prefix}.{idLookup[prefix]++}";
+            
+            return $"{prefix}.{idLookup[prefix]}";
         }
 
         /// <summary>

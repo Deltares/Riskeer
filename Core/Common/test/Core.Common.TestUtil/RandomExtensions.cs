@@ -136,13 +136,13 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
-        /// Returns a random <typeparamref name="TEnum"/> from <paramref name="enumValues"/>.
+        /// Returns a random value of <typeparamref name="TEnum"/> from <paramref name="enumValues"/>.
         /// </summary>
         /// <typeparam name="TEnum">The <see cref="Enum"/> to use.</typeparam>
         /// <param name="random">A pseudo-random number generator.</param>
         /// <param name="enumValues">A collection of valid enum values to return a random element from.</param>
-        /// <returns>A random <typeparamref name="TEnum"/> from <paramref name="enumValues"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is <c>null</c>.</exception>
+        /// <returns>A random value of type <typeparamref name="TEnum"/> from <paramref name="enumValues"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="enumValues"/> is empty or
         /// of <typeparamref name="TEnum"/> is not an <see cref="Enum"/>.</exception>
         public static TEnum NextEnumValue<TEnum>(this Random random, IEnumerable<TEnum> enumValues)

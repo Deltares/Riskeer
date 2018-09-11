@@ -30,7 +30,7 @@ namespace Core.Common.TestUtil.Test
     public class RandomExtensionsTest
     {
         [Test]
-        public void NextDouble_RandomIsNull_ThrowsArgumentNullException()
+        public void NextDouble_RandomNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => ((Random) null).NextDouble(0, 0);
@@ -95,7 +95,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void NextBoolean_RandomIsNull_ThrowsArgumentNullException()
+        public void NextBoolean_RandomNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = (Random) null;
@@ -124,7 +124,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void NextEnumValue_RandomIsNull_ThrowsArgumentNullException()
+        public void NextEnumValue_RandomNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = (Random) null;
@@ -151,7 +151,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        [TestCase(0, TestEnum.ValueTwo)]
+        [TestCase(0, TestEnum.ValueThree)]
         [TestCase(1, TestEnum.ValueOne)]
         public void NextEnumValue_TypeIsEnum_ReturnsEnum(int seed, TestEnum expectedFirstCallResult)
         {
@@ -166,7 +166,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void NextRoundedDouble_RandomIsNull_ThrowsArgumentNullException()
+        public void NextRoundedDouble_RandomNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = (Random) null;
@@ -195,7 +195,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void NextEnumValueWithEnumValues_RandomIsNull_ThrowsArgumentNullException()
+        public void NextEnumValueWithEnumValues_RandomNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = (Random) null;
@@ -223,7 +223,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void NextItemWithEnumValues_EnumValuesEmpty_ThrowsArgumentException()
+        public void NextEnumValueWithEnumValues_EnumValuesEmpty_ThrowsArgumentException()
         {
             // Setup
             var random = new Random(21);
@@ -237,7 +237,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void NextItemWithEnumValues_TypeIsNoEnum_ThrowsArgumentException()
+        public void NextEnumValueWithEnumValues_TypeIsNoEnum_ThrowsArgumentException()
         {
             // Setup
             var random = new Random(21);
@@ -253,14 +253,14 @@ namespace Core.Common.TestUtil.Test
         [Test]
         [TestCase(0, 1)]
         [TestCase(1, 0)]
-        public void NextItemWithEnumValues_ReturnsRandomEnum(int seed, int expectedIndex)
+        public void NextEnumValueWithEnumValues_WithValidArguments_ReturnsRandomEnum(int seed, int expectedIndex)
         {
             // Setup
             var random = new Random(seed);
             var enumValues = new[]
             {
-                TestEnum2.ValueThree,
-                TestEnum2.ValueFour
+                TestEnum.ValueTwo,
+                TestEnum.ValueThree
             };
 
             // Call
@@ -273,15 +273,8 @@ namespace Core.Common.TestUtil.Test
         public enum TestEnum
         {
             ValueOne,
-            ValueTwo
-        }
-
-        public enum TestEnum2
-        {
-            ValueOne,
             ValueTwo,
-            ValueThree,
-            ValueFour
+            ValueThree
         }
     }
 }

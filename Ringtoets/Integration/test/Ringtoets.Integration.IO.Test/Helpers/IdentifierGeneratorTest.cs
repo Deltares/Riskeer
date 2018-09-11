@@ -65,9 +65,9 @@ namespace Ringtoets.Integration.IO.Test.Helpers
         }
 
         [Test]
-        public void GivenGeneratedId_WhenGetNewIdCalledWithSamePrefix_ThenNewIdGenerated()
+        public void GetNewId_IdAlreadyUsed_ReturnsExpectedValue()
         {
-            // Given
+            // Setup
             const string prefix = "prefix";
             var generator = new IdentifierGenerator();
             string currentId = generator.GetNewId(prefix);
@@ -75,38 +75,31 @@ namespace Ringtoets.Integration.IO.Test.Helpers
             // Precondition
             Assert.AreEqual($"{prefix}.0", currentId);
 
-            // When
-            string[] generatedIds =
-            {
-                generator.GetNewId(prefix),
-                generator.GetNewId(prefix)
-            };
+            // Call
+            string generatedId = generator.GetNewId(prefix);
 
-            // Then
-            CollectionAssert.AreEqual(new[]
-            {
-                $"{prefix}.1",
-                $"{prefix}.2"
-            }, generatedIds);
+            // Assert
+            Assert.AreEqual($"{prefix}.1", generatedId);
         }
 
         [Test]
-        public void GivenGeneratedId_WhenGetNewIdCalledWithDifferentPrefix_ThenNewIdGenerated()
+        public void GivenIdGeneratorWithPrefixEntries_WhenGetNewIdCalledWithDifferentPrefix_ThenExpectedValuesReturned()
         {
             // Given
             const string prefix = "prefix";
             var generator = new IdentifierGenerator();
-            generator.GetNewId(prefix);
-
+            
             // Precondition
-            Assert.AreEqual($"{prefix}.1", generator.GetNewId(prefix));
+            Assert.AreEqual($"{prefix}.0", generator.GetNewId(prefix));
 
             const string newPrefix = "NewPrefix";
 
             // When
+            string oldPrefixId = generator.GetNewId(prefix);
             string newPrefixId = generator.GetNewId(newPrefix);
 
             // Then
+            Assert.AreEqual($"{prefix}.1", oldPrefixId);
             Assert.AreEqual($"{newPrefix}.0", newPrefixId);
         }
 
@@ -127,8 +120,6 @@ namespace Ringtoets.Integration.IO.Test.Helpers
             // Setup
             const string assessmentSectionId = "AssessmentSectionId";
             ExportableAssessmentSection assessmentSection = CreateAssessmentSection(assessmentSectionId);
-
-            var generator = new IdentifierGenerator();
 
             // Call
             string generatedId = IdentifierGenerator.GeneratedId(assessmentSection);

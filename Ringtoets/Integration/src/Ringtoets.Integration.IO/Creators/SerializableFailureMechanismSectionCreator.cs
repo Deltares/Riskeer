@@ -29,7 +29,7 @@ using Ringtoets.Integration.IO.Properties;
 namespace Ringtoets.Integration.IO.Creators
 {
     /// <summary>
-    /// Creator to create instances of <see cref="SerializableFailureMechanismSection"/>
+    /// Creator to create instances of <see cref="SerializableFailureMechanismSection"/>.
     /// </summary>
     public static class SerializableFailureMechanismSectionCreator
     {

@@ -33,7 +33,7 @@ using Ringtoets.Integration.IO.Properties;
 namespace Ringtoets.Integration.IO.Creators
 {
     /// <summary>
-    /// Creator to create instances of <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>
+    /// Creator to create instances of <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.
     /// </summary>
     internal static class AggregatedSerializableFailureMechanismSectionAssemblyCreator
     {
