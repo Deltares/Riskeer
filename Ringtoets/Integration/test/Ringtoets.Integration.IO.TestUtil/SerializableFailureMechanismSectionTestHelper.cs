@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.IO.TestUtil
                                                          SerializableFailureMechanismSection actualSerializableSection,
                                                          int expectedId = 0)
         {
-            Assert.AreEqual($"Wks.{expectedId}", actualSerializableSection.Id);
+            Assert.AreEqual($"Tv.{expectedId}", actualSerializableSection.Id);
             Assert.AreEqual(expectedCollection.Id, actualSerializableSection.FailureMechanismSectionCollectionId);
 
             Assert.AreEqual(GeometrySerializationFormatter.Format(expectedSection.Geometry),
@@ -90,7 +90,7 @@ namespace Ringtoets.Integration.IO.TestUtil
                                                          SerializableFailureMechanismSection actualSerializableSection,
                                                          int expectedId = 0)
         {
-            Assert.AreEqual($"Wks.{expectedId}", actualSerializableSection.Id);
+            Assert.AreEqual($"Tv.{expectedId}", actualSerializableSection.Id);
             Assert.AreEqual(expectedCollection.Id, actualSerializableSection.FailureMechanismSectionCollectionId);
 
             Assert.AreEqual(GeometrySerializationFormatter.Format(expectedSection.Geometry),

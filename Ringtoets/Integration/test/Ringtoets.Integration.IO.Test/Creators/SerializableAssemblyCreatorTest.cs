@@ -315,7 +315,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                 failureMechanismWithProbability,
                                                                 failureMechanismSectionCollection);
             var serializableFailureMechanismSection = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 15];
-            AssertSerializableFailureMechanismSection($"Wks.{expectedId}",
+            AssertSerializableFailureMechanismSection($"Tv.{expectedId}",
                                                       failureMechanismSectionCollection,
                                                       serializableFailureMechanismSection);
             AssertSerializableFailureMechanismSectionAssembly($"T.{expectedId}",
@@ -363,7 +363,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                      SerializableFeatureMember[] serializableAssemblyFeatureMembers)
         {
             var combinedFailureMechanismSection = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[indexSerializableCombinedSectionAssembly + 11];
-            AssertSerializableFailureMechanismSection($"Wks.{expectedSectionId}",
+            AssertSerializableFailureMechanismSection($"Tv.{expectedSectionId}",
                                                       expectedCombinedFailureMechanismSectionCollection,
                                                       combinedFailureMechanismSection);
             AssertSerializableCombinedFailureMechanismSectionAssembly($"Gto.{expectedCombinedSectionAssemblyId}",
