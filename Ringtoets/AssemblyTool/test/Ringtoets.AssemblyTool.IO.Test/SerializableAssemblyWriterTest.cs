@@ -287,7 +287,7 @@ namespace Ringtoets.AssemblyTool.IO.Test
                 SerializableFailureMechanismGroup.Group4,
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI1A1, SerializableFailureMechanismCategoryGroup.IIt));
 
-            var sections1 = new SerializableFailureMechanismSectionCollection("vakindelingGABI", failureMechanism);
+            var sections1 = new SerializableFailureMechanismSectionCollection("vakindelingGABI");
             var section1 = new SerializableFailureMechanismSection(
                 "vak_GABI_1",
                 sections1,

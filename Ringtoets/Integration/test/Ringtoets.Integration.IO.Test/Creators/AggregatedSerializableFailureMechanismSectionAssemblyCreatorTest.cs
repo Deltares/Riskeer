@@ -129,8 +129,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                 new SerializableFailureMechanismAssemblyResult());
 
             const string serializableSectionCollectionId = "CollectionId";
-            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId,
-                                                                                           serializableFailureMechanism);
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId);
 
             // Call
             AggregatedSerializableFailureMechanismSectionAssembly aggregatedSectionAssembly =
@@ -191,8 +190,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                 new SerializableFailureMechanismAssemblyResult());
 
             const string serializableSectionCollectionId = "CollectionId";
-            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId,
-                                                                                           serializableFailureMechanism);
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId);
 
             // Call
             AggregatedSerializableFailureMechanismSectionAssembly aggregatedSectionAssembly =
@@ -328,8 +326,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                 new SerializableFailureMechanismAssemblyResult());
 
             const string serializableSectionCollectionId = "CollectionId";
-            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId,
-                                                                                           serializableFailureMechanism);
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId);
 
             // Call
             AggregatedSerializableFailureMechanismSectionAssembly aggregatedSectionAssembly =
@@ -390,8 +387,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                 new SerializableFailureMechanismAssemblyResult());
 
             const string serializableSectionCollectionId = "CollectionId";
-            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId,
-                                                                                           serializableFailureMechanism);
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId);
 
             // Call
             AggregatedSerializableFailureMechanismSectionAssembly aggregatedSectionAssembly =
@@ -523,8 +519,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                 new SerializableFailureMechanismAssemblyResult());
 
             const string serializableSectionCollectionId = "CollectionId";
-            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId,
-                                                                                           serializableFailureMechanism);
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId);
 
             // Call
             AggregatedSerializableFailureMechanismSectionAssembly aggregatedSectionAssembly =
@@ -578,8 +573,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                 new SerializableFailureMechanismAssemblyResult());
 
             const string serializableSectionCollectionId = "CollectionId";
-            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId,
-                                                                                           serializableFailureMechanism);
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId);
 
             // Call
             AggregatedSerializableFailureMechanismSectionAssembly aggregatedSectionAssembly =

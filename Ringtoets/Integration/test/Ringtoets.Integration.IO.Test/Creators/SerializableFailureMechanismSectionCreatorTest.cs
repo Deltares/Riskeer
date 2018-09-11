@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         {
             // Setup
             const string collectionId = "collectionId";
-            var collection = new SerializableFailureMechanismSectionCollection(collectionId, new SerializableFailureMechanism());
+            var collection = new SerializableFailureMechanismSectionCollection(collectionId);
 
             var idGenerator = new IdentifierGenerator();
             ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
@@ -136,7 +136,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         {
             // Setup
             const string collectionId = "collectionId";
-            var collection = new SerializableFailureMechanismSectionCollection(collectionId, new SerializableFailureMechanism());
+            var collection = new SerializableFailureMechanismSectionCollection(collectionId);
 
             var idGenerator = new IdentifierGenerator();
             ExportableCombinedFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableCombinedFailureMechanismSection();

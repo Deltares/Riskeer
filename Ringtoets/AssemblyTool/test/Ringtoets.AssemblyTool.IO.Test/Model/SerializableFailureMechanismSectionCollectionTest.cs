@@ -56,54 +56,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
         [Test]
         [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
-        public void ConstructorWithFailureMechanism_InvalidId_ThrowsArgumentException(string invalidId)
-        {
-            // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionCollection(invalidId,
-                                                                                        new SerializableFailureMechanism());
-
-            // Assert
-            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void ConstructorWithFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionCollection("id",
-                                                                                        (SerializableFailureMechanism) null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void ConstructorWithFailureMechanism_WithValidData_ReturnsExpectedValues()
-        {
-            // Setup
-            const string id = "collectionId";
-
-            var random = new Random(39);
-            var failureMechanism = new SerializableFailureMechanism("failureMechanismId",
-                                                                    new SerializableTotalAssemblyResult(),
-                                                                    random.NextEnumValue<SerializableFailureMechanismType>(),
-                                                                    random.NextEnumValue<SerializableFailureMechanismGroup>(),
-                                                                    new SerializableFailureMechanismAssemblyResult());
-
-            // Call
-            var collection = new SerializableFailureMechanismSectionCollection(id,
-                                                                               failureMechanism);
-
-            // Assert
-            Assert.AreEqual(id, collection.Id);
-            Assert.AreEqual(failureMechanism.Id, collection.FailureMechanismId);
-            Assert.IsNull(collection.TotalAssemblyResultId);
-        }
-
-        [Test]
-        [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
         public void ConstructorWithTotalAssemblyResult_InvalidId_ThrowsArgumentException(string invalidId)
         {
             // Call
@@ -119,8 +71,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         public void ConstructorWithTotalAssemblyResult_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionCollection("id",
-                                                                                        (SerializableTotalAssemblyResult) null);
+            TestDelegate call = () => new SerializableFailureMechanismSectionCollection("id", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
