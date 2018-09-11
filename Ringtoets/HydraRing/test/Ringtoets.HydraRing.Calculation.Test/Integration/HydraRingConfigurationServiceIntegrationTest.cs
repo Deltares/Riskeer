@@ -818,11 +818,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                      : string.Empty) +
                 Environment.NewLine +
                 "DELETE FROM [Numerics];" + Environment.NewLine +
-                "INSERT INTO [Numerics] VALUES (1, 110, 1, 1, 421, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                "INSERT INTO [Numerics] VALUES (1, 110, 1, 1, 422, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                "INSERT INTO [Numerics] VALUES (1, 110, 1, 1, 423, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                "INSERT INTO [Numerics] VALUES (1, 110, 1, 1, 421, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                "INSERT INTO [Numerics] VALUES (1, 110, 1, 1, 422, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                "INSERT INTO [Numerics] VALUES (1, 110, 1, 1, 423, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                 (runPreprocessor
-                     ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                     ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 6, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
                      : string.Empty) +
                 Environment.NewLine +
                 "DELETE FROM [VariableDatas];" + Environment.NewLine +
@@ -1192,13 +1192,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 426, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 427, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 426, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 427, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             (runPreprocessor
-                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 6, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
@@ -1327,13 +1327,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 426, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 427, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 426, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 427, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             (runPreprocessor
-                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 6, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
@@ -1464,13 +1464,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 426, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 427, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 426, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 427, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             (runPreprocessor
-                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 6, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
@@ -1609,17 +1609,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 430, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 431, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 432, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 433, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 434, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 430, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 431, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 432, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 433, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 434, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             (runPreprocessor
-                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 6, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
@@ -1775,17 +1775,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 430, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 431, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 432, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 433, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 434, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 430, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 431, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 432, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 433, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 434, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             (runPreprocessor
-                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 6, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
@@ -1941,17 +1941,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 430, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 431, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 432, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 433, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 434, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 430, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 431, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 432, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 433, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 434, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             (runPreprocessor
-                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 6, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
@@ -2107,17 +2107,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 430, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 431, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 432, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 433, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 434, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 422, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 424, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 425, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 430, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 431, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 432, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 433, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 434, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                            "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 6, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             (runPreprocessor
-                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 3, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
+                                                 ? "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 7, 1008, 1009, 1010, 1011.11, 1012.12, 1013.13, 1014.14, 1015, 6, 1016, 1017, 1018.18, 1019.19, 1020.2, 1021);" + Environment.NewLine
                                                  : string.Empty) +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
