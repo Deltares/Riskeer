@@ -96,6 +96,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double stabilityLinearLoadModelVariation = 53.53;
             const double widthFlowAperturesMean = 54.54;
             const double widthFlowAperturesStandardDeviation = 55.55;
+            const double modelFactorLongThresholdMean = 56.56;
+            const double modelFactorLongThresholdStandardDeviation = 57.57;
 
             // Call
             var input = new StructuresStabilityPointLowSillLinearCalculationInput(hydraulicBoundaryLocationId, sectionNormal,
@@ -133,7 +135,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                                   modificationFactorDynamicOrImpulsivePressureComponent,
                                                                                   constructiveStrengthLinearLoadModelMean, constructiveStrengthLinearLoadModelVariation,
                                                                                   stabilityLinearLoadModelMean, stabilityLinearLoadModelVariation,
-                                                                                  widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
+                                                                                  widthFlowAperturesMean, widthFlowAperturesStandardDeviation,
+                                                                                  modelFactorLongThresholdMean, modelFactorLongThresholdStandardDeviation);
 
             // Assert
             Assert.IsInstanceOf<StructuresStabilityPointCalculationInput>(input);
@@ -171,7 +174,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                                   32.32, 33.33, 34.34, 35.35, 36.36, 37.37, 38.38,
                                                                                   39.39, 40.40, 41.41, 42.42, 43.43, 44.44, 45.45,
                                                                                   46.46, 47.47, 48.48, 49.49, 50.50, 51.51, 52.52,
-                                                                                  53.53, 54.54, 55.55);
+                                                                                  53.53, 54.54, 55.55, 56.56, 57.57);
 
             // Call
             int? actualSubMechanismModelId = input.GetSubMechanismModelId(subMechanismModelId);
@@ -209,7 +212,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             yield return new DeterministicHydraRingVariable(105, 37.37);
             yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, 54.54, 55.55);
             yield return new LogNormalHydraRingVariable(108, HydraRingDeviationType.Variation, 38.38, 39.39);
-            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, 0.9, 0.05);
+            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, 56.56, 57.57);
             yield return new NormalHydraRingVariable(130, HydraRingDeviationType.Standard, 40.40, 41.41);
             yield return new DeterministicHydraRingVariable(131, 42.42);
             yield return new NormalHydraRingVariable(132, HydraRingDeviationType.Standard, 43.43, 44.44);

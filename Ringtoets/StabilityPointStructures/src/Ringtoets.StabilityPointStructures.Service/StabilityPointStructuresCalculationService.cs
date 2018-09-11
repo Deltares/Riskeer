@@ -210,7 +210,9 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.StabilityLinearLoadModel.Mean,
                 structureInput.StabilityLinearLoadModel.CoefficientOfVariation,
                 structureInput.WidthFlowApertures.Mean,
-                structureInput.WidthFlowApertures.StandardDeviation);
+                structureInput.WidthFlowApertures.StandardDeviation,
+                generalInput.ModelFactorLongThreshold.Mean,
+                generalInput.ModelFactorLongThreshold.StandardDeviation);
 
             return structuresStabilityPointLowSillLinearCalculationInput;
         }
