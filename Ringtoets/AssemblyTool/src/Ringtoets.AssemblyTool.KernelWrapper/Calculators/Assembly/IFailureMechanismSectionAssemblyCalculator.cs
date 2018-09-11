@@ -103,7 +103,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                    double probability,
-                                                                   double normativeNorm, 
+                                                                   double normativeNorm,
                                                                    double failureMechanismN,
                                                                    double failureMechanismContribution);
 

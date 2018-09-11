@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 namespace Ringtoets.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
-    public class AssessmentSectionCategoryTypeTest : EnumWithDisplayNameTestFixture<AssessmentSectionCategoryType>
+    public class AssessmentSectionCategoryTypeTest : EnumWithResourcesDisplayNameTestFixture<AssessmentSectionCategoryType>
     {
         protected override IDictionary<AssessmentSectionCategoryType, string> ExpectedDisplayNameForEnumValues
         {

@@ -22,7 +22,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
         /// containing <see cref="FmSectionCategory"/>.</returns>
         public static CategoriesList<FmSectionCategory> CreateFailureMechanismSectionCategories()
         {
-            return new CategoriesList<FmSectionCategory>(new []
+            return new CategoriesList<FmSectionCategory>(new[]
             {
                 new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0, 0.25),
                 new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0.25, 0.5),

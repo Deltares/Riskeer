@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Data.TestUtil
@@ -42,6 +43,35 @@ namespace Ringtoets.Common.Data.TestUtil
         public static void SetSections(IFailureMechanism failureMechanism, IEnumerable<FailureMechanismSection> sections)
         {
             failureMechanism.SetSections(sections, string.Empty);
+        }
+
+        /// <summary>
+        /// Adds a number of failure mechanism sections to <paramref name="failureMechanism"/>
+        /// based on the <paramref name="numberOfSections"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to add sections to.</param>
+        /// <param name="numberOfSections">The number of sections to add to the <paramref name="failureMechanism"/>.</param>
+        public static void AddSections(IFailureMechanism failureMechanism, int numberOfSections)
+        {
+            var startPoint = new Point2D(-1, -1);
+            var endPoint = new Point2D(15, 15);
+            double endPointStepsX = (endPoint.X - startPoint.X) / numberOfSections;
+            double endPointStepsY = (endPoint.Y - startPoint.Y) / numberOfSections;
+
+            var sections = new List<FailureMechanismSection>();
+            for (var i = 1; i <= numberOfSections; i++)
+            {
+                endPoint = new Point2D(startPoint.X + endPointStepsX, startPoint.Y + endPointStepsY);
+                sections.Add(new FailureMechanismSection(i.ToString(),
+                                                         new[]
+                                                         {
+                                                             startPoint,
+                                                             endPoint
+                                                         }));
+                startPoint = endPoint;
+            }
+
+            SetSections(failureMechanism, sections);
         }
     }
 }

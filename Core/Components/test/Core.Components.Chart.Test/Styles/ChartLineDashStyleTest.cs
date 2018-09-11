@@ -27,7 +27,7 @@ using NUnit.Framework;
 namespace Core.Components.Chart.Test.Styles
 {
     [TestFixture]
-    public class ChartLineDashStyleTest : EnumWithDisplayNameTestFixture<ChartLineDashStyle>
+    public class ChartLineDashStyleTest : EnumWithResourcesDisplayNameTestFixture<ChartLineDashStyle>
     {
         protected override IDictionary<ChartLineDashStyle, string> ExpectedDisplayNameForEnumValues
         {

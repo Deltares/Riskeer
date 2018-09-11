@@ -313,16 +313,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.TechnicalInnovation, technicalInnovationFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, technicalInnovationFailureMechanismContext.Parent);
 
-                var assemblyResultCategoryTreeFolder = (CategoryTreeFolder) objects[24];
-                Assert.AreEqual("Assemblage", assemblyResultCategoryTreeFolder.Name);
-                Assert.AreEqual(TreeFolderCategory.General, assemblyResultCategoryTreeFolder.Category);
-                Assert.AreEqual(2, assemblyResultCategoryTreeFolder.Contents.Count());
-
-                var assemblyResultTotalContext = (AssemblyResultTotalContext) assemblyResultCategoryTreeFolder.Contents.ElementAt(0);
-                Assert.AreSame(assessmentSection, assemblyResultTotalContext.WrappedData);
-
-                var assemblyResultPerSectionContext = (AssemblyResultPerSectionContext) assemblyResultCategoryTreeFolder.Contents.ElementAt(1);
-                Assert.AreSame(assessmentSection, assemblyResultPerSectionContext.WrappedData);
+                var assemblyResultsContext = (AssemblyResultsContext) objects[24];
+                Assert.AreSame(assessmentSection, assemblyResultsContext.WrappedData);
             }
         }
 

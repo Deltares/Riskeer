@@ -27,7 +27,7 @@ using NUnit.Framework;
 namespace Core.Components.Gis.Test.Data
 {
     [TestFixture]
-    public class WellKnownTileSourceTest : EnumWithDisplayNameTestFixture<WellKnownTileSource>
+    public class WellKnownTileSourceTest : EnumWithResourcesDisplayNameTestFixture<WellKnownTileSource>
     {
         protected override IDictionary<WellKnownTileSource, string> ExpectedDisplayNameForEnumValues
         {

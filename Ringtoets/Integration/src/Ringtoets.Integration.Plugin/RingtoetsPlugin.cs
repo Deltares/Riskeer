@@ -691,6 +691,15 @@ namespace Ringtoets.Integration.Plugin
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
             };
+
+            yield return new ExportInfo<AssemblyResultsContext>
+            {
+                Name = Resources.AssemblyResult_DisplayName,
+                CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
+                IsEnabled = context => context.WrappedData.ReferenceLine != null,
+                FileFilterGenerator = new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
+                                                              Resources.AssemblyResult_file_filter_Description)
+            };
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -1079,6 +1088,19 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
                                                                                  .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<AssemblyResultsContext>
+            {
+                Text = context => Resources.AssemblyResultsCategoryTreeFolder_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ChildNodeObjects = AssemblyResultsContextChildNodeObjects,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddExportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddCollapseAllItem()
+                                                                                 .AddExpandAllItem()
                                                                                  .Build()
             };
         }
@@ -1496,12 +1518,7 @@ namespace Ringtoets.Integration.Plugin
             };
 
             childNodes.AddRange(WrapFailureMechanismsInContexts(nodeData));
-            childNodes.Add(new CategoryTreeFolder(RingtoetsFormsResources.AssemblyResultCategoryTreeFolder_DisplayName,
-                                                  new object[]
-                                                  {
-                                                      new AssemblyResultTotalContext(nodeData),
-                                                      new AssemblyResultPerSectionContext(nodeData)
-                                                  }));
+            childNodes.Add(new AssemblyResultsContext(nodeData));
 
             return childNodes.ToArray();
         }
@@ -2317,6 +2334,20 @@ namespace Ringtoets.Integration.Plugin
                                                   context.AssessmentSection,
                                                   () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
                                                   RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
+            };
+        }
+
+        #endregion
+
+        #region AssemblyResults TreeNodeInfo
+
+        private static object[] AssemblyResultsContextChildNodeObjects(AssemblyResultsContext context)
+        {
+            AssessmentSection assessmentSection = context.WrappedData;
+            return new object[]
+            {
+                new AssemblyResultTotalContext(assessmentSection),
+                new AssemblyResultPerSectionContext(assessmentSection)
             };
         }
 

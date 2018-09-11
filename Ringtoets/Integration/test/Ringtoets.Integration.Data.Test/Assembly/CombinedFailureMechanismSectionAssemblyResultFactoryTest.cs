@@ -105,8 +105,8 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             Assert.AreEqual(output.Length, results.Length);
             for (var i = 0; i < output.Length; i++)
             {
-                Assert.AreEqual(output[i].Section.SectionStart / 1000, results[i].SectionStart);
-                Assert.AreEqual(output[i].Section.SectionEnd / 1000, results[i].SectionEnd);
+                Assert.AreEqual(output[i].Section.SectionStart, results[i].SectionStart);
+                Assert.AreEqual(output[i].Section.SectionEnd, results[i].SectionEnd);
                 Assert.AreEqual(output[i].Section.CategoryGroup, results[i].TotalResult);
 
                 Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.Piping]), results[i].Piping);
@@ -162,8 +162,8 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             Assert.AreEqual(output.Length, results.Length);
             for (var i = 0; i < output.Length; i++)
             {
-                Assert.AreEqual(output[i].Section.SectionStart / 1000, results[i].SectionStart);
-                Assert.AreEqual(output[i].Section.SectionEnd / 1000, results[i].SectionEnd);
+                Assert.AreEqual(output[i].Section.SectionStart, results[i].SectionStart);
+                Assert.AreEqual(output[i].Section.SectionEnd, results[i].SectionEnd);
                 Assert.AreEqual(output[i].Section.CategoryGroup, results[i].TotalResult);
 
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].Piping);

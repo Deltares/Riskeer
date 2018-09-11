@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.AssemblyTool.Forms.Properties;
 using RingtoetsCommonPrimitivesResources = Ringtoets.Common.Primitives.Properties.Resources;
 
 namespace Ringtoets.AssemblyTool.Forms

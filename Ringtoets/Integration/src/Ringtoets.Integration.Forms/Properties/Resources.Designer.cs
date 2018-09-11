@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -97,15 +97,6 @@ namespace Ringtoets.Integration.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("AddAssessmentSectionFolder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Assemblage.
-        /// </summary>
-        public static string AssemblyResultCategoryTreeFolder_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultCategoryTreeFolder_DisplayName", resourceCulture);
             }
         }
         

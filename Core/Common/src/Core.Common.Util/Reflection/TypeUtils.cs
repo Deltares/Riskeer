@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using Core.Common.Util.Attributes;
 
@@ -174,6 +176,7 @@ namespace Core.Common.Util.Reflection
         /// <param name="instance">The instance declaring the method. Cannot be <c>null</c>.</param>
         /// <param name="methodName">Name of the method.</param>
         /// <param name="arguments">The arguments for the method.</param>
+        /// <returns>The return value of the method.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the method referred to by <paramref name="methodName"/>
         /// is not declared or inherited by the class of <paramref name="instance"/>.</exception>
         /// <exception cref="TargetInvocationException">Thrown when the invoked method or constructor throws an exception.</exception>
@@ -186,7 +189,6 @@ namespace Core.Common.Util.Reflection
         /// the specified name and matching the specified binding constraints.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="instance"/>
         /// or <paramref name="methodName"/> is <c>null</c>.</exception>
-        /// <returns>The return value of the method.</returns>
         public static T CallPrivateMethod<T>(object instance, string methodName, params object[] arguments)
         {
             if (instance == null)
@@ -267,6 +269,27 @@ namespace Core.Common.Util.Reflection
             }
 
             propertyInfo.SetValue(instance, value, null);
+        }
+
+        /// <summary>
+        /// Gets the attributes of type <typeparamref name="TAttribute"/> from a property on
+        /// <typeparamref name="TObject"/>.
+        /// </summary>
+        /// <param name="propertyName">Name of the property to be get the attributes from.</param>
+        /// <returns>A collection of the attributes found on the property.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="propertyName"/> is <c>null</c>.</exception>
+        /// <exception cref="AmbiguousMatchException">Thrown when more than one property is found with the specified name.</exception>
+        /// <exception cref="TypeLoadException">Thrown when a custom attribute type cannot be loaded.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the property belongs to a type that
+        /// is loaded into the reflection-only context.</exception>
+        public static IEnumerable<TAttribute> GetPropertyAttributes<TObject, TAttribute>(string propertyName)
+        {
+            if (propertyName == null)
+            {
+                throw new ArgumentNullException(nameof(propertyName));
+            }
+
+            return typeof(TObject).GetProperty(propertyName)?.GetCustomAttributes(typeof(TAttribute), false).Select(attribute => (TAttribute) attribute);
         }
 
         /// <summary>

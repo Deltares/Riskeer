@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -45,6 +46,22 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsEmpty(failureMechanism.FailureMechanismSectionSourcePath);
             Assert.AreSame(sections.Single(), failureMechanism.Sections.Single());
+        }
+
+        [Test]
+        public void AddSections_WithArguments_AddsSectionsToFailureMechanism()
+        {
+            // Setup
+            var random = new Random(21);
+            int nrOfSections = random.Next(1, 10);
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            FailureMechanismTestHelper.AddSections(failureMechanism, nrOfSections);
+
+            // Assert
+            Assert.IsEmpty(failureMechanism.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(nrOfSections, failureMechanism.Sections.Count());
         }
     }
 }

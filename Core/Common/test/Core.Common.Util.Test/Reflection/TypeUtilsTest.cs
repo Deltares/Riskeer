@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using Core.Common.TestUtil;
 using Core.Common.Util.Attributes;
@@ -609,6 +611,30 @@ namespace Core.Common.Util.Test.Reflection
             Assert.AreEqual(1.2, testClass.PublicPropertyPrivateSetter);
         }
 
+        [Test]
+        public void GetPropertyAttributes_PropertyNameNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => TypeUtils.GetPropertyAttributes<AttributeClass, TestingAttribute>(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("propertyName", paramName);
+        }
+
+        [Test]
+        public void GetPropertyAttributes_WithPropertyName_ReturnsTestingAttributes()
+        {
+            // Call
+            IEnumerable<TestingAttribute> attributes = TypeUtils.GetPropertyAttributes<AttributeClass, TestingAttribute>(nameof(AttributeClass.Property));
+
+            // Assert
+            Assert.AreEqual(2, attributes.Count());
+            CollectionAssert.AllItemsAreInstancesOfType(attributes, typeof(TestingAttribute));
+            Assert.AreEqual("attribute 1", attributes.First().Name);
+            Assert.AreEqual("attribute 2", attributes.ElementAt(1).Name);
+        }
+
         private enum TestEnum
         {
             NoDisplayName,
@@ -659,6 +685,19 @@ namespace Core.Common.Util.Test.Reflection
             public DerivedTestClass() {}
 
             public DerivedTestClass(int privateInt) : base(privateInt) {}
+        }
+
+        private class AttributeClass
+        {
+            [Testing(Name = "attribute 1")]
+            [Testing(Name = "attribute 2")]
+            public int Property { get; }
+        }
+
+        [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+        private class TestingAttribute : Attribute
+        {
+            public string Name { get; set; }
         }
     }
 }

@@ -27,7 +27,7 @@ using NUnit.Framework;
 namespace Core.Components.Chart.Test.Data
 {
     [TestFixture]
-    public class ChartPointSymbolTest : EnumWithDisplayNameTestFixture<ChartPointSymbol>
+    public class ChartPointSymbolTest : EnumWithResourcesDisplayNameTestFixture<ChartPointSymbol>
     {
         protected override IDictionary<ChartPointSymbol, string> ExpectedDisplayNameForEnumValues
         {

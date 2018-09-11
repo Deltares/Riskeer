@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Ringtoets.Common.Primitives.Test
 {
     [TestFixture]
-    public class ManualFailureMechanismSectionAssemblyCategoryGroupTest : EnumWithDisplayNameTestFixture<ManualFailureMechanismSectionAssemblyCategoryGroup>
+    public class ManualFailureMechanismSectionAssemblyCategoryGroupTest : EnumWithResourcesDisplayNameTestFixture<ManualFailureMechanismSectionAssemblyCategoryGroup>
     {
         protected override IDictionary<ManualFailureMechanismSectionAssemblyCategoryGroup, int> ExpectedValueForEnumValues
         {

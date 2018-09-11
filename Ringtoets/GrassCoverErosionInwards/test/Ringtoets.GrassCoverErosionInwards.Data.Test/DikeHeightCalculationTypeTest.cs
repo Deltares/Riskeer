@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class DikeHeightCalculationTypeTest : EnumWithDisplayNameTestFixture<DikeHeightCalculationType>
+    public class DikeHeightCalculationTypeTest : EnumWithResourcesDisplayNameTestFixture<DikeHeightCalculationType>
     {
         protected override IDictionary<DikeHeightCalculationType, string> ExpectedDisplayNameForEnumValues
         {

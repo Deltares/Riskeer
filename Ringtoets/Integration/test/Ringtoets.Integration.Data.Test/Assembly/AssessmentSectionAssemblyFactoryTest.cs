@@ -417,7 +417,11 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssembly[0];
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
+                {
+                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection, 20),
+                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection, 21)
+                };
 
                 // Call
                 CombinedFailureMechanismSectionAssemblyResult[] output = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection)
@@ -511,6 +515,17 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 Assert.IsInstanceOf<AssemblyException>(innerException);
                 Assert.AreEqual("Voor een of meerdere toetssporen kan geen oordeel worden bepaald.", exception.Message);
             }
+        }
+
+        private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection, int seed)
+        {
+            var random = new Random(seed);
+            return new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(random.NextDouble(),
+                                                                                                           random.NextDouble(),
+                                                                                                           random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
+                                                               assessmentSection.GetFailureMechanisms()
+                                                                                .Where(fm => fm.IsRelevant)
+                                                                                .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()).ToArray());
         }
 
         private static void AssertGroup1And2FailureMechanismInputs(AssessmentSection assessmentSection,

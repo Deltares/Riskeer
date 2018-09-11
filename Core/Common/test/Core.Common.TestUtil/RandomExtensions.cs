@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 
 namespace Core.Common.TestUtil
@@ -131,6 +133,41 @@ namespace Core.Common.TestUtil
 
             var enumValues = (TEnum[]) Enum.GetValues(typeof(TEnum));
             return enumValues[random.Next(enumValues.Length)];
+        }
+
+        /// <summary>
+        /// Returns a random value of <typeparamref name="TEnum"/> from <paramref name="enumValues"/>.
+        /// </summary>
+        /// <typeparam name="TEnum">The <see cref="Enum"/> to use.</typeparam>
+        /// <param name="random">A pseudo-random number generator.</param>
+        /// <param name="enumValues">A collection of valid enum values to return a random element from.</param>
+        /// <returns>A random value of type <typeparamref name="TEnum"/> from <paramref name="enumValues"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="enumValues"/> is empty or
+        /// of <typeparamref name="TEnum"/> is not an <see cref="Enum"/>.</exception>
+        public static TEnum NextEnumValue<TEnum>(this Random random, IEnumerable<TEnum> enumValues)
+        {
+            if (random == null)
+            {
+                throw new ArgumentNullException(nameof(random));
+            }
+
+            if (enumValues == null)
+            {
+                throw new ArgumentNullException(nameof(enumValues));
+            }
+
+            if (!typeof(TEnum).IsEnum)
+            {
+                throw new ArgumentException($"'{typeof(TEnum).Name}' is not an enum.");
+            }
+
+            if (!enumValues.Any())
+            {
+                throw new ArgumentException($"'{nameof(enumValues)}' cannot be an empty collection.");
+            }
+            
+            return enumValues.ElementAt(random.Next(enumValues.Count()));
         }
     }
 }

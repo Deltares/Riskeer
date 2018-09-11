@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.Piping.Primitives.Test
 {
     [TestFixture]
-    public class SoilProfileTypeTest : EnumWithDisplayNameTestFixture<SoilProfileType>
+    public class SoilProfileTypeTest : EnumWithResourcesDisplayNameTestFixture<SoilProfileType>
     {
         protected override IDictionary<SoilProfileType, string> ExpectedDisplayNameForEnumValues
         {

@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.AssemblyTool.Forms.Test
 {
     [TestFixture]
-    public class SelectableFailureMechanismSectionAssemblyCategoryGroupTest : EnumWithDisplayNameTestFixture<SelectableFailureMechanismSectionAssemblyCategoryGroup>
+    public class SelectableFailureMechanismSectionAssemblyCategoryGroupTest : EnumWithResourcesDisplayNameTestFixture<SelectableFailureMechanismSectionAssemblyCategoryGroup>
     {
         protected override IDictionary<SelectableFailureMechanismSectionAssemblyCategoryGroup, int> ExpectedValueForEnumValues
         {

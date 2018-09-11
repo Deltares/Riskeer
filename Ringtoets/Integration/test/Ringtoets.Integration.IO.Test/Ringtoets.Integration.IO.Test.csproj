@@ -17,8 +17,75 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregatedSerializable\AggregatedSerializableCombinedFailureMechanismSectionAssembliesTest.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableCombinedFailureMechanismSectionAssemblyTest.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableFailureMechanismSectionAssemblyTest.cs" />
+    <Compile Include="AggregatedSerializable\AggregatedSerializableFailureMechanismTest.cs" />
+    <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultBaseTest.cs" />
+    <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultTest.cs" />
+    <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssemblyTest.cs" />
+    <Compile Include="Assembly\ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityTest.cs" />
+    <Compile Include="Assembly\ExportableAssessmentSectionAssemblyResultTest.cs" />
+    <Compile Include="Assembly\ExportableAssessmentSectionTest.cs" />
+    <Compile Include="Assembly\ExportableCombinedFailureMechanismSectionTest.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismCombinedSectionAssemblyResultTest.cs" />
+    <Compile Include="Assembly\ExportableCombinedSectionAssemblyTest.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismSectionTest.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismAssemblyResultTest.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismAssemblyResultWithProbabilityTest.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismTypeTest.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismGroupTest.cs" />
+    <Compile Include="Assembly\ExportableAssemblyMethodTest.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismSectionAssemblyResultWithProbabilityTest.cs" />
+    <Compile Include="Assembly\ExportableFailureMechanismTest.cs" />
+    <Compile Include="Assembly\ExportableSectionAssemblyResultTest.cs" />
+    <Compile Include="Creators\AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreatorTest.cs" />
+    <Compile Include="Creators\AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreatorTest.cs" />
+    <Compile Include="Creators\AggregatedSerializableFailureMechanismCreatorTest.cs" />
+    <Compile Include="Creators\SerializableAssemblyCreatorTest.cs" />
+    <Compile Include="Creators\SerializableAssemblyMethodCreatorTest.cs" />
+    <Compile Include="Creators\SerializableAssessmentProcessCreatorTest.cs" />
+    <Compile Include="Creators\SerializableAssessmentSectionAssemblyResultCreatorTest.cs" />
+    <Compile Include="Creators\SerializableAssessmentSectionCategoryGroupCreatorTest.cs" />
+    <Compile Include="Creators\SerializableAssessmentSectionCreatorTest.cs" />
+    <Compile Include="Creators\SerializableCombinedFailureMechanismSectionAssemblyResultCreatorTest.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismCategoryGroupCreatorTest.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismCreatorTest.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismGroupCreatorTest.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismResultCreatorTest.cs" />
+    <Compile Include="Creators\AggregatedSerializableFailureMechanismSectionAssemblyCreatorTest.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismSectionCreatorTest.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismSectionCategoryGroupCreatorTest.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismSectionAssemblyResultCreatorTest.cs" />
+    <Compile Include="Creators\SerializableFailureMechanismTypeCreatorTest.cs" />
+    <Compile Include="Creators\SerializableTotalAssemblyResultCreatorTest.cs" />
+    <Compile Include="Exporters\AssemblyExporterTest.cs" />
+    <Compile Include="Factories\ExportableAssessmentSectionFactoryTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Exporters\HydraulicBoundaryLocationsWriterTest.cs" />
+    <Compile Include="Factories\ExportableClosingStructuresFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableCombinedSectionAssemblyFactoryTest.cs" />
+    <Compile Include="Factories\ExportableDuneErosionFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableGrassCoverErosionInwardsFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableGrassCoverErosionOutwardsFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableGrassCoverSlipOffInwardsFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableGrassCoverSlipOffOutwardsFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableHeightStructuresFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableMacroStabilityInwardsFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableMacroStabilityOutwardsFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableMicrostabilityFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportablePipingFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportablePipingStructureFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableSectionAssemblyResultFactoryTest.cs" />
+    <Compile Include="Factories\ExportableStabilityPointStructuresFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableStabilityStoneCoverFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableStrengthStabilityLengthwiseConstructionFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableTechnicalInnovationFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableWaterPressureAsphaltCoverFailureMechanismFactoryTest.cs" />
+    <Compile Include="Factories\ExportableWaveImpactAsphaltCoverFailureMechanismFactoryTest.cs" />
+    <Compile Include="Helpers\ExportableFailureMechanismSectionHelperTest.cs" />
+    <Compile Include="Helpers\IdentifierGeneratorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +102,26 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Ringtoets.AssemblyTool.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.IO\Ringtoets.AssemblyTool.IO.csproj">
+      <Project>{B9838495-B090-4B84-A387-A8974F4F9CC4}</Project>
+      <Name>Ringtoets.AssemblyTool.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
+      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
+      <Name>Ringtoets.AssemblyTool.KernelWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Ringtoets.AssemblyTool.KernelWrapper.TestUtil\Ringtoets.AssemblyTool.KernelWrapper.TestUtil.csproj">
+      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
+      <Name>Ringtoets.AssemblyTool.KernelWrapper.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+      <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
+      <Name>Ringtoets.ClosingStructures.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
@@ -56,9 +143,57 @@
       <Project>{54DF6303-BF9A-4AE9-BE09-4AF50EF27412}</Project>
       <Name>Ringtoets.Common.Util.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
+      <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
+      <Name>Ringtoets.DuneErosion.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
+      <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
+      <Project>{83D6B73E-91D5-46B0-9218-955DA1F75F7C}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
+      <Name>Ringtoets.Piping.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+      <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+      <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
+      <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
+      <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
+      <Name>Ringtoets.Integration.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.IO\Ringtoets.Integration.IO.csproj">
       <Project>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</Project>
       <Name>Ringtoets.Integration.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.IO.TestUtil\Ringtoets.Integration.IO.TestUtil.csproj">
+      <Project>{1C002B07-DDF6-4849-B8ED-551163AC9423}</Project>
+      <Name>Ringtoets.Integration.IO.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
+      <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>
+      <Name>Ringtoets.Integration.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

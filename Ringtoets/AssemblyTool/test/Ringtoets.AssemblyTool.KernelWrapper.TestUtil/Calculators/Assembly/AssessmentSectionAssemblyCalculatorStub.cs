@@ -118,7 +118,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             SignalingNormInput = signalingNorm;
 
             return AssembleFailureMechanismsAssemblyOutput ??
-                   new FailureMechanismAssembly(0.75, FailureMechanismAssemblyCategoryGroup.IIIt);
+                   (AssembleFailureMechanismsAssemblyOutput = new FailureMechanismAssembly(0.75, FailureMechanismAssemblyCategoryGroup.IIIt));
         }
 
         public FailureMechanismAssemblyCategoryGroup AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input)

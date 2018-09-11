@@ -309,9 +309,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanismProperties_Contribution_Other_Percentage_0" xml:space="preserve">
     <value>Overig ({0})</value>
   </data>
-  <data name="AssemblyResultCategoryTreeFolder_DisplayName" xml:space="preserve">
-    <value>Assemblage</value>
-  </data>
   <data name="AssemblyResultTotalView_Probability_DisplayName" xml:space="preserve">
     <value>Benaderde faalkans [1/jaar]</value>
   </data>

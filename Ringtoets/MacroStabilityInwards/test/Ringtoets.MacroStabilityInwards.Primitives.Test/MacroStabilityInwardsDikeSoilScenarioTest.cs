@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsDikeSoilScenarioTest : EnumWithDisplayNameTestFixture<MacroStabilityInwardsDikeSoilScenario>
+    public class MacroStabilityInwardsDikeSoilScenarioTest : EnumWithResourcesDisplayNameTestFixture<MacroStabilityInwardsDikeSoilScenario>
     {
         protected override IDictionary<MacroStabilityInwardsDikeSoilScenario, string> ExpectedDisplayNameForEnumValues
         {

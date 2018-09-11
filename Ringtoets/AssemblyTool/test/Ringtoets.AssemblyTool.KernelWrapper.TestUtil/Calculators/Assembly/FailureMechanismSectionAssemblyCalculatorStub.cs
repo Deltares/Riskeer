@@ -321,9 +321,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         }
 
         public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
-                                                                          double probability, 
-                                                                          double normativeNorm, 
-                                                                          double failureMechanismN, 
+                                                                          double probability,
+                                                                          double normativeNorm,
+                                                                          double failureMechanismN,
                                                                           double failureMechanismContribution)
         {
             if (ThrowExceptionOnCalculate)
@@ -386,7 +386,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
                                                                             double probability,
-                                                                            double normativeNorm, 
+                                                                            double normativeNorm,
                                                                             double failureMechanismN,
                                                                             double failureMechanismContribution)
         {
@@ -503,7 +503,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return CombinedAssemblyCategoryOutput.Value;
         }
 
-        public FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly, 
+        public FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly,
                                                                              FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly)
         {
             if (ThrowExceptionOnCalculateCombinedAssembly)

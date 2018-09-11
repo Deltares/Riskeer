@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Common.Data.Test.Hydraulics
 {
     [TestFixture]
-    public class CalculationConvergenceTest : EnumWithDisplayNameTestFixture<CalculationConvergence>
+    public class CalculationConvergenceTest : EnumWithResourcesDisplayNameTestFixture<CalculationConvergence>
     {
         protected override IDictionary<CalculationConvergence, string> ExpectedDisplayNameForEnumValues
         {

@@ -212,4 +212,16 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_not_merged" xml:space="preserve">
     <value>Hydraulische belastingen zijn niet samengevoegd omdat het huidige traject meer gegevens bevat.</value>
   </data>
+  <data name="AssemblyResult_file_filter_Extension" xml:space="preserve">
+    <value>gml</value>
+  </data>
+  <data name="AssemblyResult_file_filter_Description" xml:space="preserve">
+    <value>Assemblageresultaat</value>
+  </data>
+  <data name="AssemblyResult_DisplayName" xml:space="preserve">
+    <value>Assemblageresultaat</value>
+  </data>
+  <data name="AssemblyResultsCategoryTreeFolder_DisplayName" xml:space="preserve">
+    <value>Assemblage</value>
+  </data>
 </root>
