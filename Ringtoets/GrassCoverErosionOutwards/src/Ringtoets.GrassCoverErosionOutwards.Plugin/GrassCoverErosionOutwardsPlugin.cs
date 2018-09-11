@@ -138,7 +138,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         filePath,
                         context.WrappedData,
                         context.HydraulicBoundaryLocations,
-                        context.ForeshoreProfiles));
+                        context.ForeshoreProfiles,
+                        context.AssessmentSection.FailureMechanismContribution.NormativeNorm));
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -26,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -50,7 +52,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                 "",
                 new CalculationGroup(),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<ForeshoreProfile>());
+                Enumerable.Empty<ForeshoreProfile>(),
+                new Random(39).NextEnumValue<NormType>());
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsCalculationConfigurationImporter<
@@ -88,7 +91,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                 new[]
                 {
                     foreshoreProfile
-                });
+                },
+                new Random(39).NextEnumValue<NormType>());
 
             // Call
             bool successful = importer.Import();
@@ -121,7 +125,75 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<FailureMechanismCategoryWaveConditionsInput>)calculationGroup.Children[0]);
+            AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<FailureMechanismCategoryWaveConditionsInput>) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        [TestCase(NormType.LowerLimit, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
+        [TestCase(NormType.Signaling, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
+        public void Import_ValidConfigurationWithoutCategoryBoundary_DataAddedToModel(NormType normType, FailureMechanismCategoryType category)
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationWithoutCategoryBoundary.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20);
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            }, new BreakWater(BreakWaterType.Caisson, 0), new ForeshoreProfile.ConstructionProperties
+            {
+                Id = "Voorlandprofiel",
+                Name = "VoorlandProfielName"
+            });
+
+            var importer = new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                new[]
+                {
+                    hydraulicBoundaryLocation
+                },
+                new[]
+                {
+                    foreshoreProfile
+                },
+                normType);
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    LowerBoundaryRevetment = (RoundedDouble) 2,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 9,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 4,
+                    StepSize = WaveConditionsInputStepSize.Half,
+                    ForeshoreProfile = foreshoreProfile,
+                    Orientation = (RoundedDouble) 5.5,
+                    UseForeshore = false,
+                    UseBreakWater = true,
+                    BreakWater =
+                    {
+                        Height = (RoundedDouble) 6.6,
+                        Type = BreakWaterType.Caisson
+                    },
+                    CategoryType = category
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<FailureMechanismCategoryWaveConditionsInput>) calculationGroup.Children[0]);
         }
 
         private static void AssertWaveConditionsCalculation(ICalculation<FailureMechanismCategoryWaveConditionsInput> expectedCalculation,

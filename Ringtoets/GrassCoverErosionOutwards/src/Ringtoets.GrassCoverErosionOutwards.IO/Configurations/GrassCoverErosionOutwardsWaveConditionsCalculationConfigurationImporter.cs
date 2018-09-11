@@ -21,10 +21,12 @@
 
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
@@ -44,8 +46,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
         public GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                                                        CalculationGroup importTarget,
                                                                                        IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                                       IEnumerable<ForeshoreProfile> foreshoreProfiles)
-            : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles) {}
+                                                                                       IEnumerable<ForeshoreProfile> foreshoreProfiles,
+                                                                                       NormType normType)
+            : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles, normType) {}
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
         {
@@ -53,11 +56,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
         }
 
         protected override void SetCategoryType(GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration calculationConfiguration,
-                                                GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
+                                                GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                                NormType normType)
         {
             if (calculationConfiguration.CategoryType.HasValue)
             {
                 calculation.InputParameters.CategoryType = (FailureMechanismCategoryType) calculationConfiguration.CategoryType;
+            }
+            else
+            {
+                WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters, normType);
             }
         }
     }
