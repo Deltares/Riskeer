@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.IO.Test.Helpers
             // Given
             const string prefix = "prefix";
             var generator = new IdentifierGenerator();
-            
+
             // Precondition
             Assert.AreEqual($"{prefix}.0", generator.GetNewId(prefix));
 

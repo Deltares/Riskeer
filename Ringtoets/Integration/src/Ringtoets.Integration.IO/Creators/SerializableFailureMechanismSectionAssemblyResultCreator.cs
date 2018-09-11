@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public static SerializableFailureMechanismSectionAssemblyResult Create(SerializableAssessmentType assessmentType, 
+        public static SerializableFailureMechanismSectionAssemblyResult Create(SerializableAssessmentType assessmentType,
                                                                                ExportableSectionAssemblyResultWithProbability sectionResult)
         {
             if (sectionResult == null)

@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.IO.Test.AggregatedSerializable
         public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AggregatedSerializableFailureMechanismSectionAssembly(null, 
+            TestDelegate call = () => new AggregatedSerializableFailureMechanismSectionAssembly(null,
                                                                                                 new SerializableFailureMechanismSectionAssembly());
 
             // Assert

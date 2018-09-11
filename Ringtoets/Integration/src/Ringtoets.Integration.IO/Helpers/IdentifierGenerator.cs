@@ -64,7 +64,6 @@ namespace Ringtoets.Integration.IO.Helpers
                 idLookup[prefix] = 0;
             }
 
-            
             return $"{prefix}.{idLookup[prefix]}";
         }
 

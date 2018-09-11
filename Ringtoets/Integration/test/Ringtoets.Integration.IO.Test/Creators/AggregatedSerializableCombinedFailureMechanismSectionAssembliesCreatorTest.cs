@@ -192,7 +192,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         {
             var random = new Random(seed);
             return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                       random.NextEnumValue(new []
+                                                       random.NextEnumValue(new[]
                                                        {
                                                            FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
                                                            FailureMechanismSectionAssemblyCategoryGroup.Iv,
