@@ -583,7 +583,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
                 Image = RingtoetsCommonFormsResources.SectionsIcon,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseFailureMechanismSectionsView,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData),
                 GetViewData = context => context.WrappedData.Sections
             };
@@ -617,11 +617,21 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismAssemblyCategories_DisplayName,
                 Image = RingtoetsCommonFormsResources.NormsIcon,
-                CloseForData = CloseFailureMechanismAssemblyCategoriesViewForData,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismAssemblyCategoriesView(context.WrappedData,
                                                                                        context.AssessmentSection,
                                                                                        context.GetFailureMechanismCategoriesFunc,
                                                                                        context.GetFailureMechanismSectionAssemblyCategoriesFunc)
+            };
+
+            yield return new ViewInfo<GeotechnicalFailureMechanismAssemblyCategoriesContext, IFailureMechanism, GeotechnicalFailureMechanismAssemblyCategoriesView>
+            {
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismAssemblyCategories_DisplayName,
+                Image = RingtoetsCommonFormsResources.NormsIcon,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
+                CreateInstance = context => new GeotechnicalFailureMechanismAssemblyCategoriesView(context.WrappedData,
+                                                                                                   context.AssessmentSection,
+                                                                                                   context.GetFailureMechanismSectionAssemblyCategoriesFunc)
             };
         }
 
@@ -1277,31 +1287,6 @@ namespace Ringtoets.Integration.Plugin
             return failureMechanism != null &&
                    failureMechanismWithSectionResults != null &&
                    ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanismWithSectionResults.SectionResults);
-        }
-
-        #endregion
-
-        #region FailureMechanismResults ViewInfo
-
-        private static bool CloseFailureMechanismAssemblyCategoriesViewForData(FailureMechanismAssemblyCategoriesView view, object dataToCloseFor)
-        {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-            var failureMechanism = dataToCloseFor as IFailureMechanism;
-            var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<IFailureMechanism>;
-
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism, fm));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         #endregion

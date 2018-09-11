@@ -174,9 +174,9 @@ namespace Ringtoets.Common.Plugin.TestUtil
         /// <summary>
         /// Gets a view for testing purposes.
         /// </summary>
-        /// <param name="data">The failure mechanism containing the data to set to the view.</param>
+        /// <param name="failureMechanism">The failure mechanism containing the data to set to the view.</param>
         /// <returns>A view object.</returns>
-        protected abstract IView GetView(IFailureMechanism data);
+        protected abstract IView GetView(IFailureMechanism failureMechanism);
 
         private class TestFailureMechanismContext : FailureMechanismContext<TestFailureMechanism>
         {

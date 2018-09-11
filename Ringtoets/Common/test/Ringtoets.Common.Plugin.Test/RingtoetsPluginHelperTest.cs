@@ -79,7 +79,10 @@ namespace Ringtoets.Common.Service.Test
 
                 public string Text { get; set; }
 
-                public void Dispose() {}
+                public void Dispose()
+                {
+                    // Nothing to dispose
+                }
             }
         }
 
@@ -88,7 +91,7 @@ namespace Ringtoets.Common.Service.Test
         {
             protected override bool ShouldCloseMethod(IView view, object o)
             {
-                return RingtoetsPluginHelper.ShouldCloseFailureMechanismSectionsView((FailureMechanismSectionsView) view, o);
+                return RingtoetsPluginHelper.ShouldCloseForFailureMechanismView((FailureMechanismSectionsView) view, o);
             }
 
             protected override IView GetView(IFailureMechanism failureMechanism)

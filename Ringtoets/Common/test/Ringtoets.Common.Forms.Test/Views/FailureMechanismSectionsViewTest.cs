@@ -75,17 +75,6 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new FailureMechanismSectionsView(Enumerable.Empty<FailureMechanismSection>(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
-        }
-
-        [Test]
         public void Constructor_ValidParameters_InitializesViewCorrectly()
         {
             // Setup
@@ -99,10 +88,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IView>(view);
+                Assert.IsInstanceOf<CloseForFailureMechanismView>(view);
                 Assert.IsNull(view.Data);
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.AreEqual(1, view.Controls.Count);
 
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);

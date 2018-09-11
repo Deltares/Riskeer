@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
                 Image = RingtoetsCommonFormsResources.SectionsIcon,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseFailureMechanismSectionsView,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
                                                                                                   context.WrappedData,
                                                                                                   ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput),

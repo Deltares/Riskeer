@@ -22,9 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 
@@ -33,7 +31,7 @@ namespace Ringtoets.Common.Forms.Views
     /// <summary>
     /// View for a collection of <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public partial class FailureMechanismSectionsView : UserControl, IView
+    public partial class FailureMechanismSectionsView : CloseForFailureMechanismView
     {
         protected readonly IEnumerable<FailureMechanismSection> sections;
 
@@ -48,6 +46,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <param name="failureMechanism">The failure mechanism the view belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public FailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections, IFailureMechanism failureMechanism)
+            : base(failureMechanism)
         {
             if (sections == null)
             {
@@ -74,15 +73,7 @@ namespace Ringtoets.Common.Forms.Views
             };
 
             this.sections = sections;
-            FailureMechanism = failureMechanism;
         }
-
-        /// <summary>
-        /// Gets the <see cref="IFailureMechanism"/> the sections belong to.
-        /// </summary>
-        public IFailureMechanism FailureMechanism { get; }
-
-        public object Data { get; set; }
 
         protected override void OnLoad(EventArgs e)
         {
