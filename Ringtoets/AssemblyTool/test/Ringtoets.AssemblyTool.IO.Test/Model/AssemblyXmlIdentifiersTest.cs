@@ -66,7 +66,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual("toetsoordeel", AssemblyXmlIdentifiers.FailureMechanismAssemblyResult);
             Assert.AreEqual("ToetsspoorID", AssemblyXmlIdentifiers.FailureMechanismId);
             Assert.AreEqual("ToetsspoorIDRef", AssemblyXmlIdentifiers.FailureMechanismIdRef);
-            Assert.AreEqual("Waterkeringsectie", AssemblyXmlIdentifiers.FailureMechanismSection);
+            Assert.AreEqual("ToetsVak", AssemblyXmlIdentifiers.FailureMechanismSection);
             Assert.AreEqual("WaterkeringsectieIDRef", AssemblyXmlIdentifiers.FailureMechanismSectionIdRef);
             Assert.AreEqual("Toets", AssemblyXmlIdentifiers.FailureMechanismSectionAssembly);
             Assert.AreEqual("ToetsID", AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyId);
