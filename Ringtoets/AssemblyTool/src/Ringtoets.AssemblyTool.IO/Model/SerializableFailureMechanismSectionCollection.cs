@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -35,25 +35,6 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Creates a new instance of <see cref="SerializableFailureMechanismSectionCollection"/>.
         /// </summary>
         public SerializableFailureMechanismSectionCollection() {}
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SerializableFailureMechanismSectionCollection"/>.
-        /// </summary>
-        /// <param name="id">The unique ID of the sections.</param>
-        /// <param name="totalAssemblyResult">The total assembly result the sections belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="totalAssemblyResult"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        public SerializableFailureMechanismSectionCollection(string id,
-                                                             SerializableTotalAssemblyResult totalAssemblyResult)
-            : this(id)
-        {
-            if (totalAssemblyResult == null)
-            {
-                throw new ArgumentNullException(nameof(totalAssemblyResult));
-            }
-
-            TotalAssemblyResultId = totalAssemblyResult.Id;
-        }
 
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanismSectionCollection"/>.

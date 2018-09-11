@@ -111,8 +111,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             SerializableTotalAssemblyResult serializableTotalAssembly = CreateSerializableTotalAssembly(serializableTotalAssemblyResultId);
 
             const string serializableSectionCollectionId = "serializableSectionCollectionId";
-            var serializableSectionCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId,
-                                                                                                  new SerializableTotalAssemblyResult());
+            var serializableSectionCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId);
 
             var idGenerator = new IdentifierGenerator();
 
