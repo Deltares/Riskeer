@@ -312,7 +312,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                failureMechanismWithProbability);
             var failureMechanismSectionCollection = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 10];
             AssertSerializableFailureMechanismSectionCollection($"Vi.{expectedId}",
-                                                                failureMechanismWithProbability,
                                                                 failureMechanismSectionCollection);
             var serializableFailureMechanismSection = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 15];
             AssertSerializableFailureMechanismSection($"Tv.{expectedId}",
@@ -333,10 +332,8 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         private static void AssertSerializableFailureMechanismSectionCollection(string expectedId,
-                                                                                SerializableFailureMechanism expectedSerializableFailureMechanism,
                                                                                 SerializableFailureMechanismSectionCollection serializableFailureMechanismSectionCollection)
         {
-            Assert.AreEqual(expectedSerializableFailureMechanism.Id, serializableFailureMechanismSectionCollection.FailureMechanismId);
             Assert.IsNull(serializableFailureMechanismSectionCollection.TotalAssemblyResultId);
             Assert.AreEqual(expectedId, serializableFailureMechanismSectionCollection.Id);
         }
@@ -377,7 +374,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                 SerializableFailureMechanismSectionCollection serializableFailureMechanismSectionCollection)
         {
             Assert.AreEqual(expectedSerializableTotalAssemblyResult.Id, serializableFailureMechanismSectionCollection.TotalAssemblyResultId);
-            Assert.IsNull(serializableFailureMechanismSectionCollection.FailureMechanismId);
             Assert.AreEqual(expectedId, serializableFailureMechanismSectionCollection.Id);
         }
 

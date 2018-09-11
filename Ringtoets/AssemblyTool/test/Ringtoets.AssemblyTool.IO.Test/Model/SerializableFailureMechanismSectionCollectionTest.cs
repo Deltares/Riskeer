@@ -41,15 +41,12 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Assert
             Assert.IsInstanceOf<SerializableFeatureMember>(sections);
             Assert.IsNull(sections.Id);
-            Assert.IsNull(sections.FailureMechanismId);
             Assert.IsNull(sections.TotalAssemblyResultId);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSectionCollection), "Vakindeling");
 
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionCollection>(
                 nameof(SerializableFailureMechanismSectionCollection.Id), "VakindelingID");
-            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionCollection>(
-                nameof(SerializableFailureMechanismSectionCollection.FailureMechanismId), "ToetsspoorIDRef");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionCollection>(
                 nameof(SerializableFailureMechanismSectionCollection.TotalAssemblyResultId), "VeiligheidsoordeelIDRef");
         }
@@ -97,7 +94,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Assert
             Assert.AreEqual(id, collection.Id);
             Assert.AreEqual(totalAssemblyResult.Id, collection.TotalAssemblyResultId);
-            Assert.IsNull(collection.FailureMechanismId);
         }
     }
 }

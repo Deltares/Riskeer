@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -75,12 +75,6 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         [XmlAttribute(AssemblyXmlIdentifiers.FailureMechanismSectionCollectionId)]
         public string Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ID of the parent failure mechanism.
-        /// </summary>
-        [XmlAttribute(AssemblyXmlIdentifiers.FailureMechanismIdRef)]
-        public string FailureMechanismId { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the parent total assembly result.
