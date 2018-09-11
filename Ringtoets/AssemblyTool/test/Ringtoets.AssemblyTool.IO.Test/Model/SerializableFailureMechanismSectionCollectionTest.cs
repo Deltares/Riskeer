@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -60,7 +60,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_WithValidData_ReturnsExpectedValues()
+        public void Constructor_WithValidId_ReturnsExpectedValues()
         {
             // Setup
             const string id = "collectionId";

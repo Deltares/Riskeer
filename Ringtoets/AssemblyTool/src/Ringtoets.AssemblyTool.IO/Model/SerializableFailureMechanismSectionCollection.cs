@@ -41,7 +41,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique ID of the sections.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        private SerializableFailureMechanismSectionCollection(string id)
+        public SerializableFailureMechanismSectionCollection(string id)
         {
             if (!SerializableIdValidator.Validate(id))
             {
