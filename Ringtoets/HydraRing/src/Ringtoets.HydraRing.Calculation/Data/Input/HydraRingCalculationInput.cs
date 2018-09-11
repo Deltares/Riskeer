@@ -141,6 +141,17 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         }
 
         /// <summary>
+        /// Gets the iteration method to use during the calculation.
+        /// </summary>
+        public virtual int IterationMethod
+        {
+            get
+            {
+                return 3;
+            }
+        }
+
+        /// <summary>
         /// Gets the sub mechanism model id corresponding to the provided sub mechanism id.
         /// </summary>
         /// <param name="subMechanismId">The sub mechanism id to get the sub mechanism model id for.</param>
