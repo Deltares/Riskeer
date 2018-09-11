@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -52,7 +53,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 "",
                 new CalculationGroup(),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<ForeshoreProfile>());
+                Enumerable.Empty<ForeshoreProfile>(),
+                new Random(39).NextEnumValue<NormType>());
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationImporter<TestWaveConditionsCalculationConfigurationReader, WaveConditionsCalculationConfiguration>>(importer);
@@ -66,7 +68,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 "",
                 new CalculationGroup(),
                 null,
-                Enumerable.Empty<ForeshoreProfile>());
+                Enumerable.Empty<ForeshoreProfile>(),
+                new Random(39).NextEnumValue<NormType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -81,7 +84,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 "",
                 new CalculationGroup(),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                null);
+                null,
+                new Random(39).NextEnumValue<NormType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -106,7 +110,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<ForeshoreProfile>());
+                Enumerable.Empty<ForeshoreProfile>(),
+                new Random(39).NextEnumValue<NormType>());
 
             // Call
             var successful = false;
@@ -130,7 +135,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<ForeshoreProfile>());
+                Enumerable.Empty<ForeshoreProfile>(),
+                new Random(39).NextEnumValue<NormType>());
 
             // Call
             var successful = false;
@@ -154,7 +160,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<ForeshoreProfile>());
+                Enumerable.Empty<ForeshoreProfile>(),
+                new Random(39).NextEnumValue<NormType>());
 
             // Call
             var successful = false;
@@ -178,7 +185,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<ForeshoreProfile>());
+                Enumerable.Empty<ForeshoreProfile>(),
+                new Random(39).NextEnumValue<NormType>());
 
             // Call
             var successful = false;
@@ -206,7 +214,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 new[]
                 {
                     foreshoreProfile
-                });
+                },
+                new Random(39).NextEnumValue<NormType>());
 
             // Call
             var successful = false;
@@ -234,7 +243,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 new[]
                 {
                     foreshoreProfile
-                });
+                },
+                new Random(39).NextEnumValue<NormType>());
 
             // Call
             bool successful = importer.Import();
@@ -276,6 +286,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 Name = "VoorlandProfielName"
             });
 
+            var normType = new Random(39).NextEnumValue<NormType>();
             var importer = new TestWaveConditionsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -286,7 +297,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 new[]
                 {
                     foreshoreProfile
-                });
+                },
+                normType);
 
             // Call
             bool successful = importer.Import();
@@ -319,6 +331,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
             AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<WaveConditionsInput>) calculationGroup.Children[0]);
+            Assert.AreEqual(normType, importer.NormType);
         }
 
         private static void AssertWaveConditionsCalculation(ICalculation<WaveConditionsInput> expectedCalculation, ICalculation<WaveConditionsInput> actualCalculation)
@@ -344,8 +357,11 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             public TestWaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                                       CalculationGroup importTarget,
                                                                       IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                      IEnumerable<ForeshoreProfile> foreshoreProfiles)
-                : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles) {}
+                                                                      IEnumerable<ForeshoreProfile> foreshoreProfiles,
+                                                                      NormType normType)
+                : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles, normType) {}
+
+            public NormType NormType { get; set; }
 
             protected override TestWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(
                 string xmlFilePath)
@@ -354,7 +370,11 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             }
 
             protected override void SetCategoryType(WaveConditionsCalculationConfiguration calculationConfiguration,
-                                                    TestTargetTestWaveConditionsCalculation calculation) {}
+                                                    TestTargetTestWaveConditionsCalculation calculation,
+                                                    NormType normType)
+            {
+                NormType = normType;
+            }
         }
 
         private class TestTargetTestWaveConditionsCalculation : TestWaveConditionsCalculation<TestWaveConditionsInput>

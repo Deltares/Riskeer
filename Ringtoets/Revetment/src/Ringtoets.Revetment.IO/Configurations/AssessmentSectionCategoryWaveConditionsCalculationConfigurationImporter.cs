@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
@@ -44,19 +45,26 @@ namespace Ringtoets.Revetment.IO.Configurations
         public AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                                                        CalculationGroup importTarget,
                                                                                        IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                                       IEnumerable<ForeshoreProfile> foreshoreProfiles)
-            : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles) {}
+                                                                                       IEnumerable<ForeshoreProfile> foreshoreProfiles,
+                                                                                       NormType normType)
+            : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles, normType) {}
 
         protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
         {
             return new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(xmlFilePath);
         }
 
-        protected override void SetCategoryType(AssessmentSectionCategoryWaveConditionsCalculationConfiguration calculationConfiguration, T calculation)
+        protected override void SetCategoryType(AssessmentSectionCategoryWaveConditionsCalculationConfiguration calculationConfiguration,
+                                                T calculation,
+                                                NormType normType)
         {
             if (calculationConfiguration.CategoryType.HasValue)
             {
                 calculation.InputParameters.CategoryType = (AssessmentSectionCategoryType) calculationConfiguration.CategoryType;
+            }
+            else
+            {
+                WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters, normType);
             }
         }
     }

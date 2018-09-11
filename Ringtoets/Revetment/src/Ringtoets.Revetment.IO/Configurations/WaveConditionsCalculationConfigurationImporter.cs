@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.Configurations.Helpers;
@@ -48,6 +50,7 @@ namespace Ringtoets.Revetment.IO.Configurations
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
+        private readonly NormType normType;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationImporter{TCalculation, TCalculationConfigurationReader, TCalculationConfiguration}"/>.
@@ -58,12 +61,14 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// used to check if the imported objects contain the right location.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles used to check if
         /// the imported objects contain the right profile.</param>
+        /// <param name="normType">The normative norm type of the assessment section the calculation is imported to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is
         /// <c>null</c>.</exception>
         protected WaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                                  CalculationGroup importTarget,
                                                                  IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                 IEnumerable<ForeshoreProfile> foreshoreProfiles)
+                                                                 IEnumerable<ForeshoreProfile> foreshoreProfiles,
+                                                                 NormType normType)
             : base(xmlFilePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
@@ -78,8 +83,13 @@ namespace Ringtoets.Revetment.IO.Configurations
 
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableForeshoreProfiles = foreshoreProfiles;
+            this.normType = normType;
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="normType"/> is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="normType"/> is a valid value,
+        /// but unsupported.</exception>
         protected override ICalculation ParseReadCalculation(TCalculationConfiguration readCalculation)
         {
             var waveConditionsCalculation = new TCalculation
@@ -88,14 +98,14 @@ namespace Ringtoets.Revetment.IO.Configurations
             };
 
             SetStepSize(readCalculation, waveConditionsCalculation);
-            SetCategoryType(readCalculation, waveConditionsCalculation);
+            SetCategoryType(readCalculation, waveConditionsCalculation, normType);
 
             if (TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, waveConditionsCalculation)
                 && TrySetBoundaries(readCalculation, waveConditionsCalculation)
                 && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, waveConditionsCalculation)
                 && TrySetOrientation(readCalculation, waveConditionsCalculation)
                 && readCalculation.WaveReduction.ValidateWaveReduction(waveConditionsCalculation.InputParameters.ForeshoreProfile,
-                                                                                waveConditionsCalculation.Name, Log))
+                                                                       waveConditionsCalculation.Name, Log))
             {
                 SetWaveReductionParameters(readCalculation.WaveReduction, waveConditionsCalculation.InputParameters);
                 return waveConditionsCalculation;
@@ -109,7 +119,13 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        protected abstract void SetCategoryType(TCalculationConfiguration calculationConfiguration, TCalculation calculation);
+        /// <param name="normType">The norm type of the assessment section the calculation is imported to.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+        /// but unsupported.</exception>
+        protected abstract void SetCategoryType(TCalculationConfiguration calculationConfiguration,
+                                                TCalculation calculation,
+                                                NormType normType);
 
         /// <summary>
         /// Assigns the boundaries of the calculation.
