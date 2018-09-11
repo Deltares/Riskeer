@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -40,14 +40,11 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             // Assert
             Assert.IsInstanceOf<SerializableFeatureMember>(sections);
             Assert.IsNull(sections.Id);
-            Assert.IsNull(sections.TotalAssemblyResultId);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSectionCollection), "Vakindeling");
 
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionCollection>(
                 nameof(SerializableFailureMechanismSectionCollection.Id), "VakindelingID");
-            SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionCollection>(
-                nameof(SerializableFailureMechanismSectionCollection.TotalAssemblyResultId), "VeiligheidsoordeelIDRef");
         }
 
         [Test]

@@ -56,11 +56,5 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         [XmlAttribute(AssemblyXmlIdentifiers.FailureMechanismSectionCollectionId)]
         public string Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ID of the parent total assembly result.
-        /// </summary>
-        [XmlAttribute(AssemblyXmlIdentifiers.TotalAssemblyResultIdRef)]
-        public string TotalAssemblyResultId { get; set; }
     }
 }
