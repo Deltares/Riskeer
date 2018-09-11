@@ -188,7 +188,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                         filePath,
                         context.WrappedData,
                         context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
-                        context.ForeshoreProfiles));
+                        context.ForeshoreProfiles,
+                        context.AssessmentSection.FailureMechanismContribution.NormativeNorm));
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
