@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.IO.Test.Helpers
         }
 
         [Test]
-        public void GetNewId_IdAlreadyUsed_ReturnsExpectedValue()
+        public void GetNewId_PrefixAlreadyUsed_ReturnsExpectedValue()
         {
             // Setup
             const string prefix = "prefix";
@@ -83,7 +83,26 @@ namespace Ringtoets.Integration.IO.Test.Helpers
         }
 
         [Test]
-        public void GivenIdGeneratorWithPrefixEntries_WhenGetNewIdCalledWithDifferentPrefix_ThenExpectedValuesReturned()
+        public void GetNewId_NewPrefix_ReturnsExpectedValues()
+        {
+            // Given
+            const string prefix = "prefix";
+            var generator = new IdentifierGenerator();
+
+            // Precondition
+            Assert.AreEqual($"{prefix}.0", generator.GetNewId(prefix));
+
+            const string newPrefix = "NewPrefix";
+
+            // When
+            string newPrefixId = generator.GetNewId(newPrefix);
+
+            // Then
+            Assert.AreEqual($"{newPrefix}.0", newPrefixId);
+        }
+
+        [Test]
+        public void GivenIdGenerator_WhenMultiplePrefixesUsed_ThenReturnsExpectedValues()
         {
             // Given
             const string prefix = "prefix";

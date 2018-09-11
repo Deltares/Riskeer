@@ -153,7 +153,7 @@ namespace Core.Common.TestUtil.Test
         [Test]
         [TestCase(0, TestEnum.ValueThree)]
         [TestCase(1, TestEnum.ValueOne)]
-        public void NextEnumValue_TypeIsEnum_ReturnsEnum(int seed, TestEnum expectedFirstCallResult)
+        public void NextEnumValue_TypeIsEnum_ReturnsEnum(int seed, TestEnum expectedResult)
         {
             // Setup
             var random = new Random(seed);
@@ -162,7 +162,7 @@ namespace Core.Common.TestUtil.Test
             var result = random.NextEnumValue<TestEnum>();
 
             // Assert
-            Assert.AreEqual(expectedFirstCallResult, result);
+            Assert.AreEqual(expectedResult, result);
         }
 
         [Test]
@@ -251,9 +251,9 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        [TestCase(0, 1)]
-        [TestCase(1, 0)]
-        public void NextEnumValueWithEnumValues_WithValidArguments_ReturnsRandomEnum(int seed, int expectedIndex)
+        [TestCase(0, TestEnum.ValueThree)]
+        [TestCase(1, TestEnum.ValueTwo)]
+        public void NextEnumValueWithEnumValues_WithValidArguments_ReturnsRandomEnum(int seed, TestEnum expectedResult)
         {
             // Setup
             var random = new Random(seed);
@@ -267,7 +267,7 @@ namespace Core.Common.TestUtil.Test
             object randomItem = random.NextEnumValue(enumValues);
 
             // Assert
-            Assert.AreEqual(enumValues[expectedIndex], randomItem);
+            Assert.AreEqual(expectedResult, randomItem);
         }
 
         public enum TestEnum
