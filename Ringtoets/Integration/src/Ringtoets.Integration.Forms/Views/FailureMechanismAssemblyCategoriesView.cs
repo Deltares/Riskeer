@@ -30,6 +30,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -37,7 +38,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// View for an <see cref="IFailureMechanism"/> to show 
     /// its assembly categories.
     /// </summary>
-    public partial class FailureMechanismAssemblyCategoriesView : UserControl, IView
+    public partial class FailureMechanismAssemblyCategoriesView : CloseForFailureMechanismView
     {
         private readonly Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismAssemblyCategoriesFunc;
         private readonly Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoriesFunc;
@@ -58,12 +59,8 @@ namespace Ringtoets.Integration.Forms.Views
                                                       IAssessmentSection assessmentSection,
                                                       Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismAssemblyCategoriesFunc,
                                                       Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoriesFunc)
+        : base(failureMechanism)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -94,17 +91,8 @@ namespace Ringtoets.Integration.Forms.Views
                 Observable = assessmentSection
             };
 
-            FailureMechanism = failureMechanism;
-
             UpdateTableData();
         }
-
-        /// <summary>
-        /// Gets the <see cref="IFailureMechanism"/> the view belongs to.
-        /// </summary>
-        public IFailureMechanism FailureMechanism { get; }
-
-        public object Data { get; set; }
 
         protected override void Dispose(bool disposing)
         {

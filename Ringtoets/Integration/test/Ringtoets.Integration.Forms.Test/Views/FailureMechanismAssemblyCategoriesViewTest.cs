@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -39,26 +40,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismAssemblyCategoriesViewTest
     {
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new FailureMechanismAssemblyCategoriesView(null,
-                                                                                 assessmentSection,
-                                                                                 Enumerable.Empty<FailureMechanismAssemblyCategory>,
-                                                                                 Enumerable.Empty<FailureMechanismSectionAssemblyCategory>);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -137,11 +118,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                                          Enumerable.Empty<FailureMechanismSectionAssemblyCategory>))
             {
                 // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IView>(view);
+                Assert.IsInstanceOf<CloseForFailureMechanismView>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreEqual(1, view.Controls.Count);
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
 
                 TableLayoutPanel tableLayoutPanel = ControlTestHelper.GetControls<TableLayoutPanel>(view, "tableLayoutPanel").Single();
                 Assert.AreEqual(2, tableLayoutPanel.ColumnCount);
