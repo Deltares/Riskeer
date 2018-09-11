@@ -36,6 +36,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double stabilityQuadraticLoadModelVariation;
         private readonly double widthFlowAperturesMean;
         private readonly double widthFlowAperturesStandardDeviation;
+        private readonly double modelFactorLongThresholdMean;
+        private readonly double modelFactorLongThresholdStandardDeviation;
 
         /// <summary>
         /// Creates a new instance of <see cref="StructuresStabilityPointLowSillQuadraticCalculationInput"/>.
@@ -99,6 +101,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="stabilityQuadraticLoadModelVariation">The variation of the stability quadratic load model.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width flow apertures.</param>
         /// <param name="widthFlowAperturesStandardDeviation">The standard deviation of the width flow apertures.</param>
+        /// <param name="modelFactorLongThresholdMean">The mean of the model factor long threshold.</param>
+        /// <param name="modelFactorLongThresholdStandardDeviation">The standard deviation of the model factor long threshold.</param>
         public StructuresStabilityPointLowSillQuadraticCalculationInput(long hydraulicBoundaryLocationId,
                                                                         double sectionNormal,
                                                                         IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -136,7 +140,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                         double modificationFactorDynamicOrImpulsivePressureComponent,
                                                                         double constructiveStrengthQuadraticLoadModelMean, double constructiveStrengthQuadraticLoadModelVariation,
                                                                         double stabilityQuadraticLoadModelMean, double stabilityQuadraticLoadModelVariation,
-                                                                        double widthFlowAperturesMean, double widthFlowAperturesStandardDeviation)
+                                                                        double widthFlowAperturesMean, double widthFlowAperturesStandardDeviation,
+                                                                        double modelFactorLongThresholdMean, double modelFactorLongThresholdStandardDeviation)
             : base(hydraulicBoundaryLocationId,
                    sectionNormal,
                    forelandPoints, breakWater,
@@ -178,6 +183,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.stabilityQuadraticLoadModelVariation = stabilityQuadraticLoadModelVariation;
             this.widthFlowAperturesMean = widthFlowAperturesMean;
             this.widthFlowAperturesStandardDeviation = widthFlowAperturesStandardDeviation;
+            this.modelFactorLongThresholdMean = modelFactorLongThresholdMean;
+            this.modelFactorLongThresholdStandardDeviation = modelFactorLongThresholdStandardDeviation;
         }
 
         public override IEnumerable<HydraRingVariable> Variables
@@ -213,7 +220,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             yield return new LogNormalHydraRingVariable(81, HydraRingDeviationType.Variation, constructiveStrengthQuadraticLoadModelMean, constructiveStrengthQuadraticLoadModelVariation);
             yield return new LogNormalHydraRingVariable(84, HydraRingDeviationType.Variation, stabilityQuadraticLoadModelMean, stabilityQuadraticLoadModelVariation);
             yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
-            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, 0.9, 0.05);
+            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, modelFactorLongThresholdMean, modelFactorLongThresholdStandardDeviation);
         }
     }
 }
