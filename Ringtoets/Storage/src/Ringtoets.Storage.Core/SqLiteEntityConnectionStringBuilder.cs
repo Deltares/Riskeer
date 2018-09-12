@@ -36,7 +36,7 @@ namespace Ringtoets.Storage.Core
         /// <param name="filePath">Location of the storage file.</param>
         /// <returns>A new connection string.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> is <c>null</c> or empty (only whitespaces).</exception>
-        public static string BuildSqLiteEntityConnectionString(string filePath, bool readOnly)
+        public static string BuildSqLiteEntityConnectionString(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
@@ -47,7 +47,7 @@ namespace Ringtoets.Storage.Core
             {
                 Metadata = string.Format(@"res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl", "DbContext.RingtoetsEntities"),
                 Provider = @"System.Data.SQLite.EF6",
-                ProviderConnectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(GetDataSourceLocation(filePath), readOnly)
+                ProviderConnectionString = SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(GetDataSourceLocation(filePath), false)
             }.ConnectionString;
         }
 

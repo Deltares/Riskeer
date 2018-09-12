@@ -260,7 +260,7 @@ namespace Ringtoets.Storage.Core
         private static string GetConnectionToExistingFile(string databaseFilePath)
         {
             IOUtils.ValidateFilePath(databaseFilePath);
-            return GetConnectionToFile(databaseFilePath, true);
+            return GetConnectionToFile(databaseFilePath);
         }
 
         /// <summary>
@@ -280,7 +280,7 @@ namespace Ringtoets.Storage.Core
         {
             IOUtils.ValidateFilePath(databaseFilePath);
             StorageSqliteCreator.CreateDatabaseStructure(databaseFilePath);
-            return GetConnectionToFile(databaseFilePath, false);
+            return GetConnectionToFile(databaseFilePath);
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace Ringtoets.Storage.Core
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to connect to.</param>
         /// <exception cref="CouldNotConnectException">No file exists at <paramref name="databaseFilePath"/>.</exception>
-        private static string GetConnectionToFile(string databaseFilePath, bool readOnly)
+        private static string GetConnectionToFile(string databaseFilePath)
         {
             if (!File.Exists(databaseFilePath))
             {
@@ -296,7 +296,7 @@ namespace Ringtoets.Storage.Core
                 throw new CouldNotConnectException(message);
             }
 
-            return GetConnectionToStorage(databaseFilePath, readOnly);
+            return GetConnectionToStorage(databaseFilePath);
         }
 
         /// <summary>
@@ -304,9 +304,9 @@ namespace Ringtoets.Storage.Core
         /// </summary>
         /// <param name="databaseFilePath">The path of the file, which is used for creating exceptions.</param>
         /// <exception cref="StorageValidationException">Thrown when the database does not contain the table <c>version</c>.</exception>
-        private static string GetConnectionToStorage(string databaseFilePath, bool readOnly)
+        private static string GetConnectionToStorage(string databaseFilePath)
         {
-            string connectionString = SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath, readOnly);
+            string connectionString = SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(databaseFilePath);
 
             using (var dbContext = new RingtoetsEntities(connectionString))
             {

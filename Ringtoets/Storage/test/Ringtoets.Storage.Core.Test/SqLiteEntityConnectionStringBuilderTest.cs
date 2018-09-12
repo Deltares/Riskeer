@@ -37,7 +37,7 @@ namespace Ringtoets.Storage.Core.Test
         {
             // Call
             TestDelegate test = () => SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(
-                invalidPathToSqLiteFile, true);
+                invalidPathToSqLiteFile);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -48,7 +48,7 @@ namespace Ringtoets.Storage.Core.Test
         {
             // Call
             string connectionString = SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(
-                pathToSqLiteFile, true);
+                pathToSqLiteFile);
 
             // Assert
             Assert.That(!string.IsNullOrEmpty(connectionString));
@@ -57,7 +57,7 @@ namespace Ringtoets.Storage.Core.Test
             StringAssert.Contains("provider=System.Data.SQLite.EF6", connectionString);
             StringAssert.Contains("failifmissing=True", connectionString);
             StringAssert.Contains($"data source={pathToSqLiteFile}", connectionString);
-            StringAssert.Contains("read only=True", connectionString);
+            StringAssert.Contains("read only=False", connectionString);
             StringAssert.Contains("foreign keys=True", connectionString);
             StringAssert.Contains("version=3", connectionString);
             StringAssert.Contains("pooling=False", connectionString);
@@ -71,7 +71,7 @@ namespace Ringtoets.Storage.Core.Test
 
             // Call
             string connectionString = SqLiteEntityConnectionStringBuilder.BuildSqLiteEntityConnectionString(
-                uncPathToSqlFile, true);
+                uncPathToSqlFile);
 
             // Assert
             Assert.That(!string.IsNullOrEmpty(connectionString));
@@ -80,7 +80,7 @@ namespace Ringtoets.Storage.Core.Test
             StringAssert.Contains("provider=System.Data.SQLite.EF6", connectionString);
             StringAssert.Contains("failifmissing=True", connectionString);
             StringAssert.Contains($@"data source=\\{uncPathToSqlFile}", connectionString);
-            StringAssert.Contains("read only=True", connectionString);
+            StringAssert.Contains("read only=False", connectionString);
             StringAssert.Contains("foreign keys=True", connectionString);
             StringAssert.Contains("version=3", connectionString);
             StringAssert.Contains("pooling=False", connectionString);
