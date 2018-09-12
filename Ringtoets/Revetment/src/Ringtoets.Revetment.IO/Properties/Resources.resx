@@ -157,18 +157,6 @@
   <data name="WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterLevels_DisplayName" xml:space="preserve">
     <value>ondergrens van de waterstanden</value>
   </data>
-  <data name="AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>C-D</value>
-  </data>
-  <data name="AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName" xml:space="preserve">
-    <value>A+-A</value>
-  </data>
-  <data name="AssessmentSectionCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>B-C</value>
-  </data>
-  <data name="AssessmentSectionCategoryType_SignalingNorm_DisplayName" xml:space="preserve">
-    <value>A-B</value>
-  </data>
   <data name="BekledingenConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\BekledingenConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
