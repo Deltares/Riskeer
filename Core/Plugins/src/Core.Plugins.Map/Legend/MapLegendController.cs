@@ -40,7 +40,7 @@ namespace Core.Plugins.Map.Legend
         /// <summary>
         /// Fired when the map legend has been opened.
         /// </summary>
-        public EventHandler<EventArgs> OnOpenLegend;
+        public event EventHandler<EventArgs> OnOpenLegend;
 
         private MapLegendView legendView;
 
