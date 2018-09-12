@@ -82,6 +82,7 @@
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
     <Compile Include="Views\AssemblyResultPerSectionViewTest.cs" />
     <Compile Include="Views\AssemblyCategoriesTableTest.cs" />
+    <Compile Include="Views\GeotechnicalFailureMechanismAssemblyCategoriesViewTest.cs" />
     <Compile Include="Views\FailureMechanismAssemblyCategoriesViewTest.cs" />
     <Compile Include="Views\AssessmentSectionAssemblyCategoriesViewTest.cs" />
     <Compile Include="Views\AssemblyCategoryRowTest.cs" />

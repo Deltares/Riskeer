@@ -108,6 +108,12 @@
       <DependentUpon>AssessmentSectionView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\CombinedFailureMechanismSectionAssemblyResultRow.cs" />
+    <Compile Include="Views\GeotechnicalFailureMechanismAssemblyCategoriesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\GeotechnicalFailureMechanismAssemblyCategoriesView.Designer.cs">
+      <DependentUpon>GeotechnicalFailureMechanismAssemblyCategoriesView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FailureMechanismAssemblyCategoriesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -319,6 +325,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\AssessmentSectionView.resx">
       <DependentUpon>AssessmentSectionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\GeotechnicalFailureMechanismAssemblyCategoriesView.resx">
+      <DependentUpon>GeotechnicalFailureMechanismAssemblyCategoriesView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FailureMechanismAssemblyCategoriesView.resx">
       <DependentUpon>FailureMechanismAssemblyCategoriesView.cs</DependentUpon>

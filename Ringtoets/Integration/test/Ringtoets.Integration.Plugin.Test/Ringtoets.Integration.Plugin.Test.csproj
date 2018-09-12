@@ -145,6 +145,7 @@
     <Compile Include="ViewInfos\AssemblyResultPerSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssemblyResultTotalViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionAssemblyCategoriesViewInfoTest.cs" />
+    <Compile Include="ViewInfos\GeotechnicalFailureMechanismAssemblyCategoriesViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismAssemblyCategoriesViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismSectionsViewInfoTest.cs" />
     <Compile Include="ViewInfos\CommentViewInfoTest.cs" />
