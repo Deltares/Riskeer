@@ -62,7 +62,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// <param name="foreshoreProfiles">The foreshore profiles used to check if
         /// the imported objects contain the right profile.</param>
         /// <param name="normType">The normative norm type of the assessment section the calculation is imported to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is
+        /// <exception cref="ArgumentNullException">Thrown when any parameter but <paramref name="normType"/> is
         /// <c>null</c>.</exception>
         protected WaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                                  CalculationGroup importTarget,

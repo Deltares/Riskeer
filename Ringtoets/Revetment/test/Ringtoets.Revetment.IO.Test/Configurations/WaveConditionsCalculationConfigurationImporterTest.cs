@@ -361,7 +361,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                                                                       NormType normType)
                 : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles, normType) {}
 
-            public NormType NormType { get; set; }
+            public NormType NormType { get; private set; }
 
             protected override TestWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(
                 string xmlFilePath)

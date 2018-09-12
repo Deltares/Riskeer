@@ -131,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
         [Test]
         [TestCase(NormType.LowerLimit, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
         [TestCase(NormType.Signaling, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
-        public void Import_ValidConfigurationWithoutCategoryBoundary_DataAddedToModel(NormType normType, FailureMechanismCategoryType category)
+        public void Import_ValidConfigurationWithoutCategoryBoundary_DataAddedToModel(NormType normType, FailureMechanismCategoryType expectedCategory)
         {
             // Setup
             string filePath = Path.Combine(path, "validConfigurationWithoutCategoryBoundary.xml");
@@ -188,7 +188,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                         Height = (RoundedDouble) 6.6,
                         Type = BreakWaterType.Caisson
                     },
-                    CategoryType = category
+                    CategoryType = expectedCategory
                 }
             };
 

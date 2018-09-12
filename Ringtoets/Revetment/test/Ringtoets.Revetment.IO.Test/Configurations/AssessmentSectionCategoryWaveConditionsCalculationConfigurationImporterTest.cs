@@ -127,7 +127,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         [Test]
         [TestCase(NormType.LowerLimit, AssessmentSectionCategoryType.LowerLimitNorm)]
         [TestCase(NormType.Signaling, AssessmentSectionCategoryType.SignalingNorm)]
-        public void Import_ValidConfigurationWithoutCategoryBoundary_DataAddedToModel(NormType normType, AssessmentSectionCategoryType category)
+        public void Import_ValidConfigurationWithoutCategoryBoundary_DataAddedToModel(NormType normType, AssessmentSectionCategoryType expectedCategory)
         {
             // Setup
             string filePath = Path.Combine(path, "validConfigurationWithoutCategoryBoundary.xml");
@@ -184,7 +184,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                         Height = (RoundedDouble) 6.6,
                         Type = BreakWaterType.Caisson
                     },
-                    CategoryType = category
+                    CategoryType = expectedCategory
                 }
             };
 
