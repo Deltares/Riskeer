@@ -40,7 +40,7 @@ namespace Core.Plugins.Chart.Legend
         /// <summary>
         /// Fired when the chart legend has been opened.
         /// </summary>
-        public EventHandler<EventArgs> OnOpenLegend;
+        public event EventHandler<EventArgs> OnOpenLegend;
 
         private ChartLegendView legendView;
 
