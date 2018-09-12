@@ -311,7 +311,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
                                                                                                                                             random.NextDouble());
 
             // Assert
-            Assert.AreSame(calculator.GeoTechnicalFailureMechanismSectionCategoriesOutput, result);
+            Assert.AreSame(calculator.GeotechnicalFailureMechanismSectionCategoriesOutput, result);
             Assert.AreEqual(3, result.Count());
             CollectionAssert.AreEqual(new[]
             {
@@ -340,7 +340,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             var random = new Random(21);
             var calculator = new AssemblyCategoriesCalculatorStub
             {
-                GeoTechnicalFailureMechanismSectionCategoriesOutput = Enumerable.Empty<FailureMechanismSectionAssemblyCategory>()
+                GeotechnicalFailureMechanismSectionCategoriesOutput = Enumerable.Empty<FailureMechanismSectionAssemblyCategory>()
             };
 
             // Call
@@ -349,7 +349,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
                                                                                                                                             random.NextDouble());
 
             // Assert
-            Assert.AreSame(calculator.GeoTechnicalFailureMechanismSectionCategoriesOutput, result);
+            Assert.AreSame(calculator.GeotechnicalFailureMechanismSectionCategoriesOutput, result);
         }
 
         [Test]

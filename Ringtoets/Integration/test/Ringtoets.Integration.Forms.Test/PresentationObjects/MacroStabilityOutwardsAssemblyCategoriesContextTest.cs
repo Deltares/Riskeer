@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
                 Assert.AreSame(assessmentSection, context.AssessmentSection);
 
                 IEnumerable<FailureMechanismSectionAssemblyCategory> output = context.GetFailureMechanismSectionAssemblyCategoriesFunc();
-                IEnumerable<FailureMechanismSectionAssemblyCategory> calculatorOutput = calculator.GeoTechnicalFailureMechanismSectionCategoriesOutput;
+                IEnumerable<FailureMechanismSectionAssemblyCategory> calculatorOutput = calculator.GeotechnicalFailureMechanismSectionCategoriesOutput;
                 Assert.AreSame(calculatorOutput, output);
 
                 double normativeNorm = assessmentSection.FailureMechanismContribution.Norm;

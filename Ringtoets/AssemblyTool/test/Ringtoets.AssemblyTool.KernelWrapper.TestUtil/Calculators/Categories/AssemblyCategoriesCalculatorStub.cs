@@ -80,7 +80,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         /// <summary>
         /// Gets or sets the output of the <see cref="CalculateFailureMechanismSectionCategories"/> calculation.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionAssemblyCategory> GeoTechnicalFailureMechanismSectionCategoriesOutput { get; set; }
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> GeotechnicalFailureMechanismSectionCategoriesOutput { get; set; }
 
         /// <summary>
         /// Sets an indicator whether an exception must be thrown while performing the calculation.
@@ -157,8 +157,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
             FailureMechanismN = failureMechanismN;
             FailureMechanismContribution = failureMechanismContribution;
 
-            return GeoTechnicalFailureMechanismSectionCategoriesOutput
-                   ?? (GeoTechnicalFailureMechanismSectionCategoriesOutput = new[]
+            return GeotechnicalFailureMechanismSectionCategoriesOutput
+                   ?? (GeotechnicalFailureMechanismSectionCategoriesOutput = new[]
                           {
                               new FailureMechanismSectionAssemblyCategory(1, 2.1, FailureMechanismSectionAssemblyCategoryGroup.IIIv),
                               new FailureMechanismSectionAssemblyCategory(2.2, 3.1, FailureMechanismSectionAssemblyCategoryGroup.IVv),
