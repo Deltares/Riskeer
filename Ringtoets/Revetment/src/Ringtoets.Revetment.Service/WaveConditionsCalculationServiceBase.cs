@@ -48,11 +48,14 @@ namespace Ringtoets.Revetment.Service
     public abstract class WaveConditionsCalculationServiceBase
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WaveConditionsCalculationServiceBase));
-
-        public OnProgressChanged OnProgress;
         protected int TotalWaterLevelCalculations;
         private int currentStep = 1;
         private IWaveConditionsCosineCalculator calculator;
+
+        /// <summary>
+        /// Fired when the calculation progress changed.
+        /// </summary>
+        public event OnProgressChanged OnProgressChanged;
 
         /// <summary>
         /// Cancels any currently running wave conditions calculation.
@@ -239,7 +242,7 @@ namespace Ringtoets.Revetment.Service
         private void NotifyProgress(RoundedDouble waterLevel, int currentStepNumber, int totalStepsNumber)
         {
             string message = string.Format(Resources.WaveConditionsCalculationService_OnRun_Calculate_for_waterlevel_0_, waterLevel);
-            OnProgress?.Invoke(message, currentStepNumber, totalStepsNumber);
+            OnProgressChanged?.Invoke(message, currentStepNumber, totalStepsNumber);
         }
 
         /// <summary>

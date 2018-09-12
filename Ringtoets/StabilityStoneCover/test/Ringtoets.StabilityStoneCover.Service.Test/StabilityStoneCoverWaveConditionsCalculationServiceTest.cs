@@ -290,7 +290,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 var currentStep = 1;
                 var stabilityStoneCoverWaveConditionsCalculationService = new StabilityStoneCoverWaveConditionsCalculationService();
-                stabilityStoneCoverWaveConditionsCalculationService.OnProgress += (description, step, steps) =>
+                stabilityStoneCoverWaveConditionsCalculationService.OnProgressChanged += (description, step, steps) =>
                 {
                     // Assert
                     string text = $"Berekenen voor een waterstand van '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP].";
