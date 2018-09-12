@@ -4,10 +4,12 @@
   xmlns:gml="http://www.opengis.net/gml/3.2"
   xmlns:asm="http://localhost/standaarden/assemblage"
   elementFormDefault="qualified"
-  targetNamespace="http://localhost/standaarden/assemblage" version="1.1.0">
-  <!--XML Schema document created by Wijnand van Riel for IHW/-->
+  targetNamespace="http://localhost/standaarden/assemblage" version="1.2.0">
+  <!--XML Schema document created by Wijnand van Riel for IHW and Pieter van Geer (Deltares)-->
+
   <import namespace="http://www.opengis.net/gml/3.2"
       schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+
   <!-- Onderstaand schema definition is gebaseerd op het UML class-diagram zoals dat is geformuleerd in het Informatiemodel Waterveiligheid
     In deze omzetting van diagram naar schema zijn composities (wiebertjes) vertaald naar 'element met type ref' en een attribuut met type IDREF  
     De associatierelaties zijn vertaald (open pijlen)als key-refkey, analoog aan Primary-keyForeign-key relaties in Relationele databases -->
@@ -24,6 +26,19 @@
     * Relaties tussen Toetsspoor en Boordelingsproces aangepast naar relatie tussen Toetsspoor en veiligheidsoordeel
     * Extra relatie gelegd tussen vakindeling en veiligheidsoordeel (ofwel relatie met veiligheidsoordeel, ofwel met toetsspoor).
     -->
+  
+  <!--05-09-2018 Wijzigingen t.0.v. v1.1.0:
+  * Verwijderen relatie tussen vakindeling en Toetsspoor
+  * Verwijderen relatie tussen Vakindeling en Veiligheidsoordeel
+  * Verplaatsen "assemblagemethode" naar een afgeleide klasse van WaterkeringSectie -> ToetsVak (Dijkvak?)
+  -->
+
+  <!--10-09-2018 Wijzigingen t.0.v. v1.1.0:
+  * Element "typeToetsspoor" in "ToetsoordeelGecombineerdVakPropertyType" minOccurs = 0
+  * Elementen "geometrieLijn2D" en "lengte" minOccurs = 0
+  * Versie van het xsd aangepast naar v1.2.0
+  -->
+
   <element name="Assemblage" type="asm:AssemblageType" substitutionGroup="gml:AbstractFeature">
     <!-- Dit is de root-definition 
         Eerst de Primary Key van de elementen -->
@@ -79,17 +94,9 @@
       <selector xpath="Toetsspoor/Veiligheidsoordeel"/>
       <field xpath="@refid"/>
     </keyref>
-    <keyref name="FKVakindeling2Veiligheidsoordeel" refer="asm:PKVeiligheidsoordeel">
-      <selector xpath="Vakindeling/Veiligheidsoordeel"/>
-      <field xpath="@refid"/>
-    </keyref>
 
     <keyref name="FKToets2Toetsspoor" refer="asm:PKToetsspoor">
       <selector xpath="Toets/Toetsspoor"/>
-      <field xpath="@refid"/>
-    </keyref>
-    <keyref name="FKVakindeling2Toetsspoor" refer="asm:PKToetsspoor">
-      <selector xpath="Vakindeling/Toetsspoor"/>
       <field xpath="@refid"/>
     </keyref>
 
@@ -127,7 +134,8 @@
                     <element ref="asm:Toets" minOccurs="1" maxOccurs="unbounded"/>
                     <element ref="asm:GecombineerdToetsoordeel" minOccurs="0" maxOccurs="unbounded"/>
                     <element ref="asm:Vakindeling" minOccurs="0" maxOccurs="unbounded"/>
-                    <element ref="asm:Waterkeringsectie" minOccurs="1" maxOccurs="unbounded"/>
+                    <element ref="asm:Waterkeringsectie" minOccurs="0" maxOccurs="unbounded"/>
+                    <element ref="asm:ToetsVak" minOccurs="0" maxOccurs="unbounded"/>
                   </sequence>
                 </extension>
               </complexContent>
@@ -179,6 +187,7 @@
       <element name="status" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
     </sequence>
   </complexType>
+
   <element name="Toetsspoor" type="asm:ToetsspoorType">
     <annotation>
       <documentation>
@@ -227,6 +236,7 @@
     <attribute name="ToetsspoorID" type="ID" use="required"/>
     <attribute name="VeiligheidsoordeelIDRef" type="IDREF" use="required"/>
   </complexType>
+
   <element name="Beoordelingsproces">
     <annotation>
       <documentation>
@@ -263,6 +273,7 @@
       <attribute name="WaterkeringstelselIDRef" type="IDREF" use="required"/>
     </complexType>
   </element>
+
   <element name="Toets" type="asm:ToetsType">
     <annotation>
       <documentation>
@@ -288,6 +299,7 @@
       <element name="faalkans" minOccurs="0" maxOccurs="1" type="double"/>
     </sequence>
   </complexType>
+
   <element name="GecombineerdToetsoordeel" type="asm:GecombineerdToetsoordeelType">
     <annotation>
       <documentation>
@@ -308,11 +320,12 @@
   <complexType name="ToetsoordeelGecombineerdVakPropertyType">
     <sequence>
       <element name="assemblagemethode" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
-      <element name="typeToetsspoor" minOccurs="0" maxOccurs="1" type="gml:CodeType"/>
+      <element name="typeToetsspoor" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
       <element name="categorieVak" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
       <element name="status" minOccurs="1" maxOccurs="1" type="gml:CodeType"/>
     </sequence>
   </complexType>
+
   <element name="Waterkeringsectie" substitutionGroup="gml:AbstractFeature"
       type="asm:WaterkeringsectieType">
     <annotation>
@@ -344,12 +357,12 @@
               </documentation>
             </annotation>
           </element>
-          <element name="geometrieLijn2D" type="gml:CurvePropertyType" minOccurs="1" maxOccurs="1">
+          <element name="geometrieLijn2D" type="gml:CurvePropertyType" minOccurs="0" maxOccurs="1">
             <annotation>
               <documentation>Geometrische representatie van het object als lijn.</documentation>
             </annotation>
           </element>
-          <element name="lengte" minOccurs="1" maxOccurs="1" type="gml:MeasureType"/>
+          <element name="lengte" minOccurs="0" maxOccurs="1" type="gml:MeasureType"/>
           <element name="typeWaterkeringsectie" minOccurs="1" maxOccurs="1" type="gml:CodeType">
             <annotation>
               <documentation>
@@ -358,7 +371,6 @@
               </documentation>
             </annotation>
           </element>
-          <element name="assemblagemethode" minOccurs="0" maxOccurs="1" type="gml:CodeType"/>
         </sequence>
         <!-- Bij gml:abstractfeautres kun je geen andere ID hebben dan gml:id
                 <attribute name="WaterkeringsectieID" type="ID" use="required"/>
@@ -367,13 +379,21 @@
       </extension>
     </complexContent>
   </complexType>
+  
+  <element name="ToetsVak" type="asm:ToetsVakType"/>
+  <complexType name="ToetsVakType">
+    <complexContent>
+      <extension base="asm:WaterkeringsectieType">
+        <sequence>
+          <element name="assemblagemethode" minOccurs="0" maxOccurs="1" type="gml:CodeType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
 
   <element name="Vakindeling" type="asm:VakindelingType"/>
   <complexType name="VakindelingType">
     <attribute name="VakindelingID" type="ID" use="required"/>
-    <!--In gebruik moet (verplicht) precies een (1) van de volgende twee attributen worden gebruikt. Dit wordt in deze xsd niet afgedwongen.-->
-    <attribute name="ToetsspoorIDRef" type="IDREF" use="optional"/>
-    <attribute name="VeiligheidsoordeelIDRef" type="IDREF" use="optional"/>
   </complexType>
 
   <element name="Waterkeringstelsel" substitutionGroup="gml:AbstractFeature"
