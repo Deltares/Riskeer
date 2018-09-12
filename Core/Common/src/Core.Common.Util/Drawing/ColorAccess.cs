@@ -109,6 +109,7 @@ namespace Core.Common.Util.Drawing
                         {
                             pIndex >>= 4;
                         }
+
                         return palette.Entries[pIndex & 0x7];
 
                     case PixelFormat.Format8bppIndexed:
@@ -133,14 +134,15 @@ namespace Core.Common.Util.Drawing
                 {
                     throw new InvalidOperationException($"Setting image color for image format '{format}' isn't supported.");
                 }
+
                 ValidateIndices(x, y);
 
                 int mod;
                 int index = GetIndex(x, y, out mod);
-                buffer[index++] = value.B;
-                buffer[index++] = value.G;
-                buffer[index++] = value.R;
-                buffer[index] = value.A;
+                buffer[index] = value.B;
+                buffer[index + 1] = value.G;
+                buffer[index + 2] = value.R;
+                buffer[index + 3] = value.A;
             }
         }
 

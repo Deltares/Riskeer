@@ -151,8 +151,9 @@ namespace Core.Components.DotSpatial.Projections
             for (int x = x1; x < x2; x++)
             {
                 Coordinate c = mapArgs.PixelToProj(new Point(x, y));
-                xy[i++] = c.X;
-                xy[i++] = c.Y;
+                xy[i] = c.X;
+                xy[i + 1] = c.Y;
+                i = i + 2;
             }
 
             DotSpatialReproject.ReprojectPoints(xy, null, target, source, 0, len);

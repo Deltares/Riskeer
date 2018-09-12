@@ -56,14 +56,17 @@ namespace Core.Components.DotSpatial.Projections
             {
                 throw new ArgumentNullException(nameof(ring));
             }
+
             if (source == null)
             {
                 throw new ArgumentNullException(nameof(source));
             }
+
             if (target == null)
             {
                 throw new ArgumentNullException(nameof(target));
             }
+
             if (ring.Coordinates.Count < 3)
             {
                 throw new ArgumentException(@"Ring must contain at least 3 coordinates.",
@@ -88,10 +91,12 @@ namespace Core.Components.DotSpatial.Projections
             {
                 throw new ArgumentNullException(nameof(extent));
             }
+
             if (source == null)
             {
                 throw new ArgumentNullException(nameof(source));
             }
+
             if (target == null)
             {
                 throw new ArgumentNullException(nameof(target));
@@ -120,8 +125,9 @@ namespace Core.Components.DotSpatial.Projections
             for (var i = 0; i < coordinates.Count; i++)
             {
                 Coordinate c = coordinates[i];
-                xy[j++] = c.X;
-                xy[j++] = c.Y;
+                xy[j] = c.X;
+                xy[j + 1] = c.Y;
+                j = j + 2;
                 z[i] = double.IsNaN(c.Z) ? 0 : c.Z;
             }
 
@@ -133,6 +139,7 @@ namespace Core.Components.DotSpatial.Projections
             {
                 result.Add(new Coordinate(xy[j++], xy[j++]));
             }
+
             return result;
         }
 
@@ -162,6 +169,7 @@ namespace Core.Components.DotSpatial.Projections
             {
                 resultList.AddRange(GetEdgePointsExcludingStart(original[i - 1], original[i], numberOfAdditionalPoints));
             }
+
             return resultList;
         }
 
@@ -180,6 +188,7 @@ namespace Core.Components.DotSpatial.Projections
             {
                 yield return new Coordinate(start.X + i * dx, start.Y + i * dy);
             }
+
             yield return end;
         }
 
@@ -201,10 +210,12 @@ namespace Core.Components.DotSpatial.Projections
                 double x = extent.MinX;
                 for (var j = 0; j < horizontalResolution; j++)
                 {
-                    xy[k++] = x;
-                    xy[k++] = y;
+                    xy[k] = x;
+                    xy[k + 1] = y;
+                    k = k + 2;
                     x += dx;
                 }
+
                 y += dy;
             }
 
@@ -225,6 +236,7 @@ namespace Core.Components.DotSpatial.Projections
                     minX = Math.Min(minX, x);
                     maxX = Math.Max(maxX, x);
                 }
+
                 i += 1;
 
                 double y = xyOrdinates[i];
@@ -233,8 +245,10 @@ namespace Core.Components.DotSpatial.Projections
                     minY = Math.Min(minY, y);
                     maxY = Math.Max(maxY, y);
                 }
+
                 i += 1;
             }
+
             return new Extent(minX, minY, maxX, maxY);
         }
     }
