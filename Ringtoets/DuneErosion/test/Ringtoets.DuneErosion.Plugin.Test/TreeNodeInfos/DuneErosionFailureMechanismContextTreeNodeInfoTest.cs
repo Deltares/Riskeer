@@ -549,15 +549,15 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                         const string calculationDisplayName = "Hydraulische belastingenberekening";
 
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Iv->IIv", msgs, 0);
+                            duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens Iv", msgs, 0);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIv->IIIv", msgs, 8);
+                            duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens IIv", msgs, 8);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIIv->IVv", msgs, 16);
+                            duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens IIIv", msgs, 16);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IVv->Vv", msgs, 24);
+                            duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens IVv", msgs, 24);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Vv->VIv", msgs, 32);
+                            duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens Vv", msgs, 32);
                     });
                 }
             }

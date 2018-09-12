@@ -251,23 +251,23 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(failureMechanism, c.FailureMechanism)));
 
-                Assert.AreEqual("Iv->IIv", calculationsContexts[0].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens Iv", calculationsContexts[0].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, signalingNorm / 30), calculationsContexts[0].GetNormFunc(), 1e-6);
 
-                Assert.AreEqual("IIv->IIIv", calculationsContexts[1].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens IIv", calculationsContexts[1].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, calculationsContexts[1].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, signalingNorm), calculationsContexts[1].GetNormFunc(), 1e-6);
 
-                Assert.AreEqual("IIIv->IVv", calculationsContexts[2].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens IIIv", calculationsContexts[2].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, calculationsContexts[2].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, lowerLimitNorm), calculationsContexts[2].GetNormFunc(), 1e-6);
 
-                Assert.AreEqual("IVv->Vv", calculationsContexts[3].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens IVv", calculationsContexts[3].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.CalculationsForLowerLimitNorm, calculationsContexts[3].WrappedData);
                 Assert.AreEqual(failureMechanismSpecificNormFactor * lowerLimitNorm, calculationsContexts[3].GetNormFunc(), 1e-6);
 
-                Assert.AreEqual("Vv->VIv", calculationsContexts[4].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens Vv", calculationsContexts[4].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.CalculationsForFactorizedLowerLimitNorm, calculationsContexts[4].WrappedData);
                 Assert.AreEqual(failureMechanismSpecificNormFactor * lowerLimitNorm * 30, calculationsContexts[4].GetNormFunc(), 1e-6);
             }
@@ -467,15 +467,15 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                             const string calculationDisplayName = "Hydraulische belastingenberekening";
 
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Iv->IIv", msgs, 0);
+                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens Iv", msgs, 0);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIv->IIIv", msgs, 8);
+                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens IIv", msgs, 8);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIIv->IVv", msgs, 16);
+                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens IIIv", msgs, 16);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IVv->Vv", msgs, 24);
+                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens IVv", msgs, 24);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Vv->VIv", msgs, 32);
+                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens Vv", msgs, 32);
                         });
                     }
                 }

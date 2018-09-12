@@ -77,7 +77,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, context);
 
             // Assert
-            Assert.AreEqual($"Hydraulische belastingen - Categorie {categoryBoundaryName}", viewName);
+            Assert.AreEqual($"Hydraulische belastingen - {categoryBoundaryName}", viewName);
             mocks.VerifyAll();
         }
 

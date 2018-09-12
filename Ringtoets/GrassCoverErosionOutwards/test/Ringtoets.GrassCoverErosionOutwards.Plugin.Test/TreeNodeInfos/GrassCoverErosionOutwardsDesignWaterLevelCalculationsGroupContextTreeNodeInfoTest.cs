@@ -375,15 +375,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                             const string calculationDisplayName = "Waterstand berekening";
 
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Iv->IIv", msgs, 0);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens Iv", msgs, 0);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIv->IIIv", msgs, 8);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens IIv", msgs, 8);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIIv->IVv", msgs, 16);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens IIIv", msgs, 16);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IVv->Vv", msgs, 24);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens IVv", msgs, 24);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Vv->VIv", msgs, 32);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens Vv", msgs, 32);
                         });
 
                         AssertHydraulicBoundaryLocationCalculationOutput(designWaterLevelCalculator, failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output);
@@ -433,23 +433,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(failureMechanism, c.FailureMechanism)));
 
-                Assert.AreEqual("Iv->IIv", calculationsContexts[0].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens Iv", calculationsContexts[0].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, () => signalingNorm / 30), calculationsContexts[0].GetNormFunc(), 1e-6);
 
-                Assert.AreEqual("IIv->IIIv", calculationsContexts[1].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens IIv", calculationsContexts[1].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm, calculationsContexts[1].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, () => signalingNorm), calculationsContexts[1].GetNormFunc());
 
-                Assert.AreEqual("IIIv->IVv", calculationsContexts[2].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens IIIv", calculationsContexts[2].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, calculationsContexts[2].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, () => lowerLimitNorm), calculationsContexts[2].GetNormFunc());
 
-                Assert.AreEqual("IVv->Vv", calculationsContexts[3].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens IVv", calculationsContexts[3].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, calculationsContexts[3].WrappedData);
                 Assert.AreEqual(lowerLimitNorm, calculationsContexts[3].GetNormFunc());
 
-                Assert.AreEqual("Vv->VIv", calculationsContexts[4].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens Vv", calculationsContexts[4].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, calculationsContexts[4].WrappedData);
                 Assert.AreEqual(lowerLimitNorm * 30, calculationsContexts[4].GetNormFunc());
             }

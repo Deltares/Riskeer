@@ -122,7 +122,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Categorie " + categoryBoundaryName, text);
+            Assert.AreEqual(categoryBoundaryName, text);
         }
 
         [Test]

@@ -226,7 +226,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.Grass, exportableWaveConditions.CoverType);
-            Assert.AreEqual("Iv->IIv", exportableWaveConditions.CategoryBoundaryName);
+            Assert.AreEqual("Categoriegrens Iv", exportableWaveConditions.CategoryBoundaryName);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);

@@ -172,7 +172,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
                 DesignWaterLevelCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaterLevelCalculations_DisplayName} + {context.CategoryBoundaryName}",
+                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaterLevelCalculations_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,

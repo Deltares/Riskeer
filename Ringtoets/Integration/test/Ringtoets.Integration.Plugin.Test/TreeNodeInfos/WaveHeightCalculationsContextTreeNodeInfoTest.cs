@@ -111,7 +111,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(context);
 
                 // Assert
-                Assert.AreEqual("Categorie " + categoryBoundaryName, text);
+                Assert.AreEqual(categoryBoundaryName, text);
             }
 
             mockRepository.VerifyAll();

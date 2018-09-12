@@ -400,19 +400,19 @@
     <value>Categoriegrens C</value>
   </data>
   <data name="FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" xml:space="preserve">
-    <value>Iv-&gt;IIv</value>
+    <value>Categoriegrens Iv</value>
   </data>
   <data name="FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName" xml:space="preserve">
-    <value>IIv-&gt;IIIv</value>
+    <value>Categoriegrens IIv</value>
   </data>
   <data name="FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>IIIv-&gt;IVv</value>
+    <value>Categoriegrens IIIv</value>
   </data>
   <data name="FailureMechanismCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>IVv-&gt;Vv</value>
+    <value>Categoriegrens IVv</value>
   </data>
   <data name="FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>Vv-&gt;VIv</value>
+    <value>Categoriegrens Vv</value>
   </data>
   <data name="FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism" xml:space="preserve">
     <value>Voor een of meerdere vakken kan geen resultaat worden bepaald.</value>
