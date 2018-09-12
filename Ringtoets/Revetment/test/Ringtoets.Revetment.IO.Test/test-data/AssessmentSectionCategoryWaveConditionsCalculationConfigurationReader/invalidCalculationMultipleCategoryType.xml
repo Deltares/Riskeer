@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="Calculation">
-    <categoriegrens>Categoriegrens A+</categoriegrens>
-    <categoriegrens>Categoriegrens B</categoriegrens>
+    <categoriegrens>A+-A</categoriegrens>
+    <categoriegrens>B-C</categoriegrens>
   </berekening>
 </configuratie>

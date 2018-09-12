@@ -83,10 +83,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [TestCase(ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm, "Categoriegrens A+")]
-        [TestCase(ConfigurationAssessmentSectionCategoryType.SignalingNorm, "Categoriegrens A")]
-        [TestCase(ConfigurationAssessmentSectionCategoryType.LowerLimitNorm, "Categoriegrens B")]
-        [TestCase(ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm, "Categoriegrens C")]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm, "A+-A")]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.SignalingNorm, "A-B")]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.LowerLimitNorm, "B-C")]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm, "C-D")]
         public void ConvertTo_ValidConfigurationAssessmentSectionCategoryType_ReturnExpectedText(
             ConfigurationAssessmentSectionCategoryType value, string expectedText)
         {
@@ -175,10 +175,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [TestCase("Categoriegrens A+", ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm)]
-        [TestCase("Categoriegrens A", ConfigurationAssessmentSectionCategoryType.SignalingNorm)]
-        [TestCase("Categoriegrens B", ConfigurationAssessmentSectionCategoryType.LowerLimitNorm)]
-        [TestCase("Categoriegrens C", ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm)]
+        [TestCase("A+-A", ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm)]
+        [TestCase("A-B", ConfigurationAssessmentSectionCategoryType.SignalingNorm)]
+        [TestCase("B-C", ConfigurationAssessmentSectionCategoryType.LowerLimitNorm)]
+        [TestCase("C-D", ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm)]
         public void ConvertFrom_ValidStringValue_ReturnConfigurationAssessmentSectionCategoryType(
             string value, ConfigurationAssessmentSectionCategoryType expectedResult)
         {

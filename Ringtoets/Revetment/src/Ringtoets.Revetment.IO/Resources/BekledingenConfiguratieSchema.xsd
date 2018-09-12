@@ -31,10 +31,10 @@ All rights reserved.
   <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema.xsd">
     <xs:simpleType name="categoriegrensType">
       <xs:restriction base="categoriegrensType">
-        <xs:enumeration value="Categoriegrens A+"/>
-        <xs:enumeration value="Categoriegrens A"/>
-        <xs:enumeration value="Categoriegrens B"/>
-        <xs:enumeration value="Categoriegrens C"/>
+        <xs:enumeration value="A+-A"/>
+        <xs:enumeration value="A-B"/>
+        <xs:enumeration value="B-C"/>
+        <xs:enumeration value="C-D"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:redefine>
