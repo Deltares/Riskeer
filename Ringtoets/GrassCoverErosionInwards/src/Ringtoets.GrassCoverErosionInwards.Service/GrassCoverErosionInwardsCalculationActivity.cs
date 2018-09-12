@@ -65,10 +65,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
 
-            calculationService = new GrassCoverErosionInwardsCalculationService
-            {
-                OnProgress = UpdateProgressText
-            };
+            calculationService = new GrassCoverErosionInwardsCalculationService();
+            calculationService.OnProgressChanged += UpdateProgressText;
         }
 
         protected override bool Validate()

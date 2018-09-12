@@ -57,12 +57,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
     public class GrassCoverErosionInwardsCalculationService
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionInwardsCalculationService));
-        public OnProgressChanged OnProgress;
 
         private bool canceled;
         private IOvertoppingCalculator overtoppingCalculator;
         private IHydraulicLoadsCalculator dikeHeightCalculator;
         private IHydraulicLoadsCalculator overtoppingRateCalculator;
+
+        /// <summary>
+        /// Fired when the calculation progress changed.
+        /// </summary>
+        public event OnProgressChanged OnProgressChanged;
 
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
@@ -904,7 +908,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private void NotifyProgress(string stepName, int currentStepNumber, int totalStepNumber)
         {
-            OnProgress?.Invoke(stepName, currentStepNumber, totalStepNumber);
+            OnProgressChanged?.Invoke(stepName, currentStepNumber, totalStepNumber);
         }
     }
 }
