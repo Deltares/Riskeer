@@ -156,7 +156,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             SerializableFailureMechanismSectionCollection serializableFailureMechanismSectionCollection = aggregatedFailureMechanism.FailureMechanismSectionCollection;
             Assert.AreEqual("Vi.0", serializableFailureMechanismSectionCollection.Id);
-            Assert.AreEqual(serializableFailureMechanism.Id, serializableFailureMechanismSectionCollection.FailureMechanismId);
 
             AssertFailureMechanismSectionAssemblies(failureMechanism,
                                                     serializableFailureMechanismSectionCollection,
@@ -282,7 +281,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
 
             SerializableFailureMechanismSectionCollection serializableFailureMechanismSectionCollection = aggregatedFailureMechanism.FailureMechanismSectionCollection;
             Assert.AreEqual("Vi.0", serializableFailureMechanismSectionCollection.Id);
-            Assert.AreEqual(serializableFailureMechanism.Id, serializableFailureMechanismSectionCollection.FailureMechanismId);
 
             AssertFailureMechanismSectionAssemblies(failureMechanism,
                                                     serializableFailureMechanismSectionCollection,

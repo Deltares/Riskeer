@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wks.
+        ///   Looks up a localized string similar to Tv.
         /// </summary>
         internal static string SerializableFailureMechanismSection_IdPrefix {
             get {

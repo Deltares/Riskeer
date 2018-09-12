@@ -49,7 +49,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.IsNull(section.Geometry);
             Assert.AreEqual((SerializableFailureMechanismSectionType) 0, section.FailureMechanismSectionType);
 
-            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSection), "Waterkeringsectie");
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSection), "ToetsVak");
 
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSection>(
                 nameof(SerializableFailureMechanismSection.Id), "id", "http://www.opengis.net/gml/3.2");
@@ -135,7 +135,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             const string id = "sectionId";
 
             var random = new Random(39);
-            var sectionCollection = new SerializableFailureMechanismSectionCollection("sectionCollectionId", new SerializableFailureMechanism());
+            var sectionCollection = new SerializableFailureMechanismSectionCollection("sectionCollectionId");
             double startDistance = random.NextDouble();
             double endDistance = random.NextDouble();
             var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();

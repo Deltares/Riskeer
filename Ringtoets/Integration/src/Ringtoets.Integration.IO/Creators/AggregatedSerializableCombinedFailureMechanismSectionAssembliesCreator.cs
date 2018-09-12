@@ -65,8 +65,7 @@ namespace Ringtoets.Integration.IO.Creators
             }
 
             var failureMechanismSectionCollection = new SerializableFailureMechanismSectionCollection(
-                idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionCollection_IdPrefix),
-                totalAssemblyResult);
+                idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionCollection_IdPrefix));
 
             AggregatedSerializableCombinedFailureMechanismSectionAssembly[] aggregatedAssemblies =
                 combinedSectionAssemblies.Select(assembly => AggregatedSerializableCombinedFailureMechanismSectionAssemblyCreator.Create(

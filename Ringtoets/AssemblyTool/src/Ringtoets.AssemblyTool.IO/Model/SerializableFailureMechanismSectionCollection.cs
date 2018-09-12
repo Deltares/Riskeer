@@ -40,46 +40,8 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Creates a new instance of <see cref="SerializableFailureMechanismSectionCollection"/>.
         /// </summary>
         /// <param name="id">The unique ID of the sections.</param>
-        /// <param name="failureMechanism">The failure mechanism the sections belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        public SerializableFailureMechanismSectionCollection(string id,
-                                                             SerializableFailureMechanism failureMechanism)
-            : this(id)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            FailureMechanismId = failureMechanism.Id;
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SerializableFailureMechanismSectionCollection"/>.
-        /// </summary>
-        /// <param name="id">The unique ID of the sections.</param>
-        /// <param name="totalAssemblyResult">The total assembly result the sections belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="totalAssemblyResult"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        public SerializableFailureMechanismSectionCollection(string id,
-                                                             SerializableTotalAssemblyResult totalAssemblyResult)
-            : this(id)
-        {
-            if (totalAssemblyResult == null)
-            {
-                throw new ArgumentNullException(nameof(totalAssemblyResult));
-            }
-
-            TotalAssemblyResultId = totalAssemblyResult.Id;
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SerializableFailureMechanismSectionCollection"/>.
-        /// </summary>
-        /// <param name="id">The unique ID of the sections.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        private SerializableFailureMechanismSectionCollection(string id)
+        public SerializableFailureMechanismSectionCollection(string id)
         {
             if (!SerializableIdValidator.Validate(id))
             {
@@ -94,17 +56,5 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// </summary>
         [XmlAttribute(AssemblyXmlIdentifiers.FailureMechanismSectionCollectionId)]
         public string Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ID of the parent failure mechanism.
-        /// </summary>
-        [XmlAttribute(AssemblyXmlIdentifiers.FailureMechanismIdRef)]
-        public string FailureMechanismId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ID of the parent total assembly result.
-        /// </summary>
-        [XmlAttribute(AssemblyXmlIdentifiers.TotalAssemblyResultIdRef)]
-        public string TotalAssemblyResultId { get; set; }
     }
 }

@@ -106,8 +106,6 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Assert
             SerializableFailureMechanismSectionCollection serializableFailureMechanismSectionCollection = aggregate.FailureMechanismSectionCollection;
             Assert.AreEqual("Vi.0", serializableFailureMechanismSectionCollection.Id);
-            Assert.AreEqual(totalAssemblyResult.Id, serializableFailureMechanismSectionCollection.TotalAssemblyResultId);
-            Assert.IsNull(serializableFailureMechanismSectionCollection.FailureMechanismId);
 
             AssertCombinedFailureMechanismSectionAssemblies(combinedSectionAssemblies,
                                                             serializableFailureMechanismSectionCollection,

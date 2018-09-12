@@ -119,9 +119,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             AssertFailureMechanismConnections(6, 3, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
 
             var combinedFailureMechanismSectionCollection = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[17];
-            AssertSerializableFailureMechanismSectionCollection("Vi.4",
-                                                                serializableTotalAssemblyResult,
-                                                                combinedFailureMechanismSectionCollection);
+            AssertSerializableFailureMechanismSectionCollection("Vi.4",combinedFailureMechanismSectionCollection);
             AssertCombinedFailureMechanismSectionAssemblyConnections(11, 4, 0, combinedFailureMechanismSectionCollection, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
             AssertCombinedFailureMechanismSectionAssemblyConnections(12, 5, 1, combinedFailureMechanismSectionCollection, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
         }
@@ -312,10 +310,9 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                failureMechanismWithProbability);
             var failureMechanismSectionCollection = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 10];
             AssertSerializableFailureMechanismSectionCollection($"Vi.{expectedId}",
-                                                                failureMechanismWithProbability,
                                                                 failureMechanismSectionCollection);
             var serializableFailureMechanismSection = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 15];
-            AssertSerializableFailureMechanismSection($"Wks.{expectedId}",
+            AssertSerializableFailureMechanismSection($"Tv.{expectedId}",
                                                       failureMechanismSectionCollection,
                                                       serializableFailureMechanismSection);
             AssertSerializableFailureMechanismSectionAssembly($"T.{expectedId}",
@@ -333,11 +330,8 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         private static void AssertSerializableFailureMechanismSectionCollection(string expectedId,
-                                                                                SerializableFailureMechanism expectedSerializableFailureMechanism,
                                                                                 SerializableFailureMechanismSectionCollection serializableFailureMechanismSectionCollection)
         {
-            Assert.AreEqual(expectedSerializableFailureMechanism.Id, serializableFailureMechanismSectionCollection.FailureMechanismId);
-            Assert.IsNull(serializableFailureMechanismSectionCollection.TotalAssemblyResultId);
             Assert.AreEqual(expectedId, serializableFailureMechanismSectionCollection.Id);
         }
 
@@ -363,22 +357,13 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                      SerializableFeatureMember[] serializableAssemblyFeatureMembers)
         {
             var combinedFailureMechanismSection = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[indexSerializableCombinedSectionAssembly + 11];
-            AssertSerializableFailureMechanismSection($"Wks.{expectedSectionId}",
+            AssertSerializableFailureMechanismSection($"Tv.{expectedSectionId}",
                                                       expectedCombinedFailureMechanismSectionCollection,
                                                       combinedFailureMechanismSection);
             AssertSerializableCombinedFailureMechanismSectionAssembly($"Gto.{expectedCombinedSectionAssemblyId}",
                                                                       expectedSerializableTotalAssemblyResult,
                                                                       combinedFailureMechanismSection,
                                                                       (SerializableCombinedFailureMechanismSectionAssembly) serializableAssemblyFeatureMembers[indexSerializableCombinedSectionAssembly]);
-        }
-
-        private static void AssertSerializableFailureMechanismSectionCollection(string expectedId,
-                                                                                SerializableTotalAssemblyResult expectedSerializableTotalAssemblyResult,
-                                                                                SerializableFailureMechanismSectionCollection serializableFailureMechanismSectionCollection)
-        {
-            Assert.AreEqual(expectedSerializableTotalAssemblyResult.Id, serializableFailureMechanismSectionCollection.TotalAssemblyResultId);
-            Assert.IsNull(serializableFailureMechanismSectionCollection.FailureMechanismId);
-            Assert.AreEqual(expectedId, serializableFailureMechanismSectionCollection.Id);
         }
 
         private static void AssertSerializableCombinedFailureMechanismSectionAssembly(string expectedId,
