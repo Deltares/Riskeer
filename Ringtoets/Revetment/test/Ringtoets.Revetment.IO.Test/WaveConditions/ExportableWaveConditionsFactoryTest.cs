@@ -146,7 +146,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
-            Assert.AreEqual("A->B", exportableWaveConditions.CategoryBoundaryName);
+            Assert.AreEqual("Categoriegrens A", exportableWaveConditions.CategoryBoundaryName);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
@@ -306,7 +306,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.Asphalt, exportableWaveConditions.CoverType);
-            Assert.AreEqual("B->C", exportableWaveConditions.CategoryBoundaryName);
+            Assert.AreEqual("Categoriegrens B", exportableWaveConditions.CategoryBoundaryName);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);

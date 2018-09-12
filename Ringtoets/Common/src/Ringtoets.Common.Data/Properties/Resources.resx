@@ -388,16 +388,16 @@
     <value>De waarde voor 'a' moet in het bereik {0} liggen.</value>
   </data>
   <data name="AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName" xml:space="preserve">
-    <value>A+-&gt;A</value>
+    <value>Categoriegrens A+</value>
   </data>
   <data name="AssessmentSectionCategoryType_SignalingNorm_DisplayName" xml:space="preserve">
-    <value>A-&gt;B</value>
+    <value>Categoriegrens A</value>
   </data>
   <data name="AssessmentSectionCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>B-&gt;C</value>
+    <value>Categoriegrens B</value>
   </data>
   <data name="AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>C-&gt;D</value>
+    <value>Categoriegrens C</value>
   </data>
   <data name="FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" xml:space="preserve">
     <value>Iv-&gt;IIv</value>

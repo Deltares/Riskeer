@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C-&gt;D.
+        ///   Looks up a localized string similar to Categoriegrens C.
         /// </summary>
         public static string AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName {
             get {
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A+-&gt;A.
+        ///   Looks up a localized string similar to Categoriegrens A+.
         /// </summary>
         public static string AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName {
             get {
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B-&gt;C.
+        ///   Looks up a localized string similar to Categoriegrens B.
         /// </summary>
         public static string AssessmentSectionCategoryType_LowerLimitNorm_DisplayName {
             get {
@@ -119,7 +119,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A-&gt;B.
+        ///   Looks up a localized string similar to Categoriegrens A.
         /// </summary>
         public static string AssessmentSectionCategoryType_SignalingNorm_DisplayName {
             get {

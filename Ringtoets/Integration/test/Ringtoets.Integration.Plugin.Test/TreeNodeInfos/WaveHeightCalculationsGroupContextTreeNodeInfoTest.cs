@@ -355,13 +355,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             const string calculationDisplayName = "Golfhoogte berekening";
 
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "A+->A", msgs, 0);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens A+", msgs, 0);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "A->B", msgs, 8);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens A", msgs, 8);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "B->C", msgs, 16);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens B", msgs, 16);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "C->D", msgs, 24);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens C", msgs, 24);
                         });
 
                         AssertHydraulicBoundaryLocationCalculationOutput(waveHeightCalculator, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Single().Output);
@@ -404,19 +404,19 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
 
-                Assert.AreEqual("A+->A", calculationsContexts[0].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens A+", calculationsContexts[0].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
                 Assert.AreEqual(signalingNorm / 30, calculationsContexts[0].GetNormFunc());
 
-                Assert.AreEqual("A->B", calculationsContexts[1].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens A", calculationsContexts[1].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaveHeightCalculationsForSignalingNorm, calculationsContexts[1].WrappedData);
                 Assert.AreEqual(signalingNorm, calculationsContexts[1].GetNormFunc());
 
-                Assert.AreEqual("B->C", calculationsContexts[2].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens B", calculationsContexts[2].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, calculationsContexts[2].WrappedData);
                 Assert.AreEqual(lowerLimitNorm, calculationsContexts[2].GetNormFunc());
 
-                Assert.AreEqual("C->D", calculationsContexts[3].CategoryBoundaryName);
+                Assert.AreEqual("Categoriegrens C", calculationsContexts[3].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, calculationsContexts[3].WrappedData);
                 Assert.AreEqual(lowerLimitNorm * 30, calculationsContexts[3].GetNormFunc());
             }

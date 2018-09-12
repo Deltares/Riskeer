@@ -36,16 +36,16 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
                 return new Dictionary<AssessmentSectionCategoryType, string>
                 {
                     {
-                        AssessmentSectionCategoryType.FactorizedSignalingNorm, "A+->A"
+                        AssessmentSectionCategoryType.FactorizedSignalingNorm, "Categoriegrens A+"
                     },
                     {
-                        AssessmentSectionCategoryType.SignalingNorm, "A->B"
+                        AssessmentSectionCategoryType.SignalingNorm, "Categoriegrens A"
                     },
                     {
-                        AssessmentSectionCategoryType.LowerLimitNorm, "B->C"
+                        AssessmentSectionCategoryType.LowerLimitNorm, "Categoriegrens B"
                     },
                     {
-                        AssessmentSectionCategoryType.FactorizedLowerLimitNorm, "C->D"
+                        AssessmentSectionCategoryType.FactorizedLowerLimitNorm, "Categoriegrens C"
                     }
                 };
             }
