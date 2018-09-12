@@ -110,6 +110,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 return new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism);
             }
+
+            protected override IFailureMechanism GetFailureMechanism()
+            {
+                return new TestFailureMechanism();
+            }
         }
     }
 }

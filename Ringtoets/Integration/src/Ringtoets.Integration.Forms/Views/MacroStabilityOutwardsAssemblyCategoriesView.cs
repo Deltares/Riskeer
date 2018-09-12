@@ -26,33 +26,33 @@ using System.Linq;
 using Core.Common.Base;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// View for a geotechnical <see cref="IFailureMechanism"/> to show 
+    /// View for a <see cref="MacroStabilityOutwardsFailureMechanism"/> to show
     /// its assembly categories.
     /// </summary>
-    public partial class GeotechnicalFailureMechanismAssemblyCategoriesView : CloseForFailureMechanismView
+    public partial class MacroStabilityOutwardsAssemblyCategoriesView : CloseForFailureMechanismView
     {
         private readonly Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoriesFunc;
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GeotechnicalFailureMechanismAssemblyCategoriesView"/>.
+        /// Creates a new instance of <see cref="MacroStabilityOutwardsAssemblyCategoriesView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism belonging to the view.</param>
         /// <param name="assessmentSection">The assessment section belonging to the view.</param>
         /// <param name="getFailureMechanismSectionAssemblyCategoriesFunc">The function to get a collection
         /// of <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GeotechnicalFailureMechanismAssemblyCategoriesView(IFailureMechanism failureMechanism,
-                                                                  IAssessmentSection assessmentSection,
-                                                                  Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoriesFunc)
+        public MacroStabilityOutwardsAssemblyCategoriesView(MacroStabilityOutwardsFailureMechanism failureMechanism,
+                                                            IAssessmentSection assessmentSection,
+                                                            Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoriesFunc)
             : base(failureMechanism)
         {
             if (assessmentSection == null)

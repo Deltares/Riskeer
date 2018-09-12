@@ -44,6 +44,7 @@
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultsContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContext.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityOutwardsAssemblyCategoriesContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\WaterPressureAsphaltCoverFailureMechanismSectionsContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\TechnicalInnovationFailureMechanismSectionsContext.cs" />
@@ -108,11 +109,11 @@
       <DependentUpon>AssessmentSectionView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\CombinedFailureMechanismSectionAssemblyResultRow.cs" />
-    <Compile Include="Views\GeotechnicalFailureMechanismAssemblyCategoriesView.cs">
+    <Compile Include="Views\MacroStabilityOutwardsAssemblyCategoriesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\GeotechnicalFailureMechanismAssemblyCategoriesView.Designer.cs">
-      <DependentUpon>GeotechnicalFailureMechanismAssemblyCategoriesView.cs</DependentUpon>
+    <Compile Include="Views\MacroStabilityOutwardsAssemblyCategoriesView.Designer.cs">
+      <DependentUpon>MacroStabilityOutwardsAssemblyCategoriesView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FailureMechanismAssemblyCategoriesView.cs">
       <SubType>UserControl</SubType>
@@ -326,8 +327,8 @@
     <EmbeddedResource Include="Views\AssessmentSectionView.resx">
       <DependentUpon>AssessmentSectionView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\GeotechnicalFailureMechanismAssemblyCategoriesView.resx">
-      <DependentUpon>GeotechnicalFailureMechanismAssemblyCategoriesView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\MacroStabilityOutwardsAssemblyCategoriesView.resx">
+      <DependentUpon>MacroStabilityOutwardsAssemblyCategoriesView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FailureMechanismAssemblyCategoriesView.resx">
       <DependentUpon>FailureMechanismAssemblyCategoriesView.cs</DependentUpon>

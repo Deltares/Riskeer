@@ -112,6 +112,11 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                                                                              failureMechanism,
                                                                              new PipingProbabilityAssessmentInput());
             }
+
+            protected override IFailureMechanism GetFailureMechanism()
+            {
+                return new PipingFailureMechanism();
+            }
         }
     }
 }

@@ -46,6 +46,10 @@
       <Project>{8513B8D6-79C8-4173-B663-59C91AC65E5F}</Project>
       <Name>Ringtoets.Common.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Common.Plugin.TestUtil\Ringtoets.Common.Plugin.TestUtil.csproj">
       <Project>{6346BADF-D331-4948-9772-08E8CD1E1FC9}</Project>
       <Name>Ringtoets.Common.Plugin.TestUtil</Name>

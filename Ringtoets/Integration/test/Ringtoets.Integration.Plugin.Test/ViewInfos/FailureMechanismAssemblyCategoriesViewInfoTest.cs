@@ -116,6 +116,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                                   Enumerable.Empty<FailureMechanismAssemblyCategory>,
                                                                   Enumerable.Empty<FailureMechanismSectionAssemblyCategory>);
             }
+
+            protected override IFailureMechanism GetFailureMechanism()
+            {
+                return new TestFailureMechanism();
+            }
         }
 
         private class TestFailureMechanismAssemblyCategoriesContext : FailureMechanismAssemblyCategoriesContextBase

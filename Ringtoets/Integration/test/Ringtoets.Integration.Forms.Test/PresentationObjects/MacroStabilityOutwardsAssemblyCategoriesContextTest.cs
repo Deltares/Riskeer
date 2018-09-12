@@ -22,19 +22,19 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Forms.PresentationObjects;
 
-namespace Ringtoets.Common.Forms.Test.PresentationObjects
+namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GeotechnicalFailureMechanismAssemblyCategoriesContextTest
+    public class MacroStabilityOutwardsAssemblyCategoriesContextTest
     {
         private const double tolerance = 1e-5;
 
@@ -45,10 +45,10 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var random = new Random(21);
             double n = random.NextDouble();
 
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Contribution = random.NextDouble();
-            mocks.ReplayAll();
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            {
+                Contribution = random.NextDouble()
+            };
 
             var assessmentSection = new AssessmentSectionStub();
 
@@ -58,9 +58,9 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                var context = new GeotechnicalFailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                                                        assessmentSection,
-                                                                                        () => n);
+                var context = new MacroStabilityOutwardsAssemblyCategoriesContext(failureMechanism,
+                                                                                  assessmentSection,
+                                                                                  () => n);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismAssemblyCategoriesContextBase>(context);
@@ -76,8 +76,6 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
                 Assert.AreEqual(normativeNorm, calculator.NormativeNorm, tolerance);
                 Assert.AreEqual(n, calculator.FailureMechanismN);
             }
-
-            mocks.VerifyAll();
         }
     }
 }

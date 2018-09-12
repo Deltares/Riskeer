@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
+            IFailureMechanism failureMechanism = GetFailureMechanism();
 
             using (IView view = GetView(failureMechanism))
             {
@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            IFailureMechanism failureMechanism = GetFailureMechanism();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            IFailureMechanism failureMechanism = GetFailureMechanism();
 
             using (IView view = GetView(failureMechanism))
             {
@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            IFailureMechanism failureMechanism = GetFailureMechanism();
 
             using (IView view = GetView(failureMechanism))
             {
@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
+            IFailureMechanism failureMechanism = GetFailureMechanism();
             var failureMechanismContext = new TestFailureMechanismContext(new TestFailureMechanism(), assessmentSection);
 
             using (IView view = GetView(failureMechanism))
@@ -148,7 +148,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
+            IFailureMechanism failureMechanism = GetFailureMechanism();
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (IView view = GetView(failureMechanism))
@@ -178,9 +178,15 @@ namespace Ringtoets.Common.Plugin.TestUtil
         /// <returns>A view object.</returns>
         protected abstract IView GetView(IFailureMechanism failureMechanism);
 
-        private class TestFailureMechanismContext : FailureMechanismContext<TestFailureMechanism>
+        /// <summary>
+        /// Gets a failure mechanism for testing purposes.
+        /// </summary>
+        /// <returns>An <see cref="IFailureMechanism"/>.</returns>
+        protected abstract IFailureMechanism GetFailureMechanism();
+
+        private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
         {
-            public TestFailureMechanismContext(TestFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) : base(wrappedFailureMechanism, parent) {}
+            public TestFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) : base(wrappedFailureMechanism, parent) {}
         }
     }
 }

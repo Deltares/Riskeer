@@ -24,6 +24,7 @@ using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Plugin.TestUtil;
@@ -103,6 +104,11 @@ namespace Ringtoets.Common.Service.Test
             {
                 public TestFailureMechanismSectionsView(IFailureMechanism failureMechanism)
                     : base(failureMechanism.Sections, failureMechanism) {}
+            }
+
+            protected override IFailureMechanism GetFailureMechanism()
+            {
+                return new TestFailureMechanism();
             }
         }
     }

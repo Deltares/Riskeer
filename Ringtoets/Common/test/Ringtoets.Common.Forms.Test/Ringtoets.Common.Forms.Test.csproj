@@ -72,7 +72,6 @@
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsGroupContextTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismAssemblyCategoriesContextBaseTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismAssemblyCategoriesContextTest.cs" />
-    <Compile Include="PresentationObjects\GeotechnicalFailureMechanismAssemblyCategoriesContextTest.cs" />
     <Compile Include="PresentationObjects\NormContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\IllustrationPointContextTest.cs" />

@@ -42,6 +42,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -175,7 +176,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-            var failureMechanismAssemblyCategoriesContext = (GeotechnicalFailureMechanismAssemblyCategoriesContext) outputFolder.Contents.ElementAt(0);
+            var failureMechanismAssemblyCategoriesContext = (MacroStabilityOutwardsAssemblyCategoriesContext) outputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
 
@@ -270,7 +271,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
-            
+
             using (var treeView = new TreeViewControl())
             {
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();

@@ -53,6 +53,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
@@ -504,9 +505,9 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(GeotechnicalFailureMechanismAssemblyCategoriesContext),
-                    typeof(IFailureMechanism),
-                    typeof(GeotechnicalFailureMechanismAssemblyCategoriesView));
+                    typeof(MacroStabilityOutwardsAssemblyCategoriesContext),
+                    typeof(MacroStabilityOutwardsFailureMechanism),
+                    typeof(MacroStabilityOutwardsAssemblyCategoriesView));
             }
         }
 
@@ -557,7 +558,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StructuresOutputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultTotalContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultPerSectionContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GeotechnicalFailureMechanismAssemblyCategoriesContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityOutwardsAssemblyCategoriesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismAssemblyCategoriesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultsContext)));
             }

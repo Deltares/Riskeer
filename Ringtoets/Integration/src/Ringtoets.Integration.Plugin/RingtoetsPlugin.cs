@@ -624,14 +624,14 @@ namespace Ringtoets.Integration.Plugin
                                                                                        context.GetFailureMechanismSectionAssemblyCategoriesFunc)
             };
 
-            yield return new ViewInfo<GeotechnicalFailureMechanismAssemblyCategoriesContext, IFailureMechanism, GeotechnicalFailureMechanismAssemblyCategoriesView>
+            yield return new ViewInfo<MacroStabilityOutwardsAssemblyCategoriesContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsAssemblyCategoriesView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismAssemblyCategories_DisplayName,
                 Image = RingtoetsCommonFormsResources.NormsIcon,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
-                CreateInstance = context => new GeotechnicalFailureMechanismAssemblyCategoriesView(context.WrappedData,
-                                                                                                   context.AssessmentSection,
-                                                                                                   context.GetFailureMechanismSectionAssemblyCategoriesFunc)
+                CreateInstance = context => new MacroStabilityOutwardsAssemblyCategoriesView((MacroStabilityOutwardsFailureMechanism) context.WrappedData,
+                                                                                             context.AssessmentSection,
+                                                                                             context.GetFailureMechanismSectionAssemblyCategoriesFunc)
             };
         }
 
@@ -1079,7 +1079,7 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<GeotechnicalFailureMechanismAssemblyCategoriesContext>
+            yield return new TreeNodeInfo<MacroStabilityOutwardsAssemblyCategoriesContext>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanismAssemblyCategories_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.NormsIcon,
@@ -1715,9 +1715,9 @@ namespace Ringtoets.Integration.Plugin
             MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = nodeData.MacroStabilityOutwardsProbabilityAssessmentInput;
             return new object[]
             {
-                new GeotechnicalFailureMechanismAssemblyCategoriesContext(nodeData,
-                                                                          assessmentSection,
-                                                                          () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
+                new MacroStabilityOutwardsAssemblyCategoriesContext(nodeData,
+                                                                    assessmentSection,
+                                                                    () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
                 new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
                     nodeData.SectionResults, nodeData, assessmentSection),
                 nodeData.OutputComments

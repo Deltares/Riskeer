@@ -28,14 +28,14 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GeotechnicalFailureMechanismAssemblyCategoriesContextTreeNodeInfoTest
+    public class MacroStabilityOutwardsAssemblyCategoriesContextTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -107,11 +107,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = mocks.Stub<IFailureMechanism>();
+                var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new GeotechnicalFailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                                                        assessmentSection,
-                                                                                        () => 0);
+                var context = new MacroStabilityOutwardsAssemblyCategoriesContext(failureMechanism,
+                                                                                  assessmentSection,
+                                                                                  () => 0);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -145,7 +145,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GeotechnicalFailureMechanismAssemblyCategoriesContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityOutwardsAssemblyCategoriesContext));
         }
     }
 }

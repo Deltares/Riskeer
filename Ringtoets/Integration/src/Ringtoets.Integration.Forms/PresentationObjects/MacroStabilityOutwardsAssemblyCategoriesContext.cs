@@ -24,26 +24,27 @@ using System.Collections.Generic;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Data.StandAlone;
 
-namespace Ringtoets.Common.Forms.PresentationObjects
+namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for failure mechanism category boundaries for a geotechnical
-    /// <see cref="IFailureMechanism"/> instance.
+    /// This class is a presentation object for failure mechanism category boundaries for a
+    /// <see cref="MacroStabilityOutwardsFailureMechanism"/> instance.
     /// </summary>
-    public class GeotechnicalFailureMechanismAssemblyCategoriesContext : FailureMechanismAssemblyCategoriesContextBase
+    public class MacroStabilityOutwardsAssemblyCategoriesContext : FailureMechanismAssemblyCategoriesContextBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyCategoriesContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The geotechnical failure mechanism to wrap.</param>
+        /// <param name="wrappedData">The <see cref="MacroStabilityOutwardsFailureMechanism"/> to wrap.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="wrappedData"/> belongs to.</param>
         /// <param name="getNFunc">The function to get the 'N' parameter used to factor in the 'length effect'.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GeotechnicalFailureMechanismAssemblyCategoriesContext(IFailureMechanism wrappedData,
-                                                                     IAssessmentSection assessmentSection,
-                                                                     Func<double> getNFunc)
+        public MacroStabilityOutwardsAssemblyCategoriesContext(MacroStabilityOutwardsFailureMechanism wrappedData,
+                                                               IAssessmentSection assessmentSection,
+                                                               Func<double> getNFunc)
             : base(wrappedData, assessmentSection, getNFunc)
         {
             GetFailureMechanismSectionAssemblyCategoriesFunc = () =>

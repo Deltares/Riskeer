@@ -23,7 +23,7 @@ using Ringtoets.AssemblyTool.Data;
 
 namespace Ringtoets.Integration.Forms.Views
 {
-    partial class GeotechnicalFailureMechanismAssemblyCategoriesView
+    partial class MacroStabilityOutwardsAssemblyCategoriesView
     {
         
         /// <summary> 
@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Forms.Views
             // FailureMechanismAssemblyCategoriesView
             // 
             this.Controls.Add(this.groupBoxPanel);
-            this.Name = "GeotechnicalFailureMechanismAssemblyCategoriesView";
+            this.Name = "MacroStabilityOutwardsAssemblyCategoriesView";
             this.Size = new System.Drawing.Size(750, 420);
             this.AutoScrollMinSize = new System.Drawing.Size(400, 100);
             this.groupBoxPanel.ResumeLayout(false);

@@ -28,49 +28,47 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class GeotechnicalFailureMechanismAssemblyCategoriesViewTest
+    public class MacroStabilityOutwardsAssemblyCategoriesViewTest
     {
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new GeotechnicalFailureMechanismAssemblyCategoriesView(failureMechanism,
-                                                                                             null,
-                                                                                             Enumerable.Empty<FailureMechanismSectionAssemblyCategory>);
+            TestDelegate test = () => new MacroStabilityOutwardsAssemblyCategoriesView(failureMechanism,
+                                                                                       null,
+                                                                                       Enumerable.Empty<FailureMechanismSectionAssemblyCategory>);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GetFailureMechanismSectionAssemblyCategoriesFuncNull_ThrowsArgumentNullException()
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GeotechnicalFailureMechanismAssemblyCategoriesView(failureMechanism,
-                                                                                             assessmentSection,
-                                                                                             null);
+            TestDelegate test = () => new MacroStabilityOutwardsAssemblyCategoriesView(failureMechanism,
+                                                                                       assessmentSection,
+                                                                                       null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -82,15 +80,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_WithValidParameters_CreatesViewAndTableWithData()
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            using (var view = new GeotechnicalFailureMechanismAssemblyCategoriesView(failureMechanism,
-                                                                                     assessmentSection,
-                                                                                     Enumerable.Empty<FailureMechanismSectionAssemblyCategory>))
+            using (var view = new MacroStabilityOutwardsAssemblyCategoriesView(failureMechanism,
+                                                                               assessmentSection,
+                                                                               Enumerable.Empty<FailureMechanismSectionAssemblyCategory>))
             {
                 // Assert
                 Assert.IsInstanceOf<CloseForFailureMechanismView>(view);
@@ -123,15 +122,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
             var nrOfCategories = 1;
             Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionCategories =
                 () => Enumerable.Repeat(CreateRandomFailureMechanismSectionAssemblyCategory(random), nrOfCategories);
 
-            using (var view = new GeotechnicalFailureMechanismAssemblyCategoriesView(failureMechanism,
-                                                                                     assessmentSection,
-                                                                                     getFailureMechanismSectionCategories))
+            using (var view = new MacroStabilityOutwardsAssemblyCategoriesView(failureMechanism,
+                                                                               assessmentSection,
+                                                                               getFailureMechanismSectionCategories))
             {
                 AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismSectionCategoriesTable(view);
 
@@ -154,20 +153,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
 
             var nrOfCategories = 1;
             Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionCategories =
                 () => Enumerable.Repeat(CreateRandomFailureMechanismSectionAssemblyCategory(random), nrOfCategories);
 
-            using (var view = new GeotechnicalFailureMechanismAssemblyCategoriesView(failureMechanism,
-                                                                                     assessmentSection,
-                                                                                     getFailureMechanismSectionCategories))
+            using (var view = new MacroStabilityOutwardsAssemblyCategoriesView(failureMechanism,
+                                                                               assessmentSection,
+                                                                               getFailureMechanismSectionCategories))
             {
                 AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismSectionCategoriesTable(view);
 
@@ -181,8 +176,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Then
                 Assert.AreEqual(nrOfCategories, failureMechanismSectionCategoriesTable.Rows.Count);
             }
-
-            mocks.VerifyAll();
         }
 
         private static FailureMechanismSectionAssemblyCategory CreateRandomFailureMechanismSectionAssemblyCategory(Random random)
@@ -193,7 +186,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         private static AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup> GetFailureMechanismSectionCategoriesTable(
-            GeotechnicalFailureMechanismAssemblyCategoriesView view)
+            MacroStabilityOutwardsAssemblyCategoriesView view)
         {
             return ControlTestHelper.GetControls<AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup>>(
                 view, "failureMechanismSectionAssemblyCategoriesTable").Single();

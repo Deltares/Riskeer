@@ -30,15 +30,16 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Plugin.TestUtil;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class GeotechnicalFailureMechanismAssemblyCategoriesViewInfoTest
+    public class MacroStabilityOutwardsAssemblyCategoriesViewInfoTest
     {
         private static ViewInfo info;
 
@@ -47,7 +48,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             using (var plugin = new RingtoetsPlugin())
             {
-                info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GeotechnicalFailureMechanismAssemblyCategoriesView));
+                info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityOutwardsAssemblyCategoriesView));
             }
         }
 
@@ -55,8 +56,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GeotechnicalFailureMechanismAssemblyCategoriesContext), info.DataType);
-            Assert.AreEqual(typeof(IFailureMechanism), info.ViewDataType);
+            Assert.AreEqual(typeof(MacroStabilityOutwardsAssemblyCategoriesContext), info.DataType);
+            Assert.AreEqual(typeof(MacroStabilityOutwardsFailureMechanism), info.ViewDataType);
         }
 
         [Test]
@@ -74,15 +75,15 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new TestFailureMechanism();
-            var failureMechanismAssemblyCategoriesContext = new GeotechnicalFailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                                                                                      assessmentSection,
-                                                                                                                      () => new Random(39).NextDouble());
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanismAssemblyCategoriesContext = new MacroStabilityOutwardsAssemblyCategoriesContext(failureMechanism,
+                                                                                                                assessmentSection,
+                                                                                                                () => new Random(39).NextDouble());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var view = (GeotechnicalFailureMechanismAssemblyCategoriesView) info.CreateInstance(failureMechanismAssemblyCategoriesContext);
+                var view = (MacroStabilityOutwardsAssemblyCategoriesView) info.CreateInstance(failureMechanismAssemblyCategoriesContext);
 
                 // Assert
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -100,7 +101,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [TestFixture]
-        public class ShouldCloseGeotechnicalFailureMechanismAssemblyCategoriesViewForDataTester : ShouldCloseViewWithFailureMechanismTester
+        public class ShouldCloseMacroStabilityOutwardsAssemblyCategoriesViewForDataTester : ShouldCloseViewWithFailureMechanismTester
         {
             protected override bool ShouldCloseMethod(IView view, object o)
             {
@@ -109,9 +110,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             protected override IView GetView(IFailureMechanism failureMechanism)
             {
-                return new GeotechnicalFailureMechanismAssemblyCategoriesView(failureMechanism,
-                                                                              new AssessmentSectionStub(),
-                                                                              Enumerable.Empty<FailureMechanismSectionAssemblyCategory>);
+                return new MacroStabilityOutwardsAssemblyCategoriesView((MacroStabilityOutwardsFailureMechanism) failureMechanism,
+                                                                        new AssessmentSectionStub(),
+                                                                        Enumerable.Empty<FailureMechanismSectionAssemblyCategory>);
+            }
+
+            protected override IFailureMechanism GetFailureMechanism()
+            {
+                return new MacroStabilityOutwardsFailureMechanism();
             }
         }
     }

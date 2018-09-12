@@ -105,7 +105,7 @@
     <Compile Include="TreeNodeInfos\DesignWaterLevelCalculationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DikeProfileTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismAssemblyCategoriesContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\GeotechnicalFailureMechanismAssemblyCategoriesContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\MacroStabilityOutwardsAssemblyCategoriesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverSlipOffInwardsFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverSlipOffOutwardsFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StrengthStabilityLengthwiseConstructionFailureMechanismContextTreeNodeInfoTest.cs" />
@@ -145,7 +145,7 @@
     <Compile Include="ViewInfos\AssemblyResultPerSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssemblyResultTotalViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionAssemblyCategoriesViewInfoTest.cs" />
-    <Compile Include="ViewInfos\GeotechnicalFailureMechanismAssemblyCategoriesViewInfoTest.cs" />
+    <Compile Include="ViewInfos\MacroStabilityOutwardsAssemblyCategoriesViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismAssemblyCategoriesViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismSectionsViewInfoTest.cs" />
     <Compile Include="ViewInfos\CommentViewInfoTest.cs" />

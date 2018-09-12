@@ -44,6 +44,7 @@
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContextTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultsContextTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContextTest.cs" />
+    <Compile Include="PresentationObjects\MacroStabilityOutwardsAssemblyCategoriesContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\WaterPressureAsphaltCoverFailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\TechnicalInnovationFailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContextTest.cs" />
@@ -82,7 +83,7 @@
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
     <Compile Include="Views\AssemblyResultPerSectionViewTest.cs" />
     <Compile Include="Views\AssemblyCategoriesTableTest.cs" />
-    <Compile Include="Views\GeotechnicalFailureMechanismAssemblyCategoriesViewTest.cs" />
+    <Compile Include="Views\MacroStabilityOutwardsAssemblyCategoriesViewTest.cs" />
     <Compile Include="Views\FailureMechanismAssemblyCategoriesViewTest.cs" />
     <Compile Include="Views\AssessmentSectionAssemblyCategoriesViewTest.cs" />
     <Compile Include="Views\AssemblyCategoryRowTest.cs" />
