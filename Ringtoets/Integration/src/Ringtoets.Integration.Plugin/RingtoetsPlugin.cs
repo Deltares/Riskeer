@@ -440,8 +440,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<DesignWaterLevelCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaterLevelCalculations_DisplayName} - " +
-                                                 $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaterLevelCalculations_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
@@ -454,8 +453,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaveHeightCalculations_DisplayName} - " +
-                                                 $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                GetViewName = (view, context) => $"{RingtoetsCommonFormsResources.WaveHeightCalculations_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
@@ -938,7 +936,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsContext>
             {
-                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => context.CategoryBoundaryName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DesignWaterLevelCalculationsContextMenuStrip
             };
@@ -953,7 +951,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<WaveHeightCalculationsContext>
             {
-                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => context.CategoryBoundaryName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = WaveHeightCalculationsContextMenuStrip
             };

@@ -414,9 +414,6 @@
   <data name="FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
     <value>Vv-&gt;VIv</value>
   </data>
-  <data name="Hydraulic_category_boundary_0_" xml:space="preserve">
-    <value>Categorie {0}</value>
-  </data>
   <data name="FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism" xml:space="preserve">
     <value>Voor een of meerdere vakken kan geen resultaat worden bepaald.</value>
   </data>

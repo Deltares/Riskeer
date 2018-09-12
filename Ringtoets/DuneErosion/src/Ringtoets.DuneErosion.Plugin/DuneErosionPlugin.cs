@@ -110,7 +110,7 @@ namespace Ringtoets.DuneErosion.Plugin
 
             yield return new TreeNodeInfo<DuneLocationCalculationsContext>
             {
-                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => context.CategoryBoundaryName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DuneLocationCalculationsContextMenuStrip
             };
@@ -143,8 +143,7 @@ namespace Ringtoets.DuneErosion.Plugin
 
             yield return new ViewInfo<DuneLocationCalculationsContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName} - " +
-                                                 $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                GetViewName = (view, context) => $"{RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName} - {context.CategoryBoundaryName}",
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseDuneLocationCalculationsViewForData,

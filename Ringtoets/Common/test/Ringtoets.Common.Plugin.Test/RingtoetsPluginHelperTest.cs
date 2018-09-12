@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -34,30 +33,6 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class RingtoetsPluginHelperTest
     {
-        [Test]
-        public void FormatCategoryBoundaryName_CategoryBoundaryNameNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => RingtoetsPluginHelper.FormatCategoryBoundaryName(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("categoryBoundaryName", paramName);
-        }
-
-        [Test]
-        public void FormatCategoryBoundaryName_WithCategoryBoundaryName_ReturnsExpectedValue()
-        {
-            // Setup
-            const string categoryBoundaryName = "A";
-
-            // Call
-            string formattedCategoryBoundaryName = RingtoetsPluginHelper.FormatCategoryBoundaryName(categoryBoundaryName);
-
-            // Assert
-            Assert.AreEqual("Categorie " + categoryBoundaryName, formattedCategoryBoundaryName);
-        }
-
         [TestFixture]
         public class ShouldCloseViewWithCalculationDataTest : ShouldCloseViewWithCalculationDataTester
         {

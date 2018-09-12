@@ -574,15 +574,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categorie {0}.
-        /// </summary>
-        public static string Hydraulic_category_boundary_0_ {
-            get {
-                return ResourceManager.GetString("Hydraulic_category_boundary_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hydraulische belastingen.
         /// </summary>
         public static string HydraulicBoundaryConditions_DisplayName {
