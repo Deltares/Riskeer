@@ -99,6 +99,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public FmSectionAssemblyDirectResult TailorMadeAssessmentResultInput { get; private set; }
 
         /// <summary>
+        /// Gets the simple assessment result with probability used as input parameter for the combined assembly methods.
+        /// </summary>
+        public FmSectionAssemblyDirectResultWithProbability SimpleAssessmentResultInputWithProbability { get; private set; }
+
+        /// <summary>
+        /// Gets the detailed assessment result with probability used as input parameter for the combined assembly methods.
+        /// </summary>
+        public FmSectionAssemblyDirectResultWithProbability DetailedAssessmentResultInputWithProbability { get; private set; }
+
+        /// <summary>
+        /// Gets the tailor made assessment result with probability used as input parameter for the combined assembly methods.
+        /// </summary>
+        public FmSectionAssemblyDirectResultWithProbability TailorMadeAssessmentResultInputWithProbability { get; private set; }
+
+        /// <summary>
         /// Gets the <see cref="AssessmentSection"/> used as input parameter for assembly methods.
         /// </summary>
         public AssessmentSection AssessmentSectionInput { get; private set; }
@@ -139,11 +154,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// Gets or sets the failure mechanism section assembly result with probability.
         /// </summary>
         public FmSectionAssemblyDirectResultWithProbability FailureMechanismAssemblyDirectResultWithProbability { get; set; }
-
-        /// <summary>
-        /// Gets or sets the failure mechanism section assembly result.
-        /// </summary>
-        public IFmSectionAssemblyResult FailureMechanismAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not.
@@ -325,19 +335,39 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return FailureMechanismSectionDirectResult;
         }
 
-        public TResult TranslateAssessmentResultWbi0A1<TResult>(TResult simpleAssessmentResult,
-                                                                TResult detailedAssessmentResult,
-                                                                TResult customAssessmentResult)
-            where TResult : IFmSectionAssemblyResult
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyDirectResult simpleAssessmentResult, 
+                                                                             FmSectionAssemblyDirectResult detailedAssessmentResult,
+                                                                             FmSectionAssemblyDirectResult customAssessmentResult)
         {
             ThrowException();
 
-            SimpleAssessmentResultInput = simpleAssessmentResult as FmSectionAssemblyDirectResult;
-            DetailedAssessmentResultInput = detailedAssessmentResult as FmSectionAssemblyDirectResult;
-            TailorMadeAssessmentResultInput = customAssessmentResult as FmSectionAssemblyDirectResult;
+            SimpleAssessmentResultInput = simpleAssessmentResult;
+            DetailedAssessmentResultInput = detailedAssessmentResult;
+            TailorMadeAssessmentResultInput = customAssessmentResult;
 
             Calculated = true;
-            return (TResult) FailureMechanismAssessmentResult;
+            return FailureMechanismSectionDirectResult;
+        }
+
+        public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0A1(FmSectionAssemblyDirectResultWithProbability simpleAssessmentResult,
+                                                                                            FmSectionAssemblyDirectResultWithProbability detailedAssessmentResult, 
+                                                                                            FmSectionAssemblyDirectResultWithProbability customAssessmentResult)
+        {
+            ThrowException();
+
+            SimpleAssessmentResultInputWithProbability = simpleAssessmentResult;
+            DetailedAssessmentResultInputWithProbability = detailedAssessmentResult;
+            TailorMadeAssessmentResultInputWithProbability = customAssessmentResult;
+
+            Calculated = true;
+            return FailureMechanismAssemblyDirectResultWithProbability;
+        }
+
+        public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyIndirectResult simpleAssessmentResult, 
+                                                                               FmSectionAssemblyIndirectResult detailedAssessmentResult, 
+                                                                               FmSectionAssemblyIndirectResult customAssessmentResult)
+        {
+            throw new NotImplementedException();
         }
 
         private void ThrowException()
