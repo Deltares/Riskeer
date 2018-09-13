@@ -82,7 +82,7 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C-D.
+        ///   Looks up a localized string similar to C.
         /// </summary>
         internal static string AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName {
             get {
@@ -91,7 +91,7 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A+-A.
+        ///   Looks up a localized string similar to A+.
         /// </summary>
         internal static string AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName {
             get {
@@ -100,7 +100,7 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B-C.
+        ///   Looks up a localized string similar to B.
         /// </summary>
         internal static string AssessmentSectionCategoryType_LowerLimitNorm_DisplayName {
             get {
@@ -109,7 +109,7 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A-B.
+        ///   Looks up a localized string similar to A.
         /// </summary>
         internal static string AssessmentSectionCategoryType_SignalingNorm_DisplayName {
             get {

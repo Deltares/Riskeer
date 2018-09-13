@@ -83,10 +83,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [TestCase(ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm, "A+-A")]
-        [TestCase(ConfigurationAssessmentSectionCategoryType.SignalingNorm, "A-B")]
-        [TestCase(ConfigurationAssessmentSectionCategoryType.LowerLimitNorm, "B-C")]
-        [TestCase(ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm, "C-D")]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm, "A+")]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.SignalingNorm, "A")]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.LowerLimitNorm, "B")]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm, "C")]
         public void ConvertTo_ValidConfigurationAssessmentSectionCategoryType_ReturnExpectedText(
             ConfigurationAssessmentSectionCategoryType value, string expectedText)
         {
@@ -175,10 +175,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [TestCase("A+-A", ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm)]
-        [TestCase("A-B", ConfigurationAssessmentSectionCategoryType.SignalingNorm)]
-        [TestCase("B-C", ConfigurationAssessmentSectionCategoryType.LowerLimitNorm)]
-        [TestCase("C-D", ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm)]
+        [TestCase("A+", ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm)]
+        [TestCase("A", ConfigurationAssessmentSectionCategoryType.SignalingNorm)]
+        [TestCase("B", ConfigurationAssessmentSectionCategoryType.LowerLimitNorm)]
+        [TestCase("C", ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm)]
         public void ConvertFrom_ValidStringValue_ReturnConfigurationAssessmentSectionCategoryType(
             string value, ConfigurationAssessmentSectionCategoryType expectedResult)
         {
