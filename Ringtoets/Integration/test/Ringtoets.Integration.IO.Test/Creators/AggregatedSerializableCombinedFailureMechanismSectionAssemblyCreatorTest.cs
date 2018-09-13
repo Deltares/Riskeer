@@ -134,7 +134,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             Assert.AreEqual(serializableTotalAssembly.Id, serializableCombinedFailureMechanismSectionAssembly.TotalAssemblyResultId);
 
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(combinedSectionAssembly.CombinedSectionAssemblyResult,
-                                                                                             SerializableAssessmentType.CombinedAssessment,
+                                                                                             SerializableAssessmentType.CombinedSectionAssessment,
                                                                                              serializableCombinedFailureMechanismSectionAssembly.CombinedSectionResult);
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> expectedFailureMechanismSectionResults = combinedSectionAssembly.FailureMechanismResults;

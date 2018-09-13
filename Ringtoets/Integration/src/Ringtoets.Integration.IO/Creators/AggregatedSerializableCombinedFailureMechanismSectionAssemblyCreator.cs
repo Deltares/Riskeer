@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.IO.Creators
                     combinedSectionAssembly.FailureMechanismResults
                                            .Select(SerializableCombinedFailureMechanismSectionAssemblyResultCreator.Create)
                                            .ToArray(),
-                    SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.CombinedAssessment,
+                    SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.CombinedSectionAssessment,
                                                                                     combinedSectionAssembly.CombinedSectionAssemblyResult)));
         }
     }

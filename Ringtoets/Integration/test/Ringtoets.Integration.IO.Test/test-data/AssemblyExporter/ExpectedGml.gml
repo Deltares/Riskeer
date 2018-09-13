@@ -994,7 +994,7 @@
     <asm:GecombineerdToetsoordeel GecombineerdToetsoordeelID="Gto.0" VeiligheidsoordeelIDRef="Vo.0" WaterkeringsectieIDRef="Tv.34">
       <asm:toetsoordeelGecombineerd>
         <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
+        <asm:toets>GECBNTRDV</asm:toets>
         <asm:categorieVak>III-vak</asm:categorieVak>
       </asm:toetsoordeelGecombineerd>
       <asm:eindtoetsoordeelToetsspoor>
