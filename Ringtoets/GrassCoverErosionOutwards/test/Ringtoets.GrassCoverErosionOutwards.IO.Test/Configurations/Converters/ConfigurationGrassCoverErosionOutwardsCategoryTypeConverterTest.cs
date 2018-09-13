@@ -83,11 +83,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm, "Iv-IIv")]
-        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm, "IIv-IIIv")]
-        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm, "IIIv-IVv")]
-        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm, "IVv-Vv")]
-        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm, "Vv-VIv")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm, "Iv")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm, "IIv")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm, "IIIv")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm, "IVv")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm, "Vv")]
         public void ConvertTo_ValidConfigurationGrassCoverErosionOutwardsCategoryType_ReturnExpectedText(
             ConfigurationGrassCoverErosionOutwardsCategoryType value, string expectedText)
         {
@@ -177,11 +177,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [TestCase("Iv-IIv", ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm)]
-        [TestCase("IIv-IIIv", ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm)]
-        [TestCase("IIIv-IVv", ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm)]
-        [TestCase("IVv-Vv", ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm)]
-        [TestCase("Vv-VIv", ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm)]
+        [TestCase("Iv", ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm)]
+        [TestCase("IIv", ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm)]
+        [TestCase("IIIv", ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm)]
+        [TestCase("IVv", ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm)]
+        [TestCase("Vv", ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm)]
         public void ConvertFrom_ValidStringValue_ReturnConfigurationGrassCoverErosionOutwardsCategoryType(
             string value, ConfigurationGrassCoverErosionOutwardsCategoryType expectedResult)
         {

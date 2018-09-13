@@ -31,11 +31,11 @@ All rights reserved.
   <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema.xsd">
     <xs:simpleType name="categoriegrensType">
       <xs:restriction base="categoriegrensType">
-        <xs:enumeration value="Iv-IIv"/>
-        <xs:enumeration value="IIv-IIIv"/>
-        <xs:enumeration value="IIIv-IVv"/>
-        <xs:enumeration value="IVv-Vv"/>
-        <xs:enumeration value="Vv-VIv"/>
+        <xs:enumeration value="Iv"/>
+        <xs:enumeration value="IIv"/>
+        <xs:enumeration value="IIIv"/>
+        <xs:enumeration value="IVv"/>
+        <xs:enumeration value="Vv"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:redefine>

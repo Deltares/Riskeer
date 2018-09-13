@@ -2,7 +2,7 @@
 <configuratie>
   <berekening naam="Berekening 1">
     <hblocatie>Locatie</hblocatie>
-    <categoriegrens>IIIv-IVv</categoriegrens>
+    <categoriegrens>IIIv</categoriegrens>
     <bovengrensbekleding>1.1</bovengrensbekleding>
     <ondergrensbekleding>2.2</ondergrensbekleding>
     <bovengrenswaterstanden>3.3</bovengrenswaterstanden>

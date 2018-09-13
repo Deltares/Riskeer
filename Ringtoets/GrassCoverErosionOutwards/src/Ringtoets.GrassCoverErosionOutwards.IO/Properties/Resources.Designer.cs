@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vv-VIv.
+        ///   Looks up a localized string similar to Vv.
         /// </summary>
         internal static string FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName {
             get {
@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IVv-Vv.
+        ///   Looks up a localized string similar to IVv.
         /// </summary>
         internal static string FailureMechanismCategoryType_LowerLimitNorm_DisplayName {
             get {
@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Iv-IIv.
+        ///   Looks up a localized string similar to Iv.
         /// </summary>
         internal static string FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName {
             get {
@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IIIv-IVv.
+        ///   Looks up a localized string similar to IIIv.
         /// </summary>
         internal static string FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName {
             get {
@@ -119,7 +119,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IIv-IIIv.
+        ///   Looks up a localized string similar to IIv.
         /// </summary>
         internal static string FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName {
             get {

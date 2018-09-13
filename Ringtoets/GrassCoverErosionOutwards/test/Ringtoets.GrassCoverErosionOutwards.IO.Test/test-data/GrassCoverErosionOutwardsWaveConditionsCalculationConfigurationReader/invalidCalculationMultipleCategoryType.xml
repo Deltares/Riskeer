@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuratie>
   <berekening naam="Calculation">
-    <categoriegrens>Iv-IIv</categoriegrens>
-    <categoriegrens>IVv-Vv</categoriegrens>
+    <categoriegrens>Iv</categoriegrens>
+    <categoriegrens>IVv</categoriegrens>
   </berekening>
 </configuratie>

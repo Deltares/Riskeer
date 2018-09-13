@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                                               "Element 'categoriegrens' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleCategoryType");
                 yield return new TestCaseData("invalidCategoryTypeUnknownValue.xml",
-                                              "The 'categoriegrens' element is invalid - The value 'A-B' is invalid according to its datatype 'categoriegrensType' - The Enumeration constraint failed.")
+                                              "The 'categoriegrens' element is invalid - The value 'A' is invalid according to its datatype 'categoriegrensType' - The Enumeration constraint failed.")
                     .SetName("invalidCategoryTypeUnknownValue");
             }
         }
