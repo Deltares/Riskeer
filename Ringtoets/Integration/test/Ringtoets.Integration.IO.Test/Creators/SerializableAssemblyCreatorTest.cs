@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
             AssertFailureMechanismConnections(6, 3, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
 
             var combinedFailureMechanismSectionCollection = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[17];
-            AssertSerializableFailureMechanismSectionCollection("Vi.4",combinedFailureMechanismSectionCollection);
+            AssertSerializableFailureMechanismSectionCollection("Vi.4", combinedFailureMechanismSectionCollection);
             AssertCombinedFailureMechanismSectionAssemblyConnections(11, 4, 0, combinedFailureMechanismSectionCollection, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
             AssertCombinedFailureMechanismSectionAssemblyConnections(12, 5, 1, combinedFailureMechanismSectionCollection, serializableTotalAssemblyResult, serializableAssemblyFeatureMembers);
         }
