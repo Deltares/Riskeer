@@ -292,7 +292,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenRowUpdatedEventFiredAndSectionResultNotified_ThenRowNotUpdatedAndViewInvalidatedAndAssemblyResultControlUpdated()
+        public void GivenFailureMechanismResultView_WhenRowUpdatingAndSectionResultNotified_ThenNothingUpdates()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -315,14 +315,13 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsFalse(row.Updated);
 
                 // When
-                row.RowUpdated?.Invoke(row, EventArgs.Empty);
+                TypeUtils.SetField(view, "rowUpdating", true);
                 sectionResult.NotifyObservers();
-                row.RowUpdateDone?.Invoke(row, EventArgs.Empty);
 
                 // Then
-                Assert.IsTrue(invalidated);
+                Assert.IsFalse(invalidated);
                 Assert.IsFalse(row.Updated);
-                Assert.IsTrue(view.AssemblyResultControlUpdated);
+                Assert.IsFalse(view.AssemblyResultControlUpdated);
             }
         }
 
@@ -459,17 +458,25 @@ namespace Ringtoets.Common.Forms.Test.Views
                 DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
 
+                var rowUpdated = false;
+                row.RowUpdated += (sender, args) => rowUpdated = true;
+                var rowUpdateDone = false;
+                row.RowUpdateDone += (sender, args) => rowUpdateDone = true;
+
                 // Precondition
-                Assert.IsNotNull(row.RowUpdated);
-                Assert.IsNotNull(row.RowUpdateDone);
+                row.UpdateInternal();
+                Assert.IsTrue(rowUpdated);
+                Assert.IsTrue(rowUpdateDone);
 
                 // When
+                rowUpdated = false;
+                rowUpdateDone = false;
                 sectionResults.Remove(sectionResult);
                 sectionResults.NotifyObservers();
 
                 // Then
-                Assert.IsNull(row.RowUpdated);
-                Assert.IsNull(row.RowUpdateDone);
+                Assert.IsFalse(rowUpdated);
+                Assert.IsFalse(rowUpdateDone);
             }
         }
 
@@ -542,6 +549,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
 
             public bool Updated { get; private set; }
+
+            public void UpdateInternal()
+            {
+                UpdateInternalData();
+            }
 
             public override void Update()
             {
