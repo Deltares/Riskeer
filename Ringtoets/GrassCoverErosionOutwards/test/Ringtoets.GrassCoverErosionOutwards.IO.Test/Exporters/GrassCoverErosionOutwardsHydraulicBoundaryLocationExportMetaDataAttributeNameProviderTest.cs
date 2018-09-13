@@ -36,16 +36,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
 
             // Assert
             Assert.IsInstanceOf<IGrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider>(nameProvider);
-            Assert.AreEqual("h I-II", nameProvider.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNormAttributeName);
-            Assert.AreEqual("h II-III", nameProvider.WaterLevelCalculationForMechanismSpecificSignalingNormAttributeName);
-            Assert.AreEqual("h III-IV", nameProvider.WaterLevelCalculationForMechanismSpecificLowerLimitNormAttributeName);
-            Assert.AreEqual("h IV-V", nameProvider.WaterLevelCalculationForLowerLimitNormAttributeName);
-            Assert.AreEqual("h V-VI", nameProvider.WaterLevelCalculationForFactorizedLowerLimitNormAttributeName);
-            Assert.AreEqual("Hs I-II", nameProvider.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNormAttributeName);
-            Assert.AreEqual("Hs II-III", nameProvider.WaveHeightCalculationForMechanismSpecificSignalingNormAttributeName);
-            Assert.AreEqual("Hs III-IV", nameProvider.WaveHeightCalculationForMechanismSpecificLowerLimitNormAttributeName);
-            Assert.AreEqual("Hs IV-V", nameProvider.WaveHeightCalculationForLowerLimitNormAttributeName);
-            Assert.AreEqual("Hs V-VI", nameProvider.WaveHeightCalculationForFactorizedLowerLimitNormAttributeName);
+            Assert.AreEqual("h gr.I", nameProvider.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNormAttributeName);
+            Assert.AreEqual("h gr.II", nameProvider.WaterLevelCalculationForMechanismSpecificSignalingNormAttributeName);
+            Assert.AreEqual("h gr.III", nameProvider.WaterLevelCalculationForMechanismSpecificLowerLimitNormAttributeName);
+            Assert.AreEqual("h gr.IV", nameProvider.WaterLevelCalculationForLowerLimitNormAttributeName);
+            Assert.AreEqual("h gr.V", nameProvider.WaterLevelCalculationForFactorizedLowerLimitNormAttributeName);
+            Assert.AreEqual("Hs gr.I", nameProvider.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNormAttributeName);
+            Assert.AreEqual("Hs gr.II", nameProvider.WaveHeightCalculationForMechanismSpecificSignalingNormAttributeName);
+            Assert.AreEqual("Hs gr.III", nameProvider.WaveHeightCalculationForMechanismSpecificLowerLimitNormAttributeName);
+            Assert.AreEqual("Hs gr.IV", nameProvider.WaveHeightCalculationForLowerLimitNormAttributeName);
+            Assert.AreEqual("Hs gr.V", nameProvider.WaveHeightCalculationForFactorizedLowerLimitNormAttributeName);
         }
     }
 }

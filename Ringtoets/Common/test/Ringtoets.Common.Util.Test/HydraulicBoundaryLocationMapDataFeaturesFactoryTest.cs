@@ -52,29 +52,29 @@ namespace Ringtoets.Common.Util.Test
             // Assert
             MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaterLevelCalculationForFactorizedSignalingNorm.ToString(),
-                feature, "h(A+->A)");
+                feature, "h gr.A+");
             MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaterLevelCalculationForSignalingNorm.ToString(),
-                feature, "h(A->B)");
+                feature, "h gr.A");
             MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaterLevelCalculationForLowerLimitNorm.ToString(),
-                feature, "h(B->C)");
+                feature, "h gr.B");
             MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaterLevelCalculationForFactorizedLowerLimitNorm.ToString(),
-                feature, "h(C->D)");
+                feature, "h gr.C");
 
             MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaveHeightCalculationForFactorizedSignalingNorm.ToString(),
-                feature, "Hs(A+->A)");
+                feature, "Hs gr.A+");
             MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaveHeightCalculationForSignalingNorm.ToString(),
-                feature, "Hs(A->B)");
+                feature, "Hs gr.A");
             MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaveHeightCalculationForLowerLimitNorm.ToString(),
-                feature, "Hs(B->C)");
+                feature, "Hs gr.B");
             MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaveHeightCalculationForFactorizedLowerLimitNorm.ToString(),
-                feature, "Hs(C->D)");
+                feature, "Hs gr.C");
         }
     }
 }

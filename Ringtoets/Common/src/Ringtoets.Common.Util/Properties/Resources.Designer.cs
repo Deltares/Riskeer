@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(C-&gt;D).
+        ///   Looks up a localized string similar to h gr.C.
         /// </summary>
         public static string MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm {
             get {
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(A+-&gt;A).
+        ///   Looks up a localized string similar to h gr.A+.
         /// </summary>
         public static string MetaData_WaterLevelCalculationForFactorizedSignalingNorm {
             get {
@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(B-&gt;C).
+        ///   Looks up a localized string similar to h gr.B.
         /// </summary>
         public static string MetaData_WaterLevelCalculationForLowerLimitNorm {
             get {
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(A-&gt;B).
+        ///   Looks up a localized string similar to h gr.A.
         /// </summary>
         public static string MetaData_WaterLevelCalculationForSignalingNorm {
             get {
@@ -136,7 +136,7 @@ namespace Ringtoets.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(C-&gt;D).
+        ///   Looks up a localized string similar to Hs gr.C.
         /// </summary>
         public static string MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm {
             get {
@@ -145,7 +145,7 @@ namespace Ringtoets.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(A+-&gt;A).
+        ///   Looks up a localized string similar to Hs gr.A+.
         /// </summary>
         public static string MetaData_WaveHeightCalculationForFactorizedSignalingNorm {
             get {
@@ -154,7 +154,7 @@ namespace Ringtoets.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(B-&gt;C).
+        ///   Looks up a localized string similar to Hs gr.B.
         /// </summary>
         public static string MetaData_WaveHeightCalculationForLowerLimitNorm {
             get {
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(A-&gt;B).
+        ///   Looks up a localized string similar to Hs gr.A.
         /// </summary>
         public static string MetaData_WaveHeightCalculationForSignalingNorm {
             get {

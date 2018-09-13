@@ -148,7 +148,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h V-VI.
+        ///   Looks up a localized string similar to h gr.V.
         /// </summary>
         internal static string MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm {
             get {
@@ -157,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h IV-V.
+        ///   Looks up a localized string similar to h gr.IV.
         /// </summary>
         internal static string MetaData_WaterLevelCalculationForLowerLimitNorm {
             get {
@@ -166,7 +166,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h I-II.
+        ///   Looks up a localized string similar to h gr.I.
         /// </summary>
         internal static string MetaData_WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm {
             get {
@@ -175,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h III-IV.
+        ///   Looks up a localized string similar to h gr.III.
         /// </summary>
         internal static string MetaData_WaterLevelCalculationForMechanismSpecificLowerLimitNorm {
             get {
@@ -184,7 +184,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h II-III.
+        ///   Looks up a localized string similar to h gr.II.
         /// </summary>
         internal static string MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm {
             get {
@@ -193,7 +193,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs V-VI.
+        ///   Looks up a localized string similar to Hs gr.V.
         /// </summary>
         internal static string MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm {
             get {
@@ -202,7 +202,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs IV-V.
+        ///   Looks up a localized string similar to Hs gr.IV.
         /// </summary>
         internal static string MetaData_WaveHeightCalculationForLowerLimitNorm {
             get {
@@ -211,7 +211,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs I-II.
+        ///   Looks up a localized string similar to Hs gr.I.
         /// </summary>
         internal static string MetaData_WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm {
             get {
@@ -220,7 +220,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs III-IV.
+        ///   Looks up a localized string similar to Hs gr.III.
         /// </summary>
         internal static string MetaData_WaveHeightCalculationForMechanismSpecificLowerLimitNorm {
             get {
@@ -229,7 +229,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs II-III.
+        ///   Looks up a localized string similar to Hs gr.II.
         /// </summary>
         internal static string MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm {
             get {
