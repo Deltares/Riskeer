@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsInstanceOf<IView>(view);
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
-            Assert.AreEqual(0, view.Controls.Count);
+            CollectionAssert.IsEmpty(view.Controls);
         }
 
         private class TestCloseForFailureMechanismView : CloseForFailureMechanismView

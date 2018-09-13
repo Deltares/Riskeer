@@ -119,6 +119,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<CloseForFailureMechanismView>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.AreEqual(1, view.Controls.Count);
 
                 TableLayoutPanel tableLayoutPanel = ControlTestHelper.GetControls<TableLayoutPanel>(view, "tableLayoutPanel").Single();

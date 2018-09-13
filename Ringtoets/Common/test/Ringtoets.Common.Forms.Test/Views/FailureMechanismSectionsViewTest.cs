@@ -90,6 +90,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<CloseForFailureMechanismView>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.AreEqual(1, view.Controls.Count);
 
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);

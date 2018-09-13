@@ -23,9 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Controls.Views;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -59,7 +57,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                       IAssessmentSection assessmentSection,
                                                       Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismAssemblyCategoriesFunc,
                                                       Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoriesFunc)
-        : base(failureMechanism)
+            : base(failureMechanism)
         {
             if (assessmentSection == null)
             {

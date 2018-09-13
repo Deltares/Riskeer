@@ -27,7 +27,8 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// Class defining a base view for assembly category views.
+    /// Class defining a base view that contains an <see cref="IFailureMechanism"/> instance and
+    /// will be closed for that object.
     /// </summary>
     public abstract class CloseForFailureMechanismView : UserControl, IView
     {
