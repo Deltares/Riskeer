@@ -15,7 +15,7 @@
         </gml:LineString>
       </asm:geometrie2D>
       <asm:lengte uom="m">1.4142135623730952</asm:lengte>
-      <asm:typeWaterkeringstelsel>Dijktraject</asm:typeWaterkeringstelsel>
+      <asm:typeWaterkeringstelsel>DKTRJCT</asm:typeWaterkeringstelsel>
     </asm:Waterkeringstelsel>
     <asm:Beoordelingsproces BeoordelingsprocesID="Bp.0" WaterkeringstelselIDRef="Wks.assessmentSectionId">
       <asm:beginJaarBeoordelingsronde>2017</asm:beginJaarBeoordelingsronde>

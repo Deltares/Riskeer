@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -82,7 +82,7 @@ namespace Ringtoets.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijktraject.
+        ///   Looks up a localized string similar to DKTRJCT.
         /// </summary>
         internal static string AssessmentSectionType {
             get {

@@ -40,7 +40,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
 
             // Assert
             Assert.IsInstanceOf<SerializableFeatureMember>(assessmentSection);
-            Assert.AreEqual("Dijktraject", assessmentSection.AssessmentSectionType);
+            Assert.AreEqual("DKTRJCT", assessmentSection.AssessmentSectionType);
             Assert.IsNull(assessmentSection.Id);
             Assert.IsNull(assessmentSection.Name);
             Assert.IsNull(assessmentSection.ReferenceLineGeometry);
@@ -126,7 +126,7 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
             Assert.AreEqual(name, assessmentSection.Name);
             Assert.AreEqual(Math2D.Length(geometry), assessmentSection.ReferenceLineLength.Value);
             Assert.IsNotNull(assessmentSection.ReferenceLineGeometry);
-            Assert.AreEqual("Dijktraject", assessmentSection.AssessmentSectionType);
+            Assert.AreEqual("DKTRJCT", assessmentSection.AssessmentSectionType);
         }
     }
 }
