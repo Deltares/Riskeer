@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -100,7 +100,7 @@ namespace Ringtoets.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *Kustvaknummer	Metrering	Rekenpeil	Significante golfhoogte	Piekperiode	Spectrale periode	Korreldiameter	Scenario	Categorie	Pfdsn.
+        ///   Looks up a localized string similar to *Kustvaknummer	Metrering	Rekenpeil	Significante golfhoogte	Piekperiode	Spectrale periode	Korreldiameter	Scenario	Categoriegrens	Pfdsn.
         /// </summary>
         internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_DisplayNameLine {
             get {
@@ -109,7 +109,7 @@ namespace Ringtoets.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50	_WBI2017_ID	_WBI2017_Categorie	_WBI2017_Waarde.
+        ///   Looks up a localized string similar to Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50	_WBI2017_ID	_WBI2017_Categoriegrens	_WBI2017_Waarde.
         /// </summary>
         internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_HeaderLine {
             get {
