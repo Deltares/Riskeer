@@ -71,51 +71,51 @@ namespace Ringtoets.DuneErosion.Forms.TestUtil
 
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWaterLevel(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h(Iv->IIv)");
+                    mapFeature, "Rekenwaarde h gr.Iv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWaterLevel(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h(IIv->IIIv)");
+                    mapFeature, "Rekenwaarde h gr.IIv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWaterLevel(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h(IIIv->IVv)");
+                    mapFeature, "Rekenwaarde h gr.IIIv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWaterLevel(failureMechanism.CalculationsForLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h(IVv->Vv)");
+                    mapFeature, "Rekenwaarde h gr.IVv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWaterLevel(failureMechanism.CalculationsForFactorizedLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h(Vv->VIv)");
+                    mapFeature, "Rekenwaarde h gr.Vv");
 
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWaveHeight(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs(Iv->IIv)");
+                    mapFeature, "Rekenwaarde Hs gr.Iv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWaveHeight(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs(IIv->IIIv)");
+                    mapFeature, "Rekenwaarde Hs gr.IIv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWaveHeight(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs(IIIv->IVv)");
+                    mapFeature, "Rekenwaarde Hs gr.IIIv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWaveHeight(failureMechanism.CalculationsForLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs(IVv->Vv)");
+                    mapFeature, "Rekenwaarde Hs gr.IVv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWaveHeight(failureMechanism.CalculationsForFactorizedLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs(Vv->VIv)");
+                    mapFeature, "Rekenwaarde Hs gr.Vv");
 
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWavePeriod(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp(Iv->IIv)");
+                    mapFeature, "Rekenwaarde Tp gr.Iv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWavePeriod(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp(IIv->IIIv)");
+                    mapFeature, "Rekenwaarde Tp gr.IIv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWavePeriod(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp(IIIv->IVv)");
+                    mapFeature, "Rekenwaarde Tp gr.IIIv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWavePeriod(failureMechanism.CalculationsForLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp(IVv->Vv)");
+                    mapFeature, "Rekenwaarde Tp gr.IVv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWavePeriod(failureMechanism.CalculationsForFactorizedLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp(Vv->VIv)");
+                    mapFeature, "Rekenwaarde Tp gr.Vv");
 
                 Assert.AreEqual(20, mapFeature.MetaData.Keys.Count);
             }

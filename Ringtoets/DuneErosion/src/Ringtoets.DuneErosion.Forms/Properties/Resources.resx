@@ -166,48 +166,48 @@
     <value>Metrering</value>
   </data>
   <data name="MetaData_WaterLevelForMechanismSpecificFactorizedSignalingNorm" xml:space="preserve">
-    <value>Rekenwaarde h(Iv-&gt;IIv)</value>
+    <value>Rekenwaarde h gr.Iv</value>
   </data>
   <data name="MetaData_WaterLevelForMechanismSpecificSignalingNorm" xml:space="preserve">
-    <value>Rekenwaarde h(IIv-&gt;IIIv)</value>
+    <value>Rekenwaarde h gr.IIv</value>
   </data>
   <data name="MetaData_WaterLevelForMechanismSpecificLowerLimitNorm" xml:space="preserve">
-    <value>Rekenwaarde h(IIIv-&gt;IVv)</value>
+    <value>Rekenwaarde h gr.IIIv</value>
   </data>
   <data name="MetaData_WaterLevelForLowerLimitNorm" xml:space="preserve">
-    <value>Rekenwaarde h(IVv-&gt;Vv)</value>
+    <value>Rekenwaarde h gr.IVv</value>
   </data>
   <data name="MetaData_WaterLevelForFactorizedLowerLimitNorm" xml:space="preserve">
-    <value>Rekenwaarde h(Vv-&gt;VIv)</value>
+    <value>Rekenwaarde h gr.Vv</value>
   </data>
   <data name="MetaData_WaveHeightForMechanismSpecificFactorizedSignalingNorm" xml:space="preserve">
-    <value>Rekenwaarde Hs(Iv-&gt;IIv)</value>
+    <value>Rekenwaarde Hs gr.Iv</value>
   </data>
   <data name="MetaData_WaveHeightForMechanismSpecificSignalingNorm" xml:space="preserve">
-    <value>Rekenwaarde Hs(IIv-&gt;IIIv)</value>
+    <value>Rekenwaarde Hs gr.IIv</value>
   </data>
   <data name="MetaData_WaveHeightForMechanismSpecificLowerLimitNorm" xml:space="preserve">
-    <value>Rekenwaarde Hs(IIIv-&gt;IVv)</value>
+    <value>Rekenwaarde Hs gr.IIIv</value>
   </data>
   <data name="MetaData_WaveHeightForLowerLimitNorm" xml:space="preserve">
-    <value>Rekenwaarde Hs(IVv-&gt;Vv)</value>
+    <value>Rekenwaarde Hs gr.IVv</value>
   </data>
   <data name="MetaData_WaveHeightForFactorizedLowerLimitNorm" xml:space="preserve">
-    <value>Rekenwaarde Hs(Vv-&gt;VIv)</value>
+    <value>Rekenwaarde Hs gr.Vv</value>
   </data>
   <data name="MetaData_WavePeriodForMechanismSpecificFactorizedSignalingNorm" xml:space="preserve">
-    <value>Rekenwaarde Tp(Iv-&gt;IIv)</value>
+    <value>Rekenwaarde Tp gr.Iv</value>
   </data>
   <data name="MetaData_WavePeriodForMechanismSpecificSignalingNorm" xml:space="preserve">
-    <value>Rekenwaarde Tp(IIv-&gt;IIIv)</value>
+    <value>Rekenwaarde Tp gr.IIv</value>
   </data>
   <data name="MetaData_WavePeriodForMechanismSpecificLowerLimitNorm" xml:space="preserve">
-    <value>Rekenwaarde Tp(IIIv-&gt;IVv)</value>
+    <value>Rekenwaarde Tp gr.IIIv</value>
   </data>
   <data name="MetaData_WavePeriodForLowerLimitNorm" xml:space="preserve">
-    <value>Rekenwaarde Tp(IVv-&gt;Vv)</value>
+    <value>Rekenwaarde Tp gr.IVv</value>
   </data>
   <data name="MetaData_WavePeriodForFactorizedLowerLimitNorm" xml:space="preserve">
-    <value>Rekenwaarde Tp(Vv-&gt;VIv)</value>
+    <value>Rekenwaarde Tp gr.Vv</value>
   </data>
 </root>

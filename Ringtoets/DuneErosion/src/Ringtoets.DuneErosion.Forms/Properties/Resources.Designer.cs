@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -226,7 +226,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde h(Vv-&gt;VIv).
+        ///   Looks up a localized string similar to Rekenwaarde h gr.Vv.
         /// </summary>
         internal static string MetaData_WaterLevelForFactorizedLowerLimitNorm {
             get {
@@ -235,7 +235,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde h(IVv-&gt;Vv).
+        ///   Looks up a localized string similar to Rekenwaarde h gr.IVv.
         /// </summary>
         internal static string MetaData_WaterLevelForLowerLimitNorm {
             get {
@@ -244,7 +244,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde h(Iv-&gt;IIv).
+        ///   Looks up a localized string similar to Rekenwaarde h gr.Iv.
         /// </summary>
         internal static string MetaData_WaterLevelForMechanismSpecificFactorizedSignalingNorm {
             get {
@@ -253,7 +253,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde h(IIIv-&gt;IVv).
+        ///   Looks up a localized string similar to Rekenwaarde h gr.IIIv.
         /// </summary>
         internal static string MetaData_WaterLevelForMechanismSpecificLowerLimitNorm {
             get {
@@ -262,7 +262,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde h(IIv-&gt;IIIv).
+        ///   Looks up a localized string similar to Rekenwaarde h gr.IIv.
         /// </summary>
         internal static string MetaData_WaterLevelForMechanismSpecificSignalingNorm {
             get {
@@ -271,7 +271,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Hs(Vv-&gt;VIv).
+        ///   Looks up a localized string similar to Rekenwaarde Hs gr.Vv.
         /// </summary>
         internal static string MetaData_WaveHeightForFactorizedLowerLimitNorm {
             get {
@@ -280,7 +280,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Hs(IVv-&gt;Vv).
+        ///   Looks up a localized string similar to Rekenwaarde Hs gr.IVv.
         /// </summary>
         internal static string MetaData_WaveHeightForLowerLimitNorm {
             get {
@@ -289,7 +289,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Hs(Iv-&gt;IIv).
+        ///   Looks up a localized string similar to Rekenwaarde Hs gr.Iv.
         /// </summary>
         internal static string MetaData_WaveHeightForMechanismSpecificFactorizedSignalingNorm {
             get {
@@ -298,7 +298,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Hs(IIIv-&gt;IVv).
+        ///   Looks up a localized string similar to Rekenwaarde Hs gr.IIIv.
         /// </summary>
         internal static string MetaData_WaveHeightForMechanismSpecificLowerLimitNorm {
             get {
@@ -307,7 +307,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Hs(IIv-&gt;IIIv).
+        ///   Looks up a localized string similar to Rekenwaarde Hs gr.IIv.
         /// </summary>
         internal static string MetaData_WaveHeightForMechanismSpecificSignalingNorm {
             get {
@@ -316,7 +316,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Tp(Vv-&gt;VIv).
+        ///   Looks up a localized string similar to Rekenwaarde Tp gr.Vv.
         /// </summary>
         internal static string MetaData_WavePeriodForFactorizedLowerLimitNorm {
             get {
@@ -325,7 +325,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Tp(IVv-&gt;Vv).
+        ///   Looks up a localized string similar to Rekenwaarde Tp gr.IVv.
         /// </summary>
         internal static string MetaData_WavePeriodForLowerLimitNorm {
             get {
@@ -334,7 +334,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Tp(Iv-&gt;IIv).
+        ///   Looks up a localized string similar to Rekenwaarde Tp gr.Iv.
         /// </summary>
         internal static string MetaData_WavePeriodForMechanismSpecificFactorizedSignalingNorm {
             get {
@@ -343,7 +343,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Tp(IIIv-&gt;IVv).
+        ///   Looks up a localized string similar to Rekenwaarde Tp gr.IIIv.
         /// </summary>
         internal static string MetaData_WavePeriodForMechanismSpecificLowerLimitNorm {
             get {
@@ -352,7 +352,7 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Tp(IIv-&gt;IIIv).
+        ///   Looks up a localized string similar to Rekenwaarde Tp gr.IIv.
         /// </summary>
         internal static string MetaData_WavePeriodForMechanismSpecificSignalingNorm {
             get {
