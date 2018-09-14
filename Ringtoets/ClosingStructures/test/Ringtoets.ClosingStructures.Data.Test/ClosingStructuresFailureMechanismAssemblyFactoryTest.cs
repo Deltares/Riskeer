@@ -78,8 +78,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
@@ -98,8 +98,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
@@ -120,8 +120,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -220,9 +220,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
                     assessmentSection);
 
                 // Assert
-                Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
                 mocks.VerifyAll();
             }
@@ -242,8 +242,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
@@ -273,8 +273,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -294,7 +294,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
         #endregion
 
-        #region Tailor made Assembly
+        #region Tailor Made Assembly
 
         [Test]
         public void AssembleTailorMadeAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
@@ -426,8 +426,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -635,14 +635,14 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
                 TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
-                    new ClosingStructuresFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -670,7 +670,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 null,
                 new ClosingStructuresFailureMechanism(),
-                assessmentSection);
+                assessmentSection,
+                new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -690,7 +691,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
-                assessmentSection);
+                assessmentSection,
+                new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -705,7 +707,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new ClosingStructuresFailureMechanism(),
-                null);
+                null,
+                new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -732,7 +735,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
-                    assessmentSection);
+                    assessmentSection,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 FailureMechanismSectionAssembly expectedSimpleAssembly = ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
@@ -754,7 +758,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void GetSectionAssemblyCategoryGroup_WithManualInput_SetsInputOnCalculator()
+        public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualTrue_SetsInputOnCalculator()
         {
             // Setup
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -778,10 +782,52 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
-                    assessmentSection);
+                    assessmentSection,
+                    true);
 
                 // Assert
                 Assert.AreEqual(sectionResult.ManualAssemblyProbability, calculator.ManualAssemblyProbabilityInput);
+                Assert.AreEqual(0.0, calculator.TailorMadeAssessmentProbabilityInput);
+                Assert.AreEqual((TailorMadeAssessmentProbabilityCalculationResultType) 0, calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualFalse_SetsInputOnCalculator()
+        {
+            // Setup
+            var random = new Random(39);
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                UseManualAssemblyProbability = true,
+                ManualAssemblyProbability = random.NextDouble(),
+                TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
+                TailorMadeAssessmentProbability = random.NextDouble()
+            };
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult,
+                    failureMechanism,
+                    assessmentSection,
+                    false);
+
+                // Assert
+                Assert.AreEqual(0.0, calculator.ManualAssemblyProbabilityInput);
+                Assert.AreEqual(sectionResult.TailorMadeAssessmentProbability, calculator.TailorMadeAssessmentProbabilityInput);
+                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
                 mocks.VerifyAll();
             }
         }
@@ -803,7 +849,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
-                    assessmentSection);
+                    assessmentSection,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
@@ -816,7 +863,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void GetSectionAssemblyCategoryGroup_WithManualInput_ReturnsOutput()
+        public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualTrue_ReturnsOutput()
         {
             // Setup
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -840,12 +887,48 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
-                    assessmentSection);
+                    assessmentSection,
+                    true);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = calculator.AssembleManual(
                     sectionResult.ManualAssemblyProbability,
                     AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(0.0, failureMechanism, assessmentSection));
+                Assert.AreEqual(expectedAssembly.Group, categoryGroup);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualFalse_ReturnsOutput()
+        {
+            // Setup
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                UseManualAssemblyProbability = true,
+                ManualAssemblyProbability = new Random(39).NextDouble()
+            };
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult,
+                    failureMechanism,
+                    assessmentSection,
+                    false);
+
+                // Assert
+                FailureMechanismSectionAssembly expectedAssembly = ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    sectionResult,
+                    failureMechanism,
+                    assessmentSection);
                 Assert.AreEqual(expectedAssembly.Group, categoryGroup);
                 mocks.VerifyAll();
             }
@@ -869,8 +952,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 if (useManualAssembly)
                 {
                     calculator.ThrowExceptionOnCalculate = true;
@@ -884,7 +967,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
-                    assessmentSection);
+                    assessmentSection,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -910,7 +994,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Call
             TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                 null,
-                assessmentSection);
+                assessmentSection,
+                new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -924,7 +1009,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Call
             TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                 new ClosingStructuresFailureMechanism(),
-                null);
+                null,
+                new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -947,7 +1033,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Call
             FailureMechanismAssembly assembly = ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                 failureMechanism,
-                assessmentSection);
+                assessmentSection,
+                new Random(39).NextBoolean());
 
             // Assert
             AssemblyToolTestHelper.AssertAreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly(), assembly);
@@ -976,7 +1063,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 // Call
                 ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                     failureMechanism,
-                    assessmentSection);
+                    assessmentSection,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
@@ -989,7 +1077,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithManualInput_SetsInputOnCalculator()
+        public void AssembleFailureMechanism_WithManualInputAndUseManualTrue_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -1013,15 +1101,52 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 // Call
                 ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                     failureMechanism,
-                    assessmentSection);
+                    assessmentSection,
+                    true);
 
                 // Assert
                 FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                FailureMechanismSectionAssembly expectedAssembly = sectionCalculator.AssembleManual(sectionResult.ManualAssemblyProbability,
-                                                                                                    AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(
-                                                                                                        failureMechanism.GeneralInput.N,
-                                                                                                        failureMechanism,
-                                                                                                        assessmentSection));
+                FailureMechanismSectionAssembly expectedAssembly = sectionCalculator.AssembleManual(
+                    sectionResult.ManualAssemblyProbability,
+                    AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(0.0, failureMechanism, assessmentSection));
+                AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithManualInputAndUseManualFalse_SetsInputOnCalculator()
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                // Call
+                ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                    failureMechanism,
+                    assessmentSection,
+                    false);
+
+                // Assert
+                FailureMechanismSectionAssembly expectedAssembly = ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    failureMechanism.SectionResults.Single(),
+                    failureMechanism,
+                    assessmentSection);
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
                 mocks.VerifyAll();
             }
@@ -1046,7 +1171,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 FailureMechanismAssembly actualOutput =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                         failureMechanism,
-                        assessmentSection);
+                        assessmentSection,
+                        new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreSame(calculator.FailureMechanismAssemblyOutput, actualOutput);
@@ -1066,14 +1192,15 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
                 TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                     failureMechanism,
-                    assessmentSection);
+                    assessmentSection,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -1093,20 +1220,22 @@ namespace Ringtoets.ClosingStructures.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
+
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
                 TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                     failureMechanism,
-                    assessmentSection);
+                    assessmentSection,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
