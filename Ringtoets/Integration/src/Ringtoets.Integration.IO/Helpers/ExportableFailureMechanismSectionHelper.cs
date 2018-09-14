@@ -29,6 +29,9 @@ using Ringtoets.Integration.IO.Assembly;
 
 namespace Ringtoets.Integration.IO.Helpers
 {
+    /// <summary>
+    /// Class containing helper methods for <see cref="ExportableFailureMechanismSection"/>.
+    /// </summary>
     public static class ExportableFailureMechanismSectionHelper
     {
         /// <summary>

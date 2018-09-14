@@ -75,11 +75,7 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            if (!IsSectionAssemblyResultValid(sectionResult.CombinedAssembly))
-            {
-                throw new AssemblyExportException(@"The assembly result is invalid and cannot be exported.");
-            }
-
+            ValidateAssemblyResult(sectionResult.CombinedAssembly);
 
             SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
                                                                                                                             serializableCollection,
@@ -132,11 +128,7 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            if (!IsSectionAssemblyResultValid(sectionResult.CombinedAssembly))
-            {
-                throw new AssemblyExportException(@"The assembly result is invalid and cannot be exported.");
-            }
-
+            ValidateAssemblyResult(sectionResult.CombinedAssembly);
 
             SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
                                                                                                                             serializableCollection,
@@ -189,10 +181,7 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            if (!IsSectionAssemblyResultValid(sectionResult.CombinedAssembly))
-            {
-                throw new AssemblyExportException(@"The assembly result is invalid and cannot be exported.");
-            }
+            ValidateAssemblyResult(sectionResult.CombinedAssembly);
 
             SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
                                                                                                                             serializableCollection,
@@ -208,9 +197,18 @@ namespace Ringtoets.Integration.IO.Creators
                                                                              failureMechanismSectionAssembly);
         }
 
-        private static bool IsSectionAssemblyResultValid(ExportableSectionAssemblyResult result)
+        /// <summary>
+        /// Validates if an <see cref="ExportableSectionAssemblyResult"/>.
+        /// </summary>
+        /// <param name="result">The <see cref="ExportableSectionAssemblyResult"/> to validate.</param>
+        /// <exception cref="AssemblyExportException">Thrown when <paramref name="result"/>
+        /// is invalid to export.</exception>
+        private static void ValidateAssemblyResult(ExportableSectionAssemblyResult result)
         {
-            return result.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None;
+            if (result.AssemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                throw new AssemblyExportException(@"The assembly result is invalid and cannot be exported.");
+            }
         }
 
         private static SerializableFailureMechanismSectionAssemblyResult[] CreateAssemblySectionResults(ExportableAggregatedFailureMechanismSectionAssemblyResult sectionResult)
