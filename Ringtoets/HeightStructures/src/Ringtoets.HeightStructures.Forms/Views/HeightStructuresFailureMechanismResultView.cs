@@ -181,7 +181,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
         }
 
         protected override bool HasManualAssemblyResults()
