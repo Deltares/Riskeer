@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeneralHeightStructuresInputTest.cs" />
+    <Compile Include="HeightStructuresFailureMechanismHelperTest.cs" />
     <Compile Include="HeightStructuresFailureMechanismSectionResultDetailedAssessmentExtensionsTest.cs" />
     <Compile Include="HeightStructuresFailureMechanismAssemblyFactoryTest.cs" />
     <Compile Include="HeightStructuresFailureMechanismSectionResultTest.cs" />

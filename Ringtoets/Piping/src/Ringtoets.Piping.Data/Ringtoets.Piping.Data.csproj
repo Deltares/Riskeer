@@ -19,6 +19,7 @@
     <Compile Include="PipingCalculationScenario.cs" />
     <Compile Include="PipingCalculationScenarioExtensions.cs" />
     <Compile Include="PipingFailureMechanism.cs" />
+    <Compile Include="PipingFailureMechanismHelper.cs" />
     <Compile Include="PipingFailureMechanismSectionResultDetailedAssessmentExtensions.cs" />
     <Compile Include="PipingFailureMechanismSectionResult.cs" />
     <Compile Include="PipingInput.cs" />

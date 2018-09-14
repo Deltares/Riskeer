@@ -21,6 +21,7 @@
   <ItemGroup>
     <Compile Include="GeneralStabilityPointStructuresInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StabilityPointStructuresFailureMechanismHelperTest.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanismSectionResultDetailedAssessmentExtensionsTest.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanismAssemblyFactoryTest.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanismSectionResultTest.cs" />
