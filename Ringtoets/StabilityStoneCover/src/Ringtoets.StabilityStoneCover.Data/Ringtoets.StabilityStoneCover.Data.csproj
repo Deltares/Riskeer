@@ -19,6 +19,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="StabilityStoneCoverFailureMechanismAssemblyFactory.cs" />
+    <Compile Include="StabilityStoneCoverFailureMechanismHelper.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsCalculation.cs" />
     <Compile Include="StabilityStoneCoverFailureMechanism.cs" />
     <Compile Include="StabilityStoneCoverFailureMechanismSectionResult.cs" />
