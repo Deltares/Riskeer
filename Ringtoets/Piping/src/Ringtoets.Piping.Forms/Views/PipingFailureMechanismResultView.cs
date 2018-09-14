@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
         }
 
         protected override bool HasManualAssemblyResults()
