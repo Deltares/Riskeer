@@ -246,13 +246,16 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly category group for.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be used or ignored, regardless of
+        /// the value of <see cref="MacroStabilityInwardsFailureMechanismSectionResult.UseManualAssemblyProbability"/>.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult,
                                                                                                    MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                                                                   IAssessmentSection assessmentSection)
+                                                                                                   IAssessmentSection assessmentSection,
+                                                                                                   bool useManual)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -269,7 +272,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return GetSectionAssembly(failureMechanismSectionResult, failureMechanism, assessmentSection).Group;
+            return GetSectionAssembly(failureMechanismSectionResult, failureMechanism, assessmentSection, useManual).Group;
         }
 
         /// <summary>
@@ -277,13 +280,16 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be used or ignored, regardless of
+        /// the value of <see cref="MacroStabilityInwardsFailureMechanismSectionResult.UseManualAssemblyProbability"/>.</param>
         /// <returns>A <see cref="FailureMechanismAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismAssembly AssembleFailureMechanism(
             MacroStabilityInwardsFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection)
+            IAssessmentSection assessmentSection,
+            bool useManual)
         {
             if (failureMechanism == null)
             {
@@ -305,7 +311,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
                 AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
                 IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = failureMechanism.SectionResults
-                                                                                                 .Select(sr => GetSectionAssembly(sr, failureMechanism, assessmentSection))
+                                                                                                 .Select(sr => GetSectionAssembly(sr, failureMechanism, assessmentSection, useManual))
                                                                                                  .ToArray();
 
                 IFailureMechanismAssemblyCalculator calculator =
@@ -329,15 +335,18 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly for.</param>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be used or ignored, regardless of
+        /// the value of <see cref="MacroStabilityInwardsFailureMechanismSectionResult.UseManualAssemblyProbability"/>.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         private static FailureMechanismSectionAssembly GetSectionAssembly(MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult,
                                                                           MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                                          IAssessmentSection assessmentSection)
+                                                                          IAssessmentSection assessmentSection,
+                                                                          bool useManual)
         {
             FailureMechanismSectionAssembly sectionAssembly;
-            if (failureMechanismSectionResult.UseManualAssemblyProbability)
+            if (failureMechanismSectionResult.UseManualAssemblyProbability && useManual)
             {
                 sectionAssembly = AssembleManualAssessment(failureMechanismSectionResult,
                                                            failureMechanism,
