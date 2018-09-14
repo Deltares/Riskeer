@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 string name = info.GetViewName(null, context);
 
                 // Assert
-                Assert.AreEqual($"Golfhoogten - Categorie {categoryBoundaryName}", name);
+                Assert.AreEqual($"Golfhoogten - Categoriegrens {categoryBoundaryName}", name);
             }
         }
 

@@ -375,15 +375,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                             const string calculationDisplayName = "Golfhoogte berekening";
 
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens Iv", msgs, 0);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Iv", msgs, 0);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens IIv", msgs, 8);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIv", msgs, 8);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens IIIv", msgs, 16);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIIv", msgs, 16);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens IVv", msgs, 24);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IVv", msgs, 24);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Categoriegrens Vv", msgs, 32);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Vv", msgs, 32);
                         });
 
                         AssertHydraulicBoundaryLocationCalculationOutput(waveHeightCalculator, failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output);
@@ -433,23 +433,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(failureMechanism, c.FailureMechanism)));
 
-                Assert.AreEqual("Categoriegrens Iv", calculationsContexts[0].CategoryBoundaryName);
+                Assert.AreEqual("Iv", calculationsContexts[0].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, () => signalingNorm / 30), calculationsContexts[0].GetNormFunc(), 1e-6);
 
-                Assert.AreEqual("Categoriegrens IIv", calculationsContexts[1].CategoryBoundaryName);
+                Assert.AreEqual("IIv", calculationsContexts[1].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, calculationsContexts[1].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, () => signalingNorm), calculationsContexts[1].GetNormFunc());
 
-                Assert.AreEqual("Categoriegrens IIIv", calculationsContexts[2].CategoryBoundaryName);
+                Assert.AreEqual("IIIv", calculationsContexts[2].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, calculationsContexts[2].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, () => lowerLimitNorm), calculationsContexts[2].GetNormFunc());
 
-                Assert.AreEqual("Categoriegrens IVv", calculationsContexts[3].CategoryBoundaryName);
+                Assert.AreEqual("IVv", calculationsContexts[3].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, calculationsContexts[3].WrappedData);
                 Assert.AreEqual(lowerLimitNorm, calculationsContexts[3].GetNormFunc());
 
-                Assert.AreEqual("Categoriegrens Vv", calculationsContexts[4].CategoryBoundaryName);
+                Assert.AreEqual("Vv", calculationsContexts[4].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, calculationsContexts[4].WrappedData);
                 Assert.AreEqual(lowerLimitNorm * 30, calculationsContexts[4].GetNormFunc());
             }

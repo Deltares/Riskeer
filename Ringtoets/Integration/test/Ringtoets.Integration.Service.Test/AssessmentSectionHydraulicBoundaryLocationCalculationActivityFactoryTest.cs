@@ -40,10 +40,10 @@ namespace Ringtoets.Integration.Service.Test
     [TestFixture]
     public class AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactoryTest
     {
-        private const string expectedCategoryBoundaryName1 = "Categoriegrens A+";
-        private const string expectedCategoryBoundaryName2 = "Categoriegrens A";
-        private const string expectedCategoryBoundaryName3 = "Categoriegrens B";
-        private const string expectedCategoryBoundaryName4 = "Categoriegrens C";
+        private const string expectedCategoryBoundaryName1 = "A+";
+        private const string expectedCategoryBoundaryName2 = "A";
+        private const string expectedCategoryBoundaryName3 = "B";
+        private const string expectedCategoryBoundaryName4 = "C";
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");

@@ -173,13 +173,13 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             double mechanismSpecificFactorizedSignalingNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm);
             AssertDuneLocationCalculationActivity(activities[0],
-                                                  "Categoriegrens Iv",
+                                                  "Iv",
                                                   duneLocation1.Name,
                                                   duneLocation1.Id,
                                                   mechanismSpecificFactorizedSignalingNorm,
                                                   usePreprocessor);
             AssertDuneLocationCalculationActivity(activities[1],
-                                                  "Categoriegrens Iv",
+                                                  "Iv",
                                                   duneLocation2.Name,
                                                   duneLocation2.Id,
                                                   mechanismSpecificFactorizedSignalingNorm,
@@ -187,13 +187,13 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             double mechanismSpecificSignalingNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm);
             AssertDuneLocationCalculationActivity(activities[2],
-                                                  "Categoriegrens IIv",
+                                                  "IIv",
                                                   duneLocation1.Name,
                                                   duneLocation1.Id,
                                                   mechanismSpecificSignalingNorm,
                                                   usePreprocessor);
             AssertDuneLocationCalculationActivity(activities[3],
-                                                  "Categoriegrens IIv",
+                                                  "IIv",
                                                   duneLocation2.Name,
                                                   duneLocation2.Id,
                                                   mechanismSpecificSignalingNorm,
@@ -201,13 +201,13 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             double mechanismSpecificLowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm);
             AssertDuneLocationCalculationActivity(activities[4],
-                                                  "Categoriegrens IIIv",
+                                                  "IIIv",
                                                   duneLocation1.Name,
                                                   duneLocation1.Id,
                                                   mechanismSpecificLowerLimitNorm,
                                                   usePreprocessor);
             AssertDuneLocationCalculationActivity(activities[5],
-                                                  "Categoriegrens IIIv",
+                                                  "IIIv",
                                                   duneLocation2.Name,
                                                   duneLocation2.Id,
                                                   mechanismSpecificLowerLimitNorm,
@@ -215,13 +215,13 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             double lowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm);
             AssertDuneLocationCalculationActivity(activities[6],
-                                                  "Categoriegrens IVv",
+                                                  "IVv",
                                                   duneLocation1.Name,
                                                   duneLocation1.Id,
                                                   lowerLimitNorm,
                                                   usePreprocessor);
             AssertDuneLocationCalculationActivity(activities[7],
-                                                  "Categoriegrens IVv",
+                                                  "IVv",
                                                   duneLocation2.Name,
                                                   duneLocation2.Id,
                                                   lowerLimitNorm,
@@ -229,13 +229,13 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             double factorizedLowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm);
             AssertDuneLocationCalculationActivity(activities[8],
-                                                  "Categoriegrens Vv",
+                                                  "Vv",
                                                   duneLocation1.Name,
                                                   duneLocation1.Id,
                                                   factorizedLowerLimitNorm,
                                                   usePreprocessor);
             AssertDuneLocationCalculationActivity(activities[9],
-                                                  "Categoriegrens Vv",
+                                                  "Vv",
                                                   duneLocation2.Name,
                                                   duneLocation2.Id,
                                                   factorizedLowerLimitNorm,

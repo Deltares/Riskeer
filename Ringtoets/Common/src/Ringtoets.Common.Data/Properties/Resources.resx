@@ -388,34 +388,34 @@
     <value>De waarde voor 'a' moet in het bereik {0} liggen.</value>
   </data>
   <data name="AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName" xml:space="preserve">
-    <value>Categoriegrens A+</value>
+    <value>A+</value>
   </data>
   <data name="AssessmentSectionCategoryType_SignalingNorm_DisplayName" xml:space="preserve">
-    <value>Categoriegrens A</value>
+    <value>A</value>
   </data>
   <data name="AssessmentSectionCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>Categoriegrens B</value>
+    <value>B</value>
   </data>
   <data name="AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>Categoriegrens C</value>
+    <value>C</value>
   </data>
   <data name="FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" xml:space="preserve">
-    <value>Categoriegrens Iv</value>
+    <value>Iv</value>
   </data>
   <data name="FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName" xml:space="preserve">
-    <value>Categoriegrens IIv</value>
+    <value>IIv</value>
   </data>
   <data name="FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>Categoriegrens IIIv</value>
+    <value>IIIv</value>
   </data>
   <data name="FailureMechanismCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>Categoriegrens IVv</value>
+    <value>IVv</value>
   </data>
   <data name="FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>Categoriegrens Vv</value>
+    <value>Vv</value>
   </data>
   <data name="Hydraulic_category_boundary_0_" xml:space="preserve">
-    <value>Categorie {0}</value>
+    <value>Categoriegrens {0}</value>
   </data>
   <data name="FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism" xml:space="preserve">
     <value>Voor een of meerdere vakken kan geen resultaat worden bepaald.</value>

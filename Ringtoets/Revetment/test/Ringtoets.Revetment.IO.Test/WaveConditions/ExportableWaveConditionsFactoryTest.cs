@@ -146,7 +146,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
-            Assert.AreEqual("Categoriegrens A", exportableWaveConditions.CategoryBoundaryName);
+            Assert.AreEqual("A", exportableWaveConditions.CategoryBoundaryName);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
@@ -226,7 +226,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.Grass, exportableWaveConditions.CoverType);
-            Assert.AreEqual("Categoriegrens Iv", exportableWaveConditions.CategoryBoundaryName);
+            Assert.AreEqual("Iv", exportableWaveConditions.CategoryBoundaryName);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
@@ -306,7 +306,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.Asphalt, exportableWaveConditions.CoverType);
-            Assert.AreEqual("Categoriegrens B", exportableWaveConditions.CategoryBoundaryName);
+            Assert.AreEqual("B", exportableWaveConditions.CategoryBoundaryName);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);

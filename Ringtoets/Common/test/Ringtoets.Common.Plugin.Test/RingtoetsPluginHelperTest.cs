@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Service.Test
             string formattedCategoryBoundaryName = RingtoetsPluginHelper.FormatCategoryBoundaryName(categoryBoundaryName);
 
             // Assert
-            Assert.AreEqual("Categorie " + categoryBoundaryName, formattedCategoryBoundaryName);
+            Assert.AreEqual("Categoriegrens " + categoryBoundaryName, formattedCategoryBoundaryName);
         }
 
         [TestFixture]

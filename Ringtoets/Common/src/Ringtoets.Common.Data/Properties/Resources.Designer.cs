@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrens C.
+        ///   Looks up a localized string similar to C.
         /// </summary>
         public static string AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName {
             get {
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrens A+.
+        ///   Looks up a localized string similar to A+.
         /// </summary>
         public static string AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName {
             get {
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrens B.
+        ///   Looks up a localized string similar to B.
         /// </summary>
         public static string AssessmentSectionCategoryType_LowerLimitNorm_DisplayName {
             get {
@@ -119,7 +119,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrens A.
+        ///   Looks up a localized string similar to A.
         /// </summary>
         public static string AssessmentSectionCategoryType_SignalingNorm_DisplayName {
             get {
@@ -443,7 +443,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrens Vv.
+        ///   Looks up a localized string similar to Vv.
         /// </summary>
         public static string FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName {
             get {
@@ -452,7 +452,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrens IVv.
+        ///   Looks up a localized string similar to IVv.
         /// </summary>
         public static string FailureMechanismCategoryType_LowerLimitNorm_DisplayName {
             get {
@@ -461,7 +461,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrens Iv.
+        ///   Looks up a localized string similar to Iv.
         /// </summary>
         public static string FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName {
             get {
@@ -471,7 +471,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrens IIIv.
+        ///   Looks up a localized string similar to IIIv.
         /// </summary>
         public static string FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName {
             get {
@@ -480,7 +480,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrens IIv.
+        ///   Looks up a localized string similar to IIv.
         /// </summary>
         public static string FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName {
             get {
@@ -574,7 +574,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categorie {0}.
+        ///   Looks up a localized string similar to Categoriegrens {0}.
         /// </summary>
         public static string Hydraulic_category_boundary_0_ {
             get {
