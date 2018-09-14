@@ -249,7 +249,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 FailureMechanismSectionAssembly actualOutput =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                         sectionResult,
-                        new GrassCoverErosionInwardsFailureMechanism(),
+                        failureMechanism,
                         assessmentSection);
 
                 // Assert
@@ -280,7 +280,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 // Call
                 TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
-                    new GrassCoverErosionInwardsFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -433,7 +433,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 // Call
                 TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
-                    new GrassCoverErosionInwardsFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -640,7 +640,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 // Call
                 TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
-                    new GrassCoverErosionInwardsFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
