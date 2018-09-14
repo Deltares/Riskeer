@@ -139,7 +139,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
         }
 
         protected override bool HasManualAssemblyResults()

@@ -65,8 +65,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
@@ -85,8 +85,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
@@ -106,8 +106,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -153,8 +153,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
@@ -177,8 +177,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
@@ -198,8 +198,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -241,8 +241,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
@@ -261,8 +261,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
@@ -282,8 +282,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -407,8 +407,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
@@ -432,7 +432,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         {
             // Call
             TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                null);
+                null,
+                new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -452,7 +453,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
                 // Call
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult);
+                    sectionResult,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
@@ -478,7 +480,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             {
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult);
+                    sectionResult,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
@@ -488,7 +491,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void GetSectionAssemblyCategoryGroup_WithManualInput_ReturnsOutput()
+        public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualTrue_ReturnsOutput()
         {
             // Setup
             var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -499,10 +502,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             // Call
             FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                sectionResult);
+                sectionResult,
+                true);
 
             // Assert
             Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, categoryGroup);
+        }
+
+        [Test]
+        public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualFalse_ReturnsOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                UseManualAssemblyCategoryGroup = true,
+                ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
+                TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>()
+            };
+
+            // Call
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                sectionResult,
+                false);
+
+            // Assert
+            FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                sectionResult);
+            Assert.AreEqual(expectedAssembly, categoryGroup);
         }
 
         [Test]
@@ -513,13 +540,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
                 TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult);
+                    sectionResult,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -537,7 +565,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(null);
+            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(null, new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -560,7 +588,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup assemblyCategory =
@@ -579,14 +607,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             };
 
             // Call
-            FailureMechanismAssemblyCategoryGroup category = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+            FailureMechanismAssemblyCategoryGroup category = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
             // Assert
             Assert.AreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory(), category);
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithManualInput_SetsInputOnCalculator()
+        public void AssembleFailureMechanism_WithManualInputAndUseManualTrue_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -604,10 +632,38 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, true);
 
                 // Assert
                 Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithManualInputAndUseManualFalse_SetsNoInputOnCalculator()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+            GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIv;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                // Call
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    failureMechanism.SectionResults.Single());
+                Assert.AreEqual(expectedAssembly, calculator.FailureMechanismSectionCategories.Single());
             }
         }
 
@@ -622,7 +678,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup actualOutput =
-                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(new GrassCoverErosionOutwardsFailureMechanism());
+                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                      new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, actualOutput);
@@ -635,12 +692,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(new GrassCoverErosionOutwardsFailureMechanism());
+                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                    new GrassCoverErosionOutwardsFailureMechanism(),
+                    new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -662,12 +721,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
+                                                                                                                            new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
