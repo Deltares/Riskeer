@@ -23,7 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.GrassCoverErosionOutwards.IO.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters
 {
@@ -76,15 +76,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters
                 switch (categoryType)
                 {
                     case ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm:
-                        return Resources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName;
+                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm:
-                        return Resources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName;
+                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm:
-                        return Resources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName;
+                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm:
-                        return Resources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName;
+                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm:
-                        return Resources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName;
+                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName;
                     default:
                         throw new NotSupportedException();
                 }
@@ -135,27 +135,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters
             var stringValue = value as string;
             if (stringValue != null)
             {
-                if (stringValue == Resources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName)
+                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName)
                 {
                     return ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm;
                 }
 
-                if (stringValue == Resources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName)
+                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName)
                 {
                     return ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm;
                 }
 
-                if (stringValue == Resources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName)
+                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName)
                 {
                     return ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm;
                 }
 
-                if (stringValue == Resources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName)
+                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName)
                 {
                     return ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm;
                 }
 
-                if (stringValue == Resources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
+                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
                 {
                     return ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm;
                 }

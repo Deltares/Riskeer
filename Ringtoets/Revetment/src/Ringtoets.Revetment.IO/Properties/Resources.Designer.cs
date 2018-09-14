@@ -82,42 +82,6 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C.
-        /// </summary>
-        internal static string AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A+.
-        /// </summary>
-        internal static string AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to B.
-        /// </summary>
-        internal static string AssessmentSectionCategoryType_LowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionCategoryType_LowerLimitNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A.
-        /// </summary>
-        internal static string AssessmentSectionCategoryType_SignalingNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionCategoryType_SignalingNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///

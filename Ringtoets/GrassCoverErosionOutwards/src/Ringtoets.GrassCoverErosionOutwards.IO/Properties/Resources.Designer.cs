@@ -82,52 +82,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vv.
-        /// </summary>
-        internal static string FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IVv.
-        /// </summary>
-        internal static string FailureMechanismCategoryType_LowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismCategoryType_LowerLimitNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Iv.
-        /// </summary>
-        internal static string FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IIIv.
-        /// </summary>
-        internal static string FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IIv.
-        /// </summary>
-        internal static string FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
         ///Copyright (C) Stichting Deltares 2017. All rights reserved.
         ///

@@ -23,7 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Revetment.IO.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Revetment.IO.Configurations.Converters
 {
@@ -74,13 +74,13 @@ namespace Ringtoets.Revetment.IO.Configurations.Converters
                 switch (categoryType)
                 {
                     case ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm:
-                        return Resources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName;
+                        return RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName;
                     case ConfigurationAssessmentSectionCategoryType.SignalingNorm:
-                        return Resources.AssessmentSectionCategoryType_SignalingNorm_DisplayName;
+                        return RingtoetsCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName;
                     case ConfigurationAssessmentSectionCategoryType.LowerLimitNorm:
-                        return Resources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName;
+                        return RingtoetsCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName;
                     case ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm:
-                        return Resources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName;
+                        return RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName;
                     default:
                         throw new NotSupportedException();
                 }
@@ -129,22 +129,22 @@ namespace Ringtoets.Revetment.IO.Configurations.Converters
             var stringValue = value as string;
             if (stringValue != null)
             {
-                if (stringValue == Resources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName)
+                if (stringValue == RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName)
                 {
                     return ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm;
                 }
 
-                if (stringValue == Resources.AssessmentSectionCategoryType_SignalingNorm_DisplayName)
+                if (stringValue == RingtoetsCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName)
                 {
                     return ConfigurationAssessmentSectionCategoryType.SignalingNorm;
                 }
 
-                if (stringValue == Resources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName)
+                if (stringValue == RingtoetsCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName)
                 {
                     return ConfigurationAssessmentSectionCategoryType.LowerLimitNorm;
                 }
 
-                if (stringValue == Resources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
+                if (stringValue == RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
                 {
                     return ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm;
                 }
