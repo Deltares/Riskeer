@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
+using Ringtoets.Integration.IO.Exceptions;
 using Ringtoets.Integration.IO.Factories;
 using Ringtoets.Integration.IO.Properties;
 
@@ -77,6 +78,11 @@ namespace Ringtoets.Integration.IO.Exporters
             {
                 SerializableAssemblyWriter.WriteAssembly(SerializableAssemblyCreator.Create(exportableAssessmentSection),
                                                          filePath);
+            }
+            catch (AssemblyExportException)
+            {
+                LogErrorMessage();
+                return false;
             }
             catch (CriticalFileWriteException e)
             {

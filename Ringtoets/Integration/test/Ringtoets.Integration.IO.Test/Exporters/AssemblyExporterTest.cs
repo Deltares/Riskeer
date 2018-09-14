@@ -138,6 +138,32 @@ namespace Ringtoets.Integration.IO.Test.Exporters
         }
 
         [Test]
+        public void Export_CombinedFailureMechanismSectionAssemblyResultNone_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse));
+            AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+
+            var exporter = new AssemblyExporter(assessmentSection, filePath);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput = FailureMechanismSectionAssemblyCategoryGroup.None;
+
+                // Call
+                var isExported = true;
+                Action call = () => isExported = exporter.Export();
+
+                // Assert
+                const string expectedMessage = "Het is alleen mogelijk een volledig assemblageresultaat te exporteren.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                Assert.IsFalse(isExported);
+            }
+        }
+
+        [Test]
         public void Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile()
         {
             // Setup
