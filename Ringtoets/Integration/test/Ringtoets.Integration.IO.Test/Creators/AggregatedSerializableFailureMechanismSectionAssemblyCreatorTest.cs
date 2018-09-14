@@ -29,6 +29,7 @@ using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.Integration.IO.AggregatedSerializable;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
+using Ringtoets.Integration.IO.Exceptions;
 using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Integration.IO.TestUtil;
 
@@ -106,6 +107,40 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWithoutProbability_WithCombinedAssemblyResultNone_ThrowsAssemblyExportException()
+        {
+            // Setup
+            var idGenerator = new IdentifierGenerator();
+            var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResult(
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                CreateSectionAssemblyResult(10),
+                CreateSectionAssemblyResult(11),
+                CreateSectionAssemblyResult(12),
+                CreateSectionAssemblyResult(FailureMechanismSectionAssemblyCategoryGroup.None));
+
+            var random = new Random(21);
+            const string serializableFailureMechanismId = "FailureMechanismId";
+            var serializableFailureMechanism = new SerializableFailureMechanism(serializableFailureMechanismId,
+                                                                                new SerializableTotalAssemblyResult(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismGroup>(),
+                                                                                new SerializableFailureMechanismAssemblyResult());
+
+            const string serializableSectionCollectionId = "CollectionId";
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId);
+
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator,
+                                                                                                          serializableCollection, 
+                                                                                                          serializableFailureMechanism,
+                                                                                                          sectionResult);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyExportException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be exported.", exception.Message);
         }
 
         [Test]
@@ -306,6 +341,40 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
+        public void CreateWithProbability_WithCombinedAssemblyResultNone_ThrowsAssemblyExportException()
+        {
+            // Setup
+            var idGenerator = new IdentifierGenerator();
+            var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                CreateSectionAssemblyResultWithProbability(10),
+                CreateSectionAssemblyResultWithProbability(11),
+                CreateSectionAssemblyResultWithProbability(12),
+                CreateSectionAssemblyResultWithProbability(FailureMechanismSectionAssemblyCategoryGroup.None));
+
+            var random = new Random(21);
+            const string serializableFailureMechanismId = "FailureMechanismId";
+            var serializableFailureMechanism = new SerializableFailureMechanism(serializableFailureMechanismId,
+                                                                                new SerializableTotalAssemblyResult(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismGroup>(),
+                                                                                new SerializableFailureMechanismAssemblyResult());
+
+            const string serializableSectionCollectionId = "CollectionId";
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId);
+
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator,
+                                                                                                          serializableCollection,
+                                                                                                          serializableFailureMechanism,
+                                                                                                          sectionResult);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyExportException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be exported.", exception.Message);
+        }
+
+        [Test]
         public void CreateWithProbability_WithValidArgumentsAndAllAssemblyTypesHaveResults_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
         {
             // Setup
@@ -500,6 +569,39 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
+        public void CreateWithoutDetailedAssembly_WithCombinedAssemblyResultNone_ThrowsAssemblyExportException()
+        {
+            // Setup
+            var idGenerator = new IdentifierGenerator();
+            var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                CreateSectionAssemblyResult(10),
+                CreateSectionAssemblyResult(11),
+                CreateSectionAssemblyResult(FailureMechanismSectionAssemblyCategoryGroup.None));
+
+            var random = new Random(21);
+            const string serializableFailureMechanismId = "FailureMechanismId";
+            var serializableFailureMechanism = new SerializableFailureMechanism(serializableFailureMechanismId,
+                                                                                new SerializableTotalAssemblyResult(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismGroup>(),
+                                                                                new SerializableFailureMechanismAssemblyResult());
+
+            const string serializableSectionCollectionId = "CollectionId";
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId);
+
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator,
+                                                                                                          serializableCollection,
+                                                                                                          serializableFailureMechanism,
+                                                                                                          sectionResult);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyExportException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be exported.", exception.Message);
+        }
+
+        [Test]
         public void CreateWithoutDetailedAssembly_WithValidArgumentsAndAllAssemblyTypesHaveResults_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
         {
             // Setup
@@ -560,9 +662,9 @@ namespace Ringtoets.Integration.IO.Test.Creators
             var idGenerator = new IdentifierGenerator();
             var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                CreateSectionAssemblyResultWithProbability(simpleAssemblyCategoryGroup),
-                CreateSectionAssemblyResultWithProbability(tailorMadeAssemblyCategoryGroup),
-                CreateSectionAssemblyResultWithProbability(13));
+                CreateSectionAssemblyResult(simpleAssemblyCategoryGroup),
+                CreateSectionAssemblyResult(tailorMadeAssemblyCategoryGroup),
+                CreateSectionAssemblyResult(13));
 
             var random = new Random(21);
             const string serializableFailureMechanismId = "FailureMechanismId";

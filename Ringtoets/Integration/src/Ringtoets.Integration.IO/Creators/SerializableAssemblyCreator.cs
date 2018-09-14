@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.AggregatedSerializable;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Exceptions;
 using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Integration.IO.Properties;
 
@@ -45,6 +46,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <returns>A <see cref="SerializableAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="AssemblyExportException">Thrown when the assembly result cannot be exported.</exception>
         public static SerializableAssembly Create(ExportableAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)

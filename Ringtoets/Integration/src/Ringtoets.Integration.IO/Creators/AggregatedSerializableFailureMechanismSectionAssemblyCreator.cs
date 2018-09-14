@@ -27,6 +27,7 @@ using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.Integration.IO.AggregatedSerializable;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Exceptions;
 using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Integration.IO.Properties;
 
@@ -48,6 +49,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyExportException">Thrown when the assembly result cannot be exported.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
@@ -72,6 +74,12 @@ namespace Ringtoets.Integration.IO.Creators
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
+
+            if (!IsSectionAssemblyResultValid(sectionResult.CombinedAssembly))
+            {
+                throw new AssemblyExportException(@"The assembly result is invalid and cannot be exported.");
+            }
+
 
             SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
                                                                                                                             serializableCollection,
@@ -98,6 +106,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyExportException">Thrown when the assembly result cannot be exported.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
@@ -122,6 +131,12 @@ namespace Ringtoets.Integration.IO.Creators
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
+
+            if (!IsSectionAssemblyResultValid(sectionResult.CombinedAssembly))
+            {
+                throw new AssemblyExportException(@"The assembly result is invalid and cannot be exported.");
+            }
+
 
             SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
                                                                                                                             serializableCollection,
@@ -148,6 +163,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyExportException">Thrown when the assembly result cannot be exported.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
@@ -173,6 +189,11 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
+            if (!IsSectionAssemblyResultValid(sectionResult.CombinedAssembly))
+            {
+                throw new AssemblyExportException(@"The assembly result is invalid and cannot be exported.");
+            }
+
             SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
                                                                                                                             serializableCollection,
                                                                                                                             sectionResult.FailureMechanismSection);
@@ -185,6 +206,11 @@ namespace Ringtoets.Integration.IO.Creators
                                                                                                                                                                   sectionResult.CombinedAssembly));
             return new AggregatedSerializableFailureMechanismSectionAssembly(failureMechanismSection,
                                                                              failureMechanismSectionAssembly);
+        }
+
+        private static bool IsSectionAssemblyResultValid(ExportableSectionAssemblyResult result)
+        {
+            return result.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None;
         }
 
         private static SerializableFailureMechanismSectionAssemblyResult[] CreateAssemblySectionResults(ExportableAggregatedFailureMechanismSectionAssemblyResult sectionResult)
