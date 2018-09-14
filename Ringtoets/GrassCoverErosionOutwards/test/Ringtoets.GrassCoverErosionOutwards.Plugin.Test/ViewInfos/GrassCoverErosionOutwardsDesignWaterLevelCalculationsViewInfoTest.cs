@@ -164,7 +164,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 string name = info.GetViewName(null, context);
 
                 // Assert
-                Assert.AreEqual($"Waterstanden - {categoryBoundaryName}", name);
+                Assert.AreEqual($"Waterstanden - Categorie {categoryBoundaryName}", name);
                 mocks.VerifyAll();
             }
         }

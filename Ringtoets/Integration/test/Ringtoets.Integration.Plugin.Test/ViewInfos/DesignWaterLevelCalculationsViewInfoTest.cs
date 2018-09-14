@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, context);
 
             // Assert
-            Assert.AreEqual($"Waterstanden - {categoryBoundaryName}", viewName);
+            Assert.AreEqual($"Waterstanden - Categorie {categoryBoundaryName}", viewName);
         }
 
         [Test]

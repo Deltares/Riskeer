@@ -111,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 string nodeText = info.Text(context);
 
                 // Assert
-                Assert.AreEqual(categoryBoundaryName, nodeText);
+                Assert.AreEqual($"Categorie {categoryBoundaryName}", nodeText);
             }
 
             mockRepository.VerifyAll();
