@@ -54,6 +54,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.SimpleAssessmentResultInput);
             Assert.IsNull(kernel.DetailedAssessmentResultInput);
             Assert.IsNull(kernel.TailorMadeAssessmentResultInput);
+            Assert.IsNull(kernel.SimpleAssessmentResultInputWithProbability);
+            Assert.IsNull(kernel.DetailedAssessmentResultInputWithProbability);
+            Assert.IsNull(kernel.TailorMadeAssessmentResultInputWithProbability);
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNaN(kernel.FailureProbabilityInput);
@@ -94,7 +97,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
                 FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
-                                                                                                                       random.NextDouble())
+                                                                                                                      random.NextDouble())
             };
 
             // Call
@@ -188,7 +191,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
                 FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
-                                                                                                                       random.NextDouble())
+                                                                                                                      random.NextDouble())
             };
 
             // Call
@@ -395,7 +398,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
                 FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
-                                                                                                                       random.NextDouble())
+                                                                                                                      random.NextDouble())
             };
 
             // Call
@@ -516,7 +519,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
                 FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
-                                                                                                                       random.NextDouble())
+                                                                                                                      random.NextDouble())
             };
 
             // Call
@@ -821,7 +824,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
                 FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
-                                                                                                                       random.NextDouble())
+                                                                                                                      random.NextDouble())
             };
 
             // Call
@@ -1023,7 +1026,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
                 FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
-                                                                                                                       random.NextDouble())
+                                                                                                                      random.NextDouble())
             };
 
             // Call
@@ -1338,7 +1341,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
                 FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
-                                                                                                                       random.NextDouble())
+                                                                                                                      random.NextDouble())
             };
 
             // Call
