@@ -249,14 +249,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
-                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{duneLocationName}' (Categorie {categoryBoundaryName}) is gestart.", msgs[0]);
+                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{duneLocationName}' (Categoriegrens {categoryBoundaryName}) is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                    Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{duneLocationName}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                    Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{duneLocationName}' (Categoriegrens {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
                     StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{duneLocationName}' (Categorie {categoryBoundaryName}) is gelukt.", msgs[7]);
+                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{duneLocationName}' (Categoriegrens {categoryBoundaryName}) is gelukt.", msgs[7]);
                 });
             }
 

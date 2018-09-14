@@ -251,7 +251,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                    Assert.AreEqual($"Waterstand berekening voor locatie 'name' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                    Assert.AreEqual($"Waterstand berekening voor locatie 'name' (Categoriegrens {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
                     StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                     Assert.AreEqual($"{activityDescription} is gelukt.", msgs[7]);
@@ -443,7 +443,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                    Assert.AreEqual($"Golfhoogte berekening voor locatie 'name' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                    Assert.AreEqual($"Golfhoogte berekening voor locatie 'name' (Categoriegrens {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                     Assert.AreEqual($"{activityDescription} is gelukt.", msgs[7]);
@@ -455,12 +455,12 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
 
         private static string GetWaveHeightCalculationActivityDescription(string locationName, string categoryBoundaryName)
         {
-            return $"Golfhoogte berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName})";
+            return $"Golfhoogte berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName})";
         }
 
         private static string GetDesignWaterLevelCalculationActivityDescription(string locationName, string categoryBoundaryName)
         {
-            return $"Waterstand berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName})";
+            return $"Waterstand berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName})";
         }
     }
 }

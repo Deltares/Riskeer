@@ -373,7 +373,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 Action call = activity.Run;
 
-                string expectedLogMessage = $"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.";
+                string expectedLogMessage = $"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categoriegrens {categoryBoundaryName}) is gestart.";
 
                 TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
                 AssessmentLevelCalculationInput actualCalculationInput = designWaterLevelCalculator.ReceivedInputs.Single();
@@ -400,7 +400,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 Action call = activity.Run;
 
-                string expectedLogMessage = $"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.";
+                string expectedLogMessage = $"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categoriegrens {categoryBoundaryName}) is gestart.";
 
                 TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
                 WaveHeightCalculationInput actualCalculationInput = waveHeightCalculator.ReceivedInputs.Single();

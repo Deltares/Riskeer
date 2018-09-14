@@ -50,17 +50,17 @@ namespace Ringtoets.Common.Plugin.TestUtil
                                                                               IEnumerable<string> actualMessages,
                                                                               int startIndex)
         {
-            Assert.AreEqual($"{calculationTypeDisplayName} berekenen voor locatie '{locationName}' (Categorie {categoryName}) is gestart.",
+            Assert.AreEqual($"{calculationTypeDisplayName} berekenen voor locatie '{locationName}' (Categoriegrens {categoryName}) is gestart.",
                             actualMessages.ElementAt(startIndex));
             CalculationServiceTestHelper.AssertValidationStartMessage(actualMessages.ElementAt(startIndex + 1));
             CalculationServiceTestHelper.AssertValidationEndMessage(actualMessages.ElementAt(startIndex + 2));
             CalculationServiceTestHelper.AssertCalculationStartMessage(actualMessages.ElementAt(startIndex + 3));
-            Assert.AreEqual($"{calculationDisplayName} voor locatie '{locationName}' (Categorie {categoryName}) is niet geconvergeerd.",
+            Assert.AreEqual($"{calculationDisplayName} voor locatie '{locationName}' (Categoriegrens {categoryName}) is niet geconvergeerd.",
                             actualMessages.ElementAt(startIndex + 4));
             StringAssert.StartsWith($"{calculationDisplayName} is uitgevoerd op de tijdelijke locatie",
                                     actualMessages.ElementAt(startIndex + 5));
             CalculationServiceTestHelper.AssertCalculationEndMessage(actualMessages.ElementAt(startIndex + 6));
-            Assert.AreEqual($"{calculationTypeDisplayName} berekenen voor locatie '{locationName}' (Categorie {categoryName}) is gelukt.",
+            Assert.AreEqual($"{calculationTypeDisplayName} berekenen voor locatie '{locationName}' (Categoriegrens {categoryName}) is gelukt.",
                             actualMessages.ElementAt(startIndex + 7));
         }
     }

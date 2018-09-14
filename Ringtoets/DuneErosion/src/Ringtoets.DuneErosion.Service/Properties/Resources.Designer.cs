@@ -92,7 +92,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingen berekenen voor locatie &apos;{0}&apos; (Categorie {1}).
+        ///   Looks up a localized string similar to Hydraulische belastingen berekenen voor locatie &apos;{0}&apos; (Categoriegrens {1}).
         /// </summary>
         internal static string DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_Category_1 {
             get {
@@ -112,7 +112,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de hydraulische belastingenberekening &apos;{0}&apos; (Categorie {1}). Bekijk het foutrapport door op details te klikken.
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de hydraulische belastingenberekening &apos;{0}&apos; (Categoriegrens {1}). Bekijk het foutrapport door op details te klikken.
         ///{2}.
         /// </summary>
         internal static string DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_click_details_for_last_error_report_1 {
@@ -123,7 +123,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de hydraulische belastingenberekening &apos;{0}&apos; (Categorie {1}). Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de hydraulische belastingenberekening &apos;{0}&apos; (Categoriegrens {1}). Er is geen foutrapport beschikbaar..
         /// </summary>
         internal static string DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_no_error_report {
             get {
@@ -133,7 +133,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingenberekening voor locatie &apos;{0}&apos; (Categorie {1}) is niet geconvergeerd..
+        ///   Looks up a localized string similar to Hydraulische belastingenberekening voor locatie &apos;{0}&apos; (Categoriegrens {1}) is niet geconvergeerd..
         /// </summary>
         internal static string DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_Category_1_not_converged {
             get {

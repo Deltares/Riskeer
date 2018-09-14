@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
             string description = provider.GetActivityDescription(name);
 
             // Assert
-            string expectedDescription = $"Golfhoogte berekenen voor locatie '{name}' (Categorie {categoryBoundaryName})";
+            string expectedDescription = $"Golfhoogte berekenen voor locatie '{name}' (Categoriegrens {categoryBoundaryName})";
             Assert.AreEqual(expectedDescription, description);
         }
 
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
             string message = provider.GetCalculationFailedMessage(name);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie '{name}' (Categorie {categoryBoundaryName}). " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie '{name}' (Categoriegrens {categoryBoundaryName}). " +
                                      "Er is geen foutrapport beschikbaar.";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
             string message = provider.GetCalculationFailedWithErrorReportMessage(name, failureMessage);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie '{name}' (Categorie {categoryBoundaryName}). " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie '{name}' (Categoriegrens {categoryBoundaryName}). " +
                                      $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
             string message = provider.GetCalculationFailedWithErrorReportMessage(name, failureMessage);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie '{name}' (Categorie {categoryBoundaryName}). " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie '{name}' (Categoriegrens {categoryBoundaryName}). " +
                                      $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -142,7 +142,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
             string message = provider.GetCalculatedNotConvergedMessage(name);
 
             // Assert
-            string expectedMessage = $"Golfhoogte berekening voor locatie '{name}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.";
+            string expectedMessage = $"Golfhoogte berekening voor locatie '{name}' (Categoriegrens {categoryBoundaryName}) is niet geconvergeerd.";
             Assert.AreEqual(expectedMessage, message);
         }
     }

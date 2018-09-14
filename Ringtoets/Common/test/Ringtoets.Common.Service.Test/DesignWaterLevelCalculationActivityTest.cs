@@ -326,8 +326,8 @@ namespace Ringtoets.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
 
                     string expectedFailureMessage = string.IsNullOrEmpty(lastErrorFileContent)
-                                                        ? $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{locationName}' (Categorie {categoryBoundaryName}). Er is geen foutrapport beschikbaar."
-                                                        : $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{locationName}' (Categorie {categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
+                                                        ? $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}). Er is geen foutrapport beschikbaar."
+                                                        : $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
                     Assert.AreEqual(expectedFailureMessage, messages[4]);
 
                     StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", messages[5]);
@@ -386,7 +386,7 @@ namespace Ringtoets.Common.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    Assert.AreEqual($"Waterstand berekening voor locatie 'locationName' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                    Assert.AreEqual($"Waterstand berekening voor locatie 'locationName' (Categoriegrens {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
                 });
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
             }
@@ -428,7 +428,7 @@ namespace Ringtoets.Common.Service.Test
 
         private static string GetActivityDescription(string locationName, string categoryBoundaryName)
         {
-            return $"Waterstand berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName})";
+            return $"Waterstand berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName})";
         }
 
         private class TestDesignWaterLevelCalculationActivity : DesignWaterLevelCalculationActivity
