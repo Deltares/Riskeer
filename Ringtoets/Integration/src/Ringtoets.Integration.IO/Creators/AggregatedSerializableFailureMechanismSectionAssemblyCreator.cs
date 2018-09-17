@@ -198,7 +198,7 @@ namespace Ringtoets.Integration.IO.Creators
         }
 
         /// <summary>
-        /// Validates if an <see cref="ExportableSectionAssemblyResult"/>.
+        /// Validates whether an <see cref="ExportableSectionAssemblyResult"/> is valid to export.
         /// </summary>
         /// <param name="result">The <see cref="ExportableSectionAssemblyResult"/> to validate.</param>
         /// <exception cref="AssemblyExportException">Thrown when <paramref name="result"/>
