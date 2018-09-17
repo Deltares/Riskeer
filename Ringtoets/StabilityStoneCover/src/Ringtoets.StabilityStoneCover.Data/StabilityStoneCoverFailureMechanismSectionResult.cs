@@ -54,31 +54,31 @@ namespace Ringtoets.StabilityStoneCover.Data
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
-        /// for the factorized signaling norm (Cat Iv - IIv).
+        /// for the factorized signaling norm (Category boundary Iv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedSignalingNorm { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
-        /// for the signaling norm (Cat IIv - IIIv).
+        /// for the signaling norm (Category boundary IIv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForSignalingNorm { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
-        /// for the failure mechanism specific lower limit norm (Cat IIIv - IVv).
+        /// for the failure mechanism specific lower limit norm (Category boundary IIIv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNorm { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
-        /// for the lower limit norm (Cat IVv - Vv).
+        /// for the lower limit norm (Category boundary IVv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForLowerLimitNorm { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
-        /// for the factorized lower limit norm (Cat Vv - VIv).
+        /// for the factorized lower limit norm (Category boundary Vv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNorm { get; set; }
 

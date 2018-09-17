@@ -106,11 +106,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[manualAssemblyCategoryGroupIndex]);
 
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. Iv - IIv", dataGridView.Columns[detailedAssessmentResultForFactorizedSignalingNormIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. IIv - IIIv", dataGridView.Columns[detailedAssessmentResultForSignalingNormIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. IIIv - IVv", dataGridView.Columns[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. IVv - Vv", dataGridView.Columns[detailedAssessmentResultForLowerLimitNormIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. Vv - VIv", dataGridView.Columns[detailedAssessmentResultForFactorizedLowerLimitNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens Iv", dataGridView.Columns[detailedAssessmentResultForFactorizedSignalingNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens IIv", dataGridView.Columns[detailedAssessmentResultForSignalingNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens IIIv", dataGridView.Columns[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens IVv", dataGridView.Columns[detailedAssessmentResultForLowerLimitNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens Vv", dataGridView.Columns[detailedAssessmentResultForFactorizedLowerLimitNormIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[tailorMadeResultIndex].HeaderText);
                 Assert.AreEqual("Assemblageresultaat\r\neenvoudige toets", dataGridView.Columns[simpleAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Assemblageresultaat\r\ngedetailleerde toets per vak", dataGridView.Columns[detailedAssemblyCategoryGroupIndex].HeaderText);

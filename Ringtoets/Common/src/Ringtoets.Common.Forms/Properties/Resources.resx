@@ -1347,27 +1347,27 @@ Pf = {1}</value>
   <data name="FailureMechanismResultView_DetailedAssessmentResultForFactorizedSignalingNorm_DisplayName" xml:space="preserve">
     <value>Gedetailleerde toets
 per vak
-Cat. Iv - IIv</value>
+categoriegrens Iv</value>
   </data>
   <data name="FailureMechanismResultView_DetailedAssessmentResultForSignalingNorm_DisplayName" xml:space="preserve">
     <value>Gedetailleerde toets
 per vak
-Cat. IIv - IIIv</value>
+categoriegrens IIv</value>
   </data>
   <data name="FailureMechanismResultView_DetailedAssessmentResultForMechanismSpecificLowerLimitNorm_DisplayName" xml:space="preserve">
     <value>Gedetailleerde toets
 per vak
-Cat. IIIv - IVv</value>
+categoriegrens IIIv</value>
   </data>
   <data name="FailureMechanismResultView_DetailedAssessmentResultForLowerLimitNorm_DisplayName" xml:space="preserve">
     <value>Gedetailleerde toets
 per vak
-Cat. IVv - Vv</value>
+categoriegrens IVv</value>
   </data>
   <data name="FailureMechanismResultView_DetailedAssessmentResultForFactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
     <value>Gedetailleerde toets
 per vak
-Cat. Vv - VIv</value>
+categoriegrens Vv</value>
   </data>
   <data name="Norms_DisplayName" xml:space="preserve">
     <value>Normen</value>

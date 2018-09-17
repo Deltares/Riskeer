@@ -159,7 +159,7 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed
-        /// assessment probability (Iv - IIv).
+        /// assessment probability (Iv).
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
@@ -195,7 +195,7 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
-        /// for the factorized signaling norm category (IIv - IIIv).
+        /// for the factorized signaling norm category (IIv).
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
@@ -221,7 +221,7 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
-        /// for the failure mechanism specific lower limit norm category (IIIv - IVv).
+        /// for the failure mechanism specific lower limit norm category (IIIv).
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
@@ -234,7 +234,7 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
-        /// for the lower limit norm category (IVv - Vv).
+        /// for the lower limit norm category (IVv).
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
@@ -247,7 +247,7 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
-        /// for the factorized lower limit norm category (Vv - VIv).
+        /// for the factorized lower limit norm category (Vv).
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>

@@ -1633,7 +1633,7 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gedetailleerde toets
         ///per vak
-        ///Cat. Vv - VIv.
+        ///categoriegrens Vv.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentResultForFactorizedLowerLimitNorm_DisplayName {
             get {
@@ -1645,7 +1645,7 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gedetailleerde toets
         ///per vak
-        ///Cat. Iv - IIv.
+        ///categoriegrens Iv.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentResultForFactorizedSignalingNorm_DisplayName {
             get {
@@ -1657,7 +1657,7 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gedetailleerde toets
         ///per vak
-        ///Cat. IVv - Vv.
+        ///categoriegrens IVv.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentResultForLowerLimitNorm_DisplayName {
             get {
@@ -1668,7 +1668,7 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gedetailleerde toets
         ///per vak
-        ///Cat. IIIv - IVv.
+        ///categoriegrens IIIv.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentResultForMechanismSpecificLowerLimitNorm_DisplayName {
             get {
@@ -1680,7 +1680,7 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gedetailleerde toets
         ///per vak
-        ///Cat. IIv - IIIv.
+        ///categoriegrens IIv.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentResultForSignalingNorm_DisplayName {
             get {

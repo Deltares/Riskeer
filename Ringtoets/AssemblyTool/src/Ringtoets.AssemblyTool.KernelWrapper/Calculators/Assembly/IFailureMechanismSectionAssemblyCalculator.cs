@@ -110,15 +110,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the detailed assessment based on the input parameters.
         /// </summary>
-        /// <param name="detailedAssessmentResultForFactorizedSignalingNorm">The category Iv - IIv 
+        /// <param name="detailedAssessmentResultForFactorizedSignalingNorm">The category boundary Iv 
         /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
-        /// <param name="detailedAssessmentResultForSignalingNorm">The category IIv - IIIv 
+        /// <param name="detailedAssessmentResultForSignalingNorm">The category boundary IIv 
         /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
-        /// <param name="detailedAssessmentResultForMechanismSpecificLowerLimitNorm">TThe category IIIv - IVv 
+        /// <param name="detailedAssessmentResultForMechanismSpecificLowerLimitNorm">TThe category boundary IIIv 
         /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
-        /// <param name="detailedAssessmentResultForLowerLimitNorm">The category IVv - Vv 
+        /// <param name="detailedAssessmentResultForLowerLimitNorm">The category boundary IVv
         /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
-        /// <param name="detailedAssessmentResultForFactorizedLowerLimitNorm">The category Vv - VIv 
+        /// <param name="detailedAssessmentResultForFactorizedLowerLimitNorm">The category boundary Vv
         /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when

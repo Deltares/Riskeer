@@ -92,27 +92,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public double DetailedAssessmentFailureMechanismContribution { get; private set; }
 
         /// <summary>
-        /// Gets the detailed assessment result input for cat Iv - IIv.
+        /// Gets the detailed assessment result input for category boundary Iv.
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedSignalingNormInput { get; private set; }
 
         /// <summary>
-        /// Gets the detailed assessment result input for cat IIv - IIIv.
+        /// Gets the detailed assessment result input for category boundary IIv.
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForSignalingNormInput { get; private set; }
 
         /// <summary>
-        /// Gets the detailed assessment result input for cat IIIv - IVv.
+        /// Gets the detailed assessment result input for category boundary IIIv.
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNormInput { get; private set; }
 
         /// <summary>
-        /// Gets the detailed assessment result input for cat IVv - Vv.
+        /// Gets the detailed assessment result input for category boundary IVv.
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForLowerLimitNormInput { get; private set; }
 
         /// <summary>
-        /// Gets the detailed assessment result input for cat Vv - VIv.
+        /// Gets the detailed assessment result input for category boundary Vv.
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNormInput { get; private set; }
 

@@ -429,7 +429,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. Iv - IIv", columnData.HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens Iv", columnData.HeaderText);
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
@@ -484,7 +484,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. IIv - IIIv", columnData.HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens IIv", columnData.HeaderText);
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
@@ -539,7 +539,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. IIIv - IVv", columnData.HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens IIIv", columnData.HeaderText);
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
@@ -594,7 +594,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. IVv - Vv", columnData.HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens IVv", columnData.HeaderText);
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
@@ -649,7 +649,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. Vv - VIv", columnData.HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens Vv", columnData.HeaderText);
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 

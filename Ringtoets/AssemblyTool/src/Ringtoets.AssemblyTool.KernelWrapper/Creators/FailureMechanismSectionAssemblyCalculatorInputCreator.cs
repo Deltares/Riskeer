@@ -149,15 +149,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// Creates a <see cref="FmSectionCategoryCompliancyResults"/> based on the given parameters.
         /// </summary>
         /// <param name="detailedAssessmentResultForFactorizedSignalingNorm">The <see cref="DetailedAssessmentResultType"/>
-        /// for category Iv - IIv.</param>
+        /// for category boundary Iv.</param>
         /// <param name="detailedAssessmentResultForSignalingNorm">The <see cref="DetailedAssessmentResultType"/> for category
-        /// IIv - IIIv.</param>
+        /// boundary IIv.</param>
         /// <param name="detailedAssessmentResultForMechanismSpecificLowerLimitNorm">The <see cref="DetailedAssessmentResultType"/>
-        /// result  for category IIIv - IVv.</param>
+        /// result  for category boundary IIIv.</param>
         /// <param name="detailedAssessmentResultForLowerLimitNorm">The <see cref="DetailedAssessmentResultType"/> for category
-        /// IVv - Vv.</param>
+        /// boundary IVv.</param>
         /// <param name="detailedAssessmentResultForFactorizedLowerLimitNorm">The <see cref="DetailedAssessmentResultType"/>
-        /// for category Vv - VIv.</param>
+        /// for category boundary Vv.</param>
         /// <returns>The created <see cref="FmSectionCategoryCompliancyResults"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when any parameter is an invalid
         /// <see cref="DetailedAssessmentResultType"/>.</exception>
