@@ -22,13 +22,14 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -106,6 +107,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             // Call
             TestDelegate call = () => new ClosingStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
+
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
@@ -115,7 +117,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenFormWithClosingStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new ObservableList<ClosingStructuresFailureMechanismSectionResult>()))
+            using (ShowFailureMechanismResultsView(new ClosingStructuresFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -161,6 +163,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.IsTrue(dataGridView.Columns[detailedAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[combinedAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[combinedAssemblyProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[useManualAssemblyProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[manualAssemblyProbabilityIndex].ReadOnly);
 
@@ -173,14 +176,15 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var results = new ObservableList<ClosingStructuresFailureMechanismSectionResult>
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
-            };
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+            });
 
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(results))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -252,6 +256,32 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
+        {
+            // Given
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+
+            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
+            sectionResult.UseManualAssemblyProbability = true;
+
+            // When
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                Assert.AreSame(sectionCalculator.ManualAssemblyAssemblyOutput, calculator.FailureMechanismSectionAssemblies.Single());
+            }
+        }
+
         [TestFixture]
         public class ClosingStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             ClosingStructuresFailureMechanismResultView,
@@ -271,18 +301,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 return new StructuresCalculation<ClosingStructuresInput>();
             }
-        }
-
-        private ClosingStructuresFailureMechanismResultView ShowFailureMechanismResultsView(
-            IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults)
-        {
-            var failureMechanismResultView = new ClosingStructuresFailureMechanismResultView(sectionResults,
-                                                                                             new ClosingStructuresFailureMechanism(),
-                                                                                             new AssessmentSectionStub());
-            testForm.Controls.Add(failureMechanismResultView);
-            testForm.Show();
-
-            return failureMechanismResultView;
         }
 
         private ClosingStructuresFailureMechanismResultView ShowFailureMechanismResultsView(ClosingStructuresFailureMechanism failureMechanism)

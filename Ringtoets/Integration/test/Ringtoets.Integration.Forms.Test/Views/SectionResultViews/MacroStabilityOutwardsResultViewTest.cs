@@ -19,16 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using System.Linq;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Controls;
@@ -59,18 +61,18 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         private const int manualAssemblyCategoryGroupIndex = 11;
         private const int columnCount = 12;
 
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
         {
-            // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            testForm = new Form();
+        }
 
-            // Call
-            TestDelegate call = () => new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
         }
 
         [Test]
@@ -101,18 +103,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreAdded()
         {
             // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>(),
-                                                                   new MacroStabilityOutwardsFailureMechanism(),
-                                                                   assessmentSection))
+            using (ShowFailureMechanismResultsView(new MacroStabilityOutwardsFailureMechanism()))
             {
-                form.Controls.Add(view);
-                form.Show();
-
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -159,7 +151,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
-                mocks.VerifyAll();
             }
         }
 
@@ -173,17 +164,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
             });
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             // Call
-            using (var form = new Form())
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
-                form.Controls.Add(view);
-                form.Show();
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
@@ -205,7 +189,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual("VIv", cells[combinedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual(false, cells[useManualAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
-                mocks.VerifyAll();
             }
         }
 
@@ -279,6 +262,32 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
+        {
+            // Given
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+
+            MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+
+            // When
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                                calculator.FailureMechanismSectionCategories.Single());
+            }
+        }
+
         [TestFixture]
         public class MacroStabilityOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             MacroStabilityOutwardsResultView,
@@ -288,7 +297,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             protected override MacroStabilityOutwardsResultView CreateResultView(MacroStabilityOutwardsFailureMechanism failureMechanism)
             {
-                return new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, new AssessmentSectionStub());
+                return new MacroStabilityOutwardsResultView(failureMechanism.SectionResults,
+                                                            failureMechanism,
+                                                            new AssessmentSectionStub());
             }
         }
 
@@ -296,6 +307,18 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             var control = (FailureMechanismAssemblyCategoryGroupControl) ((TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject).GetControlFromPosition(1, 0);
             return control;
+        }
+
+        private MacroStabilityOutwardsResultView ShowFailureMechanismResultsView(
+            MacroStabilityOutwardsFailureMechanism failureMechanism)
+        {
+            var failureMechanismResultView = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults,
+                                                                                  failureMechanism,
+                                                                                  new AssessmentSectionStub());
+            testForm.Controls.Add(failureMechanismResultView);
+            testForm.Show();
+
+            return failureMechanismResultView;
         }
 
         private static ErrorProvider GetWarningProvider(FailureMechanismAssemblyCategoryGroupControl control)

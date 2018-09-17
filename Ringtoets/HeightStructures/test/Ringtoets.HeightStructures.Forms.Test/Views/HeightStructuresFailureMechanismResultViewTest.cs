@@ -22,13 +22,14 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -116,7 +117,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenFormWithHeightStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new ObservableList<HeightStructuresFailureMechanismSectionResult>()))
+            using (ShowFailureMechanismResultsView(new HeightStructuresFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -162,6 +163,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Assert.IsTrue(dataGridView.Columns[detailedAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[combinedAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[combinedAssemblyProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[useManualAssemblyProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[manualAssemblyProbabilityIndex].ReadOnly);
 
@@ -174,14 +176,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var results = new ObservableList<HeightStructuresFailureMechanismSectionResult>
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
-            };
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+            });
 
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(results))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -253,6 +256,32 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
+        {
+            // Given
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+
+            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
+            sectionResult.UseManualAssemblyProbability = true;
+
+            // When
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                Assert.AreSame(sectionCalculator.ManualAssemblyAssemblyOutput, calculator.FailureMechanismSectionAssemblies.Single());
+            }
+        }
+
         [TestFixture]
         public class HeightStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             HeightStructuresFailureMechanismResultView,
@@ -272,18 +301,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             {
                 return new StructuresCalculation<HeightStructuresInput>();
             }
-        }
-
-        private HeightStructuresFailureMechanismResultView ShowFailureMechanismResultsView(
-            IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults)
-        {
-            var failureMechanismResultView = new HeightStructuresFailureMechanismResultView(sectionResults,
-                                                                                            new HeightStructuresFailureMechanism(),
-                                                                                            new AssessmentSectionStub());
-            testForm.Controls.Add(failureMechanismResultView);
-            testForm.Show();
-
-            return failureMechanismResultView;
         }
 
         private HeightStructuresFailureMechanismResultView ShowFailureMechanismResultsView(HeightStructuresFailureMechanism failureMechanism)

@@ -21,12 +21,14 @@
 
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.TestUtil;
@@ -54,6 +56,20 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         private const int manualAssemblyCategoryGroupIndex = 9;
         private const int columnCount = 10;
 
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -77,15 +93,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreAdded()
         {
             // Given
-            using (var form = new Form())
-            using (var view = new GrassCoverSlipOffOutwardsResultView(new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(),
-                                                                      new GrassCoverSlipOffOutwardsFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new GrassCoverSlipOffOutwardsFailureMechanism()))
             {
-                form.Controls.Add(view);
-
-                // When
-                form.Show();
-
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -140,12 +149,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             });
 
             // Call
-            using (var form = new Form())
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
-                form.Controls.Add(view);
-                form.Show();
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
@@ -224,6 +230,32 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             }
         }
 
+        [Test]
+        public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
+        {
+            // Given
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+
+            GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+
+            // When
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                                calculator.FailureMechanismSectionCategories.Single());
+            }
+        }
+
         [TestFixture]
         public class GrassCoverSlipOffOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             GrassCoverSlipOffOutwardsResultView,
@@ -236,6 +268,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 return new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults,
                                                                failureMechanism);
             }
+        }
+
+        private GrassCoverSlipOffOutwardsResultView ShowFailureMechanismResultsView(
+            GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
+        {
+            var failureMechanismResultView = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults,
+                                                                                     failureMechanism);
+            testForm.Controls.Add(failureMechanismResultView);
+            testForm.Show();
+
+            return failureMechanismResultView;
         }
 
         private static FailureMechanismAssemblyCategoryGroupControl GetFailureMechanismAssemblyControl()

@@ -21,12 +21,14 @@
 
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.TestUtil;
@@ -52,6 +54,20 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         private const int manualAssemblyCategoryGroupIndex = 7;
         private const int columnCount = 8;
 
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -75,13 +91,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreAdded()
         {
             // Given
-            using (var form = new Form())
-            using (var view = new WaterPressureAsphaltCoverResultView(new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>(),
-                                                                      new WaterPressureAsphaltCoverFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new WaterPressureAsphaltCoverFailureMechanism()))
             {
-                form.Controls.Add(view);
-                form.Show();
-
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -130,20 +141,18 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             });
 
             // Call
-            using (var form = new Form())
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
-                form.Controls.Add(view);
-                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                Assert.AreEqual(columnCount, dataGridView.ColumnCount);
+
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
 
                 DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual(TailorMadeAssessmentResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
@@ -211,6 +220,32 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             }
         }
 
+        [Test]
+        public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
+        {
+            // Given
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+
+            WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+
+            // When
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                                calculator.FailureMechanismSectionCategories.Single());
+            }
+        }
+
         [TestFixture]
         public class WaterPressureAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             WaterPressureAsphaltCoverResultView,
@@ -229,6 +264,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             var control = (FailureMechanismAssemblyCategoryGroupControl) ((TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject).GetControlFromPosition(1, 0);
             return control;
+        }
+
+        private WaterPressureAsphaltCoverResultView ShowFailureMechanismResultsView(
+            WaterPressureAsphaltCoverFailureMechanism failureMechanism)
+        {
+            var failureMechanismResultView = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults,
+                                                                                     failureMechanism);
+            testForm.Controls.Add(failureMechanismResultView);
+            testForm.Show();
+
+            return failureMechanismResultView;
         }
 
         private static ErrorProvider GetWarningProvider(FailureMechanismAssemblyCategoryGroupControl control)

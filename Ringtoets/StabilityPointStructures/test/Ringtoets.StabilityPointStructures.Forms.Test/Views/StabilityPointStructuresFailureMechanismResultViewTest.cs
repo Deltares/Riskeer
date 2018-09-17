@@ -22,13 +22,14 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -105,9 +106,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults,
-                                                                                             failureMechanism,
-                                                                                             null);
+            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -118,12 +117,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenFormWithStabilityPointStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>()))
+            using (ShowFailureMechanismResultsView(new StabilityPointStructuresFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(columnCount, dataGridView.ColumnCount);
+                Assert.AreEqual(13, dataGridView.ColumnCount);
+                Assert.IsTrue(dataGridView.Columns[detailedAssessmentProbabilityIndex].ReadOnly);
 
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentResultIndex]);
@@ -176,18 +176,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var results = new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
-            };
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+            });
 
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(results))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
-                // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
+                // Assert
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
 
@@ -255,6 +256,32 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
+        {
+            // Given
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+
+            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
+            sectionResult.UseManualAssemblyProbability = true;
+
+            // When
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                Assert.AreSame(sectionCalculator.ManualAssemblyAssemblyOutput, calculator.FailureMechanismSectionAssemblies.Single());
+            }
+        }
+
         [TestFixture]
         public class StabilityPointStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             StabilityPointStructuresFailureMechanismResultView,
@@ -274,18 +301,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             {
                 return new StructuresCalculation<StabilityPointStructuresInput>();
             }
-        }
-
-        private StabilityPointStructuresFailureMechanismResultView ShowFailureMechanismResultsView(
-            IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults)
-        {
-            var failureMechanismResultView = new StabilityPointStructuresFailureMechanismResultView(sectionResults,
-                                                                                                    new StabilityPointStructuresFailureMechanism(),
-                                                                                                    new AssessmentSectionStub());
-            testForm.Controls.Add(failureMechanismResultView);
-            testForm.Show();
-
-            return failureMechanismResultView;
         }
 
         private StabilityPointStructuresFailureMechanismResultView ShowFailureMechanismResultsView(StabilityPointStructuresFailureMechanism failureMechanism)

@@ -22,13 +22,14 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Controls;
@@ -58,6 +59,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int useManualAssemblyProbabilityIndex = 11;
         private const int manualAssemblyProbabilityIndex = 12;
         private const int columnCount = 13;
+
         private Form testForm;
 
         [SetUp]
@@ -73,22 +75,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new PipingFailureMechanismResultView(new ObservableList<PipingFailureMechanismSectionResult>(),
-                                                                           failureMechanism,
-                                                                           null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -96,10 +82,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            using (var view = new PipingFailureMechanismResultView(pipingFailureMechanism.SectionResults, pipingFailureMechanism, assessmentSection))
+            using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<PipingFailureMechanismSectionResult,
@@ -107,17 +93,30 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     PipingFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
-                Assert.AreSame(pipingFailureMechanism, view.FailureMechanism);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
 
             mocks.VerifyAll();
         }
 
         [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            // Call
+            TestDelegate call = () => new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         public void GivenFormWithPipingFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new ObservableList<PipingFailureMechanismSectionResult>()))
+            using (ShowFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -163,6 +162,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsTrue(dataGridView.Columns[detailedAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[combinedAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[combinedAssemblyProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[useManualAssemblyProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[manualAssemblyProbabilityIndex].ReadOnly);
 
@@ -175,14 +175,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var results = new ObservableList<PipingFailureMechanismSectionResult>
+            var failureMechanism = new PipingFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
-            };
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+            });
 
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(results))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -254,6 +255,32 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+
+            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
+            sectionResult.UseManualAssemblyProbability = true;
+
+            // When
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                Assert.AreSame(sectionCalculator.ManualAssemblyAssemblyOutput, calculator.FailureMechanismSectionAssemblies.Single());
+            }
+        }
+
         [TestFixture]
         public class PipingFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             PipingFailureMechanismResultView,
@@ -273,17 +300,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 return PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             }
-        }
-
-        private PipingFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<PipingFailureMechanismSectionResult> sectionResults)
-        {
-            var failureMechanismResultView = new PipingFailureMechanismResultView(sectionResults,
-                                                                                  new PipingFailureMechanism(),
-                                                                                  new AssessmentSectionStub());
-            testForm.Controls.Add(failureMechanismResultView);
-            testForm.Show();
-
-            return failureMechanismResultView;
         }
 
         private PipingFailureMechanismResultView ShowFailureMechanismResultsView(PipingFailureMechanism failureMechanism)

@@ -25,8 +25,11 @@ using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.TestUtil;
@@ -56,6 +59,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         private const int manualAssemblyCategoryGroupIndex = 13;
         private const int columnCount = 14;
 
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -79,16 +96,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            using (var form = new Form())
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            using (ShowFailureMechanismResultsView(new WaveImpactAsphaltCoverFailureMechanism()))
             {
-                form.Controls.Add(view);
-
-                // When
-                form.Show();
-
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -109,6 +118,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[useManualAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[manualAssemblyCategoryGroupIndex]);
 
+                Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens Iv", dataGridView.Columns[detailedAssessmentResultForFactorizedSignalingNormIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens IIv", dataGridView.Columns[detailedAssessmentResultForSignalingNormIndex].HeaderText);
@@ -139,13 +149,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             });
 
             // Call
-            using (var form = new Form())
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
-                form.Controls.Add(view);
-                form.Show();
-
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -227,6 +233,32 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
+        {
+            // Given
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+
+            WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
+            sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+
+            // When
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                Assert.AreEqual(categoryGroup, calculator.FailureMechanismSectionCategories.Single());
+            }
+        }
+
         [TestFixture]
         public class WaveImpactAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             WaveImpactAsphaltCoverFailureMechanismResultView,
@@ -245,6 +277,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         {
             var control = (FailureMechanismAssemblyCategoryGroupControl) ((TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject).GetControlFromPosition(1, 0);
             return control;
+        }
+
+        private WaveImpactAsphaltCoverFailureMechanismResultView ShowFailureMechanismResultsView(
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        {
+            var failureMechanismResultView = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults,
+                                                                                       failureMechanism);
+            testForm.Controls.Add(failureMechanismResultView);
+            testForm.Show();
+
+            return failureMechanismResultView;
         }
 
         private static ErrorProvider GetWarningProvider(FailureMechanismAssemblyCategoryGroupControl control)
