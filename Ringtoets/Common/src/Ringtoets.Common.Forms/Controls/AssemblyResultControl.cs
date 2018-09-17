@@ -61,6 +61,23 @@ namespace Ringtoets.Common.Forms.Controls
         }
 
         /// <summary>
+        /// Sets the warning message of the control.
+        /// </summary>
+        /// <param name="warningMessage">The warning message to set.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="warningMessage"/>
+        /// is <c>null</c>.</exception>
+        public void SetWarning(string warningMessage)
+        {
+            if (warningMessage == null)
+            {
+                throw new ArgumentNullException(nameof(warningMessage));
+            }
+
+            warningProvider.SetIconPadding(this, string.IsNullOrEmpty(errorProvider.GetError(this)) ? 4 : 24);
+            warningProvider.SetError(this, warningMessage);
+        }
+
+        /// <summary>
         /// Clears the error message of the control.
         /// </summary>
         public void ClearError()

@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
         {
             // Setup
             using (var form = new Form())
-            // Call
+                // Call
             using (var resultControl = new TestAssemblyResultControl())
             {
                 form.Controls.Add(resultControl);
@@ -64,6 +64,11 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 TestHelper.AssertImagesAreEqual(Resources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
+
+                ErrorProvider warningProvider = GetWarningProvider(resultControl);
+                TestHelper.AssertImagesAreEqual(Resources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
+                Assert.AreEqual(ErrorBlinkStyle.NeverBlink, warningProvider.BlinkStyle);
+                Assert.IsEmpty(warningProvider.GetError(resultControl));
             }
         }
 
@@ -83,33 +88,51 @@ namespace Ringtoets.Common.Forms.Test.Controls
         }
 
         [Test]
-        public void SetError_WithErrorMessage_SetsErrorMessageOnControl()
+        [TestCase("random error 123")]
+        [TestCase("")]
+        public void SetError_WithErrorMessage_SetsErrorMessageOnControl(string errorMessage)
         {
             // Setup
-            const string error = "random error 123";
             using (var resultControl = new TestAssemblyResultControl())
             {
                 // Call
-                resultControl.SetError(error);
+                resultControl.SetError(errorMessage);
 
                 // Assert
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
-                Assert.AreEqual(error, errorProvider.GetError(resultControl));
+                Assert.AreEqual(errorMessage, errorProvider.GetError(resultControl));
             }
         }
 
         [Test]
-        public void SetError_WithEmptyErrorMessage_SetsErrorMessageOnControl()
+        public void SetWarning_WarningMessageNull_ThrowsArgumentNullException()
         {
             // Setup
             using (var resultControl = new TestAssemblyResultControl())
             {
                 // Call
-                resultControl.SetError(string.Empty);
+                TestDelegate test = () => resultControl.SetWarning(null);
 
                 // Assert
-                ErrorProvider errorProvider = GetErrorProvider(resultControl);
-                Assert.IsEmpty(errorProvider.GetError(resultControl));
+                var exception = Assert.Throws<ArgumentNullException>(test);
+                Assert.AreEqual("warningMessage", exception.ParamName);
+            }
+        }
+
+        [Test]
+        [TestCase("random warning 123")]
+        [TestCase("")]
+        public void SetWarning_WithWarningMessage_SetsWarningMessageOnControl(string warningMessage)
+        {
+            // Setup
+            using (var resultControl = new TestAssemblyResultControl())
+            {
+                // Call
+                resultControl.SetWarning(warningMessage);
+
+                // Assert
+                ErrorProvider warningProvider = GetWarningProvider(resultControl);
+                Assert.AreEqual(warningMessage, warningProvider.GetError(resultControl));
             }
         }
 
@@ -147,9 +170,40 @@ namespace Ringtoets.Common.Forms.Test.Controls
             }
         }
 
+        [Test]
+        [TestCase(true, 24)]
+        [TestCase(false, 4)]
+        public void GivenControlWithOrWithoutErrorMessage_WhenSetWarning_ThenWarningSetWithExpectedPadding(bool hasError, int expectedPadding)
+        {
+            // Given
+            using (var resultControl = new TestAssemblyResultControl())
+            {
+                if (hasError)
+                {
+                    resultControl.SetError("Error");
+                }
+
+                // Precondition
+                ErrorProvider errorProvider = GetErrorProvider(resultControl);
+                Assert.AreEqual(hasError, !string.IsNullOrEmpty(errorProvider.GetError(resultControl)));
+
+                // When
+                resultControl.SetWarning("Warning");
+
+                // Then
+                ErrorProvider warningProvider = GetWarningProvider(resultControl);
+                Assert.AreEqual(expectedPadding, warningProvider.GetIconPadding(resultControl));
+            }
+        }
+
         private static ErrorProvider GetErrorProvider(AssemblyResultControl resultControl)
         {
             return TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
+        }
+
+        private static ErrorProvider GetWarningProvider(AssemblyResultControl resultControl)
+        {
+            return TypeUtils.GetField<ErrorProvider>(resultControl, "warningProvider");
         }
 
         private static TableLayoutPanel GetGroupPanel(AssemblyResultControl resultControl)

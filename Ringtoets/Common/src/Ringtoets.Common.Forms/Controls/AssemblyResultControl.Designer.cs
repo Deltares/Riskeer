@@ -56,6 +56,7 @@ namespace Ringtoets.Common.Forms.Controls
             this.GroupPanel = new System.Windows.Forms.TableLayoutPanel();
             this.GroupLabel = new Core.Common.Controls.BorderedLabel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.GroupPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -94,6 +95,12 @@ namespace Ringtoets.Common.Forms.Controls
             this.errorProvider.ContainerControl = this;
             this.errorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.ErrorIcon;
             // 
+            // warningProvider
+            // 
+            this.warningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.warningProvider.ContainerControl = this;
+            this.warningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
+            // 
             // AssemblyResultControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -105,6 +112,7 @@ namespace Ringtoets.Common.Forms.Controls
             this.GroupPanel.ResumeLayout(false);
             this.GroupPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,6 +121,7 @@ namespace Ringtoets.Common.Forms.Controls
         #endregion
         protected System.Windows.Forms.TableLayoutPanel GroupPanel;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.ErrorProvider warningProvider;
         protected BorderedLabel GroupLabel;
     }
 }
