@@ -50,10 +50,12 @@ namespace Ringtoets.Integration.Data.Assembly
         /// </summary>
         /// <param name="assessmentSection">The assessment section to use.</param>
         /// <param name="failureMechanisms">The failure mechanisms to build input for.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
         /// <returns>A collection of <see cref="CombinedAssemblyFailureMechanismSection"/> collections.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> CreateInput(AssessmentSection assessmentSection,
-                                                                                                    IEnumerable<IFailureMechanism> failureMechanisms)
+                                                                                                    IEnumerable<IFailureMechanism> failureMechanisms,
+                                                                                                    bool useManual)
         {
             if (assessmentSection == null)
             {
@@ -71,126 +73,126 @@ namespace Ringtoets.Integration.Data.Assembly
             if (failureMechanisms.Contains(pipingFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(pipingFailureMechanism.SectionResults,
-                                                  assessmentSection, PipingAssemblyFunc));
+                                                  assessmentSection, PipingAssemblyFunc, useManual));
             }
 
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             if (failureMechanisms.Contains(grassCoverErosionInwardsFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(grassCoverErosionInwardsFailureMechanism.SectionResults,
-                                                  assessmentSection, GrassCoverErosionInwardsAssemblyFunc));
+                                                  assessmentSection, GrassCoverErosionInwardsAssemblyFunc, useManual));
             }
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             if (failureMechanisms.Contains(macroStabilityInwardsFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(macroStabilityInwardsFailureMechanism.SectionResults,
-                                                  assessmentSection, MacroStabilityInwardsAssemblyFunc));
+                                                  assessmentSection, MacroStabilityInwardsAssemblyFunc, useManual));
             }
 
             MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
             if (failureMechanisms.Contains(macroStabilityOutwardsFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(macroStabilityOutwardsFailureMechanism.SectionResults,
-                                                  assessmentSection, MacroStabilityOutwardsAssemblyFunc));
+                                                  assessmentSection, MacroStabilityOutwardsAssemblyFunc, useManual));
             }
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             if (failureMechanisms.Contains(microstabilityFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(microstabilityFailureMechanism.SectionResults,
-                                                  MicrostabilityAssemblyFunc));
+                                                  MicrostabilityAssemblyFunc, useManual));
             }
 
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
             if (failureMechanisms.Contains(stabilityStoneCoverFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(stabilityStoneCoverFailureMechanism.SectionResults,
-                                                  StabilityStoneCoverAssemblyFunc));
+                                                  StabilityStoneCoverAssemblyFunc, useManual));
             }
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             if (failureMechanisms.Contains(waveImpactAsphaltCoverFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(waveImpactAsphaltCoverFailureMechanism.SectionResults,
-                                                  WaveImpactAsphaltCoverAssemblyFunc));
+                                                  WaveImpactAsphaltCoverAssemblyFunc, useManual));
             }
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
             if (failureMechanisms.Contains(waterPressureAsphaltCoverFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(waterPressureAsphaltCoverFailureMechanism.SectionResults,
-                                                  WaterPressureAsphaltCoverAssemblyFunc));
+                                                  WaterPressureAsphaltCoverAssemblyFunc, useManual));
             }
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             if (failureMechanisms.Contains(grassCoverErosionOutwardsFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(grassCoverErosionOutwardsFailureMechanism.SectionResults,
-                                                  GrassCoverErosionOutwardsAssemblyFunc));
+                                                  GrassCoverErosionOutwardsAssemblyFunc, useManual));
             }
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             if (failureMechanisms.Contains(grassCoverSlipOffOutwardsFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(grassCoverSlipOffOutwardsFailureMechanism.SectionResults,
-                                                  GrassCoverSlipOffOutwardsAssemblyFunc));
+                                                  GrassCoverSlipOffOutwardsAssemblyFunc, useManual));
             }
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
             if (failureMechanisms.Contains(grassCoverSlipOffInwardsFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(grassCoverSlipOffInwardsFailureMechanism.SectionResults,
-                                                  GrassCoverSlipOffInwardsAssemblyFunc));
+                                                  GrassCoverSlipOffInwardsAssemblyFunc, useManual));
             }
 
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
             if (failureMechanisms.Contains(heightStructuresFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(heightStructuresFailureMechanism.SectionResults,
-                                                  assessmentSection, HeightStructuresAssemblyFunc));
+                                                  assessmentSection, HeightStructuresAssemblyFunc, useManual));
             }
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             if (failureMechanisms.Contains(closingStructuresFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(closingStructuresFailureMechanism.SectionResults,
-                                                  assessmentSection, ClosingStructuresAssemblyFunc));
+                                                  assessmentSection, ClosingStructuresAssemblyFunc, useManual));
             }
 
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             if (failureMechanisms.Contains(pipingStructureFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(pipingStructureFailureMechanism.SectionResults,
-                                                  PipingStructureAssemblyFunc));
+                                                  PipingStructureAssemblyFunc, useManual));
             }
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             if (failureMechanisms.Contains(stabilityPointStructuresFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(stabilityPointStructuresFailureMechanism.SectionResults,
-                                                  assessmentSection, StabilityPointStructuresAssemblyFunc));
+                                                  assessmentSection, StabilityPointStructuresAssemblyFunc, useManual));
             }
 
             StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
             if (failureMechanisms.Contains(strengthStabilityLengthwiseConstructionFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(strengthStabilityLengthwiseConstructionFailureMechanism.SectionResults,
-                                                  StrengthStabilityLengthwiseConstructionAssemblyFunc));
+                                                  StrengthStabilityLengthwiseConstructionAssemblyFunc, useManual));
             }
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             if (failureMechanisms.Contains(duneErosionFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(duneErosionFailureMechanism.SectionResults,
-                                                  DuneErosionAssemblyFunc));
+                                                  DuneErosionAssemblyFunc, useManual));
             }
 
             TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
             if (failureMechanisms.Contains(technicalInnovationFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(technicalInnovationFailureMechanism.SectionResults,
-                                                  TechnicalInnovationAssemblyFunc));
+                                                  TechnicalInnovationAssemblyFunc, useManual));
             }
 
             return inputs;
@@ -199,14 +201,19 @@ namespace Ringtoets.Integration.Data.Assembly
         private static IEnumerable<CombinedAssemblyFailureMechanismSection> CreateCombinedSections<TFailureMechanismSectionResult>(
             IEnumerable<TFailureMechanismSectionResult> sectionResults,
             AssessmentSection assessmentSection,
-            Func<TFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> getAssemblyFunc)
+            Func<TFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> getAssemblyFunc,
+            bool useManual)
             where TFailureMechanismSectionResult : FailureMechanismSectionResult
         {
             double totalSectionsLength = 0;
 
             return sectionResults.Select(sectionResult =>
                                  {
-                                     CombinedAssemblyFailureMechanismSection section = CreateSection(sectionResult, getAssemblyFunc(sectionResult, assessmentSection), totalSectionsLength);
+                                     CombinedAssemblyFailureMechanismSection section = CreateSection(sectionResult,
+                                                                                                     getAssemblyFunc(sectionResult,
+                                                                                                                     assessmentSection,
+                                                                                                                     useManual),
+                                                                                                     totalSectionsLength);
                                      totalSectionsLength = section.SectionEnd;
                                      return section;
                                  })
@@ -215,14 +222,15 @@ namespace Ringtoets.Integration.Data.Assembly
 
         private static IEnumerable<CombinedAssemblyFailureMechanismSection> CreateCombinedSections<TFailureMechanismSectionResult>(
             IEnumerable<TFailureMechanismSectionResult> sectionResults,
-            Func<TFailureMechanismSectionResult, FailureMechanismSectionAssemblyCategoryGroup> getAssemblyFunc)
+            Func<TFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> getAssemblyFunc,
+            bool useManual)
             where TFailureMechanismSectionResult : FailureMechanismSectionResult
         {
             double totalSectionsLength = 0;
 
             return sectionResults.Select(sectionResult =>
                                  {
-                                     CombinedAssemblyFailureMechanismSection section = CreateSection(sectionResult, getAssemblyFunc(sectionResult), totalSectionsLength);
+                                     CombinedAssemblyFailureMechanismSection section = CreateSection(sectionResult, getAssemblyFunc(sectionResult, useManual), totalSectionsLength);
                                      totalSectionsLength = section.SectionEnd;
                                      return section;
                                  })
@@ -240,43 +248,43 @@ namespace Ringtoets.Integration.Data.Assembly
 
         #region Assembly Funcs
 
-        private static Func<PipingFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> PipingAssemblyFunc
+        private static Func<PipingFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> PipingAssemblyFunc
         {
             get
             {
-                return (sectionResult, assessmentSection) => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult, assessmentSection.Piping, assessmentSection);
+                return (sectionResult, assessmentSection, useManual) => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.Piping, assessmentSection, useManual);
             }
         }
 
-        private static Func<GrassCoverErosionInwardsFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverErosionInwardsAssemblyFunc
+        private static Func<GrassCoverErosionInwardsFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverErosionInwardsAssemblyFunc
         {
             get
             {
-                return (sectionResult, assessmentSection) => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+                return (sectionResult, assessmentSection, useManual) => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.GrassCoverErosionInwards, assessmentSection, useManual);
             }
         }
 
-        private static Func<MacroStabilityInwardsFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> MacroStabilityInwardsAssemblyFunc
+        private static Func<MacroStabilityInwardsFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> MacroStabilityInwardsAssemblyFunc
         {
             get
             {
-                return (sectionResult, assessmentSection) => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult, assessmentSection.MacroStabilityInwards, assessmentSection);
+                return (sectionResult, assessmentSection, useManual) => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.MacroStabilityInwards, assessmentSection, useManual);
             }
         }
 
-        private static Func<MacroStabilityOutwardsFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> MacroStabilityOutwardsAssemblyFunc
+        private static Func<MacroStabilityOutwardsFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> MacroStabilityOutwardsAssemblyFunc
         {
             get
             {
-                return (sectionResult, assessmentSection) => MacroStabilityOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult, assessmentSection.MacroStabilityOutwards, assessmentSection);
+                return (sectionResult, assessmentSection, useManual) => MacroStabilityOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.MacroStabilityOutwards, assessmentSection, useManual);
             }
         }
 
-        private static Func<MicrostabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyCategoryGroup> MicrostabilityAssemblyFunc
+        private static Func<MicrostabilityFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> MicrostabilityAssemblyFunc
         {
             get
             {
@@ -284,7 +292,7 @@ namespace Ringtoets.Integration.Data.Assembly
             }
         }
 
-        private static Func<StabilityStoneCoverFailureMechanismSectionResult, FailureMechanismSectionAssemblyCategoryGroup> StabilityStoneCoverAssemblyFunc
+        private static Func<StabilityStoneCoverFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> StabilityStoneCoverAssemblyFunc
         {
             get
             {
@@ -292,7 +300,7 @@ namespace Ringtoets.Integration.Data.Assembly
             }
         }
 
-        private static Func<WaveImpactAsphaltCoverFailureMechanismSectionResult, FailureMechanismSectionAssemblyCategoryGroup> WaveImpactAsphaltCoverAssemblyFunc
+        private static Func<WaveImpactAsphaltCoverFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> WaveImpactAsphaltCoverAssemblyFunc
         {
             get
             {
@@ -300,7 +308,7 @@ namespace Ringtoets.Integration.Data.Assembly
             }
         }
 
-        private static Func<WaterPressureAsphaltCoverFailureMechanismSectionResult, FailureMechanismSectionAssemblyCategoryGroup> WaterPressureAsphaltCoverAssemblyFunc
+        private static Func<WaterPressureAsphaltCoverFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> WaterPressureAsphaltCoverAssemblyFunc
         {
             get
             {
@@ -308,7 +316,7 @@ namespace Ringtoets.Integration.Data.Assembly
             }
         }
 
-        private static Func<GrassCoverErosionOutwardsFailureMechanismSectionResult, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverErosionOutwardsAssemblyFunc
+        private static Func<GrassCoverErosionOutwardsFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverErosionOutwardsAssemblyFunc
         {
             get
             {
@@ -316,7 +324,7 @@ namespace Ringtoets.Integration.Data.Assembly
             }
         }
 
-        private static Func<GrassCoverSlipOffOutwardsFailureMechanismSectionResult, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverSlipOffOutwardsAssemblyFunc
+        private static Func<GrassCoverSlipOffOutwardsFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverSlipOffOutwardsAssemblyFunc
         {
             get
             {
@@ -324,7 +332,7 @@ namespace Ringtoets.Integration.Data.Assembly
             }
         }
 
-        private static Func<GrassCoverSlipOffInwardsFailureMechanismSectionResult, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverSlipOffInwardsAssemblyFunc
+        private static Func<GrassCoverSlipOffInwardsFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverSlipOffInwardsAssemblyFunc
         {
             get
             {
@@ -332,25 +340,25 @@ namespace Ringtoets.Integration.Data.Assembly
             }
         }
 
-        private static Func<HeightStructuresFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> HeightStructuresAssemblyFunc
+        private static Func<HeightStructuresFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> HeightStructuresAssemblyFunc
         {
             get
             {
-                return (sectionResult, assessmentSection) => HeightStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult, assessmentSection.HeightStructures, assessmentSection);
+                return (sectionResult, assessmentSection, useManual) => HeightStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.HeightStructures, assessmentSection, useManual);
             }
         }
 
-        private static Func<ClosingStructuresFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> ClosingStructuresAssemblyFunc
+        private static Func<ClosingStructuresFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> ClosingStructuresAssemblyFunc
         {
             get
             {
-                return (sectionResult, assessmentSection) => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult, assessmentSection.ClosingStructures, assessmentSection);
+                return (sectionResult, assessmentSection, useManual) => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.ClosingStructures, assessmentSection, useManual);
             }
         }
 
-        private static Func<PipingStructureFailureMechanismSectionResult, FailureMechanismSectionAssemblyCategoryGroup> PipingStructureAssemblyFunc
+        private static Func<PipingStructureFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> PipingStructureAssemblyFunc
         {
             get
             {
@@ -358,16 +366,16 @@ namespace Ringtoets.Integration.Data.Assembly
             }
         }
 
-        private static Func<StabilityPointStructuresFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> StabilityPointStructuresAssemblyFunc
+        private static Func<StabilityPointStructuresFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> StabilityPointStructuresAssemblyFunc
         {
             get
             {
-                return (sectionResult, assessmentSection) => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult, assessmentSection.StabilityPointStructures, assessmentSection);
+                return (sectionResult, assessmentSection, useManual) => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.StabilityPointStructures, assessmentSection, useManual);
             }
         }
 
-        private static Func<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, FailureMechanismSectionAssemblyCategoryGroup> StrengthStabilityLengthwiseConstructionAssemblyFunc
+        private static Func<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> StrengthStabilityLengthwiseConstructionAssemblyFunc
         {
             get
             {
@@ -375,7 +383,7 @@ namespace Ringtoets.Integration.Data.Assembly
             }
         }
 
-        private static Func<DuneErosionFailureMechanismSectionResult, FailureMechanismSectionAssemblyCategoryGroup> DuneErosionAssemblyFunc
+        private static Func<DuneErosionFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> DuneErosionAssemblyFunc
         {
             get
             {
@@ -383,7 +391,7 @@ namespace Ringtoets.Integration.Data.Assembly
             }
         }
 
-        private static Func<TechnicalInnovationFailureMechanismSectionResult, FailureMechanismSectionAssemblyCategoryGroup> TechnicalInnovationAssemblyFunc
+        private static Func<TechnicalInnovationFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> TechnicalInnovationAssemblyFunc
         {
             get
             {
