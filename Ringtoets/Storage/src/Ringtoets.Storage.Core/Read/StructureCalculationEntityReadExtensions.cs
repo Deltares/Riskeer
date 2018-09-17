@@ -69,7 +69,6 @@ namespace Ringtoets.Storage.Core.Read
             }
 
             inputToUpdate.StructureNormalOrientation = (RoundedDouble) entity.StructureNormalOrientation.ToNullAsNaN();
-            inputToUpdate.ModelFactorSuperCriticalFlow.Mean = (RoundedDouble) entity.ModelFactorSuperCriticalFlowMean.ToNullAsNaN();
             inputToUpdate.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) entity.AllowedLevelIncreaseStorageMean.ToNullAsNaN();
             inputToUpdate.AllowedLevelIncreaseStorage.StandardDeviation = (RoundedDouble) entity.AllowedLevelIncreaseStorageStandardDeviation.ToNullAsNaN();
             inputToUpdate.StorageStructureArea.Mean = (RoundedDouble) entity.StorageStructureAreaMean.ToNullAsNaN();

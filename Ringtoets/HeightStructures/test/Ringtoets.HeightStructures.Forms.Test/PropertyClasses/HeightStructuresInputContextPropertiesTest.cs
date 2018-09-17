@@ -76,7 +76,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithoutData_ExpectedValues()
+        public void Constructor_WithoutData_ThrowsArgumentNullException()
         {
             // Setup
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
@@ -91,7 +91,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithoutHandler_ExpectedValues()
+        public void Constructor_WithoutHandler_ThrowsArgumentNullException()
         {
             // Setup
             mockRepository.ReplayAll();
@@ -113,7 +113,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidData_ExpectedValues()
+        public void Constructor_WithData_ExpectedValues()
         {
             // Setup
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
@@ -136,10 +136,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreSame(inputContext, properties.Data);
 
             HeightStructuresInput input = calculation.InputParameters;
+            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
 
             TestHelper.AssertTypeConverter<HeightStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
                 nameof(HeightStructuresInputContextProperties.FailureProbabilityStructureWithErosion));
+
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ModelFactorSuperCriticalFlow, false, true);
 
             mockRepository.VerifyAll();
         }
@@ -162,19 +165,27 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var properties = new HeightStructuresInputContextProperties(inputContext, handler);
 
             // Assert
+            const string modelSettingsCategory = "Modelinstellingen";
             const string schematizationCategory = "Schematisatie";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(17, dynamicProperties.Count);
 
+            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Modelfactor overloopdebiet volkomen overlaat [-]",
+                                                                            "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
+                                                                            true);
+
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                levelCrestStructureProperty,
-                schematizationCategory,
-                "Kerende hoogte [m+NAP]",
-                "Kerende hoogte van het kunstwerk.",
-                true);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(levelCrestStructureProperty,
+                                                                            schematizationCategory,
+                                                                            "Kerende hoogte [m+NAP]",
+                                                                            "Kerende hoogte van het kunstwerk.",
+                                                                            true);
 
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[structurePropertyIndex].DisplayName);
@@ -186,7 +197,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[allowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[criticalOvertoppingDischargePropertyIndex].DisplayName);
             Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[foreshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[useBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[useForeshorePropertyIndex].DisplayName);
@@ -322,6 +332,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObservablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotificationsAndOutput(
+                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
         }
 
         [Test]

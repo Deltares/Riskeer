@@ -142,9 +142,6 @@ namespace Ringtoets.Common.IO.Configurations.Export
                                            ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName,
                                            configuration.CriticalOvertoppingDischarge);
             WriteDistributionWhenAvailable(writer,
-                                           ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
-                                           configuration.ModelFactorSuperCriticalFlow);
-            WriteDistributionWhenAvailable(writer,
                                            ConfigurationSchemaIdentifiers.AllowedLevelIncreaseStorageStochastName,
                                            configuration.AllowedLevelIncreaseStorage);
             WriteDistributionWhenAvailable(writer,

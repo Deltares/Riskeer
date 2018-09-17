@@ -454,9 +454,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             Assert.AreEqual(1e-5, calculation.ProbabilityCollisionSecondaryStructure);
 
-            Assert.AreEqual(0.10, calculation.ModelFactorSuperCriticalFlow.Mean);
-            Assert.AreEqual(0.12, calculation.ModelFactorSuperCriticalFlow.StandardDeviation);
-
             Assert.AreEqual(1.2, calculation.ShipVelocity.Mean);
             Assert.AreEqual(0.1, calculation.ShipVelocity.VariationCoefficient);
 
@@ -550,7 +547,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.LevellingCount);
             Assert.IsNull(calculation.LoadSchematizationType);
             Assert.IsNull(calculation.ProbabilityCollisionSecondaryStructure);
-            Assert.IsNull(calculation.ModelFactorSuperCriticalFlow);
             Assert.IsNull(calculation.ShipVelocity);
             Assert.IsNull(calculation.ShipMass);
             Assert.IsNull(calculation.StabilityQuadraticLoadModel);
@@ -590,7 +586,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.InsideWaterLevel);
             Assert.IsNull(calculation.InsideWaterLevelFailureConstruction);
             Assert.IsNull(calculation.LevelCrestStructure);
-            Assert.IsNull(calculation.ModelFactorSuperCriticalFlow);
             Assert.IsNull(calculation.ShipVelocity);
             Assert.IsNull(calculation.ShipMass);
             Assert.IsNull(calculation.StabilityLinearLoadModel);
@@ -657,8 +652,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.InsideWaterLevelFailureConstruction.StandardDeviation);
             Assert.IsNull(calculation.LevelCrestStructure.Mean);
             Assert.IsNull(calculation.LevelCrestStructure.StandardDeviation);
-            Assert.IsNull(calculation.ModelFactorSuperCriticalFlow.Mean);
-            Assert.IsNull(calculation.ModelFactorSuperCriticalFlow.StandardDeviation);
             Assert.IsNull(calculation.ShipVelocity.Mean);
             Assert.IsNull(calculation.ShipVelocity.VariationCoefficient);
             Assert.IsNull(calculation.ShipMass.Mean);
@@ -756,9 +749,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
 
             Assert.That(double.IsNegativeInfinity(calculation.ProbabilityCollisionSecondaryStructure.Value));
 
-            Assert.That(double.IsPositiveInfinity(calculation.ModelFactorSuperCriticalFlow.Mean.Value));
-            Assert.That(double.IsNegativeInfinity(calculation.ModelFactorSuperCriticalFlow.StandardDeviation.Value));
-
             Assert.That(double.IsPositiveInfinity(calculation.ShipVelocity.Mean.Value));
             Assert.That(double.IsNegativeInfinity(calculation.ShipVelocity.VariationCoefficient.Value));
 
@@ -853,9 +843,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNaN(calculation.LevelCrestStructure.StandardDeviation);
 
             Assert.IsNaN(calculation.ProbabilityCollisionSecondaryStructure);
-
-            Assert.IsNaN(calculation.ModelFactorSuperCriticalFlow.Mean);
-            Assert.IsNaN(calculation.ModelFactorSuperCriticalFlow.StandardDeviation);
 
             Assert.IsNaN(calculation.ShipVelocity.Mean);
             Assert.IsNaN(calculation.ShipVelocity.VariationCoefficient);

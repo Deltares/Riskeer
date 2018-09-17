@@ -779,10 +779,6 @@ namespace Ringtoets.Storage.Core.Test.Create
                         Mean = random.NextRoundedDouble(),
                         CoefficientOfVariation = random.NextRoundedDouble()
                     },
-                    ModelFactorSuperCriticalFlow =
-                    {
-                        Mean = random.NextRoundedDouble()
-                    },
                     WidthFlowApertures =
                     {
                         Mean = random.NextRoundedDouble(),
@@ -905,7 +901,6 @@ namespace Ringtoets.Storage.Core.Test.Create
             Assert.AreEqual(inputParameters.FlowWidthAtBottomProtection.StandardDeviation.Value, entity.FlowWidthAtBottomProtectionStandardDeviation);
             Assert.AreEqual(inputParameters.CriticalOvertoppingDischarge.Mean.Value, entity.CriticalOvertoppingDischargeMean);
             Assert.AreEqual(inputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation.Value, entity.CriticalOvertoppingDischargeCoefficientOfVariation);
-            Assert.AreEqual(inputParameters.ModelFactorSuperCriticalFlow.Mean.Value, entity.ModelFactorSuperCriticalFlowMean);
             Assert.AreEqual(inputParameters.WidthFlowApertures.Mean.Value, entity.WidthFlowAperturesMean);
             Assert.AreEqual(inputParameters.WidthFlowApertures.StandardDeviation.Value, entity.WidthFlowAperturesStandardDeviation);
 
@@ -989,10 +984,6 @@ namespace Ringtoets.Storage.Core.Test.Create
                     {
                         Mean = RoundedDouble.NaN,
                         CoefficientOfVariation = RoundedDouble.NaN
-                    },
-                    ModelFactorSuperCriticalFlow =
-                    {
-                        Mean = RoundedDouble.NaN
                     },
                     WidthFlowApertures =
                     {
@@ -1099,7 +1090,6 @@ namespace Ringtoets.Storage.Core.Test.Create
             Assert.IsNull(entity.FlowWidthAtBottomProtectionStandardDeviation);
             Assert.IsNull(entity.CriticalOvertoppingDischargeMean);
             Assert.IsNull(entity.CriticalOvertoppingDischargeCoefficientOfVariation);
-            Assert.IsNull(entity.ModelFactorSuperCriticalFlowMean);
             Assert.IsNull(entity.WidthFlowAperturesMean);
             Assert.IsNull(entity.WidthFlowAperturesStandardDeviation);
 

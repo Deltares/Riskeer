@@ -51,11 +51,6 @@ namespace Ringtoets.Common.IO.Configurations
         public string HydraulicBoundaryLocationName { get; set; }
 
         /// <summary>
-        /// Gets or sets the stochast configuration for the model factor super critical flow.
-        /// </summary>
-        public StochastConfiguration ModelFactorSuperCriticalFlow { get; set; }
-
-        /// <summary>
         /// Gets or sets the stochast configuration for the storm duration.
         /// </summary>
         public StochastConfiguration StormDuration { get; set; }

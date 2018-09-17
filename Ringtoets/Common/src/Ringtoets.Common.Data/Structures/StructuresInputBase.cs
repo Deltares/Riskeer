@@ -44,7 +44,6 @@ namespace Ringtoets.Common.Data.Structures
         private static readonly Range<RoundedDouble> structureNormalOrientationValidityRange = new Range<RoundedDouble>(new RoundedDouble(structureNormalOrientationNumberOfDecimals),
                                                                                                                         new RoundedDouble(structureNormalOrientationNumberOfDecimals, 360));
 
-        private NormalDistribution modelFactorSuperCriticalFlow;
         private LogNormalDistribution allowedLevelIncreaseStorage;
         private VariationCoefficientLogNormalDistribution storageStructureArea;
         private LogNormalDistribution flowWidthAtBottomProtection;
@@ -63,12 +62,6 @@ namespace Ringtoets.Common.Data.Structures
         /// </summary>
         protected StructuresInputBase()
         {
-            modelFactorSuperCriticalFlow = new NormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1.1,
-                StandardDeviation = (RoundedDouble) 0.03
-            };
-
             stormDuration = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 6.0,
@@ -86,26 +79,6 @@ namespace Ringtoets.Common.Data.Structures
             SetDefaultCommonStructureSchematizationProperties();
             SynchronizeForeshoreProfileInput();
         }
-
-        #region Model factors
-
-        /// <summary>
-        /// Gets or sets the model factor for the super critical flow.
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public NormalDistribution ModelFactorSuperCriticalFlow
-        {
-            get
-            {
-                return modelFactorSuperCriticalFlow;
-            }
-            set
-            {
-                modelFactorSuperCriticalFlow.Mean = value.Mean;
-            }
-        }
-
-        #endregion
 
         /// <summary>
         /// Gets the value <c>true</c> if the parameters of the instance of
@@ -153,7 +126,6 @@ namespace Ringtoets.Common.Data.Structures
         {
             var clone = (StructuresInputBase<T>) base.Clone();
 
-            clone.modelFactorSuperCriticalFlow = (NormalDistribution) ModelFactorSuperCriticalFlow.Clone();
             clone.allowedLevelIncreaseStorage = (LogNormalDistribution) AllowedLevelIncreaseStorage.Clone();
             clone.storageStructureArea = (VariationCoefficientLogNormalDistribution) StorageStructureArea.Clone();
             clone.flowWidthAtBottomProtection = (LogNormalDistribution) FlowWidthAtBottomProtection.Clone();

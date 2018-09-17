@@ -50,6 +50,7 @@ namespace Ringtoets.Storage.Core.DbContext
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
+        public double? ModelFactorSuperCriticalFlowMean { get; set; }
         public double? LevelCrestStructureMean { get; set; }
         public double? LevelCrestStructureStandardDeviation { get; set; }
         public double? DeviationWaveDirection { get; set; }
@@ -63,7 +64,6 @@ namespace Ringtoets.Storage.Core.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
 
-        public double? ModelFactorSuperCriticalFlowMean { get; set; }
         public double? StructureNormalOrientation { get; set; }
         public double? AllowedLevelIncreaseStorageMean { get; set; }
         public double? AllowedLevelIncreaseStorageStandardDeviation { get; set; }

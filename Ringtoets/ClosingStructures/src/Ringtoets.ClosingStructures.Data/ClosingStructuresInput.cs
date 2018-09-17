@@ -42,6 +42,7 @@ namespace Ringtoets.ClosingStructures.Data
         private static readonly Range<int> identicalAperturesValidityRange = new Range<int>(1, int.MaxValue);
 
         private NormalDistribution thresholdHeightOpenWeir;
+        private NormalDistribution modelFactorSuperCriticalFlow;
         private NormalDistribution drainCoefficient;
         private LogNormalDistribution areaFlowApertures;
         private NormalDistribution levelCrestStructureNotClosing;
@@ -65,6 +66,12 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.2
+            };
+
+            modelFactorSuperCriticalFlow = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 0.05
             };
 
             thresholdHeightOpenWeir = new NormalDistribution(2);
@@ -138,6 +145,7 @@ namespace Ringtoets.ClosingStructures.Data
             var clone = (ClosingStructuresInput) base.Clone();
 
             clone.thresholdHeightOpenWeir = (NormalDistribution) ThresholdHeightOpenWeir.Clone();
+            clone.modelFactorSuperCriticalFlow = (NormalDistribution) ModelFactorSuperCriticalFlow.Clone();
             clone.drainCoefficient = (NormalDistribution) DrainCoefficient.Clone();
             clone.areaFlowApertures = (LogNormalDistribution) AreaFlowApertures.Clone();
             clone.levelCrestStructureNotClosing = (NormalDistribution) LevelCrestStructureNotClosing.Clone();
@@ -224,6 +232,22 @@ namespace Ringtoets.ClosingStructures.Data
         #endregion
 
         #region Model factors
+
+        /// <summary>
+        /// Gets or sets the model factor for the super critical flow.
+        /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
+        public NormalDistribution ModelFactorSuperCriticalFlow
+        {
+            get
+            {
+                return modelFactorSuperCriticalFlow;
+            }
+            set
+            {
+                modelFactorSuperCriticalFlow.Mean = value.Mean;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the drain coefficient.

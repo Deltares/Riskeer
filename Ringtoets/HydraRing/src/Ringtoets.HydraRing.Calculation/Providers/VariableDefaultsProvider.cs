@@ -174,9 +174,6 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             63, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            64, new VariableDefaults(notApplicableCorrelationLength)
-                        },
-                        {
                             65, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
@@ -231,6 +228,9 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             108, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
+                            125, new VariableDefaults(notApplicableCorrelationLength)
+                        },
+                        {
                             129, new VariableDefaults(notApplicableCorrelationLength)
                         }
                     }
@@ -251,13 +251,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             61, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            62, new VariableDefaults(notApplicableCorrelationLength)
-                        },
-                        {
                             63, new VariableDefaults(notApplicableCorrelationLength)
-                        },
-                        {
-                            64, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
                             65, new VariableDefaults(notApplicableCorrelationLength)
@@ -336,6 +330,9 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                         },
                         {
                             108, new VariableDefaults(notApplicableCorrelationLength)
+                        },
+                        {
+                            125, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
                             130, new VariableDefaults(notApplicableCorrelationLength)

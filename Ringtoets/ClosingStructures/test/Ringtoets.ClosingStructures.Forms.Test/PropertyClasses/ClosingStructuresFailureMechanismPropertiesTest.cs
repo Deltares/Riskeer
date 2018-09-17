@@ -48,7 +48,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
         private const int modelFactorOvertoppingFlowPropertyIndex = 9;
         private const int modelFactorStorageVolumePropertyIndex = 10;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 11;
+        private const int modelFactorLongThresholdPropertyIndex = 11;
         private const int modelFactorInflowVolumePropertyIndex = 12;
 
         [Test]
@@ -98,8 +98,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.StandardDeviation, properties.ModelFactorOvertoppingFlow.StandardDeviation);
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.Mean, properties.ModelFactorStorageVolume.Mean);
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.StandardDeviation, properties.ModelFactorStorageVolume.StandardDeviation);
-            Assert.AreEqual(generalInput.ModelFactorSubCriticalFlow.Mean, properties.ModelFactorSubCriticalFlow.Mean);
-            Assert.AreEqual(generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation, properties.ModelFactorSubCriticalFlow.CoefficientOfVariation);
+            Assert.AreEqual(generalInput.ModelFactorLongThreshold.Mean, properties.ModelFactorLongThreshold.Mean);
+            Assert.AreEqual(generalInput.ModelFactorLongThreshold.StandardDeviation, properties.ModelFactorLongThreshold.StandardDeviation);
             Assert.AreEqual(generalInput.ModelFactorInflowVolume, properties.ModelFactorInflowVolume);
         }
 
@@ -199,12 +199,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor kombergend vermogen.",
                                                                             true);
 
-            PropertyDescriptor modelFactorSubCriticalFlowProperty = dynamicProperties[modelFactorSubCriticalFlowPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSubCriticalFlowProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSubCriticalFlowProperty,
+            PropertyDescriptor modelFactorLongThresholdProperty = dynamicProperties[modelFactorLongThresholdPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorLongThresholdProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorLongThresholdProperty,
                                                                             modelSettingsCategory,
-                                                                            "Modelfactor voor onvolkomen stroming [-]",
-                                                                            "Modelfactor voor onvolkomen stroming.",
+                                                                            "Modelfactor lange overlaat[-]",
+                                                                            "Modelfactor voor een lange overlaat.",
                                                                             true);
 
             PropertyDescriptor modelFactorInflowVolumeProperty = dynamicProperties[modelFactorInflowVolumePropertyIndex];
@@ -337,7 +337,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorSubCriticalFlow)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorLongThreshold)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorInflowVolume)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));

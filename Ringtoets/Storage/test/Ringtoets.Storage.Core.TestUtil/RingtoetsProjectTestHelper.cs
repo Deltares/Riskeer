@@ -590,16 +590,12 @@ namespace Ringtoets.Storage.Core.TestUtil
                             ForeshoreProfile = foreshoreProfile,
                             HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                             LoadSchematizationType = LoadSchematizationType.Quadratic,
-                            ModelFactorSuperCriticalFlow =
-                            {
-                                Mean = random.NextRoundedDouble()
-                            },
                             VolumicWeightWater = random.NextRoundedDouble(),
                             UseForeshore = random.NextBoolean(),
                             UseBreakWater = random.NextBoolean(),
                             StormDuration =
                             {
-                                Mean = random.NextRoundedDouble()
+                                Mean = random.NextRoundedDouble(0.1, 1.0)
                             },
                             Structure = stabilityPointStructure,
                             ShouldIllustrationPointsBeCalculated = false
@@ -629,16 +625,12 @@ namespace Ringtoets.Storage.Core.TestUtil
                             ForeshoreProfile = foreshoreProfile,
                             HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                             LoadSchematizationType = LoadSchematizationType.Quadratic,
-                            ModelFactorSuperCriticalFlow =
-                            {
-                                Mean = random.NextRoundedDouble()
-                            },
                             VolumicWeightWater = random.NextRoundedDouble(),
                             UseForeshore = random.NextBoolean(),
                             UseBreakWater = random.NextBoolean(),
                             StormDuration =
                             {
-                                Mean = random.NextRoundedDouble()
+                                Mean = random.NextRoundedDouble(0.1, 1.0)
                             },
                             Structure = stabilityPointStructure,
                             ShouldIllustrationPointsBeCalculated = true

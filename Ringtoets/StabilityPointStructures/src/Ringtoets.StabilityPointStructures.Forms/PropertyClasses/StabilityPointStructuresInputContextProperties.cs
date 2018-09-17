@@ -53,40 +53,39 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         private const int stormDurationPropertyIndex = 3;
         private const int insideWaterLevelPropertyIndex = 4;
         private const int insideWaterLevelFailureConstructionPropertyIndex = 5;
-        private const int modelFactorSuperCriticalFlowPropertyIndex = 6;
-        private const int drainCoefficientPropertyIndex = 7;
-        private const int factorStormDurationOpenStructurePropertyIndex = 8;
-        private const int structurePropertyIndex = 9;
-        private const int structureLocationPropertyIndex = 10;
-        private const int structureNormalOrientationPropertyIndex = 11;
-        private const int inflowModelTypePropertyIndex = 12;
-        private const int loadSchematizationTypePropertyIndex = 13;
-        private const int widthFlowAperturesPropertyIndex = 14;
-        private const int areaFlowAperturesPropertyIndex = 15;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 16;
-        private const int storageStructureAreaPropertyIndex = 17;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 18;
-        private const int levelCrestStructurePropertyIndex = 19;
-        private const int thresholdHeightOpenWeirPropertyIndex = 20;
-        private const int criticalOvertoppingDischargePropertyIndex = 21;
-        private const int flowVelocityStructureClosablePropertyIndex = 22;
-        private const int constructiveStrengthLinearLoadModelPropertyIndex = 23;
-        private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 24;
-        private const int bankWidthPropertyIndex = 25;
-        private const int evaluationLevelPropertyIndex = 26;
-        private const int verticalDistancePropertyIndex = 27;
-        private const int failureProbabilityRepairClosurePropertyIndex = 28;
-        private const int failureCollisionEnergyPropertyIndex = 29;
-        private const int shipMassPropertyIndex = 30;
-        private const int shipVelocityPropertyIndex = 31;
-        private const int levellingCountPropertyIndex = 32;
-        private const int probabilityCollisionSecondaryStructurePropertyIndex = 33;
-        private const int stabilityLinearLoadModelPropertyIndex = 34;
-        private const int stabilityQuadraticLoadModelPropertyIndex = 35;
-        private const int failureProbabilityStructureWithErosionPropertyIndex = 36;
-        private const int foreshoreProfilePropertyIndex = 37;
-        private const int useBreakWaterPropertyIndex = 38;
-        private const int useForeshorePropertyIndex = 39;
+        private const int drainCoefficientPropertyIndex = 6;
+        private const int factorStormDurationOpenStructurePropertyIndex = 7;
+        private const int structurePropertyIndex = 8;
+        private const int structureLocationPropertyIndex = 9;
+        private const int structureNormalOrientationPropertyIndex = 10;
+        private const int inflowModelTypePropertyIndex = 11;
+        private const int loadSchematizationTypePropertyIndex = 12;
+        private const int widthFlowAperturesPropertyIndex = 13;
+        private const int areaFlowAperturesPropertyIndex = 14;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 15;
+        private const int storageStructureAreaPropertyIndex = 16;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 17;
+        private const int levelCrestStructurePropertyIndex = 18;
+        private const int thresholdHeightOpenWeirPropertyIndex = 19;
+        private const int criticalOvertoppingDischargePropertyIndex = 20;
+        private const int flowVelocityStructureClosablePropertyIndex = 21;
+        private const int constructiveStrengthLinearLoadModelPropertyIndex = 22;
+        private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 23;
+        private const int bankWidthPropertyIndex = 24;
+        private const int evaluationLevelPropertyIndex = 25;
+        private const int verticalDistancePropertyIndex = 26;
+        private const int failureProbabilityRepairClosurePropertyIndex = 27;
+        private const int failureCollisionEnergyPropertyIndex = 28;
+        private const int shipMassPropertyIndex = 29;
+        private const int shipVelocityPropertyIndex = 30;
+        private const int levellingCountPropertyIndex = 31;
+        private const int probabilityCollisionSecondaryStructurePropertyIndex = 32;
+        private const int stabilityLinearLoadModelPropertyIndex = 33;
+        private const int stabilityQuadraticLoadModelPropertyIndex = 34;
+        private const int failureProbabilityStructureWithErosionPropertyIndex = 35;
+        private const int foreshoreProfilePropertyIndex = 36;
+        private const int useBreakWaterPropertyIndex = 37;
+        private const int useForeshorePropertyIndex = 38;
 
         /// <summary>
         /// Creates a new instance of the <see cref="StabilityPointStructuresInputContextProperties"/> class.
@@ -109,7 +108,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                 ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
                 UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
                 UseForeshorePropertyIndex = useForeshorePropertyIndex,
-                ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
                 HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
                 StormDurationPropertyIndex = stormDurationPropertyIndex
             }, propertyChangeHandler) {}
@@ -121,11 +119,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             if (data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert ||
                 data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill)
             {
-                if (propertyName == nameof(ModelFactorSuperCriticalFlow))
-                {
-                    return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill;
-                }
-
                 if (propertyName == nameof(DrainCoefficient))
                 {
                     return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert;
@@ -254,15 +247,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         #endregion
 
         #region Model factors and critical values
-
-        [DynamicVisible]
-        public override NormalDistributionProperties ModelFactorSuperCriticalFlow
-        {
-            get
-            {
-                return base.ModelFactorSuperCriticalFlow;
-            }
-        }
 
         [DynamicVisible]
         [PropertyOrder(drainCoefficientPropertyIndex)]

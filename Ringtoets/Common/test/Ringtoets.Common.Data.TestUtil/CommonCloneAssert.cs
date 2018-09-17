@@ -259,7 +259,6 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones<T>(StructuresInputBase<T> original, StructuresInputBase<T> clone) where T : StructureBase
         {
-            CoreCloneAssert.AreObjectClones(original.ModelFactorSuperCriticalFlow, clone.ModelFactorSuperCriticalFlow, DistributionAssert.AreEqual);
             CoreCloneAssert.AreObjectClones(original.AllowedLevelIncreaseStorage, clone.AllowedLevelIncreaseStorage, DistributionAssert.AreEqual);
             CoreCloneAssert.AreObjectClones(original.StorageStructureArea, clone.StorageStructureArea, DistributionAssert.AreEqual);
             CoreCloneAssert.AreObjectClones(original.FlowWidthAtBottomProtection, clone.FlowWidthAtBottomProtection, DistributionAssert.AreEqual);

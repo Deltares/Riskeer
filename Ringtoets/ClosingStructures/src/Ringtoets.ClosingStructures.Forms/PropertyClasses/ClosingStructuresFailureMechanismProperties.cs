@@ -50,7 +50,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         private const int modelFactorOvertoppingFlowPropertyIndex = 10;
         private const int modelFactorStorageVolumePropertyIndex = 11;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 12;
+        private const int modelFactorLongThresholdPropertyIndex = 12;
         private const int modelFactorInflowVolumePropertyIndex = 13;
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                    || nameof(GravitationalAcceleration).Equals(propertyName)
                    || nameof(ModelFactorOvertoppingFlow).Equals(propertyName)
                    || nameof(ModelFactorStorageVolume).Equals(propertyName)
-                   || nameof(ModelFactorSubCriticalFlow).Equals(propertyName)
+                   || nameof(ModelFactorLongThreshold).Equals(propertyName)
                    || nameof(ModelFactorInflowVolume).Equals(propertyName)
                    || nameof(C).Equals(propertyName)
                    || nameof(N2A).Equals(propertyName)
@@ -245,16 +245,16 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(modelFactorSubCriticalFlowPropertyIndex)]
+        [PropertyOrder(modelFactorLongThresholdPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_Description))]
-        public VariationCoefficientNormalDistributionProperties ModelFactorSubCriticalFlow
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorLongThreshold_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorLongThreshold_Description))]
+        public NormalDistributionProperties ModelFactorLongThreshold
         {
             get
             {
-                return new VariationCoefficientNormalDistributionProperties(data.GeneralInput.ModelFactorSubCriticalFlow);
+                return new NormalDistributionProperties(data.GeneralInput.ModelFactorLongThreshold);
             }
         }
 

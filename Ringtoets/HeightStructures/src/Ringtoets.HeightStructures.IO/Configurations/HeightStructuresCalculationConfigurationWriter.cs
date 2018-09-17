@@ -21,6 +21,7 @@
 
 using System;
 using System.Xml;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 
 namespace Ringtoets.HeightStructures.IO.Configurations
@@ -46,6 +47,9 @@ namespace Ringtoets.HeightStructures.IO.Configurations
 
         protected override void WriteSpecificStochasts(HeightStructuresCalculationConfiguration configuration, XmlWriter writer)
         {
+            WriteDistributionWhenAvailable(writer,
+                                           ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
+                                           configuration.ModelFactorSuperCriticalFlow);
             WriteDistributionWhenAvailable(writer,
                                            HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
                                            configuration.LevelCrestStructure);

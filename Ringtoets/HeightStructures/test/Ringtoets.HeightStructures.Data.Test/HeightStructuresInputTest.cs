@@ -44,11 +44,19 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<StructuresInputBase<HeightStructure>>(input);
 
+            var expectedModelFactorSuperCriticalFlow = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
             var expectedLevelCrestStructure = new NormalDistribution(2)
             {
                 Mean = RoundedDouble.NaN,
                 StandardDeviation = RoundedDouble.NaN
             };
+
+            DistributionAssert.AreEqual(expectedModelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
             DistributionAssert.AreEqual(expectedLevelCrestStructure, input.LevelCrestStructure);
 
             Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
@@ -79,6 +87,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             };
 
             RoundedDouble expectedDeviationWaveDirection = input.DeviationWaveDirection;
+            NormalDistribution expectedModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow;
 
             // Precondition
             AssertHeightStructureInput(structure, input);
@@ -88,6 +97,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Then
             AssertAreEqual(expectedDeviationWaveDirection, input.DeviationWaveDirection);
+            DistributionAssert.AreEqual(expectedModelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
             Assert.AreEqual(1.0, input.FailureProbabilityStructureWithErosion);
 
             var expectedLevelCrestStructure = new NormalDistribution(2)
@@ -254,6 +264,35 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Assert
             CoreCloneAssert.AreObjectClones(original, clone, HeightStructuresCloneAssert.AreClones);
         }
+
+        #region Model factors
+
+        [Test]
+        public void ModelFactorSuperCriticalFlow_Always_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            var input = new HeightStructuresInput();
+            RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = input.ModelFactorSuperCriticalFlow.StandardDeviation
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = random.NextRoundedDouble()
+            };
+
+            // Call
+            input.ModelFactorSuperCriticalFlow = distributionToSet;
+
+            // Assert
+            DistributionTestHelper.AssertDistributionCorrectlySet(input.ModelFactorSuperCriticalFlow, distributionToSet, expectedDistribution);
+        }
+
+        #endregion
 
         #region Hydraulic data
 

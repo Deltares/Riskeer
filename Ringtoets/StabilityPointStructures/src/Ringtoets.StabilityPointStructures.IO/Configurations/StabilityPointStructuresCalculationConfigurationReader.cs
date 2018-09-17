@@ -123,7 +123,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                     calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationStabilityPointStructuresLoadSchematizationTypeConverter>(
                         StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationTypeElement),
                 ProbabilityCollisionSecondaryStructure = calculationElement.GetDoubleValueFromDescendantElement(StabilityPointStructuresConfigurationSchemaIdentifiers.ProbabilityCollisionSecondaryStructureElement),
-                ModelFactorSuperCriticalFlow = calculationElement.GetStochastConfiguration(ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName),
                 ShipMass = calculationElement.GetStochastConfiguration(StabilityPointStructuresConfigurationSchemaIdentifiers.ShipMassStochastName),
                 ShipVelocity = calculationElement.GetStochastConfiguration(StabilityPointStructuresConfigurationSchemaIdentifiers.ShipVelocityStochastName),
                 StabilityLinearLoadModel = calculationElement.GetStochastConfiguration(StabilityPointStructuresConfigurationSchemaIdentifiers.StabilityLinearLoadModelStochastName),

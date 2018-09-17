@@ -348,6 +348,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     orderDictionaries.Add(CreateNumericsRecord(hydraRingCalculationInput.Section.SectionId,
                                                                failureMechanismDefaults.MechanismId,
                                                                subMechanismId,
+                                                               hydraRingCalculationInput.IterationMethodId,
                                                                numericsSetting));
                 }
 
@@ -356,6 +357,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     orderDictionaries.Add(CreateNumericsRecord(hydraRingCalculationInput.Section.SectionId,
                                                                failureMechanismDefaults.PreprocessorMechanismId,
                                                                failureMechanismDefaults.PreprocessorSubMechanismId,
+                                                               hydraRingCalculationInput.IterationMethodId,
                                                                hydraRingCalculationInput.PreprocessorSetting.NumericsSetting));
                 }
             }
@@ -363,7 +365,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderDictionaries;
         }
 
-        private static OrderedDictionary CreateNumericsRecord(int sectionId, int mechanismId, int subMechanismId, NumericsSetting numericsSetting)
+        private static OrderedDictionary CreateNumericsRecord(int sectionId, int mechanismId, int subMechanismId, int iterationMethodId, NumericsSetting numericsSetting)
         {
             return new OrderedDictionary
             {
@@ -407,7 +409,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     "DsStartMethod", numericsSetting.DsStartMethod
                 },
                 {
-                    "DsIterationmethod", 3 // Fixed: not relevant
+                    "DsIterationmethod", iterationMethodId
                 },
                 {
                     "DsMinNumberOfIterations", numericsSetting.DsMinNumberOfIterations

@@ -2,11 +2,11 @@
 <configuratie>
   <berekening naam="sparse config">
     <stochasten>
-      <stochast naam="modelfactoroverloopdebiet">
-        <verwachtingswaarde>1.1</verwachtingswaarde>
-      </stochast>
       <stochast naam="stormduur">
         <verwachtingswaarde>6</verwachtingswaarde>
+      </stochast>
+      <stochast naam="modelfactoroverloopdebiet">
+        <verwachtingswaarde>1.1</verwachtingswaarde>
       </stochast>
     </stochasten>
     <illustratiepunteninlezen>false</illustratiepunteninlezen>

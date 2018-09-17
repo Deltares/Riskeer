@@ -82,8 +82,6 @@ namespace Ringtoets.Storage.Core.Create
             entityToUpdate.CriticalOvertoppingDischargeMean = input.CriticalOvertoppingDischarge.Mean.ToNaNAsNull();
             entityToUpdate.CriticalOvertoppingDischargeCoefficientOfVariation = input.CriticalOvertoppingDischarge.CoefficientOfVariation.ToNaNAsNull();
 
-            entityToUpdate.ModelFactorSuperCriticalFlowMean = input.ModelFactorSuperCriticalFlow.Mean.ToNaNAsNull();
-
             entityToUpdate.WidthFlowAperturesMean = input.WidthFlowApertures.Mean.ToNaNAsNull();
             entityToUpdate.WidthFlowAperturesStandardDeviation = input.WidthFlowApertures.StandardDeviation.ToNaNAsNull();
 
@@ -140,6 +138,8 @@ namespace Ringtoets.Storage.Core.Create
             entity.InsideWaterLevelStandardDeviation = input.InsideWaterLevel.StandardDeviation.ToNaNAsNull();
 
             entity.DeviationWaveDirection = input.DeviationWaveDirection.ToNaNAsNull();
+
+            entity.ModelFactorSuperCriticalFlowMean = input.ModelFactorSuperCriticalFlow.Mean.ToNaNAsNull();
 
             entity.DrainCoefficientMean = input.DrainCoefficient.Mean.ToNaNAsNull();
 
@@ -220,10 +220,12 @@ namespace Ringtoets.Storage.Core.Create
                 entity.HeightStructureEntity = registry.Get(input.Structure);
             }
 
+            entity.DeviationWaveDirection = input.DeviationWaveDirection.ToNaNAsNull();
+
+            entity.ModelFactorSuperCriticalFlowMean = input.ModelFactorSuperCriticalFlow.Mean.ToNaNAsNull();
+
             entity.LevelCrestStructureMean = input.LevelCrestStructure.Mean.ToNaNAsNull();
             entity.LevelCrestStructureStandardDeviation = input.LevelCrestStructure.StandardDeviation.ToNaNAsNull();
-
-            entity.DeviationWaveDirection = input.DeviationWaveDirection.ToNaNAsNull();
         }
 
         private static void SetOutputEntity(StructuresCalculation<HeightStructuresInput> calculation,

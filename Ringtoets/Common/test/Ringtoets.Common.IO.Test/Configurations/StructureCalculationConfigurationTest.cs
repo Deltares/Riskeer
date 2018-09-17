@@ -51,7 +51,6 @@ namespace Ringtoets.Common.IO.Test.Configurations
             // Assert
             Assert.IsInstanceOf<IConfigurationItem>(configuration);
             Assert.AreEqual(name, configuration.Name);
-            Assert.IsNull(configuration.ModelFactorSuperCriticalFlow);
             Assert.IsNull(configuration.StructureId);
             Assert.IsNull(configuration.HydraulicBoundaryLocationName);
             Assert.IsNull(configuration.StormDuration);
@@ -83,7 +82,6 @@ namespace Ringtoets.Common.IO.Test.Configurations
             double failureProbabilityStructureWithErosion = random.NextDouble();
             bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
 
-            var modelFactorSuperCriticalFlow = new StochastConfiguration();
             var stormDuration = new StochastConfiguration();
             var allowedLevelIncreaseStorage = new StochastConfiguration();
             var storageStructureArea = new StochastConfiguration();
@@ -94,7 +92,6 @@ namespace Ringtoets.Common.IO.Test.Configurations
 
             // Call
             configuration.Name = configurationName;
-            configuration.ModelFactorSuperCriticalFlow = modelFactorSuperCriticalFlow;
             configuration.StormDuration = stormDuration;
             configuration.StructureId = structureId;
             configuration.HydraulicBoundaryLocationName = hydraulicBoundaryLocationName;
@@ -111,7 +108,6 @@ namespace Ringtoets.Common.IO.Test.Configurations
 
             // Assert
             Assert.AreEqual(configurationName, configuration.Name);
-            Assert.AreSame(modelFactorSuperCriticalFlow, configuration.ModelFactorSuperCriticalFlow);
             Assert.AreSame(stormDuration, configuration.StormDuration);
             Assert.AreEqual(structureId, configuration.StructureId);
             Assert.AreEqual(hydraulicBoundaryLocationName, configuration.HydraulicBoundaryLocationName);

@@ -287,10 +287,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                     },
                     LevellingCount = 1,
                     LoadSchematizationType = LoadSchematizationType.Linear,
-                    ModelFactorSuperCriticalFlow = new NormalDistribution
-                    {
-                        Mean = (RoundedDouble) 0.1
-                    },
                     ProbabilityCollisionSecondaryStructure = 1e-5,
                     VolumicWeightWater = (RoundedDouble) 9.81,
                     StormDuration = new VariationCoefficientLogNormalDistribution

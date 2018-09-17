@@ -131,7 +131,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             ClosingStructuresInput input = calculation.InputParameters;
 
-            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
             Assert.AreSame(input.InsideWaterLevel, properties.InsideWaterLevel.Data);
             Assert.AreEqual(input.InflowModelType, properties.InflowModelType);
@@ -142,6 +141,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(input.ProbabilityOpenStructureBeforeFlooding, properties.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(input.FailureProbabilityOpenStructure, properties.FailureProbabilityOpenStructure);
             Assert.AreEqual(input.FailureProbabilityReparation, properties.FailureProbabilityReparation);
+            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreSame(input.DrainCoefficient, properties.DrainCoefficient.Data);
             Assert.AreEqual(input.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure);
 
@@ -156,6 +156,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             TestHelper.AssertTypeConverter<ClosingStructuresInputContextProperties, NoProbabilityValueDoubleConverter>(
                 nameof(ClosingStructuresInputContextProperties.FailureProbabilityReparation));
+
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.ModelFactorSuperCriticalFlow, false, true);
+            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, true);
 
             mockRepository.VerifyAll();
         }
@@ -230,6 +233,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Faalkans herstel van gefaalde situatie [1/jaar]",
                                                                             "Faalkans herstel van gefaalde situatie.");
 
+            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[verticalWallModelFactorSuperCriticalFlowPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Modelfactor overloopdebiet volkomen overlaat [-]",
+                                                                            "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
+                                                                            true);
+
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[verticalWallFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
                                                                             modelSettingsCategory,
@@ -246,7 +257,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[verticalWallAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[verticalWallCriticalOvertoppingDischargePropertyIndex].DisplayName);
             Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[verticalWallFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[verticalWallModelFactorSuperCriticalFlowPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[verticalWallForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[verticalWallUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[verticalWallUseForeshorePropertyIndex].DisplayName);
@@ -344,7 +354,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Afvoercoëfficiënt [-]",
                                                                             "Afvoercoëfficiënt.",
                                                                             true);
-            DistributionPropertiesTestHelper.AssertPropertiesAreReadOnly(properties.DrainCoefficient, false, true);
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[floodedCulvertFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
@@ -450,6 +459,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Faalkans herstel van gefaalde situatie [1/jaar]",
                                                                             "Faalkans herstel van gefaalde situatie.");
 
+            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[lowSillModelFactorSuperCriticalFlowPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Modelfactor overloopdebiet volkomen overlaat [-]",
+                                                                            "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
+                                                                            true);
+
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[lowSillFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
                                                                             modelSettingsCategory,
@@ -465,7 +482,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[lowSillAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[lowSillCriticalOvertoppingDischargePropertyIndex].DisplayName);
             Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[lowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[lowSillModelFactorSuperCriticalFlowPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandprofiel", dynamicProperties[lowSillForeshoreProfilePropertyIndex].DisplayName);
             Assert.AreEqual("Dam", dynamicProperties[lowSillUseBreakWaterPropertyIndex].DisplayName);
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[lowSillUseForeshorePropertyIndex].DisplayName);
@@ -630,14 +646,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObservablesNotified()
-        {
-            RoundedDouble newMean = new Random(21).NextRoundedDouble();
-            SetPropertyAndVerifyNotificationsAndOutput(
-                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
-        }
-
-        [Test]
         public void WidthFlowApertures_MeanChanged_InputChangedAndObservablesNotified()
         {
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
@@ -659,6 +667,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             RoundedDouble newMean = new Random(21).NextRoundedDouble();
             SetPropertyAndVerifyNotificationsAndOutput(
                 properties => properties.AreaFlowApertures.Mean = newMean);
+        }
+
+        [Test]
+        public void ModelFactorSuperCriticalFlow_MeanChanged_InputChangedAndObservablesNotified()
+        {
+            RoundedDouble newMean = new Random(21).NextRoundedDouble();
+            SetPropertyAndVerifyNotificationsAndOutput(
+                properties => properties.ModelFactorSuperCriticalFlow.Mean = newMean);
         }
 
         [Test]

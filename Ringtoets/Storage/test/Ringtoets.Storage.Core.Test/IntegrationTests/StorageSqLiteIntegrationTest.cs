@@ -697,7 +697,6 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                    AssertHydraulicBoundaryLocation);
 
             Assert.AreEqual(expectedInput.StructureNormalOrientation, actualInput.StructureNormalOrientation);
-            DistributionAssert.AreEqual(expectedInput.ModelFactorSuperCriticalFlow, actualInput.ModelFactorSuperCriticalFlow);
             DistributionAssert.AreEqual(expectedInput.AllowedLevelIncreaseStorage, actualInput.AllowedLevelIncreaseStorage);
             DistributionAssert.AreEqual(expectedInput.StorageStructureArea, actualInput.StorageStructureArea);
             DistributionAssert.AreEqual(expectedInput.FlowWidthAtBottomProtection, actualInput.FlowWidthAtBottomProtection);
@@ -1010,6 +1009,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedInput.InflowModelType, actualInput.InflowModelType);
             DistributionAssert.AreEqual(expectedInput.InsideWaterLevel, actualInput.InsideWaterLevel);
             Assert.AreEqual(expectedInput.DeviationWaveDirection, actualInput.DeviationWaveDirection);
+            DistributionAssert.AreEqual(expectedInput.ModelFactorSuperCriticalFlow, actualInput.ModelFactorSuperCriticalFlow);
             DistributionAssert.AreEqual(expectedInput.DrainCoefficient, actualInput.DrainCoefficient);
             Assert.AreEqual(expectedInput.FactorStormDurationOpenStructure, actualInput.FactorStormDurationOpenStructure);
             DistributionAssert.AreEqual(expectedInput.ThresholdHeightOpenWeir, actualInput.ThresholdHeightOpenWeir);
@@ -1223,6 +1223,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                    AssertHeightStructure);
 
             Assert.AreEqual(expectedInput.DeviationWaveDirection, actualInput.DeviationWaveDirection);
+            DistributionAssert.AreEqual(expectedInput.ModelFactorSuperCriticalFlow, actualInput.ModelFactorSuperCriticalFlow);
             DistributionAssert.AreEqual(expectedInput.LevelCrestStructure, actualInput.LevelCrestStructure);
         }
 

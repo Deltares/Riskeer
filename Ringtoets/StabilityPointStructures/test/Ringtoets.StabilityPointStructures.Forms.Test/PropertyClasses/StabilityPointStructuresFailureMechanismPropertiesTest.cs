@@ -44,9 +44,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int gravitationalAccelerationPropertyIndex = 5;
         private const int nPropertyIndex = 6;
         private const int modelFactorStorageVolumePropertyIndex = 7;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 8;
-        private const int modelFactorCollisionLoadPropertyIndex = 9;
-        private const int modelFactorLoadEffectPropertyIndex = 10;
+        private const int modelFactorCollisionLoadPropertyIndex = 8;
+        private const int modelFactorLoadEffectPropertyIndex = 9;
+        private const int modelFactorLongThresholdPropertyIndex = 10;
 
         [Test]
         public void Constructor_DataIsNull_ThrowArgumentNullException()
@@ -87,12 +87,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.GravitationalAcceleration, properties.GravitationalAcceleration);
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.Mean, properties.ModelFactorStorageVolume.Mean);
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.StandardDeviation, properties.ModelFactorStorageVolume.StandardDeviation);
-            Assert.AreEqual(generalInput.ModelFactorSubCriticalFlow.Mean, properties.ModelFactorSubCriticalFlow.Mean);
-            Assert.AreEqual(generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation, properties.ModelFactorSubCriticalFlow.CoefficientOfVariation);
             Assert.AreEqual(generalInput.ModelFactorCollisionLoad.Mean, properties.ModelFactorCollisionLoad.Mean);
             Assert.AreEqual(generalInput.ModelFactorCollisionLoad.CoefficientOfVariation, properties.ModelFactorCollisionLoad.CoefficientOfVariation);
             Assert.AreEqual(generalInput.ModelFactorLoadEffect.Mean, properties.ModelFactorLoadEffect.Mean);
             Assert.AreEqual(generalInput.ModelFactorLoadEffect.StandardDeviation, properties.ModelFactorLoadEffect.StandardDeviation);
+            Assert.AreEqual(generalInput.ModelFactorLongThreshold.Mean, properties.ModelFactorLongThreshold.Mean);
+            Assert.AreEqual(generalInput.ModelFactorLongThreshold.StandardDeviation, properties.ModelFactorLongThreshold.StandardDeviation);
         }
 
         [Test]
@@ -171,14 +171,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor kombergend vermogen.",
                                                                             true);
 
-            PropertyDescriptor modelFactorSubCriticalFlowProperty = dynamicProperties[modelFactorSubCriticalFlowPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSubCriticalFlowProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSubCriticalFlowProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Modelfactor voor onvolkomen stroming [-]",
-                                                                            "Modelfactor voor onvolkomen stroming.",
-                                                                            true);
-
             PropertyDescriptor modelFactorCollisionLoadProperty = dynamicProperties[modelFactorCollisionLoadPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorCollisionLoadProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorCollisionLoadProperty,
@@ -193,6 +185,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             modelSettingsCategory,
                                                                             "Modelfactor belastingeffect [-]",
                                                                             "Modelfactor belastingeffect.",
+                                                                            true);
+
+            PropertyDescriptor modelFactorLongThresholdProperty = dynamicProperties[modelFactorLongThresholdPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorLongThresholdProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorLongThresholdProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Modelfactor lange overlaat[-]",
+                                                                            "Modelfactor voor een lange overlaat.",
                                                                             true);
         }
 
@@ -316,9 +316,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorSubCriticalFlow)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorCollisionLoad)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorLoadEffect)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorLongThreshold)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }

@@ -52,7 +52,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             if (!Enum.IsDefined(typeof(StabilityPointStructureInflowModelType), inflowModelType))
             {
                 throw new InvalidEnumArgumentException(nameof(structureInput),
-                                                       (int)inflowModelType,
+                                                       (int) inflowModelType,
                                                        typeof(StabilityPointStructureInflowModelType));
             }
 
@@ -91,7 +91,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             if (!Enum.IsDefined(typeof(LoadSchematizationType), loadSchematizationType))
             {
                 throw new InvalidEnumArgumentException(nameof(structureInput),
-                                                       (int)loadSchematizationType,
+                                                       (int) loadSchematizationType,
                                                        typeof(LoadSchematizationType));
             }
 
@@ -162,8 +162,6 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.LevelCrestStructure.StandardDeviation,
                 structureInput.StructureNormalOrientation,
                 structureInput.FactorStormDurationOpenStructure,
-                generalInput.ModelFactorSubCriticalFlow.Mean,
-                generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                 structureInput.ThresholdHeightOpenWeir.Mean,
                 structureInput.ThresholdHeightOpenWeir.StandardDeviation,
                 structureInput.InsideWaterLevelFailureConstruction.Mean,
@@ -207,14 +205,14 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.VerticalDistance,
                 generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                 generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                structureInput.ModelFactorSuperCriticalFlow.Mean,
-                structureInput.ModelFactorSuperCriticalFlow.StandardDeviation,
                 structureInput.ConstructiveStrengthLinearLoadModel.Mean,
                 structureInput.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
                 structureInput.StabilityLinearLoadModel.Mean,
                 structureInput.StabilityLinearLoadModel.CoefficientOfVariation,
                 structureInput.WidthFlowApertures.Mean,
-                structureInput.WidthFlowApertures.StandardDeviation);
+                structureInput.WidthFlowApertures.StandardDeviation,
+                generalInput.ModelFactorLongThreshold.Mean,
+                generalInput.ModelFactorLongThreshold.StandardDeviation);
 
             return structuresStabilityPointLowSillLinearCalculationInput;
         }
@@ -234,8 +232,6 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.LevelCrestStructure.StandardDeviation,
                 structureInput.StructureNormalOrientation,
                 structureInput.FactorStormDurationOpenStructure,
-                generalInput.ModelFactorSubCriticalFlow.Mean,
-                generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                 structureInput.ThresholdHeightOpenWeir.Mean,
                 structureInput.ThresholdHeightOpenWeir.StandardDeviation,
                 structureInput.InsideWaterLevelFailureConstruction.Mean,
@@ -279,14 +275,14 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.VerticalDistance,
                 generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                 generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                structureInput.ModelFactorSuperCriticalFlow.Mean,
-                structureInput.ModelFactorSuperCriticalFlow.StandardDeviation,
                 structureInput.ConstructiveStrengthQuadraticLoadModel.Mean,
                 structureInput.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
                 structureInput.StabilityQuadraticLoadModel.Mean,
                 structureInput.StabilityQuadraticLoadModel.CoefficientOfVariation,
                 structureInput.WidthFlowApertures.Mean,
-                structureInput.WidthFlowApertures.StandardDeviation);
+                structureInput.WidthFlowApertures.StandardDeviation,
+                generalInput.ModelFactorLongThreshold.Mean,
+                generalInput.ModelFactorLongThreshold.StandardDeviation);
         }
 
         private static StructuresStabilityPointFloodedCulvertLinearCalculationInput CreateFloodedCulvertLinearCalculationInput(
@@ -304,8 +300,6 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.LevelCrestStructure.StandardDeviation,
                 structureInput.StructureNormalOrientation,
                 structureInput.FactorStormDurationOpenStructure,
-                generalInput.ModelFactorSubCriticalFlow.Mean,
-                generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                 structureInput.ThresholdHeightOpenWeir.Mean,
                 structureInput.ThresholdHeightOpenWeir.StandardDeviation,
                 structureInput.InsideWaterLevelFailureConstruction.Mean,
@@ -374,8 +368,6 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.LevelCrestStructure.StandardDeviation,
                 structureInput.StructureNormalOrientation,
                 structureInput.FactorStormDurationOpenStructure,
-                generalInput.ModelFactorSubCriticalFlow.Mean,
-                generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                 structureInput.ThresholdHeightOpenWeir.Mean,
                 structureInput.ThresholdHeightOpenWeir.StandardDeviation,
                 structureInput.InsideWaterLevelFailureConstruction.Mean,

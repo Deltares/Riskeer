@@ -64,7 +64,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure,
                 FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion,
                 HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
-                ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean(),
                 VolumicWeightWater = input.VolumicWeightWater,
                 StormDuration = input.StormDuration.ToStochastConfigurationWithMean(),
                 ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated

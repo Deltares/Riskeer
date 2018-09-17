@@ -41,16 +41,16 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 StandardDeviation = (RoundedDouble) 0.06
             };
 
-            var modelFactorSubCriticalFlow = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
             var modelFactorStorageVolume = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1.0,
                 StandardDeviation = (RoundedDouble) 0.2
+            };
+
+            var modelFactorLongThreshold = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble)0.9,
+                StandardDeviation = (RoundedDouble)0.05
             };
 
             // Call
@@ -65,9 +65,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
             AssertAreEqual(9.81, inputParameters.GravitationalAcceleration);
 
             DistributionAssert.AreEqual(modelFactorOvertoppingFlow, inputParameters.ModelFactorOvertoppingFlow);
-            DistributionAssert.AreEqual(modelFactorSubCriticalFlow, inputParameters.ModelFactorSubCriticalFlow);
             DistributionAssert.AreEqual(modelFactorStorageVolume, inputParameters.ModelFactorStorageVolume);
-
+            DistributionAssert.AreEqual(modelFactorLongThreshold, inputParameters.ModelFactorLongThreshold);
+            
             Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
             AssertAreEqual(1.0, inputParameters.ModelFactorInflowVolume);
         }
@@ -105,8 +105,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => inputParameters.N2A = invalidValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
-                                                                                                "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                call, "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.");
         }
 
         private static void AssertAreEqual(double expected, RoundedDouble actual)

@@ -22,6 +22,7 @@
 using System;
 using System.Xml;
 using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 
 namespace Ringtoets.ClosingStructures.IO.Configurations
@@ -69,6 +70,9 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
         protected override void WriteSpecificStochasts(ClosingStructuresCalculationConfiguration configuration, XmlWriter writer)
         {
+            WriteDistributionWhenAvailable(writer,
+                                           ConfigurationSchemaIdentifiers.ModelFactorSuperCriticalFlowStochastName,
+                                           configuration.ModelFactorSuperCriticalFlow);
             WriteDistributionWhenAvailable(writer,
                                            ClosingStructuresConfigurationSchemaIdentifiers.DrainCoefficientStochastName,
                                            configuration.DrainCoefficient);

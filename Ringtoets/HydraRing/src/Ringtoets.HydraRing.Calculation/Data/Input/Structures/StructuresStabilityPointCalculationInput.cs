@@ -35,8 +35,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double levelCrestStructureStandardDeviation;
         private readonly double structureNormalOrientation;
         private readonly double factorStormDurationOpenStructure;
-        private readonly double modelFactorSubCriticalFlowMean;
-        private readonly double modelFactorSubCriticalFlowVariation;
         private readonly double thresholdHeightOpenWeirMean;
         private readonly double thresholdHeightOpenWeirStandardDeviation;
         private readonly double insideWaterLevelFailureConstructionMean;
@@ -94,8 +92,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="levelCrestStructureStandardDeviation">The standard deviation of the crest level of the structure.</param>
         /// <param name="structureNormalOrientation">The orientation of the normal of the structure.</param>
         /// <param name="factorStormDurationOpenStructure">The factor of the storm duration for an open structure.</param>
-        /// <param name="modelFactorSubCriticalFlowMean">The mean of the model factor sub critical flow.</param>
-        /// <param name="modelFactorSubCriticalFlowVariation">The variation of the model factor sub critical flow.</param>
         /// <param name="thresholdHeightOpenWeirMean">The mean of the threshold height open weir.</param>
         /// <param name="thresholdHeightOpenWeirStandardDeviation">The standard deviation of the threshold height open weir.</param>
         /// <param name="insideWaterLevelFailureConstructionMean">The mean of the inside water level at failure of construction.</param>
@@ -148,7 +144,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                            double levelCrestStructureMean, double levelCrestStructureStandardDeviation,
                                                            double structureNormalOrientation,
                                                            double factorStormDurationOpenStructure,
-                                                           double modelFactorSubCriticalFlowMean, double modelFactorSubCriticalFlowVariation,
                                                            double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
                                                            double insideWaterLevelFailureConstructionMean, double insideWaterLevelFailureConstructionStandardDeviation,
                                                            double failureProbabilityRepairClosure,
@@ -186,8 +181,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.levelCrestStructureStandardDeviation = levelCrestStructureStandardDeviation;
             this.structureNormalOrientation = structureNormalOrientation;
             this.factorStormDurationOpenStructure = factorStormDurationOpenStructure;
-            this.modelFactorSubCriticalFlowMean = modelFactorSubCriticalFlowMean;
-            this.modelFactorSubCriticalFlowVariation = modelFactorSubCriticalFlowVariation;
             this.thresholdHeightOpenWeirMean = thresholdHeightOpenWeirMean;
             this.thresholdHeightOpenWeirStandardDeviation = thresholdHeightOpenWeirStandardDeviation;
             this.insideWaterLevelFailureConstructionMean = insideWaterLevelFailureConstructionMean;
@@ -248,7 +241,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new NormalHydraRingVariable(60, HydraRingDeviationType.Standard, levelCrestStructureMean, levelCrestStructureStandardDeviation);
                 yield return new DeterministicHydraRingVariable(61, structureNormalOrientation);
                 yield return new DeterministicHydraRingVariable(63, factorStormDurationOpenStructure);
-                yield return new NormalHydraRingVariable(64, HydraRingDeviationType.Variation, modelFactorSubCriticalFlowMean, modelFactorSubCriticalFlowVariation);
                 yield return new NormalHydraRingVariable(65, HydraRingDeviationType.Standard, thresholdHeightOpenWeirMean, thresholdHeightOpenWeirStandardDeviation);
                 yield return new NormalHydraRingVariable(82, HydraRingDeviationType.Standard, insideWaterLevelFailureConstructionMean, insideWaterLevelFailureConstructionStandardDeviation);
                 yield return new DeterministicHydraRingVariable(85, failureProbabilityRepairClosure);
@@ -281,6 +273,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         public override IEnumerable<HydraRingForelandPoint> ForelandsPoints { get; }
 
         public override HydraRingBreakWater BreakWater { get; }
+
+        public override int IterationMethodId
+        {
+            get
+            {
+                return 6;
+            }
+        }
 
         public abstract override int? GetSubMechanismModelId(int subMechanismId);
     }

@@ -113,7 +113,6 @@ namespace Ringtoets.Storage.Core.DbContext
         public double? FlowWidthAtBottomProtectionMean { get; set; }
         public double? FlowWidthAtBottomProtectionStandardDeviation { get; set; }
         public double? StormDurationMean { get; set; }
-        public double? ModelFactorSuperCriticalFlowMean { get; set; }
         public double FailureProbabilityStructureWithErosion { get; set; }
         public byte ShouldIllustrationPointsBeCalculated { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }

@@ -49,6 +49,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
             // Assert
             Assert.IsInstanceOf<StructuresCalculationConfiguration>(configuration);
             Assert.AreEqual("some name", configuration.Name);
+            Assert.IsNull(configuration.ModelFactorSuperCriticalFlow);
             Assert.IsNull(configuration.LevelCrestStructure);
         }
 
@@ -56,13 +57,16 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
         public void SimpleProperties_SetNewValues_NewValuesSet()
         {
             // Setup
+            var modelFactorSuperCriticalFlow = new StochastConfiguration();
             var levelCrestStructure = new StochastConfiguration();
             var configuration = new HeightStructuresCalculationConfiguration("some name");
 
             // Call
+            configuration.ModelFactorSuperCriticalFlow = modelFactorSuperCriticalFlow;
             configuration.LevelCrestStructure = levelCrestStructure;
 
             // Assert
+            Assert.AreSame(modelFactorSuperCriticalFlow, configuration.ModelFactorSuperCriticalFlow);
             Assert.AreSame(levelCrestStructure, configuration.LevelCrestStructure);
         }
 

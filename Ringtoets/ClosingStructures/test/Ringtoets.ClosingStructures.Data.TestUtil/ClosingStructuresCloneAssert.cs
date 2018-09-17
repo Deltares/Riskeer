@@ -43,6 +43,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
             CommonCloneAssert.AreClones(original, clone);
 
             CoreCloneAssert.AreObjectClones(original.ThresholdHeightOpenWeir, clone.ThresholdHeightOpenWeir, DistributionAssert.AreEqual);
+            CoreCloneAssert.AreObjectClones(original.ModelFactorSuperCriticalFlow, clone.ModelFactorSuperCriticalFlow, DistributionAssert.AreEqual);
             CoreCloneAssert.AreObjectClones(original.DrainCoefficient, clone.DrainCoefficient, DistributionAssert.AreEqual);
             CoreCloneAssert.AreObjectClones(original.AreaFlowApertures, clone.AreaFlowApertures, DistributionAssert.AreEqual);
             CoreCloneAssert.AreObjectClones(original.LevelCrestStructureNotClosing, clone.LevelCrestStructureNotClosing, DistributionAssert.AreEqual);

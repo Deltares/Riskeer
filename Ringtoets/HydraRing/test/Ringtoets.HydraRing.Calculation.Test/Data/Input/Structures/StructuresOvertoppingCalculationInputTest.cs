@@ -97,6 +97,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresOvertopping, input.FailureMechanismType);
             Assert.AreEqual(variableId, input.VariableId);
+            Assert.AreEqual(6, input.IterationMethodId);
 
             HydraRingSection section = input.Section;
             Assert.AreEqual(1, section.SectionId);

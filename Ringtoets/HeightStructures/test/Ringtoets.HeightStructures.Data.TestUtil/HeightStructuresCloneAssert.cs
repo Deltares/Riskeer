@@ -42,8 +42,9 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         {
             CommonCloneAssert.AreClones(original, clone);
 
-            CoreCloneAssert.AreObjectClones(original.LevelCrestStructure, clone.LevelCrestStructure, DistributionAssert.AreEqual);
             Assert.AreEqual(original.DeviationWaveDirection, clone.DeviationWaveDirection);
+            CoreCloneAssert.AreObjectClones(original.ModelFactorSuperCriticalFlow, clone.ModelFactorSuperCriticalFlow, DistributionAssert.AreEqual);
+            CoreCloneAssert.AreObjectClones(original.LevelCrestStructure, clone.LevelCrestStructure, DistributionAssert.AreEqual);
         }
     }
 }

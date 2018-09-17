@@ -45,9 +45,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         private const int gravitationalAccelerationPropertyIndex = 6;
         private const int nPropertyIndex = 7;
         private const int modelFactorStorageVolumePropertyIndex = 8;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 9;
-        private const int modelFactorCollisionLoadPropertyIndex = 10;
-        private const int modelFactorLoadEffectPropertyIndex = 11;
+        private const int modelFactorCollisionLoadPropertyIndex = 9;
+        private const int modelFactorLoadEffectPropertyIndex = 10;
+        private const int modelFactorLongThresholdPropertyIndex = 11;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismProperties"/>.
@@ -99,9 +99,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                    || nameof(N).Equals(propertyName)
                    || nameof(GravitationalAcceleration).Equals(propertyName)
                    || nameof(ModelFactorStorageVolume).Equals(propertyName)
-                   || nameof(ModelFactorSubCriticalFlow).Equals(propertyName)
                    || nameof(ModelFactorCollisionLoad).Equals(propertyName)
-                   || nameof(ModelFactorLoadEffect).Equals(propertyName);
+                   || nameof(ModelFactorLoadEffect).Equals(propertyName)
+                   || nameof(ModelFactorLongThreshold).Equals(propertyName);
         }
 
         #region General
@@ -199,20 +199,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(modelFactorSubCriticalFlowPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_Description))]
-        public VariationCoefficientNormalDistributionProperties ModelFactorSubCriticalFlow
-        {
-            get
-            {
-                return new VariationCoefficientNormalDistributionProperties(data.GeneralInput.ModelFactorSubCriticalFlow);
-            }
-        }
-
-        [DynamicVisible]
         [PropertyOrder(modelFactorCollisionLoadPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
@@ -237,6 +223,20 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return new NormalDistributionProperties(data.GeneralInput.ModelFactorLoadEffect);
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(modelFactorLongThresholdPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorLongThreshold_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorLongThreshold_Description))]
+        public NormalDistributionProperties ModelFactorLongThreshold
+        {
+            get
+            {
+                return new NormalDistributionProperties(data.GeneralInput.ModelFactorLongThreshold);
             }
         }
 

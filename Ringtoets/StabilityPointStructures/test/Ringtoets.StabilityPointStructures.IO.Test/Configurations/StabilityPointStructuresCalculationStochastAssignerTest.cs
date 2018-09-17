@@ -181,10 +181,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 {
                     Mean = 10
                 },
-                ModelFactorSuperCriticalFlow = new StochastConfiguration
-                {
-                    Mean = 11
-                },
                 FlowVelocityStructureClosable = new StochastConfiguration
                 {
                     Mean = 1

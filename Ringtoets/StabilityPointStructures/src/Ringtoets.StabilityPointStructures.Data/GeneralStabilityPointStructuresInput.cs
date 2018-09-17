@@ -32,8 +32,10 @@ namespace Ringtoets.StabilityPointStructures.Data
     public class GeneralStabilityPointStructuresInput
     {
         private const int numberOfDecimalPlacesN = 2;
+
         private static readonly Range<RoundedDouble> validityRangeN = new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlacesN, 1),
                                                                                                new RoundedDouble(numberOfDecimalPlacesN, 20));
+
         private RoundedDouble n;
 
         /// <summary>
@@ -51,12 +53,6 @@ namespace Ringtoets.StabilityPointStructures.Data
                 StandardDeviation = (RoundedDouble) 0.2
             };
 
-            ModelFactorSubCriticalFlow = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
             ModelFactorCollisionLoad = new VariationCoefficientNormalDistribution(1)
             {
                 Mean = (RoundedDouble) 1,
@@ -66,6 +62,12 @@ namespace Ringtoets.StabilityPointStructures.Data
             ModelFactorLoadEffect = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
+            ModelFactorLongThreshold = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 0.9,
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
@@ -119,11 +121,6 @@ namespace Ringtoets.StabilityPointStructures.Data
         public LogNormalDistribution ModelFactorStorageVolume { get; }
 
         /// <summary>
-        /// Gets the model factor for sub critical flow.
-        /// </summary>
-        public VariationCoefficientNormalDistribution ModelFactorSubCriticalFlow { get; }
-
-        /// <summary>
         /// Gets the model factor for collision load.
         /// </summary>
         public VariationCoefficientNormalDistribution ModelFactorCollisionLoad { get; }
@@ -132,6 +129,11 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets the model factor for load effect.
         /// </summary>
         public NormalDistribution ModelFactorLoadEffect { get; }
+
+        /// <summary>
+        /// Gets the model factor for long threshold.
+        /// </summary>
+        public NormalDistribution ModelFactorLongThreshold { get; }
 
         /// <summary>
         /// Gets the model factor for incoming flow volume.

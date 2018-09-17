@@ -77,10 +77,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (constructionProperties == null)
             {
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
+
             if (propertyChangeHandler == null)
             {
                 throw new ArgumentNullException(nameof(propertyChangeHandler));
@@ -90,9 +92,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             Data = data;
             propertyIndexLookup = new Dictionary<string, int>
             {
-                {
-                    nameof(ModelFactorSuperCriticalFlow), constructionProperties.ModelFactorSuperCriticalFlowPropertyIndex
-                },
                 {
                     nameof(Structure), constructionProperties.StructurePropertyIndex
                 },
@@ -137,26 +136,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 }
             };
         }
-
-        #region Model factors
-
-        [DynamicPropertyOrder]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_ModelFactorSuperCriticalFlow_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_ModelFactorSuperCriticalFlow_Description))]
-        public virtual NormalDistributionProperties ModelFactorSuperCriticalFlow
-        {
-            get
-            {
-                return new NormalDistributionProperties(
-                    DistributionPropertiesReadOnly.StandardDeviation,
-                    data.WrappedData.ModelFactorSuperCriticalFlow,
-                    PropertyChangeHandler);
-            }
-        }
-
-        #endregion
 
         #region Output Settings
 
@@ -240,15 +219,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// </summary>
         public class ConstructionProperties
         {
-            #region Model factors
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.ModelFactorSuperCriticalFlow"/>.
-            /// </summary>
-            public int ModelFactorSuperCriticalFlowPropertyIndex { get; set; }
-
-            #endregion
-
             #region Schematization
 
             /// <summary>

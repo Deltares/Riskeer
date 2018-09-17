@@ -83,7 +83,6 @@ namespace Ringtoets.Storage.Core.Test.Read
             var mocks = new MockRepository();
             var entity = mocks.Stub<IStructuresCalculationEntity>();
             entity.StructureNormalOrientation = random.NextDouble(0, 360);
-            entity.ModelFactorSuperCriticalFlowMean = random.NextDouble(-9999.9999, 9999.9999);
             entity.AllowedLevelIncreaseStorageMean = random.NextDouble(1e-6, 9999.9999);
             entity.AllowedLevelIncreaseStorageStandardDeviation = random.NextDouble(1e-6, 9999.9999);
             entity.FlowWidthAtBottomProtectionMean = random.NextDouble(1e-6, 9999.9999);
@@ -111,7 +110,6 @@ namespace Ringtoets.Storage.Core.Test.Read
             AssertBoolean(entity.ShouldIllustrationPointsBeCalculated, inputToUpdate.ShouldIllustrationPointsBeCalculated);
 
             AssertRoundedDouble(entity.StructureNormalOrientation, inputToUpdate.StructureNormalOrientation);
-            AssertRoundedDouble(entity.ModelFactorSuperCriticalFlowMean, inputToUpdate.ModelFactorSuperCriticalFlow.Mean);
             AssertRoundedDouble(entity.AllowedLevelIncreaseStorageMean, inputToUpdate.AllowedLevelIncreaseStorage.Mean);
             AssertRoundedDouble(entity.AllowedLevelIncreaseStorageStandardDeviation, inputToUpdate.AllowedLevelIncreaseStorage.StandardDeviation);
             AssertRoundedDouble(entity.FlowWidthAtBottomProtectionMean, inputToUpdate.FlowWidthAtBottomProtection.Mean);
@@ -137,7 +135,6 @@ namespace Ringtoets.Storage.Core.Test.Read
             var mocks = new MockRepository();
             var entity = mocks.Stub<IStructuresCalculationEntity>();
             entity.StructureNormalOrientation = null;
-            entity.ModelFactorSuperCriticalFlowMean = null;
             entity.AllowedLevelIncreaseStorageMean = null;
             entity.AllowedLevelIncreaseStorageStandardDeviation = null;
             entity.FlowWidthAtBottomProtectionMean = null;
@@ -157,7 +154,6 @@ namespace Ringtoets.Storage.Core.Test.Read
 
             // Assert
             Assert.IsNaN(inputToUpdate.StructureNormalOrientation);
-            Assert.IsNaN(inputToUpdate.ModelFactorSuperCriticalFlow.Mean);
             Assert.IsNaN(inputToUpdate.AllowedLevelIncreaseStorage.Mean);
             Assert.IsNaN(inputToUpdate.AllowedLevelIncreaseStorage.StandardDeviation);
             Assert.IsNaN(inputToUpdate.FlowWidthAtBottomProtection.Mean);

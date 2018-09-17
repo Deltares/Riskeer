@@ -43,11 +43,6 @@ namespace Ringtoets.Common.Data.TestUtil
         {
             var random = new Random(21);
 
-            input.ModelFactorSuperCriticalFlow = new NormalDistribution
-            {
-                Mean = random.NextRoundedDouble()
-            };
-
             input.AllowedLevelIncreaseStorage = new LogNormalDistribution
             {
                 Mean = random.NextRoundedDouble(),

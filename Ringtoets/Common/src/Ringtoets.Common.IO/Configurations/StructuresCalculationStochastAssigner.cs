@@ -175,14 +175,6 @@ namespace Ringtoets.Common.IO.Configurations
                 return false;
             }
 
-            if (Configuration.ModelFactorSuperCriticalFlow?.StandardDeviation != null
-                || Configuration.ModelFactorSuperCriticalFlow?.VariationCoefficient != null)
-            {
-                Log.LogCalculationConversionError(Resources.CalculationConfigurationImporter_ValidateStochasts_Cannot_define_spread_for_ModelFactorSuperCriticalFlow,
-                                                  Configuration.Name);
-                return false;
-            }
-
             return true;
         }
 

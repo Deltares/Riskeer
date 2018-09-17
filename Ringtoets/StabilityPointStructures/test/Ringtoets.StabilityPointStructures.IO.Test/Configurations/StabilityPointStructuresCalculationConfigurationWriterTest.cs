@@ -223,11 +223,6 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 },
                 LevellingCount = 4,
                 LoadSchematizationType = ConfigurationStabilityPointStructuresLoadSchematizationType.Linear,
-                ModelFactorSuperCriticalFlow = new StochastConfiguration
-                {
-                    Mean = 0.13,
-                    StandardDeviation = 0.23
-                },
                 ProbabilityCollisionSecondaryStructure = 5.5,
                 ShipMass = new StochastConfiguration
                 {

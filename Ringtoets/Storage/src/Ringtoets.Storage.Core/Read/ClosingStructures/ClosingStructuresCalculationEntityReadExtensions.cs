@@ -88,6 +88,7 @@ namespace Ringtoets.Storage.Core.Read.ClosingStructures
             inputParameters.InsideWaterLevel.Mean = (RoundedDouble) entity.InsideWaterLevelMean.ToNullAsNaN();
             inputParameters.InsideWaterLevel.StandardDeviation = (RoundedDouble) entity.InsideWaterLevelStandardDeviation.ToNullAsNaN();
             inputParameters.DeviationWaveDirection = (RoundedDouble) entity.DeviationWaveDirection.ToNullAsNaN();
+            inputParameters.ModelFactorSuperCriticalFlow.Mean = (RoundedDouble) entity.ModelFactorSuperCriticalFlowMean.ToNullAsNaN();
             inputParameters.DrainCoefficient.Mean = (RoundedDouble) entity.DrainCoefficientMean.ToNullAsNaN();
             inputParameters.FactorStormDurationOpenStructure = (RoundedDouble) entity.FactorStormDurationOpenStructure.ToNullAsNaN();
             inputParameters.ThresholdHeightOpenWeir.Mean = (RoundedDouble) entity.ThresholdHeightOpenWeirMean.ToNullAsNaN();

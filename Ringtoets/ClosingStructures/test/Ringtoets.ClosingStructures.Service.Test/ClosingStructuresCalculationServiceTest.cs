@@ -566,10 +566,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     input.StormDuration.Mean, input.StormDuration.CoefficientOfVariation,
                     input.ProbabilityOpenStructureBeforeFlooding,
                     input.ModelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.StandardDeviation,
-                    generalInput.ModelFactorSubCriticalFlow.Mean, generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean, input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevel.Mean, input.InsideWaterLevel.StandardDeviation,
-                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation);
+                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation,
+                    generalInput.ModelFactorLongThreshold.Mean, generalInput.ModelFactorLongThreshold.StandardDeviation);
 
                 var actualInput = (StructuresClosureLowSillCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -647,10 +647,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     input.StormDuration.Mean, input.StormDuration.CoefficientOfVariation,
                     input.ProbabilityOpenStructureBeforeFlooding,
                     input.ModelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.StandardDeviation,
-                    generalInput.ModelFactorSubCriticalFlow.Mean, generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean, input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevel.Mean, input.InsideWaterLevel.StandardDeviation,
-                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation);
+                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.StandardDeviation,
+                    generalInput.ModelFactorLongThreshold.Mean, generalInput.ModelFactorLongThreshold.StandardDeviation);
 
                 var actualInput = (StructuresClosureLowSillCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);

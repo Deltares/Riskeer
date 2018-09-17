@@ -40,12 +40,19 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
             var random = new Random(21);
 
             input.Structure = new TestHeightStructure();
+
+            input.DeviationWaveDirection = random.NextRoundedDouble();
+
+            input.ModelFactorSuperCriticalFlow = new NormalDistribution
+            {
+                Mean = random.NextRoundedDouble()
+            };
+
             input.LevelCrestStructure = new NormalDistribution
             {
                 Mean = random.NextRoundedDouble(),
                 StandardDeviation = random.NextRoundedDouble()
             };
-            input.DeviationWaveDirection = random.NextRoundedDouble();
 
             CommonTestDataGenerator.SetRandomDataToStructuresInput(input);
         }

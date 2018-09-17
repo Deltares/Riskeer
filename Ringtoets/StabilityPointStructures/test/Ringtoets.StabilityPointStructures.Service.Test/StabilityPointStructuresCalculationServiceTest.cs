@@ -143,7 +143,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                Assert.AreEqual(43, msgs.Length);
+                Assert.AreEqual(41, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual($"De waarde voor '{volumicWeightWaterParameterName}' moet een concreet getal zijn.", msgs[1]);
                 Assert.AreEqual($"De verwachtingswaarde voor '{stormDurationParameterName}' moet een positief getal zijn.", msgs[2]);
@@ -154,39 +154,37 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual($"De standaardafwijking voor '{insideWaterLevelFailureConstructionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[7]);
                 Assert.AreEqual($"De verwachtingswaarde voor '{flowVelocityStructureClosableParameterName}' moet een concreet getal zijn.", msgs[8]);
                 Assert.AreEqual($"De variatiecoëfficiënt voor '{flowVelocityStructureClosableParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[9]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{modelFactorSuperCriticalFlowParameterName}' moet een concreet getal zijn.", msgs[10]);
-                Assert.AreEqual($"De standaardafwijking voor '{modelFactorSuperCriticalFlowParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[11]);
-                Assert.AreEqual($"De waarde voor '{factorStormDurationOpenStructureParameterName}' moet een concreet getal zijn.", msgs[12]);
-                Assert.AreEqual($"De waarde voor '{structureNormalOrientationParameterName}' moet een concreet getal zijn.", msgs[13]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{widthFlowAperturesParameterName}' moet een concreet getal zijn.", msgs[14]);
-                Assert.AreEqual($"De standaardafwijking voor '{widthFlowAperturesParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[15]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{flowWidthAtBottomProtectionParameterName}' moet een positief getal zijn.", msgs[16]);
-                Assert.AreEqual($"De standaardafwijking voor '{flowWidthAtBottomProtectionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[17]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{storageStructureAreaParameterName}' moet een positief getal zijn.", msgs[18]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{storageStructureAreaParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[19]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{allowedLevelIncreaseStorageParameterName}' moet een positief getal zijn.", msgs[20]);
-                Assert.AreEqual($"De standaardafwijking voor '{allowedLevelIncreaseStorageParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[21]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{levelCrestStructureParameterName}' moet een concreet getal zijn.", msgs[22]);
-                Assert.AreEqual($"De standaardafwijking voor '{levelCrestStructureParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[23]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{thresholdHeightOpenWeirParameterName}' moet een concreet getal zijn.", msgs[24]);
-                Assert.AreEqual($"De standaardafwijking voor '{thresholdHeightOpenWeirParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[25]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{criticalOvertoppingDischargeParameterName}' moet een positief getal zijn.", msgs[26]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{criticalOvertoppingDischargeParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[27]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{constructiveStrengthLinearLoadModelParameterName}' moet een positief getal zijn.", msgs[28]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{constructiveStrengthLinearLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[29]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{bankWidthParameterName}' moet een concreet getal zijn.", msgs[30]);
-                Assert.AreEqual($"De standaardafwijking voor '{bankWidthParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[31]);
-                Assert.AreEqual($"De waarde voor '{evaluationLevelParameterName}' moet een concreet getal zijn.", msgs[32]);
-                Assert.AreEqual($"De waarde voor '{verticalDistanceParameterName}' moet een concreet getal zijn.", msgs[33]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{failureCollisionEnergyParameterName}' moet een positief getal zijn.", msgs[34]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{failureCollisionEnergyParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[35]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{shipMassParameterName}' moet een concreet getal zijn.", msgs[36]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{shipMassParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[37]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{shipVelocityParameterName}' moet een concreet getal zijn.", msgs[38]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{shipVelocityParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[39]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{stabilityLinearLoadModelParameterName}' moet een positief getal zijn.", msgs[40]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{stabilityLinearLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[41]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[42]);
+                Assert.AreEqual($"De waarde voor '{factorStormDurationOpenStructureParameterName}' moet een concreet getal zijn.", msgs[10]);
+                Assert.AreEqual($"De waarde voor '{structureNormalOrientationParameterName}' moet een concreet getal zijn.", msgs[11]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{widthFlowAperturesParameterName}' moet een concreet getal zijn.", msgs[12]);
+                Assert.AreEqual($"De standaardafwijking voor '{widthFlowAperturesParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[13]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{flowWidthAtBottomProtectionParameterName}' moet een positief getal zijn.", msgs[14]);
+                Assert.AreEqual($"De standaardafwijking voor '{flowWidthAtBottomProtectionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[15]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{storageStructureAreaParameterName}' moet een positief getal zijn.", msgs[16]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{storageStructureAreaParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[17]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{allowedLevelIncreaseStorageParameterName}' moet een positief getal zijn.", msgs[18]);
+                Assert.AreEqual($"De standaardafwijking voor '{allowedLevelIncreaseStorageParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[19]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{levelCrestStructureParameterName}' moet een concreet getal zijn.", msgs[20]);
+                Assert.AreEqual($"De standaardafwijking voor '{levelCrestStructureParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[21]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{thresholdHeightOpenWeirParameterName}' moet een concreet getal zijn.", msgs[22]);
+                Assert.AreEqual($"De standaardafwijking voor '{thresholdHeightOpenWeirParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[23]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{criticalOvertoppingDischargeParameterName}' moet een positief getal zijn.", msgs[24]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{criticalOvertoppingDischargeParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[25]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{constructiveStrengthLinearLoadModelParameterName}' moet een positief getal zijn.", msgs[26]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{constructiveStrengthLinearLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[27]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{bankWidthParameterName}' moet een concreet getal zijn.", msgs[28]);
+                Assert.AreEqual($"De standaardafwijking voor '{bankWidthParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[29]);
+                Assert.AreEqual($"De waarde voor '{evaluationLevelParameterName}' moet een concreet getal zijn.", msgs[30]);
+                Assert.AreEqual($"De waarde voor '{verticalDistanceParameterName}' moet een concreet getal zijn.", msgs[31]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{failureCollisionEnergyParameterName}' moet een positief getal zijn.", msgs[32]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{failureCollisionEnergyParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[33]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{shipMassParameterName}' moet een concreet getal zijn.", msgs[34]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{shipMassParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[35]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{shipVelocityParameterName}' moet een concreet getal zijn.", msgs[36]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{shipVelocityParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[37]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{stabilityLinearLoadModelParameterName}' moet een positief getal zijn.", msgs[38]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{stabilityLinearLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[39]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[40]);
             });
         }
 
@@ -224,7 +222,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                Assert.AreEqual(43, msgs.Length);
+                Assert.AreEqual(41, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 Assert.AreEqual($"De waarde voor '{volumicWeightWaterParameterName}' moet een concreet getal zijn.", msgs[1]);
                 Assert.AreEqual($"De verwachtingswaarde voor '{stormDurationParameterName}' moet een positief getal zijn.", msgs[2]);
@@ -235,39 +233,37 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual($"De standaardafwijking voor '{insideWaterLevelFailureConstructionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[7]);
                 Assert.AreEqual($"De verwachtingswaarde voor '{flowVelocityStructureClosableParameterName}' moet een concreet getal zijn.", msgs[8]);
                 Assert.AreEqual($"De variatiecoëfficiënt voor '{flowVelocityStructureClosableParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[9]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{modelFactorSuperCriticalFlowParameterName}' moet een concreet getal zijn.", msgs[10]);
-                Assert.AreEqual($"De standaardafwijking voor '{modelFactorSuperCriticalFlowParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[11]);
-                Assert.AreEqual($"De waarde voor '{factorStormDurationOpenStructureParameterName}' moet een concreet getal zijn.", msgs[12]);
-                Assert.AreEqual($"De waarde voor '{structureNormalOrientationParameterName}' moet een concreet getal zijn.", msgs[13]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{widthFlowAperturesParameterName}' moet een concreet getal zijn.", msgs[14]);
-                Assert.AreEqual($"De standaardafwijking voor '{widthFlowAperturesParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[15]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{flowWidthAtBottomProtectionParameterName}' moet een positief getal zijn.", msgs[16]);
-                Assert.AreEqual($"De standaardafwijking voor '{flowWidthAtBottomProtectionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[17]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{storageStructureAreaParameterName}' moet een positief getal zijn.", msgs[18]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{storageStructureAreaParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[19]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{allowedLevelIncreaseStorageParameterName}' moet een positief getal zijn.", msgs[20]);
-                Assert.AreEqual($"De standaardafwijking voor '{allowedLevelIncreaseStorageParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[21]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{levelCrestStructureParameterName}' moet een concreet getal zijn.", msgs[22]);
-                Assert.AreEqual($"De standaardafwijking voor '{levelCrestStructureParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[23]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{thresholdHeightOpenWeirParameterName}' moet een concreet getal zijn.", msgs[24]);
-                Assert.AreEqual($"De standaardafwijking voor '{thresholdHeightOpenWeirParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[25]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{criticalOvertoppingDischargeParameterName}' moet een positief getal zijn.", msgs[26]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{criticalOvertoppingDischargeParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[27]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{constructiveStrengthQuadraticLoadModelParameterName}' moet een positief getal zijn.", msgs[28]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{constructiveStrengthQuadraticLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[29]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{bankWidthParameterName}' moet een concreet getal zijn.", msgs[30]);
-                Assert.AreEqual($"De standaardafwijking voor '{bankWidthParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[31]);
-                Assert.AreEqual($"De waarde voor '{evaluationLevelParameterName}' moet een concreet getal zijn.", msgs[32]);
-                Assert.AreEqual($"De waarde voor '{verticalDistanceParameterName}' moet een concreet getal zijn.", msgs[33]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{failureCollisionEnergyParameterName}' moet een positief getal zijn.", msgs[34]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{failureCollisionEnergyParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[35]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{shipMassParameterName}' moet een concreet getal zijn.", msgs[36]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{shipMassParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[37]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{shipVelocityParameterName}' moet een concreet getal zijn.", msgs[38]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{shipVelocityParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[39]);
-                Assert.AreEqual($"De verwachtingswaarde voor '{stabilityQuadraticLoadModelParameterName}' moet een positief getal zijn.", msgs[40]);
-                Assert.AreEqual($"De variatiecoëfficiënt voor '{stabilityQuadraticLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[41]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[42]);
+                Assert.AreEqual($"De waarde voor '{factorStormDurationOpenStructureParameterName}' moet een concreet getal zijn.", msgs[10]);
+                Assert.AreEqual($"De waarde voor '{structureNormalOrientationParameterName}' moet een concreet getal zijn.", msgs[11]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{widthFlowAperturesParameterName}' moet een concreet getal zijn.", msgs[12]);
+                Assert.AreEqual($"De standaardafwijking voor '{widthFlowAperturesParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[13]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{flowWidthAtBottomProtectionParameterName}' moet een positief getal zijn.", msgs[14]);
+                Assert.AreEqual($"De standaardafwijking voor '{flowWidthAtBottomProtectionParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[15]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{storageStructureAreaParameterName}' moet een positief getal zijn.", msgs[16]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{storageStructureAreaParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[17]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{allowedLevelIncreaseStorageParameterName}' moet een positief getal zijn.", msgs[18]);
+                Assert.AreEqual($"De standaardafwijking voor '{allowedLevelIncreaseStorageParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[19]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{levelCrestStructureParameterName}' moet een concreet getal zijn.", msgs[20]);
+                Assert.AreEqual($"De standaardafwijking voor '{levelCrestStructureParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[21]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{thresholdHeightOpenWeirParameterName}' moet een concreet getal zijn.", msgs[22]);
+                Assert.AreEqual($"De standaardafwijking voor '{thresholdHeightOpenWeirParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[23]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{criticalOvertoppingDischargeParameterName}' moet een positief getal zijn.", msgs[24]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{criticalOvertoppingDischargeParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[25]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{constructiveStrengthQuadraticLoadModelParameterName}' moet een positief getal zijn.", msgs[26]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{constructiveStrengthQuadraticLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[27]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{bankWidthParameterName}' moet een concreet getal zijn.", msgs[28]);
+                Assert.AreEqual($"De standaardafwijking voor '{bankWidthParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[29]);
+                Assert.AreEqual($"De waarde voor '{evaluationLevelParameterName}' moet een concreet getal zijn.", msgs[30]);
+                Assert.AreEqual($"De waarde voor '{verticalDistanceParameterName}' moet een concreet getal zijn.", msgs[31]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{failureCollisionEnergyParameterName}' moet een positief getal zijn.", msgs[32]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{failureCollisionEnergyParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[33]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{shipMassParameterName}' moet een concreet getal zijn.", msgs[34]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{shipMassParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[35]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{shipVelocityParameterName}' moet een concreet getal zijn.", msgs[36]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{shipVelocityParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[37]);
+                Assert.AreEqual($"De verwachtingswaarde voor '{stabilityQuadraticLoadModelParameterName}' moet een positief getal zijn.", msgs[38]);
+                Assert.AreEqual($"De variatiecoëfficiënt voor '{stabilityQuadraticLoadModelParameterName}' moet groter zijn dan of gelijk zijn aan 0.", msgs[39]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[40]);
             });
         }
 
@@ -540,8 +536,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
@@ -630,8 +624,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -675,14 +667,14 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.VerticalDistance,
                     generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                     generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                    input.ModelFactorSuperCriticalFlow.Mean,
-                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
                     input.ConstructiveStrengthLinearLoadModel.Mean,
                     input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
                     input.StabilityLinearLoadModel.Mean,
                     input.StabilityLinearLoadModel.CoefficientOfVariation,
                     input.WidthFlowApertures.Mean,
-                    input.WidthFlowApertures.StandardDeviation);
+                    input.WidthFlowApertures.StandardDeviation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation);
 
                 var actualInput = (StructuresStabilityPointLowSillLinearCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -751,8 +743,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -796,14 +786,14 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.VerticalDistance,
                     generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                     generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                    input.ModelFactorSuperCriticalFlow.Mean,
-                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
                     input.ConstructiveStrengthLinearLoadModel.Mean,
                     input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
                     input.StabilityLinearLoadModel.Mean,
                     input.StabilityLinearLoadModel.CoefficientOfVariation,
                     input.WidthFlowApertures.Mean,
-                    input.WidthFlowApertures.StandardDeviation);
+                    input.WidthFlowApertures.StandardDeviation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation);
 
                 var actualInput = (StructuresStabilityPointLowSillLinearCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -869,8 +859,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -914,14 +902,14 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.VerticalDistance,
                     generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                     generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                    input.ModelFactorSuperCriticalFlow.Mean,
-                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
                     input.ConstructiveStrengthQuadraticLoadModel.Mean,
                     input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
                     input.StabilityQuadraticLoadModel.Mean,
                     input.StabilityQuadraticLoadModel.CoefficientOfVariation,
                     input.WidthFlowApertures.Mean,
-                    input.WidthFlowApertures.StandardDeviation);
+                    input.WidthFlowApertures.StandardDeviation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation);
 
                 var actualInput = (StructuresStabilityPointLowSillQuadraticCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -990,8 +978,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -1035,14 +1021,14 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.VerticalDistance,
                     generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
                     generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                    input.ModelFactorSuperCriticalFlow.Mean,
-                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
                     input.ConstructiveStrengthQuadraticLoadModel.Mean,
                     input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
                     input.StabilityQuadraticLoadModel.Mean,
                     input.StabilityQuadraticLoadModel.CoefficientOfVariation,
                     input.WidthFlowApertures.Mean,
-                    input.WidthFlowApertures.StandardDeviation);
+                    input.WidthFlowApertures.StandardDeviation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation);
 
                 var actualInput = (StructuresStabilityPointLowSillQuadraticCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -1108,8 +1094,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -1229,8 +1213,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -1347,8 +1329,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -1468,8 +1448,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    generalInput.ModelFactorSubCriticalFlow.Mean,
-                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -1850,7 +1828,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             input.InsideWaterLevelFailureConstruction.Mean = value;
             input.InsideWaterLevel.Mean = value;
-            input.ModelFactorSuperCriticalFlow.Mean = value;
             input.FlowVelocityStructureClosable.Mean = value;
             input.DrainCoefficient.Mean = value;
             input.LevelCrestStructure.Mean = value;
@@ -1865,7 +1842,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.InsideWaterLevelFailureConstruction.StandardDeviation = RoundedDouble.NaN;
                 input.InsideWaterLevel.StandardDeviation = RoundedDouble.NaN;
                 input.StormDuration.CoefficientOfVariation = RoundedDouble.NaN;
-                input.ModelFactorSuperCriticalFlow.StandardDeviation = RoundedDouble.NaN;
                 input.FlowVelocityStructureClosable.CoefficientOfVariation = RoundedDouble.NaN;
                 input.DrainCoefficient.StandardDeviation = RoundedDouble.NaN;
                 input.LevelCrestStructure.StandardDeviation = RoundedDouble.NaN;
@@ -1886,7 +1862,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.BankWidth.StandardDeviation = RoundedDouble.NaN;
 
                 input.StormDuration.Mean = RoundedDouble.NaN;
-                input.ModelFactorSuperCriticalFlow.Mean = RoundedDouble.NaN;
                 input.FlowVelocityStructureClosable.Mean = RoundedDouble.NaN;
                 input.DrainCoefficient.Mean = RoundedDouble.NaN;
                 input.LevelCrestStructure.Mean = RoundedDouble.NaN;
@@ -1910,7 +1885,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.InsideWaterLevelFailureConstruction.StandardDeviation = value;
                 input.InsideWaterLevel.StandardDeviation = value;
                 input.StormDuration.CoefficientOfVariation = value;
-                input.ModelFactorSuperCriticalFlow.StandardDeviation = value;
                 input.FlowVelocityStructureClosable.CoefficientOfVariation = value;
                 input.DrainCoefficient.StandardDeviation = value;
                 input.LevelCrestStructure.StandardDeviation = value;
@@ -1931,7 +1905,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 input.BankWidth.StandardDeviation = value;
 
                 input.StormDuration.Mean = value;
-                input.ModelFactorSuperCriticalFlow.Mean = value;
                 input.FlowVelocityStructureClosable.Mean = value;
                 input.DrainCoefficient.Mean = value;
                 input.LevelCrestStructure.Mean = value;
@@ -1959,7 +1932,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         private const string insideWaterLevelParameterName = "Binnenwaterstand";
         private const string stormDurationParameterName = "Stormduur";
         private const string factorStormDurationOpenStructureParameterName = "Factor voor stormduur hoogwater";
-        private const string modelFactorSuperCriticalFlowParameterName = "Modelfactor overloopdebiet volkomen overlaat";
         private const string flowVelocityStructureClosableParameterName = "Kritieke stroomsnelheid sluiting eerste keermiddel";
         private const string drainCoefficientParameterName = "Afvoercoëfficiënt";
         private const string structureNormalOrientationParameterName = "Oriëntatie";
