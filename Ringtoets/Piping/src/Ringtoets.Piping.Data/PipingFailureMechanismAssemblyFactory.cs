@@ -246,8 +246,7 @@ namespace Ringtoets.Piping.Data
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly category group for.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
-        /// <param name="useManual">Indicator that determines whether the manual assembly should be used or ignored, regardless of
-        /// the value of <see cref="PipingFailureMechanismSectionResult.UseManualAssemblyProbability"/>.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
@@ -280,8 +279,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
-        /// <param name="useManual">Indicator that determines whether the manual assembly should be used or ignored, regardless of
-        /// the value of <see cref="PipingFailureMechanismSectionResult.UseManualAssemblyProbability"/>.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
         /// <returns>A <see cref="FailureMechanismAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssembly"/>
@@ -335,8 +333,7 @@ namespace Ringtoets.Piping.Data
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly for.</param>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
-        /// <param name="useManual">Indicator that determines whether the manual assembly should be used or ignored, regardless of
-        /// the value of <see cref="PipingFailureMechanismSectionResult.UseManualAssemblyProbability"/>.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>

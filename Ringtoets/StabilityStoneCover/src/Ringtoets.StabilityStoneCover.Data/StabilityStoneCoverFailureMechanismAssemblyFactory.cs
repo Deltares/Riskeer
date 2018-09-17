@@ -184,8 +184,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// Gets the assembly category group of the given <paramref name="failureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly category group for.</param>
-        /// <param name="useManual">Indicator that determines whether the manual assembly should be used or ignored, regardless of
-        /// the value of <see cref="StabilityStoneCoverFailureMechanismSectionResult.UseManualAssemblyCategoryGroup"/>.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
@@ -208,8 +207,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// Assembles the failure mechanism assembly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
-        /// <param name="useManual">Indicator that determines whether the manual assembly should be used or ignored, regardless of
-        /// the value of <see cref="StabilityStoneCoverFailureMechanismSectionResult.UseManualAssemblyCategoryGroup"/>.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
         /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
