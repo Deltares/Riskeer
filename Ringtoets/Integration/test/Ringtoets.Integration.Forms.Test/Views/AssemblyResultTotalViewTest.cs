@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const string totalControlName = "totalAssemblyCategoryGroupControl";
         private const string failureMechanismsWithProbabilityControlName = "failureMechanismsWithProbabilityAssemblyControl";
         private const string failureMechanismsWithoutProbabilityControlName = "failureMechanismsWithoutProbabilityAssemblyControl";
-        private const string assemblyResultOutdatedWarning = "Assemblageresultaat is verouderd. Druk op de \"Assemblageresultaat verversen\" knop om opnieuw te berekenen.";
+        private const string assemblyResultOutdatedWarning = "Toetsoordeel is verouderd. Druk op de \"Toetsoordeel verversen\" knop om opnieuw te berekenen.";
         private Form testForm;
 
         private static IEnumerable<TestCaseData> CellFormattingStates
@@ -123,7 +123,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(3, view.Controls.Count);
 
                 Button button = GetRefreshAssemblyResultButtonTester().Properties;
-                Assert.AreEqual("Assemblageresultaat verversen", button.Text);
+                Assert.AreEqual("Toetsoordeel verversen", button.Text);
                 Assert.IsFalse(button.Enabled);
 
                 var groupBox = (GroupBox) new ControlTester("assemblyResultGroupBox").TheObject;

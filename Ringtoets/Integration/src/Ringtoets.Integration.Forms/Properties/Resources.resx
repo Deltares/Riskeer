@@ -334,7 +334,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Faalkansruimte [1/jaar]</value>
   </data>
   <data name="RefreshAssemblyResultsButton_Text" xml:space="preserve">
-    <value>Assemblageresultaat verversen</value>
+    <value>Toetsoordeel verversen</value>
   </data>
   <data name="AssemblyResultPerSectionView_GridColumn_SectionStart" xml:space="preserve">
     <value>Kilometrering* van [km]</value>
@@ -346,7 +346,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Totaal vakoordeel</value>
   </data>
   <data name="AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate" xml:space="preserve">
-    <value>Assemblageresultaat is verouderd. Druk op de "Assemblageresultaat verversen" knop om opnieuw te berekenen.</value>
+    <value>Toetsoordeel is verouderd. Druk op de "Toetsoordeel verversen" knop om opnieuw te berekenen.</value>
   </data>
   <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description" xml:space="preserve">
     <value>De categoriegrenzen voor dit traject en toetsspoor.</value>

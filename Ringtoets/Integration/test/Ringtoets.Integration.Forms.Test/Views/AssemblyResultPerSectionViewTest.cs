@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int duneErosionColumnIndex = 19;
         private const int technicalInnovationColumnIndex = 20;
         private const int expectedColumnCount = 21;
-        private const string assemblyResultOutdatedWarning = "Assemblageresultaat is verouderd. Druk op de \"Assemblageresultaat verversen\" knop om opnieuw te berekenen.";
+        private const string assemblyResultOutdatedWarning = "Toetsoordeel is verouderd. Druk op de \"Toetsoordeel verversen\" knop om opnieuw te berekenen.";
 
         private Form testForm;
 
@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(2, view.Controls.Count);
 
                 var button = (Button) GetRefreshAssemblyResultButtonTester().TheObject;
-                Assert.AreEqual("Assemblageresultaat verversen", button.Text);
+                Assert.AreEqual("Toetsoordeel verversen", button.Text);
                 Assert.IsFalse(button.Enabled);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
