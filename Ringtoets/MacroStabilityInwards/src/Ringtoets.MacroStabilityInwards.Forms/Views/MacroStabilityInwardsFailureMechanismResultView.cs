@@ -181,5 +181,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
         }
+
+        protected override bool HasManualAssemblyResults()
+        {
+            return MacroStabilityInwardsFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+        }
     }
 }

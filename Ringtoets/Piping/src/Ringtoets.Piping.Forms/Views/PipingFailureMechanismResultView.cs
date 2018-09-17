@@ -180,5 +180,10 @@ namespace Ringtoets.Piping.Forms.Views
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
         }
+
+        protected override bool HasManualAssemblyResults()
+        {
+            return PipingFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+        }
     }
 }

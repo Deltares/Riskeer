@@ -181,5 +181,10 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
         }
+
+        protected override bool HasManualAssemblyResults()
+        {
+            return ClosingStructuresFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+        }
     }
 }

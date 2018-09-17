@@ -183,5 +183,10 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
         }
+
+        protected override bool HasManualAssemblyResults()
+        {
+            return HeightStructuresFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+        }
     }
 }

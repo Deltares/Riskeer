@@ -183,5 +183,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
         }
+
+        protected override bool HasManualAssemblyResults()
+        {
+            return StabilityPointStructuresFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+        }
     }
 }

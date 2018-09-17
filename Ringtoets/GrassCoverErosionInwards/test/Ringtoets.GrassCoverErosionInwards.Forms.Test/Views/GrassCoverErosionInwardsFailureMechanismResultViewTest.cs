@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Util.Extensions;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -202,6 +205,52 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void FailureMechanismResultView_WithFailureMechanismWithManualSectionAssemblyResults_ThenWarningSet()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
+            failureMechanism.SectionResults.First().UseManualAssemblyProbability = true;
+
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                FailureMechanismAssemblyControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
+                ErrorProvider warningProvider = GetWarningProvider(failureMechanismAssemblyControl);
+
+                // Call
+                string warningMessage = warningProvider.GetError(failureMechanismAssemblyControl);
+
+                // Assert
+                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningMessage);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultsViewWithWarnings_WhenFailureMechanismWithoutManualSectionAssemblyResultsAndFailureMechanismNotifiesObservers_ThenWarningCleared()
+        {
+            // Given
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
+            failureMechanism.SectionResults.First().UseManualAssemblyProbability = true;
+
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                FailureMechanismAssemblyControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
+                ErrorProvider warningProvider = GetWarningProvider(failureMechanismAssemblyControl);
+
+                // Precondition
+                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningProvider.GetError(failureMechanismAssemblyControl));
+
+                // When
+                failureMechanism.SectionResults.ForEachElementDo(sr => sr.UseManualAssemblyProbability = false);
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                Assert.IsEmpty(warningProvider.GetError(failureMechanismAssemblyControl));
+            }
+        }
+
         [TestFixture]
         public class GrassCoverErosionInwardsFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             GrassCoverErosionInwardsFailureMechanismResultView,
@@ -233,6 +282,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             testForm.Show();
 
             return failureMechanismResultView;
+        }
+
+        private GrassCoverErosionInwardsFailureMechanismResultView ShowFailureMechanismResultsView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        {
+            var failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults,
+                                                                                                    failureMechanism,
+                                                                                                    new AssessmentSectionStub());
+            testForm.Controls.Add(failureMechanismResultView);
+            testForm.Show();
+
+            return failureMechanismResultView;
+        }
+
+        private static FailureMechanismAssemblyControl GetFailureMechanismAssemblyControl()
+        {
+            var control = (FailureMechanismAssemblyControl) ((TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject).GetControlFromPosition(1, 0);
+            return control;
+        }
+
+        private static ErrorProvider GetWarningProvider(FailureMechanismAssemblyControl control)
+        {
+            return TypeUtils.GetField<ErrorProvider>(control, "warningProvider");
         }
     }
 }

@@ -181,5 +181,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
         }
+
+        protected override bool HasManualAssemblyResults()
+        {
+            return GrassCoverErosionInwardsFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+        }
     }
 }
