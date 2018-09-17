@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.IO.Factories
                     failureMechanismCode, failureMechanismGroup, failureMechanismAssemblyMethod);
             }
 
-            FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+            FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),

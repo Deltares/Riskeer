@@ -73,7 +73,8 @@ namespace Ringtoets.Integration.IO.Factories
             }
 
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
-                                                                                                                                                            assessmentSection);
+                                                                                                                                                            assessmentSection,
+                                                                                                                                                            false);
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
                 CreateExportableFailureMechanismSectionResults(failureMechanism, assessmentSection),

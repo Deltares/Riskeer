@@ -28,7 +28,9 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
 using Ringtoets.Integration.IO.TestUtil;
@@ -110,6 +112,29 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput.Value,
                                                                exportableFailureMechanismSections,
                                                                exportableFailureMechanism.SectionAssemblyResults.Cast<ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly>());
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismWithManualAssessment_WhenCreatingExportableFailureMechanism_ThenManualAssemblyIgnored()
+        {
+            // Given
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                // When
+                ExportableStrengthStabilityLengthwiseConstructionFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism);
+
+                // Then
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
             }
         }
 
