@@ -72,35 +72,35 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.TestUtil
 
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, hydraulicBoundaryLocation),
-                    mapFeature, "h(Iv->IIv)");
+                    mapFeature, "h gr.Iv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm, hydraulicBoundaryLocation),
-                    mapFeature, "h(IIv->IIIv)");
+                    mapFeature, "h gr.IIv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "h(IIIv->IVv)");
+                    mapFeature, "h gr.IIIv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "h(IVv->Vv)");
+                    mapFeature, "h gr.IVv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "h(Vv->VIv)");
+                    mapFeature, "h gr.Vv");
 
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, hydraulicBoundaryLocation),
-                    mapFeature, "Hs(Iv->IIv)");
+                    mapFeature, "Hs gr.Iv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, hydraulicBoundaryLocation),
-                    mapFeature, "Hs(IIv->IIIv)");
+                    mapFeature, "Hs gr.IIv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "Hs(IIIv->IVv)");
+                    mapFeature, "Hs gr.IIIv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "Hs(IVv->Vv)");
+                    mapFeature, "Hs gr.IVv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "Hs(Vv->VIv)");
+                    mapFeature, "Hs gr.Vv");
 
                 Assert.AreEqual(12, mapFeature.MetaData.Keys.Count);
             }

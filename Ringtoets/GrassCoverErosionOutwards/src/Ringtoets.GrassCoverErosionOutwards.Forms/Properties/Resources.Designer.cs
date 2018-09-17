@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -111,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(Vv-&gt;VIv).
+        ///   Looks up a localized string similar to h gr.Vv.
         /// </summary>
         public static string MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm {
             get {
@@ -120,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(IVv-&gt;Vv).
+        ///   Looks up a localized string similar to h gr.IVv.
         /// </summary>
         public static string MetaData_WaterLevelCalculationForLowerLimitNorm {
             get {
@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(Iv-&gt;IIv).
+        ///   Looks up a localized string similar to h gr.Iv.
         /// </summary>
         public static string MetaData_WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm {
             get {
@@ -138,7 +138,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(IIIv-&gt;IVv).
+        ///   Looks up a localized string similar to h gr.IIIv.
         /// </summary>
         public static string MetaData_WaterLevelCalculationForMechanismSpecificLowerLimitNorm {
             get {
@@ -147,7 +147,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(IIv-&gt;IIIv).
+        ///   Looks up a localized string similar to h gr.IIv.
         /// </summary>
         public static string MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm {
             get {
@@ -156,7 +156,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(Vv-&gt;VIv).
+        ///   Looks up a localized string similar to Hs gr.Vv.
         /// </summary>
         public static string MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm {
             get {
@@ -165,7 +165,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(IVv-&gt;Vv).
+        ///   Looks up a localized string similar to Hs gr.IVv.
         /// </summary>
         public static string MetaData_WaveHeightCalculationForLowerLimitNorm {
             get {
@@ -174,7 +174,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(Iv-&gt;IIv).
+        ///   Looks up a localized string similar to Hs gr.Iv.
         /// </summary>
         public static string MetaData_WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm {
             get {
@@ -183,7 +183,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(IIIv-&gt;IVv).
+        ///   Looks up a localized string similar to Hs gr.IIIv.
         /// </summary>
         public static string MetaData_WaveHeightCalculationForMechanismSpecificLowerLimitNorm {
             get {
@@ -192,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(IIv-&gt;IIIv).
+        ///   Looks up a localized string similar to Hs gr.IIv.
         /// </summary>
         public static string MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm {
             get {
