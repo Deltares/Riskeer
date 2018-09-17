@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.IO.Factories
                     failureMechanismCode, failureMechanismGroup, failureMechanismAssemblyMethod);
             }
 
-            FailureMechanismAssembly failureMechanismAssembly = HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
+            FailureMechanismAssembly failureMechanismAssembly = HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection, false);
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,

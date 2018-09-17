@@ -163,8 +163,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 ExportableGrassCoverErosionInwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
                 // Then
-                FailureMechanismSectionAssembly manualOutput = failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput;
-                Assert.IsNull(manualOutput);
+                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
             }
         }
 
