@@ -113,6 +113,29 @@ namespace Ringtoets.Integration.IO.Test.Factories
             }
         }
 
+        [Test]
+        public void GivenFailureMechanismWithManualAssessment_WhenCreatingExportableFailureMechanism_ThenManualAssemblyIgnored()
+        {
+            // Given
+            var failureMechanism = new DuneErosionFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+            DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.VIIv;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                // When
+                ExportableDuneErosionFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism);
+
+                // Then
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+            }
+        }
+
         private static void AssertExportableFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly,
                                                                            FailureMechanismSectionAssemblyCategoryGroup expectedDetailedAssembly,
                                                                            FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly,
