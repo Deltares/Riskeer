@@ -142,5 +142,10 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism));
         }
+
+        protected override bool HasManualAssemblyResults()
+        {
+            return DuneErosionFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+        }
     }
 }

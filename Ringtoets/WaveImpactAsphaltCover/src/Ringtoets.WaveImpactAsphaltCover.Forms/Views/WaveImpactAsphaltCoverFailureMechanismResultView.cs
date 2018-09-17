@@ -141,5 +141,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism));
         }
+
+        protected override bool HasManualAssemblyResults()
+        {
+            return WaveImpactAsphaltCoverFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+        }
     }
 }

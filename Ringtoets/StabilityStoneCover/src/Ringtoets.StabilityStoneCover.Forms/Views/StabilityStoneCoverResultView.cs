@@ -140,5 +140,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism));
         }
+
+        protected override bool HasManualAssemblyResults()
+        {
+            return StabilityStoneCoverFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+        }
     }
 }
