@@ -36,12 +36,12 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Fired when the row has started updating.
         /// </summary>
-        public event EventHandler<EventArgs> RowUpdated;
+        public event EventHandler RowUpdated;
 
         /// <summary>
         /// Fired when the row has finished updating.
         /// </summary>
-        public event EventHandler<EventArgs> RowUpdateDone;
+        public event EventHandler RowUpdateDone;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResultRow{T}"/>.
