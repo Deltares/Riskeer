@@ -211,7 +211,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void UpdateFailureMechanismsWithoutProbabilityAssemblyControl()
         {
             failureMechanismsWithoutProbabilityAssemblyControl.ClearAssemblyResult();
-            failureMechanismsWithoutProbabilityAssemblyControl.ClearError();
+            failureMechanismsWithoutProbabilityAssemblyControl.ClearMessages();
 
             try
             {
@@ -227,7 +227,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void UpdateFailureMechanismsWithProbabilityAssemblyControl()
         {
             failureMechanismsWithProbabilityAssemblyControl.ClearAssemblyResult();
-            failureMechanismsWithProbabilityAssemblyControl.ClearError();
+            failureMechanismsWithProbabilityAssemblyControl.ClearMessages();
 
             try
             {
@@ -243,7 +243,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void UpdateTotalAssemblyCategoryGroupControl()
         {
             totalAssemblyCategoryGroupControl.ClearAssemblyResult();
-            totalAssemblyCategoryGroupControl.ClearError();
+            totalAssemblyCategoryGroupControl.ClearMessages();
 
             try
             {

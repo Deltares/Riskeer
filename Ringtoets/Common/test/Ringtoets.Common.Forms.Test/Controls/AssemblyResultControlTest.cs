@@ -137,40 +137,6 @@ namespace Ringtoets.Common.Forms.Test.Controls
         }
 
         [Test]
-        public void ClearError_Always_ClearsErrorMessageOnControl()
-        {
-            // Setup
-            using (var resultControl = new TestAssemblyResultControl())
-            {
-                // Call
-                resultControl.ClearError();
-
-                // Assert
-                ErrorProvider errorProvider = GetErrorProvider(resultControl);
-                Assert.IsEmpty(errorProvider.GetError(resultControl));
-            }
-        }
-
-        [Test]
-        public void ClearAssemblyResult_Always_ClearsResultOnControl()
-        {
-            // Setup
-            using (var resultControl = new TestAssemblyResultControl())
-            {
-                Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
-                groupLabel.Text = "abcd";
-                groupLabel.BackColor = Color.Yellow;
-
-                // Call
-                resultControl.ClearAssemblyResult();
-
-                // Assert
-                Assert.IsEmpty(groupLabel.Text);
-                Assert.AreEqual(Color.White, groupLabel.BackColor);
-            }
-        }
-
-        [Test]
         [TestCase(true, 24)]
         [TestCase(false, 4)]
         public void GivenControlWithOrWithoutErrorMessage_WhenSetWarning_ThenWarningSetWithExpectedPadding(bool hasError, int expectedPadding)
@@ -193,6 +159,46 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 // Then
                 ErrorProvider warningProvider = GetWarningProvider(resultControl);
                 Assert.AreEqual(expectedPadding, warningProvider.GetIconPadding(resultControl));
+            }
+        }
+
+        [Test]
+        public void GivenControlWithMessages_WhenClearMessages_ThenMessagesCleared()
+        {
+            // Given
+            using (var resultControl = new TestAssemblyResultControl())
+            {
+                resultControl.SetError("Error");
+                resultControl.SetWarning("Warning");
+
+                // When
+                resultControl.ClearMessages();
+
+                // Then
+                ErrorProvider errorProvider = GetErrorProvider(resultControl);
+                Assert.IsEmpty(errorProvider.GetError(resultControl));
+
+                ErrorProvider warningProvider = GetWarningProvider(resultControl);
+                Assert.IsEmpty(warningProvider.GetError(resultControl));
+            }
+        }
+
+        [Test]
+        public void ClearAssemblyResult_Always_ClearsResultOnControl()
+        {
+            // Setup
+            using (var resultControl = new TestAssemblyResultControl())
+            {
+                Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
+                groupLabel.Text = "abcd";
+                groupLabel.BackColor = Color.Yellow;
+
+                // Call
+                resultControl.ClearAssemblyResult();
+
+                // Assert
+                Assert.IsEmpty(groupLabel.Text);
+                Assert.AreEqual(Color.White, groupLabel.BackColor);
             }
         }
 

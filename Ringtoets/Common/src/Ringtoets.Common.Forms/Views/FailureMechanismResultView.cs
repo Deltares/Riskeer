@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -191,7 +191,7 @@ namespace Ringtoets.Common.Forms.Views
         private void UpdateFailureMechanismAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.ClearAssemblyResult();
-            FailureMechanismAssemblyResultControl.ClearError();
+            FailureMechanismAssemblyResultControl.ClearMessages();
 
             try
             {

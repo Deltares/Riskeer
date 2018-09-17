@@ -78,11 +78,12 @@ namespace Ringtoets.Common.Forms.Controls
         }
 
         /// <summary>
-        /// Clears the error message of the control.
+        /// Clears the messages of the control.
         /// </summary>
-        public void ClearError()
+        public void ClearMessages()
         {
             errorProvider.SetError(this, string.Empty);
+            warningProvider.SetError(this, string.Empty);
         }
 
         /// <summary>
