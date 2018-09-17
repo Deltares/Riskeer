@@ -65,8 +65,8 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 DuneErosionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
@@ -85,8 +85,8 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
@@ -106,8 +106,8 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -153,8 +153,8 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 DuneErosionFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
@@ -177,8 +177,8 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
@@ -198,8 +198,8 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -241,8 +241,8 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 DuneErosionFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
@@ -261,8 +261,8 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
@@ -282,8 +282,8 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -404,8 +404,8 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
@@ -429,7 +429,8 @@ namespace Ringtoets.DuneErosion.Data.Test
         {
             // Call
             TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                null);
+                null,
+                new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -449,7 +450,8 @@ namespace Ringtoets.DuneErosion.Data.Test
 
                 // Call
                 DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult);
+                    sectionResult,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = DuneErosionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
@@ -475,7 +477,8 @@ namespace Ringtoets.DuneErosion.Data.Test
             {
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult);
+                    sectionResult,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
@@ -485,7 +488,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
-        public void GetSectionAssemblyCategoryGroup_WithManualInput_ReturnsOutput()
+        public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualTrue_ReturnsOutput()
         {
             // Setup
             var sectionResult = new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -496,10 +499,34 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             // Call
             FailureMechanismSectionAssemblyCategoryGroup categoryGroup = DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                sectionResult);
+                sectionResult,
+                true);
 
             // Assert
             Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, categoryGroup);
+        }
+
+        [Test]
+        public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualFalse_ReturnsOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var sectionResult = new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                UseManualAssemblyCategoryGroup = true,
+                ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
+                TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>()
+            };
+
+            // Call
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                sectionResult,
+                false);
+
+            // Assert
+            FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                sectionResult);
+            Assert.AreEqual(expectedAssembly, categoryGroup);
         }
 
         [Test]
@@ -510,13 +537,14 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
                 TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult);
+                    sectionResult,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -534,7 +562,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(null);
+            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(null, new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -557,7 +585,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup assemblyCategory =
@@ -576,14 +604,14 @@ namespace Ringtoets.DuneErosion.Data.Test
             };
 
             // Call
-            FailureMechanismAssemblyCategoryGroup category = DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+            FailureMechanismAssemblyCategoryGroup category = DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
             // Assert
             Assert.AreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory(), category);
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithManualInput_SetsInputOnCalculator()
+        public void AssembleFailureMechanism_WithManualInputAndUseManualTrue_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -601,10 +629,38 @@ namespace Ringtoets.DuneErosion.Data.Test
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, true);
 
                 // Assert
                 Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithManualInputAndUseManualFalse_SetsNoInputOnCalculator()
+        {
+            // Setup
+            var failureMechanism = new DuneErosionFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+            DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIv;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                // Call
+                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    failureMechanism.SectionResults.Single());
+                Assert.AreEqual(expectedAssembly, calculator.FailureMechanismSectionCategories.Single());
             }
         }
 
@@ -619,7 +675,8 @@ namespace Ringtoets.DuneErosion.Data.Test
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup actualOutput =
-                    DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(new DuneErosionFailureMechanism());
+                    DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(new DuneErosionFailureMechanism(),
+                                                                                        new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, actualOutput);
@@ -632,12 +689,14 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(new DuneErosionFailureMechanism());
+                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                    new DuneErosionFailureMechanism(),
+                    new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -659,12 +718,13 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
+                                                                                                              new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
