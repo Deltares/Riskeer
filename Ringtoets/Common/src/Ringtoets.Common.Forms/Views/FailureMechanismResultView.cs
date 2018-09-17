@@ -211,7 +211,7 @@ namespace Ringtoets.Common.Forms.Views
 
             if (HasManualAssemblyResults())
             {
-                FailureMechanismAssemblyResultControl.SetWarning("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.");
+                FailureMechanismAssemblyResultControl.SetWarning(Resources.FailureMechanismResultView_UpdateFailureMechanismAssemblyResultControl_FailureMechanismAssemblyResult_is_based_on_manual_assemblies);
             }
         }
 

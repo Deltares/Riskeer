@@ -1773,6 +1773,16 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen..
+        /// </summary>
+        public static string FailureMechanismResultView_UpdateFailureMechanismAssemblyResultControl_FailureMechanismAssemblyResult_is_based_on_manual_assemblies {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_UpdateFailureMechanismAssemblyResultControl_FailureMec" +
+                        "hanismAssemblyResult_is_based_on_manual_assemblies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overschrijf
         ///assemblageresultaat.
         /// </summary>
