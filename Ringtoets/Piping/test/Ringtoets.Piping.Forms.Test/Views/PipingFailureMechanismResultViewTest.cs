@@ -249,7 +249,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 failureMechanism.SectionResults.ForEachElementDo(sr => sr.UseManualAssemblyProbability = false);
                 failureMechanism.NotifyObservers();
 
-                // Assert
+                // Then
                 Assert.IsEmpty(warningProvider.GetError(failureMechanismAssemblyControl));
             }
         }
