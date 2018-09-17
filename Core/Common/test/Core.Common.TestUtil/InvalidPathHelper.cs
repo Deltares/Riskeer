@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
 
 namespace Core.Common.TestUtil
@@ -32,7 +33,7 @@ namespace Core.Common.TestUtil
         /// Returns a collection of invalid paths.
         /// </summary>
         /// <example>[TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]</example>
-        public static string[] InvalidPaths
+        public static IEnumerable<string> InvalidPaths
         {
             get
             {

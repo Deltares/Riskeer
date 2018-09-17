@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Util;
 using NUnit.Framework;
 
@@ -31,7 +32,7 @@ namespace Core.Common.TestUtil.Test
         public void InvalidPaths_Always_ReturnsExpectedPaths()
         {
             // Call
-            string[] paths = InvalidPathHelper.InvalidPaths;
+            IEnumerable<string> paths = InvalidPathHelper.InvalidPaths;
 
             // Assert
             CollectionAssert.AreEquivalent(new[]

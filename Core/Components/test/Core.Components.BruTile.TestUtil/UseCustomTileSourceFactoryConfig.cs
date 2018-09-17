@@ -51,6 +51,10 @@ namespace Core.Components.BruTile.TestUtil
         public UseCustomTileSourceFactoryConfig(ImageBasedMapData backgroundMapData)
             : this(new TestTileSourceFactory(backgroundMapData)) {}
 
+        /// <summary>
+        /// Reverts the <see cref="TileSourceFactory.Instance"/> to the value
+        /// it had at time of construction of the <see cref="TileSourceFactory"/>.
+        /// </summary>
         public void Dispose()
         {
             TileSourceFactory.Instance = originalFactory;

@@ -250,42 +250,11 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (IsWindowDisposed || !disposing)
-            {
-                return;
-            }
-
-            IsWindowDisposed = true;
-
-            Close();
-
-            if (Ribbon != null)
-            {
-                foreach (RibbonTabItem tab in Ribbon.Tabs)
-                {
-                    foreach (RibbonGroupBox group in tab.Groups)
-                    {
-                        group.Items.Clear();
-                    }
-                    tab.Groups.Clear();
-                }
-                Ribbon.Tabs.Clear();
-                Ribbon = null;
-            }
-
-            ribbonCommandHandlers = null;
-
-            SetGui(null);
-        }
-
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
 
         /// <summary>
         /// Initializes and shows the property grid tool window.
@@ -315,6 +284,38 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 viewController.ViewHost.BringToFront(propertyGrid);
             }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (IsWindowDisposed || !disposing)
+            {
+                return;
+            }
+
+            IsWindowDisposed = true;
+
+            Close();
+
+            if (Ribbon != null)
+            {
+                foreach (RibbonTabItem tab in Ribbon.Tabs)
+                {
+                    foreach (RibbonGroupBox group in tab.Groups)
+                    {
+                        group.Items.Clear();
+                    }
+
+                    tab.Groups.Clear();
+                }
+
+                Ribbon.Tabs.Clear();
+                Ribbon = null;
+            }
+
+            ribbonCommandHandlers = null;
+
+            SetGui(null);
         }
 
         private void OnActiveDocumentViewChanging(object sender, EventArgs e)
@@ -549,6 +550,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 KeyTip.SetKeys(newGroup, keys);
             }
+
             return newGroup;
         }
 

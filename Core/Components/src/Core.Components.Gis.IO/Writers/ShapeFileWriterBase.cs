@@ -156,7 +156,8 @@ namespace Core.Components.Gis.IO.Writers
                 object value = metaData[key];
                 columns.Add(new DataColumn
                 {
-                    DataType = value.GetType(), ColumnName = key
+                    DataType = value.GetType(),
+                    ColumnName = key
                 });
             }
         }

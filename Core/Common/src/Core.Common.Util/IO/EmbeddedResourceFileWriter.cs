@@ -80,9 +80,6 @@ namespace Core.Common.Util.IO
             GC.SuppressFinalize(this);
         }
 
-        /// <summary>
-        /// Disposes the <see cref="EmbeddedResourceFileWriter"/> instance.
-        /// </summary>
         protected virtual void Dispose(bool disposing)
         {
             if (removeFilesOnDispose && disposing)

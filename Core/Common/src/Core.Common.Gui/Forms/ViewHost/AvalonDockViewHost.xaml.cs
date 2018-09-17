@@ -125,7 +125,8 @@ namespace Core.Common.Gui.Forms.ViewHost
             };
             var layoutDocument = new LayoutDocument
             {
-                Title = view.Text, Content = hostControl
+                Title = view.Text,
+                Content = hostControl
             };
 
             PerformWithoutChangingActiveContent(() => AddLayoutDocument(layoutDocument));
@@ -161,7 +162,8 @@ namespace Core.Common.Gui.Forms.ViewHost
             };
             var layoutAnchorable = new LayoutAnchorable
             {
-                Content = hostControl, Title = view.Text
+                Content = hostControl,
+                Title = view.Text
             };
 
             PerformWithoutChangingActiveContent(() => AddLayoutAnchorable(layoutAnchorable, toolViewLocation));

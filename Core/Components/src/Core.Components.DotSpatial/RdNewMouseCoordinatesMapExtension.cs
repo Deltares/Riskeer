@@ -55,12 +55,15 @@ namespace Core.Components.DotSpatial
 
             xLabel = new Label
             {
-                AutoSize = true, BorderStyle = BorderStyle.None, Margin = new Padding(0, 0, 10, 0)
+                AutoSize = true,
+                BorderStyle = BorderStyle.None,
+                Margin = new Padding(0, 0, 10, 0)
             };
 
             yLabel = new Label
             {
-                AutoSize = true, BorderStyle = BorderStyle.None
+                AutoSize = true,
+                BorderStyle = BorderStyle.None
             };
 
             panel = new TableLayoutPanel
@@ -70,7 +73,8 @@ namespace Core.Components.DotSpatial
                 Height = 16,
                 Controls =
                 {
-                    xLabel, yLabel
+                    xLabel,
+                    yLabel
                 },
                 RowCount = 1,
                 ColumnCount = 2

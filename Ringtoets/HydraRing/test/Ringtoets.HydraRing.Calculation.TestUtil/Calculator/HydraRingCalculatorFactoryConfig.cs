@@ -67,16 +67,16 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
             HydraRingCalculatorFactory.Instance = newFactory;
         }
 
+        /// <summary>
+        /// Reverts the <see cref="HydraRingCalculatorFactory.Instance"/> to the value
+        /// it had at time of construction of the <see cref="HydraRingCalculatorFactoryConfig"/>.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        /// <summary>
-        /// Reverts the <see cref="HydraRingCalculatorFactory.Instance"/> to the value
-        /// it had at time of construction of the <see cref="HydraRingCalculatorFactoryConfig"/>.
-        /// </summary>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
