@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Util.Extensions;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -163,6 +166,62 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             }
         }
 
+        [Test]
+        public void FailureMechanismResultView_WithFailureMechanismWithManualSectionAssemblyResults_ThenWarningSet()
+        {
+            // Setup
+            var failureMechanism = new MicrostabilityFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
+            failureMechanism.SectionResults.First().UseManualAssemblyCategoryGroup = true;
+
+            using (var form = new Form())
+            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults,
+                                                           failureMechanism))
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                FailureMechanismAssemblyCategoryGroupControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
+                ErrorProvider warningProvider = GetWarningProvider(failureMechanismAssemblyControl);
+
+                // Call
+                string warningMessage = warningProvider.GetError(failureMechanismAssemblyControl);
+
+                // Assert
+                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningMessage);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultsViewWithWarnings_WhenFailureMechanismWithoutManualSectionAssemblyResultsAndFailureMechanismNotifiesObservers_ThenWarningCleared()
+        {
+            // Given
+            var failureMechanism = new MicrostabilityFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
+            failureMechanism.SectionResults.First().UseManualAssemblyCategoryGroup = true;
+
+            using (var form = new Form())
+            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults,
+                                                           failureMechanism))
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                FailureMechanismAssemblyCategoryGroupControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
+                ErrorProvider warningProvider = GetWarningProvider(failureMechanismAssemblyControl);
+
+                // Precondition
+                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningProvider.GetError(failureMechanismAssemblyControl));
+
+                // When
+                failureMechanism.SectionResults.ForEachElementDo(sr => sr.UseManualAssemblyCategoryGroup = false);
+                failureMechanism.NotifyObservers();
+
+                // Then
+                Assert.IsEmpty(warningProvider.GetError(failureMechanismAssemblyControl));
+            }
+        }
+
         [TestFixture]
         public class MicrostabilityFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             MicrostabilityResultView,
@@ -175,6 +234,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 return new MicrostabilityResultView(failureMechanism.SectionResults,
                                                     failureMechanism);
             }
+        }
+
+        private static FailureMechanismAssemblyCategoryGroupControl GetFailureMechanismAssemblyControl()
+        {
+            var control = (FailureMechanismAssemblyCategoryGroupControl) ((TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject).GetControlFromPosition(1, 0);
+            return control;
+        }
+
+        private static ErrorProvider GetWarningProvider(FailureMechanismAssemblyCategoryGroupControl control)
+        {
+            return TypeUtils.GetField<ErrorProvider>(control, "warningProvider");
         }
     }
 }

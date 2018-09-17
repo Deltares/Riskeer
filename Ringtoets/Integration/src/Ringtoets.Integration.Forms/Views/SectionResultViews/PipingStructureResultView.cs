@@ -25,6 +25,7 @@ using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
+using Ringtoets.Integration.Data.StandAlone.Helpers;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -118,6 +119,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism));
+        }
+
+        protected override bool HasManualAssemblyResults()
+        {
+            return PipingStructureFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }
