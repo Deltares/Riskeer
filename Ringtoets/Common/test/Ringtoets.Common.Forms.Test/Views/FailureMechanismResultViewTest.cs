@@ -353,6 +353,65 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFailureMechanismResultsView_WhenHasManualAssemblyResultsTrueDuringUpdate_ThenWarningSet()
+        {
+            // Given
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                sectionResult
+            };
+
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
+            {
+                // Precondition
+                TestAssemblyResultControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
+                ErrorProvider warningProvider = GetWarningProvider(resultControl);
+                Assert.IsEmpty(warningProvider.GetError(resultControl));
+
+                // When
+                view.HasManualSectionAssemblyResults = true;
+                sectionResult.NotifyObservers();
+
+                // Then
+                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningProvider.GetError(resultControl));
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultsView_WhenExceptionThrownAndHasManualAssemblyResultsTrueDuringUpdate_ThenMessagesSet()
+        {
+            // Given
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                sectionResult
+            };
+
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
+            {
+                // Precondition
+                TestAssemblyResultControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
+                ErrorProvider errorProvider = GetErrorProvider(resultControl);
+                Assert.IsEmpty(errorProvider.GetError(resultControl));
+
+                ErrorProvider warningProvider = GetWarningProvider(resultControl);
+                Assert.IsEmpty(warningProvider.GetError(resultControl));
+
+                // When
+                view.HasManualSectionAssemblyResults = true;
+                view.ThrowExceptionOnUpdate = true;
+                sectionResult.NotifyObservers();
+
+                // Then
+                Assert.AreEqual("Message", errorProvider.GetError(resultControl));
+                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningProvider.GetError(resultControl));
+            }
+        }
+
+        [Test]
         public void GivenFailureMechanismResultsView_WhenFailureMechanismAssemblyControlUpdated_ThenDataCleared()
         {
             // Given
@@ -377,7 +436,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultsViewWithFailureMechanismAssemblyError_WhenNoExceptionThrownDuringUpdate_ThenErrorCleared()
+        public void GivenFailureMechanismResultsViewWithMessages_WhenNoExceptionThrownAndManualSectionAssemblyResultsFalseDuringUpdate_ThenMessagesCleared()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -390,6 +449,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 view.ThrowExceptionOnUpdate = true;
+                view.HasManualSectionAssemblyResults = true;
                 sectionResult.NotifyObservers();
 
                 // Precondition
@@ -397,12 +457,17 @@ namespace Ringtoets.Common.Forms.Test.Views
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 Assert.AreEqual("Message", errorProvider.GetError(resultControl));
 
+                ErrorProvider warningProvider = GetWarningProvider(resultControl);
+                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningProvider.GetError(resultControl));
+
                 // When
                 view.ThrowExceptionOnUpdate = false;
+                view.HasManualSectionAssemblyResults = false;
                 sectionResult.NotifyObservers();
 
                 // Then
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
+                Assert.IsEmpty(warningProvider.GetError(resultControl));
             }
         }
 
@@ -490,6 +555,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             return TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
         }
 
+        private static ErrorProvider GetWarningProvider(TestAssemblyResultControl resultControl)
+        {
+            return TypeUtils.GetField<ErrorProvider>(resultControl, "warningProvider");
+        }
+
         private static TestAssemblyResultControl GetFailureMechanismAssemblyCategoryGroupControl()
         {
             return (TestAssemblyResultControl) new ControlTester("AssemblyResultControl").TheObject;
@@ -517,6 +587,8 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             public bool AssemblyResultControlUpdated { get; set; }
 
+            public bool HasManualSectionAssemblyResults { private get; set; }
+
             protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(
                 FailureMechanismSectionResult sectionResult)
             {
@@ -536,6 +608,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                 }
 
                 AssemblyResultControlUpdated = true;
+            }
+
+            protected override bool HasManualAssemblyResults()
+            {
+                return HasManualSectionAssemblyResults;
             }
         }
 

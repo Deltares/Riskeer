@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -167,6 +167,13 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
+        /// Determines if the failure mechanism has section assembly results that are manually overwritten.
+        /// </summary>
+        /// <returns><c>true</c> if the failure mechanism has section assembly results that are manually overwritten,
+        /// <c>false</c> otherwise.</returns>
+        protected abstract bool HasManualAssemblyResults();
+
+        /// <summary>
         /// Updates the data source of the data grid view with the current known failure mechanism section results.
         /// </summary>
         private void UpdateDataGridViewDataSource()
@@ -200,6 +207,11 @@ namespace Ringtoets.Common.Forms.Views
             catch (AssemblyException e)
             {
                 FailureMechanismAssemblyResultControl.SetError(e.Message);
+            }
+
+            if (HasManualAssemblyResults())
+            {
+                FailureMechanismAssemblyResultControl.SetWarning("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.");
             }
         }
 
