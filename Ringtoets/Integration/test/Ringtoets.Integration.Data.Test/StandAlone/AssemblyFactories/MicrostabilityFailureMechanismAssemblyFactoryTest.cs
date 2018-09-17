@@ -69,8 +69,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 MicrostabilityFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
@@ -89,8 +89,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
@@ -111,8 +111,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -189,8 +189,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -267,8 +267,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -390,8 +390,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
@@ -414,7 +414,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Call
             TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                null);
+                null,
+                new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -434,7 +435,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 MicrostabilityFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult);
+                    sectionResult,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = MicrostabilityFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
@@ -460,7 +462,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = MicrostabilityFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult);
+                    sectionResult,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = MicrostabilityFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
@@ -470,7 +473,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void GetSectionAssemblyCategoryGroup_WithManualInput_ReturnsOutput()
+        public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualTrue_ReturnsOutput()
         {
             // Setup
             var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -481,11 +484,34 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
             // Call
             FailureMechanismSectionAssemblyCategoryGroup categoryGroup = MicrostabilityFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                sectionResult);
+                sectionResult,
+                true);
 
             // Assert
-            Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
-                            categoryGroup);
+            Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, categoryGroup);
+        }
+
+        [Test]
+        public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualFalse_ReturnsOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                UseManualAssemblyCategoryGroup = true,
+                ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>(),
+                TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>()
+            };
+
+            // Call
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = MicrostabilityFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                sectionResult,
+                false);
+
+            // Assert
+            FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = MicrostabilityFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                sectionResult);
+            Assert.AreEqual(expectedAssembly, categoryGroup);
         }
 
         [Test]
@@ -496,13 +522,14 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
                 TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult);
+                    sectionResult,
+                    new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -523,7 +550,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
             };
 
             // Call
-            TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
+            TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult,
+                                                                                                                    new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<AssemblyException>(call);
@@ -540,27 +568,11 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(null);
+            TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(null, new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableCategory()
-        {
-            // Setup
-            var failureMechanism = new MicrostabilityFailureMechanism
-            {
-                IsRelevant = false
-            };
-
-            // Call
-            FailureMechanismAssemblyCategoryGroup category = MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
-
-            // Assert
-            Assert.AreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory(), category);
         }
 
         [Test]
@@ -579,7 +591,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+                MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup assemblyCategory =
@@ -589,7 +601,23 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithManualInput_SetsInputOnCalculator()
+        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableCategory()
+        {
+            // Setup
+            var failureMechanism = new MicrostabilityFailureMechanism
+            {
+                IsRelevant = false
+            };
+
+            // Call
+            FailureMechanismAssemblyCategoryGroup category = MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+
+            // Assert
+            Assert.AreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory(), category);
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithManualInputAndUseManualTrue_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new MicrostabilityFailureMechanism();
@@ -607,11 +635,38 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+                MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, true);
 
                 // Assert
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
-                                calculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithManualInputAndUseManualFalse_SetsNoInputOnCalculator()
+        {
+            // Setup
+            var failureMechanism = new MicrostabilityFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+            MicrostabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.IIv;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                // Call
+                MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = MicrostabilityFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    failureMechanism.SectionResults.Single());
+                Assert.AreEqual(expectedAssembly, calculator.FailureMechanismSectionCategories.Single());
             }
         }
 
@@ -626,7 +681,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup actualOutput =
-                    MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(new MicrostabilityFailureMechanism());
+                    MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(new MicrostabilityFailureMechanism(),
+                                                                                           new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, actualOutput);
@@ -639,12 +695,14 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(new MicrostabilityFailureMechanism());
+                TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                    new MicrostabilityFailureMechanism(),
+                    new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -666,12 +724,13 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+                TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
+                                                                                                                 new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);

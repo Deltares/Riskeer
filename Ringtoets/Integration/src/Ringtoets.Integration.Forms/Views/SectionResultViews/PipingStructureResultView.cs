@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
         }
 
         protected override bool HasManualAssemblyResults()

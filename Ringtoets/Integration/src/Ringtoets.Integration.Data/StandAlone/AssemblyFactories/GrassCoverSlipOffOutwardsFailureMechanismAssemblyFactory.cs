@@ -129,38 +129,9 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
             try
             {
-                return calculator.AssembleTailorMadeAssessment(
-                    failureMechanismSectionResult.TailorMadeAssessmentResult);
+                return calculator.AssembleTailorMadeAssessment(failureMechanismSectionResult.TailorMadeAssessmentResult);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
-            {
-                throw new AssemblyException(e.Message, e);
-            }
-        }
-
-        /// <summary>
-        /// Gets the assembly category group of the given <paramref name="failureMechanismSectionResult"/>.
-        /// </summary>
-        /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly category group for.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/> is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// could not be created.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(
-            GrassCoverSlipOffOutwardsFailureMechanismSectionResult failureMechanismSectionResult)
-        {
-            if (failureMechanismSectionResult == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
-            }
-
-            try
-            {
-                return failureMechanismSectionResult.UseManualAssemblyCategoryGroup
-                           ? ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(failureMechanismSectionResult.ManualAssemblyCategoryGroup)
-                           : AssembleCombinedAssessment(failureMechanismSectionResult);
-            }
-            catch (Exception e) when (e is NotSupportedException || e is InvalidEnumArgumentException)
             {
                 throw new AssemblyException(e.Message, e);
             }
@@ -210,15 +181,47 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         }
 
         /// <summary>
+        /// Gets the assembly category group of the given <paramref name="failureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly category group for.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/> is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// could not be created.</exception>
+        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(
+            GrassCoverSlipOffOutwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            bool useManual)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            try
+            {
+                return failureMechanismSectionResult.UseManualAssemblyCategoryGroup
+                           ? ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(failureMechanismSectionResult.ManualAssemblyCategoryGroup)
+                           : AssembleCombinedAssessment(failureMechanismSectionResult);
+            }
+            catch (Exception e) when (e is NotSupportedException || e is InvalidEnumArgumentException)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
+
+        /// <summary>
         /// Assembles the failure mechanism assembly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
         /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssemblyCategoryGroup"/>
         /// could not be created.</exception>
-        public static FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
+        public static FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism,
+                                                                                     bool useManual)
         {
             if (failureMechanism == null)
             {
@@ -233,7 +236,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
             try
             {
                 IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =
-                    failureMechanism.SectionResults.Select(GetSectionAssemblyCategoryGroup).ToArray();
+                    failureMechanism.SectionResults.Select(result => GetSectionAssemblyCategoryGroup(result, useManual)).ToArray();
 
                 IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
                 IFailureMechanismAssemblyCalculator calculator =
