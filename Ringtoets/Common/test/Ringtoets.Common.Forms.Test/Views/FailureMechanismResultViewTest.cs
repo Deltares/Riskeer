@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsTrue(assemblyResultLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Fill, assemblyResultLabel.Dock);
                 Assert.AreEqual(ContentAlignment.MiddleLeft, assemblyResultLabel.TextAlign);
-                Assert.AreEqual("Assemblageresultaat voor dit toetsspoor:", assemblyResultLabel.Text);
+                Assert.AreEqual("Toetsoordeel voor dit toetsspoor:", assemblyResultLabel.Text);
 
                 Assert.IsInstanceOf<PictureBox>(tableLayoutPanel.GetControlFromPosition(2, 0));
 

@@ -241,32 +241,32 @@ faalkans</value>
 faalkans</value>
   </data>
   <data name="FailureMechanismResultView_SimpleAssemblyCategoryGroup_DisplayName" xml:space="preserve">
-    <value>Assemblageresultaat
+    <value>Toetsoordeel
 eenvoudige toets</value>
   </data>
   <data name="FailureMechanismResultView_DetailedAssemblyCategoryGroup_DisplayName" xml:space="preserve">
-    <value>Assemblageresultaat
+    <value>Toetsoordeel
 gedetailleerde toets per vak</value>
   </data>
   <data name="FailureMechanismResultView_TailorMadeAssemblyCategoryGroup_DisplayName" xml:space="preserve">
-    <value>Assemblageresultaat
+    <value>Toetsoordeel
 toets op maat</value>
   </data>
   <data name="FailureMechanismResultView_CombinedAssemblyCategoryGroup_DisplayName" xml:space="preserve">
-    <value>Assemblageresultaat
+    <value>Toetsoordeel
 gecombineerd</value>
   </data>
   <data name="FailureMechanismResultView_CombinedAssemblyProbability_DisplayName" xml:space="preserve">
-    <value>Assemblageresultaat
+    <value>Toetsoordeel
 gecombineerde
 faalkansschatting</value>
   </data>
   <data name="FailureMechanismResultView_UseManualAssemblyCategoryGroup_DisplayName" xml:space="preserve">
     <value>Overschrijf
-assemblageresultaat</value>
+toetsoordeel</value>
   </data>
   <data name="FailureMechanismResultView_ManualAssembly_DisplayName" xml:space="preserve">
-    <value>Assemblageresultaat
+    <value>Toetsoordeel
 handmatig</value>
   </data>
   <data name="Section_DisplayName" xml:space="preserve">
@@ -1387,7 +1387,7 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
     <value>..\Resources\error.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FailureMechanismResultView_FailureMechanismAssemblyLabel" xml:space="preserve">
-    <value>Assemblageresultaat voor dit toetsspoor:</value>
+    <value>Toetsoordeel voor dit toetsspoor:</value>
   </data>
   <data name="FailureMechanismAssemblyCategories_DisplayName" xml:space="preserve">
     <value>Categoriegrenzen</value>

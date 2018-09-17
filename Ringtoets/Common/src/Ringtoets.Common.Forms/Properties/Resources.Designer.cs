@@ -1514,7 +1514,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblageresultaat
+        ///   Looks up a localized string similar to Toetsoordeel
         ///gecombineerd.
         /// </summary>
         public static string FailureMechanismResultView_CombinedAssemblyCategoryGroup_DisplayName {
@@ -1524,7 +1524,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblageresultaat
+        ///   Looks up a localized string similar to Toetsoordeel
         ///gecombineerde
         ///faalkansschatting.
         /// </summary>
@@ -1602,7 +1602,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblageresultaat
+        ///   Looks up a localized string similar to Toetsoordeel
         ///gedetailleerde toets per vak.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssemblyCategoryGroup_DisplayName {
@@ -1689,7 +1689,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblageresultaat voor dit toetsspoor:.
+        ///   Looks up a localized string similar to Toetsoordeel voor dit toetsspoor:.
         /// </summary>
         public static string FailureMechanismResultView_FailureMechanismAssemblyLabel {
             get {
@@ -1715,7 +1715,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblageresultaat
+        ///   Looks up a localized string similar to Toetsoordeel
         ///handmatig.
         /// </summary>
         public static string FailureMechanismResultView_ManualAssembly_DisplayName {
@@ -1725,7 +1725,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblageresultaat
+        ///   Looks up a localized string similar to Toetsoordeel
         ///eenvoudige toets.
         /// </summary>
         public static string FailureMechanismResultView_SimpleAssemblyCategoryGroup_DisplayName {
@@ -1744,7 +1744,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblageresultaat
+        ///   Looks up a localized string similar to Toetsoordeel
         ///toets op maat.
         /// </summary>
         public static string FailureMechanismResultView_TailorMadeAssemblyCategoryGroup_DisplayName {
@@ -1784,7 +1784,7 @@ namespace Ringtoets.Common.Forms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Overschrijf
-        ///assemblageresultaat.
+        ///toetsoordeel.
         /// </summary>
         public static string FailureMechanismResultView_UseManualAssemblyCategoryGroup_DisplayName {
             get {

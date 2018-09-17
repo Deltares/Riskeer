@@ -979,7 +979,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Assemblageresultaat\r\neenvoudige toets", columnData.HeaderText);
+                Assert.AreEqual("Toetsoordeel\r\neenvoudige toets", columnData.HeaderText);
             }
         }
 
@@ -1027,7 +1027,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Assemblageresultaat\r\ngedetailleerde toets per vak", columnData.HeaderText);
+                Assert.AreEqual("Toetsoordeel\r\ngedetailleerde toets per vak", columnData.HeaderText);
             }
         }
 
@@ -1075,7 +1075,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Assemblageresultaat\r\ntoets op maat", columnData.HeaderText);
+                Assert.AreEqual("Toetsoordeel\r\ntoets op maat", columnData.HeaderText);
             }
         }
 
@@ -1123,7 +1123,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Assemblageresultaat\r\ngecombineerd", columnData.HeaderText);
+                Assert.AreEqual("Toetsoordeel\r\ngecombineerd", columnData.HeaderText);
             }
         }
 
@@ -1171,7 +1171,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Assemblageresultaat\r\ngecombineerde\r\nfaalkansschatting", columnData.HeaderText);
+                Assert.AreEqual("Toetsoordeel\r\ngecombineerde\r\nfaalkansschatting", columnData.HeaderText);
             }
         }
 
@@ -1223,7 +1223,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Overschrijf\r\nassemblageresultaat", columnData.HeaderText);
+                Assert.AreEqual("Overschrijf\r\ntoetsoordeel", columnData.HeaderText);
             }
         }
 
@@ -1271,7 +1271,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Assemblageresultaat\r\nhandmatig", columnData.HeaderText);
+                Assert.AreEqual("Toetsoordeel\r\nhandmatig", columnData.HeaderText);
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
@@ -1325,7 +1325,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewComboBoxColumn)dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Assemblageresultaat\r\nhandmatig", columnData.HeaderText);
+                Assert.AreEqual("Toetsoordeel\r\nhandmatig", columnData.HeaderText);
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
@@ -1379,7 +1379,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Assemblageresultaat\r\nhandmatig", columnData.HeaderText);
+                Assert.AreEqual("Toetsoordeel\r\nhandmatig", columnData.HeaderText);
             }
         }
 
