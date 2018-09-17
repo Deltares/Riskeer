@@ -406,7 +406,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 true);
 
             // Assert
-            Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, categoryGroup);
+            Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup), categoryGroup);
         }
 
         [Test]
@@ -470,7 +470,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
             // Call
             TestDelegate call = () => StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 sectionResult,
-                new Random(39).NextBoolean());
+                true);
 
             // Assert
             var exception = Assert.Throws<AssemblyException>(call);
@@ -557,7 +557,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, true);
 
                 // Assert
-                Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                                calculator.FailureMechanismSectionCategories.Single());
             }
         }
 
