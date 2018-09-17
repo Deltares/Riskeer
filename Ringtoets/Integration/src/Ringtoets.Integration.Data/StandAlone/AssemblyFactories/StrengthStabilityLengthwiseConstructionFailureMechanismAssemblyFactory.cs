@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
             try
             {
-                return failureMechanismSectionResult.UseManualAssemblyCategoryGroup
+                return failureMechanismSectionResult.UseManualAssemblyCategoryGroup && useManual
                            ? ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(failureMechanismSectionResult.ManualAssemblyCategoryGroup)
                            : AssembleCombinedAssessment(failureMechanismSectionResult);
             }
