@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyExportException">Thrown when the assembly result cannot be exported.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when the assembly result cannot be created.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyExportException">Thrown when the assembly result cannot be exported.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when the assembly result cannot be created.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
@@ -155,7 +155,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyExportException">Thrown when the assembly result cannot be exported.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when the assembly result cannot be created.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
@@ -201,13 +201,13 @@ namespace Ringtoets.Integration.IO.Creators
         /// Validates whether an <see cref="ExportableSectionAssemblyResult"/> is valid to export.
         /// </summary>
         /// <param name="result">The <see cref="ExportableSectionAssemblyResult"/> to validate.</param>
-        /// <exception cref="AssemblyExportException">Thrown when <paramref name="result"/>
-        /// is invalid to export.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="result"/>
+        /// is invalid to create.</exception>
         private static void ValidateAssemblyResult(ExportableSectionAssemblyResult result)
         {
             if (result.AssemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
             {
-                throw new AssemblyExportException(@"The assembly result is invalid and cannot be exported.");
+                throw new AssemblyCreatorException(@"The assembly result is invalid and cannot be created.");
             }
         }
 

@@ -27,6 +27,6 @@ using Ringtoets.Integration.IO.Exceptions;
 namespace Ringtoets.Integration.IO.Test.Exceptions
 {
     [TestFixture]
-    public class AssemblyExportExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<AssemblyExportException, Exception> {}
+    public class AssemblyCreatorExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<AssemblyCreatorException, Exception> {}
 }

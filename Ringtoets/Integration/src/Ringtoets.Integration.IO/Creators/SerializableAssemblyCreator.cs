@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <returns>A <see cref="SerializableAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyExportException">Thrown when the assembly result cannot be exported.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when the assembly result cannot be created.</exception>
         public static SerializableAssembly Create(ExportableAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)

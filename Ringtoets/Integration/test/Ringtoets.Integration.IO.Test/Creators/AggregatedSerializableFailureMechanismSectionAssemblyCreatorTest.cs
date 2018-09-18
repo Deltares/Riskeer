@@ -139,8 +139,8 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                                           sectionResult);
 
             // Assert
-            var exception = Assert.Throws<AssemblyExportException>(call);
-            Assert.AreEqual("The assembly result is invalid and cannot be exported.", exception.Message);
+            var exception = Assert.Throws<AssemblyCreatorException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]
@@ -370,8 +370,8 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                                           sectionResult);
 
             // Assert
-            var exception = Assert.Throws<AssemblyExportException>(call);
-            Assert.AreEqual("The assembly result is invalid and cannot be exported.", exception.Message);
+            var exception = Assert.Throws<AssemblyCreatorException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]
@@ -597,8 +597,8 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                                           sectionResult);
 
             // Assert
-            var exception = Assert.Throws<AssemblyExportException>(call);
-            Assert.AreEqual("The assembly result is invalid and cannot be exported.", exception.Message);
+            var exception = Assert.Throws<AssemblyCreatorException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]

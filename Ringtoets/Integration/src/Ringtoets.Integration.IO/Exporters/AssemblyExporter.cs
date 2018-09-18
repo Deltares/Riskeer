@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.IO.Exporters
                 SerializableAssemblyWriter.WriteAssembly(SerializableAssemblyCreator.Create(exportableAssessmentSection),
                                                          filePath);
             }
-            catch (AssemblyExportException)
+            catch (AssemblyCreatorException)
             {
                 LogErrorMessage();
                 return false;

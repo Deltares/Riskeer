@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_CombinedFailureMechanismSectionAssemblyResultNone_LogsErrorAndReturnsFalse()
+        public void Export_AssemblyCreateorExceptionThrown_LogsErrorAndReturnsFalse()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse));
