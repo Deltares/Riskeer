@@ -1312,7 +1312,7 @@ Pf = {1}</value>
     <value>Beginpunt</value>
   </data>
   <data name="FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName" xml:space="preserve">
-    <value>N* [-]</value>
+    <value>Nvak* [-]</value>
   </data>
   <data name="FailureMechanism_ProbabilityAssessmentInput_A_Description" xml:space="preserve">
     <value>De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.</value>

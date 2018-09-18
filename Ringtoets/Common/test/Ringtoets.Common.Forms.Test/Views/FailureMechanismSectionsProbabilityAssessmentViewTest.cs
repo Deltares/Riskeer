@@ -112,7 +112,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 DataGridViewColumn lengthColumn = sectionsDataGridViewControl.GetColumnFromIndex(lengthColumnIndex);
                 Assert.AreEqual("Lengte* [m]", lengthColumn.HeaderText);
                 DataGridViewColumn lengthEffectColumn = sectionsDataGridViewControl.GetColumnFromIndex(lengthEffectColumnIndex);
-                Assert.AreEqual("N* [-]", lengthEffectColumn.HeaderText);
+                Assert.AreEqual("Nvak* [-]", lengthEffectColumn.HeaderText);
 
                 Assert.Throws<ArgumentOutOfRangeException>(() => sectionsDataGridViewControl.GetColumnFromIndex(lengthEffectColumnIndex + 1));
             }

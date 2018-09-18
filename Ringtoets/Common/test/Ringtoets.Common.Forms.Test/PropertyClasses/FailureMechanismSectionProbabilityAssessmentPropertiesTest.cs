@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor nProperty = dynamicProperties[4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             "Algemeen",
-                                                                            "N* [-]",
+                                                                            "Nvak* [-]",
                                                                             "Vakspecifieke waarde voor het in rekening brengen van " +
                                                                             "het lengte-effect tijdens assemblage (afgerond).",
                                                                             true);

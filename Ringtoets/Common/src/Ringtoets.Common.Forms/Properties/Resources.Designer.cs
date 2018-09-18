@@ -1874,7 +1874,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to N* [-].
+        ///   Looks up a localized string similar to Nvak* [-].
         /// </summary>
         public static string FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName {
             get {
