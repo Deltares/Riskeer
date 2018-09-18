@@ -75,8 +75,6 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            ValidateAssemblyResult(sectionResult.CombinedAssembly);
-
             SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
                                                                                                                             serializableCollection,
                                                                                                                             sectionResult.FailureMechanismSection);
@@ -127,8 +125,6 @@ namespace Ringtoets.Integration.IO.Creators
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
-
-            ValidateAssemblyResult(sectionResult.CombinedAssembly);
 
             SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
                                                                                                                             serializableCollection,
@@ -181,8 +177,6 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            ValidateAssemblyResult(sectionResult.CombinedAssembly);
-
             SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
                                                                                                                             serializableCollection,
                                                                                                                             sectionResult.FailureMechanismSection);
@@ -196,21 +190,6 @@ namespace Ringtoets.Integration.IO.Creators
             return new AggregatedSerializableFailureMechanismSectionAssembly(failureMechanismSection,
                                                                              failureMechanismSectionAssembly);
         }
-
-        /// <summary>
-        /// Validates whether an <see cref="ExportableSectionAssemblyResult"/> is valid to export.
-        /// </summary>
-        /// <param name="result">The <see cref="ExportableSectionAssemblyResult"/> to validate.</param>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="result"/>
-        /// is invalid to create.</exception>
-        private static void ValidateAssemblyResult(ExportableSectionAssemblyResult result)
-        {
-            if (result.AssemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                throw new AssemblyCreatorException(@"The assembly result is invalid and cannot be created.");
-            }
-        }
-
 
         /// <summary>
         /// Creates a collection of whether an <see cref="SerializableFailureMechanismSectionAssemblyResult"/> based on <paramref name="sectionResult"/>.
