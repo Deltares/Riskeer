@@ -35,12 +35,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="input">The collection of failure mechanism assemblies to assemble for.</param>
         /// <param name="signalingNorm">The signaling norm to calculate with.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
+        /// <param name="failureProbabilityMarginFactor">The failure probability margin factor to
+        /// calculate with.</param>
         /// <returns>A <see cref="FailureMechanismAssembly"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
         FailureMechanismAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
                                                            double signalingNorm,
-                                                           double lowerLimitNorm);
+                                                           double lowerLimitNorm,
+                                                           double failureProbabilityMarginFactor);
 
         /// <summary>
         /// Assembles the failure mechanisms for the given <paramref name="input"/>.

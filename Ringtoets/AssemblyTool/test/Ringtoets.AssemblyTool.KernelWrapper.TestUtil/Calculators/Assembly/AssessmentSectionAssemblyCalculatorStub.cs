@@ -34,15 +34,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
     {
         /// <summary>
         /// Gets the lower norm input when assembling the assessment section with failure mechanisms
-        /// with probability;
+        /// with probability.
         /// </summary>
         public double LowerLimitNormInput { get; private set; }
 
         /// <summary>
         /// Gets the lower norm input when assembling the assessment section with failure mechanisms
-        /// with probability;
+        /// with probability.
         /// </summary>
         public double SignalingNormInput { get; private set; }
+
+        /// <summary>
+        /// Gets the failure probability margin factory input when assembling the assessment section
+        /// with failure mechanisms with probability.
+        /// </summary>
+        public double FailureProbabilityMarginFactorInput { get; private set; }
 
         /// <summary>
         /// Gets the collection of failure mechanism assembly input when assembling the
@@ -106,7 +112,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
         public FailureMechanismAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
                                                                   double signalingNorm,
-                                                                  double lowerLimitNorm)
+                                                                  double lowerLimitNorm,
+                                                                  double failureProbabilityMarginFactor)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -116,6 +123,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             FailureMechanismAssemblyInput = input;
             LowerLimitNormInput = lowerLimitNorm;
             SignalingNormInput = signalingNorm;
+            FailureProbabilityMarginFactorInput = failureProbabilityMarginFactor;
 
             return AssembleFailureMechanismsAssemblyOutput ??
                    (AssembleFailureMechanismsAssemblyOutput = new FailureMechanismAssembly(0.75, FailureMechanismAssemblyCategoryGroup.IIIt));
