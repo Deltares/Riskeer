@@ -205,7 +205,7 @@ namespace Ringtoets.Integration.Forms.Views
 
             try
             {
-                dataGridViewControl.SetDataSource(AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(AssessmentSection)
+                dataGridViewControl.SetDataSource(AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(AssessmentSection, true)
                                                                                   .Select(r => new CombinedFailureMechanismSectionAssemblyResultRow(r))
                                                                                   .ToArray());
             }

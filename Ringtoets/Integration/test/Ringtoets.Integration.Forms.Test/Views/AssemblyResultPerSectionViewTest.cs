@@ -39,6 +39,7 @@ using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -369,8 +370,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory )AssemblyToolCalculatorFactory.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = withError;
 
                 using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
@@ -390,6 +391,31 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     // Then
                     Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
                     Assert.AreEqual(expectedPadding, warningProvider.GetIconPadding(button));
+                }
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultPerSectionViewAndManualAssembly_WhenShown_ThenManualAssemblyUsed()
+        {
+            // Given
+            var random = new Random(21);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
+                random.NextEnumValue<AssessmentSectionComposition>());
+            MacroStabilityInwardsFailureMechanismSectionResult sectionResult = assessmentSection.MacroStabilityInwards.SectionResults.First();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = random.NextDouble();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // When
+                using (ShowAssemblyResultPerSectionView(assessmentSection))
+                {
+                    // Then
+                    Assert.AreEqual(sectionResult.ManualAssemblyProbability, calculator.ManualAssemblyProbabilityInput);
                 }
             }
         }
