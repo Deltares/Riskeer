@@ -30,8 +30,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     /// </summary>
     public class StructuresClosureLowSillCalculationInput : StructuresClosureCalculationInput
     {
-        private readonly double modelFactorSuperCriticalFlowMean;
-        private readonly double modelFactorSuperCriticalFlowStandardDeviation;
         private readonly double thresholdHeightOpenWeirMean;
         private readonly double thresholdHeightOpenWeirStandardDeviation;
         private readonly double insideWaterLevelMean;
@@ -96,7 +94,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                         double failureProbabilityStructureWithErosion,
                                                         double stormDurationMean, double stormDurationVariation,
                                                         double probabilityOpenStructureBeforeFlooding,
-                                                        double modelFactorSuperCriticalFlowMean, double modelFactorSuperCriticalFlowStandardDeviation,
                                                         double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
                                                         double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
                                                         double widthFlowAperturesMean, double widthFlowAperturesStandardDeviation,
@@ -119,8 +116,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    stormDurationMean, stormDurationVariation,
                    probabilityOpenStructureBeforeFlooding)
         {
-            this.modelFactorSuperCriticalFlowMean = modelFactorSuperCriticalFlowMean;
-            this.modelFactorSuperCriticalFlowStandardDeviation = modelFactorSuperCriticalFlowStandardDeviation;
             this.thresholdHeightOpenWeirMean = thresholdHeightOpenWeirMean;
             this.thresholdHeightOpenWeirStandardDeviation = thresholdHeightOpenWeirStandardDeviation;
             this.insideWaterLevelMean = insideWaterLevelMean;
@@ -157,7 +152,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
 
         private IEnumerable<HydraRingVariable> GetVariables()
         {
-            yield return new NormalHydraRingVariable(62, HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation);
             yield return new NormalHydraRingVariable(65, HydraRingDeviationType.Standard, thresholdHeightOpenWeirMean, thresholdHeightOpenWeirStandardDeviation);
             yield return new NormalHydraRingVariable(93, HydraRingDeviationType.Standard, insideWaterLevelMean, insideWaterLevelStandardDeviation);
             yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);

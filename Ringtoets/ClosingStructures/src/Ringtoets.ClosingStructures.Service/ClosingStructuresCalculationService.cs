@@ -126,7 +126,6 @@ namespace Ringtoets.ClosingStructures.Service
                 structureInput.FailureProbabilityStructureWithErosion,
                 structureInput.StormDuration.Mean, structureInput.StormDuration.CoefficientOfVariation,
                 structureInput.ProbabilityOpenStructureBeforeFlooding,
-                structureInput.ModelFactorSuperCriticalFlow.Mean, structureInput.ModelFactorSuperCriticalFlow.StandardDeviation,
                 structureInput.ThresholdHeightOpenWeir.Mean, structureInput.ThresholdHeightOpenWeir.StandardDeviation,
                 structureInput.InsideWaterLevel.Mean, structureInput.InsideWaterLevel.StandardDeviation,
                 structureInput.WidthFlowApertures.Mean, structureInput.WidthFlowApertures.StandardDeviation,

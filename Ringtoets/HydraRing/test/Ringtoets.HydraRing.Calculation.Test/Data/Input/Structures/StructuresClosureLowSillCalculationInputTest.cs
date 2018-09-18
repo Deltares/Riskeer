@@ -61,16 +61,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double stormDurationMean = 18.8;
             const double stormDurationVariation = 19.9;
             const double probabilityOpenStructureBeforeFlooding = 20.0;
-            const double modelFactorSuperCriticalFlowMean = 21.1;
-            const double modelFactorSuperCriticalFlowStandardDeviation = 22.2;
-            const double thresholdHeightOpenWeirMean = 23.3;
-            const double thresholdHeightOpenWeirStandardDeviation = 24.4;
-            const double insideWaterLevelMean = 25.5;
-            const double insideWaterLevelStandardDeviation = 26.6;
-            const double widthFlowAperturesMean = 27.7;
-            const double widthFlowAperturesStandardDeviation = 28.8;
-            const double modelFactorLongThresholdMean = 29.9;
-            const double modelFactorLongThresholdStandardDeviation = 30.0;
+            const double thresholdHeightOpenWeirMean = 21.1;
+            const double thresholdHeightOpenWeirStandardDeviation = 22.2;
+            const double insideWaterLevelMean = 23.3;
+            const double insideWaterLevelStandardDeviation = 24.4;
+            const double widthFlowAperturesMean = 25.5;
+            const double widthFlowAperturesStandardDeviation = 26.6;
+            const double modelFactorLongThresholdMean = 27.7;
+            const double modelFactorLongThresholdStandardDeviation = 28.8;
 
             // Call
             var input = new StructuresClosureLowSillCalculationInput(hydraulicBoundaryLocationId,
@@ -90,7 +88,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                      failureProbabilityStructureWithErosion,
                                                                      stormDurationMean, stormDurationVariation,
                                                                      probabilityOpenStructureBeforeFlooding,
-                                                                     modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation,
                                                                      thresholdHeightOpenWeirMean, thresholdHeightOpenWeirStandardDeviation,
                                                                      insideWaterLevelMean, insideWaterLevelStandardDeviation,
                                                                      widthFlowAperturesMean, widthFlowAperturesStandardDeviation,
@@ -125,7 +122,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                      new HydraRingBreakWater(1, 1.1),
                                                                      1.1, 222, 333, 5.5, 6, 7.7, 8.8, 11, 22, 33, 44, 55,
                                                                      66, 77, 88, 99, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-                                                                     22, 23, 24, 25);
+                                                                     22, 23);
 
             // Call
             int? actualSubMechanismModelId = input.GetSubMechanismModelId(subMechanismModelId);
@@ -137,13 +134,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
         private static IEnumerable<HydraRingVariable> GetDefaultVariables()
         {
             yield return new DeterministicHydraRingVariable(58, 1.1);
-            yield return new NormalHydraRingVariable(62, HydraRingDeviationType.Standard, 21.1, 22.2);
             yield return new DeterministicHydraRingVariable(63, 2.2);
-            yield return new NormalHydraRingVariable(65, HydraRingDeviationType.Standard, 23.3, 24.4);
+            yield return new NormalHydraRingVariable(65, HydraRingDeviationType.Standard, 21.1, 22.2);
             yield return new DeterministicHydraRingVariable(68, 3.3);
             yield return new DeterministicHydraRingVariable(69, 4.4);
             yield return new DeterministicHydraRingVariable(71, 5);
-            yield return new NormalHydraRingVariable(93, HydraRingDeviationType.Standard, 25.5, 26.6);
+            yield return new NormalHydraRingVariable(93, HydraRingDeviationType.Standard, 23.3, 24.4);
             yield return new LogNormalHydraRingVariable(94, HydraRingDeviationType.Standard, 6.6, 7.7);
             yield return new LogNormalHydraRingVariable(95, HydraRingDeviationType.Standard, 8.8, 9.9);
             yield return new LogNormalHydraRingVariable(96, HydraRingDeviationType.Variation, 10.0, 11.1);
@@ -151,9 +147,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             yield return new LogNormalHydraRingVariable(103, HydraRingDeviationType.Standard, 13.3, 14.4);
             yield return new LogNormalHydraRingVariable(104, HydraRingDeviationType.Variation, 15.5, 16.6);
             yield return new DeterministicHydraRingVariable(105, 17.7);
-            yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, 27.7, 28.8);
+            yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, 25.5, 26.6);
             yield return new LogNormalHydraRingVariable(108, HydraRingDeviationType.Variation, 18.8, 19.9);
-            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, 29.9, 30.0);
+            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, 27.7, 28.8);
             yield return new DeterministicHydraRingVariable(129, 20.0);
         }
     }
