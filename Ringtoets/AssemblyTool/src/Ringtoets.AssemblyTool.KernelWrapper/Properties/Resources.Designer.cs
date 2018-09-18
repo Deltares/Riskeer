@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -91,7 +91,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het specificeren van een assemblageresultaat voor deze categorie is niet mogelijk..
+        ///   Looks up a localized string similar to Het specificeren van een toetsoordeel voor deze categorie is niet mogelijk..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_CategoryNotAllowed {
             get {

@@ -157,7 +157,7 @@
     <value>Er is ongeldige invoer gedefinieerd voor de gebruikte methode.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_CategoryNotAllowed" xml:space="preserve">
-    <value>Het specificeren van een assemblageresultaat voor deze categorie is niet mogelijk.</value>
+    <value>Het specificeren van een toetsoordeel voor deze categorie is niet mogelijk.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_DoesNotComplyAfterComply" xml:space="preserve">
     <value>Een lagere categorie moet als voldoende worden aangemerkt indien het vak voor een hogere categorie voldoet.</value>

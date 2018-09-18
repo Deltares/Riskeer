@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.IO.Exporters
             }
             catch (CriticalFileWriteException e)
             {
-                log.ErrorFormat(Resources.AssemblyExporter_Error_Exception_0_no_AssemblyResults_exported, e.Message);
+                log.ErrorFormat(Resources.AssemblyExporter_Error_Exception_0_no_AssemblyResult_exported, e.Message);
                 return false;
             }
 

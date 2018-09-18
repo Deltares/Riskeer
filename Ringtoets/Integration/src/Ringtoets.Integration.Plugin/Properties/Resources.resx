@@ -216,10 +216,10 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>gml</value>
   </data>
   <data name="AssemblyResult_file_filter_Description" xml:space="preserve">
-    <value>Assemblageresultaat</value>
+    <value>Toetsoordeel</value>
   </data>
   <data name="AssemblyResult_DisplayName" xml:space="preserve">
-    <value>Assemblageresultaat</value>
+    <value>Toetsoordeel</value>
   </data>
   <data name="AssemblyResultsCategoryTreeFolder_DisplayName" xml:space="preserve">
     <value>Assemblage</value>

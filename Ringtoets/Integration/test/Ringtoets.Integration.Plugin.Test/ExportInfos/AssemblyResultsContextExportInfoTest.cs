@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
-                Assert.AreEqual("Assemblageresultaat", info.Name);
+                Assert.AreEqual("Toetsoordeel", info.Name);
                 Assert.AreEqual("Algemeen", info.Category);
                 TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
                 Assert.IsNotNull(info.FileFilterGenerator);
@@ -90,7 +90,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 FileFilterGenerator fileFilterGenerator = info.FileFilterGenerator;
 
                 // Assert
-                Assert.AreEqual("Assemblageresultaat (*.gml)|*.gml", fileFilterGenerator.Filter);
+                Assert.AreEqual("Toetsoordeel (*.gml)|*.gml", fileFilterGenerator.Filter);
             }
         }
 

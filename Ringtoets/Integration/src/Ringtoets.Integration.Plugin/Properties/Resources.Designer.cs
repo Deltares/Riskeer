@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblageresultaat.
+        ///   Looks up a localized string similar to Toetsoordeel.
         /// </summary>
         public static string AssemblyResult_DisplayName {
             get {
@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblageresultaat.
+        ///   Looks up a localized string similar to Toetsoordeel.
         /// </summary>
         public static string AssemblyResult_file_filter_Description {
             get {
