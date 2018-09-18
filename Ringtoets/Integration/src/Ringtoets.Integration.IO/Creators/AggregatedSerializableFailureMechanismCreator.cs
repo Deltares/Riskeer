@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// create an <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanism"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when the serializable assembly cannot be created.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when the inputs are invalid to create a serializable counterpart for.</exception>
         /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// contains unsupported items in the failure mechanism section assembly results.</exception>
         public static AggregatedSerializableFailureMechanism Create(IdentifierGenerator idGenerator,
@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// create an <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanism"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when the serializable assembly cannot be created.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when the inputs are invalid to create a serializable counterpart for.</exception>
         /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// contains unsupported items in the failure mechanism section assembly results.</exception>
         public static AggregatedSerializableFailureMechanism Create(IdentifierGenerator idGenerator,
@@ -140,7 +140,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <param name="failureMechanismSectionAssemblyResult">An aggregated failure mechanism section assembly result to
         /// create an <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
-        /// <exception cref="AssemblyCreatorException">Thrown when the assembly result cannot be created.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when the inputs are invalid to create a serializable counterpart for.</exception>
         /// <exception cref="NotSupportedException">Thrown when an <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>
         /// cannot be created for <paramref name="failureMechanismSectionAssemblyResult"/>.</exception>
         private static AggregatedSerializableFailureMechanismSectionAssembly CreateFailureMechanismSectionAssembly(

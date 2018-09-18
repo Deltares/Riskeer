@@ -22,6 +22,7 @@
 using System;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Exceptions;
 using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Integration.IO.Properties;
 
@@ -42,6 +43,8 @@ namespace Ringtoets.Integration.IO.Creators
         /// without a probability assembly result to create a <see cref="SerializableFailureMechanism"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanism"/></returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="failureMechanism"/> is invalid to
+        /// create a serializable counterpart for.</exception>
         public static SerializableFailureMechanism Create(IdentifierGenerator idGenerator,
                                                           SerializableTotalAssemblyResult serializableTotalAssembly,
                                                           ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism)
@@ -78,6 +81,8 @@ namespace Ringtoets.Integration.IO.Creators
         /// with a probability assembly result to create a <see cref="SerializableFailureMechanism"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanism"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="failureMechanism"/> is invalid to
+        /// create a serializable counterpart for.</exception>
         public static SerializableFailureMechanism Create(IdentifierGenerator idGenerator,
                                                           SerializableTotalAssemblyResult serializableTotalAssembly,
                                                           ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> failureMechanism)

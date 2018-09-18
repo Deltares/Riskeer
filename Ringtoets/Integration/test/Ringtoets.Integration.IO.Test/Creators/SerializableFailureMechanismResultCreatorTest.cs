@@ -26,6 +26,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
+using Ringtoets.Integration.IO.Exceptions;
 using Ringtoets.Integration.IO.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Creators
@@ -45,12 +46,38 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
+        public void Create_WithFailureMechanismAssemblyResultNone_ThrowsAssemblyCreatorException()
+        {
+            // Setup
+            var random = new Random(21);
+            var result = new ExportableFailureMechanismAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
+                                                                      FailureMechanismAssemblyCategoryGroup.None);
+
+            // Call
+            TestDelegate call = () => SerializableFailureMechanismResultCreator.Create(result);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCreatorException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
+        }
+
+        [Test]
         public void Create_WithFailureMechanismAssemblyResult_ReturnsSerializableFailureMechanismAssemblyResult()
         {
             // Setup
             var random = new Random(21);
             var result = new ExportableFailureMechanismAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                      random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+                                                                      random.NextEnumValue(new[]
+                                                                      {
+                                                                          FailureMechanismAssemblyCategoryGroup.NotApplicable,
+                                                                          FailureMechanismAssemblyCategoryGroup.It,
+                                                                          FailureMechanismAssemblyCategoryGroup.IIt,
+                                                                          FailureMechanismAssemblyCategoryGroup.IIIt,
+                                                                          FailureMechanismAssemblyCategoryGroup.IVt,
+                                                                          FailureMechanismAssemblyCategoryGroup.Vt,
+                                                                          FailureMechanismAssemblyCategoryGroup.VIt,
+                                                                          FailureMechanismAssemblyCategoryGroup.VIIt,
+                                                                      }));
 
             // Call
             SerializableFailureMechanismAssemblyResult serializableAssemblyResult = SerializableFailureMechanismResultCreator.Create(result);
@@ -74,12 +101,39 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
+        public void Create_WithFailureMechanismAssemblyResultWithProbabilityAndResultNone_ThrowsAssemblyCreatorException()
+        {
+            // Setup
+            var random = new Random(21);
+            var result = new ExportableFailureMechanismAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
+                                                                                     FailureMechanismAssemblyCategoryGroup.None,
+                                                                                     random.NextDouble());
+
+            // Call
+            TestDelegate call = () => SerializableFailureMechanismResultCreator.Create(result);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCreatorException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
+        }
+
+        [Test]
         public void Create_WithFailureMechanismAssemblyResultWithProbability_ReturnsSerializableFailureMechanismAssemblyResult()
         {
             // Setup
             var random = new Random(21);
             var result = new ExportableFailureMechanismAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                                     random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>(),
+                                                                                     random.NextEnumValue(new[]
+                                                                                     {
+                                                                                         FailureMechanismAssemblyCategoryGroup.NotApplicable,
+                                                                                         FailureMechanismAssemblyCategoryGroup.It,
+                                                                                         FailureMechanismAssemblyCategoryGroup.IIt,
+                                                                                         FailureMechanismAssemblyCategoryGroup.IIIt,
+                                                                                         FailureMechanismAssemblyCategoryGroup.IVt,
+                                                                                         FailureMechanismAssemblyCategoryGroup.Vt,
+                                                                                         FailureMechanismAssemblyCategoryGroup.VIt,
+                                                                                         FailureMechanismAssemblyCategoryGroup.VIIt,
+                                                                                     }),
                                                                                      random.NextDouble());
 
             // Call
