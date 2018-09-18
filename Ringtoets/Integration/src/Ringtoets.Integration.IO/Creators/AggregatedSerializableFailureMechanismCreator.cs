@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.AggregatedSerializable;
 using Ringtoets.Integration.IO.Assembly;
@@ -47,7 +46,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyCreatorException">Thrown when the serializable assembly cannot be created.</exception>
         /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
-        /// contains unsupported items in the failure mechanism (section) assembly results.</exception>
+        /// contains unsupported items in the failure mechanism section assembly results.</exception>
         public static AggregatedSerializableFailureMechanism Create(IdentifierGenerator idGenerator,
                                                                     SerializableTotalAssemblyResult serializableTotalAssemblyResult,
                                                                     ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism)
@@ -66,8 +65,6 @@ namespace Ringtoets.Integration.IO.Creators
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
-
-            ValidateFailureMechanismAssemblyResult(failureMechanism.FailureMechanismAssembly);
 
             SerializableFailureMechanism serializableFailureMechanism = SerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
             var serializableCollection = new SerializableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionCollection_IdPrefix));
@@ -97,7 +94,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyCreatorException">Thrown when the serializable assembly cannot be created.</exception>
         /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
-        /// contains unsupported items in the failure mechanism (section) assembly results.</exception>
+        /// contains unsupported items in the failure mechanism section assembly results.</exception>
         public static AggregatedSerializableFailureMechanism Create(IdentifierGenerator idGenerator,
                                                                     SerializableTotalAssemblyResult serializableTotalAssemblyResult,
                                                                     ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> failureMechanism)
@@ -117,8 +114,6 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            ValidateFailureMechanismAssemblyResult(failureMechanism.FailureMechanismAssembly);
-
             SerializableFailureMechanism serializableFailureMechanism = SerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
             var serializableCollection = new SerializableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionCollection_IdPrefix));
 
@@ -134,21 +129,6 @@ namespace Ringtoets.Integration.IO.Creators
                                                               serializableCollection,
                                                               serializableFailureMechanismSectionAssemblyResults.Select(fmr => fmr.FailureMechanismSection),
                                                               serializableFailureMechanismSectionAssemblyResults.Select(fmr => fmr.FailureMechanismSectionAssembly));
-        }
-
-
-        /// <summary>
-        /// Validates whether an <see cref="ExportableFailureMechanismAssemblyResult"/> is valid to be created.
-        /// </summary>
-        /// <param name="assemblyResult">The <see cref="ExportableFailureMechanismAssemblyResult"/> to validate.</param>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="assemblyResult"/>
-        /// is invalid to create.</exception>
-        private static void ValidateFailureMechanismAssemblyResult(ExportableFailureMechanismAssemblyResult assemblyResult)
-        {
-            if (assemblyResult.AssemblyCategory == FailureMechanismAssemblyCategoryGroup.None)
-            {
-                throw new AssemblyCreatorException(@"The assembly result is invalid and cannot be created.");
-            }
         }
 
         /// <summary>
