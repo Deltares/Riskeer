@@ -223,7 +223,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(26, propertyInfos.Length);
+                Assert.AreEqual(27, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -342,8 +342,13 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(FailureMechanismAssemblyCategoriesContextBase),
+                    typeof(FailureMechanismAssemblyCategoriesContext),
                     typeof(FailureMechanismAssemblyCategoriesProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(MacroStabilityOutwardsAssemblyCategoriesContext),
+                    typeof(FailureMechanismSectionAssemblyCategoriesProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

@@ -31,7 +31,6 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -41,7 +40,7 @@ using Ringtoets.Integration.Forms.TestUtil;
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class FailureMechanismAssemblyCategoriesContextBasePropertyInfoTest
+    public class FailureMechanismAssemblyCategoriesContextPropertyInfoTest
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
@@ -63,26 +62,21 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismAssemblyCategoriesContextBase), info.DataType);
+            Assert.AreEqual(typeof(FailureMechanismAssemblyCategoriesContext), info.DataType);
         }
 
         [Test]
         public void CreateInstance_ValidArguments_ReturnProperties()
         {
             // Setup
-            var random = new Random(21);
-            double n = random.NextDouble(1, 10);
-
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSectionStub();
 
-            IEnumerable<FailureMechanismSectionAssemblyCategory> failureMechanismSectionAssemblyCategories = GetFailureMechanismSectionAssemblyCategories();
-            var context = new TestFailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection,
-                                                                            () => 0,
-                                                                            () => failureMechanismSectionAssemblyCategories);
+            var context = new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection,
+                                                                        () => 0);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -94,42 +88,15 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismAssemblyCategoriesProperties>(objectProperties);
-                Assert.AreSame(calculator.FailureMechanismCategoriesOutput, objectProperties.Data);
 
                 var properties = (FailureMechanismAssemblyCategoriesProperties) objectProperties;
                 AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAssemblyCategoryProperties(
                     calculator.FailureMechanismCategoriesOutput,
-                    failureMechanismSectionAssemblyCategories,
+                    context.GetFailureMechanismSectionAssemblyCategoriesFunc(),
                     properties);
             }
 
             mocks.VerifyAll();
-        }
-
-        private class TestFailureMechanismAssemblyCategoriesContext : FailureMechanismAssemblyCategoriesContextBase
-        {
-            public TestFailureMechanismAssemblyCategoriesContext(IFailureMechanism wrappedData,
-                                                                 IAssessmentSection assessmentSection,
-                                                                 Func<double> getNFunc,
-                                                                 Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoriesFunc)
-                : base(wrappedData, assessmentSection, getNFunc)
-            {
-                GetFailureMechanismSectionAssemblyCategoriesFunc = getFailureMechanismSectionAssemblyCategoriesFunc;
-            }
-
-            public override Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> GetFailureMechanismSectionAssemblyCategoriesFunc { get; }
-        }
-
-        private static IEnumerable<FailureMechanismSectionAssemblyCategory> GetFailureMechanismSectionAssemblyCategories()
-        {
-            var random = new Random(21);
-
-            return new[]
-            {
-                new FailureMechanismSectionAssemblyCategory(random.NextDouble(),
-                                                            random.NextDouble(),
-                                                            random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
-            };
         }
     }
 }
