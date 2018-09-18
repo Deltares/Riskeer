@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.IO.Factories
         private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult(AssessmentSection assessmentSection)
         {
             return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI2C1,
-                                                                 AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection));
+                                                                 AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection, false));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static ExportableFailureMechanismAssemblyResultWithProbability CreateExportableFailureMechanismAssemblyResultWithProbability(AssessmentSection assessmentSection)
         {
-            FailureMechanismAssembly assemblyResult = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection);
+            FailureMechanismAssembly assemblyResult = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, false);
             return new ExportableFailureMechanismAssemblyResultWithProbability(ExportableAssemblyMethod.WBI2B1,
                                                                                assemblyResult.Group,
                                                                                assemblyResult.Probability);
@@ -107,7 +107,7 @@ namespace Ringtoets.Integration.IO.Factories
         private static ExportableFailureMechanismAssemblyResult CreateExportableFailureMechanismAssemblyResultWithoutProbability(AssessmentSection assessmentSection)
         {
             return new ExportableFailureMechanismAssemblyResult(ExportableAssemblyMethod.WBI2A1,
-                                                                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection));
+                                                                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true));
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(AssessmentSection assessmentSection)
         {
-            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
+            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, false);
             return ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, assessmentSection.ReferenceLine);
         }
     }

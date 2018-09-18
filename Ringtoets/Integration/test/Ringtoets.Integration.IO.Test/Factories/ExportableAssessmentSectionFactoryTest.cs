@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
@@ -32,10 +33,13 @@ using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
+using Ringtoets.Piping.Data;
+using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {
@@ -146,14 +150,46 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                     failureMechanismAssemblyCalculator,
                                                                     assessmentSection);
 
-                int expectedNrOfSections = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection).Count();
+                int expectedNrOfSections = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, false).Count();
                 Assert.AreEqual(expectedNrOfSections, exportableAssessmentSection.CombinedSectionAssemblies.Count());
             }
         }
 
-        #region TestHelper CombinedFailureMechanismSection
+        [Test]
+        public void GivenAssessmentSectionWithConfiguredFailureMechanism_WhenCreatingExportableAssessmentSection_ThenManualAssemblyIgnored()
+        {
+            // Given
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            });
 
-        #endregion
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
+            {
+                ReferenceLine = referenceLine,
+                Id = "1"
+            };
+
+            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = random.NextDouble();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // When
+                ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
+
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
+            }
+        }
 
         #region TestHelpers FailureMechanismsWithProbability
 
