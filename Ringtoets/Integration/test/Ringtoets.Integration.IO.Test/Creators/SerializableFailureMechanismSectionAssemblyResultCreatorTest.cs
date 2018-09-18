@@ -22,10 +22,12 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
+using Ringtoets.Integration.IO.Exceptions;
 using Ringtoets.Integration.IO.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Creators
@@ -45,6 +47,23 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_WithExportableSectionAssemblyResultAndResultNone_ReturnsSerializableFailureMechanismAssemblyResult()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentType = random.NextEnumValue<SerializableAssessmentType>();
+            var sectionResult = new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
+                                                                    FailureMechanismSectionAssemblyCategoryGroup.None);
+
+            // Call
+            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyResultCreator.Create(assessmentType, sectionResult);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCreatorException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]
@@ -78,6 +97,24 @@ namespace Ringtoets.Integration.IO.Test.Creators
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_WithExportableSectionAssemblyResultWithProbabilityAndResultNone_ReturnsSerializableFailureMechanismAssemblyResult()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentType = random.NextEnumValue<SerializableAssessmentType>();
+            var sectionResult = new ExportableSectionAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
+                                                                                   FailureMechanismSectionAssemblyCategoryGroup.None,
+                                                                                   random.NextDouble());
+
+            // Call
+            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyResultCreator.Create(assessmentType, sectionResult);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCreatorException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]

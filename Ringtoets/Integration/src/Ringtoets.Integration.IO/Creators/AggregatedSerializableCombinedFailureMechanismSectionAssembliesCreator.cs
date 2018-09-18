@@ -25,6 +25,7 @@ using System.Linq;
 using Ringtoets.AssemblyTool.IO.Model;
 using Ringtoets.Integration.IO.AggregatedSerializable;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Exceptions;
 using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Integration.IO.Properties;
 
@@ -45,6 +46,8 @@ namespace Ringtoets.Integration.IO.Creators
         /// to create an <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssemblies"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableCombinedFailureMechanismSectionAssemblies"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="combinedSectionAssemblies"/> is invalid to
+        /// create a serializable counterpart for.</exception>
         public static AggregatedSerializableCombinedFailureMechanismSectionAssemblies Create(IdentifierGenerator idGenerator,
                                                                                              SerializableTotalAssemblyResult totalAssemblyResult,
                                                                                              IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblies)

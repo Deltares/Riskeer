@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when the serializable assembly cannot be created.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to create a serializable counterpart for.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when the serializable assembly cannot be created.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to create a serializable counterpart for.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
@@ -155,7 +155,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when the serializable assembly cannot be created.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to create a serializable counterpart for.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
@@ -211,6 +211,14 @@ namespace Ringtoets.Integration.IO.Creators
             }
         }
 
+
+        /// <summary>
+        /// Creates a collection of whether an <see cref="SerializableFailureMechanismSectionAssemblyResult"/> based on <paramref name="sectionResult"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> to create a collection of
+        /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/>
+        /// is invalid to create a serializable counterpart for.</exception>
         private static SerializableFailureMechanismSectionAssemblyResult[] CreateAssemblySectionResults(ExportableAggregatedFailureMechanismSectionAssemblyResult sectionResult)
         {
             var serializableSectionAssemblyResults = new List<SerializableFailureMechanismSectionAssemblyResult>();
@@ -236,6 +244,13 @@ namespace Ringtoets.Integration.IO.Creators
             return serializableSectionAssemblyResults.ToArray();
         }
 
+        /// <summary>
+        /// Creates a collection of whether an <see cref="SerializableFailureMechanismSectionAssemblyResult"/> based on <paramref name="sectionResult"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/> to create a collection of
+        /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/>
+        /// is invalid to create a serializable counterpart for.</exception>
         private static SerializableFailureMechanismSectionAssemblyResult[] CreateAssemblySectionResults(
             ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability sectionResult)
         {
@@ -262,6 +277,13 @@ namespace Ringtoets.Integration.IO.Creators
             return serializableSectionAssemblyResults.ToArray();
         }
 
+        /// <summary>
+        /// Creates a collection of whether an <see cref="SerializableFailureMechanismSectionAssemblyResult"/> based on <paramref name="sectionResult"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly"/> to create a collection of
+        /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/>
+        /// is invalid to create a serializable counterpart for.</exception>
         private static SerializableFailureMechanismSectionAssemblyResult[] CreateAssemblySectionResults(
             ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly sectionResult)
         {

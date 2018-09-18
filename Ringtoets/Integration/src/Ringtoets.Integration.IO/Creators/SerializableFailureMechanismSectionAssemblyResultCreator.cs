@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Exceptions;
 
 namespace Ringtoets.Integration.IO.Creators
 {
@@ -41,6 +43,8 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to
+        /// create a serializable counterpart for.</exception>
         public static SerializableFailureMechanismSectionAssemblyResult Create(SerializableAssessmentType assessmentType,
                                                                                ExportableSectionAssemblyResult sectionResult)
         {
@@ -48,6 +52,8 @@ namespace Ringtoets.Integration.IO.Creators
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
+
+            ValidateAssemblyResult(sectionResult);
 
             return new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod),
                                                                          assessmentType,
@@ -64,6 +70,8 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to
+        /// create a serializable counterpart for.</exception>
         public static SerializableFailureMechanismSectionAssemblyResult Create(SerializableAssessmentType assessmentType,
                                                                                ExportableSectionAssemblyResultWithProbability sectionResult)
         {
@@ -72,10 +80,26 @@ namespace Ringtoets.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
+            ValidateAssemblyResult(sectionResult);
+
             return new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod),
                                                                          assessmentType,
                                                                          SerializableFailureMechanismSectionCategoryGroupCreator.Create(sectionResult.AssemblyCategory),
                                                                          sectionResult.Probability);
+        }
+
+        /// <summary>
+        /// Validates the <paramref name="sectionResult"/> to determine whether a serializable section assembly result can be created.
+        /// </summary>
+        /// <param name="sectionResult">The <see cref="ExportableSectionAssemblyResult"/> to validate.</param>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid
+        /// and a serializable assembly result cannot be created.</exception>
+        private static void ValidateAssemblyResult(ExportableSectionAssemblyResult sectionResult)
+        {
+            if (sectionResult.AssemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                throw new AssemblyCreatorException(@"The assembly result is invalid and cannot be created.");
+            }
         }
     }
 }
