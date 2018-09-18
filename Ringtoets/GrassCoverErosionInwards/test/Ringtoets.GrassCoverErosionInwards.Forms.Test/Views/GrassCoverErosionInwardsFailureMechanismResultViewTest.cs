@@ -120,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(13, dataGridView.ColumnCount);
+                Assert.AreEqual(columnCount, dataGridView.ColumnCount);
                 Assert.IsTrue(dataGridView.Columns[detailedAssessmentProbabilityIndex].ReadOnly);
 
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
