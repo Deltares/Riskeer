@@ -1387,6 +1387,118 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             }
         }
 
+        #region Manual Assembly Used
+
+        #region With Probability
+
+        [Test]
+        public void GivenAssessmentSectionWithPipingConfigured_WhenAssemblingAssessmentSectionAndUseManualTrue_ThenInputSetOnCalculator()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            double probability = new Random(39).NextDouble();
+            sectionResult.ManualAssemblyProbability = probability;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // When
+                AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection, true);
+
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                Assert.AreEqual(probability, failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithPipingConfigured_WhenAssemblingAssessmentSectionAndUseManualFalse_ThenNoInputSetOnCalculator()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            double probability = new Random(39).NextDouble();
+            sectionResult.ManualAssemblyProbability = probability;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // When
+                AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection, false);
+
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
+            }
+        }
+
+        #endregion
+
+        #region Without Probability
+
+        [Test]
+        public void GivenAssessmentSectionWithDuneErosionConfigured_WhenAssemblingAssessmentSectionAndUseManualTrue_ThenInputSetOnCalculator()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
+            DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
+            failureMechanism.IsRelevant = true;
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+            DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // When
+                AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection, true);
+
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithDuneErosionConfigured_WhenAssemblingAssessmentSectionAndUseManualFalse_ThenNoInputSetOnCalculator()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
+            DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
+            failureMechanism.IsRelevant = true;
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+            DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // When
+                AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection, false);
+
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+            }
+        }
+
+        #endregion
+
+        #endregion
+
         #endregion
 
         #region Assemble Combined Per Failure Mechanism Section
@@ -1554,6 +1666,62 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 Assert.AreEqual("Voor een of meerdere toetssporen kan geen oordeel worden bepaald.", exception.Message);
             }
         }
+
+        #region Manual Assembly Used
+
+        [Test]
+        public void GivenAssessmentSectionWithPipingConfigured_WhenAssemblingCombinedPerFailureMechanismSectionAndUseManualTrue_ThenInputSetOnCalculator()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            double probability = new Random(39).NextDouble();
+            sectionResult.ManualAssemblyProbability = probability;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // When
+                AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                Assert.AreEqual(probability, failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithPipingConfigured_WhenAssemblingCombinedPerFailureMechanismSectionAndUseManualFalse_ThenNoInputSetOnCalculator()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            double probability = new Random(39).NextDouble();
+            sectionResult.ManualAssemblyProbability = probability;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // When
+                AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, false);
+
+                // Then
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
+            }
+        }
+
+        #endregion
 
         #endregion
 
