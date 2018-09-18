@@ -63,6 +63,7 @@
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContextTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoryPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoriesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\NormPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismPropertiesTest.cs" />

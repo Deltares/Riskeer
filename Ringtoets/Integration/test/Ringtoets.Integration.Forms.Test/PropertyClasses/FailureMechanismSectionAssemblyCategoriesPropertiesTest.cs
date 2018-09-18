@@ -33,26 +33,13 @@ using Ringtoets.Integration.Forms.TestUtil;
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class FailureMechanismAssemblyCategoriesPropertiesTest
+    public class FailureMechanismSectionAssemblyCategoriesPropertiesTest
     {
-        [Test]
-        public void Constructor_GetFailureMechanismAssemblyCategoriesNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoriesProperties(null,
-                                                                                       GetFailureMechanismSectionAssemblyCategories());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismAssemblyCategories", exception.ParamName);
-        }
-
         [Test]
         public void Constructor_GetFailureMechanismSectionAssemblyCategoriesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoriesProperties(GetFailureMechanismAssemblyCategories(),
-                                                                                       null);
+            TestDelegate call = () => new FailureMechanismSectionAssemblyCategoriesProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -63,24 +50,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            IEnumerable<FailureMechanismAssemblyCategory> expectedFailureMechanismCategories = GetFailureMechanismAssemblyCategories();
             IEnumerable<FailureMechanismSectionAssemblyCategory> expectedFailureMechanismSectionCategories = GetFailureMechanismSectionAssemblyCategories();
 
             // Call
-            var properties = new FailureMechanismAssemblyCategoriesProperties(expectedFailureMechanismCategories,
-                                                                              expectedFailureMechanismSectionCategories);
+            var properties = new FailureMechanismSectionAssemblyCategoriesProperties(expectedFailureMechanismSectionCategories);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<IEnumerable<FailureMechanismAssemblyCategory>>>(properties);
-            Assert.AreSame(expectedFailureMechanismCategories, properties.Data);
-
+            Assert.IsInstanceOf<ObjectProperties<IEnumerable<FailureMechanismSectionAssemblyCategory>>>(properties);
+            Assert.AreSame(expectedFailureMechanismSectionCategories, properties.Data);
             TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoriesProperties, ExpandableArrayConverter>(
-                nameof(FailureMechanismAssemblyCategoriesProperties.FailureMechanismAssemblyCategories));
-            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoriesProperties, ExpandableArrayConverter>(
-                nameof(FailureMechanismAssemblyCategoriesProperties.FailureMechanismSectionAssemblyCategories));
+                nameof(FailureMechanismSectionAssemblyCategoriesProperties.FailureMechanismSectionAssemblyCategories));
 
-            AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAssemblyCategoryProperties(
-                expectedFailureMechanismCategories,
+            AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismSectionAssemblyCategoryProperties(
                 expectedFailureMechanismSectionCategories,
                 properties);
         }
@@ -89,22 +70,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new FailureMechanismAssemblyCategoriesProperties(GetFailureMechanismAssemblyCategories(),
-                                                                              GetFailureMechanismSectionAssemblyCategories());
+            var properties = new FailureMechanismSectionAssemblyCategoriesProperties(GetFailureMechanismSectionAssemblyCategories());
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(1, dynamicProperties.Count);
 
             const string generalCategoryName = "Algemeen";
 
-            PropertyDescriptor failureMechanismCategoriesProperty = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureMechanismCategoriesProperty,
-                                                                            generalCategoryName,
-                                                                            "Categoriegrenzen voor dit traject",
-                                                                            "De categoriegrenzen voor dit traject en toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor failureMechanismSectionCategoriesProperty = dynamicProperties[1];
+            PropertyDescriptor failureMechanismSectionCategoriesProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureMechanismSectionCategoriesProperty,
                                                                             generalCategoryName,
                                                                             "Categoriegrenzen per vak",
@@ -121,18 +94,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 new FailureMechanismSectionAssemblyCategory(random.NextDouble(),
                                                             random.NextDouble(),
                                                             random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
-            };
-        }
-
-        private static IEnumerable<FailureMechanismAssemblyCategory> GetFailureMechanismAssemblyCategories()
-        {
-            var random = new Random(21);
-
-            return new[]
-            {
-                new FailureMechanismAssemblyCategory(random.NextDouble(),
-                                                     random.NextDouble(),
-                                                     random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>())
             };
         }
     }
