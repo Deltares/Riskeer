@@ -138,7 +138,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
                 if (propertyName == nameof(ModelFactorSuperCriticalFlow))
                 {
-                    return data.WrappedData.InflowModelType != ClosingStructureInflowModelType.FloodedCulvert;
+                    return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.VerticalWall;
                 }
 
                 if (propertyName == nameof(DrainCoefficient))

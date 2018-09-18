@@ -408,7 +408,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(23, dynamicProperties.Count);
+            Assert.AreEqual(22, dynamicProperties.Count);
 
             PropertyDescriptor insideWaterLevelProperty = dynamicProperties[lowSillInsideWaterLevelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
@@ -458,14 +458,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             schematizationCategory,
                                                                             "Faalkans herstel van gefaalde situatie [1/jaar]",
                                                                             "Faalkans herstel van gefaalde situatie.");
-
-            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[lowSillModelFactorSuperCriticalFlowPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSuperCriticalFlowProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Modelfactor overloopdebiet volkomen overlaat [-]",
-                                                                            "Modelfactor voor het overloopdebiet over een volkomen overlaat.",
-                                                                            true);
 
             PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[lowSillFactorStormDurationOpenStructurePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorStormDurationOpenStructureProperty,
@@ -785,7 +777,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.InsideWaterLevel)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.ModelFactorSuperCriticalFlow)));
+            Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.ModelFactorSuperCriticalFlow)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.DrainCoefficient)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.StructureNormalOrientation)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(ClosingStructuresInputContextProperties.ThresholdHeightOpenWeir)));
@@ -943,9 +935,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         private const int lowSillForeshoreProfilePropertyIndex = 17;
         private const int lowSillUseBreakWaterPropertyIndex = 18;
         private const int lowSillUseForeshorePropertyIndex = 19;
-        private const int lowSillModelFactorSuperCriticalFlowPropertyIndex = 20;
-        private const int lowSillFactorStormDurationOpenStructurePropertyIndex = 21;
-        private const int lowSillCalculateIllustrationPointsPropertyIndex = 22;
+        private const int lowSillFactorStormDurationOpenStructurePropertyIndex = 20;
+        private const int lowSillCalculateIllustrationPointsPropertyIndex = 21;
 
         #endregion
 
