@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -131,6 +132,8 @@ namespace Ringtoets.Integration.Data
             duneErosion = new DuneErosionFailureMechanism();
             technicalInnovation = new TechnicalInnovationFailureMechanism();
             OtherFailureMechanism = new OtherFailureMechanism();
+
+            FailureProbabilityMarginFactor = new RoundedDouble(2, 0.58);
 
             FailureMechanismContribution = new FailureMechanismContribution(lowerLimitNorm, signalingNorm);
             ChangeComposition(composition);
@@ -464,6 +467,11 @@ namespace Ringtoets.Integration.Data
         /// Gets the "Overige" category failure mechanism.
         /// </summary>
         public OtherFailureMechanism OtherFailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the failure probability margin factor.
+        /// </summary>
+        public RoundedDouble FailureProbabilityMarginFactor { get; }
 
         public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm
         {

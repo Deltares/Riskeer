@@ -118,6 +118,9 @@ namespace Ringtoets.Integration.Data.Test
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForSignalingNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+
+            Assert.AreEqual(0.58, assessmentSection.FailureProbabilityMarginFactor.Value);
+            Assert.AreEqual(2, assessmentSection.FailureProbabilityMarginFactor.NumberOfDecimalPlaces);
         }
 
         [Test]
