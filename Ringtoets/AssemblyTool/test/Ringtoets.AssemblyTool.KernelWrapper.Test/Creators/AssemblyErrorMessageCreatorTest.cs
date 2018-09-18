@@ -72,7 +72,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssemblyErrors.TranslateAssessmentInvalidInput, "Er is een ongeldig resultaat gespecificeerd voor de gebruikte methode.")]
         [TestCase(EAssemblyErrors.ValueMayNotBeNull, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
         [TestCase(EAssemblyErrors.CategoryNotAllowed, "Het specificeren van een toetsoordeel voor deze categorie is niet mogelijk.")]
-        [TestCase(EAssemblyErrors.DoesNotComplyAfterComply, "Een lagere categorie moet als voldoende worden aangemerkt indien het vak voor een hogere categorie voldoet.")]
+        [TestCase(EAssemblyErrors.DoesNotComplyAfterComply, "Een lagere categorie moet als voldoende worden aangemerkt indien het vak aan een hogere categorie voldoet.")]
         [TestCase(EAssemblyErrors.FmSectionLengthInvalid, "Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte.")]
         [TestCase(EAssemblyErrors.FmSectionSectionStartEndInvalid, "De lengte van een berekende deelvak kon niet goed worden bepaald.")]
         [TestCase(EAssemblyErrors.FailureProbabilityOutOfRange, "De gespecificeerde kans moet in het bereik [0,1] liggen.")]

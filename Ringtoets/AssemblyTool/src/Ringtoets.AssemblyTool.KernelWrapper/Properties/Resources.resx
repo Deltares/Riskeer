@@ -160,7 +160,7 @@
     <value>Het specificeren van een toetsoordeel voor deze categorie is niet mogelijk.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_DoesNotComplyAfterComply" xml:space="preserve">
-    <value>Een lagere categorie moet als voldoende worden aangemerkt indien het vak voor een hogere categorie voldoet.</value>
+    <value>Een lagere categorie moet als voldoende worden aangemerkt indien het vak aan een hogere categorie voldoet.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_FmSectionLengthInvalid" xml:space="preserve">
     <value>Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte.</value>

@@ -127,7 +127,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een lagere categorie moet als voldoende worden aangemerkt indien het vak voor een hogere categorie voldoet..
+        ///   Looks up a localized string similar to Een lagere categorie moet als voldoende worden aangemerkt indien het vak aan een hogere categorie voldoet..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_DoesNotComplyAfterComply {
             get {
