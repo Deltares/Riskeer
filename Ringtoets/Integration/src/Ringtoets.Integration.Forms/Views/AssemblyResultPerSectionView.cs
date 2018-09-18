@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                  Resources.AssemblyResultPerSectionView_GridColumn_SectionEnd,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.TotalResult),
-                                                 Resources.AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly,
+                                                 Resources.AssemblyResultPerSection_DisplayName,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.Piping),
                                                  PipingDataResources.PipingFailureMechanism_DisplayCode,

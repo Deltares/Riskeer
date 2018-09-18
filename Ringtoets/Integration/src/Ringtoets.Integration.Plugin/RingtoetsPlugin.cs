@@ -607,7 +607,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<AssemblyResultPerSectionContext, AssessmentSection, AssemblyResultPerSectionView>
             {
-                GetViewName = (view, context) => Resources.AssemblyResultPerSection_DisplayName,
+                GetViewName = (view, context) => RingtoetsFormsResources.AssemblyResultPerSection_DisplayName,
                 Image = Resources.AssemblyResultPerSection,
                 CloseForData = CloseAssemblyResultPerSectionViewForData,
                 CreateInstance = context => new AssemblyResultPerSectionView(context.WrappedData)
@@ -1072,7 +1072,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyResultPerSectionContext>
             {
-                Text = context => Resources.AssemblyResultPerSection_DisplayName,
+                Text = context => RingtoetsFormsResources.AssemblyResultPerSection_DisplayName,
                 Image = context => Resources.AssemblyResultPerSection,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()

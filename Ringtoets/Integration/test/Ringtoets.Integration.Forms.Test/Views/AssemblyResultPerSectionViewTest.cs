@@ -160,7 +160,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 AssertColumn(dataGridViewColumns[sectionStartColumnIndex], "Kilometrering* van [km]");
                 AssertColumn(dataGridViewColumns[sectionEndColumnIndex], "Kilometrering* tot [km]");
-                AssertColumn(dataGridViewColumns[sectionTotalAssemblyResultColumnIndex], "Totaal vakoordeel");
+                AssertColumn(dataGridViewColumns[sectionTotalAssemblyResultColumnIndex], "Gecombineerd vakoordeel");
                 AssertColumn(dataGridViewColumns[pipingColumnIndex], "STPH");
                 AssertColumn(dataGridViewColumns[grassCoverErosionInwardsColumnIndex], "GEKB");
                 AssertColumn(dataGridViewColumns[macroStabilityInwardsColumnIndex], "STBI");

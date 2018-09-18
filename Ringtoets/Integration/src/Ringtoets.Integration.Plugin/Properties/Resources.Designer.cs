@@ -119,15 +119,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gecombineerd vakoordeel.
-        /// </summary>
-        public static string AssemblyResultPerSection_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultPerSection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Assemblage.
         /// </summary>
         public static string AssemblyResultsCategoryTreeFolder_DisplayName {

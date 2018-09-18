@@ -342,9 +342,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultPerSectionView_GridColumn_SectionEnd" xml:space="preserve">
     <value>Kilometrering* tot [km]</value>
   </data>
-  <data name="AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly" xml:space="preserve">
-    <value>Totaal vakoordeel</value>
-  </data>
   <data name="AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate" xml:space="preserve">
     <value>Toetsoordeel is verouderd. Druk op de "Toetsoordeel verversen" knop om opnieuw te berekenen.</value>
   </data>
@@ -375,5 +372,8 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssessmentSectionMergeDataProviderDialog_InfoToolTip" xml:space="preserve">
     <value>Hydraulische belastingen op trajectniveau worden altijd samengevoegd.
 Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.</value>
+  </data>
+  <data name="AssemblyResultPerSection_DisplayName" xml:space="preserve">
+    <value>Gecombineerd vakoordeel</value>
   </data>
 </root>
