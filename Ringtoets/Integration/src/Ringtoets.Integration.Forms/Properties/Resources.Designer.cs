@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gecombineerd veiligheidsoordeel.
+        ///   Looks up a localized string similar to Gecombineerd toetsoordeel.
         /// </summary>
         public static string AssemblyResultTotalView_AssemblyResultGroupBox_Text {
             get {
@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Groepen 3 en 4.
+        ///   Looks up a localized string similar to Toetsoordeel groepen 3 en 4.
         /// </summary>
         public static string AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text {
             get {
@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Groepen 1 en 2.
+        ///   Looks up a localized string similar to Toetsoordeel groepen 1 en 2.
         /// </summary>
         public static string AssemblyResultTotalView_FailureMechanismsWithProbabilityResultLabel_Text {
             get {
@@ -164,7 +164,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Totaal.
+        ///   Looks up a localized string similar to Veiligheidsoordeel.
         /// </summary>
         public static string AssemblyResultTotalView_TotalResultLabel_Text {
             get {

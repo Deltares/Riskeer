@@ -313,16 +313,16 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Benaderde faalkans [1/jaar]</value>
   </data>
   <data name="AssemblyResultTotalView_AssemblyResultGroupBox_Text" xml:space="preserve">
-    <value>Gecombineerd veiligheidsoordeel</value>
+    <value>Gecombineerd toetsoordeel</value>
   </data>
   <data name="AssemblyResultTotalView_TotalResultLabel_Text" xml:space="preserve">
-    <value>Totaal</value>
+    <value>Veiligheidsoordeel</value>
   </data>
   <data name="AssemblyResultTotalView_FailureMechanismsWithProbabilityResultLabel_Text" xml:space="preserve">
-    <value>Groepen 1 en 2</value>
+    <value>Toetsoordeel groepen 1 en 2</value>
   </data>
   <data name="AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text" xml:space="preserve">
-    <value>Groepen 3 en 4</value>
+    <value>Toetsoordeel groepen 3 en 4</value>
   </data>
   <data name="FailureMechanism_Name_DisplayName" xml:space="preserve">
     <value>Toetsspoor</value>

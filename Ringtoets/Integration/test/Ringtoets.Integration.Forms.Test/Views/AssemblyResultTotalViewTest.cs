@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var groupBox = (GroupBox) new ControlTester("assemblyResultGroupBox").TheObject;
                 Assert.AreEqual(1, groupBox.Controls.Count);
                 Assert.AreEqual(DockStyle.Top, groupBox.Dock);
-                Assert.AreEqual("Gecombineerd veiligheidsoordeel", groupBox.Text);
+                Assert.AreEqual("Gecombineerd toetsoordeel", groupBox.Text);
 
                 var tableLayoutPanel = (TableLayoutPanel) groupBox.Controls["assemblyResultTableLayoutPanel"];
                 Assert.AreEqual(2, tableLayoutPanel.ColumnCount);
@@ -137,11 +137,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Fill, tableLayoutPanel.Dock);
 
                 var totalResultLabel = (Label) tableLayoutPanel.GetControlFromPosition(0, 0);
-                Assert.AreEqual("Totaal", totalResultLabel.Text);
+                Assert.AreEqual("Veiligheidsoordeel", totalResultLabel.Text);
                 var failureMechanismsWithProbabilityLabel = (Label) tableLayoutPanel.GetControlFromPosition(0, 1);
-                Assert.AreEqual("Groepen 1 en 2", failureMechanismsWithProbabilityLabel.Text);
+                Assert.AreEqual("Toetsoordeel groepen 1 en 2", failureMechanismsWithProbabilityLabel.Text);
                 var failureMechanismsWithoutProbabilityLabel = (Label) tableLayoutPanel.GetControlFromPosition(0, 2);
-                Assert.AreEqual("Groepen 3 en 4", failureMechanismsWithoutProbabilityLabel.Text);
+                Assert.AreEqual("Toetsoordeel groepen 3 en 4", failureMechanismsWithoutProbabilityLabel.Text);
                 Assert.IsInstanceOf<AssessmentSectionAssemblyCategoryGroupControl>(tableLayoutPanel.GetControlFromPosition(1, 0));
                 Assert.IsInstanceOf<FailureMechanismAssemblyControl>(tableLayoutPanel.GetControlFromPosition(1, 1));
                 Assert.IsInstanceOf<FailureMechanismAssemblyCategoryGroupControl>(tableLayoutPanel.GetControlFromPosition(1, 2));
