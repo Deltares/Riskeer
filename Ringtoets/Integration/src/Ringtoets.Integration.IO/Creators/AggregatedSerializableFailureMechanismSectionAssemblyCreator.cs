@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when the assembly result cannot be created.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when the serializable assembly cannot be created.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when the assembly result cannot be created.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when the serializable assembly cannot be created.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
@@ -155,7 +155,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when the assembly result cannot be created.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when the serializable assembly cannot be created.</exception>
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,

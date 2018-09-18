@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <returns>A <see cref="SerializableAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when the assembly result cannot be created.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when the serializable assembly cannot be created.</exception>
         public static SerializableAssembly Create(ExportableAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
