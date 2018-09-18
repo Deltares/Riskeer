@@ -280,7 +280,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             PipingStructureFailureMechanism failureMechanism)
         {
             var failureMechanismResultView = new PipingStructureResultView(failureMechanism.SectionResults,
-                                                                                     failureMechanism);
+                                                                           failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

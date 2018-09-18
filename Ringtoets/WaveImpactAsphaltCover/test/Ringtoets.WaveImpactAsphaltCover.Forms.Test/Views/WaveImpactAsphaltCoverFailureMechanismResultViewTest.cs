@@ -283,7 +283,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
             var failureMechanismResultView = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults,
-                                                                                       failureMechanism);
+                                                                                                  failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
