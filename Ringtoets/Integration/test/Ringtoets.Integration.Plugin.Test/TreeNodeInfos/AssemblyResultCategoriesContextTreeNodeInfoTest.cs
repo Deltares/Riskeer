@@ -36,7 +36,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class AssemblyResultsContextTreeNodeInfoTest
+    public class AssemblyResultCategoriesContextTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
                 Assert.IsNull(info.ExpandOnCreate);
-                Assert.IsNotNull(info.ChildNodeObjects);
+                Assert.IsNull(info.ChildNodeObjects);
                 Assert.IsNull(info.CanRename);
                 Assert.IsNull(info.OnNodeRenamed);
                 Assert.IsNull(info.CanRemove);
@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Assemblage", text);
+                Assert.AreEqual("Categoriegrenzen", text);
             }
         }
 
@@ -96,27 +96,26 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Image image = info.Image(null);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.NormsIcon, image);
             }
         }
 
         [Test]
-        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            var context = new AssemblyResultsContext(assessmentSection);
+            var context = new AssemblyResultCategoriesContext(assessmentSection);
 
             var mocks = new MockRepository();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
 
             using (mocks.Ordered())
             {
-                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
@@ -143,38 +142,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        [Test]
-        public void ChildNodeObjects_WithContext_ReturnsChildrenOfData()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            var context = new AssemblyResultsContext(assessmentSection);
-
-            using (var plugin = new RingtoetsPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                object[] objects = info.ChildNodeObjects(context).ToArray();
-
-                // Assert
-                Assert.AreEqual(3, objects.Length);
-
-                var assemblyResultCategoriesContext = (AssemblyResultCategoriesContext) objects[0];
-                Assert.AreSame(assessmentSection, assemblyResultCategoriesContext.WrappedData);
-
-                var assemblyResultTotalContext = (AssemblyResultTotalContext) objects[1];
-                Assert.AreSame(assessmentSection, assemblyResultTotalContext.WrappedData);
-
-                var assemblyResultPerSectionContext = (AssemblyResultPerSectionContext) objects[2];
-                Assert.AreSame(assessmentSection, assemblyResultPerSectionContext.WrappedData);
-            }
-        }
-
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(AssemblyResultsContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(AssemblyResultCategoriesContext));
         }
     }
 }

@@ -1389,7 +1389,7 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="FailureMechanismResultView_FailureMechanismAssemblyLabel" xml:space="preserve">
     <value>Toetsoordeel voor dit toetsspoor:</value>
   </data>
-  <data name="FailureMechanismAssemblyCategories_DisplayName" xml:space="preserve">
+  <data name="AssemblyCategories_DisplayName" xml:space="preserve">
     <value>Categoriegrenzen</value>
   </data>
   <data name="CategoryProperties_Group_Description" xml:space="preserve">

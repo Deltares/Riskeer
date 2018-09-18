@@ -95,6 +95,7 @@
     <Compile Include="PropertyInfos\WaveHeightCalculationsContextPropertyInfoTest.cs" />
     <Compile Include="RingtoetsPluginTest.cs" />
     <Compile Include="RingtoetsRibbonTest.cs" />
+    <Compile Include="TreeNodeInfos\AssemblyResultCategoriesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssemblyResultPerSectionContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssemblyResultsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssemblyResultTotalContextTreeNodeInfoTest.cs" />
