@@ -102,8 +102,8 @@ namespace Ringtoets.Common.Forms.TestUtil
                 Assert.IsEmpty(errorProvider.GetError(assemblyControl));
 
                 // When
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
                 failureMechanism.NotifyObservers();
 
@@ -126,8 +126,8 @@ namespace Ringtoets.Common.Forms.TestUtil
                 Assert.AreEqual("IIt", assemblyGroupLabel.Text);
 
                 // When
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
                 failureMechanism.NotifyObservers();
 
@@ -144,8 +144,8 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 using (ShowFailureMechanismResultsView(failureMechanism))
@@ -183,8 +183,8 @@ namespace Ringtoets.Common.Forms.TestUtil
                 Assert.AreEqual("IIt", assemblyGroupLabel.Text);
 
                 // When
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.FailureMechanismAssemblyCategoryGroupOutput = FailureMechanismAssemblyCategoryGroup.VIt;
                 failureMechanism.SectionResults.Single().NotifyObservers();
 
