@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, null);
 
             // Assert
-            Assert.AreEqual("Gecombineerd totaaloordeel", viewName);
+            Assert.AreEqual("Gecombineerd toetsoordeel", viewName);
         }
 
         [Test]

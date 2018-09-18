@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Gecombineerd totaaloordeel", text);
+                Assert.AreEqual("Gecombineerd toetsoordeel", text);
             }
         }
 

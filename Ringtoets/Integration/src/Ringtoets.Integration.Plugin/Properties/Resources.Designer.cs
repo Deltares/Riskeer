@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gecombineerd totaaloordeel.
+        ///   Looks up a localized string similar to Gecombineerd toetsoordeel.
         /// </summary>
         public static string AssemblyResultTotal_DisplayName {
             get {
