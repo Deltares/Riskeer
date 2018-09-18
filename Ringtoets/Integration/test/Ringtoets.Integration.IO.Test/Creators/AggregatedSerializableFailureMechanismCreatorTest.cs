@@ -32,6 +32,7 @@ using Ringtoets.AssemblyTool.IO.Model.Enums;
 using Ringtoets.Integration.IO.AggregatedSerializable;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
+using Ringtoets.Integration.IO.Exceptions;
 using Ringtoets.Integration.IO.Helpers;
 using Ringtoets.Integration.IO.TestUtil;
 
@@ -118,6 +119,28 @@ namespace Ringtoets.Integration.IO.Test.Creators
             var exception = Assert.Throws<NotSupportedException>(call);
             Assert.AreEqual($"{nameof(UnsupportedExportableAggregatedFailureMechanismSectionAssemblyResult)} is not supported.",
                             exception.Message);
+        }
+
+        [Test]
+        public void CreateFailureMechanismWithoutProbability_FailureMechanismAssemblyResultNone_ThrowsAssemblyCreatorException()
+        {
+            // Setup
+            var random = new Random(21);
+            var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+                new ExportableFailureMechanismAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
+                                                             FailureMechanismAssemblyCategoryGroup.None),
+                Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
+                random.NextEnumValue<ExportableFailureMechanismType>(),
+                random.NextEnumValue<ExportableFailureMechanismGroup>());
+
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismCreator.Create(new IdentifierGenerator(),
+                                                                                           new SerializableTotalAssemblyResult(),
+                                                                                           failureMechanism);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCreatorException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]
@@ -243,6 +266,29 @@ namespace Ringtoets.Integration.IO.Test.Creators
             var exception = Assert.Throws<NotSupportedException>(call);
             Assert.AreEqual($"{nameof(UnsupportedExportableAggregatedFailureMechanismSectionAssemblyResult)} is not supported.",
                             exception.Message);
+        }
+
+        [Test]
+        public void CreateFailureMechanismWithProbability_FailureMechanismAssemblyResultNone_ThrowsAssemblyCreatorException()
+        {
+            // Setup
+            var random = new Random(21);
+            var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
+                new ExportableFailureMechanismAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
+                                                                            FailureMechanismAssemblyCategoryGroup.None,
+                                                                            random.NextDouble()),
+                Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
+                random.NextEnumValue<ExportableFailureMechanismType>(),
+                random.NextEnumValue<ExportableFailureMechanismGroup>());
+
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismCreator.Create(new IdentifierGenerator(),
+                                                                                           new SerializableTotalAssemblyResult(),
+                                                                                           failureMechanism);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCreatorException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]
