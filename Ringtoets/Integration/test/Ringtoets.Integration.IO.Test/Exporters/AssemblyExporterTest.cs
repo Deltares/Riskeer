@@ -213,7 +213,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
 
                 // Assert
                 string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
-                                         "Er zijn geen assemblageresultaten geëxporteerd.";
+                                         "Er is geen toetsoordeel geëxporteerd.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
