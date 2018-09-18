@@ -53,10 +53,12 @@ namespace Ringtoets.Integration.Data.Assembly
         /// Assembles the results of the failure mechanisms with probability within the assessment sections.
         /// </summary>
         /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
         /// <returns>A <see cref="FailureMechanismAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when <see cref="FailureMechanismAssembly"/> cannot be created.</exception>
-        public static FailureMechanismAssembly AssembleFailureMechanismsWithProbability(AssessmentSection assessmentSection)
+        public static FailureMechanismAssembly AssembleFailureMechanismsWithProbability(AssessmentSection assessmentSection,
+                                                                                        bool useManual)
         {
             if (assessmentSection == null)
             {
@@ -70,7 +72,7 @@ namespace Ringtoets.Integration.Data.Assembly
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                return calculator.AssembleFailureMechanisms(GetFailureMechanismWithProbabilityAssemblyResults(assessmentSection),
+                return calculator.AssembleFailureMechanisms(GetFailureMechanismWithProbabilityAssemblyResults(assessmentSection, useManual),
                                                             failureMechanismContribution.SignalingNorm,
                                                             failureMechanismContribution.LowerLimitNorm);
             }
@@ -88,10 +90,12 @@ namespace Ringtoets.Integration.Data.Assembly
         /// Assembles the results of failure mechanisms without probability within the assessment section.
         /// </summary>
         /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
         /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when <see cref="AssessmentSectionAssemblyCategoryGroup"/> cannot be created.</exception>
-        public static FailureMechanismAssemblyCategoryGroup AssembleFailureMechanismsWithoutProbability(AssessmentSection assessmentSection)
+        public static FailureMechanismAssemblyCategoryGroup AssembleFailureMechanismsWithoutProbability(AssessmentSection assessmentSection,
+                                                                                                        bool useManual)
         {
             if (assessmentSection == null)
             {
@@ -104,7 +108,8 @@ namespace Ringtoets.Integration.Data.Assembly
                 IAssessmentSectionAssemblyCalculator calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
-                return calculator.AssembleFailureMechanisms(GetFailureMechanismsWithoutProbabilityAssemblyResults(assessmentSection));
+                return calculator.AssembleFailureMechanisms(GetFailureMechanismsWithoutProbabilityAssemblyResults(assessmentSection,
+                                                                                                                  useManual));
             }
             catch (AssessmentSectionAssemblyCalculatorException e)
             {
@@ -120,10 +125,12 @@ namespace Ringtoets.Integration.Data.Assembly
         /// Assembles the assessment section.
         /// </summary>
         /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
         /// <returns>A <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when <see cref="AssessmentSectionAssemblyCategoryGroup"/> cannot be created.</exception>
-        public static AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSection assessmentSection)
+        public static AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSection assessmentSection,
+                                                                                       bool useManual)
         {
             if (assessmentSection == null)
             {
@@ -136,8 +143,8 @@ namespace Ringtoets.Integration.Data.Assembly
                 IAssessmentSectionAssemblyCalculator calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
-                return calculator.AssembleAssessmentSection(AssembleFailureMechanismsWithoutProbability(assessmentSection),
-                                                            AssembleFailureMechanismsWithProbability(assessmentSection));
+                return calculator.AssembleAssessmentSection(AssembleFailureMechanismsWithoutProbability(assessmentSection, useManual),
+                                                            AssembleFailureMechanismsWithProbability(assessmentSection, useManual));
             }
             catch (AssessmentSectionAssemblyCalculatorException e)
             {
@@ -150,12 +157,14 @@ namespace Ringtoets.Integration.Data.Assembly
         /// </summary>
         /// <param name="assessmentSection">The assessment section that contains all
         /// the failure mechanism sections to assemble.</param>
+        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
         /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when a <see cref="CombinedFailureMechanismSectionAssemblyResult"/>
         /// cannot be created.</exception>
-        public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> AssembleCombinedPerFailureMechanismSection(AssessmentSection assessmentSection)
+        public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> AssembleCombinedPerFailureMechanismSection(AssessmentSection assessmentSection,
+                                                                                                                            bool useManual)
         {
             if (assessmentSection == null)
             {
@@ -178,7 +187,7 @@ namespace Ringtoets.Integration.Data.Assembly
                                                                                                 .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
                 IEnumerable<CombinedFailureMechanismSectionAssembly> output = calculator.AssembleCombinedFailureMechanismSections(
-                    CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, relevantFailureMechanisms.Keys),
+                    CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, relevantFailureMechanisms.Keys, useManual),
                     assessmentSection.ReferenceLine.Length);
 
                 return CombinedFailureMechanismSectionAssemblyResultFactory.Create(output, relevantFailureMechanisms, assessmentSection);
@@ -193,35 +202,37 @@ namespace Ringtoets.Integration.Data.Assembly
             }
         }
 
-        private static IEnumerable<FailureMechanismAssembly> GetFailureMechanismWithProbabilityAssemblyResults(AssessmentSection assessmentSection)
+        private static IEnumerable<FailureMechanismAssembly> GetFailureMechanismWithProbabilityAssemblyResults(AssessmentSection assessmentSection,
+                                                                                                               bool useManual)
         {
             return new[]
             {
-                GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection),
-                HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.HeightStructures, assessmentSection),
-                ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.ClosingStructures, assessmentSection),
-                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection),
-                PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Piping, assessmentSection),
-                MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection)
+                GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection, useManual),
+                HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.HeightStructures, assessmentSection, useManual),
+                ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.ClosingStructures, assessmentSection, useManual),
+                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection, useManual),
+                PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Piping, assessmentSection, useManual),
+                MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection, useManual)
             };
         }
 
-        private static IEnumerable<FailureMechanismAssemblyCategoryGroup> GetFailureMechanismsWithoutProbabilityAssemblyResults(AssessmentSection assessmentSection)
+        private static IEnumerable<FailureMechanismAssemblyCategoryGroup> GetFailureMechanismsWithoutProbabilityAssemblyResults(AssessmentSection assessmentSection,
+                                                                                                                                bool useManual)
         {
             return new[]
             {
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityStoneCover),
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaveImpactAsphaltCover),
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionOutwards),
-                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.DuneErosion),
-                MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.MacroStabilityOutwards, assessmentSection),
-                MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Microstability),
-                WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover),
-                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards),
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffInwards),
-                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.PipingStructure),
-                StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction),
-                TechnicalInnovationFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.TechnicalInnovation)
+                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityStoneCover, useManual),
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaveImpactAsphaltCover, useManual),
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionOutwards, useManual),
+                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.DuneErosion, useManual),
+                MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.MacroStabilityOutwards, assessmentSection, useManual),
+                MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Microstability, useManual),
+                WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover, useManual),
+                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, useManual),
+                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, useManual),
+                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.PipingStructure, useManual),
+                StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction, useManual),
+                TechnicalInnovationFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.TechnicalInnovation, useManual)
             };
         }
     }
