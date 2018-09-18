@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
                 // Call
                 AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection,
-                                                                                          false);
+                                                                                          random.NextBoolean());
 
                 // Assert
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
@@ -117,7 +117,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
                 // Call
                 FailureMechanismAssembly output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection,
-                                                                                                                            new Random(39).NextBoolean());
+                                                                                                                            random.NextBoolean());
 
                 // Assert
                 Assert.AreSame(calculator.AssembleFailureMechanismsAssemblyOutput, output);
@@ -528,7 +528,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
 
                 // Call
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
+                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, random.NextBoolean());
 
                 // Assert
                 AssertGroup3And4FailureMechanismInputs(assessmentSection,
@@ -551,7 +551,8 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
 
                 // Call
-                FailureMechanismAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
+                FailureMechanismAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection,
+                    random.NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput, output);
@@ -1302,7 +1303,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
 
                 // Call
-                AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection, false);
+                AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection, random.NextBoolean());
 
                 // Assert
                 AssertGroup1And2FailureMechanismInputs(assessmentSection,
@@ -1336,7 +1337,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 calculator.AssembleAssessmentSectionCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
 
                 // Call
-                AssessmentSectionAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection, false);
+                AssessmentSectionAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection, random.NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.AssembleAssessmentSectionCategoryGroupOutput, output);
@@ -1529,12 +1530,12 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssembly[0];
 
                 // Call
-                AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, false);
+                AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, random.NextBoolean());
 
                 // Assert
                 IEnumerable<CombinedAssemblyFailureMechanismSection>[] actualInput = calculator.CombinedFailureMechanismSectionsInput.ToArray();
                 IEnumerable<CombinedAssemblyFailureMechanismSection>[] expectedInput = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms(), false).ToArray();
+                    assessmentSection, assessmentSection.GetFailureMechanisms(), random.NextBoolean()).ToArray();
                 Assert.AreEqual(expectedInput.Length, actualInput.Length);
 
                 for (var i = 0; i < expectedInput.Length; i++)
@@ -1572,7 +1573,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
                 // Call
                 CombinedFailureMechanismSectionAssemblyResult[] output = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection,
-                                                                                                                                                     false)
+                                                                                                                                                     random.NextBoolean())
                                                                                                          .ToArray();
 
                 // Assert
@@ -1631,7 +1632,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
                 // Call
                 TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection,
-                                                                                                                      new Random(39).NextBoolean());
+                                                                                                                      random.NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -1657,7 +1658,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
                 // Call
                 TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection,
-                                                                                                                      new Random(39).NextBoolean());
+                                                                                                                      random.NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
