@@ -55,18 +55,18 @@ namespace Ringtoets.Integration.Forms.TestUtil
                 Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
                 Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
             }
-            
-            Assert.AreEqual(expectedFailureMechanismSectionCategories.Count(), properties.FailureMechanismSectionAssemblyCategories.Length);
-            for (var i = 0; i < expectedFailureMechanismSectionCategories.Count(); i++)
-            {
-                FailureMechanismSectionAssemblyCategory category = expectedFailureMechanismSectionCategories.ElementAt(i);
-                FailureMechanismSectionAssemblyCategoryProperties property = properties.FailureMechanismSectionAssemblyCategories[i];
-                Assert.AreEqual(category.Group, property.Group);
-                Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
-                Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
-            }
+
+            AssertFailureMechanismSectionAssemblyCategoryProperties(expectedFailureMechanismSectionCategories, properties);
         }
 
+        /// <summary>
+        /// Asserts whether the content of <paramref name="properties"/> equals the given
+        /// <paramref name="expectedFailureMechanismSectionCategories"/>.
+        /// </summary>
+        /// <param name="expectedFailureMechanismSectionCategories">The collection of expected <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
+        /// <param name="properties">The actual <see cref="FailureMechanismAssemblyCategoriesProperties"/> to assert.</param>
+        /// <exception cref="AssertionException">Thrown when the content of <paramref name="properties"/> does not equal
+        /// <paramref name="expectedFailureMechanismSectionCategories"/>.</exception>
         public static void AssertFailureMechanismSectionAssemblyCategoryProperties(IEnumerable<FailureMechanismSectionAssemblyCategory> expectedFailureMechanismSectionCategories,
                                                                                    FailureMechanismSectionAssemblyCategoriesProperties properties)
         {

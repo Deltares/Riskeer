@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
@@ -48,18 +47,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_GetFailureMechanismSectionAssemblyCategoriesNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoriesProperties(GetFailureMechanismAssemblyCategories(),
-                                                                                       null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSectionAssemblyCategories", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
@@ -71,8 +58,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                               expectedFailureMechanismSectionCategories);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<IEnumerable<FailureMechanismAssemblyCategory>>>(properties);
-            Assert.AreSame(expectedFailureMechanismCategories, properties.Data);
+            Assert.IsInstanceOf<FailureMechanismSectionAssemblyCategoriesProperties>(properties);
 
             TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoriesProperties, ExpandableArrayConverter>(
                 nameof(FailureMechanismAssemblyCategoriesProperties.FailureMechanismAssemblyCategories));

@@ -25,7 +25,6 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.Forms.Properties;
@@ -36,11 +35,10 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of a collection of <see cref="FailureMechanismAssemblyCategory"/> for properties panel.
     /// </summary>
-    public class FailureMechanismAssemblyCategoriesProperties : ObjectProperties<IEnumerable<FailureMechanismAssemblyCategory>>
+    public class FailureMechanismAssemblyCategoriesProperties : FailureMechanismSectionAssemblyCategoriesProperties
     {
         private const int failureMechanismAssemblyCategoryPropertyIndex = 1;
-        private const int failureMechanismSectionAssemblyCategoryPropertyIndex = 2;
-        private readonly IEnumerable<FailureMechanismSectionAssemblyCategory> failureMechanismSectionAssemblyCategories;
+        private readonly IEnumerable<FailureMechanismAssemblyCategory> failureMechanismAssemblyCategories;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyCategoriesProperties"/>.
@@ -50,20 +48,14 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public FailureMechanismAssemblyCategoriesProperties(IEnumerable<FailureMechanismAssemblyCategory> failureMechanismAssemblyCategories,
                                                             IEnumerable<FailureMechanismSectionAssemblyCategory> failureMechanismSectionAssemblyCategories)
+            : base(failureMechanismSectionAssemblyCategories)
         {
             if (failureMechanismAssemblyCategories == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismAssemblyCategories));
             }
 
-            if (failureMechanismSectionAssemblyCategories == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSectionAssemblyCategories));
-            }
-
-            this.failureMechanismSectionAssemblyCategories = failureMechanismSectionAssemblyCategories;
-
-            Data = failureMechanismAssemblyCategories;
+            this.failureMechanismAssemblyCategories = failureMechanismAssemblyCategories;
         }
 
         [PropertyOrder(failureMechanismAssemblyCategoryPropertyIndex)]
@@ -75,20 +67,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(category => new FailureMechanismAssemblyCategoryProperties(category)).ToArray();
-            }
-        }
-
-        [PropertyOrder(failureMechanismSectionAssemblyCategoryPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategories_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_Description))]
-        [TypeConverter(typeof(ExpandableArrayConverter))]
-        public FailureMechanismSectionAssemblyCategoryProperties[] FailureMechanismSectionAssemblyCategories
-        {
-            get
-            {
-                return failureMechanismSectionAssemblyCategories.Select(category => new FailureMechanismSectionAssemblyCategoryProperties(category)).ToArray();
+                return failureMechanismAssemblyCategories.Select(category => new FailureMechanismAssemblyCategoryProperties(category)).ToArray();
             }
         }
     }
