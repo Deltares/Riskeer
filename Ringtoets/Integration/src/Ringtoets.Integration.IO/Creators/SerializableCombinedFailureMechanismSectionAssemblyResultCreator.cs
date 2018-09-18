@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.Integration.IO.Assembly;
+using Ringtoets.Integration.IO.Exceptions;
 
 namespace Ringtoets.Integration.IO.Creators
 {
@@ -38,6 +40,8 @@ namespace Ringtoets.Integration.IO.Creators
         /// to create a <see cref="SerializableCombinedFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A <see cref="SerializableCombinedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to create a
+        /// serializable counterpart for.</exception>
         public static SerializableCombinedFailureMechanismSectionAssemblyResult Create(ExportableFailureMechanismCombinedSectionAssemblyResult sectionResult)
         {
             if (sectionResult == null)
@@ -46,6 +50,11 @@ namespace Ringtoets.Integration.IO.Creators
             }
 
             ExportableSectionAssemblyResult sectionResultSectionAssemblyResult = sectionResult.SectionAssemblyResult;
+            if (sectionResultSectionAssemblyResult.AssemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                throw new AssemblyCreatorException("The assembly result is invalid and cannot be created.");
+            }
+
             return new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethodCreator.Create(sectionResultSectionAssemblyResult.AssemblyMethod),
                                                                                  SerializableFailureMechanismTypeCreator.Create(sectionResult.Code),
                                                                                  SerializableFailureMechanismSectionCategoryGroupCreator.Create(sectionResultSectionAssemblyResult.AssemblyCategory));

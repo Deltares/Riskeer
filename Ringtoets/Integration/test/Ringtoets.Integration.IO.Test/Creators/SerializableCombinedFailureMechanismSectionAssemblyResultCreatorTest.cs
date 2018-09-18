@@ -26,6 +26,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO.Model.DataTypes;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
+using Ringtoets.Integration.IO.Exceptions;
 
 namespace Ringtoets.Integration.IO.Test.Creators
 {
@@ -63,6 +64,23 @@ namespace Ringtoets.Integration.IO.Test.Creators
                             serializableResult.AssemblyMethod);
             Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(expectedSectionAssemblyResult.AssemblyCategory),
                             serializableResult.CategoryGroup);
+        }
+
+        [Test]
+        public void Create_WithSectionAssemblyResultNone_ThrowsAssemblyCreatorException()
+        {
+            // Setup
+            var random = new Random(21);
+            var sectionResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
+                                                                                                                                FailureMechanismSectionAssemblyCategoryGroup.None),
+                                                                                            random.NextEnumValue<ExportableFailureMechanismType>());
+
+            // Call
+            TestDelegate call = () => SerializableCombinedFailureMechanismSectionAssemblyResultCreator.Create(sectionResult);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCreatorException>(call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         private static ExportableSectionAssemblyResult CreateSectionAssemblyResult()
