@@ -407,7 +407,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -440,7 +440,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -471,7 +471,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -588,7 +588,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -638,7 +638,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -676,7 +676,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -708,7 +708,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -804,7 +804,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -852,7 +852,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -891,7 +891,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -922,7 +922,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -958,7 +958,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -995,7 +995,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1031,7 +1031,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1111,7 +1111,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             // Call
@@ -1136,7 +1136,7 @@ namespace Ringtoets.Piping.Data.Test
             });
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1175,7 +1175,7 @@ namespace Ringtoets.Piping.Data.Test
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1213,7 +1213,7 @@ namespace Ringtoets.Piping.Data.Test
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1245,7 +1245,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1273,7 +1273,7 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1308,7 +1308,7 @@ namespace Ringtoets.Piping.Data.Test
             });
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())

@@ -259,7 +259,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithoutDikeProfile_ContextMenuItemUpdateDikeProfileDisabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation();
@@ -293,7 +293,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithDikeProfileAndInputInSync_ContextMenuItemUpdateDikeProfileDisabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -333,7 +333,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationWithDikeProfileAndInputOutOfSync_ContextMenuItemUpdateDikeProfileEnabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var parent = new CalculationGroup();
@@ -375,7 +375,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateDikeProfileClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -424,7 +424,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateDikeProfileClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
             // Given
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -487,7 +487,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateDikeProfileClickedAndContinued_ThenInquiryAndCalculationUpdatedAndObserversNotified()
         {
             // Given
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var parent = new CalculationGroup();
@@ -552,7 +552,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
@@ -583,7 +583,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
@@ -652,7 +652,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
@@ -683,7 +683,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();

@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             TestDelegate test = () => new PipingInputContextProperties(null,
-                                                                       AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                        handler);
 
             // Assert
@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             TestDelegate test = () => new PipingInputContextProperties(context,
-                                                                       AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                        null);
 
             // Assert
@@ -167,7 +167,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Assert
@@ -236,7 +236,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler)
             {
                 UseAssessmentLevelManualInput = false
@@ -419,7 +419,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Assert
@@ -470,7 +470,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler)
             {
                 UseAssessmentLevelManualInput = useManualAssessmentLevelInput
@@ -570,7 +570,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Assert
@@ -609,7 +609,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             RoundedDouble expectedAssessmentLevel = useManualAssessmentLevelInput
                                                         ? inputParameters.AssessmentLevel
-                                                        : AssessmentSectionHelper.GetTestAssessmentLevel();
+                                                        : AssessmentSectionTestHelper.GetTestAssessmentLevel();
 
             Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(inputParameters, expectedAssessmentLevel), properties.PiezometricHeadExit);
 
@@ -651,7 +651,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             const double assessmentLevel = 0.36;
@@ -867,7 +867,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler)
             {
                 ExitPointL = (RoundedDouble) exitPoint,
@@ -911,7 +911,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler)
             {
                 EntryPointL = (RoundedDouble) 0.5,
@@ -961,7 +961,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             });
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1010,7 +1010,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             });
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1059,7 +1059,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             });
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1106,7 +1106,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             });
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1149,7 +1149,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             inputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
@@ -1203,7 +1203,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  assessmentSection);
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1256,7 +1256,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1283,7 +1283,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1309,7 +1309,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Precondition:
@@ -1378,7 +1378,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Precondition:
@@ -1411,7 +1411,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Precondition
@@ -1451,7 +1451,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Precondition
@@ -1480,7 +1480,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
@@ -1532,7 +1532,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism, assessmentSection);
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // When
@@ -1576,7 +1576,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1630,7 +1630,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1697,7 +1697,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             });
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
@@ -1749,7 +1749,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism, assessmentSection);
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1778,7 +1778,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism, assessmentSection);
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1816,7 +1816,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism, assessmentSection);
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1845,7 +1845,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                  failureMechanism, assessmentSection);
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call
@@ -1883,7 +1883,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             });
 
             var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             // Call

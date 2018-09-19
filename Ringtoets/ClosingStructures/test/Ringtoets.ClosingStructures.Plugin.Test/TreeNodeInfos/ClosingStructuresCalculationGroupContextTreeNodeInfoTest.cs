@@ -301,7 +301,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 new TestClosingStructure()
             }, "some path");
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new ClosingStructuresCalculationGroupContext(group,
                                                                             null,
                                                                             failureMechanism,
@@ -471,7 +471,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
                                                                         null,
@@ -521,7 +521,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
                                                                         null,
@@ -617,7 +617,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationGroupWithCalculationWithForeshoreProfileAndInputOutOfSync_ContextMenuItemUpdateForeshoreProfilesEnabledAndToolTipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new TestClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -670,7 +670,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var calculationInputObserver = mocks.StrictMock<IObserver>();
             calculationInputObserver.Expect(o => o.UpdateObserver());
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new TestClosingStructuresFailureMechanism();
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>
@@ -924,7 +924,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new CalculationGroup();
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
                                                                         null,
                                                                         failureMechanism,
@@ -1009,7 +1009,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
                                                                         null,
                                                                         failureMechanism,
@@ -1053,7 +1053,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
                                                                         null,
                                                                         failureMechanism,
@@ -1098,7 +1098,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
                                                                         null,
                                                                         failureMechanism,
@@ -1128,7 +1128,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithoutOutputAndWithInputOutOfSync_WhenUpdateStructuresClicked_ThenNoInquiryAndCalculationUpdatedAndInputObserverNotified()
         {
             // Given
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var structure = new TestClosingStructure();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -1175,7 +1175,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateStructuresClickedAndCancelled_ThenInquiryAndCalculationNotUpdatedAndObserversNotNotified()
         {
             // Given
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var structure = new TestClosingStructure();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -1236,7 +1236,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationWithOutputAndInputOutOfSync_WhenUpdateStructuresClickedAndContinued_ThenInquiryAndCalculationUpdatedAndObserversNotified()
         {
             // Given
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var structure = new TestClosingStructure();
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
@@ -1300,7 +1300,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
                 ClosingStructure structure1 = new TestClosingStructure("Structure 1");
                 ClosingStructure structure2 = new TestClosingStructure("Structure 2");
@@ -1423,7 +1423,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
                 const string existingCalculationName = "Closing structure";
                 ClosingStructure closingStructure = new TestClosingStructure("id", existingCalculationName);

@@ -106,9 +106,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mocks,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mocks,
+                                                                                                           validFilePath);
 
             mocks.ReplayAll();
 
@@ -183,9 +183,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mocks,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mocks,
+                                                                                                           validFilePath);
 
             mocks.ReplayAll();
 
@@ -249,9 +249,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mocks,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mocks,
+                                                                                                           validFilePath);
 
             mocks.ReplayAll();
 

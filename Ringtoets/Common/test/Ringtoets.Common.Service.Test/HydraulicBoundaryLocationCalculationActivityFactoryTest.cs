@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Service.Test
             const double norm = 1.0 / 30;
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             ConfigureAssessmentSection(assessmentSection, usePreprocessor);
@@ -165,7 +165,7 @@ namespace Ringtoets.Common.Service.Test
             const double norm = 1.0 / 30;
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             ConfigureAssessmentSection(assessmentSection, usePreprocessor);

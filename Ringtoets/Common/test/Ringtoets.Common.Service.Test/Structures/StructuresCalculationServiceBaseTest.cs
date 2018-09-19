@@ -96,9 +96,9 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
-                                                                                                       mocks,
-                                                                                                       Path.Combine(testDataPath, "notexisting.sqlite"));
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
+                                                                                                           mocks,
+                                                                                                           Path.Combine(testDataPath, "notexisting.sqlite"));
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation();
@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             // Setup
             var mocks = new MockRepository();
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 new TestFailureMechanism(), mocks, validFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
@@ -164,9 +164,9 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
-                                                                                                       mocks,
-                                                                                                       Path.Combine(testDataPath, "HRD nosettings.sqlite"));
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
+                                                                                                           mocks,
+                                                                                                           Path.Combine(testDataPath, "HRD nosettings.sqlite"));
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation();
@@ -196,8 +196,8 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
-                                                                                                       mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
+                                                                                                           mocks);
             mocks.ReplayAll();
 
             var isValid = false;
@@ -224,9 +224,9 @@ namespace Ringtoets.Common.Service.Test.Structures
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
-                                                                                                       mocks,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new TestFailureMechanism(),
+                                                                                                           mocks,
+                                                                                                           validFilePath);
             mocks.ReplayAll();
 
             var calculation = new TestStructuresCalculation
@@ -263,7 +263,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var failureMechanism = new TestFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
 
@@ -301,7 +301,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var failureMechanism = new TestFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
 
@@ -341,7 +341,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             var failureMechanism = new TestFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
             mocks.ReplayAll();
 
@@ -379,7 +379,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             // Setup
             var mocks = new MockRepository();
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 new TestFailureMechanism(), mocks, validFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
@@ -422,7 +422,7 @@ namespace Ringtoets.Common.Service.Test.Structures
             // Setup
             var mocks = new MockRepository();
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 new TestFailureMechanism(), mocks, validFilePath);
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
@@ -555,6 +555,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 Assert.IsFalse(calculator.IsCanceled);
                 Assert.AreEqual(readIllustrationPoints, calculation.Output.HasGeneralResult);
             }
+
             mocks.VerifyAll();
         }
 
@@ -609,6 +610,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
+
             mocks.VerifyAll();
         }
 
@@ -661,6 +663,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
+
             mocks.VerifyAll();
         }
 
@@ -718,6 +721,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
+
             mocks.VerifyAll();
         }
 
@@ -774,6 +778,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 Assert.IsNotNull(calculation.Output);
                 Assert.IsFalse(calculation.Output.HasGeneralResult);
             }
+
             mocks.VerifyAll();
         }
 
@@ -811,6 +816,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(calculator.IsCanceled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -859,6 +865,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                                                                                                : lastErrorFileContent
                                        )).Return(calculationFailedMessage);
             }
+
             messageProvider.Expect(mp => mp.GetCalculationPerformedMessage(calculator.OutputDirectory)).Return(calculationPerformedMessage);
             mocks.ReplayAll();
 
@@ -893,6 +900,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
             }
+
             mocks.VerifyAll();
         }
 

@@ -90,7 +90,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var random = new Random(39);

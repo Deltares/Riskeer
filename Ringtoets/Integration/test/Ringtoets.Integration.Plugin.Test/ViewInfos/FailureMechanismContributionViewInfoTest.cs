@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsFailureMechanismContribution()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
             mocks.ReplayAll();
 
             var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);

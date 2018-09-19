@@ -217,8 +217,8 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
 
         [Test]
         [TestCaseSource(
-            typeof(AssessmentSectionHelper),
-            nameof(AssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType))]
+            typeof(AssessmentSectionTestHelper),
+            nameof(AssessmentSectionTestHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType))]
         public void GetAssessmentLevel_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
@@ -297,8 +297,8 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
 
         [Test]
         [TestCaseSource(
-            typeof(AssessmentSectionHelper),
-            nameof(AssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType))]
+            typeof(AssessmentSectionTestHelper),
+            nameof(AssessmentSectionTestHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType))]
         public void GetHydraulicBoundaryLocationCalculation_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingHydraulicBoundaryLocationCalculation(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,

@@ -19,7 +19,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssessmentSectionHelper.cs" />
+    <Compile Include="AssessmentSectionTestHelper.cs" />
     <Compile Include="BackgroundDataTestHelper.cs" />
     <Compile Include="CalculationTestDataFactory.cs" />
     <Compile Include="CalculationType.cs" />

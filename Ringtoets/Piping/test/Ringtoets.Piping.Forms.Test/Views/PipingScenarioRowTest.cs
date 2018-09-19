@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             const string name = "Test";
@@ -221,7 +221,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
@@ -254,7 +254,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
@@ -290,7 +290,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())

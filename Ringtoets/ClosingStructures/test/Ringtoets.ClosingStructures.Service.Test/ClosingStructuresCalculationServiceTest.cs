@@ -70,9 +70,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                       mockRepository,
-                                                                                                       Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
+                                                                                                           mockRepository,
+                                                                                                           Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculation();
@@ -123,9 +123,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                       mockRepository,
-                                                                                                       Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
+                                                                                                           mockRepository,
+                                                                                                           Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculation
@@ -182,9 +182,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                       mockRepository,
-                                                                                                       Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
+                                                                                                           mockRepository,
+                                                                                                           Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculation
@@ -236,9 +236,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                       mockRepository,
-                                                                                                       Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
+                                                                                                           mockRepository,
+                                                                                                           Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculation
@@ -265,14 +265,16 @@ namespace Ringtoets.ClosingStructures.Service.Test
         [Test]
         [Combinatorial]
         public void Validate_UsesBreakWaterAndHasInvalidBreakWaterSettings_LogsErrorAndReturnsFalse(
-            [Values(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.FloodedCulvert)] ClosingStructureInflowModelType inflowModelType,
-            [Values(double.NaN, double.NegativeInfinity, double.PositiveInfinity)] double breakWaterHeight)
+            [Values(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.FloodedCulvert)]
+            ClosingStructureInflowModelType inflowModelType,
+            [Values(double.NaN, double.NegativeInfinity, double.PositiveInfinity)]
+            double breakWaterHeight)
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
-                                                                                                       mockRepository,
-                                                                                                       Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(),
+                                                                                                           mockRepository,
+                                                                                                           Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculation
@@ -338,6 +340,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                                                                         expectedMessage).ParamName;
                 Assert.AreEqual("structureInput", paramName);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -350,8 +353,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -416,6 +419,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -429,8 +433,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -497,6 +501,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -509,8 +514,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -574,6 +579,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -587,8 +593,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -654,6 +660,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -666,8 +673,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, validPreprocessorDirectory))
@@ -729,6 +736,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -742,8 +750,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, validPreprocessorDirectory))
@@ -807,6 +815,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -822,8 +831,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, preprocessorDirectory))
@@ -853,21 +862,24 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 StructuresClosureCalculationInput actualInput = calculationInputs[0];
                 Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
             }
+
             mockRepository.VerifyAll();
         }
 
         [Test]
         [Combinatorial]
         public void Calculate_ValidCalculation_LogStartAndEndAndReturnOutput(
-            [Values(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.FloodedCulvert)] ClosingStructureInflowModelType inflowModelType,
-            [Values(CalculationType.NoForeshore, CalculationType.ForeshoreWithoutBreakWater, CalculationType.ForeshoreWithValidBreakWater)] CalculationType calculationType)
+            [Values(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.FloodedCulvert)]
+            ClosingStructureInflowModelType inflowModelType,
+            [Values(CalculationType.NoForeshore, CalculationType.ForeshoreWithoutBreakWater, CalculationType.ForeshoreWithValidBreakWater)]
+            CalculationType calculationType)
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, validPreprocessorDirectory))
                              .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
@@ -930,8 +942,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>
             {
                 LastErrorFileContent = "An error occurred",
@@ -983,6 +995,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -993,8 +1006,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>
             {
                 EndInFailure = true
@@ -1045,6 +1058,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1055,8 +1069,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculator = new TestStructuresCalculator<StructuresClosureCalculationInput>
             {
                 EndInFailure = false,
@@ -1111,6 +1125,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
+
             mockRepository.VerifyAll();
         }
 

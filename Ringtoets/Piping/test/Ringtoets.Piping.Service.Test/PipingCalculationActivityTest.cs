@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Service.Test
             PipingCalculationScenario invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
             var activity = new PipingCalculationActivity(invalidPipingCalculation,
-                                                         AssessmentSectionHelper.GetTestAssessmentLevel());
+                                                         AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Call
             Action call = () => activity.Run();
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Service.Test
             PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             var activity = new PipingCalculationActivity(validPipingCalculation,
-                                                         AssessmentSectionHelper.GetTestAssessmentLevel());
+                                                         AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Call
             Action call = () => activity.Run();
@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Service.Test
             validPipingCalculation.Attach(observer);
 
             var activity = new PipingCalculationActivity(validPipingCalculation,
-                                                         AssessmentSectionHelper.GetTestAssessmentLevel());
+                                                         AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             activity.Run();
 

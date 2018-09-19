@@ -53,8 +53,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.PropertyInfos
 
         [Test]
         [TestCaseSource(
-            typeof(AssessmentSectionHelper),
-            nameof(AssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType))]
+            typeof(AssessmentSectionTestHelper),
+            nameof(AssessmentSectionTestHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType))]
         public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ExpectedProperties(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,

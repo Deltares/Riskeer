@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = "Does not exist";
@@ -152,7 +152,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
@@ -179,7 +179,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
@@ -214,7 +214,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             const string categoryBoundaryName = "A";
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, "")).Return(new TestDesignWaterLevelCalculator());
@@ -312,7 +312,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = "Does not exist";
@@ -344,7 +344,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
@@ -371,7 +371,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
@@ -406,7 +406,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             const string categoryBoundaryName = "A";
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, "")).Return(new TestWaveHeightCalculator());

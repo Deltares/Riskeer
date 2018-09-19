@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 assessmentSection);
 
             var properties = new PipingInputContextProperties(inputParametersContext,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             var editor = new PipingInputContextSurfaceLineSelectionEditor();
@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 assessmentSection);
 
             var properties = new PipingInputContextProperties(inputParametersContext,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             var editor = new PipingInputContextSurfaceLineSelectionEditor();

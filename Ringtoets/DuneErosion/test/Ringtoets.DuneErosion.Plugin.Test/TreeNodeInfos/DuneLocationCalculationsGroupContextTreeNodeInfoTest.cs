@@ -170,7 +170,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
             var orderedMockRepository = new MockRepository();
             var menuBuilder = orderedMockRepository.StrictMock<IContextMenuBuilder>();

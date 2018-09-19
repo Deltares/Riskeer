@@ -136,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
@@ -157,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             var scenario = new MacroStabilityInwardsCalculationScenario();
             var context = new MacroStabilityInwardsOutputContext(scenario, failureMechanism, assessmentSection);

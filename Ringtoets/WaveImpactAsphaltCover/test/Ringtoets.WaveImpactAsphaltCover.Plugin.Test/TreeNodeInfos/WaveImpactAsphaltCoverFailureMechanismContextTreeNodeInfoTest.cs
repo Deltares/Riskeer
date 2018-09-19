@@ -527,7 +527,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
 
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
                 var nodeData = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
                                                                                  assessmentSection);
 

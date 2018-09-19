@@ -115,7 +115,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ImportInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var context = new MacroStabilityInwardsCalculationGroupContext(new CalculationGroup(),

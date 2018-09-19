@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             TestDelegate test = () => new MacroStabilityInwardsInputContextProperties(null,
-                                                                                      AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                                       handler);
 
             // Assert
@@ -136,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             TestDelegate test = () => new MacroStabilityInwardsInputContextProperties(context,
-                                                                                      AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                                       null);
 
             // Assert
@@ -165,7 +165,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Assert
@@ -197,7 +197,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler)
             {
                 UseAssessmentLevelManualInput = false
@@ -342,7 +342,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler)
             {
                 UseAssessmentLevelManualInput = useManualAssessmentLevelInput
@@ -443,13 +443,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Assert
             RoundedDouble expectedAssessmentLevel = useManualAssessmentLevelInput
                                                         ? inputParameters.AssessmentLevel
-                                                        : AssessmentSectionHelper.GetTestAssessmentLevel();
+                                                        : AssessmentSectionTestHelper.GetTestAssessmentLevel();
             Assert.AreEqual(expectedAssessmentLevel, properties.AssessmentLevel);
             Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(inputParameters.UseAssessmentLevelManualInput, properties.UseAssessmentLevelManualInput);
@@ -504,7 +504,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             var random = new Random(21);
@@ -681,7 +681,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
@@ -737,7 +737,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 assessmentSection);
 
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Call
@@ -793,7 +793,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Call
@@ -860,7 +860,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             });
 
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Call
@@ -886,7 +886,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Call
@@ -912,7 +912,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Precondition:
@@ -984,7 +984,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Precondition:
@@ -1017,7 +1017,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Precondition
@@ -1058,7 +1058,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Precondition
@@ -1087,7 +1087,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
@@ -1139,7 +1139,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism, assessmentSection);
 
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // When
@@ -1183,7 +1183,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Call
@@ -1237,7 +1237,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Call
@@ -1304,7 +1304,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             });
 
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
@@ -1356,7 +1356,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism, assessmentSection);
 
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Call
@@ -1385,7 +1385,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism, assessmentSection);
 
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Call
@@ -1423,7 +1423,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism, assessmentSection);
 
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Call
@@ -1452,7 +1452,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism, assessmentSection);
 
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Call
@@ -1490,7 +1490,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             });
 
             var properties = new MacroStabilityInwardsInputContextProperties(context,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                              handler);
 
             // Call

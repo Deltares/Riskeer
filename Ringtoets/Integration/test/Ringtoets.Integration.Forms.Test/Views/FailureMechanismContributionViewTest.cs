@@ -201,7 +201,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var viewCommands = mocks.Stub<IViewCommands>();
             var failureMechanism = mocks.Stub<FailureMechanismBase>(testName, testCode, 1);
             failureMechanism.Contribution = testContribution;
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
             assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
@@ -251,7 +251,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             failureMechanism.Stub(section => section.Detach(null)).IgnoreArguments();
             failureMechanism.Contribution = 100;
             failureMechanism.IsRelevant = isFailureMechanismRelevant;
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
             assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
@@ -289,7 +289,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             failureMechanism.Stub(section => section.Attach(null)).IgnoreArguments();
             failureMechanism.Stub(section => section.Detach(null)).IgnoreArguments();
             failureMechanism.Contribution = 0;
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
             assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
@@ -329,7 +329,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             failureMechanism.Stub(section => section.Attach(null)).IgnoreArguments();
             failureMechanism.Stub(section => section.Detach(null)).IgnoreArguments();
             failureMechanism.Contribution = contribution;
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
             assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
@@ -402,7 +402,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
             assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();
@@ -511,7 +511,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             failureMechanism.Stub(fm => fm.Detach(null)).IgnoreArguments();
             failureMechanism.IsRelevant = true;
             failureMechanism.Expect(fm => fm.NotifyObservers());
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
             assessmentSection.Stub(section => section.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(section => section.Detach(null)).IgnoreArguments();

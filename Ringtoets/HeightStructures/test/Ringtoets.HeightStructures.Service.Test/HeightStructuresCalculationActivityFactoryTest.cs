@@ -107,9 +107,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mocks,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mocks,
+                                                                                                           validFilePath);
             mocks.ReplayAll();
 
             StructuresCalculation<HeightStructuresInput> calculation = CreateValidCalculation();
@@ -183,9 +183,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mocks,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mocks,
+                                                                                                           validFilePath);
             mocks.ReplayAll();
 
             StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation();
@@ -248,9 +248,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mocks,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mocks,
+                                                                                                           validFilePath);
             mocks.ReplayAll();
 
             StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation();

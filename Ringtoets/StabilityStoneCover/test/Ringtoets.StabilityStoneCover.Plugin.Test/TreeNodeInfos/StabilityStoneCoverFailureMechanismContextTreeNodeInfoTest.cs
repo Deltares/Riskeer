@@ -527,7 +527,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
 
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
                 var nodeData = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
                                                                               assessmentSection);
 

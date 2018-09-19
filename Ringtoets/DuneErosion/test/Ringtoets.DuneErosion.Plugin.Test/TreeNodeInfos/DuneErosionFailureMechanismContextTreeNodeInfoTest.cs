@@ -192,7 +192,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocksRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             var orderMocksRepository = new MockRepository();
@@ -275,7 +275,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocksRepository);
+                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
                 var failureMechanism = new DuneErosionFailureMechanism();
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -343,7 +343,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocksRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
             var viewCommands = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();

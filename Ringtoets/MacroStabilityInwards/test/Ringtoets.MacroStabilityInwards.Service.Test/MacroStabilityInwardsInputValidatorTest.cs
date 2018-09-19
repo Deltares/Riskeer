@@ -60,7 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Call
             string[] messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                             AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -74,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -113,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -130,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -147,7 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -198,7 +198,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -250,7 +250,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -276,7 +276,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -340,7 +340,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -398,7 +398,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -457,7 +457,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -532,7 +532,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -560,7 +560,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -634,7 +634,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -699,7 +699,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -714,7 +714,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -735,7 +735,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -760,7 +760,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -777,7 +777,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -797,7 +797,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -813,7 +813,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Call
             IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
-                                                                                        AssessmentSectionHelper.GetTestAssessmentLevel()).ToArray();
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);

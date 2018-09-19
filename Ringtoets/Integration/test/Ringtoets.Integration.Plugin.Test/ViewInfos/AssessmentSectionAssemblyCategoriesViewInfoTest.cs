@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
             mocks.ReplayAll();
 
             var context = new NormContext(assessmentSection.FailureMechanismContribution, assessmentSection);
@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -140,8 +140,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection1 = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            IAssessmentSection assessmentSection2 = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
+            IAssessmentSection assessmentSection1 = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
+            IAssessmentSection assessmentSection2 = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())

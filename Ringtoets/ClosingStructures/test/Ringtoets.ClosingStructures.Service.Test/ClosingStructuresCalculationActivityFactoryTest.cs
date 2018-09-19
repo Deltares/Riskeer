@@ -107,9 +107,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mocks,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mocks,
+                                                                                                           validFilePath);
             mocks.ReplayAll();
 
             StructuresCalculation<ClosingStructuresInput> calculation = CreateValidCalculation();
@@ -183,9 +183,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mocks,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mocks,
+                                                                                                           validFilePath);
             mocks.ReplayAll();
 
             StructuresCalculation<ClosingStructuresInput> calculation1 = CreateValidCalculation();
@@ -248,9 +248,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mocks,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mocks,
+                                                                                                           validFilePath);
             mocks.ReplayAll();
 
             StructuresCalculation<ClosingStructuresInput> calculation1 = CreateValidCalculation();

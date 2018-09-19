@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_GetNormFuncNull_ThrowsArgumentNullException()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
             // Call
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_CategoryBoundaryNameInvalid_ThrowsArgumentException(string categoryBoundaryName)
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
             // Call
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
             // Call
@@ -130,7 +130,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
             // Call

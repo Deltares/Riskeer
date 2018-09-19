@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
-                                                                              AssessmentSectionHelper.GetTestAssessmentLevel(),
+                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
             // Assert
@@ -100,7 +100,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(null,
-                                                                                       AssessmentSectionHelper.GetTestAssessmentLevel(),
+                                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                                        propertyChangeHandler);
 
             // Assert
@@ -117,7 +117,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(input,
-                                                                                       AssessmentSectionHelper.GetTestAssessmentLevel(),
+                                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                                        null);
 
             // Assert
@@ -137,7 +137,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
-                                                                              AssessmentSectionHelper.GetTestAssessmentLevel(),
+                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
             // Assert
@@ -306,7 +306,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var propertyChangeHandler = new ObservablePropertyChangeHandler(calculationItem, input);
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
-                                                                              AssessmentSectionHelper.GetTestAssessmentLevel(),
+                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
             var random = new Random(21);
@@ -465,7 +465,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
-                                                                              AssessmentSectionHelper.GetTestAssessmentLevel(),
+                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
             // Call
@@ -492,7 +492,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             });
 
             var properties = new MacroStabilityInwardsWaterStressesProperties(input,
-                                                                              AssessmentSectionHelper.GetTestAssessmentLevel(),
+                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);
 
             // Call

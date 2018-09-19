@@ -201,7 +201,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             failureMechanism.SectionResults.First().UseManualAssemblyCategoryGroup = true;
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (var form = new Form())
@@ -234,7 +234,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             failureMechanism.SectionResults.First().UseManualAssemblyCategoryGroup = true;
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             using (var form = new Form())

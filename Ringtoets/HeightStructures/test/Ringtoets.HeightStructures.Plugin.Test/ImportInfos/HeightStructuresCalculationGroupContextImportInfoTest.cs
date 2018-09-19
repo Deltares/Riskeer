@@ -63,7 +63,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             var context = new HeightStructuresCalculationGroupContext(new CalculationGroup(),

@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsOutputView(null,
-                                                                          AssessmentSectionHelper.GetTestAssessmentLevel);
+                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsOutputView(calculation,
-                                                                  AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -102,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsOutputView(calculation,
-                                                                  AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
             using (var form = new Form())
             {
                 form.Controls.Add(view);
@@ -135,7 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             using (var form = new Form())
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var view = new MacroStabilityInwardsOutputView(calculation,
-                                                                  AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -174,7 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             using (var form = new Form())
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var view = new MacroStabilityInwardsOutputView(calculation,
-                                                                  AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -214,7 +214,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             using (var form = new Form())
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var view = new MacroStabilityInwardsOutputView(calculation,
-                                                                  AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -254,7 +254,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             using (var form = new Form())
             using (var view = new MacroStabilityInwardsOutputView(calculation,
-                                                                  AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -288,7 +288,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsOutputView(calculation,
-                                                                  AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 MacroStabilityInwardsSlicesTable slicesTable = GetSlicesTable(view);
 
@@ -314,7 +314,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsOutputView(calculation,
-                                                                  AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 MacroStabilityInwardsSlicesTable slicesTable = GetSlicesTable(view);
 

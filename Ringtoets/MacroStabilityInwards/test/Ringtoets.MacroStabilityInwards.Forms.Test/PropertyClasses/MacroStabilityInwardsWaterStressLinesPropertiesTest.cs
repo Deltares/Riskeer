@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsWaterStressLinesProperties(null,
-                                                                                          AssessmentSectionHelper.GetTestAssessmentLevel());
+                                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input,
-                                                                                 AssessmentSectionHelper.GetTestAssessmentLevel());
+                                                                                 AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsInput>>(properties);
@@ -99,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters,
-                                                                                 AssessmentSectionHelper.GetTestAssessmentLevel());
+                                                                                 AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input,
-                                                                                 AssessmentSectionHelper.GetTestAssessmentLevel());
+                                                                                 AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Call
             string name = properties.ToString();
@@ -136,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(input,
-                                                                                 AssessmentSectionHelper.GetTestAssessmentLevel());
+                                                                                 AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

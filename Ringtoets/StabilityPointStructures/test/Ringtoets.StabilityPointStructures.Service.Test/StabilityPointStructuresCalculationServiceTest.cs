@@ -67,15 +67,18 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         [Test]
         [Combinatorial]
         public void Validate_UseBreakWaterInvalidBreakWaterHeight_LogErrorAndReturnFalse(
-            [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)] StabilityPointStructureInflowModelType inflowModelType,
-            [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)] LoadSchematizationType loadSchematizationType,
-            [Values(double.NaN, double.PositiveInfinity, double.NegativeInfinity)] double breakWaterHeight)
+            [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)]
+            StabilityPointStructureInflowModelType inflowModelType,
+            [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)]
+            LoadSchematizationType loadSchematizationType,
+            [Values(double.NaN, double.PositiveInfinity, double.NegativeInfinity)]
+            double breakWaterHeight)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculation
@@ -117,9 +120,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
-                                                                                                       mockRepository,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
+                                                                                                           mockRepository,
+                                                                                                           validFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculation
@@ -196,9 +199,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
-                                                                                                       mockRepository,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
+                                                                                                           mockRepository,
+                                                                                                           validFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculation
@@ -275,9 +278,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
-                                                                                                       mockRepository,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
+                                                                                                           mockRepository,
+                                                                                                           validFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculation
@@ -356,9 +359,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
-                                                                                                       mockRepository,
-                                                                                                       validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
+                                                                                                           mockRepository,
+                                                                                                           validFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculation
@@ -436,7 +439,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculation
@@ -467,7 +470,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculation
@@ -524,6 +527,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                                         expectedMessage).ParamName;
                 Assert.AreEqual("structureInput", paramName);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -564,6 +568,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                                         expectedMessage).ParamName;
                 Assert.AreEqual("structureInput", paramName);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -576,7 +581,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -680,6 +685,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -693,7 +699,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -799,6 +805,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -811,7 +818,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -915,6 +922,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -928,7 +936,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -1034,6 +1042,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1046,7 +1055,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -1150,6 +1159,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1163,7 +1173,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -1269,6 +1279,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1281,7 +1292,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -1385,6 +1396,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1398,7 +1410,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -1504,6 +1516,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1519,8 +1532,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, preprocessorDirectory))
@@ -1550,21 +1563,25 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 StructuresStabilityPointCalculationInput actualInput = calculationInputs[0];
                 Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
             }
+
             mockRepository.VerifyAll();
         }
 
         [Test]
         [Combinatorial]
         public void Calculate_ValidCalculation_LogStartAndEndAndReturnOutput(
-            [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)] StabilityPointStructureInflowModelType inflowModelType,
-            [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)] LoadSchematizationType loadSchematizationType,
-            [Values(CalculationType.NoForeshore, CalculationType.ForeshoreWithValidBreakWater, CalculationType.ForeshoreWithoutBreakWater)] CalculationType calculationType)
+            [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)]
+            StabilityPointStructureInflowModelType inflowModelType,
+            [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)]
+            LoadSchematizationType loadSchematizationType,
+            [Values(CalculationType.NoForeshore, CalculationType.ForeshoreWithValidBreakWater, CalculationType.ForeshoreWithoutBreakWater)]
+            CalculationType calculationType)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, validPreprocessorDirectory))
@@ -1629,8 +1646,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>
             {
                 LastErrorFileContent = "An error occurred",
@@ -1682,6 +1699,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1692,8 +1710,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>
             {
                 EndInFailure = true
@@ -1744,6 +1762,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNull(calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -1754,8 +1773,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
             var calculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>
             {
                 LastErrorFileContent = "An error occurred"
@@ -1809,6 +1828,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
+
             mockRepository.VerifyAll();
         }
 

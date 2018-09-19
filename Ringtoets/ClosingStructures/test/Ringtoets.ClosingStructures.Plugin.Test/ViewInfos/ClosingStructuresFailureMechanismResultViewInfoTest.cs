@@ -274,7 +274,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             var context = new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
                 failureMechanism.SectionResults,

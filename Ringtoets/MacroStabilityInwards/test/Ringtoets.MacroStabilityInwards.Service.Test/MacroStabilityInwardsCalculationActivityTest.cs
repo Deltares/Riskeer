@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             MacroStabilityInwardsCalculationScenario invalidMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
 
             var activity = new MacroStabilityInwardsCalculationActivity(invalidMacroStabilityInwardsCalculation,
-                                                                        AssessmentSectionHelper.GetTestAssessmentLevel());
+                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Call
             Action call = () => activity.Run();
@@ -94,7 +94,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation,
-                                                                            AssessmentSectionHelper.GetTestAssessmentLevel());
+                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Call
                 Action call = () => activity.Run();
@@ -129,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             validMacroStabilityInwardsCalculation.Attach(observer);
 
             var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation,
-                                                                        AssessmentSectionHelper.GetTestAssessmentLevel());
+                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             activity.Run();
 

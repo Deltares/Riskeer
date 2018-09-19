@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                             assessmentSection);
 
             var properties = new PipingInputContextProperties(pipingInputContext,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             var editor = new PipingInputContextStochasticSoilProfileSelectionEditor();
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 assessmentSection);
 
             var properties = new PipingInputContextProperties(inputParametersContext,
-                                                              AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
             var editor = new PipingInputContextStochasticSoilProfileSelectionEditor();

@@ -1608,7 +1608,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  parentGroup,
@@ -1704,7 +1704,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  parentGroup,
@@ -1819,7 +1819,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
+                IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  parentGroup,

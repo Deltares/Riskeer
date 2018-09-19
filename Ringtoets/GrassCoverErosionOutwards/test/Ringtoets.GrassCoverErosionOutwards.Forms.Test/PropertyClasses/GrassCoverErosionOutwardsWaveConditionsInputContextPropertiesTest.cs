@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context,
-                                                                                               AssessmentSectionHelper.GetTestAssessmentLevel,
+                                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                                                handler);
 
             // Assert

@@ -63,7 +63,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             var context = new ClosingStructuresCalculationGroupContext(new CalculationGroup(),
