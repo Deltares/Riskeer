@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.IO.Assembly;
 
 namespace Ringtoets.Integration.IO.Factories
@@ -36,23 +37,21 @@ namespace Ringtoets.Integration.IO.Factories
         /// Creates a default instance of an <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// with a probability based on its input parameters.
         /// </summary>
-        /// <param name="failureMechanismSectionGeometry">The section geometry.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <param name="failureMechanismCode">The <see cref="ExportableFailureMechanismType"/> of the failure mechanism.</param>
         /// <param name="failureMechanismGroup">The <see cref="ExportableFailureMechanismGroup"/> of the failure mechanism.</param>
         /// <param name="failureMechanismAssemblyMethod">The assembly method which is used to obtain the general assembly result of the failure mechanism.</param>
-        /// <param name="combinedSectionAssemblyResultMethod">The assembly method which is used to obtain the combined assembly result of a failure mechanism section.</param>
         /// <returns>An <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with default values.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionGeometry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> CreateDefaultExportableFailureMechanismWithProbability(
-            IEnumerable<Point2D> failureMechanismSectionGeometry,
+            IAssessmentSection assessmentSection,
             ExportableFailureMechanismType failureMechanismCode,
             ExportableFailureMechanismGroup failureMechanismGroup,
-            ExportableAssemblyMethod failureMechanismAssemblyMethod,
-            ExportableAssemblyMethod combinedSectionAssemblyResultMethod)
+            ExportableAssemblyMethod failureMechanismAssemblyMethod)
         {
-            if (failureMechanismSectionGeometry == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanismSectionGeometry));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
@@ -61,8 +60,8 @@ namespace Ringtoets.Integration.IO.Factories
                                                                             0),
                 new[]
                 {
-                    new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(CreateExportableFailureMechanismSection(failureMechanismSectionGeometry),
-                                                                                                         new ExportableSectionAssemblyResultWithProbability(combinedSectionAssemblyResultMethod,
+                    new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(CreateExportableFailureMechanismSection(assessmentSection.ReferenceLine.Points),
+                                                                                                         new ExportableSectionAssemblyResultWithProbability(ExportableAssemblyMethod.WBI0A1,
                                                                                                                                                             FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
                                                                                                                                                             0))
                 },

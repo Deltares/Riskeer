@@ -20,12 +20,13 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
 
@@ -35,24 +36,22 @@ namespace Ringtoets.Integration.IO.Test.Factories
     public class ExportableFailureMechanismFactoryTest
     {
         [Test]
-        public void CreateDefaultExportableFailureMechanismWithProbability_FailureMechanismSectionGeometryNull_ThrowsArgumentNullException()
+        public void CreateDefaultExportableFailureMechanismWithProbability_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             var random = new Random(21);
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
             var failureMechanismCode = random.NextEnumValue<ExportableFailureMechanismType>();
             var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
-            var combinedResultAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
             TestDelegate call = () => ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(null,
                                                                                                                                failureMechanismCode,
                                                                                                                                group,
-                                                                                                                               failureMechanismAssemblyMethod,
-                                                                                                                               combinedResultAssemblyMethod);
+                                                                                                                               failureMechanismAssemblyMethod);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSectionGeometry", exception.ParamName);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -60,19 +59,24 @@ namespace Ringtoets.Integration.IO.Test.Factories
         {
             // Setup
             var random = new Random(21);
-            IEnumerable<Point2D> failureMechanismSectionGeometry = CreateGeometry();
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            ReferenceLine referenceLine = CreateReferenceLine();
+            assessmentSection.ReferenceLine = referenceLine;
+
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
             var failureMechanismCode = random.NextEnumValue<ExportableFailureMechanismType>();
             var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
-            var combinedResultAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
-                ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(failureMechanismSectionGeometry,
+                ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(assessmentSection,
                                                                                                          failureMechanismCode,
                                                                                                          group,
-                                                                                                         failureMechanismAssemblyMethod,
-                                                                                                         combinedResultAssemblyMethod);
+                                                                                                         failureMechanismAssemblyMethod);
 
             // Assert
             Assert.AreEqual(group, exportableFailureMechanism.Group);
@@ -86,14 +90,14 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var exportableFailureMechanismSectionAssembly =
                 (ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult) exportableFailureMechanism.SectionAssemblyResults.Single();
             ExportableSectionAssemblyResultWithProbability combinedAssembly = exportableFailureMechanismSectionAssembly.CombinedAssembly;
-            Assert.AreEqual(combinedResultAssemblyMethod, combinedAssembly.AssemblyMethod);
+            Assert.AreEqual(ExportableAssemblyMethod.WBI0A1, combinedAssembly.AssemblyMethod);
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, combinedAssembly.AssemblyCategory);
             Assert.AreEqual(0, combinedAssembly.Probability);
 
             ExportableFailureMechanismSection failureMechanismSection = exportableFailureMechanismSectionAssembly.FailureMechanismSection;
-            Assert.AreSame(failureMechanismSectionGeometry, failureMechanismSection.Geometry);
+            Assert.AreSame(referenceLine.Points, failureMechanismSection.Geometry);
             Assert.AreEqual(0, failureMechanismSection.StartDistance);
-            Assert.AreEqual(Math2D.Length(failureMechanismSectionGeometry), failureMechanismSection.EndDistance);
+            Assert.AreEqual(Math2D.Length(referenceLine.Points), failureMechanismSection.EndDistance);
         }
 
         [Test]
@@ -120,15 +124,18 @@ namespace Ringtoets.Integration.IO.Test.Factories
             CollectionAssert.IsEmpty(exportableFailureMechanism.SectionAssemblyResults);
         }
 
-        private static IEnumerable<Point2D> CreateGeometry()
+        private static ReferenceLine CreateReferenceLine()
         {
-            return new[]
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
             {
                 new Point2D(1, 1),
                 new Point2D(2, 2),
                 new Point2D(3, 3),
                 new Point2D(4, 4)
-            };
+            });
+
+            return referenceLine;
         }
     }
 }
