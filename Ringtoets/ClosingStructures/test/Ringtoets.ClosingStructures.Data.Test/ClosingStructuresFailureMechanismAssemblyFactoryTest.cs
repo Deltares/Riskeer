@@ -968,7 +968,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
-                    new Random(39).NextBoolean());
+                    useManualAssembly);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);

@@ -966,7 +966,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
-                    new Random(39).NextBoolean());
+                    useManualAssembly);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -1106,7 +1106,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 FailureMechanismSectionAssembly expectedAssembly = sectionCalculator.AssembleManual(
                     sectionResult.ManualAssemblyProbability,
-                    AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(0.0, failureMechanism, assessmentSection));
+                    AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(failureMechanism.GeneralInput.N, failureMechanism, assessmentSection));
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
                 mocks.VerifyAll();
             }
