@@ -38,6 +38,7 @@
     <Compile Include="AssessmentSectionStubTest.cs" />
     <Compile Include="Probability\TestProbabilityAssessmentInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceLineTestFactoryTest.cs" />
     <Compile Include="TestBackgroundDataConfigurationTest.cs" />
     <Compile Include="TestCalculationTest.cs" />
     <Compile Include="TestCalculationWithForeshoreProfileTest.cs" />

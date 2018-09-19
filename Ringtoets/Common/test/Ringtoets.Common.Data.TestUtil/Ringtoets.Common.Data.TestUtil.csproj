@@ -44,6 +44,7 @@
     <Compile Include="AssessmentSectionStub.cs" />
     <Compile Include="Probability\TestProbabilityAssessmentInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceLineTestFactory.cs" />
     <Compile Include="TestBackgroundDataConfiguration.cs" />
     <Compile Include="TestCalculation.cs" />
     <Compile Include="TestCalculationWithForeshoreProfile.cs" />
