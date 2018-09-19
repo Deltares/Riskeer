@@ -38,6 +38,12 @@ namespace Ringtoets.Integration.IO.TestUtil
         /// <param name="assemblyMethod">The <see cref="ExportableAssemblyMethod"/> which was
         /// used to generate the result.</param>
         /// <param name="exportableSectionAssemblyResult">The <see cref="ExportableSectionAssemblyResultWithProbability"/> to assert.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The values between <paramref name="assemblyResult"/> and <paramref name="exportableSectionAssemblyResult"/>
+        /// do not match.</item>
+        /// <item>The <paramref name="assemblyMethod"/> does not match.</item>
+        /// </list></exception>
         public static void AssertExportableSectionAssemblyResult(FailureMechanismSectionAssembly assemblyResult,
                                                                  ExportableAssemblyMethod assemblyMethod,
                                                                  ExportableSectionAssemblyResultWithProbability exportableSectionAssemblyResult)
@@ -54,6 +60,12 @@ namespace Ringtoets.Integration.IO.TestUtil
         /// <param name="assemblyMethod">The <see cref="ExportableAssemblyMethod"/> which was
         /// used to generate the result.</param>
         /// <param name="exportableSectionAssemblyResult">The <see cref="ExportableSectionAssemblyResultWithProbability"/> to assert.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The values between <paramref name="assemblyResult"/> and <paramref name="exportableSectionAssemblyResult"/>
+        /// do not match.</item>
+        /// <item>The <paramref name="assemblyMethod"/> does not match.</item>
+        /// </list></exception>
         public static void AssertExportableSectionAssemblyResult(FailureMechanismSectionAssemblyCategoryGroup assemblyResult,
                                                                  ExportableAssemblyMethod assemblyMethod,
                                                                  ExportableSectionAssemblyResult exportableSectionAssemblyResult)
