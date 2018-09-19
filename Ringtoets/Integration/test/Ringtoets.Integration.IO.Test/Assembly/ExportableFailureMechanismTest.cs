@@ -33,42 +33,6 @@ namespace Ringtoets.Integration.IO.Test.Assembly
     public class ExportableFailureMechanismTest
     {
         [Test]
-        public void Constructor_FailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var random = new Random(21);
-
-            // Call
-            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                null, random.NextEnumValue<ExportableFailureMechanismType>(), random.NextEnumValue<ExportableFailureMechanismGroup>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismAssembly", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_WithValidArguments_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(21);
-            ExportableFailureMechanismAssemblyResult failureMechanismAssembly =
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability();
-            var code = random.NextEnumValue<ExportableFailureMechanismType>();
-            var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
-
-            // Call
-            var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
-                failureMechanismAssembly, code, group);
-
-            // Assert
-            Assert.AreSame(failureMechanismAssembly, failureMechanism.FailureMechanismAssembly);
-            CollectionAssert.IsEmpty(failureMechanism.SectionAssemblyResults);
-            Assert.AreEqual(code, failureMechanism.Code);
-            Assert.AreEqual(group, failureMechanism.Group);
-        }
-
-        [Test]
         public void ConstructorWithSectionAssemblyResults_FailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Setup

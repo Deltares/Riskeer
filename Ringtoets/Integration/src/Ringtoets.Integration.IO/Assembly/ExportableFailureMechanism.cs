@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Ringtoets.Integration.IO.Assembly
 {
@@ -32,19 +31,6 @@ namespace Ringtoets.Integration.IO.Assembly
     public class ExportableFailureMechanism<TFailureMechanismAssemblyResult>
         where TFailureMechanismAssemblyResult : ExportableFailureMechanismAssemblyResult
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
-        /// without section assembly results.
-        /// </summary>
-        /// <param name="failureMechanismAssembly">The assembly result of the failure mechanism.</param>
-        /// <param name="code">The code of the failure mechanism.</param>
-        /// <param name="group">The group of the failure mechanism.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismAssembly"/> is <c>null</c>.</exception>
-        public ExportableFailureMechanism(TFailureMechanismAssemblyResult failureMechanismAssembly,
-                                          ExportableFailureMechanismType code,
-                                          ExportableFailureMechanismGroup group)
-            : this(failureMechanismAssembly, Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(), code, group) {}
-
         /// <summary>
         /// Creates a new instance of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>.
         /// </summary>
