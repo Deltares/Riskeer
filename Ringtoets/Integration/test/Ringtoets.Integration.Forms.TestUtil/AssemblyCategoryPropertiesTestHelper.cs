@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Forms.TestUtil
         /// <paramref name="expectedFailureMechanismSectionCategories"/>.
         /// </summary>
         /// <param name="expectedFailureMechanismSectionCategories">The collection of expected <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
-        /// <param name="properties">The actual <see cref="FailureMechanismAssemblyCategoriesProperties"/> to assert.</param>
+        /// <param name="properties">The actual <see cref="FailureMechanismSectionAssemblyCategoriesProperties"/> to assert.</param>
         /// <exception cref="AssertionException">Thrown when the content of <paramref name="properties"/> does not equal
         /// <paramref name="expectedFailureMechanismSectionCategories"/>.</exception>
         public static void AssertFailureMechanismSectionAssemblyCategoryProperties(IEnumerable<FailureMechanismSectionAssemblyCategory> expectedFailureMechanismSectionCategories,

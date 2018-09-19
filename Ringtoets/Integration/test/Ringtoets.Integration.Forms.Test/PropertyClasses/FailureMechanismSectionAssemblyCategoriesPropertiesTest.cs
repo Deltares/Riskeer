@@ -71,6 +71,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Call
             var properties = new FailureMechanismSectionAssemblyCategoriesProperties(GetFailureMechanismSectionAssemblyCategories());
+
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(1, dynamicProperties.Count);
