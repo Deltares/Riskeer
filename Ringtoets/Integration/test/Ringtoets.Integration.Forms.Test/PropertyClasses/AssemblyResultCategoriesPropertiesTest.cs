@@ -22,52 +22,64 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.Converters;
+using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.TestUtil;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class FailureMechanismAssemblyCategoriesPropertiesTest
+    public class AssemblyResultCategoriesPropertiesTest
     {
         [Test]
-        public void Constructor_GetFailureMechanismAssemblyCategoriesNull_ThrowsArgumentNullException()
+        public void Constructor_CategoriesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoriesProperties(null,
-                                                                                       GetFailureMechanismSectionAssemblyCategories());
+            TestDelegate call = () => new AssemblyResultCategoriesProperties(null, new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismAssemblyCategories", exception.ParamName);
+            Assert.AreEqual("categories", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new AssemblyResultCategoriesProperties(Enumerable.Empty<FailureMechanismAssemblyCategory>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             IEnumerable<FailureMechanismAssemblyCategory> expectedFailureMechanismCategories = GetFailureMechanismAssemblyCategories();
-            IEnumerable<FailureMechanismSectionAssemblyCategory> expectedFailureMechanismSectionCategories = GetFailureMechanismSectionAssemblyCategories();
 
             // Call
-            var properties = new FailureMechanismAssemblyCategoriesProperties(expectedFailureMechanismCategories,
-                                                                              expectedFailureMechanismSectionCategories);
+            var properties = new AssemblyResultCategoriesProperties(expectedFailureMechanismCategories, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionAssemblyCategoriesProperties>(properties);
+            Assert.IsInstanceOf<ObjectProperties<IEnumerable<FailureMechanismAssemblyCategory>>>(properties);
 
-            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoriesProperties, ExpandableArrayConverter>(
-                nameof(FailureMechanismAssemblyCategoriesProperties.FailureMechanismAssemblyCategories));
-            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoriesProperties, ExpandableArrayConverter>(
-                nameof(FailureMechanismAssemblyCategoriesProperties.FailureMechanismSectionAssemblyCategories));
+            TestHelper.AssertTypeConverter<AssemblyResultCategoriesProperties, ExpandableArrayConverter>(
+                nameof(AssemblyResultCategoriesProperties.AssemblyCategories));
 
-            AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAndFailureMechanismSectionAssemblyCategoryProperties(
+            Assert.AreSame(expectedFailureMechanismCategories, properties.Data);
+            Assert.AreEqual(assessmentSection.FailureProbabilityMarginFactor, properties.FailureProbabilityMarginFactor);
+            AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAssemblyCategoryProperties(
                 expectedFailureMechanismCategories,
-                expectedFailureMechanismSectionCategories,
                 properties);
         }
 
@@ -75,39 +87,28 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new FailureMechanismAssemblyCategoriesProperties(GetFailureMechanismAssemblyCategories(),
-                                                                              GetFailureMechanismSectionAssemblyCategories());
+            var properties = new AssemblyResultCategoriesProperties(GetFailureMechanismAssemblyCategories(),
+                                                                    new AssessmentSection(AssessmentSectionComposition.Dike));
+
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(2, dynamicProperties.Count);
 
             const string generalCategoryName = "Algemeen";
 
-            PropertyDescriptor failureMechanismCategoriesProperty = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureMechanismCategoriesProperty,
+            PropertyDescriptor categoriesProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(categoriesProperty,
                                                                             generalCategoryName,
-                                                                            "Categoriegrenzen voor dit traject",
-                                                                            "De categoriegrenzen voor dit traject en toetsspoor.",
+                                                                            "Categoriegrenzen groep 1 en 2",
+                                                                            "De categoriegrenzen voor de gecombineerde toetssporen in groep 1 en 2.",
                                                                             true);
 
             PropertyDescriptor failureMechanismSectionCategoriesProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureMechanismSectionCategoriesProperty,
                                                                             generalCategoryName,
-                                                                            "Categoriegrenzen per vak",
-                                                                            "De categoriegrenzen per vak voor dit toetsspoor.",
+                                                                            "Gecombineerde faalkansruimte",
+                                                                            "De gecombineerde faalkansruimte voor de toetssporen in groep 1 en 2.",
                                                                             true);
-        }
-
-        private static IEnumerable<FailureMechanismSectionAssemblyCategory> GetFailureMechanismSectionAssemblyCategories()
-        {
-            var random = new Random(21);
-
-            return new[]
-            {
-                new FailureMechanismSectionAssemblyCategory(random.NextDouble(),
-                                                            random.NextDouble(),
-                                                            random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
-            };
         }
 
         private static IEnumerable<FailureMechanismAssemblyCategory> GetFailureMechanismAssemblyCategories()

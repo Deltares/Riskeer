@@ -63,6 +63,7 @@
     <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffInwardsFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContext.cs" />
+    <Compile Include="PropertyClasses\AssemblyResultCategoriesProperties.cs" />
     <Compile Include="PropertyClasses\BackgroundDataProperties.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />

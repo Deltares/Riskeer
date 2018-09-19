@@ -19,15 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
@@ -90,7 +86,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<FailureMechanismAssemblyCategoriesProperties>(objectProperties);
 
                 var properties = (FailureMechanismAssemblyCategoriesProperties) objectProperties;
-                AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAssemblyCategoryProperties(
+                AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAndFailureMechanismSectionAssemblyCategoryProperties(
                     calculator.FailureMechanismCategoriesOutput,
                     context.GetFailureMechanismSectionAssemblyCategoriesFunc(),
                     properties);

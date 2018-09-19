@@ -62,6 +62,7 @@
     <Compile Include="PresentationObjects\StandAlone\WaterPressureAsphaltCoverFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContextTest.cs" />
+    <Compile Include="PropertyClasses\AssemblyResultCategoriesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoriesPropertiesTest.cs" />
