@@ -192,6 +192,108 @@ namespace Ringtoets.Integration.IO.Creators
         }
 
         /// <summary>
+        /// Creates an instance of <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>
+        /// based on its input parameters.
+        /// </summary>
+        /// <param name="idGenerator">The id generator to generate an id for <see cref="SerializableFailureMechanismSectionAssembly"/>.</param>
+        /// <param name="serializableCollection">The <see cref="SerializableFailureMechanismSectionCollection"/> the result belongs to.</param>
+        /// <param name="serializableFailureMechanism">The <see cref="SerializableFailureMechanism"/> the result belongs to.</param>
+        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly"/> to create an
+        /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
+        /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to create a serializable counterpart for.</exception>
+        public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
+                                                                                   SerializableFailureMechanismSectionCollection serializableCollection,
+                                                                                   SerializableFailureMechanism serializableFailureMechanism,
+                                                                                   ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly sectionResult)
+        {
+            if (idGenerator == null)
+            {
+                throw new ArgumentNullException(nameof(idGenerator));
+            }
+
+            if (serializableCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serializableCollection));
+            }
+
+            if (serializableFailureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(serializableFailureMechanism));
+            }
+
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
+                                                                                                                            serializableCollection,
+                                                                                                                            sectionResult.FailureMechanismSection);
+
+            var failureMechanismSectionAssembly = new SerializableFailureMechanismSectionAssembly(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionAssembly_IdPrefix),
+                                                                                                  serializableFailureMechanism,
+                                                                                                  failureMechanismSection,
+                                                                                                  new SerializableFailureMechanismSectionAssemblyResult[0],
+                                                                                                  SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.CombinedAssessment,
+                                                                                                                                                                  sectionResult.CombinedAssembly));
+            return new AggregatedSerializableFailureMechanismSectionAssembly(failureMechanismSection,
+                                                                             failureMechanismSectionAssembly);
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>
+        /// based on its input parameters.
+        /// </summary>
+        /// <param name="idGenerator">The id generator to generate an id for <see cref="SerializableFailureMechanismSectionAssembly"/>.</param>
+        /// <param name="serializableCollection">The <see cref="SerializableFailureMechanismSectionCollection"/> the result belongs to.</param>
+        /// <param name="serializableFailureMechanism">The <see cref="SerializableFailureMechanism"/> the result belongs to.</param>
+        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly"/> to create an
+        /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
+        /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to create a serializable counterpart for.</exception>
+        public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
+                                                                                   SerializableFailureMechanismSectionCollection serializableCollection,
+                                                                                   SerializableFailureMechanism serializableFailureMechanism,
+                                                                                   ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly sectionResult)
+        {
+            if (idGenerator == null)
+            {
+                throw new ArgumentNullException(nameof(idGenerator));
+            }
+
+            if (serializableCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serializableCollection));
+            }
+
+            if (serializableFailureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(serializableFailureMechanism));
+            }
+
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
+                                                                                                                            serializableCollection,
+                                                                                                                            sectionResult.FailureMechanismSection);
+
+            var failureMechanismSectionAssembly = new SerializableFailureMechanismSectionAssembly(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionAssembly_IdPrefix),
+                                                                                                  serializableFailureMechanism,
+                                                                                                  failureMechanismSection,
+                                                                                                  new SerializableFailureMechanismSectionAssemblyResult[0],
+                                                                                                  SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.CombinedAssessment,
+                                                                                                                                                                  sectionResult.CombinedAssembly));
+            return new AggregatedSerializableFailureMechanismSectionAssembly(failureMechanismSection,
+                                                                             failureMechanismSectionAssembly);
+        }
+
+        /// <summary>
         /// Creates a collection of whether an <see cref="SerializableFailureMechanismSectionAssemblyResult"/> based on <paramref name="sectionResult"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> to create a collection of

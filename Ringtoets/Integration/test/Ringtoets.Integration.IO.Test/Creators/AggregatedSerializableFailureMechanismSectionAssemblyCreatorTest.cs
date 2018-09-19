@@ -610,6 +610,205 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                         aggregatedSectionAssembly.FailureMechanismSection);
         }
 
+        [Test]
+        public void CreateWithCombinedResultOnly_IdGeneratorNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(null,
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResult(10)));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("idGenerator", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWithCombinedResultOnly_SerializableFailureMechanismSectionCollectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
+                                                                                                          null,
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResult(10)));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("serializableCollection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWithCombinedResultOnly_SerializableFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          null,
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResult(10)));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("serializableFailureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWithCombinedResultOnly_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          (ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWithCombinedResultOnly_WithValidArgumentsAndAllAssemblyTypesHaveResults_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
+        {
+            // Setup
+            var idGenerator = new IdentifierGenerator();
+            var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly(
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                CreateSectionAssemblyResult(10));
+
+            var random = new Random(21);
+            const string serializableFailureMechanismId = "FailureMechanismId";
+            var serializableFailureMechanism = new SerializableFailureMechanism(serializableFailureMechanismId,
+                                                                                new SerializableTotalAssemblyResult(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismGroup>(),
+                                                                                new SerializableFailureMechanismAssemblyResult());
+
+            const string serializableSectionCollectionId = "CollectionId";
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId);
+
+            // Call
+            AggregatedSerializableFailureMechanismSectionAssembly aggregatedSectionAssembly =
+                AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, sectionResult);
+
+            // Assert
+            SerializableFailureMechanismSectionAssembly failureMechanismSectionAssembly = aggregatedSectionAssembly.FailureMechanismSectionAssembly;
+            Assert.AreEqual("T.0", failureMechanismSectionAssembly.Id);
+            Assert.AreEqual(serializableFailureMechanism.Id, failureMechanismSectionAssembly.FailureMechanismId);
+
+            CollectionAssert.IsEmpty(failureMechanismSectionAssembly.SectionResults);
+            SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(sectionResult.FailureMechanismSection,
+                                                                                        serializableCollection,
+                                                                                        aggregatedSectionAssembly.FailureMechanismSection);
+        }
+
+        [Test]
+        public void CreateWithProbabilityAndCombinedResultOnly_IdGeneratorNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(null,
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResultWithProbability(10)));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("idGenerator", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWithProbabilityAndCombinedResultOnly_SerializableFailureMechanismSectionCollectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
+                                                                                                          null,
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResultWithProbability(10)));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("serializableCollection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWithProbabilityAndCombinedResultOnly_SerializableFailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          null,
+                                                                                                          new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly(
+                                                                                                              ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                                                                                                              CreateSectionAssemblyResultWithProbability(10)));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("serializableFailureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWithProbabilityAndCombinedResultOnly_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(new IdentifierGenerator(),
+                                                                                                          new SerializableFailureMechanismSectionCollection(),
+                                                                                                          new SerializableFailureMechanism(),
+                                                                                                          (ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWithProbabilityANdCombinedResultOnly_WithValidArgumentsAndAllAssemblyTypesHaveResults_ReturnsAggregatedSerializableFailureMechanismSectionAssembly()
+        {
+            // Setup
+            var idGenerator = new IdentifierGenerator();
+            var sectionResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly(
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                CreateSectionAssemblyResultWithProbability(10));
+
+            var random = new Random(21);
+            const string serializableFailureMechanismId = "FailureMechanismId";
+            var serializableFailureMechanism = new SerializableFailureMechanism(serializableFailureMechanismId,
+                                                                                new SerializableTotalAssemblyResult(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                                                random.NextEnumValue<SerializableFailureMechanismGroup>(),
+                                                                                new SerializableFailureMechanismAssemblyResult());
+
+            const string serializableSectionCollectionId = "CollectionId";
+            var serializableCollection = new SerializableFailureMechanismSectionCollection(serializableSectionCollectionId);
+
+            // Call
+            AggregatedSerializableFailureMechanismSectionAssembly aggregatedSectionAssembly =
+                AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, sectionResult);
+
+            // Assert
+            SerializableFailureMechanismSectionAssembly failureMechanismSectionAssembly = aggregatedSectionAssembly.FailureMechanismSectionAssembly;
+            Assert.AreEqual("T.0", failureMechanismSectionAssembly.Id);
+            Assert.AreEqual(serializableFailureMechanism.Id, failureMechanismSectionAssembly.FailureMechanismId);
+
+            CollectionAssert.IsEmpty(failureMechanismSectionAssembly.SectionResults);
+
+            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
+                                                                                             SerializableAssessmentType.CombinedAssessment,
+                                                                                             failureMechanismSectionAssembly.CombinedSectionResult);
+
+            SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(sectionResult.FailureMechanismSection,
+                                                                                        serializableCollection,
+                                                                                        aggregatedSectionAssembly.FailureMechanismSection);
+        }
+
         private static ExportableSectionAssemblyResult CreateSectionAssemblyResult(int seed)
         {
             var random = new Random(seed);
