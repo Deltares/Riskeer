@@ -41,7 +41,8 @@ namespace Ringtoets.Integration.IO.Creators
         /// <returns>A <see cref="SerializableFailureMechanismAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="result"/> is invalid to create a serializable counterpart for.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="result"/>
+        /// is invalid to create a serializable counterpart for.</exception>
         public static SerializableFailureMechanismAssemblyResult Create(ExportableFailureMechanismAssemblyResult result)
         {
             if (result == null)
@@ -64,7 +65,8 @@ namespace Ringtoets.Integration.IO.Creators
         /// <returns>A <see cref="SerializableFailureMechanismAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="result"/> is invalid to create a serializable counterpart for.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="result"/>
+        /// is invalid to create a serializable counterpart for.</exception>
         public static SerializableFailureMechanismAssemblyResult Create(ExportableFailureMechanismAssemblyResultWithProbability result)
         {
             if (result == null)

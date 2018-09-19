@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void Create_WithSectionAssembly_ReturnsSerializableCombinedFailureMechanismSectionAssemblyResult()
+        public void Create_WithExportableFailureMechanismCombinedSectionAssemblyResult_ReturnsSerializableCombinedFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(21);
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void Create_WithSectionAssemblyResultNone_ThrowsAssemblyCreatorException()
+        public void Create_WithExportableFailureMechanismCombinedSectionAssemblyResultAndResultNone_ThrowsAssemblyCreatorException()
         {
             // Setup
             var random = new Random(21);

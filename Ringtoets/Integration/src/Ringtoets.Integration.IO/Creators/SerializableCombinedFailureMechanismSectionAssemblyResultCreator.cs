@@ -40,8 +40,8 @@ namespace Ringtoets.Integration.IO.Creators
         /// to create a <see cref="SerializableCombinedFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A <see cref="SerializableCombinedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to create a
-        /// serializable counterpart for.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/>
+        /// is invalid to create a serializable counterpart for.</exception>
         public static SerializableCombinedFailureMechanismSectionAssemblyResult Create(ExportableFailureMechanismCombinedSectionAssemblyResult sectionResult)
         {
             if (sectionResult == null)

@@ -39,12 +39,14 @@ namespace Ringtoets.Integration.IO.Creators
         /// Creates an instance of <see cref="AggregatedSerializableFailureMechanism"/> based on its input parameters.
         /// </summary>
         /// <param name="idGenerator">The generator to generate ids for the serializable components.</param>
-        /// <param name="serializableTotalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/> the serializable components belong to.</param>
-        /// <param name="failureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> without a probability to
-        /// create an <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
+        /// <param name="serializableTotalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/>
+        /// the serializable components belong to.</param>
+        /// <param name="failureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+        /// without a probability to  create an <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanism"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="failureMechanism"/> is invalid to create a serializable counterpart for.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="failureMechanism"/>
+        /// is invalid to create a serializable counterpart for.</exception>
         /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// contains unsupported items in the failure mechanism section assembly results.</exception>
         public static AggregatedSerializableFailureMechanism Create(IdentifierGenerator idGenerator,

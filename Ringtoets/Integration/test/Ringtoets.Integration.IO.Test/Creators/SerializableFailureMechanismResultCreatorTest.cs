@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void Create_WithFailureMechanismAssemblyResultNone_ThrowsAssemblyCreatorException()
+        public void Create_WithExportableFailureMechanismAssemblyResultAndResultNone_ThrowsAssemblyCreatorException()
         {
             // Setup
             var random = new Random(21);
@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void Create_WithFailureMechanismAssemblyResult_ReturnsSerializableFailureMechanismAssemblyResult()
+        public void Create_WithExportableFailureMechanismAssemblyResult_ReturnsSerializableFailureMechanismAssemblyResult()
         {
             // Setup
             var random = new Random(21);
@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void Create_WithFailureMechanismAssemblyResultWithProbabilityAndResultNone_ThrowsAssemblyCreatorException()
+        public void Create_WithExportableFailureMechanismAssemblyResultWithProbabilityAndResultNone_ThrowsAssemblyCreatorException()
         {
             // Setup
             var random = new Random(21);
@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void Create_WithFailureMechanismAssemblyResultWithProbability_ReturnsSerializableFailureMechanismAssemblyResult()
+        public void Create_WithExportableFailureMechanismAssemblyResultWithProbability_ReturnsSerializableFailureMechanismAssemblyResult()
         {
             // Setup
             var random = new Random(21);
