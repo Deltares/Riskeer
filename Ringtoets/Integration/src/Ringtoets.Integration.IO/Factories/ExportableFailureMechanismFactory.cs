@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.IO.Assembly;
@@ -60,7 +58,7 @@ namespace Ringtoets.Integration.IO.Factories
                                                                             0),
                 new[]
                 {
-                    new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(CreateExportableFailureMechanismSection(assessmentSection.ReferenceLine.Points),
+                    new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(CreateExportableFailureMechanismSection(assessmentSection.ReferenceLine),
                                                                                                          new ExportableSectionAssemblyResultWithProbability(ExportableAssemblyMethod.WBI0A1,
                                                                                                                                                             FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
                                                                                                                                                             0))
@@ -89,9 +87,9 @@ namespace Ringtoets.Integration.IO.Factories
                 failureMechanismGroup);
         }
 
-        private static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(IEnumerable<Point2D> geometry)
+        private static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(ReferenceLine referenceLine)
         {
-            return new ExportableFailureMechanismSection(geometry, 0, Math2D.Length(geometry));
+            return new ExportableFailureMechanismSection(referenceLine.Points, 0, referenceLine.Length);
         }
     }
 }

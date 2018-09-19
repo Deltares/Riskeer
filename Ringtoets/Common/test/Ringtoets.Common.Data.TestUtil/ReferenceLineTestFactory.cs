@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Data.TestUtil
     /// Factory that creates simple <see cref="ReferenceLine"/> instances
     /// which can be used for testing.
     /// </summary>
-    public class ReferenceLineTestFactory
+    public static class ReferenceLineTestFactory
     {
         /// <summary>
         /// Creates a new instance of <see cref="ReferenceLine"/> with a default geometry. 

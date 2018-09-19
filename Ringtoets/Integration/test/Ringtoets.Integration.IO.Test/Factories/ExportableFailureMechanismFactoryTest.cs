@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
 
@@ -64,7 +65,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            ReferenceLine referenceLine = CreateReferenceLine();
+            ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
             assessmentSection.ReferenceLine = referenceLine;
 
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
@@ -97,7 +98,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             ExportableFailureMechanismSection failureMechanismSection = exportableFailureMechanismSectionAssembly.FailureMechanismSection;
             Assert.AreSame(referenceLine.Points, failureMechanismSection.Geometry);
             Assert.AreEqual(0, failureMechanismSection.StartDistance);
-            Assert.AreEqual(Math2D.Length(referenceLine.Points), failureMechanismSection.EndDistance);
+            Assert.AreEqual(referenceLine.Length, failureMechanismSection.EndDistance);
         }
 
         [Test]
@@ -122,20 +123,6 @@ namespace Ringtoets.Integration.IO.Test.Factories
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
 
             CollectionAssert.IsEmpty(exportableFailureMechanism.SectionAssemblyResults);
-        }
-
-        private static ReferenceLine CreateReferenceLine()
-        {
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
-            {
-                new Point2D(1, 1),
-                new Point2D(2, 2),
-                new Point2D(3, 3),
-                new Point2D(4, 4)
-            });
-
-            return referenceLine;
         }
     }
 }
