@@ -20,7 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
@@ -35,7 +40,20 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// </summary>
         /// <param name="assessmentSection">The assessment section to present the overall assembly results for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public AssemblyResultCategoriesContext(AssessmentSection assessmentSection) 
-            : base(assessmentSection) {}
+        public AssemblyResultCategoriesContext(AssessmentSection assessmentSection)
+            : base(assessmentSection)
+        {
+            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+
+            GetCategoriesFunc = () => AssemblyToolCategoriesFactory.CreateFailureMechanismAssemblyCategories(failureMechanismContribution.SignalingNorm,
+                                                                                                             failureMechanismContribution.LowerLimitNorm,
+                                                                                                             assessmentSection.FailureProbabilityMarginFactor);
+        }
+
+        /// <summary>
+        /// Gets the function to retrieve a collection of <see cref="FailureMechanismAssemblyCategory"/>.
+        /// </summary>
+        /// <exception cref="AssemblyException">Thrown when an error occurs while creating the categories.</exception>
+        public Func<IEnumerable<FailureMechanismAssemblyCategory>> GetCategoriesFunc { get; }
     }
 }
