@@ -45,15 +45,15 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         {
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
-            GetCategoriesFunc = () => AssemblyToolCategoriesFactory.CreateFailureMechanismAssemblyCategories(failureMechanismContribution.SignalingNorm,
-                                                                                                             failureMechanismContribution.LowerLimitNorm,
-                                                                                                             assessmentSection.FailureProbabilityMarginFactor);
+            GetAssemblyCategoriesFunc = () => AssemblyToolCategoriesFactory.CreateFailureMechanismAssemblyCategories(failureMechanismContribution.SignalingNorm,
+                                                                                                                     failureMechanismContribution.LowerLimitNorm,
+                                                                                                                     assessmentSection.FailureProbabilityMarginFactor);
         }
 
         /// <summary>
         /// Gets the function to retrieve a collection of <see cref="FailureMechanismAssemblyCategory"/>.
         /// </summary>
         /// <exception cref="AssemblyException">Thrown when an error occurs while creating the categories.</exception>
-        public Func<IEnumerable<FailureMechanismAssemblyCategory>> GetCategoriesFunc { get; }
+        public Func<IEnumerable<FailureMechanismAssemblyCategory>> GetAssemblyCategoriesFunc { get; }
     }
 }

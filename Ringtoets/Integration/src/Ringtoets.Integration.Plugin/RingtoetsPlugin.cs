@@ -420,7 +420,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<AssemblyResultCategoriesContext, AssemblyResultCategoriesProperties>
             {
-                CreateInstance = context => new AssemblyResultCategoriesProperties(context.GetCategoriesFunc(), context.WrappedData)
+                CreateInstance = context => new AssemblyResultCategoriesProperties(context.GetAssemblyCategoriesFunc(), context.WrappedData)
             };
         }
 

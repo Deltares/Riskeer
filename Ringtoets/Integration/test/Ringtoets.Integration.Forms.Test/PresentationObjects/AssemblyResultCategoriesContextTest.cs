@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
                 Assert.IsInstanceOf<ObservableWrappedObjectContextBase<AssessmentSection>>(context);
                 Assert.AreSame(assessmentSection, context.WrappedData);
 
-                IEnumerable<FailureMechanismAssemblyCategory> output = context.GetCategoriesFunc();
+                IEnumerable<FailureMechanismAssemblyCategory> output = context.GetAssemblyCategoriesFunc();
                 IEnumerable<FailureMechanismAssemblyCategory> calculatorOutput = calculator.FailureMechanismCategoriesOutput;
                 Assert.AreSame(calculatorOutput, output);
             }

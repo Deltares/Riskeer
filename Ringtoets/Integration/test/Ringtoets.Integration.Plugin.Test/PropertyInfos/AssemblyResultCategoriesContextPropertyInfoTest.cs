@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<AssemblyResultCategoriesProperties>(objectProperties);
 
                 var properties = (AssemblyResultCategoriesProperties) objectProperties;
-                Assert.AreSame(context.GetCategoriesFunc(), properties.Data);
+                Assert.AreSame(context.GetAssemblyCategoriesFunc(), properties.Data);
                 AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAssemblyCategoryProperties(
                     calculator.FailureMechanismCategoriesOutput,
                     properties);
