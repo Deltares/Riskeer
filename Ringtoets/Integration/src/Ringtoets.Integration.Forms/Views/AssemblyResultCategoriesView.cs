@@ -53,7 +53,11 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             InitializeComponent();
+
+            AssessmentSection = assessmentSection;
         }
+
+        public AssessmentSection AssessmentSection { get; }
 
         public object Data { get; set; }
     }

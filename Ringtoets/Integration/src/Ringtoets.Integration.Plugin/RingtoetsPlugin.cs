@@ -641,6 +641,14 @@ namespace Ringtoets.Integration.Plugin
                                                                                              context.AssessmentSection,
                                                                                              context.GetFailureMechanismSectionAssemblyCategoriesFunc)
             };
+            yield return new ViewInfo<AssemblyResultCategoriesContext, AssessmentSection, AssemblyResultCategoriesView>
+            {
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
+                Image = RingtoetsCommonFormsResources.NormsIcon,
+                CloseForData = CloseAssemblyResultCategoriesViewForData,
+                CreateInstance = context => new AssemblyResultCategoriesView(context.WrappedData,
+                                                                             context.GetAssemblyCategoriesFunc)
+            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
@@ -1404,6 +1412,16 @@ namespace Ringtoets.Integration.Plugin
         #region AssemblyResultPerSectionContext ViewInfo
 
         private static bool CloseAssemblyResultPerSectionViewForData(AssemblyResultPerSectionView view, object o)
+        {
+            var assessmentSection = o as AssessmentSection;
+            return assessmentSection != null && assessmentSection == view.AssessmentSection;
+        }
+
+        #endregion
+
+        #region AssemblyResultCategoriesContext ViewInfo
+
+        private bool CloseAssemblyResultCategoriesViewForData(AssemblyResultCategoriesView view, object o)
         {
             var assessmentSection = o as AssessmentSection;
             return assessmentSection != null && assessmentSection == view.AssessmentSection;

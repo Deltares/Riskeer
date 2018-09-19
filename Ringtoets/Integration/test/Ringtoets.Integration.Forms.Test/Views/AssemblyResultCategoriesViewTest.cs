@@ -57,14 +57,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
             // Call
-            using (var view = new AssemblyResultCategoriesView(new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                               () => null))
+            using (var view = new AssemblyResultCategoriesView(assessmentSection, () => null))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
             }
         }
     }
