@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.IO.TestUtil
     public static class ExportableFailureMechanismTestHelper
     {
         /// <summary>
-        /// Asserts the default failure mechanism.
+        /// Asserts a default failure mechanism that contains assembly results with a probability.
         /// </summary>
         /// <param name="geometry">The expected geometry of the section it contains.</param>
         /// <param name="failureMechanismCode">The expected <see cref="ExportableFailureMechanismType"/>.</param>
@@ -68,6 +68,46 @@ namespace Ringtoets.Integration.IO.TestUtil
             Assert.AreEqual(ExportableAssemblyMethod.WBI0A1, combinedAssembly.AssemblyMethod);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, combinedAssembly.AssemblyCategory);
             Assert.AreEqual(0, combinedAssembly.Probability);
+
+            ExportableFailureMechanismSection failureMechanismSection = exportableFailureMechanismSectionAssembly.FailureMechanismSection;
+            Assert.AreSame(geometry, failureMechanismSection.Geometry);
+            Assert.AreEqual(0, failureMechanismSection.StartDistance);
+            Assert.AreEqual(Math2D.Length(geometry), failureMechanismSection.EndDistance);
+        }
+
+        /// <summary>
+        /// Asserts a default failure mechanism that contains assembly results without a probability.
+        /// </summary>
+        /// <param name="geometry">The expected geometry of the section it contains.</param>
+        /// <param name="failureMechanismCode">The expected <see cref="ExportableFailureMechanismType"/>.</param>
+        /// <param name="group">The expected <see cref="ExportableFailureMechanismGroup"/>.</param>
+        /// <param name="failureMechanismAssemblyMethod">The expected <see cref="ExportableAssemblyMethod"/> which is used
+        /// to generate a failure mechanism assembly result.</param>
+        /// <param name="exportableFailureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> to assert.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The geometry defined by <paramref name="geometry"/> does not match with the section contained in <paramref name="exportableFailureMechanism"/>.</item>
+        /// <item>The values in <paramref name="exportableFailureMechanism"/> do not match with
+        /// <paramref name="failureMechanismCode"/>, <paramref name="group"/> or <see cref="failureMechanismAssemblyMethod"/>.</item>
+        /// </list></exception>
+        public static void AssertDefaultFailureMechanismWithoutProbability(IEnumerable<Point2D> geometry,
+                                                                           ExportableFailureMechanismType failureMechanismCode,
+                                                                           ExportableFailureMechanismGroup group,
+                                                                           ExportableAssemblyMethod failureMechanismAssemblyMethod,
+                                                                           ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism)
+        {
+            Assert.AreEqual(group, exportableFailureMechanism.Group);
+            Assert.AreEqual(failureMechanismCode, exportableFailureMechanism.Code);
+
+            ExportableFailureMechanismAssemblyResult failureMechanismAssemblyResult = exportableFailureMechanism.FailureMechanismAssembly;
+            Assert.AreEqual(failureMechanismAssemblyMethod, failureMechanismAssemblyResult.AssemblyMethod);
+            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
+
+            var exportableFailureMechanismSectionAssembly =
+                (ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult) exportableFailureMechanism.SectionAssemblyResults.Single();
+            ExportableSectionAssemblyResult combinedAssembly = exportableFailureMechanismSectionAssembly.CombinedAssembly;
+            Assert.AreEqual(ExportableAssemblyMethod.WBI0A1, combinedAssembly.AssemblyMethod);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, combinedAssembly.AssemblyCategory);
 
             ExportableFailureMechanismSection failureMechanismSection = exportableFailureMechanismSectionAssembly.FailureMechanismSection;
             Assert.AreSame(geometry, failureMechanismSection.Geometry);
