@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
     /// Helper class for creating assessment sections that can be used for unit tests
     /// related to the grass cover erosion outwards failure mechanism.
     /// </summary>
-    public static class GrassCoverErosionOutwardsAssessmentSectionHelper
+    public static class GrassCoverErosionOutwardsAssessmentSectionTestHelper
     {
         /// <summary>
         /// Gets a collection of <see cref="TestCaseData"/> containing a hydraulic boundary location calculation

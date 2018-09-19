@@ -125,8 +125,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
         [Test]
         [TestCaseSource(
-            typeof(GrassCoverErosionOutwardsAssessmentSectionHelper),
-            nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
+            typeof(GrassCoverErosionOutwardsAssessmentSectionTestHelper),
+            nameof(GrassCoverErosionOutwardsAssessmentSectionTestHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
         public void CreateInstance_GrassCoverErosionOutwardsWaveConditionsInputContext_ReturnViewWithCorrespondingAssessmentLevel(
             AssessmentSectionStub assessmentSection,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,

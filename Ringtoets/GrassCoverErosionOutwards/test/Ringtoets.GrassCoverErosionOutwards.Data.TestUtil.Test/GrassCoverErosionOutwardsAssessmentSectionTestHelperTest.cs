@@ -30,13 +30,13 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil.Test
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsAssessmentSectionHelperTest
+    public class GrassCoverErosionOutwardsAssessmentSectionTestHelperTest
     {
         [Test]
         public void GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType_Always_ReturnsExpectedTestCaseDataCollection()
         {
             // Call
-            TestCaseData[] testCaseDataCollection = GrassCoverErosionOutwardsAssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType().ToArray();
+            TestCaseData[] testCaseDataCollection = GrassCoverErosionOutwardsAssessmentSectionTestHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType().ToArray();
 
             // Assert
             AssertTestCaseData(testCaseDataCollection,

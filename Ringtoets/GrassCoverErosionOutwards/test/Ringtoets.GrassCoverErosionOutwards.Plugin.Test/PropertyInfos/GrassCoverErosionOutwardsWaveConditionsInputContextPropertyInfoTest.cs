@@ -53,8 +53,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 
         [Test]
         [TestCaseSource(
-            typeof(GrassCoverErosionOutwardsAssessmentSectionHelper),
-            nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
+            typeof(GrassCoverErosionOutwardsAssessmentSectionTestHelper),
+            nameof(GrassCoverErosionOutwardsAssessmentSectionTestHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
         public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ExpectedProperties(
             IAssessmentSection assessmentSection,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,

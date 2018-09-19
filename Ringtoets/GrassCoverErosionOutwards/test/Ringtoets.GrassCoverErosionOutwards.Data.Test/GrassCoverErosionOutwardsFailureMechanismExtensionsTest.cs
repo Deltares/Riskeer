@@ -144,8 +144,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
         [Test]
         [TestCaseSource(
-            typeof(GrassCoverErosionOutwardsAssessmentSectionHelper),
-            nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
+            typeof(GrassCoverErosionOutwardsAssessmentSectionTestHelper),
+            nameof(GrassCoverErosionOutwardsAssessmentSectionTestHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
         public void GetAssessmentLevel_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
             IAssessmentSection assessmentSection,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
@@ -250,8 +250,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
         [Test]
         [TestCaseSource(
-            typeof(GrassCoverErosionOutwardsAssessmentSectionHelper),
-            nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
+            typeof(GrassCoverErosionOutwardsAssessmentSectionTestHelper),
+            nameof(GrassCoverErosionOutwardsAssessmentSectionTestHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
         public void GetHydraulicBoundaryLocationCalculation_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingHydraulicBoundaryLocationCalculation(
             IAssessmentSection assessmentSection,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,

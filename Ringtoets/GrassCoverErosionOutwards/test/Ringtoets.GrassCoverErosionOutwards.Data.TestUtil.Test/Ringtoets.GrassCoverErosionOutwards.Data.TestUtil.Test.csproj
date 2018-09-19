@@ -14,7 +14,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GrassCoverErosionOutwardsAssessmentSectionHelperTest.cs" />
+    <Compile Include="GrassCoverErosionOutwardsAssessmentSectionTestHelperTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
