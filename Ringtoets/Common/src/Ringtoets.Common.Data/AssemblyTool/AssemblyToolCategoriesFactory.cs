@@ -87,6 +87,36 @@ namespace Ringtoets.Common.Data.AssemblyTool
         }
 
         /// <summary>
+        /// Creates the failure mechanism assembly categories.
+        /// </summary>
+        /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
+        /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
+        /// <param name="failureProbabilityMarginFactor">The failure probability margin factor to
+        /// calculate with.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> with categories of
+        /// <see cref="FailureMechanismAssemblyCategory"/>.</returns>
+        /// <exception cref="AssemblyException">Thrown when an error occurred while creating the categories.</exception>
+        public static IEnumerable<FailureMechanismAssemblyCategory> CreateFailureMechanismAssemblyCategories(
+            double signalingNorm,
+            double lowerLimitNorm,
+            double failureProbabilityMarginFactor)
+        {
+            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
+                AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                return calculator.CalculateFailureMechanismCategories(new AssemblyCategoriesInput(
+                                                                          1, failureProbabilityMarginFactor,
+                                                                          signalingNorm, lowerLimitNorm));
+            }
+            catch (AssemblyCategoriesCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
+
+        /// <summary>
         /// Creates the failure mechanism section assembly categories.
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
