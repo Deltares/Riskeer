@@ -418,6 +418,10 @@ namespace Ringtoets.Integration.Plugin
                     return new WaveHeightCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
                 }
             };
+            yield return new PropertyInfo<AssemblyResultCategoriesContext, AssemblyResultCategoriesProperties>
+            {
+                CreateInstance = context => new AssemblyResultCategoriesProperties(context.GetCategoriesFunc(), context.WrappedData)
+            };
         }
 
         /// <summary>

@@ -223,7 +223,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(27, propertyInfos.Length);
+                Assert.AreEqual(28, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -359,6 +359,11 @@ namespace Ringtoets.Integration.Plugin.Test
                     propertyInfos,
                     typeof(WaveHeightCalculationsGroupContext),
                     typeof(WaveHeightCalculationsGroupProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(AssemblyResultCategoriesContext),
+                    typeof(AssemblyResultCategoriesProperties));
             }
         }
 
