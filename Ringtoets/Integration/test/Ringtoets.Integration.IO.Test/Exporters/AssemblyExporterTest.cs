@@ -148,7 +148,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput = FailureMechanismSectionAssemblyCategoryGroup.None;
 

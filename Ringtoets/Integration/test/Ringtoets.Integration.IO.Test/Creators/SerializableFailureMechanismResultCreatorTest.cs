@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                           FailureMechanismAssemblyCategoryGroup.IVt,
                                                                           FailureMechanismAssemblyCategoryGroup.Vt,
                                                                           FailureMechanismAssemblyCategoryGroup.VIt,
-                                                                          FailureMechanismAssemblyCategoryGroup.VIIt,
+                                                                          FailureMechanismAssemblyCategoryGroup.VIIt
                                                                       }));
 
             // Call
@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                          FailureMechanismAssemblyCategoryGroup.IVt,
                                                                                          FailureMechanismAssemblyCategoryGroup.Vt,
                                                                                          FailureMechanismAssemblyCategoryGroup.VIt,
-                                                                                         FailureMechanismAssemblyCategoryGroup.VIIt,
+                                                                                         FailureMechanismAssemblyCategoryGroup.VIIt
                                                                                      }),
                                                                                      random.NextDouble());
 

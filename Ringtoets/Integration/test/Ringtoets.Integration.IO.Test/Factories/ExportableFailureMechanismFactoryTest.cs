@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            TestDelegate call = () => ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(null, 
+            TestDelegate call = () => ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(null,
                                                                                                                                   failureMechanismCode,
                                                                                                                                   group,
                                                                                                                                   failureMechanismAssemblyMethod);
@@ -136,9 +136,9 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
-                ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(assessmentSection, 
-                                                                                                            failureMechanismCode, 
-                                                                                                            group, 
+                ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(assessmentSection,
+                                                                                                            failureMechanismCode,
+                                                                                                            group,
                                                                                                             assemblyMethod);
 
             // Assert

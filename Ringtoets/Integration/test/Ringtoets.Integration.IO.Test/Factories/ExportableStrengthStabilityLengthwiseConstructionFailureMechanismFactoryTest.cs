@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void CreateExportableFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {

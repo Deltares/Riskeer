@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                                                  ExportableFailureMechanismGroup.Group3,
                                                                                                  ExportableAssemblyMethod.WBI1A1,
                                                                                                  exportableFailureMechanism);
-            mocks.VerifyAll();            
+            mocks.VerifyAll();
         }
 
         [Test]
