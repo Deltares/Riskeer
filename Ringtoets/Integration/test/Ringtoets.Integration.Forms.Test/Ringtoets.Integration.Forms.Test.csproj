@@ -84,6 +84,7 @@
     <Compile Include="RingtoetsSettingsHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
+    <Compile Include="Views\AssemblyResultCategoriesViewTest.cs" />
     <Compile Include="Views\AssemblyResultPerSectionViewTest.cs" />
     <Compile Include="Views\AssemblyCategoriesTableTest.cs" />
     <Compile Include="Views\MacroStabilityOutwardsAssemblyCategoriesViewTest.cs" />

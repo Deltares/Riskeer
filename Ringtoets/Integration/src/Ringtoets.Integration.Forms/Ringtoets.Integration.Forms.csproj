@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{AD0CDC89-0A00-4068-AEEC-9838863C2FE8}</ProjectGuid>
@@ -93,6 +93,12 @@
       <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="RingtoetsSettingsHelper.cs" />
+    <Compile Include="Views\AssemblyResultCategoriesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssemblyResultCategoriesView.Designer.cs">
+      <DependentUpon>AssemblyResultCategoriesView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\AssemblyResultPerSectionView.cs">
       <SubType>UserControl</SubType>
     </Compile>
