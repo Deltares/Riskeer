@@ -18,6 +18,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assembly\AssessmentSectionHelperTest.cs" />
     <Compile Include="Assembly\AssessmentSectionAssemblyFactoryTest.cs" />
     <Compile Include="Assembly\CombinedAssemblyFailureMechanismSectionFactoryTest.cs" />
     <Compile Include="Assembly\CombinedFailureMechanismSectionAssemblyResultFactoryTest.cs" />
