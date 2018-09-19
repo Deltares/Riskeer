@@ -27,7 +27,7 @@ using Ringtoets.Integration.IO.TestUtil;
 namespace Ringtoets.Integration.IO.Test.Assembly
 {
     [TestFixture]
-    public class ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnlyTest
+    public class ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResultTest
     {
         [Test]
         public void Constructor_CombinedAssemblyNull_ThrowsArgumentNullException()
@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
 
             // Call
-            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly(section, null);
+            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(section, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -48,10 +48,10 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Setup
             ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
-            ExportableSectionAssemblyResult combinedAssemblyResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
+            ExportableSectionAssemblyResultWithProbability combinedAssemblyResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability();
 
             // Call
-            var assemblyResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly(section, combinedAssemblyResult);
+            var assemblyResult = new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(section, combinedAssemblyResult);
 
             // Assert
             Assert.IsInstanceOf<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(assemblyResult);

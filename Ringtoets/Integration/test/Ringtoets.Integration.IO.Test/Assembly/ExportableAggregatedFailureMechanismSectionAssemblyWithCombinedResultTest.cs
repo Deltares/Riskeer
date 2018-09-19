@@ -27,7 +27,7 @@ using Ringtoets.Integration.IO.TestUtil;
 namespace Ringtoets.Integration.IO.Test.Assembly
 {
     [TestFixture]
-    public class ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnlyTest
+    public class ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResultTest
     {
         [Test]
         public void Constructor_CombinedAssemblyNull_ThrowsArgumentNullException()
@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
             ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
 
             // Call
-            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly(section, null);
+            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult(section, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -48,10 +48,10 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         {
             // Setup
             ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
-            ExportableSectionAssemblyResultWithProbability combinedAssemblyResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability();
+            ExportableSectionAssemblyResult combinedAssemblyResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
 
             // Call
-            var assemblyResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly(section, combinedAssemblyResult);
+            var assemblyResult = new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult(section, combinedAssemblyResult);
 
             // Assert
             Assert.IsInstanceOf<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(assemblyResult);

@@ -27,16 +27,17 @@ namespace Ringtoets.Integration.IO.Assembly
     /// Class that holds all the information to export an assembly result with a combined assembly result only
     /// of a failure mechanism section.
     /// </summary>
-    public class ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly : ExportableAggregatedFailureMechanismSectionAssemblyResultBase
+    public class ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult
+        : ExportableAggregatedFailureMechanismSectionAssemblyResultBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly"/>.
+        /// Creates a new instance of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult"/>.
         /// </summary>
         /// <param name="failureMechanismSection">The failure mechanism section.</param>
         /// <param name="combinedAssembly">The combined assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly(ExportableFailureMechanismSection failureMechanismSection,
-                                                                                               ExportableSectionAssemblyResult combinedAssembly)
+        public ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult(ExportableFailureMechanismSection failureMechanismSection,
+                                                                                     ExportableSectionAssemblyResult combinedAssembly)
             : base(failureMechanismSection)
         {
             if (combinedAssembly == null)
