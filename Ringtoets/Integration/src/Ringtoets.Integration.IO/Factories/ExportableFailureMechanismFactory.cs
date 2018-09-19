@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.IO.Assembly;
 
 namespace Ringtoets.Integration.IO.Factories
@@ -33,19 +35,34 @@ namespace Ringtoets.Integration.IO.Factories
         /// Creates a default instance of an <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// with a probability based on its input parameters.
         /// </summary>
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <param name="failureMechanismCode">The <see cref="ExportableFailureMechanismType"/> of the failure mechanism.</param>
         /// <param name="failureMechanismGroup">The <see cref="ExportableFailureMechanismGroup"/> of the failure mechanism.</param>
         /// <param name="assemblyMethod">The assembly method which is used to obtain the general assembly result of the failure mechanism.</param>
         /// <returns>An <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with default values.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> CreateDefaultExportableFailureMechanismWithProbability(
+            IAssessmentSection assessmentSection,
             ExportableFailureMechanismType failureMechanismCode,
             ExportableFailureMechanismGroup failureMechanismGroup,
             ExportableAssemblyMethod assemblyMethod)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 new ExportableFailureMechanismAssemblyResultWithProbability(assemblyMethod,
                                                                             FailureMechanismAssemblyCategoryGroup.NotApplicable,
                                                                             0),
+                new[]
+                {
+                    new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(CreateExportableFailureMechanismSection(assessmentSection.ReferenceLine),
+                                                                                                         new ExportableSectionAssemblyResultWithProbability(ExportableAssemblyMethod.WBI0A1,
+                                                                                                                                                            FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
+                                                                                                                                                            0))
+                },
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -54,20 +71,39 @@ namespace Ringtoets.Integration.IO.Factories
         /// Creates a default instance of an <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// without a probability based on its input parameters.
         /// </summary>
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <param name="failureMechanismCode">The <see cref="ExportableFailureMechanismType"/> of the failure mechanism.</param>
         /// <param name="failureMechanismGroup">The <see cref="ExportableFailureMechanismGroup"/> of the failure mechanism.</param>
         /// <param name="assemblyMethod">The assembly method which is used to obtain the general assembly result of the failure mechanism.</param>
         /// <returns>An <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with default values.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateDefaultExportableFailureMechanismWithoutProbability(
+            IAssessmentSection assessmentSection,
             ExportableFailureMechanismType failureMechanismCode,
             ExportableFailureMechanismGroup failureMechanismGroup,
             ExportableAssemblyMethod assemblyMethod)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(assemblyMethod,
                                                              FailureMechanismAssemblyCategoryGroup.NotApplicable),
+                new[]
+                {
+                    new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult(CreateExportableFailureMechanismSection(assessmentSection.ReferenceLine),
+                                                                                              new ExportableSectionAssemblyResult(ExportableAssemblyMethod.WBI0A1,
+                                                                                                                                  FailureMechanismSectionAssemblyCategoryGroup.NotApplicable))
+                },
                 failureMechanismCode,
                 failureMechanismGroup);
+        }
+
+        private static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(ReferenceLine referenceLine)
+        {
+            return new ExportableFailureMechanismSection(referenceLine.Points, 0, referenceLine.Length);
         }
     }
 }

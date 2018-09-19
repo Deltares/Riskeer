@@ -23,13 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.IO.Assembly;
@@ -44,19 +45,44 @@ namespace Ringtoets.Integration.IO.Test.Factories
         [Test]
         public void CreateExportableFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             TestDelegate call = () =>
-                ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableFailureMechanism(null);
+                ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableFailureMechanism(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateExportableFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () =>
+                ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableFailureMechanism(new GrassCoverSlipOffInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void CreateExportableFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            assessmentSection.ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
+
             var random = new Random(21);
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism
             {
@@ -66,23 +92,25 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
             // Call
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
-                ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism);
+                ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(ExportableFailureMechanismType.GABI, exportableFailureMechanism.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group4, exportableFailureMechanism.Group);
-
-            ExportableFailureMechanismAssemblyResult failureMechanismAssemblyResult = exportableFailureMechanism.FailureMechanismAssembly;
-            Assert.AreEqual(ExportableAssemblyMethod.WBI1A1, failureMechanismAssemblyResult.AssemblyMethod);
-            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
-
-            CollectionAssert.IsEmpty(exportableFailureMechanism.SectionAssemblyResults);
+            ExportableFailureMechanismTestHelper.AssertDefaultFailureMechanismWithoutProbability(assessmentSection.ReferenceLine.Points,
+                                                                                                 ExportableFailureMechanismType.GABI,
+                                                                                                 ExportableFailureMechanismGroup.Group4,
+                                                                                                 ExportableAssemblyMethod.WBI1A1,
+                                                                                                 exportableFailureMechanism);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateExportableFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var random = new Random(21);
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
@@ -95,7 +123,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
 
                 // Call
                 ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
-                    ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism);
+                    ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreEqual(ExportableFailureMechanismType.GABI, exportableFailureMechanism.Code);
@@ -115,12 +143,18 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                exportableFailureMechanismSections,
                                                                exportableFailureMechanism.SectionAssemblyResults.Cast<ExportableAggregatedFailureMechanismSectionAssemblyResult>());
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithManualAssessment_WhenCreatingExportableFailureMechanism_ThenManualAssemblyIgnored()
         {
             // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -133,11 +167,13 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // When
-                ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism);
+                ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
                 // Then
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
             }
+
+            mocks.VerifyAll();
         }
 
         private static void AssertExportableFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly,
