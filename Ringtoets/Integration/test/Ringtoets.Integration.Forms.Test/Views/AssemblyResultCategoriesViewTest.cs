@@ -20,10 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 
@@ -68,7 +71,28 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
+
+                Assert.AreEqual(1, view.Controls.Count);
+
+                Panel groupBoxPanel = ControlTestHelper.GetControls<Panel>(view, "groupBoxPanel").Single();
+                Assert.AreEqual(1, groupBoxPanel.Controls.Count);
+                Assert.AreEqual(DockStyle.Fill, groupBoxPanel.Dock);
+
+                GroupBox groupBox = ControlTestHelper.GetControls<GroupBox>(groupBoxPanel, "groupBox").Single();
+                Assert.AreEqual(1, groupBox.Controls.Count);
+                Assert.AreEqual(DockStyle.Fill, groupBox.Dock);
+                Assert.AreEqual("Categoriegrenzen voor de gecombineerde toetssporen 1 en 2", groupBox.Text);
+
+                AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismSectionCategoriesTable(view);
+                Assert.AreEqual(DockStyle.Fill, failureMechanismSectionCategoriesTable.Dock);
             }
+        }
+
+        private static AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> GetFailureMechanismSectionCategoriesTable(
+            AssemblyResultCategoriesView view)
+        {
+            return ControlTestHelper.GetControls<AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup>>(
+                view, "assemblyCategoriesTable").Single();
         }
     }
 }

@@ -101,6 +101,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categoriegrenzen voor de gecombineerde toetssporen 1 en 2.
+        /// </summary>
+        public static string AssemblyResultCategories_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultCategories_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gecombineerd vakoordeel.
         /// </summary>
         public static string AssemblyResultPerSection_DisplayName {

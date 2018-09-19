@@ -388,4 +388,7 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="FailureProbabilityMarginFactor_DisplayName" xml:space="preserve">
     <value>Gecombineerde faalkansruimte</value>
   </data>
+  <data name="AssemblyResultCategories_DisplayName" xml:space="preserve">
+    <value>Categoriegrenzen voor de gecombineerde toetssporen 1 en 2</value>
+  </data>
 </root>
