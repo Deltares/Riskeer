@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
@@ -32,28 +35,65 @@ namespace Ringtoets.Integration.IO.Test.Factories
     public class ExportableFailureMechanismFactoryTest
     {
         [Test]
-        public void CreateDefaultExportableFailureMechanismWithProbability_Always_ReturnsExportableFailureMechanism()
+        public void CreateDefaultExportableFailureMechanismWithProbability_FailureMechanismSectionGeometryNull_ThrowsArgumentNullException()
         {
-            // Setup
             var random = new Random(21);
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
             var failureMechanismCode = random.NextEnumValue<ExportableFailureMechanismType>();
-            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
+            var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
+            var combinedResultAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
+
+            // Call
+            TestDelegate call = () => ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(null,
+                                                                                                                               failureMechanismCode,
+                                                                                                                               group,
+                                                                                                                               failureMechanismAssemblyMethod,
+                                                                                                                               combinedResultAssemblyMethod);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismSectionGeometry", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateDefaultExportableFailureMechanismWithProbability_WithValidArguments_ReturnsExportableFailureMechanism()
+        {
+            // Setup
+            var random = new Random(21);
+            IEnumerable<Point2D> failureMechanismSectionGeometry = CreateGeometry();
+            var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
+            var failureMechanismCode = random.NextEnumValue<ExportableFailureMechanismType>();
+            var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
+            var combinedResultAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
-                ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(failureMechanismCode, group, assemblyMethod);
+                ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(failureMechanismSectionGeometry,
+                                                                                                         failureMechanismCode,
+                                                                                                         group,
+                                                                                                         failureMechanismAssemblyMethod,
+                                                                                                         combinedResultAssemblyMethod);
 
             // Assert
             Assert.AreEqual(group, exportableFailureMechanism.Group);
             Assert.AreEqual(failureMechanismCode, exportableFailureMechanism.Code);
 
             ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyResult = exportableFailureMechanism.FailureMechanismAssembly;
-            Assert.AreEqual(assemblyMethod, failureMechanismAssemblyResult.AssemblyMethod);
+            Assert.AreEqual(failureMechanismAssemblyMethod, failureMechanismAssemblyResult.AssemblyMethod);
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
             Assert.AreEqual(0, failureMechanismAssemblyResult.Probability);
 
-            CollectionAssert.IsEmpty(exportableFailureMechanism.SectionAssemblyResults);
+            var exportableFailureMechanismSectionAssembly =
+                (ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult) exportableFailureMechanism.SectionAssemblyResults.Single();
+            ExportableSectionAssemblyResultWithProbability combinedAssembly = exportableFailureMechanismSectionAssembly.CombinedAssembly;
+            Assert.AreEqual(combinedResultAssemblyMethod, combinedAssembly.AssemblyMethod);
+            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, combinedAssembly.AssemblyCategory);
+            Assert.AreEqual(0, combinedAssembly.Probability);
+
+            ExportableFailureMechanismSection failureMechanismSection = exportableFailureMechanismSectionAssembly.FailureMechanismSection;
+            Assert.AreSame(failureMechanismSectionGeometry, failureMechanismSection.Geometry);
+            Assert.AreEqual(0, failureMechanismSection.StartDistance);
+            Assert.AreEqual(Math2D.Length(failureMechanismSectionGeometry), failureMechanismSection.EndDistance);
         }
 
         [Test]
@@ -78,6 +118,17 @@ namespace Ringtoets.Integration.IO.Test.Factories
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
 
             CollectionAssert.IsEmpty(exportableFailureMechanism.SectionAssemblyResults);
+        }
+
+        private static IEnumerable<Point2D> CreateGeometry()
+        {
+            return new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2),
+                new Point2D(3, 3),
+                new Point2D(4, 4)
+            };
         }
     }
 }

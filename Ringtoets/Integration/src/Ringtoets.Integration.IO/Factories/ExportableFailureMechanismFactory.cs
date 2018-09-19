@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.IO.Assembly;
 
@@ -33,19 +36,36 @@ namespace Ringtoets.Integration.IO.Factories
         /// Creates a default instance of an <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
         /// with a probability based on its input parameters.
         /// </summary>
+        /// <param name="failureMechanismSectionGeometry">The section geometry.</param>
         /// <param name="failureMechanismCode">The <see cref="ExportableFailureMechanismType"/> of the failure mechanism.</param>
         /// <param name="failureMechanismGroup">The <see cref="ExportableFailureMechanismGroup"/> of the failure mechanism.</param>
-        /// <param name="assemblyMethod">The assembly method which is used to obtain the general assembly result of the failure mechanism.</param>
+        /// <param name="failureMechanismAssemblyMethod">The assembly method which is used to obtain the general assembly result of the failure mechanism.</param>
+        /// <param name="combinedSectionAssemblyResultMethod">The assembly method which is used to obtain the combined assembly result of a failure mechanism section.</param>
         /// <returns>An <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with default values.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionGeometry"/> is <c>null</c>.</exception>
         public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> CreateDefaultExportableFailureMechanismWithProbability(
+            IEnumerable<Point2D> failureMechanismSectionGeometry,
             ExportableFailureMechanismType failureMechanismCode,
             ExportableFailureMechanismGroup failureMechanismGroup,
-            ExportableAssemblyMethod assemblyMethod)
+            ExportableAssemblyMethod failureMechanismAssemblyMethod,
+            ExportableAssemblyMethod combinedSectionAssemblyResultMethod)
         {
+            if (failureMechanismSectionGeometry == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionGeometry));
+            }
+
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
-                new ExportableFailureMechanismAssemblyResultWithProbability(assemblyMethod,
+                new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             FailureMechanismAssemblyCategoryGroup.NotApplicable,
                                                                             0),
+                new[]
+                {
+                    new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(CreateExportableFailureMechanismSection(failureMechanismSectionGeometry),
+                                                                                                         new ExportableSectionAssemblyResultWithProbability(combinedSectionAssemblyResultMethod,
+                                                                                                                                                            FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
+                                                                                                                                                            0))
+                },
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -68,6 +88,11 @@ namespace Ringtoets.Integration.IO.Factories
                                                              FailureMechanismAssemblyCategoryGroup.NotApplicable),
                 failureMechanismCode,
                 failureMechanismGroup);
+        }
+
+        private static ExportableFailureMechanismSection CreateExportableFailureMechanismSection(IEnumerable<Point2D> geometry)
+        {
+            return new ExportableFailureMechanismSection(geometry, 0, Math2D.Length(geometry));
         }
     }
 }
