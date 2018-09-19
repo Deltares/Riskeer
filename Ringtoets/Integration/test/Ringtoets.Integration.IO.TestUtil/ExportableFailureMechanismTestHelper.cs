@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.IO.TestUtil
                 (ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult) exportableFailureMechanism.SectionAssemblyResults.Single();
             ExportableSectionAssemblyResultWithProbability combinedAssembly = exportableFailureMechanismSectionAssembly.CombinedAssembly;
             Assert.AreEqual(ExportableAssemblyMethod.WBI0A1, combinedAssembly.AssemblyMethod);
-            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, combinedAssembly.AssemblyCategory);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, combinedAssembly.AssemblyCategory);
             Assert.AreEqual(0, combinedAssembly.Probability);
 
             ExportableFailureMechanismSection failureMechanismSection = exportableFailureMechanismSectionAssembly.FailureMechanismSection;
