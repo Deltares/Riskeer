@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -64,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            using (var view = new AssemblyResultCategoriesView(assessmentSection, () => null))
+            using (var view = new AssemblyResultCategoriesView(assessmentSection, Enumerable.Empty<FailureMechanismAssemblyCategory>))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -83,16 +85,44 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Fill, groupBox.Dock);
                 Assert.AreEqual("Categoriegrenzen voor de gecombineerde toetssporen 1 en 2", groupBox.Text);
 
-                AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismSectionCategoriesTable(view);
+                AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismCategoriesTable(view);
                 Assert.AreEqual(DockStyle.Fill, failureMechanismSectionCategoriesTable.Dock);
             }
         }
 
-        private static AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> GetFailureMechanismSectionCategoriesTable(
+        [Test]
+        public void Constructor_WithValidParameters_FillTableWithData()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            const int nrOfCategories = 1;
+            Func<IEnumerable<FailureMechanismAssemblyCategory>> getAssemblyCategoriesFunc =
+                () => Enumerable.Repeat(CreateRandomFailureMechanismAssemblyCategory(random), nrOfCategories);
+
+            // Call
+            using (var view = new AssemblyResultCategoriesView(assessmentSection, getAssemblyCategoriesFunc))
+            {
+                AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismCategoriesTable(view);
+
+                // Assert
+                Assert.AreEqual(nrOfCategories, failureMechanismSectionCategoriesTable.Rows.Count);
+            }
+        }
+
+        private static AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> GetFailureMechanismCategoriesTable(
             AssemblyResultCategoriesView view)
         {
             return ControlTestHelper.GetControls<AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup>>(
                 view, "assemblyCategoriesTable").Single();
+        }
+
+        private static FailureMechanismAssemblyCategory CreateRandomFailureMechanismAssemblyCategory(Random random)
+        {
+            return new FailureMechanismAssemblyCategory(random.NextDouble(),
+                                                        random.NextDouble(),
+                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
         }
     }
 }

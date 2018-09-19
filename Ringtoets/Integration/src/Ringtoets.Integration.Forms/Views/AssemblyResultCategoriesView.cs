@@ -21,9 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.Views
@@ -33,6 +36,8 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultCategoriesView : UserControl, IView
     {
+        private readonly Func<IEnumerable<FailureMechanismAssemblyCategory>> getAssemblyCategoriesFunc;
+
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultCategoriesView"/>.
         /// </summary>
@@ -52,13 +57,26 @@ namespace Ringtoets.Integration.Forms.Views
                 throw new ArgumentNullException(nameof(getAssemblyCategoriesFunc));
             }
 
+            AssessmentSection = assessmentSection;
+            this.getAssemblyCategoriesFunc = getAssemblyCategoriesFunc;
+
             InitializeComponent();
 
-            AssessmentSection = assessmentSection;
+            UpdateTableData();
         }
 
         public AssessmentSection AssessmentSection { get; }
 
         public object Data { get; set; }
+
+        private void UpdateTableData()
+        {
+            assemblyCategoriesTable.SetData(
+                getAssemblyCategoriesFunc().Select(
+                    category => new Tuple<AssemblyCategory, Color, FailureMechanismAssemblyCategoryGroup>(
+                        category,
+                        AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(category.Group),
+                        category.Group)).ToArray());
+        }
     }
 }

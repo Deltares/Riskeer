@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithValidParameters_CreatesViewAndTableWithData()
+        public void Constructor_WithValidParameters_ExpectedValues()
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
@@ -108,6 +108,36 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismSectionCategoriesTable(view);
                 Assert.AreEqual(DockStyle.Fill, failureMechanismSectionCategoriesTable.Dock);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithValidParameters_FillTableWithData()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            const int nrOfCategories = 1;
+            Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionCategories =
+                () => Enumerable.Repeat(CreateRandomFailureMechanismSectionAssemblyCategory(random), nrOfCategories);
+
+            // Call
+            using (var view = new MacroStabilityOutwardsAssemblyCategoriesView(failureMechanism,
+                                                                               assessmentSection,
+                                                                               getFailureMechanismSectionCategories))
+            {
+                AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismSectionCategoriesTable(view);
+
+                // Assert
+                Assert.AreEqual(nrOfCategories, failureMechanismSectionCategoriesTable.Rows.Count);
             }
 
             mocks.VerifyAll();
