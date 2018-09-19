@@ -27,16 +27,16 @@ namespace Ringtoets.Integration.IO.Assembly
     /// Class that holds all the information to export an assembly result with probability and only a combined assembly result
     /// of a failure mechanism section.
     /// </summary>
-    public class ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly 
+    public class ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult 
         : ExportableAggregatedFailureMechanismSectionAssemblyResultBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly"/>.
+        /// Creates a new instance of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult"/>.
         /// </summary>
         /// <param name="failureMechanismSection">The failure mechanism section.</param>
         /// <param name="combinedAssembly">The combined assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly(ExportableFailureMechanismSection failureMechanismSection,
+        public ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(ExportableFailureMechanismSection failureMechanismSection,
                                                                                                              ExportableSectionAssemblyResultWithProbability combinedAssembly)
             : base(failureMechanismSection)
         {

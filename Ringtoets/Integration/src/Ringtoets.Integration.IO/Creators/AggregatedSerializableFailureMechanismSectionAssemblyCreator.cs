@@ -198,7 +198,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <param name="idGenerator">The id generator to generate an id for <see cref="SerializableFailureMechanismSectionAssembly"/>.</param>
         /// <param name="serializableCollection">The <see cref="SerializableFailureMechanismSectionCollection"/> the result belongs to.</param>
         /// <param name="serializableFailureMechanism">The <see cref="SerializableFailureMechanism"/> the result belongs to.</param>
-        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly"/> to create an
+        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult"/> to create an
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -206,7 +206,7 @@ namespace Ringtoets.Integration.IO.Creators
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
-                                                                                   ExportableAggregatedFailureMechanismSectionAssemblyResultWithCombinedResultOnly sectionResult)
+                                                                                   ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult sectionResult)
         {
             if (idGenerator == null)
             {
@@ -249,7 +249,7 @@ namespace Ringtoets.Integration.IO.Creators
         /// <param name="idGenerator">The id generator to generate an id for <see cref="SerializableFailureMechanismSectionAssembly"/>.</param>
         /// <param name="serializableCollection">The <see cref="SerializableFailureMechanismSectionCollection"/> the result belongs to.</param>
         /// <param name="serializableFailureMechanism">The <see cref="SerializableFailureMechanism"/> the result belongs to.</param>
-        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly"/> to create an
+        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult"/> to create an
         /// <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -257,7 +257,7 @@ namespace Ringtoets.Integration.IO.Creators
         public static AggregatedSerializableFailureMechanismSectionAssembly Create(IdentifierGenerator idGenerator,
                                                                                    SerializableFailureMechanismSectionCollection serializableCollection,
                                                                                    SerializableFailureMechanism serializableFailureMechanism,
-                                                                                   ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbabilityAndCombinedResultOnly sectionResult)
+                                                                                   ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult sectionResult)
         {
             if (idGenerator == null)
             {
