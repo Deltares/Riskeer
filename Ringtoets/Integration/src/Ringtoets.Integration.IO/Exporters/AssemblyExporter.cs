@@ -28,6 +28,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.IO;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Creators;
 using Ringtoets.Integration.IO.Exceptions;
@@ -67,6 +68,8 @@ namespace Ringtoets.Integration.IO.Exporters
 
         public bool Export()
         {
+            CheckManualAssembly();
+
             ExportableAssessmentSection exportableAssessmentSection = CreateExportableAssessmentSection();
             if (!ValidateExportableAssessmentSection(exportableAssessmentSection))
             {
@@ -91,6 +94,14 @@ namespace Ringtoets.Integration.IO.Exporters
             }
 
             return true;
+        }
+
+        private void CheckManualAssembly()
+        {
+            if (AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection))
+            {
+                log.Warn(Resources.AssemblyExporter_CheckManualAssembly_Assembly_result_contains_manual_results_exporter_will_ignore_manual_results);
+            }
         }
 
         private ExportableAssessmentSection CreateExportableAssessmentSection()

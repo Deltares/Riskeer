@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -138,7 +139,28 @@ namespace Ringtoets.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_AssemblyCreateorExceptionThrown_LogsErrorAndReturnsFalse()
+        public void Export_WithManualAssemblyResult_LogsWarning()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse));
+            AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+            assessmentSection.Piping.SectionResults.First().UseManualAssemblyProbability = true;
+
+            var exporter = new AssemblyExporter(assessmentSection, filePath);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                Action call = () => exporter.Export();
+
+                // Assert
+                const string expectedMessage = "Veiligheidsoordeel is (deels) gebaseerd op handmatig ingevoerde toetsoordelen. Tijdens het exporteren worden handmatig ingevoerde toetsoordelen genegeerd.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
+            }
+        }
+
+        [Test]
+        public void Export_AssemblyCreatorExceptionThrown_LogsErrorAndReturnsFalse()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse));
@@ -194,10 +216,10 @@ namespace Ringtoets.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_InvalidDirectorRights_LogsErrorAndReturnsFalse()
+        public void Export_InvalidDirectoryRights_LogsErrorAndReturnsFalse()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectorRights_LogsErrorAndReturnsFalse));
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogsErrorAndReturnsFalse));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);

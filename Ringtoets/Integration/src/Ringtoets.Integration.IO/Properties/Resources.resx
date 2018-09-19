@@ -150,4 +150,7 @@
   <data name="AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult" xml:space="preserve">
     <value>Het is alleen mogelijk een volledig toetsoordeel te exporteren.</value>
   </data>
+  <data name="AssemblyExporter_CheckManualAssembly_Assembly_result_contains_manual_results_exporter_will_ignore_manual_results" xml:space="preserve">
+    <value>Veiligheidsoordeel is (deels) gebaseerd op handmatig ingevoerde toetsoordelen. Tijdens het exporteren worden handmatig ingevoerde toetsoordelen genegeerd.</value>
+  </data>
 </root>

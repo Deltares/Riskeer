@@ -82,6 +82,16 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsoordeel is (deels) gebaseerd op handmatig ingevoerde toetsoordelen. Tijdens het exporteren worden handmatig ingevoerde toetsoordelen genegeerd..
+        /// </summary>
+        internal static string AssemblyExporter_CheckManualAssembly_Assembly_result_contains_manual_results_exporter_will_ignore_manual_results {
+            get {
+                return ResourceManager.GetString("AssemblyExporter_CheckManualAssembly_Assembly_result_contains_manual_results_expo" +
+                        "rter_will_ignore_manual_results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Er is geen toetsoordeel geëxporteerd..
         /// </summary>
         internal static string AssemblyExporter_Error_Exception_0_no_AssemblyResult_exported {
