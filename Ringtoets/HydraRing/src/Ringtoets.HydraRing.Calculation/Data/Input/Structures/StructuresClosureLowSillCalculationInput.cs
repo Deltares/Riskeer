@@ -66,8 +66,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="stormDurationMean">The mean of the storm duration.</param>
         /// <param name="stormDurationVariation">The variation of the storm duration.</param>
         /// <param name="probabilityOpenStructureBeforeFlooding">The probability of an open structure before flooding.</param>
-        /// <param name="modelFactorSuperCriticalFlowMean">The mean of the model factor super critical flow.</param>
-        /// <param name="modelFactorSuperCriticalFlowStandardDeviation">The standard deviation of the model factor super critical flow.</param>
         /// <param name="thresholdHeightOpenWeirMean">The mean of the threshold height open weir.</param>
         /// <param name="thresholdHeightOpenWeirStandardDeviation">The standard deviation of the threshold height open weir.</param>
         /// <param name="insideWaterLevelMean">The mean of the inside water level.</param>
