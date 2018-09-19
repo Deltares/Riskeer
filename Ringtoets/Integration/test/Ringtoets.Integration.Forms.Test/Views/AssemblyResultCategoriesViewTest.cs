@@ -111,6 +111,60 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenViewWithValidData_WhenAssessmentSectionUpdated_ThenDataTableUpdated()
+        {
+            // Given
+            var random = new Random(21);
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var nrOfCategories = 1;
+            Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismCategories =
+                () => Enumerable.Repeat(CreateRandomFailureMechanismAssemblyCategory(random), nrOfCategories);
+
+            using (var view = new AssemblyResultCategoriesView(assessmentSection, getFailureMechanismCategories))
+            {
+                AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismCategoriesTable(view);
+
+                // Precondition
+                Assert.AreEqual(nrOfCategories, failureMechanismSectionCategoriesTable.Rows.Count);
+
+                // When
+                nrOfCategories = 2;
+                assessmentSection.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(nrOfCategories, failureMechanismSectionCategoriesTable.Rows.Count);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithValidData_WhenFailureMechanismContributionUpdated_ThenDataTableUpdated()
+        {
+            // Given
+            var random = new Random(21);
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var nrOfCategories = 1;
+            Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismCategories =
+                () => Enumerable.Repeat(CreateRandomFailureMechanismAssemblyCategory(random), nrOfCategories);
+
+            using (var view = new AssemblyResultCategoriesView(assessmentSection, getFailureMechanismCategories))
+            {
+                AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismCategoriesTable(view);
+
+                // Precondition
+                Assert.AreEqual(nrOfCategories, failureMechanismSectionCategoriesTable.Rows.Count);
+
+                // When
+                nrOfCategories = 2;
+                assessmentSection.FailureMechanismContribution.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(nrOfCategories, failureMechanismSectionCategoriesTable.Rows.Count);
+            }
+        }
+
         private static AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> GetFailureMechanismCategoriesTable(
             AssemblyResultCategoriesView view)
         {

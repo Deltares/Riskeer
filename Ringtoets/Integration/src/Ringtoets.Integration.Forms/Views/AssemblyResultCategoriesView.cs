@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Helpers;
@@ -37,6 +38,9 @@ namespace Ringtoets.Integration.Forms.Views
     public partial class AssemblyResultCategoriesView : UserControl, IView
     {
         private readonly Func<IEnumerable<FailureMechanismAssemblyCategory>> getAssemblyCategoriesFunc;
+
+        private readonly Observer assessmentSectionObserver;
+        private readonly Observer failureMechanismContributionObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultCategoriesView"/>.
@@ -62,12 +66,33 @@ namespace Ringtoets.Integration.Forms.Views
 
             InitializeComponent();
 
+            assessmentSectionObserver = new Observer(UpdateTableData)
+            {
+                Observable = assessmentSection
+            };
+
+            failureMechanismContributionObserver = new Observer(UpdateTableData)
+            {
+                Observable = assessmentSection.FailureMechanismContribution
+            };
+
             UpdateTableData();
         }
 
         public AssessmentSection AssessmentSection { get; }
 
         public object Data { get; set; }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                assessmentSectionObserver.Dispose();
+                failureMechanismContributionObserver.Dispose();
+                components?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
         private void UpdateTableData()
         {
