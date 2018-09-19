@@ -27,7 +27,7 @@ namespace Ringtoets.Integration.IO.Assembly
     /// Class that holds all the information to export an assembly result with probability and only a combined assembly result
     /// of a failure mechanism section.
     /// </summary>
-    public class ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult 
+    public class ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult
         : ExportableAggregatedFailureMechanismSectionAssemblyResultBase
     {
         /// <summary>
@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.IO.Assembly
         /// <param name="combinedAssembly">The combined assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(ExportableFailureMechanismSection failureMechanismSection,
-                                                                                                             ExportableSectionAssemblyResultWithProbability combinedAssembly)
+                                                                                                ExportableSectionAssemblyResultWithProbability combinedAssembly)
             : base(failureMechanismSection)
         {
             if (combinedAssembly == null)

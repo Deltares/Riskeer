@@ -68,9 +68,9 @@ namespace Ringtoets.Integration.IO.Factories
 
             if (!failureMechanism.IsRelevant)
             {
-                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(assessmentSection, 
-                                                                                                                   failureMechanismCode, 
-                                                                                                                   failureMechanismGroup, 
+                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(assessmentSection,
+                                                                                                                   failureMechanismCode,
+                                                                                                                   failureMechanismGroup,
                                                                                                                    failureMechanismAssemblyMethod);
             }
 
