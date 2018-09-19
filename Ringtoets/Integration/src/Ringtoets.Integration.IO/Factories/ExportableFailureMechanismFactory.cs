@@ -76,12 +76,18 @@ namespace Ringtoets.Integration.IO.Factories
         /// <param name="failureMechanismGroup">The <see cref="ExportableFailureMechanismGroup"/> of the failure mechanism.</param>
         /// <param name="assemblyMethod">The assembly method which is used to obtain the general assembly result of the failure mechanism.</param>
         /// <returns>An <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with default values.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateDefaultExportableFailureMechanismWithoutProbability(
             IAssessmentSection assessmentSection,
             ExportableFailureMechanismType failureMechanismCode,
             ExportableFailureMechanismGroup failureMechanismGroup,
             ExportableAssemblyMethod assemblyMethod)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(assemblyMethod,
                                                              FailureMechanismAssemblyCategoryGroup.NotApplicable),

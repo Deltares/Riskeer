@@ -85,21 +85,21 @@ namespace Ringtoets.Integration.IO.Test.Factories
             };
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
 
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry()
+            };
 
             // Call
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
                 ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(ExportableFailureMechanismType.STBU, exportableFailureMechanism.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group4, exportableFailureMechanism.Group);
-
-            ExportableFailureMechanismAssemblyResult failureMechanismAssemblyResult = exportableFailureMechanism.FailureMechanismAssembly;
-            Assert.AreEqual(ExportableAssemblyMethod.WBI1A1, failureMechanismAssemblyResult.AssemblyMethod);
-            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
-
-            CollectionAssert.IsEmpty(exportableFailureMechanism.SectionAssemblyResults);
+            ExportableFailureMechanismTestHelper.AssertDefaultFailureMechanismWithoutProbability(assessmentSection.ReferenceLine.Points,
+                                                                                                 ExportableFailureMechanismType.STBU,
+                                                                                                 ExportableFailureMechanismGroup.Group4,
+                                                                                                 ExportableAssemblyMethod.WBI1A1,
+                                                                                                 exportableFailureMechanism);
         }
 
         [Test]
