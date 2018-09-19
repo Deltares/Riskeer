@@ -77,7 +77,10 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
             // Setup
             var random = new Random(39);
             double n = random.NextDouble();
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestFailureMechanism
+            {
+                Contribution = random.Next(1, 100)
+            };
             var assessmentSection = new AssessmentSectionStub();
 
             // Call

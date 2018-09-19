@@ -76,10 +76,9 @@ namespace Ringtoets.Common.Data.AssemblyTool
 
             try
             {
-                return calculator.CalculateFailureMechanismCategories(new AssemblyCategoriesInput(n,
-                                                                                                  failureMechanismContribution,
-                                                                                                  signalingNorm,
-                                                                                                  lowerLimitNorm));
+                return calculator.CalculateFailureMechanismCategories(new AssemblyCategoriesInput(
+                                                                          n, failureMechanismContribution / 100,
+                                                                          signalingNorm, lowerLimitNorm));
             }
             catch (AssemblyCategoriesCalculatorException e)
             {
@@ -108,10 +107,9 @@ namespace Ringtoets.Common.Data.AssemblyTool
 
             try
             {
-                return calculator.CalculateFailureMechanismSectionCategories(new AssemblyCategoriesInput(n,
-                                                                                                         failureMechanismContribution,
-                                                                                                         signalingNorm,
-                                                                                                         lowerLimitNorm));
+                return calculator.CalculateFailureMechanismSectionCategories(new AssemblyCategoriesInput(
+                                                                                 n, failureMechanismContribution / 100,
+                                                                                 signalingNorm, lowerLimitNorm));
             }
             catch (AssemblyCategoriesCalculatorException e)
             {
