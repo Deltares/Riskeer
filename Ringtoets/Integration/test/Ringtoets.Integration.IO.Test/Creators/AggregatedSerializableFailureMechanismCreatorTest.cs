@@ -385,6 +385,28 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                              actualSectionAssemblyResult.CombinedSectionResult);
         }
 
+        private static void AssertSectionAssemblyWithCombinedResult(ExportableAggregatedFailureMechanismSectionAssemblyResultBase expectedSectionAssemblyResult,
+                                                                    SerializableFailureMechanismSectionAssembly actualSectionAssemblyResult)
+        {
+            var expectedSectionAssemblyResultWithoutProbability = (ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult) expectedSectionAssemblyResult;
+            CollectionAssert.IsEmpty(actualSectionAssemblyResult.SectionResults);
+
+            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly,
+                                                                                             SerializableAssessmentType.CombinedAssessment,
+                                                                                             actualSectionAssemblyResult.CombinedSectionResult);
+        }
+
+        private static void AssertSectionAssemblyWithCombinedProbabilityResult(ExportableAggregatedFailureMechanismSectionAssemblyResultBase expectedSectionAssemblyResult,
+                                                                               SerializableFailureMechanismSectionAssembly actualSectionAssemblyResult)
+        {
+            var expectedSectionAssemblyResultWithoutProbability = (ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult) expectedSectionAssemblyResult;
+            CollectionAssert.IsEmpty(actualSectionAssemblyResult.SectionResults);
+
+            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly,
+                                                                                             SerializableAssessmentType.CombinedAssessment,
+                                                                                             actualSectionAssemblyResult.CombinedSectionResult);
+        }
+
         private static SerializableTotalAssemblyResult CreateSerializableTotalAssembly(string totalAssemblyId)
         {
             return new SerializableTotalAssemblyResult(totalAssemblyId,
@@ -434,6 +456,28 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                           new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
                                               SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyResultsWithoutDetailedAssembly))
                 .SetName("SectionAssemblyResults without detailed assessment");
+
+            ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult[] failureMechanismSectionResultsWithCombinedAssembly =
+            {
+                CreateSectionResultWithCombinedAssembly(failureMechanismSections[0]),
+                CreateSectionResultWithCombinedAssembly(failureMechanismSections[1])
+            };
+            yield return new TestCaseData(failureMechanismSections,
+                                          failureMechanismSectionResultsWithCombinedAssembly,
+                                          new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
+                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyWithCombinedResult))
+                .SetName("SectionAssemblyResults with combined assessment");
+
+            ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult[] failureMechanismSectionResultsWithCombinedProbabilityAssembly =
+            {
+                CreateSectionResultWithCombinedProbabilityAssembly(failureMechanismSections[0]),
+                CreateSectionResultWithCombinedProbabilityAssembly(failureMechanismSections[1])
+            };
+            yield return new TestCaseData(failureMechanismSections,
+                                          failureMechanismSectionResultsWithCombinedProbabilityAssembly,
+                                          new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
+                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyWithCombinedProbabilityResult))
+                .SetName("SectionAssemblyResults with combined probability assessment");
         }
 
         private static ExportableFailureMechanismSection CreateSection(int seed)
@@ -470,6 +514,16 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                                         CreateSectionAssemblyResult(10),
                                                                                                         CreateSectionAssemblyResult(11),
                                                                                                         CreateSectionAssemblyResult(12));
+        }
+
+        private static ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult CreateSectionResultWithCombinedAssembly(ExportableFailureMechanismSection section)
+        {
+            return new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult(section, CreateSectionAssemblyResult(10));
+        }
+
+        private static ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult CreateSectionResultWithCombinedProbabilityAssembly(ExportableFailureMechanismSection section)
+        {
+            return new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(section, CreateSectionAssemblyResultWithProbability(10));
         }
 
         private static ExportableSectionAssemblyResult CreateSectionAssemblyResult(int seed)

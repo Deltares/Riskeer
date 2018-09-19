@@ -167,6 +167,18 @@ namespace Ringtoets.Integration.IO.Creators
                 return AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, resultWithoutDetailedAssembly);
             }
 
+            var resultWithCombinedAssembly = failureMechanismSectionAssemblyResult as ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult;
+            if (resultWithCombinedAssembly != null)
+            {
+                return AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, resultWithCombinedAssembly);
+            }
+
+            var resultWithCombinedProbabilityAssembly = failureMechanismSectionAssemblyResult as ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult;
+            if (resultWithCombinedProbabilityAssembly != null)
+            {
+                return AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, resultWithCombinedProbabilityAssembly);
+            }
+
             throw new NotSupportedException($"{failureMechanismSectionAssemblyResult.GetType().Name} is not supported.");
         }
     }
