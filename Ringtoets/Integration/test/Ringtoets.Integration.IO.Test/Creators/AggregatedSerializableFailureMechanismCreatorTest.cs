@@ -362,9 +362,11 @@ namespace Ringtoets.Integration.IO.Test.Creators
                                                                                              SerializableAssessmentType.DetailedAssessment,
                                                                                              serializedSectionResults[1]);
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.TailorMadeAssembly,
-                                                                                             SerializableAssessmentType.TailorMadeAssessment, serializedSectionResults[2]);
+                                                                                             SerializableAssessmentType.TailorMadeAssessment,
+                                                                                             serializedSectionResults[2]);
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly,
-                                                                                             SerializableAssessmentType.CombinedAssessment, actualSectionAssemblyResult.CombinedSectionResult);
+                                                                                             SerializableAssessmentType.CombinedAssessment,
+                                                                                             actualSectionAssemblyResult.CombinedSectionResult);
         }
 
         private static void AssertSectionAssemblyResultsWithoutDetailedAssembly(ExportableAggregatedFailureMechanismSectionAssemblyResultBase expectedSectionAssemblyResult,

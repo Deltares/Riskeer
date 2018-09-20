@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// </summary>
         /// <param name="name">The name of the failure mechanism.</param>
         /// <param name="failureMechanismCode">The code of the failure mechanism.</param>
-        /// <param name="group">The group that this failure mechanism belongs to.</param>
+        /// <param name="group">The group that the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="name"/> is <c>null</c> or empty.</item>

@@ -20,15 +20,14 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
+using Ringtoets.Integration.IO.TestUtil;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {
@@ -44,10 +43,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            TestDelegate call = () => ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(null,
-                                                                                                                               failureMechanismCode,
-                                                                                                                               group,
-                                                                                                                               failureMechanismAssemblyMethod);
+            TestDelegate call = () => ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(
+                null, failureMechanismCode, group, failureMechanismAssemblyMethod);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -78,25 +75,11 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                                                          failureMechanismAssemblyMethod);
 
             // Assert
-            Assert.AreEqual(group, exportableFailureMechanism.Group);
-            Assert.AreEqual(failureMechanismCode, exportableFailureMechanism.Code);
-
-            ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyResult = exportableFailureMechanism.FailureMechanismAssembly;
-            Assert.AreEqual(failureMechanismAssemblyMethod, failureMechanismAssemblyResult.AssemblyMethod);
-            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(0, failureMechanismAssemblyResult.Probability);
-
-            var exportableFailureMechanismSectionAssembly =
-                (ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult) exportableFailureMechanism.SectionAssemblyResults.Single();
-            ExportableSectionAssemblyResultWithProbability combinedAssembly = exportableFailureMechanismSectionAssembly.CombinedAssembly;
-            Assert.AreEqual(ExportableAssemblyMethod.WBI0A1, combinedAssembly.AssemblyMethod);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, combinedAssembly.AssemblyCategory);
-            Assert.AreEqual(0, combinedAssembly.Probability);
-
-            ExportableFailureMechanismSection failureMechanismSection = exportableFailureMechanismSectionAssembly.FailureMechanismSection;
-            Assert.AreSame(referenceLine.Points, failureMechanismSection.Geometry);
-            Assert.AreEqual(0, failureMechanismSection.StartDistance);
-            Assert.AreEqual(referenceLine.Length, failureMechanismSection.EndDistance);
+            ExportableFailureMechanismTestHelper.AssertDefaultFailureMechanismWithProbability(assessmentSection.ReferenceLine.Points,
+                                                                                              failureMechanismCode,
+                                                                                              group,
+                                                                                              failureMechanismAssemblyMethod,
+                                                                                              exportableFailureMechanism);
         }
 
         [Test]
@@ -132,33 +115,21 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var random = new Random(21);
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
             var failureMechanismCode = random.NextEnumValue<ExportableFailureMechanismType>();
-            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
+            var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
                 ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(assessmentSection,
                                                                                                             failureMechanismCode,
                                                                                                             group,
-                                                                                                            assemblyMethod);
+                                                                                                            failureMechanismAssemblyMethod);
 
             // Assert
-            Assert.AreEqual(group, exportableFailureMechanism.Group);
-            Assert.AreEqual(failureMechanismCode, exportableFailureMechanism.Code);
-
-            ExportableFailureMechanismAssemblyResult failureMechanismAssemblyResult = exportableFailureMechanism.FailureMechanismAssembly;
-            Assert.AreEqual(assemblyMethod, failureMechanismAssemblyResult.AssemblyMethod);
-            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
-
-            var exportableFailureMechanismSectionAssembly =
-                (ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult) exportableFailureMechanism.SectionAssemblyResults.Single();
-            ExportableSectionAssemblyResult combinedAssembly = exportableFailureMechanismSectionAssembly.CombinedAssembly;
-            Assert.AreEqual(ExportableAssemblyMethod.WBI0A1, combinedAssembly.AssemblyMethod);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, combinedAssembly.AssemblyCategory);
-
-            ExportableFailureMechanismSection failureMechanismSection = exportableFailureMechanismSectionAssembly.FailureMechanismSection;
-            Assert.AreSame(referenceLine.Points, failureMechanismSection.Geometry);
-            Assert.AreEqual(0, failureMechanismSection.StartDistance);
-            Assert.AreEqual(referenceLine.Length, failureMechanismSection.EndDistance);
+            ExportableFailureMechanismTestHelper.AssertDefaultFailureMechanismWithoutProbability(assessmentSection.ReferenceLine.Points,
+                                                                                                 failureMechanismCode,
+                                                                                                 group,
+                                                                                                 failureMechanismAssemblyMethod,
+                                                                                                 exportableFailureMechanism);
         }
     }
 }

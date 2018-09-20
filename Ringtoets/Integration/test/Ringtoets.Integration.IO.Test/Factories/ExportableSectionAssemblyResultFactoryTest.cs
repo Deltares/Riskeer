@@ -56,7 +56,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            TestDelegate call = () => ExportableSectionAssemblyResultFactory.CreateExportableSectionAssemblyResultWithProbability(null, assemblyMethod);
+            TestDelegate call = () => ExportableSectionAssemblyResultFactory.CreateExportableSectionAssemblyResultWithProbability(
+                null, assemblyMethod);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

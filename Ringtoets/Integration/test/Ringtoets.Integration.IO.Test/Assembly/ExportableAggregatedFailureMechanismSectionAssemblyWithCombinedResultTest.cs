@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.IO.Test.Assembly
         [Test]
         public void Constructor_CombinedAssemblyNull_ThrowsArgumentNullException()
         {
-            // Section
+            // Setup
             ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
 
             // Call

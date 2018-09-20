@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.IO.Factories
         /// </summary>
         /// <param name="failureMechanism">The <see cref="PipingStructureFailureMechanism"/> to create an
         /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> for.</param>
-        /// <param name="assessmentSection">The assessment section this failure mechanism belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <returns>An <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with assembly results.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>

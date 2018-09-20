@@ -24,7 +24,7 @@ using System;
 namespace Ringtoets.Integration.IO.Assembly
 {
     /// <summary>
-    /// Class that holds all the information to export an assembly result with probability and only a combined assembly result
+    /// Class that holds all the information to export an assembly result with probability and a combined assembly result
     /// of a failure mechanism section.
     /// </summary>
     public class ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult

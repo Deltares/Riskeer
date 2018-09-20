@@ -51,8 +51,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(null,
-                                                                                                                               assessmentSection);
+            TestDelegate call = () => ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(
+                null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -65,9 +65,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
         public void CreateExportableFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-                ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(new MacroStabilityOutwardsFailureMechanism(),
-                                                                                                         null);
+            TestDelegate call = () => ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(
+                new MacroStabilityOutwardsFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

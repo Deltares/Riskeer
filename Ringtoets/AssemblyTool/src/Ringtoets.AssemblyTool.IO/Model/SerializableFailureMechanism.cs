@@ -46,7 +46,7 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// Creates a new instance of <see cref="SerializableFailureMechanism"/>.
         /// </summary>
         /// <param name="id">The unique ID of the assembly result.</param>
-        /// <param name="totalAssemblyResult">The total assembly result this failure mechanism belongs to.</param>
+        /// <param name="totalAssemblyResult">The total assembly result the failure mechanism belongs to.</param>
         /// <param name="failureMechanismType">The type of the failure mechanism.</param>
         /// <param name="failureMechanismGroup">The group of the failure mechanism.</param>
         /// <param name="failureMechanismAssemblyResult">The total failure mechanism assembly result.</param>

@@ -41,7 +41,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
         public void CreateExportableCombinedSectionAssemblyCollection_CombinedSectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(null, new ReferenceLine());
+            TestDelegate call = () => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+                null, new ReferenceLine());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

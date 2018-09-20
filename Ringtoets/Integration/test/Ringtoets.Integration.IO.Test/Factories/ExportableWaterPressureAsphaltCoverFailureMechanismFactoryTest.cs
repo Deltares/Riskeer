@@ -51,8 +51,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () =>
-                ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(null, assessmentSection);
+            TestDelegate call = () => ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(
+                null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -65,8 +65,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
         public void CreateExportableFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-                ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(new WaterPressureAsphaltCoverFailureMechanism(), null);
+            TestDelegate call = () => ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(
+                new WaterPressureAsphaltCoverFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
