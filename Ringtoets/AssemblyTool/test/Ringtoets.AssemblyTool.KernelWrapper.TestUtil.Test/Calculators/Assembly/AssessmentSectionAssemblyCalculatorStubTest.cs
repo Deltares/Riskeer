@@ -46,6 +46,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.IsNull(calculator.FailureMechanismsWithProbabilityInput);
             Assert.AreEqual(0.0, calculator.LowerLimitNormInput);
             Assert.AreEqual(0.0, calculator.SignalingNormInput);
+            Assert.AreEqual(0.0, calculator.FailureProbabilityMarginFactorInput);
             Assert.AreEqual((FailureMechanismAssemblyCategoryGroup) 0,
                             calculator.FailureMechanismsWithoutProbabilityInput);
         }
@@ -59,7 +60,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             FailureMechanismAssembly output = calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssembly>(),
-                                                                                   random.NextDouble(), random.NextDouble());
+                                                                                   random.NextDouble(), random.NextDouble(),
+                                                                                   random.NextDouble());
 
             // Assert
             Assert.AreEqual(0.75, output.Probability);
@@ -79,7 +81,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             FailureMechanismAssembly output = calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssembly>(),
-                                                                                   random.NextDouble(), random.NextDouble());
+                                                                                   random.NextDouble(), random.NextDouble(),
+                                                                                   random.NextDouble());
 
             // Assert
             Assert.AreSame(calculator.AssembleFailureMechanismsAssemblyOutput, output);
@@ -92,18 +95,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             var random = new Random(21);
             double lowerLimitNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
+            double failureProbabilityMarginFactorInput = random.NextDouble();
 
             IEnumerable<FailureMechanismAssembly> failureMechanisms = Enumerable.Empty<FailureMechanismAssembly>();
 
             var calculator = new AssessmentSectionAssemblyCalculatorStub();
 
             // Call
-            calculator.AssembleFailureMechanisms(failureMechanisms, signalingNorm, lowerLimitNorm);
+            calculator.AssembleFailureMechanisms(failureMechanisms, signalingNorm, lowerLimitNorm, failureProbabilityMarginFactorInput);
 
             // Assert
             Assert.AreSame(failureMechanisms, calculator.FailureMechanismAssemblyInput);
             Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNormInput);
             Assert.AreEqual(signalingNorm, calculator.SignalingNormInput);
+            Assert.AreEqual(failureProbabilityMarginFactorInput, calculator.FailureProbabilityMarginFactorInput);
         }
 
         [Test]
@@ -118,7 +123,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             TestDelegate call = () => calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssembly>(),
-                                                                           random.NextDouble(),
+                                                                           random.NextDouble(), random.NextDouble(),
                                                                            random.NextDouble());
 
             // Assert

@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategories_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyCategories_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryLocationProperties_CategoryBoundaries_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         public DesignWaterLevelCalculationCategoryBoundaryProperties[] CategoryBoundaries

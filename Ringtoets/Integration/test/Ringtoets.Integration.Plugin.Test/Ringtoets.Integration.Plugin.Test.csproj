@@ -72,6 +72,7 @@
     <Compile Include="Merge\AssessmentSectionProviderExceptionTest.cs" />
     <Compile Include="Merge\AssessmentSectionProviderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyInfos\AssemblyResultCategoriesContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\BackgroundDataPropertyInfoTest .cs" />
     <Compile Include="PropertyInfos\MacroStabilityOutwardsAssemblyCategoriesContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\WaveHeightCalculationsGroupContextPropertyInfoTest.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="PropertyInfos\WaveHeightCalculationsContextPropertyInfoTest.cs" />
     <Compile Include="RingtoetsPluginTest.cs" />
     <Compile Include="RingtoetsRibbonTest.cs" />
+    <Compile Include="TreeNodeInfos\AssemblyResultCategoriesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssemblyResultPerSectionContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssemblyResultsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssemblyResultTotalContextTreeNodeInfoTest.cs" />
@@ -143,6 +145,7 @@
     <Compile Include="UpdateInfos\MacroStabilityOutwardsFailureMechanismSectionsContextUpdateInfoTest.cs" />
     <Compile Include="UpdateInfos\GrassCoverSlipOffOutwardsFailureMechanismSectionsContextUpdateInfoTest.cs" />
     <Compile Include="UpdateInfos\GrassCoverSlipOffInwardsFailureMechanismSectionsContextUpdateInfoTest.cs" />
+    <Compile Include="ViewInfos\AssemblyResultCategoriesViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssemblyResultPerSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssemblyResultTotalViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionAssemblyCategoriesViewInfoTest.cs" />

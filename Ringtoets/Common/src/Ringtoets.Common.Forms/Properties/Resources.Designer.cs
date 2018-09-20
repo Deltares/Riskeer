@@ -92,6 +92,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categoriegrenzen.
+        /// </summary>
+        public static string AssemblyCategories_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyCategories_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kleur.
         /// </summary>
         public static string AssemblyCategory_Color_DisplayName {
@@ -1460,15 +1469,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanism_Validate_All_ToolTip {
             get {
                 return ResourceManager.GetString("FailureMechanism_Validate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categoriegrenzen.
-        /// </summary>
-        public static string FailureMechanismAssemblyCategories_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyCategories_DisplayName", resourceCulture);
             }
         }
         

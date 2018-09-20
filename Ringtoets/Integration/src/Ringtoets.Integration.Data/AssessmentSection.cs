@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -79,6 +80,7 @@ namespace Ringtoets.Integration.Data
         private StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstruction;
         private DuneErosionFailureMechanism duneErosion;
         private TechnicalInnovationFailureMechanism technicalInnovation;
+        private RoundedDouble failureProbabilityMarginFactor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AssessmentSection"/> class.
@@ -131,6 +133,8 @@ namespace Ringtoets.Integration.Data
             duneErosion = new DuneErosionFailureMechanism();
             technicalInnovation = new TechnicalInnovationFailureMechanism();
             OtherFailureMechanism = new OtherFailureMechanism();
+
+            failureProbabilityMarginFactor = new RoundedDouble(2);
 
             FailureMechanismContribution = new FailureMechanismContribution(lowerLimitNorm, signalingNorm);
             ChangeComposition(composition);
@@ -465,6 +469,21 @@ namespace Ringtoets.Integration.Data
         /// </summary>
         public OtherFailureMechanism OtherFailureMechanism { get; }
 
+        /// <summary>
+        /// Gets the failure probability margin factor.
+        /// </summary>
+        public RoundedDouble FailureProbabilityMarginFactor
+        {
+            get
+            {
+                return failureProbabilityMarginFactor;
+            }
+            private set
+            {
+                failureProbabilityMarginFactor = value.ToPrecision(failureProbabilityMarginFactor.NumberOfDecimalPlaces);
+            }
+        }
+
         public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm
         {
             get
@@ -648,6 +667,7 @@ namespace Ringtoets.Integration.Data
                     StabilityPointStructures.Contribution = 2;
                     DuneErosion.Contribution = 0;
                     OtherFailureMechanism.Contribution = 30;
+                    FailureProbabilityMarginFactor = (RoundedDouble) 0.58;
                     break;
                 case AssessmentSectionComposition.Dune:
                     Piping.Contribution = 0;
@@ -663,6 +683,7 @@ namespace Ringtoets.Integration.Data
                     StabilityPointStructures.Contribution = 0;
                     DuneErosion.Contribution = 70;
                     OtherFailureMechanism.Contribution = 30;
+                    FailureProbabilityMarginFactor = (RoundedDouble) 0;
                     break;
                 case AssessmentSectionComposition.DikeAndDune:
                     Piping.Contribution = 24;
@@ -678,6 +699,7 @@ namespace Ringtoets.Integration.Data
                     StabilityPointStructures.Contribution = 2;
                     DuneErosion.Contribution = 10;
                     OtherFailureMechanism.Contribution = 20;
+                    FailureProbabilityMarginFactor = (RoundedDouble) 0.58;
                     break;
                 default:
                     throw new NotSupportedException();

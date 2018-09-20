@@ -41,6 +41,7 @@
     <Compile Include="Merge\IAssessmentSectionMergeFilePathProvider.cs" />
     <Compile Include="Merge\IAssessmentSectionMergeDataProvider.cs" />
     <Compile Include="Observers\AssessmentSectionResultObserver.cs" />
+    <Compile Include="PresentationObjects\AssemblyResultCategoriesContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultsContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContext.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="PresentationObjects\StandAlone\GrassCoverSlipOffInwardsFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContext.cs" />
+    <Compile Include="PropertyClasses\AssemblyResultCategoriesProperties.cs" />
     <Compile Include="PropertyClasses\BackgroundDataProperties.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
@@ -91,6 +93,12 @@
       <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="RingtoetsSettingsHelper.cs" />
+    <Compile Include="Views\AssemblyResultCategoriesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssemblyResultCategoriesView.Designer.cs">
+      <DependentUpon>AssemblyResultCategoriesView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\AssemblyResultPerSectionView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -318,6 +326,9 @@
     <EmbeddedResource Include="Dialogs\ReferenceLineMetaSelectionDialog.resx">
       <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AssemblyResultCategoriesView.resx">
+      <DependentUpon>AssemblyResultCategoriesView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\AssemblyResultPerSectionView.resx">
       <DependentUpon>AssemblyResultPerSectionView.cs</DependentUpon>

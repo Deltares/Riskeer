@@ -223,7 +223,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(27, propertyInfos.Length);
+                Assert.AreEqual(28, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -359,6 +359,11 @@ namespace Ringtoets.Integration.Plugin.Test
                     propertyInfos,
                     typeof(WaveHeightCalculationsGroupContext),
                     typeof(WaveHeightCalculationsGroupProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(AssemblyResultCategoriesContext),
+                    typeof(AssemblyResultCategoriesProperties));
             }
         }
 
@@ -389,7 +394,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(21, viewInfos.Length);
+                Assert.AreEqual(22, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -513,6 +518,12 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(MacroStabilityOutwardsAssemblyCategoriesContext),
                     typeof(MacroStabilityOutwardsFailureMechanism),
                     typeof(MacroStabilityOutwardsAssemblyCategoriesView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(AssemblyResultCategoriesContext),
+                    typeof(AssessmentSection),
+                    typeof(AssemblyResultCategoriesView));
             }
         }
 
@@ -526,7 +537,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(39, treeNodeInfos.Length);
+                Assert.AreEqual(40, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSection)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(BackgroundData)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(NormContext)));
@@ -566,6 +577,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityOutwardsAssemblyCategoriesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismAssemblyCategoriesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultsContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultCategoriesContext)));
             }
         }
 

@@ -23,20 +23,19 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.TestUtil;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class FailureMechanismAssemblyCategoriesContextPropertyInfoTest
+    public class AssemblyResultCategoriesContextPropertyInfoTest
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
@@ -45,7 +44,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RingtoetsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismAssemblyCategoriesProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(AssemblyResultCategoriesProperties));
         }
 
         [TearDown]
@@ -58,21 +57,16 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismAssemblyCategoriesContext), info.DataType);
+            Assert.AreEqual(typeof(AssemblyResultCategoriesContext), info.DataType);
         }
 
         [Test]
         public void CreateInstance_ValidArguments_ReturnProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            var assessmentSection = new AssessmentSectionStub();
-
-            var context = new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection,
-                                                                        () => 0);
+            var context = new AssemblyResultCategoriesContext(assessmentSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -83,16 +77,14 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismAssemblyCategoriesProperties>(objectProperties);
+                Assert.IsInstanceOf<AssemblyResultCategoriesProperties>(objectProperties);
 
-                var properties = (FailureMechanismAssemblyCategoriesProperties) objectProperties;
-                AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAndFailureMechanismSectionAssemblyCategoryProperties(
+                var properties = (AssemblyResultCategoriesProperties) objectProperties;
+                Assert.AreSame(context.GetAssemblyCategoriesFunc(), properties.Data);
+                AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAssemblyCategoryProperties(
                     calculator.FailureMechanismCategoriesOutput,
-                    context.GetFailureMechanismSectionAssemblyCategoriesFunc(),
                     properties);
             }
-
-            mocks.VerifyAll();
         }
     }
 }

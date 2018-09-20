@@ -74,7 +74,8 @@ namespace Ringtoets.Integration.Data.Assembly
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
                 return calculator.AssembleFailureMechanisms(GetFailureMechanismWithProbabilityAssemblyResults(assessmentSection, useManual),
                                                             failureMechanismContribution.SignalingNorm,
-                                                            failureMechanismContribution.LowerLimitNorm);
+                                                            failureMechanismContribution.LowerLimitNorm,
+                                                            assessmentSection.FailureProbabilityMarginFactor);
             }
             catch (AssessmentSectionAssemblyCalculatorException e)
             {

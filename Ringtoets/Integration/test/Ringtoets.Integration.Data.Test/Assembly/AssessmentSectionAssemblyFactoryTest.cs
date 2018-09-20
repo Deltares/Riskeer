@@ -94,6 +94,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
                 Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, assessmentSectionAssemblyCalculator.LowerLimitNormInput);
                 Assert.AreEqual(failureMechanismContribution.SignalingNorm, assessmentSectionAssemblyCalculator.SignalingNormInput);
+                Assert.AreEqual(assessmentSection.FailureProbabilityMarginFactor, assessmentSectionAssemblyCalculator.FailureProbabilityMarginFactorInput);
 
                 AssertGroup1And2FailureMechanismInputs(assessmentSection,
                                                        failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput,

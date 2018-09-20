@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
             }
 
             return new AssemblyCategoriesInput(n,
-                                               failureMechanism.Contribution,
+                                               failureMechanism.Contribution / 100,
                                                assessmentSection.FailureMechanismContribution.SignalingNorm,
                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm);
         }

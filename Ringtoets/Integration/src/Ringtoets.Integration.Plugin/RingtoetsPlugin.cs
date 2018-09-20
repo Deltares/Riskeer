@@ -418,6 +418,10 @@ namespace Ringtoets.Integration.Plugin
                     return new WaveHeightCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
                 }
             };
+            yield return new PropertyInfo<AssemblyResultCategoriesContext, AssemblyResultCategoriesProperties>
+            {
+                CreateInstance = context => new AssemblyResultCategoriesProperties(context.GetAssemblyCategoriesFunc(), context.WrappedData)
+            };
         }
 
         /// <summary>
@@ -619,7 +623,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<FailureMechanismAssemblyCategoriesContextBase, IFailureMechanism, FailureMechanismAssemblyCategoriesView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismAssemblyCategories_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
                 Image = RingtoetsCommonFormsResources.NormsIcon,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismAssemblyCategoriesView(context.WrappedData,
@@ -630,12 +634,20 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<MacroStabilityOutwardsAssemblyCategoriesContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsAssemblyCategoriesView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismAssemblyCategories_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
                 Image = RingtoetsCommonFormsResources.NormsIcon,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new MacroStabilityOutwardsAssemblyCategoriesView((MacroStabilityOutwardsFailureMechanism) context.WrappedData,
                                                                                              context.AssessmentSection,
                                                                                              context.GetFailureMechanismSectionAssemblyCategoriesFunc)
+            };
+            yield return new ViewInfo<AssemblyResultCategoriesContext, AssessmentSection, AssemblyResultCategoriesView>
+            {
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
+                Image = RingtoetsCommonFormsResources.NormsIcon,
+                CloseForData = CloseAssemblyResultCategoriesViewForData,
+                CreateInstance = context => new AssemblyResultCategoriesView(context.WrappedData,
+                                                                             context.GetAssemblyCategoriesFunc)
             };
         }
 
@@ -1085,7 +1097,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<MacroStabilityOutwardsAssemblyCategoriesContext>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanismAssemblyCategories_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.NormsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
@@ -1096,7 +1108,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismAssemblyCategoriesContext>
             {
-                Text = context => RingtoetsCommonFormsResources.FailureMechanismAssemblyCategories_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.NormsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
@@ -1115,6 +1127,17 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<AssemblyResultCategoriesContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.AssemblyCategories_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.NormsIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
         }
@@ -1389,6 +1412,16 @@ namespace Ringtoets.Integration.Plugin
         #region AssemblyResultPerSectionContext ViewInfo
 
         private static bool CloseAssemblyResultPerSectionViewForData(AssemblyResultPerSectionView view, object o)
+        {
+            var assessmentSection = o as AssessmentSection;
+            return assessmentSection != null && assessmentSection == view.AssessmentSection;
+        }
+
+        #endregion
+
+        #region AssemblyResultCategoriesContext ViewInfo
+
+        private bool CloseAssemblyResultCategoriesViewForData(AssemblyResultCategoriesView view, object o)
         {
             var assessmentSection = o as AssessmentSection;
             return assessmentSection != null && assessmentSection == view.AssessmentSection;
@@ -2335,6 +2368,7 @@ namespace Ringtoets.Integration.Plugin
             AssessmentSection assessmentSection = context.WrappedData;
             return new object[]
             {
+                new AssemblyResultCategoriesContext(assessmentSection),
                 new AssemblyResultTotalContext(assessmentSection),
                 new AssemblyResultPerSectionContext(assessmentSection)
             };
