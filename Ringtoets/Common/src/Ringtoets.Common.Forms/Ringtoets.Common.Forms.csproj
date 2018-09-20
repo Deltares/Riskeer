@@ -509,4 +509,7 @@
     <None Include="Resources\tickAll.png" />
     <None Include="Resources\error.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pencil--exclamation.ico" />
+  </ItemGroup>
 </Project>

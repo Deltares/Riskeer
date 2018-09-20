@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Forms.Controls
             // 
             this.warningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.warningProvider.ContainerControl = this;
-            this.warningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
+            this.warningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.PencilWarning;
             // 
             // AssemblyResultControl
             // 

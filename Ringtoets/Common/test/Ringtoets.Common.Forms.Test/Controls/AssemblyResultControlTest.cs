@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
 
                 ErrorProvider warningProvider = GetWarningProvider(resultControl);
-                TestHelper.AssertImagesAreEqual(Resources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
+                TestHelper.AssertImagesAreEqual(Resources.PencilWarning.ToBitmap(), warningProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, warningProvider.BlinkStyle);
                 Assert.IsEmpty(warningProvider.GetError(resultControl));
             }
