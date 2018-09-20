@@ -30,6 +30,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Observers;
 using Ringtoets.Integration.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
 using MacroStabilityInwardsDataResources = Ringtoets.MacroStabilityInwards.Data.Properties.Resources;
@@ -86,6 +87,7 @@ namespace Ringtoets.Integration.Forms.Views
             base.OnLoad(e);
 
             InitializeDataGridView();
+            CheckManualAssemblyResults();
 
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
@@ -106,12 +108,48 @@ namespace Ringtoets.Integration.Forms.Views
             if (!refreshAssemblyResultsButton.Enabled)
             {
                 refreshAssemblyResultsButton.Enabled = true;
-                warningProvider.SetIconPadding(refreshAssemblyResultsButton,
-                                               errorProvider.GetError(refreshAssemblyResultsButton) == string.Empty
-                                                   ? 4 : 24);
+
                 warningProvider.SetError(refreshAssemblyResultsButton,
                                          Resources.AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate);
+
+                warningProvider.SetIconPadding(refreshAssemblyResultsButton,
+                                               string.IsNullOrEmpty(errorProvider.GetError(refreshAssemblyResultsButton)) ? 4 : 24);
+                CheckManualAssemblyResults();
             }
+        }
+
+        private void CheckManualAssemblyResults()
+        {
+            SetManualAssemblyWarningIconPadding();
+
+            if (AssessmentSectionHelper.HasManualAssemblyResults(AssessmentSection))
+            {
+                manualAssemblyWarningProvider.SetError(refreshAssemblyResultsButton,
+                                                       RingtoetsCommonFormsResources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies);
+            }
+        }
+
+        private void SetManualAssemblyWarningIconPadding()
+        {
+            bool hasError = !string.IsNullOrEmpty(errorProvider.GetError(refreshAssemblyResultsButton));
+            bool hasWarning = !string.IsNullOrEmpty(warningProvider.GetError(refreshAssemblyResultsButton));
+            
+            int manualAssemblyWarningPadding;
+            if (hasError && hasWarning)
+            {
+                manualAssemblyWarningPadding = 44;
+            }
+            else if (hasError || hasWarning)
+            {
+                manualAssemblyWarningPadding = 24;
+            }
+            else
+            {
+                manualAssemblyWarningPadding = 4;
+            }
+
+            manualAssemblyWarningProvider.SetIconPadding(refreshAssemblyResultsButton,
+                                                         manualAssemblyWarningPadding);
         }
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
@@ -213,12 +251,15 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 errorProvider.SetError(refreshAssemblyResultsButton, e.Message);
             }
+
+            CheckManualAssemblyResults();
         }
 
         private void ClearCurrentData()
         {
             errorProvider.SetError(refreshAssemblyResultsButton, string.Empty);
             warningProvider.SetError(refreshAssemblyResultsButton, string.Empty);
+            manualAssemblyWarningProvider.SetError(refreshAssemblyResultsButton, string.Empty);
             dataGridViewControl.SetDataSource(Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>());
         }
     }

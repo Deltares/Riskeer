@@ -42,9 +42,11 @@ namespace Ringtoets.Integration.Forms.Views
             this.buttonGroupBox = new System.Windows.Forms.GroupBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.manualAssemblyWarningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.buttonGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.manualAssemblyWarningProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -94,6 +96,13 @@ namespace Ringtoets.Integration.Forms.Views
             this.warningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
             this.warningProvider.SetIconPadding(this.refreshAssemblyResultsButton, 4);
             // 
+            // manualAssemblyWarningProvider
+            // 
+            this.manualAssemblyWarningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.manualAssemblyWarningProvider.ContainerControl = this;
+            this.manualAssemblyWarningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.PencilWarning;
+            this.manualAssemblyWarningProvider.SetIconPadding(this.refreshAssemblyResultsButton, 4);
+            // 
             // AssemblyResultPerSectionView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -107,6 +116,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.buttonGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.manualAssemblyWarningProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -118,5 +128,6 @@ namespace Ringtoets.Integration.Forms.Views
         private System.Windows.Forms.GroupBox buttonGroupBox;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.ErrorProvider warningProvider;
+        private System.Windows.Forms.ErrorProvider manualAssemblyWarningProvider;
     }
 }
