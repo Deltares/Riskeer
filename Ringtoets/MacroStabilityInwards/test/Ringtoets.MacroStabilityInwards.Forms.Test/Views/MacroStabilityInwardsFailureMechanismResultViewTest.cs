@@ -220,10 +220,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 FailureMechanismAssemblyControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
-                ErrorProvider warningProvider = GetWarningProvider(failureMechanismAssemblyControl);
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(failureMechanismAssemblyControl);
 
                 // Call
-                string warningMessage = warningProvider.GetError(failureMechanismAssemblyControl);
+                string warningMessage = manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl);
 
                 // Assert
                 Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningMessage);
@@ -241,17 +241,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 FailureMechanismAssemblyControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
-                ErrorProvider warningProvider = GetWarningProvider(failureMechanismAssemblyControl);
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(failureMechanismAssemblyControl);
 
                 // Precondition
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningProvider.GetError(failureMechanismAssemblyControl));
+                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl));
 
                 // When
                 failureMechanism.SectionResults.ForEachElementDo(sr => sr.UseManualAssemblyProbability = false);
                 failureMechanism.NotifyObservers();
 
                 // Then
-                Assert.IsEmpty(warningProvider.GetError(failureMechanismAssemblyControl));
+                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl));
             }
         }
 
@@ -319,9 +319,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             return control;
         }
 
-        private static ErrorProvider GetWarningProvider(FailureMechanismAssemblyControl control)
+        private static ErrorProvider GetManualAssemblyWarningProvider(FailureMechanismAssemblyControl control)
         {
-            return TypeUtils.GetField<ErrorProvider>(control, "warningProvider");
+            return TypeUtils.GetField<ErrorProvider>(control, "manualAssemblyWarningProvider");
         }
     }
 }
