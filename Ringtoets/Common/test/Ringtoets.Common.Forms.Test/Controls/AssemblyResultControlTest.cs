@@ -65,10 +65,10 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
 
-                ErrorProvider warningProvider = GetWarningProvider(resultControl);
-                TestHelper.AssertImagesAreEqual(Resources.PencilWarning.ToBitmap(), warningProvider.Icon.ToBitmap());
-                Assert.AreEqual(ErrorBlinkStyle.NeverBlink, warningProvider.BlinkStyle);
-                Assert.IsEmpty(warningProvider.GetError(resultControl));
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(resultControl);
+                TestHelper.AssertImagesAreEqual(Resources.PencilWarning.ToBitmap(), manualAssemblyWarningProvider.Icon.ToBitmap());
+                Assert.AreEqual(ErrorBlinkStyle.NeverBlink, manualAssemblyWarningProvider.BlinkStyle);
+                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(resultControl));
             }
         }
 
@@ -105,41 +105,24 @@ namespace Ringtoets.Common.Forms.Test.Controls
         }
 
         [Test]
-        public void SetWarning_WarningMessageNull_ThrowsArgumentNullException()
+        public void SetManualAssemblyWarning_Always_SetsWarningMessageOnControl()
         {
             // Setup
             using (var resultControl = new TestAssemblyResultControl())
             {
                 // Call
-                TestDelegate test = () => resultControl.SetWarning(null);
+                resultControl.SetManualAssemblyWarning();
 
                 // Assert
-                var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("warningMessage", exception.ParamName);
-            }
-        }
-
-        [Test]
-        [TestCase("random warning 123")]
-        [TestCase("")]
-        public void SetWarning_WithWarningMessage_SetsWarningMessageOnControl(string warningMessage)
-        {
-            // Setup
-            using (var resultControl = new TestAssemblyResultControl())
-            {
-                // Call
-                resultControl.SetWarning(warningMessage);
-
-                // Assert
-                ErrorProvider warningProvider = GetWarningProvider(resultControl);
-                Assert.AreEqual(warningMessage, warningProvider.GetError(resultControl));
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(resultControl);
+                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", manualAssemblyWarningProvider.GetError(resultControl));
             }
         }
 
         [Test]
         [TestCase(true, 24)]
         [TestCase(false, 4)]
-        public void GivenControlWithOrWithoutErrorMessage_WhenSetWarning_ThenWarningSetWithExpectedPadding(bool hasError, int expectedPadding)
+        public void GivenControlWithOrWithoutErrorMessage_WhenManualAssemblyWarningSet_ThenWarningSetWithExpectedPadding(bool hasError, int expectedPadding)
         {
             // Given
             using (var resultControl = new TestAssemblyResultControl())
@@ -154,22 +137,22 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 Assert.AreEqual(hasError, !string.IsNullOrEmpty(errorProvider.GetError(resultControl)));
 
                 // When
-                resultControl.SetWarning("Warning");
+                resultControl.SetManualAssemblyWarning();
 
                 // Then
-                ErrorProvider warningProvider = GetWarningProvider(resultControl);
-                Assert.AreEqual(expectedPadding, warningProvider.GetIconPadding(resultControl));
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(resultControl);
+                Assert.AreEqual(expectedPadding, manualAssemblyWarningProvider.GetIconPadding(resultControl));
             }
         }
 
         [Test]
-        public void GivenControlWithMessages_WhenClearMessages_ThenMessagesCleared()
+        public void GivenControlWithMessages_WhenMessagesCleared_ThenMessagesCleared()
         {
             // Given
             using (var resultControl = new TestAssemblyResultControl())
             {
                 resultControl.SetError("Error");
-                resultControl.SetWarning("Warning");
+                resultControl.SetManualAssemblyWarning();
 
                 // When
                 resultControl.ClearMessages();
@@ -178,8 +161,8 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
 
-                ErrorProvider warningProvider = GetWarningProvider(resultControl);
-                Assert.IsEmpty(warningProvider.GetError(resultControl));
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(resultControl);
+                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(resultControl));
             }
         }
 
@@ -192,7 +175,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
                 groupLabel.Text = "abcd";
                 groupLabel.BackColor = Color.Yellow;
-
+                
                 // Call
                 resultControl.ClearAssemblyResult();
 
@@ -207,9 +190,9 @@ namespace Ringtoets.Common.Forms.Test.Controls
             return TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
         }
 
-        private static ErrorProvider GetWarningProvider(AssemblyResultControl resultControl)
+        private static ErrorProvider GetManualAssemblyWarningProvider(AssemblyResultControl resultControl)
         {
-            return TypeUtils.GetField<ErrorProvider>(resultControl, "warningProvider");
+            return TypeUtils.GetField<ErrorProvider>(resultControl, "manualAssemblyWarningProvider");
         }
 
         private static TableLayoutPanel GetGroupPanel(AssemblyResultControl resultControl)

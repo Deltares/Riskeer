@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.Controls
             this.GroupPanel = new System.Windows.Forms.TableLayoutPanel();
             this.GroupLabel = new Core.Common.Controls.BorderedLabel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.manualAssemblyWarningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.GroupPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -97,9 +97,9 @@ namespace Ringtoets.Common.Forms.Controls
             // 
             // warningProvider
             // 
-            this.warningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.warningProvider.ContainerControl = this;
-            this.warningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.PencilWarning;
+            this.manualAssemblyWarningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.manualAssemblyWarningProvider.ContainerControl = this;
+            this.manualAssemblyWarningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.PencilWarning;
             // 
             // AssemblyResultControl
             // 
@@ -112,7 +112,7 @@ namespace Ringtoets.Common.Forms.Controls
             this.GroupPanel.ResumeLayout(false);
             this.GroupPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.manualAssemblyWarningProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -121,7 +121,7 @@ namespace Ringtoets.Common.Forms.Controls
         #endregion
         protected System.Windows.Forms.TableLayoutPanel GroupPanel;
         private System.Windows.Forms.ErrorProvider errorProvider;
-        private System.Windows.Forms.ErrorProvider warningProvider;
+        private System.Windows.Forms.ErrorProvider manualAssemblyWarningProvider;
         protected BorderedLabel GroupLabel;
     }
 }

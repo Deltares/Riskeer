@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Controls
 {
@@ -61,20 +62,12 @@ namespace Ringtoets.Common.Forms.Controls
         }
 
         /// <summary>
-        /// Sets the warning message of the control.
+        /// Sets a manual assembly warning message on the control.
         /// </summary>
-        /// <param name="warningMessage">The warning message to set.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="warningMessage"/>
-        /// is <c>null</c>.</exception>
-        public void SetWarning(string warningMessage)
+        public void SetManualAssemblyWarning()
         {
-            if (warningMessage == null)
-            {
-                throw new ArgumentNullException(nameof(warningMessage));
-            }
-
-            warningProvider.SetIconPadding(this, string.IsNullOrEmpty(errorProvider.GetError(this)) ? 4 : 24);
-            warningProvider.SetError(this, warningMessage);
+            manualAssemblyWarningProvider.SetIconPadding(this, string.IsNullOrEmpty(errorProvider.GetError(this)) ? 4 : 24);
+            manualAssemblyWarningProvider.SetError(this, Resources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies);
         }
 
         /// <summary>
@@ -83,7 +76,7 @@ namespace Ringtoets.Common.Forms.Controls
         public void ClearMessages()
         {
             errorProvider.SetError(this, string.Empty);
-            warningProvider.SetError(this, string.Empty);
+            manualAssemblyWarningProvider.SetError(this, string.Empty);
         }
 
         /// <summary>

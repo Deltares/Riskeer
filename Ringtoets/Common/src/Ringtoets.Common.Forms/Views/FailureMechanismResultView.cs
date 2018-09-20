@@ -211,7 +211,7 @@ namespace Ringtoets.Common.Forms.Views
 
             if (HasManualAssemblyResults())
             {
-                FailureMechanismAssemblyResultControl.SetWarning(Resources.FailureMechanismResultView_UpdateFailureMechanismAssemblyResultControl_FailureMechanismAssemblyResult_is_based_on_manual_assemblies);
+                FailureMechanismAssemblyResultControl.SetManualAssemblyWarning();
             }
         }
 

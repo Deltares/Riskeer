@@ -1464,7 +1464,7 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="StructuresInputFailureMechanismContext_ModelFactorLongThreshold_Description" xml:space="preserve">
     <value>Modelfactor voor een lange overlaat.</value>
   </data>
-  <data name="FailureMechanismResultView_UpdateFailureMechanismAssemblyResultControl_FailureMechanismAssemblyResult_is_based_on_manual_assemblies" xml:space="preserve">
+  <data name="ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies" xml:space="preserve">
     <value>Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.</value>
   </data>
   <data name="PencilWarning" type="System.Resources.ResXFileRef, System.Windows.Forms">

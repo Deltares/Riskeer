@@ -1773,16 +1773,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen..
-        /// </summary>
-        public static string FailureMechanismResultView_UpdateFailureMechanismAssemblyResultControl_FailureMechanismAssemblyResult_is_based_on_manual_assemblies {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_UpdateFailureMechanismAssemblyResultControl_FailureMec" +
-                        "hanismAssemblyResult_is_based_on_manual_assemblies", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Overschrijf
         ///toetsoordeel.
         /// </summary>
@@ -2510,6 +2500,16 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string LogNormalDistribution_VariationCoefficient_Description {
             get {
                 return ResourceManager.GetString("LogNormalDistribution_VariationCoefficient_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen..
+        /// </summary>
+        public static string ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies {
+            get {
+                return ResourceManager.GetString("ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblie" +
+                        "s", resourceCulture);
             }
         }
         

@@ -43,6 +43,7 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismResultViewTest
     {
+        private const string manualAssemblyWarning = "Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.";
         private Form testForm;
 
         private static IEnumerable<TestCaseData> CellFormattingStates
@@ -367,15 +368,15 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 // Precondition
                 TestAssemblyResultControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
-                ErrorProvider warningProvider = GetWarningProvider(resultControl);
-                Assert.IsEmpty(warningProvider.GetError(resultControl));
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(resultControl);
+                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(resultControl));
 
                 // When
                 view.HasManualSectionAssemblyResults = true;
                 sectionResult.NotifyObservers();
 
                 // Then
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningProvider.GetError(resultControl));
+                Assert.AreEqual(manualAssemblyWarning, manualAssemblyWarningProvider.GetError(resultControl));
             }
         }
 
@@ -397,8 +398,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
 
-                ErrorProvider warningProvider = GetWarningProvider(resultControl);
-                Assert.IsEmpty(warningProvider.GetError(resultControl));
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(resultControl);
+                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(resultControl));
 
                 // When
                 view.HasManualSectionAssemblyResults = true;
@@ -407,7 +408,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual("Message", errorProvider.GetError(resultControl));
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningProvider.GetError(resultControl));
+                Assert.AreEqual(manualAssemblyWarning, manualAssemblyWarningProvider.GetError(resultControl));
             }
         }
 
@@ -457,8 +458,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 Assert.AreEqual("Message", errorProvider.GetError(resultControl));
 
-                ErrorProvider warningProvider = GetWarningProvider(resultControl);
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningProvider.GetError(resultControl));
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(resultControl);
+                Assert.AreEqual(manualAssemblyWarning, manualAssemblyWarningProvider.GetError(resultControl));
 
                 // When
                 view.ThrowExceptionOnUpdate = false;
@@ -467,7 +468,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Then
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
-                Assert.IsEmpty(warningProvider.GetError(resultControl));
+                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(resultControl));
             }
         }
 
@@ -555,9 +556,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             return TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
         }
 
-        private static ErrorProvider GetWarningProvider(TestAssemblyResultControl resultControl)
+        private static ErrorProvider GetManualAssemblyWarningProvider(TestAssemblyResultControl resultControl)
         {
-            return TypeUtils.GetField<ErrorProvider>(resultControl, "warningProvider");
+            return TypeUtils.GetField<ErrorProvider>(resultControl, "manualAssemblyWarningProvider");
         }
 
         private static TestAssemblyResultControl GetFailureMechanismAssemblyCategoryGroupControl()
