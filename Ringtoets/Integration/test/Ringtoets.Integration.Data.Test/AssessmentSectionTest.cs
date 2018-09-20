@@ -119,8 +119,7 @@ namespace Ringtoets.Integration.Data.Test
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
 
-            Assert.AreEqual(0.58, assessmentSection.FailureProbabilityMarginFactor.Value);
-            Assert.AreEqual(2, assessmentSection.FailureProbabilityMarginFactor.NumberOfDecimalPlaces);
+            AssertFailureProbabilityMarginFactor(composition, assessmentSection);
         }
 
         [Test]
@@ -350,6 +349,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(relevancies[8], assessmentSection.StabilityPointStructures.IsRelevant);
             Assert.AreEqual(relevancies[9], assessmentSection.PipingStructure.IsRelevant);
             Assert.AreEqual(relevancies[10], assessmentSection.DuneErosion.IsRelevant);
+            AssertFailureProbabilityMarginFactor(composition, assessmentSection);
         }
 
         [Test]
@@ -471,7 +471,7 @@ namespace Ringtoets.Integration.Data.Test
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocations = new[]
+            TestHydraulicBoundaryLocation[] hydraulicBoundaryLocations =
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2
@@ -521,22 +521,18 @@ namespace Ringtoets.Integration.Data.Test
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De contributie van het nieuwe toetsspoor moet gelijk zijn aan het oude toetsspoor.");
         }
 
-        private static IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)
+        private static void AssertFailureProbabilityMarginFactor(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
         {
-            return new IFailureMechanism[]
+            Assert.AreEqual(2, assessmentSection.FailureProbabilityMarginFactor.NumberOfDecimalPlaces);
+
+            if (composition == AssessmentSectionComposition.Dune)
             {
-                section.Piping,
-                section.GrassCoverErosionInwards,
-                section.MacroStabilityInwards,
-                section.StabilityStoneCover,
-                section.WaveImpactAsphaltCover,
-                section.GrassCoverErosionOutwards,
-                section.HeightStructures,
-                section.ClosingStructures,
-                section.PipingStructure,
-                section.StabilityPointStructures,
-                section.DuneErosion
-            };
+                Assert.AreEqual(0, assessmentSection.FailureProbabilityMarginFactor.Value);
+            }
+            else
+            {
+                Assert.AreEqual(0.58, assessmentSection.FailureProbabilityMarginFactor.Value);
+            }
         }
 
         private static void AssertExpectedContributions(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
