@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -87,7 +88,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
-            using (var view = new AssemblyResultCategoriesView(assessmentSection, () => null))
+            using (var view = new AssemblyResultCategoriesView(assessmentSection, Enumerable.Empty<FailureMechanismAssemblyCategory>))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -105,7 +106,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection1 = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             var assessmentSection2 = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
-            using (var view = new AssemblyResultCategoriesView(assessmentSection1, () => null))
+            using (var view = new AssemblyResultCategoriesView(assessmentSection1, Enumerable.Empty<FailureMechanismAssemblyCategory>))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection2);
