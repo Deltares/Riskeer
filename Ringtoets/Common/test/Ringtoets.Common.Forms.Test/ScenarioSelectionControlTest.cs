@@ -184,7 +184,7 @@ namespace Ringtoets.Common.Forms.Test
                 CollectionAssert.AreEqual(
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         calculationA.ToString()
                     },
                     cellA.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>().Select(r => r.DisplayName));
@@ -193,7 +193,7 @@ namespace Ringtoets.Common.Forms.Test
                 CollectionAssert.AreEqual(
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         calculationB.ToString()
                     },
                     cellB.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>().Select(r => r.DisplayName));

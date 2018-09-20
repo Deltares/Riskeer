@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items.Count);
                 Assert.AreEqual("PK001_0001_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items.Count);
-                Assert.AreEqual("<geen>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("<selecteer>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
 
                 // Import hydraulic boundary locations and ensure the corresponding combobox items are updated
                 DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection);
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.Integration.Test
 
                 listBox.SelectedItem = assessmentSection.Piping.Sections.First(s => s.Name == "6-3_19");
                 Assert.AreEqual("PK001_0002_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
-                Assert.AreEqual("<geen>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("<selecteer>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
                 Assert.AreEqual(GetFormattedProbabilityValue(0), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
                 listBox.SelectedItem = assessmentSection.Piping.Sections.First(s => s.Name == "6-3_16");
@@ -204,8 +204,8 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
                 listBox.SelectedItem = assessmentSection.Piping.Sections.First(s => s.Name == "6-3_8");
-                Assert.AreEqual("<geen>", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
-                Assert.AreEqual("<geen>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("<selecteer>", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("<selecteer>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
                 Assert.AreEqual(GetFormattedProbabilityValue(0), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
             }
         }

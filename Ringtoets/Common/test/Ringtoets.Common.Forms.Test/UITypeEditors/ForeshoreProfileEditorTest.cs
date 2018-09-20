@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
 
             // Assert
             Assert.IsInstanceOf<ForeshoreProfile>(editor.PublicNullItem);
-            Assert.AreEqual("<geen>", editor.PublicNullItem.Name);
+            Assert.AreEqual("<selecteer>", editor.PublicNullItem.Name);
         }
 
         [Test]

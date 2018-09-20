@@ -51,7 +51,7 @@ namespace Core.Common.Controls.Test.DataGrid
             var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(null);
 
             // Assert
-            Assert.AreEqual("<geen>", dataGridViewComboBoxItemWrapper.DisplayName);
+            Assert.AreEqual("<selecteer>", dataGridViewComboBoxItemWrapper.DisplayName);
             Assert.IsNull(dataGridViewComboBoxItemWrapper.WrappedObject);
             Assert.AreEqual(dataGridViewComboBoxItemWrapper, dataGridViewComboBoxItemWrapper.This);
         }

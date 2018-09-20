@@ -123,12 +123,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationA"
                     },
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationB"
                     }
                 });
@@ -170,12 +170,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationA"
                     },
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationB"
                     }
                 });
@@ -225,17 +225,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationA"
                     },
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationB"
                     },
                     new[]
                     {
-                        "<geen>"
+                        "<selecteer>"
                     }
                 });
             }
@@ -264,11 +264,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     new[]
                     {
-                        "<geen>"
+                        "<selecteer>"
                     },
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationA",
                         "CalculationB"
                     }
@@ -307,12 +307,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationA"
                     },
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationB",
                         "CalculationC"
                     }
