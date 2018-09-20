@@ -299,7 +299,8 @@ namespace Core.Common.Controls.DataGrid
                 Name = string.Format(CultureInfo.InvariantCulture,
                                      "column_{0}",
                                      dataPropertyName),
-                AutoSizeMode = autoSizeMode
+                AutoSizeMode = autoSizeMode,
+                FlatStyle = FlatStyle.Flat
             };
 
             if (dataSource != null)

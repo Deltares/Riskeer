@@ -429,6 +429,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.IsEmpty(columnData.DisplayMember);
                 Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
+                Assert.AreEqual(FlatStyle.Flat, columnData.FlatStyle);
             }
         }
 
@@ -462,6 +463,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.IsEmpty(columnData.DisplayMember);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
+                Assert.AreEqual(FlatStyle.Flat, columnData.FlatStyle);
             }
         }
 
@@ -506,6 +508,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
+                Assert.AreEqual(FlatStyle.Flat, columnData.FlatStyle);
             }
         }
 
