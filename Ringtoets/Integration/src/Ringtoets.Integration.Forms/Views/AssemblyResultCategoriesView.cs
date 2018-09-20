@@ -39,7 +39,6 @@ namespace Ringtoets.Integration.Forms.Views
     {
         private readonly Func<IEnumerable<FailureMechanismAssemblyCategory>> getAssemblyCategoriesFunc;
 
-        private readonly Observer assessmentSectionObserver;
         private readonly Observer failureMechanismContributionObserver;
 
         /// <summary>
@@ -66,11 +65,6 @@ namespace Ringtoets.Integration.Forms.Views
 
             InitializeComponent();
 
-            assessmentSectionObserver = new Observer(UpdateTableData)
-            {
-                Observable = assessmentSection
-            };
-
             failureMechanismContributionObserver = new Observer(UpdateTableData)
             {
                 Observable = assessmentSection.FailureMechanismContribution
@@ -87,7 +81,6 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (disposing)
             {
-                assessmentSectionObserver.Dispose();
                 failureMechanismContributionObserver.Dispose();
                 components?.Dispose();
             }
