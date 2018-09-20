@@ -77,6 +77,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const string failureMechanismsWithProbabilityControlName = "failureMechanismsWithProbabilityAssemblyControl";
         private const string failureMechanismsWithoutProbabilityControlName = "failureMechanismsWithoutProbabilityAssemblyControl";
         private const string assemblyResultOutdatedWarning = "Toetsoordeel is verouderd. Druk op de \"Toetsoordeel verversen\" knop om opnieuw te berekenen.";
+        private const string assemblyResultManualWarning = "Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.";
         private Form testForm;
 
         private static IEnumerable<TestCaseData> CellFormattingStates
@@ -151,14 +152,20 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<FailureMechanismAssemblyControl>(tableLayoutPanel.GetControlFromPosition(1, 1));
                 Assert.IsInstanceOf<FailureMechanismAssemblyCategoryGroupControl>(tableLayoutPanel.GetControlFromPosition(1, 2));
 
-                var datagridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
-                Assert.AreEqual(DockStyle.Fill, datagridViewControl.Dock);
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
+                Assert.AreEqual(DockStyle.Fill, dataGridViewControl.Dock);
 
                 ErrorProvider warningProvider = GetWarningProvider(view);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, warningProvider.BlinkStyle);
-                Assert.IsEmpty(warningProvider.GetError(view));
+                Assert.IsEmpty(warningProvider.GetError(button));
                 Assert.AreEqual(4, warningProvider.GetIconPadding(button));
+
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(view);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.PencilWarning.ToBitmap(), manualAssemblyWarningProvider.Icon.ToBitmap());
+                Assert.AreEqual(ErrorBlinkStyle.NeverBlink, manualAssemblyWarningProvider.BlinkStyle);
+                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(button));
+                Assert.AreEqual(4, manualAssemblyWarningProvider.GetIconPadding(button));
 
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<UserControl>(view);
@@ -540,6 +547,91 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreNotSame(dataSource, dataGridView.DataSource);
                 Assert.AreEqual(view.AssessmentSection.GetFailureMechanisms().Count(), rows.Count);
                 AssertAssemblyCells(view.AssessmentSection.Piping, FailureMechanismAssemblyCategoryGroup.NotApplicable, rows[0].Cells);
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenFormWithAssemblyResultTotalViewWithManualAssembly_ThenExpectedWarningSet(bool hasManualAssembly)
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+            failureMechanism.SectionResults.Single().UseManualAssemblyProbability = hasManualAssembly;
+
+            // When
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Then 
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Button button = buttonTester.Properties;
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(view);
+                Assert.AreEqual(hasManualAssembly ? assemblyResultManualWarning : string.Empty, manualAssemblyWarningProvider.GetError(button));
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenFormWithAssemblyResultTotalViewWithManualAssembly_WhenAssessmentSectionNotifiesObservers_ThenWarningsSet(
+            bool hasManualAssembly)
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+            failureMechanism.SectionResults.Single().UseManualAssemblyProbability = hasManualAssembly;
+
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Button button = buttonTester.Properties;
+                Assert.IsFalse(button.Enabled);
+                ErrorProvider warningProvider = GetWarningProvider(view);
+                Assert.IsEmpty(warningProvider.GetError(button));
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(view);
+                string expectedManualAssemblyWarning = hasManualAssembly ? assemblyResultManualWarning : string.Empty;
+                Assert.AreEqual(4, manualAssemblyWarningProvider.GetIconPadding(button));
+                Assert.AreEqual(expectedManualAssemblyWarning, manualAssemblyWarningProvider.GetError(button));
+
+                // When
+                assessmentSection.NotifyObservers();
+
+                // Then 
+                Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
+                Assert.AreEqual(expectedManualAssemblyWarning, manualAssemblyWarningProvider.GetError(button));
+                Assert.AreEqual(24, manualAssemblyWarningProvider.GetIconPadding(button));
+            }
+        }
+
+        [Test]
+        public void GivenAssemblyResultTotalViewAssessmentSectionObserversNotified_WhenRefreshingAssemblyResults_ThenWarningAndPaddingSet()
+        {
+            // Given
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
+            {
+                AssessmentSection assessmentSection = view.AssessmentSection;
+                PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+                failureMechanism.SectionResults.Single().UseManualAssemblyProbability = true;
+                assessmentSection.NotifyObservers();
+
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Button button = buttonTester.Properties;
+                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(view);
+                Assert.AreEqual(24, manualAssemblyWarningProvider.GetIconPadding(button));
+
+                // When
+                buttonTester.Click();
+
+                // Then
+                Assert.AreEqual(4, manualAssemblyWarningProvider.GetIconPadding(button));
+                Assert.AreEqual(assemblyResultManualWarning, manualAssemblyWarningProvider.GetError(button));
             }
         }
 
@@ -1098,6 +1190,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private static ErrorProvider GetWarningProvider(AssemblyResultTotalView resultControl)
         {
             return TypeUtils.GetField<ErrorProvider>(resultControl, "warningProvider");
+        }
+
+        private static ErrorProvider GetManualAssemblyWarningProvider(AssemblyResultTotalView resultControl)
+        {
+            return TypeUtils.GetField<ErrorProvider>(resultControl, "manualAssemblyWarningProvider");
         }
 
         #endregion

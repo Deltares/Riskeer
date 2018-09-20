@@ -103,6 +103,7 @@ namespace Ringtoets.Integration.Forms.Views
             base.OnLoad(e);
 
             InitializeDataGridView();
+            CheckManualAssemblyResults();
             UpdateAssemblyResultControls();
 
             dataGridViewControl.CellFormatting += HandleCellStyling;
@@ -127,6 +128,7 @@ namespace Ringtoets.Integration.Forms.Views
                 refreshAssemblyResultsButton.Enabled = true;
                 warningProvider.SetError(refreshAssemblyResultsButton,
                                          Resources.AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate);
+                SetManualAssemblyWarningPadding();
             }
         }
 
@@ -185,8 +187,9 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
         {
-            refreshAssemblyResultsButton.Enabled = false;
-            warningProvider.SetError(refreshAssemblyResultsButton, string.Empty);
+            ResetRefreshAssemblyResultsButton();
+
+            CheckManualAssemblyResults();
 
             if (updateDataSource)
             {
@@ -199,6 +202,28 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             UpdateAssemblyResultControls();
+        }
+
+        private void CheckManualAssemblyResults()
+        {
+            if (AssessmentSectionHelper.HasManualAssemblyResults(AssessmentSection))
+            {
+                SetManualAssemblyWarningPadding();
+                manualAssemblyWarningProvider.SetError(refreshAssemblyResultsButton,
+                                                       RingtoetsCommonFormsResources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies);
+            }
+        }
+
+        private void SetManualAssemblyWarningPadding()
+        {
+            manualAssemblyWarningProvider.SetIconPadding(refreshAssemblyResultsButton, string.IsNullOrEmpty(warningProvider.GetError(refreshAssemblyResultsButton)) ? 4 : 24);
+        }
+
+        private void ResetRefreshAssemblyResultsButton()
+        {
+            refreshAssemblyResultsButton.Enabled = false;
+            warningProvider.SetError(refreshAssemblyResultsButton, string.Empty);
+            manualAssemblyWarningProvider.SetError(refreshAssemblyResultsButton, string.Empty);
         }
 
         private void UpdateAssemblyResultControls()
