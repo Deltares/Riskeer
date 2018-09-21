@@ -40,12 +40,12 @@ namespace Ringtoets.Migration.Core.TestUtil.Test
         public void GetLatestProjectFilePath_Always_ReturnsProjectFilePathToLatestProjectVersion()
         {
             // Call
-            string latestProjectfilePath = RingtoetsProjectMigrationTestHelper.GetLatestProjectFilePath();
+            string latestProjectFilePath = RingtoetsProjectMigrationTestHelper.GetLatestProjectFilePath();
 
             // Assert
-            AssertFilePath(latestProjectfilePath);
+            AssertFilePath(latestProjectFilePath);
 
-            var versionedFile = new RingtoetsVersionedFile(latestProjectfilePath);
+            var versionedFile = new RingtoetsVersionedFile(latestProjectFilePath);
             string actualTestProjectVersion = versionedFile.GetVersion();
             string assertionMessage = $"Database version {actualTestProjectVersion} of the testproject must match with the current database version {currentDatabaseVersion}.";
             Assert.AreEqual(currentDatabaseVersion, actualTestProjectVersion, assertionMessage);
@@ -55,10 +55,10 @@ namespace Ringtoets.Migration.Core.TestUtil.Test
         public void GetLatestProjectFilePath_Always_ReturnsProjectThatCanBeLoaded()
         {
             // Setup
-            string latestProjectfilePath = RingtoetsProjectMigrationTestHelper.GetLatestProjectFilePath();
+            string latestProjectFilePath = RingtoetsProjectMigrationTestHelper.GetLatestProjectFilePath();
 
             // Call
-            IProject project = new StorageSqLite().LoadProject(latestProjectfilePath);
+            IProject project = new StorageSqLite().LoadProject(latestProjectFilePath);
 
             // Assert
             Assert.IsNotNull(project);
