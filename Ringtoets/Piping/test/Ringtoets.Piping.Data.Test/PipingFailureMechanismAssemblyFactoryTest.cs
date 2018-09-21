@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleSimpleAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -303,7 +303,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleDetailedAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
