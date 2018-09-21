@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Builders;
@@ -184,7 +185,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         protected override bool HasManualAssemblyResults()
         {
-            return MacroStabilityInwardsFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+            return HasSectionResultsHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

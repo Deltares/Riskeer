@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
@@ -186,7 +187,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         protected override bool HasManualAssemblyResults()
         {
-            return StabilityPointStructuresFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+            return HasSectionResultsHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

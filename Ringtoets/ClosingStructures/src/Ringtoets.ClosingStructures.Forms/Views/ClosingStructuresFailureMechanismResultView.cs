@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
@@ -184,7 +185,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
         protected override bool HasManualAssemblyResults()
         {
-            return ClosingStructuresFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+            return HasSectionResultsHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

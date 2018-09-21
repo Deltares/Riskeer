@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
-using Ringtoets.Integration.Data.StandAlone.Helpers;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -123,7 +123,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         protected override bool HasManualAssemblyResults()
         {
-            return PipingStructureFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+            return HasSectionResultsHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

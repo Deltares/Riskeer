@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Builders;
@@ -183,7 +184,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         protected override bool HasManualAssemblyResults()
         {
-            return PipingFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
+            return HasSectionResultsHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }
