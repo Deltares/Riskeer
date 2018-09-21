@@ -57,7 +57,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                     new Point2D(0, 0)
                 })
             });
-            failureMechanism.SectionResults.First().UseManualAssemblyProbability = true;
+            failureMechanism.SectionResults.First().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = StabilityPointStructuresFailureMechanismHelper.HasManualAssemblyResults(failureMechanism);

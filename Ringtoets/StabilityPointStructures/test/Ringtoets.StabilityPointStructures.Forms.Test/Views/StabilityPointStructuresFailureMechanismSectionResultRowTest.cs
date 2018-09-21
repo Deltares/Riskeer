@@ -173,7 +173,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
                 Assert.AreEqual(row.TailorMadeAssessmentProbability, result.TailorMadeAssessmentProbability);
-                Assert.AreEqual(result.UseManualAssemblyProbability, row.UseManualAssemblyProbability);
+                Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
                 Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
 
                 TestHelper.AssertTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
@@ -343,7 +343,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void UseManualAssemblyProbability_SetNewValue_NotifyObserversAndPropertyChanged()
+        public void UseManualAssembly_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -362,14 +362,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
                     result, failureMechanism, assessmentSection, ConstructionProperties);
-                bool originalValue = result.UseManualAssemblyProbability;
+                bool originalValue = result.UseManualAssembly;
                 bool newValue = !originalValue;
 
                 // Call
-                row.UseManualAssemblyProbability = newValue;
+                row.UseManualAssembly = newValue;
 
                 // Assert
-                Assert.AreEqual(newValue, result.UseManualAssemblyProbability);
+                Assert.AreEqual(newValue, result.UseManualAssembly);
                 mocks.VerifyAll();
             }
         }
@@ -572,7 +572,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_WithUseManualAssemblyProbability_ExpectedColumnStates(bool useManualAssemblyProbability)
+        public void Constructor_WithUseManualAssembly_ExpectedColumnStates(bool useManualAssembly)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -586,7 +586,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             {
                 Calculation = CreateCalculationWithOutput(),
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
-                UseManualAssemblyProbability = useManualAssemblyProbability
+                UseManualAssembly = useManualAssembly
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -599,17 +599,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex],
-                                                                                     !useManualAssemblyProbability);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex],
-                                                                                     !useManualAssemblyProbability);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
-                                                                                     !useManualAssemblyProbability, true);
+                                                                                     !useManualAssembly, true);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
-                                                                                     !useManualAssemblyProbability);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex],
-                                                                                     !useManualAssemblyProbability);
+                                                                                     !useManualAssembly);
 
-                if (useManualAssemblyProbability)
+                if (useManualAssembly)
                 {
                     DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateIsDisabled(
                         columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
@@ -622,9 +622,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 }
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.CombinedAssemblyProbabilityIndex],
-                                                                                     !useManualAssemblyProbability, true);
+                                                                                     !useManualAssembly, true);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex],
-                                                                                     useManualAssemblyProbability);
+                                                                                     useManualAssembly);
 
                 mocks.VerifyAll();
             }
@@ -824,7 +824,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new TestStabilityPointStructuresCalculation(),
-                UseManualAssemblyProbability = true
+                UseManualAssembly = true
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())

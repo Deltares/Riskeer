@@ -96,7 +96,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the indicator whether the combined assembly
         /// should be overwritten by <see cref="ManualAssemblyProbability"/>.
         /// </summary>
-        public bool UseManualAssemblyProbability { get; set; }
+        public bool UseManualAssembly { get; set; }
 
         /// <summary>
         /// Gets or sets the manually set assembly probability.
