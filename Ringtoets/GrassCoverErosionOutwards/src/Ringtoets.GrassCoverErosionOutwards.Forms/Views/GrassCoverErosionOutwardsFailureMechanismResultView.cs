@@ -128,9 +128,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 DataGridViewControl,
                 nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.UseManualAssemblyCategoryGroup));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(
                 DataGridViewControl,

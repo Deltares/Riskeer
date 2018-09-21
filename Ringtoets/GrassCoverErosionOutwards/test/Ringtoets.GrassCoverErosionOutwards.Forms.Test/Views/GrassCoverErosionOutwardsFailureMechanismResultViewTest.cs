@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         private const int detailedAssemblyCategoryGroupIndex = 9;
         private const int tailorMadeAssemblyCategoryGroupIndex = 10;
         private const int combinedAssemblyCategoryGroupIndex = 11;
-        private const int useManualAssemblyCategoryGroupIndex = 12;
+        private const int useManualAssemblyIndex = 12;
         private const int manualAssemblyCategoryGroupIndex = 13;
         private const int columnCount = 14;
 
@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[combinedAssemblyCategoryGroupIndex]);
-                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[useManualAssemblyCategoryGroupIndex]);
+                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[useManualAssemblyIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[manualAssemblyCategoryGroupIndex]);
 
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
@@ -130,7 +130,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.AreEqual("Toetsoordeel\r\ngedetailleerde toets per vak", dataGridView.Columns[detailedAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\ntoets op maat", dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\ngecombineerd", dataGridView.Columns[combinedAssemblyCategoryGroupIndex].HeaderText);
-                Assert.AreEqual("Overschrijf\r\ntoetsoordeel", dataGridView.Columns[useManualAssemblyCategoryGroupIndex].HeaderText);
+                Assert.AreEqual("Overschrijf\r\ntoetsoordeel", dataGridView.Columns[useManualAssemblyIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\nhandmatig", dataGridView.Columns[manualAssemblyCategoryGroupIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
@@ -172,7 +172,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.AreEqual("IIv", cells[detailedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("Iv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("Iv", cells[combinedAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual(false, cells[useManualAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual(false, cells[useManualAssemblyIndex].Value);
                 Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
             }
         }
@@ -183,7 +183,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.First().UseManualAssembly = true;
 
             using (var form = new Form())
             using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults,
@@ -209,7 +209,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Given
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.First().UseManualAssembly = true;
 
             using (var form = new Form())
             using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults,
@@ -225,7 +225,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl));
 
                 // When
-                failureMechanism.SectionResults.ForEachElementDo(sr => sr.UseManualAssemblyCategoryGroup = false);
+                failureMechanism.SectionResults.ForEachElementDo(sr => sr.UseManualAssembly = false);
                 failureMechanism.NotifyObservers();
 
                 // Assert
@@ -246,7 +246,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
 
             // When
             using (new AssemblyToolCalculatorFactoryConfig())

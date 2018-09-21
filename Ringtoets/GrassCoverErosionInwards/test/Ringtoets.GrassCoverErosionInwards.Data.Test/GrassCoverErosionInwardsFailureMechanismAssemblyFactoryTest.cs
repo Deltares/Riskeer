@@ -761,7 +761,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
             };
 
@@ -798,7 +798,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var random = new Random(39);
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = random.NextDouble(),
                 TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
                 TailorMadeAssessmentProbability = random.NextDouble()
@@ -866,7 +866,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
             };
 
@@ -903,7 +903,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
             };
 
@@ -940,7 +940,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = useManualAssembly
+                UseManualAssembly = useManualAssembly
             };
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
@@ -1084,7 +1084,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
             GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
@@ -1122,7 +1122,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
             GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();

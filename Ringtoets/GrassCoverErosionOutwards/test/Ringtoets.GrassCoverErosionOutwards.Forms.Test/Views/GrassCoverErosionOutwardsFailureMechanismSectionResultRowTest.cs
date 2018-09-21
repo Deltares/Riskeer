@@ -89,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.AreEqual(result.DetailedAssessmentResultForLowerLimitNorm, row.DetailedAssessmentResultForLowerLimitNorm);
                 Assert.AreEqual(result.DetailedAssessmentResultForFactorizedLowerLimitNorm, row.DetailedAssessmentResultForFactorizedLowerLimitNorm);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
-                Assert.AreEqual(result.UseManualAssemblyCategoryGroup, row.UseManualAssemblyCategoryGroup);
+                Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
                 Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(result.ManualAssemblyCategoryGroup),
                                 row.ManualAssemblyCategoryGroup);
 
@@ -173,7 +173,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void UseManualAssemblyCategoryGroup_SetNewValue_NotifyObserversAndPropertyChanged()
+        public void UseManualAssembly_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
             var mocks = new MockRepository();
@@ -185,20 +185,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            bool newValue = !result.UseManualAssemblyCategoryGroup;
+            bool newValue = !result.UseManualAssembly;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
 
                 // Precondition
-                Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+                Assert.IsFalse(result.UseManualAssembly);
 
                 // Call
-                row.UseManualAssemblyCategoryGroup = newValue;
+                row.UseManualAssembly = newValue;
 
                 // Assert
-                Assert.AreEqual(newValue, result.UseManualAssemblyCategoryGroup);
+                Assert.AreEqual(newValue, result.UseManualAssembly);
                 mocks.VerifyAll();
             }
         }
@@ -356,13 +356,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_WithUseManualAssemblyCategoryGroupSet_ExpectedColumnStates(bool useManualAssemblyCategoryGroup)
+        public void Constructor_WithUseManualAssemblySet_ExpectedColumnStates(bool useManualAssembly)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section)
             {
-                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup
+                UseManualAssembly = useManualAssembly
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -374,21 +374,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForFactorizedSignalingNormIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForSignalingNormIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForLowerLimitNormIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForFactorizedLowerLimitNormIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
 
-                if (useManualAssemblyCategoryGroup)
+                if (useManualAssembly)
                 {
                     DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateIsDisabled(
                         columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
@@ -401,7 +401,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 }
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex],
-                                                                                     useManualAssemblyCategoryGroup);
+                                                                                     useManualAssembly);
             }
         }
 

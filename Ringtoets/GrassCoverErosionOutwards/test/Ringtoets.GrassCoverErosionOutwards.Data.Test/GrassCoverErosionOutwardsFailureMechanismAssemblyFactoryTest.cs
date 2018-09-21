@@ -496,7 +496,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             // Setup
             var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyCategoryGroup = true,
+                UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
             };
 
@@ -516,7 +516,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var random = new Random(39);
             var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyCategoryGroup = true,
+                UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                 TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>()
             };
@@ -623,7 +623,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
             GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -649,7 +649,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
             GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIv;
 
             using (new AssemblyToolCalculatorFactoryConfig())

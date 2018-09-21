@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.FileImporters
                 DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = DetailedAssessmentResultType.Sufficient,
                 DetailedAssessmentResultForFactorizedLowerLimitNorm = DetailedAssessmentResultType.Sufficient,
                 TailorMadeAssessmentResult = TailorMadeAssessmentCategoryGroupResultType.IIIv,
-                UseManualAssemblyCategoryGroup = true,
+                UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.VIv
             };
         }
@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, targetResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
             Assert.AreEqual(originResult.DetailedAssessmentResultForFactorizedLowerLimitNorm, targetResult.DetailedAssessmentResultForFactorizedLowerLimitNorm);
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);
-            Assert.AreEqual(originResult.UseManualAssemblyCategoryGroup, targetResult.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(originResult.UseManualAssembly, targetResult.UseManualAssembly);
             Assert.AreEqual(originResult.ManualAssemblyCategoryGroup, targetResult.ManualAssemblyCategoryGroup);
         }
     }

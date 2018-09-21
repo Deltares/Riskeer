@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return failureMechanism.SectionResults.Any(sr => sr.UseManualAssemblyProbability);
+            return failureMechanism.SectionResults.Any(sr => sr.UseManualAssembly);
         }
     }
 }
