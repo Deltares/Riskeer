@@ -63,6 +63,12 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionRow.Name),
                                                                          Resources.FailureMechanismSection_Name_DisplayName,
                                                                          true);
+            failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionRow.SectionStart),
+                                                                         Resources.SectionStartDistance_DisplayName,
+                                                                         true);
+            failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionRow.SectionEnd),
+                                                                         Resources.SectionEndDistance_DisplayName,
+                                                                         true);
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionRow.Length),
                                                                          Resources.FailureMechanismSection_Length_Rounded_DisplayName,
                                                                          true);

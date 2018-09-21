@@ -40,9 +40,12 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismSectionsProbabilityAssessmentViewTest
     {
+        private const int columnCount = 5;
         private const int nameColumnIndex = 0;
-        private const int lengthColumnIndex = 1;
-        private const int lengthEffectColumnIndex = 2;
+        private const int sectionStartColumnIndex = 1;
+        private const int sectionEndColumnIndex = 2;
+        private const int lengthColumnIndex = 3;
+        private const int lengthEffectColumnIndex = 4;
 
         private Form testForm;
 
@@ -107,14 +110,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.NotNull(sectionsDataGridViewControl);
                 Assert.AreEqual(DockStyle.Fill, sectionsDataGridViewControl.Dock);
 
-                DataGridViewColumn nameColumn = sectionsDataGridViewControl.GetColumnFromIndex(nameColumnIndex);
-                Assert.AreEqual("Vaknaam", nameColumn.HeaderText);
-                DataGridViewColumn lengthColumn = sectionsDataGridViewControl.GetColumnFromIndex(lengthColumnIndex);
-                Assert.AreEqual("Lengte* [m]", lengthColumn.HeaderText);
-                DataGridViewColumn lengthEffectColumn = sectionsDataGridViewControl.GetColumnFromIndex(lengthEffectColumnIndex);
-                Assert.AreEqual("Nvak* [-]", lengthEffectColumn.HeaderText);
+                DataGridView dataGridView = GetSectionsDataGridView(view);
 
-                Assert.Throws<ArgumentOutOfRangeException>(() => sectionsDataGridViewControl.GetColumnFromIndex(lengthEffectColumnIndex + 1));
+                Assert.AreEqual(columnCount, dataGridView.ColumnCount);
+                Assert.AreEqual("Vaknaam", dataGridView.Columns[nameColumnIndex].HeaderText);
+                Assert.AreEqual("Metrering* van [m]", dataGridView.Columns[sectionStartColumnIndex].HeaderText);
+                Assert.AreEqual("Metrering* tot [m]", dataGridView.Columns[sectionEndColumnIndex].HeaderText);
+                Assert.AreEqual("Lengte* [m]", dataGridView.Columns[lengthColumnIndex].HeaderText);
+                Assert.AreEqual("Nvak* [-]", dataGridView.Columns[lengthEffectColumnIndex].HeaderText);
             }
 
             mocks.VerifyAll();

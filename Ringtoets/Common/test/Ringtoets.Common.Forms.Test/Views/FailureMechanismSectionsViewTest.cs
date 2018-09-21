@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -39,8 +38,11 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismSectionsViewTest
     {
+        private const int columnCount = 4;
         private const int nameColumnIndex = 0;
-        private const int lengthColumnIndex = 1;
+        private const int sectionStartColumnIndex = 1;
+        private const int sectionEndColumnIndex = 2;
+        private const int lengthColumnIndex = 3;
 
         private Form testForm;
 
@@ -97,12 +99,13 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.NotNull(sectionsDataGridViewControl);
                 Assert.AreEqual(DockStyle.Fill, sectionsDataGridViewControl.Dock);
 
-                DataGridViewColumn nameColumn = sectionsDataGridViewControl.GetColumnFromIndex(nameColumnIndex);
-                Assert.AreEqual("Vaknaam", nameColumn.HeaderText);
-                DataGridViewColumn lengthColumn = sectionsDataGridViewControl.GetColumnFromIndex(lengthColumnIndex);
-                Assert.AreEqual("Lengte* [m]", lengthColumn.HeaderText);
+                DataGridView dataGridView = GetSectionsDataGridView(view);
 
-                Assert.Throws<ArgumentOutOfRangeException>(() => sectionsDataGridViewControl.GetColumnFromIndex(lengthColumnIndex + 1));
+                Assert.AreEqual(columnCount, dataGridView.ColumnCount);
+                Assert.AreEqual("Vaknaam", dataGridView.Columns[nameColumnIndex].HeaderText);
+                Assert.AreEqual("Metrering* van [m]", dataGridView.Columns[sectionStartColumnIndex].HeaderText);
+                Assert.AreEqual("Metrering* tot [m]", dataGridView.Columns[sectionEndColumnIndex].HeaderText);
+                Assert.AreEqual("Lengte* [m]", dataGridView.Columns[lengthColumnIndex].HeaderText);
             }
 
             mocks.VerifyAll();
