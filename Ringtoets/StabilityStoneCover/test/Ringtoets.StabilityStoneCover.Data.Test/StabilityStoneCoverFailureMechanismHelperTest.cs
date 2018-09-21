@@ -57,7 +57,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
                     new Point2D(0, 0)
                 })
             });
-            failureMechanism.SectionResults.First().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.First().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = StabilityStoneCoverFailureMechanismHelper.HasManualAssemblyResults(failureMechanism);

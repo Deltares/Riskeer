@@ -127,9 +127,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                 DataGridViewControl,
                 nameof(StabilityStoneCoverSectionResultRow.CombinedAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.UseManualAssemblyCategoryGroup));
+                nameof(StabilityStoneCoverSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(
                 DataGridViewControl,

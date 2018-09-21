@@ -51,7 +51,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.FileImporters
             target.DetailedAssessmentResultForLowerLimitNorm = origin.DetailedAssessmentResultForLowerLimitNorm;
             target.DetailedAssessmentResultForFactorizedLowerLimitNorm = origin.DetailedAssessmentResultForFactorizedLowerLimitNorm;
             target.TailorMadeAssessmentResult = origin.TailorMadeAssessmentResult;
-            target.UseManualAssemblyCategoryGroup = origin.UseManualAssemblyCategoryGroup;
+            target.UseManualAssembly = origin.UseManualAssembly;
             target.ManualAssemblyCategoryGroup = origin.ManualAssemblyCategoryGroup;
         }
     }
