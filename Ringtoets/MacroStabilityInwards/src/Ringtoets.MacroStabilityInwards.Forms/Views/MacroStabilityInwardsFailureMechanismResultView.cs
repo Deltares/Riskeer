@@ -168,9 +168,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 DataGridViewControl,
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.UseManualAssemblyProbability));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
