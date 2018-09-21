@@ -73,9 +73,18 @@ namespace Ringtoets.Common.Forms.Views
         {
             currentA = probabilityAssessmentInput.A;
 
-            failureMechanismSectionsDataGridViewControl.SetDataSource(
-                sections.Select(section => new FailureMechanismSectionProbabilityAssessmentRow(section, probabilityAssessmentInput))
-                        .ToArray());
+            var rows = new List<FailureMechanismSectionProbabilityAssessmentRow>();
+            double startDistance = 0;
+            foreach (FailureMechanismSection section in sections)
+            {
+                double endDistance = startDistance + section.Length;
+
+                rows.Add(new FailureMechanismSectionProbabilityAssessmentRow(section, startDistance, endDistance, probabilityAssessmentInput));
+
+                startDistance = endDistance;
+            }
+
+            failureMechanismSectionsDataGridViewControl.SetDataSource(rows);
         }
 
         protected override void Dispose(bool disposing)

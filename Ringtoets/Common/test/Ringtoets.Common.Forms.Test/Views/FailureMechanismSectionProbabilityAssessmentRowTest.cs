@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             FailureMechanismSection section = GetTestFailureMechanismSection();
 
             // Call
-            TestDelegate test = () => new FailureMechanismSectionProbabilityAssessmentRow(section, null);
+            TestDelegate test = () => new FailureMechanismSectionProbabilityAssessmentRow(section, double.NaN, double.NaN, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -53,15 +53,21 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var random = new Random(39);
             FailureMechanismSection section = GetTestFailureMechanismSection();
+            double sectionStart = random.NextDouble();
+            double sectionEnd = random.NextDouble();
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
 
             // Call
-            var sectionRow = new FailureMechanismSectionProbabilityAssessmentRow(section, probabilityAssessmentInput);
+            var sectionRow = new FailureMechanismSectionProbabilityAssessmentRow(section, sectionStart, sectionEnd, probabilityAssessmentInput);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionRow>(sectionRow);
 
             Assert.AreEqual(section.Name, sectionRow.Name);
+
+            Assert.AreEqual(sectionStart, sectionRow.SectionStart, sectionRow.SectionStart.GetAccuracy());
+            Assert.AreEqual(sectionEnd, sectionRow.SectionEnd, sectionRow.SectionEnd.GetAccuracy());
+
             Assert.AreEqual(section.Length, sectionRow.Length, sectionRow.Length.GetAccuracy());
 
             Assert.AreEqual(2, sectionRow.N.NumberOfDecimalPlaces);
@@ -75,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var random = new Random(39);
             FailureMechanismSection section = GetTestFailureMechanismSection();
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
-            var sectionRow = new FailureMechanismSectionProbabilityAssessmentRow(section, probabilityAssessmentInput);
+            var sectionRow = new FailureMechanismSectionProbabilityAssessmentRow(section, double.NaN, double.NaN, probabilityAssessmentInput);
 
             // Precondition
             AssertLengthEffect(probabilityAssessmentInput, section, sectionRow);

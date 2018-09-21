@@ -309,18 +309,28 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             Assert.AreEqual(sections.Length, sectionsDataGridViewControl.Rows.Count);
 
+            double sectionStart = 0;
             for (var i = 0; i < sectionsDataGridViewControl.Rows.Count; i++)
             {
                 FailureMechanismSection section = sections[i];
                 DataGridViewCellCollection rowCells = sectionsDataGridViewControl.Rows[i].Cells;
 
                 Assert.AreEqual(section.Name, rowCells[nameColumnIndex].Value);
+                
+                var sectionStartValue = (RoundedDouble)rowCells[sectionStartColumnIndex].Value;
+                Assert.AreEqual(sectionStart, sectionStartValue, sectionStartValue.GetAccuracy());
+
+                double sectionEnd = sectionStart + section.Length;
+                var sectionEndValue = (RoundedDouble)rowCells[sectionEndColumnIndex].Value;
+                Assert.AreEqual(sectionEnd, sectionEndValue, sectionEndValue.GetAccuracy());
 
                 var sectionLength = (RoundedDouble) rowCells[lengthColumnIndex].Value;
                 Assert.AreEqual(section.Length, sectionLength, sectionLength.GetAccuracy());
 
                 var lengthEffect = (RoundedDouble) rowCells[lengthEffectColumnIndex].Value;
                 Assert.AreEqual(probabilityAssessmentInput.GetN(section.Length), lengthEffect, lengthEffect.GetAccuracy());
+
+                sectionStart = sectionEnd;
             }
         }
 
