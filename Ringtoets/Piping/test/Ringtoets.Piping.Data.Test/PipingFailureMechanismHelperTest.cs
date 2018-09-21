@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Data.Test
                     new Point2D(0, 0)
                 })
             });
-            failureMechanism.SectionResults.First().UseManualAssemblyProbability = true;
+            failureMechanism.SectionResults.First().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = PipingFailureMechanismHelper.HasManualAssemblyResults(failureMechanism);

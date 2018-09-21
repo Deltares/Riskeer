@@ -167,9 +167,9 @@ namespace Ringtoets.Piping.Forms.Views
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.UseManualAssemblyProbability));
+                nameof(PipingFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,

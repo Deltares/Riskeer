@@ -845,7 +845,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
             };
 
@@ -882,7 +882,7 @@ namespace Ringtoets.Piping.Data.Test
             var random = new Random(39);
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = random.NextDouble(),
                 TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
                 TailorMadeAssessmentProbability = random.NextDouble()
@@ -951,7 +951,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
             };
 
@@ -988,7 +988,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
             };
 
@@ -1026,7 +1026,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = useManualAssembly
+                UseManualAssembly = useManualAssembly
             };
             var failureMechanism = new PipingFailureMechanism();
 
@@ -1171,7 +1171,7 @@ namespace Ringtoets.Piping.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
             PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
@@ -1209,7 +1209,7 @@ namespace Ringtoets.Piping.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
             PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
