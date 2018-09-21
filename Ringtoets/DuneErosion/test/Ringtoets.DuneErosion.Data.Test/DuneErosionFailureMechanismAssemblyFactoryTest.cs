@@ -493,7 +493,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Setup
             var sectionResult = new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyCategoryGroup = true,
+                UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
             };
 
@@ -513,7 +513,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             var random = new Random(39);
             var sectionResult = new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyCategoryGroup = true,
+                UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                 TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>()
             };
@@ -620,7 +620,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
             DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -646,7 +646,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
             DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIv;
 
             using (new AssemblyToolCalculatorFactoryConfig())

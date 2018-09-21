@@ -197,7 +197,7 @@ namespace Ringtoets.DuneErosion.Data
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
             }
 
-            return failureMechanismSectionResult.UseManualAssemblyCategoryGroup && useManual
+            return failureMechanismSectionResult.UseManualAssembly && useManual
                        ? failureMechanismSectionResult.ManualAssemblyCategoryGroup
                        : AssembleCombinedAssessment(failureMechanismSectionResult);
         }

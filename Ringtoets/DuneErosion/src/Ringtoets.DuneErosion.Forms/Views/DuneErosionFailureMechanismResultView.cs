@@ -129,9 +129,9 @@ namespace Ringtoets.DuneErosion.Forms.Views
                 DataGridViewControl,
                 nameof(DuneErosionSectionResultRow.CombinedAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.UseManualAssemblyCategoryGroup));
+                nameof(DuneErosionSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(
                 DataGridViewControl,
