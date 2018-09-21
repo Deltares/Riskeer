@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.IO.Helpers
             foreach (TSectionResult sectionResult in failureMechanismSectionResults)
             {
                 FailureMechanismSection failureMechanismSection = sectionResult.Section;
-                double endDistance = startDistance + Math2D.Length(failureMechanismSection.Points);
+                double endDistance = startDistance + failureMechanismSection.Length;
 
                 failureMechanismSectionsLookup[sectionResult] = new ExportableFailureMechanismSection(failureMechanismSection.Points,
                                                                                                       startDistance,
