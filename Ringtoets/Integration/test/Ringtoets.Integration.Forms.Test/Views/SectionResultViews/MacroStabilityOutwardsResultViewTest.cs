@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -190,76 +188,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(false, cells[useManualAssemblyIndex].Value);
                 Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
             }
-        }
-
-        [Test]
-        public void FailureMechanismResultView_WithFailureMechanismWithManualSectionAssemblyResults_ThenWarningSet()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssembly = true;
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults,
-                                                                   failureMechanism,
-                                                                   assessmentSection))
-            {
-                form.Controls.Add(view);
-                form.Show();
-
-                FailureMechanismAssemblyCategoryGroupControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(failureMechanismAssemblyControl);
-
-                // Call
-                string warningMessage = manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl);
-
-                // Assert
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningMessage);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenFailureMechanismResultsViewWithWarnings_WhenFailureMechanismWithoutManualSectionAssemblyResultsAndFailureMechanismNotifiesObservers_ThenWarningCleared()
-        {
-            // Given
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssembly = true;
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults,
-                                                                   failureMechanism,
-                                                                   assessmentSection))
-            {
-                form.Controls.Add(view);
-                form.Show();
-
-                FailureMechanismAssemblyCategoryGroupControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(failureMechanismAssemblyControl);
-
-                // Precondition
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl));
-
-                // When
-                failureMechanism.SectionResults.ForEachElementDo(sr => sr.UseManualAssembly = false);
-                failureMechanism.NotifyObservers();
-
-                // Then
-                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl));
-            }
-
-            mocks.VerifyAll();
         }
 
         [Test]
