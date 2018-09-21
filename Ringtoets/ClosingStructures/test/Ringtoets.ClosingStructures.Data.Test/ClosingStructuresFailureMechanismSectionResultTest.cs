@@ -48,7 +48,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, sectionResult.TailorMadeAssessmentResult);
             Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
             Assert.AreSame(section, sectionResult.Section);
-            Assert.IsFalse(sectionResult.UseManualAssemblyProbability);
+            Assert.IsFalse(sectionResult.UseManualAssembly);
             Assert.IsNaN(sectionResult.ManualAssemblyProbability);
         }
 

@@ -168,9 +168,9 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 DataGridViewControl,
                 nameof(ClosingStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.UseManualAssemblyProbability));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,

@@ -568,7 +568,7 @@ namespace Ringtoets.Common.Forms.Builders
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void AddUseManualAssemblyCategoryGroupColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        public static void AddUseManualAssemblyColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             if (dataGridViewControl == null)
             {
@@ -582,7 +582,7 @@ namespace Ringtoets.Common.Forms.Builders
 
             dataGridViewControl.AddCheckBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_UseManualAssemblyCategoryGroup_DisplayName);
+                Resources.FailureMechanismResultView_UseManualAssembly_DisplayName);
         }
 
         /// <summary>
