@@ -56,14 +56,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 
         public FailureMechanismAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
                                                                   double signalingNorm, double lowerLimitNorm,
-                                                                  double failureProbabilityMarginFactorInput)
+                                                                  double failureProbabilityMarginFactor)
         {
             try
             {
                 ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
                 CategoriesList<FailureMechanismCategory> categories = categoriesKernel.CalculateFailureMechanismCategoryLimitsWbi11(
                     new AssessmentSection(1, signalingNorm, lowerLimitNorm),
-                    new FailureMechanism(1, failureProbabilityMarginFactorInput));
+                    new FailureMechanism(1, failureProbabilityMarginFactor));
 
                 IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
                 FailureMechanismAssemblyResult output = kernel.AssembleAssessmentSectionWbi2B1(
