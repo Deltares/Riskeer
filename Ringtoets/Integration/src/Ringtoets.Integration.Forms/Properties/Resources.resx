@@ -337,10 +337,10 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Toetsoordeel verversen</value>
   </data>
   <data name="AssemblyResultPerSectionView_GridColumn_SectionStart" xml:space="preserve">
-    <value>Kilometrering* van [km]</value>
+    <value>Metrering* van [m]</value>
   </data>
   <data name="AssemblyResultPerSectionView_GridColumn_SectionEnd" xml:space="preserve">
-    <value>Kilometrering* tot [km]</value>
+    <value>Metrering* tot [m]</value>
   </data>
   <data name="AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate" xml:space="preserve">
     <value>Toetsoordeel is verouderd. Druk op de "Toetsoordeel verversen" knop om opnieuw te berekenen.</value>

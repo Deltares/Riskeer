@@ -102,10 +102,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, duneErosionIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, technicalInnovationIndex);
 
-            Assert.AreEqual(3, row.SectionStart.NumberOfDecimalPlaces);
-            Assert.AreEqual(result.SectionStart / 1000, row.SectionStart, row.SectionStart.GetAccuracy());
-            Assert.AreEqual(3, row.SectionStart.NumberOfDecimalPlaces);
-            Assert.AreEqual(result.SectionEnd / 1000, row.SectionEnd, row.SectionEnd.GetAccuracy());
+            Assert.AreEqual(2, row.SectionStart.NumberOfDecimalPlaces);
+            Assert.AreEqual(result.SectionStart, row.SectionStart, row.SectionStart.GetAccuracy());
+            Assert.AreEqual(2, row.SectionStart.NumberOfDecimalPlaces);
+            Assert.AreEqual(result.SectionEnd, row.SectionEnd, row.SectionEnd.GetAccuracy());
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.TotalResult), row.TotalResult);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.Piping), row.Piping);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.GrassCoverErosionInwards), row.GrassCoverErosionInwards);

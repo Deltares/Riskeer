@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kilometrering* tot [km].
+        ///   Looks up a localized string similar to Metrering* tot [m].
         /// </summary>
         public static string AssemblyResultPerSectionView_GridColumn_SectionEnd {
             get {
@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kilometrering* van [km].
+        ///   Looks up a localized string similar to Metrering* van [m].
         /// </summary>
         public static string AssemblyResultPerSectionView_GridColumn_SectionStart {
             get {

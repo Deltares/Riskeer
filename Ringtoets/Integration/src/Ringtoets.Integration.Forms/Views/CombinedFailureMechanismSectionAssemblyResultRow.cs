@@ -81,25 +81,25 @@ namespace Ringtoets.Integration.Forms.Views
 
         /// <summary>
         /// Gets the start of the section from the beginning of the reference line.
-        /// [km]
+        /// [m]
         /// </summary>
         public RoundedDouble SectionStart
         {
             get
             {
-                return new RoundedDouble(3, combinedFailureMechanismSectionAssemblyResult.SectionStart / 1000);
+                return new RoundedDouble(2, combinedFailureMechanismSectionAssemblyResult.SectionStart);
             }
         }
 
         /// <summary>
         /// Gets the end of the section from the beginning of the reference line.
-        /// [km]
+        /// [m]
         /// </summary>
         public RoundedDouble SectionEnd
         {
             get
             {
-                return new RoundedDouble(3, combinedFailureMechanismSectionAssemblyResult.SectionEnd / 1000);
+                return new RoundedDouble(2, combinedFailureMechanismSectionAssemblyResult.SectionEnd);
             }
         }
 
