@@ -58,11 +58,6 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         public TailorMadeAssessmentResultType TailorMadeAssessmentResult { get; set; }
 
         /// <summary>
-        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
-        /// </summary>
-        public bool UseManualAssembly { get; set; }
-
-        /// <summary>
         /// Gets or sets the manually selected assembly category group.
         /// </summary>
         public ManualFailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }

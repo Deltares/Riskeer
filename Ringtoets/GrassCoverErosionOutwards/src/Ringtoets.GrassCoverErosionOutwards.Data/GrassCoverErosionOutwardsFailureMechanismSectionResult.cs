@@ -88,11 +88,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         public TailorMadeAssessmentCategoryGroupResultType TailorMadeAssessmentResult { get; set; }
 
         /// <summary>
-        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
-        /// </summary>
-        public bool UseManualAssembly { get; set; }
-
-        /// <summary>
         /// Gets or sets the manually selected assembly category group.
         /// </summary>
         public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
