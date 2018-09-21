@@ -2911,12 +2911,30 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Metrering* tot [m].
+        /// </summary>
+        public static string SectionEndDistance_DisplayName {
+            get {
+                return ResourceManager.GetString("SectionEndDistance_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SectionsIcon {
             get {
                 object obj = ResourceManager.GetObject("SectionsIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metrering* van [m].
+        /// </summary>
+        public static string SectionStartDistance_DisplayName {
+            get {
+                return ResourceManager.GetString("SectionStartDistance_DisplayName", resourceCulture);
             }
         }
         

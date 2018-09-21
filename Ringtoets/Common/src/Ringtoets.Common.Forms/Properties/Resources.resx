@@ -1470,4 +1470,10 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="PencilWarning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pencil--exclamation.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SectionEndDistance_DisplayName" xml:space="preserve">
+    <value>Metrering* tot [m]</value>
+  </data>
+  <data name="SectionStartDistance_DisplayName" xml:space="preserve">
+    <value>Metrering* van [m]</value>
+  </data>
 </root>

@@ -119,24 +119,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Metrering* tot [m].
-        /// </summary>
-        public static string AssemblyResultPerSectionView_GridColumn_SectionEnd {
-            get {
-                return ResourceManager.GetString("AssemblyResultPerSectionView_GridColumn_SectionEnd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Metrering* van [m].
-        /// </summary>
-        public static string AssemblyResultPerSectionView_GridColumn_SectionStart {
-            get {
-                return ResourceManager.GetString("AssemblyResultPerSectionView_GridColumn_SectionStart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gecombineerd toetsoordeel.
         /// </summary>
         public static string AssemblyResultTotalView_AssemblyResultGroupBox_Text {
