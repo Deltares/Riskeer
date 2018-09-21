@@ -148,7 +148,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv;
 
             using (new AssemblyToolCalculatorFactoryConfig())

@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             target.DetailedAssessmentProbability = origin.DetailedAssessmentProbability;
             target.TailorMadeAssessmentResult = origin.TailorMadeAssessmentResult;
             target.TailorMadeAssessmentProbability = origin.TailorMadeAssessmentProbability;
-            target.UseManualAssemblyCategoryGroup = origin.UseManualAssemblyCategoryGroup;
+            target.UseManualAssembly = origin.UseManualAssembly;
             target.ManualAssemblyCategoryGroup = origin.ManualAssemblyCategoryGroup;
         }
     }

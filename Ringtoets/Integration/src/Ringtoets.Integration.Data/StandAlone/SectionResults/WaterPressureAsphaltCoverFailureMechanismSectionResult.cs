@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <summary>
         /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
         /// </summary>
-        public bool UseManualAssemblyCategoryGroup { get; set; }
+        public bool UseManualAssembly { get; set; }
 
         /// <summary>
         /// Gets or sets the manually selected assembly category group.

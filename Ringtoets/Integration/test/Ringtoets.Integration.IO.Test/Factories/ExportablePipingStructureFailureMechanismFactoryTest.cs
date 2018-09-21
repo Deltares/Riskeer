@@ -156,7 +156,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var failureMechanism = new PipingStructureFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             PipingStructureFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv;
 
             using (new AssemblyToolCalculatorFactoryConfig())

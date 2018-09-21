@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResult);
             Assert.AreEqual(TailorMadeAssessmentResultType.None, result.TailorMadeAssessmentResult);
-            Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+            Assert.IsFalse(result.UseManualAssembly);
             Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
         }
     }

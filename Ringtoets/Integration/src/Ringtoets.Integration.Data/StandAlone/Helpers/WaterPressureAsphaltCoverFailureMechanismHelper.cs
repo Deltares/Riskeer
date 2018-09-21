@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Data.StandAlone.Helpers
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return failureMechanism.SectionResults.Any(sr => sr.UseManualAssemblyCategoryGroup);
+            return failureMechanism.SectionResults.Any(sr => sr.UseManualAssembly);
         }
     }
 }

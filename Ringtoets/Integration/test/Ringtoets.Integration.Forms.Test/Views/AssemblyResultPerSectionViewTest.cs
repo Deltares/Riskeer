@@ -406,7 +406,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
             MacroStabilityInwardsFailureMechanismSectionResult sectionResult = assessmentSection.MacroStabilityInwards.SectionResults.First();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -432,7 +432,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResults.Single().UseManualAssemblyProbability = hasManualAssembly;
+            failureMechanism.SectionResults.Single().UseManualAssembly = hasManualAssembly;
 
             // When
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
@@ -455,7 +455,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResults.Single().UseManualAssemblyProbability = hasManualAssembly;
+            failureMechanism.SectionResults.Single().UseManualAssembly = hasManualAssembly;
 
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
@@ -490,7 +490,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 AssessmentSection assessmentSection = view.AssessmentSection;
                 PipingFailureMechanism failureMechanism = assessmentSection.Piping;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-                failureMechanism.SectionResults.Single().UseManualAssemblyProbability = true;
+                failureMechanism.SectionResults.Single().UseManualAssembly = true;
                 assessmentSection.NotifyObservers();
 
                 // Precondition
@@ -523,7 +523,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     AssessmentSection assessmentSection = view.AssessmentSection;
                     PipingFailureMechanism failureMechanism = assessmentSection.Piping;
                     FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-                    failureMechanism.SectionResults.Single().UseManualAssemblyProbability = true;
+                    failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
                     // Precondition
                     ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();

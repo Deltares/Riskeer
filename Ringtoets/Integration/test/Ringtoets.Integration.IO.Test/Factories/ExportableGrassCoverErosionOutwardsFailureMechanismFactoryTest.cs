@@ -156,7 +156,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.VIIv;
 
             using (new AssemblyToolCalculatorFactoryConfig())

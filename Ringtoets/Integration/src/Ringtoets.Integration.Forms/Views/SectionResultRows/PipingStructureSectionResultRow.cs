@@ -186,15 +186,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public bool UseManualAssemblyCategoryGroup
+        public bool UseManualAssembly
         {
             get
             {
-                return SectionResult.UseManualAssemblyCategoryGroup;
+                return SectionResult.UseManualAssembly;
             }
             set
             {
-                SectionResult.UseManualAssemblyCategoryGroup = value;
+                SectionResult.UseManualAssembly = value;
                 UpdateInternalData();
             }
         }
@@ -313,13 +313,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
 
-            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssemblyCategoryGroup);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssembly);
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
+                                                                  simpleAssessmentSufficient || UseManualAssembly);
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
+                                                                  simpleAssessmentSufficient || UseManualAssembly);
 
-            if (UseManualAssemblyCategoryGroup)
+            if (UseManualAssembly)
             {
                 FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex]);
                 FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex]);
@@ -338,7 +338,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                                                                                      combinedAssemblyCategoryGroup);
             }
 
-            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyCategoryGroupIndex], !UseManualAssemblyCategoryGroup);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyCategoryGroupIndex], !UseManualAssembly);
         }
 
         /// <summary>

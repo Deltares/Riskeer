@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             target.SimpleAssessmentResult = origin.SimpleAssessmentResult;
             target.DetailedAssessmentResult = origin.DetailedAssessmentResult;
             target.TailorMadeAssessmentResult = origin.TailorMadeAssessmentResult;
-            target.UseManualAssemblyCategoryGroup = origin.UseManualAssemblyCategoryGroup;
+            target.UseManualAssembly = origin.UseManualAssembly;
             target.ManualAssemblyCategoryGroup = origin.ManualAssemblyCategoryGroup;
         }
     }

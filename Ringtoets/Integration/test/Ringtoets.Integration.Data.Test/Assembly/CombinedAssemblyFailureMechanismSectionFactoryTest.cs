@@ -207,7 +207,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -234,7 +234,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -265,7 +265,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -292,7 +292,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -323,7 +323,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             MacroStabilityInwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -350,7 +350,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             MacroStabilityInwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -381,7 +381,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -408,7 +408,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -439,7 +439,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -466,7 +466,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -497,7 +497,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             StabilityPointStructuresFailureMechanism failureMechanism = assessmentSection.StabilityPointStructures;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -524,7 +524,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             StabilityPointStructuresFailureMechanism failureMechanism = assessmentSection.StabilityPointStructures;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -555,7 +555,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -580,7 +580,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IVv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -609,7 +609,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             StabilityStoneCoverFailureMechanism failureMechanism = assessmentSection.StabilityStoneCover;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -634,7 +634,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             StabilityStoneCoverFailureMechanism failureMechanism = assessmentSection.StabilityStoneCover;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IVv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -663,7 +663,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaveImpactAsphaltCover;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -688,7 +688,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaveImpactAsphaltCover;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IVv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -717,7 +717,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -742,7 +742,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IVv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -771,7 +771,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             GrassCoverSlipOffInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffInwards;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -797,7 +797,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             GrassCoverSlipOffInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffInwards;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -826,7 +826,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             GrassCoverSlipOffOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -852,7 +852,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             GrassCoverSlipOffOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -881,7 +881,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             MicrostabilityFailureMechanism failureMechanism = assessmentSection.Microstability;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             MicrostabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -907,7 +907,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             MicrostabilityFailureMechanism failureMechanism = assessmentSection.Microstability;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             MicrostabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -936,7 +936,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             MacroStabilityOutwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityOutwards;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -962,7 +962,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             MacroStabilityOutwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityOutwards;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -991,7 +991,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             PipingStructureFailureMechanism failureMechanism = assessmentSection.PipingStructure;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             PipingStructureFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1017,7 +1017,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             PipingStructureFailureMechanism failureMechanism = assessmentSection.PipingStructure;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             PipingStructureFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1046,7 +1046,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1072,7 +1072,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1101,7 +1101,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             TechnicalInnovationFailureMechanism failureMechanism = assessmentSection.TechnicalInnovation;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             TechnicalInnovationFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1127,7 +1127,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             TechnicalInnovationFailureMechanism failureMechanism = assessmentSection.TechnicalInnovation;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             TechnicalInnovationFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1156,7 +1156,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             WaterPressureAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaterPressureAsphaltCover;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1182,7 +1182,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             WaterPressureAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaterPressureAsphaltCover;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
 
             using (new AssemblyToolCalculatorFactoryConfig())

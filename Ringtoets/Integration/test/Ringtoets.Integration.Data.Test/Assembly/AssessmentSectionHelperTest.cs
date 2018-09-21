@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyProbability = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             MacroStabilityInwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyProbability = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -111,7 +111,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyProbability = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyProbability = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -145,7 +145,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyProbability = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -162,7 +162,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             StabilityPointStructuresFailureMechanism failureMechanism = assessmentSection.StabilityPointStructures;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyProbability = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -179,7 +179,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -213,7 +213,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             StabilityStoneCoverFailureMechanism failureMechanism = assessmentSection.StabilityStoneCover;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -230,7 +230,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaveImpactAsphaltCover;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -247,7 +247,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             GrassCoverSlipOffInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffInwards;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -264,7 +264,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             GrassCoverSlipOffOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -281,7 +281,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             MacroStabilityOutwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityOutwards;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -298,7 +298,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             MicrostabilityFailureMechanism failureMechanism = assessmentSection.Microstability;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -315,7 +315,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             PipingStructureFailureMechanism failureMechanism = assessmentSection.PipingStructure;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -332,7 +332,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -349,7 +349,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             TechnicalInnovationFailureMechanism failureMechanism = assessmentSection.TechnicalInnovation;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);
@@ -366,7 +366,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             WaterPressureAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaterPressureAsphaltCover;
             failureMechanism.IsRelevant = isRelevant;
-            failureMechanism.SectionResults.Single().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);

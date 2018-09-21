@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         private const int simpleAssemblyCategoryGroupIndex = 3;
         private const int tailorMadeAssemblyCategoryGroupIndex = 4;
         private const int combinedAssemblyCategoryGroupIndex = 5;
-        private const int useManualAssemblyCategoryGroupIndex = 6;
+        private const int useManualAssemblyIndex = 6;
         private const int manualAssemblyCategoryGroupIndex = 7;
         private const int columnCount = 8;
 
@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[simpleAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[combinedAssemblyCategoryGroupIndex]);
-                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[useManualAssemblyCategoryGroupIndex]);
+                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[useManualAssemblyIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[manualAssemblyCategoryGroupIndex]);
 
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
@@ -113,7 +113,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual("Toetsoordeel\r\neenvoudige toets", dataGridView.Columns[simpleAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\ntoets op maat", dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\ngecombineerd", dataGridView.Columns[combinedAssemblyCategoryGroupIndex].HeaderText);
-                Assert.AreEqual("Overschrijf\r\ntoetsoordeel", dataGridView.Columns[useManualAssemblyCategoryGroupIndex].HeaderText);
+                Assert.AreEqual("Overschrijf\r\ntoetsoordeel", dataGridView.Columns[useManualAssemblyIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\nhandmatig", dataGridView.Columns[manualAssemblyCategoryGroupIndex].HeaderText);
 
                 Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.IsTrue(dataGridView.Columns[simpleAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[combinedAssemblyCategoryGroupIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[useManualAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[useManualAssemblyIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[manualAssemblyCategoryGroupIndex].ReadOnly);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
@@ -159,7 +159,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual("Iv", cells[simpleAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("IIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("IIv", cells[combinedAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual(false, cells[useManualAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual(false, cells[useManualAssemblyIndex].Value);
                 Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
             }
         }
@@ -170,7 +170,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             // Setup
             var failureMechanism = new TechnicalInnovationFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.First().UseManualAssembly = true;
 
             using (var form = new Form())
             using (var view = new TechnicalInnovationResultView(failureMechanism.SectionResults,
@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             // Given
             var failureMechanism = new TechnicalInnovationFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssemblyCategoryGroup = true;
+            failureMechanism.SectionResults.First().UseManualAssembly = true;
 
             using (var form = new Form())
             using (var view = new TechnicalInnovationResultView(failureMechanism.SectionResults,
@@ -212,7 +212,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl));
 
                 // When
-                failureMechanism.SectionResults.ForEachElementDo(sr => sr.UseManualAssemblyCategoryGroup = false);
+                failureMechanism.SectionResults.ForEachElementDo(sr => sr.UseManualAssembly = false);
                 failureMechanism.NotifyObservers();
 
                 // Then
@@ -232,7 +232,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             TechnicalInnovationFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
 
             // When
             using (new AssemblyToolCalculatorFactoryConfig())

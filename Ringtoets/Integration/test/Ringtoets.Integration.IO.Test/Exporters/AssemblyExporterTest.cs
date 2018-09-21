@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
-            assessmentSection.Piping.SectionResults.First().UseManualAssemblyProbability = true;
+            assessmentSection.Piping.SectionResults.First().UseManualAssembly = true;
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 

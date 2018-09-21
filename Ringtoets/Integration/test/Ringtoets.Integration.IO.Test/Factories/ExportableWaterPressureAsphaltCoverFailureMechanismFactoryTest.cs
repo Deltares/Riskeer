@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv;
 
             using (new AssemblyToolCalculatorFactoryConfig())

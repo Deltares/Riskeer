@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var failureMechanism = new TechnicalInnovationFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             TechnicalInnovationFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv;
 
             using (new AssemblyToolCalculatorFactoryConfig())

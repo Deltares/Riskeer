@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             // Given
             var failureMechanism = new HeightStructuresFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResults.Single().UseManualAssemblyProbability = true;
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             var assessmentSection = new AssessmentSectionStub();
 
