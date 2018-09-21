@@ -237,6 +237,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             Assert.AreEqual(sections.Length, sectionsDataGridViewControl.Rows.Count);
 
+            double sectionStart = 0;
             for (var i = 0; i < sectionsDataGridViewControl.Rows.Count; i++)
             {
                 FailureMechanismSection section = sections[i];
@@ -244,8 +245,17 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 Assert.AreEqual(section.Name, rowCells[nameColumnIndex].Value);
 
+                var sectionStartValue = (RoundedDouble) rowCells[sectionStartColumnIndex].Value;
+                Assert.AreEqual(sectionStart, sectionStartValue, sectionStartValue.GetAccuracy());
+
+                double sectionEnd = sectionStart + section.Length;
+                var sectionEndValue = (RoundedDouble) rowCells[sectionEndColumnIndex].Value;
+                Assert.AreEqual(sectionEnd, sectionEndValue, sectionEndValue.GetAccuracy());
+
                 var sectionLength = (RoundedDouble) rowCells[lengthColumnIndex].Value;
                 Assert.AreEqual(section.Length, sectionLength, sectionLength.GetAccuracy());
+
+                sectionStart = sectionEnd;
             }
         }
 

@@ -21,8 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.Views
@@ -50,6 +48,8 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             Name = section.Name;
+            SectionStart = new RoundedDouble(2, sectionStart);
+            SectionEnd = new RoundedDouble(2, sectionEnd);
             Length = new RoundedDouble(2, section.Length);
         }
 
