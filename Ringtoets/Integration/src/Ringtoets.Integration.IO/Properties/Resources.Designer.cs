@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het is alleen mogelijk een volledig toetsoordeel te exporteren..
+        ///   Looks up a localized string similar to Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd..
         /// </summary>
         internal static string AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult {
             get {
