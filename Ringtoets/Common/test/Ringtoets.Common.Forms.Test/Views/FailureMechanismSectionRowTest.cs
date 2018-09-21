@@ -59,6 +59,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(section.Name, sectionRow.Name);
             Assert.AreEqual(2, sectionRow.Length.NumberOfDecimalPlaces);
             Assert.AreEqual(section.Length, sectionRow.Length, sectionRow.Length.GetAccuracy());
+            Assert.AreEqual(0.0, sectionRow.SectionStart);
+            Assert.AreEqual(0.0, sectionRow.SectionEnd);
         }
     }
 }

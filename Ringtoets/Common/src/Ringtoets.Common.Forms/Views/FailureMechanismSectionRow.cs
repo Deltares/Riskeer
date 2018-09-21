@@ -21,6 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.Views
@@ -51,6 +53,18 @@ namespace Ringtoets.Common.Forms.Views
         /// Gets the name of the section.
         /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// Gets the start of the section from the beginning of the reference line.
+        /// [km]
+        /// </summary>
+        public RoundedDouble SectionStart { get; }
+
+        /// <summary>
+        /// Gets the end of the section from the beginning of the reference line.
+        /// [km]
+        /// </summary>
+        public RoundedDouble SectionEnd { get; }
 
         /// <summary>
         /// Gets the length of the section.
