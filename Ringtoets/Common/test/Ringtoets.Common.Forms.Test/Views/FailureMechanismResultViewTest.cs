@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls;
@@ -357,14 +358,11 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFailureMechanismResultsView_WhenHasManualAssemblyResultsTrueDuringUpdate_ThenWarningSet()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+            FailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
-            {
-                sectionResult
-            };
-
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Precondition
                 TestAssemblyResultControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
@@ -372,7 +370,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsEmpty(manualAssemblyWarningProvider.GetError(resultControl));
 
                 // When
-                view.HasManualSectionAssemblyResults = true;
+                sectionResult.UseManualAssembly = true;
                 sectionResult.NotifyObservers();
 
                 // Then
@@ -384,14 +382,11 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFailureMechanismResultsView_WhenExceptionThrownAndHasManualAssemblyResultsTrueDuringUpdate_ThenMessagesSet()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+            FailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
-            {
-                sectionResult
-            };
-
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Precondition
                 TestAssemblyResultControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
@@ -402,7 +397,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsEmpty(manualAssemblyWarningProvider.GetError(resultControl));
 
                 // When
-                view.HasManualSectionAssemblyResults = true;
+                sectionResult.UseManualAssembly = true;
                 view.ThrowExceptionOnUpdate = true;
                 sectionResult.NotifyObservers();
 
@@ -440,17 +435,14 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFailureMechanismResultsViewWithMessages_WhenNoExceptionThrownAndManualSectionAssemblyResultsFalseDuringUpdate_ThenMessagesCleared()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+            FailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
-            {
-                sectionResult
-            };
-
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism))
             {
                 view.ThrowExceptionOnUpdate = true;
-                view.HasManualSectionAssemblyResults = true;
+                sectionResult.UseManualAssembly = true;
                 sectionResult.NotifyObservers();
 
                 // Precondition
@@ -463,7 +455,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // When
                 view.ThrowExceptionOnUpdate = false;
-                view.HasManualSectionAssemblyResults = false;
+                sectionResult.UseManualAssembly = false;
                 sectionResult.NotifyObservers();
 
                 // Then
@@ -566,6 +558,15 @@ namespace Ringtoets.Common.Forms.Test.Views
             return (TestAssemblyResultControl) new ControlTester("AssemblyResultControl").TheObject;
         }
 
+        private TestFailureMechanismResultView ShowFailureMechanismResultsView(TestFailureMechanism failureMechanism)
+        {
+            var failureMechanismResultView = new TestFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism);
+            testForm.Controls.Add(failureMechanismResultView);
+            testForm.Show();
+
+            return failureMechanismResultView;
+        }
+
         private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
         {
             var failureMechanismResultView = new TestFailureMechanismResultView(sectionResults, new TestFailureMechanism());
@@ -588,8 +589,6 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             public bool AssemblyResultControlUpdated { get; set; }
 
-            public bool HasManualSectionAssemblyResults { private get; set; }
-
             protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(
                 FailureMechanismSectionResult sectionResult)
             {
@@ -609,11 +608,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 }
 
                 AssemblyResultControlUpdated = true;
-            }
-
-            protected override bool HasManualAssemblyResults()
-            {
-                return HasManualSectionAssemblyResults;
             }
         }
 
