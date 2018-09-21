@@ -70,14 +70,14 @@ namespace Ringtoets.Storage.Core.Test.Read.PipingStructure
             var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
             var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
-            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            bool useManualAssembly = random.NextBoolean();
 
             var entity = new PipingStructureSectionResultEntity
             {
                 SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),
                 DetailedAssessmentResult = Convert.ToByte(detailedAssessmentResult),
                 TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
-                UseManualAssemblyCategoryGroup = Convert.ToByte(useManualAssemblyCategoryGroup),
+                UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
             var sectionResult = new PipingStructureFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -89,7 +89,7 @@ namespace Ringtoets.Storage.Core.Test.Read.PipingStructure
             Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
             Assert.AreEqual(detailedAssessmentResult, sectionResult.DetailedAssessmentResult);
             Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
-            Assert.AreEqual(useManualAssemblyCategoryGroup, sectionResult.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(useManualAssembly, sectionResult.UseManualAssembly);
             Assert.AreEqual(manualAssemblyCategoryGroup, sectionResult.ManualAssemblyCategoryGroup);
         }
     }

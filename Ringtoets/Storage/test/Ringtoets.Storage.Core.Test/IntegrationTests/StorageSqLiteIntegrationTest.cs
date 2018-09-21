@@ -374,7 +374,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                      {
                                          Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
                                      });
         }
@@ -389,7 +389,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                      {
                                          Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
                                      });
         }
@@ -404,7 +404,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                      {
                                          Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
                                      });
         }
@@ -420,7 +420,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
                                      });
         }
@@ -436,7 +436,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
                                      });
         }
@@ -452,7 +452,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
                                      });
         }
@@ -783,7 +783,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyProbability, actualItem.UseManualAssemblyProbability);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
 
                                          if (expectedItem.Calculation == null)
@@ -926,7 +926,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyProbability, actualItem.UseManualAssemblyProbability);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
 
                                          if (expectedItem.Calculation == null)
@@ -1049,7 +1049,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResultForLowerLimitNorm, actualItem.DetailedAssessmentResultForLowerLimitNorm);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedLowerLimitNorm, actualItem.DetailedAssessmentResultForFactorizedLowerLimitNorm);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
                                      });
         }
@@ -1149,7 +1149,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyProbability, actualItem.UseManualAssemblyProbability);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
 
                                          if (expectedItem.Calculation == null)
@@ -1256,7 +1256,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyProbability, actualItem.UseManualAssemblyProbability);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
                                      });
         }
@@ -1415,7 +1415,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyProbability, actualItem.UseManualAssemblyProbability);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
                                      });
         }
@@ -1752,7 +1752,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyProbability, actualItem.UseManualAssemblyProbability);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
 
                                          if (expectedItem.Calculation == null)
@@ -1900,7 +1900,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResultForLowerLimitNorm, actualItem.DetailedAssessmentResultForLowerLimitNorm);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedLowerLimitNorm, actualItem.DetailedAssessmentResultForFactorizedLowerLimitNorm);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
                                      });
         }
@@ -1950,7 +1950,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResultForLowerLimitNorm, actualItem.DetailedAssessmentResultForLowerLimitNorm);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedLowerLimitNorm, actualItem.DetailedAssessmentResultForFactorizedLowerLimitNorm);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
                                      });
         }
@@ -1999,7 +1999,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                 Assert.AreEqual(expectedItem.DetailedAssessmentResultForLowerLimitNorm, actualItem.DetailedAssessmentResultForLowerLimitNorm);
                 Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedLowerLimitNorm, actualItem.DetailedAssessmentResultForFactorizedLowerLimitNorm);
                 Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                 Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
             });
         }
@@ -2043,7 +2043,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
                                      });
         }
@@ -2071,7 +2071,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.DetailedAssessmentProbability, actualItem.DetailedAssessmentProbability);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability);
-                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
                                      });
         }

@@ -50,7 +50,7 @@ namespace Ringtoets.Storage.Core.Create.GrassCoverSlipOffInwards
                 SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
                 DetailedAssessmentResult = Convert.ToByte(result.DetailedAssessmentResult),
                 TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
-                UseManualAssemblyCategoryGroup = Convert.ToByte(result.UseManualAssemblyCategoryGroup),
+                UseManualAssembly = Convert.ToByte(result.UseManualAssembly),
                 ManualAssemblyCategoryGroup = Convert.ToByte(result.ManualAssemblyCategoryGroup)
             };
 

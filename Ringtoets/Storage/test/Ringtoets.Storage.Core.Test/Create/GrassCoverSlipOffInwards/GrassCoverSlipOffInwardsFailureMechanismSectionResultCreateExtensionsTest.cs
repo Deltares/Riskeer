@@ -52,7 +52,7 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverSlipOffInwards
             var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
             var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -60,7 +60,7 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverSlipOffInwards
                 SimpleAssessmentResult = simpleAssessmentResult,
                 DetailedAssessmentResult = detailedAssessmentResult,
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult,
-                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup,
+                UseManualAssembly = useManualAssembly,
                 ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup
             };
 
@@ -71,7 +71,7 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverSlipOffInwards
             Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
             Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
             Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
-            Assert.AreEqual(Convert.ToByte(useManualAssemblyCategoryGroup), entity.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(Convert.ToByte(useManualAssembly), entity.UseManualAssembly);
             Assert.AreEqual(Convert.ToByte(manualAssemblyCategoryGroup), entity.ManualAssemblyCategoryGroup);
         }
     }

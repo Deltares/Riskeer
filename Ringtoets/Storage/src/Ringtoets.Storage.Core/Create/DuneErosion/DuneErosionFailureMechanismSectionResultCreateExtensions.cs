@@ -54,7 +54,7 @@ namespace Ringtoets.Storage.Core.Create.DuneErosion
                 DetailedAssessmentResultForLowerLimitNorm = Convert.ToByte(result.DetailedAssessmentResultForLowerLimitNorm),
                 DetailedAssessmentResultForFactorizedLowerLimitNorm = Convert.ToByte(result.DetailedAssessmentResultForFactorizedLowerLimitNorm),
                 TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
-                UseManualAssemblyCategoryGroup = Convert.ToByte(result.UseManualAssemblyCategoryGroup),
+                UseManualAssembly = Convert.ToByte(result.UseManualAssembly),
                 ManualAssemblyCategoryGroup = Convert.ToByte(result.ManualAssemblyCategoryGroup)
             };
         }

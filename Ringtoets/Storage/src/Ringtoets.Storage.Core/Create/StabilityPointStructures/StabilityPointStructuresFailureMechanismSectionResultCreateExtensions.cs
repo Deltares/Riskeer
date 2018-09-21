@@ -58,7 +58,7 @@ namespace Ringtoets.Storage.Core.Create.StabilityPointStructures
                 DetailedAssessmentResult = Convert.ToByte(result.DetailedAssessmentResult),
                 TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
                 TailorMadeAssessmentProbability = result.TailorMadeAssessmentProbability.ToNaNAsNull(),
-                UseManualAssemblyProbability = Convert.ToByte(result.UseManualAssemblyProbability),
+                UseManualAssembly = Convert.ToByte(result.UseManualAssembly),
                 ManualAssemblyProbability = result.ManualAssemblyProbability.ToNaNAsNull()
             };
             if (result.Calculation != null)

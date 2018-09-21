@@ -54,7 +54,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityOutwards
             double detailedAssessmentProbability = random.NextDouble();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>();
             double tailorMadeAssessmentProbability = random.NextDouble();
-            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -64,7 +64,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityOutwards
                 DetailedAssessmentProbability = detailedAssessmentProbability,
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult,
                 TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
-                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup,
+                UseManualAssembly = useManualAssembly,
                 ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup
             };
 
@@ -77,7 +77,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityOutwards
             Assert.AreEqual(detailedAssessmentProbability, entity.DetailedAssessmentProbability);
             Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
             Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
-            Assert.AreEqual(Convert.ToByte(useManualAssemblyCategoryGroup), entity.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(Convert.ToByte(useManualAssembly), entity.UseManualAssembly);
             Assert.AreEqual(Convert.ToByte(manualAssemblyCategoryGroup), entity.ManualAssemblyCategoryGroup);
         }
 
