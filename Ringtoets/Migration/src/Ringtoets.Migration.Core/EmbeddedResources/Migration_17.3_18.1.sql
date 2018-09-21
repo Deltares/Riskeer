@@ -190,7 +190,7 @@ INSERT INTO ClosingStructuresSectionResultEntity (
 	[DetailedAssessmentResult],
 	[TailorMadeAssessmentResult],
 	[TailorMadeAssessmentProbability],
-	[UseManualAssemblyProbability],
+	[UseManualAssembly],
 	[ManualAssemblyProbability])
 SELECT
 	[ClosingStructuresSectionResultEntityId],
@@ -262,7 +262,7 @@ INSERT INTO DuneErosionSectionResultEntity (
 	[DetailedAssessmentResultForLowerLimitNorm],
 	[DetailedAssessmentResultForFactorizedLowerLimitNorm],
 	[TailorMadeAssessmentResult],
-	[UseManualAssemblyCategoryGroup],
+	[UseManualAssembly],
 	[ManualAssemblyCategoryGroup])
 SELECT 
 	[DuneErosionSectionResultEntityId],
@@ -357,7 +357,7 @@ INSERT INTO GrassCoverErosionInwardsSectionResultEntity (
 	[DetailedAssessmentResult],
 	[TailorMadeAssessmentResult],
 	[TailorMadeAssessmentProbability],
-	[UseManualAssemblyProbability],
+	[UseManualAssembly],
 	[ManualAssemblyProbability])
 SELECT
 	[GrassCoverErosionInwardsSectionResultEntityId],
@@ -385,7 +385,7 @@ INSERT INTO GrassCoverErosionOutwardsSectionResultEntity (
 	[DetailedAssessmentResultForLowerLimitNorm],
 	[DetailedAssessmentResultForFactorizedLowerLimitNorm],
 	[TailorMadeAssessmentResult],
-	[UseManualAssemblyCategoryGroup],
+	[UseManualAssembly],
 	[ManualAssemblyCategoryGroup])
 SELECT 
 	[GrassCoverErosionOutwardsSectionResultEntityId],
@@ -411,7 +411,7 @@ INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity (
 	[SimpleAssessmentResult],
 	[DetailedAssessmentResult],
 	[TailorMadeAssessmentResult],
-	[UseManualAssemblyCategoryGroup],
+	[UseManualAssembly],
 	[ManualAssemblyCategoryGroup])
 SELECT
 	[GrassCoverSlipOffInwardsSectionResultEntityId],
@@ -433,7 +433,7 @@ INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity (
 	[SimpleAssessmentResult],
 	[DetailedAssessmentResult],
 	[TailorMadeAssessmentResult],
-	[UseManualAssemblyCategoryGroup],
+	[UseManualAssembly],
 	[ManualAssemblyCategoryGroup])
 SELECT
 	[GrassCoverSlipOffOutwardsSectionResultEntityId],
@@ -460,7 +460,7 @@ INSERT INTO HeightStructuresSectionResultEntity (
 	[DetailedAssessmentResult],
 	[TailorMadeAssessmentResult],
 	[TailorMadeAssessmentProbability],
-	[UseManualAssemblyProbability],
+	[UseManualAssembly],
 	[ManualAssemblyProbability])
 SELECT
 	[HeightStructuresSectionResultEntityId],
@@ -601,7 +601,7 @@ INSERT INTO MacroStabilityInwardsSectionResultEntity (
 	[DetailedAssessmentResult],
 	[TailorMadeAssessmentResult],
 	[TailorMadeAssessmentProbability],
-	[UseManualAssemblyProbability],
+	[UseManualAssembly],
 	[ManualAssemblyProbability])
 SELECT
 	[MacroStabilityInwardsSectionResultEntityId],
@@ -693,7 +693,7 @@ INSERT INTO MacroStabilityOutwardsSectionResultEntity (
 	[DetailedAssessmentProbability],
 	[TailorMadeAssessmentResult],
 	[TailorMadeAssessmentProbability],
-	[UseManualAssemblyCategoryGroup],
+	[UseManualAssembly],
 	[ManualAssemblyCategoryGroup])
 SELECT
 	[MacroStabilityOutwardsSectionResultEntityId],
@@ -717,7 +717,7 @@ INSERT INTO MicrostabilitySectionResultEntity (
 	[SimpleAssessmentResult],
 	[DetailedAssessmentResult],
 	[TailorMadeAssessmentResult],
-	[UseManualAssemblyCategoryGroup],
+	[UseManualAssembly],
 	[ManualAssemblyCategoryGroup])
 SELECT
 	[MicrostabilitySectionResultEntityId],
@@ -751,7 +751,7 @@ INSERT INTO PipingSectionResultEntity (
 	[DetailedAssessmentResult],
 	[TailorMadeAssessmentResult],
 	[TailorMadeAssessmentProbability],
-	[UseManualAssemblyProbability],
+	[UseManualAssembly],
 	[ManualAssemblyProbability])
 SELECT
 	[PipingSectionResultEntityId],
@@ -847,7 +847,7 @@ INSERT INTO PipingStructureSectionResultEntity (
 	[SimpleAssessmentResult],
 	[DetailedAssessmentResult],
 	[TailorMadeAssessmentResult],
-	[UseManualAssemblyCategoryGroup],
+	[UseManualAssembly],
 	[ManualAssemblyCategoryGroup])
 SELECT
 	[PipingStructureSectionResultEntityId],
@@ -1013,7 +1013,7 @@ INSERT INTO StabilityPointStructuresSectionResultEntity (
 	[DetailedAssessmentResult],
 	[TailorMadeAssessmentResult],
 	[TailorMadeAssessmentProbability],
-	[UseManualAssemblyProbability],
+	[UseManualAssembly],
 	[ManualAssemblyProbability])
 SELECT
 	[StabilityPointStructuresSectionResultEntityId],
@@ -1051,7 +1051,7 @@ INSERT INTO StabilityStoneCoverSectionResultEntity (
 	[DetailedAssessmentResultForLowerLimitNorm],
 	[DetailedAssessmentResultForFactorizedLowerLimitNorm],
 	[TailorMadeAssessmentResult],
-	[UseManualAssemblyCategoryGroup],
+	[UseManualAssembly],
 	[ManualAssemblyCategoryGroup])
 SELECT 
 	[StabilityStoneCoverSectionResultEntityId],
@@ -1136,7 +1136,7 @@ INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity (
 	[FailureMechanismSectionEntityId],
 	[SimpleAssessmentResult],
 	[TailorMadeAssessmentResult],
-	[UseManualAssemblyCategoryGroup],
+	[UseManualAssembly],
 	[ManualAssemblyCategoryGroup])
 SELECT
 	[StrengthStabilityLengthwiseConstructionSectionResultEntityId],
@@ -1177,7 +1177,7 @@ INSERT INTO TechnicalInnovationSectionResultEntity (
 	[FailureMechanismSectionEntityId],
 	[SimpleAssessmentResult],
 	[TailorMadeAssessmentResult],
-	[UseManualAssemblyCategoryGroup],
+	[UseManualAssembly],
 	[ManualAssemblyCategoryGroup])
 SELECT
 	[TechnicalInnovationSectionResultEntityId],
@@ -1207,7 +1207,7 @@ INSERT INTO WaterPressureAsphaltCoverSectionResultEntity (
 	[FailureMechanismSectionEntityId],
 	[SimpleAssessmentResult],
 	[TailorMadeAssessmentResult],
-	[UseManualAssemblyCategoryGroup],
+	[UseManualAssembly],
 	[ManualAssemblyCategoryGroup])
 SELECT
 	[WaterPressureAsphaltCoverSectionResultEntityId],
@@ -1242,7 +1242,7 @@ INSERT INTO WaveImpactAsphaltCoverSectionResultEntity (
 	[DetailedAssessmentResultForLowerLimitNorm],
 	[DetailedAssessmentResultForFactorizedLowerLimitNorm],
 	[TailorMadeAssessmentResult],
-	[UseManualAssemblyCategoryGroup],
+	[UseManualAssembly],
 	[ManualAssemblyCategoryGroup])
 SELECT 
 	[WaveImpactAsphaltCoverSectionResultEntityId],

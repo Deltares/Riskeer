@@ -1370,7 +1370,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
                 "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
                 "AND NEW.TailorMadeAssessmentProbability IS OLD.LayerThree " +
-                "AND NEW.UseManualAssemblyProbability = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1393,7 +1393,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
                 "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
                 "AND NEW.TailorMadeAssessmentProbability IS OLD.LayerThree " +
-                "AND NEW.UseManualAssemblyProbability = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1414,7 +1414,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
                 "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
                 "AND NEW.TailorMadeAssessmentProbability IS OLD.LayerThree " +
-                "AND NEW.UseManualAssemblyProbability = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1435,7 +1435,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
                 "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
                 "AND NEW.TailorMadeAssessmentProbability IS OLD.LayerThree " +
-                "AND NEW.UseManualAssemblyProbability = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1457,7 +1457,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
                 "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
                 "AND NEW.TailorMadeAssessmentProbability IS OLD.LayerThree " +
-                "AND NEW.UseManualAssemblyProbability = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1479,7 +1479,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
                 "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
                 "AND NEW.TailorMadeAssessmentProbability IS OLD.LayerThree " +
-                "AND NEW.UseManualAssemblyProbability = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1501,7 +1501,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND NEW.DetailedAssessmentResultForLowerLimitNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForFactorizedLowerLimitNorm = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1525,7 +1525,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND NEW.DetailedAssessmentResultForLowerLimitNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForFactorizedLowerLimitNorm = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1547,7 +1547,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND NEW.DetailedAssessmentResultForLowerLimitNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForFactorizedLowerLimitNorm = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1571,7 +1571,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND NEW.DetailedAssessmentResultForLowerLimitNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForFactorizedLowerLimitNorm = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1591,7 +1591,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1611,7 +1611,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1633,7 +1633,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND NEW.DetailedAssessmentProbability IS OLD.LayerTwoA " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
                 "AND NEW.TailorMadeAssessmentProbability IS NULL " +
-                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1653,7 +1653,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1673,7 +1673,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1692,7 +1692,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
                 "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1711,7 +1711,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
                 "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
@@ -1730,7 +1730,7 @@ namespace Ringtoets.Migration.Integration.Test
                 "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
                 "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.UseManualAssembly = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);

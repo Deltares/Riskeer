@@ -39,7 +39,7 @@ namespace Ringtoets.Storage.Core.DbContext
         public double? DetailedAssessmentProbability { get; set; }
         public byte TailorMadeAssessmentResult { get; set; }
         public double? TailorMadeAssessmentProbability { get; set; }
-        public byte UseManualAssemblyCategoryGroup { get; set; }
+        public byte UseManualAssembly { get; set; }
         public byte ManualAssemblyCategoryGroup { get; set; }
 
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }

@@ -205,7 +205,7 @@ namespace Ringtoets.Storage.Core.TestUtil
             {
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
@@ -217,7 +217,7 @@ namespace Ringtoets.Storage.Core.TestUtil
             {
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
@@ -229,7 +229,7 @@ namespace Ringtoets.Storage.Core.TestUtil
             {
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
@@ -244,7 +244,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.DetailedAssessmentProbability = random.NextDouble();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
-                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
@@ -257,7 +257,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
@@ -270,7 +270,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
@@ -283,7 +283,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
@@ -296,7 +296,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
@@ -657,7 +657,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
-                sectionResult.UseManualAssemblyProbability = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyProbability = random.NextDouble();
 
                 if (!firstSectionResultHasCalculation)
@@ -777,7 +777,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
-                sectionResult.UseManualAssemblyProbability = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyProbability = random.NextDouble();
 
                 if (!firstSectionResultHasCalculation)
@@ -810,7 +810,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
                 sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
-                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
@@ -930,7 +930,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
-                sectionResult.UseManualAssemblyProbability = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyProbability = random.NextDouble();
 
                 if (!firstSectionResultHasCalculation)
@@ -1125,7 +1125,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
-                sectionResult.UseManualAssemblyProbability = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyProbability = random.NextDouble();
             }
         }
@@ -1638,7 +1638,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
-                sectionResult.UseManualAssemblyProbability = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyProbability = random.NextDouble();
             }
         }
@@ -1834,7 +1834,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
-                sectionResult.UseManualAssemblyProbability = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyProbability = random.NextDouble();
 
                 if (!firstSectionResultHasCalculation)
@@ -1978,7 +1978,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
                 sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
-                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
@@ -2081,7 +2081,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
                 sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
-                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
@@ -2180,7 +2180,7 @@ namespace Ringtoets.Storage.Core.TestUtil
                 sectionResult.DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
                 sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
-                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
