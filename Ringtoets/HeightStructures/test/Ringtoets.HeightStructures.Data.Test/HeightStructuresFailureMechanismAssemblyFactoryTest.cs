@@ -763,7 +763,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
             };
 
@@ -800,7 +800,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var random = new Random(39);
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = random.NextDouble(),
                 TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
                 TailorMadeAssessmentProbability = random.NextDouble()
@@ -868,7 +868,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
             };
 
@@ -905,7 +905,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
             };
 
@@ -942,7 +942,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyProbability = useManualAssembly
+                UseManualAssembly = useManualAssembly
             };
             var failureMechanism = new HeightStructuresFailureMechanism();
 
@@ -1086,7 +1086,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
             HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
@@ -1124,7 +1124,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
             HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
