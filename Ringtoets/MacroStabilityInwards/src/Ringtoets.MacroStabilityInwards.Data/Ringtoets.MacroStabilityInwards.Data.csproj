@@ -15,7 +15,6 @@
     <Compile Include="DerivedMacroStabilityInwardsOutput.cs" />
     <Compile Include="DerivedMacroStabilityInwardsOutputFactory.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismAssemblyFactory.cs" />
-    <Compile Include="MacroStabilityInwardsFailureMechanismHelper.cs" />
     <Compile Include="MacroStabilityInwardsGrid.cs" />
     <Compile Include="GeneralMacroStabilityInwardsInput.cs" />
     <Compile Include="MacroStabilityInwardsGridDeterminationType.cs" />

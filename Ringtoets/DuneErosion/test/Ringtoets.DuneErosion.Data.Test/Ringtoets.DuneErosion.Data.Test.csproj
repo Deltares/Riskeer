@@ -20,7 +20,6 @@
   <ItemGroup>
     <Compile Include="DuneErosionFailureMechanismAssemblyFactoryTest.cs" />
     <Compile Include="DuneErosionFailureMechanismExtensionsTest.cs" />
-    <Compile Include="DuneErosionFailureMechanismHelperTest.cs" />
     <Compile Include="DuneErosionFailureMechanismSectionResultTest.cs" />
     <Compile Include="DuneErosionFailureMechanismTest.cs" />
     <Compile Include="DuneLocationCalculationTest.cs" />

@@ -22,7 +22,6 @@
     <Compile Include="GrassCoverErosionInwardsFailureMechanismAssemblyFactoryTest.cs" />
     <Compile Include="GrassCoverErosionInwardsFailureMechanismSectionResultDetailedAssessmentExtensionsTest.cs" />
     <Compile Include="GrassCoverErosionInwardsProbabilityAssessmentOutputFactoryTest.cs" />
-    <Compile Include="GrassCoverErosionInwardsFailureMechanismHelperTest.cs" />
     <Compile Include="OvertoppingOutputTest.cs" />
     <Compile Include="OvertoppingRateOutputTest.cs" />
     <Compile Include="DikeHeightOutputTest.cs" />

@@ -20,7 +20,6 @@
     </Compile>
     <Compile Include="WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.cs" />
     <Compile Include="WaveImpactAsphaltCoverFailureMechanism.cs" />
-    <Compile Include="WaveImpactAsphaltCoverFailureMechanismHelper.cs" />
     <Compile Include="WaveImpactAsphaltCoverFailureMechanismSectionResult.cs" />
     <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculation.cs" />
     <Compile Include="WaveImpactAsphaltCoverWaveConditionsOutput.cs" />

@@ -15,7 +15,6 @@
     <Compile Include="GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.cs" />
     <Compile Include="GrassCoverErosionOutwardsFailureMechanism.cs" />
     <Compile Include="GrassCoverErosionOutwardsFailureMechanismExtensions.cs" />
-    <Compile Include="GrassCoverErosionOutwardsFailureMechanismHelper.cs" />
     <Compile Include="GrassCoverErosionOutwardsFailureMechanismSectionResult.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculation.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsOutput.cs" />
