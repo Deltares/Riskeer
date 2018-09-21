@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected virtual void SetDataGridViewControlData()
         {
-            failureMechanismSectionsDataGridViewControl.SetDataSource(sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
+            failureMechanismSectionsDataGridViewControl.SetDataSource(sections.Select(section => new FailureMechanismSectionRow(section, 0, 0)).ToArray());
         }
 
         private void HandleFailureMechanismSectionsChange()

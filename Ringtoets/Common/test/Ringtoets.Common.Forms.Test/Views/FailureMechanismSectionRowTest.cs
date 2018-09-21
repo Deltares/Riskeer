@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new FailureMechanismSectionRow(null);
+            TestDelegate test = () => new FailureMechanismSectionRow(null, double.NaN, double.NaN);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -46,6 +46,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_WithFailureMechanismSection_ExpectedValues()
         {
             // Setup
+            var random = new Random(21);
+            double sectionStart = random.NextDouble();
+            double sectionEnd = random.NextDouble();
+
             var section = new FailureMechanismSection("test", new[]
             {
                 new Point2D(0.0, 0.0),
@@ -53,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             });
 
             // Call
-            var sectionRow = new FailureMechanismSectionRow(section);
+            var sectionRow = new FailureMechanismSectionRow(section, sectionStart, sectionEnd);
 
             // Assert
             Assert.AreEqual(section.Name, sectionRow.Name);

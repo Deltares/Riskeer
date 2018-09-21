@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public FailureMechanismSectionProbabilityAssessmentRow(FailureMechanismSection section,
                                                                ProbabilityAssessmentInput probabilityAssessmentInput)
-            : base(section)
+            : base(section, 0, 0)
         {
             if (probabilityAssessmentInput == null)
             {
