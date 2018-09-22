@@ -63,6 +63,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(section.Length, properties.Length, properties.Length.GetAccuracy());
             Assert.AreEqual(section.StartPoint, properties.StartPoint);
             Assert.AreEqual(section.EndPoint, properties.EndPoint);
+
+            Assert.AreEqual(2, properties.SectionStart.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.0, properties.SectionStart);
+            Assert.AreEqual(2, properties.SectionEnd.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.0, properties.SectionEnd);
         }
 
         [Test]
@@ -76,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -84,19 +89,31 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Vaknaam",
                                                                             "De naam van het vak.",
                                                                             true);
-            PropertyDescriptor lengthProperty = dynamicProperties[1];
+            PropertyDescriptor sectionStartDistanceProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionStartDistanceProperty,
+                                                                            "Algemeen",
+                                                                            "Metrering* van [m]",
+                                                                            "De afstand tussen het beginpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond).",
+                                                                            true);
+            PropertyDescriptor sectionEndDistanceProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionEndDistanceProperty,
+                                                                            "Algemeen",
+                                                                            "Metrering* tot [m]",
+                                                                            "De afstand tussen het eindpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond).",
+                                                                            true);
+            PropertyDescriptor lengthProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthProperty,
                                                                             "Algemeen",
                                                                             "Lengte* [m]",
                                                                             "De totale lengte van het vak in meters (afgerond).",
                                                                             true);
-            PropertyDescriptor startPointProperty = dynamicProperties[2];
+            PropertyDescriptor startPointProperty = dynamicProperties[4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(startPointProperty,
                                                                             "Algemeen",
                                                                             "Beginpunt",
                                                                             "Beginpunt van het vak (X-coördinaat, Y-coördinaat).",
                                                                             true);
-            PropertyDescriptor endPointProperty = dynamicProperties[3];
+            PropertyDescriptor endPointProperty = dynamicProperties[5];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(endPointProperty,
                                                                             "Algemeen",
                                                                             "Eindpunt",

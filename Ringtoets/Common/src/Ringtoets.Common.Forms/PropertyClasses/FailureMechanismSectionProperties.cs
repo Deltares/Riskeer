@@ -67,6 +67,30 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SectionStart_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SectionStart_Description))]
+        public RoundedDouble SectionStart
+        {
+            get
+            {
+                return new RoundedDouble(2);
+            }
+        }
+
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SectionEnd_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SectionEnd_Description))]
+        public RoundedDouble SectionEnd
+        {
+            get
+            {
+                return new RoundedDouble(2);
+            }
+        }
+
+        [PropertyOrder(4)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSection_Length_Rounded_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSection_Length_Rounded_Description))]
         public RoundedDouble Length
@@ -77,7 +101,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(3)]
+        [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSection_StartPoint_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSection_StartPoint_Description))]
@@ -89,7 +113,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(4)]
+        [PropertyOrder(6)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSection_EndPoint_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSection_EndPoint_Description))]

@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             this.probabilityAssessmentInput = probabilityAssessmentInput;
         }
 
-        [PropertyOrder(5)]
+        [PropertyOrder(7)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSectionProbabilityAssessment_N_Rounded_Description))]

@@ -2911,6 +2911,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De afstand tussen het eindpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond)..
+        /// </summary>
+        public static string SectionEnd_Description {
+            get {
+                return ResourceManager.GetString("SectionEnd_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Metrering* tot [m].
         /// </summary>
         public static string SectionEnd_DisplayName {
@@ -2926,6 +2935,15 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("SectionsIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De afstand tussen het beginpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond)..
+        /// </summary>
+        public static string SectionStart_Description {
+            get {
+                return ResourceManager.GetString("SectionStart_Description", resourceCulture);
             }
         }
         
