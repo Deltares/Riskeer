@@ -2913,9 +2913,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Metrering* tot [m].
         /// </summary>
-        public static string SectionEndDistance_DisplayName {
+        public static string SectionEnd_DisplayName {
             get {
-                return ResourceManager.GetString("SectionEndDistance_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SectionEnd_DisplayName", resourceCulture);
             }
         }
         
@@ -2932,9 +2932,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Metrering* van [m].
         /// </summary>
-        public static string SectionStartDistance_DisplayName {
+        public static string SectionStart_DisplayName {
             get {
-                return ResourceManager.GetString("SectionStartDistance_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SectionStart_DisplayName", resourceCulture);
             }
         }
         

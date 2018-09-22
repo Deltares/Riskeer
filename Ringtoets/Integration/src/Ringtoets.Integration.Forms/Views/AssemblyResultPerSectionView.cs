@@ -160,10 +160,10 @@ namespace Ringtoets.Integration.Forms.Views
         private void InitializeDataGridView()
         {
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionStart),
-                                                 RingtoetsCommonFormsResources.SectionStartDistance_DisplayName,
+                                                 RingtoetsCommonFormsResources.SectionStart_DisplayName,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionEnd),
-                                                 RingtoetsCommonFormsResources.SectionEndDistance_DisplayName,
+                                                 RingtoetsCommonFormsResources.SectionEnd_DisplayName,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.TotalResult),
                                                  Resources.AssemblyResultPerSection_DisplayName,
