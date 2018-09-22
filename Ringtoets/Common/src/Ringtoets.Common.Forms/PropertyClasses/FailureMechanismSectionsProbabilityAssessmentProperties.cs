@@ -92,7 +92,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Sections.Select(section => new FailureMechanismSectionProbabilityAssessmentProperties(section, probabilityAssessmentInput)).ToArray();
+                return data.Sections.Select(section => new FailureMechanismSectionProbabilityAssessmentProperties(section, 0, 0,
+                                                                                                                  probabilityAssessmentInput)).ToArray();
             }
         }
 

@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Sections.Select(section => new FailureMechanismSectionProperties(section)).ToArray();
+                return data.Sections.Select(section => new FailureMechanismSectionProperties(section, 0, 0)).ToArray();
             }
         }
 

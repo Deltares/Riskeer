@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismSectionProperties(null);
+            TestDelegate call = () => new FailureMechanismSectionProperties(null, double.NaN, double.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -48,10 +48,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var random = new Random(21);
+            double sectionStart = random.NextDouble();
+            double sectionEnd = random.NextDouble();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var properties = new FailureMechanismSectionProperties(section);
+            var properties = new FailureMechanismSectionProperties(section, sectionStart, sectionEnd);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<FailureMechanismSection>>(properties);
@@ -65,9 +68,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(section.EndPoint, properties.EndPoint);
 
             Assert.AreEqual(2, properties.SectionStart.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.0, properties.SectionStart);
+            Assert.AreEqual(sectionStart, properties.SectionStart, properties.SectionStart.GetAccuracy());
             Assert.AreEqual(2, properties.SectionEnd.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.0, properties.SectionEnd);
+            Assert.AreEqual(sectionEnd, properties.SectionEnd, properties.SectionEnd.GetAccuracy());
         }
 
         [Test]
@@ -77,7 +80,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var properties = new FailureMechanismSectionProperties(section);
+            var properties = new FailureMechanismSectionProperties(section, double.NaN, double.NaN);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -126,7 +129,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var properties = new FailureMechanismSectionProperties(section);
+            var properties = new FailureMechanismSectionProperties(section, double.NaN, double.NaN);
 
             // Call
             string toString = properties.ToString();

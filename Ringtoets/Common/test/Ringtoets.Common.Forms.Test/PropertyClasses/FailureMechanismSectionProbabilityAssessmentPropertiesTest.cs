@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionProbabilityAssessmentProperties(section, null);
+            TestDelegate call = () => new FailureMechanismSectionProbabilityAssessmentProperties(section, double.NaN, double.NaN, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,11 +51,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var random = new Random(21);
+            double sectionStart = random.NextDouble();
+            double sectionEnd = random.NextDouble();
+
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(0.5, 100);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var properties = new FailureMechanismSectionProbabilityAssessmentProperties(section, probabilityAssessmentInput);
+            var properties = new FailureMechanismSectionProbabilityAssessmentProperties(section, sectionStart, sectionEnd, probabilityAssessmentInput);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionProperties>(properties);
@@ -64,6 +68,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, properties.N, properties.N.GetAccuracy());
+
+            Assert.AreEqual(sectionStart, properties.SectionStart, properties.SectionStart.GetAccuracy());
+            Assert.AreEqual(sectionEnd, properties.SectionEnd, properties.SectionEnd.GetAccuracy());
         }
 
         [Test]
@@ -74,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var properties = new FailureMechanismSectionProbabilityAssessmentProperties(section, probabilityAssessmentInput);
+            var properties = new FailureMechanismSectionProbabilityAssessmentProperties(section, double.NaN, double.NaN, probabilityAssessmentInput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

@@ -109,6 +109,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     Assert.AreEqual(1 + probabilityAssessmentInput.A * section.Length / probabilityAssessmentInput.B,
                                     property.N,
                                     property.N.GetAccuracy());
+
+                    Assert.AreEqual(0, property.SectionStart, property.SectionStart.GetAccuracy());
+                    Assert.AreEqual(0, property.SectionEnd, property.SectionEnd.GetAccuracy());
                 }
 
                 Assert.AreEqual(sourcePath, properties.SourcePath);

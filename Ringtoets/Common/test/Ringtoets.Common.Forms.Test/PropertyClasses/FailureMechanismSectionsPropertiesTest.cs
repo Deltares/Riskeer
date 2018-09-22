@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -77,6 +77,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     FailureMechanismSection section = sections.ElementAt(i);
                     FailureMechanismSectionProperties property = properties.Sections[i];
                     Assert.AreSame(section, property.Data);
+                    Assert.AreEqual(0, property.SectionStart, property.SectionStart.GetAccuracy());
+                    Assert.AreEqual(0, property.SectionEnd, property.SectionEnd.GetAccuracy());
                 }
 
                 Assert.AreEqual(sourcePath, properties.SourcePath);

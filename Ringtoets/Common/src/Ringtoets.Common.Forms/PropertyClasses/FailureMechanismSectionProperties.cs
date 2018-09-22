@@ -41,9 +41,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="FailureMechanismSectionProperties"/>.
         /// </summary>
         /// <param name="section">The section to show the properties for.</param>
+        /// <param name="sectionStart">The start of the section from the beginning
+        /// of the reference line in meters.</param>
+        /// <param name="sectionEnd">The end of the section from the beginning of
+        /// the reference line in meters.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/>
         /// is <c>null</c>.</exception>
-        public FailureMechanismSectionProperties(FailureMechanismSection section)
+        public FailureMechanismSectionProperties(FailureMechanismSection section, double sectionStart, double sectionEnd)
         {
             if (section == null)
             {
@@ -51,6 +55,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
 
             data = section;
+            SectionStart = new RoundedDouble(2, sectionStart);
+            SectionEnd = new RoundedDouble(2, sectionEnd);
         }
 
         [PropertyOrder(1)]
@@ -69,25 +75,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SectionStart_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.SectionStart_Description))]
-        public RoundedDouble SectionStart
-        {
-            get
-            {
-                return new RoundedDouble(2);
-            }
-        }
+        public RoundedDouble SectionStart { get; }
 
         [PropertyOrder(3)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SectionEnd_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.SectionEnd_Description))]
-        public RoundedDouble SectionEnd
-        {
-            get
-            {
-                return new RoundedDouble(2);
-            }
-        }
+        public RoundedDouble SectionEnd { get; }
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
