@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -81,7 +82,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Sections.Select(section => new FailureMechanismSectionProperties(section, 0, 0)).ToArray();
+                var properties = new List<FailureMechanismSectionProperties>();
+                double sectionStart = 0;
+                foreach (FailureMechanismSection section in data.Sections)
+                {
+                    double sectionEnd = sectionStart + section.Length;
+                    properties.Add(new FailureMechanismSectionProperties(section, sectionStart, sectionEnd));
+                    sectionStart = sectionEnd;
+                }
+
+                return properties.ToArray();
             }
         }
 

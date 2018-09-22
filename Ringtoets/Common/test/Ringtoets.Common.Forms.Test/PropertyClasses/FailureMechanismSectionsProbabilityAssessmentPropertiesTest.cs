@@ -100,6 +100,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 TestHelper.AssertTypeConverter<FailureMechanismSectionsProperties, ExpandableArrayConverter>(
                     nameof(FailureMechanismSectionsProperties.Sections));
                 Assert.AreEqual(sections.Count(), properties.Sections.Length);
+
+                double sectionStart = 0;
                 for (var i = 0; i < sections.Count(); i++)
                 {
                     FailureMechanismSection section = sections.ElementAt(i);
@@ -110,8 +112,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                     property.N,
                                     property.N.GetAccuracy());
 
-                    Assert.AreEqual(0, property.SectionStart, property.SectionStart.GetAccuracy());
-                    Assert.AreEqual(0, property.SectionEnd, property.SectionEnd.GetAccuracy());
+                    double sectionEnd = sectionStart + section.Length;
+                    Assert.AreEqual(sectionStart, property.SectionStart, property.SectionStart.GetAccuracy());
+                    Assert.AreEqual(sectionEnd, property.SectionEnd, property.SectionEnd.GetAccuracy());
+                    sectionStart = sectionEnd;
                 }
 
                 Assert.AreEqual(sourcePath, properties.SourcePath);
