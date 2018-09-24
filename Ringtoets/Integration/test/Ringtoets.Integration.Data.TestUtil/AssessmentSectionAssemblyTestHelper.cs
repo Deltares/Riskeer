@@ -51,28 +51,28 @@ namespace Ringtoets.Integration.Data.TestUtil
     {
         /// <summary>
         /// Gets a collection of <see cref="AssessmentSection"/> configurations of
-        /// failure mechanisms belonging in groups 1 and 2, such that:
+        /// failure mechanisms having an assembly result with probability, such that:
         /// <list type="bullet">
         /// <item>All other failure mechanisms are marked as irrelevant, except one failure mechanism.</item>
         /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
         /// <returns>A collection of <see cref="AssessmentSection"/> configurations.</returns>
-        public static IEnumerable<TestCaseData> GetConfiguredAssessmentSectionWithGroup1And2FailureMechanisms()
+        public static IEnumerable<TestCaseData> GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability()
         {
             return GenerateTestCaseData(GetGroup1And2FailureMechanismConfigurations());
         }
 
         /// <summary>
         /// Gets a collection of <see cref="AssessmentSection"/> configurations of
-        /// failure mechanisms belonging in group 3, such that:
+        /// failure mechanisms having an assembly result without probability, such that:
         /// <list type="bullet">
         /// <item>All other failure mechanisms are marked as irrelevant, except one failure mechanism.</item>
         /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
         /// <returns>A collection of <see cref="AssessmentSection"/> configurations.</returns>
-        public static IEnumerable<TestCaseData> GetConfiguredAssessmentSectionWithGroup3FailureMechanisms()
+        public static IEnumerable<TestCaseData> GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability()
         {
             return GenerateTestCaseData(GetGroup3FailureMechanismConfigurations());
         }

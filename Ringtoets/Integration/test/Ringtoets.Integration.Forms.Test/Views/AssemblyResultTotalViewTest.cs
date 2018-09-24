@@ -639,7 +639,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         #region Use Manual Assembly
 
         [Test]
-        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithGroup1And2FailureMechanisms))]
+        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability))]
         public void GivenFormWithAssemblyResultTotalView_WhenFailureMechanismInGroup1Or2HasManualAssembly_ThenManualAssemblyUsed(AssessmentSection assessmentSection)
         {
             // Given
@@ -659,7 +659,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithGroup3FailureMechanisms))]
+        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability))]
         public void GivenFormWithAssemblyResultTotalView_WhenFailureMechanismInGroup3HasManualAssembly_ThenManualAssemblyUsed(AssessmentSection assessmentSection)
         {
             // Given
