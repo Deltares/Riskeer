@@ -35,7 +35,7 @@ namespace Core.Common.Base.Test.Geometry
     public class Point2DTest
     {
         [Test]
-        public void Constructor_WithXandY_SetProperties()
+        public void Constructor_WithXAndY_SetProperties()
         {
             // Setup
             var random = new Random(22);
@@ -64,7 +64,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void CopyConstructor_WithPointWithXandY_SetProperties()
+        public void CopyConstructor_WithPointWithXAndY_SetProperties()
         {
             // Setup
             var random = new Random(22);
@@ -82,20 +82,20 @@ namespace Core.Common.Base.Test.Geometry
 
         [Test]
         [SetCulture("nl-NL")]
-        public void ToString_HasCoordinatValues_NL_PrintCoordinateValuesInLocalCulture()
+        public void ToString_HasCoordinateValues_NL_PrintCoordinateValuesInLocalCulture()
         {
             DoToString_HasCoordinateValues_PrintCoordinateValuesInLocalCulture();
         }
 
         [Test]
         [SetCulture("en-US")]
-        public void ToString_HasCoordinatValues_EN_PrintCoordinateValuesInLocalCulture()
+        public void ToString_HasCoordinateValues_EN_PrintCoordinateValuesInLocalCulture()
         {
             DoToString_HasCoordinateValues_PrintCoordinateValuesInLocalCulture();
         }
 
         [Test]
-        public void SubstractOperator_FirstArgumentNull_ThrowArgumentNullException()
+        public void SubtractOperator_FirstArgumentNull_ThrowArgumentNullException()
         {
             // Setup
             Point2D first = null;
@@ -113,7 +113,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void SubstractOperator_SecondArgumentNull_ThrowArgumentNullException()
+        public void SubtractOperator_SecondArgumentNull_ThrowArgumentNullException()
         {
             // Setup
             var first = new Point2D(0, 0);
@@ -131,7 +131,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void SubstractOperator_TwoDifferentPoints_Return2DVector()
+        public void SubtractOperator_TwoDifferentPoints_Return2DVector()
         {
             // Setup
             var point1 = new Point2D(3.0, 4.0);
