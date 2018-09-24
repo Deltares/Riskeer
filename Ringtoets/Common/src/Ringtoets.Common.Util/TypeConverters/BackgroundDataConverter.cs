@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Util.TypeConverters
         /// <returns>The converted <see cref="BackgroundData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapData"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when the <see cref="ImageBasedMapData"/></
+        /// <exception cref="NotSupportedException">Thrown when the <see cref="ImageBasedMapData"/>
         /// is not supported for conversion.</exception>
         public static BackgroundData ConvertTo(ImageBasedMapData mapData)
         {

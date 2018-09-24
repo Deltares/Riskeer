@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Forms.TestUtil
 
         /// <summary>
         /// Asserts whether the content of <paramref name="properties"/> equals the given
-        /// <paramref name="expectedFailureMechanismCategories"/> and <paramref name="expectedFailureMechanismSectionCategories"/>.
+        /// <paramref name="expectedFailureMechanismCategories"/>.
         /// </summary>
         /// <param name="expectedFailureMechanismCategories">The collection of expected <see cref="FailureMechanismAssemblyCategory"/>.</param>
         /// <param name="properties">The actual <see cref="AssemblyResultCategoriesProperties"/> to assert.</param>
