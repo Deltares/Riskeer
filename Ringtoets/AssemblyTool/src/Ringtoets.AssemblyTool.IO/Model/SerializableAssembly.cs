@@ -131,10 +131,12 @@ namespace Ringtoets.AssemblyTool.IO.Model
             Id = id;
             Boundary = new SerializableBoundary(lowerCorner, upperCorner);
 
-            var featureMembers = new List<SerializableFeatureMember>();
-            featureMembers.Add(assessmentSection);
-            featureMembers.Add(assessmentProcess);
-            featureMembers.Add(totalAssemblyResult);
+            var featureMembers = new List<SerializableFeatureMember>
+            {
+                assessmentSection,
+                assessmentProcess,
+                totalAssemblyResult
+            };
             featureMembers.AddRange(failureMechanisms);
             featureMembers.AddRange(failureMechanismSectionAssemblies);
             featureMembers.AddRange(combinedFailureMechanismSectionAssemblies);
