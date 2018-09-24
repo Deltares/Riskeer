@@ -533,7 +533,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void GetSectionAssemblyCategoryGroup_WithManualInputAndInvalidManualFailureMechanismSectionAssemblyCategoryGroup_ThrowsAssemblyException()
+        public void GetSectionAssemblyCategoryGroup_WithUseManualAndUseManualInputTrueAndInvalidManualFailureMechanismSectionAssemblyCategoryGroup_ThrowsAssemblyException()
         {
             // Setup
             var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
