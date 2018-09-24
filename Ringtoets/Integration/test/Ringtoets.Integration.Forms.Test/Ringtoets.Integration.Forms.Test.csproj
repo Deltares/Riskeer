@@ -274,6 +274,10 @@
       <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
       <Name>Ringtoets.Integration.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Data.TestUtil\Ringtoets.Integration.Data.TestUtil.csproj">
+      <Project>{2D51FD02-BBED-43FE-BDB7-4437152876A1}</Project>
+      <Name>Ringtoets.Integration.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.Forms.TestUtil\Ringtoets.Integration.Forms.TestUtil.csproj">
       <Project>{93C3B757-C591-4451-BA56-140FF91EFE9A}</Project>
       <Name>Ringtoets.Integration.Forms.TestUtil</Name>
