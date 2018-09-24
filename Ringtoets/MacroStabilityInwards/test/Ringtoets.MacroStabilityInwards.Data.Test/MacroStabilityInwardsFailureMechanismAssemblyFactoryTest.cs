@@ -261,7 +261,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
                                 calculator.DetailedAssessmentFailureMechanismSectionNInput);
-                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
+                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.DetailedAssessmentAssemblyCategoriesInput);
             }
         }
 
@@ -427,7 +427,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
                 Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
                                 calculator.TailorMadeAssessmentFailureMechanismSectionNInput);
-                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
+                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.TailorMadeAssessmentAssemblyCategoriesInput);
                 mocks.VerifyAll();
             }
         }

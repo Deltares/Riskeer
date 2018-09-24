@@ -223,7 +223,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
-                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
+                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.DetailedAssessmentAssemblyCategoriesInput);
                 mocks.VerifyAll();
             }
         }
@@ -376,7 +376,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 // Assert
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentProbability, calculator.TailorMadeAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
-                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
+                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.TailorMadeAssessmentAssemblyCategoriesInput);
                 mocks.VerifyAll();
             }
         }

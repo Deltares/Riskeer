@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
@@ -75,19 +76,12 @@ namespace Ringtoets.Integration.IO.Test.Factories
             const string name = "assessmentSectionName";
             const string id = "assessmentSectionId";
 
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
-            {
-                new Point2D(1, 1),
-                new Point2D(2, 2)
-            });
-
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             {
                 Name = name,
                 Id = id,
-                ReferenceLine = referenceLine
+                ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry()
             };
 
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
@@ -115,7 +109,6 @@ namespace Ringtoets.Integration.IO.Test.Factories
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
@@ -124,7 +117,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 // Assert
                 Assert.AreEqual(name, exportableAssessmentSection.Name);
                 Assert.AreEqual(id, exportableAssessmentSection.Id);
-                CollectionAssert.AreEqual(referenceLine.Points, exportableAssessmentSection.Geometry);
+                CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, exportableAssessmentSection.Geometry);
 
                 ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyWithProbability = exportableAssessmentSection.FailureMechanismAssemblyWithProbability;
                 Assert.AreEqual(ExportableAssemblyMethod.WBI2B1, failureMechanismAssemblyWithProbability.AssemblyMethod);
@@ -153,24 +146,18 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void GivenAssessmentSectionWithConfiguredFailureMechanism_WhenCreatingExportableAssessmentSection_ThenManualAssemblyIgnored()
+        public void CreateExportableAssessmentSection_AssessmentSectionWithManualSectionAssemblyWithProbability_ManualAssemblyNotExecuted()
         {
             // Given
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
-            {
-                new Point2D(1, 1),
-                new Point2D(2, 2)
-            });
-
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             {
-                ReferenceLine = referenceLine,
+                ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry(),
                 Id = "1"
             };
 
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            failureMechanism.IsRelevant = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
@@ -184,7 +171,9 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
+                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyCategoriesInput);
+                Assert.Zero(failureMechanismSectionAssemblyCalculator.ManualAssemblyNInput);
+                Assert.Zero(failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
             }
         }
 
