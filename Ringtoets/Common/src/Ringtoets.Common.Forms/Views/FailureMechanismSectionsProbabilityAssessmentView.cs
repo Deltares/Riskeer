@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Forms.Views
             currentA = probabilityAssessmentInput.A;
 
             failureMechanismSectionsDataGridViewControl.SetDataSource(
-                sections.Select(section => new FailureMechanismSectionProbabilityAssessmentRow(section, probabilityAssessmentInput))
+                Sections.Select(section => new FailureMechanismSectionProbabilityAssessmentRow(section, probabilityAssessmentInput))
                         .ToArray());
         }
 

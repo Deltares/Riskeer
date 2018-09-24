@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class FailureMechanismSectionsView : CloseForFailureMechanismView
     {
-        protected readonly IEnumerable<FailureMechanismSection> sections;
+        protected readonly IEnumerable<FailureMechanismSection> Sections;
 
         private readonly Observer failureMechanismObserver;
 
@@ -72,14 +72,14 @@ namespace Ringtoets.Common.Forms.Views
                 Observable = failureMechanism
             };
 
-            this.sections = sections;
+            Sections = sections;
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            currentSections = sections.ToArray();
+            currentSections = Sections.ToArray();
 
             SetDataGridViewControlData();
         }
@@ -101,17 +101,17 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected virtual void SetDataGridViewControlData()
         {
-            failureMechanismSectionsDataGridViewControl.SetDataSource(sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
+            failureMechanismSectionsDataGridViewControl.SetDataSource(Sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
         }
 
         private void HandleFailureMechanismSectionsChange()
         {
-            if (currentSections.SequenceEqual(sections))
+            if (currentSections.SequenceEqual(Sections))
             {
                 return;
             }
 
-            currentSections = sections.ToArray();
+            currentSections = Sections.ToArray();
 
             SetDataGridViewControlData();
         }
