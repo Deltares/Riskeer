@@ -270,11 +270,11 @@ namespace Core.Common.Gui
         {
             if (optionalProjectMigrationProperties.Migrator == null)
             {
-                throw new ArgumentException("Project migrator should be set.", nameof(optionalProjectMigrationProperties));
+                throw new ArgumentException(@"Project migrator should be set.", nameof(optionalProjectMigrationProperties));
             }
             if (optionalProjectMigrationProperties.MigrationFilePath == null)
             {
-                throw new ArgumentException("Migration target file path should be set.", nameof(optionalProjectMigrationProperties));
+                throw new ArgumentException(@"Migration target file path should be set.", nameof(optionalProjectMigrationProperties));
             }
         }
 

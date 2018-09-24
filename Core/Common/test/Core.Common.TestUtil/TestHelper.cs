@@ -165,7 +165,7 @@ namespace Core.Common.TestUtil
             string root = Path.GetPathRoot(rootedPath);
             if (string.IsNullOrEmpty(root))
             {
-                throw new ArgumentException("Must be a rooted path.", nameof(rootedPath));
+                throw new ArgumentException(@"Must be a rooted path.", nameof(rootedPath));
             }
 
             string relativePath = rootedPath.Replace(root, "");
