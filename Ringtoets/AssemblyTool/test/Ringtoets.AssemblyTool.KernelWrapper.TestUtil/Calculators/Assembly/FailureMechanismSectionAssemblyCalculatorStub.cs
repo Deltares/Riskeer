@@ -227,6 +227,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public double ManualAssemblyNInput { get; private set; }
 
         /// <summary>
+        /// Gets the assembly categories input of the manual assembly calculation.
+        /// </summary>
+        public AssemblyCategoriesInput ManualAssemblyCategoriesInput { get; private set; }
+
+        /// <summary>
         /// Gets the assembly categories input used in the assembly calculation methods.
         /// </summary>
         public AssemblyCategoriesInput AssemblyCategoriesInput { get; private set; }
@@ -551,7 +556,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             ManualAssemblyProbabilityInput = probability;
-            AssemblyCategoriesInput = assemblyCategoriesInput;
+            ManualAssemblyCategoriesInput = assemblyCategoriesInput;
 
             return ManualAssemblyAssemblyOutput ??
                    (ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.IIv));
@@ -565,7 +570,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             ManualAssemblyProbabilityInput = probability;
-            AssemblyCategoriesInput = assemblyCategoriesInput;
+            ManualAssemblyCategoriesInput = assemblyCategoriesInput;
             ManualAssemblyNInput = failureMechanismSectionN;
 
             return ManualAssemblyAssemblyOutput ??

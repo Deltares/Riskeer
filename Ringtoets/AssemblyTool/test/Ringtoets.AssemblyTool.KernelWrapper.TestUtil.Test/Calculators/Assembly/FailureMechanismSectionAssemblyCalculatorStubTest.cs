@@ -82,6 +82,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual(0.0, calculator.ManualAssemblyNInput);
             Assert.AreEqual(0.0, calculator.ManualAssemblyProbabilityInput);
             Assert.IsNull(calculator.ManualAssemblyAssemblyOutput);
+            Assert.IsNull(calculator.ManualAssemblyCategoriesInput);
 
             Assert.IsNull(calculator.AssemblyCategoriesInput);
         }
@@ -1479,7 +1480,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Assert
             Assert.AreEqual(probability, calculator.ManualAssemblyProbabilityInput);
-            Assert.AreSame(assemblyCategoriesInput, calculator.AssemblyCategoriesInput);
+            Assert.AreSame(assemblyCategoriesInput, calculator.ManualAssemblyCategoriesInput);
         }
 
         [Test]
@@ -1560,7 +1561,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Assert
             Assert.AreEqual(probability, calculator.ManualAssemblyProbabilityInput);
             Assert.AreEqual(n, calculator.ManualAssemblyNInput);
-            Assert.AreSame(assemblyCategoriesInput, calculator.AssemblyCategoriesInput);
+            Assert.AreSame(assemblyCategoriesInput, calculator.ManualAssemblyCategoriesInput);
         }
 
         [Test]
