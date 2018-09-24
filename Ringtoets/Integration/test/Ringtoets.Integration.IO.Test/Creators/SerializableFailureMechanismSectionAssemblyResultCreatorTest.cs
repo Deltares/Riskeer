@@ -89,10 +89,9 @@ namespace Ringtoets.Integration.IO.Test.Creators
         {
             // Setup
             var assessmentType = new Random(21).NextEnumValue<SerializableAssessmentType>();
-            ExportableSectionAssemblyResultWithProbability sectionResult = null;
 
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyResultCreator.Create(assessmentType, sectionResult);
+            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyResultCreator.Create(assessmentType, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

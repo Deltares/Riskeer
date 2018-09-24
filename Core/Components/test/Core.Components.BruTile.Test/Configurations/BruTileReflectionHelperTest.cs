@@ -47,8 +47,7 @@ namespace Core.Components.BruTile.Test.Configurations
         {
             // Setup
             var schema = new TileSchema();
-            IRequest request = null;
-            var tileSource = new HttpTileSource(schema, request);
+            var tileSource = new HttpTileSource(schema, (IRequest) null);
 
             // Call
             ITileProvider provider = BruTileReflectionHelper.GetProviderFromTileSource(tileSource);
@@ -62,8 +61,7 @@ namespace Core.Components.BruTile.Test.Configurations
         {
             // Setup
             var schema = new TileSchema();
-            IRequest request = null;
-            var tileSource = new HttpTileSourceInheritor(schema, request);
+            var tileSource = new HttpTileSourceInheritor(schema, null);
 
             // Call
             ITileProvider provider = BruTileReflectionHelper.GetProviderFromTileSource(tileSource);
