@@ -140,7 +140,7 @@ namespace Application.Ringtoets.Integration.Test
                 // Then
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.AreEqual("Project", gui.Project.Name);
-                Assert.IsEmpty((string) gui.Project.Description);
+                Assert.IsEmpty(gui.Project.Description);
             }
 
             mocks.VerifyAll();
