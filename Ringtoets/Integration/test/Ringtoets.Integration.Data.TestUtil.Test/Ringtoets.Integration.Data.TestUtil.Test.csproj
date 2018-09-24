@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{1B636F2D-FA14-49DE-99ED-259BC72A77F7}</ProjectGuid>
+    <RootNamespace>Ringtoets.Integration.Data.TestUtil.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Integration.Data.TestUtil.Test</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+  </ItemGroup>
+</Project>
