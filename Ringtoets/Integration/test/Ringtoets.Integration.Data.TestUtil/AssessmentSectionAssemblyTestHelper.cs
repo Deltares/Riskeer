@@ -24,14 +24,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Integration.Data.TestUtil
 {
@@ -46,13 +51,32 @@ namespace Ringtoets.Integration.Data.TestUtil
         /// failure mechanisms belonging in groups 1 and 2, such that:
         /// <list type="bullet">
         /// <item>All other failure mechanisms are marked as irrelevant, except one failure mechanism.</item>
-        /// <item>The aforementioned failure mechanism will have one section which contains manual assembly data.</item>
+        /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
         /// <returns>A collection of <see cref="AssessmentSection"/> configurations.</returns>
         public static IEnumerable<TestCaseData> GetConfiguredAssessmentSectionWithGroup1And2FailureMechanisms()
         {
-            foreach (FailureMechanismConfiguration assessmentSectionConfiguration in GetGroup1And2FailureMechanismConfigurations())
+            return GenerateTestCaseData(GetGroup1And2FailureMechanismConfigurations());
+        }
+
+        /// <summary>
+        /// Gets a collection of <see cref="AssessmentSection"/> configurations of
+        /// failure mechanisms belonging in group 3, such that:
+        /// <list type="bullet">
+        /// <item>All other failure mechanisms are marked as irrelevant, except one failure mechanism.</item>
+        /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
+        /// </list>
+        /// </summary>
+        /// <returns>A collection of <see cref="AssessmentSection"/> configurations.</returns>
+        public static IEnumerable<TestCaseData> GetConfiguredAssessmentSectionWithGroup3FailureMechanisms()
+        {
+            return GenerateTestCaseData(GetGroup3FailureMechanismConfigurations());
+        }
+
+        private static IEnumerable<TestCaseData> GenerateTestCaseData(IEnumerable<FailureMechanismConfiguration> configurations)
+        {
+            foreach (FailureMechanismConfiguration assessmentSectionConfiguration in configurations)
             {
                 AssessmentSection assessmentSection = CreateAssessmentSectionWithIrrelevantFailureMechanisms();
                 assessmentSectionConfiguration.ConfigureAssessmentSection(assessmentSection);
@@ -137,6 +161,56 @@ namespace Ringtoets.Integration.Data.TestUtil
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
             }, "StabilityPointStructures");
+        }
+
+        private static IEnumerable<FailureMechanismConfiguration> GetGroup3FailureMechanismConfigurations()
+        {
+            const FailureMechanismSectionAssemblyCategoryGroup manualAssemblyCategoryGroup =
+                FailureMechanismSectionAssemblyCategoryGroup.Vv;
+
+            yield return new FailureMechanismConfiguration(section =>
+            {
+                DuneErosionFailureMechanism failureMechanism = section.DuneErosion;
+                failureMechanism.IsRelevant = true;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+                DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                sectionResult.UseManualAssembly = true;
+                sectionResult.ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup;
+            }, "DuneErosion");
+
+            yield return new FailureMechanismConfiguration(section =>
+            {
+                GrassCoverErosionOutwardsFailureMechanism failureMechanism = section.GrassCoverErosionOutwards;
+                failureMechanism.IsRelevant = true;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+                GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                sectionResult.UseManualAssembly = true;
+                sectionResult.ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup;
+            }, "GrassCoverErosionOutwards");
+
+            yield return new FailureMechanismConfiguration(section =>
+            {
+                StabilityStoneCoverFailureMechanism failureMechanism = section.StabilityStoneCover;
+                failureMechanism.IsRelevant = true;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+                StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                sectionResult.UseManualAssembly = true;
+                sectionResult.ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup;
+            }, "StabilityStoneCover");
+
+            yield return new FailureMechanismConfiguration(section =>
+            {
+                WaveImpactAsphaltCoverFailureMechanism failureMechanism = section.WaveImpactAsphaltCover;
+                failureMechanism.IsRelevant = true;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+                WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                sectionResult.UseManualAssembly = true;
+                sectionResult.ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup;
+            }, "WaveImpactAsphaltCover");
         }
 
         private class FailureMechanismConfiguration
