@@ -47,7 +47,7 @@ namespace Core.Common.Gui.Converters
 
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
-            var keyValueAttribute = context?.PropertyDescriptor?.Attributes?[typeof(KeyValueElementAttribute)] as KeyValueElementAttribute;
+            var keyValueAttribute = context?.PropertyDescriptor?.Attributes[typeof(KeyValueElementAttribute)] as KeyValueElementAttribute;
 
             if (keyValueAttribute == null)
             {
