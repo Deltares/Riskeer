@@ -97,8 +97,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                     TechnicalInnovationFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
-                Assert.AreEqual(calculatorOutput.Group, actualOutput);
+                Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, actualOutput);
             }
         }
 
@@ -145,7 +144,12 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleTailorMadeAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var random = new Random(21);
+            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(failureMechanismSection)
+            {
+                TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>()
+            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -176,8 +180,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                     TechnicalInnovationFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup? calculatorOutput = calculator.TailorMadeAssemblyCategoryOutput;
-                Assert.AreEqual(calculatorOutput, actualOutput);
+                Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, actualOutput);
             }
         }
 
@@ -226,8 +229,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
-            var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -241,14 +243,9 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 TechnicalInnovationFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly =
-                    TechnicalInnovationFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly =
-                    TechnicalInnovationFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
-
-                Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
+                Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
                 Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedDetailedAssemblyGroupInput);
-                Assert.AreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
+                Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, calculator.CombinedTailorMadeAssemblyGroupInput);
             }
         }
 
@@ -360,13 +357,9 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                     new Random(39).NextBoolean());
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
-                    sectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                    sectionResult);
-
-                Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
-                Assert.AreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
+                Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
+                Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedDetailedAssemblyGroupInput);
+                Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, calculator.CombinedTailorMadeAssemblyGroupInput);
             }
         }
 
@@ -378,15 +371,16 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = TechnicalInnovationFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult);
-                Assert.AreEqual(expectedAssembly, categoryGroup);
+                Assert.AreEqual(calculator.CombinedAssemblyCategoryOutput, categoryGroup);
             }
         }
 
@@ -406,7 +400,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 true);
 
             // Assert
-            Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup), categoryGroup);
+            Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                            categoryGroup);
         }
 
         [Test]
@@ -417,19 +412,22 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
             var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
-                ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>(),
-                TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>()
+                ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>()
             };
 
-            // Call
-            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = TechnicalInnovationFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                sectionResult,
-                false);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-            // Assert
-            FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                sectionResult);
-            Assert.AreEqual(expectedAssembly, categoryGroup);
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = TechnicalInnovationFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult,
+                    false);
+
+                // Assert
+                Assert.AreEqual(calculator.CombinedAssemblyCategoryOutput, categoryGroup);
+            }
         }
 
         [Test]
@@ -447,7 +445,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 // Call
                 TestDelegate call = () => TechnicalInnovationFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
-                    new Random(39).NextBoolean());
+                    false);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -494,31 +492,6 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithoutManualInput_SetsInputOnCalculator()
-        {
-            // Setup
-            var failureMechanism = new TechnicalInnovationFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                // Call
-                TechnicalInnovationFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
-
-                // Assert
-                FailureMechanismSectionAssemblyCategoryGroup assemblyCategory =
-                    TechnicalInnovationFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanism.SectionResults.Single());
-                Assert.AreEqual(assemblyCategory, calculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        [Test]
         public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableCategory()
         {
             // Setup
@@ -532,6 +505,30 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
             // Assert
             Assert.AreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory(), category);
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithoutManualInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var failureMechanism = new TechnicalInnovationFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                TechnicalInnovationFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+
+                // Assert
+                Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
+            }
         }
 
         [Test]
@@ -562,7 +559,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithManualInputAndUseManualFalse_SetsNoInputOnCalculator()
+        public void AssembleFailureMechanism_WithManualInputAndUseManualFalse_SetsCombinedInputOnCalculator()
         {
             // Setup
             var failureMechanism = new TechnicalInnovationFailureMechanism();
@@ -578,14 +575,13 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 TechnicalInnovationFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    failureMechanism.SectionResults.Single());
-                Assert.AreEqual(expectedAssembly, calculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
             }
         }
 
