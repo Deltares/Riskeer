@@ -26,10 +26,13 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
@@ -62,44 +65,44 @@ namespace Ringtoets.Integration.Data.TestUtil.Test
 
             const double expectedManualProbability = 0.5;
 
-            var assessmentSectionWithPiping = (AssessmentSection) testCases[0].Arguments[0];
-            PipingFailureMechanism piping = assessmentSectionWithPiping.Piping;
-            AssertAssessmentSection(assessmentSectionWithPiping, piping);
+            var assessmentSection = (AssessmentSection) testCases[0].Arguments[0];
+            PipingFailureMechanism piping = assessmentSection.Piping;
+            AssertAssessmentSection(assessmentSection, piping);
             PipingFailureMechanismSectionResult pipingSectionResult = piping.SectionResults.Single();
             Assert.IsTrue(pipingSectionResult.UseManualAssembly);
             Assert.AreEqual(expectedManualProbability, pipingSectionResult.ManualAssemblyProbability);
 
-            var assessmentSectionWithMacroStabilityInwards = (AssessmentSection) testCases[1].Arguments[0];
-            MacroStabilityInwardsFailureMechanism macroStabilityInwards = assessmentSectionWithMacroStabilityInwards.MacroStabilityInwards;
-            AssertAssessmentSection(assessmentSectionWithMacroStabilityInwards, macroStabilityInwards);
+            assessmentSection = (AssessmentSection) testCases[1].Arguments[0];
+            MacroStabilityInwardsFailureMechanism macroStabilityInwards = assessmentSection.MacroStabilityInwards;
+            AssertAssessmentSection(assessmentSection, macroStabilityInwards);
             MacroStabilityInwardsFailureMechanismSectionResult macroStabilityInwardsSectionResult = macroStabilityInwards.SectionResults.Single();
             Assert.IsTrue(macroStabilityInwardsSectionResult.UseManualAssembly);
             Assert.AreEqual(expectedManualProbability, macroStabilityInwardsSectionResult.ManualAssemblyProbability);
 
-            var assessmentSectionWithGrassCoverErosionInwards = (AssessmentSection) testCases[2].Arguments[0];
-            GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwards = assessmentSectionWithGrassCoverErosionInwards.GrassCoverErosionInwards;
-            AssertAssessmentSection(assessmentSectionWithGrassCoverErosionInwards, grassCoverErosionInwards);
+            assessmentSection = (AssessmentSection) testCases[2].Arguments[0];
+            GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwards = assessmentSection.GrassCoverErosionInwards;
+            AssertAssessmentSection(assessmentSection, grassCoverErosionInwards);
             GrassCoverErosionInwardsFailureMechanismSectionResult grassCoverErosionInwardsSectionResult = grassCoverErosionInwards.SectionResults.Single();
             Assert.IsTrue(grassCoverErosionInwardsSectionResult.UseManualAssembly);
             Assert.AreEqual(expectedManualProbability, grassCoverErosionInwardsSectionResult.ManualAssemblyProbability);
 
-            var assessmentSectionWithClosingStructures = (AssessmentSection) testCases[3].Arguments[0];
-            ClosingStructuresFailureMechanism closingStructures = assessmentSectionWithClosingStructures.ClosingStructures;
-            AssertAssessmentSection(assessmentSectionWithClosingStructures, closingStructures);
+            assessmentSection = (AssessmentSection) testCases[3].Arguments[0];
+            ClosingStructuresFailureMechanism closingStructures = assessmentSection.ClosingStructures;
+            AssertAssessmentSection(assessmentSection, closingStructures);
             ClosingStructuresFailureMechanismSectionResult closingStructuresSectionResult = closingStructures.SectionResults.Single();
             Assert.IsTrue(closingStructuresSectionResult.UseManualAssembly);
             Assert.AreEqual(expectedManualProbability, closingStructuresSectionResult.ManualAssemblyProbability);
 
-            var assessmentSectionWithHeightStructures = (AssessmentSection) testCases[4].Arguments[0];
-            HeightStructuresFailureMechanism heightStructures = assessmentSectionWithHeightStructures.HeightStructures;
-            AssertAssessmentSection(assessmentSectionWithHeightStructures, heightStructures);
+            assessmentSection = (AssessmentSection) testCases[4].Arguments[0];
+            HeightStructuresFailureMechanism heightStructures = assessmentSection.HeightStructures;
+            AssertAssessmentSection(assessmentSection, heightStructures);
             HeightStructuresFailureMechanismSectionResult heightStructuresSectionResult = heightStructures.SectionResults.Single();
             Assert.IsTrue(heightStructuresSectionResult.UseManualAssembly);
             Assert.AreEqual(expectedManualProbability, heightStructuresSectionResult.ManualAssemblyProbability);
 
-            var assessmentSectionWithStabilityPointStructures = (AssessmentSection) testCases[5].Arguments[0];
-            StabilityPointStructuresFailureMechanism stabilityPointStructures = assessmentSectionWithStabilityPointStructures.StabilityPointStructures;
-            AssertAssessmentSection(assessmentSectionWithStabilityPointStructures, stabilityPointStructures);
+            assessmentSection = (AssessmentSection) testCases[5].Arguments[0];
+            StabilityPointStructuresFailureMechanism stabilityPointStructures = assessmentSection.StabilityPointStructures;
+            AssertAssessmentSection(assessmentSection, stabilityPointStructures);
             StabilityPointStructuresFailureMechanismSectionResult stabilityPointStructuresSectionResult = stabilityPointStructures.SectionResults.Single();
             Assert.IsTrue(stabilityPointStructuresSectionResult.UseManualAssembly);
             Assert.AreEqual(expectedManualProbability, stabilityPointStructuresSectionResult.ManualAssemblyProbability);
@@ -118,40 +121,97 @@ namespace Ringtoets.Integration.Data.TestUtil.Test
                 "DuneErosion",
                 "GrassCoverErosionOutwards",
                 "StabilityStoneCover",
-                "WaveImpactAsphaltCover"
+                "WaveImpactAsphaltCover",
+                "GrassCoverSlipOffInwards",
+                "GrassCoverSlipOffOutwards",
+                "PipingStructure",
+                "StrengthStabilityLengthwiseConstruction",
+                "TechnicalInnovation",
+                "Microstability",
+                "MacroStabilityOutwards"
             }, testCases.Select(tc => tc.TestName));
             Assert.IsTrue(testCases.All(tc => tc.Arguments.Length == 1));
 
-            const FailureMechanismSectionAssemblyCategoryGroup expectedManualAssemblyCategoryGroup =
-                FailureMechanismSectionAssemblyCategoryGroup.Vv;
+            const FailureMechanismSectionAssemblyCategoryGroup expectedSectionAssemblyGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
+            const ManualFailureMechanismSectionAssemblyCategoryGroup expectedManualSectionAssemblyGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
 
-            var assessmentSectionWithDuneErosion = (AssessmentSection) testCases[0].Arguments[0];
-            DuneErosionFailureMechanism duneErosion = assessmentSectionWithDuneErosion.DuneErosion;
-            AssertAssessmentSection(assessmentSectionWithDuneErosion, duneErosion);
+            var assessmentSection = (AssessmentSection) testCases[0].Arguments[0];
+            DuneErosionFailureMechanism duneErosion = assessmentSection.DuneErosion;
+            AssertAssessmentSection(assessmentSection, duneErosion);
             DuneErosionFailureMechanismSectionResult duneErosionSectionResult = duneErosion.SectionResults.Single();
             Assert.IsTrue(duneErosionSectionResult.UseManualAssembly);
-            Assert.AreEqual(expectedManualAssemblyCategoryGroup, duneErosionSectionResult.ManualAssemblyCategoryGroup);
+            Assert.AreEqual(expectedSectionAssemblyGroup, duneErosionSectionResult.ManualAssemblyCategoryGroup);
 
-            var assessmentSectionWithGrassCoverErosionOutwards = (AssessmentSection) testCases[1].Arguments[0];
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards = assessmentSectionWithGrassCoverErosionOutwards.GrassCoverErosionOutwards;
-            AssertAssessmentSection(assessmentSectionWithGrassCoverErosionOutwards, grassCoverErosionOutwards);
+            assessmentSection = (AssessmentSection) testCases[1].Arguments[0];
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards = assessmentSection.GrassCoverErosionOutwards;
+            AssertAssessmentSection(assessmentSection, grassCoverErosionOutwards);
             GrassCoverErosionOutwardsFailureMechanismSectionResult grassCoverErosionOutwardsSectionResult = grassCoverErosionOutwards.SectionResults.Single();
             Assert.IsTrue(grassCoverErosionOutwardsSectionResult.UseManualAssembly);
-            Assert.AreEqual(expectedManualAssemblyCategoryGroup, grassCoverErosionOutwardsSectionResult.ManualAssemblyCategoryGroup);
+            Assert.AreEqual(expectedSectionAssemblyGroup, grassCoverErosionOutwardsSectionResult.ManualAssemblyCategoryGroup);
 
-            var assessmentSectionWithStabilityStoneCover = (AssessmentSection) testCases[2].Arguments[0];
-            StabilityStoneCoverFailureMechanism stabilityStoneCover = assessmentSectionWithStabilityStoneCover.StabilityStoneCover;
-            AssertAssessmentSection(assessmentSectionWithStabilityStoneCover, stabilityStoneCover);
+            assessmentSection = (AssessmentSection) testCases[2].Arguments[0];
+            StabilityStoneCoverFailureMechanism stabilityStoneCover = assessmentSection.StabilityStoneCover;
+            AssertAssessmentSection(assessmentSection, stabilityStoneCover);
             StabilityStoneCoverFailureMechanismSectionResult stabilityStoneCoverSectionResult = stabilityStoneCover.SectionResults.Single();
             Assert.IsTrue(stabilityStoneCoverSectionResult.UseManualAssembly);
-            Assert.AreEqual(expectedManualAssemblyCategoryGroup, stabilityStoneCoverSectionResult.ManualAssemblyCategoryGroup);
+            Assert.AreEqual(expectedSectionAssemblyGroup, stabilityStoneCoverSectionResult.ManualAssemblyCategoryGroup);
 
-            var assessmentSectionWithWaveImpactAsphaltCover = (AssessmentSection) testCases[3].Arguments[0];
-            WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = assessmentSectionWithWaveImpactAsphaltCover.WaveImpactAsphaltCover;
-            AssertAssessmentSection(assessmentSectionWithWaveImpactAsphaltCover, waveImpactAsphaltCover);
+            assessmentSection = (AssessmentSection) testCases[3].Arguments[0];
+            WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = assessmentSection.WaveImpactAsphaltCover;
+            AssertAssessmentSection(assessmentSection, waveImpactAsphaltCover);
             WaveImpactAsphaltCoverFailureMechanismSectionResult waveImpactAsphaltCoverSectionResult = waveImpactAsphaltCover.SectionResults.Single();
             Assert.IsTrue(waveImpactAsphaltCoverSectionResult.UseManualAssembly);
-            Assert.AreEqual(expectedManualAssemblyCategoryGroup, waveImpactAsphaltCoverSectionResult.ManualAssemblyCategoryGroup);
+            Assert.AreEqual(expectedSectionAssemblyGroup, waveImpactAsphaltCoverSectionResult.ManualAssemblyCategoryGroup);
+
+            assessmentSection = (AssessmentSection) testCases[4].Arguments[0];
+            GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwards = assessmentSection.GrassCoverSlipOffInwards;
+            AssertAssessmentSection(assessmentSection, grassCoverSlipOffInwards);
+            GrassCoverSlipOffInwardsFailureMechanismSectionResult grassCoverSlipOffInwardsSectionResult = grassCoverSlipOffInwards.SectionResults.Single();
+            Assert.IsTrue(grassCoverSlipOffInwardsSectionResult.UseManualAssembly);
+            Assert.AreEqual(expectedManualSectionAssemblyGroup, grassCoverSlipOffInwardsSectionResult.ManualAssemblyCategoryGroup);
+
+            assessmentSection = (AssessmentSection) testCases[5].Arguments[0];
+            GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwards = assessmentSection.GrassCoverSlipOffOutwards;
+            AssertAssessmentSection(assessmentSection, grassCoverSlipOffOutwards);
+            GrassCoverSlipOffOutwardsFailureMechanismSectionResult grassCoverSlipOffOutwardsSectionResult = grassCoverSlipOffOutwards.SectionResults.Single();
+            Assert.IsTrue(grassCoverSlipOffOutwardsSectionResult.UseManualAssembly);
+            Assert.AreEqual(expectedManualSectionAssemblyGroup, grassCoverSlipOffOutwardsSectionResult.ManualAssemblyCategoryGroup);
+
+            assessmentSection = (AssessmentSection) testCases[6].Arguments[0];
+            PipingStructureFailureMechanism pipingStructure = assessmentSection.PipingStructure;
+            AssertAssessmentSection(assessmentSection, pipingStructure);
+            PipingStructureFailureMechanismSectionResult pipingStructureSectionResult = pipingStructure.SectionResults.Single();
+            Assert.IsTrue(pipingStructureSectionResult.UseManualAssembly);
+            Assert.AreEqual(expectedManualSectionAssemblyGroup, pipingStructureSectionResult.ManualAssemblyCategoryGroup);
+
+            assessmentSection = (AssessmentSection) testCases[7].Arguments[0];
+            StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstruction = assessmentSection.StrengthStabilityLengthwiseConstruction;
+            AssertAssessmentSection(assessmentSection, strengthStabilityLengthwiseConstruction);
+            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult strengthStabilityLengthwiseConstructionSectionResult =
+                strengthStabilityLengthwiseConstruction.SectionResults.Single();
+            Assert.IsTrue(strengthStabilityLengthwiseConstructionSectionResult.UseManualAssembly);
+            Assert.AreEqual(expectedManualSectionAssemblyGroup, strengthStabilityLengthwiseConstructionSectionResult.ManualAssemblyCategoryGroup);
+
+            assessmentSection = (AssessmentSection) testCases[8].Arguments[0];
+            TechnicalInnovationFailureMechanism technicalInnovation = assessmentSection.TechnicalInnovation;
+            AssertAssessmentSection(assessmentSection, technicalInnovation);
+            TechnicalInnovationFailureMechanismSectionResult technicalInnovationSectionResult = technicalInnovation.SectionResults.Single();
+            Assert.IsTrue(technicalInnovationSectionResult.UseManualAssembly);
+            Assert.AreEqual(expectedManualSectionAssemblyGroup, technicalInnovationSectionResult.ManualAssemblyCategoryGroup);
+
+            assessmentSection = (AssessmentSection) testCases[9].Arguments[0];
+            MicrostabilityFailureMechanism microstability = assessmentSection.Microstability;
+            AssertAssessmentSection(assessmentSection, microstability);
+            MicrostabilityFailureMechanismSectionResult microstabilitySectionResult = microstability.SectionResults.Single();
+            Assert.IsTrue(microstabilitySectionResult.UseManualAssembly);
+            Assert.AreEqual(expectedManualSectionAssemblyGroup, microstabilitySectionResult.ManualAssemblyCategoryGroup);
+
+            assessmentSection = (AssessmentSection) testCases[10].Arguments[0];
+            MacroStabilityOutwardsFailureMechanism macroStabilityOutwards = assessmentSection.MacroStabilityOutwards;
+            AssertAssessmentSection(assessmentSection, macroStabilityOutwards);
+            MacroStabilityOutwardsFailureMechanismSectionResult macroStabilityOutwardsSectionResult = macroStabilityOutwards.SectionResults.Single();
+            Assert.IsTrue(macroStabilityOutwardsSectionResult.UseManualAssembly);
+            Assert.AreEqual(expectedManualSectionAssemblyGroup, macroStabilityOutwardsSectionResult.ManualAssemblyCategoryGroup);
         }
 
         private static void AssertAssessmentSection(AssessmentSection assessmentSection,

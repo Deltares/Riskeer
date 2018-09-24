@@ -28,10 +28,13 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
@@ -165,8 +168,8 @@ namespace Ringtoets.Integration.Data.TestUtil
 
         private static IEnumerable<FailureMechanismConfiguration> GetGroup3FailureMechanismConfigurations()
         {
-            const FailureMechanismSectionAssemblyCategoryGroup manualAssemblyCategoryGroup =
-                FailureMechanismSectionAssemblyCategoryGroup.Vv;
+            const FailureMechanismSectionAssemblyCategoryGroup sectionAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
+            const ManualFailureMechanismSectionAssemblyCategoryGroup manualSectionAssemblyCategoryGrouo = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
 
             yield return new FailureMechanismConfiguration(section =>
             {
@@ -176,7 +179,7 @@ namespace Ringtoets.Integration.Data.TestUtil
 
                 DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup;
+                sectionResult.ManualAssemblyCategoryGroup = sectionAssemblyCategoryGroup;
             }, "DuneErosion");
 
             yield return new FailureMechanismConfiguration(section =>
@@ -187,7 +190,7 @@ namespace Ringtoets.Integration.Data.TestUtil
 
                 GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup;
+                sectionResult.ManualAssemblyCategoryGroup = sectionAssemblyCategoryGroup;
             }, "GrassCoverErosionOutwards");
 
             yield return new FailureMechanismConfiguration(section =>
@@ -198,7 +201,7 @@ namespace Ringtoets.Integration.Data.TestUtil
 
                 StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup;
+                sectionResult.ManualAssemblyCategoryGroup = sectionAssemblyCategoryGroup;
             }, "StabilityStoneCover");
 
             yield return new FailureMechanismConfiguration(section =>
@@ -209,8 +212,85 @@ namespace Ringtoets.Integration.Data.TestUtil
 
                 WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup;
+                sectionResult.ManualAssemblyCategoryGroup = sectionAssemblyCategoryGroup;
             }, "WaveImpactAsphaltCover");
+
+            yield return new FailureMechanismConfiguration(section =>
+            {
+                GrassCoverSlipOffInwardsFailureMechanism failureMechanism = section.GrassCoverSlipOffInwards;
+                failureMechanism.IsRelevant = true;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+                GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                sectionResult.UseManualAssembly = true;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+            }, "GrassCoverSlipOffInwards");
+
+            yield return new FailureMechanismConfiguration(section =>
+            {
+                GrassCoverSlipOffOutwardsFailureMechanism failureMechanism = section.GrassCoverSlipOffOutwards;
+                failureMechanism.IsRelevant = true;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                sectionResult.UseManualAssembly = true;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+            }, "GrassCoverSlipOffOutwards");
+
+            yield return new FailureMechanismConfiguration(section =>
+            {
+                PipingStructureFailureMechanism failureMechanism = section.PipingStructure;
+                failureMechanism.IsRelevant = true;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+                PipingStructureFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                sectionResult.UseManualAssembly = true;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+            }, "PipingStructure");
+
+            yield return new FailureMechanismConfiguration(section =>
+            {
+                StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism = section.StrengthStabilityLengthwiseConstruction;
+                failureMechanism.IsRelevant = true;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                sectionResult.UseManualAssembly = true;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+            }, "StrengthStabilityLengthwiseConstruction");
+
+            yield return new FailureMechanismConfiguration(section =>
+            {
+                TechnicalInnovationFailureMechanism failureMechanism = section.TechnicalInnovation;
+                failureMechanism.IsRelevant = true;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+                TechnicalInnovationFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                sectionResult.UseManualAssembly = true;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+            }, "TechnicalInnovation");
+
+            yield return new FailureMechanismConfiguration(section =>
+            {
+                MicrostabilityFailureMechanism failureMechanism = section.Microstability;
+                failureMechanism.IsRelevant = true;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+                MicrostabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                sectionResult.UseManualAssembly = true;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+            }, "Microstability");
+
+            yield return new FailureMechanismConfiguration(section =>
+            {
+                MacroStabilityOutwardsFailureMechanism failureMechanism = section.MacroStabilityOutwards;
+                failureMechanism.IsRelevant = true;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+                MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                sectionResult.UseManualAssembly = true;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+            }, "MacroStabilityOutwards");
         }
 
         private class FailureMechanismConfiguration
