@@ -63,7 +63,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean()
             };
 
-            calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);
+            calculationConfiguration.SetConfigurationForeshoreProfileDependentProperties(input);
 
             if (input.Structure != null)
             {

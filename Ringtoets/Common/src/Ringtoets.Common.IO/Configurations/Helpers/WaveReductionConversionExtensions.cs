@@ -39,7 +39,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// <param name="configuration">The configuration to update.</param>
         /// <param name="input">The structure input to update from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        public static void SetConfigurationForeshoreProfileDependendProperties<T>(this StructuresCalculationConfiguration configuration,
+        public static void SetConfigurationForeshoreProfileDependentProperties<T>(this StructuresCalculationConfiguration configuration,
                                                                                   StructuresInputBase<T> input) where T : StructureBase
         {
             if (configuration == null)

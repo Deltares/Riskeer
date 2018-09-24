@@ -69,12 +69,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated
             };
 
-            SetConfigurationStructureDependendParameters(calculationConfiguration, input);
-            calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);
+            SetConfigurationStructureDependentParameters(calculationConfiguration, input);
+            calculationConfiguration.SetConfigurationForeshoreProfileDependentProperties(input);
             return calculationConfiguration;
         }
 
-        private static void SetConfigurationStructureDependendParameters(StabilityPointStructuresCalculationConfiguration calculationConfiguration,
+        private static void SetConfigurationStructureDependentParameters(StabilityPointStructuresCalculationConfiguration calculationConfiguration,
                                                                          StabilityPointStructuresInput input)
         {
             if (input.Structure == null)
