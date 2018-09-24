@@ -65,9 +65,6 @@ namespace Ringtoets.AssemblyTool.IO.Test.Model
         [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
         public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
         {
-            // Setup
-            var random = new Random(39);
-
             // Call
             TestDelegate call = () => new SerializableAssessmentSection(invalidId,
                                                                         "name",
