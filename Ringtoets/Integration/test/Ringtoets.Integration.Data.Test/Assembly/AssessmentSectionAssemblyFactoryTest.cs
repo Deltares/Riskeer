@@ -166,9 +166,8 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         #region Manual Assembly Used
 
         [Test]
-        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithProbability))]
-        public void AssembleFailureMechanismsWithProbability_FailureMechanismWithManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator(AssessmentSection assessmentSection,
-                                                                                                                                                           IFailureMechanism relevantFailureMechanism)
+        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithoutConfiguredFailureMechanismWithProbability))]
+        public void AssembleFailureMechanismsWithProbability_FailureMechanismWithManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator(AssessmentSection assessmentSection)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -185,9 +184,8 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         }
 
         [Test]
-        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithProbability))]
-        public void AssembleFailureMechanismsWithProbability_FailureMechanismWithManualSectionAssemblyAndUseManualFalse_SetsAssemblyInputOnCalculator(AssessmentSection assessmentSection,
-                                                                                                                                                      IFailureMechanism relevantFailureMechanism)
+        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithoutConfiguredFailureMechanismWithProbability))]
+        public void AssembleFailureMechanismsWithProbability_FailureMechanismWithManualSectionAssemblyAndUseManualFalse_SetsAssemblyInputOnCalculator(AssessmentSection assessmentSection)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -333,9 +331,8 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         }
 
         [Test]
-        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithoutProbability))]
-        public void AssembleFailureMechanismsWithoutProbability_FailureMechanismWithManualSectionAssemblyAndUseManualFalse_SetsAssemblyInputOnCalculator(AssessmentSection assessmentSection, 
-                                                                                                                                                         IFailureMechanism relevantFailureMechanism)
+        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithoutConfiguredFailureMechanismWithoutProbability))]
+        public void AssembleFailureMechanismsWithoutProbability_FailureMechanismWithManualSectionAssemblyAndUseManualFalse_SetsAssemblyInputOnCalculator(AssessmentSection assessmentSection)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
