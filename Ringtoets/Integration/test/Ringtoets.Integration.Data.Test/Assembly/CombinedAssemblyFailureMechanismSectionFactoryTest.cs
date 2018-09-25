@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void CreateInput_WithAllFailureMechanisms_ReturnsInputCollection()
+        public void CreateInput_WithAllFailureMechanismsAndUseManualFalse_ReturnsInputCollection()
         {
             // Setup
             var random = new Random(21);
@@ -85,39 +85,31 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(random.NextDouble(), FailureMechanismSectionAssemblyCategoryGroup.IIIv);
-                failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput = FailureMechanismSectionAssemblyCategoryGroup.VIIv;
-
                 // Call
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms(), new Random(39).NextBoolean());
+                    assessmentSection, assessmentSection.GetFailureMechanisms(), random.NextBoolean());
 
                 // Assert
                 Assert.AreEqual(18, inputs.Count());
 
-                FailureMechanismSectionAssemblyCategoryGroup expectedInputWithProbability = failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput.Group;
-                FailureMechanismSectionAssemblyCategoryGroup expectedInputWithoutProbability = failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput.Value;
-
-                AssertSectionsWithResult(assessmentSection.Piping.SectionResults, expectedInputWithProbability, inputs.ElementAt(0));
-                AssertSectionsWithResult(assessmentSection.GrassCoverErosionInwards.SectionResults, expectedInputWithProbability, inputs.ElementAt(1));
-                AssertSectionsWithResult(assessmentSection.MacroStabilityInwards.SectionResults, expectedInputWithProbability, inputs.ElementAt(2));
-                AssertSectionsWithResult(assessmentSection.MacroStabilityOutwards.SectionResults, expectedInputWithoutProbability, inputs.ElementAt(3));
-                AssertSectionsWithResult(assessmentSection.Microstability.SectionResults, expectedInputWithoutProbability, inputs.ElementAt(4));
-                AssertSectionsWithResult(assessmentSection.StabilityStoneCover.SectionResults, expectedInputWithoutProbability, inputs.ElementAt(5));
-                AssertSectionsWithResult(assessmentSection.WaveImpactAsphaltCover.SectionResults, expectedInputWithoutProbability, inputs.ElementAt(6));
-                AssertSectionsWithResult(assessmentSection.WaterPressureAsphaltCover.SectionResults, expectedInputWithoutProbability, inputs.ElementAt(7));
-                AssertSectionsWithResult(assessmentSection.GrassCoverErosionOutwards.SectionResults, expectedInputWithoutProbability, inputs.ElementAt(8));
-                AssertSectionsWithResult(assessmentSection.GrassCoverSlipOffOutwards.SectionResults, expectedInputWithoutProbability, inputs.ElementAt(9));
-                AssertSectionsWithResult(assessmentSection.GrassCoverSlipOffInwards.SectionResults, expectedInputWithoutProbability, inputs.ElementAt(10));
-                AssertSectionsWithResult(assessmentSection.HeightStructures.SectionResults, expectedInputWithProbability, inputs.ElementAt(11));
-                AssertSectionsWithResult(assessmentSection.ClosingStructures.SectionResults, expectedInputWithProbability, inputs.ElementAt(12));
-                AssertSectionsWithResult(assessmentSection.PipingStructure.SectionResults, expectedInputWithoutProbability, inputs.ElementAt(13));
-                AssertSectionsWithResult(assessmentSection.StabilityPointStructures.SectionResults, expectedInputWithProbability, inputs.ElementAt(14));
-                AssertSectionsWithResult(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults, expectedInputWithoutProbability, inputs.ElementAt(15));
-                AssertSectionsWithResult(assessmentSection.DuneErosion.SectionResults, expectedInputWithoutProbability, inputs.ElementAt(16));
-                AssertSectionsWithResult(assessmentSection.TechnicalInnovation.SectionResults, expectedInputWithoutProbability, inputs.ElementAt(17));
+                AssertSections(assessmentSection.Piping.SectionResults, inputs.ElementAt(0));
+                AssertSections(assessmentSection.GrassCoverErosionInwards.SectionResults, inputs.ElementAt(1));
+                AssertSections(assessmentSection.MacroStabilityInwards.SectionResults, inputs.ElementAt(2));
+                AssertSections(assessmentSection.MacroStabilityOutwards.SectionResults, inputs.ElementAt(3));
+                AssertSections(assessmentSection.Microstability.SectionResults, inputs.ElementAt(4));
+                AssertSections(assessmentSection.StabilityStoneCover.SectionResults, inputs.ElementAt(5));
+                AssertSections(assessmentSection.WaveImpactAsphaltCover.SectionResults, inputs.ElementAt(6));
+                AssertSections(assessmentSection.WaterPressureAsphaltCover.SectionResults, inputs.ElementAt(7));
+                AssertSections(assessmentSection.GrassCoverErosionOutwards.SectionResults, inputs.ElementAt(8));
+                AssertSections(assessmentSection.GrassCoverSlipOffOutwards.SectionResults, inputs.ElementAt(9));
+                AssertSections(assessmentSection.GrassCoverSlipOffInwards.SectionResults, inputs.ElementAt(10));
+                AssertSections(assessmentSection.HeightStructures.SectionResults, inputs.ElementAt(11));
+                AssertSections(assessmentSection.ClosingStructures.SectionResults, inputs.ElementAt(12));
+                AssertSections(assessmentSection.PipingStructure.SectionResults, inputs.ElementAt(13));
+                AssertSections(assessmentSection.StabilityPointStructures.SectionResults, inputs.ElementAt(14));
+                AssertSections(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults, inputs.ElementAt(15));
+                AssertSections(assessmentSection.DuneErosion.SectionResults, inputs.ElementAt(16));
+                AssertSections(assessmentSection.TechnicalInnovation.SectionResults, inputs.ElementAt(17));
             }
         }
 
