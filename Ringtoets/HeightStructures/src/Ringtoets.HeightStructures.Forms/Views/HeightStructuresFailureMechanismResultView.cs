@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
@@ -183,11 +182,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
-        }
-
-        protected override bool HasManualAssemblyResults()
-        {
-            return HasSectionResultsHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

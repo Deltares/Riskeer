@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -207,52 +206,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual("1/1", cells[combinedAssemblyProbabilityIndex].FormattedValue);
                 Assert.AreEqual(false, cells[useManualAssemblyIndex].Value);
                 Assert.AreEqual("-", cells[manualAssemblyProbabilityIndex].FormattedValue);
-            }
-        }
-
-        [Test]
-        public void FailureMechanismResultView_WithFailureMechanismWithManualSectionAssemblyResults_ThenWarningSet()
-        {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssembly = true;
-
-            using (ShowFailureMechanismResultsView(failureMechanism))
-            {
-                FailureMechanismAssemblyControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(failureMechanismAssemblyControl);
-
-                // Call
-                string warningMessage = manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl);
-
-                // Assert
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningMessage);
-            }
-        }
-
-        [Test]
-        public void GivenFailureMechanismResultsViewWithWarnings_WhenFailureMechanismWithoutManualSectionAssemblyResultsAndFailureMechanismNotifiesObservers_ThenWarningCleared()
-        {
-            // Given
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssembly = true;
-
-            using (ShowFailureMechanismResultsView(failureMechanism))
-            {
-                FailureMechanismAssemblyControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(failureMechanismAssemblyControl);
-
-                // Precondition
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl));
-
-                // When
-                failureMechanism.SectionResults.ForEachElementDo(sr => sr.UseManualAssembly = false);
-                failureMechanism.NotifyObservers();
-
-                // Then
-                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl));
             }
         }
 

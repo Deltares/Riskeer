@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Controls;
@@ -150,11 +149,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             FailureMechanismAssemblyResultControl.SetAssemblyResult(MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism,
                                                                                                                                                    assessmentSection,
                                                                                                                                                    true));
-        }
-
-        protected override bool HasManualAssemblyResults()
-        {
-            return HasSectionResultsHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

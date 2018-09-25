@@ -40,11 +40,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         public void SetConfigurationForeshoreProfileDependendProperties_ConfigurationNull_ThrowsArgumentNullException()
         {
             // Setup
-            SimpleStructuresCalculationConfiguration configuration = null;
             var structureInput = new SimpleStructuresInput();
 
             // Call
-            TestDelegate call = () => configuration.SetConfigurationForeshoreProfileDependendProperties(structureInput);
+            TestDelegate call = () => WaveReductionConversionExtensions.SetConfigurationForeshoreProfileDependendProperties(null, structureInput);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

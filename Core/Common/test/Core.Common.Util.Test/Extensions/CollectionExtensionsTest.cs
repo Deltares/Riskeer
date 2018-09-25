@@ -32,11 +32,8 @@ namespace Core.Common.Util.Test.Extensions
         [Test]
         public void RemoveAllWhere_CollectionNull_ThrowArgumentNullException()
         {
-            // Setup
-            ICollection<object> collection = null;
-
             // Call
-            TestDelegate call = () => collection.RemoveAllWhere(o => true);
+            TestDelegate call = () => CollectionExtensions.RemoveAllWhere<object>(null, o => true);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

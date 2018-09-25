@@ -32,11 +32,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         [Test]
         public void GetStochastNames_SubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
-            // Setup
-            SubMechanismIllustrationPoint subMechanismIllustrationPoint = null;
-
             // Call
-            TestDelegate test = () => subMechanismIllustrationPoint.GetStochastNames();
+            TestDelegate test = () => SubMechanismIllustrationPointExtensions.GetStochastNames(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

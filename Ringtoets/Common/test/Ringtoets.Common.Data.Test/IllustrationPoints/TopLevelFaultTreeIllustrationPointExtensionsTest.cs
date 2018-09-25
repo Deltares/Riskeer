@@ -32,11 +32,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         [Test]
         public void GetStochastNamesRecursively_TopLevelFaultTreeIllustrationPointNull_ThrowsArgumentNullException()
         {
-            // Setup
-            TopLevelFaultTreeIllustrationPoint topLevelFaultTreeIllustrationPoint = null;
-
             // Call
-            TestDelegate test = () => topLevelFaultTreeIllustrationPoint.GetStochastNamesRecursively();
+            TestDelegate test = () => TopLevelFaultTreeIllustrationPointExtensions.GetStochastNamesRecursively(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

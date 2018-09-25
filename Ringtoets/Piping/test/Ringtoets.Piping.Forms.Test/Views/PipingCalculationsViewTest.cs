@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
                 DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
                 Assert.AreEqual(3, hydraulicBoundaryLocationComboboxItems.Count);
-                Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
+                Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
                 Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
                 Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
             }
@@ -181,7 +181,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
                 DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
                 Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
-                Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
+                Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
             }
 
             mocks.VerifyAll();
@@ -206,7 +206,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
                 DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
                 Assert.AreEqual(7, hydraulicBoundaryLocationComboboxItems.Count);
-                Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
+                Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
                 Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
                 Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
                 Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
@@ -275,12 +275,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 DataGridViewComboBoxCell.ObjectCollection stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items;
                 Assert.AreEqual(2, stochasticSoilModelsComboboxItems.Count);
-                Assert.AreEqual("<geen>", stochasticSoilModelsComboboxItems[0].ToString());
+                Assert.AreEqual("<selecteer>", stochasticSoilModelsComboboxItems[0].ToString());
                 Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
 
                 stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilModelsColumnIndex]).Items;
                 Assert.AreEqual(3, stochasticSoilModelsComboboxItems.Count);
-                Assert.AreEqual("<geen>", stochasticSoilModelsComboboxItems[0].ToString());
+                Assert.AreEqual("<selecteer>", stochasticSoilModelsComboboxItems[0].ToString());
                 Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
                 Assert.AreEqual("Model E", stochasticSoilModelsComboboxItems[2].ToString());
             }
@@ -303,13 +303,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 DataGridViewComboBoxCell.ObjectCollection soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items;
                 Assert.AreEqual(3, soilProfilesComboboxItems.Count);
-                Assert.AreEqual("<geen>", soilProfilesComboboxItems[0].ToString());
+                Assert.AreEqual("<selecteer>", soilProfilesComboboxItems[0].ToString());
                 Assert.AreEqual("Profile 1", soilProfilesComboboxItems[1].ToString());
                 Assert.AreEqual("Profile 2", soilProfilesComboboxItems[2].ToString());
 
                 soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesColumnIndex]).Items;
                 Assert.AreEqual(2, soilProfilesComboboxItems.Count);
-                Assert.AreEqual("<geen>", soilProfilesComboboxItems[0].ToString());
+                Assert.AreEqual("<selecteer>", soilProfilesComboboxItems[0].ToString());
                 Assert.AreEqual("Profile 5", soilProfilesComboboxItems[1].ToString());
             }
 
@@ -336,7 +336,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(9, cells.Count);
                 Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("Model A", cells[stochasticSoilModelsColumnIndex].FormattedValue);
-                Assert.AreEqual("<geen>", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("<selecteer>", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
                 Assert.AreEqual(GetFormattedProbabilityValue(0), cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
                 Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
                 Assert.AreEqual(1.111.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);

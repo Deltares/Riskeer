@@ -32,11 +32,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         [Test]
         public void GetStochastNames_FaultTreeIllustrationPointNull_ThrowsArgumentNullException()
         {
-            // Setup
-            FaultTreeIllustrationPoint faultTreeIllustrationPoint = null;
-
             // Call
-            TestDelegate test = () => faultTreeIllustrationPoint.GetStochastNames();
+            TestDelegate test = () => FaultTreeIllustrationPointExtensions.GetStochastNames(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

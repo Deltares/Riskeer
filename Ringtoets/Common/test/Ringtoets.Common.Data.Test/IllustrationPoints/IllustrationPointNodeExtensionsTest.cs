@@ -32,11 +32,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         [Test]
         public void GetStochastNames_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
-            // Setup
-            IllustrationPointNode illustrationPointNode = null;
-
             // Call
-            TestDelegate test = () => illustrationPointNode.GetStochastNames();
+            TestDelegate test = () => IllustrationPointNodeExtensions.GetStochastNames(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -100,11 +97,8 @@ namespace Ringtoets.Common.Data.Test.IllustrationPoints
         [Test]
         public void GetStochastNamesRecursively_IllustrationPointNodeNull_ThrowsArgumentNullException()
         {
-            // Setup
-            IllustrationPointNode illustrationPointNode = null;
-
             // Call
-            TestDelegate test = () => illustrationPointNode.GetStochastNamesRecursively();
+            TestDelegate test = () => IllustrationPointNodeExtensions.GetStochastNamesRecursively(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

@@ -102,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items.Count);
                 Assert.AreEqual("PK001_0001_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items.Count);
-                Assert.AreEqual("<geen>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual("<selecteer>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
 
                 // Import hydraulic boundary locations and ensure the corresponding combobox items are updated
                 DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection);

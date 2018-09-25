@@ -32,11 +32,8 @@ namespace Core.Components.Chart.Test.Data
         [Test]
         public void GetFeatureBasedChartDataRecursively_ChartDataCollectionNull_ThrowArgumentNullException()
         {
-            // Setup
-            ChartDataCollection collection = null;
-
             // Call
-            TestDelegate test = () => collection.GetChartDataRecursively();
+            TestDelegate test = () => ChartDataCollectionExtensions.GetChartDataRecursively(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

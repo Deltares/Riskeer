@@ -100,7 +100,7 @@ namespace Core.Common.Geometry
         /// Transforms X coordinates in a 2D X, Y plane using:
         /// - A reference point as starting point of the line.
         /// - An offset at which the reference coincides with the X axis.
-        /// - A rotation from North of the X coordinates around the origin after substracting the offset in degrees.
+        /// - A rotation from North of the X coordinates around the origin after subtracting the offset in degrees.
         /// </summary>
         /// <param name="xCoordinates">The X coordinates of a line.</param>
         /// <param name="referencePoint">The point of reference where the line is transposed to.</param>

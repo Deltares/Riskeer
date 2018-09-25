@@ -80,80 +80,26 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
         private static IEnumerable<TestCaseData> GetHasManualAssemblyResultCases()
         {
-            var getPipingFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.Piping);
-
-            var getMacroStabilityInwardsFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.MacroStabilityInwards);
-
-            var getGrassCoverErosionInwardsFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.GrassCoverErosionInwards);
-
-            var getClosingStructuresFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.ClosingStructures);
-
-            var getHeightStructuresFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.HeightStructures);
-
-            var getStabilityPointStructuresFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.StabilityPointStructures);
-
-            var getGrassCoverErosionOutwardsFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.GrassCoverErosionOutwards);
-
-            var getDuneErosionFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.DuneErosion);
-
-            var getWaveImpactAsphaltCoverFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.WaveImpactAsphaltCover);
-
-            var getStabilityStoneCoverFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.StabilityStoneCover);
-
-            var getGrassCoverSlipOffInwardsFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.GrassCoverSlipOffInwards);
-
-            var getGrassCoverSlipOffOutwardsFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.GrassCoverSlipOffOutwards);
-
-            var getMacroStabilityOutwardsFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.MacroStabilityOutwards);
-
-            var getMicrostabilityFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.Microstability);
-
-            var getPipingStructureFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.PipingStructure);
-
-            var getStrengthStabilityLengthwiseConstructionFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.StrengthStabilityLengthwiseConstruction);
-
-            var getTechnicalInnovationFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.TechnicalInnovation);
-
-            var getWaterPressureAsphaltCoverFunc = new Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>(
-                assessmentSection => assessmentSection.WaterPressureAsphaltCover);
-
             Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>[] getFailureMechanismFuncs =
             {
-                getPipingFunc,
-                getMacroStabilityInwardsFunc,
-                getGrassCoverErosionInwardsFunc,
-                getClosingStructuresFunc,
-                getHeightStructuresFunc,
-                getStabilityPointStructuresFunc,
-                getGrassCoverErosionOutwardsFunc,
-                getDuneErosionFunc,
-                getWaveImpactAsphaltCoverFunc,
-                getStabilityStoneCoverFunc,
-                getGrassCoverSlipOffInwardsFunc,
-                getGrassCoverSlipOffOutwardsFunc,
-                getMacroStabilityOutwardsFunc,
-                getMicrostabilityFunc,
-                getPipingStructureFunc,
-                getStrengthStabilityLengthwiseConstructionFunc,
-                getTechnicalInnovationFunc,
-                getWaterPressureAsphaltCoverFunc
+                assessmentSection => assessmentSection.Piping,
+                assessmentSection => assessmentSection.MacroStabilityInwards,
+                assessmentSection => assessmentSection.GrassCoverErosionInwards,
+                assessmentSection => assessmentSection.ClosingStructures,
+                assessmentSection => assessmentSection.HeightStructures,
+                assessmentSection => assessmentSection.StabilityPointStructures,
+                assessmentSection => assessmentSection.GrassCoverErosionOutwards,
+                assessmentSection => assessmentSection.DuneErosion,
+                assessmentSection => assessmentSection.WaveImpactAsphaltCover,
+                assessmentSection => assessmentSection.StabilityStoneCover,
+                assessmentSection => assessmentSection.GrassCoverSlipOffInwards,
+                assessmentSection => assessmentSection.GrassCoverSlipOffOutwards,
+                assessmentSection => assessmentSection.MacroStabilityOutwards,
+                assessmentSection => assessmentSection.Microstability,
+                assessmentSection => assessmentSection.PipingStructure,
+                assessmentSection => assessmentSection.StrengthStabilityLengthwiseConstruction,
+                assessmentSection => assessmentSection.TechnicalInnovation,
+                assessmentSection => assessmentSection.WaterPressureAsphaltCover
             };
 
             foreach (Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>> func in getFailureMechanismFuncs)

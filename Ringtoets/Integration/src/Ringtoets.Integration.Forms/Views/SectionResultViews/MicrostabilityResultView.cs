@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
@@ -119,11 +118,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
-        }
-
-        protected override bool HasManualAssemblyResults()
-        {
-            return HasSectionResultsHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

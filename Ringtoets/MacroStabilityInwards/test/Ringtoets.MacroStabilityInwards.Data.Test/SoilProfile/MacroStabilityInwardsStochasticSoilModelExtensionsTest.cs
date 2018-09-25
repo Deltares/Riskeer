@@ -43,10 +43,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            MacroStabilityInwardsStochasticSoilModel soilModel = null;
-
             // Call
-            TestDelegate test = () => soilModel.IntersectsWithSurfaceLineGeometry(surfaceLine);
+            TestDelegate test = () => MacroStabilityInwardsStochasticSoilModelExtensions.IntersectsWithSurfaceLineGeometry(null, surfaceLine);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

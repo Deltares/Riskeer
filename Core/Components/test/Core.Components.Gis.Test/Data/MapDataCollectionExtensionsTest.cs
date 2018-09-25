@@ -32,11 +32,8 @@ namespace Core.Components.Gis.Test.Data
         [Test]
         public void GetFeatureBasedMapDataRecursively_MapDataCollectionNull_ThrowArgumentNullException()
         {
-            // Setup
-            MapDataCollection collection = null;
-
             // Call
-            TestDelegate test = () => collection.GetFeatureBasedMapDataRecursively();
+            TestDelegate test = () => MapDataCollectionExtensions.GetFeatureBasedMapDataRecursively(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
