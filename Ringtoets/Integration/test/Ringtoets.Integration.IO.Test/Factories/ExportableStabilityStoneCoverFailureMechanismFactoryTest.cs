@@ -169,7 +169,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 ExportableStabilityStoneCoverFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
-                Assert.AreEqual(failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput,
+                                failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
             }
 
             mocks.VerifyAll();

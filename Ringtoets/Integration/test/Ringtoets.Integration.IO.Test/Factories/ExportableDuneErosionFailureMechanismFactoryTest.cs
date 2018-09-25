@@ -168,7 +168,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 ExportableDuneErosionFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
-                Assert.AreEqual(failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput,
+                                failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
             }
 
             mocks.VerifyAll();

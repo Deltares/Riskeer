@@ -145,7 +145,6 @@ namespace Ringtoets.Integration.IO.Test.Factories
         public void CreateExportableFailureMechanism_WithFailureMechanismWithManualAssessment_ManualAssemblyIgnored()
         {
             // Setup
-            var random = new Random(39);
             var failureMechanism = new HeightStructuresFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             failureMechanism.SectionResults.Single().UseManualAssembly = true;
@@ -155,13 +154,11 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(random.NextDouble(), FailureMechanismSectionAssemblyCategoryGroup.IIv);
-                failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssembly(random.NextDouble(), FailureMechanismSectionAssemblyCategoryGroup.IIIv);
 
-                // When
+                // Call
                 ExportableHeightStructuresFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, new AssessmentSectionStub());
 
-                // Then
+                // Assert
                 Assert.AreSame(failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput,
                                failureMechanismAssemblyCalculator.FailureMechanismSectionAssemblies.Single());
             }

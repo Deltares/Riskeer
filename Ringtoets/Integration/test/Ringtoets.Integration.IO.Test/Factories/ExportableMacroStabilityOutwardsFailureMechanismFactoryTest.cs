@@ -161,7 +161,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 ExportableMacroStabilityOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, new AssessmentSectionStub());
 
                 // Assert
-                Assert.AreEqual(failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput,
+                                failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
             }
         }
 
