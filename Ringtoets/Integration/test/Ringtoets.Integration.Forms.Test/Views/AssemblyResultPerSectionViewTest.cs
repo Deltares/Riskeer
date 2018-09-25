@@ -162,8 +162,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
 
-                AssertColumn(dataGridViewColumns[sectionStartColumnIndex], "Metrering* van [m]");
-                AssertColumn(dataGridViewColumns[sectionEndColumnIndex], "Metrering* tot [m]");
+                AssertColumn(dataGridViewColumns[sectionStartColumnIndex], "Metrering van* [m]");
+                AssertColumn(dataGridViewColumns[sectionEndColumnIndex], "Metrering tot* [m]");
                 AssertColumn(dataGridViewColumns[sectionTotalAssemblyResultColumnIndex], "Gecombineerd vakoordeel");
                 AssertColumn(dataGridViewColumns[pipingColumnIndex], "STPH");
                 AssertColumn(dataGridViewColumns[grassCoverErosionInwardsColumnIndex], "GEKB");

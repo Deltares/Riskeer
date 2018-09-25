@@ -95,13 +95,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor sectionStartDistanceProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionStartDistanceProperty,
                                                                             "Algemeen",
-                                                                            "Metrering* van [m]",
+                                                                            "Metrering van* [m]",
                                                                             "De afstand tussen het beginpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond).",
                                                                             true);
             PropertyDescriptor sectionEndDistanceProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionEndDistanceProperty,
                                                                             "Algemeen",
-                                                                            "Metrering* tot [m]",
+                                                                            "Metrering tot* [m]",
                                                                             "De afstand tussen het eindpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond).",
                                                                             true);
             PropertyDescriptor lengthProperty = dynamicProperties[3];

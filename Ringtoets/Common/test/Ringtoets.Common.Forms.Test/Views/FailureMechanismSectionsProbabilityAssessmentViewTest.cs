@@ -114,8 +114,8 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 Assert.AreEqual(columnCount, dataGridView.ColumnCount);
                 Assert.AreEqual("Vaknaam", dataGridView.Columns[nameColumnIndex].HeaderText);
-                Assert.AreEqual("Metrering* van [m]", dataGridView.Columns[sectionStartColumnIndex].HeaderText);
-                Assert.AreEqual("Metrering* tot [m]", dataGridView.Columns[sectionEndColumnIndex].HeaderText);
+                Assert.AreEqual("Metrering van* [m]", dataGridView.Columns[sectionStartColumnIndex].HeaderText);
+                Assert.AreEqual("Metrering tot* [m]", dataGridView.Columns[sectionEndColumnIndex].HeaderText);
                 Assert.AreEqual("Lengte* [m]", dataGridView.Columns[lengthColumnIndex].HeaderText);
                 Assert.AreEqual("Nvak* [-]", dataGridView.Columns[lengthEffectColumnIndex].HeaderText);
             }

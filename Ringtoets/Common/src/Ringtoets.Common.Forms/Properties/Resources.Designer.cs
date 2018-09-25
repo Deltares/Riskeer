@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -2920,7 +2920,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Metrering* tot [m].
+        ///   Looks up a localized string similar to Metrering tot* [m].
         /// </summary>
         public static string SectionEnd_DisplayName {
             get {
@@ -2948,7 +2948,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Metrering* van [m].
+        ///   Looks up a localized string similar to Metrering van* [m].
         /// </summary>
         public static string SectionStart_DisplayName {
             get {
