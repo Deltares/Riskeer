@@ -128,7 +128,8 @@ namespace Ringtoets.Integration.Data.TestUtil.Test
                 "StrengthStabilityLengthwiseConstruction",
                 "TechnicalInnovation",
                 "Microstability",
-                "MacroStabilityOutwards"
+                "MacroStabilityOutwards",
+                "WaterPressureAsphaltCover"
             }, testCases.Select(tc => tc.TestName));
             Assert.IsTrue(testCases.All(tc => tc.Arguments.Length == 1));
 
@@ -212,6 +213,13 @@ namespace Ringtoets.Integration.Data.TestUtil.Test
             MacroStabilityOutwardsFailureMechanismSectionResult macroStabilityOutwardsSectionResult = macroStabilityOutwards.SectionResults.Single();
             Assert.IsTrue(macroStabilityOutwardsSectionResult.UseManualAssembly);
             Assert.AreEqual(expectedManualSectionAssemblyGroup, macroStabilityOutwardsSectionResult.ManualAssemblyCategoryGroup);
+
+            assessmentSection = (AssessmentSection) testCases[11].Arguments[0];
+            WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCover = assessmentSection.WaterPressureAsphaltCover;
+            AssertAssessmentSection(assessmentSection, waterPressureAsphaltCover);
+            WaterPressureAsphaltCoverFailureMechanismSectionResult waterPressureAsphaltCoverectionResult = waterPressureAsphaltCover.SectionResults.Single();
+            Assert.IsTrue(waterPressureAsphaltCoverectionResult.UseManualAssembly);
+            Assert.AreEqual(expectedManualSectionAssemblyGroup, waterPressureAsphaltCoverectionResult.ManualAssemblyCategoryGroup);
         }
 
         private static void AssertAssessmentSection(AssessmentSection assessmentSection,

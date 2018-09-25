@@ -169,7 +169,7 @@ namespace Ringtoets.Integration.Data.TestUtil
         private static IEnumerable<FailureMechanismConfiguration> GetGroup3FailureMechanismConfigurations()
         {
             const FailureMechanismSectionAssemblyCategoryGroup sectionAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
-            const ManualFailureMechanismSectionAssemblyCategoryGroup manualSectionAssemblyCategoryGrouo = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
+            const ManualFailureMechanismSectionAssemblyCategoryGroup manualSectionAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
 
             yield return new FailureMechanismConfiguration(section =>
             {
@@ -223,7 +223,7 @@ namespace Ringtoets.Integration.Data.TestUtil
 
                 GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, "GrassCoverSlipOffInwards");
 
             yield return new FailureMechanismConfiguration(section =>
@@ -234,7 +234,7 @@ namespace Ringtoets.Integration.Data.TestUtil
 
                 GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, "GrassCoverSlipOffOutwards");
 
             yield return new FailureMechanismConfiguration(section =>
@@ -245,7 +245,7 @@ namespace Ringtoets.Integration.Data.TestUtil
 
                 PipingStructureFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, "PipingStructure");
 
             yield return new FailureMechanismConfiguration(section =>
@@ -256,7 +256,7 @@ namespace Ringtoets.Integration.Data.TestUtil
 
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, "StrengthStabilityLengthwiseConstruction");
 
             yield return new FailureMechanismConfiguration(section =>
@@ -267,7 +267,7 @@ namespace Ringtoets.Integration.Data.TestUtil
 
                 TechnicalInnovationFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, "TechnicalInnovation");
 
             yield return new FailureMechanismConfiguration(section =>
@@ -278,7 +278,7 @@ namespace Ringtoets.Integration.Data.TestUtil
 
                 MicrostabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, "Microstability");
 
             yield return new FailureMechanismConfiguration(section =>
@@ -289,8 +289,19 @@ namespace Ringtoets.Integration.Data.TestUtil
 
                 MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGrouo;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, "MacroStabilityOutwards");
+
+            yield return new FailureMechanismConfiguration(section =>
+            {
+                WaterPressureAsphaltCoverFailureMechanism failureMechanism = section.WaterPressureAsphaltCover;
+                failureMechanism.IsRelevant = true;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+                WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                sectionResult.UseManualAssembly = true;
+                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
+            }, "WaterPressureAsphaltCover");
         }
 
         private class FailureMechanismConfiguration
