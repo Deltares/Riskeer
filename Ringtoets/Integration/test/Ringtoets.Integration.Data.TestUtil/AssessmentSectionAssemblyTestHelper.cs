@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Data.TestUtil
         /// and the affected <see cref="IFailureMechanism"/>.</returns>
         public static IEnumerable<TestCaseData> GetAssessmentSectionWithConfiguredFailureMechanismsWithProbability()
         {
-            return GenerateTestCaseData(GetFailureMechanismWithProbabilityTestConfigurations());
+            return GenerateTestCaseDataWithAffectedFailureMechanism(GetFailureMechanismWithProbabilityTestConfigurations());
         }
 
         /// <summary>
@@ -77,10 +77,38 @@ namespace Ringtoets.Integration.Data.TestUtil
         /// and the affected <see cref="IFailureMechanism"/>.</returns>
         public static IEnumerable<TestCaseData> GetAssessmentSectionWithConfiguredFailureMechanismsWithoutProbability()
         {
-            return GenerateTestCaseData(GetFailureMechanismsWithoutProbabilityTestConfigurations());
+            return GenerateTestCaseDataWithAffectedFailureMechanism(GetFailureMechanismsWithoutProbabilityTestConfigurations());
         }
 
-        private static IEnumerable<TestCaseData> GenerateTestCaseData(IEnumerable<AssessmentSectionConfiguration> configurations)
+        /// <summary>
+        /// Gets a collection of <see cref="AssessmentSection"/> configurations of
+        /// failure mechanisms having an assembly result with probability, such that:
+        /// <list type="bullet">
+        /// <item>All other failure mechanisms are marked as irrelevant, except one failure mechanism.</item>
+        /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
+        /// </list>
+        /// </summary>
+        /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations.</returns>
+        public static IEnumerable<TestCaseData> GetAssessmentSectionWithoutConfiguredFailureMechanismWithProbability()
+        {
+            return GenerateTestCaseDataWithoutAffectedFailureMechanism(GetFailureMechanismWithProbabilityTestConfigurations());
+        }
+
+        /// <summary>
+        /// Gets a collection of <see cref="AssessmentSection"/> configurations of
+        /// failure mechanisms having an assembly result without probability, such that:
+        /// <list type="bullet">
+        /// <item>All other failure mechanisms are marked as irrelevant, except one failure mechanism.</item>
+        /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
+        /// </list>
+        /// </summary>
+        /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations.</returns>
+        public static IEnumerable<TestCaseData> GetAssessmentSectionWithoutConfiguredFailureMechanismWithoutProbability()
+        {
+            return GenerateTestCaseDataWithoutAffectedFailureMechanism(GetFailureMechanismsWithoutProbabilityTestConfigurations());
+        }
+
+        private static IEnumerable<TestCaseData> GenerateTestCaseDataWithAffectedFailureMechanism(IEnumerable<AssessmentSectionConfiguration> configurations)
         {
             foreach (AssessmentSectionConfiguration configuration in configurations)
             {
@@ -89,6 +117,18 @@ namespace Ringtoets.Integration.Data.TestUtil
 
                 IFailureMechanism configuredFailureMechanism = configuration.GetFailureMechanismFunc(assessmentSection);
                 yield return new TestCaseData(assessmentSection, configuredFailureMechanism).SetName(configuredFailureMechanism.Name);
+            }
+        }
+
+        private static IEnumerable<TestCaseData> GenerateTestCaseDataWithoutAffectedFailureMechanism(IEnumerable<AssessmentSectionConfiguration> configurations)
+        {
+            foreach (AssessmentSectionConfiguration configuration in configurations)
+            {
+                AssessmentSection assessmentSection = CreateAssessmentSectionWithIrrelevantFailureMechanisms();
+                configuration.ConfigureAssessmentSectionAction(assessmentSection);
+
+                IFailureMechanism configuredFailureMechanism = configuration.GetFailureMechanismFunc(assessmentSection);
+                yield return new TestCaseData(assessmentSection).SetName(configuredFailureMechanism.Name);
             }
         }
 
@@ -309,7 +349,7 @@ namespace Ringtoets.Integration.Data.TestUtil
         }
 
         /// <summary>
-        /// Class which holds the information to configure a failure mechanism inn an <see cref="AssessmentSection"/>.
+        /// Class which holds the information to configure a failure mechanism in an <see cref="AssessmentSection"/>.
         /// </summary>
         private class AssessmentSectionConfiguration
         {
@@ -320,7 +360,7 @@ namespace Ringtoets.Integration.Data.TestUtil
             /// that belongs in a <see cref="AssessmentSection"/>.</param>
             /// <param name="getFailureMechanismFunc">The <see cref="Func{TResult}"/> to retrieve the affected failure mechanism.</param>
             public AssessmentSectionConfiguration(Action<AssessmentSection> configureAssessmentSectionAction,
-                                                 Func<AssessmentSection, IFailureMechanism> getFailureMechanismFunc)
+                                                  Func<AssessmentSection, IFailureMechanism> getFailureMechanismFunc)
             {
                 ConfigureAssessmentSectionAction = configureAssessmentSectionAction;
                 GetFailureMechanismFunc = getFailureMechanismFunc;
