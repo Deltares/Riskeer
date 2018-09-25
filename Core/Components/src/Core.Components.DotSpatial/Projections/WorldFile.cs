@@ -249,7 +249,7 @@ namespace Core.Components.DotSpatial.Projections
             {
                 get
                 {
-                    return Determinant != 0d;
+                    return Math.Abs(Determinant) > double.Epsilon;
                 }
             }
 
