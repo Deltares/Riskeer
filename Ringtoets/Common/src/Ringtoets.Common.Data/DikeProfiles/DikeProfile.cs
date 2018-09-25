@@ -227,18 +227,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hashCode = ForeshoreProfile.GetHashCode();
-                hashCode = (hashCode * 397) ^ DikeHeight.GetHashCode();
-
-                foreach (RoughnessPoint point in DikeGeometry)
-                {
-                    hashCode = (hashCode * 397) ^ point.GetHashCode();
-                }
-
-                return hashCode;
-            }
+            return ForeshoreProfile.GetHashCode();
         }
 
         private void CopyForeshoreProfileProperties(DikeProfile fromDikeProfile)

@@ -178,21 +178,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hashCode = Id.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ WorldReferencePoint.GetHashCode();
-                hashCode = (hashCode * 397) ^ X0.GetHashCode();
-                hashCode = (hashCode * 397) ^ Orientation.GetHashCode();
-                hashCode = (hashCode * 397) ^ (BreakWater?.GetHashCode() ?? 0);
-
-                foreach (Point2D point in Geometry)
-                {
-                    hashCode = (hashCode * 397) ^ point.GetHashCode();
-                }
-                return hashCode;
-            }
+            return 0;
         }
 
         private bool Equals(ForeshoreProfile other)

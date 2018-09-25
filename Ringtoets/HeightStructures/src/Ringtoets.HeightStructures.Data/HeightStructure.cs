@@ -161,7 +161,6 @@ namespace Ringtoets.HeightStructures.Data
                 int hashCode = base.GetHashCode();
                 hashCode = (hashCode * 397) ^ AllowedLevelIncreaseStorage.GetHashCode();
                 hashCode = (hashCode * 397) ^ CriticalOvertoppingDischarge.GetHashCode();
-                hashCode = (hashCode * 397) ^ FailureProbabilityStructureWithErosion.GetHashCode();
                 hashCode = (hashCode * 397) ^ FlowWidthAtBottomProtection.GetHashCode();
                 hashCode = (hashCode * 397) ^ LevelCrestStructure.GetHashCode();
                 hashCode = (hashCode * 397) ^ StorageStructureArea.GetHashCode();

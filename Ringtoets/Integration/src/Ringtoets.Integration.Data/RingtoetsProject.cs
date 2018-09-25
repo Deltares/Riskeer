@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Data
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode() ^ Description.GetHashCode();
+            return 0;
         }
     }
 }

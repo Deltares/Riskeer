@@ -238,14 +238,9 @@ namespace Ringtoets.ClosingStructures.Data
                 hashCode = (hashCode * 397) ^ AllowedLevelIncreaseStorage.GetHashCode();
                 hashCode = (hashCode * 397) ^ AreaFlowApertures.GetHashCode();
                 hashCode = (hashCode * 397) ^ CriticalOvertoppingDischarge.GetHashCode();
-                hashCode = (hashCode * 397) ^ FailureProbabilityOpenStructure.GetHashCode();
-                hashCode = (hashCode * 397) ^ FailureProbabilityReparation.GetHashCode();
-                hashCode = (hashCode * 397) ^ IdenticalApertures.GetHashCode();
                 hashCode = (hashCode * 397) ^ FlowWidthAtBottomProtection.GetHashCode();
-                hashCode = (hashCode * 397) ^ InflowModelType.GetHashCode();
                 hashCode = (hashCode * 397) ^ InsideWaterLevel.GetHashCode();
                 hashCode = (hashCode * 397) ^ LevelCrestStructureNotClosing.GetHashCode();
-                hashCode = (hashCode * 397) ^ ProbabilityOpenStructureBeforeFlooding.GetHashCode();
                 hashCode = (hashCode * 397) ^ StorageStructureArea.GetHashCode();
                 hashCode = (hashCode * 397) ^ ThresholdHeightOpenWeir.GetHashCode();
                 hashCode = (hashCode * 397) ^ WidthFlowApertures.GetHashCode();
