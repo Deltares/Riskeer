@@ -142,14 +142,12 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void GivenFailureMechanismWithManualAssessment_WhenCreatingExportableFailureMechanism_ThenManualAssemblyIgnored()
+        public void CreateExportableFailureMechanism_WithFailureMechanismWithManualAssessment_ManualAssemblyIgnored()
         {
-            // Given
+            // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             failureMechanism.SectionResults.Single().UseManualAssembly = true;
-
-            var assessmentSection = new AssessmentSectionStub();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -157,7 +155,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // When
-                ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
+                ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, new AssessmentSectionStub());
 
                 // Then
                 FailureMechanismSectionAssembly manualOutput = failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput;
