@@ -25,7 +25,6 @@ using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.Data.TestUtil;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -163,8 +162,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, new AssessmentSectionStub());
 
                 // Then
-                AssemblyToolTestHelper.AssertAreEqual(failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput,
-                                                      failureMechanismAssemblyCalculator.FailureMechanismSectionAssemblies.Single());
+                Assert.AreSame(failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput,
+                               failureMechanismAssemblyCalculator.FailureMechanismSectionAssemblies.Single());
             }
         }
 
