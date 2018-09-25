@@ -30,25 +30,19 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
-using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Integration.Data.TestUtil;
 using Ringtoets.Integration.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
-using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -71,7 +65,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismsWithProbability_WithAssessmentSection_SetsInputOnCalculator()
+        public void AssembleFailureMechanismsWithProbability_WithAssessmentSectionWithoutManualSectionAssemblyResults_SetsInputOnCalculator()
         {
             // Setup
             var random = new Random(21);
@@ -171,329 +165,41 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
         #region Manual Assembly Used
 
-        #region Piping
-
         [Test]
-        public void GivenAssessmentSectionWithPipingConfigured_WhenAssemblingFailureMechanismsWithProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
+        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithoutConfiguredFailureMechanismWithProbability))]
+        public void AssembleFailureMechanismsWithProbability_FailureMechanismWithManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator(AssessmentSection assessmentSection)
         {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
+            // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                // When
+                // Call
                 AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, true);
 
-                // Then
+                // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.AreEqual(probability, failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                Assert.AreSame(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput, failureMechanismAssemblyCalculator.FailureMechanismSectionAssemblies.Single());
             }
         }
 
         [Test]
-        public void GivenAssessmentSectionWithPipingConfigured_WhenAssemblingFailureMechanismsWithProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
+        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithoutConfiguredFailureMechanismWithProbability))]
+        public void AssembleFailureMechanismsWithProbability_FailureMechanismWithManualSectionAssemblyAndUseManualFalse_SetsAssemblyInputOnCalculator(AssessmentSection assessmentSection)
         {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
+            // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                // When
+                // Call
                 AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, false);
 
-                // Then
+                // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                Assert.AreSame(failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput, failureMechanismAssemblyCalculator.FailureMechanismSectionAssemblies.Single());
             }
         }
-
-        #endregion
-
-        #region MacroStabilityInwards
-
-        [Test]
-        public void GivenAssessmentSectionWithMacroStabilityInwardsConfigured_WhenAssemblingFailureMechanismsWithProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            MacroStabilityInwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.AreEqual(probability, failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithMacroStabilityInwardsConfigured_WhenAssemblingFailureMechanismsWithProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            MacroStabilityInwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
-            }
-        }
-
-        #endregion
-
-        #region GrassCoverErosionInwards
-
-        [Test]
-        public void GivenAssessmentSectionWithGrassCoverErosionInwardsConfigured_WhenAssemblingFailureMechanismsWithProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.AreEqual(probability, failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithGrassCoverErosionInwardsConfigured_WhenAssemblingFailureMechanismsWithProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
-            }
-        }
-
-        #endregion
-
-        #region ClosingStructures
-
-        [Test]
-        public void GivenAssessmentSectionWithClosingStructuresConfigured_WhenAssemblingFailureMechanismsWithProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.AreEqual(probability, failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithClosingStructuresConfigured_WhenAssemblingFailureMechanismsWithProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
-            }
-        }
-
-        #endregion
-
-        #region HeightStructures
-
-        [Test]
-        public void GivenAssessmentSectionWithHeightStructuresConfigured_WhenAssemblingFailureMechanismsWithProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.AreEqual(probability, failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithHeightStructuresConfigured_WhenAssemblingFailureMechanismsWithProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
-            }
-        }
-
-        #endregion
-
-        #region StabilityPointStructures
-
-        [Test]
-        public void GivenAssessmentSectionWithStabilityPointStructuresConfigured_WhenAssemblingFailureMechanismsWithProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            StabilityPointStructuresFailureMechanism failureMechanism = assessmentSection.StabilityPointStructures;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.AreEqual(probability, failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithStabilityPointStructuresConfigured_WhenAssemblingFailureMechanismsWithProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            StabilityPointStructuresFailureMechanism failureMechanism = assessmentSection.StabilityPointStructures;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
-            }
-        }
-
-        #endregion
 
         #endregion
 
@@ -514,7 +220,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismsWithoutProbability_WithAssessmentSection_SetsInputOnCalculator()
+        public void AssembleFailureMechanismsWithoutProbability_WithAssessmentSectionWithoutManualSectionAssemblyResults_SetsInputOnCalculator()
         {
             // Setup
             var random = new Random(21);
@@ -553,7 +259,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection,
-                    random.NextBoolean());
+                                                                                                                                            random.NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput, output);
@@ -606,667 +312,142 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
         #region Manual Assembly Used
 
-        #region DuneErosion
-
         [Test]
-        public void GivenAssessmentSectionWithDuneErosionConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
+        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithoutProbability))]
+        public void AssembleFailureMechanismsWithoutProbability_FailureMechanismWithManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator(AssessmentSection assessmentSection,
+                                                                                                                                                              IFailureMechanism relevantFailureMechanism)
         {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
-
+            // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                // When
+                // Call
                 AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true);
 
-                // Then
+                // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                AssertFailureMechanismsWithoutProbabilityManualAssemblyCalculatorInput(relevantFailureMechanism, failureMechanismAssemblyCalculator);
             }
         }
 
         [Test]
-        public void GivenAssessmentSectionWithDuneErosionConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
+        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithoutConfiguredFailureMechanismWithoutProbability))]
+        public void AssembleFailureMechanismsWithoutProbability_FailureMechanismWithManualSectionAssemblyAndUseManualFalse_SetsAssemblyInputOnCalculator(AssessmentSection assessmentSection)
         {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
-
+            // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                // When
+                // Call
                 AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
 
-                // Then
+                // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                Assert.AreEqual(failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
             }
         }
 
-        #endregion
-
-        #region GrassCoverErosionOutwards
-
-        [Test]
-        public void GivenAssessmentSectionWithGrassCoverErosionOutwardsConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
+        private static void AssertFailureMechanismsWithoutProbabilityManualAssemblyCalculatorInput(IFailureMechanism failureMechanism,
+                                                                                                   FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator)
         {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
+            var duneErosion = failureMechanism as DuneErosionFailureMechanism;
+            if (duneErosion != null)
             {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithGrassCoverErosionOutwardsConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        #endregion
-
-        #region StabilityStoneCover
-
-        [Test]
-        public void GivenAssessmentSectionWithStabilityStoneCoverConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            StabilityStoneCoverFailureMechanism failureMechanism = assessmentSection.StabilityStoneCover;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithStabilityStoneCoverConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            StabilityStoneCoverFailureMechanism failureMechanism = assessmentSection.StabilityStoneCover;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        #endregion
-
-        #region WaveImpactAsphaltCover
-
-        [Test]
-        public void GivenAssessmentSectionWithWaveImpactAsphaltCoverConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaveImpactAsphaltCover;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithWaveImpactAsphaltCoverConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaveImpactAsphaltCover;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        #endregion
-
-        #region GrassCoverSlipOffInwards
-
-        [Test]
-        public void GivenAssessmentSectionWithGrassCoverSlipOffInwardsConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            GrassCoverSlipOffInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffInwards;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                Assert.AreEqual(GetFailureMechanismSectionResult(duneErosion).ManualAssemblyCategoryGroup,
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
-        }
 
-        [Test]
-        public void GivenAssessmentSectionWithGrassCoverSlipOffInwardsConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            GrassCoverSlipOffInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffInwards;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
+            var grassCoverErosionOutwards = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
+            if (grassCoverErosionOutwards != null)
             {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        #endregion
-
-        #region GrassCoverSlipOffOutwards
-
-        [Test]
-        public void GivenAssessmentSectionWithGrassCoverSlipOffOutwardsConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            GrassCoverSlipOffOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                Assert.AreEqual(GetFailureMechanismSectionResult(grassCoverErosionOutwards).ManualAssemblyCategoryGroup,
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
-        }
 
-        [Test]
-        public void GivenAssessmentSectionWithGrassCoverSlipOffOutwardsConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            GrassCoverSlipOffOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
+            var stabilityStoneCover = failureMechanism as StabilityStoneCoverFailureMechanism;
+            if (stabilityStoneCover != null)
             {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        #endregion
-
-        #region MacroStabilityOutwards
-
-        [Test]
-        public void GivenAssessmentSectionWithMacroStabilityOutwardsConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            MacroStabilityOutwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityOutwards;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                Assert.AreEqual(GetFailureMechanismSectionResult(stabilityStoneCover).ManualAssemblyCategoryGroup,
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
-        }
 
-        [Test]
-        public void GivenAssessmentSectionWithMacroStabilityOutwardsConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            MacroStabilityOutwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityOutwards;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
+            var waveImpactAsphaltCover = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
+            if (waveImpactAsphaltCover != null)
             {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        #endregion
-
-        #region Microstability
-
-        [Test]
-        public void GivenAssessmentSectionWithMicrostabilityConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            MicrostabilityFailureMechanism failureMechanism = assessmentSection.Microstability;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            MicrostabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                Assert.AreEqual(GetFailureMechanismSectionResult(waveImpactAsphaltCover).ManualAssemblyCategoryGroup,
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
-        }
 
-        [Test]
-        public void GivenAssessmentSectionWithMicrostabilityConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            MicrostabilityFailureMechanism failureMechanism = assessmentSection.Microstability;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            MicrostabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
+            var grassCoverSlipOffInwards = failureMechanism as GrassCoverSlipOffInwardsFailureMechanism;
+            if (grassCoverSlipOffInwards != null)
             {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        #endregion
-
-        #region PipingStructure
-
-        [Test]
-        public void GivenAssessmentSectionWithPipingStructureConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            PipingStructureFailureMechanism failureMechanism = assessmentSection.PipingStructure;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            PipingStructureFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(grassCoverSlipOffInwards).ManualAssemblyCategoryGroup),
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
-        }
 
-        [Test]
-        public void GivenAssessmentSectionWithPipingStructureConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            PipingStructureFailureMechanism failureMechanism = assessmentSection.PipingStructure;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            PipingStructureFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
+            var grassCoverSlipOffOutwards = failureMechanism as GrassCoverSlipOffOutwardsFailureMechanism;
+            if (grassCoverSlipOffOutwards != null)
             {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        #endregion
-
-        #region StrengthStabilityLengthwiseConstruction
-
-        [Test]
-        public void GivenAssessmentSectionWithStrengthStabilityLengthwiseConstructionConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(grassCoverSlipOffOutwards).ManualAssemblyCategoryGroup),
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
-        }
 
-        [Test]
-        public void GivenAssessmentSectionWithStrengthStabilityLengthwiseConstructionConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
+            var pipingStructure = failureMechanism as PipingStructureFailureMechanism;
+            if (pipingStructure != null)
             {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        #endregion
-
-        #region TechnicalInnovation
-
-        [Test]
-        public void GivenAssessmentSectionWithTechnicalInnovationConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            TechnicalInnovationFailureMechanism failureMechanism = assessmentSection.TechnicalInnovation;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            TechnicalInnovationFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(pipingStructure).ManualAssemblyCategoryGroup),
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
-        }
 
-        [Test]
-        public void GivenAssessmentSectionWithTechnicalInnovationConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            TechnicalInnovationFailureMechanism failureMechanism = assessmentSection.TechnicalInnovation;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            TechnicalInnovationFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
+            var strengthStabilityLengthwiseConstruction = failureMechanism as StrengthStabilityLengthwiseConstructionFailureMechanism;
+            if (strengthStabilityLengthwiseConstruction != null)
             {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        #endregion
-
-        #region WaterPressureAsphaltCover
-
-        [Test]
-        public void GivenAssessmentSectionWithWaterPressureAsphaltCoverConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualTrue_ThenInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            WaterPressureAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaterPressureAsphaltCover;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(strengthStabilityLengthwiseConstruction).ManualAssemblyCategoryGroup),
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
-        }
 
-        [Test]
-        public void GivenAssessmentSectionWithWaterPressureAsphaltCoverConfigured_WhenAssemblingFailureMechanismsWithoutProbabilityAndUseManualFalse_ThenNoInputSetOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
-            WaterPressureAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaterPressureAsphaltCover;
-            failureMechanism.IsRelevant = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
-
-            using (new AssemblyToolCalculatorFactoryConfig())
+            var technicalInnovation = failureMechanism as TechnicalInnovationFailureMechanism;
+            if (technicalInnovation != null)
             {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(technicalInnovation).ManualAssemblyCategoryGroup),
+                                failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
-        }
 
-        #endregion
+            var microStability = failureMechanism as MicrostabilityFailureMechanism;
+            if (microStability != null)
+            {
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(microStability).ManualAssemblyCategoryGroup),
+                                failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
+            }
 
-        private static AssessmentSection CreateIrrelevantAssessmentSection()
-        {
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.IsRelevant = false);
-            return assessmentSection;
+            var macroStabilityOutwards = failureMechanism as MacroStabilityOutwardsFailureMechanism;
+            if (macroStabilityOutwards != null)
+            {
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(macroStabilityOutwards).ManualAssemblyCategoryGroup),
+                                failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
+            }
+
+            var waterPressureAsphaltCover = failureMechanism as WaterPressureAsphaltCoverFailureMechanism;
+            if (waterPressureAsphaltCover != null)
+            {
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(waterPressureAsphaltCover).ManualAssemblyCategoryGroup),
+                                failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
+            }
+
+            throw new NotSupportedException();
         }
 
         #endregion
@@ -1287,7 +468,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSection_WithAssessmentSection_SetsInputOnCalculator()
+        public void AssembleAssessmentSection_WithAssessmentSectionWithoutManualSectionAssemblyResults_SetsInputOnCalculator()
         {
             // Setup
             var random = new Random(21);
@@ -1397,8 +578,9 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         public void GivenAssessmentSectionWithPipingConfigured_WhenAssemblingAssessmentSectionAndUseManualTrue_ThenInputSetOnCalculator()
         {
             // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
+            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            failureMechanism.IsRelevant = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
             PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -1419,11 +601,12 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void GivenAssessmentSectionWithPipingConfigured_WhenAssemblingAssessmentSectionAndUseManualFalse_ThenNoInputSetOnCalculator()
+        public void AssembleAssessmentSection_FailureMechanismWithProbabilityAndManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator()
         {
             // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
+            AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            failureMechanism.IsRelevant = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
             PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -1448,7 +631,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         #region Without Probability
 
         [Test]
-        public void GivenAssessmentSectionWithDuneErosionConfigured_WhenAssemblingAssessmentSectionAndUseManualTrue_ThenInputSetOnCalculator()
+        public void AssembleAssessmentSection_FailureMechanismWithoutProbabilityAndWithManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator()
         {
             // Given
             AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
@@ -1473,7 +656,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void GivenAssessmentSectionWithDuneErosionConfigured_WhenAssemblingAssessmentSectionAndUseManualFalse_ThenNoInputSetOnCalculator()
+        public void AssembleAssessmentSection_FailureMechanismWithoutProbabilityAndWithManualSectionAssemblyAndUseManualTrue_SetsAssemblyInputOnCalculator()
         {
             // Given
             AssessmentSection assessmentSection = CreateIrrelevantAssessmentSection();
@@ -1493,7 +676,8 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                Assert.AreEqual(failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
             }
         }
 
@@ -1518,7 +702,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleCombinedPerFailureMechanismSection_WithAssessmentSection_SetsInputOnCalculator()
+        public void AssembleCombinedPerFailureMechanismSection_WithAssessmentSectionWithoutManualSectionAssemblyResults_SetsInputOnCalculator()
         {
             var random = new Random(21);
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
@@ -1672,7 +856,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         #region Manual Assembly Used
 
         [Test]
-        public void GivenAssessmentSectionWithPipingConfigured_WhenAssemblingCombinedPerFailureMechanismSectionAndUseManualTrue_ThenInputSetOnCalculator()
+        public void AssembleCombinedPerFailureMechanismSection_FailureMechanismHasManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator()
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -1698,7 +882,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void GivenAssessmentSectionWithPipingConfigured_WhenAssemblingCombinedPerFailureMechanismSectionAndUseManualFalse_ThenNoInputSetOnCalculator()
+        public void AssembleCombinedPerFailureMechanismSection_FailureMechanismHasManualSectionAssemblyAndUseManualFalse_SetsAssemblyInputOnCalculator()
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -1728,6 +912,13 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         #endregion
 
         #region Helpers
+
+        private static AssessmentSection CreateIrrelevantAssessmentSection()
+        {
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.IsRelevant = false);
+            return assessmentSection;
+        }
 
         private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection, int seed)
         {
@@ -1801,6 +992,11 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 assessmentSection.StrengthStabilityLengthwiseConstruction,
                 assessmentSection.TechnicalInnovation
             };
+        }
+
+        private static T GetFailureMechanismSectionResult<T>(IHasSectionResults<T> failureMechanism) where T : FailureMechanismSectionResult
+        {
+            return failureMechanism.SectionResults.Single();
         }
 
         #endregion

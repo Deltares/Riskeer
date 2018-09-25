@@ -140,6 +140,10 @@
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Data.TestUtil\Ringtoets.Integration.Data.TestUtil.csproj">
+      <Project>{2D51FD02-BBED-43FE-BDB7-4437152876A1}</Project>
+      <Name>Ringtoets.Integration.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
       <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>
       <Name>Ringtoets.Integration.TestUtil</Name>

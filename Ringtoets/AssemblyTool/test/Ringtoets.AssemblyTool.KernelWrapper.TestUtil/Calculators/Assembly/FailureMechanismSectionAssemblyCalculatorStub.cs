@@ -117,6 +117,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNormInput { get; private set; }
 
         /// <summary>
+        /// Gets the assembly categories input used in the detailed assessment calculation.
+        /// </summary>
+        public AssemblyCategoriesInput DetailedAssessmentAssemblyCategoriesInput { get; private set; }
+
+        /// <summary>
         /// Gets or sets the output of the tailor made assessment calculation.
         /// </summary>
         public FailureMechanismSectionAssembly TailorMadeAssessmentAssemblyOutput { get; set; }
@@ -170,6 +175,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// Gets or sets the output of the tailor made assembly calculation.
         /// </summary>
         public FailureMechanismSectionAssemblyCategoryGroup? TailorMadeAssemblyCategoryOutput { get; set; }
+
+        /// <summary>
+        /// Gets the assembly categories input used in the tailor made assessment calculation.
+        /// </summary>
+        public AssemblyCategoriesInput TailorMadeAssessmentAssemblyCategoriesInput { get; private set; }
 
         /// <summary>
         /// Gets or sets the output of the combined assembly calculation.
@@ -227,9 +237,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public double ManualAssemblyNInput { get; private set; }
 
         /// <summary>
-        /// Gets the assembly categories input used in the assembly calculation methods.
+        /// Gets the assembly categories input of the manual assembly calculation.
         /// </summary>
-        public AssemblyCategoriesInput AssemblyCategoriesInput { get; private set; }
+        public AssemblyCategoriesInput ManualAssemblyCategoriesInput { get; private set; }
 
         /// <summary>
         /// Sets an indicator whether an exception must be thrown while performing a calculation.
@@ -295,7 +305,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             DetailedAssessmentProbabilityOnlyResultInput = detailedAssessmentResult;
             DetailedAssessmentProbabilityInput = probability;
-            AssemblyCategoriesInput = assemblyCategoriesInput;
+            DetailedAssessmentAssemblyCategoriesInput = assemblyCategoriesInput;
 
             return DetailedAssessmentAssemblyOutput ??
                    (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
@@ -313,7 +323,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             DetailedAssessmentProbabilityOnlyResultInput = detailedAssessmentResult;
             DetailedAssessmentProbabilityInput = probability;
-            AssemblyCategoriesInput = assemblyCategoriesInput;
+            DetailedAssessmentAssemblyCategoriesInput = assemblyCategoriesInput;
             DetailedAssessmentFailureMechanismSectionNInput = failureMechanismSectionN;
 
             return DetailedAssessmentAssemblyOutput ??
@@ -416,7 +426,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             TailorMadeAssessmentProbabilityCalculationResultInput = tailorMadeAssessmentResult;
             TailorMadeAssessmentProbabilityInput = probability;
-            AssemblyCategoriesInput = assemblyCategoriesInput;
+            TailorMadeAssessmentAssemblyCategoriesInput = assemblyCategoriesInput;
 
             return TailorMadeAssessmentAssemblyOutput ??
                    (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
@@ -434,7 +444,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             TailorMadeAssessmentProbabilityCalculationResultInput = tailorMadeAssessmentResult;
             TailorMadeAssessmentProbabilityInput = probability;
-            AssemblyCategoriesInput = assemblyCategoriesInput;
+            TailorMadeAssessmentAssemblyCategoriesInput = assemblyCategoriesInput;
             TailorMadeAssessmentFailureMechanismSectionNInput = failureMechanismSectionN;
 
             return TailorMadeAssessmentAssemblyOutput ??
@@ -551,7 +561,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             ManualAssemblyProbabilityInput = probability;
-            AssemblyCategoriesInput = assemblyCategoriesInput;
+            ManualAssemblyCategoriesInput = assemblyCategoriesInput;
 
             return ManualAssemblyAssemblyOutput ??
                    (ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.IIv));
@@ -565,7 +575,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             ManualAssemblyProbabilityInput = probability;
-            AssemblyCategoriesInput = assemblyCategoriesInput;
+            ManualAssemblyCategoriesInput = assemblyCategoriesInput;
             ManualAssemblyNInput = failureMechanismSectionN;
 
             return ManualAssemblyAssemblyOutput ??
