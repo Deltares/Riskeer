@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -58,8 +58,9 @@ namespace Ringtoets.Integration.Data.TestUtil
         /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
-        /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations.</returns>
-        public static IEnumerable<TestCaseData> GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability()
+        /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations
+        /// and the affected <see cref="IFailureMechanism"/>.</returns>
+        public static IEnumerable<TestCaseData> GetAssessmentSectionWithConfiguredFailureMechanismsWithProbability()
         {
             return GenerateTestCaseData(GetFailureMechanismWithProbabilityTestConfigurations());
         }
@@ -72,8 +73,9 @@ namespace Ringtoets.Integration.Data.TestUtil
         /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
-        /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations.</returns>
-        public static IEnumerable<TestCaseData> GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability()
+        /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations
+        /// and the affected <see cref="IFailureMechanism"/>.</returns>
+        public static IEnumerable<TestCaseData> GetAssessmentSectionWithConfiguredFailureMechanismsWithoutProbability()
         {
             return GenerateTestCaseData(GetFailureMechanismsWithoutProbabilityTestConfigurations());
         }

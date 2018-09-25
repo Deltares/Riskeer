@@ -636,7 +636,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         #region Use Manual Assembly
 
         [Test]
-        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability))]
+        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithProbability))]
         public void GivenFormWithAssemblyResultTotalView_WhenFailureMechanismWithProbabilityHasManualSectionAssembly_ThenManualAssemblyUsed(AssessmentSection assessmentSection,
                                                                                                                                             IFailureMechanism relevantFailureMechanism)
         {
@@ -658,7 +658,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability))]
+        [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithoutProbability))]
         public void GivenFormWithAssemblyResultTotalView_WhenFailureMechanismWithoutProbabilityHasManualSectionAssembly_ThenManualAssemblyUsed(AssessmentSection assessmentSection, 
                                                                                                                                                IFailureMechanism relevantFailureMechanism)
         {

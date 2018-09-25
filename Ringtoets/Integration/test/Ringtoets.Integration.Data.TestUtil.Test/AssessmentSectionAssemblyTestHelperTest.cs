@@ -45,10 +45,10 @@ namespace Ringtoets.Integration.Data.TestUtil.Test
     public class AssessmentSectionAssemblyTestHelperTest
     {
         [Test]
-        public void GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability_Always_ReturnsExpectedTestCases()
+        public void GetAssessmentSectionWithConfiguredFailureMechanismsWithProbability_Always_ReturnsExpectedTestCases()
         {
             // Call
-            TestCaseData[] testCases = AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability()
+            TestCaseData[] testCases = AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithProbability()
                                                                           .ToArray();
 
             // Assert
@@ -113,10 +113,10 @@ namespace Ringtoets.Integration.Data.TestUtil.Test
         }
 
         [Test]
-        public void GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability_Always_ReturnsExpectedTestCases()
+        public void GetAssessmentSectionWithConfiguredFailureMechanismsWithoutProbability_Always_ReturnsExpectedTestCases()
         {
             // Call
-            TestCaseData[] testCases = AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability()
+            TestCaseData[] testCases = AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithoutProbability()
                                                                           .ToArray();
 
             // Assert
