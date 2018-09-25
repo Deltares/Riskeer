@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -287,10 +287,9 @@ namespace Core.Common.Controls.DataGrid
         /// <param name="dataSource">The datasource that is set on the column.</param>
         /// <param name="valueMember">The <see cref="DataGridViewComboBoxColumn.ValueMember"/> of the column.</param>
         /// <param name="displayMember">The <see cref="DataGridViewComboBoxColumn.DisplayMember"/> of the column.</param>
-        /// <param name="autoSizeMode">The <see cref="DataGridViewColumn.AutoSizeMode"/> of the column.</param>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
-        public void AddComboBoxColumn<T>(string dataPropertyName, string headerText, IEnumerable<T> dataSource, string valueMember, string displayMember, DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.AllCells)
+        public void AddComboBoxColumn<T>(string dataPropertyName, string headerText, IEnumerable<T> dataSource, string valueMember, string displayMember)
         {
             var dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn
             {
@@ -299,7 +298,7 @@ namespace Core.Common.Controls.DataGrid
                 Name = string.Format(CultureInfo.InvariantCulture,
                                      "column_{0}",
                                      dataPropertyName),
-                AutoSizeMode = autoSizeMode,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 FlatStyle = FlatStyle.Flat
             };
 
@@ -549,11 +548,12 @@ namespace Core.Common.Controls.DataGrid
 
         private void DataGridViewOnCurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-            // Ensure checkbox values are directly committed
+            // Ensure checkbox and combobox values are directly committed
             DataGridViewColumn currentColumn = dataGridView.Columns[dataGridView.CurrentCell.ColumnIndex];
             if (currentColumn is DataGridViewCheckBoxColumn || currentColumn is DataGridViewComboBoxColumn)
             {
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                dataGridView.Refresh();
             }
         }
 
