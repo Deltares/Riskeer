@@ -51,6 +51,7 @@
     <Compile Include="GuiServices\IHydraulicBoundaryLocationCalculationGuiService.cs" />
     <Compile Include="Helpers\AssemblyCategoryGroupColorHelper.cs" />
     <Compile Include="Helpers\FailureMechanismSectionAssemblyCategoryGroupHelper.cs" />
+    <Compile Include="Helpers\FailureMechanismSectionPresentationHelper.cs" />
     <Compile Include="Helpers\ObserverHelper.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelper.cs" />
     <Compile Include="Helpers\SuspendDataGridViewColumnResizes.cs" />
