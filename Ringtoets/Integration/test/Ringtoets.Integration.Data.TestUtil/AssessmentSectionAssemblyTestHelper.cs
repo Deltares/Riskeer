@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
@@ -77,14 +78,15 @@ namespace Ringtoets.Integration.Data.TestUtil
             return GenerateTestCaseData(GetFailureMechanismsWithoutProbabilityTestConfigurations());
         }
 
-        private static IEnumerable<TestCaseData> GenerateTestCaseData(IEnumerable<FailureMechanismConfiguration> configurations)
+        private static IEnumerable<TestCaseData> GenerateTestCaseData(IEnumerable<AssessmentSectionConfiguration> configurations)
         {
-            foreach (FailureMechanismConfiguration assessmentSectionConfiguration in configurations)
+            foreach (AssessmentSectionConfiguration configuration in configurations)
             {
                 AssessmentSection assessmentSection = CreateAssessmentSectionWithIrrelevantFailureMechanisms();
-                assessmentSectionConfiguration.ConfigureAssessmentSection(assessmentSection);
+                configuration.ConfigureAssessmentSectionAction(assessmentSection);
 
-                yield return new TestCaseData(assessmentSection).SetName(assessmentSectionConfiguration.FailureMechanismName);
+                IFailureMechanism configuredFailureMechanism = configuration.GetFailureMechanismFunc(assessmentSection);
+                yield return new TestCaseData(assessmentSection, configuredFailureMechanism).SetName(configuredFailureMechanism.Name);
             }
         }
 
@@ -95,204 +97,204 @@ namespace Ringtoets.Integration.Data.TestUtil
             return assessmentSection;
         }
 
-        private static IEnumerable<FailureMechanismConfiguration> GetFailureMechanismWithProbabilityTestConfigurations()
+        private static IEnumerable<AssessmentSectionConfiguration> GetFailureMechanismWithProbabilityTestConfigurations()
         {
             const double manualAssemblyProbability = 0.5;
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                PipingFailureMechanism failureMechanism = section.Piping;
+                PipingFailureMechanism failureMechanism = assessmentSection.Piping;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
-            }, "Piping");
+            }, assessmentSection => assessmentSection.Piping);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                MacroStabilityInwardsFailureMechanism failureMechanism = section.MacroStabilityInwards;
+                MacroStabilityInwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
-            }, "MacroStabilityInwards");
+            }, assessmentSection => assessmentSection.MacroStabilityInwards);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                GrassCoverErosionInwardsFailureMechanism failureMechanism = section.GrassCoverErosionInwards;
+                GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
-            }, "GrassCoverErosionInwards");
+            }, assessmentSection => assessmentSection.GrassCoverErosionInwards);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                ClosingStructuresFailureMechanism failureMechanism = section.ClosingStructures;
+                ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
-            }, "ClosingStructures");
+            }, assessmentSection => assessmentSection.ClosingStructures);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                HeightStructuresFailureMechanism failureMechanism = section.HeightStructures;
+                HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
-            }, "HeightStructures");
+            }, assessmentSection => assessmentSection.HeightStructures);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                StabilityPointStructuresFailureMechanism failureMechanism = section.StabilityPointStructures;
+                StabilityPointStructuresFailureMechanism failureMechanism = assessmentSection.StabilityPointStructures;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
-            }, "StabilityPointStructures");
+            }, assessmentSection => assessmentSection.StabilityPointStructures);
         }
 
-        private static IEnumerable<FailureMechanismConfiguration> GetFailureMechanismsWithoutProbabilityTestConfigurations()
+        private static IEnumerable<AssessmentSectionConfiguration> GetFailureMechanismsWithoutProbabilityTestConfigurations()
         {
             const FailureMechanismSectionAssemblyCategoryGroup sectionAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
             const ManualFailureMechanismSectionAssemblyCategoryGroup manualSectionAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                DuneErosionFailureMechanism failureMechanism = section.DuneErosion;
+                DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = sectionAssemblyCategoryGroup;
-            }, "DuneErosion");
+            }, assessmentSection => assessmentSection.DuneErosion);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                GrassCoverErosionOutwardsFailureMechanism failureMechanism = section.GrassCoverErosionOutwards;
+                GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = sectionAssemblyCategoryGroup;
-            }, "GrassCoverErosionOutwards");
+            }, assessmentSection => assessmentSection.GrassCoverErosionOutwards);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                StabilityStoneCoverFailureMechanism failureMechanism = section.StabilityStoneCover;
+                StabilityStoneCoverFailureMechanism failureMechanism = assessmentSection.StabilityStoneCover;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = sectionAssemblyCategoryGroup;
-            }, "StabilityStoneCover");
+            }, assessmentSection => assessmentSection.StabilityStoneCover);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                WaveImpactAsphaltCoverFailureMechanism failureMechanism = section.WaveImpactAsphaltCover;
+                WaveImpactAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaveImpactAsphaltCover;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = sectionAssemblyCategoryGroup;
-            }, "WaveImpactAsphaltCover");
+            }, assessmentSection => assessmentSection.WaveImpactAsphaltCover);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                GrassCoverSlipOffInwardsFailureMechanism failureMechanism = section.GrassCoverSlipOffInwards;
+                GrassCoverSlipOffInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffInwards;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
-            }, "GrassCoverSlipOffInwards");
+            }, assessmentSection => assessmentSection.GrassCoverSlipOffInwards);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                GrassCoverSlipOffOutwardsFailureMechanism failureMechanism = section.GrassCoverSlipOffOutwards;
+                GrassCoverSlipOffOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
-            }, "GrassCoverSlipOffOutwards");
+            }, assessmentSection => assessmentSection.GrassCoverSlipOffOutwards);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                PipingStructureFailureMechanism failureMechanism = section.PipingStructure;
+                PipingStructureFailureMechanism failureMechanism = assessmentSection.PipingStructure;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 PipingStructureFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
-            }, "PipingStructure");
+            }, assessmentSection => assessmentSection.PipingStructure);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism = section.StrengthStabilityLengthwiseConstruction;
+                StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
-            }, "StrengthStabilityLengthwiseConstruction");
+            }, assessmentSection => assessmentSection.StrengthStabilityLengthwiseConstruction);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                TechnicalInnovationFailureMechanism failureMechanism = section.TechnicalInnovation;
+                TechnicalInnovationFailureMechanism failureMechanism = assessmentSection.TechnicalInnovation;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 TechnicalInnovationFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
-            }, "TechnicalInnovation");
+            }, assessmentSection => assessmentSection.TechnicalInnovation);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                MicrostabilityFailureMechanism failureMechanism = section.Microstability;
+                MicrostabilityFailureMechanism failureMechanism = assessmentSection.Microstability;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 MicrostabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
-            }, "Microstability");
+            }, assessmentSection => assessmentSection.Microstability);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                MacroStabilityOutwardsFailureMechanism failureMechanism = section.MacroStabilityOutwards;
+                MacroStabilityOutwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityOutwards;
                 failureMechanism.IsRelevant = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
-            }, "MacroStabilityOutwards");
+            }, assessmentSection => assessmentSection.MacroStabilityOutwards);
 
-            yield return new FailureMechanismConfiguration(section =>
+            yield return new AssessmentSectionConfiguration(section =>
             {
                 WaterPressureAsphaltCoverFailureMechanism failureMechanism = section.WaterPressureAsphaltCover;
                 failureMechanism.IsRelevant = true;
@@ -301,37 +303,37 @@ namespace Ringtoets.Integration.Data.TestUtil
                 WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
-            }, "WaterPressureAsphaltCover");
+            }, assessmentSection => assessmentSection.WaterPressureAsphaltCover);
         }
 
         /// <summary>
-        /// Class which holds the information to configure a failure mechanism.
+        /// Class which holds the information to configure a failure mechanism inn an <see cref="AssessmentSection"/>.
         /// </summary>
-        private class FailureMechanismConfiguration
+        private class AssessmentSectionConfiguration
         {
             /// <summary>
-            /// Creates a new instance of <see cref="FailureMechanismConfiguration"/>.
+            /// Creates a new instance of <see cref="AssessmentSectionConfiguration"/>.
             /// </summary>
-            /// <param name="configureAssessmentSection">The <see cref="Action{T}"/> to configure a failure mechanism
+            /// <param name="configureAssessmentSectionAction">The <see cref="Action{T}"/> to configure a failure mechanism
             /// that belongs in a <see cref="AssessmentSection"/>.</param>
-            /// <param name="failureMechanismName">The name of the failure mechanism to be
-            /// configured.</param>
-            public FailureMechanismConfiguration(Action<AssessmentSection> configureAssessmentSection,
-                                                 string failureMechanismName)
+            /// <param name="getFailureMechanismFunc">The <see cref="Func{TResult}"/> to retrieve the affected failure mechanism.</param>
+            public AssessmentSectionConfiguration(Action<AssessmentSection> configureAssessmentSectionAction,
+                                                 Func<AssessmentSection, IFailureMechanism> getFailureMechanismFunc)
             {
-                ConfigureAssessmentSection = configureAssessmentSection;
-                FailureMechanismName = failureMechanismName;
+                ConfigureAssessmentSectionAction = configureAssessmentSectionAction;
+                GetFailureMechanismFunc = getFailureMechanismFunc;
             }
 
             /// <summary>
             /// Gets the <see cref="Action{T}"/> to configure a failure mechanism in an <see cref="AssessmentSection"/>.
             /// </summary>
-            public Action<AssessmentSection> ConfigureAssessmentSection { get; }
+            public Action<AssessmentSection> ConfigureAssessmentSectionAction { get; }
 
             /// <summary>
-            /// Gets the name of the failure mechanism that is configured within <see cref="AssessmentSection"/>.
+            /// Gets the <see cref="Func{TResult}"/> to retrieve the configured <see cref="IFailureMechanism"/>
+            /// from the <see cref="AssessmentSection"/>.
             /// </summary>
-            public string FailureMechanismName { get; }
+            public Func<AssessmentSection, IFailureMechanism> GetFailureMechanismFunc { get; }
         }
     }
 }
