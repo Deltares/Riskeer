@@ -25,6 +25,7 @@ using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.Data.TestUtil;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -145,22 +146,25 @@ namespace Ringtoets.Integration.IO.Test.Factories
         public void CreateExportableFailureMechanism_WithFailureMechanismWithManualAssessment_ManualAssemblyIgnored()
         {
             // Setup
+            var random = new Random(39);
             var failureMechanism = new PipingFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             failureMechanism.SectionResults.Single().UseManualAssembly = true;
-
-            var assessmentSection = new AssessmentSectionStub();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(random.NextDouble(), FailureMechanismSectionAssemblyCategoryGroup.IIv);
+                failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssembly(random.NextDouble(), FailureMechanismSectionAssemblyCategoryGroup.IIIv);
 
-                // Call
-                ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
+                // When
+                ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, new AssessmentSectionStub());
 
-                // Assert
-                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
+                // Then
+                AssemblyToolTestHelper.AssertAreEqual(failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput,
+                                                      failureMechanismAssemblyCalculator.FailureMechanismSectionAssemblies.Single());
             }
         }
 
