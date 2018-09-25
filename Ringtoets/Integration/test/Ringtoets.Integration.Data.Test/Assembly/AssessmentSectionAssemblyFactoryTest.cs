@@ -167,7 +167,8 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability))]
-        public void AssembleFailureMechanismsWithProbability_FailureMechanismWithManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator(AssessmentSection assessmentSection)
+        public void AssembleFailureMechanismsWithProbability_FailureMechanismWithManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator(AssessmentSection assessmentSection,
+                                                                                                                                                           IFailureMechanism relevantFailureMechanism)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -185,7 +186,8 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability))]
-        public void AssembleFailureMechanismsWithProbability_FailureMechanismWithManualSectionAssemblyAndUseManualFalse_SetsAssemblyInputOnCalculator(AssessmentSection assessmentSection)
+        public void AssembleFailureMechanismsWithProbability_FailureMechanismWithManualSectionAssemblyAndUseManualFalse_SetsAssemblyInputOnCalculator(AssessmentSection assessmentSection,
+                                                                                                                                                      IFailureMechanism relevantFailureMechanism)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -314,7 +316,8 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability))]
-        public void AssembleFailureMechanismsWithoutProbability_FailureMechanismWithManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator(AssessmentSection assessmentSection)
+        public void AssembleFailureMechanismsWithoutProbability_FailureMechanismWithManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator(AssessmentSection assessmentSection,
+                                                                                                                                                              IFailureMechanism relevantFailureMechanism)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -325,14 +328,14 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                var relevantFailureMechanism = (FailureMechanismBase) assessmentSection.GetFailureMechanisms().Single(fm => fm.IsRelevant);
                 AssertFailureMechanismsWithoutProbabilityManualAssemblyCalculatorInput(relevantFailureMechanism, failureMechanismAssemblyCalculator);
             }
         }
 
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability))]
-        public void AssembleFailureMechanismsWithoutProbability_FailureMechanismWithManualSectionAssemblyAndUseManualFalse_SetsAssemblyInputOnCalculator(AssessmentSection assessmentSection)
+        public void AssembleFailureMechanismsWithoutProbability_FailureMechanismWithManualSectionAssemblyAndUseManualFalse_SetsAssemblyInputOnCalculator(AssessmentSection assessmentSection, 
+                                                                                                                                                         IFailureMechanism relevantFailureMechanism)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -348,7 +351,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             }
         }
 
-        private static void AssertFailureMechanismsWithoutProbabilityManualAssemblyCalculatorInput(FailureMechanismBase failureMechanism,
+        private static void AssertFailureMechanismsWithoutProbabilityManualAssemblyCalculatorInput(IFailureMechanism failureMechanism,
                                                                                                    FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator)
         {
             var duneErosion = failureMechanism as DuneErosionFailureMechanism;

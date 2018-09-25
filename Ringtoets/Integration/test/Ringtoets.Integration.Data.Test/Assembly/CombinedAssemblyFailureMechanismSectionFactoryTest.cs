@@ -196,10 +196,10 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability))]
-        public void CreateInput_AssessmentSectionWithFailureMechanismWithProbabilityWithManualAssemblyAndUseManualTrue_ReturnsInputWithExpectedValue(AssessmentSection assessmentSection)
+        public void CreateInput_AssessmentSectionWithFailureMechanismWithProbabilityWithManualAssemblyAndUseManualTrue_ReturnsInputWithExpectedValue(AssessmentSection assessmentSection,
+                                                                                                                                                     IFailureMechanism relevantFailureMechanism)
         {
             // Setup
-            IFailureMechanism relevantFailureMechanism = assessmentSection.GetFailureMechanisms().Single(fm => fm.IsRelevant);
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
@@ -219,10 +219,10 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability))]
-        public void CreateInput_AssessmentSectionWithFailureMechanismWithProbabilityWithManualAssemblyAndUseManualFalse_ReturnsInputWithExpectedValue(AssessmentSection assessmentSection)
+        public void CreateInput_AssessmentSectionWithFailureMechanismWithProbabilityWithManualAssemblyAndUseManualFalse_ReturnsInputWithExpectedValue(AssessmentSection assessmentSection,
+                                                                                                                                                      IFailureMechanism relevantFailureMechanism)
         {
             // Setup
-            IFailureMechanism relevantFailureMechanism = assessmentSection.GetFailureMechanisms().Single(fm => fm.IsRelevant);
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // When
@@ -246,10 +246,10 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability))]
-        public void CreateInput_AssessmentSectionWithFailureMechanismWithoutProbabilityWithManualAssemblyAndUseManualTrue_ReturnsInputWithExpectedValue(AssessmentSection assessmentSection)
+        public void CreateInput_AssessmentSectionWithFailureMechanismWithoutProbabilityWithManualAssemblyAndUseManualTrue_ReturnsInputWithExpectedValue(AssessmentSection assessmentSection,
+                                                                                                                                                        IFailureMechanism relevantFailureMechanism)
         {
             // Setup
-            IFailureMechanism relevantFailureMechanism = assessmentSection.GetFailureMechanisms().Single(fm => fm.IsRelevant);
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
@@ -265,10 +265,10 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability))]
-        public void CreateInput_AssessmentSectionWithFailureMechanismWithoutProbabilityWithManualAssemblyAndUseManualFalse_ReturnsInputWithExpectedValue(AssessmentSection assessmentSection)
+        public void CreateInput_AssessmentSectionWithFailureMechanismWithoutProbabilityWithManualAssemblyAndUseManualFalse_ReturnsInputWithExpectedValue(AssessmentSection assessmentSection,
+                                                                                                                                                         IFailureMechanism relevantFailureMechanism)
         {
             // Setup
-            IFailureMechanism relevantFailureMechanism = assessmentSection.GetFailureMechanisms().Single(fm => fm.IsRelevant);
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // When

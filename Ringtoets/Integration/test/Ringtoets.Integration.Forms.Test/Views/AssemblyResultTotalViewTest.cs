@@ -637,7 +637,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability))]
-        public void GivenFormWithAssemblyResultTotalView_WhenFailureMechanismWithProbabilityHasManualSectionAssembly_ThenManualAssemblyUsed(AssessmentSection assessmentSection)
+        public void GivenFormWithAssemblyResultTotalView_WhenFailureMechanismWithProbabilityHasManualSectionAssembly_ThenManualAssemblyUsed(AssessmentSection assessmentSection,
+                                                                                                                                            IFailureMechanism relevantFailureMechanism)
         {
             // Given
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -650,8 +651,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 using (ShowAssemblyResultTotalView(assessmentSection))
                 {
                     // Then
-                    IFailureMechanism failureMechanism = assessmentSection.GetFailureMechanisms().Single(fm => fm.IsRelevant);
-                    AssertFailureMechanismsWithProbabilityCalculatorInput(failureMechanism, failureMechanismSectionCalculator);
+                    AssertFailureMechanismsWithProbabilityCalculatorInput(relevantFailureMechanism, failureMechanismSectionCalculator);
                     Assert.AreSame(failureMechanismSectionCalculator.ManualAssemblyAssemblyOutput, failureMechanismCalculator.FailureMechanismSectionAssemblies.Single());
                 }
             }
@@ -659,7 +659,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability))]
-        public void GivenFormWithAssemblyResultTotalView_WhenFailureMechanismWithoutProbabilityHasManualSectionAssembly_ThenManualAssemblyUsed(AssessmentSection assessmentSection)
+        public void GivenFormWithAssemblyResultTotalView_WhenFailureMechanismWithoutProbabilityHasManualSectionAssembly_ThenManualAssemblyUsed(AssessmentSection assessmentSection, 
+                                                                                                                                               IFailureMechanism relevantFailureMechanism)
         {
             // Given
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -671,8 +672,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 using (ShowAssemblyResultTotalView(assessmentSection))
                 {
                     // Then
-                    IFailureMechanism failureMechanism = assessmentSection.GetFailureMechanisms().Single(fm => fm.IsRelevant);
-                    AssertFailureMechanismsWithoutProbabilityCalculatorInput(failureMechanism, calculator);
+                    AssertFailureMechanismsWithoutProbabilityCalculatorInput(relevantFailureMechanism, calculator);
                 }
             }
         }

@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Data.TestUtil
         /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
-        /// <returns>A collection of <see cref="AssessmentSection"/> configurations.</returns>
+        /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations.</returns>
         public static IEnumerable<TestCaseData> GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability()
         {
             return GenerateTestCaseData(GetFailureMechanismWithProbabilityTestConfigurations());
@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Data.TestUtil
         /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
-        /// <returns>A collection of <see cref="AssessmentSection"/> configurations.</returns>
+        /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations.</returns>
         public static IEnumerable<TestCaseData> GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability()
         {
             return GenerateTestCaseData(GetFailureMechanismsWithoutProbabilityTestConfigurations());
