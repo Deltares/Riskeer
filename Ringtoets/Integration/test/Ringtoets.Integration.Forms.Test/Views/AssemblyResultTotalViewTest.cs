@@ -28,7 +28,6 @@ using Core.Common.Controls;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
-using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -43,7 +42,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -51,7 +49,6 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Data.TestUtil;
 using Ringtoets.Integration.Forms.Controls;
 using Ringtoets.Integration.Forms.Views;
@@ -646,14 +643,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub failureMechanismCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // When
                 using (ShowAssemblyResultTotalView(assessmentSection))
                 {
                     // Then
                     IFailureMechanism failureMechanism = assessmentSection.GetFailureMechanisms().Single(fm => fm.IsRelevant);
-                    AssertFailureMechanismsWithProbabilityCalculatorInput(failureMechanism, calculator);
+                    AssertFailureMechanismsWithProbabilityCalculatorInput(failureMechanism, failureMechanismSectionCalculator);
+                    Assert.AreSame(failureMechanismSectionCalculator.ManualAssemblyAssemblyOutput, failureMechanismCalculator.FailureMechanismSectionAssemblies.Single());
                 }
             }
         }
@@ -684,55 +683,49 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var piping = failureMechanism as PipingFailureMechanism;
             if (piping != null)
             {
-                Assert.AreEqual(piping.SectionResults
-                                      .Single()
-                                      .ManualAssemblyProbability,
+                Assert.AreEqual(GetFailureMechanismSectionResult(piping).ManualAssemblyProbability,
                                 calculator.ManualAssemblyProbabilityInput);
+                return;
             }
 
             var macroStabilityInwards = failureMechanism as MacroStabilityInwardsFailureMechanism;
             if (macroStabilityInwards != null)
             {
-                Assert.AreEqual(macroStabilityInwards.SectionResults
-                                                     .Single()
-                                                     .ManualAssemblyProbability,
+                Assert.AreEqual(GetFailureMechanismSectionResult(macroStabilityInwards).ManualAssemblyProbability,
                                 calculator.ManualAssemblyProbabilityInput);
+                return;
             }
 
             var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
             if (grassCoverErosionInwards != null)
             {
-                Assert.AreEqual(grassCoverErosionInwards.SectionResults
-                                                        .Single()
-                                                        .ManualAssemblyProbability,
+                Assert.AreEqual(GetFailureMechanismSectionResult(grassCoverErosionInwards).ManualAssemblyProbability,
                                 calculator.ManualAssemblyProbabilityInput);
+                return;
             }
 
             var closingStructures = failureMechanism as ClosingStructuresFailureMechanism;
             if (closingStructures != null)
             {
-                Assert.AreEqual(closingStructures.SectionResults
-                                                 .Single()
-                                                 .ManualAssemblyProbability,
+                Assert.AreEqual(GetFailureMechanismSectionResult(closingStructures).ManualAssemblyProbability,
                                 calculator.ManualAssemblyProbabilityInput);
+                return;
             }
 
             var heightStructures = failureMechanism as HeightStructuresFailureMechanism;
             if (heightStructures != null)
             {
-                Assert.AreEqual(heightStructures.SectionResults
-                                                .Single()
-                                                .ManualAssemblyProbability,
+                Assert.AreEqual(GetFailureMechanismSectionResult(heightStructures).ManualAssemblyProbability,
                                 calculator.ManualAssemblyProbabilityInput);
+                return;
             }
 
             var stabilityPointStructures = failureMechanism as StabilityPointStructuresFailureMechanism;
             if (stabilityPointStructures != null)
             {
-                Assert.AreEqual(stabilityPointStructures.SectionResults
-                                                        .Single()
-                                                        .ManualAssemblyProbability,
+                Assert.AreEqual(GetFailureMechanismSectionResult(stabilityPointStructures).ManualAssemblyProbability,
                                 calculator.ManualAssemblyProbabilityInput);
+                return;
             }
 
             throw new NotSupportedException();
@@ -744,112 +737,105 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var duneErosion = failureMechanism as DuneErosionFailureMechanism;
             if (duneErosion != null)
             {
-                Assert.AreEqual(duneErosion.SectionResults
-                                           .Single()
-                                           .ManualAssemblyCategoryGroup,
+                Assert.AreEqual(GetFailureMechanismSectionResult(duneErosion).ManualAssemblyCategoryGroup,
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
 
             var grassCoverErosionOutwards = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
             if (grassCoverErosionOutwards != null)
             {
-                Assert.AreEqual(grassCoverErosionOutwards.SectionResults
-                                                         .Single()
-                                                         .ManualAssemblyCategoryGroup,
+                Assert.AreEqual(GetFailureMechanismSectionResult(grassCoverErosionOutwards).ManualAssemblyCategoryGroup,
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
 
             var stabilityStoneCover = failureMechanism as StabilityStoneCoverFailureMechanism;
             if (stabilityStoneCover != null)
             {
-                Assert.AreEqual(stabilityStoneCover.SectionResults
-                                                   .Single()
-                                                   .ManualAssemblyCategoryGroup,
+                Assert.AreEqual(GetFailureMechanismSectionResult(stabilityStoneCover).ManualAssemblyCategoryGroup,
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
 
             var waveImpactAsphaltCover = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
             if (waveImpactAsphaltCover != null)
             {
-                Assert.AreEqual(waveImpactAsphaltCover.SectionResults
-                                                      .Single()
-                                                      .ManualAssemblyCategoryGroup,
+                Assert.AreEqual(GetFailureMechanismSectionResult(waveImpactAsphaltCover).ManualAssemblyCategoryGroup,
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
 
             var grassCoverSlipOffInwards = failureMechanism as GrassCoverSlipOffInwardsFailureMechanism;
             if (grassCoverSlipOffInwards != null)
             {
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(grassCoverSlipOffInwards.SectionResults
-                                                                                                                            .Single()
-                                                                                                                            .ManualAssemblyCategoryGroup),
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(grassCoverSlipOffInwards).ManualAssemblyCategoryGroup),
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
 
             var grassCoverSlipOffOutwards = failureMechanism as GrassCoverSlipOffOutwardsFailureMechanism;
             if (grassCoverSlipOffOutwards != null)
             {
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(grassCoverSlipOffOutwards.SectionResults
-                                                                                                                             .Single()
-                                                                                                                             .ManualAssemblyCategoryGroup),
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(grassCoverSlipOffOutwards).ManualAssemblyCategoryGroup),
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
 
             var pipingStructure = failureMechanism as PipingStructureFailureMechanism;
             if (pipingStructure != null)
             {
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(pipingStructure.SectionResults
-                                                                                                                   .Single()
-                                                                                                                   .ManualAssemblyCategoryGroup),
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(pipingStructure).ManualAssemblyCategoryGroup),
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
 
             var strengthStabilityLengthwiseConstruction = failureMechanism as StrengthStabilityLengthwiseConstructionFailureMechanism;
             if (strengthStabilityLengthwiseConstruction != null)
             {
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(strengthStabilityLengthwiseConstruction.SectionResults
-                                                                                                                                           .Single()
-                                                                                                                                           .ManualAssemblyCategoryGroup),
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(strengthStabilityLengthwiseConstruction).ManualAssemblyCategoryGroup),
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
 
             var technicalInnovation = failureMechanism as TechnicalInnovationFailureMechanism;
             if (technicalInnovation != null)
             {
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(technicalInnovation.SectionResults
-                                                                                                                       .Single()
-                                                                                                                       .ManualAssemblyCategoryGroup),
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(technicalInnovation).ManualAssemblyCategoryGroup),
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
 
             var microStability = failureMechanism as MicrostabilityFailureMechanism;
             if (microStability != null)
             {
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(microStability.SectionResults
-                                                                                                                  .Single()
-                                                                                                                  .ManualAssemblyCategoryGroup),
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(microStability).ManualAssemblyCategoryGroup),
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
 
             var macroStabilityOutwards = failureMechanism as MacroStabilityOutwardsFailureMechanism;
             if (macroStabilityOutwards != null)
             {
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(macroStabilityOutwards.SectionResults
-                                                                                                                          .Single()
-                                                                                                                          .ManualAssemblyCategoryGroup),
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(macroStabilityOutwards).ManualAssemblyCategoryGroup),
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
 
             var waterPressureAsphaltCover = failureMechanism as WaterPressureAsphaltCoverFailureMechanism;
             if (waterPressureAsphaltCover != null)
             {
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(waterPressureAsphaltCover.SectionResults
-                                                                                                                             .Single()
-                                                                                                                             .ManualAssemblyCategoryGroup),
+                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(waterPressureAsphaltCover).ManualAssemblyCategoryGroup),
                                 failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                return;
             }
 
             throw new NotSupportedException();
+        }
+
+        private static T GetFailureMechanismSectionResult<T>(IHasSectionResults<T> failureMechanism) where T : FailureMechanismSectionResult
+        {
+            return failureMechanism.SectionResults.Single();
         }
 
         #endregion
