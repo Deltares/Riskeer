@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -263,17 +262,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             testForm.Show();
 
             return failureMechanismResultView;
-        }
-
-        private static FailureMechanismAssemblyControl GetFailureMechanismAssemblyControl()
-        {
-            var control = (FailureMechanismAssemblyControl) ((TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject).GetControlFromPosition(1, 0);
-            return control;
-        }
-
-        private static ErrorProvider GetManualAssemblyWarningProvider(FailureMechanismAssemblyControl control)
-        {
-            return TypeUtils.GetField<ErrorProvider>(control, "manualAssemblyWarningProvider");
         }
     }
 }
