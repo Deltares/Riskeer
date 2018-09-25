@@ -426,7 +426,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void RemoveAllStochastiSoilModel_FullyConfiguredFailureMechanism_RemovesAllSoilModelAndClearDependendentData()
+        public void RemoveAllStochasticSoilModel_FullyConfiguredFailureMechanism_RemovesAllSoilModelAndClearDependentData()
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsFailureMechanismWithAllCalculationConfigurations();

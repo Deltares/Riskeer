@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Util;

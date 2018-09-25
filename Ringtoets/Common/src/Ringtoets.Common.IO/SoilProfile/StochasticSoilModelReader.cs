@@ -117,11 +117,6 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
         }
 
-        public void MoveNext()
-        {
-            HasNext = MoveNext(dataReader);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (dataReader != null)
@@ -138,6 +133,11 @@ namespace Ringtoets.Common.IO.SoilProfile
             }
 
             base.Dispose(disposing);
+        }
+
+        private void MoveNext()
+        {
+            HasNext = MoveNext(dataReader);
         }
 
         private void InitializeLookups()

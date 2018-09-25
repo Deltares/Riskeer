@@ -429,7 +429,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void RemoveAllStochastiSoilModel_FullyConfiguredPipingFailureMechanism_RemovesAllSoilModelAndClearDependendentData()
+        public void RemoveAllStochasticSoilModel_FullyConfiguredPipingFailureMechanism_RemovesAllSoilModelAndClearDependentData()
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();

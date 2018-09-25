@@ -393,7 +393,7 @@ namespace Core.Common.Base.Geometry
         {
             double t0, t1;
             Vector<double> w2 = segment1.SecondPoint - segment2.FirstPoint;
-            if (v[0] != 0.0)
+            if (Math.Abs(v[0]) > double.Epsilon)
             {
                 t0 = w[0] / v[0];
                 t1 = w2[0] / v[0];

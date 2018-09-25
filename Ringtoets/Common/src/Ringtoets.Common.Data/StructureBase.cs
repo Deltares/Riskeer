@@ -105,15 +105,7 @@ namespace Ringtoets.Common.Data
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hashCode = Name.GetHashCode();
-                hashCode = (hashCode * 397) ^ Id.GetHashCode();
-                hashCode = (hashCode * 397) ^ Location.GetHashCode();
-                hashCode = (hashCode * 397) ^ StructureNormalOrientation.GetHashCode();
-
-                return hashCode;
-            }
+            return Id.GetHashCode();
         }
 
         /// <summary>

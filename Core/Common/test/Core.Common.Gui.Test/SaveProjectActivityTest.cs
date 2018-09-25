@@ -218,7 +218,7 @@ namespace Core.Common.Gui.Test
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call,
                                                               new[]
                                                               {
-                                                                  Tuple.Create($"Opslaan van project is gestart.", LogLevelConstant.Info),
+                                                                  Tuple.Create("Opslaan van project is gestart.", LogLevelConstant.Info),
                                                                   Tuple.Create(errorMessage, LogLevelConstant.Error)
                                                               }, 2);
             Assert.AreEqual(ActivityState.Failed, activity.State);
@@ -251,7 +251,7 @@ namespace Core.Common.Gui.Test
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call,
                                                               new[]
                                                               {
-                                                                  Tuple.Create($"Opslaan van bestaand project is gestart.", LogLevelConstant.Info),
+                                                                  Tuple.Create("Opslaan van bestaand project is gestart.", LogLevelConstant.Info),
                                                                   Tuple.Create(errorMessage, LogLevelConstant.Error)
                                                               }, 2);
             Assert.AreEqual(ActivityState.Failed, activity.State);

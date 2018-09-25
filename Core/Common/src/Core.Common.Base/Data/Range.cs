@@ -40,7 +40,7 @@ namespace Core.Common.Base.Data
         {
             if (min.CompareTo(max) > 0)
             {
-                throw new ArgumentException("Minimum must be smaller or equal to Maximum.", nameof(min));
+                throw new ArgumentException(@"Minimum must be smaller or equal to Maximum.", nameof(min));
             }
             Minimum = min;
             Maximum = max;

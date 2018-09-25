@@ -135,11 +135,12 @@ namespace Core.Common.IO.Readers
                 {
                     query.Parameters.AddRange(parameters);
                 }
+
                 return query.ExecuteReader();
             }
         }
 
-        protected void CloseConnection()
+        private void CloseConnection()
         {
             if (Connection != null)
             {
