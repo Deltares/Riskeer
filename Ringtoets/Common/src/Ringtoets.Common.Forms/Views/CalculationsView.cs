@@ -142,9 +142,23 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
+        /// Handles the update of a hydraulic boundary location calculation by refreshing the data grid view
+        /// and updating the data of the illustration points control.
+        /// </summary>
+        protected void HandleHydraulicBoundaryLocationCalculationUpdate()
+        {
+            suspendAllEvents = true;
+            dataGridViewControl.RefreshDataGridView();
+            HandlePossibleOutdatedIllustrationPointsControl();
+            suspendAllEvents = false;
+
+            HandlePossibleOutdatedIllustrationPointsSelection();
+        }
+
+        /// <summary>
         /// Updates the state of the calculation button and the corresponding error provider.
         /// </summary>
-        protected void UpdateCalculateForSelectedButton()
+        private void UpdateCalculateForSelectedButton()
         {
             string validationText = ValidateCalculatableObjects();
             if (!string.IsNullOrEmpty(validationText))
@@ -157,20 +171,6 @@ namespace Ringtoets.Common.Forms.Views
                 CalculateForSelectedButton.Enabled = true;
                 CalculateForSelectedButtonErrorProvider.SetError(CalculateForSelectedButton, "");
             }
-        }
-
-        /// <summary>
-        /// Handles the update of a hydraulic boundary location calculation by refreshing the data grid view
-        /// and updating the data of the illustration points control.
-        /// </summary>
-        protected void HandleHydraulicBoundaryLocationCalculationUpdate()
-        {
-            suspendAllEvents = true;
-            dataGridViewControl.RefreshDataGridView();
-            HandlePossibleOutdatedIllustrationPointsControl();
-            suspendAllEvents = false;
-
-            HandlePossibleOutdatedIllustrationPointsSelection();
         }
 
         private void HandlePossibleOutdatedIllustrationPointsControl()
