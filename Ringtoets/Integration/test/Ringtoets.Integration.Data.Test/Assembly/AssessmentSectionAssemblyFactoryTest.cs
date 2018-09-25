@@ -553,7 +553,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection,
-                    random.NextBoolean());
+                                                                                                                                            random.NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput, output);
