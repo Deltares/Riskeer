@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Data.TestUtil
         /// <returns>A collection of <see cref="AssessmentSection"/> configurations.</returns>
         public static IEnumerable<TestCaseData> GetConfiguredAssessmentSectionWithFailureMechanismsWithProbability()
         {
-            return GenerateTestCaseData(GetGroup1And2FailureMechanismConfigurations());
+            return GenerateTestCaseData(GetFailureMechanismWithProbabilityTestConfigurations());
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Data.TestUtil
         /// <returns>A collection of <see cref="AssessmentSection"/> configurations.</returns>
         public static IEnumerable<TestCaseData> GetConfiguredAssessmentSectionWithFailureMechanismsWithoutProbability()
         {
-            return GenerateTestCaseData(GetGroup3FailureMechanismConfigurations());
+            return GenerateTestCaseData(GetFailureMechanismsWithoutProbabilityTestConfigurations());
         }
 
         private static IEnumerable<TestCaseData> GenerateTestCaseData(IEnumerable<FailureMechanismConfiguration> configurations)
@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Data.TestUtil
             return assessmentSection;
         }
 
-        private static IEnumerable<FailureMechanismConfiguration> GetGroup1And2FailureMechanismConfigurations()
+        private static IEnumerable<FailureMechanismConfiguration> GetFailureMechanismWithProbabilityTestConfigurations()
         {
             const double manualAssemblyProbability = 0.5;
 
@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.Data.TestUtil
             }, "StabilityPointStructures");
         }
 
-        private static IEnumerable<FailureMechanismConfiguration> GetGroup3FailureMechanismConfigurations()
+        private static IEnumerable<FailureMechanismConfiguration> GetFailureMechanismsWithoutProbabilityTestConfigurations()
         {
             const FailureMechanismSectionAssemblyCategoryGroup sectionAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
             const ManualFailureMechanismSectionAssemblyCategoryGroup manualSectionAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Vv;
@@ -304,8 +304,18 @@ namespace Ringtoets.Integration.Data.TestUtil
             }, "WaterPressureAsphaltCover");
         }
 
+        /// <summary>
+        /// Class which holds the information to configure a failure mechanism.
+        /// </summary>
         private class FailureMechanismConfiguration
         {
+            /// <summary>
+            /// Creates a new instance of <see cref="FailureMechanismConfiguration"/>.
+            /// </summary>
+            /// <param name="configureAssessmentSection">The <see cref="Action{T}"/> to configure a failure mechanism
+            /// that belongs in a <see cref="AssessmentSection"/>.</param>
+            /// <param name="failureMechanismName">The name of the failure mechanism to be
+            /// configured.</param>
             public FailureMechanismConfiguration(Action<AssessmentSection> configureAssessmentSection,
                                                  string failureMechanismName)
             {
@@ -313,7 +323,14 @@ namespace Ringtoets.Integration.Data.TestUtil
                 FailureMechanismName = failureMechanismName;
             }
 
+            /// <summary>
+            /// Gets the <see cref="Action{T}"/> to configure a failure mechanism in an <see cref="AssessmentSection"/>.
+            /// </summary>
             public Action<AssessmentSection> ConfigureAssessmentSection { get; }
+
+            /// <summary>
+            /// Gets the name of the failure mechanism that is configured within <see cref="AssessmentSection"/>.
+            /// </summary>
             public string FailureMechanismName { get; }
         }
     }
