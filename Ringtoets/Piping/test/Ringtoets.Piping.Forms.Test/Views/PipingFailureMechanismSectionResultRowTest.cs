@@ -175,7 +175,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section);
-            var calculationScenarios = new[]
+            PipingCalculationScenario[] calculationScenarios =
             {
                 PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section)
             };
@@ -515,7 +515,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult,
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
             };
-            var calculationScenarios = new[]
+            PipingCalculationScenario[] calculationScenarios =
             {
                 PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section)
             };
@@ -562,7 +562,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 DetailedAssessmentResult = detailedAssessmentResult
             };
-            var calculationScenarios = new[]
+            PipingCalculationScenario[] calculationScenarios =
             {
                 PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section)
             };
@@ -636,7 +636,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                 UseManualAssembly = useManualAssembly
             };
-            var calculationScenarios = new[]
+            PipingCalculationScenario[] calculationScenarios =
             {
                 PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section)
             };
@@ -1090,7 +1090,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new PipingFailureMechanismSectionResult(section);
-            var calculationScenarios = new[]
+            PipingCalculationScenario[] calculationScenarios =
             {
                 PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section)
             };

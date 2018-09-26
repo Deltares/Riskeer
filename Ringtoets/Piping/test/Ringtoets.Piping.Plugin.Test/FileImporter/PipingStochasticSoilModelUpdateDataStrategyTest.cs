@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             }, sourceFilePath);
 
             var strategy = new PipingStochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
-            var importedStochasticSoilModels = new[]
+            PipingStochasticSoilModel[] importedStochasticSoilModels =
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(nonUniqueName),
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(nonUniqueName)
@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var targetCollection = new PipingStochasticSoilModelCollection();
 
             var strategy = new PipingStochasticSoilModelUpdateDataStrategy(new PipingFailureMechanism());
-            var importedStochasticSoilModels = new[]
+            PipingStochasticSoilModel[] importedStochasticSoilModels =
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(nonUniqueName),
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel(nonUniqueName)

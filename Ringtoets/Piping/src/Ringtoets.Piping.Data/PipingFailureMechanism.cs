@@ -54,14 +54,6 @@ namespace Ringtoets.Piping.Data
             sectionResults = new ObservableList<PipingFailureMechanismSectionResult>();
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return CalculationsGroup.GetCalculations();
-            }
-        }
-
         /// <summary>
         /// Gets the available surface lines within the scope of the piping failure mechanism.
         /// </summary>
@@ -84,6 +76,14 @@ namespace Ringtoets.Piping.Data
         public PipingProbabilityAssessmentInput PipingProbabilityAssessmentInput { get; }
 
         public CalculationGroup CalculationsGroup { get; }
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                return CalculationsGroup.GetCalculations();
+            }
+        }
 
         public IObservableEnumerable<PipingFailureMechanismSectionResult> SectionResults
         {

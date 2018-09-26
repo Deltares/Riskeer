@@ -44,6 +44,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             {
                 throw new ArgumentNullException(nameof(stochasticSoilModel));
             }
+
             if (stochasticSoilModel.FailureMechanismType != FailureMechanismType.Piping)
             {
                 string message = string.Format(RingtoetsCommonIOResources.IStochasticSoilModelTransformer_Cannot_transform_FailureMechanismType_0_Only_FailureMechanismType_1_supported,
@@ -102,6 +103,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
                 pipingSoilProfile = PipingSoilProfileTransformer.Transform(soilProfile);
                 soilProfiles.Add(soilProfile, pipingSoilProfile);
             }
+
             return pipingSoilProfile;
         }
     }

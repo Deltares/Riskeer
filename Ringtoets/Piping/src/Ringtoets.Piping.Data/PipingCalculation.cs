@@ -46,14 +46,14 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the input parameters to perform a piping calculation with.
-        /// </summary>
-        public PipingInput InputParameters { get; private set; }
-
-        /// <summary>
         /// Gets or sets <see cref="PipingOutput"/>, which contains the results of a piping calculation.
         /// </summary>
         public PipingOutput Output { get; set; }
+
+        /// <summary>
+        /// Gets the input parameters to perform a piping calculation with.
+        /// </summary>
+        public PipingInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 

@@ -64,10 +64,12 @@ namespace Ringtoets.Piping.Forms
             {
                 throw new ArgumentNullException(nameof(surfaceLines));
             }
+
             if (soilModels == null)
             {
                 throw new ArgumentNullException(nameof(soilModels));
             }
+
             if (generalInput == null)
             {
                 throw new ArgumentNullException(nameof(generalInput));
@@ -88,6 +90,7 @@ namespace Ringtoets.Piping.Forms
                         surfaceLine.Name);
                 }
             }
+
             return groups;
         }
 

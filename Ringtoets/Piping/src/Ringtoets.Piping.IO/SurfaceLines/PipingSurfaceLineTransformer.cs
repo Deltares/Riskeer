@@ -46,6 +46,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             {
                 throw new ArgumentNullException(nameof(referenceLine));
             }
+
             this.referenceLine = referenceLine;
         }
 

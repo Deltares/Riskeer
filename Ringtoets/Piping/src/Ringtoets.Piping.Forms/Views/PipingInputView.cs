@@ -121,6 +121,7 @@ namespace Ringtoets.Piping.Forms.Views
                     chartControl.Data = chartDataCollection;
                     UpdateChartTitle();
                 }
+
                 UpdateTableData();
             }
         }
@@ -142,6 +143,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

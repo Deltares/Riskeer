@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.IO.Configurations
 
         private static double? GetAssessmentLevel(XElement calculationElement)
         {
-            return calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement) 
+            return calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement)
                    ?? calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement);
         }
     }

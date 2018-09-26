@@ -101,6 +101,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
             }
+
             return affectedObjects;
         }
 
@@ -146,6 +147,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 {
                     inputParameters.EntryPointL = RoundedDouble.NaN;
                 }
+
                 if (!ValidateLocalCoordinateOnSurfaceLine(surfaceLine, inputParameters.ExitPointL))
                 {
                     inputParameters.ExitPointL = RoundedDouble.NaN;

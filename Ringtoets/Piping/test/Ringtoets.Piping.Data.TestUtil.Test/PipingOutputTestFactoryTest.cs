@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
 
             // Call
             PipingOutput output = PipingOutputTestFactory.Create(heaveFactorOfSafety, upliftFactorOfSafety, sellmeijerFactorOfSafety);
-            
+
             // Assert
             Assert.AreEqual(heaveFactorOfSafety, output.HeaveFactorOfSafety);
             Assert.AreEqual(upliftFactorOfSafety, output.UpliftFactorOfSafety);

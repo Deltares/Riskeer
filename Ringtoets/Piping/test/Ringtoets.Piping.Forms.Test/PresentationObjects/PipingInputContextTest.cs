@@ -24,6 +24,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Primitives;
@@ -46,7 +47,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new PipingSurfaceLine(string.Empty)
             };
-            var stochasticSoilModels = new[]
+            PipingStochasticSoilModel[] stochasticSoilModels =
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
@@ -80,7 +81,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new PipingSurfaceLine(string.Empty)
             };
-            var stochasticSoilModels = new[]
+            PipingStochasticSoilModel[] stochasticSoilModels =
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };

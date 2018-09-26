@@ -51,6 +51,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             {
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
+
             if (characteristicPoints == null)
             {
                 return;

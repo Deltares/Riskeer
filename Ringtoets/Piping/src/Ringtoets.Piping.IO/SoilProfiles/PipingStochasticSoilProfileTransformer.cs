@@ -47,6 +47,7 @@ namespace Ringtoets.Piping.IO.SoilProfiles
             {
                 throw new ArgumentNullException(nameof(stochasticSoilProfile));
             }
+
             if (soilProfile == null)
             {
                 throw new ArgumentNullException(nameof(soilProfile));

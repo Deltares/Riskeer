@@ -326,10 +326,12 @@ namespace Ringtoets.Piping.KernelWrapper.Test.Creators
                 Assert.IsNull(otherPoint);
                 return;
             }
+
             if (otherPoint == null)
             {
                 Assert.Fail("Expected value for otherPoint.");
             }
+
             Assert.AreEqual(point.X, otherPoint.X);
             Assert.AreEqual(point.Y, otherPoint.Y);
             Assert.AreEqual(point.Z, otherPoint.Z);

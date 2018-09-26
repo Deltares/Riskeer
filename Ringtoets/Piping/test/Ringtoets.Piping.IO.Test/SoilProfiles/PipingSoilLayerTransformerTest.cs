@@ -219,8 +219,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
             string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName,
-                                                                                     "Verzadigd gewicht",
-                                                                                     "Parameter moet verschoven lognormaal verdeeld zijn.");
+                                                                                    "Verzadigd gewicht",
+                                                                                    "Parameter moet verschoven lognormaal verdeeld zijn.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -237,8 +237,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             Exception innerException = exception.InnerException;
             Assert.IsInstanceOf<ArgumentOutOfRangeException>(innerException);
             string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName,
-                                                                                     parameter,
-                                                                                     innerException.Message);
+                                                                                    parameter,
+                                                                                    innerException.Message);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -252,8 +252,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
             string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName,
-                                                                                     parameterName,
-                                                                                     "Parameter moet lognormaal verdeeld zijn.");
+                                                                                    parameterName,
+                                                                                    "Parameter moet lognormaal verdeeld zijn.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -267,8 +267,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
             string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName,
-                                                                                     parameterName,
-                                                                                     "Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
+                                                                                    parameterName,
+                                                                                    "Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -1040,8 +1040,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             // Assert
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
             string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName,
-                                                                                     "Verzadigd gewicht",
-                                                                                     "Parameter moet verschoven lognormaal verdeeld zijn.");
+                                                                                    "Verzadigd gewicht",
+                                                                                    "Parameter moet verschoven lognormaal verdeeld zijn.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -1075,8 +1075,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
             Exception exception = Assert.Throws<ImportedDataTransformException>(test);
 
             string expectedMessage = CreateExpectedErrorMessageForParameterVariable(layer.MaterialName,
-                                                                                     parameterName,
-                                                                                     "Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
+                                                                                    parameterName,
+                                                                                    "Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

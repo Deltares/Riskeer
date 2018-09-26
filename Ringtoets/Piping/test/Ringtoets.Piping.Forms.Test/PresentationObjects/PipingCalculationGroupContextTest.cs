@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new PipingSurfaceLine(string.Empty)
             };
-            var soilModels = new[]
+            PipingStochasticSoilModel[] soilModels =
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };

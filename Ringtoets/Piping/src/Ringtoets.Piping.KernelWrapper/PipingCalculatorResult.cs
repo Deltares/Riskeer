@@ -41,6 +41,7 @@ namespace Ringtoets.Piping.KernelWrapper
             {
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
+
             UpliftZValue = constructionProperties.UpliftZValue;
             UpliftFactorOfSafety = constructionProperties.UpliftFactorOfSafety;
             HeaveZValue = constructionProperties.HeaveZValue;

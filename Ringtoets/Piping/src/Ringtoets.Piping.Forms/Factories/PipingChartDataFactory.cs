@@ -68,6 +68,7 @@ namespace Ringtoets.Piping.Forms.Factories
             {
                 throw new ArgumentNullException(nameof(layer));
             }
+
             return new ChartMultipleAreaData(SoilLayerDataHelper.GetValidName(layer.MaterialName),
                                              new ChartAreaStyle
                                              {

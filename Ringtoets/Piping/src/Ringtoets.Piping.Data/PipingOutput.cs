@@ -44,6 +44,7 @@ namespace Ringtoets.Piping.Data
             {
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
+
             HeaveFactorOfSafety = constructionProperties.HeaveFactorOfSafety;
             HeaveZValue = constructionProperties.HeaveZValue;
             UpliftFactorOfSafety = constructionProperties.UpliftFactorOfSafety;

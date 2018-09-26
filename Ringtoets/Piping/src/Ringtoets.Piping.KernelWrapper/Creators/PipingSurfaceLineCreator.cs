@@ -61,6 +61,7 @@ namespace Ringtoets.Piping.KernelWrapper.Creators
                 IEnumerable<PipingPoint> newPoints = CreatePoint(line, projectedPoints, i);
                 pipingPoints.AddRange(newPoints);
             }
+
             return pipingPoints;
         }
 
@@ -75,22 +76,27 @@ namespace Ringtoets.Piping.KernelWrapper.Creators
             {
                 pipingPoints.Add(CreatePipingPointOfType(projectedPoint, PipingCharacteristicPointType.DitchPolderSide));
             }
+
             if (ReferenceEquals(line.BottomDitchPolderSide, surfaceLinePoint))
             {
                 pipingPoints.Add(CreatePipingPointOfType(projectedPoint, PipingCharacteristicPointType.BottomDitchPolderSide));
             }
+
             if (ReferenceEquals(line.BottomDitchDikeSide, surfaceLinePoint))
             {
                 pipingPoints.Add(CreatePipingPointOfType(projectedPoint, PipingCharacteristicPointType.BottomDitchDikeSide));
             }
+
             if (ReferenceEquals(line.DitchDikeSide, surfaceLinePoint))
             {
                 pipingPoints.Add(CreatePipingPointOfType(projectedPoint, PipingCharacteristicPointType.DitchDikeSide));
             }
+
             if (ReferenceEquals(line.DikeToeAtPolder, surfaceLinePoint))
             {
                 pipingPoints.Add(CreatePipingPointOfType(projectedPoint, PipingCharacteristicPointType.DikeToeAtPolder));
             }
+
             if (!pipingPoints.Any())
             {
                 pipingPoints.Add(CreatePipingPointOfType(projectedPoint, PipingCharacteristicPointType.None));

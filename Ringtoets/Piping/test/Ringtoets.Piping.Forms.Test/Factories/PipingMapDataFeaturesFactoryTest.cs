@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Forms.Test.Factories
                 new Point2D(3.2, 23.3),
                 new Point2D(7.7, 12.6)
             };
-            var stochasticSoilModels = new[]
+            PipingStochasticSoilModel[] stochasticSoilModels =
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName1", pointsOne),
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName2", pointsTwo)

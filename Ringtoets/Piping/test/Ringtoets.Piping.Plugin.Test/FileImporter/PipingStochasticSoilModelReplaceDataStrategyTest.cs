@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_WithoutCurrentModelAndModelsImported_NewModelsAdded()
         {
             // Setup
-            var importedStochasticSoilModels = new[]
+            PipingStochasticSoilModel[] importedStochasticSoilModels =
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("A"),
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("B")
@@ -211,7 +211,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_ImportedModelsContainDuplicateNames_ThrowsUpdateDataException()
         {
             // Setup
-            var importedStochasticSoilModels = new[]
+            PipingStochasticSoilModel[] importedStochasticSoilModels =
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("B"),
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("B")

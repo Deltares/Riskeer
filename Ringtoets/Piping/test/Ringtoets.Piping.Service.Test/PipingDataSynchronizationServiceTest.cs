@@ -135,15 +135,13 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
             PipingCalculation[] calculations = failureMechanism.Calculations.Cast<PipingCalculation>().ToArray();
-            IObservable[] expectedAffectedCalculations = calculations
-                .Where(c => c.HasOutput)
-                .Cast<IObservable>()
-                .ToArray();
-            IObservable[] expectedAffectedCalculationInputs = calculations
-                .Select(c => c.InputParameters)
-                .Where(i => i.HydraulicBoundaryLocation != null)
-                .Cast<IObservable>()
-                .ToArray();
+            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
+                                                                     .Cast<IObservable>()
+                                                                     .ToArray();
+            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
+                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
+                                                                          .Cast<IObservable>()
+                                                                          .ToArray();
 
             // Call
             IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
@@ -508,9 +506,8 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism
-                .Calculations
-                .Cast<PipingCalculationScenario>();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                  .Cast<PipingCalculationScenario>();
             PipingStochasticSoilProfile profileToDelete = null;
 
             foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
@@ -521,6 +518,7 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     profileToDelete = currentProfile;
                 }
+
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
                     input.StochasticSoilProfile = null;
@@ -539,9 +537,8 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism
-                .Calculations
-                .Cast<PipingCalculationScenario>();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                  .Cast<PipingCalculationScenario>();
             PipingStochasticSoilProfile profileToDelete = null;
 
             var expectedInputs = new List<PipingInput>();
@@ -554,6 +551,7 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     profileToDelete = currentProfile;
                 }
+
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
                     pipingCalculationScenario.ClearOutput();
@@ -574,9 +572,8 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism
-                .Calculations
-                .Cast<PipingCalculationScenario>();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                  .Cast<PipingCalculationScenario>();
 
             var expectedAffectedObjects = new List<IObservable>();
 
@@ -590,15 +587,18 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     profileToDelete = currentProfile;
                 }
+
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
                     if (pipingCalculationScenario.HasOutput)
                     {
                         expectedAffectedObjects.Add(pipingCalculationScenario);
                     }
+
                     expectedAffectedObjects.Add(input);
                 }
             }
+
             // Call
             IEnumerable<IObservable> affected = PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(failureMechanism, profileToDelete);
 
@@ -641,9 +641,8 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism
-                .Calculations
-                .Cast<PipingCalculationScenario>();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                  .Cast<PipingCalculationScenario>();
             PipingStochasticSoilProfile profileToDelete = null;
 
             foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
@@ -654,6 +653,7 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     profileToDelete = currentProfile;
                 }
+
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
                     input.StochasticSoilProfile = null;
@@ -672,9 +672,8 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism
-                .Calculations
-                .Cast<PipingCalculationScenario>();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                  .Cast<PipingCalculationScenario>();
             PipingStochasticSoilProfile profileToDelete = null;
 
             var expectedInputs = new List<PipingInput>();
@@ -687,6 +686,7 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     profileToDelete = currentProfile;
                 }
+
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
                     pipingCalculationScenario.ClearOutput();
@@ -707,9 +707,8 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism
-                .Calculations
-                .Cast<PipingCalculationScenario>();
+            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                  .Cast<PipingCalculationScenario>();
 
             var expectedAffectedObjects = new List<IObservable>();
 
@@ -723,15 +722,18 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     profileToDelete = currentProfile;
                 }
+
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
                     if (pipingCalculationScenario.HasOutput)
                     {
                         expectedAffectedObjects.Add(pipingCalculationScenario);
                     }
+
                     expectedAffectedObjects.Add(input);
                 }
             }
+
             // Call
             IEnumerable<IObservable> affected = PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(failureMechanism, profileToDelete);
 

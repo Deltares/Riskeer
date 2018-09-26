@@ -109,14 +109,17 @@ namespace Ringtoets.Piping.Data.SoilProfile
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((PipingStochasticSoilProfile) obj);
         }
 

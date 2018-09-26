@@ -166,7 +166,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 failureMechanism.SurfaceLines
             }, affectedObjects);
 
-            var expectedSurfaceLines = new[]
+            PipingSurfaceLine[] expectedSurfaceLines =
             {
                 readSurfaceLine
             };

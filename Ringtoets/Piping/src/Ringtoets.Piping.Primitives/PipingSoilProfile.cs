@@ -110,8 +110,10 @@ namespace Ringtoets.Piping.Primitives
                 {
                     return layer.Top - previousLevel;
                 }
+
                 previousLevel = oLayer.Top;
             }
+
             throw new ArgumentException("Layer not found in profile.");
         }
 
@@ -126,14 +128,17 @@ namespace Ringtoets.Piping.Primitives
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (GetType() != obj.GetType())
             {
                 return false;
             }
+
             return Equals((PipingSoilProfile) obj);
         }
 
@@ -174,10 +179,12 @@ namespace Ringtoets.Piping.Primitives
             {
                 throw new ArgumentNullException(nameof(collection), string.Format(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers));
             }
+
             if (!collection.Any())
             {
                 throw new ArgumentException(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers);
             }
+
             if (collection.Any(l => l.Top < Bottom))
             {
                 throw new ArgumentException(Resources.PipingSoilProfile_Layers_Layer_top_below_profile_bottom);

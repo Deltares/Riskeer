@@ -87,9 +87,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private IEnumerable<IObservable> UpdateStochasticSoilModel(PipingStochasticSoilModel modelToUpdate, PipingStochasticSoilModel modelToUpdateFrom)
         {
-            Dictionary<PipingStochasticSoilProfile, PipingSoilProfile> oldProfiles = modelToUpdate
-                .StochasticSoilProfiles
-                .ToDictionary(ssp => ssp, ssp => ssp.SoilProfile, new ReferenceEqualityComparer<PipingStochasticSoilProfile>());
+            Dictionary<PipingStochasticSoilProfile, PipingSoilProfile> oldProfiles = modelToUpdate.StochasticSoilProfiles
+                                                                                                  .ToDictionary(ssp => ssp, ssp => ssp.SoilProfile,
+                                                                                                                new ReferenceEqualityComparer<PipingStochasticSoilProfile>());
 
             PipingStochasticSoilModelProfileDifference difference = modelToUpdate.Update(modelToUpdateFrom);
 
@@ -98,14 +98,17 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 affectedObjects.AddRange(PipingDataSynchronizationService.RemoveStochasticSoilProfileFromInput(FailureMechanism, removedProfile));
             }
+
             foreach (PipingStochasticSoilProfile updatedProfile in difference.UpdatedProfiles)
             {
                 if (!oldProfiles[updatedProfile].Equals(updatedProfile.SoilProfile))
                 {
                     affectedObjects.AddRange(PipingDataSynchronizationService.ClearStochasticSoilProfileDependentData(FailureMechanism, updatedProfile));
                 }
+
                 affectedObjects.Add(updatedProfile);
             }
+
             return affectedObjects;
         }
 

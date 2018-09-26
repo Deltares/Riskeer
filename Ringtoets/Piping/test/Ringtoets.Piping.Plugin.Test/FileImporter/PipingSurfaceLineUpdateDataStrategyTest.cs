@@ -242,7 +242,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 new Point3D(4, 5, 6)
             });
-            var importedSurfaceLines = new[]
+            PipingSurfaceLine[] importedSurfaceLines =
             {
                 lineOne,
                 lineTwo
@@ -278,7 +278,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
             expectedSurfaceLine.SetGeometry(expectedGeometry);
 
-            var expectedCollection = new[]
+            PipingSurfaceLine[] expectedCollection =
             {
                 expectedSurfaceLine
             };
@@ -323,7 +323,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             }, sourceFilePath);
 
             PipingSurfaceLine readSurfaceLine = DeepCloneAndModifyPoints(targetSurfaceLine);
-            var readSurfaceLines = new[]
+            PipingSurfaceLine[] readSurfaceLines =
             {
                 readSurfaceLine
             };
@@ -356,7 +356,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var targetSurfaceLine = new PipingSurfaceLine(collectionSurfaceLineName);
 
             var readSurfaceLine = new PipingSurfaceLine(readSurfaceLineName);
-            var readSurfaceLines = new[]
+            PipingSurfaceLine[] readSurfaceLines =
             {
                 readSurfaceLine
             };
@@ -405,7 +405,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             PipingSurfaceLine readSurfaceLineOne = DeepCloneAndModifyPoints(surfaceLineOne);
             var readSurfaceLineTwo = new PipingSurfaceLine(addedSurfaceLineName);
-            var readSurfaceLines = new[]
+            PipingSurfaceLine[] readSurfaceLines =
             {
                 readSurfaceLineOne,
                 readSurfaceLineTwo
@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                                                                                    sourceFilePath);
 
             // Assert
-            var expectedSurfaceLineCollection = new[]
+            PipingSurfaceLine[] expectedSurfaceLineCollection =
             {
                 surfaceLineOne,
                 readSurfaceLineTwo
@@ -499,7 +499,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     SurfaceLine = affectedSurfaceLine
                 },
                 Output = PipingOutputTestFactory.Create()
-        };
+            };
 
             var unaffectedGeometry = new[]
             {

@@ -42,6 +42,7 @@ namespace Ringtoets.Piping.KernelWrapper
             {
                 throw new ArgumentNullException(nameof(properties));
             }
+
             WaterVolumetricWeight = properties.WaterVolumetricWeight;
             SaturatedVolumicWeightOfCoverageLayer = properties.SaturatedVolumicWeightOfCoverageLayer;
             UpliftModelFactor = properties.UpliftModelFactor;

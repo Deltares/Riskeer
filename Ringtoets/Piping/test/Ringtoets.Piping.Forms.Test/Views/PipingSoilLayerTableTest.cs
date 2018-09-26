@@ -161,7 +161,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (var table = new PipingSoilLayerTable())
             {
-                var layers = new[]
+                PipingSoilLayer[] layers =
                 {
                     CreatePipingSoilLayer(),
                     CreatePipingSoilLayer(),
@@ -202,7 +202,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 soilLayer.MaterialName = string.Empty;
                 soilLayer.Color = Color.Empty;
 
-                var layers = new[]
+                PipingSoilLayer[] layers =
                 {
                     soilLayer
                 };
@@ -233,6 +233,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 Assert.AreEqual(expectedValue, actualValue);
             }
+
             if (expectedValue is RoundedDouble)
             {
                 Assert.IsInstanceOf<RoundedDouble>(actualValue);

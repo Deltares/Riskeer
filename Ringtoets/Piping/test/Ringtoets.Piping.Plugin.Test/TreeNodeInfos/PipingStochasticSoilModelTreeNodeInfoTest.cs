@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             object[] objects = info.ChildNodeObjects(stochasticSoilModel);
 
             // Assert
-            var expectedChildren = new[]
+            PipingStochasticSoilProfile[] expectedChildren =
             {
                 stochasticSoilProfile1,
                 stochasticSoilProfile2
@@ -155,6 +155,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(model, null, treeViewControl);
             }
+
             // Assert
             mocks.VerifyAll();
         }

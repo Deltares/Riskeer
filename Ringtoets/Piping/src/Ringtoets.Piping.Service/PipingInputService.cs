@@ -48,6 +48,7 @@ namespace Ringtoets.Piping.Service
             {
                 pipingInput.StochasticSoilModel = null;
             }
+
             SyncStochasticSoilProfileWithStochasticSoilModel(pipingInput);
         }
 
@@ -68,11 +69,13 @@ namespace Ringtoets.Piping.Service
                     pipingInput.StochasticSoilProfile = pipingInput.StochasticSoilModel.StochasticSoilProfiles.First();
                     return;
                 }
+
                 if (pipingInput.StochasticSoilProfile == null || pipingInput.StochasticSoilModel.StochasticSoilProfiles.Contains(pipingInput.StochasticSoilProfile))
                 {
                     return;
                 }
             }
+
             pipingInput.StochasticSoilProfile = null;
         }
     }

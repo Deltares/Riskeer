@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Data.Test.SoilProfile
             {
                 new Point2D(1, 1)
             };
-            var stochasticSoilProfiles = new[]
+            PipingStochasticSoilProfile[] stochasticSoilProfiles =
             {
                 CreateStochasticSoilProfile()
             };

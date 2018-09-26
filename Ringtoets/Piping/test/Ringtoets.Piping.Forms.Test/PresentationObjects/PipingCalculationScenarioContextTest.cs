@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new PipingSurfaceLine(string.Empty)
             };
-            var soilModels = new[]
+            PipingStochasticSoilModel[] soilModels =
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new PipingSurfaceLine(string.Empty)
             };
-            var soilModels = new[]
+            PipingStochasticSoilModel[] soilModels =
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };

@@ -391,7 +391,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfiles
 
         private static IEnumerable<TestCaseData> GetSupportedStochasticSoilProfilesWithInvalidProbabilities()
         {
-            var invalidProbabilities = new[]
+            double[] invalidProbabilities =
             {
                 double.NaN,
                 double.NegativeInfinity,

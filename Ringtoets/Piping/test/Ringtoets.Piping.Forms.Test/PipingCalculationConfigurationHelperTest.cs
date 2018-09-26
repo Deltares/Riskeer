@@ -257,7 +257,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilProfile2
             });
 
-            var availableSoilModels = new[]
+            PipingStochasticSoilModel[] availableSoilModels =
             {
                 soilModel1,
                 soilModel2
@@ -401,7 +401,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilProfile2
             });
 
-            var availableSoilModels = new[]
+            PipingStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -552,7 +552,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilProfile2
             });
 
-            var availableSoilModels = new[]
+            PipingStochasticSoilModel[] availableSoilModels =
             {
                 soilModel1,
                 soilModel2
@@ -566,7 +566,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(0.0, y, 0.0)
             });
 
-            var surfaceLines = new[]
+            PipingSurfaceLine[] surfaceLines =
             {
                 surfaceLine
             };
@@ -641,7 +641,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilProfile2
             });
 
-            var availableSoilModels = new[]
+            PipingStochasticSoilModel[] availableSoilModels =
             {
                 soilModel1,
                 soilModel2
@@ -662,7 +662,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(5.0, y, 0.0)
             });
 
-            var surfaceLines = new[]
+            PipingSurfaceLine[] surfaceLines =
             {
                 surfaceLine1,
                 surfaceLine2
@@ -750,7 +750,7 @@ namespace Ringtoets.Piping.Forms.Test
             {
                 soilProfile2
             });
-            var availableSoilModels = new[]
+            PipingStochasticSoilModel[] availableSoilModels =
             {
                 soilModel1,
                 soilModel2
@@ -771,7 +771,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(6.4, y, 0.0)
             });
 
-            var surfaceLines = new[]
+            PipingSurfaceLine[] surfaceLines =
             {
                 surfaceLine1,
                 surfaceLine2
@@ -840,7 +840,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingStochasticSoilProfile(0.7, soilProfile2)
             });
 
-            var availableSoilModels = new[]
+            PipingStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -853,7 +853,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            var surfaceLines = new[]
+            PipingSurfaceLine[] surfaceLines =
             {
                 surfaceLine
             };
@@ -913,7 +913,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingStochasticSoilProfile(0.5, soilProfile3)
             });
 
-            var availableSoilModels = new[]
+            PipingStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -926,7 +926,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            var surfaceLines = new[]
+            PipingSurfaceLine[] surfaceLines =
             {
                 surfaceLine
             };

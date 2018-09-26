@@ -96,6 +96,7 @@ namespace Ringtoets.Piping.Data
                     return aquitardLayers;
                 }
             }
+
             return Enumerable.Empty<PipingSoilLayer>();
         }
 
@@ -117,10 +118,12 @@ namespace Ringtoets.Piping.Data
             {
                 throw new ArgumentNullException(nameof(soilProfile));
             }
+
             if (layers == null)
             {
                 throw new ArgumentNullException(nameof(layers));
             }
+
             if (layers.Length == 0)
             {
                 return double.NaN;

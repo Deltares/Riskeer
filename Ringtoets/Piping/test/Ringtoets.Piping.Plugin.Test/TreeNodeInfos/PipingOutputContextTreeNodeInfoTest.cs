@@ -120,6 +120,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
+
             // Assert
             // Assert expectancies are called in TearDown()
         }

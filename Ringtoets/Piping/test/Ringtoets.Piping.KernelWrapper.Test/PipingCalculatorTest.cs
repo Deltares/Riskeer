@@ -325,14 +325,17 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             {
                 input.SurfaceLine.SetDitchDikeSideAt(input.SurfaceLine.Points.ElementAt(0));
             }
+
             if (missingType != 1)
             {
                 input.SurfaceLine.SetBottomDitchDikeSideAt(input.SurfaceLine.Points.ElementAt(1));
             }
+
             if (missingType != 2)
             {
                 input.SurfaceLine.SetBottomDitchPolderSideAt(input.SurfaceLine.Points.ElementAt(2));
             }
+
             if (missingType != 3)
             {
                 input.SurfaceLine.SetDitchPolderSideAt(input.SurfaceLine.Points.ElementAt(3));

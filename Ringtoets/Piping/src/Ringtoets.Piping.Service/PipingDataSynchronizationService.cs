@@ -79,6 +79,7 @@ namespace Ringtoets.Piping.Service
                     calculation
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
 
@@ -159,6 +160,7 @@ namespace Ringtoets.Piping.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (surfaceLine == null)
             {
                 throw new ArgumentNullException(nameof(surfaceLine));
@@ -221,6 +223,7 @@ namespace Ringtoets.Piping.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (soilModel == null)
             {
                 throw new ArgumentNullException(nameof(soilModel));
@@ -294,6 +297,7 @@ namespace Ringtoets.Piping.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (soilProfile == null)
             {
                 throw new ArgumentNullException(nameof(soilProfile));
@@ -327,6 +331,7 @@ namespace Ringtoets.Piping.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (soilProfile == null)
             {
                 throw new ArgumentNullException(nameof(soilProfile));
@@ -351,6 +356,7 @@ namespace Ringtoets.Piping.Service
                 changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
                 changedObservables.AddRange(ClearSurfaceLine(pipingCalculationScenario.InputParameters));
             }
+
             return changedObservables;
         }
 
@@ -404,6 +410,7 @@ namespace Ringtoets.Piping.Service
                     input
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
     }

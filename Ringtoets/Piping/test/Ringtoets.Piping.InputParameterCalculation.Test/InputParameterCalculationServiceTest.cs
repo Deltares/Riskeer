@@ -266,10 +266,12 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
                 Assert.IsNull(otherPoint);
                 return;
             }
+
             if (otherPoint == null)
             {
                 Assert.Fail("Expected value for otherPoint.");
             }
+
             Assert.AreEqual(point.X, otherPoint.X, 1e-2);
             Assert.AreEqual(point.Y, otherPoint.Y, 1e-2);
             Assert.AreEqual(point.Z, otherPoint.Z, 1e-2);

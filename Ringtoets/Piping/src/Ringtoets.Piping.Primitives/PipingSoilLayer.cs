@@ -143,6 +143,7 @@ namespace Ringtoets.Piping.Primitives
                 {
                     throw new ArgumentNullException(nameof(value));
                 }
+
                 materialName = value;
             }
         }
@@ -158,14 +159,17 @@ namespace Ringtoets.Piping.Primitives
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (GetType() != obj.GetType())
             {
                 return false;
             }
+
             return Equals((PipingSoilLayer) obj);
         }
 

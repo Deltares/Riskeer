@@ -91,6 +91,7 @@ namespace Ringtoets.Piping.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DitchPolderSide);
             }
+
             DitchPolderSide = geometryPoint;
         }
 
@@ -108,6 +109,7 @@ namespace Ringtoets.Piping.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchPolderSide);
             }
+
             BottomDitchPolderSide = geometryPoint;
         }
 
@@ -125,6 +127,7 @@ namespace Ringtoets.Piping.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchDikeSide);
             }
+
             BottomDitchDikeSide = geometryPoint;
         }
 
@@ -142,6 +145,7 @@ namespace Ringtoets.Piping.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DitchDikeSide);
             }
+
             DitchDikeSide = geometryPoint;
         }
 
@@ -159,6 +163,7 @@ namespace Ringtoets.Piping.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtRiver);
             }
+
             DikeToeAtRiver = geometryPoint;
         }
 
@@ -176,6 +181,7 @@ namespace Ringtoets.Piping.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtPolder);
             }
+
             DikeToeAtPolder = geometryPoint;
         }
 
@@ -209,14 +215,17 @@ namespace Ringtoets.Piping.Primitives
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (GetType() != obj.GetType())
             {
                 return false;
             }
+
             return Equals((PipingSurfaceLine) obj);
         }
 
@@ -231,22 +240,27 @@ namespace Ringtoets.Piping.Primitives
             {
                 SetBottomDitchDikeSideAt(fromSurfaceLine.BottomDitchDikeSide);
             }
+
             if (fromSurfaceLine.BottomDitchPolderSide != null)
             {
                 SetBottomDitchPolderSideAt(fromSurfaceLine.BottomDitchPolderSide);
             }
+
             if (fromSurfaceLine.DikeToeAtPolder != null)
             {
                 SetDikeToeAtPolderAt(fromSurfaceLine.DikeToeAtPolder);
             }
+
             if (fromSurfaceLine.DikeToeAtRiver != null)
             {
                 SetDikeToeAtRiverAt(fromSurfaceLine.DikeToeAtRiver);
             }
+
             if (fromSurfaceLine.DitchDikeSide != null)
             {
                 SetDitchDikeSideAt(fromSurfaceLine.DitchDikeSide);
             }
+
             if (fromSurfaceLine.DitchPolderSide != null)
             {
                 SetDitchPolderSideAt(fromSurfaceLine.DitchPolderSide);
@@ -297,6 +311,7 @@ namespace Ringtoets.Piping.Primitives
                     return false;
                 }
             }
+
             return true;
         }
     }

@@ -49,6 +49,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(stochasticSoilModel));
             }
+
             data = stochasticSoilModel;
         }
 

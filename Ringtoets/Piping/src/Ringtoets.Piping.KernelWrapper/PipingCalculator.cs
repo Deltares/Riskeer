@@ -53,10 +53,12 @@ namespace Ringtoets.Piping.KernelWrapper
             {
                 throw new ArgumentNullException(nameof(input), @"PipingCalculatorInput required for creating a PipingCalculator.");
             }
+
             if (factory == null)
             {
                 throw new ArgumentNullException(nameof(factory), @"IPipingSubCalculatorFactory required for creating a PipingCalculator.");
             }
+
             this.input = input;
             this.factory = factory;
         }
@@ -106,13 +108,12 @@ namespace Ringtoets.Piping.KernelWrapper
                 sellmeijerCalculatorValidationResults.AddRange(CreateSellmeijerCalculator().Validate());
             }
 
-            return upliftCalculatorValidationResults
-                .Concat(heaveCalculatorValidationResults)
-                .Concat(sellmeijerCalculatorValidationResults)
-                .Concat(pipingProfilePropertyCalculatorValidationResults)
-                .Concat(effectiveThicknessCalculatorValidationResults)
-                .Distinct()
-                .ToList();
+            return upliftCalculatorValidationResults.Concat(heaveCalculatorValidationResults)
+                                                    .Concat(sellmeijerCalculatorValidationResults)
+                                                    .Concat(pipingProfilePropertyCalculatorValidationResults)
+                                                    .Concat(effectiveThicknessCalculatorValidationResults)
+                                                    .Distinct()
+                                                    .ToList();
         }
 
         /// <summary>

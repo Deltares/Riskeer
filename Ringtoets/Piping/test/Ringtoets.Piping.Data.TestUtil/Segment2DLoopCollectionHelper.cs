@@ -66,6 +66,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                     points.Add(tuple.Item1, new Point2D(tuple.Item2, y));
                 }
             }
+
             return CreateLoop(points);
         }
 
@@ -79,6 +80,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 Point2D secondPoint = points.Values.ElementAt((i + 1) % count);
                 loop.Add(new Segment2D(firstPoint, secondPoint));
             }
+
             return loop;
         }
 
@@ -114,6 +116,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 {
                     throw new Exception(e.Message, e);
                 }
+
                 yield return Tuple.Create(digit, match.Index);
             }
         }

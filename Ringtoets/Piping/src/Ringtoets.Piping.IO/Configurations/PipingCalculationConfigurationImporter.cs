@@ -66,10 +66,12 @@ namespace Ringtoets.Piping.IO.Configurations
             {
                 throw new ArgumentNullException(nameof(availableHydraulicBoundaryLocations));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             this.availableHydraulicBoundaryLocations = availableHydraulicBoundaryLocations;
             this.failureMechanism = failureMechanism;
         }
@@ -96,6 +98,7 @@ namespace Ringtoets.Piping.IO.Configurations
             {
                 return pipingCalculation;
             }
+
             return null;
         }
 
@@ -160,6 +163,7 @@ namespace Ringtoets.Piping.IO.Configurations
 
                 pipingCalculation.InputParameters.SurfaceLine = surfaceLine;
             }
+
             return true;
         }
 
@@ -263,6 +267,7 @@ namespace Ringtoets.Piping.IO.Configurations
 
                 pipingCalculation.InputParameters.StochasticSoilModel = soilModel;
             }
+
             return true;
         }
 
@@ -291,11 +296,10 @@ namespace Ringtoets.Piping.IO.Configurations
                     return false;
                 }
 
-                PipingStochasticSoilProfile soilProfile = pipingCalculation
-                    .InputParameters
-                    .StochasticSoilModel
-                    .StochasticSoilProfiles
-                    .FirstOrDefault(ssp => ssp.SoilProfile.Name == calculationConfiguration.StochasticSoilProfileName);
+                PipingStochasticSoilProfile soilProfile = pipingCalculation.InputParameters
+                                                                           .StochasticSoilModel
+                                                                           .StochasticSoilProfiles
+                                                                           .FirstOrDefault(ssp => ssp.SoilProfile.Name == calculationConfiguration.StochasticSoilProfileName);
 
                 if (soilProfile == null)
                 {
@@ -309,6 +313,7 @@ namespace Ringtoets.Piping.IO.Configurations
 
                 pipingCalculation.InputParameters.StochasticSoilProfile = soilProfile;
             }
+
             return true;
         }
 
