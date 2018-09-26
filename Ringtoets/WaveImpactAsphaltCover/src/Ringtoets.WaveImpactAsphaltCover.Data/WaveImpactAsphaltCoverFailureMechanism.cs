@@ -55,14 +55,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
             GeneralWaveImpactAsphaltCoverInput = new GeneralWaveImpactAsphaltCoverInput();
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return WaveConditionsCalculationGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
-            }
-        }
-
         /// <summary>
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
@@ -82,6 +74,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// Gets the container of all wave conditions calculations.
         /// </summary>
         public CalculationGroup WaveConditionsCalculationGroup { get; }
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                return WaveConditionsCalculationGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
+            }
+        }
 
         public IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> SectionResults
         {

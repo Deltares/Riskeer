@@ -59,6 +59,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                     calculation
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
 
@@ -154,6 +155,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                     input
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
     }

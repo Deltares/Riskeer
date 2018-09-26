@@ -174,6 +174,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
                 };
                 waveImpactAsphaltCoverWaveConditionsOutput = new WaveImpactAsphaltCoverWaveConditionsOutput(output);
             }
+
             calculationGroup.Children.Add(
                 new CalculationGroup
                 {

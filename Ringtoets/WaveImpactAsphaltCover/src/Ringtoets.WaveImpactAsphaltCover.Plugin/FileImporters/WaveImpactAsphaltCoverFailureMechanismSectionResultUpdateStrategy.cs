@@ -29,7 +29,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.FileImporters
     /// An update strategy that can be used to update a <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> instance with data
     /// from an old <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> instance.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy 
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<WaveImpactAsphaltCoverFailureMechanismSectionResult>
     {
         public void UpdateSectionResult(WaveImpactAsphaltCoverFailureMechanismSectionResult origin, WaveImpactAsphaltCoverFailureMechanismSectionResult target)

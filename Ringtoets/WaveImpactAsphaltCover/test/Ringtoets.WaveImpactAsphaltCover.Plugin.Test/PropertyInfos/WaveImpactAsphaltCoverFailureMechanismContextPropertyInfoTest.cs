@@ -71,6 +71,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
+
             mocks.VerifyAll();
         }
 
