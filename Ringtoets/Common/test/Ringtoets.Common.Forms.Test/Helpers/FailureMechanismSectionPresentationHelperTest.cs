@@ -54,14 +54,14 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         }
 
         [Test]
-        public void CreatePresentableFailureMechanismSections_ValidSections_ReturnsExpectedPresentationObjects()
+        public void CreatePresentableFailureMechanismSections_ValidInputParameters_ReturnsExpectedPresentationObjects()
         {
             // Setup
             var failureMechanismSections = new[]
             {
                 CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0),
                 CreateFailureMechanismSection("b", 1.0, 1.0, 2.0, 2.0),
-                CreateFailureMechanismSection("c", 2.0, 2.0, 3.0, 3.0)
+                CreateFailureMechanismSection("c", 2.0, 2.0, 5.0, 5.0)
             };
 
             // Call
