@@ -34,8 +34,12 @@ namespace Demo.Ringtoets.Ribbons
     /// </summary>
     public partial class RingtoetsDemoProjectRibbon : IRibbonCommandHandler
     {
-        private readonly ICommand addNewAssessmentSection, openMapViewCommand, openThematicMapViewCommand,
-                                  openChartViewCommand, openStackChartViewCommand, openPointedTreeGraphViewCommand;
+        private readonly ICommand addNewAssessmentSection,
+                                  openMapViewCommand,
+                                  openThematicMapViewCommand,
+                                  openChartViewCommand,
+                                  openStackChartViewCommand,
+                                  openPointedTreeGraphViewCommand;
 
         public RingtoetsDemoProjectRibbon(IProjectOwner projectOwner, IViewCommands viewCommands)
         {

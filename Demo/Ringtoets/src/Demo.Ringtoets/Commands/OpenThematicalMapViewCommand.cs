@@ -40,8 +40,8 @@ namespace Demo.Ringtoets.Commands
     /// </summary>
     public class OpenThematicalMapViewCommand : ICommand
     {
-        private readonly IViewCommands viewCommands;
         private const string selectedMetaDataAttributeName = "Waarde";
+        private readonly IViewCommands viewCommands;
 
         /// <summary>
         /// Creates a new instance of <see cref="OpenThematicalMapViewCommand"/>.
