@@ -166,10 +166,6 @@
       <Project>{8e4e1877-697a-45d3-81cf-169efdf65aa0}</Project>
       <Name>Ringtoets.StabilityStoneCover.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.IO\Ringtoets.StabilityStoneCover.IO.csproj">
-      <Project>{CF6B8598-2993-4A8E-801D-121CC0EF358E}</Project>
-      <Name>Ringtoets.StabilityStoneCover.IO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.Plugin\Ringtoets.StabilityStoneCover.Plugin.csproj">
       <Project>{9ddc42cc-a2cc-4900-a711-aa1dd6d3a94a}</Project>
       <Name>Ringtoets.StabilityStoneCover.Plugin</Name>
