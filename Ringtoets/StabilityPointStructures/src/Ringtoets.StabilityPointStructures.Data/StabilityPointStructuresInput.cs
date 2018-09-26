@@ -621,6 +621,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                     throw new ArgumentOutOfRangeException(nameof(LevellingCount),
                                                           Resources.StabilityPointStructuresInput_LevellingCount_must_be_equal_or_greater_to_zero);
                 }
+
                 levellingCount = value;
             }
         }

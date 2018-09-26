@@ -45,6 +45,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
+
             this.sectionResult = sectionResult;
         }
 

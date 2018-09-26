@@ -92,6 +92,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 const string expectedText = "Kunstwerken";
                 Assert.AreEqual(expectedText, text);
             }
+
             mocks.VerifyAll();
         }
 
@@ -118,6 +119,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsProperties.GeneralFolderIcon, image);
             }
+
             mocks.VerifyAll();
         }
 
@@ -151,6 +153,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
+
             mocks.VerifyAll();
         }
 
@@ -186,6 +189,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(structure1, children.ElementAt(0));
                 Assert.AreSame(structure2, children.ElementAt(1));
             }
+
             mocks.VerifyAll();
         }
 
@@ -215,6 +219,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
             }
+
             mocks.VerifyAll();
         }
 
@@ -250,6 +255,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
+
             // Assert
             mocks.VerifyAll();
         }

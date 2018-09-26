@@ -29,7 +29,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
     /// An update strategy that can be used to update a <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> instance with data
     /// from an old <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> instance.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy 
+    public class StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<StabilityPointStructuresFailureMechanismSectionResult>
     {
         public void UpdateSectionResult(StabilityPointStructuresFailureMechanismSectionResult origin, StabilityPointStructuresFailureMechanismSectionResult target)

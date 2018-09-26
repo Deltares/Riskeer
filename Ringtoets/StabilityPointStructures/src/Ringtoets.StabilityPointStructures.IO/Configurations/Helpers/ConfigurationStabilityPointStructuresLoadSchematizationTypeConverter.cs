@@ -47,7 +47,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
             if (!Enum.IsDefined(typeof(ConfigurationStabilityPointStructuresLoadSchematizationType), type))
             {
                 throw new InvalidEnumArgumentException(nameof(value),
-                                                       (int)type,
+                                                       (int) type,
                                                        typeof(ConfigurationStabilityPointStructuresLoadSchematizationType));
             }
 
@@ -55,10 +55,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
             {
                 return ConvertToString(type);
             }
+
             if (destinationType == typeof(LoadSchematizationType))
             {
                 return ConvertToLoadSchematizationType(type);
             }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
@@ -79,6 +81,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
             {
                 return ConvertToConfigurationStabilityPointStructuresLoadSchematizationType(text);
             }
+
             var loadSchematizationType = value as LoadSchematizationType?;
             if (loadSchematizationType != null)
             {
@@ -91,6 +94,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
 
                 return ConvertToConfigurationStabilityPointStructuresLoadSchematizationType(loadSchematizationType.Value);
             }
+
             return base.ConvertFrom(context, culture, value);
         }
 

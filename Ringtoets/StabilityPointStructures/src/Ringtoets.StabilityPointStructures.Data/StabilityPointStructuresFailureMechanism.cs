@@ -58,14 +58,6 @@ namespace Ringtoets.StabilityPointStructures.Data
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
-            }
-        }
-
         /// <summary>
         /// Gets the general stability point structures calculation input parameters that apply to each calculation.
         /// </summary>
@@ -81,6 +73,16 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
+        public CalculationGroup CalculationsGroup { get; }
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
+            }
+        }
+
         public IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> SectionResults
         {
             get
@@ -88,8 +90,6 @@ namespace Ringtoets.StabilityPointStructures.Data
                 return sectionResults;
             }
         }
-
-        public CalculationGroup CalculationsGroup { get; }
 
         protected override void AddSectionResult(FailureMechanismSection section)
         {

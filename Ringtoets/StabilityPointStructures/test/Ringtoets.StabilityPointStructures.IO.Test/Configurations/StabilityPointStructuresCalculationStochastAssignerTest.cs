@@ -315,6 +315,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.AreaFlowApertures = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.AreaFlowApertures),
@@ -323,6 +324,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.BankWidth = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.BankWidth),
@@ -331,6 +333,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.FlowWidthAtBottomProtection = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.FlowWidthAtBottomProtection),
@@ -339,6 +342,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.InsideWaterLevel = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.InsideWaterLevel),
@@ -347,6 +351,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.InsideWaterLevelFailureConstruction = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.InsideWaterLevelFailureConstruction),
@@ -355,6 +360,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.LevelCrestStructure = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.LevelCrestStructure),
@@ -363,6 +369,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.WidthFlowApertures = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.WidthFlowApertures),
@@ -371,6 +378,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.ThresholdHeightOpenWeir = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.ThresholdHeightOpenWeir),
@@ -379,6 +387,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.CriticalOvertoppingDischarge = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.CriticalOvertoppingDischarge),
@@ -387,6 +396,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.ConstructiveStrengthLinearLoadModel = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.ConstructiveStrengthLinearLoadModel),
@@ -395,6 +405,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.ConstructiveStrengthQuadraticLoadModel = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.ConstructiveStrengthQuadraticLoadModel),
@@ -403,6 +414,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.FailureCollisionEnergy = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.FailureCollisionEnergy),
@@ -411,6 +423,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.FlowVelocityStructureClosable = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.FlowVelocityStructureClosable),
@@ -419,6 +432,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.ShipMass = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.ShipMass),
@@ -427,6 +441,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.ShipVelocity = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.ShipVelocity),
@@ -435,6 +450,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.StabilityLinearLoadModel = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.StabilityLinearLoadModel),
@@ -443,6 +459,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.StabilityQuadraticLoadModel = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.StabilityQuadraticLoadModel),
@@ -451,6 +468,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
             {
                 yield return caseData;
             }
+
             foreach (TestCaseData caseData in StochastConfigurationCases(
                 (c, s) => c.StorageStructureArea = s,
                 nameof(StabilityPointStructuresCalculationConfiguration.StorageStructureArea),

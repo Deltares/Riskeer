@@ -78,6 +78,7 @@ namespace Ringtoets.StabilityPointStructures.IO
                 StabilityPointStructure stabilityPointStructure = CreateStabilityPointStructure(structureLocation, stabilityPointStructureParameters);
                 stabilityPointStructures.Add(stabilityPointStructure);
             }
+
             return stabilityPointStructures;
         }
 

@@ -78,9 +78,8 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
 
         private static void AssertTestNames(IEnumerable<TestCaseData> testCaseData, string targetName, string testResultDescription)
         {
-            IEnumerable<string> testNames = testCaseData
-                .Select(tcd => tcd.TestName)
-                .ToArray();
+            IEnumerable<string> testNames = testCaseData.Select(tcd => tcd.TestName)
+                                                        .ToArray();
             Assert.AreEqual(testCaseData.Count(), testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith($"{targetName}_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith($"_{testResultDescription}")));
@@ -91,10 +90,9 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             var differentStructures = new List<StabilityPointStructure>();
             var referenceStructure = new TestStabilityPointStructure();
 
-            IEnumerable<StabilityPointStructure> structures = testCaseData
-                .Select(tcd => tcd.Arguments[0])
-                .OfType<StabilityPointStructure>()
-                .ToArray();
+            IEnumerable<StabilityPointStructure> structures = testCaseData.Select(tcd => tcd.Arguments[0])
+                                                                          .OfType<StabilityPointStructure>()
+                                                                          .ToArray();
 
             int testCaseDataCount = testCaseData.Count();
             Assert.AreEqual(testCaseDataCount, structures.Count());

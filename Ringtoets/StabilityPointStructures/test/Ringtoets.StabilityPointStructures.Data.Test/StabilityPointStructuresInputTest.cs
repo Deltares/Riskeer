@@ -1018,7 +1018,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 call, "De waarde voor aantal nivelleringen per jaar moet groter of gelijk zijn aan 0.");
         }
 
-
         #endregion
 
         #region Helpers

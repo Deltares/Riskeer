@@ -71,6 +71,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsInstanceOf<StabilityPointStructuresImporter>(importer);
             }
+
             mocks.VerifyAll();
         }
 
@@ -163,6 +164,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -190,6 +192,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 

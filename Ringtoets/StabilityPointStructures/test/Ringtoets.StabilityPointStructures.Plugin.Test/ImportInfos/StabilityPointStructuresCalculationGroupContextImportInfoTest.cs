@@ -81,6 +81,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsInstanceOf<StabilityPointStructuresCalculationConfigurationImporter>(fileImporter);
             }
+
             mocks.VerifyAll();
         }
 

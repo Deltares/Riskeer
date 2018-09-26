@@ -55,10 +55,12 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
             {
                 return ConvertToString(type);
             }
+
             if (destinationType == typeof(StabilityPointStructureInflowModelType))
             {
                 return ConvertToStabilityPointStructureInflowModelType(type);
             }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
@@ -81,17 +83,18 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
             }
 
             var inflowModelType = value as StabilityPointStructureInflowModelType?;
-           if (inflowModelType != null)
+            if (inflowModelType != null)
             {
                 if (!Enum.IsDefined(typeof(StabilityPointStructureInflowModelType), inflowModelType))
                 {
                     throw new InvalidEnumArgumentException(nameof(value),
-                                                           (int)inflowModelType,
+                                                           (int) inflowModelType,
                                                            typeof(StabilityPointStructureInflowModelType));
                 }
 
                 return ConvertToConfigurationInflowModelType(inflowModelType.Value);
             }
+
             return base.ConvertFrom(context, culture, value);
         }
 
