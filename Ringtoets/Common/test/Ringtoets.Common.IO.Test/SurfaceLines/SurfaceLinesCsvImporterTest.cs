@@ -182,6 +182,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                     Assert.AreEqual("Inlezen van het profielschematisatiesbestand.", currentStepName);
                     return;
                 }
+
                 if (!progressCharacteristicPointsStarted && callCount == expectedNumberOfSurfaceLines + 1)
                 {
                     progressCharacteristicPointsStarted = true;
@@ -266,7 +267,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var mesages = new[]
+            string[] mesages =
             {
                 $"Begonnen met het inlezen van profielschematisaties uit bestand '{validFilePath}'.",
                 "Profielschematisatie Rotterdam1 bevat aaneengesloten dubbele geometriepunten. Deze dubbele punten worden genegeerd.",
@@ -738,7 +739,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
             // Assert
             var duplicateDefinitionMessage = "Meerdere definities gevonden voor profielschematisatie 'Rotterdam1'. Alleen de eerste definitie wordt geïmporteerd.";
-            var expectedLogMessagesAndLevel = new[]
+            Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
@@ -783,11 +784,11 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
-                .WithLocation("op regel 3")
-                .WithSubject("profielschematisatie 'InvalidRow'")
-                .Build("Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
+                                          .WithLocation("op regel 3")
+                                          .WithSubject("profielschematisatie 'InvalidRow'")
+                                          .Build("Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
             string characteristicPointsFilePath = Path.Combine(ioTestDataPath, "TwoValidAndOneInvalidNumberRowSurfaceLines.krp.csv");
-            var expectedLogMessagesAndLevel = new[]
+            Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{corruptPath}'.", LogLevelConstant.Info),
@@ -843,10 +844,10 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(path)
-                .WithLocation("op regel 2")
-                .WithSubject("profielschematisatie 'Rotterdam1'")
-                .Build("Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).");
-            var expectedLogMessagesAndLevel = new[]
+                                          .WithLocation("op regel 2")
+                                          .WithSubject("profielschematisatie 'Rotterdam1'")
+                                          .Build("Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).");
+            Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
                 Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
@@ -886,10 +887,10 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(path)
-                .WithLocation("op regel 2")
-                .WithSubject("profielschematisatie 'Rotterdam1'")
-                .Build("Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.");
-            var expectedLogMessagesAndLevel = new[]
+                                          .WithLocation("op regel 2")
+                                          .WithSubject("profielschematisatie 'Rotterdam1'")
+                                          .Build("Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.");
+            Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
                 Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{path}'.", LogLevelConstant.Info),
@@ -1121,6 +1122,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 {
                     File.Delete(copyTargetPath);
                 }
+
                 // Fallback delete in case progress event is not fired:
                 if (File.Exists(copyCharacteristicPointsTargetPath))
                 {
@@ -1160,7 +1162,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
             // Assert
             const string duplicateDefinitionMessage = "Meerdere karakteristieke punten definities gevonden voor locatie 'Rotterdam1'. Alleen de eerste definitie wordt geïmporteerd.";
-            var expectedLogMessagesAndLevel = new[]
+            Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
                 Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
@@ -1270,10 +1272,10 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
 
             // Assert
             string internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
-                .WithLocation("op regel 2")
-                .WithSubject("locatie 'Rotterdam1Invalid'")
-                .Build("Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
-            var expectedLogMessagesAndLevel = new[]
+                                          .WithLocation("op regel 2")
+                                          .WithSubject("locatie 'Rotterdam1Invalid'")
+                                          .Build("Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
+            Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
                 Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesFile}'.", LogLevelConstant.Info),
@@ -1342,7 +1344,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var expectedLogMessagesAndLevel = new[]
+            Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
@@ -1410,7 +1412,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var expectedLogMessagesAndLevel = new[]
+            Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
             {
                 Tuple.Create($"Begonnen met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
                 Tuple.Create($"Klaar met het inlezen van profielschematisaties uit bestand '{surfaceLinesPath}'.", LogLevelConstant.Info),
@@ -1490,6 +1492,7 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                     Assert.AreEqual("Inlezen van het profielschematisatiesbestand.", currentStepName);
                     return;
                 }
+
                 if (!progressCharacteristicPointsStarted && callCount == expectedNumberOfSurfaceLines + 1)
                 {
                     progressCharacteristicPointsStarted = true;

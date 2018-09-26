@@ -46,6 +46,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 {
                     return false;
                 }
+
                 if (Math.Abs(1.0 - isAquifer.Value) < tolerance)
                 {
                     return true;

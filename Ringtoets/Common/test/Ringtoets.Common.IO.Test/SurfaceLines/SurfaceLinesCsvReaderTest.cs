@@ -226,8 +226,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
+                                         .WithLocation("op regel 1")
+                                         .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -253,8 +253,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
+                                         .WithLocation("op regel 1")
+                                         .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -485,8 +485,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build("Het bestand is leeg.");
+                                         .WithLocation("op regel 1")
+                                         .Build("Het bestand is leeg.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -508,8 +508,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
+                                         .WithLocation("op regel 1")
+                                         .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -535,8 +535,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
+                                         .WithLocation("op regel 1")
+                                         .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -561,9 +561,9 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .WithSubject("profielschematisatie 'InvalidSurfaceLine'")
-                    .Build("Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
+                                         .WithLocation("op regel 2")
+                                         .WithSubject("profielschematisatie 'InvalidSurfaceLine'")
+                                         .Build("Profielschematisatie heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FormatException>(exception.InnerException);
             }
@@ -592,9 +592,9 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .WithSubject("profielschematisatie 'InvalidSurfaceLine'")
-                    .Build("Profielschematisatie heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.");
+                                         .WithLocation("op regel 2")
+                                         .WithSubject("profielschematisatie 'InvalidSurfaceLine'")
+                                         .Build("Profielschematisatie heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             }
@@ -618,14 +618,14 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // 1st line has no text at all:
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .Build("Regel heeft geen ID.");
+                                         .WithLocation("op regel 2")
+                                         .Build("Regel heeft geen ID.");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd line has only whitespace text:
                 expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 3")
-                    .Build("Regel heeft geen ID.");
+                                  .WithLocation("op regel 3")
+                                  .Build("Regel heeft geen ID.");
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -649,14 +649,14 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // 1st line has no text at all:
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .Build("Regel heeft geen ID.");
+                                         .WithLocation("op regel 2")
+                                         .Build("Regel heeft geen ID.");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd line has only whitespace text:
                 expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 4")
-                    .Build("Regel heeft geen ID.");
+                                  .WithLocation("op regel 4")
+                                  .Build("Regel heeft geen ID.");
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -679,8 +679,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .Build($"Ontbrekend scheidingsteken '{';'}'.");
+                                         .WithLocation("op regel 2")
+                                         .Build($"Ontbrekend scheidingsteken '{';'}'.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -702,8 +702,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .Build($"Ontbrekend scheidingsteken '{';'}'.");
+                                         .WithLocation("op regel 2")
+                                         .Build($"Ontbrekend scheidingsteken '{';'}'.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -726,17 +726,17 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // 1st row lacks 1 coordinate value:
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .WithSubject("profielschematisatie 'LacksOneCoordinate'")
-                    .Build("Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.");
+                                         .WithLocation("op regel 2")
+                                         .WithSubject("profielschematisatie 'LacksOneCoordinate'")
+                                         .Build("Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd row lacks 2 coordinate values:
                 exception = Assert.Throws<LineParseException>(call);
                 expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 3")
-                    .WithSubject("profielschematisatie 'LacksTwoCoordinates'")
-                    .Build("Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.");
+                                  .WithLocation("op regel 3")
+                                  .WithSubject("profielschematisatie 'LacksTwoCoordinates'")
+                                  .Build("Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -758,9 +758,9 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .WithSubject("profielschematisatie 'ArtificialLocal'")
-                    .Build("Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).");
+                                         .WithLocation("op regel 2")
+                                         .WithSubject("profielschematisatie 'ArtificialLocal'")
+                                         .Build("Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -784,9 +784,9 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .WithSubject("profielschematisatie 'Rotterdam1'")
-                    .Build("Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.");
+                                         .WithLocation("op regel 2")
+                                         .WithSubject("profielschematisatie 'Rotterdam1'")
+                                         .Build("Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

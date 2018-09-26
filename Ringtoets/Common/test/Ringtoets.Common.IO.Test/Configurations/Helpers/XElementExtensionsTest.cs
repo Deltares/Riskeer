@@ -1248,8 +1248,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                     {
                         return false;
                     }
+
                     return true;
                 }
+
                 return base.ConvertFrom(context, culture, value);
             }
         }

@@ -41,6 +41,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 throw new ArgumentNullException(nameof(name), @"Cannot make a definition of characteristic points for an unknown location.");
             }
+
             Name = name;
         }
 

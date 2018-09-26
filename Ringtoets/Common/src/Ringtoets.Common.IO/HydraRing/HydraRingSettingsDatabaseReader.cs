@@ -101,7 +101,7 @@ namespace Ringtoets.Common.IO.HydraRing
                                                                        $"{formEpsZFuncColumn}, {dsStartMethodColumn}, " +
                                                                        $"{dsMinNumberOfIterationsColumn}, {dsMaxNumberOfIterationsColumn}, " +
                                                                        $"{dsVarCoefficientColumn}, {niUMinColumn}, " +
-                                                                       $"{niUMaxColumn}, {niNumberStepsColumn} " + 
+                                                                       $"{niUMaxColumn}, {niNumberStepsColumn} " +
                                                                        "FROM NumericsSettings " +
                                                                        $"WHERE LocationID = {locationIdParameterName} " +
                                                                        $"AND MechanismID = {mechanismIdParameterName} " +
@@ -154,6 +154,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 }
             }
+
             return null;
         }
 
@@ -196,6 +197,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 }
             }
+
             return null;
         }
 
@@ -231,6 +233,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 }
             }
+
             return null;
         }
 
@@ -276,6 +279,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 }
             }
+
             return null;
         }
 

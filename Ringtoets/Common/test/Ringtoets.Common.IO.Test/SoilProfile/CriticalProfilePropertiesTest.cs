@@ -95,8 +95,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreSame(invalidCastException, exception.InnerException);
             string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .WithSubject($"ondergrondschematisatie '{profileName}'")
-                .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                                     .WithSubject($"ondergrondschematisatie '{profileName}'")
+                                     .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -148,8 +148,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreSame(invalidCastException, exception.InnerException);
             string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .WithSubject($"ondergrondschematisatie '{profileName}'")
-                .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                                     .WithSubject($"ondergrondschematisatie '{profileName}'")
+                                     .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
     }

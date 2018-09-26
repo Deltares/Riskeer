@@ -38,6 +38,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 return true;
             }
+
             return base.CanConvertTo(context, destinationType);
         }
 
@@ -46,15 +47,14 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
         /// contains an invalid value of <see cref="ConfigurationBreakWaterType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            var type = (ConfigurationBreakWaterType)value;
+            var type = (ConfigurationBreakWaterType) value;
             if (!Enum.IsDefined(typeof(ConfigurationBreakWaterType), type))
             {
-                throw new InvalidEnumArgumentException(nameof(value), (int)type, typeof(ConfigurationBreakWaterType));
+                throw new InvalidEnumArgumentException(nameof(value), (int) type, typeof(ConfigurationBreakWaterType));
             }
 
             if (destinationType == typeof(string))
             {
-                
                 switch (type)
                 {
                     case ConfigurationBreakWaterType.Caisson:
@@ -67,6 +67,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             if (destinationType == typeof(BreakWaterType))
             {
                 switch (type)
@@ -81,6 +82,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
@@ -90,10 +92,12 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 return true;
             }
+
             if (sourceType == typeof(BreakWaterType))
             {
                 return true;
             }
+
             return base.CanConvertFrom(context, sourceType);
         }
 
@@ -115,12 +119,13 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                         return ConfigurationBreakWaterType.Wall;
                 }
             }
+
             var breakWaterType = value as BreakWaterType?;
             if (breakWaterType != null)
             {
                 if (!Enum.IsDefined(typeof(BreakWaterType), breakWaterType))
                 {
-                    throw new InvalidEnumArgumentException(nameof(value), (int)breakWaterType, typeof(BreakWaterType));
+                    throw new InvalidEnumArgumentException(nameof(value), (int) breakWaterType, typeof(BreakWaterType));
                 }
 
                 switch (breakWaterType)
@@ -133,6 +138,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                         return ConfigurationBreakWaterType.Wall;
                 }
             }
+
             return base.ConvertFrom(context, culture, value);
         }
     }

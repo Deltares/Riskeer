@@ -75,6 +75,7 @@ namespace Ringtoets.Common.IO.TestUtil
             {
                 throw new ArgumentNullException(nameof(innerLoops));
             }
+
             if (outerLoop == null)
             {
                 throw new ArgumentNullException(nameof(outerLoop));

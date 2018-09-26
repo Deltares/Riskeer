@@ -46,6 +46,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(configuration));
             }
+
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));

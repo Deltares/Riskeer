@@ -78,6 +78,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 throw new ArgumentNullException(nameof(geometry), Resources.SoilLayer2DGeometryReader_Geometry_is_null);
             }
+
             try
             {
                 using (var stream = new MemoryStream(geometry))
@@ -291,6 +292,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                     {
                         sortedPoints.Reverse();
                     }
+
                     if (segments[index].FirstPoint.Equals(sortedPoints[sortedPoints.Count - 1]))
                     {
                         sortedPoints.Add(segments[index].SecondPoint);
@@ -305,6 +307,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                     }
                 }
             }
+
             if (sortedPoints.Count <= 0 || !sortedPoints[0].Equals(sortedPoints[sortedPoints.Count - 1]))
             {
                 return sortedPoints.ToArray();

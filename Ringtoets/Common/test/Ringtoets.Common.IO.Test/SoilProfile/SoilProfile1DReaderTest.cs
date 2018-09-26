@@ -123,8 +123,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 var exception = Assert.Throws<CriticalFileReadException>(test);
 
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
-                    .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                                         .WithSubject("ondergrondschematisatie 'Profile'")
+                                         .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
 

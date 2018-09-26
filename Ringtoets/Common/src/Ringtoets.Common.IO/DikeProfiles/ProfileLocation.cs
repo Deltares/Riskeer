@@ -49,18 +49,22 @@ namespace Ringtoets.Common.IO.DikeProfiles
             {
                 throw new ArgumentException(Resources.ProfileLocation_ProfileLocation_Id_is_null);
             }
+
             if (!id.All(char.IsLetterOrDigit))
             {
                 throw new ArgumentException(Resources.ProfileLocation_ProfileLocation_Id_is_invalid);
             }
+
             if (double.IsNaN(offset) || double.IsInfinity(offset))
             {
                 throw new ArgumentException(Resources.ProfileLocation_ProfileLocation_X0_is_invalid);
             }
+
             if (point == null)
             {
                 throw new ArgumentException(Resources.ProfileLocation_ProfileLocation_Point_is_null);
             }
+
             Id = id;
             Name = name;
             Offset = offset;

@@ -72,6 +72,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 throw new ArgumentNullException(nameof(messageProvider));
             }
+
             if (configuration == null)
             {
                 throw new ArgumentNullException(nameof(configuration));
@@ -128,6 +129,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                 Log.Error(message, e);
                 return false;
             }
+
             return true;
         }
 
@@ -196,6 +198,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                                    missingCharacteristicPoints);
                 }
             }
+
             foreach (string missingSurfaceLine in readCharacteristicPointsLocations.Select(sl => sl.Name).Except(surfaceLinesWithCharacteristicPoints))
             {
                 Log.WarnFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_,
@@ -299,6 +302,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
 
                 return false;
             }
+
             return true;
         }
 
@@ -449,6 +453,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                                location.Name);
                 return false;
             }
+
             return true;
         }
 
@@ -486,6 +491,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                 Log.InfoFormat(RingtoetsCommonIOResources.SurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_, path);
                 return null;
             }
+
             return path;
         }
     }

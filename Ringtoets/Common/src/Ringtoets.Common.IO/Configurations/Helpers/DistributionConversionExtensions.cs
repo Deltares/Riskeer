@@ -51,6 +51,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(distribution));
             }
+
             return new StochastConfiguration
             {
                 Mean = distribution.Mean,
@@ -73,6 +74,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(distribution));
             }
+
             return new StochastConfiguration
             {
                 Mean = distribution.Mean
@@ -94,6 +96,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(distribution));
             }
+
             return new StochastConfiguration
             {
                 StandardDeviation = distribution.StandardDeviation
@@ -117,6 +120,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(distribution));
             }
+
             return new StochastConfiguration
             {
                 Mean = distribution.Mean,
@@ -139,6 +143,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(distribution));
             }
+
             return new StochastConfiguration
             {
                 Mean = distribution.Mean
@@ -160,6 +165,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(distribution));
             }
+
             return new StochastConfiguration
             {
                 VariationCoefficient = distribution.CoefficientOfVariation
@@ -245,6 +251,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -287,6 +294,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -369,6 +377,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -411,6 +420,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                     return false;
                 }
             }
+
             return true;
         }
 

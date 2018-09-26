@@ -404,7 +404,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void GetRelevantHeightStructuresParameters_SingleParameterPresent_ReturnsParameters(StructuresParameterRow structuresParameterRow)
         {
             // Setup
-            var expectedParameter = new[]
+            StructuresParameterRow[] expectedParameter =
             {
                 structuresParameterRow
             };
@@ -425,7 +425,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void GetRelevantHeightStructuresParameters_SingleParameterPresentAndExtraParameters_ReturnsOnlyRelevantParameters(StructuresParameterRow structuresParameterRow)
         {
             // Setup
-            var expectedParameterRows = new[]
+            StructuresParameterRow[] expectedParameterRows =
             {
                 structuresParameterRow
             };
@@ -934,7 +934,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void GetRelevantClosingStructuresParameters_SingleParameterPresent_ReturnsParameters(StructuresParameterRow structuresParameterRow)
         {
             // Setup
-            var expectedParameter = new[]
+            StructuresParameterRow[] expectedParameter =
             {
                 structuresParameterRow
             };
@@ -955,7 +955,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void GetRelevantClosingStructuresParameters_SingleParameterPresentAndExtraParameters_ReturnsOnlyRelevantParameters(StructuresParameterRow structuresParameterRow)
         {
             // Setup
-            var expectedParameterRows = new[]
+            StructuresParameterRow[] expectedParameterRows =
             {
                 structuresParameterRow
             };
@@ -1640,7 +1640,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void GetRelevantStabilityPointStructuresParameters_SingleParameterPresent_ReturnsParameters(StructuresParameterRow structuresParameterRow)
         {
             // Setup
-            var expectedParameter = new[]
+            StructuresParameterRow[] expectedParameter =
             {
                 structuresParameterRow
             };
@@ -1661,7 +1661,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void GetRelevantStabilityPointStructuresParameters_SingleParameterPresentAndExtraParameters_ReturnsOnlyRelevantParameters(StructuresParameterRow structuresParameterRow)
         {
             // Setup
-            var expectedParameterRows = new[]
+            StructuresParameterRow[] expectedParameterRows =
             {
                 structuresParameterRow
             };

@@ -308,14 +308,17 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             {
                 waveReductionConfiguration.UseForeshoreProfile = newUseForeshoreProfile;
             }
+
             if (parameterNotSet != 1)
             {
                 waveReductionConfiguration.UseBreakWater = newUseBreakWater;
             }
+
             if (parameterNotSet != 2)
             {
                 waveReductionConfiguration.BreakWaterHeight = newheight;
             }
+
             if (parameterNotSet != 3)
             {
                 waveReductionConfiguration.BreakWaterType = newBreakWaterType;

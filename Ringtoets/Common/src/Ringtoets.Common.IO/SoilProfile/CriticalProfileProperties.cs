@@ -57,6 +57,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 {
                     messageBuilder.WithSubject(string.Format(Resources.SoilProfileReader_SoilProfileName_0_, ProfileName));
                 }
+
                 string message = messageBuilder.Build(Resources.SoilProfileReader_Critical_Unexpected_value_on_column);
                 throw new CriticalFileReadException(message, e);
             }

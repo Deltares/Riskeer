@@ -109,6 +109,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 return default(T);
             }
+
             return (T) valueObject;
         }
 
@@ -120,6 +121,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 dataReader.Dispose();
                 dataReader = null;
             }
+
             base.Dispose(disposing);
         }
 

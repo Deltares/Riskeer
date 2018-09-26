@@ -110,6 +110,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                     clearReferenceLineDependentData = true;
                 }
             }
+
             return clearReferenceLineDependentData;
         }
 
@@ -152,6 +153,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                 NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections,
                                3, 3);
             }
+
             changedObservables.AddRange(replacementHandler.Replace(ImportTarget, importedReferenceLine).Where(o => !ReferenceEquals(o, ImportTarget)));
         }
     }

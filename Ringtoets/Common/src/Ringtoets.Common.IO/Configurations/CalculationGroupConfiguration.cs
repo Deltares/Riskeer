@@ -41,10 +41,12 @@ namespace Ringtoets.Common.IO.Configurations
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (items == null)
             {
                 throw new ArgumentNullException(nameof(items));
             }
+
             Name = name;
             Items = items;
         }

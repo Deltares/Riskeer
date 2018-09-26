@@ -71,6 +71,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 throw new ArgumentNullException(nameof(messageProvider));
             }
+
             if (configuration == null)
             {
                 throw new ArgumentNullException(nameof(configuration));
@@ -143,6 +144,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 Log.Error(message, e);
                 return false;
             }
+
             return true;
         }
 
@@ -169,6 +171,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 HandleException(e);
             }
+
             return new ReadResult<StochasticSoilModel>(true);
         }
 

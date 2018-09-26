@@ -56,6 +56,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             {
                 configuration.Mean = mean;
             }
+
             if (setStandardDeviation)
             {
                 configuration.StandardDeviation = standardDeviation;
@@ -144,10 +145,12 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             {
                 configuration.Mean = mean;
             }
+
             if (setVariationCoefficient)
             {
                 configuration.VariationCoefficient = variationCoefficient;
             }
+
             var input = new TestInputWithStochasts();
 
             // Call

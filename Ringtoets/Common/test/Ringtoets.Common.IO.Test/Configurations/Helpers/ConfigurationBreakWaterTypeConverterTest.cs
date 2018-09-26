@@ -241,7 +241,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             var converter = new ConfigurationBreakWaterTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom((BreakWaterType)invalidValue);
+            TestDelegate call = () => converter.ConvertFrom((BreakWaterType) invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(BreakWaterType)}'.";

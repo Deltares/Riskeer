@@ -119,6 +119,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
             {
                 throw new ArgumentNullException(nameof(writer));
             }
+
             if (distributionName == null)
             {
                 throw new ArgumentNullException(nameof(distributionName));
@@ -146,6 +147,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
             {
                 throw new ArgumentNullException(nameof(writer));
             }
+
             if (elementName == null)
             {
                 throw new ArgumentNullException(nameof(elementName));
@@ -175,6 +177,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
             {
                 throw new ArgumentNullException(nameof(writer));
             }
+
             if (elementName == null)
             {
                 throw new ArgumentNullException(nameof(elementName));
@@ -204,6 +207,7 @@ namespace Ringtoets.Common.IO.Configurations.Export
             {
                 throw new ArgumentNullException(nameof(writer));
             }
+
             if (elementName == null)
             {
                 throw new ArgumentNullException(nameof(elementName));

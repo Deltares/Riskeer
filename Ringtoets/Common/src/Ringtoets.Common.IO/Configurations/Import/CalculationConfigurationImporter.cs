@@ -140,6 +140,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
             {
                 throw new ArgumentNullException(nameof(calculationName));
             }
+
             if (hydraulicBoundaryLocations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
@@ -163,6 +164,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
 
                 foundLocation = location;
             }
+
             return true;
         }
 
@@ -191,10 +193,12 @@ namespace Ringtoets.Common.IO.Configurations.Import
             {
                 throw new ArgumentNullException(nameof(calculationName));
             }
+
             if (structures == null)
             {
                 throw new ArgumentNullException(nameof(structures));
             }
+
             foundStructure = null;
             if (structureId != null)
             {
@@ -239,6 +243,7 @@ namespace Ringtoets.Common.IO.Configurations.Import
             {
                 throw new ArgumentNullException(nameof(calculationName));
             }
+
             if (foreshoreProfiles == null)
             {
                 throw new ArgumentNullException(nameof(foreshoreProfiles));

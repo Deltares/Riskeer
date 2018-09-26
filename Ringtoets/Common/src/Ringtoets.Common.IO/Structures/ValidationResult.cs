@@ -45,6 +45,7 @@ namespace Ringtoets.Common.IO.Structures
             {
                 throw new ArgumentNullException(nameof(errorMessages));
             }
+
             if (errorMessages.Any(string.IsNullOrWhiteSpace))
             {
                 throw new ArgumentException("Invalid error message string.");

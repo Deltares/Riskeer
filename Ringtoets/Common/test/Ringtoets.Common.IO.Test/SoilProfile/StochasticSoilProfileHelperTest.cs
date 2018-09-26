@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             var profileOne = new StochasticSoilProfile(0.5, soilProfileOne);
             var profileTwo = new StochasticSoilProfile(0.8, soilProfileTwo);
-            var stochasticSoilProfiles = new[]
+            StochasticSoilProfile[] stochasticSoilProfiles =
             {
                 profileOne,
                 profileTwo
@@ -99,7 +99,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
             const double probabilityTwo = 0.1;
             var profileOne = new StochasticSoilProfile(probabilityOne, profile);
             var profileTwo = new StochasticSoilProfile(probabilityTwo, profile);
-            var stochasticSoilProfiles = new[]
+            StochasticSoilProfile[] stochasticSoilProfiles =
             {
                 profileOne,
                 profileTwo

@@ -239,6 +239,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             {
                 stringBuilder.Append("A");
             }
+
             stringBuilder.Append(Path.DirectorySeparatorChar);
             string tooLongFolderPath = stringBuilder.ToString();
 

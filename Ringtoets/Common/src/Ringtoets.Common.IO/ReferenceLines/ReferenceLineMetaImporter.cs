@@ -123,6 +123,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                                                    path);
                     throw new CriticalFileReadException(message, e);
                 }
+
                 throw;
             }
         }

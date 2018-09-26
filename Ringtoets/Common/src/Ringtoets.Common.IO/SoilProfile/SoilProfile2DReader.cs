@@ -110,6 +110,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 return default(T);
             }
+
             return (T) valueObject;
         }
 
@@ -320,8 +321,8 @@ namespace Ringtoets.Common.IO.SoilProfile
         private static SoilProfileReadException CreateSoilProfileReadException(string filePath, string profileName, Exception innerException)
         {
             string message = new FileReaderErrorMessageBuilder(filePath)
-                .WithSubject(string.Format(Resources.SoilProfileReader_SoilProfileName_0_, profileName))
-                .Build(innerException.Message);
+                             .WithSubject(string.Format(Resources.SoilProfileReader_SoilProfileName_0_, profileName))
+                             .Build(innerException.Message);
             return new SoilProfileReadException(message, profileName, innerException);
         }
 

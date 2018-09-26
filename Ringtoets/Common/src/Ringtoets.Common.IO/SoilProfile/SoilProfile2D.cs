@@ -44,10 +44,12 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (preconsolidationStresses == null)
             {
                 throw new ArgumentNullException(nameof(preconsolidationStresses));
             }
+
             if (layers == null)
             {
                 throw new ArgumentNullException(nameof(layers));

@@ -91,6 +91,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 return true;
             }
+
             Log.WarnFormat(Resources.DikeProfilesImporter_No_dike_geometry_file_0_skipped, prflFilePath);
             return false;
         }
@@ -117,9 +118,11 @@ namespace Ringtoets.Common.IO.FileImporters
                     string message = string.Format(Resources.DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_, id);
                     throw new CriticalFileReadException(message);
                 }
+
                 DikeProfile dikeProfile = CreateDikeProfile(dikeProfileLocation, dikeProfileData);
                 dikeProfiles.Add(dikeProfile);
             }
+
             return dikeProfiles;
         }
 

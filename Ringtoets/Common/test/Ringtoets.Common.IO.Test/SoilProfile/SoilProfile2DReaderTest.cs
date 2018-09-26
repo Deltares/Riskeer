@@ -124,8 +124,8 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 var exception = Assert.Throws<CriticalFileReadException>(test);
 
                 string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
-                    .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+                                         .WithSubject("ondergrondschematisatie 'Profile'")
+                                         .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
 
@@ -617,6 +617,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                     0
                 }, soilProfile2D.PreconsolidationStresses.Select(stress => stress.StressShift));
             }
+
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
@@ -644,6 +645,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 Assert.IsNaN(actualPreconsolidationStress.StressCoefficientOfVariation);
                 Assert.IsNaN(actualPreconsolidationStress.StressShift);
             }
+
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 

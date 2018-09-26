@@ -46,10 +46,12 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 throw new ArgumentNullException(nameof(transformer));
             }
+
             if (mechanismFilter == null)
             {
                 throw new ArgumentNullException(nameof(mechanismFilter));
             }
+
             if (updateStrategy == null)
             {
                 throw new ArgumentNullException(nameof(updateStrategy));

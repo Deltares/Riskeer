@@ -40,6 +40,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 throw new ArgumentNullException(nameof(soilProfile));
             }
+
             Probability = probability;
             SoilProfile = soilProfile;
         }

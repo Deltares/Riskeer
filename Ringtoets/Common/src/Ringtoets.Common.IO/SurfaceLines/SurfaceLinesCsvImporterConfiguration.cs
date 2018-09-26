@@ -43,10 +43,12 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 throw new ArgumentNullException(nameof(updateStrategy));
             }
+
             if (transformer == null)
             {
                 throw new ArgumentNullException(nameof(transformer));
             }
+
             UpdateStrategy = updateStrategy;
             Transformer = transformer;
         }

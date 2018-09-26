@@ -77,6 +77,7 @@ namespace Ringtoets.Common.IO.HydraRing
                 {
                     db.GetVersion();
                 }
+
                 string hlcdFilePath = Path.Combine(directoryName, hlcdFileName);
                 using (new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath)) {}
 
@@ -117,10 +118,12 @@ namespace Ringtoets.Common.IO.HydraRing
             {
                 throw new ArgumentNullException(nameof(database));
             }
+
             if (pathToDatabase == null)
             {
                 throw new ArgumentNullException(nameof(pathToDatabase));
             }
+
             return database.Version == GetVersion(pathToDatabase);
         }
 

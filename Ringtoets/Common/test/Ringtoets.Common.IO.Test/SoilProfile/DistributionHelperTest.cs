@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             var random = new Random(21);
             double shift = random.NextDouble();
-            
+
             // Call
             TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType,
                                                                                        shift);

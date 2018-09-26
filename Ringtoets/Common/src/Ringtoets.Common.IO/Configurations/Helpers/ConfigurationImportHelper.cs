@@ -61,6 +61,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 return true;
             }
+
             if (stochastConfiguration.VariationCoefficient.HasValue)
             {
                 log.LogCalculationConversionError(string.Format(
@@ -79,6 +80,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 return false;
             }
+
             setStochast(input, distribution);
             return true;
         }
@@ -112,6 +114,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 return true;
             }
+
             if (stochastConfiguration.StandardDeviation.HasValue)
             {
                 log.LogCalculationConversionError(string.Format(
@@ -130,6 +133,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 return false;
             }
+
             setStochast(input, distribution);
             return true;
         }

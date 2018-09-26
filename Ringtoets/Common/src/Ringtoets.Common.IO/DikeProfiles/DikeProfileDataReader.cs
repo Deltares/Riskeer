@@ -78,6 +78,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
             {
                 throw new ArgumentNullException(nameof(acceptedIds));
             }
+
             this.acceptedIds = acceptedIds;
         }
 
@@ -209,6 +210,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 readKeywords |= Keywords.VERSIE;
                 return true;
             }
+
             return false;
         }
 
@@ -284,6 +286,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 readKeywords |= Keywords.ID;
                 return true;
             }
+
             return false;
         }
 
@@ -347,6 +350,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 readKeywords |= Keywords.RICHTING;
                 return true;
             }
+
             return false;
         }
 
@@ -421,6 +425,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 readKeywords |= Keywords.DAM;
                 return true;
             }
+
             return false;
         }
 
@@ -458,6 +463,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                                                damTypeValue);
                 throw CreateCriticalFileReadException(lineNumber, message);
             }
+
             return (DamType) damTypeValue;
         }
 
@@ -486,6 +492,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 readKeywords |= Keywords.DAMWAND;
                 return true;
             }
+
             return false;
         }
 
@@ -523,6 +530,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                                                sheetPileTypeValue);
                 throw CreateCriticalFileReadException(lineNumber, message);
             }
+
             return (SheetPileType) sheetPileTypeValue;
         }
 
@@ -551,6 +559,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 readKeywords |= Keywords.DAMHOOGTE;
                 return true;
             }
+
             return false;
         }
 
@@ -607,6 +616,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 readKeywords |= Keywords.KRUINHOOGTE;
                 return true;
             }
+
             return false;
         }
 
@@ -699,6 +709,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 readKeywords |= Keywords.DIJK;
                 return true;
             }
+
             return false;
         }
 
@@ -907,9 +918,11 @@ namespace Ringtoets.Common.IO.DikeProfiles
                                                                           lineNumber);
                     }
                 }
+
                 readKeywords |= Keywords.VOORLAND;
                 return true;
             }
+
             return false;
         }
 
@@ -983,6 +996,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
                 readKeywords |= Keywords.MEMO;
                 return true;
             }
+
             return false;
         }
 
