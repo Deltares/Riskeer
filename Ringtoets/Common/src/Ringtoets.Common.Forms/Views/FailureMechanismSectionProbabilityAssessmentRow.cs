@@ -38,11 +38,16 @@ namespace Ringtoets.Common.Forms.Views
         /// Creates a new instance of <see cref="FailureMechanismSectionProbabilityAssessmentRow"/>.
         /// </summary>
         /// <param name="section">The failure mechanism section to use.</param>
+        /// <param name="sectionStart">The start of the section from the beginning
+        /// of the reference line in meters.</param>
+        /// <param name="sectionEnd">The end of the section from the beginning of
+        /// the reference line in meters.</param>
         /// <param name="probabilityAssessmentInput">The probability assessment input to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public FailureMechanismSectionProbabilityAssessmentRow(FailureMechanismSection section,
+                                                               double sectionStart, double sectionEnd,
                                                                ProbabilityAssessmentInput probabilityAssessmentInput)
-            : base(section)
+            : base(section, sectionStart, sectionEnd)
         {
             if (probabilityAssessmentInput == null)
             {

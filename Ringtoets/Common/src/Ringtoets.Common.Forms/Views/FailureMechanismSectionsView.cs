@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
@@ -63,6 +64,12 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionRow.Name),
                                                                          Resources.FailureMechanismSection_Name_DisplayName,
                                                                          true);
+            failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionRow.SectionStart),
+                                                                         Resources.SectionStart_DisplayName,
+                                                                         true);
+            failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionRow.SectionEnd),
+                                                                         Resources.SectionEnd_DisplayName,
+                                                                         true);
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionRow.Length),
                                                                          Resources.FailureMechanismSection_Length_Rounded_DisplayName,
                                                                          true);
@@ -101,7 +108,17 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected virtual void SetDataGridViewControlData()
         {
-            failureMechanismSectionsDataGridViewControl.SetDataSource(Sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
+            failureMechanismSectionsDataGridViewControl.SetDataSource(
+                FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(
+                    sections,
+                    CreateFailureMechanismSectionRow));
+        }
+
+        private static FailureMechanismSectionRow CreateFailureMechanismSectionRow(FailureMechanismSection section,
+                                                                                   double sectionStart,
+                                                                                   double sectionEnd)
+        {
+            return new FailureMechanismSectionRow(section, sectionStart, sectionEnd);
         }
 
         private void HandleFailureMechanismSectionsChange()

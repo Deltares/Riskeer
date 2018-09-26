@@ -21,13 +21,13 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
@@ -81,7 +81,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Sections.Select(section => new FailureMechanismSectionProperties(section)).ToArray();
+                return FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(
+                    data.Sections,
+                    CreateFailureMechanismSectionProperties);
             }
         }
 
@@ -97,6 +99,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 failureMechanismObserver.Dispose();
             }
+        }
+
+        private static FailureMechanismSectionProperties CreateFailureMechanismSectionProperties(FailureMechanismSection section,
+                                                                                                 double sectionStart,
+                                                                                                 double sectionEnd)
+        {
+            return new FailureMechanismSectionProperties(section, sectionStart, sectionEnd);
         }
     }
 }

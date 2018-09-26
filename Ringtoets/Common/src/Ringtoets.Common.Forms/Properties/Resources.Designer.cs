@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -2911,12 +2911,48 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De afstand tussen het eindpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond)..
+        /// </summary>
+        public static string SectionEnd_Description {
+            get {
+                return ResourceManager.GetString("SectionEnd_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metrering tot* [m].
+        /// </summary>
+        public static string SectionEnd_DisplayName {
+            get {
+                return ResourceManager.GetString("SectionEnd_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SectionsIcon {
             get {
                 object obj = ResourceManager.GetObject("SectionsIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De afstand tussen het beginpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond)..
+        /// </summary>
+        public static string SectionStart_Description {
+            get {
+                return ResourceManager.GetString("SectionStart_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metrering van* [m].
+        /// </summary>
+        public static string SectionStart_DisplayName {
+            get {
+                return ResourceManager.GetString("SectionStart_DisplayName", resourceCulture);
             }
         }
         

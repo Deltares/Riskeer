@@ -41,12 +41,17 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="FailureMechanismSectionProbabilityAssessmentProperties"/>.
         /// </summary>
         /// <param name="section">The section to show the properties for.</param>
+        /// <param name="sectionStart">The start of the section from the beginning
+        /// of the reference line in meters.</param>
+        /// <param name="sectionEnd">The end of the section from the beginning of
+        /// the reference line in meters.</param>
         /// <param name="probabilityAssessmentInput">The probability assessment input belonging to the
         /// failure mechanism of the properties.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public FailureMechanismSectionProbabilityAssessmentProperties(FailureMechanismSection section,
+                                                                      double sectionStart, double sectionEnd,
                                                                       ProbabilityAssessmentInput probabilityAssessmentInput)
-            : base(section)
+            : base(section, sectionStart, sectionEnd)
         {
             if (probabilityAssessmentInput == null)
             {
@@ -56,7 +61,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             this.probabilityAssessmentInput = probabilityAssessmentInput;
         }
 
-        [PropertyOrder(5)]
+        [PropertyOrder(7)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSectionProbabilityAssessment_N_Rounded_Description))]

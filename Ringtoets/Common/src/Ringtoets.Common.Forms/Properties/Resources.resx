@@ -1470,4 +1470,16 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="PencilWarning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pencil--exclamation.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SectionEnd_DisplayName" xml:space="preserve">
+    <value>Metrering tot* [m]</value>
+  </data>
+  <data name="SectionStart_DisplayName" xml:space="preserve">
+    <value>Metrering van* [m]</value>
+  </data>
+  <data name="SectionEnd_Description" xml:space="preserve">
+    <value>De afstand tussen het eindpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond).</value>
+  </data>
+  <data name="SectionStart_Description" xml:space="preserve">
+    <value>De afstand tussen het beginpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond).</value>
+  </data>
 </root>

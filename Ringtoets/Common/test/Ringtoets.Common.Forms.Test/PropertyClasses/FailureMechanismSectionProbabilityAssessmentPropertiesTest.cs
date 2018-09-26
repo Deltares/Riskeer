@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionProbabilityAssessmentProperties(section, null);
+            TestDelegate call = () => new FailureMechanismSectionProbabilityAssessmentProperties(section, double.NaN, double.NaN, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,11 +51,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var random = new Random(21);
+            double sectionStart = random.NextDouble();
+            double sectionEnd = random.NextDouble();
+
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(0.5, 100);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var properties = new FailureMechanismSectionProbabilityAssessmentProperties(section, probabilityAssessmentInput);
+            var properties = new FailureMechanismSectionProbabilityAssessmentProperties(section, sectionStart, sectionEnd, probabilityAssessmentInput);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionProperties>(properties);
@@ -64,6 +68,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, properties.N, properties.N.GetAccuracy());
+
+            Assert.AreEqual(sectionStart, properties.SectionStart, properties.SectionStart.GetAccuracy());
+            Assert.AreEqual(sectionEnd, properties.SectionEnd, properties.SectionEnd.GetAccuracy());
         }
 
         [Test]
@@ -74,11 +81,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var properties = new FailureMechanismSectionProbabilityAssessmentProperties(section, probabilityAssessmentInput);
+            var properties = new FailureMechanismSectionProbabilityAssessmentProperties(section, double.NaN, double.NaN, probabilityAssessmentInput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -86,26 +93,38 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Vaknaam",
                                                                             "De naam van het vak.",
                                                                             true);
-            PropertyDescriptor lengthProperty = dynamicProperties[1];
+            PropertyDescriptor sectionStartDistanceProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionStartDistanceProperty,
+                                                                            "Algemeen",
+                                                                            "Metrering van* [m]",
+                                                                            "De afstand tussen het beginpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond).",
+                                                                            true);
+            PropertyDescriptor sectionEndDistanceProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionEndDistanceProperty,
+                                                                            "Algemeen",
+                                                                            "Metrering tot* [m]",
+                                                                            "De afstand tussen het eindpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond).",
+                                                                            true);
+            PropertyDescriptor lengthProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthProperty,
                                                                             "Algemeen",
                                                                             "Lengte* [m]",
                                                                             "De totale lengte van het vak in meters (afgerond).",
                                                                             true);
-            PropertyDescriptor startPointProperty = dynamicProperties[2];
+            PropertyDescriptor startPointProperty = dynamicProperties[4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(startPointProperty,
                                                                             "Algemeen",
                                                                             "Beginpunt",
                                                                             "Beginpunt van het vak (X-coördinaat, Y-coördinaat).",
                                                                             true);
-            PropertyDescriptor endPointProperty = dynamicProperties[3];
+            PropertyDescriptor endPointProperty = dynamicProperties[5];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(endPointProperty,
                                                                             "Algemeen",
                                                                             "Eindpunt",
                                                                             "Eindpunt van het vak (X-coördinaat, Y-coördinaat).",
                                                                             true);
 
-            PropertyDescriptor nProperty = dynamicProperties[4];
+            PropertyDescriptor nProperty = dynamicProperties[6];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             "Algemeen",
                                                                             "Nvak* [-]",

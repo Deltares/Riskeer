@@ -34,9 +34,13 @@ namespace Ringtoets.Common.Forms.Views
         /// Creates a new instance of <see cref="FailureMechanismSectionRow"/>.
         /// </summary>
         /// <param name="section">The failure mechanism section to use.</param>
+        /// <param name="sectionStart">The start of the section from the beginning
+        /// of the reference line in meters.</param>
+        /// <param name="sectionEnd">The end of the section from the beginning of
+        /// the reference line in meters.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/>
         /// is <c>null</c>.</exception>
-        public FailureMechanismSectionRow(FailureMechanismSection section)
+        public FailureMechanismSectionRow(FailureMechanismSection section, double sectionStart, double sectionEnd)
         {
             if (section == null)
             {
@@ -44,6 +48,8 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             Name = section.Name;
+            SectionStart = new RoundedDouble(2, sectionStart);
+            SectionEnd = new RoundedDouble(2, sectionEnd);
             Length = new RoundedDouble(2, section.Length);
         }
 
@@ -51,6 +57,18 @@ namespace Ringtoets.Common.Forms.Views
         /// Gets the name of the section.
         /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// Gets the start of the section from the beginning of the reference line.
+        /// [m]
+        /// </summary>
+        public RoundedDouble SectionStart { get; }
+
+        /// <summary>
+        /// Gets the end of the section from the beginning of the reference line.
+        /// [m]
+        /// </summary>
+        public RoundedDouble SectionEnd { get; }
 
         /// <summary>
         /// Gets the length of the section.
