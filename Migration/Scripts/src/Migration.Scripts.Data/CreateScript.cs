@@ -44,6 +44,7 @@ namespace Migration.Scripts.Data
             {
                 throw new ArgumentException(@"Version must have a value.", nameof(version));
             }
+
             this.version = version;
         }
 

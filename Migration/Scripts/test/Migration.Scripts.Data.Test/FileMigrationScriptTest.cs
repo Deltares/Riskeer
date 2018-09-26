@@ -112,6 +112,7 @@ namespace Migration.Scripts.Data.Test
                 // Assert
                 Assert.IsNotNull(upgradedFile);
             }
+
             mockRepository.VerifyAll();
         }
     }

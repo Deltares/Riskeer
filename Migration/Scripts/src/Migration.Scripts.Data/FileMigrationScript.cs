@@ -45,10 +45,12 @@ namespace Migration.Scripts.Data
             {
                 throw new ArgumentNullException(nameof(createScript));
             }
+
             if (upgradeScript == null)
             {
                 throw new ArgumentNullException(nameof(upgradeScript));
             }
+
             this.createScript = createScript;
             this.upgradeScript = upgradeScript;
         }
@@ -84,6 +86,7 @@ namespace Migration.Scripts.Data
             {
                 throw new ArgumentNullException(nameof(sourceVersionedFile));
             }
+
             string newLocation = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             IVersionedFile newVersionedFile = createScript.CreateEmptyVersionedFile(newLocation);

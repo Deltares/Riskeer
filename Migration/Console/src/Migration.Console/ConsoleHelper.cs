@@ -46,10 +46,12 @@ namespace Migration.Console
             {
                 throw new ArgumentNullException(nameof(format));
             }
+
             if (args == null)
             {
                 throw new ArgumentNullException(nameof(args));
             }
+
             SystemConsole.ForegroundColor = ConsoleColor.Red;
             SystemConsole.WriteLine(format, args);
             SystemConsole.ResetColor();
@@ -78,6 +80,7 @@ namespace Migration.Console
             {
                 throw new ArgumentNullException(nameof(format));
             }
+
             if (args == null)
             {
                 throw new ArgumentNullException(nameof(args));

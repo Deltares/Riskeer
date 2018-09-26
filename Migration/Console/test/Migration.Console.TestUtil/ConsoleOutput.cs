@@ -72,6 +72,7 @@ namespace Migration.Console.TestUtil
                 SystemConsole.SetOut(originalOutput);
                 stringWriter?.Dispose();
             }
+
             disposed = true;
         }
     }

@@ -128,7 +128,7 @@ namespace Migration.Console.Test
         {
             // Setup
             const string command = "invalid command";
-            var commandArgs = new[]
+            string[] commandArgs =
             {
                 command
             };
@@ -152,7 +152,7 @@ namespace Migration.Console.Test
             // Setup
             const string command = "invalid command";
             const string exceptionMessage = "I was told to be thrown.";
-            var commandArgs = new[]
+            string[] commandArgs =
             {
                 command
             };
@@ -184,7 +184,7 @@ namespace Migration.Console.Test
             const string exceptionMessage = "I was told to be thrown.";
             const string innerExceptionMessage = "inner exception.";
 
-            var commandArgs = new[]
+            string[] commandArgs =
             {
                 command
             };

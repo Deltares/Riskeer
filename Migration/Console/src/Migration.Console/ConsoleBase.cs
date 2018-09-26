@@ -49,10 +49,12 @@ namespace Migration.Console
             {
                 throw new ArgumentNullException(nameof(applicationName));
             }
+
             if (applicationDescription == null)
             {
                 throw new ArgumentNullException(nameof(applicationDescription));
             }
+
             this.applicationName = applicationName;
             this.applicationDescription = applicationDescription;
         }
@@ -79,6 +81,7 @@ namespace Migration.Console
                     Exit(ErrorCode.ErrorBadCommand);
                     return;
                 }
+
                 Exit(ErrorCode.ErrorInvalidCommandLine);
                 return;
             }
@@ -119,6 +122,7 @@ namespace Migration.Console
                 DisplayAllCommands();
                 return;
             }
+
             ExecuteCommand(args);
         }
 
@@ -134,6 +138,7 @@ namespace Migration.Console
             {
                 ConsoleHelper.WriteErrorLine(Resources.Message_Inner_Exception_0, exception.InnerException.Message);
             }
+
             SystemConsole.WriteLine();
         }
     }
