@@ -42,7 +42,6 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         ICalculation<AssessmentSectionCategoryWaveConditionsInput>,
         AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
     {
-
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
@@ -101,7 +100,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         protected override ICalculation<AssessmentSectionCategoryWaveConditionsInput> CreateCalculation()
         {
             var random = new Random(21);
-            return new TestWaveConditionsCalculation<AssessmentSectionCategoryWaveConditionsInput>(new AssessmentSectionCategoryWaveConditionsInput()
+            return new TestWaveConditionsCalculation<AssessmentSectionCategoryWaveConditionsInput>(new AssessmentSectionCategoryWaveConditionsInput
             {
                 CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
             });

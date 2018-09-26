@@ -106,7 +106,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Converters
         public void ConvertTo_InvalidConfigurationWaveConditionsInputStepSize_ThrowInvalidEnumArgumentException(Type destinationType)
         {
             // Setup
-            const ConfigurationWaveConditionsInputStepSize invalidValue = (ConfigurationWaveConditionsInputStepSize) 9999; 
+            const ConfigurationWaveConditionsInputStepSize invalidValue = (ConfigurationWaveConditionsInputStepSize) 9999;
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call
@@ -259,7 +259,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Converters
         public void ConvertFrom_InvalidWaveConditionsInputStepSize_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            const WaveConditionsInputStepSize invalidValue = (WaveConditionsInputStepSize)9999;
+            const WaveConditionsInputStepSize invalidValue = (WaveConditionsInputStepSize) 9999;
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
 
             // Call

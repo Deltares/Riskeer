@@ -66,7 +66,7 @@ namespace Ringtoets.Revetment.IO.Configurations
                    new Dictionary<string, string>
                    {
                        {
-                           revetmentBaseSchemaName,  Resources.BekledingenConfiguratieBasisSchema
+                           revetmentBaseSchemaName, Resources.BekledingenConfiguratieBasisSchema
                        },
                        {
                            hbLocationSchemaName, RingtoetsCommonIOResources.HbLocatieSchema

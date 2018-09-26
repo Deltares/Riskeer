@@ -61,4 +61,4 @@ namespace Ringtoets.Revetment.IO.Configurations
             return configuration;
         }
     }
-};
+}

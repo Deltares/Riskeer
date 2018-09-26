@@ -52,6 +52,7 @@ namespace Ringtoets.Revetment.IO.WaveConditions
             {
                 throw new ArgumentNullException(nameof(exportableWaveConditionsCollection));
             }
+
             if (filePath == null)
             {
                 throw new ArgumentNullException(nameof(filePath));

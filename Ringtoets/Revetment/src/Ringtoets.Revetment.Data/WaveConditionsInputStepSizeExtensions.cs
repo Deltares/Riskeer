@@ -42,7 +42,7 @@ namespace Ringtoets.Revetment.Data
         {
             if (!Enum.IsDefined(typeof(WaveConditionsInputStepSize), stepSize))
             {
-                throw new InvalidEnumArgumentException(nameof(stepSize), (int)stepSize, typeof(WaveConditionsInputStepSize));
+                throw new InvalidEnumArgumentException(nameof(stepSize), (int) stepSize, typeof(WaveConditionsInputStepSize));
             }
 
             switch (stepSize)

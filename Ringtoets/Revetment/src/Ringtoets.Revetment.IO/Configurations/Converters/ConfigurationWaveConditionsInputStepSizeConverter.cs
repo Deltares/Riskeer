@@ -79,6 +79,7 @@ namespace Ringtoets.Revetment.IO.Configurations.Converters
                         throw new NotSupportedException();
                 }
             }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
@@ -124,10 +125,12 @@ namespace Ringtoets.Revetment.IO.Configurations.Converters
                 {
                     return ConfigurationWaveConditionsInputStepSize.Half;
                 }
+
                 if (Math.Abs(doubleValue.Value - 1) < double.Epsilon)
                 {
                     return ConfigurationWaveConditionsInputStepSize.One;
                 }
+
                 if (Math.Abs(doubleValue.Value - 2) < double.Epsilon)
                 {
                     return ConfigurationWaveConditionsInputStepSize.Two;

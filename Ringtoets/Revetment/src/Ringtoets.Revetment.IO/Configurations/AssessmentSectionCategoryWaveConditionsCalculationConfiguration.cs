@@ -34,7 +34,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// </summary>
         /// <param name="name">The name of the <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfiguration"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public AssessmentSectionCategoryWaveConditionsCalculationConfiguration(string name) 
+        public AssessmentSectionCategoryWaveConditionsCalculationConfiguration(string name)
             : base(name) {}
 
         /// <summary>
