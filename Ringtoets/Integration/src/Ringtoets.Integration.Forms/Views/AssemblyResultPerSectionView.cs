@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             bool hasError = !string.IsNullOrEmpty(errorProvider.GetError(refreshAssemblyResultsButton));
             bool hasWarning = !string.IsNullOrEmpty(warningProvider.GetError(refreshAssemblyResultsButton));
-            
+
             int manualAssemblyWarningPadding;
             if (hasError && hasWarning)
             {

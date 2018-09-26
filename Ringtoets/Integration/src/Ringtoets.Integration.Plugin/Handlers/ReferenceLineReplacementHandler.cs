@@ -53,6 +53,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             {
                 throw new ArgumentNullException(nameof(viewCommands));
             }
+
             this.viewCommands = viewCommands;
         }
 

@@ -74,6 +74,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -83,10 +84,12 @@ namespace Ringtoets.Integration.Forms.Dialogs
             {
                 return mapDatas.OfType<WellKnownMapDataControl>().Single();
             }
+
             if (mapData is WmtsMapData)
             {
                 return mapDatas.OfType<WmtsLocationControl>().Single();
             }
+
             return mapDatas.First();
         }
 

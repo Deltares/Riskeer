@@ -91,6 +91,7 @@ namespace Ringtoets.Integration.Forms.Test
                               "Expect the DataGridView to be flagged for redrawing.");
                 AssertDataGridViewDataSource(assessmentSection.GetContributingFailureMechanisms(), contributionGridView, assessmentSection.FailureMechanismContribution.Norm);
             }
+
             mocks.VerifyAll();
         }
 

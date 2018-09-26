@@ -227,7 +227,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 foreshoreProfile
             }, sourceFilePath);
 
-            var calculationsWithForeshoreProfile = new[]
+            TestCalculationWithForeshoreProfile[] calculationsWithForeshoreProfile =
             {
                 calculationWithForeshoreProfileAndOutput,
                 calculationWithForeshoreProfile

@@ -253,7 +253,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             const string readForeshoreProfileId = "Read ID";
             var readForeshoreProfile = new TestForeshoreProfile(string.Empty, readForeshoreProfileId);
-            var readForeshoreProfiles = new[]
+            TestForeshoreProfile[] readForeshoreProfiles =
             {
                 readForeshoreProfile
             };
@@ -294,7 +294,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             ForeshoreProfile readForeshoreProfile = DeepCloneAndModify(targetForeshoreProfile);
-            var importedForeshoreProfiles = new[]
+            ForeshoreProfile[] importedForeshoreProfiles =
             {
                 readForeshoreProfile
             };
@@ -334,7 +334,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             ForeshoreProfile foreshoreProfileToUpdateFrom = DeepCloneAndModify(foreshoreProfileToBeUpdated);
             var foreshoreProfileToBeAdded = new TestForeshoreProfile(commonName, "Added ID");
-            var importedForeshoreProfiles = new[]
+            ForeshoreProfile[] importedForeshoreProfiles =
             {
                 foreshoreProfileToUpdateFrom,
                 foreshoreProfileToBeAdded
@@ -423,7 +423,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 TestCalculationWithForeshoreProfile.CreateCalculationWithOutput(unaffectedProfile);
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var originalForeshoreProfiles = new[]
+            TestForeshoreProfile[] originalForeshoreProfiles =
             {
                 affectedProfile,
                 unaffectedProfile
@@ -479,7 +479,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             TestCalculationWithForeshoreProfile calculationSameReference = affectedCalculation;
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var originalForeshoreProfiles = new[]
+            TestForeshoreProfile[] originalForeshoreProfiles =
             {
                 affectedProfile
             };
@@ -530,7 +530,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var profileToUpdateFrom = new TestForeshoreProfile(id, Enumerable.Empty<Point2D>());
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var originalForeshoreProfiles = new[]
+            TestForeshoreProfile[] originalForeshoreProfiles =
             {
                 affectedProfile
             };

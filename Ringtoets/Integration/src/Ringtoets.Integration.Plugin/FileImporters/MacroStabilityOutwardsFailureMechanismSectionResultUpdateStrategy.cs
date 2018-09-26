@@ -29,7 +29,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
     /// An update strategy that can be used to update a <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/> instance with data
     /// from an old <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/> instance.
     /// </summary>
-    public class MacroStabilityOutwardsFailureMechanismSectionResultUpdateStrategy 
+    public class MacroStabilityOutwardsFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<MacroStabilityOutwardsFailureMechanismSectionResult>
     {
         public void UpdateSectionResult(MacroStabilityOutwardsFailureMechanismSectionResult origin, MacroStabilityOutwardsFailureMechanismSectionResult target)

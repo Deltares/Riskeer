@@ -254,7 +254,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var context = new GrassCoverSlipOffOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var treeView = new TreeViewControl())
-            {               
+            {
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
                 {

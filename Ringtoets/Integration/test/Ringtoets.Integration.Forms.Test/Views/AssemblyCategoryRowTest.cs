@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var random = new Random(39);
 
             // Call
-            TestDelegate test = () => new AssemblyCategoryRow<TestAssemblyCategoryGroup>(null, 
+            TestDelegate test = () => new AssemblyCategoryRow<TestAssemblyCategoryGroup>(null,
                                                                                          Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
                                                                                          random.NextEnumValue<TestAssemblyCategoryGroup>());
 

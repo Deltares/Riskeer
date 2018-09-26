@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
-                
+
                 // Call
                 var context = new AssemblyResultCategoriesContext(assessmentSection);
 

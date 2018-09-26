@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects.StandAlone
         /// <param name="wrappedData">The <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/> to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext(StrengthStabilityLengthwiseConstructionFailureMechanism wrappedData, 
+        public StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext(StrengthStabilityLengthwiseConstructionFailureMechanism wrappedData,
                                                                                       IAssessmentSection assessmentSection)
             : base(wrappedData, assessmentSection) {}
     }

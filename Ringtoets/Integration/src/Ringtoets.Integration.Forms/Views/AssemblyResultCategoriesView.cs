@@ -84,6 +84,7 @@ namespace Ringtoets.Integration.Forms.Views
                 failureMechanismContributionObserver.Dispose();
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

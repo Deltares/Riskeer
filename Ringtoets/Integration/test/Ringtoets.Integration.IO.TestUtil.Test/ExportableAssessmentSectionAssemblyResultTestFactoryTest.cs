@@ -32,9 +32,8 @@ namespace Ringtoets.Integration.IO.TestUtil.Test
         public void CreateResult_Always_ReturnsExportableAssessmentSectionAssemblyResult()
         {
             // Call
-            ExportableAssessmentSectionAssemblyResult result = 
+            ExportableAssessmentSectionAssemblyResult result =
                 ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult();
-            
 
             // Assert
             Assert.AreEqual(ExportableAssemblyMethod.WBI2C1, result.AssemblyMethod);

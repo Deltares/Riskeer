@@ -27,6 +27,6 @@ using Ringtoets.Integration.Plugin.Merge;
 namespace Ringtoets.Integration.Plugin.Test.Merge
 {
     [TestFixture]
-    public class AssessmentSectionProviderExceptionTest 
+    public class AssessmentSectionProviderExceptionTest
         : CustomExceptionDesignGuidelinesTestFixture<AssessmentSectionProviderException, Exception> {}
 }

@@ -36,10 +36,10 @@ namespace Ringtoets.Integration.IO.TestUtil
         /// <returns>A default instance of <see cref="ExportableFailureMechanismSection"/>.</returns>
         public static ExportableFailureMechanismSection CreateExportableFailureMechanismSection()
         {
-            return new ExportableFailureMechanismSection(new []
+            return new ExportableFailureMechanismSection(new[]
             {
-                new Point2D(1, 1), 
-                new Point2D(2, 2) 
+                new Point2D(1, 1),
+                new Point2D(2, 2)
             }, 1, 2);
         }
 

@@ -396,10 +396,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             IEnumerable<IObservable> expectedAffectedObjects =
                 GetAllAffectedDuneLocationCalculations(duneErosionFailureMechanism).Concat(new IObservable[]
-                                                                                          {
-                                                                                              assessmentSection
-                                                                                          })
-                                                                                          .ToArray();
+                                                                                   {
+                                                                                       assessmentSection
+                                                                                   })
+                                                                                   .ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 

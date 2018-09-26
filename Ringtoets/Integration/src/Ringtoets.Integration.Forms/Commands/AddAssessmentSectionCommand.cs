@@ -42,6 +42,7 @@ namespace Ringtoets.Integration.Forms.Commands
             {
                 throw new ArgumentNullException(nameof(assessmentSectionFromFileCommandHandler));
             }
+
             this.assessmentSectionFromFileCommandHandler = assessmentSectionFromFileCommandHandler;
         }
 

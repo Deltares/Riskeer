@@ -72,25 +72,25 @@ namespace Ringtoets.Integration.Service
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                                     assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedSignalingNorm), 
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedSignalingNorm),
                                     RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                                     assessmentSection.WaveHeightCalculationsForSignalingNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm), 
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm),
                                     RingtoetsCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                                     assessmentSection.WaveHeightCalculationsForLowerLimitNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm), 
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm),
                                     RingtoetsCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                                     assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm), 
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
                                     RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName));
 
             return activities;
@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Service
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                                     assessmentSection.WaterLevelCalculationsForSignalingNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm), 
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm),
                                     RingtoetsCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName));
 
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.Service
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                                     assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm), 
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
                                     RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName));
 
             return activities;

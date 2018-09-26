@@ -29,7 +29,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
     /// An update strategy that can be used to update a <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/> instance with data
     /// from an old <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/> instance.
     /// </summary>
-    public class GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateStrategy 
+    public class GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<GrassCoverSlipOffInwardsFailureMechanismSectionResult>
     {
         public void UpdateSectionResult(GrassCoverSlipOffInwardsFailureMechanismSectionResult origin, GrassCoverSlipOffInwardsFailureMechanismSectionResult target)

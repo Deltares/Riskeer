@@ -48,6 +48,12 @@ namespace Ringtoets.Integration.Data.StandAlone
             MacroStabilityOutwardsProbabilityAssessmentInput = new MacroStabilityOutwardsProbabilityAssessmentInput();
         }
 
+        /// <summary>
+        /// Gets the general probabilistic assessment input parameters that apply to each calculation 
+        /// in a semi-probabilistic assessment.
+        /// </summary>
+        public MacroStabilityOutwardsProbabilityAssessmentInput MacroStabilityOutwardsProbabilityAssessmentInput { get; }
+
         public override IEnumerable<ICalculation> Calculations
         {
             get
@@ -55,12 +61,6 @@ namespace Ringtoets.Integration.Data.StandAlone
                 yield break;
             }
         }
-
-        /// <summary>
-        /// Gets the general probabilistic assessment input parameters that apply to each calculation 
-        /// in a semi-probabilistic assessment.
-        /// </summary>
-        public MacroStabilityOutwardsProbabilityAssessmentInput MacroStabilityOutwardsProbabilityAssessmentInput { get; }
 
         public IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> SectionResults
         {

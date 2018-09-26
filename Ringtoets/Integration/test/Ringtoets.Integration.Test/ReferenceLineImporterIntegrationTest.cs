@@ -133,6 +133,7 @@ namespace Ringtoets.Integration.Test
             {
                 failureMechanism.Attach(failureMechanismObserver);
             }
+
             assessmentSection.Piping.StochasticSoilModels.Attach(stochasticSoilModelsObserver);
             assessmentSection.Piping.SurfaceLines.Attach(surfaceLinesObserver);
 
@@ -152,6 +153,7 @@ namespace Ringtoets.Integration.Test
             {
                 CollectionAssert.IsEmpty(failureMechanism.Sections);
             }
+
             CollectionAssert.IsEmpty(assessmentSection.Piping.SurfaceLines);
             CollectionAssert.IsEmpty(assessmentSection.Piping.StochasticSoilModels);
             CollectionAssert.IsEmpty(assessmentSection.Piping.CalculationsGroup.Children);

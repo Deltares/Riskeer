@@ -135,6 +135,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             {
                 expectedSectionCounts[chosenNumber] = 283;
             }
+
             CollectionAssert.AreEqual(expectedSectionCounts, sectionFailureMechanisms.Select(fm => fm.Sections.Count()));
         }
 

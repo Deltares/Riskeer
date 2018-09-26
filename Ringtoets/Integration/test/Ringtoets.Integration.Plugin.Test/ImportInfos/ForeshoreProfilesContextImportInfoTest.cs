@@ -69,6 +69,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsInstanceOf<ProfilesImporter<ForeshoreProfileCollection>>(importer);
             }
+
             mocks.VerifyAll();
         }
 
@@ -144,6 +145,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -171,6 +173,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 

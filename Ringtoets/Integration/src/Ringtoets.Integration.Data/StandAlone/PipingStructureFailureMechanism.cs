@@ -55,14 +55,6 @@ namespace Ringtoets.Integration.Data.StandAlone
             n = new RoundedDouble(numberOfDecimalPlacesN, 1.0);
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                yield break;
-            }
-        }
-
         /// <summary>
         /// Gets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
@@ -84,6 +76,14 @@ namespace Ringtoets.Integration.Data.StandAlone
                 }
 
                 n = newValue;
+            }
+        }
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                yield break;
             }
         }
 

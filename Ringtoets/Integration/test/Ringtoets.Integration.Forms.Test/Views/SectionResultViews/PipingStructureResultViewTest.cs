@@ -171,7 +171,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(false, cells[useManualAssemblyIndex].Value);
                 Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
             }
-        }   
+        }
 
         [Test]
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()

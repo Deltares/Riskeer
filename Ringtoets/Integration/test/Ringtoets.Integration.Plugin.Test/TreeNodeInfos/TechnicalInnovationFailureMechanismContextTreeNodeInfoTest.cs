@@ -252,7 +252,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new TechnicalInnovationFailureMechanismContext(failureMechanism, assessmentSection);
-            
+
             using (var treeView = new TreeViewControl())
             {
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();

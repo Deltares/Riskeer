@@ -67,7 +67,6 @@ namespace Ringtoets.Integration.IO.TestUtil
             Assert.IsNull(actualSerializableSection.AssemblyMethod);
         }
 
-
         /// <summary>
         /// Asserts a <see cref="SerializableFailureMechanismSection"/> against
         /// an <see cref="ExportableCombinedFailureMechanismSection"/>.

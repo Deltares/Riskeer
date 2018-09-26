@@ -29,7 +29,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
     /// An update strategy that can be used to update a <see cref="PipingStructureFailureMechanismSectionResult"/> instance with data
     /// from an old <see cref="PipingStructureFailureMechanismSectionResult"/> instance.
     /// </summary>
-    public class PipingStructureFailureMechanismSectionResultUpdateStrategy 
+    public class PipingStructureFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<PipingStructureFailureMechanismSectionResult>
     {
         public void UpdateSectionResult(PipingStructureFailureMechanismSectionResult origin, PipingStructureFailureMechanismSectionResult target)

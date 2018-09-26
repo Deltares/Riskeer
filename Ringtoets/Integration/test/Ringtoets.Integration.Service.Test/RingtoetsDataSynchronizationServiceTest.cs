@@ -1218,7 +1218,7 @@ namespace Ringtoets.Integration.Service.Test
                 calculationWithoutForeshoreProfile
             };
 
-            var calculationsWithForeshoreProfile = new[]
+            TestCalculationWithForeshoreProfile[] calculationsWithForeshoreProfile =
             {
                 calculationWithForeshoreProfileAndOutput,
                 calculationWithForeshoreProfile

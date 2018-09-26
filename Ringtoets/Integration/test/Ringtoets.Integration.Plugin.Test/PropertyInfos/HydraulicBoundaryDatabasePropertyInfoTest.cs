@@ -33,7 +33,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
     [TestFixture]
     public class HydraulicBoundaryDatabasePropertyInfoTest
     {
-
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
 

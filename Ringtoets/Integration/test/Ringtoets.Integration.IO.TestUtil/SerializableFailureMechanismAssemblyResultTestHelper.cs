@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.IO.TestUtil
             Assert.AreEqual(expectedResult.Probability, actualResult.Probability);
         }
 
-        private static void AssertSerializableBaseProperties(ExportableFailureMechanismAssemblyResult expectedResult, 
+        private static void AssertSerializableBaseProperties(ExportableFailureMechanismAssemblyResult expectedResult,
                                                              SerializableFailureMechanismAssemblyResult actualResult)
         {
             Assert.AreEqual(SerializableFailureMechanismCategoryGroupCreator.Create(expectedResult.AssemblyCategory), actualResult.CategoryGroup);

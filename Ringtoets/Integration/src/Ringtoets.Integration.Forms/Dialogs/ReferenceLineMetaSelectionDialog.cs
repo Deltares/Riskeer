@@ -54,6 +54,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
             {
                 throw new ArgumentNullException(nameof(referenceLineMetas));
             }
+
             InitializeComponent();
             InitializeReferenceLineMetaDataGridViewControl(referenceLineMetas);
         }
@@ -159,10 +160,12 @@ namespace Ringtoets.Integration.Forms.Dialogs
                 {
                     return string.IsNullOrEmpty(suffixX) ? -1 : 1;
                 }
+
                 if (!string.IsNullOrEmpty(suffixX) && suffixX != suffixY)
                 {
                     return string.Compare(suffixX, suffixY, StringComparison.Ordinal);
                 }
+
                 return subX - subY;
             }
 
@@ -175,6 +178,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
                     suffix = string.Empty;
                     return;
                 }
+
                 string[] parts = str.Split('-');
                 string[] firstPart = Regex.Split(parts.First(), "([A-Za-z])");
                 if (firstPart.Length > 1)

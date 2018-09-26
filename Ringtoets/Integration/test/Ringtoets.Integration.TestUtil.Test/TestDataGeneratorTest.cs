@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.TestUtil.Test
     [TestFixture]
     public class TestDataGeneratorTest
     {
-        private static string pathToSections = "path/to/sections";
+        private static readonly string pathToSections = "path/to/sections";
 
         [Test]
         public void GetAssessmentSectionWithAllCalculationConfigurations_DefaultComposition_ReturnsWithAllPossibleCalculationConfigurations()

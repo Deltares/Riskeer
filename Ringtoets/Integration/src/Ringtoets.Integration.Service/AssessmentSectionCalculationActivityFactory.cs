@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Service
 
             var activities = new List<CalculatableActivity>();
             activities.AddRange(AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(assessmentSection));
-            
+
             if (assessmentSection.Piping.IsRelevant)
             {
                 activities.AddRange(PipingCalculationActivityFactory.CreateCalculationActivities(assessmentSection.Piping, assessmentSection));

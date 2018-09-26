@@ -164,8 +164,10 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
         [Combinatorial]
         public void Constructor_WithParentAndReferenceLineMetas_ShowsExpectedGrid(
             [Values("", "10")] string assessmentSectionId,
-            [Values(null, int.MinValue, -1, 0, 1, int.MaxValue)] int? signalingValue,
-            [Values(int.MinValue, -1, 0, 1, int.MaxValue)] int lowerLimitValue)
+            [Values(null, int.MinValue, -1, 0, 1, int.MaxValue)]
+            int? signalingValue,
+            [Values(int.MinValue, -1, 0, 1, int.MaxValue)]
+            int lowerLimitValue)
         {
             // Setup
             var referenceLineMetas = new[]

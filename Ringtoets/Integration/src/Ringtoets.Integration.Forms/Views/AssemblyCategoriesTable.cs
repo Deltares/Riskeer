@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// This class defines a table in which properties of <see cref="AssemblyCategory"/> instances are displayed.
     /// </summary>
     /// <typeparam name="T">The type of the enum to display in the table rows.</typeparam>
-    public class AssemblyCategoriesTable<T> : DataGridViewControl 
+    public class AssemblyCategoriesTable<T> : DataGridViewControl
         where T : struct
     {
         /// <summary>
