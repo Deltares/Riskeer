@@ -74,18 +74,22 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
+
             if (foreshoreProfiles == null)
             {
                 throw new ArgumentNullException(nameof(foreshoreProfiles));
             }
+
             if (structures == null)
             {
                 throw new ArgumentNullException(nameof(structures));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableForeshoreProfiles = foreshoreProfiles;
             availableStructures = structures;
@@ -130,6 +134,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
                 return calculation;
             }
+
             return null;
         }
 
@@ -334,7 +339,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
         /// is invalid or when there is a probability open structure before flooding 
         /// but no structure defined, <c>true</c> otherwise.</returns>
         private bool TrySetProbabilityOpenStructureBeforeFlooding(ClosingStructuresCalculationConfiguration readCalculation,
-                                                                             StructuresCalculation<ClosingStructuresInput> calculation)
+                                                                  StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (readCalculation.ProbabilityOpenStructureBeforeFlooding.HasValue)
             {

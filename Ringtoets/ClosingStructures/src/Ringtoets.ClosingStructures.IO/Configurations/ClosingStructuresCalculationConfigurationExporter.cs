@@ -87,6 +87,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
                 calculationConfiguration.LevelCrestStructureNotClosing = input.LevelCrestStructureNotClosing.ToStochastConfiguration();
                 calculationConfiguration.ThresholdHeightOpenWeir = input.ThresholdHeightOpenWeir.ToStochastConfiguration();
             }
+
             return calculationConfiguration;
         }
 

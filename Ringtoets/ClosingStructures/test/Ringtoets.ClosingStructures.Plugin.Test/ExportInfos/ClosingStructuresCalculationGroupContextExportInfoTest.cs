@@ -81,6 +81,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<ClosingStructuresCalculationConfigurationExporter>(fileExporter);
             }
+
             mocks.VerifyAll();
         }
 
@@ -123,6 +124,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -163,6 +165,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 

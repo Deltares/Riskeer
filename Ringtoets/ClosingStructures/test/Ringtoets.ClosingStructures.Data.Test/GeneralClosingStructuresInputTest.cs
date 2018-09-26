@@ -49,8 +49,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             var modelFactorLongThreshold = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble)0.9,
-                StandardDeviation = (RoundedDouble)0.05
+                Mean = (RoundedDouble) 0.9,
+                StandardDeviation = (RoundedDouble) 0.05
             };
 
             // Call
@@ -67,7 +67,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             DistributionAssert.AreEqual(modelFactorOvertoppingFlow, inputParameters.ModelFactorOvertoppingFlow);
             DistributionAssert.AreEqual(modelFactorStorageVolume, inputParameters.ModelFactorStorageVolume);
             DistributionAssert.AreEqual(modelFactorLongThreshold, inputParameters.ModelFactorLongThreshold);
-            
+
             Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
             AssertAreEqual(1.0, inputParameters.ModelFactorInflowVolume);
         }

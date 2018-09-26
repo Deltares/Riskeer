@@ -58,14 +58,6 @@ namespace Ringtoets.ClosingStructures.Data
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
-            }
-        }
-
         /// <summary>
         /// Gets the general closing structures calculation input parameters that apply to each calculation.
         /// </summary>
@@ -82,6 +74,14 @@ namespace Ringtoets.ClosingStructures.Data
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
         public CalculationGroup CalculationsGroup { get; }
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
+            }
+        }
 
         public IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> SectionResults
         {

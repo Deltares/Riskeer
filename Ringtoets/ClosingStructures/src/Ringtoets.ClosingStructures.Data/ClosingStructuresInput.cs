@@ -225,6 +225,7 @@ namespace Ringtoets.ClosingStructures.Data
                     throw new ArgumentOutOfRangeException(nameof(value), string.Format(RingtoetsCommonDataResources.DeviationWaveDirection_Value_needs_to_be_in_Range_0_,
                                                                                        deviationWaveDirectionValidityRange));
                 }
+
                 deviationWaveDirection = newDeviationWaveDirection;
             }
         }
@@ -373,6 +374,7 @@ namespace Ringtoets.ClosingStructures.Data
                     throw new ArgumentOutOfRangeException(nameof(IdenticalApertures),
                                                           Resources.ClosingStructuresInput_IdenticalApertures_must_be_equal_or_greater_to_one);
                 }
+
                 identicalApertures = value;
             }
         }

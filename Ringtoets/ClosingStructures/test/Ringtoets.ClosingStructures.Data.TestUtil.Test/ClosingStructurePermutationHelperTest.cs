@@ -89,10 +89,9 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             var differentStructures = new List<ClosingStructure>();
             var referenceStructure = new TestClosingStructure();
 
-            IEnumerable<ClosingStructure> structures = testCaseData
-                .Select(tcd => tcd.Arguments[0])
-                .OfType<ClosingStructure>()
-                .ToArray();
+            IEnumerable<ClosingStructure> structures = testCaseData.Select(tcd => tcd.Arguments[0])
+                                                                   .OfType<ClosingStructure>()
+                                                                   .ToArray();
 
             int expectedTestDataCount = testCaseData.Count();
             Assert.AreEqual(expectedTestDataCount, structures.Count());

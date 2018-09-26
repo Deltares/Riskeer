@@ -54,7 +54,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(ClosingStructuresFailureMechanismSectionResult originResult, 
+        protected override void AssertSectionResult(ClosingStructuresFailureMechanismSectionResult originResult,
                                                     ClosingStructuresFailureMechanismSectionResult targetResult)
         {
             Assert.AreSame(originResult.Calculation, targetResult.Calculation);

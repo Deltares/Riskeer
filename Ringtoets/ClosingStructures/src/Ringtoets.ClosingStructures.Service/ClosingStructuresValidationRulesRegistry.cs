@@ -41,12 +41,12 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 throw new ArgumentNullException(nameof(input));
             }
-            
+
             ClosingStructureInflowModelType inflowModelType = input.InflowModelType;
             if (!Enum.IsDefined(typeof(ClosingStructureInflowModelType), inflowModelType))
             {
                 throw new InvalidEnumArgumentException(nameof(input),
-                                                       (int)inflowModelType,
+                                                       (int) inflowModelType,
                                                        typeof(ClosingStructureInflowModelType));
             }
 

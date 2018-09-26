@@ -38,6 +38,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
             {
                 return true;
             }
+
             return base.CanConvertTo(context, destinationType);
         }
 
@@ -68,6 +69,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             if (destinationType == typeof(ClosingStructureInflowModelType))
             {
                 switch (type)
@@ -82,6 +84,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
@@ -91,10 +94,12 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
             {
                 return true;
             }
+
             if (sourceType == typeof(ClosingStructureInflowModelType))
             {
                 return true;
             }
+
             return base.CanConvertFrom(context, sourceType);
         }
 
@@ -116,6 +121,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
                         return ConfigurationClosingStructureInflowModelType.VerticalWall;
                 }
             }
+
             var inflowModelType = value as ClosingStructureInflowModelType?;
             if (inflowModelType != null)
             {
@@ -134,6 +140,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations.Helpers
                         return ConfigurationClosingStructureInflowModelType.VerticalWall;
                 }
             }
+
             return base.ConvertFrom(context, culture, value);
         }
     }

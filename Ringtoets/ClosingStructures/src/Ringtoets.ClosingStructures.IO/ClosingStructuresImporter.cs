@@ -78,6 +78,7 @@ namespace Ringtoets.ClosingStructures.IO
                 ClosingStructure closingStructure = CreateClosingStructure(structureLocation, closingStructureParameters);
                 closingStructures.Add(closingStructure);
             }
+
             return closingStructures;
         }
 
