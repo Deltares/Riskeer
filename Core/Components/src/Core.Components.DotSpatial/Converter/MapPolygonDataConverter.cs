@@ -68,17 +68,6 @@ namespace Core.Components.DotSpatial.Converter
             return new PolygonSymbolizer(mapData.Style.FillColor, GetStrokeColor(mapData), mapData.Style.StrokeThickness);
         }
 
-        private static Color GetStrokeColor(MapPolygonData mapData)
-        {
-            Color strokeColor = mapData.Style.StrokeColor;
-            if (mapData.Style.StrokeThickness == 0)
-            {
-                strokeColor = Color.Transparent;
-            }
-
-            return strokeColor;
-        }
-
         protected override IFeatureScheme CreateScheme()
         {
             return new PolygonScheme();
@@ -92,6 +81,17 @@ namespace Core.Components.DotSpatial.Converter
         protected override IFeatureCategory CreateCategory(MapPolygonData mapData, Color color)
         {
             return new PolygonCategory(color, GetStrokeColor(mapData), mapData.Style.StrokeThickness);
+        }
+
+        private static Color GetStrokeColor(MapPolygonData mapData)
+        {
+            Color strokeColor = mapData.Style.StrokeColor;
+            if (mapData.Style.StrokeThickness == 0)
+            {
+                strokeColor = Color.Transparent;
+            }
+
+            return strokeColor;
         }
 
         private static IBasicGeometry GetGeometry(List<IPolygon> geometryList)
@@ -117,6 +117,7 @@ namespace Core.Components.DotSpatial.Converter
 
                 geometry = factory.CreatePolygon(shell, holes);
             }
+
             return geometry;
         }
     }

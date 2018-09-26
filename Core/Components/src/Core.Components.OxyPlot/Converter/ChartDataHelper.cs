@@ -47,10 +47,9 @@ namespace Core.Components.OxyPlot.Converter
             if (!Enum.IsDefined(typeof(ChartLineDashStyle), dashStyle))
             {
                 throw new InvalidEnumArgumentException(nameof(dashStyle),
-                                                       (int)dashStyle,
+                                                       (int) dashStyle,
                                                        typeof(ChartLineDashStyle));
             }
-
 
             var lineStyle = LineStyle.Solid;
             switch (dashStyle)
@@ -72,6 +71,7 @@ namespace Core.Components.OxyPlot.Converter
                 default:
                     throw new NotSupportedException();
             }
+
             return lineStyle;
         }
 
@@ -87,9 +87,9 @@ namespace Core.Components.OxyPlot.Converter
         public static MarkerType Convert(ChartPointSymbol symbol)
         {
             if (!Enum.IsDefined(typeof(ChartPointSymbol), symbol))
-            { 
+            {
                 throw new InvalidEnumArgumentException(nameof(symbol),
-                                                       (int)symbol,
+                                                       (int) symbol,
                                                        typeof(ChartPointSymbol));
             }
 
@@ -120,6 +120,7 @@ namespace Core.Components.OxyPlot.Converter
                 default:
                     throw new NotSupportedException();
             }
+
             return markerType;
         }
 

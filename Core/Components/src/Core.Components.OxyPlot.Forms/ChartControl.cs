@@ -76,6 +76,7 @@ namespace Core.Components.OxyPlot.Forms
                 {
                     DrawInitialChartData();
                 }
+
                 plotView.InvalidatePlot(true);
             }
         }
@@ -195,6 +196,7 @@ namespace Core.Components.OxyPlot.Forms
             {
                 extent.ExpandToInclude(CreateExtentFor(drawnChartData.ChartDataSeries as XYAxisSeries));
             }
+
             return extent;
         }
 
@@ -223,6 +225,7 @@ namespace Core.Components.OxyPlot.Forms
             {
                 envelope.ExpandToInclude(CreateEnvelopeForAllVisibleLayers(childChartData));
             }
+
             return envelope;
         }
 

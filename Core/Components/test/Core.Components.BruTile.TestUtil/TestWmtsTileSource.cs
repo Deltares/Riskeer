@@ -70,6 +70,7 @@ namespace Core.Components.BruTile.TestUtil
                     pngTileData = stream.ToArray();
                 }
             }
+
             return pngTileData;
         }
 

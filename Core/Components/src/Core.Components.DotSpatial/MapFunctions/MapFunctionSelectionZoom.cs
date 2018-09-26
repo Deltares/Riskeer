@@ -73,6 +73,7 @@ namespace Core.Components.DotSpatial.MapFunctions
                 e.Graphics.DrawRectangle(Pens.White, rectangle);
                 e.Graphics.DrawRectangle(selectionPen, rectangle);
             }
+
             base.OnDraw(e);
         }
 
@@ -82,6 +83,7 @@ namespace Core.Components.DotSpatial.MapFunctions
             {
                 mouseButtonMiddleDown = true;
             }
+
             if (e.Button == MouseButtons.Left)
             {
                 startPoint = e.Location;
@@ -90,6 +92,7 @@ namespace Core.Components.DotSpatial.MapFunctions
                 isDragging = true;
                 Map.IsBusy = true;
             }
+
             base.OnMouseDown(e);
         }
 
@@ -104,10 +107,12 @@ namespace Core.Components.DotSpatial.MapFunctions
                 currentPoint = e.Location;
                 Map.Invalidate(new Rectangle(x, y, mx - x, my - y));
             }
+
             if (mouseButtonMiddleDown)
             {
                 return;
             }
+
             base.OnMouseMove(e);
         }
 
@@ -117,6 +122,7 @@ namespace Core.Components.DotSpatial.MapFunctions
             {
                 mouseButtonMiddleDown = false;
             }
+
             if (!(e.Map.IsZoomedToMaxExtent && e.Button == MouseButtons.Right))
             {
                 e.Map.IsZoomedToMaxExtent = false;
@@ -141,6 +147,7 @@ namespace Core.Components.DotSpatial.MapFunctions
                         }
                     }
                 }
+
                 isDragging = false;
 
                 if (!handled)

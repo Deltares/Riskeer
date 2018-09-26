@@ -48,10 +48,12 @@ namespace Core.Components.Gis.Theme
             {
                 throw new ArgumentException($@"{nameof(attributeName)} is null, empty or consists of whitespace.", nameof(attributeName));
             }
+
             if (categoryThemes == null)
             {
                 throw new ArgumentNullException(nameof(categoryThemes));
             }
+
             if (!categoryThemes.Any())
             {
                 throw new ArgumentException($@"{nameof(categoryThemes)} is empty.", nameof(categoryThemes));

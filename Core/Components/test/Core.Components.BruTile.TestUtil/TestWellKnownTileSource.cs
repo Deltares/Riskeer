@@ -59,6 +59,7 @@ namespace Core.Components.BruTile.TestUtil
             {
                 throw new ArgumentNullException(nameof(mapData));
             }
+
             return new GlobalSphericalMercator(YAxis.TMS, 0, 19, mapData.Name);
         }
 
@@ -72,6 +73,7 @@ namespace Core.Components.BruTile.TestUtil
                     pngTileData = stream.ToArray();
                 }
             }
+
             return pngTileData;
         }
 

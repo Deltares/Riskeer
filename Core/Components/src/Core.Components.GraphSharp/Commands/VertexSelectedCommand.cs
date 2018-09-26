@@ -57,6 +57,7 @@ namespace Core.Components.GraphSharp.Commands
             {
                 throw new ArgumentNullException(nameof(vertex));
             }
+
             this.vertex = vertex;
         }
 

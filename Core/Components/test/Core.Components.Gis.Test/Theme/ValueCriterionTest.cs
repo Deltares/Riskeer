@@ -52,7 +52,7 @@ namespace Core.Components.Gis.Test.Theme
             // Setup
             var random = new Random(21);
             const ValueCriterionOperator invalidOperator = (ValueCriterionOperator) 9999;
-            
+
             // Call
             TestDelegate call = () => new ValueCriterion(invalidOperator, random.NextDouble());
 

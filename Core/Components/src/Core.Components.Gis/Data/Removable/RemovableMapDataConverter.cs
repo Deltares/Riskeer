@@ -47,6 +47,7 @@ namespace Core.Components.Gis.Data.Removable
                     Features = mapPointData.Features
                 };
             }
+
             var mapLineData = mapData as MapLineData;
             if (mapLineData != null)
             {
@@ -55,6 +56,7 @@ namespace Core.Components.Gis.Data.Removable
                     Features = mapLineData.Features
                 };
             }
+
             var mapPolygonData = mapData as MapPolygonData;
             if (mapPolygonData != null)
             {
@@ -63,6 +65,7 @@ namespace Core.Components.Gis.Data.Removable
                     Features = mapPolygonData.Features
                 };
             }
+
             throw new NotSupportedException($"The given {nameof(mapData)} was not convertible to {typeof(IRemovable).Name} data.");
         }
     }

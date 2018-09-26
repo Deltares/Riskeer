@@ -56,6 +56,7 @@ namespace Core.Components.Gis.Data
             {
                 throw new ArgumentNullException(nameof(style));
             }
+
             Style = style;
         }
 

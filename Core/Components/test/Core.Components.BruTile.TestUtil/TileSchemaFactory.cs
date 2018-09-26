@@ -60,9 +60,7 @@ namespace Core.Components.BruTile.TestUtil
 
             var coordinateSystemRegex = new Regex(@"EPSG:(?<SrsNumber>\d+)");
             Match potentialMatch = coordinateSystemRegex.Match(schema.TileMatrixSet);
-            schema.Srs = potentialMatch.Success ?
-                             $"EPSG:{potentialMatch.Groups["SrsNumber"]}" :
-                             "EPSG:3857";
+            schema.Srs = potentialMatch.Success ? $"EPSG:{potentialMatch.Groups["SrsNumber"]}" : "EPSG:3857";
 
             return schema;
         }

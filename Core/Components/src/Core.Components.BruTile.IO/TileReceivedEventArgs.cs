@@ -46,6 +46,7 @@ namespace Core.Components.BruTile.IO
             {
                 throw new ArgumentNullException(nameof(tileInfo));
             }
+
             if (tile == null)
             {
                 throw new ArgumentNullException(nameof(tile));

@@ -77,10 +77,12 @@ namespace Core.Components.PointedTree.Data
             {
                 throw new ArgumentNullException(nameof(content));
             }
+
             if (childNodes == null)
             {
                 throw new ArgumentNullException(nameof(childNodes));
             }
+
             if (style == null)
             {
                 throw new ArgumentNullException(nameof(style));

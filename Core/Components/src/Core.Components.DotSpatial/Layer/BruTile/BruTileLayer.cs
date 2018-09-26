@@ -137,6 +137,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             {
                 configuration.Initialize();
             }
+
             this.configuration = configuration;
 
             ITileSchema tileSchema = configuration.TileSchema;
@@ -344,7 +345,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         private static ProjectionInfo GetTileSourceProjectionInfo(string spatialReferenceSystemString)
         {
             ProjectionInfo projectionInfo;
-            if (!TryParseProjectionEsri(spatialReferenceSystemString, out projectionInfo) 
+            if (!TryParseProjectionEsri(spatialReferenceSystemString, out projectionInfo)
                 && !TryParseProjectionProj4(spatialReferenceSystemString, out projectionInfo))
             {
                 // For WMTS, 'spatialReferenceSystemString' might be some crude value (urn-string):
@@ -416,6 +417,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                     {
                         return "";
                     }
+
                     return $"EPSG:{value}";
                 }
 
@@ -433,6 +435,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                     return $"{srsParts[4]}:{srsParts.Last()}";
                 }
             }
+
             return "";
         }
 
@@ -496,8 +499,10 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 {
                     distance *= 1e-12;
                 }
+
                 sortResult.Add(distance, tileInfo);
             }
+
             return sortResult.Values;
         }
 

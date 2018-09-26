@@ -42,6 +42,7 @@ namespace Core.Components.Gis
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (string.IsNullOrWhiteSpace(url))
             {
                 throw new ArgumentException($@"{nameof(url)} must have a value.", nameof(url));
@@ -74,14 +75,17 @@ namespace Core.Components.Gis
             {
                 return false;
             }
+
             if (ReferenceEquals(this, other))
             {
                 return true;
             }
+
             if (GetType() != other.GetType())
             {
                 return false;
             }
+
             return string.Equals(Name, other.Name) && string.Equals(Url, other.Url);
         }
 

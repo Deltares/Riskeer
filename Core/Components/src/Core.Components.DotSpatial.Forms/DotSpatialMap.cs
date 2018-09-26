@@ -50,6 +50,7 @@ namespace Core.Components.DotSpatial.Forms
                 ViewExtents.SetCenter(x, y, minExt, minExt);
                 return;
             }
+
             base.OnViewExtentsChanged(sender, args);
         }
     }

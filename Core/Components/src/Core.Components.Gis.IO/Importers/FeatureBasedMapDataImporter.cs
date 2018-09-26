@@ -90,18 +90,21 @@ namespace Core.Components.Gis.IO.Importers
                         {
                             importedData = reader.ReadShapeFile(shapeFileName);
                         }
+
                         break;
                     case FeatureType.Line:
                         using (ShapeFileReaderBase reader = new PolylineShapeFileReader(FilePath))
                         {
                             importedData = reader.ReadShapeFile(shapeFileName);
                         }
+
                         break;
                     case FeatureType.Polygon:
                         using (ShapeFileReaderBase reader = new PolygonShapeFileReader(FilePath))
                         {
                             importedData = reader.ReadShapeFile(shapeFileName);
                         }
+
                         break;
                     default:
                         throw new CriticalFileReadException(Resources.FeatureBasedMapDataImporter_Import_ShapeFile_Contains_Unsupported_Data);

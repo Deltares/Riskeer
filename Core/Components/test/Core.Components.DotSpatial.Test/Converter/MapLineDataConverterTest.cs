@@ -169,9 +169,11 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         [Combinatorial]
         public void ConvertLayerProperties_MapLineDataWithStyle_ConvertsStyleToMapLineLayer(
-            [Values(KnownColor.AliceBlue, KnownColor.Azure)] KnownColor color,
+            [Values(KnownColor.AliceBlue, KnownColor.Azure)]
+            KnownColor color,
             [Values(1, 5)] int width,
-            [Values(LineDashStyle.Solid, LineDashStyle.Dash)] LineDashStyle lineStyle)
+            [Values(LineDashStyle.Solid, LineDashStyle.Dash)]
+            LineDashStyle lineStyle)
         {
             // Setup
             Color expectedColor = Color.FromKnownColor(color);

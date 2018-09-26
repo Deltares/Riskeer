@@ -44,18 +44,22 @@ namespace Core.Components.Gis.Forms
             {
                 throw new ArgumentNullException(nameof(id));
             }
+
             if (format == null)
             {
                 throw new ArgumentNullException(nameof(format));
             }
+
             if (title == null)
             {
                 throw new ArgumentNullException(nameof(title));
             }
+
             if (coordinateSystem == null)
             {
                 throw new ArgumentNullException(nameof(coordinateSystem));
             }
+
             if (!format.StartsWith("image/"))
             {
                 throw new ArgumentException(@"Specified image format is not a MIME type.", nameof(format));

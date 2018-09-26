@@ -225,8 +225,10 @@ namespace Core.Components.DotSpatial.Test.Converter
         [Test]
         [Combinatorial]
         public void ConvertLayerProperties_MapPolygonDataWithStyle_ConvertsStyleToMapPolygonLayer(
-            [Values(KnownColor.AliceBlue, KnownColor.Azure)] KnownColor fillColor,
-            [Values(KnownColor.AppWorkspace, KnownColor.BlueViolet)] KnownColor outlineFillColor,
+            [Values(KnownColor.AliceBlue, KnownColor.Azure)]
+            KnownColor fillColor,
+            [Values(KnownColor.AppWorkspace, KnownColor.BlueViolet)]
+            KnownColor outlineFillColor,
             [Values(1, 5)] int width)
         {
             // Setup

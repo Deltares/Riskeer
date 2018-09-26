@@ -74,6 +74,7 @@ namespace Core.Components.DotSpatial.Projections
             {
                 throw new ArgumentException(Resources.WorldFile_Not_invertable_transformation_arguments_error);
             }
+
             inverse = matrix.Inverse();
 
             B1 = b1;

@@ -58,6 +58,7 @@ namespace Core.Components.Chart.Data
                 {
                     throw new ArgumentException("A name must be set to the chart data.");
                 }
+
                 name = value;
             }
         }

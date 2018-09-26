@@ -124,6 +124,7 @@ namespace Core.Components.OxyPlot.Forms
             {
                 return;
             }
+
             XMin = double.IsNaN(XMin) ? otherExtent.XMin : Math.Min(XMin, otherExtent.XMin);
             XMax = double.IsNaN(XMax) ? otherExtent.XMax : Math.Max(XMax, otherExtent.XMax);
             YMin = double.IsNaN(YMin) ? otherExtent.YMin : Math.Min(YMin, otherExtent.YMin);

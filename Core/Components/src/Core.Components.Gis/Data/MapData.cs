@@ -58,6 +58,7 @@ namespace Core.Components.Gis.Data
                 {
                     throw new ArgumentException(@"A name must be set to the map data.", nameof(Name));
                 }
+
                 name = value;
             }
         }

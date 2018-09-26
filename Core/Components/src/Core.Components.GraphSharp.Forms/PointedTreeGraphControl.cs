@@ -85,6 +85,7 @@ namespace Core.Components.GraphSharp.Forms
                 ClearData();
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
