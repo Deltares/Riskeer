@@ -518,7 +518,7 @@ namespace Ringtoets.Migration.Test
                 migrationLog.AppendLine("    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
                 migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
 
-                var expectedLogMessagesAndLevel = new[]
+                Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
                 {
                     Tuple.Create(expectedMessage, LogLevelConstant.Info),
                     Tuple.Create(migrationLog.ToString(), LogLevelConstant.Info)

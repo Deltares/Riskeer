@@ -86,7 +86,7 @@ namespace Ringtoets.Migration.Integration.Test
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            var tables = new[]
+            string[] tables =
             {
                 "AssessmentSectionEntity",
                 "CalculationGroupEntity",

@@ -496,7 +496,7 @@ namespace Ringtoets.Migration.Integration.Test
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' en 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."),
                     messages[i++]);
-                
+
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "* Traject: 'assessmentSectionResults'"),
                     messages[i++]);
