@@ -60,6 +60,7 @@ namespace Ringtoets.Common.Forms.Factories
             {
                 throw new ArgumentNullException(nameof(illustrationPoint));
             }
+
             if (childNodes == null)
             {
                 throw new ArgumentNullException(nameof(childNodes));
@@ -145,6 +146,7 @@ namespace Ringtoets.Common.Forms.Factories
 
                     writer.WriteString(Environment.NewLine);
                 }
+
                 writer.WriteString(content);
 
                 writer.WriteEndElement();

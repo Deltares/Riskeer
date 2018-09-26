@@ -198,6 +198,7 @@ namespace Ringtoets.Common.Forms.Test
                     },
                     cellB.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>().Select(r => r.DisplayName));
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -238,6 +239,7 @@ namespace Ringtoets.Common.Forms.Test
                 // Assert
                 Assert.AreEqual(0, dataGridView.RowCount);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -292,6 +294,7 @@ namespace Ringtoets.Common.Forms.Test
                 // Assert
                 Assert.IsFalse(dataGridView.IsCurrentCellInEditMode);
             }
+
             mockRepository.VerifyAll();
         }
 

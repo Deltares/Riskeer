@@ -71,14 +71,17 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((SelectableHydraulicBoundaryLocation) obj);
         }
 

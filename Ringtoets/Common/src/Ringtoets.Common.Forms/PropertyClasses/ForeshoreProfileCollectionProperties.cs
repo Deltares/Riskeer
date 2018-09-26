@@ -44,6 +44,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(collection));
             }
+
             data = collection;
         }
 

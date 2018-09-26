@@ -57,10 +57,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(useForeshoreData));
             }
+
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
+
             data = useForeshoreData;
             changeHandler = handler;
         }

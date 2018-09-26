@@ -48,6 +48,7 @@ namespace Ringtoets.Common.Forms.Helpers
             {
                 result = $"{nameBase} ({i++})";
             }
+
             return result;
         }
     }

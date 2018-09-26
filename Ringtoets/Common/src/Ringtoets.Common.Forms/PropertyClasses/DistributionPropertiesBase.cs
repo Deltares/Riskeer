@@ -67,6 +67,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(distribution));
             }
+
             if (!propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.All))
             {
                 if (handler == null)
@@ -74,6 +75,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     throw new ArgumentException(@"Change handler required if changes are possible.", nameof(handler));
                 }
             }
+
             Data = distribution;
 
             isMeanReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.Mean);

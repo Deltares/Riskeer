@@ -47,14 +47,17 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             {
                 throw new ArgumentNullException(nameof(illustrationPoint));
             }
+
             if (illustrationPointNode == null)
             {
                 throw new ArgumentNullException(nameof(illustrationPointNode));
             }
+
             if (windDirectionName == null)
             {
                 throw new ArgumentNullException(nameof(windDirectionName));
             }
+
             if (closingSituation == null)
             {
                 throw new ArgumentNullException(nameof(closingSituation));

@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationsGroupProperties"/>.
         /// </summary>
         public DesignWaterLevelCalculationsGroupProperties(IEnumerable<HydraulicBoundaryLocation> locations,
-                                                           IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary) 
+                                                           IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary)
             : base(locations, calculationsPerCategoryBoundary) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]

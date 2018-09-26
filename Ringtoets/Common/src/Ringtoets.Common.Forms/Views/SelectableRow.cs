@@ -40,10 +40,12 @@ namespace Ringtoets.Common.Forms.Views
             {
                 throw new ArgumentNullException(nameof(item));
             }
+
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             Name = name;
             Item = item;
         }

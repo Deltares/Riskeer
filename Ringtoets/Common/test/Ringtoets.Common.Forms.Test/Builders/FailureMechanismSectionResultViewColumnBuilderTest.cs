@@ -1312,7 +1312,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
             {
                 form.Controls.Add(control);
                 form.Show();
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
@@ -1323,7 +1323,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                var columnData = (DataGridViewComboBoxColumn)dataGridView.Columns[0];
+                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
                 Assert.AreEqual("Toetsoordeel\r\nhandmatig", columnData.HeaderText);
                 Assert.AreEqual("Value", columnData.ValueMember);
@@ -1331,7 +1331,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 IEnumerable<EnumDisplayWrapper<ManualFailureMechanismSectionAssemblyCategoryGroup>> expectedDataSource =
                     CreateExpectedEnumDisplayWrappers<ManualFailureMechanismSectionAssemblyCategoryGroup>();
-                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<ManualFailureMechanismSectionAssemblyCategoryGroup>[])columnData.DataSource);
+                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<ManualFailureMechanismSectionAssemblyCategoryGroup>[]) columnData.DataSource);
             }
         }
 

@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Forms.Helpers
             if (!Enum.IsDefined(typeof(FailureMechanismAssemblyCategoryGroup), assemblyCategoryGroup))
             {
                 throw new InvalidEnumArgumentException(nameof(assemblyCategoryGroup),
-                                                       (int)assemblyCategoryGroup,
+                                                       (int) assemblyCategoryGroup,
                                                        typeof(FailureMechanismAssemblyCategoryGroup));
             }
 

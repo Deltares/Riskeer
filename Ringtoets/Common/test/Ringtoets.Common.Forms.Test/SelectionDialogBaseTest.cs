@@ -154,7 +154,7 @@ namespace Ringtoets.Common.Forms.Test
         {
             // Given
             var selectedItem = new object();
-            var items = new[]
+            object[] items =
             {
                 selectedItem,
                 new object()
@@ -182,7 +182,7 @@ namespace Ringtoets.Common.Forms.Test
         {
             // Given
             var selectedItem = new object();
-            var items = new[]
+            object[] items =
             {
                 selectedItem,
                 new object()

@@ -59,10 +59,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (closingSituations == null)
             {
                 throw new ArgumentNullException(nameof(closingSituations));
             }
+
             Data = data;
             this.closingSituations = closingSituations;
         }

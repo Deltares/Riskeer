@@ -48,10 +48,12 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             {
                 throw new ArgumentNullException(nameof(parentAssessmentSection));
             }
+
             if (parentFailureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(parentFailureMechanism));
             }
+
             ParentAssessmentSection = parentAssessmentSection;
             ParentFailureMechanism = parentFailureMechanism;
         }

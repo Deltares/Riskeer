@@ -39,12 +39,6 @@ namespace Ringtoets.Common.Forms.Controls
             InitializeComponent();
         }
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            Dock = DockStyle.Left;
-        }
-
         /// <summary>
         /// Sets the error message of the control.
         /// </summary>
@@ -86,6 +80,12 @@ namespace Ringtoets.Common.Forms.Controls
         {
             GroupLabel.Text = string.Empty;
             GroupLabel.BackColor = Color.White;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            Dock = DockStyle.Left;
         }
     }
 }
