@@ -40,11 +40,6 @@ namespace Core.Common.Gui.Test.Commands
     {
         private MockRepository mocks;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-        }
-
         [Test]
         public void CreateNewProject_SavedProjectThenNewProject_NewProjectAndPathAreSet()
         {
@@ -80,7 +75,7 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => storageCommandHandler.CreateNewProject();
 
             // Assert
-            var expectedMessages = new[]
+            Tuple<string, LogLevelConstant>[] expectedMessages =
             {
                 Tuple.Create("Nieuw project aanmaken is gestart.", LogLevelConstant.Info),
                 Tuple.Create("Nieuw project aanmaken is gelukt.", LogLevelConstant.Info)
@@ -136,7 +131,7 @@ namespace Core.Common.Gui.Test.Commands
                 Action call = () => result = storageCommandHandler.SaveProject();
 
                 // Assert
-                var expectedMessages = new[]
+                Tuple<string, LogLevelConstant>[] expectedMessages =
                 {
                     Tuple.Create("Opslaan van bestaand project is gestart.", LogLevelConstant.Info),
                     Tuple.Create(exceptionMessage, LogLevelConstant.Error),
@@ -145,6 +140,7 @@ namespace Core.Common.Gui.Test.Commands
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
                 Assert.IsFalse(result);
             }
+
             mocks.VerifyAll();
         }
 
@@ -194,6 +190,7 @@ namespace Core.Common.Gui.Test.Commands
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create("Opslaan van bestaand project is gelukt.", LogLevelConstant.Info));
                 Assert.IsTrue(result);
             }
+
             mocks.VerifyAll();
         }
 
@@ -245,7 +242,7 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
-            var expectedMessages = new[]
+            Tuple<string, LogLevelConstant>[] expectedMessages =
             {
                 Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
@@ -529,7 +526,7 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeInvalidFile);
 
             // Assert
-            var expectedMessages = new[]
+            Tuple<string, LogLevelConstant>[] expectedMessages =
             {
                 Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create(goodErrorMessageText, LogLevelConstant.Error),
@@ -583,7 +580,7 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeInvalidFile);
 
             // Assert
-            var expectedMessages = new[]
+            Tuple<string, LogLevelConstant>[] expectedMessages =
             {
                 Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
@@ -635,7 +632,7 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
-            var expectedMessages = new[]
+            Tuple<string, LogLevelConstant>[] expectedMessages =
             {
                 Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
@@ -694,7 +691,7 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
-            var expectedMessages = new[]
+            Tuple<string, LogLevelConstant>[] expectedMessages =
             {
                 Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
@@ -1026,6 +1023,11 @@ namespace Core.Common.Gui.Test.Commands
             Assert.IsTrue(changesHandled);
 
             mocks.VerifyAll();
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
         }
 
         private static IEnumerable<TestCaseData> GetExceptions()

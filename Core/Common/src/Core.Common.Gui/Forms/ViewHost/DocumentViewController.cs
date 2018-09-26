@@ -259,7 +259,8 @@ namespace Core.Common.Gui.Forms.ViewHost
             Dictionary<string, ViewInfo> viewTypeDictionary = viewInfoList.ToDictionary(vi => vi.Description ?? vi.ViewType.Name);
             using (var viewSelector = new SelectViewDialog(dialogParent)
             {
-                DefaultViewName = defaultViewName, Items = viewTypeDictionary.Keys.ToList()
+                DefaultViewName = defaultViewName,
+                Items = viewTypeDictionary.Keys.ToList()
             })
             {
                 if (viewSelector.ShowDialog() != DialogResult.OK)

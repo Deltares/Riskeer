@@ -1877,10 +1877,7 @@ namespace Core.Common.Controls.TreeView.Test
                 .SetName("AllItemsInListRemoved");
 
             yield return new TestCaseData(new DataModifier(CreateListWithElements(3),
-                                                           list =>
-                                                           {
-                                                               list.Reverse();
-                                                           }))
+                                                           list => list.Reverse()))
                 .SetName("ItemsReversed");
         }
 

@@ -56,10 +56,12 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_All_lengths_cannot_be_negative, nameof(lengths));
             }
+
             if (linePoints.Count() <= 1)
             {
                 throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_Not_enough_points_to_make_line, nameof(linePoints));
             }
+
             Segment2D[] lineSegments = ConvertPointsToLineSegments(linePoints).ToArray();
 
             if (Math.Abs(lengths.Sum(l => l) - lineSegments.Sum(s => s.Length)) > epsilonForComparisons)
@@ -146,18 +148,22 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentNullException(nameof(line1Point1));
             }
+
             if (line1Point2 == null)
             {
                 throw new ArgumentNullException(nameof(line1Point2));
             }
+
             if (line2Point1 == null)
             {
                 throw new ArgumentNullException(nameof(line2Point1));
             }
+
             if (line2Point2 == null)
             {
                 throw new ArgumentNullException(nameof(line2Point2));
             }
+
             if (line1Point1.Equals(line1Point2) || line2Point1.Equals(line2Point2))
             {
                 throw new ArgumentException(Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal);
@@ -196,10 +202,12 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentNullException(nameof(point1));
             }
+
             if (point2 == null)
             {
                 throw new ArgumentNullException(nameof(point2));
             }
+
             return Math.Abs(point1.X - point2.X) < epsilonForComparisons && Math.Abs(point1.Y - point2.Y) < epsilonForComparisons;
         }
 
@@ -258,6 +266,7 @@ namespace Core.Common.Base.Geometry
                 {
                     length += previousPoint.GetEuclideanDistanceTo(point);
                 }
+
                 previousPoint = point;
             }
 
@@ -280,6 +289,7 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentNullException(nameof(segment1));
             }
+
             if (segment2 == null)
             {
                 throw new ArgumentNullException(nameof(segment2));
@@ -309,6 +319,7 @@ namespace Core.Common.Base.Geometry
                 // ... but not collinear, so no intersection possible:
                 return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
             }
+
             // Segments are at an angle and may intersect:
             double sI = PerpDotProduct(v, w) / d;
             if (sI < 0.0 || sI > 1.0)
@@ -345,6 +356,7 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentOutOfRangeException(nameof(fraction), @"Fraction needs to be defined in range [0.0, 1.0] in order to reliably interpolate.");
             }
+
             Vector<double> segmentVector = lineSegment.SecondPoint - lineSegment.FirstPoint;
             return lineSegment.FirstPoint + segmentVector.Multiply(fraction);
         }
@@ -366,6 +378,7 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentNullException(nameof(pointA));
             }
+
             if (pointB == null)
             {
                 throw new ArgumentNullException(nameof(pointB));
@@ -403,6 +416,7 @@ namespace Core.Common.Base.Geometry
                 t0 = w[1] / v[1];
                 t1 = w2[1] / v[1];
             }
+
             // Require t0 to be smaller than t1, swapping if needed:
             if (t0 > t1)
             {
@@ -410,6 +424,7 @@ namespace Core.Common.Base.Geometry
                 t0 = t1;
                 t1 = tempSwapVariable;
             }
+
             if (t0 > 1.0 || t1 < 0.0)
             {
                 // There is no overlap:
@@ -424,6 +439,7 @@ namespace Core.Common.Base.Geometry
                 // Segments intersect at a point:
                 return Segment2DIntersectSegment2DResult.CreateIntersectionResult(intersectionPoint1);
             }
+
             // Segments overlap:
             Point2D intersectionPoint2 = segment2.FirstPoint + v.Multiply(t1);
             return Segment2DIntersectSegment2DResult.CreateOverlapResult(intersectionPoint1, intersectionPoint2);
@@ -453,6 +469,7 @@ namespace Core.Common.Base.Geometry
                                ? Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment1.FirstPoint)
                                : Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
                 }
+
                 {
                     return IsPointInCollinearSegment(segment1.FirstPoint, segment2)
                                ? Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment1.FirstPoint)
@@ -473,6 +490,7 @@ namespace Core.Common.Base.Geometry
                 double maxY = Math.Max(colinearSegment.FirstPoint.Y, colinearSegment.SecondPoint.Y);
                 return minY <= point.Y && point.Y <= maxY;
             }
+
             double minX = Math.Min(colinearSegment.FirstPoint.X, colinearSegment.SecondPoint.X);
             double maxX = Math.Max(colinearSegment.FirstPoint.X, colinearSegment.SecondPoint.X);
             return minX <= point.X && point.X <= maxX;
@@ -549,6 +567,7 @@ namespace Core.Common.Base.Geometry
 
                 splitResults[i] = subLine.ToArray();
             }
+
             return splitResults;
         }
 

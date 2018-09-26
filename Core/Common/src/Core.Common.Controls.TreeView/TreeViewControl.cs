@@ -352,6 +352,7 @@ namespace Core.Common.Controls.TreeView
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -389,6 +390,7 @@ namespace Core.Common.Controls.TreeView
             {
                 return treeNodeInfo.ChildNodeObjects(treeNode.Tag).Any(childData => CanRemove(GetNodeByTag(childData)));
             }
+
             return false;
         }
 
@@ -595,6 +597,7 @@ namespace Core.Common.Controls.TreeView
                     treeNode.Checked = !treeNode.Checked;
                     treeView.AfterCheck += TreeViewAfterCheck;
                 }
+
                 treeNode.StateImageIndex = treeNode.Checked ? checkedCheckBoxStateImageIndex : uncheckedCheckBoxStateImageIndex;
             }
 
@@ -818,6 +821,11 @@ namespace Core.Common.Controls.TreeView
                 GC.SuppressFinalize(this);
             }
 
+            public void UpdateObserver()
+            {
+                treeViewControl.UpdateNode(treeNode);
+            }
+
             protected virtual void Dispose(bool disposing)
             {
                 if (disposing)
@@ -825,11 +833,6 @@ namespace Core.Common.Controls.TreeView
                     var observable = treeNode.Tag as IObservable;
                     observable?.Detach(this);
                 }
-            }
-
-            public void UpdateObserver()
-            {
-                treeViewControl.UpdateNode(treeNode);
             }
         }
 
@@ -884,6 +887,7 @@ namespace Core.Common.Controls.TreeView
                     {
                         UpdateNode(treeView.SelectedNode);
                     }
+
                     break;
                 }
                 case Keys.F2: // Start editing the label of the selected tree node
@@ -906,6 +910,7 @@ namespace Core.Common.Controls.TreeView
 
                         selectedNode.ContextMenuStrip.Show(location);
                     }
+
                     break;
                 }
                 case Keys.Enter: // Perform the same action as on double click

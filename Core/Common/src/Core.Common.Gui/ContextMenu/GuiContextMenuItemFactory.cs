@@ -66,31 +66,37 @@ namespace Core.Common.Gui.ContextMenu
                 throw new ArgumentNullException(nameof(applicationFeatureCommandHandler),
                                                 Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
             }
+
             if (importCommandHandler == null)
             {
                 throw new ArgumentNullException(nameof(importCommandHandler),
                                                 Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler);
             }
+
             if (exportCommandHandler == null)
             {
                 throw new ArgumentNullException(nameof(exportCommandHandler),
                                                 Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_handler);
             }
+
             if (updateCommandHandler == null)
             {
                 throw new ArgumentNullException(nameof(updateCommandHandler),
                                                 Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_update_handler);
             }
+
             if (viewCommandsHandler == null)
             {
                 throw new ArgumentNullException(nameof(viewCommandsHandler),
                                                 Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands);
             }
+
             if (dataObject == null)
             {
                 throw new ArgumentNullException(nameof(dataObject),
                                                 Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data);
             }
+
             this.applicationFeatureCommandHandler = applicationFeatureCommandHandler;
             this.importCommandHandler = importCommandHandler;
             this.exportCommandHandler = exportCommandHandler;
@@ -184,14 +190,17 @@ namespace Core.Common.Gui.ContextMenu
             {
                 throw new ArgumentException(@"Text should be set.", nameof(text));
             }
+
             if (toolTip == null)
             {
                 throw new ArgumentNullException(nameof(toolTip));
             }
+
             if (image == null)
             {
                 throw new ArgumentNullException(nameof(image));
             }
+
             return CreateImportItem(text, toolTip, image);
         }
 

@@ -50,6 +50,7 @@ namespace Core.Common.Base.Data
             {
                 throw new ArgumentNullException(nameof(originalPoints));
             }
+
             if (numberOfDecimalPlaces < 0 || numberOfDecimalPlaces > RoundedDouble.MaximumNumberOfDecimalPlaces)
             {
                 throw new ArgumentOutOfRangeException(nameof(numberOfDecimalPlaces), @"Value must be in range [0, 15].");

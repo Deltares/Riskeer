@@ -46,10 +46,12 @@ namespace Core.Common.Util
             {
                 throw new ArgumentNullException(nameof(value), @"An Enum type value is required.");
             }
+
             if (!typeof(Enum).IsAssignableFrom(typeof(T)))
             {
                 throw new InvalidTypeParameterException(@"The type parameter has to be an Enum type.", nameof(T));
             }
+
             Value = value;
             SetDisplayName(value);
         }

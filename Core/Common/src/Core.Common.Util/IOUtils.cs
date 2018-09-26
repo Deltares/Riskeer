@@ -56,6 +56,7 @@ namespace Core.Common.Util
             {
                 return false;
             }
+
             return true;
         }
 
@@ -116,6 +117,7 @@ namespace Core.Common.Util
                     .Build(Resources.Error_Path_cannot_contain_invalid_characters);
                 throw new ArgumentException(message, exception);
             }
+
             if (string.IsNullOrEmpty(name))
             {
                 string message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_not_point_to_empty_file_name);
@@ -145,6 +147,7 @@ namespace Core.Common.Util
             {
                 return false;
             }
+
             return true;
         }
 
@@ -164,10 +167,12 @@ namespace Core.Common.Util
             {
                 throw new ArgumentException(@"No valid value for 'path'.", nameof(path));
             }
+
             if (string.IsNullOrWhiteSpace(searchPattern))
             {
                 throw new ArgumentException(@"No valid value for 'searchPattern'.", nameof(searchPattern));
             }
+
             try
             {
                 foreach (string logFile in Directory.GetFiles(path, searchPattern).Where(
@@ -185,6 +190,7 @@ namespace Core.Common.Util
                                                    path);
                     throw new IOException(message, e);
                 }
+
                 throw;
             }
         }
@@ -240,6 +246,7 @@ namespace Core.Common.Util
             {
                 throw new ArgumentException(Resources.IOUtils_Path_cannot_be_empty);
             }
+
             try
             {
                 return Path.GetFullPath(path);

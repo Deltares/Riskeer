@@ -42,6 +42,7 @@ namespace Core.Common.Controls.PresentationObjects
             {
                 throw new ArgumentNullException(nameof(wrappedData), @"Wrapped data of context cannot be null.");
             }
+
             WrappedData = wrappedData;
         }
 
@@ -58,14 +59,17 @@ namespace Core.Common.Controls.PresentationObjects
             {
                 return false;
             }
+
             if (other.GetType() != GetType())
             {
                 return false;
             }
+
             if (ReferenceEquals(this, other))
             {
                 return true;
             }
+
             return WrappedData.Equals(other.WrappedData);
         }
 

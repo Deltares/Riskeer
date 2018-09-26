@@ -232,7 +232,7 @@ namespace Core.Common.Base.Test.Geometry
             // Assert
             double length = Math.Sqrt(2 * 2 + 3 * 3);
             const double secondCoordinateFactor = (2.0 * 1.0 + 3.0 * 2.0) / (2.0 * 2.0 + 3.0 * 3.0);
-            var expectedCoordinatesX = new[]
+            double[] expectedCoordinatesX =
             {
                 0.0,
                 secondCoordinateFactor * length,

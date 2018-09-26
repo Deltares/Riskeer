@@ -64,6 +64,7 @@ namespace Core.Common.Gui
             {
                 throw new ArgumentNullException(nameof(requiredOpenProjectProperties));
             }
+
             ValidateOpenProjectProperties(requiredOpenProjectProperties);
             if (optionalProjectMigrationProperties != null)
             {
@@ -246,14 +247,17 @@ namespace Core.Common.Gui
             {
                 throw new ArgumentException(@"Filepath should be set.", nameof(requiredOpenProjectProperties));
             }
+
             if (requiredOpenProjectProperties.ProjectOwner == null)
             {
                 throw new ArgumentException(@"Project owner should be set.", nameof(requiredOpenProjectProperties));
             }
+
             if (requiredOpenProjectProperties.ProjectFactory == null)
             {
                 throw new ArgumentException(@"Project factory should be set.", nameof(requiredOpenProjectProperties));
             }
+
             if (requiredOpenProjectProperties.ProjectStorage == null)
             {
                 throw new ArgumentException(@"Project storage should be set.", nameof(requiredOpenProjectProperties));
@@ -272,6 +276,7 @@ namespace Core.Common.Gui
             {
                 throw new ArgumentException(@"Project migrator should be set.", nameof(optionalProjectMigrationProperties));
             }
+
             if (optionalProjectMigrationProperties.MigrationFilePath == null)
             {
                 throw new ArgumentException(@"Migration target file path should be set.", nameof(optionalProjectMigrationProperties));

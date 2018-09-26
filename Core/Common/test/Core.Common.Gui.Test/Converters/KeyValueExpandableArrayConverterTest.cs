@@ -196,6 +196,7 @@ namespace Core.Common.Gui.Test.Converters
                 Assert.NotNull(actualValue);
                 Assert.AreEqual(value, actualValue);
             }
+
             mocks.VerifyAll();
         }
 
@@ -229,6 +230,7 @@ namespace Core.Common.Gui.Test.Converters
             {
                 Assert.Throws<NotSupportedException>(() => propertyDescriptors[i].SetValue(array, i));
             }
+
             mocks.VerifyAll();
         }
 

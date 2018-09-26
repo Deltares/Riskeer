@@ -48,6 +48,7 @@ namespace Core.Common.Util.Drawing
             {
                 throw new ArgumentNullException(nameof(g));
             }
+
             if (image == null)
             {
                 throw new ArgumentNullException(nameof(image));

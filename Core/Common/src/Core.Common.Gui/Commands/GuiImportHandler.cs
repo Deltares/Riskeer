@@ -58,14 +58,17 @@ namespace Core.Common.Gui.Commands
             {
                 throw new ArgumentNullException(nameof(dialogParent));
             }
+
             if (importInfos == null)
             {
                 throw new ArgumentNullException(nameof(importInfos));
             }
+
             if (inquiryHelper == null)
             {
                 throw new ArgumentNullException(nameof(inquiryHelper));
             }
+
             this.dialogParent = dialogParent;
             this.importInfos = importInfos;
             this.inquiryHelper = inquiryHelper;

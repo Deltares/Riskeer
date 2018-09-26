@@ -135,6 +135,7 @@ namespace Core.Common.Base.Data
             {
                 return this;
             }
+
             return new RoundedDouble(newNumberOfDecimalPlaces, Value);
         }
 
@@ -184,10 +185,12 @@ namespace Core.Common.Base.Data
             {
                 return false;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((RoundedDouble) obj);
         }
 
@@ -247,6 +250,7 @@ namespace Core.Common.Base.Data
             {
                 return Resources.RoundedDouble_ToString_PositiveInfinity;
             }
+
             if (double.IsNegativeInfinity(Value))
             {
                 return Resources.RoundedDouble_ToString_NegativeInfinity;
@@ -257,9 +261,7 @@ namespace Core.Common.Base.Data
 
         private static double RoundDouble(double value, int numberOfDecimalPlaces)
         {
-            return IsSpecialDoubleValue(value) ?
-                       value :
-                       Math.Round(value, numberOfDecimalPlaces, MidpointRounding.AwayFromZero);
+            return IsSpecialDoubleValue(value) ? value : Math.Round(value, numberOfDecimalPlaces, MidpointRounding.AwayFromZero);
         }
 
         /// <summary>

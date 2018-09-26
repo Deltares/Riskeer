@@ -71,6 +71,7 @@ namespace Core.Common.Gui.PropertyBag
                 {
                     return DynamicReadOnlyAttribute.IsReadOnly(instance, item.Name);
                 }
+
                 return Attributes.Matches(ReadOnlyAttribute.Yes);
             }
         }
@@ -83,6 +84,7 @@ namespace Core.Common.Gui.PropertyBag
                 {
                     return DynamicVisibleAttribute.IsVisible(instance, item.Name);
                 }
+
                 return !Attributes.Matches(BrowsableAttribute.No);
             }
         }
@@ -112,6 +114,7 @@ namespace Core.Common.Gui.PropertyBag
             {
                 return new DynamicPropertyBag(propertyValue);
             }
+
             return propertyValue;
         }
 
@@ -131,6 +134,7 @@ namespace Core.Common.Gui.PropertyBag
             {
                 throw new ArgumentNullException(nameof(propertySpec));
             }
+
             return propertySpec;
         }
     }

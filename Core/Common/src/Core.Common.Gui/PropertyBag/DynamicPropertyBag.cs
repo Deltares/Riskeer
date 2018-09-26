@@ -174,6 +174,7 @@ namespace Core.Common.Gui.PropertyBag
 
                 unorderedProperties.Add(pd);
             }
+
             IEnumerable<PropertyDescriptor> orderedProperties = propertiesWithOrdering.OrderBy(p => p.Item1).Select(p => p.Item2);
 
             return orderedProperties.Concat(unorderedProperties).ToArray();

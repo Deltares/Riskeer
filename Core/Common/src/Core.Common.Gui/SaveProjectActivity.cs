@@ -63,14 +63,17 @@ namespace Core.Common.Gui
             {
                 throw new ArgumentNullException(nameof(project));
             }
+
             if (filePath == null)
             {
                 throw new ArgumentNullException(nameof(filePath));
             }
+
             if (storeProject == null)
             {
                 throw new ArgumentNullException(nameof(storeProject));
             }
+
             if (projectOwner == null)
             {
                 throw new ArgumentNullException(nameof(projectOwner));

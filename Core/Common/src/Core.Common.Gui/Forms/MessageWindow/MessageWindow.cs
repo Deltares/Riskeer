@@ -113,6 +113,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             {
                 shortMessage = reader.ReadLine();
             }
+
             newMessages.Enqueue(new MessageData
             {
                 ImageName = level.ToString(),
@@ -207,12 +208,14 @@ namespace Core.Common.Gui.Forms.MessageWindow
                                               filterFormat,
                                               Level.Info));
             }
+
             if (buttonShowWarning.Checked)
             {
                 filterlines.Add(string.Format(CultureInfo.CurrentCulture,
                                               filterFormat,
                                               Level.Warn));
             }
+
             if (buttonShowError.Checked)
             {
                 filterlines.Add(string.Format(CultureInfo.CurrentCulture,
@@ -222,11 +225,12 @@ namespace Core.Common.Gui.Forms.MessageWindow
                                               filterFormat,
                                               Level.Fatal));
             }
-            return filterlines.Count == 0 ?
-                       string.Format(CultureInfo.CurrentCulture,
-                                     filterFormat,
-                                     "NOTHING SHOWN") :
-                       string.Join(" OR ", filterlines);
+
+            return filterlines.Count == 0
+                       ? string.Format(CultureInfo.CurrentCulture,
+                                       filterFormat,
+                                       "NOTHING SHOWN")
+                       : string.Join(" OR ", filterlines);
         }
 
         private void ShowMessageWindowDialog()
@@ -314,6 +318,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             {
                 return;
             }
+
             DataGridViewRow row = messagesDataGridView.Rows[e.RowIndex];
             AutoSizeRow(row);
         }

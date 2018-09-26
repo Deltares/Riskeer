@@ -66,6 +66,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
                 gui.Plugins.Add(new RingtoetsPlugin());
                 gui.Run();
             }
+
             mocks.VerifyAll();
         }
 
@@ -96,6 +97,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, () => callCount++);
                 Assert.AreEqual(1, callCount);
             }
+
             mocks.VerifyAll();
         }
 
@@ -117,6 +119,7 @@ namespace Core.Common.Integration.Test.Ringtoets.Application.Ringtoets
 
                 WpfTestHelper.ShowModal((Control) gui.MainWindow);
             }
+
             mocks.VerifyAll();
         }
     }

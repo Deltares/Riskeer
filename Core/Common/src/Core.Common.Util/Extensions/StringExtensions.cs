@@ -37,6 +37,7 @@ namespace Core.Common.Util.Extensions
             {
                 return null;
             }
+
             return string.Format(CultureInfo.CurrentCulture,
                                  "{0}",
                                  original);

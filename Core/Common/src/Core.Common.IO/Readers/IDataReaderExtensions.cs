@@ -47,6 +47,7 @@ namespace Core.Common.IO.Readers
             {
                 throw new ArgumentNullException(nameof(dataReader));
             }
+
             if (columnName == null)
             {
                 throw new ArgumentNullException(nameof(columnName));

@@ -55,10 +55,12 @@ namespace Core.Common.Base
             {
                 throw new ArgumentNullException(nameof(getUniqueFeature));
             }
+
             if (typeDescriptor == null)
             {
                 throw new ArgumentNullException(nameof(typeDescriptor));
             }
+
             if (featureDescription == null)
             {
                 throw new ArgumentNullException(nameof(featureDescription));
@@ -115,6 +117,7 @@ namespace Core.Common.Base
             {
                 SourcePath = null;
             }
+
             return remove;
         }
 
@@ -146,10 +149,12 @@ namespace Core.Common.Base
             {
                 throw new ArgumentNullException(nameof(filePath));
             }
+
             if (!IOUtils.IsValidFilePath(filePath) && filePath.Length > 0)
             {
                 throw new ArgumentException($@"'{filePath}' is not a valid file path.", nameof(filePath));
             }
+
             InternalValidateItems(items);
 
             SourcePath = filePath;
@@ -184,6 +189,7 @@ namespace Core.Common.Base
             {
                 throw new ArgumentNullException(nameof(items));
             }
+
             if (items.Contains(null))
             {
                 throw new ArgumentException(@"Collection cannot contain null.", nameof(items));

@@ -354,7 +354,7 @@ namespace Core.Common.Geometry.Test
         {
             // Setup
             const double center = 5.0;
-            var xCoordinates = new[]
+            double[] xCoordinates =
             {
                 center - Math.Sqrt(8),
                 center,

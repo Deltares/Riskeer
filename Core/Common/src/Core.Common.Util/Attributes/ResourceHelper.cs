@@ -48,6 +48,7 @@ namespace Core.Common.Util.Attributes
                                                resourceType, resourceName);
                 throw new InvalidOperationException(message);
             }
+
             if (property.PropertyType != typeof(string))
             {
                 string message = string.Format(CultureInfo.CurrentCulture,
@@ -55,6 +56,7 @@ namespace Core.Common.Util.Attributes
                                                resourceName);
                 throw new InvalidOperationException(message);
             }
+
             return (string) property.GetValue(null, null);
         }
     }

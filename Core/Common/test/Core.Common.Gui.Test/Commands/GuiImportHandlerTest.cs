@@ -382,6 +382,7 @@ namespace Core.Common.Gui.Test.Commands
                 // Assert
                 TestHelper.AssertLogMessageIsGenerated(call, "Importeren van gegevens is geannuleerd.");
             }
+
             mockRepository.VerifyAll();
         }
 

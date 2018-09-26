@@ -39,6 +39,7 @@ namespace Core.Common.Base.TypeConverters
             {
                 return true;
             }
+
             return base.CanConvertFrom(context, sourceType);
         }
 
@@ -68,6 +69,7 @@ namespace Core.Common.Base.TypeConverters
                                                     exception);
                 }
             }
+
             return base.ConvertFrom(context, culture, value);
         }
     }

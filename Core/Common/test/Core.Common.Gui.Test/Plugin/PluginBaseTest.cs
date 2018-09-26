@@ -58,6 +58,7 @@ namespace Core.Common.Gui.Test.Plugin
                 // Assert
                 Assert.AreEqual(gui, plugin.Gui);
             }
+
             mocks.VerifyAll();
         }
 

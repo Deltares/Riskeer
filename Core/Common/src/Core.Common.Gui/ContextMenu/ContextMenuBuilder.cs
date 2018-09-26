@@ -76,6 +76,7 @@ namespace Core.Common.Gui.ContextMenu
             {
                 throw new ContextMenuBuilderException(Resources.ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories, e);
             }
+
             contextMenu = new ContextMenuStrip();
         }
 
@@ -151,6 +152,7 @@ namespace Core.Common.Gui.ContextMenu
             {
                 AddItem(new ToolStripSeparator());
             }
+
             return this;
         }
 
@@ -170,6 +172,7 @@ namespace Core.Common.Gui.ContextMenu
                     contextMenu.Items.RemoveAt(lastIndex);
                 }
             }
+
             return contextMenu;
         }
 
@@ -179,6 +182,7 @@ namespace Core.Common.Gui.ContextMenu
             {
                 return false;
             }
+
             return !(contextMenu.Items[contextMenu.Items.Count - 1] is ToolStripSeparator);
         }
 

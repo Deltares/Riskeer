@@ -71,6 +71,7 @@ namespace Core.Common.Gui.Converters
                     properties[index] = new ArrayPropertyDescriptor(elementType, keyValueAttribute.GetName(source), keyValueAttribute.GetValue(source));
                 }
             }
+
             return new PropertyDescriptorCollection(properties);
         }
 

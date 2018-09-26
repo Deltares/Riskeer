@@ -50,10 +50,12 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentNullException(nameof(worldCoordinate));
             }
+
             if (startWorldCoordinate == null)
             {
                 throw new ArgumentNullException(nameof(startWorldCoordinate));
             }
+
             if (endWorldCoordinate == null)
             {
                 throw new ArgumentNullException(nameof(endWorldCoordinate));

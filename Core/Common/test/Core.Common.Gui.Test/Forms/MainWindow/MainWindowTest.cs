@@ -145,6 +145,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.IsTrue(mainWindow.IsVisible);
                 Assert.AreEqual(Visibility.Visible, mainWindow.Visibility);
             }
+
             mocks.VerifyAll();
         }
 
@@ -177,6 +178,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.IsFalse(mainWindow.IsVisible);
                 Assert.AreEqual(Visibility.Hidden, mainWindow.Visibility);
             }
+
             mocks.VerifyAll();
         }
 
@@ -217,6 +219,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 // Call
                 mainWindow.SubscribeToGui();
             }
+
             // Assert
             mocks.VerifyAll(); // Expect event subscription
         }
@@ -262,6 +265,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 // Call
                 mainWindow.UnsubscribeFromGui();
             }
+
             // Assert
             mocks.VerifyAll(); // Expect event subscription and desubscription
         }
@@ -316,6 +320,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
                 Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
             }
+
             mocks.VerifyAll();
         }
 
@@ -412,6 +417,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
                 Assert.IsNull(viewHost.ActiveDocumentView);
             }
+
             mocks.VerifyAll();
         }
 
@@ -444,6 +450,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 // Assert
                 Assert.IsNull(mainWindow.PropertyGrid);
             }
+
             mocks.VerifyAll();
         }
 
@@ -476,6 +483,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 // Assert
                 Assert.IsNull(mainWindow.MessageWindow);
             }
+
             mocks.VerifyAll();
         }
     }

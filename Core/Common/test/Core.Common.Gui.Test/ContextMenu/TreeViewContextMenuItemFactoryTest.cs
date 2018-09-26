@@ -36,11 +36,6 @@ namespace Core.Common.Gui.Test.ContextMenu
     {
         private MockRepository mocks;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-        }
-
         [Test]
         public void Constructor_WithoutDataObject_ThrowsArgumentNullException()
         {
@@ -142,7 +137,8 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             Assert.AreEqual(Resources.DeleteChildren, item.Text);
-            string expectedTooltip = canDelete ? "Verwijder alle onderliggende elementen van dit element."
+            string expectedTooltip = canDelete
+                                         ? "Verwijder alle onderliggende elementen van dit element."
                                          : "Er zijn geen onderliggende elementen om te verwijderen.";
             Assert.AreEqual(expectedTooltip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.DeleteChildrenIcon, item.Image);
@@ -254,6 +250,11 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Collapse_all_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.CollapseAllIcon, item.Image);
             Assert.AreEqual(hasChildren, item.Enabled);
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
         }
     }
 }

@@ -85,6 +85,7 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentNullException(nameof(p1));
             }
+
             if (p2 == null)
             {
                 throw new ArgumentNullException(nameof(p2));
@@ -115,6 +116,7 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentNullException(nameof(point));
             }
+
             if (vector == null)
             {
                 throw new ArgumentNullException(nameof(vector));
@@ -127,6 +129,7 @@ namespace Core.Common.Base.Geometry
                                                vector.Count);
                 throw new ArgumentException(message, nameof(vector));
             }
+
             double x = point.X + vector[0];
             double y = point.Y + vector[1];
             return new Point2D(x, y);
@@ -156,14 +159,17 @@ namespace Core.Common.Base.Geometry
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((Point2D) obj);
         }
 

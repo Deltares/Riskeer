@@ -47,6 +47,7 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentNullException(nameof(points));
             }
+
             double[] lCoordinates = points.Select(p => p.X).ToArray();
             for (var i = 1; i < lCoordinates.Length; i++)
             {
@@ -55,6 +56,7 @@ namespace Core.Common.Base.Geometry
                     return true;
                 }
             }
+
             return false;
         }
     }

@@ -547,7 +547,7 @@ namespace Core.Common.Gui.Test
                 Action call = () => gui.Run(testFile);
 
                 // Assert
-                var expectedMessages = new[]
+                Tuple<string, LogLevelConstant>[] expectedMessages =
                 {
                     Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                     Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
@@ -695,7 +695,7 @@ namespace Core.Common.Gui.Test
                 Action call = () => gui.Run(testFile);
 
                 // Assert
-                var expectedMessages = new[]
+                Tuple<string, LogLevelConstant>[] expectedMessages =
                 {
                     Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                     Tuple.Create(expectedErrorMessage, LogLevelConstant.Error),
@@ -746,7 +746,7 @@ namespace Core.Common.Gui.Test
                 Action call = () => gui.Run(testFile);
 
                 // Assert
-                var expectedMessages = new[]
+                Tuple<string, LogLevelConstant>[] expectedMessages =
                 {
                     Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                     Tuple.Create(storageExceptionText, LogLevelConstant.Error),
@@ -989,7 +989,7 @@ namespace Core.Common.Gui.Test
                 object[] dataInstancesWithViewDefinitions = gui.GetAllDataWithViewDefinitionsRecursively(rootData).OfType<object>().ToArray();
 
                 // Assert
-                var expectedDataDefinitions = new[]
+                object[] expectedDataDefinitions =
                 {
                     rootData
                 };
@@ -1050,7 +1050,7 @@ namespace Core.Common.Gui.Test
                 object[] dataInstancesWithViewDefinitions = gui.GetAllDataWithViewDefinitionsRecursively(rootData).OfType<object>().ToArray();
 
                 // Assert
-                var expectedDataDefinitions = new[]
+                object[] expectedDataDefinitions =
                 {
                     rootData,
                     rootChild

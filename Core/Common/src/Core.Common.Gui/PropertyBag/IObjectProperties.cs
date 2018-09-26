@@ -29,13 +29,13 @@ namespace Core.Common.Gui.PropertyBag
     public interface IObjectProperties
     {
         /// <summary>
-        /// Gets or sets the data of the object properties.
-        /// </summary>
-        object Data { get; set; }
-
-        /// <summary>
         /// Fired when the property grid should be refreshed.
         /// </summary>
         event EventHandler<EventArgs> RefreshRequired;
+
+        /// <summary>
+        /// Gets or sets the data of the object properties.
+        /// </summary>
+        object Data { get; set; }
     }
 }

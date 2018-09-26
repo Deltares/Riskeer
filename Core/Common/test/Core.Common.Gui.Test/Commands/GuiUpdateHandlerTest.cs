@@ -385,6 +385,7 @@ namespace Core.Common.Gui.Test.Commands
                                                                                           LogLevelConstant.Info);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -428,6 +429,7 @@ namespace Core.Common.Gui.Test.Commands
                                                                                           LogLevelConstant.Info);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
             }
+
             mockRepository.VerifyAll();
         }
 

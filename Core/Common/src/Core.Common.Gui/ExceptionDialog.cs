@@ -117,6 +117,7 @@ namespace Core.Common.Gui
             {
                 saved = false;
             }
+
             ShowMessageDialog(
                 saved ? Resources.ExceptionDialog_ButtonSaveProjectClick_Successfully_saved_project : Resources.ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed,
                 saved ? Resources.ExceptionDialog_ButtonSaveProjectClick_Successfully_saved_project_caption : Resources.ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed_caption);
