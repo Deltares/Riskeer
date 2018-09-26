@@ -47,9 +47,21 @@ namespace Ringtoets.Common.Forms.Helpers
         /// </list>
         /// </param>
         /// <returns>The created presentation objects.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSections"/> or
+        /// <paramref name="createPresentableFailureMechanismSectionFunc"/> is <c>null</c>.</exception>
         public static IEnumerable<T> CreatePresentableFailureMechanismSections<T>(IEnumerable<FailureMechanismSection> failureMechanismSections,
                                                                                   Func<FailureMechanismSection, double, double, T> createPresentableFailureMechanismSectionFunc)
         {
+            if (failureMechanismSections == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSections));
+            }
+
+            if (createPresentableFailureMechanismSectionFunc == null)
+            {
+                throw new ArgumentNullException(nameof(createPresentableFailureMechanismSectionFunc));
+            }
+
             double start = 0;
 
             foreach (FailureMechanismSection failureMechanismSection in failureMechanismSections)
