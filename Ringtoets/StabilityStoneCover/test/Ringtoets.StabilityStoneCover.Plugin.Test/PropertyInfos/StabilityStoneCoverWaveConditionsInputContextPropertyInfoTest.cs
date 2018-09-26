@@ -87,7 +87,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsInputContextProperties>(objectProperties);
                 Assert.AreSame(context, objectProperties.Data);
 
-                Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation.Output.Result, 
+                Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation.Output.Result,
                                 ((StabilityStoneCoverWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
             }
         }

@@ -59,6 +59,7 @@ namespace Ringtoets.StabilityStoneCover.Service
                     calculation
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
 
@@ -155,6 +156,7 @@ namespace Ringtoets.StabilityStoneCover.Service
                     input
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
     }

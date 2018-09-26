@@ -53,14 +53,6 @@ namespace Ringtoets.StabilityStoneCover.Data
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return WaveConditionsCalculationGroup.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>();
-            }
-        }
-
         /// <summary>
         /// Gets the general stability stone cover wave conditions input parameters that apply to each calculation.
         /// </summary>
@@ -75,6 +67,14 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                return WaveConditionsCalculationGroup.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>();
+            }
+        }
 
         public IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> SectionResults
         {

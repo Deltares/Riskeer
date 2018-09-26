@@ -203,6 +203,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
 
                 stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
             }
+
             calculationGroup.Children.Add(
                 new CalculationGroup
                 {
