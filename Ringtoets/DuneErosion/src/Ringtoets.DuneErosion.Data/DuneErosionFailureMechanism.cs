@@ -52,14 +52,6 @@ namespace Ringtoets.DuneErosion.Data
             GeneralInput = new GeneralDuneErosionInput();
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                yield break;
-            }
-        }
-
         /// <summary>
         /// Gets the general dune erosion calculation input parameters that apply to each calculation.
         /// </summary>
@@ -128,6 +120,14 @@ namespace Ringtoets.DuneErosion.Data
             get
             {
                 return calculationsForFactorizedLowerLimitNorm;
+            }
+        }
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                yield break;
             }
         }
 

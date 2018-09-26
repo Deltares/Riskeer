@@ -154,7 +154,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(DuneLocationCalculationsGroupContext)));
             }
         }
-        
+
         [Test]
         public void GetUpdateInfos_ReturnsSupportedUpdateInfos()
         {

@@ -96,7 +96,7 @@ namespace Ringtoets.DuneErosion.IO
                 duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture),
                 Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
                 duneLocation.D50.ToString(null, CultureInfo.InvariantCulture),
-                string.Format(Resources.DuneLocationCalculationsWriter_WBI2017_ID_Format, calculation.CategoryBoundaryName, 
+                string.Format(Resources.DuneLocationCalculationsWriter_WBI2017_ID_Format, calculation.CategoryBoundaryName,
                               probabilityConverter.ConvertToInvariantString(calculation.Norm)),
                 calculation.CategoryBoundaryName,
                 calculation.Norm.ToString(CultureInfo.InvariantCulture)
