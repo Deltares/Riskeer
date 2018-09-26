@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
@@ -76,9 +75,8 @@ namespace Ringtoets.Common.Forms.Views
 
             failureMechanismSectionsDataGridViewControl.SetDataSource(
                 FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(
-                                                             sections,
-                                                             CreateFailureMechanismSectionProbabilityAssessmentRow)
-                                                         .ToArray());
+                    sections,
+                    CreateFailureMechanismSectionProbabilityAssessmentRow));
         }
 
         protected override void Dispose(bool disposing)

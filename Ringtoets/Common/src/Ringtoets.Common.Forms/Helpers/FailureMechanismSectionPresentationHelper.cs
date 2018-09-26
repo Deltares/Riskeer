@@ -49,8 +49,8 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <returns>The created presentation objects.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSections"/> or
         /// <paramref name="createPresentableFailureMechanismSectionFunc"/> is <c>null</c>.</exception>
-        public static IEnumerable<T> CreatePresentableFailureMechanismSections<T>(IEnumerable<FailureMechanismSection> failureMechanismSections,
-                                                                                  Func<FailureMechanismSection, double, double, T> createPresentableFailureMechanismSectionFunc)
+        public static T[] CreatePresentableFailureMechanismSections<T>(IEnumerable<FailureMechanismSection> failureMechanismSections,
+                                                                       Func<FailureMechanismSection, double, double, T> createPresentableFailureMechanismSectionFunc)
         {
             if (failureMechanismSections == null)
             {
@@ -64,14 +64,18 @@ namespace Ringtoets.Common.Forms.Helpers
 
             double start = 0;
 
+            var presentableFailureMechanismSections = new List<T>();
+
             foreach (FailureMechanismSection failureMechanismSection in failureMechanismSections)
             {
                 double end = start + failureMechanismSection.Length;
 
-                yield return createPresentableFailureMechanismSectionFunc(failureMechanismSection, start, end);
+                presentableFailureMechanismSections.Add(createPresentableFailureMechanismSectionFunc(failureMechanismSection, start, end));
 
                 start = end;
             }
+
+            return presentableFailureMechanismSections.ToArray();
         }
     }
 }

@@ -110,9 +110,8 @@ namespace Ringtoets.Common.Forms.Views
         {
             failureMechanismSectionsDataGridViewControl.SetDataSource(
                 FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(
-                                                             sections,
-                                                             CreateFailureMechanismSectionRow)
-                                                         .ToArray());
+                    sections,
+                    CreateFailureMechanismSectionRow));
         }
 
         private static FailureMechanismSectionRow CreateFailureMechanismSectionRow(FailureMechanismSection section,

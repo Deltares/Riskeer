@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
@@ -83,9 +82,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             get
             {
                 return FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(
-                                                                    data.Sections,
-                                                                    CreateFailureMechanismSectionProperties)
-                                                                .ToArray();
+                    data.Sections,
+                    CreateFailureMechanismSectionProperties);
             }
         }
 
