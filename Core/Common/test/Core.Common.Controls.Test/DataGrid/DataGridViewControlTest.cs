@@ -335,8 +335,6 @@ namespace Core.Common.Controls.Test.DataGrid
         public void AddCheckboxColumn_ReadOnlySet_AddsColumnToDataGridViewWithReadOnlyTrue()
         {
             // Setup
-            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -349,7 +347,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                control.AddCheckBoxColumn(propertyName, headerText, true, autoSizeMode);
+                control.AddCheckBoxColumn(propertyName, headerText, true);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
@@ -359,40 +357,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
                 Assert.IsTrue(columnData.ReadOnly);
-                Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
-                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
-            }
-        }
-
-        [Test]
-        public void AddCheckboxColumn_AutoSizeModeSet_AddsColumnToDataGridViewWithAutoSizeMode()
-        {
-            // Setup
-            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-
-            using (var form = new Form())
-            using (var control = new DataGridViewControl())
-            {
-                form.Controls.Add(control);
-                form.Show();
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Precondition
-                Assert.AreEqual(0, dataGridView.ColumnCount);
-
-                // Call
-                control.AddCheckBoxColumn(propertyName, headerText, false, autoSizeMode);
-
-                // Assert
-                Assert.AreEqual(1, dataGridView.ColumnCount);
-
-                var columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
-                Assert.AreEqual(propertyName, columnData.DataPropertyName);
-                Assert.AreEqual($"column_{propertyName}", columnData.Name);
-                Assert.AreEqual(headerText, columnData.HeaderText);
-                Assert.IsFalse(columnData.ReadOnly);
-                Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
+                Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
             }
         }
@@ -504,38 +469,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.IsTrue(columnData.ReadOnly);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
-            }
-        }
-
-        [Test]
-        public void AddColorColumn_WithAutoSizeMode_AddsColumnToDataGridViewWithAutoSizeMode()
-        {
-            // Setup
-            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-
-            using (var form = new Form())
-            using (var control = new DataGridViewControl())
-            {
-                form.Controls.Add(control);
-                form.Show();
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Precondition
-                Assert.AreEqual(0, dataGridView.ColumnCount);
-
-                // Call
-                control.AddColorColumn(propertyName, headerText, autoSizeMode);
-
-                // Assert
-                Assert.AreEqual(1, dataGridView.ColumnCount);
-
-                var columnData = (DataGridViewColorColumn) dataGridView.Columns[0];
-                Assert.AreEqual(propertyName, columnData.DataPropertyName);
-                Assert.AreEqual($"column_{propertyName}", columnData.Name);
-                Assert.AreEqual(headerText, columnData.HeaderText);
-                Assert.IsTrue(columnData.ReadOnly);
-                Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
             }
         }
 
