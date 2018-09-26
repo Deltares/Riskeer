@@ -74,10 +74,6 @@
       <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
       <Name>Ringtoets.DuneErosion.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Service\Ringtoets.DuneErosion.Service.csproj">
-      <Project>{FDEE3429-0BB1-4AD2-813A-06FAD425EA6F}</Project>
-      <Name>Ringtoets.DuneErosion.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\DuneErosion\test\Ringtoets.DuneErosion.Data.TestUtil\Ringtoets.DuneErosion.Data.TestUtil.csproj">
       <Project>{7BE6B522-02E3-4143-8508-C021A211DE54}</Project>
       <Name>Ringtoets.DuneErosion.Data.TestUtil</Name>
