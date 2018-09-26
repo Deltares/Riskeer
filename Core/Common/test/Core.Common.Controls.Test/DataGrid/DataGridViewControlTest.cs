@@ -301,7 +301,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void AddCheckBoxColumn_WithoutAutoSizeMode_AddsColumnToDataGridViewWithDefaultAutoSizeMode()
+        public void AddCheckBoxColumn_WithoutReadOnly_AddsColumnToDataGridViewWithDefaultReadOnly()
         {
             // Setup
             using (var form = new Form())
@@ -442,7 +442,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void AddColorColumn_WithoutAutoSizeMode_AddsReadOnlyColumnToDataGridViewWithDefaultAutoSizeMode()
+        public void AddColorColumn_Always_AddsReadOnlyColumnToDataGridView()
         {
             // Setup
             using (var form = new Form())
