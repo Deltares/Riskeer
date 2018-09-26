@@ -46,6 +46,7 @@ namespace Ringtoets.Common.Util
             {
                 throw new ArgumentNullException(nameof(sections));
             }
+
             return sections.Select(s => new SectionSegments(s)).ToArray();
         }
 
@@ -75,6 +76,7 @@ namespace Ringtoets.Common.Util
                     section = sectionSegments.Section;
                 }
             }
+
             return section;
         }
     }

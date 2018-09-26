@@ -45,10 +45,12 @@ namespace Ringtoets.Common.Util
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (location == null)
             {
                 throw new ArgumentNullException(nameof(location));
             }
+
             Calculation = calculation;
             Location = location;
         }

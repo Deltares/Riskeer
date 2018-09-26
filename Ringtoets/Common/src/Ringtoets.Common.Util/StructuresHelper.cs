@@ -70,6 +70,7 @@ namespace Ringtoets.Common.Util
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
+
             return calculations.Select(AsCalculationWithLocation).Where(c => c != null);
         }
 
@@ -80,10 +81,12 @@ namespace Ringtoets.Common.Util
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (calculation.InputParameters.Structure == null)
             {
                 return null;
             }
+
             return new CalculationWithLocation(calculation, calculation.InputParameters.Structure.Location);
         }
     }

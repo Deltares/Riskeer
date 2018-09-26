@@ -95,6 +95,7 @@ namespace Ringtoets.Common.Util
 
                 UpdateCalculationsOfSegment(calculationsPerSegment, section.Name, calculationWithLocation.Calculation);
             }
+
             return calculationsPerSegment;
         }
 
@@ -134,6 +135,7 @@ namespace Ringtoets.Common.Util
                     sectionResult.Calculation = null;
                     affected = true;
                 }
+
                 if (calculationsPerSegmentName.ContainsKey(sectionName))
                 {
                     IEnumerable<ICalculation> calculationsInCurrentSection = calculationsPerSegmentName[sectionName];
@@ -142,17 +144,20 @@ namespace Ringtoets.Common.Util
                         sectionResult.Calculation = null;
                         affected = true;
                     }
+
                     if (sectionResult.Calculation == null && calculationsInCurrentSection.Count() == 1)
                     {
                         sectionResult.Calculation = calculationsInCurrentSection.Single();
                         affected = true;
                     }
                 }
+
                 if (affected)
                 {
                     affectedObjects.Add(sectionResult.Result);
                 }
             }
+
             return affectedObjects;
         }
 
@@ -169,6 +174,7 @@ namespace Ringtoets.Common.Util
             {
                 calculationsPerSegment.Add(sectionName, new List<ICalculation>());
             }
+
             calculationsPerSegment[sectionName].Add(calculation);
         }
 
@@ -180,6 +186,7 @@ namespace Ringtoets.Common.Util
             {
                 throw new ArgumentNullException(nameof(sections));
             }
+
             if (sections.Any(s => s == null))
             {
                 throw new ArgumentException(@"Sections contains an entry without value.", nameof(sections));
@@ -200,6 +207,7 @@ namespace Ringtoets.Common.Util
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
+
             if (calculations.Any(s => s == null))
             {
                 throw new ArgumentException(@"Calculations contains an entry without value.", nameof(calculations));
@@ -212,6 +220,7 @@ namespace Ringtoets.Common.Util
             {
                 throw new ArgumentNullException(nameof(sectionResults));
             }
+
             if (sectionResults.Any(s => s == null))
             {
                 throw new ArgumentException(@"SectionResults contains an entry without value.", nameof(sectionResults));

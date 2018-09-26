@@ -100,11 +100,13 @@ namespace Ringtoets.Common.Util.TypeConverters
             {
                 return CreateWmtsMapData(backgroundData.Name, wmtsBackgroundDataConfiguration);
             }
+
             var wellKnownBackgroundDataConfiguration = backgroundData.Configuration as WellKnownBackgroundDataConfiguration;
             if (wellKnownBackgroundDataConfiguration != null)
             {
                 return CreateWellKnownMapdata(wellKnownBackgroundDataConfiguration);
             }
+
             throw new NotSupportedException($"Can't create a image based map data for {backgroundData.Configuration.GetType()}.");
         }
 
@@ -122,11 +124,13 @@ namespace Ringtoets.Common.Util.TypeConverters
             {
                 return CreateWmtsBackgroundDataConfiguration(wmtsMapData);
             }
+
             var wellKnownMapData = mapData as WellKnownTileSourceMapData;
             if (wellKnownMapData != null)
             {
                 return CreateWellKnownBackgroundDataConfiguration(wellKnownMapData);
             }
+
             throw new NotSupportedException($"Can't create a background data configuration for {mapData.GetType()}.");
         }
 

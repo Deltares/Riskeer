@@ -46,6 +46,7 @@ namespace Ringtoets.Common.Util
             {
                 throw new ArgumentNullException(nameof(section));
             }
+
             Section = section;
             segments = Math2D.ConvertPointsToLineSegments(section.Points);
         }
