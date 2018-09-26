@@ -867,7 +867,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
             AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput();
 
-            var calculator = new FailureMechanismSectionAssemblyCalculatorStub(); 
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Call
             calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, assemblyCategoriesInput);
