@@ -46,6 +46,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(hydraRingIllustrationPointResult));
             }
+
             return new IllustrationPointResult(hydraRingIllustrationPointResult.Description,
                                                hydraRingIllustrationPointResult.Value);
         }

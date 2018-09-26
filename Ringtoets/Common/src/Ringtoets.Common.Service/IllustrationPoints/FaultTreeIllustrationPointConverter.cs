@@ -57,8 +57,9 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             try
             {
                 CombinationType combinationType = CombinationTypeConverter.Convert(hydraRingFaultTreeIllustrationPoint.CombinationType);
-                IEnumerable<Stochast> stochasts = hydraRingFaultTreeIllustrationPoint
-                    .Stochasts.Select(StochastConverter.Convert).ToArray();
+                IEnumerable<Stochast> stochasts = hydraRingFaultTreeIllustrationPoint.Stochasts
+                                                                                     .Select(StochastConverter.Convert)
+                                                                                     .ToArray();
 
                 return new FaultTreeIllustrationPoint(hydraRingFaultTreeIllustrationPoint.Name,
                                                       hydraRingFaultTreeIllustrationPoint.Beta,

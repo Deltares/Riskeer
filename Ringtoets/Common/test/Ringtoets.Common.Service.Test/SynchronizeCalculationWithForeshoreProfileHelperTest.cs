@@ -68,6 +68,7 @@ namespace Ringtoets.Common.Service.Test
                 calculation.Expect(c => c.ClearOutput());
                 calculation.Expect(c => c.NotifyObservers());
             }
+
             mocks.ReplayAll();
 
             // Call

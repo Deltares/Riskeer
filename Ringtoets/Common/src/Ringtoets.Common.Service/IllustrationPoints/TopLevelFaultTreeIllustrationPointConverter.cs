@@ -54,6 +54,7 @@ namespace Ringtoets.Common.Service.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(hydraRingWindDirectionClosingSituation));
             }
+
             if (hydraRingIllustrationPointTreeNode == null)
             {
                 throw new ArgumentNullException(nameof(hydraRingIllustrationPointTreeNode));

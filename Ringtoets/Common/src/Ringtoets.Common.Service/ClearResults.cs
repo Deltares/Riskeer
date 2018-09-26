@@ -42,6 +42,7 @@ namespace Ringtoets.Common.Service
             {
                 throw new ArgumentNullException(nameof(changedObjects));
             }
+
             if (removedObjects == null)
             {
                 throw new ArgumentNullException(nameof(removedObjects));
