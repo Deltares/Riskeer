@@ -305,10 +305,6 @@
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
       <Name>Ringtoets.Common.Primitives</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
-      <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
       <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
       <Name>Ringtoets.Common.Util</Name>
