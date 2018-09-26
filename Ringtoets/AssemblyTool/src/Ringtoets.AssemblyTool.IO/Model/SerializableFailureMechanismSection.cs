@@ -53,10 +53,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionCollection"/>,
         /// or <paramref name="geometry"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
-        ///<list type="bullet">
+        /// <list type="bullet">
         /// <item><paramref name="geometry"/> contains no elements.</item>
         /// <item><paramref name="id"/> is invalid.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public SerializableFailureMechanismSection(string id,
                                                    SerializableFailureMechanismSectionCollection failureMechanismSectionCollection,
                                                    double startDistance,

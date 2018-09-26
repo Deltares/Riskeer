@@ -51,10 +51,11 @@ namespace Ringtoets.AssemblyTool.IO.Model
         /// <param name="geometry">The geometry of the reference line.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
-        ///<list type="bullet">
+        /// <list type="bullet">
         /// <item><paramref name="geometry"/> contains no elements.</item>
         /// <item><paramref name="id"/> is invalid.</item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public SerializableAssessmentSection(string id,
                                              string name,
                                              IEnumerable<Point2D> geometry) : this()
