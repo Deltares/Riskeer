@@ -66,6 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             if (destinationType == typeof(OvertoppingRateCalculationType))
             {
                 switch (hydraulicLoadsCalculationType)
@@ -80,6 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             if (destinationType == typeof(string))
             {
                 switch (hydraulicLoadsCalculationType)
@@ -94,6 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
@@ -132,6 +135,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             if (value is OvertoppingRateCalculationType)
             {
                 var overtoppingRateCalculationType = (OvertoppingRateCalculationType) value;
@@ -154,6 +158,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             var text = value as string;
             if (text != null)
             {
@@ -161,15 +166,18 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations.Helpers
                 {
                     return ConfigurationHydraulicLoadsCalculationType.NoCalculation;
                 }
+
                 if (text == Resources.ReadHydraulicLoadsCalculationTypeConverter_CalculateByAssessmentSectionNorm)
                 {
                     return ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm;
                 }
+
                 if (text == Resources.ReadHydraulicLoadsCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability)
                 {
                     return ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability;
                 }
             }
+
             return base.ConvertFrom(context, culture, value);
         }
     }

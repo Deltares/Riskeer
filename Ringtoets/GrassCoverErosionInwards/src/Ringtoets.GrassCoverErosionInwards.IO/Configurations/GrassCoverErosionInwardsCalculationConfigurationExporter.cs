@@ -92,6 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
                 configuration.DikeHeightCalculationType = (ConfigurationHydraulicLoadsCalculationType?)
                     new ConfigurationHydraulicLoadsCalculationTypeConverter().ConvertFrom(input.DikeHeightCalculationType);
             }
+
             if (Enum.IsDefined(typeof(OvertoppingRateCalculationType), input.OvertoppingRateCalculationType))
             {
                 configuration.OvertoppingRateCalculationType = (ConfigurationHydraulicLoadsCalculationType?)

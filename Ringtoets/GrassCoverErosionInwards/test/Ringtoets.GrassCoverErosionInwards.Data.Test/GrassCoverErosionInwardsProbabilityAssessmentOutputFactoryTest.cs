@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(new TestOvertoppingOutput(0), 
+            TestDelegate call = () => GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(new TestOvertoppingOutput(0),
                                                                                                         null, assessmentSection);
 
             // Assert

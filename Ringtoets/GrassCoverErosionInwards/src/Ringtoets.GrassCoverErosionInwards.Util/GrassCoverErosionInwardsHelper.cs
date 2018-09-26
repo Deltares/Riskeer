@@ -94,6 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Util
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
+
             return calculations.Select(AsCalculationWithLocation).Where(c => c != null);
         }
 
@@ -103,6 +104,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Util
             {
                 throw new ArgumentNullException(nameof(sectionResults));
             }
+
             if (sectionResults.Any(sr => sr == null))
             {
                 throw new ArgumentException(@"SectionResults contains an entry without value.", nameof(sectionResults));
@@ -121,10 +123,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Util
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (calculation.InputParameters.DikeProfile == null)
             {
                 return null;
             }
+
             return new CalculationWithLocation(calculation, calculation.InputParameters.DikeProfile.WorldReferencePoint);
         }
 

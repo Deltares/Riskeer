@@ -80,6 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<GrassCoverErosionInwardsCalculationConfigurationExporter>(fileExporter);
             }
+
             mocks.VerifyAll();
         }
 
@@ -122,6 +123,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -162,6 +164,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 

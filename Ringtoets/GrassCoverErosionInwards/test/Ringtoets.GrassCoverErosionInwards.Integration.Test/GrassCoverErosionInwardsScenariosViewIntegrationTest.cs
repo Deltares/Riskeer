@@ -84,6 +84,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     foundValues.Add(row.Cells[0].FormattedValue.ToString());
                 }
+
                 CollectionAssert.AreEqual(expectedValues, foundValues);
             }
         }
@@ -133,6 +134,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                         }
                     });
                 }
+
                 calculationsGroup.NotifyObservers();
 
                 // Assert
@@ -190,6 +192,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                         }
                     });
                 }
+
                 calculationsGroup.NotifyObservers();
 
                 // Call

@@ -288,6 +288,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
+        public override void Update()
+        {
+            UpdateDerivedData();
+            UpdateColumnDefinitionStates();
+            UpdateDetailedAssessmentProbabilityError();
+        }
+
         private void UpdateDetailedAssessmentProbabilityError()
         {
             if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult)
@@ -302,13 +309,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                     DetailedAssessmentProbability,
                     SectionResult.Calculation);
             }
-        }
-
-        public override void Update()
-        {
-            UpdateDerivedData();
-            UpdateColumnDefinitionStates();
-            UpdateDetailedAssessmentProbabilityError();
         }
 
         private void CreateColumnStateDefinitions()
@@ -410,7 +410,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 ColumnStateDefinitions[combinedAssemblyProbabilityIndex].ErrorText = e.Message;
             }
         }
-        
+
         /// <summary>
         /// Updates the column state definitions.
         /// </summary>
