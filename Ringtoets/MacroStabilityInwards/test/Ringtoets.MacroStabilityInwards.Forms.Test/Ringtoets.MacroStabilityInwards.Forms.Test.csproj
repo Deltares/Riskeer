@@ -110,10 +110,6 @@
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj">
-      <Project>{e02482c7-f12b-42f0-bb2b-c7ec17503a72}</Project>
-      <Name>Core.Components.BruTile</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj">
       <Project>{2465CCA1-C505-4827-9454-4FD5FD9194CD}</Project>
       <Name>Core.Components.Chart.Forms</Name>
@@ -129,14 +125,6 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj">
-      <Project>{1081336C-D919-4249-AB33-9AF15F4D19EC}</Project>
-      <Name>Core.Components.BruTile.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj">
-      <Project>{F0FB401A-3494-4237-9E6D-02CDF77912A8}</Project>
-      <Name>Core.Components.Gis.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
@@ -161,10 +149,6 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
       <Name>Ringtoets.Common.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
-      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Ringtoets.Common.Util</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843d6e5-066f-4795-94f5-1d53932dd03c}</Project>
