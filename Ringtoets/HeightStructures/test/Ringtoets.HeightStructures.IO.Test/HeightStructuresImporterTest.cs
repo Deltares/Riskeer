@@ -624,7 +624,8 @@ namespace Ringtoets.HeightStructures.IO.Test
                                                          string structureId,
                                                          IEnumerable<string> messages)
         {
-            return string.Format("Fout bij het lezen van bestand '{0}' (Kunstwerk '{1}' ({2})): klik op details voor meer informatie." + Environment.NewLine
+            return string.Format("Fout bij het lezen van bestand '{0}' (Kunstwerk '{1}' ({2})): klik op details voor meer informatie."
+                                 + Environment.NewLine
                                  + "Er zijn één of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:" + Environment.NewLine + "{3}",
                                  filePath, structureName, structureId,
                                  string.Join(Environment.NewLine, messages.Select(msg => "* " + msg)));

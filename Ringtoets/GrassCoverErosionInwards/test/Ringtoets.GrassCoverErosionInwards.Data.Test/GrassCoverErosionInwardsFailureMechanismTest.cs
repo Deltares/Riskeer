@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             failureMechanism.DikeProfiles.Remove(dikeProfile1);
 
             // Result
-            var expectedDikeProfiles = new[]
+            DikeProfile[] expectedDikeProfiles =
             {
                 dikeProfile3,
                 dikeProfile2

@@ -37,14 +37,14 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             var random = new Random(21);
             double shift = random.NextDouble();
-            
+
             // Call
             TestDelegate call = () => DistributionHelper.ValidateLogNormalDistribution(distributionType,
                                                                                        shift);
 
             // Assert
             var exception = Assert.Throws<DistributionValidationException>(call);
-            Assert.AreEqual($"Parameter moet lognormaal verdeeld zijn.", exception.Message);
+            Assert.AreEqual("Parameter moet lognormaal verdeeld zijn.", exception.Message);
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<DistributionValidationException>(call);
-            Assert.AreEqual($"Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
+            Assert.AreEqual("Parameter moet lognormaal verdeeld zijn met een verschuiving gelijk aan 0.", exception.Message);
         }
 
         [Test]
@@ -104,7 +104,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<DistributionValidationException>(call);
-            Assert.AreEqual($"Parameter moet verschoven lognormaal verdeeld zijn.", exception.Message);
+            Assert.AreEqual("Parameter moet verschoven lognormaal verdeeld zijn.", exception.Message);
         }
 
         [Test]

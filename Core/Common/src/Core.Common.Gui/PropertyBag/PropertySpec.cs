@@ -53,6 +53,7 @@ namespace Core.Common.Gui.PropertyBag
             {
                 throw new ArgumentNullException(nameof(propertyInfo));
             }
+
             if (propertyInfo.GetIndexParameters().Length > 0)
             {
                 throw new ArgumentException(@"Index properties are not allowed.", nameof(propertyInfo));
@@ -67,6 +68,7 @@ namespace Core.Common.Gui.PropertyBag
             {
                 attributeList.Add(new ReadOnlyAttribute(true));
             }
+
             Attributes = new ReadOnlyCollection<Attribute>(attributeList);
         }
 
@@ -199,6 +201,7 @@ namespace Core.Common.Gui.PropertyBag
                     }
                 }
             }
+
             return false;
         }
     }

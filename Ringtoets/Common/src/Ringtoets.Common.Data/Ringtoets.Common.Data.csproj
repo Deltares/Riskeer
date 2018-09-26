@@ -51,6 +51,7 @@
     <Compile Include="Exceptions\MechanismSurfaceLineException.cs" />
     <Compile Include="FailureMechanism\FailureMechanismCategoryType.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSectionCollection.cs" />
+    <Compile Include="HasSectionResultsHelper.cs" />
     <Compile Include="Helpers\SoilLayerDataHelper.cs" />
     <Compile Include="Hydraulics\CalculationConvergence.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />

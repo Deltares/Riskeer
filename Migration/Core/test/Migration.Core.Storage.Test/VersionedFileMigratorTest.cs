@@ -355,6 +355,7 @@ namespace Migration.Core.Storage.Test
             // Assert
             Assert.IsTrue(File.Exists(toLocation), $"File at location {toLocation} has not been created");
             using (new FileDisposeHelper(toLocation)) {}
+
             mockRepository.VerifyAll();
         }
 
@@ -439,6 +440,7 @@ namespace Migration.Core.Storage.Test
                 StringAssert.EndsWith($"', maar er is een onverwachte fout opgetreden tijdens het verplaatsen naar '{toLocation}'.",
                                       exception.Message);
             }
+
             mockRepository.VerifyAll();
         }
 

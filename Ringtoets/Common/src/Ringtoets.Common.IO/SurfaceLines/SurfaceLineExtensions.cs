@@ -65,6 +65,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
+
             if (referenceLine == null)
             {
                 throw new ArgumentNullException(nameof(referenceLine));
@@ -78,6 +79,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                                                surfaceLine.Name);
                 throw new ImportedDataTransformException(message);
             }
+
             if (result.TypeOfIntersection == ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap)
             {
                 string message = string.Format(Resources.SurfaceLineExtensions_GetSingleReferenceLineIntersection_SurfaceLine_0_does_not_correspond_to_current_referenceline, surfaceLine.Name);
@@ -113,6 +115,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                             // Early exit as multiple intersections is a return result:
                             return ReferenceLineIntersectionResult.CreateMultipleIntersectionsOrOverlapResult();
                         }
+
                         intersectionPoint = resultIntersectionPoint;
                     }
 
@@ -123,6 +126,7 @@ namespace Ringtoets.Common.IO.SurfaceLines
                     }
                 }
             }
+
             return intersectionPoint != null
                        ? ReferenceLineIntersectionResult.CreateIntersectionResult(intersectionPoint)
                        : ReferenceLineIntersectionResult.CreateNoSingleIntersectionResult();

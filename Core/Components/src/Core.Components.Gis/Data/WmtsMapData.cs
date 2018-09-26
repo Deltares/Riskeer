@@ -93,14 +93,17 @@ namespace Core.Components.Gis.Data
             {
                 throw new ArgumentNullException(nameof(sourceCapabilitiesUrl));
             }
+
             if (selectedCapabilityName == null)
             {
                 throw new ArgumentNullException(nameof(selectedCapabilityName));
             }
+
             if (preferredFormat == null)
             {
                 throw new ArgumentNullException(nameof(preferredFormat));
             }
+
             if (!preferredFormat.StartsWith("image/"))
             {
                 throw new ArgumentException(@"Specified image format is not a MIME type.", nameof(preferredFormat));

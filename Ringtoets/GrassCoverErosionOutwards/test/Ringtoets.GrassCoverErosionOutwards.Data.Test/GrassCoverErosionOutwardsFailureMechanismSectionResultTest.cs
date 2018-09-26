@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForLowerLimitNorm);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForFactorizedLowerLimitNorm);
             Assert.AreEqual(TailorMadeAssessmentCategoryGroupResultType.None, result.TailorMadeAssessmentResult);
-            Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+            Assert.IsFalse(result.UseManualAssembly);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
         }
     }

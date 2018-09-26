@@ -190,7 +190,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
-            var expectedMessages = new[]
+            Tuple<string, LogLevelConstant>[] expectedMessages =
             {
                 Tuple.Create($"Profielgegevens definiëren geen dijkgeometrie. Bestand '{Path.Combine(fileDirectory, "profiel001NoGeometry - Ringtoets.prfl")}' wordt overgeslagen.",
                              LogLevelConstant.Warn),

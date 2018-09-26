@@ -319,6 +319,7 @@ namespace Core.Common.Gui.Test.PropertyBag
                 {
                     return IsPropertyReadOnly;
                 }
+
                 throw new NotImplementedException();
             }
 
@@ -344,6 +345,7 @@ namespace Core.Common.Gui.Test.PropertyBag
                 {
                     return IsPropertyBrowsable;
                 }
+
                 throw new NotImplementedException();
             }
 

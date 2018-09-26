@@ -100,6 +100,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 return true;
             }
+
             Log.WarnFormat(Resources.ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped, prflFilePath);
             return false;
         }
@@ -118,9 +119,11 @@ namespace Ringtoets.Common.IO.FileImporters
                     string message = string.Format(Resources.ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_, id);
                     throw new CriticalFileReadException(message);
                 }
+
                 ForeshoreProfile foreshoreProfile = CreateForeshoreProfile(dikeProfileLocation, dikeProfileData);
                 foreshoreProfiles.Add(foreshoreProfile);
             }
+
             return foreshoreProfiles;
         }
 

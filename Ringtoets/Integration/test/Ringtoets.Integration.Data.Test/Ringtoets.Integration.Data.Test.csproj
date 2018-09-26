@@ -36,14 +36,6 @@
     <Compile Include="StandAlone\AssemblyFactories\StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactoryTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\TechnicalInnovationFailureMechanismAssemblyFactoryTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\WaterPressureAsphaltCoverFailureMechanismAssemblyFactoryTest.cs" />
-    <Compile Include="StandAlone\Helpers\GrassCoverSlipOffInwardsFailureMechanismHelperTest.cs" />
-    <Compile Include="StandAlone\Helpers\GrassCoverSlipOffOutwardsFailureMechanismHelperTest.cs" />
-    <Compile Include="StandAlone\Helpers\MacroStabilityOutwardsFailureMechanismHelperTest.cs" />
-    <Compile Include="StandAlone\Helpers\MicrostabilityFailureMechanismHelperTest.cs" />
-    <Compile Include="StandAlone\Helpers\PipingStructureFailureMechanismHelperTest.cs" />
-    <Compile Include="StandAlone\Helpers\StrengthStabilityLengthwiseConstructionFailureMechanismHelperTest.cs" />
-    <Compile Include="StandAlone\Helpers\TechnicalInnovationFailureMechanismHelperTest.cs" />
-    <Compile Include="StandAlone\Helpers\WaterPressureAsphaltCoverFailureMechanismHelperTest.cs" />
     <Compile Include="StandAlone\Input\MacroStabilityOutwardsProbabilityAssessmentInputTest.cs" />
     <Compile Include="StandAlone\MacroStabilityOutwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffInwardsFailureMechanismTest.cs" />
@@ -147,6 +139,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Data.TestUtil\Ringtoets.Integration.Data.TestUtil.csproj">
+      <Project>{2D51FD02-BBED-43FE-BDB7-4437152876A1}</Project>
+      <Name>Ringtoets.Integration.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
       <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>

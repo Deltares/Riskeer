@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
                 Action call = () => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Het is alleen mogelijk een volledig toetsoordeel te exporteren.";
+                const string expectedMessage = "Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
                 Action call = () => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Het is alleen mogelijk een volledig toetsoordeel te exporteren.";
+                const string expectedMessage = "Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidAssessmentSectionCategoryGroupResults_LogsErrorAndReturnsFalse));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
-            assessmentSection.Piping.SectionResults.First().UseManualAssemblyProbability = true;
+            assessmentSection.Piping.SectionResults.First().UseManualAssembly = true;
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
@@ -179,7 +179,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
                 Action call = () => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Het is alleen mogelijk een volledig toetsoordeel te exporteren.";
+                const string expectedMessage = "Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }

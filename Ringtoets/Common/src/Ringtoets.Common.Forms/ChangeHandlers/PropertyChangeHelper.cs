@@ -44,10 +44,12 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
             {
                 throw new ArgumentNullException(nameof(setPropertyDelegate));
             }
+
             if (changeHandler == null)
             {
                 throw new ArgumentNullException(nameof(changeHandler));
             }
+
             IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(setPropertyDelegate);
             NotifyAffectedObjects(affectedObjects);
         }

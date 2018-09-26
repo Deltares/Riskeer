@@ -46,6 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test.IllustrationPoints
             {
                 Assert.AreEqual("Stochast A", stochast.Name);
             }
+
             CollectionAssert.IsEmpty(generalResult.IllustrationPoints);
         }
 

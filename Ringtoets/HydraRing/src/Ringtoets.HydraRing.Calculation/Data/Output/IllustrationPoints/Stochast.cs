@@ -42,6 +42,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             Name = name;
             Duration = duration;
             Alpha = alpha;

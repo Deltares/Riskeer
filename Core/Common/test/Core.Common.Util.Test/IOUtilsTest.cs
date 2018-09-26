@@ -145,6 +145,7 @@ namespace Core.Common.Util.Test
             {
                 stringBuilder.Append("A");
             }
+
             stringBuilder.Append(Path.DirectorySeparatorChar);
             string tooLongFolderPath = stringBuilder.ToString();
 
@@ -205,6 +206,7 @@ namespace Core.Common.Util.Test
             {
                 stringBuilder.Append("A");
             }
+
             stringBuilder.Append(Path.DirectorySeparatorChar);
             string tooLongFolderPath = stringBuilder.ToString();
 

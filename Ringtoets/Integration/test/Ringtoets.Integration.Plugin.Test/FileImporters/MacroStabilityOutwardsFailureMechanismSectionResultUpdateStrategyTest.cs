@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 DetailedAssessmentProbability = random.NextDouble(),
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.ProbabilityNegligible,
                 TailorMadeAssessmentProbability = random.NextDouble(),
-                UseManualAssemblyCategoryGroup = true,
+                UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv
             };
         }
@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.DetailedAssessmentProbability, targetResult.DetailedAssessmentProbability);
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);
             Assert.AreEqual(originResult.TailorMadeAssessmentProbability, targetResult.TailorMadeAssessmentProbability);
-            Assert.AreEqual(originResult.UseManualAssemblyCategoryGroup, targetResult.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(originResult.UseManualAssembly, targetResult.UseManualAssembly);
             Assert.AreEqual(originResult.ManualAssemblyCategoryGroup, targetResult.ManualAssemblyCategoryGroup);
         }
     }

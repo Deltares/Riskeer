@@ -77,6 +77,7 @@ namespace Core.Common.Geometry
             {
                 throw new ArgumentNullException(nameof(line));
             }
+
             if (line.Count() < 2)
             {
                 throw new ArgumentException(@"The line needs to have at least two points to be able to create a complete polygon.", nameof(line));
@@ -85,22 +86,11 @@ namespace Core.Common.Geometry
             return GetPointsFromLine(line, completingPointsLevel);
         }
 
-        private static IEnumerable<Point2D> GetPointsFromLine(IEnumerable<Point2D> line, double completingPointsLevel)
-        {
-            foreach (Point2D point in line)
-            {
-                yield return point;
-            }
-
-            yield return new Point2D(line.Last().X, completingPointsLevel);
-            yield return new Point2D(line.First().X, completingPointsLevel);
-        }
-
         /// <summary>
         /// Transforms X coordinates in a 2D X, Y plane using:
         /// - A reference point as starting point of the line.
         /// - An offset at which the reference coincides with the X axis.
-        /// - A rotation from North of the X coordinates around the origin after substracting the offset in degrees.
+        /// - A rotation from North of the X coordinates around the origin after subtracting the offset in degrees.
         /// </summary>
         /// <param name="xCoordinates">The X coordinates of a line.</param>
         /// <param name="referencePoint">The point of reference where the line is transposed to.</param>
@@ -115,6 +105,7 @@ namespace Core.Common.Geometry
             {
                 throw new ArgumentNullException(nameof(xCoordinates), @"Cannot transform to coordinates without a source.");
             }
+
             if (referencePoint == null)
             {
                 throw new ArgumentNullException(nameof(referencePoint), @"Cannot transform to coordinates without a reference point.");
@@ -128,6 +119,17 @@ namespace Core.Common.Geometry
             }).ToArray();
         }
 
+        private static IEnumerable<Point2D> GetPointsFromLine(IEnumerable<Point2D> line, double completingPointsLevel)
+        {
+            foreach (Point2D point in line)
+            {
+                yield return point;
+            }
+
+            yield return new Point2D(line.Last().X, completingPointsLevel);
+            yield return new Point2D(line.First().X, completingPointsLevel);
+        }
+
         private static Polygon PointsToPolygon(IEnumerable<Point2D> points)
         {
             List<Point2D> pointList = points.ToList();
@@ -137,6 +139,7 @@ namespace Core.Common.Geometry
             {
                 pointList.Add(firstPoint);
             }
+
             Coordinate[] coordinates = pointList.Select(p => new Coordinate(p.X, p.Y)).ToArray();
 
             return new Polygon(new LinearRing(coordinates));
@@ -154,6 +157,7 @@ namespace Core.Common.Geometry
                         geometry.Coordinates.Distinct().Select(c => new Point2D(c.X, c.Y)).ToArray()
                     };
                 }
+
                 return Enumerable.Empty<Point2D[]>();
             }
 
@@ -165,6 +169,7 @@ namespace Core.Common.Geometry
                     areas = areas.Union(BuildSeparateAreasFromCoordinateList(geometryCollection[i])).ToList();
                 }
             }
+
             return areas;
         }
     }

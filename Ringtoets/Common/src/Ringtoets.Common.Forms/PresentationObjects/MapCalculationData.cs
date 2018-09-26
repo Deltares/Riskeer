@@ -45,14 +45,17 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             {
                 throw new ArgumentNullException(nameof(calculationName), @"A calculation name is required.");
             }
+
             if (calculationLocation == null)
             {
                 throw new ArgumentNullException(nameof(calculationLocation), @"A location for the calculation is required.");
             }
+
             if (hydraulicBoundaryLocation == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocation), @"A hydraulic boundary location is required.");
             }
+
             Name = calculationName;
             CalculationLocation = calculationLocation;
             HydraulicBoundaryLocation = hydraulicBoundaryLocation;

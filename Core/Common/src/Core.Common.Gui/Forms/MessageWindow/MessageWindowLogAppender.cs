@@ -146,6 +146,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 {
                     AppendToMessageWindow(backLogLoggingEvent);
                 }
+
                 messageBackLog.Clear();
             }
         }

@@ -270,7 +270,7 @@ namespace Core.Common.Base.Test.Geometry
                 new Point2D(6.0, 0.0)
             };
 
-            var lengths = new[]
+            double[] lengths =
             {
                 2.0,
                 6.0,
@@ -299,7 +299,7 @@ namespace Core.Common.Base.Test.Geometry
                 new Point2D(6.0, 0.0)
             };
 
-            var lengths = new[]
+            double[] lengths =
             {
                 2.0,
                 2.0,
@@ -819,7 +819,7 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
-            var expectedOverlappingPoints = new[]
+            Point2D[] expectedOverlappingPoints =
             {
                 firstPoint,
                 secondPoint
@@ -844,7 +844,7 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
-            var expectedOverlappingPoints = new[]
+            Point2D[] expectedOverlappingPoints =
             {
                 segment1.FirstPoint,
                 segment1.SecondPoint
@@ -1119,7 +1119,7 @@ namespace Core.Common.Base.Test.Geometry
             var point1 = new Point2D(random.NextDouble(), random.NextDouble());
             var point2 = new Point2D(random.NextDouble(), random.NextDouble());
 
-            var points = new[]
+            Point2D[] points =
             {
                 point1,
                 point2
@@ -1151,6 +1151,7 @@ namespace Core.Common.Base.Test.Geometry
                 {
                     expectedLength += previousPoint.GetEuclideanDistanceTo(point);
                 }
+
                 points.Add(point);
                 previousPoint = point;
             }

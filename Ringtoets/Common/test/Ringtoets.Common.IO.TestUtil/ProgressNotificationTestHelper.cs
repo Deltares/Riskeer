@@ -71,6 +71,7 @@ namespace Ringtoets.Common.IO.TestUtil
                 Assert.IsNull(expected);
                 return;
             }
+
             Assert.AreEqual(expected.Description, actual.Description);
             Assert.AreEqual(expected.CurrentStep, actual.CurrentStep);
             Assert.AreEqual(expected.TotalSteps, actual.TotalSteps);

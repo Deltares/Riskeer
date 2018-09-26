@@ -110,7 +110,6 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 Assert.AreEqual(expectedCases[i].Arguments[0], testCases.ElementAt(i).Arguments[0]);
                 Assert.AreEqual(expectedCases[i].Arguments[1], testCases.ElementAt(i).Arguments[1]);
             }
-
         }
     }
 }

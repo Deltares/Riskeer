@@ -29,7 +29,7 @@ namespace Ringtoets.DuneErosion.Plugin.FileImporters
     /// An update strategy that can be used to update a <see cref="DuneErosionFailureMechanismSectionResult"/> instance with data
     /// from an old <see cref="DuneErosionFailureMechanismSectionResult"/> instance.
     /// </summary>
-    public class DuneErosionFailureMechanismSectionResultUpdateStrategy 
+    public class DuneErosionFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<DuneErosionFailureMechanismSectionResult>
     {
         public void UpdateSectionResult(DuneErosionFailureMechanismSectionResult origin, DuneErosionFailureMechanismSectionResult target)
@@ -51,7 +51,7 @@ namespace Ringtoets.DuneErosion.Plugin.FileImporters
             target.DetailedAssessmentResultForLowerLimitNorm = origin.DetailedAssessmentResultForLowerLimitNorm;
             target.DetailedAssessmentResultForFactorizedLowerLimitNorm = origin.DetailedAssessmentResultForFactorizedLowerLimitNorm;
             target.TailorMadeAssessmentResult = origin.TailorMadeAssessmentResult;
-            target.UseManualAssemblyCategoryGroup = origin.UseManualAssemblyCategoryGroup;
+            target.UseManualAssembly = origin.UseManualAssembly;
             target.ManualAssemblyCategoryGroup = origin.ManualAssemblyCategoryGroup;
         }
     }

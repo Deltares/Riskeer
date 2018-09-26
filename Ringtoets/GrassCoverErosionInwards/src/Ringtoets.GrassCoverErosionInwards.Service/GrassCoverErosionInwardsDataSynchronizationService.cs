@@ -82,6 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                     calculation
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
 
@@ -168,14 +169,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             {
                 throw new ArgumentNullException(nameof(dikeProfileToRemove));
             }
+
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
+
             if (dikeProfiles == null)
             {
                 throw new ArgumentNullException(nameof(dikeProfiles));
             }
+
             if (sectionResults == null)
             {
                 throw new ArgumentNullException(nameof(sectionResults));
@@ -213,10 +217,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
+
             if (dikeProfiles == null)
             {
                 throw new ArgumentNullException(nameof(dikeProfiles));
             }
+
             if (sectionResults == null)
             {
                 throw new ArgumentNullException(nameof(sectionResults));
@@ -249,6 +255,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedObjects.AddRange(ClearDikeProfile(calculation.InputParameters));
             }
+
             affectedObjects.AddRange(GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                                          sectionResults,
                                          calculations));
@@ -265,6 +272,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                     inputParameters
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
 
@@ -278,6 +286,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                     input
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
     }

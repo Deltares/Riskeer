@@ -54,14 +54,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             DikeProfiles = new DikeProfileCollection();
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
-            }
-        }
-
         /// <summary>
         /// Gets the general grass cover erosion inwards calculation input parameters that apply to each calculation.
         /// </summary>
@@ -73,6 +65,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public DikeProfileCollection DikeProfiles { get; }
 
         public CalculationGroup CalculationsGroup { get; }
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                return CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
+            }
+        }
 
         public IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> SectionResults
         {

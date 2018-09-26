@@ -75,10 +75,12 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 throw new ArgumentNullException(nameof(referenceLine));
             }
+
             if (structureUpdateStrategy == null)
             {
                 throw new ArgumentNullException(nameof(structureUpdateStrategy));
             }
+
             if (messageProvider == null)
             {
                 throw new ArgumentNullException(nameof(messageProvider));
@@ -121,6 +123,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 Log.Error(e.Message);
                 return false;
             }
+
             return true;
         }
 
@@ -136,6 +139,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 updatedInstance.NotifyObservers();
             }
+
             base.DoPostImportUpdates();
         }
 
@@ -156,6 +160,7 @@ namespace Ringtoets.Common.IO.FileImporters
                                structureName, structuresParameterRow.LocationId, structuresParameterRow.ParameterId, structuresParameterRow.LineNumber);
                 return (RoundedDouble) structuresParameterRow.VarianceValue * Math.Abs(structuresParameterRow.NumericalValue);
             }
+
             return (RoundedDouble) structuresParameterRow.VarianceValue;
         }
 
@@ -176,6 +181,7 @@ namespace Ringtoets.Common.IO.FileImporters
                                structureName, structuresParameterRow.LocationId, structuresParameterRow.ParameterId, structuresParameterRow.LineNumber);
                 return (RoundedDouble) (structuresParameterRow.VarianceValue / Math.Abs(structuresParameterRow.NumericalValue));
             }
+
             return (RoundedDouble) structuresParameterRow.VarianceValue;
         }
 
@@ -190,8 +196,8 @@ namespace Ringtoets.Common.IO.FileImporters
         protected void ThrowValidationErrorForStructure(string structureName, string structureId, IEnumerable<string> validationErrors)
         {
             string shortMessage = new FileReaderErrorMessageBuilder(GetStructureDataCsvFilePath())
-                .WithSubject(string.Format(Resources.StructuresImporter_StructureName_0_StructureId_1_, structureName, structureId))
-                .Build(Resources.StructuresImporter_LogValidationErrorForStructure_Click_details_for_full_message_0_);
+                                  .WithSubject(string.Format(Resources.StructuresImporter_StructureName_0_StructureId_1_, structureName, structureId))
+                                  .Build(Resources.StructuresImporter_LogValidationErrorForStructure_Click_details_for_full_message_0_);
             string messageRemainder = string.Format(Resources.StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_,
                                                     string.Join(Environment.NewLine, validationErrors.Select(msg => "* " + msg)));
             string message = string.Format(shortMessage, messageRemainder);
@@ -328,6 +334,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 Log.Error(exception.Message);
             }
+
             return new ReadResult<StructureLocation>(true);
         }
 
@@ -363,6 +370,7 @@ namespace Ringtoets.Common.IO.FileImporters
                     return new ReadResult<StructureLocation>(true);
                 }
             }
+
             return new ReadResult<StructureLocation>(false)
             {
                 Items = structureLocations
@@ -395,11 +403,13 @@ namespace Ringtoets.Common.IO.FileImporters
                 string message = string.Format(Resources.StructuresImporter_AddNextStructureLocation_Location_0_outside_referenceline, structureLocation.Id);
                 throw new CriticalFileReadException(message);
             }
+
             if (structureLocations.Any(dpl => dpl.Id.Equals(structureLocation.Id)))
             {
                 string message = string.Format(Resources.StructuresImporter_AddNextStructureLocation_Location_with_kwkident_0_already_read, structureLocation.Id);
                 throw new CriticalFileReadException(message);
             }
+
             structureLocations.Add(structureLocation);
         }
 

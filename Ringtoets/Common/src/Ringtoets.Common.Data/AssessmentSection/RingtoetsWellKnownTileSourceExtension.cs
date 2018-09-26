@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
             if (!Enum.IsDefined(typeof(RingtoetsWellKnownTileSource), ringtoetsWellKnownTileSource))
             {
                 throw new InvalidEnumArgumentException(nameof(ringtoetsWellKnownTileSource),
-                                                       (int)ringtoetsWellKnownTileSource,
+                                                       (int) ringtoetsWellKnownTileSource,
                                                        typeof(RingtoetsWellKnownTileSource));
             }
 

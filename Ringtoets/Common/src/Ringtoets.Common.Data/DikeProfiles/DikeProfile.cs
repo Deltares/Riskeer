@@ -214,31 +214,23 @@ namespace Ringtoets.Common.Data.DikeProfiles
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (GetType() != obj.GetType())
             {
                 return false;
             }
+
             return Equals((DikeProfile) obj);
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hashCode = ForeshoreProfile.GetHashCode();
-                hashCode = (hashCode * 397) ^ DikeHeight.GetHashCode();
-
-                foreach (RoughnessPoint point in DikeGeometry)
-                {
-                    hashCode = (hashCode * 397) ^ point.GetHashCode();
-                }
-
-                return hashCode;
-            }
+            return ForeshoreProfile.GetHashCode();
         }
 
         private void CopyForeshoreProfileProperties(DikeProfile fromDikeProfile)

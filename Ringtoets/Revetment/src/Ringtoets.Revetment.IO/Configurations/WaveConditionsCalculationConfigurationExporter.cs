@@ -69,10 +69,10 @@ namespace Ringtoets.Revetment.IO.Configurations
             calculationConfiguration.Orientation = input.Orientation;
             calculationConfiguration.StepSize = (ConfigurationWaveConditionsInputStepSize?) new ConfigurationWaveConditionsInputStepSizeConverter().ConvertFrom(input.StepSize);
 
-            SetConfigurationForeshoreProfileDependendProperties(calculationConfiguration, input);
+            SetConfigurationForeshoreProfileDependentProperties(calculationConfiguration, input);
         }
 
-        private static void SetConfigurationForeshoreProfileDependendProperties(WaveConditionsCalculationConfiguration configuration,
+        private static void SetConfigurationForeshoreProfileDependentProperties(WaveConditionsCalculationConfiguration configuration,
                                                                                 WaveConditionsInput input)
         {
             if (input.ForeshoreProfile == null)

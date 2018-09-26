@@ -166,6 +166,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 // Assert
                 Assert.AreSame(chartData, selection);
             }
+
             WindowsFormsTestHelper.CloseAll();
 
             mocks.VerifyAll();
@@ -199,6 +200,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 // Assert
                 Assert.AreSame(chartDataCollection, selection);
             }
+
             WindowsFormsTestHelper.CloseAll();
 
             mocks.VerifyAll();
@@ -235,6 +237,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 // Then
                 Assert.AreEqual(1, selectionChangedCount);
             }
+
             WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }
@@ -265,6 +268,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 // Then
                 Assert.AreEqual(1, selectionChangedCount);
             }
+
             WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }

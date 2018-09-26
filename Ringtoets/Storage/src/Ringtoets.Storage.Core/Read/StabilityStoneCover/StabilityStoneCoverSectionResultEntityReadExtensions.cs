@@ -60,7 +60,7 @@ namespace Ringtoets.Storage.Core.Read.StabilityStoneCover
             sectionResult.DetailedAssessmentResultForLowerLimitNorm = (DetailedAssessmentResultType) entity.DetailedAssessmentResultForLowerLimitNorm;
             sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = (DetailedAssessmentResultType) entity.DetailedAssessmentResultForFactorizedLowerLimitNorm;
             sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentCategoryGroupResultType) entity.TailorMadeAssessmentResult;
-            sectionResult.UseManualAssemblyCategoryGroup = Convert.ToBoolean(entity.UseManualAssemblyCategoryGroup);
+            sectionResult.UseManualAssembly = Convert.ToBoolean(entity.UseManualAssembly);
             sectionResult.ManualAssemblyCategoryGroup = (FailureMechanismSectionAssemblyCategoryGroup) entity.ManualAssemblyCategoryGroup;
         }
     }

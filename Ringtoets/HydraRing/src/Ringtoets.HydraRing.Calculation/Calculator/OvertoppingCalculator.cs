@@ -79,10 +79,12 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             {
                 ExceedanceProbabilityBeta = exceedanceProbabilityCalculationParser.Output.Value;
             }
+
             if (waveHeightParser.Output != null)
             {
                 WaveHeight = waveHeightParser.Output.WaveHeight;
             }
+
             IsOvertoppingDominant = waveHeightParser.Output != null && waveHeightParser.Output.IsOvertoppingDominant;
         }
     }

@@ -62,6 +62,7 @@ namespace Core.Components.BruTile.Configurations
             {
                 throw new CannotFindTileSourceException(Resources.TileSourceFactory_GetWmtsTileSources_TileSource_without_WmtsTileSchema_error);
             }
+
             return wmtsTileSources;
         }
 

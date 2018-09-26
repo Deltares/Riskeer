@@ -59,6 +59,7 @@ namespace Core.Common.TestUtil
             {
                 filePathStreams.Add(filePath, null);
             }
+
             Create();
         }
 
@@ -205,6 +206,7 @@ namespace Core.Common.TestUtil
                     {
                         throw new ArgumentException(e.Message);
                     }
+
                     throw;
                 }
             }

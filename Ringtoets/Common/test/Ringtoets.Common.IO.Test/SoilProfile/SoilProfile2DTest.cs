@@ -35,7 +35,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Setup
-            var soilLayer2Ds = new[]
+            SoilLayer2D[] soilLayer2Ds =
             {
                 SoilLayer2DTestFactory.CreateSoilLayer2D()
             };
@@ -63,7 +63,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
         public void Constructor_PreconsolidationStressesNull_ThrowsArgumentNullException()
         {
             // Setup
-            var soilLayer2Ds = new[]
+            SoilLayer2D[] soilLayer2Ds =
             {
                 SoilLayer2DTestFactory.CreateSoilLayer2D()
             };

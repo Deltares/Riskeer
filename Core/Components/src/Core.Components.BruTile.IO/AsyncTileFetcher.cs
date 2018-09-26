@@ -72,14 +72,17 @@ namespace Core.Components.BruTile.IO
             {
                 throw new ArgumentNullException(nameof(provider));
             }
+
             if (minTiles < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(minTiles), Resources.AsyncTileFetcher_Number_of_tiles_for_memory_cache_cannot_be_negative);
             }
+
             if (maxTiles < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(maxTiles), Resources.AsyncTileFetcher_Number_of_tiles_for_memory_cache_cannot_be_negative);
             }
+
             if (minTiles >= maxTiles)
             {
                 throw new ArgumentException(Resources.AsyncTileFetcher_Minimum_number_of_tiles_in_memory_cache_must_be_less_than_maximum);
@@ -136,6 +139,7 @@ namespace Core.Components.BruTile.IO
                     }
                 }
             }
+
             openTileRequests.Clear();
         }
 
@@ -232,6 +236,7 @@ namespace Core.Components.BruTile.IO
             {
                 return;
             }
+
             byte[] result = TryRequestTileData(tileInfo);
 
             MarkTileRequestHandled(tileInfo);
@@ -272,6 +277,7 @@ namespace Core.Components.BruTile.IO
                     // Result should stay null
                 }
             }
+
             return result;
         }
 
@@ -283,6 +289,7 @@ namespace Core.Components.BruTile.IO
                 //try again
                 activeTileRequests.TryRemove(tileInfo.Index, out dummy);
             }
+
             if (!openTileRequests.TryRemove(tileInfo.Index, out dummy))
             {
                 //try again

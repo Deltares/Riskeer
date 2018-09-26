@@ -39,7 +39,7 @@ namespace Core.Common.Controls.DataGrid
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="rowIndex"/>
         /// or the <paramref name="columnIndex"/> does not exist.</exception>
-        public static void FormatCellWithColumnStateDefinition(this DataGridViewControl dataGridViewControl, int rowIndex, int columnIndex) 
+        public static void FormatCellWithColumnStateDefinition(this DataGridViewControl dataGridViewControl, int rowIndex, int columnIndex)
         {
             if (dataGridViewControl == null)
             {

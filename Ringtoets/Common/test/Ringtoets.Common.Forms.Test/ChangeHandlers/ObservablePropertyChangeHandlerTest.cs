@@ -127,6 +127,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
 
                 expectedAffectedObjects.Add(testCase.Calculation);
             }
+
             expectedAffectedObjects.Add(calculationInput);
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
             Assert.AreEqual(1, propertySet);

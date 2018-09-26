@@ -393,20 +393,14 @@ namespace Ringtoets.StabilityPointStructures.Data
                 hashCode = (hashCode * 397) ^ ConstructiveStrengthQuadraticLoadModel.GetHashCode();
                 hashCode = (hashCode * 397) ^ BankWidth.GetHashCode();
                 hashCode = (hashCode * 397) ^ InsideWaterLevelFailureConstruction.GetHashCode();
-                hashCode = (hashCode * 397) ^ EvaluationLevel.GetHashCode();
                 hashCode = (hashCode * 397) ^ LevelCrestStructure.GetHashCode();
-                hashCode = (hashCode * 397) ^ VerticalDistance.GetHashCode();
-                hashCode = (hashCode * 397) ^ FailureProbabilityRepairClosure.GetHashCode();
                 hashCode = (hashCode * 397) ^ FailureCollisionEnergy.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShipMass.GetHashCode();
                 hashCode = (hashCode * 397) ^ ShipVelocity.GetHashCode();
-                hashCode = (hashCode * 397) ^ LevellingCount.GetHashCode();
-                hashCode = (hashCode * 397) ^ ProbabilityCollisionSecondaryStructure.GetHashCode();
                 hashCode = (hashCode * 397) ^ FlowVelocityStructureClosable.GetHashCode();
                 hashCode = (hashCode * 397) ^ StabilityLinearLoadModel.GetHashCode();
                 hashCode = (hashCode * 397) ^ StabilityQuadraticLoadModel.GetHashCode();
                 hashCode = (hashCode * 397) ^ AreaFlowApertures.GetHashCode();
-                hashCode = (hashCode * 397) ^ InflowModelType.GetHashCode();
 
                 return hashCode;
             }

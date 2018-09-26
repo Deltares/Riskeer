@@ -48,5 +48,10 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
         /// </summary>
         public FailureMechanismSection Section { get; }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly should be overwritten.
+        /// </summary>
+        public bool UseManualAssembly { get; set; }
     }
 }

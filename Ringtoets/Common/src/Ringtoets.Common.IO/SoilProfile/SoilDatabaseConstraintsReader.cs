@@ -106,6 +106,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                     throw new CriticalFileReadException(
                         BuildMessageWithPath(Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_unique_StochasticSoilModel_names));
                 }
+
                 if (!Convert.ToBoolean(dataReader[StochasticSoilModelTableDefinitions.AreSegmentsUnique]))
                 {
                     throw new CriticalFileReadException(
@@ -140,6 +141,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                     throw new CriticalFileReadException(
                         BuildMessageWithPath(Resources.SoilDatabaseConstraintsReader_VerifyConstraints_Unexpected_error_while_verifying_valid_StochasticSoilProfile_probability));
                 }
+
                 if (!Convert.ToBoolean(dataReader[StochasticSoilProfileTableDefinitions.AllProbabilitiesValid]))
                 {
                     throw new CriticalFileReadException(

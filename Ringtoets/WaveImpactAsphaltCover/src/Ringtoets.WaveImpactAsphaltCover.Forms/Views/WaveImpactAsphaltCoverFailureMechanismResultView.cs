@@ -128,9 +128,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
                 DataGridViewControl,
                 nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.UseManualAssemblyCategoryGroup));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(
                 DataGridViewControl,
@@ -140,11 +140,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
-        }
-
-        protected override bool HasManualAssemblyResults()
-        {
-            return WaveImpactAsphaltCoverFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

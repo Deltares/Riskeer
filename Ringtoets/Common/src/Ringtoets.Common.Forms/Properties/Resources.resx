@@ -261,7 +261,7 @@ gecombineerd</value>
 gecombineerde
 faalkansschatting</value>
   </data>
-  <data name="FailureMechanismResultView_UseManualAssemblyCategoryGroup_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_UseManualAssembly_DisplayName" xml:space="preserve">
     <value>Overschrijf
 toetsoordeel</value>
   </data>

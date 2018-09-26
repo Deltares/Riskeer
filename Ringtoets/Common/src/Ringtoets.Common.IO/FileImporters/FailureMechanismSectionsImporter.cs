@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO.FileImporters
                                                 ReferenceLine referenceLine,
                                                 string filePath,
                                                 IFailureMechanismSectionUpdateStrategy failureMechanismSectionUpdateStrategy,
-                                                IImporterMessageProvider messageProvider) 
+                                                IImporterMessageProvider messageProvider)
             : base(filePath, importTarget)
         {
             if (referenceLine == null)

@@ -50,6 +50,7 @@ namespace Ringtoets.Common.IO
             {
                 resultArray[i - 1] = ReadAssessmentSectionSettings(ihwFileLines[i]);
             }
+
             return resultArray;
         }
 

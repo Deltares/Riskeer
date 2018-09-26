@@ -60,10 +60,12 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(governingWindDirection));
             }
+
             if (stochasts == null)
             {
                 throw new ArgumentNullException(nameof(stochasts));
             }
+
             if (topLevelIllustrationPoints == null)
             {
                 throw new ArgumentNullException(nameof(topLevelIllustrationPoints));

@@ -52,14 +52,17 @@ namespace Ringtoets.Common.Util
             {
                 throw new ArgumentNullException(nameof(result));
             }
+
             if (getCalculationAction == null)
             {
                 throw new ArgumentNullException(nameof(getCalculationAction));
             }
+
             if (setCalculationAction == null)
             {
                 throw new ArgumentNullException(nameof(setCalculationAction));
             }
+
             Result = result;
             this.getCalculationAction = getCalculationAction;
             this.setCalculationAction = setCalculationAction;

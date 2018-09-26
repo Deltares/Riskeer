@@ -52,6 +52,7 @@ namespace Core.Components.DotSpatial.Layer
             {
                 throw new ArgumentNullException(nameof(backgroundMapData));
             }
+
             IConfiguration configuration = BrutileConfigurationFactory.CreateInitializedConfiguration(backgroundMapData);
 
             return new BruTileLayer(configuration)

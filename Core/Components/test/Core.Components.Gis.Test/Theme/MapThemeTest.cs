@@ -79,7 +79,7 @@ namespace Core.Components.Gis.Test.Theme
         {
             // Setup
             const string attributeName = "Arbitrary attribute";
-            var mapCategories = new[]
+            CategoryTheme[] mapCategories =
             {
                 CategoryThemeTestFactory.CreateCategoryTheme()
             };

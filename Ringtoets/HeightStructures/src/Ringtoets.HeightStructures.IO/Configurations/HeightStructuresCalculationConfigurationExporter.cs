@@ -59,7 +59,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean()
             };
 
-            calculationConfiguration.SetConfigurationForeshoreProfileDependendProperties(input);
+            calculationConfiguration.SetConfigurationForeshoreProfileDependentProperties(input);
 
             if (input.Structure != null)
             {
@@ -74,6 +74,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 calculationConfiguration.LevelCrestStructure = input.LevelCrestStructure.ToStochastConfiguration();
                 calculationConfiguration.CriticalOvertoppingDischarge = input.CriticalOvertoppingDischarge.ToStochastConfiguration();
             }
+
             return calculationConfiguration;
         }
 

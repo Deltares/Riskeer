@@ -57,7 +57,7 @@ namespace Ringtoets.Storage.Core.Test.Create.WaveImpactAsphaltCover
             var detailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
             var detailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
-            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -69,7 +69,7 @@ namespace Ringtoets.Storage.Core.Test.Create.WaveImpactAsphaltCover
                 DetailedAssessmentResultForLowerLimitNorm = detailedAssessmentResultForLowerLimitNorm,
                 DetailedAssessmentResultForFactorizedLowerLimitNorm = detailedAssessmentResultForFactorizedLowerLimitNorm,
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult,
-                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup,
+                UseManualAssembly = useManualAssembly,
                 ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup
             };
 
@@ -84,7 +84,7 @@ namespace Ringtoets.Storage.Core.Test.Create.WaveImpactAsphaltCover
             Assert.AreEqual(Convert.ToByte(detailedAssessmentResultForLowerLimitNorm), entity.DetailedAssessmentResultForLowerLimitNorm);
             Assert.AreEqual(Convert.ToByte(detailedAssessmentResultForFactorizedLowerLimitNorm), entity.DetailedAssessmentResultForFactorizedLowerLimitNorm);
             Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
-            Assert.AreEqual(Convert.ToByte(useManualAssemblyCategoryGroup), entity.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(Convert.ToByte(useManualAssembly), entity.UseManualAssembly);
             Assert.AreEqual(Convert.ToByte(manualAssemblyCategoryGroup), entity.ManualAssemblyCategoryGroup);
         }
     }

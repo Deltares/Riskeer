@@ -48,6 +48,7 @@ namespace Core.Components.BruTile.TestUtil.Test
                 // Then
                 Assert.AreSame(factory, TileSourceFactory.Instance);
             }
+
             Assert.AreSame(originalFactory, TileSourceFactory.Instance);
             mocks.VerifyAll();
         }
@@ -66,6 +67,7 @@ namespace Core.Components.BruTile.TestUtil.Test
                 // Then
                 Assert.IsInstanceOf<TestTileSourceFactory>(TileSourceFactory.Instance);
             }
+
             Assert.AreSame(originalFactory, TileSourceFactory.Instance);
         }
 
@@ -83,6 +85,7 @@ namespace Core.Components.BruTile.TestUtil.Test
                 // Then
                 Assert.IsInstanceOf<TestTileSourceFactory>(TileSourceFactory.Instance);
             }
+
             Assert.AreSame(originalFactory, TileSourceFactory.Instance);
         }
     }

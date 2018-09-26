@@ -107,7 +107,7 @@ namespace Ringtoets.Integration.IO.Factories
         private static ExportableFailureMechanismAssemblyResult CreateExportableFailureMechanismAssemblyResultWithoutProbability(AssessmentSection assessmentSection)
         {
             return new ExportableFailureMechanismAssemblyResult(ExportableAssemblyMethod.WBI2A1,
-                                                                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, true));
+                                                                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false));
         }
 
         /// <summary>

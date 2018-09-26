@@ -73,6 +73,7 @@ namespace Ringtoets.Common.Forms
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -143,6 +144,7 @@ namespace Ringtoets.Common.Forms
             {
                 return;
             }
+
             UpdateDoForSelectedButton();
         }
 

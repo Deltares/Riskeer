@@ -48,6 +48,7 @@ namespace Core.Common.Gui
             {
                 throw new ArgumentNullException(nameof(dialogParent));
             }
+
             this.dialogParent = dialogParent;
         }
 
@@ -72,6 +73,7 @@ namespace Core.Common.Gui
                     filePath = dialog.FileName;
                 }
             }
+
             return filePath;
         }
 
@@ -96,6 +98,7 @@ namespace Core.Common.Gui
                     filePath = dialog.FileName;
                 }
             }
+
             return filePath;
         }
 

@@ -56,7 +56,7 @@ namespace Ringtoets.Storage.Core.Read.MacroStabilityOutwards
             sectionResult.DetailedAssessmentProbability = entity.DetailedAssessmentProbability.ToNullAsNaN();
             sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentProbabilityAndDetailedCalculationResultType) entity.TailorMadeAssessmentResult;
             sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
-            sectionResult.UseManualAssemblyCategoryGroup = Convert.ToBoolean(entity.UseManualAssemblyCategoryGroup);
+            sectionResult.UseManualAssembly = Convert.ToBoolean(entity.UseManualAssembly);
             sectionResult.ManualAssemblyCategoryGroup = (ManualFailureMechanismSectionAssemblyCategoryGroup) entity.ManualAssemblyCategoryGroup;
         }
     }

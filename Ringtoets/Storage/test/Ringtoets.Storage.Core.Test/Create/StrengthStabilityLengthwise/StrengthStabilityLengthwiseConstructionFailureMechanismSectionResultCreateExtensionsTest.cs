@@ -51,14 +51,14 @@ namespace Ringtoets.Storage.Core.Test.Create.StrengthStabilityLengthwise
             var random = new Random(39);
             var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult,
-                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup,
+                UseManualAssembly = useManualAssembly,
                 ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup
             };
 
@@ -68,7 +68,7 @@ namespace Ringtoets.Storage.Core.Test.Create.StrengthStabilityLengthwise
             // Assert
             Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
             Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
-            Assert.AreEqual(Convert.ToByte(useManualAssemblyCategoryGroup), entity.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(Convert.ToByte(useManualAssembly), entity.UseManualAssembly);
             Assert.AreEqual(Convert.ToByte(manualAssemblyCategoryGroup), entity.ManualAssemblyCategoryGroup);
         }
     }

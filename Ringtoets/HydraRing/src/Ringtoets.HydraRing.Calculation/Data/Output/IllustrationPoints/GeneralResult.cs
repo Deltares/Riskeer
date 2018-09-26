@@ -46,10 +46,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(governingWindDirection));
             }
+
             if (stochasts == null)
             {
                 throw new ArgumentNullException(nameof(stochasts));
             }
+
             if (illustrationPoints == null)
             {
                 throw new ArgumentNullException(nameof(illustrationPoints));

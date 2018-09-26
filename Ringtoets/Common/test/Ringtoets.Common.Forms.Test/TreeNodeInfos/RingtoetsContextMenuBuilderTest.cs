@@ -82,6 +82,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Voeg een nieuwe map toe aan deze map met berekeningen.",
                                                               RingtoetsFormsResources.AddFolderIcon);
             }
+
             mocks.VerifyAll();
         }
 
@@ -125,6 +126,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
                                                               RingtoetsFormsResources.FailureMechanismIcon);
             }
+
             mocks.VerifyAll();
         }
 
@@ -173,6 +175,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Wis de uitvoer van alle berekeningen binnen deze map met berekeningen.",
                                                               RingtoetsFormsResources.ClearIcon);
             }
+
             mocks.VerifyAll();
         }
 
@@ -215,6 +218,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ClearIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -260,6 +264,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Wis de uitvoer van alle berekeningen binnen dit toetsspoor.",
                                                               RingtoetsFormsResources.ClearIcon);
             }
+
             mocks.VerifyAll();
         }
 
@@ -302,6 +307,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ClearIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -346,6 +352,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Geeft aan of dit toetsspoor relevant is of niet.",
                                                               checkboxIcon);
             }
+
             mocks.VerifyAll();
         }
 
@@ -388,6 +395,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Wis de uitvoer van deze berekening.",
                                                               RingtoetsFormsResources.ClearIcon);
             }
+
             mocks.VerifyAll();
         }
 
@@ -431,6 +439,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ClearIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -751,6 +760,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 input.Expect(ci => ci.ForeshoreProfile).Return(null);
             }
+
             calculation.Stub(c => c.InputParameters).Return(input);
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             mocks.ReplayAll();
@@ -837,6 +847,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Dupliceer dit element.",
                                                               RingtoetsFormsResources.CopyHS);
             }
+
             mocks.VerifyAll();
         }
 
@@ -885,6 +896,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Voer deze berekening uit.",
                                                               RingtoetsFormsResources.CalculateIcon);
             }
+
             mocks.VerifyAll();
         }
 
@@ -932,6 +944,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -980,6 +993,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Valideer de invoer voor deze berekening.",
                                                               RingtoetsFormsResources.ValidateIcon);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1027,6 +1041,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ValidateIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1086,6 +1101,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Voer alle berekeningen binnen deze map met berekeningen uit.",
                                                               RingtoetsFormsResources.CalculateAllIcon);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1131,6 +1147,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1189,6 +1206,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1236,6 +1254,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1295,6 +1314,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Valideer alle berekeningen binnen deze map met berekeningen.",
                                                               RingtoetsFormsResources.ValidateAllIcon);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1340,6 +1360,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1398,6 +1419,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1445,6 +1467,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1494,6 +1517,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Voer alle berekeningen binnen dit toetsspoor uit.",
                                                               RingtoetsFormsResources.CalculateAllIcon);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1537,6 +1561,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1585,6 +1610,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1630,6 +1656,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculateAllIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1679,6 +1706,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               "Valideer alle berekeningen binnen dit toetsspoor.",
                                                               RingtoetsFormsResources.ValidateAllIcon);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1722,6 +1750,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1773,6 +1802,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1821,6 +1851,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.ValidateAllIcon,
                                                               false);
             }
+
             mocks.VerifyAll();
         }
 

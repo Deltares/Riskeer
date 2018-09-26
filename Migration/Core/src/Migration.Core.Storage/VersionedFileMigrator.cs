@@ -51,9 +51,9 @@ namespace Migration.Core.Storage
             {
                 throw new ArgumentNullException(nameof(comparer));
             }
-            fileMigrationScripts = GetAvailableMigrations()
-                .OrderBy(ms => ms.SupportedVersion())
-                .ThenByDescending(ms => ms.TargetVersion());
+
+            fileMigrationScripts = GetAvailableMigrations().OrderBy(ms => ms.SupportedVersion())
+                                                           .ThenByDescending(ms => ms.TargetVersion());
             versionedFileComparer = comparer;
         }
 
@@ -82,10 +82,12 @@ namespace Migration.Core.Storage
             {
                 throw new ArgumentNullException(nameof(versionedFile));
             }
+
             if (toVersion == null)
             {
                 throw new ArgumentNullException(nameof(toVersion));
             }
+
             return versionedFileComparer.Compare(versionedFile.GetVersion(), toVersion) < 0;
         }
 
@@ -132,14 +134,17 @@ namespace Migration.Core.Storage
             {
                 throw new ArgumentNullException(nameof(versionedFile));
             }
+
             if (toVersion == null)
             {
                 throw new ArgumentNullException(nameof(toVersion));
             }
+
             if (newFileLocation == null)
             {
                 throw new ArgumentNullException(nameof(newFileLocation));
             }
+
             if (IOUtils.GetFullPath(versionedFile.Location).Equals(IOUtils.GetFullPath(newFileLocation)))
             {
                 throw new CriticalMigrationException(Resources.Migrate_Target_File_Path_Must_Differ_From_Source_File_Path);
@@ -161,6 +166,7 @@ namespace Migration.Core.Storage
                 throw new CriticalMigrationException(string.Format(Resources.Migrate_From_Version_0_To_Version_1_Not_Supported,
                                                                    fromVersion, toVersion));
             }
+
             return migrationScript;
         }
 

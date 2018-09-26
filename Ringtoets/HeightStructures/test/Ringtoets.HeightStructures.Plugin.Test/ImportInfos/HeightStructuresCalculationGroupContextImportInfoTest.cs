@@ -81,6 +81,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsInstanceOf<HeightStructuresCalculationConfigurationImporter>(fileImporter);
             }
+
             mocks.VerifyAll();
         }
 

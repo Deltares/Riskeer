@@ -407,7 +407,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var observable2 = mocks.StrictMock<IObservable>();
             observable2.Expect(o => o.NotifyObservers());
 
-            var observables = new[]
+            IObservable[] observables =
             {
                 observable1,
                 observable2
@@ -496,7 +496,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var observable2 = mocks.StrictMock<IObservable>();
             observable2.Expect(o => o.NotifyObservers());
 
-            var observables = new[]
+            IObservable[] observables =
             {
                 observable1,
                 observable2

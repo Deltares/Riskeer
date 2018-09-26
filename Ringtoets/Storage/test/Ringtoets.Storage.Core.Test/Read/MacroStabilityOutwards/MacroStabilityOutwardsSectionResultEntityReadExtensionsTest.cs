@@ -71,7 +71,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityOutwards
             double detailedAssessmentProbability = random.NextDouble();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>();
             double tailorMadeAssessmentProbability = random.NextDouble();
-            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             var entity = new MacroStabilityOutwardsSectionResultEntity
@@ -81,7 +81,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityOutwards
                 DetailedAssessmentProbability = detailedAssessmentProbability,
                 TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
                 TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
-                UseManualAssemblyCategoryGroup = Convert.ToByte(useManualAssemblyCategoryGroup),
+                UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
             var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -93,7 +93,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityOutwards
             Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
             Assert.AreEqual(detailedAssessmentResult, sectionResult.DetailedAssessmentResult);
             Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
-            Assert.AreEqual(useManualAssemblyCategoryGroup, sectionResult.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(useManualAssembly, sectionResult.UseManualAssembly);
             Assert.AreEqual(manualAssemblyCategoryGroup, sectionResult.ManualAssemblyCategoryGroup);
         }
 

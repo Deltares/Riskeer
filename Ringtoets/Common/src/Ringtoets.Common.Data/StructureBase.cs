@@ -45,10 +45,12 @@ namespace Ringtoets.Common.Data
             {
                 throw new ArgumentException(@"Name is null, empty or consists of whitespace.", nameof(constructionProperties));
             }
+
             if (string.IsNullOrWhiteSpace(constructionProperties.Id))
             {
                 throw new ArgumentException(@"Id is null, empty or consists of whitespace.", nameof(constructionProperties));
             }
+
             if (constructionProperties.Location == null)
             {
                 throw new ArgumentNullException(nameof(constructionProperties), @"Location is null.");
@@ -92,28 +94,23 @@ namespace Ringtoets.Common.Data
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((StructureBase) obj);
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hashCode = Name.GetHashCode();
-                hashCode = (hashCode * 397) ^ Id.GetHashCode();
-                hashCode = (hashCode * 397) ^ Location.GetHashCode();
-                hashCode = (hashCode * 397) ^ StructureNormalOrientation.GetHashCode();
-
-                return hashCode;
-            }
+            return Id.GetHashCode();
         }
 
         /// <summary>

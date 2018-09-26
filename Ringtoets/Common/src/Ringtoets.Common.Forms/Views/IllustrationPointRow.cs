@@ -45,6 +45,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 throw new ArgumentNullException(nameof(illustrationPointControlItem));
             }
+
             IllustrationPointControlItem = illustrationPointControlItem;
         }
 

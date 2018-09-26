@@ -26,7 +26,6 @@ using Core.Common.Base.Data;
 using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 
 namespace Ringtoets.MacroStabilityInwards.Data.Test

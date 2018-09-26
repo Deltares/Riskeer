@@ -58,6 +58,7 @@ namespace Core.Components.Chart.Data
             {
                 throw new ArgumentNullException(nameof(style));
             }
+
             Style = style;
             Lines = new List<Point2D[]>();
         }

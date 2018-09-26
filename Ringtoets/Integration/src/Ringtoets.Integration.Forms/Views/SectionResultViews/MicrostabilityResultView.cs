@@ -25,7 +25,6 @@ using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
-using Ringtoets.Integration.Data.StandAlone.Helpers;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -107,9 +106,9 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 DataGridViewControl,
                 nameof(MicrostabilitySectionResultRow.CombinedAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(MicrostabilitySectionResultRow.UseManualAssemblyCategoryGroup));
+                nameof(MicrostabilitySectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
@@ -119,11 +118,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
-        }
-
-        protected override bool HasManualAssemblyResults()
-        {
-            return MicrostabilityFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

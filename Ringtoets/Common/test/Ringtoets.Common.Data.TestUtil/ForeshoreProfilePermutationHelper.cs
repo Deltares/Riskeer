@@ -112,13 +112,10 @@ namespace Ringtoets.Common.Data.TestUtil
                         new Point2D(1, 1)
                     }))
                     .SetName($"{targetName}_DifferentGeometry_{testResultDescription}"),
-
                 new TestCaseData(new TestForeshoreProfile(new BreakWater(defaultBreakWater.Type, 1 + defaultBreakWater.Height)))
                     .SetName($"{targetName}_DifferentBreakWaterHeight_{testResultDescription}"),
-
                 new TestCaseData(new TestForeshoreProfile(new BreakWater(BreakWaterType.Caisson, defaultBreakWater.Height)))
                     .SetName($"{targetName}_DifferentBreakWaterTypeCaisson_{testResultDescription}"),
-
                 new TestCaseData(new TestForeshoreProfile(new BreakWater(BreakWaterType.Wall, defaultBreakWater.Height)))
                     .SetName($"{targetName}_DifferentBreakWaterTypeWall_{testResultDescription}")
             };

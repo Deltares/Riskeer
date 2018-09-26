@@ -151,7 +151,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 Assert.AreEqual(result.DetailedAssessmentProbability, row.DetailedAssessmentProbability);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
-                Assert.AreEqual(result.UseManualAssemblyCategoryGroup, row.UseManualAssemblyCategoryGroup);
+                Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
                 Assert.AreEqual(result.ManualAssemblyCategoryGroup, row.ManualAssemblyCategoryGroup);
 
                 TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
@@ -261,7 +261,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         }
 
         [Test]
-        public void UseManualAssemblyCategoryGroup_SetNewValue_NotifyObserversAndPropertyChanged()
+        public void UseManualAssembly_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
@@ -276,7 +276,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            bool newValue = !result.UseManualAssemblyCategoryGroup;
+            bool newValue = !result.UseManualAssembly;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -284,13 +284,13 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                                                                      ConstructionProperties);
 
                 // Precondition
-                Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+                Assert.IsFalse(result.UseManualAssembly);
 
                 // Call
-                row.UseManualAssemblyCategoryGroup = newValue;
+                row.UseManualAssembly = newValue;
 
                 // Assert
-                Assert.AreEqual(newValue, result.UseManualAssemblyCategoryGroup);
+                Assert.AreEqual(newValue, result.UseManualAssembly);
                 mocks.VerifyAll();
             }
         }
@@ -552,7 +552,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_WithUseManualAssemblyCategoryGroupSet_ExpectedColumnStates(bool useManualAssemblyCategoryGroup)
+        public void Constructor_WithUseManualAssemblySet_ExpectedColumnStates(bool useManualAssembly)
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
@@ -565,7 +565,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
             {
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability,
-                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup
+                UseManualAssembly = useManualAssembly
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -578,17 +578,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
 
-                if (useManualAssemblyCategoryGroup)
+                if (useManualAssembly)
                 {
                     DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateIsDisabled(
                         columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
@@ -601,7 +601,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 }
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex],
-                                                                                     useManualAssemblyCategoryGroup);
+                                                                                     useManualAssembly);
 
                 mocks.VerifyAll();
             }

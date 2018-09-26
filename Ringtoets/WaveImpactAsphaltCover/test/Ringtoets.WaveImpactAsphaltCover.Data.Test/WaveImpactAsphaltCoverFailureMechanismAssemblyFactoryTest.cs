@@ -98,7 +98,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
         }
 
         [Test]
-        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleSimpleAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -190,7 +190,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleDetailedAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -274,7 +274,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleTailorMadeAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -334,16 +334,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
                 WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly =
-                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup expectedDetailedAssembly =
-                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly =
-                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
-
-                Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
-                Assert.AreEqual(expectedDetailedAssembly, calculator.CombinedDetailedAssemblyGroupInput);
-                Assert.AreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
+                Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
+                Assert.AreEqual(calculator.DetailedAssessmentAssemblyGroupOutput, calculator.CombinedDetailedAssemblyGroupInput);
+                Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, calculator.CombinedTailorMadeAssemblyGroupInput);
             }
         }
 
@@ -368,10 +361,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
                 WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly =
-                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
-
-                Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
+                Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
                 Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedDetailedAssemblyGroupInput);
                 Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedTailorMadeAssemblyGroupInput);
             }
@@ -400,7 +390,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleCombinedAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -457,16 +447,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
                     new Random(39).NextBoolean());
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
-                    sectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup expectedDetailedAssembly = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                    sectionResult);
-
-                Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
-                Assert.AreEqual(expectedDetailedAssembly, calculator.CombinedDetailedAssemblyGroupInput);
-                Assert.AreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
+                Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
+                Assert.AreEqual(calculator.DetailedAssessmentAssemblyGroupOutput, calculator.CombinedDetailedAssemblyGroupInput);
+                Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, calculator.CombinedTailorMadeAssemblyGroupInput);
             }
         }
 
@@ -478,15 +461,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult);
-                Assert.AreEqual(expectedAssembly, categoryGroup);
+                Assert.AreEqual(calculator.CombinedAssemblyCategoryOutput, categoryGroup);
             }
         }
 
@@ -496,7 +480,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             // Setup
             var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyCategoryGroup = true,
+                UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
             };
 
@@ -516,20 +500,23 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             var random = new Random(39);
             var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                UseManualAssemblyCategoryGroup = true,
-                ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
-                TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>()
+                UseManualAssembly = true,
+                ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
             };
 
-            // Call
-            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                sectionResult,
-                false);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-            // Assert
-            FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                sectionResult);
-            Assert.AreEqual(expectedAssembly, categoryGroup);
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult,
+                    false);
+
+                // Assert
+                Assert.AreEqual(calculator.CombinedAssemblyCategoryOutput, categoryGroup);
+            }
         }
 
         [Test]
@@ -547,7 +534,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
                 // Call
                 TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
-                    new Random(39).NextBoolean());
+                    false);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -573,31 +560,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithoutManualInput_SetsInputOnCalculator()
-        {
-            // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                // Call
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
-
-                // Assert
-                FailureMechanismSectionAssemblyCategoryGroup assemblyCategory =
-                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanism.SectionResults.Single());
-                Assert.AreEqual(assemblyCategory, calculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        [Test]
         public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableCategory()
         {
             // Setup
@@ -614,6 +576,30 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
         }
 
         [Test]
+        public void AssembleFailureMechanism_WithoutManualInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+
+                // Assert
+                Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
+            }
+        }
+
+        [Test]
         public void AssembleFailureMechanism_WithManualInputAndUseManualTrue_SetsInputOnCalculator()
         {
             // Setup
@@ -623,7 +609,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
             WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -640,7 +626,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithManualInputAndUseManualFalse_SetsNoInputOnCalculator()
+        public void AssembleFailureMechanism_WithManualInputAndUseManualFalse_SetsCombinedInputOnCalculator()
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -649,21 +635,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
             WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    failureMechanism.SectionResults.Single());
-                Assert.AreEqual(expectedAssembly, calculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
             }
         }
 

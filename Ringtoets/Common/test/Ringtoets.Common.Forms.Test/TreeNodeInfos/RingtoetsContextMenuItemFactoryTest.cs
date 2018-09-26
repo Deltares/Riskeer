@@ -815,6 +815,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 inquiryHelper.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(continuation);
             }
+
             mocks.ReplayAll();
 
             ICalculation<ICalculationInputWithForeshoreProfile> actionCalculation = null;
@@ -897,6 +898,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Er zijn geen berekeningen om bij te werken.", toolStripItem.ToolTipText);
                 Assert.IsFalse(toolStripItem.Enabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -929,6 +931,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 inquiryHelper.Expect(i => i.InquireContinuation(inquireContinuationMessage)).Return(continuation);
             }
+
             mocks.ReplayAll();
 
             ICalculation<ICalculationInputWithForeshoreProfile> actionCalculation = null;

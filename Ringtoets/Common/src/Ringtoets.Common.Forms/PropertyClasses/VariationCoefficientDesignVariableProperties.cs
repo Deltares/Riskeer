@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Gets the design variable.
         /// </summary>
-        protected VariationCoefficientDesignVariable<TDistribution> DesignVariable { get; }
+        private VariationCoefficientDesignVariable<TDistribution> DesignVariable { get; }
 
         /// <summary>
         /// Gets the <see cref="TDistribution"/> of the <see cref="DesignVariable{T}"/>.
@@ -89,6 +89,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(designVariable));
             }
+
             return designVariable.Distribution;
         }
     }

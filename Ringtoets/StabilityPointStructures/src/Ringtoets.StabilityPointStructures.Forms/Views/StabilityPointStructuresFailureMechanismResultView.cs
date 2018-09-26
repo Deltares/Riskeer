@@ -170,9 +170,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                 DataGridViewControl,
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.UseManualAssemblyProbability));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
@@ -182,11 +182,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
-        }
-
-        protected override bool HasManualAssemblyResults()
-        {
-            return StabilityPointStructuresFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

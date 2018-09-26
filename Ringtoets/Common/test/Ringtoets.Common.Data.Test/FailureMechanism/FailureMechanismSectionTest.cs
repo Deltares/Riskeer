@@ -62,7 +62,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("name", exception.ParamName);
-
         }
 
         [Test]

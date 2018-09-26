@@ -168,9 +168,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.UseManualAssemblyProbability));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
@@ -180,11 +180,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
-        }
-
-        protected override bool HasManualAssemblyResults()
-        {
-            return GrassCoverErosionInwardsFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

@@ -145,9 +145,9 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void GivenFailureMechanismWithManualAssessment_WhenCreatingExportableFailureMechanism_ThenManualAssemblyIgnored()
+        public void CreateExportableFailureMechanism_WithFailureMechanismWithManualAssessment_ManualAssemblyIgnored()
         {
-            // Given
+            // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -155,19 +155,21 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var failureMechanism = new DuneErosionFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.VIIv;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-                // When
+                // Call
                 ExportableDuneErosionFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
-                // Then
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
+                // Assert
+                Assert.AreEqual(failureMechanismSectionAssemblyCalculator.CombinedAssemblyCategoryOutput,
+                                failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
             }
 
             mocks.VerifyAll();

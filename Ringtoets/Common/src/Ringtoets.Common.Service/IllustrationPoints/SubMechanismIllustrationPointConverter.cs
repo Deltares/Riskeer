@@ -49,10 +49,12 @@ namespace Ringtoets.Common.Service.IllustrationPoints
                 throw new ArgumentNullException(nameof(hydraRingSubMechanismIllustrationPoint));
             }
 
-            IEnumerable<SubMechanismIllustrationPointStochast> stochasts = hydraRingSubMechanismIllustrationPoint
-                .Stochasts.Select(StochastConverter.Convert).ToArray();
-            IEnumerable<IllustrationPointResult> illustrationPointResults = hydraRingSubMechanismIllustrationPoint
-                .Results.Select(IllustrationPointResultConverter.Convert).ToArray();
+            IEnumerable<SubMechanismIllustrationPointStochast> stochasts = hydraRingSubMechanismIllustrationPoint.Stochasts
+                                                                                                                 .Select(StochastConverter.Convert)
+                                                                                                                 .ToArray();
+            IEnumerable<IllustrationPointResult> illustrationPointResults = hydraRingSubMechanismIllustrationPoint.Results
+                                                                                                                  .Select(IllustrationPointResultConverter.Convert)
+                                                                                                                  .ToArray();
 
             return new SubMechanismIllustrationPoint(hydraRingSubMechanismIllustrationPoint.Name,
                                                      hydraRingSubMechanismIllustrationPoint.Beta,

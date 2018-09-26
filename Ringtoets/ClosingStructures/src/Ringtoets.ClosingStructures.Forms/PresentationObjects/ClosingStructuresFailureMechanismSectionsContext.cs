@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.ClosingStructures.Data;
 
 namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
 {

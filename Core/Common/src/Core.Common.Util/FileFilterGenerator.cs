@@ -30,14 +30,15 @@ namespace Core.Common.Util
     /// </summary>
     public class FileFilterGenerator
     {
-        private readonly string extension = "*";
-        private readonly string description = Resources.FileFilterGenerator_All_Files;
-
         /// <summary>
         /// Creates a new instance of <see cref="FileFilterGenerator"/> which filters out no
         /// file type.
         /// </summary>
-        public FileFilterGenerator() {}
+        public FileFilterGenerator()
+        {
+            Extension = "*";
+            Description = Resources.FileFilterGenerator_All_Files;
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="FileFilterGenerator"/> which filters files based on
@@ -52,8 +53,9 @@ namespace Core.Common.Util
             {
                 throw new ArgumentException($@"Value required for the '{nameof(typeExtension)}'.", nameof(typeExtension));
             }
-            extension = typeExtension;
-            description = string.Format(Resources.FileFilterGenerator_Files_of_type_0_, typeExtension.ToUpperInvariant());
+
+            Extension = typeExtension;
+            Description = string.Format(Resources.FileFilterGenerator_Files_of_type_0_, typeExtension.ToUpperInvariant());
         }
 
         /// <summary>
@@ -71,35 +73,25 @@ namespace Core.Common.Util
             {
                 throw new ArgumentException($@"Value required for the '{nameof(typeExtension)}'.", nameof(typeExtension));
             }
+
             if (string.IsNullOrEmpty(typeDescription))
             {
                 throw new ArgumentException($@"Value required for the '{nameof(typeDescription)}'.", nameof(typeDescription));
             }
-            description = typeDescription;
-            extension = typeExtension;
+
+            Description = typeDescription;
+            Extension = typeExtension;
         }
 
         /// <summary>
         /// Gets the extension of the <see cref="FileFilterGenerator"/>.
         /// </summary>
-        public string Extension
-        {
-            get
-            {
-                return extension;
-            }
-        }
+        public string Extension { get; }
 
         /// <summary>
         /// Gets the description of the <see cref="FileFilterGenerator"/>.
         /// </summary>
-        public string Description
-        {
-            get
-            {
-                return description;
-            }
-        }
+        public string Description { get; }
 
         /// <summary>
         /// Gets a filter string for the <see cref="FileFilterGenerator"/>.
@@ -108,7 +100,7 @@ namespace Core.Common.Util
         {
             get
             {
-                return string.Format(Resources.FileFilterGenerator_File_filter_format, description, extension);
+                return string.Format(Resources.FileFilterGenerator_File_filter_format, Description, Extension);
             }
         }
 
@@ -118,14 +110,17 @@ namespace Core.Common.Util
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((FileFilterGenerator) obj);
         }
 
@@ -133,13 +128,13 @@ namespace Core.Common.Util
         {
             unchecked
             {
-                return (extension.GetHashCode() * 397) ^ description.GetHashCode();
+                return (Extension.GetHashCode() * 397) ^ Description.GetHashCode();
             }
         }
 
         private bool Equals(FileFilterGenerator other)
         {
-            return string.Equals(extension, other.extension) && string.Equals(description, other.description);
+            return string.Equals(Extension, other.Extension) && string.Equals(Description, other.Description);
         }
     }
 }

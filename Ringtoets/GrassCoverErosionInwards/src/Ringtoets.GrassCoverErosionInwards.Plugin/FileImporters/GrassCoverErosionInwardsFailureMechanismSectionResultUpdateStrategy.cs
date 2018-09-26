@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
             target.DetailedAssessmentResult = origin.DetailedAssessmentResult;
             target.TailorMadeAssessmentResult = origin.TailorMadeAssessmentResult;
             target.TailorMadeAssessmentProbability = origin.TailorMadeAssessmentProbability;
-            target.UseManualAssemblyProbability = origin.UseManualAssemblyProbability;
+            target.UseManualAssembly = origin.UseManualAssembly;
             target.ManualAssemblyProbability = origin.ManualAssemblyProbability;
         }
     }

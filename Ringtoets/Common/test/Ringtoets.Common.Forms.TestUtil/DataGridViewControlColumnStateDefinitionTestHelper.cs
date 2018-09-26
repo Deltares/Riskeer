@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.TestUtil
 {

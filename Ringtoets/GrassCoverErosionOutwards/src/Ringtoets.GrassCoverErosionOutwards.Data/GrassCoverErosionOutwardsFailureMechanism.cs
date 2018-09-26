@@ -62,14 +62,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return WaveConditionsCalculationGroup.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>();
-            }
-        }
-
         /// <summary>
         /// Gets the general grass cover erosion outwards calculation input parameters that apply to each calculation.
         /// </summary>
@@ -148,6 +140,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             get
             {
                 return waveHeightCalculationsForMechanismSpecificLowerLimitNorm;
+            }
+        }
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                return WaveConditionsCalculationGroup.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>();
             }
         }
 

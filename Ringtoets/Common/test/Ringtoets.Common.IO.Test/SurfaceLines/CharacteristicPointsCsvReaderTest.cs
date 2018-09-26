@@ -175,8 +175,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build("Het bestand is leeg.");
+                                         .WithLocation("op regel 1")
+                                         .Build("Het bestand is leeg.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -204,8 +204,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build("Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.");
+                                         .WithLocation("op regel 1")
+                                         .Build("Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -227,8 +227,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build("Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.");
+                                         .WithLocation("op regel 1")
+                                         .Build("Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -250,8 +250,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build("Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.");
+                                         .WithLocation("op regel 1")
+                                         .Build("Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -362,8 +362,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build("Het bestand is leeg.");
+                                         .WithLocation("op regel 1")
+                                         .Build("Het bestand is leeg.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -385,8 +385,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build("Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.");
+                                         .WithLocation("op regel 1")
+                                         .Build("Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -408,8 +408,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build("Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.");
+                                         .WithLocation("op regel 1")
+                                         .Build("Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -431,9 +431,9 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .WithSubject("locatie 'Invalid'")
-                    .Build("Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
+                                         .WithLocation("op regel 2")
+                                         .WithSubject("locatie 'Invalid'")
+                                         .Build("Karakteristiek punt heeft een coördinaatwaarde die niet omgezet kan worden naar een getal.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FormatException>(exception.InnerException);
             }
@@ -462,9 +462,9 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .WithSubject("locatie 'InvalidNumber'")
-                    .Build("Karakteristiek punt heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.");
+                                         .WithLocation("op regel 2")
+                                         .WithSubject("locatie 'InvalidNumber'")
+                                         .Build("Karakteristiek punt heeft een coördinaatwaarde die te groot of te klein is om ingelezen te worden.");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             }
@@ -488,14 +488,14 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // 1st line has no text at all:
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .Build("Regel heeft geen ID.");
+                                         .WithLocation("op regel 2")
+                                         .Build("Regel heeft geen ID.");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd line has only whitespace text:
                 expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 3")
-                    .Build("Regel heeft geen ID.");
+                                  .WithLocation("op regel 3")
+                                  .Build("Regel heeft geen ID.");
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -519,14 +519,14 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // 1st line has no text at all:
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .Build("Regel heeft geen ID.");
+                                         .WithLocation("op regel 2")
+                                         .Build("Regel heeft geen ID.");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd line has only whitespace text:
                 expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 4")
-                    .Build("Regel heeft geen ID.");
+                                  .WithLocation("op regel 4")
+                                  .Build("Regel heeft geen ID.");
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -549,8 +549,8 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 1")
-                    .Build($"Ontbrekend scheidingsteken '{';'}'.");
+                                         .WithLocation("op regel 1")
+                                         .Build($"Ontbrekend scheidingsteken '{';'}'.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -573,17 +573,17 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // 1st row lacks 1 coordinate value:
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .WithSubject("locatie 'LacksOneCoordinate'")
-                    .Build("Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst.");
+                                         .WithLocation("op regel 2")
+                                         .WithSubject("locatie 'LacksOneCoordinate'")
+                                         .Build("Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst.");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd row lacks 2 coordinate values:
                 exception = Assert.Throws<LineParseException>(call);
                 expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 3")
-                    .WithSubject("locatie 'LacksTwoCoordinates'")
-                    .Build("Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst.");
+                                  .WithLocation("op regel 3")
+                                  .WithSubject("locatie 'LacksTwoCoordinates'")
+                                  .Build("Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -606,17 +606,17 @@ namespace Ringtoets.Common.IO.Test.SurfaceLines
                 // 1st row lacks 1 coordinate value:
                 var exception = Assert.Throws<LineParseException>(call);
                 string expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 2")
-                    .WithSubject("locatie 'OneValueTooMuch'")
-                    .Build("Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst.");
+                                         .WithLocation("op regel 2")
+                                         .WithSubject("locatie 'OneValueTooMuch'")
+                                         .Build("Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst.");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd row lacks 2 coordinate values:
                 exception = Assert.Throws<LineParseException>(call);
                 expectedMessage = new FileReaderErrorMessageBuilder(path)
-                    .WithLocation("op regel 3")
-                    .WithSubject("locatie 'ThreeValuesTooMuch'")
-                    .Build("Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst.");
+                                  .WithLocation("op regel 3")
+                                  .WithSubject("locatie 'ThreeValuesTooMuch'")
+                                  .Build("Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst.");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

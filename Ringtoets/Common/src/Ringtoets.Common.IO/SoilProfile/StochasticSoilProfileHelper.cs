@@ -50,6 +50,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 throw new ArgumentNullException(nameof(stochasticSoilProfiles));
             }
+
             if (soilModelName == null)
             {
                 throw new ArgumentNullException(nameof(soilModelName));

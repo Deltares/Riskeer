@@ -335,7 +335,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return FailureMechanismSectionDirectResult;
         }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyDirectResult simpleAssessmentResult, 
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyDirectResult simpleAssessmentResult,
                                                                              FmSectionAssemblyDirectResult detailedAssessmentResult,
                                                                              FmSectionAssemblyDirectResult customAssessmentResult)
         {
@@ -350,7 +350,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         }
 
         public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0A1(FmSectionAssemblyDirectResultWithProbability simpleAssessmentResult,
-                                                                                            FmSectionAssemblyDirectResultWithProbability detailedAssessmentResult, 
+                                                                                            FmSectionAssemblyDirectResultWithProbability detailedAssessmentResult,
                                                                                             FmSectionAssemblyDirectResultWithProbability customAssessmentResult)
         {
             ThrowException();
@@ -363,8 +363,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return FailureMechanismSectionDirectResultWithProbability;
         }
 
-        public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyIndirectResult simpleAssessmentResult, 
-                                                                               FmSectionAssemblyIndirectResult detailedAssessmentResult, 
+        public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyIndirectResult simpleAssessmentResult,
+                                                                               FmSectionAssemblyIndirectResult detailedAssessmentResult,
                                                                                FmSectionAssemblyIndirectResult customAssessmentResult)
         {
             throw new NotImplementedException();

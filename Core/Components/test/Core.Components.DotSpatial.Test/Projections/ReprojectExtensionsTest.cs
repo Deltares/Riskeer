@@ -130,7 +130,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             var p1 = new Coordinate(0.0, 0.0);
             var p2 = new Coordinate(1.1, 1.1);
             var p3 = new Coordinate(2.2, 0.0);
-            var triangleCoordinates = new[]
+            Coordinate[] triangleCoordinates =
             {
                 p1,
                 p2,
@@ -178,7 +178,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             var p1 = new Coordinate(0.0, 0.0);
             var p2 = new Coordinate(1.1, 1.1);
             var p3 = new Coordinate(2.2, 0.0);
-            var triangleCoordinates = new[]
+            Coordinate[] triangleCoordinates =
             {
                 p1,
                 p2,
@@ -220,7 +220,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             var p1 = new Coordinate(0.0, 0.0);
             var p2 = new Coordinate(1.1, 1.1);
             var p3 = new Coordinate(2.2, 0.0);
-            var triangleCoordinates = new[]
+            Coordinate[] triangleCoordinates =
             {
                 p1,
                 p2,

@@ -166,7 +166,7 @@ namespace Ringtoets.Common.Service.Test
                 },
                 Output = new TestStructuresOutput()
             };
-            var calculations = new[]
+            StructuresCalculation<TestStructureInput>[] calculations =
             {
                 calculation1,
                 calculation2,

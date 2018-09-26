@@ -65,6 +65,7 @@ namespace Core.Components.BruTile.Forms
             {
                 return CreateInitializedConfiguration(wellKnownBackgroundMapData);
             }
+
             throw new NotSupportedException($"Cannot create a configuration for type {mapData.GetType()}.");
         }
 

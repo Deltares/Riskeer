@@ -67,6 +67,7 @@ namespace Ringtoets.Common.IO.TestUtil
             {
                 File.Delete(filePath);
             }
+
             mocks.VerifyAll();
         }
 

@@ -34,6 +34,7 @@ namespace Core.Common.Controls.DataGrid
             Style = CellStyle.Enabled;
             ErrorText = string.Empty;
         }
+
         /// <summary>
         /// Get or sets the read only state.
         /// </summary>

@@ -52,14 +52,17 @@ namespace Ringtoets.Common.Forms.TestUtil
             {
                 return -1;
             }
+
             if (!ReferenceEquals(x?.Stochasts, y?.Stochasts))
             {
                 return -1;
             }
+
             if (x.WindDirectionName.CompareTo(y.WindDirectionName) != 0)
             {
                 return x.WindDirectionName.CompareTo(y.WindDirectionName);
             }
+
             if (x.ClosingSituation.CompareTo(y.ClosingSituation) != 0)
             {
                 return x.ClosingSituation.CompareTo(y.ClosingSituation);

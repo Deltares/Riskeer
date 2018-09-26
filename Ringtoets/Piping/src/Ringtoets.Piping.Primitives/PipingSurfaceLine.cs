@@ -222,23 +222,7 @@ namespace Ringtoets.Piping.Primitives
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hashCode = Name.GetHashCode();
-                foreach (Point3D point in Points)
-                {
-                    hashCode = (hashCode * 397) ^ point.GetHashCode();
-                }
-
-                hashCode = (hashCode * 397) ^ (DikeToeAtPolder?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ (DikeToeAtRiver?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ (DitchDikeSide?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ (DitchPolderSide?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ (BottomDitchDikeSide?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ (BottomDitchPolderSide?.GetHashCode() ?? 0);
-
-                return hashCode;
-            }
+            return 0;
         }
 
         private void SetCharacteristicPoints(PipingSurfaceLine fromSurfaceLine)

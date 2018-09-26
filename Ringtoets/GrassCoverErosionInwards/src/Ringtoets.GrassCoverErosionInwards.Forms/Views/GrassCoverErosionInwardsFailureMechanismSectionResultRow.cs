@@ -254,15 +254,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public bool UseManualAssemblyProbability
+        public bool UseManualAssembly
         {
             get
             {
-                return SectionResult.UseManualAssemblyProbability;
+                return SectionResult.UseManualAssembly;
             }
             set
             {
-                SectionResult.UseManualAssemblyProbability = value;
+                SectionResult.UseManualAssembly = value;
                 UpdateInternalData();
             }
         }
@@ -288,11 +288,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
+        public override void Update()
+        {
+            UpdateDerivedData();
+            UpdateColumnDefinitionStates();
+            UpdateDetailedAssessmentProbabilityError();
+        }
+
         private void UpdateDetailedAssessmentProbabilityError()
         {
             if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult)
                 || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
-                || UseManualAssemblyProbability)
+                || UseManualAssembly)
             {
                 ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = string.Empty;
             }
@@ -302,13 +309,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                     DetailedAssessmentProbability,
                     SectionResult.Calculation);
             }
-        }
-
-        public override void Update()
-        {
-            UpdateDerivedData();
-            UpdateColumnDefinitionStates();
-            UpdateDetailedAssessmentProbabilityError();
         }
 
         private void CreateColumnStateDefinitions()
@@ -410,7 +410,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 ColumnStateDefinitions[combinedAssemblyProbabilityIndex].ErrorText = e.Message;
             }
         }
-        
+
         /// <summary>
         /// Updates the column state definitions.
         /// </summary>
@@ -420,12 +420,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
 
-            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssemblyProbability);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssembly);
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssemblyProbability);
+                                                                  simpleAssessmentSufficient || UseManualAssembly);
             if (simpleAssessmentSufficient
                 || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
-                || UseManualAssemblyProbability)
+                || UseManualAssembly)
             {
                 FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex]);
             }
@@ -435,13 +435,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
 
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssemblyProbability);
+                                                                  simpleAssessmentSufficient || UseManualAssembly);
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
                                                                   simpleAssessmentSufficient
                                                                   || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult)
-                                                                  || UseManualAssemblyProbability);
+                                                                  || UseManualAssembly);
 
-            if (UseManualAssemblyProbability)
+            if (UseManualAssembly)
             {
                 FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex]);
                 FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex]);
@@ -462,7 +462,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[combinedAssemblyProbabilityIndex], true);
             }
 
-            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyProbabilityIndex], !UseManualAssemblyProbability);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyProbabilityIndex], !UseManualAssembly);
         }
 
         /// <summary>

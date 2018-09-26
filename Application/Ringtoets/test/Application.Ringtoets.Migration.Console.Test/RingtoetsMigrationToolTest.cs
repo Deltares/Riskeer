@@ -151,6 +151,7 @@ namespace Application.Ringtoets.Migration.Console.Test
                     Assert.AreEqual(expectedVersion, toVersionedFile.GetVersion());
                 }
             }
+
             Assert.AreEqual(ErrorCode.ErrorSuccess, environmentControl.ErrorCodeCalled);
         }
 

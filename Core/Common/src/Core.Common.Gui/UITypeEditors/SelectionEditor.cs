@@ -76,6 +76,7 @@ namespace Core.Common.Gui.UITypeEditors
                     return listBox.SelectedItem;
                 }
             }
+
             return base.EditValue(context, provider, originalValue);
         }
 
@@ -146,6 +147,7 @@ namespace Core.Common.Gui.UITypeEditors
                     listBox.SelectedIndex = index;
                 }
             }
+
             listBox.EndUpdate();
             return listBox;
         }

@@ -118,13 +118,10 @@ namespace Ringtoets.Integration.IO.Test.Creators
         [Test]
         public void CreateWithCombinedAssemblySection_SectionNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var section = (ExportableCombinedFailureMechanismSection) null;
-
             // Call
             TestDelegate call = () => SerializableFailureMechanismSectionCreator.Create(new IdentifierGenerator(),
                                                                                         new SerializableFailureMechanismSectionCollection(),
-                                                                                        section);
+                                                                                        null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

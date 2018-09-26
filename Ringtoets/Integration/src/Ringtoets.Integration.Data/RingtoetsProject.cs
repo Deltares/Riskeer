@@ -61,38 +61,42 @@ namespace Ringtoets.Integration.Data
         /// </summary>
         public string Description { get; set; }
 
-        public bool Equals(IProject other)
-        {
-            var otherProject = other as RingtoetsProject;
-            if (otherProject == null)
-            {
-                return false;
-            }
-            return string.Equals(Name, otherProject.Name) &&
-                   string.Equals(Description, otherProject.Description) &&
-                   AssessmentSections.SequenceEqual(otherProject.AssessmentSections);
-        }
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((RingtoetsProject) obj);
         }
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode() ^ Description.GetHashCode();
+            return 0;
+        }
+
+        private bool Equals(IProject other)
+        {
+            var otherProject = other as RingtoetsProject;
+            if (otherProject == null)
+            {
+                return false;
+            }
+
+            return string.Equals(Name, otherProject.Name) &&
+                   string.Equals(Description, otherProject.Description) &&
+                   AssessmentSections.SequenceEqual(otherProject.AssessmentSections);
         }
     }
 }

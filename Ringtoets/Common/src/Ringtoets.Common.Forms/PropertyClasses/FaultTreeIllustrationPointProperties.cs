@@ -123,6 +123,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                     throw new NotSupportedException($"IllustrationPointNode of type {illustrationPointNode.Data.GetType().Name} is not supported. " +
                                                     $"Supported types: {nameof(FaultTreeIllustrationPoint)} and {nameof(SubMechanismIllustrationPoint)}");
                 }
+
                 return points.ToArray();
             }
         }

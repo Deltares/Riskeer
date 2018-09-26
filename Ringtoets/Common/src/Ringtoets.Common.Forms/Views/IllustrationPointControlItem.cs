@@ -55,14 +55,17 @@ namespace Ringtoets.Common.Forms.Views
             {
                 throw new ArgumentNullException(nameof(source));
             }
+
             if (windDirectionName == null)
             {
                 throw new ArgumentNullException(nameof(windDirectionName));
             }
+
             if (closingSituation == null)
             {
                 throw new ArgumentNullException(nameof(closingSituation));
             }
+
             if (stochasts == null)
             {
                 throw new ArgumentNullException(nameof(stochasts));

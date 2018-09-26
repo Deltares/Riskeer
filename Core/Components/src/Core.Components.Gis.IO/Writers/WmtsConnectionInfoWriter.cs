@@ -67,6 +67,7 @@ namespace Core.Components.Gis.IO.Writers
             {
                 throw new ArgumentNullException(nameof(wmtsConnectionInfos));
             }
+
             try
             {
                 WriteWmtsConnectionInfosToXml(wmtsConnectionInfos);

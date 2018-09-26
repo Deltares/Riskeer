@@ -54,6 +54,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 throw new ArgumentNullException(nameof(backgroundLayer));
             }
+
             if (dataSource == null)
             {
                 throw new ArgumentNullException(nameof(dataSource));

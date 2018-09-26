@@ -63,10 +63,12 @@ namespace Ringtoets.Common.Forms
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
+
             if (scenarioRows == null)
             {
                 throw new ArgumentNullException(nameof(scenarioRows));
             }
+
             if (calculationsPerSection == null)
             {
                 throw new ArgumentNullException(nameof(calculationsPerSection));

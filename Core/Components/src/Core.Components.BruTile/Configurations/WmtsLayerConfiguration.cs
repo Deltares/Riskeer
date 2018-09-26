@@ -142,6 +142,7 @@ namespace Core.Components.BruTile.Configurations
             {
                 throw new CannotCreateTileCacheException(Resources.WmtsLayerConfiguration_ValidateTileSource_TileSource_must_have_WmtsTileSchema);
             }
+
             return tileSource;
         }
 
@@ -160,14 +161,17 @@ namespace Core.Components.BruTile.Configurations
             {
                 throw new ArgumentNullException(nameof(wmtsCapabilitiesUrl));
             }
+
             if (capabilityIdentifier == null)
             {
                 throw new ArgumentNullException(nameof(capabilityIdentifier));
             }
+
             if (preferredFormat == null)
             {
                 throw new ArgumentNullException(nameof(preferredFormat));
             }
+
             if (!preferredFormat.StartsWith("image/"))
             {
                 throw new ArgumentException(Resources.WmtsLayerConfiguration_ValidateConfigurationParameters_PreferredFormat_must_be_mimetype,
@@ -194,6 +198,7 @@ namespace Core.Components.BruTile.Configurations
                                                capabilityIdentifier, capabilitiesUri);
                 throw new CannotFindTileSourceException(message);
             }
+
             return tileSource;
         }
 
@@ -219,6 +224,7 @@ namespace Core.Components.BruTile.Configurations
             {
                 host = host.Replace(c, '$');
             }
+
             foreach (char c in Path.GetInvalidFileNameChars())
             {
                 layerStyle = layerStyle.Replace(c, '$');

@@ -56,14 +56,17 @@ namespace Ringtoets.Common.Data.DikeProfiles
             {
                 throw new ArgumentNullException(nameof(worldCoordinate));
             }
+
             if (geometry == null)
             {
                 throw new ArgumentNullException(nameof(geometry));
             }
+
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));
             }
+
             if (string.IsNullOrWhiteSpace(properties.Id))
             {
                 throw new ArgumentException(@"Id is null, empty or consists of whitespace.", nameof(properties));
@@ -165,34 +168,23 @@ namespace Ringtoets.Common.Data.DikeProfiles
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((ForeshoreProfile) obj);
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hashCode = Id.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Name?.GetHashCode() ?? 0);
-                hashCode = (hashCode * 397) ^ WorldReferencePoint.GetHashCode();
-                hashCode = (hashCode * 397) ^ X0.GetHashCode();
-                hashCode = (hashCode * 397) ^ Orientation.GetHashCode();
-                hashCode = (hashCode * 397) ^ (BreakWater?.GetHashCode() ?? 0);
-
-                foreach (Point2D point in Geometry)
-                {
-                    hashCode = (hashCode * 397) ^ point.GetHashCode();
-                }
-                return hashCode;
-            }
+            return 0;
         }
 
         private bool Equals(ForeshoreProfile other)
@@ -238,6 +230,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
                     return false;
                 }
             }
+
             return true;
         }
 

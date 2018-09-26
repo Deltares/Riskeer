@@ -45,10 +45,12 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (calculationInput == null)
             {
                 throw new ArgumentNullException(nameof(calculationInput));
             }
+
             this.calculation = calculation;
             this.calculationInput = calculationInput;
         }

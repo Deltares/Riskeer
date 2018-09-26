@@ -330,6 +330,7 @@ namespace Ringtoets.Common.IO.Structures
                     string exceptionMessage = string.Format(Resources.StructuresParameterRowsValidator_Parameter_0_repeated, parameterName);
                     throw new ArgumentException(exceptionMessage);
                 }
+
                 if (count == 1)
                 {
                     yield return structureParameterRows.Single(row => GetMatchingStructuresParameterRow(row.ParameterId, parameterName));
@@ -588,6 +589,7 @@ namespace Ringtoets.Common.IO.Structures
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_whole_number_greater_or_equal_to_one,
                                            row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstToUpper()));
             }
+
             return messages;
         }
 
@@ -605,6 +607,7 @@ namespace Ringtoets.Common.IO.Structures
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_structure_type_invalid,
                                            row.ParameterId, row.LineNumber, StructureFilesKeywords.AlphanumericalValueColumnName.FirstToUpper()));
             }
+
             return messages;
         }
 
@@ -617,6 +620,7 @@ namespace Ringtoets.Common.IO.Structures
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_structure_type_invalid,
                                            row.ParameterId, row.LineNumber, StructureFilesKeywords.AlphanumericalValueColumnName.FirstToUpper()));
             }
+
             return messages;
         }
     }

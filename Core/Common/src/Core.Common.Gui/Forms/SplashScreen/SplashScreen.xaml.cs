@@ -131,6 +131,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
             {
                 LabelSupportPhoneNumber.Content = SupportPhoneNumber;
             }
+
             if (LabelSupportEmailAddress.Content.ToString() != SupportEmail)
             {
                 LabelSupportEmailAddress.Content = SupportEmail;

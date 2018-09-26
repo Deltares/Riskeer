@@ -28,6 +28,7 @@ using Core.Components.GraphSharp.Data;
 using Core.Components.PointedTree.Data;
 using NUnit.Framework;
 using Color = System.Drawing.Color;
+using WpfBrush = System.Windows.Media.Brush;
 using WpfColor = System.Windows.Media.Color;
 
 namespace Core.Components.GraphSharp.Test.Converters
@@ -94,7 +95,7 @@ namespace Core.Components.GraphSharp.Test.Converters
             AssertColors(lineColor, vertex.LineColor);
         }
 
-        private static void AssertColors(Color expectedColor, Brush brushColor)
+        private static void AssertColors(Color expectedColor, WpfBrush brushColor)
         {
             Assert.IsInstanceOf<SolidColorBrush>(brushColor);
             WpfColor actualColor = ((SolidColorBrush) brushColor).Color;

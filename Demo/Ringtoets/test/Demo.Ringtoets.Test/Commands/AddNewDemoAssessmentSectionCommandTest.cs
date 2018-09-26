@@ -184,10 +184,9 @@ namespace Demo.Ringtoets.Test.Commands
             AssertCalculationConvergence(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
 
             Assert.AreEqual(1, demoAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Count);
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = grassCoverErosionOutwardsFailureMechanism
-                                                                                                  .WaveConditionsCalculationGroup.GetCalculations()
-                                                                                                  .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                                                                  .First();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.GetCalculations()
+                                                                                                                      .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                                                                      .First();
             AssertFailureMechanismCategoryWaveConditionsInput(calculation.InputParameters);
         }
 

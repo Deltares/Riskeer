@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation) 
+        protected HydraulicBoundaryLocationCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
             : base(hydraulicBoundaryLocationCalculation) {}
 
         [PropertyOrder(1)]

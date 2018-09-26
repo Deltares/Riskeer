@@ -104,6 +104,7 @@ namespace Ringtoets.Common.IO.HydraRing
                         ((string) dataRow["COLUMN_NAME"]).ToLower()
                     ));
             }
+
             return definitions;
         }
     }

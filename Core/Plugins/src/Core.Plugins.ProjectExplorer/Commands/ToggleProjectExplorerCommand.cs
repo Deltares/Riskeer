@@ -43,6 +43,7 @@ namespace Core.Plugins.ProjectExplorer.Commands
             {
                 throw new ArgumentNullException(nameof(viewController));
             }
+
             this.viewController = viewController;
         }
 

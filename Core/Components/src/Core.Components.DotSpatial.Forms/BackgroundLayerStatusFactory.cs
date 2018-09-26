@@ -51,6 +51,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 return new WmtsBackgroundLayerStatus();
             }
+
             if (mapData is WellKnownTileSourceMapData)
             {
                 return new WellKnownBackgroundLayerStatus();

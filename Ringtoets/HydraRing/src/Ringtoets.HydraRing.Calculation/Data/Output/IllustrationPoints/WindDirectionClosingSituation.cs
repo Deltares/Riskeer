@@ -41,6 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(windDirection));
             }
+
             if (closingSituation == null)
             {
                 throw new ArgumentNullException(nameof(closingSituation));
@@ -66,14 +67,17 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (GetType() != obj.GetType())
             {
                 return false;
             }
+
             return Equals((WindDirectionClosingSituation) obj);
         }
 

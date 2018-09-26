@@ -173,7 +173,7 @@ namespace Ringtoets.Common.Util.Test
                     Structure = new TestStructure(location)
                 }
             };
-            var calculations = new[]
+            StructuresCalculation<TestStructuresInput>[] calculations =
             {
                 calculationOne,
                 calculationTwo
@@ -225,7 +225,7 @@ namespace Ringtoets.Common.Util.Test
                     Structure = new TestStructure(locationTwo)
                 }
             };
-            var calculations = new[]
+            StructuresCalculation<TestStructuresInput>[] calculations =
             {
                 calculationOne,
                 calculationTwo

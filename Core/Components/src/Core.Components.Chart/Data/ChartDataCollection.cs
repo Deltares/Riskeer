@@ -73,6 +73,7 @@ namespace Core.Components.Chart.Data
             {
                 throw new ArgumentNullException(nameof(item), @"An item cannot be null when adding it to the collection.");
             }
+
             chartDataList.Add(item);
         }
 
@@ -89,6 +90,7 @@ namespace Core.Components.Chart.Data
             {
                 throw new ArgumentNullException(nameof(item), @"An item cannot be null when adding it to the collection.");
             }
+
             chartDataList.Insert(index, item);
         }
 

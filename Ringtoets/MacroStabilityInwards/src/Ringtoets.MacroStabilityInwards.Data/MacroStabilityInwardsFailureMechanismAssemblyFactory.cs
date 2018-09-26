@@ -343,7 +343,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                                                                           bool useManual)
         {
             FailureMechanismSectionAssembly sectionAssembly;
-            if (failureMechanismSectionResult.UseManualAssemblyProbability && useManual)
+            if (failureMechanismSectionResult.UseManualAssembly && useManual)
             {
                 sectionAssembly = AssembleManualAssessment(failureMechanismSectionResult,
                                                            failureMechanism,

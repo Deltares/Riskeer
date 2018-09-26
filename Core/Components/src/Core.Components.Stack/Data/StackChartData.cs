@@ -85,6 +85,7 @@ namespace Core.Components.Stack.Data
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             columns.Add(name);
         }
 

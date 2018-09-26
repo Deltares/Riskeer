@@ -89,11 +89,8 @@ namespace Ringtoets.Integration.IO.Test.Creators
         [Test]
         public void CreateWithFailureMechanismAssemblyResultWithProbability_ResultNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var result = (ExportableFailureMechanismAssemblyResultWithProbability) null;
-
             // Call
-            TestDelegate call = () => SerializableFailureMechanismResultCreator.Create(result);
+            TestDelegate call = () => SerializableFailureMechanismResultCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

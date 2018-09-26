@@ -74,6 +74,7 @@ namespace Core.Common.TestUtil
                 // The FileSystemRights Synchronize by itself cannot be set.
                 throw new NotSupportedException($"Setting the right {rights} is not supported.");
             }
+
             AddDenyDirectoryInfoRight(GetSupportedFileSystemRights(rights));
         }
 

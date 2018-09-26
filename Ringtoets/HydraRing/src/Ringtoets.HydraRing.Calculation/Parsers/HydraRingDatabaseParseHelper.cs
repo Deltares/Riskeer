@@ -93,10 +93,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             {
                 throw new ArgumentNullException(nameof(workingDirectory));
             }
+
             if (query == null)
             {
                 throw new ArgumentNullException(nameof(query));
             }
+
             if (exceptionMessage == null)
             {
                 throw new ArgumentNullException(nameof(exceptionMessage));

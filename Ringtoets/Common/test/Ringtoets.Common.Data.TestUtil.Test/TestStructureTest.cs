@@ -166,10 +166,9 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         {
             // Setup
             const string id = "some Id";
-            Point2D location = null;
 
             // Call
-            TestDelegate call = () => new TestStructure(id, location);
+            TestDelegate call = () => new TestStructure(id, (Point2D) null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
@@ -196,11 +195,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         [Test]
         public void Constructor_LocationNull_ThrowsArgumentNullException()
         {
-            // Setup
-            Point2D location = null;
-
             // Call
-            TestDelegate call = () => new TestStructure(location);
+            TestDelegate call = () => new TestStructure(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
@@ -266,10 +262,9 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Setup
             const string id = "some Id";
             const string name = "some name";
-            Point2D location = null;
 
             // Call
-            TestDelegate call = () => new TestStructure(id, name, location);
+            TestDelegate call = () => new TestStructure(id, name, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
@@ -338,11 +333,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Setup
             const string id = "some Id";
             const string name = "some name";
-            Point2D location = null;
             var normal = (RoundedDouble) 456;
 
             // Call
-            TestDelegate call = () => new TestStructure(id, name, location, normal);
+            TestDelegate call = () => new TestStructure(id, name, null, normal);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);

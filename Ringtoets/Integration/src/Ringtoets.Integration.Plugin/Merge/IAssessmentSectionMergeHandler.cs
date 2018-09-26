@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
 

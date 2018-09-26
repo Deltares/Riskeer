@@ -97,11 +97,8 @@ namespace Core.Common.TestUtil.Test
         [Test]
         public void NextBoolean_RandomNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = (Random) null;
-
             // Call
-            TestDelegate test = () => random.NextBoolean();
+            TestDelegate test = () => RandomExtensions.NextBoolean(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -126,11 +123,8 @@ namespace Core.Common.TestUtil.Test
         [Test]
         public void NextEnumValue_RandomNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = (Random) null;
-
             // Call
-            TestDelegate test = () => random.NextEnumValue<TestEnum>();
+            TestDelegate test = () => RandomExtensions.NextEnumValue<TestEnum>(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -168,11 +162,8 @@ namespace Core.Common.TestUtil.Test
         [Test]
         public void NextRoundedDouble_RandomNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = (Random) null;
-
             // Call
-            TestDelegate test = () => random.NextRoundedDouble();
+            TestDelegate test = () => RandomExtensions.NextRoundedDouble(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -197,11 +188,8 @@ namespace Core.Common.TestUtil.Test
         [Test]
         public void NextEnumValueWithEnumValues_RandomNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = (Random) null;
-
             // Call
-            TestDelegate call = () => random.NextEnumValue(Enumerable.Empty<TestEnum>());
+            TestDelegate call = () => RandomExtensions.NextEnumValue(null, Enumerable.Empty<TestEnum>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -39,10 +39,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         {
             // Call
             var hydraRingInitializationService = new HydraRingInitializationService(HydraRingFailureMechanismType.AssessmentLevel,
-                700001,
-                "D:\\hlcd",
-                "D:\\work",
-                "D:\\preprocessor");
+                                                                                    700001,
+                                                                                    "D:\\hlcd",
+                                                                                    "D:\\work",
+                                                                                    "D:\\preprocessor");
 
             // Assert
             Assert.AreEqual("D:\\work\\700001.ini", hydraRingInitializationService.IniFilePath);

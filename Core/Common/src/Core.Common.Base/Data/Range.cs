@@ -40,8 +40,9 @@ namespace Core.Common.Base.Data
         {
             if (min.CompareTo(max) > 0)
             {
-                throw new ArgumentException("Minimum must be smaller or equal to Maximum.", nameof(min));
+                throw new ArgumentException(@"Minimum must be smaller or equal to Maximum.", nameof(min));
             }
+
             Minimum = min;
             Maximum = max;
         }
@@ -79,6 +80,7 @@ namespace Core.Common.Base.Data
                 var formattableMaximum = (IFormattable) Maximum;
                 return $"[{formattableMinimum.ToString(format, formatProvider)}, {formattableMaximum.ToString(format, formatProvider)}]";
             }
+
             return ToString();
         }
     }

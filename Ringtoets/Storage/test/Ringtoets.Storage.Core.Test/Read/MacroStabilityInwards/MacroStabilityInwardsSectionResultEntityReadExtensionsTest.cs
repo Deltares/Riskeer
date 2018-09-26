@@ -70,7 +70,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
             var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
             double tailorMadeAssessmentProbability = random.NextDouble();
-            bool useManualAssemblyProbability = random.NextBoolean();
+            bool useManualAssembly = random.NextBoolean();
             double manualAssemblyProbability = random.NextDouble();
 
             var entity = new MacroStabilityInwardsSectionResultEntity
@@ -79,7 +79,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
                 DetailedAssessmentResult = Convert.ToByte(detailedAssessmentResult),
                 TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
                 TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
-                UseManualAssemblyProbability = Convert.ToByte(useManualAssemblyProbability),
+                UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyProbability = manualAssemblyProbability
             };
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -92,7 +92,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
             Assert.AreEqual(detailedAssessmentResult, sectionResult.DetailedAssessmentResult);
             Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
             Assert.AreEqual(tailorMadeAssessmentProbability, sectionResult.TailorMadeAssessmentProbability, 1e-6);
-            Assert.AreEqual(useManualAssemblyProbability, sectionResult.UseManualAssemblyProbability);
+            Assert.AreEqual(useManualAssembly, sectionResult.UseManualAssembly);
             Assert.AreEqual(manualAssemblyProbability, sectionResult.ManualAssemblyProbability, 1e-6);
         }
 

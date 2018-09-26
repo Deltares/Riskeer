@@ -35,11 +35,8 @@ namespace Core.Common.Util.Test.Drawing
         [Test]
         public void DrawImageTransparent_GraphicsNull_ThrowArgumentNullException()
         {
-            // Setup
-            Graphics graphics = null;
-
             // Call
-            TestDelegate call = () => graphics.DrawImageTransparent(Resources.Black2x2, 1, 1, 0.4f);
+            TestDelegate call = () => GraphicsExtensions.DrawImageTransparent(null, Resources.Black2x2, 1, 1, 0.4f);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

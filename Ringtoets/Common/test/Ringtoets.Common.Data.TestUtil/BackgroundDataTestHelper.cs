@@ -60,6 +60,7 @@ namespace Ringtoets.Common.Data.TestUtil
                 AssertWellKnownBackgroundConfiguration(wellKnownBackgroundDataConfiguration, actualWellKnownBackgroundDataConfiguration);
                 return;
             }
+
             Assert.Fail($"Unsupported type of {nameof(IBackgroundDataConfiguration)} in {expectedBackgroundData.Configuration}");
         }
 

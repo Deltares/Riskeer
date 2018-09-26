@@ -277,8 +277,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         [Test]
         [Combinatorial]
         public void CanDropOrCanInsert_CalculationGroup_DragCalculationItemOntoGroupNotContainingItem_ReturnsTrue(
-            [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
-            [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType)
+            [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)]
+            DragDropTestMethod methodToTest,
+            [Values(CalculationItemType.Calculation, CalculationItemType.Group)]
+            CalculationItemType draggedItemType)
         {
             // Setup
             var mocks = new MockRepository();
@@ -315,14 +317,17 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                     Assert.Fail(methodToTest + " not supported.");
                     break;
             }
+
             mocks.VerifyAll();
         }
 
         [Test]
         [Combinatorial]
         public void CanDropOrInsert_CalculationGroup_DragCalculationItemOntoGroupNotContainingItemOtherFailureMechanism_ReturnsFalse(
-            [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
-            [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType)
+            [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)]
+            DragDropTestMethod methodToTest,
+            [Values(CalculationItemType.Calculation, CalculationItemType.Group)]
+            CalculationItemType draggedItemType)
         {
             // Setup
             var mocks = new MockRepository();
@@ -360,13 +365,15 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                     Assert.Fail(methodToTest + " not supported.");
                     break;
             }
+
             mocks.VerifyAll();
         }
 
         [Test]
         [Combinatorial]
         public void OnDrop_CalculationGroup_DragCalculationItemOntoGroupEnd_MoveCalculationItemToNewGroup(
-            [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType)
+            [Values(CalculationItemType.Calculation, CalculationItemType.Group)]
+            CalculationItemType draggedItemType)
         {
             // Setup
             var mocks = new MockRepository();
@@ -410,13 +417,15 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
                                "Dragging node at the end of the target TestCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
             }
+
             mocks.VerifyAll();
         }
 
         [Test]
         [Combinatorial]
         public void OnDrop_CalculationGroup_InsertCalculationItemAtDifferentLocationWithinSameGroup_ChangeItemIndexOfCalculationItem(
-            [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType,
+            [Values(CalculationItemType.Calculation, CalculationItemType.Group)]
+            CalculationItemType draggedItemType,
             [Values(0, 2)] int newIndex)
         {
             // Setup
@@ -463,13 +472,15 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(name, draggedItem.Name,
                                 "No renaming should occur when dragging within the same TestCalculationGroup.");
             }
+
             mocks.VerifyAll();
         }
 
         [Test]
         [Combinatorial]
         public void OnDrop_CalculationGroup_DragCalculationItemOntoGroupWithSameNamedItem_MoveCalculationItemToNewGroupAndRename(
-            [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType)
+            [Values(CalculationItemType.Calculation, CalculationItemType.Group)]
+            CalculationItemType draggedItemType)
         {
             // Setup
             var mocks = new MockRepository();
@@ -567,6 +578,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                     {
                         calculation.Name = initialName;
                     }
+
                     data = calculation;
                     dataContext = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism);
                     break;
@@ -576,6 +588,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                     {
                         group.Name = initialName;
                     }
+
                     data = group;
                     dataContext = new TestCalculationGroupContext(group, new CalculationGroup(), failureMechanism);
                     break;
@@ -896,13 +909,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             failureMechanism.IsRelevant = true;
 
-            var resultIsRelevant = new[]
+            object[] resultIsRelevant =
             {
                 new object(),
                 1.1
             };
 
-            var resultIsNotRelevant = new[]
+            object[] resultIsNotRelevant =
             {
                 2.2,
                 new object()
@@ -931,13 +944,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             failureMechanism.IsRelevant = false;
 
-            var resultIsRelevant = new[]
+            object[] resultIsRelevant =
             {
                 new object(),
                 1.1
             };
 
-            var resultIsNotRelevant = new[]
+            object[] resultIsNotRelevant =
             {
                 2.2,
                 new object()
@@ -997,6 +1010,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                     // Assert
                     Assert.AreSame(contextMenuStripRelevant, contextMenuStrip);
                 }
+
                 mocks.VerifyAll();
             }
         }
@@ -1043,6 +1057,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                     // Assert
                     Assert.AreSame(contextMenuStripNotRelevant, result);
                 }
+
                 mocks.VerifyAll();
             }
         }

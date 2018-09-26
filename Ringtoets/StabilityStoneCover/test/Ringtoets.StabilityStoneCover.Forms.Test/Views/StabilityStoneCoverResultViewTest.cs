@@ -21,7 +21,6 @@
 
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -55,7 +54,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         private const int detailedAssemblyCategoryGroupIndex = 9;
         private const int tailorMadeAssemblyCategoryGroupIndex = 10;
         private const int combinedAssemblyCategoryGroupIndex = 11;
-        private const int useManualAssemblyCategoryGroupIndex = 12;
+        private const int useManualAssemblyIndex = 12;
         private const int manualAssemblyCategoryGroupIndex = 13;
         private const int columnCount = 14;
 
@@ -115,7 +114,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[combinedAssemblyCategoryGroupIndex]);
-                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[useManualAssemblyCategoryGroupIndex]);
+                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[useManualAssemblyIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[manualAssemblyCategoryGroupIndex]);
 
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
@@ -130,7 +129,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.AreEqual("Toetsoordeel\r\ngedetailleerde toets per vak", dataGridView.Columns[detailedAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\ntoets op maat", dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\ngecombineerd", dataGridView.Columns[combinedAssemblyCategoryGroupIndex].HeaderText);
-                Assert.AreEqual("Overschrijf\r\ntoetsoordeel", dataGridView.Columns[useManualAssemblyCategoryGroupIndex].HeaderText);
+                Assert.AreEqual("Overschrijf\r\ntoetsoordeel", dataGridView.Columns[useManualAssemblyIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\nhandmatig", dataGridView.Columns[manualAssemblyCategoryGroupIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
@@ -172,64 +171,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.AreEqual("IIv", cells[detailedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("Iv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("Iv", cells[combinedAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual(false, cells[useManualAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual(false, cells[useManualAssemblyIndex].Value);
                 Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
-            }
-        }
-
-        [Test]
-        public void FailureMechanismResultView_WithFailureMechanismWithManualSectionAssemblyResults_ThenWarningSet()
-        {
-            // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssemblyCategoryGroup = true;
-
-            using (var form = new Form())
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults,
-                                                                failureMechanism))
-            {
-                form.Controls.Add(view);
-                form.Show();
-
-                FailureMechanismAssemblyCategoryGroupControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(failureMechanismAssemblyControl);
-
-                // Call
-                string warningMessage = manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl);
-
-                // Assert
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningMessage);
-            }
-        }
-
-        [Test]
-        public void GivenFailureMechanismResultsViewWithWarnings_WhenFailureMechanismWithoutManualSectionAssemblyResultsAndFailureMechanismNotifiesObservers_ThenWarningCleared()
-        {
-            // Given
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssemblyCategoryGroup = true;
-
-            using (var form = new Form())
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults,
-                                                                failureMechanism))
-            {
-                form.Controls.Add(view);
-                form.Show();
-
-                FailureMechanismAssemblyCategoryGroupControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(failureMechanismAssemblyControl);
-
-                // Precondition
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl));
-
-                // When
-                failureMechanism.SectionResults.ForEachElementDo(sr => sr.UseManualAssemblyCategoryGroup = false);
-                failureMechanism.NotifyObservers();
-
-                // Then
-                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl));
             }
         }
 
@@ -246,7 +189,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
-            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.UseManualAssembly = true;
 
             // When
             using (new AssemblyToolCalculatorFactoryConfig())

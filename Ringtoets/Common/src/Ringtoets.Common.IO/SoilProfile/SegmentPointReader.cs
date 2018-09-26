@@ -106,6 +106,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 dataReader.Dispose();
                 dataReader = null;
             }
+
             base.Dispose(disposing);
         }
 

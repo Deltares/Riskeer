@@ -208,7 +208,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesInput assemblyCategoriesInput = calculator.AssemblyCategoriesInput;
                 Assert.AreEqual(signalingNorm, assemblyCategoriesInput.SignalingNorm);
                 Assert.AreEqual(lowerLimitNorm, assemblyCategoriesInput.LowerLimitNorm);
-                Assert.AreEqual(failureProbabilityMarginFactor , assemblyCategoriesInput.FailureMechanismContribution);
+                Assert.AreEqual(failureProbabilityMarginFactor, assemblyCategoriesInput.FailureMechanismContribution);
                 Assert.AreEqual(1, assemblyCategoriesInput.N);
             }
         }

@@ -49,7 +49,7 @@ namespace Ringtoets.Common.IO.TestUtil.Test
             var strategy = new TestDikeProfileUpdateStrategy();
 
             const string filePath = "path/to/dikeprofiles";
-            var readDikeProfiles = new[]
+            DikeProfile[] readDikeProfiles =
             {
                 DikeProfileTestFactory.CreateDikeProfile("Dike One"),
                 DikeProfileTestFactory.CreateDikeProfile("Dike Two"),

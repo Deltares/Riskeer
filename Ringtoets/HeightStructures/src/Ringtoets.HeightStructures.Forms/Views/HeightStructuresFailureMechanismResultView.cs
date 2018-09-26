@@ -170,9 +170,9 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 DataGridViewControl,
                 nameof(HeightStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.UseManualAssemblyProbability));
+                nameof(HeightStructuresFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
@@ -182,11 +182,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
-        }
-
-        protected override bool HasManualAssemblyResults()
-        {
-            return HeightStructuresFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

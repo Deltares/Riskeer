@@ -51,6 +51,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 throw new ArgumentNullException(nameof(reader));
             }
+
             if (profileName == null)
             {
                 throw new ArgumentNullException(nameof(profileName));
@@ -159,8 +160,8 @@ namespace Ringtoets.Common.IO.SoilProfile
             catch (InvalidCastException e)
             {
                 string message = new FileReaderErrorMessageBuilder(reader.Path)
-                    .WithSubject(string.Format(Resources.SoilProfileReader_SoilProfileName_0_, profileName))
-                    .Build(string.Format(Resources.SoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
+                                 .WithSubject(string.Format(Resources.SoilProfileReader_SoilProfileName_0_, profileName))
+                                 .Build(string.Format(Resources.SoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
                 throw new SoilProfileReadException(message, profileName, e);
             }
         }

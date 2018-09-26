@@ -133,10 +133,12 @@ namespace Ringtoets.Common.IO.ReferenceLines
             {
                 yield return assessmentsectionIdAttributeKey;
             }
+
             if (!polylineShapeFileReader.HasAttribute(signalingValueAttributeKey))
             {
                 yield return signalingValueAttributeKey;
             }
+
             if (!polylineShapeFileReader.HasAttribute(lowerLimitValueAttributeKey))
             {
                 yield return lowerLimitValueAttributeKey;
@@ -187,10 +189,12 @@ namespace Ringtoets.Common.IO.ReferenceLines
             {
                 referenceLineMeta.LowerLimitValue = lowerLimitValue.Value;
             }
+
             if (signalingValue != null)
             {
                 referenceLineMeta.SignalingValue = signalingValue.Value;
             }
+
             referenceLineMeta.ReferenceLine.SetGeometry(geometryPoints);
 
             return referenceLineMeta;
@@ -229,6 +233,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                 {
                     return null;
                 }
+
                 throw;
             }
         }

@@ -139,6 +139,7 @@ namespace Ringtoets.Common.Forms.Views
                                                                                      topLevelFaultTreeIllustrationPoint.WindDirection.Name,
                                                                                      closingSituation);
             }
+
             var subMechanismIllustrationPoint = selection.Data as SubMechanismIllustrationPoint;
             if (subMechanismIllustrationPoint != null)
             {

@@ -33,7 +33,7 @@ namespace Ringtoets.Revetment.Data
     /// </summary>
     public static class WaveConditionsInputHelper
     {
-        private const double assessmentLevelSubstraction = 0.01;
+        private const double assessmentLevelSubtraction = 0.01;
 
         /// <summary>
         /// Gets an upper boundary based on the provided assessment level (that can be used while
@@ -43,7 +43,7 @@ namespace Ringtoets.Revetment.Data
         /// <returns>The corresponding assessment level upper boundary.</returns>
         public static RoundedDouble GetUpperBoundaryAssessmentLevel(RoundedDouble assessmentLevel)
         {
-            return new RoundedDouble(2, assessmentLevel - assessmentLevelSubstraction);
+            return new RoundedDouble(2, assessmentLevel - assessmentLevelSubtraction);
         }
 
         /// <summary>

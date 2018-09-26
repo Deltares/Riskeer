@@ -47,11 +47,8 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         [Test]
         public void GetDoubleValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
-            // Setup
-            XElement rootElement = null;
-
             // Call
-            TestDelegate test = () => rootElement.GetDoubleValueFromDescendantElement("");
+            TestDelegate test = () => XElementExtensions.GetDoubleValueFromDescendantElement(null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -138,11 +135,8 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         [Test]
         public void GetIntegerValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
-            // Setup
-            XElement rootElement = null;
-
             // Call
-            TestDelegate test = () => rootElement.GetIntegerValueFromDescendantElement("");
+            TestDelegate test = () => XElementExtensions.GetIntegerValueFromDescendantElement(null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -227,11 +221,8 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         [Test]
         public void GetStringValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
-            // Setup
-            XElement element = null;
-
             // Call
-            TestDelegate test = () => element.GetStringValueFromDescendantElement("");
+            TestDelegate test = () => XElementExtensions.GetStringValueFromDescendantElement(null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -281,11 +272,8 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         [Test]
         public void GetBoolValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
-            // Setup
-            XElement element = null;
-
             // Call
-            TestDelegate test = () => element.GetBoolValueFromDescendantElement("");
+            TestDelegate test = () => XElementExtensions.GetBoolValueFromDescendantElement(null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -358,11 +346,8 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         [Test]
         public void GetConvertedValueFromDescendantStringElement_ParentElementNull_ThrowArgumentNullException()
         {
-            // Setup
-            XElement element = null;
-
             // Call
-            TestDelegate test = () => element.GetConvertedValueFromDescendantStringElement<TypeConverter>("");
+            TestDelegate test = () => XElementExtensions.GetConvertedValueFromDescendantStringElement<TypeConverter>(null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -452,11 +437,8 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         [Test]
         public void GetConvertedValueFromDescendantDoubleElement_ParentElementNull_ThrowArgumentNullException()
         {
-            // Setup
-            XElement element = null;
-
             // Call
-            TestDelegate test = () => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>("0");
+            TestDelegate test = () => XElementExtensions.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(null, "0");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -580,11 +562,8 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         [Test]
         public void GetStochastElement_ParentElementNull_ThrowArgumentNullException()
         {
-            // Setup
-            XElement element = null;
-
             // Call
-            TestDelegate test = () => element.GetStochastElement("");
+            TestDelegate test = () => XElementExtensions.GetStochastElement(null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -686,11 +665,8 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         [Test]
         public void GetDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
-            // Setup
-            XElement element = null;
-
             // Call
-            TestDelegate test = () => element.GetDescendantElement("");
+            TestDelegate test = () => XElementExtensions.GetDescendantElement(null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -1272,8 +1248,10 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
                     {
                         return false;
                     }
+
                     return true;
                 }
+
                 return base.ConvertFrom(context, culture, value);
             }
         }

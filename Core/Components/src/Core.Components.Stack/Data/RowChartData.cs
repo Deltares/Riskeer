@@ -47,10 +47,12 @@ namespace Core.Components.Stack.Data
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (values == null)
             {
                 throw new ArgumentNullException(nameof(values));
             }
+
             Name = name;
             this.values = values;
             Color = color;

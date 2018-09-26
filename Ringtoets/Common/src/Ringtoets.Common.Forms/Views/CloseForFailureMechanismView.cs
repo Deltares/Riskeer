@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
-             
+
             FailureMechanism = failureMechanism;
         }
 

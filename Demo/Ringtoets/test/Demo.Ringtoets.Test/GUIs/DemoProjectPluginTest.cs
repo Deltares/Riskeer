@@ -57,6 +57,7 @@ namespace Demo.Ringtoets.Test.GUIs
                 Assert.IsInstanceOf<PluginBase>(plugin);
                 Assert.IsInstanceOf<IRibbonCommandHandler>(plugin.RibbonCommandHandler);
             }
+
             mocks.VerifyAll();
         }
 

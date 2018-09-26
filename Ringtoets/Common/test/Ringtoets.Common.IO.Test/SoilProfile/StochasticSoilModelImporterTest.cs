@@ -308,6 +308,7 @@ namespace Ringtoets.Common.IO.Test.SoilProfile
                 expectedProgressMessages.Add(new ProgressNotification(
                                                  "Inlezen van de stochastische ondergrondmodellen.", i, totalNrOfStochasticSoilModelInDatabase));
             }
+
             for (var i = 1; i <= nrOfFailureMechanismSpecificModelsInDatabase; i++)
             {
                 expectedProgressMessages.Add(new ProgressNotification(

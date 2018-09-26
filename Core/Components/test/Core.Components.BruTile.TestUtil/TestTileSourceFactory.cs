@@ -72,6 +72,7 @@ namespace Core.Components.BruTile.TestUtil
             {
                 throw new NotSupportedException("use TestTileSourceFactory() to set the expected well known tile source");
             }
+
             return wellKnownTileSource;
         }
 

@@ -50,6 +50,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             {
                 return faultTreeData.GetStochastNames();
             }
+
             var subMechanismData = illustrationPointNode.Data as SubMechanismIllustrationPoint;
             if (subMechanismData != null)
             {

@@ -70,11 +70,8 @@ namespace Ringtoets.Storage.Core.Test
         [Test]
         public void ToColor_ArgbNull_ReturnsEmptyColor()
         {
-            // Setup
-            long? argb = null;
-
             // Call
-            Color color = argb.ToColor();
+            Color color = ColorConversionExtensions.ToColor(null);
 
             // Assert
             Assert.AreEqual(Color.Empty, color);

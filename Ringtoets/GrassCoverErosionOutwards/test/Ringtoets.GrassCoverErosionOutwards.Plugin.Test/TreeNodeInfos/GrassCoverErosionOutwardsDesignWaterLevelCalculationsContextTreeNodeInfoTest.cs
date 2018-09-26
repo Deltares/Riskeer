@@ -281,7 +281,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                                    () => 1.0,
                                                                                                    "A");
 
-
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
                                                              exportCommandHandler,

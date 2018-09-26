@@ -45,10 +45,12 @@ namespace Ringtoets.Common.Service
             {
                 throw new ArgumentNullException(nameof(format));
             }
+
             if (errorMessages == null)
             {
                 throw new ArgumentNullException(nameof(errorMessages));
             }
+
             foreach (string errorMessage in errorMessages)
             {
                 log.ErrorFormat(format, errorMessage);
@@ -83,6 +85,7 @@ namespace Ringtoets.Common.Service
             {
                 throw new ArgumentNullException(nameof(warningMessages));
             }
+
             foreach (string waningMessage in warningMessages)
             {
                 log.Warn(waningMessage);
@@ -147,10 +150,12 @@ namespace Ringtoets.Common.Service
             {
                 throw new ArgumentNullException(nameof(message));
             }
+
             if (exception == null)
             {
                 throw new ArgumentNullException(nameof(exception));
             }
+
             log.Error(message, exception);
         }
     }

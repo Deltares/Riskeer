@@ -43,6 +43,7 @@ namespace Ringtoets.Common.Forms.Helpers
                 return string.Format(Resources.ProbabilityPerYearFormat,
                                      CommonBaseResources.RoundedDouble_ToString_PositiveInfinity);
             }
+
             return string.Format(Resources.ProbabilityPerYearFormat,
                                  1.0 / probability);
         }
@@ -60,6 +61,7 @@ namespace Ringtoets.Common.Forms.Helpers
                 return string.Format(Resources.ProbabilityPerYearFormat,
                                      CommonBaseResources.RoundedDouble_ToString_PositiveInfinity);
             }
+
             return string.Format(Resources.ProbabilityPerYearFormat,
                                  returnPeriod);
         }

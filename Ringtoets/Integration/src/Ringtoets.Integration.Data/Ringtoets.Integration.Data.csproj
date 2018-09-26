@@ -29,14 +29,6 @@
     <Compile Include="StandAlone\AssemblyFactories\StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.cs" />
     <Compile Include="StandAlone\AssemblyFactories\TechnicalInnovationFailureMechanismAssemblyFactory.cs" />
     <Compile Include="StandAlone\AssemblyFactories\WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.cs" />
-    <Compile Include="StandAlone\Helpers\GrassCoverSlipOffInwardsFailureMechanismHelper.cs" />
-    <Compile Include="StandAlone\Helpers\GrassCoverSlipOffOutwardsFailureMechanismHelper.cs" />
-    <Compile Include="StandAlone\Helpers\MacroStabilityOutwardsFailureMechanismHelper.cs" />
-    <Compile Include="StandAlone\Helpers\MicrostabilityFailureMechanismHelper.cs" />
-    <Compile Include="StandAlone\Helpers\PipingStructureFailureMechanismHelper.cs" />
-    <Compile Include="StandAlone\Helpers\StrengthStabilityLengthwiseConstructionFailureMechanismHelper.cs" />
-    <Compile Include="StandAlone\Helpers\TechnicalInnovationFailureMechanismHelper.cs" />
-    <Compile Include="StandAlone\Helpers\WaterPressureAsphaltCoverFailureMechanismHelper.cs" />
     <Compile Include="StandAlone\Input\MacroStabilityOutwardsProbabilityAssessmentInput.cs" />
     <Compile Include="StandAlone\MacroStabilityOutwardsFailureMechanism.cs" />
     <Compile Include="StandAlone\MicrostabilityFailureMechanism.cs" />

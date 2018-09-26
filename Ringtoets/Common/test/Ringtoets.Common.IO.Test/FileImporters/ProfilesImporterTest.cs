@@ -657,6 +657,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 {
                     Assert.AreEqual(expectedProgressText, description);
                 }
+
                 callcount++;
             });
 

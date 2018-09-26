@@ -140,7 +140,7 @@ namespace Ringtoets.Common.Forms.Test.UpdateInfos
             var testFailureMechanism = new TestFailureMechanism();
             testFailureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), "path/to/sections");
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(testFailureMechanism, assessmentSection);
-            Assert.AreEqual(testFailureMechanism.FailureMechanismSectionSourcePath, 
+            Assert.AreEqual(testFailureMechanism.FailureMechanismSectionSourcePath,
                             updateInfo.CurrentPath(failureMechanismSectionsContext));
             mocks.VerifyAll();
         }

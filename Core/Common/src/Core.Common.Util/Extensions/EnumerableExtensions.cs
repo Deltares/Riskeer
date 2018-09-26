@@ -45,6 +45,7 @@ namespace Core.Common.Util.Extensions
             {
                 throw new ArgumentNullException(nameof(source));
             }
+
             if (action == null)
             {
                 throw new ArgumentNullException(nameof(action));
@@ -71,10 +72,12 @@ namespace Core.Common.Util.Extensions
             {
                 throw new ArgumentNullException(nameof(source));
             }
+
             if (keySelector == null)
             {
                 throw new ArgumentNullException(nameof(keySelector));
             }
+
             return source.Select(keySelector).Count() != source.Select(keySelector).Distinct().Count();
         }
 
@@ -94,10 +97,12 @@ namespace Core.Common.Util.Extensions
             {
                 throw new ArgumentNullException(nameof(source));
             }
+
             if (keySelector == null)
             {
                 throw new ArgumentNullException(nameof(keySelector));
             }
+
             return source.Select(keySelector).Distinct().Count() > 1;
         }
     }

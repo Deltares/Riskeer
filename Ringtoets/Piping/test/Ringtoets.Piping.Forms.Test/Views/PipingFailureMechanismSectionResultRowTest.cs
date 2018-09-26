@@ -197,7 +197,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                 row.DetailedAssessmentProbability);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
-                Assert.AreEqual(result.UseManualAssemblyProbability, row.UseManualAssemblyProbability);
+                Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
                 Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
 
                 TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
@@ -280,7 +280,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UseManualAssemblyProbability_SetNewValue_NotifyObserversAndPropertyChanged()
+        public void UseManualAssembly_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -299,14 +299,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 var row = new PipingFailureMechanismSectionResultRow(
                     result, Enumerable.Empty<PipingCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
-                bool originalValue = result.UseManualAssemblyProbability;
+                bool originalValue = result.UseManualAssembly;
                 bool newValue = !originalValue;
 
                 // Call
-                row.UseManualAssemblyProbability = newValue;
+                row.UseManualAssembly = newValue;
 
                 // Assert
-                Assert.AreEqual(newValue, result.UseManualAssemblyProbability);
+                Assert.AreEqual(newValue, result.UseManualAssembly);
                 mocks.VerifyAll();
             }
         }
@@ -621,7 +621,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_WithUseManualAssemblyProbability_ExpectedColumnStates(bool useManualAssemblyProbability)
+        public void Constructor_WithUseManualAssembly_ExpectedColumnStates(bool useManualAssembly)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -634,7 +634,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResult(section)
             {
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
-                UseManualAssemblyProbability = useManualAssemblyProbability
+                UseManualAssembly = useManualAssembly
             };
             var calculationScenarios = new[]
             {
@@ -651,17 +651,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex],
-                                                                                     !useManualAssemblyProbability);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex],
-                                                                                     !useManualAssemblyProbability);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
-                                                                                     !useManualAssemblyProbability, true);
+                                                                                     !useManualAssembly, true);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
-                                                                                     !useManualAssemblyProbability);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex],
-                                                                                     !useManualAssemblyProbability);
+                                                                                     !useManualAssembly);
 
-                if (useManualAssemblyProbability)
+                if (useManualAssembly)
                 {
                     DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateIsDisabled(
                         columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
@@ -674,9 +674,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 }
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.CombinedAssemblyProbabilityIndex],
-                                                                                     !useManualAssemblyProbability, true);
+                                                                                     !useManualAssembly, true);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex],
-                                                                                     useManualAssemblyProbability);
+                                                                                     useManualAssembly);
 
                 mocks.VerifyAll();
             }

@@ -62,6 +62,7 @@ namespace Core.Common.Gui.Converters
                     properties[index] = CreateElementPropertyDescriptor(type, elementType, index);
                 }
             }
+
             return new PropertyDescriptorCollection(properties);
         }
 

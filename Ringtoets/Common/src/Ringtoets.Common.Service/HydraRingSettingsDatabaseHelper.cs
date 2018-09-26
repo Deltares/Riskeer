@@ -61,18 +61,21 @@ namespace Ringtoets.Common.Service
             {
                 calculationInput.PreprocessorSetting = preprocessorSettingsProvider.GetPreprocessorSetting(locationId, usePreprocessor);
             }
+
             using (var designTablesSettingsProviders = new DesignTablesSettingsProvider(settingsDatabaseFileName))
             {
                 calculationInput.DesignTablesSetting = designTablesSettingsProviders.GetDesignTablesSetting(
                     locationId,
                     calculationInput.FailureMechanismType);
             }
+
             using (var numericsSettingsProvider = new NumericsSettingsProvider(settingsDatabaseFileName))
             {
                 calculationInput.NumericsSettings = numericsSettingsProvider.GetNumericsSettings(
                     locationId,
                     calculationInput.FailureMechanismType);
             }
+
             using (var timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(settingsDatabaseFileName))
             {
                 calculationInput.TimeIntegrationSetting = timeIntegrationSettingsProvider.GetTimeIntegrationSetting(

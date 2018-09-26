@@ -67,6 +67,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil.Test
             AssertHydraulicBoundaryCalculations(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, locations, setCalculationOutput);
             AssertHydraulicBoundaryCalculations(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, locations, setCalculationOutput);
         }
+
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -149,7 +150,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil.Test
                 GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
 
             // Assert
-            var expectedCalculations = new[]
+            HydraulicBoundaryLocationCalculation[] expectedCalculations =
             {
                 calculation1,
                 calculation2,

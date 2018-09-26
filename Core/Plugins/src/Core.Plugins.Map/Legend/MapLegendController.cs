@@ -37,12 +37,12 @@ namespace Core.Plugins.Map.Legend
         private readonly IViewController viewController;
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
 
+        private MapLegendView legendView;
+
         /// <summary>
         /// Fired when the map legend has been opened.
         /// </summary>
         public event EventHandler<EventArgs> OnOpenLegend;
-
-        private MapLegendView legendView;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapLegendController"/>.

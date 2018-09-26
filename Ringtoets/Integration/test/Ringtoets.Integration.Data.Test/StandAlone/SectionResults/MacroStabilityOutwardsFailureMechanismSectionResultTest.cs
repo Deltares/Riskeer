@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.IsNaN(result.DetailedAssessmentProbability);
             Assert.AreEqual(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsNaN(result.TailorMadeAssessmentProbability);
-            Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+            Assert.IsFalse(result.UseManualAssembly);
             Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
         }
 

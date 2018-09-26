@@ -47,7 +47,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         private const string revetmentBaseSchemaName = "BekledingenConfiguratieBasisSchema.xsd";
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationReader{T]"/>.
+        /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationReader{T}"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
         /// <param name="mainSchemaDefinition">A <c>string</c> representing the main schema definition.</param>

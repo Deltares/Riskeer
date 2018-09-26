@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed,
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                 TailorMadeAssessmentProbability = random.NextDouble(),
-                UseManualAssemblyProbability = true,
+                UseManualAssembly = true,
                 ManualAssemblyProbability = random.NextDouble()
             };
         }
@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);
             Assert.AreEqual(originResult.TailorMadeAssessmentProbability, targetResult.TailorMadeAssessmentProbability);
-            Assert.AreEqual(originResult.UseManualAssemblyProbability, targetResult.UseManualAssemblyProbability);
+            Assert.AreEqual(originResult.UseManualAssembly, targetResult.UseManualAssembly);
             Assert.AreEqual(originResult.ManualAssemblyProbability, targetResult.ManualAssemblyProbability);
         }
     }

@@ -45,7 +45,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClosingStructuresOutputProperties(StructuresOutput structuresOutput,
                                                  ClosingStructuresFailureMechanism failureMechanism,
-                                                 IAssessmentSection assessmentSection) 
+                                                 IAssessmentSection assessmentSection)
             : base(structuresOutput)
         {
             if (failureMechanism == null)

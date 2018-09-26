@@ -1180,10 +1180,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         #region Manual Assembly
 
         [Test]
-        public void AddUseManualAssemblyCategoryGroupColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddUseManualAssemblyColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(null, "property");
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -1191,10 +1191,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddUseManualAssemblyCategoryGroupColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddUseManualAssemblyColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(new DataGridViewControl(), null);
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -1202,7 +1202,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddUseManualAssemblyCategoryGroupColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddUseManualAssemblyColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -1216,7 +1216,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(control, dataPropertyName);
+                FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
@@ -1312,7 +1312,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
             {
                 form.Controls.Add(control);
                 form.Show();
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
@@ -1323,7 +1323,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                var columnData = (DataGridViewComboBoxColumn)dataGridView.Columns[0];
+                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
                 Assert.AreEqual("Toetsoordeel\r\nhandmatig", columnData.HeaderText);
                 Assert.AreEqual("Value", columnData.ValueMember);
@@ -1331,7 +1331,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 IEnumerable<EnumDisplayWrapper<ManualFailureMechanismSectionAssemblyCategoryGroup>> expectedDataSource =
                     CreateExpectedEnumDisplayWrappers<ManualFailureMechanismSectionAssemblyCategoryGroup>();
-                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<ManualFailureMechanismSectionAssemblyCategoryGroup>[])columnData.DataSource);
+                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<ManualFailureMechanismSectionAssemblyCategoryGroup>[]) columnData.DataSource);
             }
         }
 

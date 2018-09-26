@@ -78,6 +78,7 @@ namespace Core.Components.DotSpatial.Converter
                 default:
                     throw new NotSupportedException();
             }
+
             return shape;
         }
 
@@ -119,6 +120,7 @@ namespace Core.Components.DotSpatial.Converter
                 default:
                     throw new NotSupportedException();
             }
+
             return lineStyle;
         }
     }

@@ -120,6 +120,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             {
                 series.LineStyle = style.Value;
             }
+
             series.Dashes = dashes;
             var model = new PlotModel();
             model.Series.Add(series);
@@ -176,6 +177,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             {
                 series.LineStyle = style.Value;
             }
+
             series.Dashes = dashes;
             var model = new PlotModel();
             model.Series.Add(series);

@@ -26,7 +26,6 @@ using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Forms.Merge;

@@ -520,6 +520,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 builder.Expect(mb => mb.AddPropertiesItem()).Return(builder);
                 builder.Expect(mb => mb.Build()).Return(null);
             }
+
             contextMenuBuilderProvider.Expect(p => p.Get(chartData, null)).Return(builder);
 
             mocks.ReplayAll();

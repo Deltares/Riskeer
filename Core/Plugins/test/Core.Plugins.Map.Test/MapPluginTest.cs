@@ -113,6 +113,7 @@ namespace Core.Plugins.Map.Test
                 Assert.IsInstanceOf<PluginBase>(plugin);
                 Assert.NotNull(plugin.RibbonCommandHandler);
             }
+
             mocks.VerifyAll();
         }
 

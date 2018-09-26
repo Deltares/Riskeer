@@ -84,6 +84,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 {
                     foundValues.Add(row.Cells[0].FormattedValue.ToString());
                 }
+
                 CollectionAssert.AreEqual(expectedValues, foundValues);
             }
         }
@@ -130,14 +131,16 @@ namespace Ringtoets.HeightStructures.Integration.Test
                         }
                     });
                 }
+
                 calculationsGroup.NotifyObservers();
 
                 // Assert
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
                 Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
-                Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
+                Assert.AreEqual("<selecteer>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
                 Assert.AreEqual("Eerste kunstwerk 6-3", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
             }
+
             mocks.VerifyAll();
         }
 
@@ -182,6 +185,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                         }
                     });
                 }
+
                 calculationsGroup.NotifyObservers();
 
                 // Call
@@ -194,7 +198,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 // Assert
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
                 Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
-                Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
+                Assert.AreEqual("<selecteer>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
                 Assert.AreEqual("Eerste kunstwerk 6-3_changed", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
             }
 
@@ -251,13 +255,13 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 // Assert
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
                 Assert.AreEqual(3, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
-                Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
+                Assert.AreEqual("<selecteer>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
                 Assert.AreEqual("Eerste kunstwerk 6-3Calculation", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
                 Assert.AreEqual("Tweede kunstwerk 6-3Calculation", ((DataGridViewComboBoxCell) dataGridViewCell).Items[2].ToString());
 
                 DataGridViewCell dataGridViewCellWithRemovedCalculation = dataGridView.Rows[56].Cells[1];
                 Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridViewCellWithRemovedCalculation).Items.Count);
-                Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCellWithRemovedCalculation).Items[0].ToString());
+                Assert.AreEqual("<selecteer>", ((DataGridViewComboBoxCell) dataGridViewCellWithRemovedCalculation).Items[0].ToString());
             }
 
             mocks.VerifyAll();

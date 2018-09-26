@@ -112,6 +112,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

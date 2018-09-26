@@ -355,7 +355,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             var structure1 = new TestStructure("id", "A", new Point2D(1.1, 2.2));
             var structure2 = new TestStructure("id", "B", new Point2D(3.3, 4.4));
 
-            var structures = new[]
+            TestStructure[] structures =
             {
                 structure1,
                 structure2
@@ -552,7 +552,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
                 new RoughnessPoint(pointA, 1),
                 new RoughnessPoint(pointB, 2)
             };
-            var pointsOne = new[]
+            Point2D[] pointsOne =
             {
                 pointC,
                 pointD
@@ -640,12 +640,12 @@ namespace Ringtoets.Common.Forms.Test.Factories
             var pointE = new Point2D(3.2, 23.3);
             var pointF = new Point2D(7.7, 12.6);
 
-            var pointsOne = new[]
+            Point2D[] pointsOne =
             {
                 pointA,
                 pointB
             };
-            var pointsTwo = new[]
+            Point2D[] pointsTwo =
             {
                 pointC,
                 pointD,

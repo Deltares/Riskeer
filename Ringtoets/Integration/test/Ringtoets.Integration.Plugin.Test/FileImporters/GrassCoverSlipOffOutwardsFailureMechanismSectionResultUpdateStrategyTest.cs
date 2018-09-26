@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 DetailedAssessmentResult = DetailedAssessmentResultType.Sufficient,
                 TailorMadeAssessmentResult = TailorMadeAssessmentResultType.ProbabilityNegligible,
-                UseManualAssemblyCategoryGroup = true,
+                UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv
             };
         }
@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);
-            Assert.AreEqual(originResult.UseManualAssemblyCategoryGroup, targetResult.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(originResult.UseManualAssembly, targetResult.UseManualAssembly);
             Assert.AreEqual(originResult.ManualAssemblyCategoryGroup, targetResult.ManualAssemblyCategoryGroup);
         }
     }

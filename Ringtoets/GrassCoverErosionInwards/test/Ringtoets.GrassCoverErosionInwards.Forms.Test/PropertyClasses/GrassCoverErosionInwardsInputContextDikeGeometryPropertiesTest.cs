@@ -89,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var dikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
             {
                 new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
                 new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)

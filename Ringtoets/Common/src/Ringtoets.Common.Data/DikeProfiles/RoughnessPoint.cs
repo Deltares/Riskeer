@@ -66,14 +66,17 @@ namespace Ringtoets.Common.Data.DikeProfiles
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((RoughnessPoint) obj);
         }
 

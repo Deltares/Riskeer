@@ -46,10 +46,12 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(writer));
             }
+
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (distribution == null)
             {
                 throw new ArgumentNullException(nameof(distribution));
@@ -63,11 +65,13 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                 writer.WriteElementString(ConfigurationSchemaIdentifiers.MeanElement,
                                           XmlConvert.ToString(distribution.Mean.Value));
             }
+
             if (distribution.StandardDeviation.HasValue)
             {
                 writer.WriteElementString(ConfigurationSchemaIdentifiers.StandardDeviationElement,
                                           XmlConvert.ToString(distribution.StandardDeviation.Value));
             }
+
             if (distribution.VariationCoefficient.HasValue)
             {
                 writer.WriteElementString(ConfigurationSchemaIdentifiers.VariationCoefficientElement,
@@ -95,6 +99,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(writer));
             }
+
             if (waveReduction == null)
             {
                 throw new ArgumentNullException(nameof(waveReduction));
@@ -107,16 +112,19 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                 writer.WriteElementString(ConfigurationSchemaIdentifiers.UseBreakWater,
                                           XmlConvert.ToString(waveReduction.UseBreakWater.Value));
             }
+
             if (waveReduction.BreakWaterType.HasValue)
             {
                 writer.WriteElementString(ConfigurationSchemaIdentifiers.BreakWaterType,
                                           new ConfigurationBreakWaterTypeConverter().ConvertToInvariantString(waveReduction.BreakWaterType.Value));
             }
+
             if (waveReduction.BreakWaterHeight.HasValue)
             {
                 writer.WriteElementString(ConfigurationSchemaIdentifiers.BreakWaterHeight,
                                           XmlConvert.ToString(waveReduction.BreakWaterHeight.Value));
             }
+
             if (waveReduction.UseForeshoreProfile.HasValue)
             {
                 writer.WriteElementString(ConfigurationSchemaIdentifiers.UseForeshore,
@@ -140,6 +148,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(writer));
             }
+
             if (scenarioConfiguration == null)
             {
                 throw new ArgumentNullException(nameof(scenarioConfiguration));
@@ -152,6 +161,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
                 writer.WriteElementString(ConfigurationSchemaIdentifiers.IsRelevantForScenario,
                                           XmlConvert.ToString(scenarioConfiguration.IsRelevant.Value));
             }
+
             if (scenarioConfiguration.Contribution.HasValue)
             {
                 writer.WriteElementString(ConfigurationSchemaIdentifiers.ScenarioContribution,
@@ -175,6 +185,7 @@ namespace Ringtoets.Common.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(writer));
             }
+
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));

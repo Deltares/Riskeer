@@ -69,7 +69,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
             var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             var entity = new MicrostabilitySectionResultEntity
@@ -77,7 +77,7 @@ namespace Ringtoets.Storage.Core.Test.Read
                 SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),
                 DetailedAssessmentResult = Convert.ToByte(detailedAssessmentResult),
                 TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
-                UseManualAssemblyCategoryGroup = Convert.ToByte(useManualAssemblyCategoryGroup),
+                UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
             var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -89,7 +89,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
             Assert.AreEqual(detailedAssessmentResult, sectionResult.DetailedAssessmentResult);
             Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
-            Assert.AreEqual(useManualAssemblyCategoryGroup, sectionResult.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(useManualAssembly, sectionResult.UseManualAssembly);
             Assert.AreEqual(manualAssemblyCategoryGroup, sectionResult.ManualAssemblyCategoryGroup);
         }
     }

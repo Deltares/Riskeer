@@ -136,6 +136,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 string expected = string.Format(Resources.ProjectExplorerPlugin_Cannot_activate_0_twice, Resources.General_ProjectExplorer);
                 Assert.AreEqual(expected, message);
             }
+
             mocks.VerifyAll();
         }
 
@@ -272,6 +273,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 // Assert
                 Assert.AreSame(newProject, toolViews[0].Data);
             }
+
             mocks.VerifyAll();
         }
     }

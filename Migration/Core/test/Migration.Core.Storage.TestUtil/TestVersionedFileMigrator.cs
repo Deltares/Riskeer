@@ -49,10 +49,12 @@ namespace Migration.Core.Storage.TestUtil
             {
                 throw new ArgumentNullException(nameof(upgradeScripts));
             }
+
             if (createScripts == null)
             {
                 throw new ArgumentNullException(nameof(createScripts));
             }
+
             this.upgradeScripts = upgradeScripts;
             this.createScripts = createScripts;
         }

@@ -61,6 +61,7 @@ namespace Core.Common.TestUtil
                                  $"and upper limit {upperLimit} did not result in a finite value.";
                 throw new NotFiniteNumberException(message, randomValue);
             }
+
             return randomValue;
         }
 
@@ -166,7 +167,7 @@ namespace Core.Common.TestUtil
             {
                 throw new ArgumentException($"'{nameof(enumValues)}' cannot be an empty collection.");
             }
-            
+
             return enumValues.ElementAt(random.Next(enumValues.Count()));
         }
     }

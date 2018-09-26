@@ -45,6 +45,7 @@ namespace Core.Common.IO
                 const string message = @"Cannot create a connection string without the path to the file to connect to.";
                 throw new ArgumentNullException(nameof(filePath), message);
             }
+
             return new SQLiteConnectionStringBuilder
             {
                 FailIfMissing = true,

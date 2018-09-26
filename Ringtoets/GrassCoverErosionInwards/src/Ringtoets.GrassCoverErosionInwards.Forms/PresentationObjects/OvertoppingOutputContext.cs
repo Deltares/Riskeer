@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public OvertoppingOutputContext(GrassCoverErosionInwardsCalculation wrappedData,
                                         GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                        IAssessmentSection assessmentSection) 
+                                        IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)

@@ -28,7 +28,6 @@
     <Compile Include="MacroStabilityInwardsCalculationScenarioExtensionsTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenarioTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationTest.cs" />
-    <Compile Include="MacroStabilityInwardsFailureMechanismHelperTest.cs" />
     <Compile Include="MacroStabilityInwardsGridDeterminationTypeTest.cs" />
     <Compile Include="MacroStabilityInwardsGridTest.cs" />
     <Compile Include="MacroStabilityInwardsLocationInputDailyTest.cs" />

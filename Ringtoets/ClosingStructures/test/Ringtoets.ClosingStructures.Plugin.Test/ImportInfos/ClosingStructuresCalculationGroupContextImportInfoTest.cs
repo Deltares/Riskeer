@@ -81,6 +81,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsInstanceOf<ClosingStructuresCalculationConfigurationImporter>(fileImporter);
             }
+
             mocks.VerifyAll();
         }
 

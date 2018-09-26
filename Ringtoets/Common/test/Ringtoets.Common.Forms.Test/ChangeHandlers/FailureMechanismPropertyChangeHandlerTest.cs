@@ -142,6 +142,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
                                          "Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedMessage, message);
             }
+
             Assert.AreEqual(1, propertySet);
             var expectedAffectedObjects = new List<IObservable>(testCase.ExpectedAffectedCalculations)
             {

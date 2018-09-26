@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -102,7 +101,7 @@ namespace Ringtoets.Common.IO.HydraRing
                                                                        $"{formEpsZFuncColumn}, {dsStartMethodColumn}, " +
                                                                        $"{dsMinNumberOfIterationsColumn}, {dsMaxNumberOfIterationsColumn}, " +
                                                                        $"{dsVarCoefficientColumn}, {niUMinColumn}, " +
-                                                                       $"{niUMaxColumn}, {niNumberStepsColumn} " + 
+                                                                       $"{niUMaxColumn}, {niNumberStepsColumn} " +
                                                                        "FROM NumericsSettings " +
                                                                        $"WHERE LocationID = {locationIdParameterName} " +
                                                                        $"AND MechanismID = {mechanismIdParameterName} " +
@@ -155,6 +154,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 }
             }
+
             return null;
         }
 
@@ -197,6 +197,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 }
             }
+
             return null;
         }
 
@@ -232,6 +233,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 }
             }
+
             return null;
         }
 
@@ -277,6 +279,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 }
             }
+
             return null;
         }
 

@@ -208,11 +208,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void RemoveSurfaceLine_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsFailureMechanism failureMechanism = null;
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
+            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(null, surfaceLine);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -224,10 +223,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            MacroStabilityInwardsSurfaceLine surfaceLine = null;
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
+            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -285,11 +283,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         [Test]
         public void RemoveAllSurfaceLine_FailureMechanismNull_ThrowsArgumentNullException()
         {
-            // Setup
-            MacroStabilityInwardsFailureMechanism failureMechanism = null;
-
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveAllSurfaceLines(failureMechanism);
+            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveAllSurfaceLines(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -347,11 +342,10 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void RemoveStochasticSoilModel_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsFailureMechanism failureMechanism = null;
             MacroStabilityInwardsStochasticSoilModel soilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel);
+            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilModel(null, soilModel);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -363,10 +357,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            MacroStabilityInwardsStochasticSoilModel soilModel = null;
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel);
+            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -424,11 +417,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         [Test]
         public void RemoveAllStochasticSoilModel_FailureMechanismNull_ThrowsArgumentNullException()
         {
-            // Setup
-            MacroStabilityInwardsFailureMechanism failureMechanism = null;
-
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveAllStochasticSoilModels(failureMechanism);
+            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveAllStochasticSoilModels(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -436,7 +426,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void RemoveAllStochastiSoilModel_FullyConfiguredFailureMechanism_RemovesAllSoilModelAndClearDependendentData()
+        public void RemoveAllStochasticSoilModel_FullyConfiguredFailureMechanism_RemovesAllSoilModelAndClearDependentData()
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsFailureMechanismWithAllCalculationConfigurations();

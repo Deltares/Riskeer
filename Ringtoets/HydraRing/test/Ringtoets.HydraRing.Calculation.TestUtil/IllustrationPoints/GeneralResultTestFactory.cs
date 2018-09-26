@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints
         public static GeneralResult CreateGeneralResultWithDuplicateStochasts()
         {
             var stochast = new Stochast("Stochast A", 0, 0);
-            var stochasts = new[]
+            Stochast[] stochasts =
             {
                 stochast,
                 stochast

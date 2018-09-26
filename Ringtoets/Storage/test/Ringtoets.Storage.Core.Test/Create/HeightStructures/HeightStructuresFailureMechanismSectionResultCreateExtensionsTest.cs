@@ -69,7 +69,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
             var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
             double tailorMadeAssessmentProbability = random.NextDouble();
-            bool useManualAssemblyProbability = random.NextBoolean();
+            bool useManualAssembly = random.NextBoolean();
             double manualAssemblyProbability = random.NextDouble();
 
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -78,7 +78,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
                 DetailedAssessmentResult = detailedAssessmentResult,
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult,
                 TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
-                UseManualAssemblyProbability = useManualAssemblyProbability,
+                UseManualAssembly = useManualAssembly,
                 ManualAssemblyProbability = manualAssemblyProbability
             };
 
@@ -90,7 +90,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
             Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
             Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
             Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
-            Assert.AreEqual(Convert.ToByte(useManualAssemblyProbability), entity.UseManualAssemblyProbability);
+            Assert.AreEqual(Convert.ToByte(useManualAssembly), entity.UseManualAssembly);
             Assert.AreEqual(manualAssemblyProbability, entity.ManualAssemblyProbability);
             Assert.IsNull(entity.HeightStructuresCalculationEntityId);
         }

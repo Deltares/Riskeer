@@ -133,6 +133,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 return default(T);
             }
+
             return (T) valueObject;
         }
 
@@ -144,6 +145,7 @@ namespace Ringtoets.Common.IO.SoilProfile
                 dataReader.Dispose();
                 dataReader = null;
             }
+
             base.Dispose(disposing);
         }
 
@@ -176,6 +178,7 @@ namespace Ringtoets.Common.IO.SoilProfile
             {
                 preconsolidationStress.XCoordinate = stressReadValues.XCoordinate.Value;
             }
+
             if (stressReadValues.ZCoordinate.HasValue)
             {
                 preconsolidationStress.ZCoordinate = stressReadValues.ZCoordinate.Value;
@@ -186,16 +189,19 @@ namespace Ringtoets.Common.IO.SoilProfile
                 preconsolidationStress.StressDistributionType =
                     stressReadValues.StressDistributionType.Value;
             }
+
             if (stressReadValues.StressMean.HasValue)
             {
                 preconsolidationStress.StressMean =
                     stressReadValues.StressMean.Value;
             }
+
             if (stressReadValues.StressCoefficientOfVariation.HasValue)
             {
                 preconsolidationStress.StressCoefficientOfVariation =
                     stressReadValues.StressCoefficientOfVariation.Value;
             }
+
             if (stressReadValues.StressShift.HasValue)
             {
                 preconsolidationStress.StressShift =

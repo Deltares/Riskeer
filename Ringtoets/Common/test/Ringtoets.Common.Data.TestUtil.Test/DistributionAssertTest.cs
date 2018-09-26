@@ -133,9 +133,9 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Setup
             var random = new Random(21);
             const int nrOfDecimals = 4;
-            var mean = random.NextRoundedDouble();
-            var coefficientOfVariation = random.NextRoundedDouble();
-            var shift = random.NextRoundedDouble();
+            RoundedDouble mean = random.NextRoundedDouble();
+            RoundedDouble coefficientOfVariation = random.NextRoundedDouble();
+            RoundedDouble shift = random.NextRoundedDouble();
 
             // Call
             TestDelegate call = () => DistributionAssert.AreEqual(new VariationCoefficientLogNormalDistribution(nrOfDecimals)

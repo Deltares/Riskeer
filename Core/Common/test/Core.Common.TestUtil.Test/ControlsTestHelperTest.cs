@@ -70,7 +70,7 @@ namespace Core.Common.TestUtil.Test
 
                 // Assert
                 Assert.AreEqual(value2, control.SelectedValue);
-                var expectedRaisedEvents = new[]
+                string[] expectedRaisedEvents =
                 {
                     selectedvaluechanged,
                     selectedindexchanged,

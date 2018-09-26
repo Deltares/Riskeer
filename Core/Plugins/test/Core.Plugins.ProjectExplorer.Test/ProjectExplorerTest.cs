@@ -77,6 +77,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Assert.IsInstanceOf<UserControl>(explorer);
                 Assert.IsNull(explorer.Data);
             }
+
             mocks.VerifyAll();
         }
 
@@ -108,6 +109,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 // Assert
                 Assert.AreSame(project, treeViewControl.Data);
             }
+
             mocks.VerifyAll();
         }
 
@@ -148,6 +150,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 // Call
                 treeViewControl.TryRemoveNodeForData(project);
             }
+
             // Assert
             mocks.VerifyAll();
         }
@@ -202,6 +205,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 // Assert
                 Assert.AreEqual(1, selectionChangedCount);
             }
+
             WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }
@@ -254,6 +258,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 // Call
                 tester.DoubleClick();
             }
+
             // Assert
             mocks.VerifyAll();
         }
@@ -305,6 +310,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 // Assert
                 Assert.AreSame(stringA, selection);
             }
+
             WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }

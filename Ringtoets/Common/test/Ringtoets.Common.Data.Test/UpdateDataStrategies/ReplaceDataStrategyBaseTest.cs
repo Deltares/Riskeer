@@ -204,7 +204,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             var failureMechanism = new TestFailureMechanism();
             var collection = new TestUniqueItemCollection();
             var strategy = new ConcreteStrategyClass(failureMechanism, collection);
-            var expectedObservables = new[]
+            TestUniqueItemCollection[] expectedObservables =
             {
                 collection
             };

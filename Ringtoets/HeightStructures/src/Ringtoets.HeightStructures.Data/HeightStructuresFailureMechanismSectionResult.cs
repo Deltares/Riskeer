@@ -91,11 +91,6 @@ namespace Ringtoets.HeightStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyProbability"/>.
-        /// </summary>
-        public bool UseManualAssemblyProbability { get; set; }
-
-        /// <summary>
         /// Gets or sets the manually entered assembly probability.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>

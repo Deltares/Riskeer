@@ -179,6 +179,7 @@ namespace Core.Components.Gis.Forms.Test.Views
                 Assert.IsNull(actual);
                 return;
             }
+
             var actualWellKnownTileSourceMapData = (WellKnownTileSourceMapData) actual;
             Assert.AreEqual(expected.Name, actualWellKnownTileSourceMapData.Name);
             Assert.AreEqual(expected.TileSource, actualWellKnownTileSourceMapData.TileSource);

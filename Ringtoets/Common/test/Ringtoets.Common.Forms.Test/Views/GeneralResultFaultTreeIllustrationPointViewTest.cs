@@ -354,6 +354,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(1, selectionChangedCount);
                 Assert.IsNull(view.Selection);
             }
+
             mocks.VerifyAll();
         }
 
@@ -384,6 +385,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                  topLevelFaultTreeIllustrationPoints.Select(ip => ip.ClosingSituation),
                                                  view.Selection);
             }
+
             mocks.VerifyAll();
         }
 
@@ -465,6 +467,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 IllustrationPointsFaultTreeControl illustrationPointsFaultTreeControl = GetIllustrationPointsFaultTreeControl(view);
                 Assert.AreSame(topLevelFaultTreeIllustrationPoint, illustrationPointsFaultTreeControl.Data);
             }
+
             mocks.VerifyAll();
         }
 
@@ -513,6 +516,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                                 selectedFaultTreeContext.ClosingSituation);
                 Assert.AreEqual(topLevel.WindDirection.Name, selectedFaultTreeContext.WindDirectionName);
             }
+
             mocks.VerifyAll();
         }
 
@@ -560,6 +564,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                                 selectedSubMechanismContext.ClosingSituation);
                 Assert.AreEqual(topLevel.WindDirection.Name, selectedSubMechanismContext.WindDirectionName);
             }
+
             mocks.VerifyAll();
         }
 

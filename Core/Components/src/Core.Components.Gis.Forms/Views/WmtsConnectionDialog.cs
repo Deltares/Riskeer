@@ -69,6 +69,7 @@ namespace Core.Components.Gis.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

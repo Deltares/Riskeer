@@ -78,10 +78,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
+
             Data = data;
             propertyChangeHandler = handler;
         }

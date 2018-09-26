@@ -29,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.FileImporters
     /// An update strategy that can be used to update a <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> instance with data
     /// from an old <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> instance.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategy 
+    public class GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
         public void UpdateSectionResult(GrassCoverErosionOutwardsFailureMechanismSectionResult origin, GrassCoverErosionOutwardsFailureMechanismSectionResult target)
@@ -51,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.FileImporters
             target.DetailedAssessmentResultForLowerLimitNorm = origin.DetailedAssessmentResultForLowerLimitNorm;
             target.DetailedAssessmentResultForFactorizedLowerLimitNorm = origin.DetailedAssessmentResultForFactorizedLowerLimitNorm;
             target.TailorMadeAssessmentResult = origin.TailorMadeAssessmentResult;
-            target.UseManualAssemblyCategoryGroup = origin.UseManualAssemblyCategoryGroup;
+            target.UseManualAssembly = origin.UseManualAssembly;
             target.ManualAssemblyCategoryGroup = origin.ManualAssemblyCategoryGroup;
         }
     }

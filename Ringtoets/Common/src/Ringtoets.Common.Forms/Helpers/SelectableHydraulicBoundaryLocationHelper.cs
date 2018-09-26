@@ -48,6 +48,7 @@ namespace Ringtoets.Common.Forms.Helpers
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
+
             return hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, referencePoint))
                                              .OrderBy(hbl => hbl.Distance)
                                              .ThenBy(hbl => hbl.HydraulicBoundaryLocation.Id)

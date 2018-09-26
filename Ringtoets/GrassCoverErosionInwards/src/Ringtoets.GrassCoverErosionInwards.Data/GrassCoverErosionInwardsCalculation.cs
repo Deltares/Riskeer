@@ -42,14 +42,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the input parameters to perform a grass cover erosion inwards calculation with.
-        /// </summary>
-        public GrassCoverErosionInwardsInput InputParameters { get; private set; }
-
-        /// <summary>
         /// Gets or sets <see cref="GrassCoverErosionInwardsOutput"/>, which contains the results of a probabilistic calculation.
         /// </summary>
         public GrassCoverErosionInwardsOutput Output { get; set; }
+
+        /// <summary>
+        /// Gets the input parameters to perform a grass cover erosion inwards calculation with.
+        /// </summary>
+        public GrassCoverErosionInwardsInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 

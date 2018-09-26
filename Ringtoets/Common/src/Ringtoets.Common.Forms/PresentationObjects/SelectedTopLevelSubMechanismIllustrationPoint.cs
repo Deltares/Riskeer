@@ -44,6 +44,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             {
                 throw new ArgumentNullException(nameof(topLevelSubMechanismIllustrationPoint));
             }
+
             if (closingSituations == null)
             {
                 throw new ArgumentNullException(nameof(closingSituations));

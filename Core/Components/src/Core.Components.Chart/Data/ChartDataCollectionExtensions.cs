@@ -41,6 +41,7 @@ namespace Core.Components.Chart.Data
             {
                 throw new ArgumentNullException(nameof(chartDataCollection));
             }
+
             var chartDataList = new List<ChartData>();
 
             foreach (ChartData chartData in chartDataCollection.Collection)

@@ -44,8 +44,8 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <paramref name="expectedDistribution"/>.</item>
         /// </list></exception>
         public static void AssertDistributionCorrectlySet(IDistribution distributionToAssert,
-                                                           IDistribution setDistribution,
-                                                           IDistribution expectedDistribution)
+                                                          IDistribution setDistribution,
+                                                          IDistribution expectedDistribution)
         {
             Assert.AreNotSame(setDistribution, distributionToAssert);
             DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
@@ -66,8 +66,8 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <paramref name="expectedDistribution"/>.</item>
         /// </list></exception>
         public static void AssertDistributionCorrectlySet(IVariationCoefficientDistribution distributionToAssert,
-                                                           IVariationCoefficientDistribution setDistribution,
-                                                           IVariationCoefficientDistribution expectedDistribution)
+                                                          IVariationCoefficientDistribution setDistribution,
+                                                          IVariationCoefficientDistribution expectedDistribution)
         {
             Assert.AreNotSame(setDistribution, distributionToAssert);
             DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);

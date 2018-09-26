@@ -60,6 +60,7 @@ namespace Ringtoets.Common.Forms.Factories
             {
                 throw new ArgumentNullException(nameof(illustrationPointControlItems));
             }
+
             if (stackChartData == null)
             {
                 throw new ArgumentNullException(nameof(stackChartData));
@@ -98,6 +99,7 @@ namespace Ringtoets.Common.Forms.Factories
             {
                 throw new ArgumentNullException(nameof(illustrationPointControlItems));
             }
+
             if (stackChartData == null)
             {
                 throw new ArgumentNullException(nameof(stackChartData));
@@ -136,6 +138,7 @@ namespace Ringtoets.Common.Forms.Factories
 
                 lookup[stochastValue.Item1].Add(stochastValue.Item2);
             }
+
             return lookup;
         }
 

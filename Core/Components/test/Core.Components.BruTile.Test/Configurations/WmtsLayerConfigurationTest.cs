@@ -110,6 +110,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 string expectedMessage = $"Niet in staat om de databron met naam '{id}' te kunnen vinden bij de WMTS URL '{url}'.";
                 Assert.AreEqual(expectedMessage, message);
             }
+
             mocks.VerifyAll();
         }
 
@@ -119,9 +120,8 @@ namespace Core.Components.BruTile.Test.Configurations
             // Setup
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
-            IRequest nullRequest = null;
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                nullRequest);
+                                                (IRequest) null);
 
             var mocks = new MockRepository();
             var factory = mocks.Stub<ITileSourceFactory>();
@@ -154,6 +154,7 @@ namespace Core.Components.BruTile.Test.Configurations
                     directoryDisposeHelper.UnlockDirectory();
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -163,11 +164,10 @@ namespace Core.Components.BruTile.Test.Configurations
             // Setup
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
-            IRequest nullRequest = null;
             var tileSource1 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(WmtsMapDataTestHelper.CreateDefaultPdokMapData()),
-                                                 nullRequest);
+                                                 (IRequest) null);
             var tileSource2 = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                 nullRequest);
+                                                 (IRequest) null);
             var tileSources = new ITileSource[]
             {
                 tileSource1,
@@ -193,6 +193,7 @@ namespace Core.Components.BruTile.Test.Configurations
                     Assert.AreSame(tileSource2.Schema, configuration.TileSchema);
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -202,9 +203,8 @@ namespace Core.Components.BruTile.Test.Configurations
             // Setup
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
-            IRequest nullRequest = null;
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                nullRequest);
+                                                (IRequest) null);
             var tileSources = new ITileSource[]
             {
                 tileSource
@@ -232,6 +232,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 Assert.IsNull(clone.TileFetcher, "TileFetcher should be null because the clone hasn't been initialized yet.");
                 Assert.IsNull(clone.TileSchema, "TileSchema should be null because the clone hasn't been initialized yet.");
             }
+
             mocks.VerifyAll();
         }
 
@@ -241,9 +242,8 @@ namespace Core.Components.BruTile.Test.Configurations
             // Setup
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
-            IRequest nullRequest = null;
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                nullRequest);
+                                                (IRequest) null);
             var tileSources = new ITileSource[]
             {
                 tileSource
@@ -269,6 +269,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
                 Assert.AreEqual("WmtsLayerConfiguration", objectName);
             }
+
             mocks.VerifyAll();
         }
 
@@ -278,9 +279,8 @@ namespace Core.Components.BruTile.Test.Configurations
             // Given
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
-            IRequest nullRequest = null;
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                nullRequest);
+                                                (IRequest) null);
             var tileSources = new ITileSource[]
             {
                 tileSource
@@ -306,6 +306,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 Assert.IsTrue(clone.TileFetcher.IsReady());
                 Assert.AreSame(configuration.TileSchema, clone.TileSchema);
             }
+
             mocks.VerifyAll();
         }
 
@@ -315,9 +316,8 @@ namespace Core.Components.BruTile.Test.Configurations
             // Setup
             WmtsMapData targetMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
 
-            IRequest nullRequest = null;
             var tileSource = new HttpTileSource(TileSchemaFactory.CreateWmtsTileSchema(targetMapData),
-                                                nullRequest);
+                                                (IRequest) null);
             var tileSources = new ITileSource[]
             {
                 tileSource
@@ -343,6 +343,7 @@ namespace Core.Components.BruTile.Test.Configurations
                 string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
                 Assert.AreEqual("WmtsLayerConfiguration", objectName);
             }
+
             mocks.VerifyAll();
         }
 

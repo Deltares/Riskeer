@@ -79,9 +79,8 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
 
         private static void AssertTestNames(IEnumerable<TestCaseData> testCaseData, string targetName, string testResultDescription)
         {
-            IEnumerable<string> testNames = testCaseData
-                .Select(tcd => tcd.TestName)
-                .ToArray();
+            IEnumerable<string> testNames = testCaseData.Select(tcd => tcd.TestName)
+                                                        .ToArray();
             Assert.AreEqual(testCaseData.Count(), testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith($"{targetName}_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith($"_{testResultDescription}")));
@@ -92,10 +91,9 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
             var differentStructures = new List<HeightStructure>();
             var referenceStructure = new TestHeightStructure();
 
-            IEnumerable<HeightStructure> structures = testCaseData
-                .Select(tcd => tcd.Arguments[0])
-                .OfType<HeightStructure>()
-                .ToArray();
+            IEnumerable<HeightStructure> structures = testCaseData.Select(tcd => tcd.Arguments[0])
+                                                                  .OfType<HeightStructure>()
+                                                                  .ToArray();
 
             int testDataCount = testCaseData.Count();
             Assert.AreEqual(testDataCount, structures.Count());

@@ -210,6 +210,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
+
             // Assert
             mocks.VerifyAll();
         }

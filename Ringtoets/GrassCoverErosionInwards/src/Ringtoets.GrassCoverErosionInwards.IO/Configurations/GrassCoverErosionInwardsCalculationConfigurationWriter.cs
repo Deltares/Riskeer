@@ -92,6 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Configurations
                     GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingRateIllustrationPointsBeCalculatedElement,
                     XmlConvert.ToString(configuration.ShouldOvertoppingRateIllustrationPointsBeCalculated.Value));
             }
+
             WriteConfigurationLoadSchematizationTypeWhenAvailable(
                 writer,
                 GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement,

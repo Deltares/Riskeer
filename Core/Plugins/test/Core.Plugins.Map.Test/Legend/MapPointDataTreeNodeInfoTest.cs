@@ -142,6 +142,7 @@ namespace Core.Plugins.Map.Test.Legend
                 builder.Expect(mb => mb.AddPropertiesItem()).Return(builder);
                 builder.Expect(mb => mb.Build()).Return(null);
             }
+
             contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
 
             mocks.ReplayAll();

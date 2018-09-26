@@ -211,11 +211,10 @@ namespace Ringtoets.Piping.Service.Test
         public void RemoveSurfaceLine_PipingFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = null;
             var surfaceLine = new PipingSurfaceLine(string.Empty);
 
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
+            TestDelegate call = () => PipingDataSynchronizationService.RemoveSurfaceLine(null, surfaceLine);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -227,10 +226,9 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            PipingSurfaceLine surfaceLine = null;
 
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, surfaceLine);
+            TestDelegate call = () => PipingDataSynchronizationService.RemoveSurfaceLine(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -288,11 +286,8 @@ namespace Ringtoets.Piping.Service.Test
         [Test]
         public void RemoveAllSurfaceLine_PipingFailureMechanismNull_ThrowsArgumentNullException()
         {
-            // Setup
-            PipingFailureMechanism failureMechanism = null;
-
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.RemoveAllSurfaceLines(failureMechanism);
+            TestDelegate call = () => PipingDataSynchronizationService.RemoveAllSurfaceLines(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -350,11 +345,10 @@ namespace Ringtoets.Piping.Service.Test
         public void RemoveStochasticSoilModel_PipingFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = null;
             PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
 
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel);
+            TestDelegate call = () => PipingDataSynchronizationService.RemoveStochasticSoilModel(null, soilModel);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -366,10 +360,9 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            PipingStochasticSoilModel soilModel = null;
 
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, soilModel);
+            TestDelegate call = () => PipingDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -427,11 +420,8 @@ namespace Ringtoets.Piping.Service.Test
         [Test]
         public void RemoveAllStochasticSoilModel_FailureMechanismNull_ThrowsArgumentNullException()
         {
-            // Setup
-            PipingFailureMechanism failureMechanism = null;
-
             // Call
-            TestDelegate call = () => PipingDataSynchronizationService.RemoveAllStochasticSoilModels(failureMechanism);
+            TestDelegate call = () => PipingDataSynchronizationService.RemoveAllStochasticSoilModels(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -439,7 +429,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void RemoveAllStochastiSoilModel_FullyConfiguredPipingFailureMechanism_RemovesAllSoilModelAndClearDependendentData()
+        public void RemoveAllStochasticSoilModel_FullyConfiguredPipingFailureMechanism_RemovesAllSoilModelAndClearDependentData()
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();

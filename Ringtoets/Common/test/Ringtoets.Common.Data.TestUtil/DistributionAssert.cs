@@ -128,7 +128,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </list></exception>
         public static void AreEqual(VariationCoefficientLogNormalDistribution expectedDistribution, VariationCoefficientLogNormalDistribution actualDistribution)
         {
-            AreEqual((IVariationCoefficientDistribution)expectedDistribution, actualDistribution);
+            AreEqual((IVariationCoefficientDistribution) expectedDistribution, actualDistribution);
             AreEqualValue(expectedDistribution.Shift, actualDistribution.Shift);
         }
 

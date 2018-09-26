@@ -44,6 +44,7 @@ namespace Core.Common.Util.Extensions
             {
                 return false; // Null not bigger then anything (or equal to null).
             }
+
             if (object2 == null)
             {
                 return true; // Anything is greater than null.
@@ -131,10 +132,12 @@ namespace Core.Common.Util.Extensions
             {
                 return min;
             }
+
             if (value.IsBigger(max))
             {
                 return max;
             }
+
             return value;
         }
     }

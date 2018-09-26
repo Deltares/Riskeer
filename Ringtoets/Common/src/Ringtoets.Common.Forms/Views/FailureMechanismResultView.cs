@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Controls;
@@ -46,7 +47,7 @@ namespace Ringtoets.Common.Forms.Views
     public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism, TAssemblyResultControl> : UserControl, IView
         where TSectionResult : FailureMechanismSectionResult
         where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : IHasSectionResults<TSectionResult>
         where TAssemblyResultControl : AssemblyResultControl, new()
     {
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
@@ -166,12 +167,10 @@ namespace Ringtoets.Common.Forms.Views
             UpdateFailureMechanismAssemblyResultControl();
         }
 
-        /// <summary>
-        /// Determines if the failure mechanism has section assembly results that are manually overwritten.
-        /// </summary>
-        /// <returns><c>true</c> if the failure mechanism has section assembly results that are manually overwritten,
-        /// <c>false</c> otherwise.</returns>
-        protected abstract bool HasManualAssemblyResults();
+        private bool HasManualAssemblyResults()
+        {
+            return HasSectionResultsHelper.HasManualAssemblyResults(FailureMechanism);
+        }
 
         /// <summary>
         /// Updates the data source of the data grid view with the current known failure mechanism section results.

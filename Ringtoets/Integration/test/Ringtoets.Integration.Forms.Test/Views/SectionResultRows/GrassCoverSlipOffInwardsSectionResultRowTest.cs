@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
-                Assert.AreEqual(result.UseManualAssemblyCategoryGroup, row.UseManualAssemblyCategoryGroup);
+                Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
                 Assert.AreEqual(result.ManualAssemblyCategoryGroup, row.ManualAssemblyCategoryGroup);
 
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -175,7 +175,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         }
 
         [Test]
-        public void UseManualAssemblyCategoryGroup_SetNewValue_NotifyObserversAndPropertyChanged()
+        public void UseManualAssembly_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
             var mocks = new MockRepository();
@@ -187,20 +187,20 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            bool newValue = !result.UseManualAssemblyCategoryGroup;
+            bool newValue = !result.UseManualAssembly;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new GrassCoverSlipOffInwardsSectionResultRow(result, ConstructionProperties);
 
                 // Precondition
-                Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+                Assert.IsFalse(result.UseManualAssembly);
 
                 // Call
-                row.UseManualAssemblyCategoryGroup = newValue;
+                row.UseManualAssembly = newValue;
 
                 // Assert
-                Assert.AreEqual(newValue, result.UseManualAssemblyCategoryGroup);
+                Assert.AreEqual(newValue, result.UseManualAssembly);
                 mocks.VerifyAll();
             }
         }
@@ -349,13 +349,13 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_WithUseManualAssemblyCategoryGroupSet_ExpectedColumnStates(bool useManualAssemblyCategoryGroup)
+        public void Constructor_WithUseManualAssemblySet_ExpectedColumnStates(bool useManualAssembly)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResult(section)
             {
-                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup
+                UseManualAssembly = useManualAssembly
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -367,13 +367,13 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
-                                                                                     !useManualAssemblyCategoryGroup);
+                                                                                     !useManualAssembly);
 
-                if (useManualAssemblyCategoryGroup)
+                if (useManualAssembly)
                 {
                     DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateIsDisabled(
                         columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
@@ -386,7 +386,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 }
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex],
-                                                                                     useManualAssemblyCategoryGroup);
+                                                                                     useManualAssembly);
             }
         }
 

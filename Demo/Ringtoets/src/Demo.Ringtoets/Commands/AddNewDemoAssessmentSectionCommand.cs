@@ -32,7 +32,6 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
@@ -206,230 +205,228 @@ namespace Demo.Ringtoets.Commands
             const double targetProbability = 1.0 / 200000;
             IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm;
 
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = null;
             calculations.ElementAt(0).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.19,
                 targetProbability, 4.79014,
                 1.0 / 1196727, 4.78959,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(1).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.19,
                 targetProbability, 4.79014,
                 1.0 / 1196727, 4.78959,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(2).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.18,
                 targetProbability, 4.79014,
                 1.0 / 1196727, 4.78959,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(3).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.18,
                 targetProbability, 4.79014,
                 1.0 / 1196787, 4.78960,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(4).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.18,
                 targetProbability, 4.79014,
                 1.0 / 1196787, 4.78960,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(5).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.39,
                 targetProbability, 4.79014,
                 1.0 / 1196489, 4.78955,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(6).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.39,
                 targetProbability, 4.79014,
                 1.0 / 1196489, 4.78955,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(7).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.39,
                 targetProbability, 4.79014,
                 1.0 / 1196489, 4.78955,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(8).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.40,
                 targetProbability, 4.79014,
                 1.0 / 1196489, 4.78955,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(9).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.40,
                 targetProbability, 4.79014,
                 1.0 / 1196429, 4.78954,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(10).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.40,
                 targetProbability, 4.79014,
                 1.0 / 1196429, 4.78954,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(11).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.40,
                 targetProbability, 4.79014,
                 1.0 / 1196429, 4.78954,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(12).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.40,
                 targetProbability, 4.79014,
                 1.0 / 1196429, 4.78954,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(13).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.41,
                 targetProbability, 4.79014,
                 1.0 / 1196429, 4.78954,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(14).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.41,
                 targetProbability, 4.79014,
                 1.0 / 1196429, 4.78954,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(15).Output = new HydraulicBoundaryLocationCalculationOutput(
                 6.91,
                 targetProbability, 4.79014,
                 1.0 / 1197264, 4.78968,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(16).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.53,
                 targetProbability, 4.79014,
                 1.0 / 1195476, 4.78938,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(17).Output = new HydraulicBoundaryLocationCalculationOutput(
                 7.80,
                 targetProbability, 4.79014,
                 1.0 / 1194761, 4.78926,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
         }
 
         private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightOutputValues(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             const double targetProbability = 1.0 / 200000;
             IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm;
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = null;
             calculations.ElementAt(0).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.99,
                 targetProbability, 4.79014,
                 1.0 / 1199892, 4.79012,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(1).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.04,
                 targetProbability, 4.79014,
                 1.0 / 1199892, 4.79012,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(2).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.87,
                 targetProbability, 4.79014,
                 1.0 / 1199892, 4.79012,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(3).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.73,
                 targetProbability, 4.79014,
                 1.0 / 1199892, 4.79012,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(4).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.59,
                 targetProbability, 4.79014,
                 1.0 / 1199833, 4.79011,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(5).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.35,
                 targetProbability, 4.79014,
                 1.0 / 1197264, 4.78968,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(6).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.83,
                 targetProbability, 4.79014,
                 1.0 / 1196906, 4.78962,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(7).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.00,
                 targetProbability, 4.79014,
                 1.0 / 1197264, 4.78968,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(8).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.20,
                 targetProbability, 4.79014,
                 1.0 / 1197324, 4.78969,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(9).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.41,
                 targetProbability, 4.79014,
                 1.0 / 1197324, 4.78969,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(10).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.50,
                 targetProbability, 4.79014,
                 1.0 / 1197622, 4.78974,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(11).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.57,
                 targetProbability, 4.79014,
                 1.0 / 1197145, 4.78966,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(12).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.63,
                 targetProbability, 4.79014,
                 1.0 / 1196608, 4.78957,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(13).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.68,
                 targetProbability, 4.79014,
                 1.0 / 1196549, 4.78956,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(14).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.17,
                 targetProbability, 4.79014,
                 1.0 / 1199713, 4.79009,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(15).Output = new HydraulicBoundaryLocationCalculationOutput(
                 11.13,
                 targetProbability, 4.79014,
                 1.0 / 201269, 4.79035,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(16).Output = new HydraulicBoundaryLocationCalculationOutput(
                 9.24,
                 targetProbability, 4.79014,
                 1.0 / 197742, 4.78976,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(17).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.34,
                 targetProbability, 4.79014,
                 1.0 / 199056, 4.78998,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
         }
 
         #endregion
@@ -836,7 +833,6 @@ namespace Demo.Ringtoets.Commands
         private static void SetHydraulicBoundaryLocationDesignWaterLevelOutputValues(IAssessmentSection assessmentSection)
         {
             const double targetProbability = 1.0 / 30000;
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = null;
 
             IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
 
@@ -845,115 +841,114 @@ namespace Demo.Ringtoets.Commands
                 targetProbability, 3.98788,
                 1.0 / 29996, 3.98785,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(1).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.77,
                 targetProbability, 3.98787893,
                 1.0 / 29996, 3.98785,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(2).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.77,
                 targetProbability, 3.98788,
                 1.0 / 29996, 3.98785,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(3).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.77,
                 targetProbability, 3.98788,
                 1.0 / 29996, 3.98785,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(4).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.76865,
                 targetProbability, 3.98788,
                 1.0 / 29996, 3.98784,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(5).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.93,
                 targetProbability, 3.98788,
                 1.0 / 29995, 3.98784,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(6).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.93,
                 targetProbability, 3.98788,
                 1.0 / 29995, 3.98784,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(7).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.93,
                 targetProbability, 3.98788,
                 1.0 / 29995, 3.98784,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(8).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.93,
                 targetProbability, 3.98788,
                 1.0 / 29995, 3.98784,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(9).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.93,
                 targetProbability, 3.98788,
                 1.0 / 29995, 3.98784,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(10).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.93,
                 targetProbability, 3.98788,
                 1.0 / 29995, 3.98784,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(11).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.93,
                 targetProbability, 3.98788,
                 1.0 / 29995, 3.98784,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(12).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.93,
                 targetProbability, 3.98788,
                 1.0 / 29995, 3.98784,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(13).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.93,
                 targetProbability, 3.98788,
                 1.0 / 29995, 3.98784,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(14).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.93,
                 targetProbability, 3.98788,
                 1.0 / 29995, 3.98784,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(15).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.54,
                 targetProbability, 3.98788,
                 1.0 / 29996, 3.98785,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(16).Output = new HydraulicBoundaryLocationCalculationOutput(
                 5.86,
                 targetProbability, 3.98788,
                 1.0 / 29994, 3.98783,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(17).Output = new HydraulicBoundaryLocationCalculationOutput(
                 6.00,
                 targetProbability, 3.98788,
                 1.0 / 29993, 3.98782,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
         }
 
         private static void SetHydraulicBoundaryLocationWaveHeightOutputValues(IAssessmentSection assessmentSection)
         {
             const double targetProbability = 1.0 / 30000;
-            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = null;
 
             IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = assessmentSection.WaveHeightCalculationsForLowerLimitNorm;
 
@@ -962,109 +957,109 @@ namespace Demo.Ringtoets.Commands
                 targetProbability, 3.98788,
                 1.0 / 29972, 3.98766,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(1).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.19,
                 targetProbability, 3.98788,
                 1.0 / 29962, 3.98770,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(2).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.02,
                 targetProbability, 3.98788,
                 1.0 / 29977, 3.98758,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(3).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.87,
                 targetProbability, 3.98788,
                 1.0 / 29963, 3.98759,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(4).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.73,
                 targetProbability, 3.98788,
                 1.0 / 29957, 3.98754,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(5).Output = new HydraulicBoundaryLocationCalculationOutput(
                 2.65,
                 targetProbability, 3.98788,
                 1.0 / 30022, 3.98805,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(6).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.04,
                 targetProbability, 3.98788,
                 1.0 / 30001, 3.98789,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(7).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.20,
                 targetProbability, 3.98788,
                 1.0 / 30000, 3.98788,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(8).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.35,
                 targetProbability, 3.98788,
                 1.0 / 29996, 3.98785,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(9).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.53,
                 targetProbability, 3.98788,
                 1.0 / 29999, 3.98787,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(10).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.62,
                 targetProbability, 3.98788,
                 1.0 / 29888, 3.98699,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(11).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.68,
                 targetProbability, 3.98788,
                 1.0 / 29890, 3.98701,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(12).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.73,
                 targetProbability, 3.98788,
                 1.0 / 29882, 3.98694,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(13).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.75,
                 targetProbability, 3.98788,
                 1.0 / 29902, 3.98710,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(14).Output = new HydraulicBoundaryLocationCalculationOutput(
                 3.30,
                 targetProbability, 3.98788,
                 1.0 / 30037, 3.98817,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(15).Output = new HydraulicBoundaryLocationCalculationOutput(
                 9.57,
                 targetProbability, 3.98788,
                 1.0 / 29999, 3.98787,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(16).Output = new HydraulicBoundaryLocationCalculationOutput(
                 8.02,
                 targetProbability, 3.98788,
                 1.0 / 30108, 3.98873,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
             calculations.ElementAt(17).Output = new HydraulicBoundaryLocationCalculationOutput(
                 4.11,
                 targetProbability, 3.98788,
                 1.0 / 29929, 3.98732,
                 CalculationConvergence.CalculatedConverged,
-                generalResult);
+                null);
         }
 
         #endregion

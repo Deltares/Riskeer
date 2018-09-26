@@ -61,6 +61,7 @@ namespace Ringtoets.Common.Data.Probabilistics
                 {
                     throw new ArgumentNullException(nameof(value), Resources.DesignVariable_Distribution_must_be_set);
                 }
+
                 distribution = value;
             }
         }

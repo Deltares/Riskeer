@@ -168,9 +168,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 DataGridViewControl,
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.UseManualAssemblyProbability));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
@@ -180,11 +180,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
-        }
-
-        protected override bool HasManualAssemblyResults()
-        {
-            return MacroStabilityInwardsFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

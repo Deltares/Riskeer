@@ -131,6 +131,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -155,6 +156,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -181,6 +183,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
                 // Assert
                 Assert.IsInstanceOf<ClosingStructuresImporter>(importer);
             }
+
             mocks.VerifyAll();
         }
 

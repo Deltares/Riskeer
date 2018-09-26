@@ -119,6 +119,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -145,6 +146,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 

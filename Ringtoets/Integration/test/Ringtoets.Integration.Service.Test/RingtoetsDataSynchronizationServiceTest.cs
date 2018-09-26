@@ -730,11 +730,10 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_StabilityStoneCoverFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            StabilityStoneCoverFailureMechanism failureMechanism = null;
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile((StabilityStoneCoverFailureMechanism) null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -746,10 +745,9 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            ForeshoreProfile profile = null;
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -806,11 +804,10 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_WaveImpactAsphaltCoverFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = null;
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile((WaveImpactAsphaltCoverFailureMechanism) null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -822,10 +819,9 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            ForeshoreProfile profile = null;
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -882,11 +878,10 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_GrassCoverErosionOutwardsFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = null;
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile((GrassCoverErosionOutwardsFailureMechanism) null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -898,10 +893,9 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            ForeshoreProfile profile = null;
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -957,11 +951,10 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_HeightStructuresFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            HeightStructuresFailureMechanism failureMechanism = null;
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile((HeightStructuresFailureMechanism) null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -973,10 +966,9 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            ForeshoreProfile profile = null;
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1033,11 +1025,10 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_ClosingStructuresFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            ClosingStructuresFailureMechanism failureMechanism = null;
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile((ClosingStructuresFailureMechanism) null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1049,10 +1040,9 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            ForeshoreProfile profile = null;
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1109,11 +1099,10 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveForeshoreProfile_StabilityPointStructuresFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            StabilityPointStructuresFailureMechanism failureMechanism = null;
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile((StabilityPointStructuresFailureMechanism) null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1125,10 +1114,9 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            ForeshoreProfile profile = null;
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1260,11 +1248,10 @@ namespace Ringtoets.Integration.Service.Test
         public void RemoveDikeProfile_GrassCoverErosionInwardsFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = null;
             DikeProfile profile = DikeProfileTestFactory.CreateDikeProfile();
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveDikeProfile(null, profile);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1276,10 +1263,9 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            DikeProfile profile = null;
 
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.RemoveDikeProfile(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

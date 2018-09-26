@@ -76,6 +76,7 @@ namespace Ringtoets.HeightStructures.IO
                 HeightStructure heightStructure = CreateHeightStructure(structureLocation, heightStructureParameterRows);
                 heightStructures.Add(heightStructure);
             }
+
             return heightStructures;
         }
 

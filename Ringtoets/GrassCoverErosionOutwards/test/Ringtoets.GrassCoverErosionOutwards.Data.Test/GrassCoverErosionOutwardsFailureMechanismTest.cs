@@ -191,7 +191,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocations = new[]
+            TestHydraulicBoundaryLocation[] hydraulicBoundaryLocations =
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2

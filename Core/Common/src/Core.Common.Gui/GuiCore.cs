@@ -97,18 +97,22 @@ namespace Core.Common.Gui
             {
                 throw new ArgumentNullException(nameof(mainWindow));
             }
+
             if (projectStore == null)
             {
                 throw new ArgumentNullException(nameof(projectStore));
             }
+
             if (projectMigrator == null)
             {
                 throw new ArgumentNullException(nameof(projectMigrator));
             }
+
             if (projectFactory == null)
             {
                 throw new ArgumentNullException(nameof(projectFactory));
             }
+
             if (fixedSettings == null)
             {
                 throw new ArgumentNullException(nameof(fixedSettings));
@@ -739,6 +743,7 @@ namespace Core.Common.Gui
                     }
                 }
             }
+
             return resultSet;
         }
 

@@ -32,8 +32,8 @@ namespace Ringtoets.Common.Forms.Observers
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism to observe.</typeparam>
     /// <typeparam name="TSectionResult">The type of the section results in the failure mechanism.</typeparam>
     public class FailureMechanismResultObserver<TFailureMechanism, TSectionResult> : Observable, IDisposable
-    where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>
-    where TSectionResult : FailureMechanismSectionResult
+        where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>
+        where TSectionResult : FailureMechanismSectionResult
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer failureMechanismSectionResultObserver;
@@ -69,6 +69,12 @@ namespace Ringtoets.Common.Forms.Observers
             };
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -77,12 +83,6 @@ namespace Ringtoets.Common.Forms.Observers
                 failureMechanismSectionResultObserver.Dispose();
                 failureMechanismSectionResultsObserver.Dispose();
             }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

@@ -52,14 +52,17 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(illustrationPoint));
             }
+
             if (windDirection == null)
             {
                 throw new ArgumentNullException(nameof(windDirection));
             }
+
             if (closingSituation == null)
             {
                 throw new ArgumentNullException(nameof(closingSituation));
             }
+
             data = illustrationPoint;
             WindDirection = windDirection;
             ClosingSituation = closingSituation;

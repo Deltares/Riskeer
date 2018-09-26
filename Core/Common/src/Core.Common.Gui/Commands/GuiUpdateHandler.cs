@@ -59,14 +59,17 @@ namespace Core.Common.Gui.Commands
             {
                 throw new ArgumentNullException(nameof(dialogParent));
             }
+
             if (updateInfos == null)
             {
                 throw new ArgumentNullException(nameof(updateInfos));
             }
+
             if (inquiryHelper == null)
             {
                 throw new ArgumentNullException(nameof(inquiryHelper));
             }
+
             this.dialogParent = dialogParent;
             this.updateInfos = updateInfos;
             this.inquiryHelper = inquiryHelper;
@@ -140,6 +143,7 @@ namespace Core.Common.Gui.Commands
             {
                 filePath = inquiryHelper.GetSourceFileLocation(updateInfo.FileFilterGenerator.Filter);
             }
+
             if (filePath != null && updateInfo.VerifyUpdates(target))
             {
                 RunUpdateActivity(updateInfo.CreateFileImporter(target, filePath), updateInfo.Name);

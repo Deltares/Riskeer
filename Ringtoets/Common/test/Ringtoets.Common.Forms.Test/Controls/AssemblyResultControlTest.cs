@@ -175,7 +175,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
                 groupLabel.Text = "abcd";
                 groupLabel.BackColor = Color.Yellow;
-                
+
                 // Call
                 resultControl.ClearAssemblyResult();
 

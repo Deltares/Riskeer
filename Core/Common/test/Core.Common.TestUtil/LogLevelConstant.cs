@@ -53,7 +53,7 @@ namespace Core.Common.TestUtil
         {
             if (!Enum.IsDefined(typeof(LogLevelConstant), level))
             {
-                throw new InvalidEnumArgumentException(nameof(level), (int)level, typeof(LogLevelConstant));
+                throw new InvalidEnumArgumentException(nameof(level), (int) level, typeof(LogLevelConstant));
             }
 
             switch (level)

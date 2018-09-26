@@ -124,12 +124,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 {
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationA"
                     },
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationB"
                     }
                 });
@@ -171,12 +171,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 {
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationA"
                     },
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationB"
                     }
                 });
@@ -228,17 +228,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 {
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationA"
                     },
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationB"
                     },
                     new[]
                     {
-                        "<geen>"
+                        "<selecteer>"
                     }
                 });
             }
@@ -267,11 +267,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 {
                     new[]
                     {
-                        "<geen>"
+                        "<selecteer>"
                     },
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationA",
                         "CalculationB"
                     }
@@ -310,12 +310,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 {
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationA"
                     },
                     new[]
                     {
-                        "<geen>",
+                        "<selecteer>",
                         "CalculationB",
                         "CalculationC"
                     }

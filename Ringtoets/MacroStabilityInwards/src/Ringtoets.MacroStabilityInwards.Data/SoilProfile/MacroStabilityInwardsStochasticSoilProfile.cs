@@ -125,12 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hashCode = Probability.GetHashCode();
-                hashCode = (hashCode * 397) ^ (SoilProfile?.GetHashCode() ?? 0);
-                return hashCode;
-            }
+            return Probability.GetHashCode();
         }
 
         private bool Equals(MacroStabilityInwardsStochasticSoilProfile other)

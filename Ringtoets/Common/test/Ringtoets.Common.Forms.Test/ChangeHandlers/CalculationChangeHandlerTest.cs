@@ -133,7 +133,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
             mockRepository.ReplayAll();
 
-            var calculations = new[]
+            ICalculation[] calculations =
             {
                 CalculationTestDataFactory.CreateCalculationWithOutput(),
                 CalculationTestDataFactory.CreateCalculationWithoutOutput()

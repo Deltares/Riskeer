@@ -142,26 +142,25 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void GivenFailureMechanismWithManualAssessment_WhenCreatingExportableFailureMechanism_ThenManualAssemblyIgnored()
+        public void CreateExportableFailureMechanism_WithFailureMechanismWithManualAssessment_ManualAssemblyIgnored()
         {
-            // Given
+            // Setup
             var failureMechanism = new PipingFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResults.Single().UseManualAssemblyProbability = true;
-
-            var assessmentSection = new AssessmentSectionStub();
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                // When
-                ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
+                // Call
+                ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, new AssessmentSectionStub());
 
-                // Then
-                FailureMechanismSectionAssembly manualOutput = failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput;
-                Assert.IsNull(manualOutput);
+                // Assert
+                Assert.AreSame(failureMechanismSectionAssemblyCalculator.CombinedAssemblyOutput,
+                               failureMechanismAssemblyCalculator.FailureMechanismSectionAssemblies.Single());
             }
         }
 

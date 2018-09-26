@@ -45,6 +45,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
+
             this.sectionResult = sectionResult;
         }
 

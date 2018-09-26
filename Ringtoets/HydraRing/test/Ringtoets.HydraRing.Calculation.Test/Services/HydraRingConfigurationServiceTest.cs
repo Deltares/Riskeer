@@ -167,7 +167,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                             (runPreprocessor
                                                  ? "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 9);" + Environment.NewLine
                                                  : string.Empty) +
-                                             Environment.NewLine +
+                                            Environment.NewLine +
                                             "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                             "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 1, 1234);" + Environment.NewLine +
                                             Environment.NewLine +

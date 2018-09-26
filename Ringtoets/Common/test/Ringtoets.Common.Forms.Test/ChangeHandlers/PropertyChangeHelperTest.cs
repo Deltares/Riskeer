@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Forms.Test.ChangeHandlers
             var observableB = mocks.StrictMock<IObservable>();
             observableB.Expect(o => o.NotifyObservers());
 
-            var affectedObjects = new[]
+            IObservable[] affectedObjects =
             {
                 observableA,
                 observableB

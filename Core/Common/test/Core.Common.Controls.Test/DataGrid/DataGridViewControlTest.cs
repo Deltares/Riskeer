@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -301,7 +301,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void AddCheckBoxColumn_WithoutAutoSizeMode_AddsColumnToDataGridViewWithDefaultAutoSizeMode()
+        public void AddCheckBoxColumn_WithoutReadOnly_AddsColumnToDataGridViewWithDefaultReadOnly()
         {
             // Setup
             using (var form = new Form())
@@ -335,8 +335,6 @@ namespace Core.Common.Controls.Test.DataGrid
         public void AddCheckboxColumn_ReadOnlySet_AddsColumnToDataGridViewWithReadOnlyTrue()
         {
             // Setup
-            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -349,7 +347,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                control.AddCheckBoxColumn(propertyName, headerText, true, autoSizeMode);
+                control.AddCheckBoxColumn(propertyName, headerText, true);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
@@ -359,75 +357,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual($"column_{propertyName}", columnData.Name);
                 Assert.AreEqual(headerText, columnData.HeaderText);
                 Assert.IsTrue(columnData.ReadOnly);
-                Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
-                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
-            }
-        }
-
-        [Test]
-        public void AddCheckboxColumn_AutoSizeModeSet_AddsColumnToDataGridViewWithAutoSizeMode()
-        {
-            // Setup
-            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-
-            using (var form = new Form())
-            using (var control = new DataGridViewControl())
-            {
-                form.Controls.Add(control);
-                form.Show();
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Precondition
-                Assert.AreEqual(0, dataGridView.ColumnCount);
-
-                // Call
-                control.AddCheckBoxColumn(propertyName, headerText, false, autoSizeMode);
-
-                // Assert
-                Assert.AreEqual(1, dataGridView.ColumnCount);
-
-                var columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
-                Assert.AreEqual(propertyName, columnData.DataPropertyName);
-                Assert.AreEqual($"column_{propertyName}", columnData.Name);
-                Assert.AreEqual(headerText, columnData.HeaderText);
-                Assert.IsFalse(columnData.ReadOnly);
-                Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
-                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
-            }
-        }
-
-        [Test]
-        public void AddComboBoxColumn_AutoSizeModeSet_AddsColumnToDataGridViewWithAutoSizeMode()
-        {
-            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-
-            using (var form = new Form())
-            using (var control = new DataGridViewControl())
-            {
-                form.Controls.Add(control);
-                form.Show();
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Precondition
-                Assert.AreEqual(0, dataGridView.ColumnCount);
-
-                // Call
-                control.AddComboBoxColumn<object>(propertyName, headerText, null, null, null, autoSizeMode);
-
-                // Assert
-                Assert.AreEqual(1, dataGridView.ColumnCount);
-
-                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
-
-                Assert.AreEqual(propertyName, columnData.DataPropertyName);
-                Assert.AreEqual($"column_{propertyName}", columnData.Name);
-                Assert.AreEqual(headerText, columnData.HeaderText);
-                Assert.IsNull(columnData.DataSource);
-                Assert.IsEmpty(columnData.ValueMember);
-                Assert.IsEmpty(columnData.DisplayMember);
-                Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
+                Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
             }
         }
@@ -462,6 +392,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.IsEmpty(columnData.DisplayMember);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
+                Assert.AreEqual(FlatStyle.Flat, columnData.FlatStyle);
             }
         }
 
@@ -506,11 +437,12 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
+                Assert.AreEqual(FlatStyle.Flat, columnData.FlatStyle);
             }
         }
 
         [Test]
-        public void AddColorColumn_WithoutAutoSizeMode_AddsReadOnlyColumnToDataGridViewWithDefaultAutoSizeMode()
+        public void AddColorColumn_Always_AddsReadOnlyColumnToDataGridView()
         {
             // Setup
             using (var form = new Form())
@@ -537,38 +469,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.IsTrue(columnData.ReadOnly);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
-            }
-        }
-
-        [Test]
-        public void AddColorColumn_WithAutoSizeMode_AddsColumnToDataGridViewWithAutoSizeMode()
-        {
-            // Setup
-            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-
-            using (var form = new Form())
-            using (var control = new DataGridViewControl())
-            {
-                form.Controls.Add(control);
-                form.Show();
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Precondition
-                Assert.AreEqual(0, dataGridView.ColumnCount);
-
-                // Call
-                control.AddColorColumn(propertyName, headerText, autoSizeMode);
-
-                // Assert
-                Assert.AreEqual(1, dataGridView.ColumnCount);
-
-                var columnData = (DataGridViewColorColumn) dataGridView.Columns[0];
-                Assert.AreEqual(propertyName, columnData.DataPropertyName);
-                Assert.AreEqual($"column_{propertyName}", columnData.Name);
-                Assert.AreEqual(headerText, columnData.HeaderText);
-                Assert.IsTrue(columnData.ReadOnly);
-                Assert.AreEqual(autoSizeMode, columnData.AutoSizeMode);
             }
         }
 
@@ -1567,7 +1467,11 @@ namespace Core.Common.Controls.Test.DataGrid
                     false
                 });
 
+                var invalidated = false;
+                dataGridView.Invalidated += (sender, args) => invalidated = true;
+
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
+
                 control.SetCurrentCell(dataGridViewCell);
                 dataGridView.BeginEdit(false);
                 gridTester.FireEvent("KeyUp", new KeyEventArgs(Keys.Space));
@@ -1578,6 +1482,56 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.IsTrue(dataGridViewCell.IsInEditMode);
                 Assert.IsTrue(Convert.ToBoolean(dataGridViewCell.FormattedValue));
+                Assert.IsTrue(invalidated);
+            }
+        }
+
+        [Test]
+        public void DataGridViewControlComboBoxColumn_EditValueDirtyStateChangedEventFired_ValueCommittedCellInEditMode()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                EnumDisplayWrapper<TestEnum>[] dataSource = Enum.GetValues(typeof(TestEnum))
+                                                                .OfType<TestEnum>()
+                                                                .Select(e => new EnumDisplayWrapper<TestEnum>(e))
+                                                                .ToArray();
+
+                control.AddComboBoxColumn("Test property", "Test header", dataSource,
+                                          nameof(EnumDisplayWrapper<TestEnum>.Value),
+                                          nameof(EnumDisplayWrapper<TestEnum>.DisplayName));
+
+                // Precondition
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                control.SetDataSource(new[]
+                {
+                    TestEnum.NoDisplayName
+                });
+
+                var invalidated = false;
+                dataGridView.Invalidated += (sender, args) => invalidated = true;
+
+                DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
+
+                control.SetCurrentCell(dataGridViewCell);
+                dataGridView.BeginEdit(false);
+                dataGridViewCell.Value = TestEnum.DisplayName;
+
+                // Call
+                gridTester.FireEvent("CurrentCellDirtyStateChanged", EventArgs.Empty);
+
+                // Assert
+                Assert.IsTrue(dataGridViewCell.IsInEditMode);
+                Assert.AreEqual(TestEnum.DisplayName, dataGridViewCell.Value);
+                Assert.IsTrue(invalidated);
             }
         }
 

@@ -52,10 +52,12 @@ namespace Ringtoets.Common.Forms.ChangeHandlers
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (query == null)
             {
                 throw new ArgumentNullException(nameof(query));
             }
+
             if (inquiryHandler == null)
             {
                 throw new ArgumentNullException(nameof(inquiryHandler));

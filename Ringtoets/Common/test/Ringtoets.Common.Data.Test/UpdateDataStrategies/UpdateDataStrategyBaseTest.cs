@@ -265,7 +265,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             var collection = new TestUniqueItemCollection();
             collection.AddRange(currentCollection, sourceFilePath);
 
-            var importedItems = new[]
+            TestItem[] importedItems =
             {
                 currentCollection[0].DeepClone(),
                 currentCollection[1].DeepClone()
@@ -309,7 +309,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             var collection = new TestUniqueItemCollection();
             collection.AddRange(currentCollection, "Onbekend");
 
-            var importedItems = new[]
+            TestItem[] importedItems =
             {
                 currentCollection[0].DeepClone(),
                 currentCollection[1].DeepClone()
@@ -350,7 +350,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             }, sourceFilePath);
 
             var itemToAdd = new TestItem("Item Four");
-            var importedItems = new[]
+            TestItem[] importedItems =
             {
                 itemToUpdate.DeepClone(),
                 itemToAdd
@@ -382,7 +382,7 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             Assert.AreEqual(1, removeDataCallArguments.Count);
             Assert.AreSame(itemToRemove, removeDataCallArguments[0].Item1);
 
-            var expectedCollection = new[]
+            TestItem[] expectedCollection =
             {
                 itemToUpdate,
                 itemToAdd
@@ -536,14 +536,14 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
             // Setup
             var itemOne = new TestItem(1);
             var itemTwo = new TestItem(2);
-            var currentCollection = new[]
+            TestItem[] currentCollection =
             {
                 itemOne
             };
             var collection = new TestUniqueItemCollection();
             collection.AddRange(currentCollection, "path");
 
-            var importedItems = new[]
+            TestItem[] importedItems =
             {
                 itemTwo
             };
@@ -677,14 +677,17 @@ namespace Ringtoets.Common.Data.Test.UpdateDataStrategies
                 {
                     return false;
                 }
+
                 if (ReferenceEquals(this, obj))
                 {
                     return true;
                 }
+
                 if (obj.GetType() != GetType())
                 {
                     return false;
                 }
+
                 return Equals((TestItem) obj);
             }
 

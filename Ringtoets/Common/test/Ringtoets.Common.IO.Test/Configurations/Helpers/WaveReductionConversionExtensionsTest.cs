@@ -37,14 +37,13 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
     public class WaveReductionConversionExtensionsTest
     {
         [Test]
-        public void SetConfigurationForeshoreProfileDependendProperties_ConfigurationNull_ThrowsArgumentNullException()
+        public void SetConfigurationForeshoreProfileDependentProperties_ConfigurationNull_ThrowsArgumentNullException()
         {
             // Setup
-            SimpleStructuresCalculationConfiguration configuration = null;
             var structureInput = new SimpleStructuresInput();
 
             // Call
-            TestDelegate call = () => configuration.SetConfigurationForeshoreProfileDependendProperties(structureInput);
+            TestDelegate call = () => WaveReductionConversionExtensions.SetConfigurationForeshoreProfileDependentProperties(null, structureInput);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -52,13 +51,13 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void SetConfigurationForeshoreProfileDependendProperties_InputNull_ThrowsArgumentNullException()
+        public void SetConfigurationForeshoreProfileDependentProperties_InputNull_ThrowsArgumentNullException()
         {
             // Setup
             var configuration = new SimpleStructuresCalculationConfiguration();
 
             // Call
-            TestDelegate call = () => configuration.SetConfigurationForeshoreProfileDependendProperties<StructureBase>(null);
+            TestDelegate call = () => configuration.SetConfigurationForeshoreProfileDependentProperties<StructureBase>(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -66,14 +65,14 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void SetConfigurationForeshoreProfileDependendProperties_WithoutForeshoreProfile_DoesNotUpdate()
+        public void SetConfigurationForeshoreProfileDependentProperties_WithoutForeshoreProfile_DoesNotUpdate()
         {
             // Setup
             var configuration = new SimpleStructuresCalculationConfiguration();
             var structureInput = new SimpleStructuresInput();
 
             // Call
-            configuration.SetConfigurationForeshoreProfileDependendProperties(structureInput);
+            configuration.SetConfigurationForeshoreProfileDependentProperties(structureInput);
 
             // Assert
             Assert.IsNull(configuration.ForeshoreProfileId);
@@ -81,7 +80,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void SetConfigurationForeshoreProfileDependendProperties_WithForeshoreProfile_UpdatesConfiguration()
+        public void SetConfigurationForeshoreProfileDependentProperties_WithForeshoreProfile_UpdatesConfiguration()
         {
             // Setup
             var random = new Random(6543);
@@ -103,7 +102,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             };
 
             // Call
-            configuration.SetConfigurationForeshoreProfileDependendProperties(structureInput);
+            configuration.SetConfigurationForeshoreProfileDependentProperties(structureInput);
 
             // Assert
             Assert.AreEqual("id", configuration.ForeshoreProfileId);
@@ -115,7 +114,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void SetConfigurationForeshoreProfileDependendProperties_WithForeshoreProfileInvalidBreakwaterType_UpdatesConfiguration()
+        public void SetConfigurationForeshoreProfileDependentProperties_WithForeshoreProfileInvalidBreakwaterType_UpdatesConfiguration()
         {
             // Setup
             var random = new Random(6543);
@@ -130,7 +129,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Helpers
             };
 
             // Call
-            configuration.SetConfigurationForeshoreProfileDependendProperties(structureInput);
+            configuration.SetConfigurationForeshoreProfileDependentProperties(structureInput);
 
             // Assert
             Assert.AreEqual(structureInput.ForeshoreProfile.Id, configuration.ForeshoreProfileId);

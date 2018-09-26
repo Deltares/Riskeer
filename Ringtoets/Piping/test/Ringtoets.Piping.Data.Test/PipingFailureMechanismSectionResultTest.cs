@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, sectionResult.DetailedAssessmentResult);
             Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, sectionResult.TailorMadeAssessmentResult);
             Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
-            Assert.IsFalse(sectionResult.UseManualAssemblyProbability);
+            Assert.IsFalse(sectionResult.UseManualAssembly);
             Assert.IsNaN(sectionResult.ManualAssemblyProbability);
         }
 

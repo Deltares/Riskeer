@@ -127,9 +127,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                 DataGridViewControl,
                 nameof(StabilityStoneCoverSectionResultRow.CombinedAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.UseManualAssemblyCategoryGroup));
+                nameof(StabilityStoneCoverSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(
                 DataGridViewControl,
@@ -139,11 +139,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
-        }
-
-        protected override bool HasManualAssemblyResults()
-        {
-            return StabilityStoneCoverFailureMechanismHelper.HasManualAssemblyResults(FailureMechanism);
         }
     }
 }

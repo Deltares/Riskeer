@@ -54,7 +54,7 @@ namespace Ringtoets.Storage.Core.Read
             sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType) entity.SimpleAssessmentResult;
             sectionResult.DetailedAssessmentResult = (DetailedAssessmentResultType) entity.DetailedAssessmentResult;
             sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentResultType) entity.TailorMadeAssessmentResult;
-            sectionResult.UseManualAssemblyCategoryGroup = Convert.ToBoolean(entity.UseManualAssemblyCategoryGroup);
+            sectionResult.UseManualAssembly = Convert.ToBoolean(entity.UseManualAssembly);
             sectionResult.ManualAssemblyCategoryGroup = (ManualFailureMechanismSectionAssemblyCategoryGroup) entity.ManualAssemblyCategoryGroup;
         }
     }

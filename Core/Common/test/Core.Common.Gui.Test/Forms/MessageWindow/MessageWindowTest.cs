@@ -195,6 +195,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 Assert.AreEqual("Berichtdetails", dialogTitle);
                 Assert.AreEqual(detailedMessage, dialogText);
             }
+
             mocks.VerifyAll();
         }
 
@@ -355,6 +356,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 Assert.AreEqual("Berichtdetails", dialogTitle);
                 Assert.AreEqual(detailedMessage, dialogText);
             }
+
             mocks.VerifyAll();
         }
 
@@ -416,6 +418,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 Assert.AreEqual("Berichtdetails", dialogTitle);
                 Assert.AreEqual(detailedMessage, dialogText);
             }
+
             mocks.VerifyAll();
         }
 

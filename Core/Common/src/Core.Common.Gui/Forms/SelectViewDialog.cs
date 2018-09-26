@@ -150,6 +150,7 @@ namespace Core.Common.Gui.Forms
                     DefaultViewName = listBox.SelectedItem.ToString();
                 }
             }
+
             if (previousName != DefaultViewName)
             {
                 listBox.Refresh();

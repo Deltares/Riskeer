@@ -41,7 +41,7 @@ namespace Ringtoets.Storage.Core.DbContext
         public byte DetailedAssessmentResultForLowerLimitNorm { get; set; }
         public byte DetailedAssessmentResultForFactorizedLowerLimitNorm { get; set; }
         public byte TailorMadeAssessmentResult { get; set; }
-        public byte UseManualAssemblyCategoryGroup { get; set; }
+        public byte UseManualAssembly { get; set; }
         public byte ManualAssemblyCategoryGroup { get; set; }
 
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }

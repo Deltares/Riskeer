@@ -72,7 +72,7 @@ namespace Ringtoets.Storage.Core.Test.Read.StabilityStoneCover
             var detailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
             var detailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
-            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             var entity = new StabilityStoneCoverSectionResultEntity
@@ -85,7 +85,7 @@ namespace Ringtoets.Storage.Core.Test.Read.StabilityStoneCover
                 DetailedAssessmentResultForLowerLimitNorm = Convert.ToByte(detailedAssessmentResultForLowerLimitNorm),
                 DetailedAssessmentResultForFactorizedLowerLimitNorm = Convert.ToByte(detailedAssessmentResultForFactorizedLowerLimitNorm),
                 TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
-                UseManualAssemblyCategoryGroup = Convert.ToByte(useManualAssemblyCategoryGroup),
+                UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
 
@@ -102,7 +102,7 @@ namespace Ringtoets.Storage.Core.Test.Read.StabilityStoneCover
             Assert.AreEqual(detailedAssessmentResultForLowerLimitNorm, sectionResult.DetailedAssessmentResultForLowerLimitNorm);
             Assert.AreEqual(detailedAssessmentResultForFactorizedLowerLimitNorm, sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm);
             Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
-            Assert.AreEqual(useManualAssemblyCategoryGroup, sectionResult.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(useManualAssembly, sectionResult.UseManualAssembly);
             Assert.AreEqual(manualAssemblyCategoryGroup, sectionResult.ManualAssemblyCategoryGroup);
         }
     }

@@ -71,18 +71,22 @@ namespace Ringtoets.Common.IO.SurfaceLines
             {
                 throw new ArgumentNullException(nameof(points), Resources.SurfaceLine_SetGeometry_Collection_of_points_for_geometry_is_null);
             }
+
             if (points.Any(p => p == null))
             {
                 throw new ArgumentException(Resources.SurfaceLine_SetGeometry_A_point_in_the_collection_was_null);
             }
+
             if (points.IsZeroLength())
             {
                 throw new ArgumentException(Resources.SurfaceLine_SetGeometry_SurfaceLine_has_zero_length);
             }
+
             if (new RoundedPoint2DCollection(2, points.ProjectToLZ()).IsReclining())
             {
                 throw new ArgumentException(Resources.SurfaceLine_SetGeometry_SurfaceLine_has_reclining_geometry);
             }
+
             Points = points.Select(p => new Point3D(p)).ToArray();
         }
     }

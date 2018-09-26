@@ -64,6 +64,7 @@ namespace Core.Components.Gis.Forms.Views
             {
                 return;
             }
+
             DataGridViewRow dataGridViewRow = dataGridViewControl.Rows.OfType<DataGridViewRow>()
                                                                  .FirstOrDefault(row => IsMatch((WellKnownTileSourceMapData) row.DataBoundItem,
                                                                                                 activeWellKnownTileSourceMapData));
@@ -71,6 +72,7 @@ namespace Core.Components.Gis.Forms.Views
             {
                 return;
             }
+
             DataGridViewCell cell = dataGridViewControl.GetCell(dataGridViewRow.Index, 0);
             dataGridViewControl.SetCurrentCell(cell);
         }

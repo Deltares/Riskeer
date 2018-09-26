@@ -255,15 +255,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public bool UseManualAssemblyProbability
+        public bool UseManualAssembly
         {
             get
             {
-                return SectionResult.UseManualAssemblyProbability;
+                return SectionResult.UseManualAssembly;
             }
             set
             {
-                SectionResult.UseManualAssemblyProbability = value;
+                SectionResult.UseManualAssembly = value;
                 UpdateInternalData();
             }
         }
@@ -300,7 +300,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult)
                 || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
-                || UseManualAssemblyProbability)
+                || UseManualAssembly)
             {
                 ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = string.Empty;
             }
@@ -421,13 +421,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
 
-            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssemblyProbability);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssembly);
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex], simpleAssessmentSufficient
-                                                                                                                         || UseManualAssemblyProbability);
+                                                                                                                         || UseManualAssembly);
 
             if (simpleAssessmentSufficient
                 || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
-                || UseManualAssemblyProbability)
+                || UseManualAssembly)
             {
                 FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex]);
             }
@@ -438,13 +438,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
                                                                   simpleAssessmentSufficient
-                                                                  || UseManualAssemblyProbability);
+                                                                  || UseManualAssembly);
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
                                                                   simpleAssessmentSufficient
                                                                   || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult)
-                                                                  || UseManualAssemblyProbability);
+                                                                  || UseManualAssembly);
 
-            if (UseManualAssemblyProbability)
+            if (UseManualAssembly)
             {
                 FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex]);
                 FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex]);
@@ -465,7 +465,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                 FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[combinedAssemblyProbabilityIndex], true);
             }
 
-            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyProbabilityIndex], !UseManualAssemblyProbability);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyProbabilityIndex], !UseManualAssembly);
         }
 
         /// <summary>

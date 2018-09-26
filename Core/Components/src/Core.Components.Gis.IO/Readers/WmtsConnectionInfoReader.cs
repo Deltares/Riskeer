@@ -134,11 +134,13 @@ namespace Core.Components.Gis.IO.Readers
 
                     readWmtsConnectionElement = tryParseWmtsConnectionElement(wmtsConnectionElement);
                 }
+
                 if (readWmtsConnectionElement != null)
                 {
                     connectionInfos.Add(readWmtsConnectionElement);
                 }
             }
+
             return new ReadOnlyCollection<WmtsConnectionInfo>(connectionInfos);
         }
 
@@ -178,6 +180,7 @@ namespace Core.Components.Gis.IO.Readers
 
                 log.Warn(message, exception);
             }
+
             return null;
         }
 

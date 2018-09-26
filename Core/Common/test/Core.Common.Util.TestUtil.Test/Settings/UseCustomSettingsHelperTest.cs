@@ -45,6 +45,7 @@ namespace Core.Common.Util.TestUtil.Test.Settings
                 // Then
                 Assert.AreSame(helper, SettingsHelper.Instance);
             }
+
             Assert.AreSame(originalHelper, SettingsHelper.Instance);
             mocks.VerifyAll();
         }

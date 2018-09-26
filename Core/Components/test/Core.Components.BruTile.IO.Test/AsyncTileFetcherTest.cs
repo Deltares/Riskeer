@@ -53,6 +53,7 @@ namespace Core.Components.BruTile.IO.Test
                 // Assert
                 Assert.IsInstanceOf<ITileFetcher>(tileFetcher);
             }
+
             mocks.VerifyAll();
         }
 
@@ -160,6 +161,7 @@ namespace Core.Components.BruTile.IO.Test
                     Assert.Fail("TileFetcher did not respond within timelimit.");
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -193,6 +195,7 @@ namespace Core.Components.BruTile.IO.Test
                 {
                     Assert.Fail("TileFetcher did not respond within timelimit.");
                 }
+
                 fetcherFiredAsyncEvent.Reset();
 
                 // Assert
@@ -429,6 +432,7 @@ namespace Core.Components.BruTile.IO.Test
                 {
                     Assert.Fail("TileFetcher did not respond within timelimit.");
                 }
+
                 mocks.VerifyAll();
             }
         }

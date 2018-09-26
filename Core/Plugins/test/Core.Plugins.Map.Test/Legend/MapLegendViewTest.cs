@@ -218,6 +218,7 @@ namespace Core.Plugins.Map.Test.Legend
                 // Assert
                 Assert.AreSame(mapData, view.Data);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -264,6 +265,7 @@ namespace Core.Plugins.Map.Test.Legend
                 // Assert
                 Assert.AreSame(mapData, selection);
             }
+
             WindowsFormsTestHelper.CloseAll();
         }
 
@@ -294,6 +296,7 @@ namespace Core.Plugins.Map.Test.Legend
                 // Then
                 Assert.AreEqual(1, selectionChangedCount);
             }
+
             WindowsFormsTestHelper.CloseAll();
         }
 
@@ -316,6 +319,7 @@ namespace Core.Plugins.Map.Test.Legend
                 // Then
                 Assert.AreEqual(1, selectionChangedCount);
             }
+
             WindowsFormsTestHelper.CloseAll();
         }
 

@@ -33,11 +33,8 @@ namespace Core.Common.Util.Test.Extensions
         [Test]
         public void ForEachElementDo_IteratorNull_ThrowArgumentNullException()
         {
-            // Setup
-            IEnumerable<object> enumerable = null;
-
             // Call
-            TestDelegate call = () => enumerable.ForEachElementDo(e => {});
+            TestDelegate call = () => EnumerableExtensions.ForEachElementDo<object>(null, e => {});
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -82,11 +79,8 @@ namespace Core.Common.Util.Test.Extensions
         [Test]
         public void HasDuplicates_IteratorNull_ThrowArgumentNullException()
         {
-            // Setup
-            IEnumerable<object> enumerable = null;
-
             // Call
-            TestDelegate call = () => enumerable.HasDuplicates<object, object>(e => null);
+            TestDelegate call = () => EnumerableExtensions.HasDuplicates<object, object>(null, e => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -175,11 +169,8 @@ namespace Core.Common.Util.Test.Extensions
         [Test]
         public void HasMultipleUniqueValues_IteratorNull_ThrowArgumentNullException()
         {
-            // Setup
-            IEnumerable<object> enumerable = null;
-
             // Call
-            TestDelegate call = () => enumerable.HasMultipleUniqueValues<object, object>(e => null);
+            TestDelegate call = () => EnumerableExtensions.HasMultipleUniqueValues<object, object>(null, e => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

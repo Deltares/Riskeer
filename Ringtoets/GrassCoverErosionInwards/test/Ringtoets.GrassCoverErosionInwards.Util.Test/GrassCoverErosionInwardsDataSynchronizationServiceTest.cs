@@ -141,15 +141,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Util.Test
                 failureMechanism.Calculations
                                 .Cast<GrassCoverErosionInwardsCalculation>()
                                 .ToArray();
-            IObservable[] expectedAffectedCalculations = grassCoverErosionInwardsCalculations
-                .Where(c => c.HasOutput)
-                .Cast<IObservable>()
-                .ToArray();
-            IObservable[] expectedAffectedCalculationInputs = grassCoverErosionInwardsCalculations
-                .Select(c => c.InputParameters)
-                .Where(i => i.HydraulicBoundaryLocation != null)
-                .Cast<IObservable>()
-                .ToArray();
+            IObservable[] expectedAffectedCalculations = grassCoverErosionInwardsCalculations.Where(c => c.HasOutput)
+                                                                                             .Cast<IObservable>()
+                                                                                             .ToArray();
+            IObservable[] expectedAffectedCalculationInputs = grassCoverErosionInwardsCalculations.Select(c => c.InputParameters)
+                                                                                                  .Where(i => i.HydraulicBoundaryLocation != null)
+                                                                                                  .Cast<IObservable>()
+                                                                                                  .ToArray();
 
             // Call
             IEnumerable<IObservable> affectedItems =
@@ -311,7 +309,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Util.Test
                     DikeProfile = removedProfile
                 }
             };
-            var calculations = new[]
+            GrassCoverErosionInwardsCalculation[] calculations =
             {
                 calculationWitRemovedProfile
             };
@@ -331,7 +329,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Util.Test
                 Calculation = calculationWitRemovedProfile
             };
 
-            var sectionResults = new[]
+            GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults =
             {
                 sectionResultWithAffectedCalculation
             };
@@ -492,7 +490,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Util.Test
                 }
             };
 
-            var calculations = new[]
+            GrassCoverErosionInwardsCalculation[] calculations =
             {
                 calculationWitRemovedProfile,
                 calculationWithProfileToKeep
@@ -525,7 +523,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Util.Test
                 Calculation = calculationWithProfileToKeep
             };
 
-            var sectionResults = new[]
+            GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults =
             {
                 sectionResultWithUnaffectedCalculation,
                 sectionResultWithAffectedCalculation

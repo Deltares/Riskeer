@@ -44,10 +44,12 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentNullException(nameof(first), Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
             }
+
             if (second == null)
             {
                 throw new ArgumentNullException(nameof(second), Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
             }
+
             FirstPoint = first;
             SecondPoint = second;
             Length = FirstPoint.GetEuclideanDistanceTo(SecondPoint);
@@ -124,6 +126,7 @@ namespace Core.Common.Base.Geometry
                 // 'point' falls outside the perpendicular area defined by segment, specifically: Zone A
                 return point.GetEuclideanDistanceTo(FirstPoint);
             }
+
             // 2. Use denominator part of vector projection to determine relative location of 'point':
             double dotProductSegmentVector = segmentVector.DotProduct(segmentVector);
             if (dotProductSegmentVector <= dotProductOrientationVector)
@@ -148,14 +151,17 @@ namespace Core.Common.Base.Geometry
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((Segment2D) obj);
         }
 

@@ -59,7 +59,7 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override IFeatureCategory CreateDefaultCategory(MapLineData mapData)
         {
-            return CreateCategory(mapData, mapData.Style.Color); 
+            return CreateCategory(mapData, mapData.Style.Color);
         }
 
         protected override IFeatureCategory CreateCategory(MapLineData mapData, Color color)

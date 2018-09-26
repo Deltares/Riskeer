@@ -42,7 +42,6 @@ namespace Ringtoets.Common.IO.SoilProfile
         /// log normal distribution with a zero shift.</exception>
         public static void ValidateLogNormalDistribution(long? distributionType, double shift)
         {
-           
             if (distributionType.HasValue)
             {
                 if (distributionType.Value != SoilLayerConstants.LogNormalDistributionValue)

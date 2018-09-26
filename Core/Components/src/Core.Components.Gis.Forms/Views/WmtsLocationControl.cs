@@ -109,6 +109,7 @@ namespace Core.Components.Gis.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -139,6 +140,7 @@ namespace Core.Components.Gis.Forms.Views
             {
                 return;
             }
+
             DataGridViewCell cell = dataGridViewControl.GetCell(dataGridViewRow.Index, 0);
             dataGridViewControl.SetCurrentCell(cell);
         }
@@ -173,6 +175,7 @@ namespace Core.Components.Gis.Forms.Views
             {
                 log.Error(exception.Message, exception);
             }
+
             return Enumerable.Empty<WmtsConnectionInfo>();
         }
 
@@ -302,6 +305,7 @@ namespace Core.Components.Gis.Forms.Views
             {
                 return;
             }
+
             RefreshWmtsCapabilities();
             lastSelectedCapability = urlLocationComboBox.SelectedValue;
         }
@@ -323,6 +327,7 @@ namespace Core.Components.Gis.Forms.Views
             {
                 return;
             }
+
             try
             {
                 IEnumerable<WmtsCapability> wmtsCapabilities = wmtsCapabilityFactory.GetWmtsCapabilities(selectedWmtsConnectionInfo.Url).ToArray();
@@ -357,6 +362,7 @@ namespace Core.Components.Gis.Forms.Views
             {
                 return;
             }
+
             Form parentForm = FindForm();
             using (var dialog = new WmtsConnectionDialog(parentForm, selectedWmtsConnectionInfo))
             {
@@ -382,6 +388,7 @@ namespace Core.Components.Gis.Forms.Views
             {
                 wmtsConnectionInfos.Remove(selectedWmtsConnectionInfo);
             }
+
             wmtsConnectionInfos.Add(createdWmtsConnectionInfo);
             SaveWmtsConnectionInfos();
             UpdateComboBoxDataSource(createdWmtsConnectionInfo);

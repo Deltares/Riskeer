@@ -142,7 +142,8 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             Assert.AreEqual(Resources.DeleteChildren, item.Text);
-            string expectedTooltip = canDelete ? "Verwijder alle onderliggende elementen van dit element."
+            string expectedTooltip = canDelete
+                                         ? "Verwijder alle onderliggende elementen van dit element."
                                          : "Er zijn geen onderliggende elementen om te verwijderen.";
             Assert.AreEqual(expectedTooltip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.DeleteChildrenIcon, item.Image);

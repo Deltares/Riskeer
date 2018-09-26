@@ -51,10 +51,9 @@ namespace Core.Common.Util.Reflection
             {
                 throw new InvalidEnumArgumentException(nameof(enumValue), Convert.ToInt32(enumValue), typeof(TEnum));
             }
+
             var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute) Attribute.GetCustomAttribute(fieldInfo, typeof(ResourcesDisplayNameAttribute));
-            return resourcesDisplayNameAttribute != null ?
-                       resourcesDisplayNameAttribute.DisplayName :
-                       valueString;
+            return resourcesDisplayNameAttribute != null ? resourcesDisplayNameAttribute.DisplayName : valueString;
         }
 
         /// <summary>
@@ -85,6 +84,7 @@ namespace Core.Common.Util.Reflection
             {
                 throw new ArgumentNullException(nameof(type));
             }
+
             return type.IsAssignableFrom(thisType);
         }
 
@@ -105,6 +105,7 @@ namespace Core.Common.Util.Reflection
             {
                 throw new ArgumentNullException(nameof(instance));
             }
+
             FieldInfo fieldInfo = GetFieldInfo(instance.GetType(), fieldName);
             if (fieldInfo == null)
             {
@@ -131,12 +132,14 @@ namespace Core.Common.Util.Reflection
             {
                 throw new ArgumentNullException(nameof(instance));
             }
+
             PropertyInfo propertyInfo =
                 instance.GetType().GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             if (propertyInfo == null)
             {
                 throw new ArgumentOutOfRangeException(nameof(propertyInfo));
             }
+
             MethodInfo getter = propertyInfo.GetGetMethod(true);
             return (T) getter.Invoke(instance, null);
         }
@@ -307,6 +310,7 @@ namespace Core.Common.Util.Reflection
             {
                 return null;
             }
+
             FieldInfo fieldInfo = type.GetField(fieldName, BindingFlags.Instance
                                                            | BindingFlags.NonPublic
                                                            | BindingFlags.Public

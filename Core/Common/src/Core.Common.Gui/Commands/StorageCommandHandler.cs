@@ -74,6 +74,7 @@ namespace Core.Common.Gui.Commands
             {
                 return true;
             }
+
             IProject project = projectOwner.Project;
             projectPersistor.StageProject(project);
             try
@@ -107,6 +108,7 @@ namespace Core.Common.Gui.Commands
                 log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_canceled);
                 return;
             }
+
             log.Info(Resources.Creating_new_project_started);
             projectOwner.SetProject(projectFactory.CreateNewProject(), null);
             log.Info(Resources.Creating_new_project_successful);
@@ -290,6 +292,7 @@ namespace Core.Common.Gui.Commands
                     ReleaseDatabaseFileHandle();
                     return SaveProject();
             }
+
             return true;
         }
 

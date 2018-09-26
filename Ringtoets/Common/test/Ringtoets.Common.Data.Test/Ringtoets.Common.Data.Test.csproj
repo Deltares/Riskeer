@@ -48,6 +48,7 @@
     <Compile Include="Exceptions\MechanismSurfaceLineExceptionTest.cs" />
     <Compile Include="FailureMechanism\FailureMechanismCategoryTypeTest.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSectionCollectionTest.cs" />
+    <Compile Include="HasSectionResultsHelperTest.cs" />
     <Compile Include="Helpers\SoilLayerDataHelperTest.cs" />
     <Compile Include="Hydraulics\CalculationConvergenceTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabaseExtensionsTest.cs" />

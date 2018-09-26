@@ -21,22 +21,20 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.Helpers;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone.Helpers
+namespace Ringtoets.Common.Data.Test
 {
     [TestFixture]
-    public class GrassCoverSlipOffInwardsFailureMechanismHelperTest
+    public class HasSectionResultsHelperTest
     {
         [Test]
         public void HasManualAssemblyResults_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismHelper.HasManualAssemblyResults(null);
+            TestDelegate call = () => HasSectionResultsHelper.HasManualAssemblyResults((IHasSectionResults<FailureMechanismSectionResult>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -47,22 +45,12 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.Helpers
         public void HasManualAssemblyResults_FailureMechanismWithManualAssemblyResults_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(0, 0)
-                }),
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(0, 0)
-                })
-            });
-            failureMechanism.SectionResults.First().UseManualAssemblyCategoryGroup = true;
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
+            failureMechanism.SectionResults.First().UseManualAssembly = true;
 
             // Call
-            bool hasManualAssemblyResults = GrassCoverSlipOffInwardsFailureMechanismHelper.HasManualAssemblyResults(failureMechanism);
+            bool hasManualAssemblyResults = HasSectionResultsHelper.HasManualAssemblyResults(failureMechanism);
 
             // Assert
             Assert.IsTrue(hasManualAssemblyResults);
@@ -72,21 +60,11 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.Helpers
         public void HasManualAssemblyResults_FailureMechanismWithoutManualAssemblyResults_ReturnsFalse()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(0, 0)
-                }),
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(0, 0)
-                })
-            });
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
 
             // Call
-            bool hasManualAssemblyResults = GrassCoverSlipOffInwardsFailureMechanismHelper.HasManualAssemblyResults(failureMechanism);
+            bool hasManualAssemblyResults = HasSectionResultsHelper.HasManualAssemblyResults(failureMechanism);
 
             // Assert
             Assert.IsFalse(hasManualAssemblyResults);

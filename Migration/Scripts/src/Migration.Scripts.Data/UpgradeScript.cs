@@ -49,6 +49,7 @@ namespace Migration.Scripts.Data
             {
                 throw new ArgumentException(@"FromVersion must have a value.", nameof(fromVersion));
             }
+
             if (string.IsNullOrEmpty(toVersion))
             {
                 throw new ArgumentException(@"ToVersion must have a value.", nameof(toVersion));
@@ -97,6 +98,7 @@ namespace Migration.Scripts.Data
             {
                 throw new ArgumentException($@"'{sourceLocation}' is not a valid file path.", nameof(sourceLocation));
             }
+
             if (!IOUtils.IsValidFilePath(targetLocation))
             {
                 throw new ArgumentException($@"'{targetLocation}' is not a valid file path.", nameof(targetLocation));

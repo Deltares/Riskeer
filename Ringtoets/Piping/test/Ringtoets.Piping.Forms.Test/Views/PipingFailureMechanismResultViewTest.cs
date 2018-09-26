@@ -22,8 +22,6 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Util.Extensions;
-using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -56,7 +54,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int tailorMadeAssemblyCategoryGroupIndex = 8;
         private const int combinedAssemblyCategoryGroupIndex = 9;
         private const int combinedAssemblyProbabilityIndex = 10;
-        private const int useManualAssemblyProbabilityIndex = 11;
+        private const int useManualAssemblyIndex = 11;
         private const int manualAssemblyProbabilityIndex = 12;
         private const int columnCount = 13;
 
@@ -135,7 +133,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[combinedAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[combinedAssemblyProbabilityIndex]);
-                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[useManualAssemblyProbabilityIndex]);
+                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[useManualAssemblyIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[manualAssemblyProbabilityIndex]);
 
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
@@ -149,7 +147,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("Toetsoordeel\r\ntoets op maat", dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\ngecombineerd", dataGridView.Columns[combinedAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\ngecombineerde\r\nfaalkansschatting", dataGridView.Columns[combinedAssemblyProbabilityIndex].HeaderText);
-                Assert.AreEqual("Overschrijf\r\ntoetsoordeel", dataGridView.Columns[useManualAssemblyProbabilityIndex].HeaderText);
+                Assert.AreEqual("Overschrijf\r\ntoetsoordeel", dataGridView.Columns[useManualAssemblyIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\nhandmatig", dataGridView.Columns[manualAssemblyProbabilityIndex].HeaderText);
 
                 Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
@@ -163,7 +161,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsTrue(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[combinedAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[combinedAssemblyProbabilityIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[useManualAssemblyProbabilityIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[useManualAssemblyIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[manualAssemblyProbabilityIndex].ReadOnly);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
@@ -204,54 +202,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("VIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[combinedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("1/1", cells[combinedAssemblyProbabilityIndex].FormattedValue);
-                Assert.AreEqual(false, cells[useManualAssemblyProbabilityIndex].Value);
+                Assert.AreEqual(false, cells[useManualAssemblyIndex].Value);
                 Assert.AreEqual("-", cells[manualAssemblyProbabilityIndex].FormattedValue);
-            }
-        }
-
-        [Test]
-        public void FailureMechanismResultView_WithFailureMechanismWithManualSectionAssemblyResults_ThenWarningSet()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssemblyProbability = true;
-
-            using (ShowFailureMechanismResultsView(failureMechanism))
-            {
-                FailureMechanismAssemblyControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(failureMechanismAssemblyControl);
-
-                // Call
-                string warningMessage = manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl);
-
-                // Assert
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningMessage);
-            }
-        }
-
-        [Test]
-        public void GivenFailureMechanismResultsViewWithWarnings_WhenFailureMechanismWithoutManualSectionAssemblyResultsAndFailureMechanismNotifiesObservers_ThenWarningCleared()
-        {
-            // Given
-            var failureMechanism = new PipingFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssemblyProbability = true;
-
-            using (ShowFailureMechanismResultsView(failureMechanism))
-            {
-                FailureMechanismAssemblyControl failureMechanismAssemblyControl = GetFailureMechanismAssemblyControl();
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(failureMechanismAssemblyControl);
-
-                // Precondition
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl));
-
-                // When
-                failureMechanism.SectionResults.ForEachElementDo(sr => sr.UseManualAssemblyProbability = false);
-                failureMechanism.NotifyObservers();
-
-                // Then
-                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(failureMechanismAssemblyControl));
             }
         }
 
@@ -267,7 +219,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
-            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.UseManualAssembly = true;
 
             // When
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -311,17 +263,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             testForm.Show();
 
             return failureMechanismResultView;
-        }
-
-        private static FailureMechanismAssemblyControl GetFailureMechanismAssemblyControl()
-        {
-            var control = (FailureMechanismAssemblyControl) ((TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject).GetControlFromPosition(1, 0);
-            return control;
-        }
-
-        private static ErrorProvider GetManualAssemblyWarningProvider(FailureMechanismAssemblyControl control)
-        {
-            return TypeUtils.GetField<ErrorProvider>(control, "manualAssemblyWarningProvider");
         }
     }
 }

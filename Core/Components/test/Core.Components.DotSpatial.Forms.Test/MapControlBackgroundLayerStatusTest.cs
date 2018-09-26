@@ -123,6 +123,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     Assert.IsFalse(isSame);
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -149,6 +150,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                     Assert.IsTrue(isSame, "Should recognize same configuration even if instance is not the same.");
                 }
             }
+
             mocks.VerifyAll();
         }
 

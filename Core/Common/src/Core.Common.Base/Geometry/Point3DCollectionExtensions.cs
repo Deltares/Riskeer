@@ -44,6 +44,7 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentNullException(nameof(points));
             }
+
             int count = points.Count();
             if (count == 0)
             {
@@ -80,6 +81,7 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentNullException(nameof(points));
             }
+
             Point3D lastPoint = null;
             foreach (Point3D point in points)
             {
@@ -90,6 +92,7 @@ namespace Core.Common.Base.Geometry
 
                 lastPoint = point;
             }
+
             return true;
         }
 

@@ -1776,9 +1776,9 @@ namespace Ringtoets.Common.Forms.Properties {
         ///   Looks up a localized string similar to Overschrijf
         ///toetsoordeel.
         /// </summary>
-        public static string FailureMechanismResultView_UseManualAssemblyCategoryGroup_DisplayName {
+        public static string FailureMechanismResultView_UseManualAssembly_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_UseManualAssemblyCategoryGroup_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_UseManualAssembly_DisplayName", resourceCulture);
             }
         }
         

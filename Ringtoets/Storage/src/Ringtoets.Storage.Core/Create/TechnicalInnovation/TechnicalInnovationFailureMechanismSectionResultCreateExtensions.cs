@@ -48,7 +48,7 @@ namespace Ringtoets.Storage.Core.Create.TechnicalInnovation
             {
                 SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
                 TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
-                UseManualAssemblyCategoryGroup = Convert.ToByte(result.UseManualAssemblyCategoryGroup),
+                UseManualAssembly = Convert.ToByte(result.UseManualAssembly),
                 ManualAssemblyCategoryGroup = Convert.ToByte(result.ManualAssemblyCategoryGroup)
             };
 

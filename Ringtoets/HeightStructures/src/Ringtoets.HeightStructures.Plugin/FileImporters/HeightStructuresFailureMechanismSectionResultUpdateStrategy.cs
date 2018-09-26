@@ -29,7 +29,7 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
     /// An update strategy that can be used to update a <see cref="HeightStructuresFailureMechanismSectionResult"/> instance with data
     /// from an old <see cref="HeightStructuresFailureMechanismSectionResult"/> instance.
     /// </summary>
-    public class HeightStructuresFailureMechanismSectionResultUpdateStrategy 
+    public class HeightStructuresFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<HeightStructuresFailureMechanismSectionResult>
     {
         public void UpdateSectionResult(HeightStructuresFailureMechanismSectionResult origin, HeightStructuresFailureMechanismSectionResult target)
@@ -49,7 +49,7 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
             target.DetailedAssessmentResult = origin.DetailedAssessmentResult;
             target.TailorMadeAssessmentResult = origin.TailorMadeAssessmentResult;
             target.TailorMadeAssessmentProbability = origin.TailorMadeAssessmentProbability;
-            target.UseManualAssemblyProbability = origin.UseManualAssemblyProbability;
+            target.UseManualAssembly = origin.UseManualAssembly;
             target.ManualAssemblyProbability = origin.ManualAssemblyProbability;
         }
     }

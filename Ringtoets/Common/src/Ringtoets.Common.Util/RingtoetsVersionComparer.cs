@@ -45,6 +45,7 @@ namespace Ringtoets.Common.Util
             {
                 return string.Compare(x, y, StringComparison.InvariantCulture);
             }
+
             char[] separatorArray = versionSeparator.ToCharArray();
             string[] firstVersionArray = x.Split(separatorArray, StringSplitOptions.RemoveEmptyEntries);
             string[] secondVersionArray = y.Split(separatorArray, StringSplitOptions.RemoveEmptyEntries);
@@ -55,6 +56,7 @@ namespace Ringtoets.Common.Util
                 {
                     return 0;
                 }
+
                 return -1;
             }
 
@@ -74,12 +76,14 @@ namespace Ringtoets.Common.Util
             {
                 return compareTo;
             }
+
             if (compareTo == 0 && (firstVersionArray.Length > 1 || secondVersionArray.Length > 1))
             {
                 string newVersionString = string.Join(versionSeparator, firstVersionArray.Skip(1).ToArray());
                 string newCurrentVersionString = string.Join(versionSeparator, secondVersionArray.Skip(1).ToArray());
                 return Compare(newVersionString, newCurrentVersionString);
             }
+
             return compareTo;
         }
 
