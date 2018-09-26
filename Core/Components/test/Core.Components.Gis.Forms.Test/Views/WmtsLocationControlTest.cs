@@ -58,6 +58,19 @@ namespace Core.Components.Gis.Forms.Test.Views
         private ITileSourceFactory tileFactory;
         private IWmtsCapabilityFactory wmtsCapabilityFactory;
 
+        public override void Setup()
+        {
+            mockRepository = new MockRepository();
+            tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
+            wmtsCapabilityFactory = mockRepository.StrictMock<IWmtsCapabilityFactory>();
+        }
+
+        public override void TearDown()
+        {
+            mockRepository.VerifyAll();
+            base.TearDown();
+        }
+
         [Test]
         public void Constructor_WmtsCapabilityFactoryNull_ThrowArgumentNullException()
         {
@@ -881,19 +894,6 @@ namespace Core.Components.Gis.Forms.Test.Views
                 Assert.AreEqual(2, rows.Count);
                 AssertAreEqual(selectedBackgroundMapData, control.SelectedMapData);
             }
-        }
-
-        public override void Setup()
-        {
-            mockRepository = new MockRepository();
-            tileFactory = mockRepository.StrictMock<ITileSourceFactory>();
-            wmtsCapabilityFactory = mockRepository.StrictMock<IWmtsCapabilityFactory>();
-        }
-
-        public override void TearDown()
-        {
-            mockRepository.VerifyAll();
-            base.TearDown();
         }
 
         private static WmtsCapability CreateWmtsCapability(ITileSource tileSource)

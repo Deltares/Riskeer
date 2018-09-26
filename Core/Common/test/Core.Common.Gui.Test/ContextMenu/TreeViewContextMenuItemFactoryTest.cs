@@ -36,6 +36,11 @@ namespace Core.Common.Gui.Test.ContextMenu
     {
         private MockRepository mocks;
 
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+        }
+
         [Test]
         public void Constructor_WithoutDataObject_ThrowsArgumentNullException()
         {
@@ -250,11 +255,6 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Collapse_all_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.CollapseAllIcon, item.Image);
             Assert.AreEqual(hasChildren, item.Enabled);
-        }
-
-        public override void Setup()
-        {
-            mocks = new MockRepository();
         }
     }
 }
