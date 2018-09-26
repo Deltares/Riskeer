@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.Common.Forms.Test.Helpers
@@ -57,11 +58,11 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         public void CreatePresentableFailureMechanismSections_ValidInputParameters_ReturnsExpectedPresentationObjects()
         {
             // Setup
-            var failureMechanismSections = new[]
+            FailureMechanismSection[] failureMechanismSections =
             {
-                CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0),
-                CreateFailureMechanismSection("b", 1.0, 1.0, 2.0, 2.0),
-                CreateFailureMechanismSection("c", 2.0, 2.0, 5.0, 5.0)
+                CreateFailureMechanismSection(0.0, 0.0, 1.0, 1.0),
+                CreateFailureMechanismSection(1.0, 1.0, 2.0, 2.0),
+                CreateFailureMechanismSection(2.0, 2.0, 5.0, 5.0)
             };
 
             // Call
@@ -70,29 +71,22 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                 (section, start, end) => new TestPresentableFailureMechanismSection(section, start, end));
 
             // Assert
-            Assert.AreEqual(3, presentationObjects.Length);
+            Assert.AreEqual(failureMechanismSections.Length, presentationObjects.Length);
 
             double sectionOffset = 0;
 
-            Assert.AreSame(failureMechanismSections[0], presentationObjects[0].Section);
-            Assert.AreEqual(sectionOffset, presentationObjects[0].SectionStart);
-            sectionOffset += failureMechanismSections[0].Length;
-            Assert.AreEqual(sectionOffset, presentationObjects[0].SectionEnd);
-
-            Assert.AreSame(failureMechanismSections[1], presentationObjects[1].Section);
-            Assert.AreEqual(sectionOffset, presentationObjects[1].SectionStart);
-            sectionOffset += failureMechanismSections[1].Length;
-            Assert.AreEqual(sectionOffset, presentationObjects[1].SectionEnd);
-
-            Assert.AreSame(failureMechanismSections[2], presentationObjects[2].Section);
-            Assert.AreEqual(sectionOffset, presentationObjects[2].SectionStart);
-            sectionOffset += failureMechanismSections[2].Length;
-            Assert.AreEqual(sectionOffset, presentationObjects[2].SectionEnd);
+            for (var i = 0; i < presentationObjects.Length; i++)
+            {
+                Assert.AreSame(failureMechanismSections[i], presentationObjects[i].Section);
+                Assert.AreEqual(sectionOffset, presentationObjects[i].SectionStart);
+                sectionOffset += failureMechanismSections[i].Length;
+                Assert.AreEqual(sectionOffset, presentationObjects[i].SectionEnd);
+            }
         }
 
-        private static FailureMechanismSection CreateFailureMechanismSection(string name, double x1, double y1, double x2, double y2)
+        private static FailureMechanismSection CreateFailureMechanismSection(double x1, double y1, double x2, double y2)
         {
-            return new FailureMechanismSection(name, new[]
+            return FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(x1, y1),
                 new Point2D(x2, y2)
