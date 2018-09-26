@@ -77,7 +77,7 @@ namespace Ringtoets.Storage.Core.Create.Piping
 
         private static void CreateCharacteristicPointEntities(PipingSurfaceLine surfaceLine, SurfaceLineEntity entity)
         {
-            var characteristicPointAssociations = new[]
+            Tuple<Point3D, PipingCharacteristicPointType>[] characteristicPointAssociations =
             {
                 Tuple.Create(surfaceLine.BottomDitchPolderSide, PipingCharacteristicPointType.BottomDitchPolderSide),
                 Tuple.Create(surfaceLine.BottomDitchDikeSide, PipingCharacteristicPointType.BottomDitchDikeSide),

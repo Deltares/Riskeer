@@ -79,7 +79,7 @@ namespace Ringtoets.Storage.Core.Test.Create.IllustrationPoints
                                                                         random.NextDouble(),
                                                                         random.NextDouble(),
                                                                         random.NextDouble());
-            var stochasts = new[]
+            SubMechanismIllustrationPointStochast[] stochasts =
             {
                 stochastOne,
                 stochastTwo
@@ -122,7 +122,7 @@ namespace Ringtoets.Storage.Core.Test.Create.IllustrationPoints
 
             var illustrationPointResultOne = new IllustrationPointResult("result description", random.NextDouble());
             var illustrationPointResultTwo = new IllustrationPointResult("result description two", random.NextDouble());
-            var illustrationPointResults = new[]
+            IllustrationPointResult[] illustrationPointResults =
             {
                 illustrationPointResultOne,
                 illustrationPointResultTwo

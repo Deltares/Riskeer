@@ -37,7 +37,7 @@ namespace Ringtoets.Storage.Core.Test.Create
         public void Create_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             TestDelegate test = () => failureMechanismSection.Create(null);

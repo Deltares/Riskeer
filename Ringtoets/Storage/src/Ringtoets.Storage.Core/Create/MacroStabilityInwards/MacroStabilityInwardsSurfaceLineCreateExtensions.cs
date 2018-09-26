@@ -79,7 +79,7 @@ namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
 
         private static void CreateCharacteristicPointEntities(MacroStabilityInwardsSurfaceLine surfaceLine, SurfaceLineEntity entity)
         {
-            var characteristicPointAssociations = new[]
+            Tuple<Point3D, MacroStabilityInwardsCharacteristicPointType>[] characteristicPointAssociations =
             {
                 Tuple.Create(surfaceLine.SurfaceLevelOutside, MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside),
                 Tuple.Create(surfaceLine.DikeTopAtPolder, MacroStabilityInwardsCharacteristicPointType.DikeTopAtPolder),

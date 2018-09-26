@@ -220,7 +220,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                 Action action = () => gui.Run(tempRingtoetsFile);
 
                 // Then
-                var expectedMessages = new[]
+                Tuple<string, LogLevelConstant>[] expectedMessages =
                 {
                     Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                     Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)

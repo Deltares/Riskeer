@@ -140,7 +140,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
         {
             // Setup
             var random = new Random(31);
-            var geometry = new[]
+            Point3D[] geometry =
             {
                 GetRandomPoint3D(random),
                 GetRandomPoint3D(random),
@@ -280,7 +280,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
             // Setup
             var random = new Random(31);
             var registry = new PersistenceRegistry();
-            var geometry = new[]
+            Point3D[] geometry =
             {
                 GetRandomPoint3D(random)
             };

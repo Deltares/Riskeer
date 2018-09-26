@@ -121,7 +121,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
             var random = new Random(31);
 
-            var points = new[]
+            Point3D[] points =
             {
                 CreatePoint3D(random),
                 CreatePoint3D(random),
@@ -161,7 +161,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
             var random = new Random(31);
 
-            var points = new[]
+            Point3D[] points =
             {
                 CreatePoint3D(random),
                 CreatePoint3D(random),
@@ -214,7 +214,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
             var random = new Random(31);
 
-            var points = new[]
+            Point3D[] points =
             {
                 CreatePoint3D(random),
                 CreatePoint3D(random)
@@ -304,7 +304,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             // Setup
             var random = new Random(31);
 
-            var points = new[]
+            Point3D[] points =
             {
                 CreatePoint3D(random)
             };
@@ -442,7 +442,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
             var random = new Random(31);
 
-            var points = new[]
+            Point3D[] points =
             {
                 CreatePoint3D(random),
                 CreatePoint3D(random),
@@ -544,7 +544,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
             var random = new Random(31);
 
-            var points = new[]
+            Point3D[] points =
             {
                 CreatePoint3D(random),
                 CreatePoint3D(random)
@@ -658,7 +658,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             // Setup
             var random = new Random(31);
 
-            var points = new[]
+            Point3D[] points =
             {
                 CreatePoint3D(random)
             };

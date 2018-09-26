@@ -47,7 +47,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
         {
             // Given
             var random = new Random(31);
-            var original = new[]
+            RoundedDouble[] original =
             {
                 new RoundedDouble(2, double.NaN),
                 random.NextRoundedDouble()

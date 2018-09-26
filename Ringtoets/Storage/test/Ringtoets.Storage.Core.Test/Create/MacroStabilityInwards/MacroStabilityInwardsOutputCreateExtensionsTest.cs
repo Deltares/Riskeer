@@ -67,7 +67,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
 
             MacroStabilityInwardsGrid leftGrid = MacroStabilityInwardsGridTestFactory.Create();
             MacroStabilityInwardsGrid rightGrid = MacroStabilityInwardsGridTestFactory.Create();
-            var tangentLines = new[]
+            RoundedDouble[] tangentLines =
             {
                 random.NextRoundedDouble()
             };
