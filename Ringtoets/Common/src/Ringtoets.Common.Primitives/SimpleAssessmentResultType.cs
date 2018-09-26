@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Primitives
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_ProbabilityNegligible))]
         ProbabilityNegligible = 3,
-        
+
         /// <summary>
         /// The failure mechanism section needs further assessment.
         /// </summary>

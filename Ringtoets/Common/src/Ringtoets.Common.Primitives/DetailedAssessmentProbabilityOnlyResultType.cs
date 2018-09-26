@@ -43,6 +43,5 @@ namespace Ringtoets.Common.Primitives
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_NotAssessed))]
         NotAssessed = 2
-        
     }
 }

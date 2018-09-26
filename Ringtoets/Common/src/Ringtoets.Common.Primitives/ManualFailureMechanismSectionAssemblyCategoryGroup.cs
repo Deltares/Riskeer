@@ -23,7 +23,7 @@ namespace Ringtoets.Common.Primitives
         /// </summary>
         [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName))]
         Iv = 3,
-        
+
         /// <summary>
         /// Represents the assembly category IIv.
         /// </summary>
@@ -40,6 +40,6 @@ namespace Ringtoets.Common.Primitives
         /// Represents the assembly category VIIv.
         /// </summary>
         [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName))]
-        VIIv = 6 
+        VIIv = 6
     }
 }
