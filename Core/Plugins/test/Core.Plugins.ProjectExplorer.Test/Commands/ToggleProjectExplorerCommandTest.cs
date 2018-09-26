@@ -71,6 +71,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
                 // Assert
                 Assert.IsInstanceOf<ICommand>(command);
             }
+
             mocks.VerifyAll();
         }
 
@@ -118,6 +119,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
                 // Assert
                 Assert.AreEqual(isViewOpen, result);
             }
+
             mocks.VerifyAll();
         }
 
@@ -159,6 +161,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
                 // Call
                 command.Execute();
             }
+
             // Assert
             mocks.VerifyAll();
         }

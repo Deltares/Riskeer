@@ -58,10 +58,12 @@ namespace Core.Plugins.ProjectExplorer
             {
                 throw new ArgumentNullException(nameof(viewCommands));
             }
+
             if (treeNodeInfos == null)
             {
                 throw new ArgumentNullException(nameof(treeNodeInfos));
             }
+
             InitializeComponent();
 
             Text = Resources.General_ProjectExplorer;

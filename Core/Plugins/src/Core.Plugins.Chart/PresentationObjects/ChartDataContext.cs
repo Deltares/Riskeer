@@ -43,6 +43,7 @@ namespace Core.Plugins.Chart.PresentationObjects
             {
                 throw new ArgumentNullException(nameof(parentChartData));
             }
+
             ParentChartData = parentChartData;
         }
 

@@ -37,12 +37,12 @@ namespace Core.Plugins.Chart.Legend
         private readonly IViewController viewController;
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
 
+        private ChartLegendView legendView;
+
         /// <summary>
         /// Fired when the chart legend has been opened.
         /// </summary>
         public event EventHandler<EventArgs> OnOpenLegend;
-
-        private ChartLegendView legendView;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartLegendController"/>.
@@ -58,11 +58,13 @@ namespace Core.Plugins.Chart.Legend
                 throw new ArgumentNullException(nameof(viewController),
                                                 $@"Cannot create a {typeof(ChartLegendController).Name} when the view controller is null.");
             }
+
             if (contextMenuBuilderProvider == null)
             {
                 throw new ArgumentNullException(nameof(contextMenuBuilderProvider),
                                                 $@"Cannot create a {typeof(ChartLegendController).Name} when the context menu builder provider is null.");
             }
+
             this.viewController = viewController;
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
         }

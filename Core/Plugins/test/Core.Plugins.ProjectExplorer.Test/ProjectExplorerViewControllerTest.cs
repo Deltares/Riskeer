@@ -87,6 +87,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 // Call
                 controller.ToggleView();
             }
+
             // Assert
             mocks.VerifyAll();
         }
@@ -115,6 +116,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 // Call
                 controller.ToggleView();
             }
+
             // Assert
             mocks.VerifyAll();
         }
@@ -159,6 +161,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 // Assert
                 Assert.AreEqual(isOpen, result);
             }
+
             mocks.VerifyAll();
         }
 
@@ -203,6 +206,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Assert.AreEqual(1, toolViewList.Count);
                 Assert.AreSame(project, toolViewList[0].Data);
             }
+
             mocks.VerifyAll();
         }
 
@@ -228,6 +232,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 // Call
                 controller.Update(project);
             }
+
             // Assert
             mocks.VerifyAll();
         }

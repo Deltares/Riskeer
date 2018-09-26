@@ -110,6 +110,7 @@ namespace Core.Plugins.Chart.Test
                 Assert.IsInstanceOf<PluginBase>(plugin);
                 Assert.NotNull(plugin.RibbonCommandHandler);
             }
+
             mocks.VerifyAll();
         }
 
