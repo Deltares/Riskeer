@@ -53,6 +53,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));

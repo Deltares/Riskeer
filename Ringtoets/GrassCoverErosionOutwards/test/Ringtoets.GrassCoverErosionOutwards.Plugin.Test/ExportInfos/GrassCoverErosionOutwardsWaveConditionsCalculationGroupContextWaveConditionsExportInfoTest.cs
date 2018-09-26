@@ -174,6 +174,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
                 };
                 grassCoverErosionOutwardsWaveConditionsOutput = new GrassCoverErosionOutwardsWaveConditionsOutput(output);
             }
+
             calculationGroup.Children.Add(
                 new CalculationGroup
                 {

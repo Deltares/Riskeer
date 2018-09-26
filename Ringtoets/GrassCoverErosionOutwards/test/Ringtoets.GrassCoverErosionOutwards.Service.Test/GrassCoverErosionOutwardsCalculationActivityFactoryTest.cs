@@ -177,7 +177,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => 
+            TestDelegate test = () =>
                 GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivitiesWithoutAssessmentSectionCalculations(null, assessmentSection);
 
             // Assert
@@ -190,7 +190,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void CreateCalculationActivitiesWithoutAssessmentSectionCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => 
+            TestDelegate test = () =>
                 GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivitiesWithoutAssessmentSectionCalculations(new GrassCoverErosionOutwardsFailureMechanism(), null);
 
             // Assert
