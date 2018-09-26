@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Forms.Views
 
             failureMechanismSectionsDataGridViewControl.SetDataSource(
                 FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(
-                    sections,
+                    Sections,
                     CreateFailureMechanismSectionProbabilityAssessmentRow));
         }
 
