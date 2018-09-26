@@ -166,7 +166,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         {
             // Setup
             const string id = "some Id";
-            
+
             // Call
             TestDelegate call = () => new TestStructure(id, (Point2D) null);
 

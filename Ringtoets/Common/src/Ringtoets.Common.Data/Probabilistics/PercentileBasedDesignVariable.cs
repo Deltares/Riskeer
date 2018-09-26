@@ -68,6 +68,7 @@ namespace Ringtoets.Common.Data.Probabilistics
                                                    percentileValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                     throw new ArgumentOutOfRangeException(null, message);
                 }
+
                 percentile = value;
             }
         }

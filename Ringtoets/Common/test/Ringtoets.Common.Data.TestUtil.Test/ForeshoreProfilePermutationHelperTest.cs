@@ -69,9 +69,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                                             string targetName,
                                             string testResultDescription)
         {
-            IEnumerable<string> testNames = testCaseData
-                .Select(tcd => tcd.TestName)
-                .ToArray();
+            IEnumerable<string> testNames = testCaseData.Select(tcd => tcd.TestName)
+                                                        .ToArray();
             Assert.AreEqual(testCaseData.Count(), testNames.Distinct().Count());
             Assert.IsTrue(testNames.All(tn => tn.StartsWith($"{targetName}_")));
             Assert.IsTrue(testNames.All(tn => tn.EndsWith($"_{testResultDescription}")));

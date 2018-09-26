@@ -47,6 +47,7 @@ namespace Ringtoets.Common.Data.Probability
             {
                 return true;
             }
+
             return probabilityValidityRange.InRange(probability);
         }
 

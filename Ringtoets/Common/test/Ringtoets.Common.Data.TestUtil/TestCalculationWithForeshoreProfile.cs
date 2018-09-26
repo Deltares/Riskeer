@@ -153,12 +153,12 @@ namespace Ringtoets.Common.Data.TestUtil
                 throw new NotImplementedException();
             }
 
-            public void SynchronizeForeshoreProfileInput()
+            public object Clone()
             {
                 throw new NotImplementedException();
             }
 
-            public object Clone()
+            public void SynchronizeForeshoreProfileInput()
             {
                 throw new NotImplementedException();
             }

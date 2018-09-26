@@ -98,10 +98,12 @@ namespace Ringtoets.Common.Data.AssessmentSection
             {
                 throw new ArgumentException(exceptionMessage, nameof(sourceCapabilitiesUrl));
             }
+
             if (selectedCapabilityIdentifier != null)
             {
                 throw new ArgumentException(exceptionMessage, nameof(selectedCapabilityIdentifier));
             }
+
             if (preferredFormat != null)
             {
                 throw new ArgumentException(exceptionMessage, nameof(preferredFormat));
@@ -126,10 +128,12 @@ namespace Ringtoets.Common.Data.AssessmentSection
             {
                 throw new ArgumentNullException(nameof(sourceCapabilitiesUrl));
             }
+
             if (selectedCapabilityIdentifier == null)
             {
                 throw new ArgumentNullException(nameof(selectedCapabilityIdentifier));
             }
+
             if (preferredFormat == null)
             {
                 throw new ArgumentNullException(nameof(preferredFormat));

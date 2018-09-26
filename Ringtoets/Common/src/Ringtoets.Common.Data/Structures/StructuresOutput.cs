@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Data.Structures
         /// Gets the reliability of the calculation.
         /// </summary>
         public double Reliability { get; }
-        
+
         /// <summary>
         /// Gets the value indicating whether the output contains a general result with illustration points.
         /// </summary>

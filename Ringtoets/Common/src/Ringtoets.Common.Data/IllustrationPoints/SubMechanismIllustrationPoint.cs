@@ -56,6 +56,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(stochasts));
             }
+
             if (illustrationPointResults == null)
             {
                 throw new ArgumentNullException(nameof(illustrationPointResults));

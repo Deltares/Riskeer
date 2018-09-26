@@ -214,14 +214,17 @@ namespace Ringtoets.Common.Data.DikeProfiles
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (GetType() != obj.GetType())
             {
                 return false;
             }
+
             return Equals((DikeProfile) obj);
         }
 

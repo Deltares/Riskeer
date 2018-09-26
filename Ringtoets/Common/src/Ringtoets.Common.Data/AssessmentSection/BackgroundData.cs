@@ -47,6 +47,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
             {
                 throw new ArgumentNullException(nameof(configuration));
             }
+
             Configuration = configuration;
             IsVisible = true;
             transparency = new RoundedDouble(transparencyNumberOfDecimals);

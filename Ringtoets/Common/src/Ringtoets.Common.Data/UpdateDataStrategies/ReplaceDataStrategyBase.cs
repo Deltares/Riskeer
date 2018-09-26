@@ -51,6 +51,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (targetCollection == null)
             {
                 throw new ArgumentNullException(nameof(targetCollection));
@@ -87,6 +88,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             {
                 throw new ArgumentNullException(nameof(importedDataCollection));
             }
+
             if (sourceFilePath == null)
             {
                 throw new ArgumentNullException(nameof(sourceFilePath));

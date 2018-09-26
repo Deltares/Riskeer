@@ -48,6 +48,7 @@ namespace Ringtoets.Common.Data.Calculation
                     children.AddRange(GetAllChildrenRecursive(nestedCalculationGroup));
                 }
             }
+
             return children;
         }
 
@@ -74,6 +75,7 @@ namespace Ringtoets.Common.Data.Calculation
                     calculations.AddRange(GetCalculations(nestedCalculationGroup));
                 }
             }
+
             return calculations;
         }
 

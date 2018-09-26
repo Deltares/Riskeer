@@ -42,6 +42,7 @@ namespace Ringtoets.Common.Data.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(windDirection));
             }
+
             if (closingSituation == null)
             {
                 throw new ArgumentNullException(nameof(closingSituation));

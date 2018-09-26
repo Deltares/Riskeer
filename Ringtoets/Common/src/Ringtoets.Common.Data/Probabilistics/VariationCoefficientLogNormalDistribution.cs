@@ -75,6 +75,7 @@ namespace Ringtoets.Common.Data.Probabilistics
                 {
                     throw new ArgumentOutOfRangeException(null, Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
                 }
+
                 shift = newShift;
             }
         }
@@ -100,6 +101,7 @@ namespace Ringtoets.Common.Data.Probabilistics
                 {
                     throw new ArgumentOutOfRangeException(null, Resources.LogNormalDistribution_Mean_must_be_greater_than_zero);
                 }
+
                 if (Shift > roundedValue)
                 {
                     throw new ArgumentOutOfRangeException(null, Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
@@ -134,14 +136,17 @@ namespace Ringtoets.Common.Data.Probabilistics
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((VariationCoefficientLogNormalDistribution) obj);
         }
 

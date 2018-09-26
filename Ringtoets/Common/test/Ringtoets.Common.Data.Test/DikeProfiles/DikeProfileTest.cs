@@ -423,7 +423,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
                 var random = new Random(21);
                 double offset = random.NextDouble();
-                
+
                 yield return new TestCaseData(new DikeProfile(new Point2D(500, 1000),
                                                               baseProfile.DikeGeometry,
                                                               baseProfile.ForeshoreGeometry,

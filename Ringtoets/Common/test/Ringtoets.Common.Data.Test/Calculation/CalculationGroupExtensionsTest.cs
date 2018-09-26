@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
             IEnumerable<ICalculation> result = rootGroup.GetCalculations();
 
             // Assert
-            var itemsThatShouldBeFound = new[]
+            ICalculation[] itemsThatShouldBeFound =
             {
                 calculation1,
                 calculation2,

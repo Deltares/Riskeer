@@ -295,10 +295,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
         private class SimpleFailureMechanismBase : FailureMechanismBase
         {
-            public bool SectionResultsCleared { get; private set; }
-
-            public bool SectionResultAdded { get; private set; }
-
             public SimpleFailureMechanismBase(string name = "SomeName",
                                               string failureMechanismCode = "SomeCode",
                                               int group = 1) : base(name, failureMechanismCode, group) {}
@@ -310,6 +306,10 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                     throw new NotImplementedException();
                 }
             }
+
+            public bool SectionResultsCleared { get; private set; }
+
+            public bool SectionResultAdded { get; private set; }
 
             protected override void AddSectionResult(FailureMechanismSection section)
             {

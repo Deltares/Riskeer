@@ -63,10 +63,12 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (equalityComparer == null)
             {
                 throw new ArgumentNullException(nameof(equalityComparer));
             }
+
             if (targetCollection == null)
             {
                 throw new ArgumentNullException(nameof(targetCollection));
@@ -118,10 +120,12 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             {
                 throw new ArgumentNullException(nameof(importedDataCollection));
             }
+
             if (sourceFilePath == null)
             {
                 throw new ArgumentNullException(nameof(sourceFilePath));
             }
+
             return ModifyDataCollection(importedDataCollection, sourceFilePath);
         }
 
@@ -156,6 +160,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             {
                 affectedObjects.Add(targetCollection);
             }
+
             affectedObjects.AddRange(UpdateData(modification.ObjectsToBeUpdated.Values, importedObjects));
             affectedObjects.AddRange(RemoveData(modification.ObjectsToBeRemoved));
             targetCollection.Clear();
@@ -215,6 +220,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
             {
                 affectedObjects.AddRange(RemoveObjectAndDependentData(objectToRemove));
             }
+
             return affectedObjects;
         }
 
@@ -243,18 +249,22 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
                 {
                     throw new ArgumentNullException(nameof(existingObjects));
                 }
+
                 if (updatedObjects == null)
                 {
                     throw new ArgumentNullException(nameof(updatedObjects));
                 }
+
                 if (equalityComparer == null)
                 {
                     throw new ArgumentNullException(nameof(equalityComparer));
                 }
+
                 if (existingObjects.Contains(null))
                 {
                     throw new ArgumentException(@"Cannot determine modifications from a collection which contain null.", nameof(existingObjects));
                 }
+
                 if (updatedObjects.Contains(null))
                 {
                     throw new ArgumentException(@"Cannot determine modifications with a collection which contain null.", nameof(updatedObjects));
@@ -275,6 +285,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
                     {
                         ObjectsToBeAdded.Add(index, importedObject);
                     }
+
                     index++;
                 }
 
@@ -333,6 +344,7 @@ namespace Ringtoets.Common.Data.UpdateDataStrategies
                         return i;
                     }
                 }
+
                 return -1;
             }
         }

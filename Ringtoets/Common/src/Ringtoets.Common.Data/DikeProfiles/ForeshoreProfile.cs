@@ -56,14 +56,17 @@ namespace Ringtoets.Common.Data.DikeProfiles
             {
                 throw new ArgumentNullException(nameof(worldCoordinate));
             }
+
             if (geometry == null)
             {
                 throw new ArgumentNullException(nameof(geometry));
             }
+
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));
             }
+
             if (string.IsNullOrWhiteSpace(properties.Id))
             {
                 throw new ArgumentException(@"Id is null, empty or consists of whitespace.", nameof(properties));
@@ -165,14 +168,17 @@ namespace Ringtoets.Common.Data.DikeProfiles
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((ForeshoreProfile) obj);
         }
 
@@ -224,6 +230,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
                     return false;
                 }
             }
+
             return true;
         }
 

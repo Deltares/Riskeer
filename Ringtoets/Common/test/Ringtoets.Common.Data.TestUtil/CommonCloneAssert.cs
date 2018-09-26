@@ -333,9 +333,9 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        private static void AreClones(ICalculationBase original, ICalculationBase clone)
+        public static void AreClones(HydraulicBoundaryLocationCalculationInput original, HydraulicBoundaryLocationCalculationInput clone)
         {
-            Assert.AreEqual(original.Name, clone.Name);
+            Assert.AreEqual(original.ShouldIllustrationPointsBeCalculated, clone.ShouldIllustrationPointsBeCalculated);
         }
 
         /// <summary>
@@ -346,9 +346,9 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(HydraulicBoundaryLocationCalculationInput original, HydraulicBoundaryLocationCalculationInput clone)
+        private static void AreClones(ICalculationBase original, ICalculationBase clone)
         {
-            Assert.AreEqual(original.ShouldIllustrationPointsBeCalculated, clone.ShouldIllustrationPointsBeCalculated);
+            Assert.AreEqual(original.Name, clone.Name);
         }
     }
 }
