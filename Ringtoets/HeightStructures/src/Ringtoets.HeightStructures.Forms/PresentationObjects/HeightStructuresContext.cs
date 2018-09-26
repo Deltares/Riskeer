@@ -53,6 +53,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));

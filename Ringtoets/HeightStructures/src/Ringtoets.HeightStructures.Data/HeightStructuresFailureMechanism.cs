@@ -57,14 +57,6 @@ namespace Ringtoets.HeightStructures.Data
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
-            }
-        }
-
         /// <summary>
         /// Gets the height structures calculation input parameters that apply to each calculation.
         /// </summary>
@@ -80,6 +72,19 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
+        /// <summary>
+        /// Gets the container of all calculations.
+        /// </summary>
+        public CalculationGroup CalculationsGroup { get; }
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
+            }
+        }
+
         public IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> SectionResults
         {
             get
@@ -87,11 +92,6 @@ namespace Ringtoets.HeightStructures.Data
                 return sectionResults;
             }
         }
-
-        /// <summary>
-        /// Gets the container of all calculations.
-        /// </summary>
-        public CalculationGroup CalculationsGroup { get; }
 
         protected override void AddSectionResult(FailureMechanismSection section)
         {

@@ -74,6 +74,7 @@ namespace Ringtoets.HeightStructures.IO.Configurations
                 calculationConfiguration.LevelCrestStructure = input.LevelCrestStructure.ToStochastConfiguration();
                 calculationConfiguration.CriticalOvertoppingDischarge = input.CriticalOvertoppingDischarge.ToStochastConfiguration();
             }
+
             return calculationConfiguration;
         }
 

@@ -81,6 +81,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<HeightStructuresCalculationConfigurationExporter>(fileExporter);
             }
+
             mocks.VerifyAll();
         }
 
@@ -123,6 +124,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 

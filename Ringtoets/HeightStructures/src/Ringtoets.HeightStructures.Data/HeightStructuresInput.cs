@@ -95,6 +95,7 @@ namespace Ringtoets.HeightStructures.Data
                     throw new ArgumentOutOfRangeException(nameof(value), string.Format(RingtoetsCommonDataResources.DeviationWaveDirection_Value_needs_to_be_in_Range_0_,
                                                                                        deviationWaveDirectionValidityRange));
                 }
+
                 deviationWaveDirection = newDeviationWaveDirection;
             }
         }

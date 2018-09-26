@@ -84,6 +84,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 {
                     foundValues.Add(row.Cells[0].FormattedValue.ToString());
                 }
+
                 CollectionAssert.AreEqual(expectedValues, foundValues);
             }
         }
@@ -130,6 +131,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                         }
                     });
                 }
+
                 calculationsGroup.NotifyObservers();
 
                 // Assert
@@ -138,6 +140,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 Assert.AreEqual("<selecteer>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
                 Assert.AreEqual("Eerste kunstwerk 6-3", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
             }
+
             mocks.VerifyAll();
         }
 
@@ -182,6 +185,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                         }
                     });
                 }
+
                 calculationsGroup.NotifyObservers();
 
                 // Call
