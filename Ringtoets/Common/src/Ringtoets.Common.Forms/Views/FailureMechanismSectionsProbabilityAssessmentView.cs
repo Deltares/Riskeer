@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
@@ -73,18 +74,11 @@ namespace Ringtoets.Common.Forms.Views
         {
             currentA = probabilityAssessmentInput.A;
 
-            var rows = new List<FailureMechanismSectionProbabilityAssessmentRow>();
-            double startDistance = 0;
-            foreach (FailureMechanismSection section in sections)
-            {
-                double endDistance = startDistance + section.Length;
-
-                rows.Add(new FailureMechanismSectionProbabilityAssessmentRow(section, startDistance, endDistance, probabilityAssessmentInput));
-
-                startDistance = endDistance;
-            }
-
-            failureMechanismSectionsDataGridViewControl.SetDataSource(rows);
+            failureMechanismSectionsDataGridViewControl.SetDataSource(
+                FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(
+                                                             sections,
+                                                             CreateFailureMechanismSectionProbabilityAssessmentRow)
+                                                         .ToArray());
         }
 
         protected override void Dispose(bool disposing)
@@ -92,6 +86,13 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismObserver.Dispose();
 
             base.Dispose(disposing);
+        }
+
+        private FailureMechanismSectionProbabilityAssessmentRow CreateFailureMechanismSectionProbabilityAssessmentRow(FailureMechanismSection section,
+                                                                                                                      double sectionStart,
+                                                                                                                      double sectionEnd)
+        {
+            return new FailureMechanismSectionProbabilityAssessmentRow(section, sectionStart, sectionEnd, probabilityAssessmentInput);
         }
 
         private void HandleProbabilityAssessmentInputChange()

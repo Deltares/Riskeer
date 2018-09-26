@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
@@ -107,18 +108,18 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected virtual void SetDataGridViewControlData()
         {
-            var rows = new List<FailureMechanismSectionRow>();
-            double startDistance = 0;
-            foreach (FailureMechanismSection section in sections)
-            {
-                double endDistance = startDistance + section.Length;
+            failureMechanismSectionsDataGridViewControl.SetDataSource(
+                FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(
+                                                             sections,
+                                                             CreateFailureMechanismSectionRow)
+                                                         .ToArray());
+        }
 
-                rows.Add(new FailureMechanismSectionRow(section, startDistance, endDistance));
-
-                startDistance = endDistance;
-            }
-
-            failureMechanismSectionsDataGridViewControl.SetDataSource(rows);
+        private static FailureMechanismSectionRow CreateFailureMechanismSectionRow(FailureMechanismSection section,
+                                                                                   double sectionStart,
+                                                                                   double sectionEnd)
+        {
+            return new FailureMechanismSectionRow(section, sectionStart, sectionEnd);
         }
 
         private void HandleFailureMechanismSectionsChange()
