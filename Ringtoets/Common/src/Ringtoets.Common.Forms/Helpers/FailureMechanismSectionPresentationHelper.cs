@@ -38,17 +38,17 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <typeparam name="T">The type of the presentation objects.</typeparam>
         /// <param name="failureMechanismSections">The failure mechanism sections to create presentation
         /// objects for.</param>
-        /// <param name="createPresentableFailureMechanismSection"><see cref="Func{T1,T2,T3,TResult}"/>
+        /// <param name="createPresentableFailureMechanismSectionFunc"><see cref="Func{T1,T2,T3,TResult}"/>
         /// for creating the presentation objects of type <typeparam name="T"/>, in which:
         /// <list type="bullet">
-        /// <item>- T1 represents the failure mechanism section at stake;</item>
-        /// <item>- T2 represents the start of the section in relation to the beginning of the reference line;</item>
-        /// <item>- T3 represents the end of the section in relation to the beginning of the reference line.</item>
+        /// <item>T1 represents the failure mechanism section at stake;</item>
+        /// <item>T2 represents the start of the section in relation to the beginning of the reference line;</item>
+        /// <item>T3 represents the end of the section in relation to the beginning of the reference line.</item>
         /// </list>
         /// </param>
         /// <returns>The created presentation objects.</returns>
         public static IEnumerable<T> CreatePresentableFailureMechanismSections<T>(IEnumerable<FailureMechanismSection> failureMechanismSections,
-                                                                                  Func<FailureMechanismSection, double, double, T> createPresentableFailureMechanismSection)
+                                                                                  Func<FailureMechanismSection, double, double, T> createPresentableFailureMechanismSectionFunc)
         {
             double start = 0;
 
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.Helpers
             {
                 double end = start + failureMechanismSection.Length;
 
-                yield return createPresentableFailureMechanismSection(failureMechanismSection, start, end);
+                yield return createPresentableFailureMechanismSectionFunc(failureMechanismSection, start, end);
 
                 start = end;
             }

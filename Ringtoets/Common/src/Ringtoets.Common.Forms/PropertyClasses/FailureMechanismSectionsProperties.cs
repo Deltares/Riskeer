@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -29,6 +28,7 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
@@ -82,16 +82,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                var properties = new List<FailureMechanismSectionProperties>();
-                double sectionStart = 0;
-                foreach (FailureMechanismSection section in data.Sections)
-                {
-                    double sectionEnd = sectionStart + section.Length;
-                    properties.Add(new FailureMechanismSectionProperties(section, sectionStart, sectionEnd));
-                    sectionStart = sectionEnd;
-                }
-
-                return properties.ToArray();
+                return FailureMechanismSectionPresentationHelper.CreatePresentableFailureMechanismSections(
+                                                                    data.Sections,
+                                                                    CreateFailureMechanismSectionProperties)
+                                                                .ToArray();
             }
         }
 
@@ -107,6 +101,13 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 failureMechanismObserver.Dispose();
             }
+        }
+
+        private static FailureMechanismSectionProperties CreateFailureMechanismSectionProperties(FailureMechanismSection section,
+                                                                                                 double sectionStart,
+                                                                                                 double sectionEnd)
+        {
+            return new FailureMechanismSectionProperties(section, sectionStart, sectionEnd);
         }
     }
 }
