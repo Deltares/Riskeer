@@ -46,6 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(location));
             }
+
             if (stressDistribution == null)
             {
                 throw new ArgumentNullException(nameof(stressDistribution));
@@ -73,14 +74,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((MacroStabilityInwardsPreconsolidationStress) obj);
         }
 

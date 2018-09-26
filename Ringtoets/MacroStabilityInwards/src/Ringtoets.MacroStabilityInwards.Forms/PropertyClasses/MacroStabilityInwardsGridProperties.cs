@@ -59,10 +59,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
+
             this.data = data;
             propertyChangeHandler = handler;
             this.isReadOnly = isReadOnly;

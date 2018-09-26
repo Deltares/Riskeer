@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                 CreateRandomLayer(21)
             };
 
-            var preconsolidationStresses = new[]
+            MacroStabilityInwardsPreconsolidationStress[] preconsolidationStresses =
             {
                 CreateRandomPreconsolidationStress(30)
             };
@@ -173,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                                                                                      baseProfile.PreconsolidationStresses))
                     .SetName("SoilLayers count");
 
-                var differentLayers = new[]
+                MacroStabilityInwardsSoilLayer2D[] differentLayers =
                 {
                     CreateRandomLayer(differentSeed),
                     CopyAndModifySoilLayer(CreateRandomLayer(differentSeed))
@@ -188,7 +188,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                                                                                      Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()))
                     .SetName("PreconsolidationStresses count");
 
-                var differentStresses = new[]
+                MacroStabilityInwardsPreconsolidationStress[] differentStresses =
                 {
                     CreateRandomPreconsolidationStress(differentSeed),
                     CopyAndModifyPreconsolidationsStress(CreateRandomPreconsolidationStress(differentSeed))

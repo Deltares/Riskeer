@@ -501,6 +501,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             {
                 yield return testCaseData.SetName(testName);
             }
+
             foreach (TestCaseData testCaseData in InvalidTypeTestCases())
             {
                 yield return testCaseData.SetName(testName);
@@ -674,6 +675,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
                 yield return new TestCaseData($"invalidCalculationMultiple{adapter.PropertyName}.xml",
                                               string.Format(message, adapter.ElementName));
             }
+
             foreach (string tagElement in GetTagElements())
             {
                 yield return new TestCaseData($"invalidCalculationMultiple{tagElement}Tag.xml",

@@ -48,10 +48,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
             {
                 throw new ArgumentNullException(nameof(leftCircle));
             }
+
             if (rightCircle == null)
             {
                 throw new ArgumentNullException(nameof(rightCircle));
             }
+
             if (slices == null)
             {
                 throw new ArgumentNullException(nameof(slices));

@@ -56,14 +56,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             sectionResults = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResult>();
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return CalculationsGroup.GetCalculations();
-            }
-        }
-
         /// <summary>
         /// Gets the available surface lines within the scope of the macro stability inwards failure mechanism.
         /// </summary>
@@ -86,6 +78,14 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public MacroStabilityInwardsProbabilityAssessmentInput MacroStabilityInwardsProbabilityAssessmentInput { get; }
 
         public CalculationGroup CalculationsGroup { get; }
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                return CalculationsGroup.GetCalculations();
+            }
+        }
 
         public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> SectionResults
         {

@@ -63,6 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
                     default:
                         continue;
                 }
+
                 yield return new UpliftVanKernelMessage(type, logMessage.Message ?? Resources.UpliftVanKernelMessagesCreator_Create_Unknown);
             }
         }
@@ -97,6 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Output
                     default:
                         continue;
                 }
+
                 yield return new UpliftVanKernelMessage(type, logMessage.Text ?? Resources.UpliftVanKernelMessagesCreator_Create_Unknown);
             }
         }

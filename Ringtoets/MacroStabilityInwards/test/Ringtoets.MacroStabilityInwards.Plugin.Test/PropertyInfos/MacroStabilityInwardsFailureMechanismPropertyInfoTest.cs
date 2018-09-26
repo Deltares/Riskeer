@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
-            
+
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 

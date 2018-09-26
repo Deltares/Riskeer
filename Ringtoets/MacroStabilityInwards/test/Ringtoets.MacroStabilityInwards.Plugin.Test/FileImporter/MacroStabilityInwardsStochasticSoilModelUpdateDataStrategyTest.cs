@@ -105,7 +105,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             }, sourceFilePath);
 
             var strategy = new MacroStabilityInwardsStochasticSoilModelUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
-            var importedStochasticSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] importedStochasticSoilModels =
             {
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(nonUniqueName),
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(nonUniqueName)
@@ -129,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
             var targetCollection = new MacroStabilityInwardsStochasticSoilModelCollection();
 
             var strategy = new MacroStabilityInwardsStochasticSoilModelUpdateDataStrategy(new MacroStabilityInwardsFailureMechanism());
-            var importedStochasticSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] importedStochasticSoilModels =
             {
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(nonUniqueName),
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel(nonUniqueName)

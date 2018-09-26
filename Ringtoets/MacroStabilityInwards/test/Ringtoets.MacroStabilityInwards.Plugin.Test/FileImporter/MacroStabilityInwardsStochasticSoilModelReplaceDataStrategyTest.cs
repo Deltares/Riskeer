@@ -93,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_WithoutCurrentModelAndModelsImported_NewModelsAdded()
         {
             // Setup
-            var importedStochasticSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] importedStochasticSoilModels =
             {
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("A"),
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("B")
@@ -206,7 +206,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
         public void UpdateModelWithImportedData_ImportedModelsContainDuplicateNames_ThrowsUpdateDataException()
         {
             // Setup
-            var importedStochasticSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] importedStochasticSoilModels =
             {
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("B"),
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("B")

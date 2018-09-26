@@ -175,7 +175,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
-            var calculationScenarios = new[]
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
             {
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section)
             };
@@ -515,7 +515,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult,
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
             };
-            var calculationScenarios = new[]
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
             {
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section)
             };
@@ -562,7 +562,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 DetailedAssessmentResult = detailedAssessmentResult
             };
-            var calculationScenarios = new[]
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
             {
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section)
             };
@@ -636,7 +636,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                 UseManualAssembly = useManualAssembly
             };
-            var calculationScenarios = new[]
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
             {
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section)
             };
@@ -1092,7 +1092,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
-            var calculationScenarios = new[]
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
             {
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section)
             };

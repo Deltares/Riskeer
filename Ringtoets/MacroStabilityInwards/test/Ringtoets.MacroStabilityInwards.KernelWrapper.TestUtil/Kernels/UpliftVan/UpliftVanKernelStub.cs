@@ -103,6 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftV
             {
                 throw new UpliftVanKernelWrapperException($"Message 1{Environment.NewLine}Message 2", new Exception());
             }
+
             if (ReturnLogMessages)
             {
                 CalculationMessages = new[]

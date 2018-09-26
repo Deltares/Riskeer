@@ -98,6 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
             {
                 affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
             }
+
             return affectedObjects;
         }
 

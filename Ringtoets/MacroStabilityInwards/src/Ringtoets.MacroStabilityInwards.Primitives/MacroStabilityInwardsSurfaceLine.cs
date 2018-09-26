@@ -128,6 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DitchPolderSide);
             }
+
             DitchPolderSide = geometryPoint;
         }
 
@@ -145,6 +146,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchPolderSide);
             }
+
             BottomDitchPolderSide = geometryPoint;
         }
 
@@ -162,6 +164,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_BottomDitchDikeSide);
             }
+
             BottomDitchDikeSide = geometryPoint;
         }
 
@@ -179,6 +182,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DitchDikeSide);
             }
+
             DitchDikeSide = geometryPoint;
         }
 
@@ -196,6 +200,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtPolder);
             }
+
             DikeTopAtPolder = geometryPoint;
         }
 
@@ -213,6 +218,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeTopAtRiver);
             }
+
             DikeTopAtRiver = geometryPoint;
         }
 
@@ -230,6 +236,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_ShoulderBaseInside);
             }
+
             ShoulderBaseInside = geometryPoint;
         }
 
@@ -247,6 +254,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_ShoulderTopInside);
             }
+
             ShoulderTopInside = geometryPoint;
         }
 
@@ -264,6 +272,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtRiver);
             }
+
             DikeToeAtRiver = geometryPoint;
         }
 
@@ -281,6 +290,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_DikeToeAtPolder);
             }
+
             DikeToeAtPolder = geometryPoint;
         }
 
@@ -298,6 +308,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelInside);
             }
+
             SurfaceLevelInside = geometryPoint;
         }
 
@@ -315,6 +326,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw CreatePointNotInGeometryException(point, RingtoetsCommonDataResources.CharacteristicPoint_SurfaceLevelOutside);
             }
+
             SurfaceLevelOutside = geometryPoint;
         }
 
@@ -347,14 +359,17 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (GetType() != obj.GetType())
             {
                 return false;
             }
+
             return Equals((MacroStabilityInwardsSurfaceLine) obj);
         }
 
@@ -424,6 +439,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                     return false;
                 }
             }
+
             return true;
         }
     }

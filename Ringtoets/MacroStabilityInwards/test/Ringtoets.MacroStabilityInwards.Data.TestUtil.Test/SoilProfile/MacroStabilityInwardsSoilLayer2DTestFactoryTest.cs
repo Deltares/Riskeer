@@ -49,7 +49,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
         public void CreateMacroStabilityInwardsSoilLayer2D_WithNestedLayers_ReturnsExpectedMacroStabilityInwardsSoilLayer2D()
         {
             // Setup
-            var nestedLayers = new[]
+            MacroStabilityInwardsSoilLayer2D[] nestedLayers =
             {
                 MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D()
             };

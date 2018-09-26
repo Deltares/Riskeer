@@ -258,6 +258,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             {
                 throw new ArgumentNullException(nameof(layer));
             }
+
             MacroStabilityInwardsSoilLayerData data = layer.Data;
             return new ChartMultipleAreaData(SoilLayerDataHelper.GetValidName(data.MaterialName),
                                              new ChartAreaStyle

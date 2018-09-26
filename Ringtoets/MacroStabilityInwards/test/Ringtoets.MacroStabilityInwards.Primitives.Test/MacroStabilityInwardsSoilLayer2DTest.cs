@@ -118,7 +118,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             Assert.AreSame(nestedLayers, layer.NestedLayers);
         }
 
-
         [TestFixture]
         private class MacroStabilityInwardsSoilLayer2DEqualsTest
             : EqualsTestFixture<MacroStabilityInwardsSoilLayer2D, DerivedMacroStabilityInwardsSoilLayer2D>
@@ -142,20 +141,20 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
                                                                                    baseLayer.NestedLayers))
                     .SetName("OuterRing");
                 yield return new TestCaseData(new MacroStabilityInwardsSoilLayer2D(baseLayer.OuterRing,
-                                                                                   new MacroStabilityInwardsSoilLayerData(), 
+                                                                                   new MacroStabilityInwardsSoilLayerData(),
                                                                                    baseLayer.NestedLayers))
                     .SetName("Data");
                 yield return new TestCaseData(new MacroStabilityInwardsSoilLayer2D(baseLayer.OuterRing,
-                                                                                   baseLayer.Data, 
-                                                                                   new []
+                                                                                   baseLayer.Data,
+                                                                                   new[]
                                                                                    {
                                                                                        baseLayer.NestedLayers.First(),
                                                                                        new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(21))
                                                                                    }))
                     .SetName("Nested Layer Count");
                 yield return new TestCaseData(new MacroStabilityInwardsSoilLayer2D(baseLayer.OuterRing,
-                                                                                   baseLayer.Data, 
-                                                                                   new []
+                                                                                   baseLayer.Data,
+                                                                                   new[]
                                                                                    {
                                                                                        new MacroStabilityInwardsSoilLayer2D(RingTestFactory.CreateRandomRing(30))
                                                                                    }))

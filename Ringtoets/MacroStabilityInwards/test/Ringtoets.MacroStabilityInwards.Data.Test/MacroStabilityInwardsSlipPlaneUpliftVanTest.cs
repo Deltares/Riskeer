@@ -98,7 +98,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreSame(rightGrid, result.RightGrid);
             CollectionAssert.AreEqual(new[]
             {
-                2, 2
+                2,
+                2
             }, result.TangentLines.Select(tl => tl.NumberOfDecimalPlaces));
             CollectionAssert.AreEqual(tangentLines.Select(tl => tl.Value), result.TangentLines.Select(tl => tl.Value), new DoubleWithToleranceComparer(1e-2));
         }

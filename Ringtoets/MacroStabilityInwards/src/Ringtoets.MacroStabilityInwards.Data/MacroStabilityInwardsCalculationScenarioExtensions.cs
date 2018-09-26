@@ -46,6 +46,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             {
                 return false;
             }
+
             double minimalDistance = lineSegments.Min(segment => segment.GetEuclideanDistanceToPoint(surfaceLine.ReferenceLineIntersectionWorldPoint));
             return minimalDistance < 1e-6;
         }

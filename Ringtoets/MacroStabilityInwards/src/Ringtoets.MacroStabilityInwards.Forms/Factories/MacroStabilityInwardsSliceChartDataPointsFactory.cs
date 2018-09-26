@@ -272,6 +272,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 {
                     value = (RoundedDouble) 0.0;
                 }
+
                 value = value.ClipValue((RoundedDouble) (-2000.0), (RoundedDouble) 2000.0);
 
                 double offset = value * scaleFactor;
@@ -291,6 +292,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                                 slice.BottomLeftPoint.Y + offset * deltaX / length)
                 });
             }
+
             return areas;
         }
     }

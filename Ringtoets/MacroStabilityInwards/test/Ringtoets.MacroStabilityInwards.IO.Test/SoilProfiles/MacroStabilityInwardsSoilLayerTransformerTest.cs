@@ -754,7 +754,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.SoilProfiles
             var segmentOne = new Segment2D(pointA, pointB);
             var segmentTwo = new Segment2D(pointB, pointA);
 
-            var validGeometry = new[]
+            Segment2D[] validGeometry =
             {
                 segmentOne,
                 segmentTwo

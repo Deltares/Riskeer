@@ -120,6 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
             {
                 throw new ArgumentNullException(nameof(calculationElement));
             }
+
             if (descendantElementName == null)
             {
                 throw new ArgumentNullException(nameof(descendantElementName));

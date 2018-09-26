@@ -94,6 +94,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 {
                     throw new ArgumentNullException(nameof(value));
                 }
+
                 name = value;
             }
         }
@@ -115,8 +116,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 {
                     return layer.Top - previousLevel;
                 }
+
                 previousLevel = oLayer.Top;
             }
+
             throw new ArgumentException("Layer not found in profile.");
         }
 
@@ -131,14 +134,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((MacroStabilityInwardsSoilProfile1D) obj);
         }
 
@@ -174,6 +180,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -195,10 +202,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(collection), string.Format(Resources.Error_Cannot_Construct_MacroStabilityInwardsSoilProfile_Without_Layers));
             }
+
             if (!collection.Any())
             {
                 throw new ArgumentException(Resources.Error_Cannot_Construct_MacroStabilityInwardsSoilProfile_Without_Layers);
             }
+
             if (collection.Any(l => l.Top < Bottom))
             {
                 throw new ArgumentException(Resources.MacroStabilityInwardsSoilProfile_Layers_Layer_top_below_profile_bottom);

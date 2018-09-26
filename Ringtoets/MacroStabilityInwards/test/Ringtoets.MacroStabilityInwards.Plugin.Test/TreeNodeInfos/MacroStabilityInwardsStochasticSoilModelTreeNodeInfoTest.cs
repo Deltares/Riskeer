@@ -130,7 +130,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             object[] objects = info.ChildNodeObjects(stochasticSoilModel);
 
             // Assert
-            var expectedChildren = new[]
+            MacroStabilityInwardsStochasticSoilProfile[] expectedChildren =
             {
                 stochasticSoilProfile1,
                 stochasticSoilProfile2
@@ -167,6 +167,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(model, null, treeViewControl);
             }
+
             // Assert
             mocks.VerifyAll();
         }

@@ -121,13 +121,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             MacroStabilityInwardsSoilLayer2D layerOne = CreateMacroStabilityInwardsSoilLayer2D();
             MacroStabilityInwardsSoilLayer2D layerTwo = CreateMacroStabilityInwardsSoilLayer2D();
-            var layers = new[]
+            MacroStabilityInwardsSoilLayer2D[] layers =
             {
                 layerOne,
                 layerTwo
             };
 
-            var stresses = new[]
+            MacroStabilityInwardsPreconsolidationStress[] stresses =
             {
                 MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress()
             };

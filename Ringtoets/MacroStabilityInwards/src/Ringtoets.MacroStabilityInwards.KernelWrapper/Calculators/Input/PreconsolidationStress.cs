@@ -42,6 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
             {
                 throw new ArgumentNullException(nameof(coordinate));
             }
+
             Coordinate = coordinate;
             Stress = stress;
         }

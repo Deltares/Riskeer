@@ -233,7 +233,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
 
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
-                var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;                
+                var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
                 upliftVanKernel.ThrowExceptionOnCalculate = true;
 
@@ -287,7 +287,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftV
             // Setup
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
-                var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;                
+                var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
                 upliftVanKernel.ReturnValidationResults = true;
 

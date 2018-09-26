@@ -107,6 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 {
                     throw new ArgumentNullException(nameof(value), @"Name is required for a calculation configuration.");
                 }
+
                 name = value;
             }
         }

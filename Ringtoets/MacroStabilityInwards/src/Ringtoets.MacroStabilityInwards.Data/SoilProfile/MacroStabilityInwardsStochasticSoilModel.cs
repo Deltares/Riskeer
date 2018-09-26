@@ -55,19 +55,23 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (geometry == null)
             {
                 throw new ArgumentNullException(nameof(geometry));
             }
+
             if (stochasticSoilProfiles == null)
             {
                 throw new ArgumentNullException(nameof(stochasticSoilProfiles));
             }
+
             if (!geometry.Any())
             {
                 string message = string.Format(RingtoetsCommonDataResources.StochasticSoilModel_Geometry_of_StochasticSoilModelName_0_must_contain_a_geometry, name);
                 throw new ArgumentException(message);
             }
+
             if (!stochasticSoilProfiles.Any())
             {
                 string message = string.Format(RingtoetsCommonDataResources.StochasticSoilModel_No_stochasticSoilProfiles_found_for_StochasticSoilModelName_0, name);
@@ -145,6 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                     stochasticSoilProfiles.Add(fromProfile);
                     addedProfiles.Add(fromProfile);
                 }
+
                 newSoilProfiles.Add(fromProfile.SoilProfile);
             }
 

@@ -42,14 +42,14 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets the input parameters to perform a macro stability inwards calculation with.
-        /// </summary>
-        public MacroStabilityInwardsInput InputParameters { get; private set; }
-
-        /// <summary>
         /// Gets or sets <see cref="MacroStabilityInwardsOutput"/>, which contains the results of a macro stability inwards calculation.
         /// </summary>
         public MacroStabilityInwardsOutput Output { get; set; }
+
+        /// <summary>
+        /// Gets the input parameters to perform a macro stability inwards calculation with.
+        /// </summary>
+        public MacroStabilityInwardsInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 

@@ -44,14 +44,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Out
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (geometry == null)
             {
                 throw new ArgumentNullException(nameof(geometry));
             }
+
             if (phreaticLine == null)
             {
                 throw new ArgumentNullException(nameof(phreaticLine));
             }
+
             Name = name;
             Geometry = geometry;
             PhreaticLine = phreaticLine;

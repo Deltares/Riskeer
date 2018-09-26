@@ -47,10 +47,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
             {
                 throw new ArgumentNullException(nameof(slidingCurve));
             }
+
             if (slipPlane == null)
             {
                 throw new ArgumentNullException(nameof(slipPlane));
             }
+
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));

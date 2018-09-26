@@ -84,6 +84,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<MacroStabilityInwardsCalculationConfigurationExporter>(fileExporter);
             }
+
             mocks.VerifyAll();
         }
 
@@ -128,6 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -170,6 +172,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 

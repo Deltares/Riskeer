@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call
             TestDelegate call = () => DerivedMacroStabilityInwardsOutputFactory.Create(null,
-                                                                                       new MacroStabilityInwardsFailureMechanism(), 
+                                                                                       new MacroStabilityInwardsFailureMechanism(),
                                                                                        assessmentSection);
 
             // Assert
@@ -60,8 +60,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call
             TestDelegate call = () => DerivedMacroStabilityInwardsOutputFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                                                                        null,
-                                                                        assessmentSection);
+                                                                                       null,
+                                                                                       assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -74,8 +74,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Call
             TestDelegate call = () => DerivedMacroStabilityInwardsOutputFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                                                                        new MacroStabilityInwardsFailureMechanism(),
-                                                                        null);
+                                                                                       new MacroStabilityInwardsFailureMechanism(),
+                                                                                       null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -236,7 +236,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilProfile2
             });
 
-            var availableSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] availableSoilModels =
             {
                 soilModel1,
                 soilModel2
@@ -360,7 +360,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilProfile2
             });
 
-            var availableSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -506,7 +506,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilProfile2
             });
 
-            var availableSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] availableSoilModels =
             {
                 soilModel1,
                 soilModel2
@@ -520,7 +520,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new Point3D(0.0, y, 0.0)
             });
 
-            var surfaceLines = new[]
+            MacroStabilityInwardsSurfaceLine[] surfaceLines =
             {
                 surfaceLine
             };
@@ -590,7 +590,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilProfile2
             });
 
-            var availableSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] availableSoilModels =
             {
                 soilModel1,
                 soilModel2
@@ -611,7 +611,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new Point3D(5.0, y, 0.0)
             });
 
-            var surfaceLines = new[]
+            MacroStabilityInwardsSurfaceLine[] surfaceLines =
             {
                 surfaceLine1,
                 surfaceLine2
@@ -695,7 +695,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 soilProfile2
             });
 
-            var availableSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] availableSoilModels =
             {
                 soilModel1,
                 soilModel2
@@ -716,7 +716,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new Point3D(6.4, y, 0.0)
             });
 
-            var surfaceLines = new[]
+            MacroStabilityInwardsSurfaceLine[] surfaceLines =
             {
                 surfaceLine1,
                 surfaceLine2
@@ -784,7 +784,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new MacroStabilityInwardsStochasticSoilProfile(0.7, soilProfile2)
             });
 
-            var availableSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -797,7 +797,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            var surfaceLines = new[]
+            MacroStabilityInwardsSurfaceLine[] surfaceLines =
             {
                 surfaceLine
             };
@@ -851,7 +851,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new MacroStabilityInwardsStochasticSoilProfile(0.5, soilProfile3)
             });
 
-            var availableSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -864,7 +864,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            var surfaceLines = new[]
+            MacroStabilityInwardsSurfaceLine[] surfaceLines =
             {
                 surfaceLine
             };

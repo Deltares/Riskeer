@@ -57,22 +57,27 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             {
                 throw new ArgumentException("SurfaceLine must be set.");
             }
+
             if (properties.SoilProfile == null)
             {
                 throw new ArgumentException("SoilProfile must be set.");
             }
+
             if (properties.DrainageConstruction == null)
             {
                 throw new ArgumentException("DrainageConstruction must be set.");
             }
+
             if (properties.PhreaticLineOffsetsExtreme == null)
             {
                 throw new ArgumentException("PhreaticLineOffsetsExtreme must be set.");
             }
+
             if (properties.PhreaticLineOffsetsDaily == null)
             {
                 throw new ArgumentException("PhreaticLineOffsetsDaily must be set.");
             }
+
             if (properties.SlipPlane == null)
             {
                 throw new ArgumentException("SlipPlane must be set.");

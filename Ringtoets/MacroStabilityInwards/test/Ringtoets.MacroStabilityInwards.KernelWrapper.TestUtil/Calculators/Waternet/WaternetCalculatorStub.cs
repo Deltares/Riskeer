@@ -53,6 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Wat
             {
                 throw new WaternetCalculatorException($"Message 1{Environment.NewLine}Message 2");
             }
+
             return Output ?? (Output = CreateWaternetCalculatorResult());
         }
 

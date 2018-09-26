@@ -94,7 +94,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test.SoilProfile
                     nestedLayer2
                 });
 
-            var layers = new[]
+            MacroStabilityInwardsSoilLayer2D[] layers =
             {
                 topLevelLayer1,
                 topLevelLayer2

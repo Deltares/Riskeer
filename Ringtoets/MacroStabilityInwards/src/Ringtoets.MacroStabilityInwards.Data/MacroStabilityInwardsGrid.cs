@@ -58,6 +58,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             {
                 throw new ArgumentException(Resources.MacroStabilityInwardsGrid_XLeft_should_be_smaller_than_or_equal_to_XRight);
             }
+
             if (!IsSmallerEqualOrNaN(zBottom, zTop))
             {
                 throw new ArgumentException(Resources.MacroStabilityInwardsGrid_ZTop_should_be_larger_than_or_equal_to_ZBottom);

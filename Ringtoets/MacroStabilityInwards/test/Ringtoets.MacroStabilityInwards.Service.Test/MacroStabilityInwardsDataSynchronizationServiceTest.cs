@@ -132,15 +132,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsFailureMechanismWithAllCalculationConfigurations();
             MacroStabilityInwardsCalculation[] calculations = failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>().ToArray();
-            IObservable[] expectedAffectedCalculations = calculations
-                .Where(c => c.HasOutput)
-                .Cast<IObservable>()
-                .ToArray();
-            IObservable[] expectedAffectedCalculationInputs = calculations
-                .Select(c => c.InputParameters)
-                .Where(i => i.HydraulicBoundaryLocation != null)
-                .Cast<IObservable>()
-                .ToArray();
+            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
+                                                                     .Cast<IObservable>()
+                                                                     .ToArray();
+            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
+                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
+                                                                          .Cast<IObservable>()
+                                                                          .ToArray();
 
             // Call
             IEnumerable<IObservable> affectedItems = MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
@@ -503,9 +501,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = failureMechanism
-                .Calculations
-                .Cast<MacroStabilityInwardsCalculationScenario>();
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                                 .Cast<MacroStabilityInwardsCalculationScenario>();
             MacroStabilityInwardsStochasticSoilProfile profileToDelete = null;
 
             foreach (MacroStabilityInwardsCalculationScenario calculationScenario in calculations)
@@ -516,6 +513,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 {
                     profileToDelete = currentProfile;
                 }
+
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
                     input.StochasticSoilProfile = null;
@@ -534,9 +532,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = failureMechanism
-                .Calculations
-                .Cast<MacroStabilityInwardsCalculationScenario>();
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                                 .Cast<MacroStabilityInwardsCalculationScenario>();
             MacroStabilityInwardsStochasticSoilProfile profileToDelete = null;
 
             var expectedInputs = new List<MacroStabilityInwardsInput>();
@@ -549,6 +546,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 {
                     profileToDelete = currentProfile;
                 }
+
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
                     calculationScenario.ClearOutput();
@@ -569,9 +567,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = failureMechanism
-                .Calculations
-                .Cast<MacroStabilityInwardsCalculationScenario>();
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                                 .Cast<MacroStabilityInwardsCalculationScenario>();
 
             var expectedAffectedObjects = new List<IObservable>();
 
@@ -585,15 +582,18 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 {
                     profileToDelete = currentProfile;
                 }
+
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
                     if (calculationScenario.HasOutput)
                     {
                         expectedAffectedObjects.Add(calculationScenario);
                     }
+
                     expectedAffectedObjects.Add(input);
                 }
             }
+
             // Call
             IEnumerable<IObservable> affected = MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilProfileFromInput(failureMechanism, profileToDelete);
 
@@ -634,9 +634,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = failureMechanism
-                .Calculations
-                .Cast<MacroStabilityInwardsCalculationScenario>();
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                                 .Cast<MacroStabilityInwardsCalculationScenario>();
             MacroStabilityInwardsStochasticSoilProfile profileToDelete = null;
 
             foreach (MacroStabilityInwardsCalculationScenario calculationScenario in calculations)
@@ -647,6 +646,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 {
                     profileToDelete = currentProfile;
                 }
+
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
                     input.StochasticSoilProfile = null;
@@ -665,9 +665,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = failureMechanism
-                .Calculations
-                .Cast<MacroStabilityInwardsCalculationScenario>();
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                                 .Cast<MacroStabilityInwardsCalculationScenario>();
             MacroStabilityInwardsStochasticSoilProfile profileToDelete = null;
 
             var expectedInputs = new List<MacroStabilityInwardsInput>();
@@ -680,6 +679,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 {
                     profileToDelete = currentProfile;
                 }
+
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
                     calculationScenario.ClearOutput();
@@ -700,9 +700,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = failureMechanism
-                .Calculations
-                .Cast<MacroStabilityInwardsCalculationScenario>();
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                                 .Cast<MacroStabilityInwardsCalculationScenario>();
 
             var expectedAffectedObjects = new List<IObservable>();
 
@@ -716,15 +715,18 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 {
                     profileToDelete = currentProfile;
                 }
+
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
                     if (calculationScenario.HasOutput)
                     {
                         expectedAffectedObjects.Add(calculationScenario);
                     }
+
                     expectedAffectedObjects.Add(input);
                 }
             }
+
             // Call
             IEnumerable<IObservable> affected = MacroStabilityInwardsDataSynchronizationService.ClearStochasticSoilProfileDependentData(failureMechanism, profileToDelete);
 

@@ -106,6 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.SoilProfiles
                 macroStabilityInwardsSoilProfile = MacroStabilityInwardsSoilProfileTransformer.Transform(soilProfile);
                 soilProfiles.Add(soilProfile, macroStabilityInwardsSoilProfile);
             }
+
             return macroStabilityInwardsSoilProfile;
         }
     }

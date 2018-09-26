@@ -41,6 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             {
                 throw new ArgumentNullException(nameof(message));
             }
+
             ResultType = type;
             Message = message;
         }

@@ -24,6 +24,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Primitives;
@@ -46,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             {
                 new MacroStabilityInwardsSurfaceLine(string.Empty)
             };
-            var stochasticSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] stochasticSoilModels =
             {
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
             };
@@ -80,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             {
                 new MacroStabilityInwardsSurfaceLine(string.Empty)
             };
-            var stochasticSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] stochasticSoilModels =
             {
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
             };

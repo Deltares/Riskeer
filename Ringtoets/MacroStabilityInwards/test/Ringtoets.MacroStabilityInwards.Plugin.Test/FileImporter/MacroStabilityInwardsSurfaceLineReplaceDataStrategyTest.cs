@@ -166,7 +166,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.FileImporter
                 failureMechanism.SurfaceLines
             }, affectedObjects);
 
-            var expectedSurfaceLines = new[]
+            MacroStabilityInwardsSurfaceLine[] expectedSurfaceLines =
             {
                 readSurfaceLine
             };

@@ -384,7 +384,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
             for (var i = 0; i < macroStabilityInwardsSlices.Length; i++)
             {
                 MacroStabilityInwardsSlice slice = macroStabilityInwardsSlices[i];
-                var expectedPoints = new[]
+                Point2D[] expectedPoints =
                 {
                     slice.TopLeftPoint,
                     slice.TopRightPoint,
@@ -434,7 +434,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                                                         MacroStabilityInwardsSlidingCircle slidingCircle,
                                                         ChartLineData actual)
         {
-            var points = new[]
+            Point2D[] points =
             {
                 slidingCircle.Center,
                 startingPoint

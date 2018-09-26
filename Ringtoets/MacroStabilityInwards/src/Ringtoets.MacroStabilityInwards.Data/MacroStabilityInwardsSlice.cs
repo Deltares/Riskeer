@@ -48,18 +48,22 @@ namespace Ringtoets.MacroStabilityInwards.Data
             {
                 throw new ArgumentNullException(nameof(topLeftPoint));
             }
+
             if (topRightPoint == null)
             {
                 throw new ArgumentNullException(nameof(topRightPoint));
             }
+
             if (bottomLeftPoint == null)
             {
                 throw new ArgumentNullException(nameof(bottomLeftPoint));
             }
+
             if (bottomRightPoint == null)
             {
                 throw new ArgumentNullException(nameof(bottomRightPoint));
             }
+
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));

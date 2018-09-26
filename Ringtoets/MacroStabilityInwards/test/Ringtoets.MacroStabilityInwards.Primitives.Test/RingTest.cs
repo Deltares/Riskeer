@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
 
             // Call
             var ring = new Ring(points);
-            
+
             // Assert
             Assert.AreEqual(2, ring.Points.NumberOfDecimalPlaces);
             CollectionAssert.AreEqual(points, ring.Points, new Point2DComparerWithTolerance(1e-2));

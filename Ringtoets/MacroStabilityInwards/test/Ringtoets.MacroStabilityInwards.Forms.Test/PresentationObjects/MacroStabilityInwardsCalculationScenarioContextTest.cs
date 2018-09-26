@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             {
                 new MacroStabilityInwardsSurfaceLine(string.Empty)
             };
-            var soilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] soilModels =
             {
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
             };
@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             {
                 new MacroStabilityInwardsSurfaceLine(string.Empty)
             };
-            var soilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] soilModels =
             {
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
             };

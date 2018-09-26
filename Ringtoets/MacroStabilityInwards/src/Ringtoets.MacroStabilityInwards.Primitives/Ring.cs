@@ -58,14 +58,17 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((Ring) obj);
         }
 
@@ -78,6 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 {
                     hashCode = (hashCode * 397) ^ p.GetHashCode();
                 }
+
                 return hashCode;
             }
         }
@@ -99,6 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw new ArgumentNullException(nameof(points));
             }
+
             if (points.Distinct().Count() < 2)
             {
                 throw new ArgumentException($@"Need at least two distinct points to define a {typeof(Ring).Name}.", nameof(points));

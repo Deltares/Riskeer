@@ -369,7 +369,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             [Values(true, false)] bool isGridDeterminationTypeAutomatic,
             [Values(nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineZTop),
                 nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineZBottom),
-                nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineNumber))] string propertyName)
+                nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineNumber))]
+            string propertyName)
         {
             // Setup
             var mocks = new MockRepository();

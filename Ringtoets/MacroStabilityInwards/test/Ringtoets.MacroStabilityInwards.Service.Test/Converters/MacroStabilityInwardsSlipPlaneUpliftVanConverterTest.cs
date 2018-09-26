@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test.Converters
             // Setup
             UpliftVanGrid leftGrid = UpliftVanGridTestFactory.Create();
             UpliftVanGrid rightGrid = UpliftVanGridTestFactory.Create();
-            var tangentLines = new[]
+            double[] tangentLines =
             {
                 3,
                 2,

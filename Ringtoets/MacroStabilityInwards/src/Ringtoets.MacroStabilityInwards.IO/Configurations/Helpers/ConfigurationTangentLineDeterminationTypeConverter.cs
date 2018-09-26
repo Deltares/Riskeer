@@ -68,6 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             if (destinationType == typeof(MacroStabilityInwardsTangentLineDeterminationType))
             {
                 switch (type)
@@ -80,6 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
@@ -101,6 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             var tangentLineDeterminationType = value as MacroStabilityInwardsTangentLineDeterminationType?;
             if (tangentLineDeterminationType != null)
             {
@@ -121,6 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             return base.ConvertFrom(context, culture, value);
         }
     }

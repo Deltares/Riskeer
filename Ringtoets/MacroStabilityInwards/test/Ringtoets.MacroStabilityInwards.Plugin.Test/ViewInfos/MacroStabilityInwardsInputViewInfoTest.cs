@@ -139,7 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                                  new MacroStabilityInwardsFailureMechanism(),
                                                                                                  assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -169,7 +169,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                                  new MacroStabilityInwardsFailureMechanism(),
                                                                                                  assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -200,7 +200,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                                            assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -231,7 +231,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                                            assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -264,7 +264,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                                            assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -297,7 +297,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                                            assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -323,7 +323,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -349,7 +349,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -407,7 +407,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -431,7 +431,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -455,7 +455,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -482,7 +482,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -509,7 +509,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -539,7 +539,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -569,7 +569,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), 
+            using (var view = new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {

@@ -87,9 +87,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
 
         private IEnumerable<IObservable> UpdateStochasticSoilModel(MacroStabilityInwardsStochasticSoilModel modelToUpdate, MacroStabilityInwardsStochasticSoilModel modelToUpdateFrom)
         {
-            Dictionary<MacroStabilityInwardsStochasticSoilProfile, IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>> oldProfiles = modelToUpdate
-                .StochasticSoilProfiles
-                .ToDictionary(ssp => ssp, ssp => ssp.SoilProfile, new ReferenceEqualityComparer<MacroStabilityInwardsStochasticSoilProfile>());
+            Dictionary<MacroStabilityInwardsStochasticSoilProfile, IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>> oldProfiles =
+                modelToUpdate
+                    .StochasticSoilProfiles
+                    .ToDictionary(ssp => ssp, ssp => ssp.SoilProfile, new ReferenceEqualityComparer<MacroStabilityInwardsStochasticSoilProfile>());
 
             MacroStabilityInwardsStochasticSoilModelProfileDifference difference = modelToUpdate.Update(modelToUpdateFrom);
 
@@ -98,14 +99,17 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.FileImporter
             {
                 affectedObjects.AddRange(MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilProfileFromInput(FailureMechanism, removedProfile));
             }
+
             foreach (MacroStabilityInwardsStochasticSoilProfile updatedProfile in difference.UpdatedProfiles)
             {
                 if (!oldProfiles[updatedProfile].Equals(updatedProfile.SoilProfile))
                 {
                     affectedObjects.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearStochasticSoilProfileDependentData(FailureMechanism, updatedProfile));
                 }
+
                 affectedObjects.Add(updatedProfile);
             }
+
             return affectedObjects;
         }
 

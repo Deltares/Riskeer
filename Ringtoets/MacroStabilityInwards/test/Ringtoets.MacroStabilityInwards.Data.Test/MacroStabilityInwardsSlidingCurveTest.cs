@@ -79,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var random = new Random(21);
             MacroStabilityInwardsSlidingCircle rightCircle = MacroStabilityInwardsSlidingCircleTestFactory.Create();
             MacroStabilityInwardsSlidingCircle leftCircle = MacroStabilityInwardsSlidingCircleTestFactory.Create();
-            var slices = new[]
+            MacroStabilityInwardsSlice[] slices =
             {
                 MacroStabilityInwardsSliceTestFactory.CreateSlice()
             };
@@ -107,7 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var random = new Random(21);
             MacroStabilityInwardsSlidingCircle rightCircle = MacroStabilityInwardsSlidingCircleTestFactory.Create();
             MacroStabilityInwardsSlidingCircle leftCircle = MacroStabilityInwardsSlidingCircleTestFactory.Create();
-            var slices = new[]
+            MacroStabilityInwardsSlice[] slices =
             {
                 MacroStabilityInwardsSliceTestFactory.CreateSlice()
             };

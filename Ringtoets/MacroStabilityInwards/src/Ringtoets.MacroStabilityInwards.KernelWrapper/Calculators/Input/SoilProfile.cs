@@ -41,6 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input
             {
                 throw new ArgumentNullException(nameof(layers));
             }
+
             if (preconsolidationStresses == null)
             {
                 throw new ArgumentNullException(nameof(preconsolidationStresses));

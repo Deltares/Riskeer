@@ -43,10 +43,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Out
             {
                 throw new ArgumentNullException(nameof(phreaticLines));
             }
+
             if (waternetLines == null)
             {
                 throw new ArgumentNullException(nameof(waternetLines));
             }
+
             PhreaticLines = phreaticLines;
             WaternetLines = waternetLines;
         }

@@ -44,10 +44,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
             {
                 throw new ArgumentNullException(nameof(leftGrid));
             }
+
             if (rightGrid == null)
             {
                 throw new ArgumentNullException(nameof(rightGrid));
             }
+
             if (tangentLines == null)
             {
                 throw new ArgumentNullException(nameof(tangentLines));

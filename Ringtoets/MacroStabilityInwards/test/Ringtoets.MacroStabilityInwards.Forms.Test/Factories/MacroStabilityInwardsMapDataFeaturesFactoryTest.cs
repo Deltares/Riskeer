@@ -128,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                 new Point2D(3.2, 23.3),
                 new Point2D(7.7, 12.6)
             };
-            var stochasticSoilModels = new[]
+            MacroStabilityInwardsStochasticSoilModel[] stochasticSoilModels =
             {
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("StochasticSoilModelName1", pointsOne),
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("StochasticSoilModelName2", pointsTwo)

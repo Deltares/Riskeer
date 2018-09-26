@@ -43,10 +43,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(layers));
             }
+
             if (preconsolidationStresses == null)
             {
                 throw new ArgumentNullException(nameof(preconsolidationStresses));
             }
+
             Layers = layers;
             PreconsolidationStresses = preconsolidationStresses;
         }

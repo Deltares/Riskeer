@@ -49,10 +49,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
             {
                 throw new ArgumentNullException(nameof(input));
             }
+
             if (factory == null)
             {
                 throw new ArgumentNullException(nameof(factory));
             }
+
             Input = input;
             Factory = factory;
         }

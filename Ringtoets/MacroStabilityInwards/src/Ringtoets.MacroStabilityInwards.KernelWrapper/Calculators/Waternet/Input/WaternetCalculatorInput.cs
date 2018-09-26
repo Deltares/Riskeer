@@ -55,14 +55,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Inp
             {
                 throw new ArgumentException("SurfaceLine must be set.");
             }
+
             if (properties.SoilProfile == null)
             {
                 throw new ArgumentException("SoilProfile must be set.");
             }
+
             if (properties.DrainageConstruction == null)
             {
                 throw new ArgumentException("DrainageConstruction must be set.");
             }
+
             if (properties.PhreaticLineOffsets == null)
             {
                 throw new ArgumentException("PhreaticLineOffsets must be set.");

@@ -1230,7 +1230,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 List<Point3D> surfaceLineGeometry = surfaceLine.Points.ToList();
                 surfaceLineGeometry.Insert(1, new Point3D(1.95, 2.55, 5.0));
-                
+
                 // When
                 calculation.InputParameters.SurfaceLine.SetGeometry(surfaceLineGeometry);
                 calculation.InputParameters.NotifyObservers();

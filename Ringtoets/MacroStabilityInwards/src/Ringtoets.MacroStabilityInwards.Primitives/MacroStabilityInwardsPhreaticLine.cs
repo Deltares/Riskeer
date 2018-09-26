@@ -45,6 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (geometry == null)
             {
                 throw new ArgumentNullException(nameof(geometry));
@@ -70,14 +71,17 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((MacroStabilityInwardsPhreaticLine) obj);
         }
 

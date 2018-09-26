@@ -60,6 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms
             {
                 throw new ArgumentNullException(nameof(surfaceLines));
             }
+
             if (soilModels == null)
             {
                 throw new ArgumentNullException(nameof(soilModels));
@@ -80,6 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms
                         surfaceLine.Name);
                 }
             }
+
             return groups;
         }
 

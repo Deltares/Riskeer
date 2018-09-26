@@ -99,14 +99,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PresentationObjects
             {
                 throw new ArgumentNullException(nameof(surfaceLines));
             }
+
             if (stochasticSoilModels == null)
             {
                 throw new ArgumentNullException(nameof(stochasticSoilModels));
             }
+
             if (macroStabilityInwardsFailureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(macroStabilityInwardsFailureMechanism));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));

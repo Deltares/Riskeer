@@ -162,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var table = new MacroStabilityInwardsSoilLayerDataTable())
             {
-                var layers = new[]
+                MacroStabilityInwardsSoilLayerData[] layers =
                 {
                     CreateMacroStabilityInwardsSoilLayerData(),
                     CreateMacroStabilityInwardsSoilLayerData(),

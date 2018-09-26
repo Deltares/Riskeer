@@ -50,6 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(soilProfile));
             }
+
             Probability = probability;
             SoilProfile = soilProfile;
         }
@@ -112,14 +113,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((MacroStabilityInwardsStochasticSoilProfile) obj);
         }
 

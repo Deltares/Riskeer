@@ -48,6 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 macroStabilityInwardsInput.StochasticSoilModel = null;
             }
+
             SyncStochasticSoilProfileWithStochasticSoilModel(macroStabilityInwardsInput);
         }
 
@@ -68,11 +69,13 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     macroStabilityInwardsInput.StochasticSoilProfile = macroStabilityInwardsInput.StochasticSoilModel.StochasticSoilProfiles.First();
                     return;
                 }
+
                 if (macroStabilityInwardsInput.StochasticSoilProfile == null || macroStabilityInwardsInput.StochasticSoilModel.StochasticSoilProfiles.Contains(macroStabilityInwardsInput.StochasticSoilProfile))
                 {
                     return;
                 }
             }
+
             macroStabilityInwardsInput.StochasticSoilProfile = null;
         }
     }

@@ -975,6 +975,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations
             {
                 Assert.AreSame(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
             }
+
             Assert.AreSame(expectedInput.SurfaceLine, actualInput.SurfaceLine);
             Assert.AreSame(expectedInput.StochasticSoilModel, actualInput.StochasticSoilModel);
             Assert.AreSame(expectedInput.StochasticSoilProfile, actualInput.StochasticSoilProfile);

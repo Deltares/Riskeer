@@ -137,6 +137,7 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.In
             {
                 throw new ArgumentNullException(nameof(leftGrid));
             }
+
             if (rightGrid == null)
             {
                 throw new ArgumentNullException(nameof(rightGrid));

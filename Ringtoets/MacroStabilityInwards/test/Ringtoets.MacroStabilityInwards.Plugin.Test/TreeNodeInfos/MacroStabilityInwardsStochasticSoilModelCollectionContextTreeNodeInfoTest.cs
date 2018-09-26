@@ -240,6 +240,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(context, null, treeViewControl);
             }
+
             // Assert
             // Assert expectancies are called in TearDown()
         }

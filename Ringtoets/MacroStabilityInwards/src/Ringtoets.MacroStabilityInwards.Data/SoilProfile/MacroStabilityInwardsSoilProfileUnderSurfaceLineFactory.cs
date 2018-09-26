@@ -51,6 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 throw new ArgumentNullException(nameof(soilProfile));
             }
+
             if (surfaceLine == null)
             {
                 throw new ArgumentNullException(nameof(surfaceLine));
@@ -61,11 +62,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
             {
                 return Create(profile1D, surfaceLine);
             }
+
             var profile2D = soilProfile as MacroStabilityInwardsSoilProfile2D;
             if (profile2D != null)
             {
                 return Create(profile2D);
             }
+
             throw new NotSupportedException($"{soilProfile.GetType().Name} is not supported. " +
                                             $"Supported types are: {nameof(MacroStabilityInwardsSoilProfile1D)} " +
                                             $"and {nameof(MacroStabilityInwardsSoilProfile2D)}.");

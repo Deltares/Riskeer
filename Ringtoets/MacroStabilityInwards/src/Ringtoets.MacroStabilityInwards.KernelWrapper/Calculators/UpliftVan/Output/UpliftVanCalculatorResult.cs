@@ -46,14 +46,17 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Ou
             {
                 throw new ArgumentNullException(nameof(slidingCurveResult));
             }
+
             if (calculationGridResult == null)
             {
                 throw new ArgumentNullException(nameof(calculationGridResult));
             }
+
             if (calculationMessages == null)
             {
                 throw new ArgumentNullException(nameof(calculationMessages));
             }
+
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));

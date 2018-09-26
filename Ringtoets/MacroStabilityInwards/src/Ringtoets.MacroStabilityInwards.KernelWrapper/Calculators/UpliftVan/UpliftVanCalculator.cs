@@ -52,10 +52,12 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             {
                 throw new ArgumentNullException(nameof(input));
             }
+
             if (factory == null)
             {
                 throw new ArgumentNullException(nameof(factory));
             }
+
             this.input = input;
             this.factory = factory;
         }

@@ -98,7 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
         public void ConvertTo_InvalidConfigurationTangentLineDeterminationType_ThrowsInvalidEnumArgumentException(Type convertToType)
         {
             // Setup
-            const ConfigurationTangentLineDeterminationType invalidValue = (ConfigurationTangentLineDeterminationType)9999;
+            const ConfigurationTangentLineDeterminationType invalidValue = (ConfigurationTangentLineDeterminationType) 9999;
             var converter = new ConfigurationTangentLineDeterminationTypeConverter();
 
             // Call
@@ -204,7 +204,7 @@ namespace Ringtoets.MacroStabilityInwards.IO.Test.Configurations.Helpers
         public void ConvertFrom_InvalidMacroStabilityInwardsTangentLineDeterminationType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            const MacroStabilityInwardsTangentLineDeterminationType invalidValue = (MacroStabilityInwardsTangentLineDeterminationType)9999;
+            const MacroStabilityInwardsTangentLineDeterminationType invalidValue = (MacroStabilityInwardsTangentLineDeterminationType) 9999;
             var converter = new ConfigurationTangentLineDeterminationTypeConverter();
 
             // Call

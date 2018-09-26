@@ -107,6 +107,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
                 {
                     throw new ArgumentNullException(nameof(value));
                 }
+
                 materialName = value;
             }
         }
@@ -253,14 +254,17 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != GetType())
             {
                 return false;
             }
+
             return Equals((MacroStabilityInwardsSoilLayerData) obj);
         }
 

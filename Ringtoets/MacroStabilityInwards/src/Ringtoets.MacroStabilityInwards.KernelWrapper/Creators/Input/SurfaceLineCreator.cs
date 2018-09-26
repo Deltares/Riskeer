@@ -131,46 +131,57 @@ namespace Ringtoets.MacroStabilityInwards.KernelWrapper.Creators.Input
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DitchPolderSide));
             }
+
             if (ReferenceEquals(surfaceLine.BottomDitchPolderSide, surfaceLinePoint))
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.BottomDitchPolderSide));
             }
+
             if (ReferenceEquals(surfaceLine.BottomDitchDikeSide, surfaceLinePoint))
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.BottomDitchDikeSide));
             }
+
             if (ReferenceEquals(surfaceLine.DitchDikeSide, surfaceLinePoint))
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DitchDikeSide));
             }
+
             if (ReferenceEquals(surfaceLine.DikeToeAtPolder, surfaceLinePoint))
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DikeToeAtPolder));
             }
+
             if (ReferenceEquals(surfaceLine.DikeToeAtRiver, surfaceLinePoint))
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DikeToeAtRiver));
             }
+
             if (ReferenceEquals(surfaceLine.DikeTopAtPolder, surfaceLinePoint))
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DikeTopAtPolder));
             }
+
             if (ReferenceEquals(surfaceLine.ShoulderBaseInside, surfaceLinePoint))
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.ShoulderBaseInside));
             }
+
             if (ReferenceEquals(surfaceLine.ShoulderTopInside, surfaceLinePoint))
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.ShoulderTopInside));
             }
+
             if (ReferenceEquals(surfaceLine.SurfaceLevelInside, surfaceLinePoint))
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.SurfaceLevelInside));
             }
+
             if (ReferenceEquals(surfaceLine.SurfaceLevelOutside, surfaceLinePoint))
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.SurfaceLevelOutside));
             }
+
             if (ReferenceEquals(surfaceLine.DikeTopAtRiver, surfaceLinePoint))
             {
                 characteristicPoints.Add(CreateCharacteristicPointOfType(geometryPoint, CharacteristicPointType.DikeTopAtRiver));

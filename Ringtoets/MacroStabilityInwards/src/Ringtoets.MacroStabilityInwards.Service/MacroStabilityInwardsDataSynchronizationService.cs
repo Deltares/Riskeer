@@ -78,6 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     calculation
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
 
@@ -158,6 +159,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (surfaceLine == null)
             {
                 throw new ArgumentNullException(nameof(surfaceLine));
@@ -219,6 +221,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (soilModel == null)
             {
                 throw new ArgumentNullException(nameof(soilModel));
@@ -291,6 +294,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (soilProfile == null)
             {
                 throw new ArgumentNullException(nameof(soilProfile));
@@ -323,6 +327,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (soilProfile == null)
             {
                 throw new ArgumentNullException(nameof(soilProfile));
@@ -347,6 +352,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculationScenario));
                 changedObservables.AddRange(ClearSurfaceLine(calculationScenario.InputParameters));
             }
+
             return changedObservables;
         }
 
@@ -399,6 +405,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     input
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
     }

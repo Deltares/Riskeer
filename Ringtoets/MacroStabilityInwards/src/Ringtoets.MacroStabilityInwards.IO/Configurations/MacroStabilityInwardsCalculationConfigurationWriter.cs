@@ -572,26 +572,31 @@ namespace Ringtoets.MacroStabilityInwards.IO.Configurations
                 writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXLeftElement,
                                           XmlConvert.ToString(configuration.XLeft.Value));
             }
+
             if (configuration.XRight.HasValue)
             {
                 writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridXRightElement,
                                           XmlConvert.ToString(configuration.XRight.Value));
             }
+
             if (configuration.ZTop.HasValue)
             {
                 writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZTopElement,
                                           XmlConvert.ToString(configuration.ZTop.Value));
             }
+
             if (configuration.ZBottom.HasValue)
             {
                 writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridZBottomElement,
                                           XmlConvert.ToString(configuration.ZBottom.Value));
             }
+
             if (configuration.NumberOfVerticalPoints.HasValue)
             {
                 writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfVerticalPointsElement,
                                           XmlConvert.ToString(configuration.NumberOfVerticalPoints.Value));
             }
+
             if (configuration.NumberOfHorizontalPoints.HasValue)
             {
                 writer.WriteElementString(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.GridNumberOfHorizontalPointsElement,

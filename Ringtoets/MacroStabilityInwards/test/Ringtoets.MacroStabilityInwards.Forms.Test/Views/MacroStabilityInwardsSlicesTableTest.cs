@@ -124,7 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var table = new MacroStabilityInwardsSlicesTable())
             {
-                var slices = new[]
+                MacroStabilityInwardsSlice[] slices =
                 {
                     MacroStabilityInwardsSliceTestFactory.CreateSlice(),
                     MacroStabilityInwardsSliceTestFactory.CreateSlice(),
@@ -145,7 +145,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var table = new MacroStabilityInwardsSlicesTable())
             {
-                var slices = new[]
+                MacroStabilityInwardsSlice[] slices =
                 {
                     MacroStabilityInwardsSliceTestFactory.CreateSlice(),
                     MacroStabilityInwardsSliceTestFactory.CreateSlice(),
@@ -172,7 +172,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     MacroStabilityInwardsSliceTestFactory.CreateSlice()
                 });
 
-                var newSlices = new[]
+                MacroStabilityInwardsSlice[] newSlices =
                 {
                     MacroStabilityInwardsSliceTestFactory.CreateSlice(),
                     MacroStabilityInwardsSliceTestFactory.CreateSlice(),
@@ -193,7 +193,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var table = new MacroStabilityInwardsSlicesTable())
             {
-                var slices = new[]
+                MacroStabilityInwardsSlice[] slices =
                 {
                     MacroStabilityInwardsSliceTestFactory.CreateSlice(),
                     MacroStabilityInwardsSliceTestFactory.CreateSlice(),

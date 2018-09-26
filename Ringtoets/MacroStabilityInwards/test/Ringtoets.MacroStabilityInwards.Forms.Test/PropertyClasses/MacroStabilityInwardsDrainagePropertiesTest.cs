@@ -225,9 +225,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             [Values(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand,
                 MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay,
                 MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand,
-                MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)] MacroStabilityInwardsDikeSoilScenario soilScenario,
+                MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
+            MacroStabilityInwardsDikeSoilScenario soilScenario,
             [Values(nameof(MacroStabilityInwardsDrainageProperties.XCoordinateDrainageConstruction),
-                nameof(MacroStabilityInwardsDrainageProperties.ZCoordinateDrainageConstruction))] string propertyName)
+                nameof(MacroStabilityInwardsDrainageProperties.ZCoordinateDrainageConstruction))]
+            string propertyName)
         {
             // Setup
             var mocks = new MockRepository();
@@ -258,7 +260,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             [Values(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand,
                 MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay,
                 MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand,
-                MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)] MacroStabilityInwardsDikeSoilScenario soilScenario)
+                MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
+            MacroStabilityInwardsDikeSoilScenario soilScenario)
         {
             // Setup
             var mocks = new MockRepository();
