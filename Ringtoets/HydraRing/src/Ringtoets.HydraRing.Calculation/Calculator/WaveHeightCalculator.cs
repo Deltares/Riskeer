@@ -78,6 +78,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 WaveHeight = targetProbabilityParser.Output.Result;
                 ReliabilityIndex = targetProbabilityParser.Output.CalculatedReliabilityIndex;
             }
+
             Converged = convergenceParser.Output;
         }
     }

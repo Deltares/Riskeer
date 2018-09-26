@@ -79,6 +79,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 DesignWaterLevel = targetProbabilityParser.Output.Result;
                 ReliabilityIndex = targetProbabilityParser.Output.CalculatedReliabilityIndex;
             }
+
             Converged = convergenceParser.Output;
         }
     }

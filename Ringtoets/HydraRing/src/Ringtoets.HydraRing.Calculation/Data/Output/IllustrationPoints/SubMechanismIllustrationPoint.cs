@@ -50,10 +50,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(name));
             }
+
             if (stochasts == null)
             {
                 throw new ArgumentNullException(nameof(stochasts));
             }
+
             if (illustrationPointResults == null)
             {
                 throw new ArgumentNullException(nameof(illustrationPointResults));

@@ -65,10 +65,12 @@ namespace Ringtoets.HydraRing.Calculation.Readers
             {
                 throw new ArgumentNullException(nameof(workingDirectory));
             }
+
             if (query == null)
             {
                 throw new ArgumentNullException(nameof(query));
             }
+
             IOUtils.ValidateFilePath(workingDirectory);
 
             this.workingDirectory = workingDirectory;

@@ -579,6 +579,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     }
                 });
             }
+
             return orderDictionaries;
         }
 
@@ -608,6 +609,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     });
                 }
             }
+
             return orderDictionaries;
         }
 
@@ -632,6 +634,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     });
                 }
             }
+
             return orderedDictionaries;
         }
 

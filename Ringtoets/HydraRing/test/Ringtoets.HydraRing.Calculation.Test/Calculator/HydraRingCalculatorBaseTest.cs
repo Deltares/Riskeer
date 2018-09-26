@@ -249,6 +249,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             {
                 throw exception;
             }
+
             Parsed = true;
         }
     }

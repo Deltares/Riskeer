@@ -45,6 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             Data = data;
             Children = Enumerable.Empty<IllustrationPointTreeNode>();
         }
@@ -78,6 +79,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints
                 throw new ArgumentException(Resources.IllustrationPointTreeNode_SetChildren_Node_must_have_zero_or_two_child_nodes,
                                             nameof(children));
             }
+
             Children = children;
         }
     }

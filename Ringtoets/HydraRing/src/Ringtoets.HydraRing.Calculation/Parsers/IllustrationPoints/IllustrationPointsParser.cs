@@ -187,6 +187,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 {
                     throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found);
                 }
+
                 faultTreeBetaValues[threeKeyIndex] = faultTreeBeta;
             }
         }
@@ -248,6 +249,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 {
                     throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found);
                 }
+
                 subMechanismBetaValues[threeKeyIndex] = subMechanismBeta;
             }
         }
@@ -301,8 +303,10 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                         rootIllustrationPoints[CreateFaultTreeKey(windDirectionClosingSituation)] = illustrationPointTreeNode;
                     }
                 }
+
                 return rootIllustrationPoints;
             }
+
             return null;
         }
 
@@ -344,6 +348,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                                 type == "faulttree" ? typeof(FaultTreeIllustrationPoint) : typeof(SubMechanismIllustrationPoint),
                                 combine == "and" ? CombinationType.And : CombinationType.Or));
             }
+
             return results;
         }
 
@@ -378,6 +383,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 AddRange(faultTreeIllustrationPointStochasts, faultTreeStochasts[dataKey]);
             }
+
             var illustrationPoint = new FaultTreeIllustrationPoint(faultTrees[faultTreeId],
                                                                    faultTreeBetaValues[dataKey],
                                                                    faultTreeIllustrationPointStochasts,
@@ -409,6 +415,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 AddRange(illustrationPointStochasts, subMechanismStochasts[dataKey]);
             }
+
             if (subMechanismResults.ContainsKey(dataKey))
             {
                 AddRange(illustrationPointResults, subMechanismResults[dataKey]);
@@ -448,10 +455,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_Multiple_values_for_beta_of_illustration_point_found);
             }
+
             if (betaValues.Length == 0)
             {
                 throw new HydraRingFileParserException(Resources.IllustrationPointsParser_Parse_No_values_for_beta_of_illustration_point_found);
             }
+
             beta = ConvertToDouble(betaValues[0][IllustrationPointsDatabaseConstants.BetaValue],
                                    IllustrationPointsDatabaseConstants.BetaValue);
         }
@@ -471,6 +480,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
             {
                 throw new HydraRingFileParserException(string.Format(Resources.IllustrationPointsParser_Parse_Column_0_is_Null, identifier));
             }
+
             return Convert.ToDouble(doubleValue);
         }
 
@@ -574,10 +584,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers.IllustrationPoints
                 {
                     return false;
                 }
+
                 if (GetType() != obj.GetType())
                 {
                     return false;
                 }
+
                 return Equals((ThreeKeyIndex) obj);
             }
 
