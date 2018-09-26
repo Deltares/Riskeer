@@ -44,6 +44,7 @@ namespace Core.Common.TestUtil
                 {
                     Assert.Fail($"Missing test case for value '{typeof(TEnum)}.{value}'.");
                 }
+
                 Assert.AreEqual(ExpectedValueForEnumValues[value], actual,
                                 $"Value for {value} incorrect.");
             }

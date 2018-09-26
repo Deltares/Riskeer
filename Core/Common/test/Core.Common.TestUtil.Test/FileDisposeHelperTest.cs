@@ -72,6 +72,7 @@ namespace Core.Common.TestUtil.Test
                 File.Delete(filePath);
                 Assert.Fail(exception.Message);
             }
+
             Assert.IsFalse(File.Exists(filePath));
         }
 
@@ -98,6 +99,7 @@ namespace Core.Common.TestUtil.Test
                 File.Delete(filePath);
                 Assert.Fail(exception.Message);
             }
+
             Assert.IsFalse(File.Exists(filePath));
         }
 
@@ -118,7 +120,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_MultipleFiles_CreatesFiles()
         {
             // Setup
-            var filePaths = new[]
+            string[] filePaths =
             {
                 Path.Combine(workingDirectory, $"{nameof(Constructor_MultipleFiles_CreatesFiles)}_0"),
                 Path.Combine(workingDirectory, $"{nameof(Constructor_MultipleFiles_CreatesFiles)}_1")
@@ -159,7 +161,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_FilePathsThatCannotBeCreated_ThrowsArgumentException()
         {
             // Setup
-            var filePaths = new[]
+            string[] filePaths =
             {
                 TestHelper.GetScratchPadPath(Path.Combine("nonExistingPath", "fileThatCannotBeCreated"))
             };
@@ -327,7 +329,7 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_MultipleFiles_DeletesFiles()
         {
             // Setup
-            var filePaths = new[]
+            string[] filePaths =
             {
                 Path.Combine(workingDirectory, $"{nameof(Dispose_MultipleFiles_DeletesFiles)}_0"),
                 Path.Combine(workingDirectory, $"{nameof(Dispose_MultipleFiles_DeletesFiles)}_1")
@@ -429,6 +431,7 @@ namespace Core.Common.TestUtil.Test
             {
                 return false;
             }
+
             return true;
         }
     }

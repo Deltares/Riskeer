@@ -104,9 +104,7 @@ namespace Core.Common.TestUtil.Test
             var comparer = new DoubleWithToleranceComparer(1.1);
 
             // Call
-            int result = castToObject ?
-                             comparer.Compare((object) first, second) :
-                             comparer.Compare(first, second);
+            int result = castToObject ? comparer.Compare((object) first, second) : comparer.Compare(first, second);
 
             // Assert
             Assert.Less(result, 0);
@@ -123,9 +121,7 @@ namespace Core.Common.TestUtil.Test
             var comparer = new DoubleWithToleranceComparer(0.5);
 
             // Call
-            int result = castToObject ?
-                             comparer.Compare((object) first, second) :
-                             comparer.Compare(first, second);
+            int result = castToObject ? comparer.Compare((object) first, second) : comparer.Compare(first, second);
 
             // Assert
             Assert.Greater(result, 0);

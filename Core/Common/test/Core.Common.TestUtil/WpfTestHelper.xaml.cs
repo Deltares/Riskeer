@@ -83,6 +83,7 @@ namespace Core.Common.TestUtil
             {
                 throw new NotImplementedException();
             }
+
             WindowsFormsTestHelper.CloseAll(); // just in case, since we have mixed WPF / WF app
 
             Close();
@@ -147,6 +148,7 @@ namespace Core.Common.TestUtil
                     Content = control
                 };
             }
+
             window.IsVisibleChanged += delegate
             {
                 if (window.IsVisible)

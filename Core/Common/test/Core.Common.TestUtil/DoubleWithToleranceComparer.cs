@@ -44,6 +44,7 @@ namespace Core.Common.TestUtil
             {
                 throw new ArgumentException($"Cannot compare objects other than {typeof(double)} with this comparer.");
             }
+
             return Compare((double) x, (double) y);
         }
 

@@ -77,6 +77,7 @@ namespace Core.Common.Util.Test.IO
                     {
                         File.Delete(filePath1);
                     }
+
                     if (File.Exists(filePath2))
                     {
                         File.Delete(filePath2);

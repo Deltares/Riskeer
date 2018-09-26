@@ -393,6 +393,7 @@ namespace Core.Common.TestUtil.Test
             {
                 // Ignore
             }
+
             Assert.Fail(exception.Message, exception.InnerException);
         }
     }

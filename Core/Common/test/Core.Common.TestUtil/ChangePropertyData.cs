@@ -42,6 +42,7 @@ namespace Core.Common.TestUtil
             {
                 throw new ArgumentNullException(nameof(actionToChangeProperty));
             }
+
             if (propertyName == null)
             {
                 throw new ArgumentNullException(nameof(propertyName));

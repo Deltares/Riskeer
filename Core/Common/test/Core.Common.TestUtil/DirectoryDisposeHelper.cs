@@ -62,6 +62,7 @@ namespace Core.Common.TestUtil
             {
                 throw new ArgumentNullException(nameof(rootFolder));
             }
+
             if (subFolders == null || !subFolders.Any())
             {
                 throw new ArgumentException(@"Must have at least one sub folder.", nameof(subFolders));
@@ -101,6 +102,7 @@ namespace Core.Common.TestUtil
             {
                 throw new InvalidOperationException($"Directory '{rootPathToTemp}' is not locked.");
             }
+
             directoryPermissionsRevoker.Dispose();
         }
 

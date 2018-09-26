@@ -107,6 +107,11 @@ namespace Core.Common.TestUtil
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "MacroStabilityInwards", "test", "Ringtoets.MacroStabilityInwards.IO.Test");
             }
 
+            public static class Migration
+            {
+                public static readonly TestDataPath Core = System.IO.Path.Combine("Ringtoets", "Migration", "test", "Ringtoets.Migration.Core.Test");
+            }
+
             public static class Piping
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Piping", "test", "Ringtoets.Piping.IO.Test");
@@ -125,11 +130,6 @@ namespace Core.Common.TestUtil
             public static class Storage
             {
                 public static readonly TestDataPath Core = System.IO.Path.Combine("Ringtoets", "Storage", "test", "Ringtoets.Storage.Core.Test");
-            }
-
-            public static class Migration
-            {
-                public static readonly TestDataPath Core = System.IO.Path.Combine("Ringtoets", "Migration", "test", "Ringtoets.Migration.Core.Test");
             }
         }
     }
