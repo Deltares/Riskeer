@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <param name="failureMechanismSections">The failure mechanism sections to create presentation
         /// objects for.</param>
         /// <param name="createPresentableFailureMechanismSectionFunc"><see cref="Func{T1,T2,T3,TResult}"/>
-        /// for creating the presentation objects of type <typeparam name="T"/>, in which:
+        /// for creating the presentation objects of type <typeparamref name="T"/>, in which:
         /// <list type="bullet">
         /// <item>T1 represents the failure mechanism section at stake;</item>
         /// <item>T2 represents the start of the section in relation to the beginning of the reference line;</item>
