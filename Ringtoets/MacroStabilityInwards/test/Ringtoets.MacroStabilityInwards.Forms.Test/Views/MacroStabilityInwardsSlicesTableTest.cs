@@ -90,11 +90,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 DataGridViewColumn effectiveStressDailyColumn = table.GetColumnFromIndex(effectiveStressDailyColumnIndex);
                 Assert.AreEqual("Effectieve spanning\r\n(dagelijks)\r\n[kN/m²]", effectiveStressDailyColumn.HeaderText);
                 DataGridViewColumn totalPorePressureColumn = table.GetColumnFromIndex(totalPorePressureColumnIndex);
-                Assert.AreEqual("Totale waterspanning\r\n[kN/m²]", totalPorePressureColumn.HeaderText);
+                Assert.AreEqual("Totale\r\nwaterspanning\r\n[kN/m²]", totalPorePressureColumn.HeaderText);
                 DataGridViewColumn weightColumn = table.GetColumnFromIndex(weightColumnIndex);
                 Assert.AreEqual("Gewicht\r\n[kN/m]", weightColumn.HeaderText);
                 DataGridViewColumn piezometricPorePressureColumn = table.GetColumnFromIndex(piezometricPorePressureColumnIndex);
-                Assert.AreEqual("Piezometrische waterspanning\r\n[kN/m²]", piezometricPorePressureColumn.HeaderText);
+                Assert.AreEqual("Piezometrische\r\nwaterspanning\r\n[kN/m²]", piezometricPorePressureColumn.HeaderText);
                 DataGridViewColumn porePressureColumn = table.GetColumnFromIndex(porePressureColumnIndex);
                 Assert.AreEqual("Waterspanning\r\nop maaiveld\r\n[kN/m²]", porePressureColumn.HeaderText);
                 DataGridViewColumn verticalPorePressureColumn = table.GetColumnFromIndex(verticalPorePressureColumnIndex);

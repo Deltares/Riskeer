@@ -899,12 +899,32 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Piezometrische
+        ///waterspanning.
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_PiezometricPorePressure_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_PiezometricPorePressure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waterspanning
         ///op maaiveld.
         /// </summary>
         public static string MacroStabilityInwardsSlicesTable_PorePressure_DisplayName {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_PorePressure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Totale
+        ///waterspanning.
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_TotalPorePressure_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_TotalPorePressure_DisplayName", resourceCulture);
             }
         }
         

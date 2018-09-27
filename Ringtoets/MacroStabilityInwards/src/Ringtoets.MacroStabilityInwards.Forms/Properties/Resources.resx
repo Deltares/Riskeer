@@ -755,4 +755,12 @@ op maaiveld</value>
     <value>Verticale waterspanning
 op maaiveld</value>
   </data>
+  <data name="MacroStabilityInwardsSlicesTable_PiezometricPorePressure_DisplayName" xml:space="preserve">
+    <value>Piezometrische
+waterspanning</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_TotalPorePressure_DisplayName" xml:space="preserve">
+    <value>Totale
+waterspanning</value>
+  </data>
 </root>

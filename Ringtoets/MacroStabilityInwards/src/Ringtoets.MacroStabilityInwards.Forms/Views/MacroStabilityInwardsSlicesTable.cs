@@ -87,13 +87,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                              $"{Resources.MacroStabilityInwardsSlicesTable_EffectiveStressDaily_DisplayName}\r\n{Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.TotalPorePressure),
-                             $"{Resources.MacroStabilityInwardsSlice_TotalPorePressure_DisplayName}\r\n{Resources.Unit_KiloNewtonPerSquareMeter}",
+                             $"{Resources.MacroStabilityInwardsSlicesTable_TotalPorePressure_DisplayName}\r\n{Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.Weight),
                              $"{Resources.MacroStabilityInwardsSlice_Weight_DisplayName}\r\n{Resources.Unit_KiloNewtonPerMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.PiezometricPorePressure),
-                             $"{Resources.MacroStabilityInwardsSlice_PiezometricPorePressure_DisplayName}\r\n{Resources.Unit_KiloNewtonPerSquareMeter}",
+                             $"{Resources.MacroStabilityInwardsSlicesTable_PiezometricPorePressure_DisplayName}\r\n{Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.PorePressure),
                              $"{Resources.MacroStabilityInwardsSlicesTable_PorePressure_DisplayName}\r\n{Resources.Unit_KiloNewtonPerSquareMeter}",
