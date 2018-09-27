@@ -445,7 +445,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijdrage aan scenario [%].
+        ///   Looks up a localized string similar to Bijdrage aan
+        ///scenario
+        ///[%].
         /// </summary>
         public static string MacroStabilityInwardsCalculationsView_InitializeDataGridView_Contribution {
             get {
@@ -689,7 +691,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans [1/jaar].
+        ///   Looks up a localized string similar to Faalkans
+        ///[1/jaar].
         /// </summary>
         public static string MacroStabilityInwardsScenarioView_MacroStabilityInwardsScenarioRow_MacroStabilityInwardsProbability {
             get {

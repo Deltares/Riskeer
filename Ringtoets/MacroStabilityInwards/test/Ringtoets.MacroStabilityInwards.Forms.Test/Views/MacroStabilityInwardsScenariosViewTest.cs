@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -98,6 +99,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 Assert.AreEqual("This", column.ValueMember);
                 Assert.AreEqual("DisplayName", column.DisplayMember);
+            }
+        }
+
+        [Test]
+        public void Constructor_DataGridViewControlColumnHeadersCorrectlyInitialized_()
+        {
+            // Setup
+            using (ShowMacroStabilityInwardsScenarioView())
+            {
+                // Call
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
+
+                // Assert
+                DataGridViewColumn isRelevantColumn = dataGridViewControl.GetColumnFromIndex(isRelevantColumnIndex);
+                Assert.AreEqual("In oordeel", isRelevantColumn.HeaderText);
+                DataGridViewColumn contributionColumn = dataGridViewControl.GetColumnFromIndex(contributionColumnIndex);
+                Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", contributionColumn.HeaderText);
+                DataGridViewColumn nameColumn = dataGridViewControl.GetColumnFromIndex(nameColumnIndex);
+                Assert.AreEqual("Naam", nameColumn.HeaderText);
+                DataGridViewColumn failureProbabilityColumn = dataGridViewControl.GetColumnFromIndex(failureProbabilityColumnIndex);
+                Assert.AreEqual("Faalkans\r\n[1/jaar]", failureProbabilityColumn.HeaderText);
+
+                Assert.Throws<ArgumentOutOfRangeException>(() => dataGridViewControl.GetColumnFromIndex(failureProbabilityColumnIndex + 1));
             }
         }
 
