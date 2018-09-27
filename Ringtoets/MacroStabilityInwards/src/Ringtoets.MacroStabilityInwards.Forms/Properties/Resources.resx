@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -738,5 +738,21 @@
   </data>
   <data name="MacroStabilityInwardsFailureMechanismProperties_ModelFactor_DisplayName" xml:space="preserve">
     <value>Modelfactor [-]</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_EffectiveStressDaily_DisplayName" xml:space="preserve">
+    <value>Effectieve spanning
+(dagelijks)</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_HorizontalPorePressure_DisplayName" xml:space="preserve">
+    <value>Horizontale waterspanning
+op maaiveld</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_PorePressure_DisplayName" xml:space="preserve">
+    <value>Waterspanning
+op maaiveld</value>
+  </data>
+  <data name="MacroStabilityInwardsSlicesTable_VerticalPorePressure_DisplayName" xml:space="preserve">
+    <value>Verticale waterspanning
+op maaiveld</value>
   </data>
 </root>
