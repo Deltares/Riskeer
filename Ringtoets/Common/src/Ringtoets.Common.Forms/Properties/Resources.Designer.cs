@@ -2095,12 +2095,12 @@ namespace Ringtoets.Common.Forms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 
-        ///Beta = {0}
-        ///Pf = {1}.
+        ///Berekende kans = {0}
+        ///Betrouwbaarheidsindex = {1}.
         /// </summary>
-        public static string GraphNodeConverter_GraphNodeContent_Beta_0_Probability_1 {
+        public static string GraphNodeConverter_GraphNodeContent_Probability_0_Beta_1 {
             get {
-                return ResourceManager.GetString("GraphNodeConverter_GraphNodeContent_Beta_0_Probability_1", resourceCulture);
+                return ResourceManager.GetString("GraphNodeConverter_GraphNodeContent_Probability_0_Beta_1", resourceCulture);
             }
         }
         

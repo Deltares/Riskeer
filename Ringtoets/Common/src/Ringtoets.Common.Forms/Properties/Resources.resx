@@ -1249,10 +1249,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="IllustrationPoint_Result_DisplayName" xml:space="preserve">
     <value>Afgeleide variabelen</value>
   </data>
-  <data name="GraphNodeConverter_GraphNodeContent_Beta_0_Probability_1" xml:space="preserve">
+  <data name="GraphNodeConverter_GraphNodeContent_Probability_0_Beta_1" xml:space="preserve">
     <value>
-Beta = {0}
-Pf = {1}</value>
+Berekende kans = {0}
+Betrouwbaarheidsindex = {1}</value>
   </data>
   <data name="GraphNode_CombinationType_And" xml:space="preserve">
     <value>En</value>
