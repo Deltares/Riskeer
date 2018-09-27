@@ -336,6 +336,16 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to dempingsfactor bij uitredepunt
+        ///[-].
+        /// </summary>
+        public static string PipingCalculationsView_DampingFactorExit_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingCalculationsView_DampingFactorExit_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bijdrage aan
         ///scenario
         ///[%].
@@ -356,12 +366,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aandeel van schematisatie in het stochastische ondergrondmodel [%].
+        ///   Looks up a localized string similar to Aandeel van schematisatie
+        ///in het stochastische ondergrondmodel
+        ///[%].
         /// </summary>
         public static string PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability {
             get {
                 return ResourceManager.GetString("PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" +
                         "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to polderpeil
+        ///[m+NAP].
+        /// </summary>
+        public static string PipingCalculationsView_PhreaticLevelExit_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingCalculationsView_PhreaticLevelExit_DisplayName", resourceCulture);
             }
         }
         

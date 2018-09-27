@@ -394,7 +394,9 @@ scenario
 [%]</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" xml:space="preserve">
-    <value>Aandeel van schematisatie in het stochastische ondergrondmodel [%]</value>
+    <value>Aandeel van schematisatie
+in het stochastische ondergrondmodel
+[%]</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave" xml:space="preserve">
     <value>Kans op
@@ -504,5 +506,13 @@ opbarsten
   </data>
   <data name="PipingSurfaceLineCollection_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd.</value>
+  </data>
+  <data name="PipingCalculationsView_DampingFactorExit_DisplayName" xml:space="preserve">
+    <value>dempingsfactor bij uitredepunt
+[-]</value>
+  </data>
+  <data name="PipingCalculationsView_PhreaticLevelExit_DisplayName" xml:space="preserve">
+    <value>polderpeil
+[m+NAP]</value>
   </data>
 </root>

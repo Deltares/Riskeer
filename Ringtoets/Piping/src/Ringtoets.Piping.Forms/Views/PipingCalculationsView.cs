@@ -231,19 +231,13 @@ namespace Ringtoets.Piping.Forms.Views
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
 
-            string dampingFactorExitHeader = Resources.PipingInput_DampingFactorExit_DisplayName;
-            dampingFactorExitHeader = char.ToLowerInvariant(dampingFactorExitHeader[0]) + dampingFactorExitHeader.Substring(1);
-
             dataGridViewControl.AddTextBoxColumn(
                 nameof(PipingCalculationRow.DampingFactorExitMean),
-                $"{Resources.Probabilistics_Mean_Symbol} {dampingFactorExitHeader}");
-
-            string phreaticLevelExitHeader = Resources.PipingInput_PhreaticLevelExit_DisplayName;
-            phreaticLevelExitHeader = char.ToLowerInvariant(phreaticLevelExitHeader[0]) + phreaticLevelExitHeader.Substring(1);
+                $"{Resources.Probabilistics_Mean_Symbol}\r\n{Resources.PipingCalculationsView_DampingFactorExit_DisplayName}");
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(PipingCalculationRow.PhreaticLevelExitMean),
-                $"{Resources.Probabilistics_Mean_Symbol} {phreaticLevelExitHeader}");
+                $"{Resources.Probabilistics_Mean_Symbol}\r\n{Resources.PipingCalculationsView_PhreaticLevelExit_DisplayName}");
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(PipingCalculationRow.EntryPointL),
