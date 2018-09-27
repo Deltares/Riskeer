@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -2463,6 +2463,27 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle {
             get {
                 return ResourceManager.GetString("IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende kans
+        ///[-].
+        /// </summary>
+        public static string IllustrationPointsTableControl_CalculatedProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPointsTableControl_CalculatedProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex
+        ///berekende kans
+        ///[-].
+        /// </summary>
+        public static string IllustrationPointsTableControl_CalculatedReliability_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPointsTableControl_CalculatedReliability_DisplayName", resourceCulture);
             }
         }
         

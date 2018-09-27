@@ -1482,4 +1482,13 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="SectionStart_Description" xml:space="preserve">
     <value>De afstand tussen het beginpunt van het vak en het begin van het traject, gemeten langs het traject in meters (afgerond).</value>
   </data>
+  <data name="IllustrationPointsTableControl_CalculatedProbability_DisplayName" xml:space="preserve">
+    <value>Berekende kans
+[-]</value>
+  </data>
+  <data name="IllustrationPointsTableControl_CalculatedReliability_DisplayName" xml:space="preserve">
+    <value>Betrouwbaarheidsindex
+berekende kans
+[-]</value>
+  </data>
 </root>
