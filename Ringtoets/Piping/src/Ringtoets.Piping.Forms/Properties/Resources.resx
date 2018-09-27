@@ -389,22 +389,31 @@
     <value>In oordeel</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_Contribution" xml:space="preserve">
-    <value>Bijdrage aan scenario [%]</value>
+    <value>Bijdrage aan
+scenario
+[%]</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" xml:space="preserve">
     <value>Aandeel van schematisatie in het stochastische ondergrondmodel [%]</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave" xml:space="preserve">
-    <value>Kans op heave [1/jaar]</value>
+    <value>Kans op
+heave
+[1/jaar]</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping" xml:space="preserve">
-    <value>Faalkans [1/jaar]</value>
+    <value>Faalkans
+[1/jaar]</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer" xml:space="preserve">
-    <value>Kans op terugschrijdende erosie [1/jaar]</value>
+    <value>Kans op
+terugschrijdende erosie
+[1/jaar]</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift" xml:space="preserve">
-    <value>Kans op opbarsten [1/jaar]</value>
+    <value>Kans op
+opbarsten
+[1/jaar]</value>
   </data>
   <data name="PipingSurfaceLineSelectionDialog_Select_SurfaceLines" xml:space="preserve">
     <value>Selecteer profielschematisaties</value>

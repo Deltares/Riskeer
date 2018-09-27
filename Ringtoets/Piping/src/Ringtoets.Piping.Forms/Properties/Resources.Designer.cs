@@ -336,7 +336,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijdrage aan scenario [%].
+        ///   Looks up a localized string similar to Bijdrage aan
+        ///scenario
+        ///[%].
         /// </summary>
         public static string PipingCalculationsView_InitializeDataGridView_Contribution {
             get {
@@ -968,7 +970,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans op heave [1/jaar].
+        ///   Looks up a localized string similar to Kans op
+        ///heave
+        ///[1/jaar].
         /// </summary>
         public static string PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave {
             get {
@@ -977,7 +981,8 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans [1/jaar].
+        ///   Looks up a localized string similar to Faalkans
+        ///[1/jaar].
         /// </summary>
         public static string PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping {
             get {
@@ -986,7 +991,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans op terugschrijdende erosie [1/jaar].
+        ///   Looks up a localized string similar to Kans op
+        ///terugschrijdende erosie
+        ///[1/jaar].
         /// </summary>
         public static string PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer {
             get {
@@ -995,7 +1002,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans op opbarsten [1/jaar].
+        ///   Looks up a localized string similar to Kans op
+        ///opbarsten
+        ///[1/jaar].
         /// </summary>
         public static string PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift {
             get {
