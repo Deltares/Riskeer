@@ -93,7 +93,6 @@
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Profiel7.prfl" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Profiel8.prfl" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Profiel9.prfl" />
-    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\Readme.rtf" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\vakindeling GEKB traject 12-2.dbf" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\vakindeling GEKB traject 12-2.prj" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Grasbekleding erosie kruin en binnentalud\vakindeling GEKB traject 12-2.shp" />
@@ -103,7 +102,6 @@
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\Configuraties voor profielschematisatie 12_2_00100.xml" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\hlcd.sqlite" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\Ondergrond traject 12_2.soil" />
-    <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\Readme.rtf" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\surfacelines traject 12-2.csv" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\surfacelines traject 12-2.krp.csv" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Dijken en dammen - Piping\vakindeling STPH traject 12-2.dbf" />
@@ -134,7 +132,6 @@
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\kunstwerken 13  6.shp" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Sterkte en stabiliteit puntconstructies\kunstwerken 13  6.shx" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\hlcd.sqlite" />
-    <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\Readme.rtf" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\vakindeling traject 13 6.dbf" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\vakindeling traject 13 6.prj" />
     <Content Include="Examples\Voorbeeld Traject 13-6 - Kunstwerken - Sas sluis\vakindeling traject 13 6.qpj" />
@@ -165,7 +162,6 @@
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Worp.shp" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Sterkte en stabiliteit puntconstructies\Worp.shx" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\hlcd.sqlite" />
-    <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Readme.rtf" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Vakindeling kunstwerken 52-2.dbf" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Vakindeling kunstwerken 52-2.prj" />
     <Content Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Vakindeling kunstwerken 52-2.qpj" />
@@ -179,7 +175,6 @@
     <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\dam1Voorland0.prfl" />
     <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\dam1Voorland1.prfl" />
     <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\hlcd.sqlite" />
-    <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\Readme.rtf" />
     <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\voorlandprofielen.dbf" />
     <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\voorlandprofielen.prj" />
     <Content Include="Examples\Voorbeeld Traject 6-3 - Hydraulische belastingen voor bekledingen\voorlandprofielen.qpj" />
