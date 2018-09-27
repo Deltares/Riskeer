@@ -465,7 +465,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aandeel van schematisatie in het stochastische ondergrondmodel [%].
+        ///   Looks up a localized string similar to Aandeel van schematisatie
+        ///in het stochastische ondergrondmodel
+        ///[%].
         /// </summary>
         public static string MacroStabilityInwardsCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability {
             get {

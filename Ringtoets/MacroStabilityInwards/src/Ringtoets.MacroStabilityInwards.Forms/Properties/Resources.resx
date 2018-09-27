@@ -193,7 +193,9 @@ scenario
 [%]</value>
   </data>
   <data name="MacroStabilityInwardsCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" xml:space="preserve">
-    <value>Aandeel van schematisatie in het stochastische ondergrondmodel [%]</value>
+    <value>Aandeel van schematisatie
+in het stochastische ondergrondmodel
+[%]</value>
   </data>
   <data name="MacroStabilityInwardsScenarioView_MacroStabilityInwardsScenarioRow_MacroStabilityInwardsProbability" xml:space="preserve">
     <value>Faalkans

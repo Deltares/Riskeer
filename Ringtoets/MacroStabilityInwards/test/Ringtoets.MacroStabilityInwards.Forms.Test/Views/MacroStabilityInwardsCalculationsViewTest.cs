@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -97,6 +98,31 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
                 DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
                 Assert.AreEqual(0, hydraulicBoundaryLocationComboboxItems.Count); // Row dependent
+            }
+        }
+
+        [Test]
+        public void Constructor_DataGridViewControlColumnHeadersCorrectlyInitialized_()
+        {
+            // Setup
+            using (ShowMacroStabilityInwardsCalculationsView())
+            {
+                // Call
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
+
+                // Assert
+                DataGridViewColumn nameColumn = dataGridViewControl.GetColumnFromIndex(nameColumnIndex);
+                Assert.AreEqual("Naam", nameColumn.HeaderText);
+                DataGridViewColumn stochasticSoilModelsColumn = dataGridViewControl.GetColumnFromIndex(stochasticSoilModelsColumnIndex);
+                Assert.AreEqual("Stochastisch ondergrondmodel", stochasticSoilModelsColumn.HeaderText);
+                DataGridViewColumn stochasticSoilProfilesColumn = dataGridViewControl.GetColumnFromIndex(stochasticSoilProfilesColumnIndex);
+                Assert.AreEqual("Ondergrondschematisatie", stochasticSoilProfilesColumn.HeaderText);
+                DataGridViewColumn stochasticSoilProfilesProbabilityColumn = dataGridViewControl.GetColumnFromIndex(stochasticSoilProfilesProbabilityColumnIndex);
+                Assert.AreEqual("Aandeel van schematisatie\r\nin het stochastische ondergrondmodel\r\n[%]", stochasticSoilProfilesProbabilityColumn.HeaderText);
+                DataGridViewColumn hydraulicBoundaryLocationColumn = dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationsColumnIndex);
+                Assert.AreEqual("Hydraulische belastingenlocatie", hydraulicBoundaryLocationColumn.HeaderText);
+
+                Assert.Throws<ArgumentOutOfRangeException>(() => dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationsColumnIndex + 1));
             }
         }
 
