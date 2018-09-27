@@ -29,18 +29,18 @@ namespace Ringtoets.Common.Util.Test
     public class RingtoetsVersionHelperTest
     {
         [Test]
-        public void GetCurrentDatabaseversion_ReturnsExpectedValue()
+        public void GetCurrentDatabaseVersion_ReturnsExpectedValue()
         {
             // Call
             string currentVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Assert
-            Assert.AreEqual("18.1", currentVersion);
+            Assert.AreEqual("18.2", currentVersion);
         }
 
         [Test]
         [TestCase("9000.0")]
-        [TestCase("18.2")]
+        [TestCase("18.3")]
         public void IsNewerThanCurrentString_NewerVersion_ReturnsTrue(string newerVersion)
         {
             // Call
@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Util.Test
 
         [Test]
         [TestCase("5")]
-        [TestCase("17.3")]
+        [TestCase("18.1")]
         public void IsNewerThanCurrentString_OlderVersion_ReturnsFalse(string olderVersion)
         {
             // Call
@@ -139,7 +139,8 @@ namespace Ringtoets.Common.Util.Test
                 new TestCaseData("17.1"),
                 new TestCaseData("17.2"),
                 new TestCaseData("17.3"),
-                new TestCaseData("18.1")
+                new TestCaseData("18.1"),
+                new TestCaseData("18.2")
             };
         }
 

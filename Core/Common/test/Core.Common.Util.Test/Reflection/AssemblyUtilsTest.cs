@@ -74,7 +74,7 @@ namespace Core.Common.Util.Test.Reflection
             Assert.IsEmpty(assemblyInfo.Description);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Product);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Title);
-            StringAssert.StartsWith("18.1.1.", assemblyInfo.Version);
+            StringAssert.StartsWith("18.2.1.", assemblyInfo.Version);
         }
 
         [Test]

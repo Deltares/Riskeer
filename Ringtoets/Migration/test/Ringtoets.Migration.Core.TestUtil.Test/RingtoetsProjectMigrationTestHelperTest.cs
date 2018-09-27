@@ -95,7 +95,8 @@ namespace Ringtoets.Migration.Core.TestUtil.Test
                 "5",
                 "17.1",
                 "17.2",
-                "17.3"
+                "17.3",
+                "18.1"
             };
             CollectionAssert.AreEqual(expectedProjectVersions, returnedProjectVersions);
         }

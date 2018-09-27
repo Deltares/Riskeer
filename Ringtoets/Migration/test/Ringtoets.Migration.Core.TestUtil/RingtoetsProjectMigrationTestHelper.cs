@@ -71,6 +71,7 @@ namespace Ringtoets.Migration.Core.TestUtil
             yield return "171";
             yield return "172";
             yield return "173";
+            yield return "181";
         }
 
         /// <summary>
