@@ -36,6 +36,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         : VariationCoefficientDistributionPropertiesBase<TDistribution>
         where TDistribution : IVariationCoefficientDistribution
     {
+        private readonly VariationCoefficientDesignVariable<TDistribution> designVariable;
+
         /// <summary>
         /// Creates a new <see cref="VariationCoefficientDesignVariableProperties{TDistribution}"/>.
         /// </summary>
@@ -49,7 +51,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                                                                IObservablePropertyChangeHandler handler)
             : base(propertiesReadOnly, GetDistribution(designVariable), handler)
         {
-            DesignVariable = designVariable;
+            this.designVariable = designVariable;
         }
 
         [PropertyOrder(5)]
@@ -59,7 +61,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return DesignVariable.GetDesignValue();
+                return designVariable.GetDesignValue();
             }
         }
 
@@ -70,11 +72,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                                  Mean,
                                  CoefficientOfVariation);
         }
-
-        /// <summary>
-        /// Gets the design variable.
-        /// </summary>
-        private VariationCoefficientDesignVariable<TDistribution> DesignVariable { get; }
 
         /// <summary>
         /// Gets the <see cref="TDistribution"/> of the <see cref="DesignVariable{T}"/>.

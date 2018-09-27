@@ -155,9 +155,6 @@ namespace Ringtoets.Common.Forms.Views
             HandlePossibleOutdatedIllustrationPointsSelection();
         }
 
-        /// <summary>
-        /// Updates the state of the calculation button and the corresponding error provider.
-        /// </summary>
         private void UpdateCalculateForSelectedButton()
         {
             string validationText = ValidateCalculatableObjects();
