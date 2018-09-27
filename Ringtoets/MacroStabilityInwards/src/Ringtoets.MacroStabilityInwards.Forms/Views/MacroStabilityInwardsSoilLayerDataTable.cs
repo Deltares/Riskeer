@@ -62,31 +62,31 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                               Resources.MacroStabilityInwardsSoilLayerData_IsAquifer_DisplayName,
                               true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.AbovePhreaticLevel),
-                             $"{Resources.MacroStabilityInwardsSoilLayerData_AbovePhreaticLevel_DisplayName} {Resources.Unit_KiloNewtonPerCubicMeter}",
+                             $"{Resources.MacroStabilityInwardsSoilLayerData_AbovePhreaticLevel_DisplayName}\r\n{Resources.Unit_KiloNewtonPerCubicMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.BelowPhreaticLevel),
-                             $"{Resources.MacroStabilityInwardsSoilLayerData_BelowPhreaticLevel_DisplayName} {Resources.Unit_KiloNewtonPerCubicMeter}",
+                             $"{Resources.MacroStabilityInwardsSoilLayerData_BelowPhreaticLevel_DisplayName}\r\n{Resources.Unit_KiloNewtonPerCubicMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthModel),
                              Resources.MacroStabilityInwardsSoilLayerData_ShearStrengthModel_DisplayName,
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.Cohesion),
-                             $"{Resources.Cohesion_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
+                             $"{Resources.Cohesion_DisplayName}\r\n{Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.FrictionAngle),
-                             $"{Resources.FrictionAngle_DisplayName} {Resources.Unit_Degree}",
+                             $"{Resources.FrictionAngle_DisplayName}\r\n{Resources.Unit_Degree}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.ShearStrengthRatio),
-                             $"{Resources.MacroStabilityInwardsSoilLayerData_ShearStrengthRatio_DisplayName} {Resources.Unit_None}",
+                             $"{Resources.MacroStabilityInwardsSoilLayerData_ShearStrengthRatio_DisplayName}\r\n{Resources.Unit_None}",
                              true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.StrengthIncreaseExponent),
-                             $"{Resources.MacroStabilityInwardsSoilLayerData_StrengthIncreaseExponent_DisplayName} {Resources.Unit_None}",
+                             $"{Resources.MacroStabilityInwardsSoilLayerData_StrengthIncreaseExponent_DisplayName}\r\n{Resources.Unit_None}",
                              true);
             AddCheckBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.UsePop),
                               Resources.MacroStabilityInwardsSoilLayerData_UsePop_DisplayName,
                               true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsFormattedSoilLayerDataRow.Pop),
-                             $"{Resources.Pop_DisplayName} {Resources.Unit_KiloNewtonPerSquareMeter}",
+                             $"{Resources.Pop_DisplayName}\r\n{Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
         }
     }
