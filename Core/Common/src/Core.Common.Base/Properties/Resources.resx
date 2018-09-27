@@ -172,7 +172,7 @@
     <value>De tekst mag niet leeg zijn.</value>
   </data>
   <data name="Activity_Finish_ActivityDescription_0_has_been_skipped" xml:space="preserve">
-    <value>{0} is overgeslagen.</value>
+    <value>{0} is reeds voltooid.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Fout</value>
