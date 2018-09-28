@@ -151,7 +151,7 @@ namespace Application.Ringtoets
                 SupportEmailAddress = "www.helpdeskwater.nl",
                 SupportPhoneNumber = "+31 (0)88-797 7102",
                 MainWindowTitle = "Ringtoets",
-                ManualFilePath = "..\\Gebruikershandleiding Ringtoets 17.3.1.pdf"
+                ManualFilePath = "..\\Gebruikershandleiding Ringtoets 18.1.1.pdf"
             };
             var mainWindow = new MainWindow();
             var projectMigrator = new RingtoetsProjectMigrator(new DialogBasedInquiryHelper(mainWindow));
