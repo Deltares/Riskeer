@@ -103,6 +103,12 @@
   <ItemGroup>
     <EmbeddedResource Include="EmbeddedResources\DatabaseStructure18.1.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EmbeddedResources\DatabaseStructure18.2.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EmbeddedResources\Migration_18.1_18.2.sql" />
+  </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

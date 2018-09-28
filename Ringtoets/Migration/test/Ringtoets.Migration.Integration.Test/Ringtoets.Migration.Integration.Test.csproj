@@ -17,6 +17,7 @@
     <Compile Include="MigrationIntegrationTest.cs" />
     <Compile Include="MigrationTo171IntegrationTest.cs" />
     <Compile Include="MigrationTo172IntegrationTest.cs" />
+    <Compile Include="MigrationTo182IntegrationTest.cs" />
     <Compile Include="MigrationTo173IntegrationTest.cs" />
     <Compile Include="MigrationTo181IntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

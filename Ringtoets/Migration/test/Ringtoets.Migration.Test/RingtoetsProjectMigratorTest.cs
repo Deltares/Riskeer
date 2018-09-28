@@ -517,6 +517,8 @@ namespace Ringtoets.Migration.Test
                 migrationLog.AppendLine("  + Toetsspoor: 'Duinafslag'");
                 migrationLog.AppendLine("    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
                 migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("Gevolgen van de migratie van versie 18.1 naar versie 18.2:");
+                migrationLog.AppendLine("* Geen aanpassingen.");
 
                 Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
                 {
