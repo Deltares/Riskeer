@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -113,25 +112,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (ShowPipingScenarioView())
             {
                 // Call
-                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
-                DataGridViewColumn isRelevantColumn = dataGridViewControl.GetColumnFromIndex(isRelevantColumnIndex);
-                Assert.AreEqual("In oordeel", isRelevantColumn.HeaderText);
-                DataGridViewColumn contributionColumn = dataGridViewControl.GetColumnFromIndex(contributionColumnIndex);
-                Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", contributionColumn.HeaderText);
-                DataGridViewColumn nameColumn = dataGridViewControl.GetColumnFromIndex(nameColumnIndex);
-                Assert.AreEqual("Naam", nameColumn.HeaderText);
-                DataGridViewColumn failureProbabilityPipingColumn = dataGridViewControl.GetColumnFromIndex(failureProbabilityPipingColumnIndex);
-                Assert.AreEqual("Faalkans\r\n[1/jaar]", failureProbabilityPipingColumn.HeaderText);
-                DataGridViewColumn failureProbabilityUpliftColumn = dataGridViewControl.GetColumnFromIndex(failureProbabilityUpliftColumnIndex);
-                Assert.AreEqual("Kans op\r\nopbarsten\r\n[1/jaar]", failureProbabilityUpliftColumn.HeaderText);
-                DataGridViewColumn failureProbabilityHeaveColumn = dataGridViewControl.GetColumnFromIndex(failureProbabilityHeaveColumnIndex);
-                Assert.AreEqual("Kans op\r\nheave\r\n[1/jaar]", failureProbabilityHeaveColumn.HeaderText);
-                DataGridViewColumn failureProbabilitySellmeijerColumn = dataGridViewControl.GetColumnFromIndex(failureProbabilitySellmeijerColumnIndex);
-                Assert.AreEqual("Kans op\r\nterugschrijdende erosie\r\n[1/jaar]", failureProbabilitySellmeijerColumn.HeaderText);
-
-                Assert.Throws<ArgumentOutOfRangeException>(() => dataGridViewControl.GetColumnFromIndex(failureProbabilitySellmeijerColumnIndex + 1));
+                Assert.AreEqual(7, dataGridView.ColumnCount);
+                Assert.AreEqual("In oordeel", dataGridView.Columns[isRelevantColumnIndex].HeaderText);
+                Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);
+                Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
+                Assert.AreEqual("Faalkans\r\n[1/jaar]", dataGridView.Columns[failureProbabilityPipingColumnIndex].HeaderText);
+                Assert.AreEqual("Kans op\r\nopbarsten\r\n[1/jaar]", dataGridView.Columns[failureProbabilityUpliftColumnIndex].HeaderText);
+                Assert.AreEqual("Kans op\r\nheave\r\n[1/jaar]", dataGridView.Columns[failureProbabilityHeaveColumnIndex].HeaderText);
+                Assert.AreEqual("Kans op\r\nterugschrijdende erosie\r\n[1/jaar]", dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].HeaderText);
             }
         }
 
