@@ -220,8 +220,8 @@ namespace Ringtoets.Common.Forms.Test.Factories
 
             return $"<text><bold>{name}</bold>{Environment.NewLine}" +
                    $"{Environment.NewLine}" +
-                   $"Beta = {roundedBeta}{Environment.NewLine}" +
-                   $"Pf = {probability}</text>";
+                   $"Berekende kans = {probability}{Environment.NewLine}" +
+                   $"Betrouwbaarheidsindex = {roundedBeta}</text>";
         }
 
         private static string CreateExpectedGraphConnectingNodeContent(CombinationType combinationType)

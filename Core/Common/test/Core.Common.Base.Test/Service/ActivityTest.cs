@@ -115,7 +115,7 @@ namespace Core.Common.Base.Test.Service
         [Test]
         [TestCase(ActivityState.Failed, "Uitvoeren van berekening is mislukt.")]
         [TestCase(ActivityState.Canceled, "Uitvoeren van berekening is geannuleerd.")]
-        [TestCase(ActivityState.Skipped, "Uitvoeren van berekening is overgeslagen.")]
+        [TestCase(ActivityState.Skipped, "Uitvoeren van berekening is reeds voltooid.")]
         [TestCase(ActivityState.Executed, "Uitvoeren van berekening is gelukt.")]
         public void LogState_ActivityWithSpecificState_MessageIsSendToLog(ActivityState state, string message)
         {

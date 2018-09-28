@@ -389,22 +389,33 @@
     <value>In oordeel</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_Contribution" xml:space="preserve">
-    <value>Bijdrage aan scenario [%]</value>
+    <value>Bijdrage aan
+scenario
+[%]</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" xml:space="preserve">
-    <value>Aandeel van schematisatie in het stochastische ondergrondmodel [%]</value>
+    <value>Aandeel van schematisatie
+in het stochastische ondergrondmodel
+[%]</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave" xml:space="preserve">
-    <value>Kans op heave [1/jaar]</value>
+    <value>Kans op
+heave
+[1/jaar]</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping" xml:space="preserve">
-    <value>Faalkans [1/jaar]</value>
+    <value>Faalkans
+[1/jaar]</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer" xml:space="preserve">
-    <value>Kans op terugschrijdende erosie [1/jaar]</value>
+    <value>Kans op
+terugschrijdende erosie
+[1/jaar]</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift" xml:space="preserve">
-    <value>Kans op opbarsten [1/jaar]</value>
+    <value>Kans op
+opbarsten
+[1/jaar]</value>
   </data>
   <data name="PipingSurfaceLineSelectionDialog_Select_SurfaceLines" xml:space="preserve">
     <value>Selecteer profielschematisaties</value>
@@ -452,33 +463,56 @@
     <value>Kleur</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_Top" xml:space="preserve">
-    <value>Topniveau [m+NAP]</value>
+    <value>Topniveau
+[m+NAP]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_IsAquifer" xml:space="preserve">
     <value>Is aquifer</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_PermeabilityMean" xml:space="preserve">
-    <value>Doorlatendheid (verwachtingswaarde) [m/s]</value>
+    <value>Doorlatendheid
+(verwachtingswaarde)
+[m/s]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_PermeabilityCoefficientOfVariation" xml:space="preserve">
-    <value>Doorlatendheid (variatiecoëfficiënt) [-]</value>
+    <value>Doorlatendheid
+(variatiecoëfficiënt)
+[-]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_DiameterD70Mean" xml:space="preserve">
-    <value>d70 (verwachtingswaarde) [m]</value>
+    <value>d70
+(verwachtingswaarde)
+[m]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_DiameterD70CoefficientOfVariation" xml:space="preserve">
-    <value>d70 (variatiecoëfficiënt) [-]</value>
+    <value>d70
+(variatiecoëfficiënt)
+[-]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelMean" xml:space="preserve">
-    <value>Verzadigd gewicht (verwachtingswaarde) [kN/m³]</value>
+    <value>Verzadigd gewicht
+(verwachtingswaarde)
+[kN/m³]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelDeviation" xml:space="preserve">
-    <value>Verzadigd gewicht (standaardafwijking) [kN/m³]</value>
+    <value>Verzadigd gewicht
+(standaardafwijking)
+[kN/m³]</value>
   </data>
   <data name="PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelShift" xml:space="preserve">
-    <value>Verzadigd gewicht (verschuiving) [kN/m³]</value>
+    <value>Verzadigd gewicht
+(verschuiving)
+[kN/m³]</value>
   </data>
   <data name="PipingSurfaceLineCollection_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd.</value>
+  </data>
+  <data name="PipingCalculationsView_DampingFactorExit_DisplayName" xml:space="preserve">
+    <value>dempingsfactor bij uitredepunt
+[-]</value>
+  </data>
+  <data name="PipingCalculationsView_PhreaticLevelExit_DisplayName" xml:space="preserve">
+    <value>polderpeil
+[m+NAP]</value>
   </data>
 </root>

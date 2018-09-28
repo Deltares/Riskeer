@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -336,7 +336,19 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijdrage aan scenario [%].
+        ///   Looks up a localized string similar to dempingsfactor bij uitredepunt
+        ///[-].
+        /// </summary>
+        public static string PipingCalculationsView_DampingFactorExit_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingCalculationsView_DampingFactorExit_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bijdrage aan
+        ///scenario
+        ///[%].
         /// </summary>
         public static string PipingCalculationsView_InitializeDataGridView_Contribution {
             get {
@@ -354,12 +366,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aandeel van schematisatie in het stochastische ondergrondmodel [%].
+        ///   Looks up a localized string similar to Aandeel van schematisatie
+        ///in het stochastische ondergrondmodel
+        ///[%].
         /// </summary>
         public static string PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability {
             get {
                 return ResourceManager.GetString("PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" +
                         "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to polderpeil
+        ///[m+NAP].
+        /// </summary>
+        public static string PipingCalculationsView_PhreaticLevelExit_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingCalculationsView_PhreaticLevelExit_DisplayName", resourceCulture);
             }
         }
         
@@ -968,7 +992,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans op heave [1/jaar].
+        ///   Looks up a localized string similar to Kans op
+        ///heave
+        ///[1/jaar].
         /// </summary>
         public static string PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave {
             get {
@@ -977,7 +1003,8 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans [1/jaar].
+        ///   Looks up a localized string similar to Faalkans
+        ///[1/jaar].
         /// </summary>
         public static string PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping {
             get {
@@ -986,7 +1013,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans op terugschrijdende erosie [1/jaar].
+        ///   Looks up a localized string similar to Kans op
+        ///terugschrijdende erosie
+        ///[1/jaar].
         /// </summary>
         public static string PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer {
             get {
@@ -995,7 +1024,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans op opbarsten [1/jaar].
+        ///   Looks up a localized string similar to Kans op
+        ///opbarsten
+        ///[1/jaar].
         /// </summary>
         public static string PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift {
             get {
@@ -1004,7 +1035,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verzadigd gewicht (standaardafwijking) [kN/m³].
+        ///   Looks up a localized string similar to Verzadigd gewicht
+        ///(standaardafwijking)
+        ///[kN/m³].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelDeviation {
             get {
@@ -1013,7 +1046,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verzadigd gewicht (verwachtingswaarde) [kN/m³].
+        ///   Looks up a localized string similar to Verzadigd gewicht
+        ///(verwachtingswaarde)
+        ///[kN/m³].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelMean {
             get {
@@ -1022,7 +1057,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verzadigd gewicht (verschuiving) [kN/m³].
+        ///   Looks up a localized string similar to Verzadigd gewicht
+        ///(verschuiving)
+        ///[kN/m³].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_BelowPhreaticLevelShift {
             get {
@@ -1040,7 +1077,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to d70 (variatiecoëfficiënt) [-].
+        ///   Looks up a localized string similar to d70
+        ///(variatiecoëfficiënt)
+        ///[-].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_DiameterD70CoefficientOfVariation {
             get {
@@ -1049,7 +1088,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to d70 (verwachtingswaarde) [m].
+        ///   Looks up a localized string similar to d70
+        ///(verwachtingswaarde)
+        ///[m].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_DiameterD70Mean {
             get {
@@ -1076,7 +1117,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doorlatendheid (variatiecoëfficiënt) [-].
+        ///   Looks up a localized string similar to Doorlatendheid
+        ///(variatiecoëfficiënt)
+        ///[-].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_PermeabilityCoefficientOfVariation {
             get {
@@ -1085,7 +1128,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doorlatendheid (verwachtingswaarde) [m/s].
+        ///   Looks up a localized string similar to Doorlatendheid
+        ///(verwachtingswaarde)
+        ///[m/s].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_PermeabilityMean {
             get {
@@ -1094,7 +1139,8 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Topniveau [m+NAP].
+        ///   Looks up a localized string similar to Topniveau
+        ///[m+NAP].
         /// </summary>
         public static string PipingSoilLayerTable_ColumnHeader_Top {
             get {
