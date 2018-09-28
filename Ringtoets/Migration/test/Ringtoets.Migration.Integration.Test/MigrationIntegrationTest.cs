@@ -24,6 +24,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Util;
 using Ringtoets.Migration.Core;
 using Ringtoets.Migration.Core.TestUtil;
 
@@ -32,7 +33,7 @@ namespace Ringtoets.Migration.Integration.Test
     [TestFixture]
     public class MigrationIntegrationTest
     {
-        private const string latestVersion = "18.1";
+        private readonly string latestVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core);
 
         [Test]
@@ -101,7 +102,7 @@ namespace Ringtoets.Migration.Integration.Test
                 using (var reader = new MigrationLogDatabaseReader(logFilePath))
                 {
                     ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-                    Assert.AreEqual(8, messages.Count);
+                    Assert.AreEqual(10, messages.Count);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                         new MigrationLogMessage("5", "17.1", "Gevolgen van de migratie van versie 16.4 naar versie 17.1:"),
                         messages[0]);
@@ -121,11 +122,17 @@ namespace Ringtoets.Migration.Integration.Test
                         new MigrationLogMessage("17.2", "17.3", "* Geen aanpassingen."),
                         messages[5]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.3", latestVersion, $"Gevolgen van de migratie van versie 17.3 naar versie {latestVersion}:"),
+                        new MigrationLogMessage("17.3", "18.1", "Gevolgen van de migratie van versie 17.3 naar versie 18.1:"),
                         messages[6]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("17.3", latestVersion, "* Geen aanpassingen."),
+                        new MigrationLogMessage("17.3", "18.1", "* Geen aanpassingen."),
                         messages[7]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("18.1", latestVersion, $"Gevolgen van de migratie van versie 18.1 naar versie {latestVersion}:"),
+                        messages[8]);
+                    MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                        new MigrationLogMessage("18.1", latestVersion, "* Geen aanpassingen."),
+                        messages[9]);
                 }
             }
         }
@@ -145,6 +152,7 @@ namespace Ringtoets.Migration.Integration.Test
             yield return new FileToMigrate("Empty valid Release 17.1.rtd", "17.2");
             yield return new FileToMigrate("Empty valid Release 17.2.rtd", "17.3");
             yield return new FileToMigrate("Empty valid Release 17.3.rtd", "18.1");
+            yield return new FileToMigrate("Empty valid Release 18.1.rtd", "18.2");
         }
 
         private class FileToMigrate
