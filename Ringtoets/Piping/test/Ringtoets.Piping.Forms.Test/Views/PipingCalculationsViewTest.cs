@@ -109,13 +109,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         public void Constructor_DataGridViewControlColumnHeadersCorrectlyInitialized_()
         {
-            // Setup
+            // Call
             using (ShowPipingCalculationsView())
             {
-                // Call
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
                 // Assert
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 Assert.AreEqual(9, dataGridView.ColumnCount);
                 Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Stochastisch ondergrondmodel", dataGridView.Columns[stochasticSoilModelsColumnIndex].HeaderText);

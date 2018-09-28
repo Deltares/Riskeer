@@ -104,13 +104,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         [Test]
         public void Constructor_DataGridViewControlColumnHeadersCorrectlyInitialized_()
         {
-            // Setup
+            // Call
             using (ShowMacroStabilityInwardsScenarioView())
             {
-                // Call
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
                 // Assert
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 Assert.AreEqual(4, dataGridView.ColumnCount);
                 Assert.AreEqual("In oordeel", dataGridView.Columns[isRelevantColumnIndex].HeaderText);
                 Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);

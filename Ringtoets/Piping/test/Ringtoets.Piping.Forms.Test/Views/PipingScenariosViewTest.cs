@@ -108,13 +108,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         public void Constructor_DataGridViewControlColumnHeadersCorrectlyInitialized_()
         {
-            // Setup
+            // Call
             using (ShowPipingScenarioView())
             {
-                // Call
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
                 // Assert
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 Assert.AreEqual(7, dataGridView.ColumnCount);
                 Assert.AreEqual("In oordeel", dataGridView.Columns[isRelevantColumnIndex].HeaderText);
                 Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);
