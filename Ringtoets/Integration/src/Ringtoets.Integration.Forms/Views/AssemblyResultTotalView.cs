@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.CategoryGroup),
-                                                 RingtoetsCommonFormsResources.AssemblyCategory_Group_DisplayName,
+                                                 Resources.AssemblyResultTotalView_CategoryGroup_DisplayName,
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.Probability),

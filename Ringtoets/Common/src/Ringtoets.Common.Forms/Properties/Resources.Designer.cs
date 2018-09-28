@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -2095,12 +2095,12 @@ namespace Ringtoets.Common.Forms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to 
-        ///Beta = {0}
-        ///Pf = {1}.
+        ///Berekende kans = {0}
+        ///Betrouwbaarheidsindex = {1}.
         /// </summary>
-        public static string GraphNodeConverter_GraphNodeContent_Beta_0_Probability_1 {
+        public static string GraphNodeConverter_GraphNodeContent_Probability_0_Beta_1 {
             get {
-                return ResourceManager.GetString("GraphNodeConverter_GraphNodeContent_Beta_0_Probability_1", resourceCulture);
+                return ResourceManager.GetString("GraphNodeConverter_GraphNodeContent_Probability_0_Beta_1", resourceCulture);
             }
         }
         
@@ -2463,6 +2463,27 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle {
             get {
                 return ResourceManager.GetString("IllustrationPointsChartControl_StackChartControl_VerticalAxisTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende kans
+        ///[-].
+        /// </summary>
+        public static string IllustrationPointsTableControl_CalculatedProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPointsTableControl_CalculatedProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex
+        ///berekende kans
+        ///[-].
+        /// </summary>
+        public static string IllustrationPointsTableControl_CalculatedReliability_DisplayName {
+            get {
+                return ResourceManager.GetString("IllustrationPointsTableControl_CalculatedReliability_DisplayName", resourceCulture);
             }
         }
         

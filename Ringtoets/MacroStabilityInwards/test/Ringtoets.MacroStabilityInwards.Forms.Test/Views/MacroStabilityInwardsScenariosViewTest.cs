@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -98,6 +98,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 Assert.AreEqual("This", column.ValueMember);
                 Assert.AreEqual("DisplayName", column.DisplayMember);
+            }
+        }
+
+        [Test]
+        public void Constructor_DataGridViewControlColumnHeadersCorrectlyInitialized_()
+        {
+            // Call
+            using (ShowMacroStabilityInwardsScenarioView())
+            {
+                // Assert
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                Assert.AreEqual(4, dataGridView.ColumnCount);
+                Assert.AreEqual("In oordeel", dataGridView.Columns[isRelevantColumnIndex].HeaderText);
+                Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);
+                Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
+                Assert.AreEqual("Faalkans\r\n[1/jaar]", dataGridView.Columns[failureProbabilityColumnIndex].HeaderText);
             }
         }
 

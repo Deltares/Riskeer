@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -63,23 +63,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 DataGridViewColumn isAquiferColumn = table.GetColumnFromIndex(isAquiferColumnIndex);
                 Assert.AreEqual("Is aquifer", isAquiferColumn.HeaderText);
                 DataGridViewColumn abovePhreaticLevelColumn = table.GetColumnFromIndex(abovePhreaticLevelColumnIndex);
-                Assert.AreEqual("Onverzadigd gewicht [kN/m³]", abovePhreaticLevelColumn.HeaderText);
+                Assert.AreEqual("Onverzadigd gewicht\r\n[kN/m³]", abovePhreaticLevelColumn.HeaderText);
                 DataGridViewColumn belowPhreaticLevelColumn = table.GetColumnFromIndex(belowPhreaticLevelColumnIndex);
-                Assert.AreEqual("Verzadigd gewicht [kN/m³]", belowPhreaticLevelColumn.HeaderText);
+                Assert.AreEqual("Verzadigd gewicht\r\n[kN/m³]", belowPhreaticLevelColumn.HeaderText);
                 DataGridViewColumn shearStrengthModelColumn = table.GetColumnFromIndex(shearStrengthModelColumnIndex);
                 Assert.AreEqual("Schuifsterkte model", shearStrengthModelColumn.HeaderText);
                 DataGridViewColumn cohesionColumn = table.GetColumnFromIndex(cohesionColumnIndex);
-                Assert.AreEqual("Cohesie [kN/m²]", cohesionColumn.HeaderText);
+                Assert.AreEqual("Cohesie\r\n[kN/m²]", cohesionColumn.HeaderText);
                 DataGridViewColumn frictionAngleColumn = table.GetColumnFromIndex(frictionAngleColumnIndex);
-                Assert.AreEqual("Wrijvingshoek [°]", frictionAngleColumn.HeaderText);
+                Assert.AreEqual("Wrijvingshoek\r\n[°]", frictionAngleColumn.HeaderText);
                 DataGridViewColumn shrearStrengthRatioColumn = table.GetColumnFromIndex(shrearStrengthRatioColumnIndex);
-                Assert.AreEqual("Schuifsterkte ratio (S) [-]", shrearStrengthRatioColumn.HeaderText);
+                Assert.AreEqual("Schuifsterkte ratio (S)\r\n[-]", shrearStrengthRatioColumn.HeaderText);
                 DataGridViewColumn strengthIncreaseExponentColumn = table.GetColumnFromIndex(strengthIncreaseExponentColumnIndex);
-                Assert.AreEqual("Sterkte toename exp (m) [-]", strengthIncreaseExponentColumn.HeaderText);
+                Assert.AreEqual("Sterkte toename exp (m)\r\n[-]", strengthIncreaseExponentColumn.HeaderText);
                 DataGridViewColumn usePopColumn = table.GetColumnFromIndex(usePopColumnIndex);
                 Assert.AreEqual("Gebruik POP", usePopColumn.HeaderText);
                 DataGridViewColumn popColumn = table.GetColumnFromIndex(popColumnIndex);
-                Assert.AreEqual("POP [kN/m²]", popColumn.HeaderText);
+                Assert.AreEqual("POP\r\n[kN/m²]", popColumn.HeaderText);
 
                 Assert.Throws<ArgumentOutOfRangeException>(() => table.GetColumnFromIndex(popColumnIndex + 1));
 

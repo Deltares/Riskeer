@@ -312,6 +312,9 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultTotalView_Probability_DisplayName" xml:space="preserve">
     <value>Benaderde faalkans [1/jaar]</value>
   </data>
+  <data name="AssemblyResultTotalView_CategoryGroup_DisplayName" xml:space="preserve">
+    <value>Toetsoordeel</value>
+  </data>
   <data name="AssemblyResultTotalView_AssemblyResultGroupBox_Text" xml:space="preserve">
     <value>Gecombineerd toetsoordeel</value>
   </data>

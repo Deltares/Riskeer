@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -124,6 +124,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string AssemblyResultTotalView_AssemblyResultGroupBox_Text {
             get {
                 return ResourceManager.GetString("AssemblyResultTotalView_AssemblyResultGroupBox_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetsoordeel.
+        /// </summary>
+        public static string AssemblyResultTotalView_CategoryGroup_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultTotalView_CategoryGroup_DisplayName", resourceCulture);
             }
         }
         

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -62,23 +62,23 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DataGridViewColumn colorColumn = table.GetColumnFromIndex(colorColumnIndex);
                 Assert.AreEqual("Kleur", colorColumn.HeaderText);
                 DataGridViewColumn topColumn = table.GetColumnFromIndex(topColumnIndex);
-                Assert.AreEqual("Topniveau [m+NAP]", topColumn.HeaderText);
+                Assert.AreEqual("Topniveau\r\n[m+NAP]", topColumn.HeaderText);
                 DataGridViewColumn isAquiferColumn = table.GetColumnFromIndex(isAquiferColumnIndex);
                 Assert.AreEqual("Is aquifer", isAquiferColumn.HeaderText);
                 DataGridViewColumn permeabilityMeanColumn = table.GetColumnFromIndex(permeabilityMeanColumnIndex);
-                Assert.AreEqual("Doorlatendheid (verwachtingswaarde) [m/s]", permeabilityMeanColumn.HeaderText);
+                Assert.AreEqual("Doorlatendheid\r\n(verwachtingswaarde)\r\n[m/s]", permeabilityMeanColumn.HeaderText);
                 DataGridViewColumn permeabilityCoefficientOfVariationColumn = table.GetColumnFromIndex(permeabilityCoefficientOfVariationColumnIndex);
-                Assert.AreEqual("Doorlatendheid (variatiecoëfficiënt) [-]", permeabilityCoefficientOfVariationColumn.HeaderText);
+                Assert.AreEqual("Doorlatendheid\r\n(variatiecoëfficiënt)\r\n[-]", permeabilityCoefficientOfVariationColumn.HeaderText);
                 DataGridViewColumn d70MeanColumn = table.GetColumnFromIndex(d70MeanColumnIndex);
-                Assert.AreEqual("d70 (verwachtingswaarde) [m]", d70MeanColumn.HeaderText);
+                Assert.AreEqual("d70\r\n(verwachtingswaarde)\r\n[m]", d70MeanColumn.HeaderText);
                 DataGridViewColumn d70DeviationColumn = table.GetColumnFromIndex(d70CoefficientOfVariationColumnIndex);
-                Assert.AreEqual("d70 (variatiecoëfficiënt) [-]", d70DeviationColumn.HeaderText);
+                Assert.AreEqual("d70\r\n(variatiecoëfficiënt)\r\n[-]", d70DeviationColumn.HeaderText);
                 DataGridViewColumn belowPhreaticLevelWeightMeanColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightMeanColumnIndex);
-                Assert.AreEqual("Verzadigd gewicht (verwachtingswaarde) [kN/m³]", belowPhreaticLevelWeightMeanColumn.HeaderText);
+                Assert.AreEqual("Verzadigd gewicht\r\n(verwachtingswaarde)\r\n[kN/m³]", belowPhreaticLevelWeightMeanColumn.HeaderText);
                 DataGridViewColumn belowPhreaticLevelWeightDeviationColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightDeviationColumnIndex);
-                Assert.AreEqual("Verzadigd gewicht (standaardafwijking) [kN/m³]", belowPhreaticLevelWeightDeviationColumn.HeaderText);
+                Assert.AreEqual("Verzadigd gewicht\r\n(standaardafwijking)\r\n[kN/m³]", belowPhreaticLevelWeightDeviationColumn.HeaderText);
                 DataGridViewColumn belowPhreaticLevelWeightShiftColumn = table.GetColumnFromIndex(belowPhreaticLevelWeightShiftColumnIndex);
-                Assert.AreEqual("Verzadigd gewicht (verschuiving) [kN/m³]", belowPhreaticLevelWeightShiftColumn.HeaderText);
+                Assert.AreEqual("Verzadigd gewicht\r\n(verschuiving)\r\n[kN/m³]", belowPhreaticLevelWeightShiftColumn.HeaderText);
 
                 Assert.Throws<ArgumentOutOfRangeException>(() => table.GetColumnFromIndex(belowPhreaticLevelWeightShiftColumnIndex + 1));
 

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -445,7 +445,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijdrage aan scenario [%].
+        ///   Looks up a localized string similar to Bijdrage aan
+        ///scenario
+        ///[%].
         /// </summary>
         public static string MacroStabilityInwardsCalculationsView_InitializeDataGridView_Contribution {
             get {
@@ -463,7 +465,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aandeel van schematisatie in het stochastische ondergrondmodel [%].
+        ///   Looks up a localized string similar to Aandeel van schematisatie
+        ///in het stochastische ondergrondmodel
+        ///[%].
         /// </summary>
         public static string MacroStabilityInwardsCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability {
             get {
@@ -689,7 +693,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans [1/jaar].
+        ///   Looks up a localized string similar to Faalkans
+        ///[1/jaar].
         /// </summary>
         public static string MacroStabilityInwardsScenarioView_MacroStabilityInwardsScenarioRow_MacroStabilityInwardsProbability {
             get {
@@ -870,11 +875,71 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Effectieve spanning
+        ///(dagelijks).
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_EffectiveStressDaily_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_EffectiveStressDaily_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horizontale waterspanning
+        ///op maaiveld.
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_HorizontalPorePressure_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_HorizontalPorePressure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lamel {0}.
         /// </summary>
         public static string MacroStabilityInwardsSlicesTable_Name_Slice_0 {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_Name_Slice_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Piezometrische
+        ///waterspanning.
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_PiezometricPorePressure_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_PiezometricPorePressure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterspanning
+        ///op maaiveld.
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_PorePressure_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_PorePressure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Totale
+        ///waterspanning.
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_TotalPorePressure_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_TotalPorePressure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verticale waterspanning
+        ///op maaiveld.
+        /// </summary>
+        public static string MacroStabilityInwardsSlicesTable_VerticalPorePressure_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsSlicesTable_VerticalPorePressure_DisplayName", resourceCulture);
             }
         }
         

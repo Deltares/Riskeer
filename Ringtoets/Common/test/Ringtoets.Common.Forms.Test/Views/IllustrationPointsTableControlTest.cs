@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -89,11 +89,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsFalse(closingSituationColumn.Visible);
 
             DataGridViewColumn calculatedProbabilityColumn = dataGridView.Columns[calculatedProbabilityColumnIndex];
-            Assert.AreEqual("Berekende kans [-]", calculatedProbabilityColumn.HeaderText);
+            Assert.AreEqual("Berekende kans\r\n[-]", calculatedProbabilityColumn.HeaderText);
             Assert.IsTrue(calculatedProbabilityColumn.ReadOnly);
 
             DataGridViewColumn calculatedReliabilityColumn = dataGridView.Columns[calculatedReliabilityColumnIndex];
-            Assert.AreEqual("Betrouwbaarheidsindex berekende kans [-]", calculatedReliabilityColumn.HeaderText);
+            Assert.AreEqual("Betrouwbaarheidsindex\r\nberekende kans\r\n[-]", calculatedReliabilityColumn.HeaderText);
             Assert.IsTrue(calculatedReliabilityColumn.ReadOnly);
         }
 

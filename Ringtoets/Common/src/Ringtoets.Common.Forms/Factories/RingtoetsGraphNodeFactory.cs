@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -161,9 +161,9 @@ namespace Ringtoets.Common.Forms.Factories
 
         private static string CreateGraphNodeContent(RoundedDouble beta)
         {
-            return string.Format(Resources.GraphNodeConverter_GraphNodeContent_Beta_0_Probability_1,
-                                 beta,
-                                 ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(beta)));
+            return string.Format(Resources.GraphNodeConverter_GraphNodeContent_Probability_0_Beta_1,
+                                 ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(beta)),
+                                 beta);
         }
     }
 }

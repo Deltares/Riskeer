@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -103,6 +103,27 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
                 DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
                 Assert.AreEqual(0, hydraulicBoundaryLocationComboboxItems.Count); // Row dependent
+            }
+        }
+
+        [Test]
+        public void Constructor_DataGridViewControlColumnHeadersCorrectlyInitialized_()
+        {
+            // Call
+            using (ShowPipingCalculationsView())
+            {
+                // Assert
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                Assert.AreEqual(9, dataGridView.ColumnCount);
+                Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
+                Assert.AreEqual("Stochastisch ondergrondmodel", dataGridView.Columns[stochasticSoilModelsColumnIndex].HeaderText);
+                Assert.AreEqual("Ondergrondschematisatie", dataGridView.Columns[stochasticSoilProfilesColumnIndex].HeaderText);
+                Assert.AreEqual("Aandeel van schematisatie\r\nin het stochastische ondergrondmodel\r\n[%]", dataGridView.Columns[stochasticSoilProfilesProbabilityColumnIndex].HeaderText);
+                Assert.AreEqual("Hydraulische belastingenlocatie", dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex].HeaderText);
+                Assert.AreEqual("Verwachtingswaarde\r\ndempingsfactor bij uitredepunt\r\n[-]", dataGridView.Columns[dampingFactorExitMeanColumnIndex].HeaderText);
+                Assert.AreEqual("Verwachtingswaarde\r\npolderpeil\r\n[m+NAP]", dataGridView.Columns[phreaticLevelExitMeanColumnIndex].HeaderText);
+                Assert.AreEqual("Intredepunt", dataGridView.Columns[entryPointLColumnIndex].HeaderText);
+                Assert.AreEqual("Uittredepunt", dataGridView.Columns[exitPointLColumnIndex].HeaderText);
             }
         }
 
