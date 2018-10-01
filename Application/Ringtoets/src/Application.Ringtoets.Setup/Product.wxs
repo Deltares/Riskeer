@@ -77,7 +77,7 @@
             </Component>
 
             <Component Id="UserManual" Guid="{8672917E-47B3-47BF-AF8A-A2B536A53DC1}">
-              <File Id="RingtoetsUserManual" Name="Gebruikershandleiding Ringtoets 17.3.1.pdf" Source="Gebruikershandleiding Ringtoets 17.3.1.pdf" KeyPath="yes"/>
+              <File Id="RingtoetsUserManual" Name="Gebruikershandleiding Ringtoets 18.1.1.pdf" Source="Gebruikershandleiding Ringtoets 18.1.1.pdf" KeyPath="yes"/>
             </Component>
 
           </Directory>
@@ -105,7 +105,7 @@
               <Shortcut Id="UserManualShortcut"
                         Name="!(loc.UserManualName)"
                         Description="!(loc.UserManualDescription)"
-                        Target="[INSTALLDIR]Gebruikershandleiding Ringtoets 17.3.1.pdf"
+                        Target="[INSTALLDIR]Gebruikershandleiding Ringtoets 18.1.1.pdf"
                         Icon="Manual.ico"/>
               <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RingtoetsProgMenuManualShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
