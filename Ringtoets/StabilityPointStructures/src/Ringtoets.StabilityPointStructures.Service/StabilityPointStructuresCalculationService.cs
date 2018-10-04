@@ -333,6 +333,8 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.FailureProbabilityStructureWithErosion,
                 structureInput.StormDuration.Mean,
                 structureInput.StormDuration.CoefficientOfVariation,
+                generalInput.ModelFactorLongThreshold.Mean,
+                generalInput.ModelFactorLongThreshold.StandardDeviation,
                 structureInput.BankWidth.Mean,
                 structureInput.BankWidth.StandardDeviation,
                 structureInput.EvaluationLevel,
@@ -350,9 +352,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.ConstructiveStrengthLinearLoadModel.Mean,
                 structureInput.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
                 structureInput.StabilityLinearLoadModel.Mean,
-                structureInput.StabilityLinearLoadModel.CoefficientOfVariation,
-                generalInput.ModelFactorLongThreshold.Mean,
-                generalInput.ModelFactorLongThreshold.StandardDeviation);
+                structureInput.StabilityLinearLoadModel.CoefficientOfVariation);
         }
 
         private static StructuresStabilityPointFloodedCulvertQuadraticCalculationInput CreateFloodedCulvertQuadraticCalculationInput(
