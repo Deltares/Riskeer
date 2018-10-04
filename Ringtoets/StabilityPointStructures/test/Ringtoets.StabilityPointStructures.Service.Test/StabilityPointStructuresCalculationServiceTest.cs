@@ -1153,7 +1153,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.ConstructiveStrengthLinearLoadModel.Mean,
                     input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
                     input.StabilityLinearLoadModel.Mean,
-                    input.StabilityLinearLoadModel.CoefficientOfVariation);
+                    input.StabilityLinearLoadModel.CoefficientOfVariation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation);
 
                 var actualInput = (StructuresStabilityPointFloodedCulvertLinearCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -1273,7 +1275,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.ConstructiveStrengthLinearLoadModel.Mean,
                     input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
                     input.StabilityLinearLoadModel.Mean,
-                    input.StabilityLinearLoadModel.CoefficientOfVariation);
+                    input.StabilityLinearLoadModel.CoefficientOfVariation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation);
 
                 var actualInput = (StructuresStabilityPointFloodedCulvertLinearCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);

@@ -350,7 +350,9 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.ConstructiveStrengthLinearLoadModel.Mean,
                 structureInput.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
                 structureInput.StabilityLinearLoadModel.Mean,
-                structureInput.StabilityLinearLoadModel.CoefficientOfVariation);
+                structureInput.StabilityLinearLoadModel.CoefficientOfVariation,
+                generalInput.ModelFactorLongThreshold.Mean,
+                generalInput.ModelFactorLongThreshold.StandardDeviation);
         }
 
         private static StructuresStabilityPointFloodedCulvertQuadraticCalculationInput CreateFloodedCulvertQuadraticCalculationInput(

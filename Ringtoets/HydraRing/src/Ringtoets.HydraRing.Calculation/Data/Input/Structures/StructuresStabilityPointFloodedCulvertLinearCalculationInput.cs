@@ -38,6 +38,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double constructiveStrengthLinearLoadModelVariation;
         private readonly double stabilityLinearLoadModelMean;
         private readonly double stabilityLinearLoadModelVariation;
+        private readonly double modelFactorLongThresholdMean;
+        private readonly double modelFactorLongThresholdStandardDeviation;
 
         /// <summary>
         /// Creates a new instance of <see cref="StructuresStabilityPointFloodedCulvertLinearCalculationInput"/>.
@@ -103,6 +105,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="constructiveStrengthLinearLoadModelVariation">The variation of the constructive strength linear load model.</param>
         /// <param name="stabilityLinearLoadModelMean">The mean of the stability linear load model.</param>
         /// <param name="stabilityLinearLoadModelVariation">The variation of the stability linear load model.</param>
+        /// <param name="modelFactorLongThresholdMean">The mean of the model factor long threshold.</param>
+        /// <param name="modelFactorLongThresholdStandardDeviation">The standard deviation of the model factor long threshold.</param>
         public StructuresStabilityPointFloodedCulvertLinearCalculationInput(long hydraulicBoundaryLocationId,
                                                                             double sectionNormal,
                                                                             IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -141,7 +145,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                             double drainCoefficientMean, double drainCoefficientStandardDeviation,
                                                                             double areaFlowAperturesMean, double areaFlowAperturesStandardDeviation,
                                                                             double constructiveStrengthLinearLoadModelMean, double constructiveStrengthLinearLoadModelVariation,
-                                                                            double stabilityLinearLoadModelMean, double stabilityLinearLoadModelVariation)
+                                                                            double stabilityLinearLoadModelMean, double stabilityLinearLoadModelVariation,
+                                                                            double modelFactorLongThresholdMean, double modelFactorLongThresholdStandardDeviation)
             : base(hydraulicBoundaryLocationId,
                    sectionNormal,
                    forelandPoints, breakWater,
@@ -185,6 +190,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.constructiveStrengthLinearLoadModelVariation = constructiveStrengthLinearLoadModelVariation;
             this.stabilityLinearLoadModelMean = stabilityLinearLoadModelMean;
             this.stabilityLinearLoadModelVariation = stabilityLinearLoadModelVariation;
+            this.modelFactorLongThresholdMean = modelFactorLongThresholdMean;
+            this.modelFactorLongThresholdStandardDeviation = modelFactorLongThresholdStandardDeviation;
         }
 
         public override IEnumerable<HydraRingVariable> Variables
@@ -221,7 +228,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             yield return new LogNormalHydraRingVariable(67, HydraRingDeviationType.Standard, areaFlowAperturesMean, areaFlowAperturesStandardDeviation);
             yield return new LogNormalHydraRingVariable(80, HydraRingDeviationType.Variation, constructiveStrengthLinearLoadModelMean, constructiveStrengthLinearLoadModelVariation);
             yield return new LogNormalHydraRingVariable(83, HydraRingDeviationType.Variation, stabilityLinearLoadModelMean, stabilityLinearLoadModelVariation);
-            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, 0.9, 0.05);
+            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, modelFactorLongThresholdMean, modelFactorLongThresholdStandardDeviation);
         }
     }
 }
