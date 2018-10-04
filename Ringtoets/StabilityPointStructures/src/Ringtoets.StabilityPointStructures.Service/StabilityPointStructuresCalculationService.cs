@@ -418,7 +418,9 @@ namespace Ringtoets.StabilityPointStructures.Service
                 structureInput.ConstructiveStrengthQuadraticLoadModel.Mean,
                 structureInput.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
                 structureInput.StabilityQuadraticLoadModel.Mean,
-                structureInput.StabilityQuadraticLoadModel.CoefficientOfVariation);
+                structureInput.StabilityQuadraticLoadModel.CoefficientOfVariation,
+                generalInput.ModelFactorLongThreshold.Mean,
+                generalInput.ModelFactorLongThreshold.StandardDeviation);
         }
     }
 }

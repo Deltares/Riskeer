@@ -1748,7 +1748,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                     43.3, 44.4, 45.5, 46.6,
                                                                                     47.7, 48.8, 49.9, 50.0,
                                                                                     51.1, 52.2, 53.3, 54.4,
-                                                                                    55.5, 56.6, 57.7)
+                                                                                    55.5, 56.6, 57.7, 58.8, 59.9)
                 {
                     PreprocessorSetting = CreatePreprocessorSetting(runPreprocessor),
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
@@ -1816,7 +1816,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 35.5, NULL, NULL, NULL, 0, 36.6, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 37.7, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 38.8, NULL, NULL, NULL, 0, 39.9, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 125, 0, 2, 0.9, 0.05, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 125, 0, 2, 58.8, 59.9, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 40, 41.1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 131, 42.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 132, 0, 2, 43.3, 44.4, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
