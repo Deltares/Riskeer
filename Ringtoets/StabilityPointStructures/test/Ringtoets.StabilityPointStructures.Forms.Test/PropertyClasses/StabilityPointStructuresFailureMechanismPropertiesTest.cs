@@ -191,7 +191,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorLongThresholdProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorLongThresholdProperty,
                                                                             modelSettingsCategory,
-                                                                            "Modelfactor lange overlaat[-]",
+                                                                            "Modelfactor lange overlaat [-]",
                                                                             "Modelfactor voor een lange overlaat.",
                                                                             true);
         }
