@@ -1377,6 +1377,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.FailureProbabilityStructureWithErosion,
                     input.StormDuration.Mean,
                     input.StormDuration.CoefficientOfVariation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation,
                     input.BankWidth.Mean,
                     input.BankWidth.StandardDeviation,
                     input.EvaluationLevel,
@@ -1394,9 +1396,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.ConstructiveStrengthQuadraticLoadModel.Mean,
                     input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
                     input.StabilityQuadraticLoadModel.Mean,
-                    input.StabilityQuadraticLoadModel.CoefficientOfVariation,
-                    generalInput.ModelFactorLongThreshold.Mean,
-                    generalInput.ModelFactorLongThreshold.StandardDeviation);
+                    input.StabilityQuadraticLoadModel.CoefficientOfVariation);
 
                 var actualInput = (StructuresStabilityPointFloodedCulvertQuadraticCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -1499,6 +1499,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.FailureProbabilityStructureWithErosion,
                     input.StormDuration.Mean,
                     input.StormDuration.CoefficientOfVariation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation,
                     input.BankWidth.Mean,
                     input.BankWidth.StandardDeviation,
                     input.EvaluationLevel,
@@ -1516,9 +1518,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.ConstructiveStrengthQuadraticLoadModel.Mean,
                     input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
                     input.StabilityQuadraticLoadModel.Mean,
-                    input.StabilityQuadraticLoadModel.CoefficientOfVariation,
-                    generalInput.ModelFactorLongThreshold.Mean,
-                    generalInput.ModelFactorLongThreshold.StandardDeviation);
+                    input.StabilityQuadraticLoadModel.CoefficientOfVariation);
 
                 var actualInput = (StructuresStabilityPointFloodedCulvertQuadraticCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
