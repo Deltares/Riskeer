@@ -36,8 +36,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double stabilityQuadraticLoadModelVariation;
         private readonly double widthFlowAperturesMean;
         private readonly double widthFlowAperturesStandardDeviation;
-        private readonly double modelFactorLongThresholdMean;
-        private readonly double modelFactorLongThresholdStandardDeviation;
 
         /// <summary>
         /// Creates a new instance of <see cref="StructuresStabilityPointLowSillQuadraticCalculationInput"/>.
@@ -169,6 +167,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                    failureProbabilityStructureWithErosion,
                    stormDurationMean, stormDurationVariation,
+                   modelFactorLongThresholdMean, modelFactorLongThresholdStandardDeviation,
                    bankWidthMean, bankWidthStandardDeviation,
                    evaluationLevel,
                    modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation,
@@ -183,8 +182,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.stabilityQuadraticLoadModelVariation = stabilityQuadraticLoadModelVariation;
             this.widthFlowAperturesMean = widthFlowAperturesMean;
             this.widthFlowAperturesStandardDeviation = widthFlowAperturesStandardDeviation;
-            this.modelFactorLongThresholdMean = modelFactorLongThresholdMean;
-            this.modelFactorLongThresholdStandardDeviation = modelFactorLongThresholdStandardDeviation;
         }
 
         public override IEnumerable<HydraRingVariable> Variables
@@ -220,7 +217,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             yield return new LogNormalHydraRingVariable(81, HydraRingDeviationType.Variation, constructiveStrengthQuadraticLoadModelMean, constructiveStrengthQuadraticLoadModelVariation);
             yield return new LogNormalHydraRingVariable(84, HydraRingDeviationType.Variation, stabilityQuadraticLoadModelMean, stabilityQuadraticLoadModelVariation);
             yield return new NormalHydraRingVariable(106, HydraRingDeviationType.Standard, widthFlowAperturesMean, widthFlowAperturesStandardDeviation);
-            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, modelFactorLongThresholdMean, modelFactorLongThresholdStandardDeviation);
         }
     }
 }
