@@ -655,6 +655,74 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        public void AutoResizeColumn_AddShorterText_DecreasesColumnWidth()
+        {
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test");
+                control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test 2");
+                var dataSource = new[]
+                {
+                    new TestDataGridViewMultipleColumnsRow(RoundedDouble.NaN, "Long text hello world")
+                };
+                control.SetDataSource(dataSource);
+
+                DataGridViewCell dataGridViewCell1 = control.GetCell(0, 0);
+                DataGridViewCell dataGridViewCell2 = control.GetCell(0, 1);
+                control.SetCurrentCell(dataGridViewCell1);
+
+                int initialWidth1 = dataGridViewCell1.OwningColumn.Width;
+                int initialWidth2 = dataGridViewCell2.OwningColumn.Width;
+                dataSource[0].TestString = "Test";
+
+                // Call
+                control.AutoResizeColumn(0);
+
+                // Assert
+                Assert.Less(dataGridViewCell1.OwningColumn.Width, initialWidth1);
+                Assert.AreEqual(dataGridViewCell2.OwningColumn.Width, initialWidth2);
+            }
+        }
+
+        [Test]
+        public void AutoResizeColumn_AddLongerText_IncreasesColumnWidth()
+        {
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test");
+                control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test 2");
+                var dataSource = new[]
+                {
+                    new TestDataGridViewMultipleColumnsRow(RoundedDouble.NaN, "Test")
+                };
+                control.SetDataSource(dataSource);
+
+                DataGridViewCell dataGridViewCell1 = control.GetCell(0, 0);
+                DataGridViewCell dataGridViewCell2 = control.GetCell(0, 1);
+                control.SetCurrentCell(dataGridViewCell1);
+
+                int initialWidth1 = dataGridViewCell1.OwningColumn.Width;
+                int initialWidth2 = dataGridViewCell2.OwningColumn.Width;
+                dataSource[0].TestString = "This is a long textwegawegwegwetawergawegawegtwaegwaeg.";
+
+                // Call
+                control.AutoResizeColumn(0);
+
+                // Assert
+                Assert.Greater(dataGridViewCell1.OwningColumn.Width, initialWidth1);
+                Assert.AreEqual(dataGridViewCell2.OwningColumn.Width, initialWidth2);
+            }
+        }
+
+        [Test]
         public void AutoResizeColumns_AddShorterText_DecreasesColumnWidth()
         {
             using (var form = new Form())

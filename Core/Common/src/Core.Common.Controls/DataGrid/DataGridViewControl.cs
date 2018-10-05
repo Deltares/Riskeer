@@ -376,6 +376,15 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
+        /// Adjusts the width of the column on index <paramref name="columnIndex"/> to fit the contents of all its cells,
+        /// including the header cell.
+        /// </summary>
+        public void AutoResizeColumn(int columnIndex)
+        {
+            dataGridView.AutoResizeColumn(columnIndex);
+        }
+
+        /// <summary>
         /// Ends the editing when the current cell is in edit mode.
         /// Sets the current cell to <c>null</c>.
         /// </summary>
