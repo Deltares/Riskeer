@@ -177,6 +177,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
 
+        protected override void RefreshDataGrid()
+        {
+            base.RefreshDataGrid();
+            DataGridViewControl.AutoResizeColumn(combinedAssemblyProbabilityIndex);
+        }
+
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));

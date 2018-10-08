@@ -22,9 +22,11 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -116,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (ShowFailureMechanismResultsView(new GrassCoverErosionInwardsFailureMechanism()))
             {
                 // Then
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
 
                 Assert.AreEqual(columnCount, dataGridView.ColumnCount);
                 Assert.IsTrue(dataGridView.Columns[detailedAssessmentProbabilityIndex].ReadOnly);
@@ -182,7 +184,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
 
                 // Assert
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -230,6 +232,41 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 Assert.AreSame(sectionCalculator.ManualAssemblyAssemblyOutput, calculator.FailureMechanismSectionAssemblies.Single());
             }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultView_WhenRowUpdated_ThenCombinedAssemblyProbabilityColumnAutoResizes()
+        {
+            // Given
+            var random = new Random(39);
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                DataGridView dataGridView = GetDataGridView();
+                var row = (GrassCoverErosionInwardsFailureMechanismSectionResultRow) dataGridView.Rows[0].DataBoundItem;
+
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(0.1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[combinedAssemblyProbabilityIndex];
+                int initialWidth = dataGridViewCell.OwningColumn.Width;
+
+                // When
+                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(0.0000000000000000000000000001, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                row.TailorMadeAssessmentProbability = random.NextDouble();
+
+                // Then
+                int newWidth = dataGridViewCell.OwningColumn.Width;
+                Assert.Less(initialWidth, newWidth);
+            }
+        }
+
+        private static DataGridView GetDataGridView()
+        {
+            return (DataGridView) new ControlTester("dataGridView").TheObject;
         }
 
         [TestFixture]
