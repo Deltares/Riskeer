@@ -655,7 +655,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void AutoResizeColumn_AddShorterText_DecreasesColumnWidth()
+        public void AutoResizeColumns_AddShorterText_DecreasesColumnWidth()
         {
             using (var form = new Form())
             using (var control = new DataGridViewControl())
@@ -664,27 +664,24 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Show();
 
                 control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test");
-                control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test 2");
                 var dataSource = new[]
                 {
-                    new TestDataGridViewMultipleColumnsRow(RoundedDouble.NaN, "Long text hello world")
+                    new TestDataGridViewMultipleColumnsRow(RoundedDouble.NaN, "Long test text abcd")
                 };
                 control.SetDataSource(dataSource);
 
-                DataGridViewCell dataGridViewCell1 = control.GetCell(0, 0);
-                DataGridViewCell dataGridViewCell2 = control.GetCell(0, 1);
-                control.SetCurrentCell(dataGridViewCell1);
+                DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
+                control.SetCurrentCell(dataGridViewCell);
 
-                int initialWidth1 = dataGridViewCell1.OwningColumn.Width;
-                int initialWidth2 = dataGridViewCell2.OwningColumn.Width;
-                dataSource[0].TestString = "Test";
+                int initialWidth = dataGridViewCell.OwningColumn.Width;
+                dataSource[0].TestString = "text";
 
                 // Call
-                control.AutoResizeColumn(0);
+                control.AutoResizeColumns();
 
                 // Assert
-                Assert.Less(dataGridViewCell1.OwningColumn.Width, initialWidth1);
-                Assert.AreEqual(dataGridViewCell2.OwningColumn.Width, initialWidth2);
+                int shortTextWidth = dataGridViewCell.OwningColumn.Width;
+                Assert.Less(shortTextWidth, initialWidth);
             }
         }
 
@@ -723,7 +720,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void AutoResizeColumns_AddShorterText_DecreasesColumnWidth()
+        public void AutoResizeColumn_AddShorterText_DecreasesColumnWidth()
         {
             using (var form = new Form())
             using (var control = new DataGridViewControl())
@@ -732,24 +729,27 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Show();
 
                 control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test");
+                control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test 2");
                 var dataSource = new[]
                 {
-                    new TestDataGridViewMultipleColumnsRow(RoundedDouble.NaN, "Long test text abcd")
+                    new TestDataGridViewMultipleColumnsRow(RoundedDouble.NaN, "Long text hello world")
                 };
                 control.SetDataSource(dataSource);
 
-                DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
-                control.SetCurrentCell(dataGridViewCell);
+                DataGridViewCell dataGridViewCell1 = control.GetCell(0, 0);
+                DataGridViewCell dataGridViewCell2 = control.GetCell(0, 1);
+                control.SetCurrentCell(dataGridViewCell1);
 
-                int initialWidth = dataGridViewCell.OwningColumn.Width;
-                dataSource[0].TestString = "text";
+                int initialWidth1 = dataGridViewCell1.OwningColumn.Width;
+                int initialWidth2 = dataGridViewCell2.OwningColumn.Width;
+                dataSource[0].TestString = "Test";
 
                 // Call
-                control.AutoResizeColumns();
+                control.AutoResizeColumn(0);
 
                 // Assert
-                int shortTextWidth = dataGridViewCell.OwningColumn.Width;
-                Assert.Less(shortTextWidth, initialWidth);
+                Assert.Less(dataGridViewCell1.OwningColumn.Width, initialWidth1);
+                Assert.AreEqual(dataGridViewCell2.OwningColumn.Width, initialWidth2);
             }
         }
 

@@ -210,7 +210,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismSectionResultCollectionUpdated_ThenObserverNotified()
+        public void GivenFailureMechanismResultView_WhenFailureMechanismSectionResultCollectionUpdatedAndNotifiesObservers_ThenDataGridViewUpdated()
         {
             // Given
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
@@ -503,7 +503,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenRowUpdated_ThenColumnsDoNotAutoResize()
+        public void GivenFailureMechanismResultView_WhenRowUpdated_ThenColumnDoesNotAutoResize()
         {
             // Given
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
@@ -521,7 +521,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 int initialWidth = dataGridViewCell.OwningColumn.Width;
 
                 // When
-                row.TestString = "Looong testing value";
+                row.TestString = "Looooooooooooong testing value";
 
                 // Then
                 int newWidth = dataGridViewCell.OwningColumn.Width;
@@ -530,7 +530,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenSectionResultNotified_ThenColumnsAutoResize()
+        public void GivenFailureMechanismResultView_WhenSectionResultNotified_ThenColumnDoesAutoResize()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -655,7 +655,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             protected override void AddDataGridColumns()
             {
-                DataGridViewControl.AddTextBoxColumn("Name", "Test", true);
+                DataGridViewControl.AddTextBoxColumn(nameof(TestRow.Name), "Test", true);
                 DataGridViewControl.AddTextBoxColumn(nameof(TestRow.TestString), "TestString");
             }
 

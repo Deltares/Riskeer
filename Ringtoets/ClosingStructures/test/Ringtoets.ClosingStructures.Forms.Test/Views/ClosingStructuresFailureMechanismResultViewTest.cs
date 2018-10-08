@@ -237,7 +237,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenRowUpdated_ThenCombinedAssemblyProbabilityColumnAutoResizes()
+        public void GivenFailureMechanismResultView_WhenRowUpdatedWithLongerValue_ThenCombinedAssemblyProbabilityColumnAutoResizes()
         {
             // Given
             var random = new Random(39);
