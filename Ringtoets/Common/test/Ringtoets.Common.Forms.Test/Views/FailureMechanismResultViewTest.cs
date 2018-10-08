@@ -530,6 +530,35 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFailureMechanismResultView_WhenSectionResultNotified_ThenColumnsAutoResize()
+        {
+            // Given
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                sectionResult
+            };
+
+            using (ShowFailureMechanismResultsView(sectionResults))
+            {
+                DataGridView dataGridView = GetDataGridView();
+                var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[1];
+                row.TestString = "a";
+                int initialWidth = dataGridViewCell.OwningColumn.Width;
+
+                // When
+                row.TestString = "Looooooooooooong testing value";
+                sectionResult.NotifyObservers();
+
+                // Then
+                int newWidth = dataGridViewCell.OwningColumn.Width;
+                Assert.Greater(newWidth, initialWidth);
+            }
+        }
+
+        [Test]
         public void GivenFailureMechanismResultView_WhenResultRemovedAndSectionResultsNotified_ThenEventHandlersDisconnected()
         {
             // Given
@@ -606,7 +635,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         private class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult,
-            FailureMechanismSectionResultRow<FailureMechanismSectionResult>,
+            TestRow,
             TestFailureMechanism,
             TestAssemblyResultControl>
         {
@@ -618,7 +647,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             public bool AssemblyResultControlUpdated { get; set; }
 
-            protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(
+            protected override TestRow CreateFailureMechanismSectionResultRow(
                 FailureMechanismSectionResult sectionResult)
             {
                 return new TestRow(sectionResult);
