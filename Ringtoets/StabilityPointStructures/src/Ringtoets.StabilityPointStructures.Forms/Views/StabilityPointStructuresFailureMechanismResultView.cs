@@ -179,6 +179,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
 
+        protected override void RefreshDataGrid()
+        {
+            base.RefreshDataGrid();
+            DataGridViewControl.AutoResizeColumn(combinedAssemblyProbabilityIndex);
+        }
+
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
