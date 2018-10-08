@@ -179,6 +179,12 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 nameof(HeightStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
 
+        protected override void RefreshDataGrid()
+        {
+            base.RefreshDataGrid();
+            DataGridViewControl.AutoResizeColumn(combinedAssemblyProbabilityIndex);
+        }
+
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
