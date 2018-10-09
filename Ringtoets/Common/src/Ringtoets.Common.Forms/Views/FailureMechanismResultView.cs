@@ -167,6 +167,14 @@ namespace Ringtoets.Common.Forms.Views
             UpdateFailureMechanismAssemblyResultControl();
         }
 
+        /// <summary>
+        /// Refreshes the data grid in the view.
+        /// </summary>
+        protected virtual void RefreshDataGrid()
+        {
+            DataGridViewControl.RefreshDataGridView(false);
+        }
+
         private bool HasManualAssemblyResults()
         {
             return HasSectionResultsHelper.HasManualAssemblyResults(FailureMechanism);
@@ -240,7 +248,7 @@ namespace Ringtoets.Common.Forms.Views
         private void RowUpdated(object sender, EventArgs eventArgs)
         {
             rowUpdating = true;
-            DataGridViewControl.RefreshDataGridView();
+            RefreshDataGrid();
             UpdateFailureMechanismAssemblyResultControl();
         }
 

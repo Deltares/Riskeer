@@ -176,6 +176,12 @@ namespace Ringtoets.Piping.Forms.Views
                 nameof(PipingFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
 
+        protected override void RefreshDataGrid()
+        {
+            base.RefreshDataGrid();
+            DataGridViewControl.AutoResizeColumn(combinedAssemblyProbabilityIndex);
+        }
+
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));

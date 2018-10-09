@@ -84,12 +84,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                                                                                                                                                         .OfType<MacroStabilityInwardsCalculationScenario>()
                                                                                                                                                         .Select(pc => pc.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, cg => cg.Children);
-            calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(dataGridViewControl.RefreshDataGridView, cg => cg.Children);
+            calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(() => dataGridViewControl.RefreshDataGridView(), cg => cg.Children);
 
             surfaceLineObserver = new RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine>(UpdateDataGridViewDataSource, rpslc => rpslc);
 
             stochasticSoilModelsObserver = new Observer(OnStochasticSoilModelsUpdate);
-            stochasticSoilProfileObserver = new RecursiveObserver<MacroStabilityInwardsStochasticSoilModelCollection, MacroStabilityInwardsStochasticSoilProfile>(dataGridViewControl.RefreshDataGridView, ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles));
+            stochasticSoilProfileObserver = new RecursiveObserver<MacroStabilityInwardsStochasticSoilModelCollection, MacroStabilityInwardsStochasticSoilProfile>(() => dataGridViewControl.RefreshDataGridView(), ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles));
         }
 
         /// <summary>

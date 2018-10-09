@@ -96,7 +96,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             {
                 Observable = calculations
             };
-            duneLocationCalculationObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(dataGridViewControl.RefreshDataGridView, list => list)
+            duneLocationCalculationObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(() => dataGridViewControl.RefreshDataGridView(), list => list)
             {
                 Observable = calculations
             };
