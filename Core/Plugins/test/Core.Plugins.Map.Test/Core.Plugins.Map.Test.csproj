@@ -49,13 +49,11 @@
   <ItemGroup>
     <Compile Include="Commands\ToggleMapLegendViewCommandTest.cs" />
     <Compile Include="ImportInfos\MapDataCollectionImportInfoTest.cs" />
+    <Compile Include="Legend\MapDataContextTreeNodeInfoTest.cs" />
     <Compile Include="MapPluginTest.cs" />
     <Compile Include="Legend\MapDataCollectionTreeNodeInfoTest.cs" />
     <Compile Include="Legend\MapLegendControllerTest.cs" />
     <Compile Include="Legend\MapLegendViewTest.cs" />
-    <Compile Include="Legend\MapLineDataTreeNodeInfoTest.cs" />
-    <Compile Include="Legend\MapPointDataTreeNodeInfoTest.cs" />
-    <Compile Include="Legend\MapPolygonDataTreeNodeInfoTest.cs" />
     <Compile Include="MapRibbonTest.cs" />
     <Compile Include="PresentationObjects\MapDataContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

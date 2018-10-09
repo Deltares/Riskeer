@@ -143,9 +143,9 @@ namespace Core.Plugins.Chart.Test.Legend
             // Assert
             var expectedChildren = new[]
             {
-                new ChartDataContext(chartData3, new ChartDataCollection("test")),
-                new ChartDataContext(chartData2, new ChartDataCollection("test")),
-                new ChartDataContext(chartData1, new ChartDataCollection("test"))
+                new ChartDataContext(chartData3, chartDataCollection),
+                new ChartDataContext(chartData2, chartDataCollection),
+                new ChartDataContext(chartData1, chartDataCollection)
             };
             CollectionAssert.AreEqual(expectedChildren, objects);
         }

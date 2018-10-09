@@ -132,7 +132,7 @@ namespace Core.Plugins.Chart.Legend
                 Text = collection => collection.Name,
                 Image = collection => GuiResources.folder,
                 ChildNodeObjects = GetCollectionChildNodeObjects,
-                CanDrag = (multipleAreaData, parentData) => true,
+                CanDrag = (collection, parentData) => true,
                 CanDrop = ChartDataCollectionCanDropAndInsert,
                 CanInsert = ChartDataCollectionCanDropAndInsert,
                 OnDrop = ChartDataCollectionOnDrop,

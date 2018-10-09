@@ -35,7 +35,9 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.TestUtil;
 using Core.Plugins.Map.Legend;
+using Core.Plugins.Map.PresentationObjects;
 using Core.Plugins.Map.Properties;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -60,6 +62,7 @@ namespace Core.Plugins.Map.Test.Legend
         {
             mocks = new MockRepository();
             contextMenuBuilderProvider = mocks.Stub<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
 
             mapLegendView = new MapLegendView(contextMenuBuilderProvider);
 
@@ -79,9 +82,6 @@ namespace Core.Plugins.Map.Test.Legend
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -97,7 +97,7 @@ namespace Core.Plugins.Map.Test.Legend
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.CanDrag);
+            Assert.IsNotNull(info.CanDrag);
             Assert.IsNotNull(info.CanDrop);
             Assert.IsNotNull(info.CanInsert);
             Assert.IsNotNull(info.OnDrop);
@@ -107,7 +107,6 @@ namespace Core.Plugins.Map.Test.Legend
         public void Text_Always_ReturnsNameFromMapData()
         {
             // Setup
-            mocks.ReplayAll();
             var mapDataCollection = new MapDataCollection("Collectie");
 
             // Call
@@ -120,9 +119,6 @@ namespace Core.Plugins.Map.Test.Legend
         [Test]
         public void Image_Always_ReturnsImageFromResource()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             Image image = info.Image(null);
 
@@ -131,12 +127,12 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenOfDataReversed()
+        public void ChildNodeObjects_Always_ReturnsChildrenWithContextAndDataReversed()
         {
             // Setup
-            var mapData1 = mocks.StrictMock<MapData>("test data");
-            var mapData2 = mocks.StrictMock<MapData>("test data");
-            var mapData3 = mocks.StrictMock<MapData>("test data");
+            var mapData1 = new TestMapData();
+            var mapData2 = new TestMapData();
+            var mapData3 = new TestMapData();
             var mapDataCollection = new MapDataCollection("test data");
 
             mapDataCollection.Add(mapData1);
@@ -151,67 +147,81 @@ namespace Core.Plugins.Map.Test.Legend
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                mapData3,
-                mapData2,
-                mapData1
+                new MapDataContext(mapData3, mapDataCollection),
+                new MapDataContext(mapData2, mapDataCollection),
+                new MapDataContext(mapData1, mapDataCollection)
             }, objects);
         }
 
         [Test]
-        public void CanDrop_SourceNodeTagIsNoMapData_ReturnsFalse()
+        public void CanDrop_TargetParentIsSameAsSourceParent_ReturnsTrue()
         {
             // Setup
-            mocks.ReplayAll();
-            var mapDataCollection = new MapDataCollection("test data");
+            MapData mapData = new TestMapData();
+            var mapDataCollection = new MapDataCollection("test");
+
+            MapDataContext context = GetContext(mapData, mapDataCollection);
 
             // Call
-            bool canDrop = info.CanDrop(new object(), mapDataCollection);
-
-            // Assert
-            Assert.IsFalse(canDrop);
-        }
-
-        [Test]
-        public void CanDrop_SourceNodeTagIsMapData_ReturnsTrue()
-        {
-            // Setup
-            var mapData = mocks.StrictMock<MapData>("test data");
-            var mapDataCollection = new MapDataCollection("test data");
-
-            mocks.ReplayAll();
-
-            // Call
-            bool canDrop = info.CanDrop(mapData, mapDataCollection);
+            bool canDrop = info.CanDrop(context, mapDataCollection);
 
             // Assert
             Assert.IsTrue(canDrop);
         }
 
         [Test]
-        public void CanInsert_SourceNodeTagIsNoMapData_ReturnsFalse()
+        public void CanDrop_TargetParentNotSameAsSourceParent_ReturnsFalse()
         {
             // Setup
-            mocks.ReplayAll();
-            var mapDataCollection = new MapDataCollection("test data");
+            MapData mapData = new TestMapData();
+            var mapDataCollection = new MapDataCollection("test");
+
+            MapDataContext context = GetContext(mapData, mapDataCollection);
 
             // Call
-            bool canInsert = info.CanInsert(new object(), mapDataCollection);
+            bool canDrop = info.CanDrop(context, GetContext(new MapDataCollection("test")));
+
+            // Assert
+            Assert.IsFalse(canDrop);
+        }
+
+        [Test]
+        public void CanInsert_TargetParentIsSameAsSourceParent_ReturnsTrue()
+        {
+            // Setup
+            MapData mapData = new TestMapData();
+            var mapDataCollection = new MapDataCollection("test");
+
+            MapDataContext context = GetContext(mapData, mapDataCollection);
+
+            // Call
+            bool canInsert = info.CanInsert(context, mapDataCollection);
+
+            // Assert
+            Assert.IsTrue(canInsert);
+        }
+
+        [Test]
+        public void CanInsert_TargetParentNotSameAsSourceParent_ReturnsFalse()
+        {
+            // Setup
+            MapData mapData = new TestMapData();
+            var mapDataCollection = new MapDataCollection("test");
+
+            MapDataContext context = GetContext(mapData, mapDataCollection);
+
+            // Call
+            bool canInsert = info.CanInsert(context, GetContext(new MapDataCollection("test")));
 
             // Assert
             Assert.IsFalse(canInsert);
         }
 
         [Test]
-        public void CanInsert_SourceNodeTagIsMapData_ReturnsTrue()
+        public void CanDrag_Always_ReturnsTrue()
         {
-            // Setup
-            var mapData = mocks.StrictMock<MapData>("test data");
-            var mapDataCollection = new MapDataCollection("test data");
-
-            mocks.ReplayAll();
-
             // Call
-            bool canInsert = info.CanInsert(mapData, mapDataCollection);
+            bool canInsert = info.CanDrag(null, null);
 
             // Assert
             Assert.IsTrue(canInsert);
@@ -224,45 +234,50 @@ namespace Core.Plugins.Map.Test.Legend
         public void OnDrop_MapDataMovedToPositionInsideRange_SetsNewReverseOrder(int position)
         {
             // Setup
-            var mapData1 = mocks.StrictMock<MapData>("test data");
-            var mapData2 = mocks.StrictMock<MapData>("test data");
-            var mapData3 = mocks.StrictMock<MapData>("test data");
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var mapData1 = new TestMapData();
+            var mapData2 = new TestMapData();
+            var mapData3 = new TestMapData();
             var mapDataCollection = new MapDataCollection("test data");
 
             mapDataCollection.Add(mapData1);
             mapDataCollection.Add(mapData2);
             mapDataCollection.Add(mapData3);
 
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            MapDataContext context1 = GetContext(mapData1);
 
-            mocks.ReplayAll();
+            mapDataCollection.Attach(observer);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                mapDataCollection.Attach(observer);
-
                 // Call
-                info.OnDrop(mapData1, mapDataCollection, mapDataCollection, position, treeViewControl);
+                info.OnDrop(context1, mapDataCollection, mapDataCollection, position, treeViewControl);
 
                 // Assert
                 int reversedIndex = 2 - position;
-                Assert.AreSame(mapData1, mapDataCollection.Collection.ElementAt(reversedIndex));
+                Assert.AreSame(context1.WrappedData, mapDataCollection.Collection.ElementAt(reversedIndex));
+
+                mocks.VerifyAll();
             }
         }
 
         [Test]
         [TestCase(-50)]
         [TestCase(-1)]
-        [TestCase(3)]
+        [TestCase(4)]
         [TestCase(50)]
-        public void OnDrop_MapDataMovedToPositionOutsideRange_SetsNewReverseOrder(int position)
+        public void OnDrop_MapDataMovedToPositionOutsideRange_ThrowsException(int position)
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
-            var mapData1 = mocks.StrictMock<MapData>("test data");
-            var mapData2 = mocks.StrictMock<MapData>("test data");
-            var mapData3 = mocks.StrictMock<MapData>("test data");
+            mocks.ReplayAll();
+
+            var mapData1 = new MapLineData("line");
+            var mapData2 = new MapPolygonData("polygon");
+            var mapData3 = new MapPointData("point");
             var mapDataCollection = new MapDataCollection("test data");
 
             mapDataCollection.Add(mapData1);
@@ -270,15 +285,21 @@ namespace Core.Plugins.Map.Test.Legend
             mapDataCollection.Add(mapData3);
 
             mapDataCollection.Attach(observer);
-            mocks.ReplayAll();
+            mapLegendView.Data = mapDataCollection;
+
+            MapDataContext context1 = GetContext(mapData1);
+
+            mapDataCollection.Attach(observer);
 
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => info.OnDrop(mapData1, mapDataCollection, mapDataCollection, position, treeViewControl);
+                TestDelegate test = () => info.OnDrop(context1, mapDataCollection, mapDataCollection, position, treeViewControl);
 
                 // Assert
                 Assert.Throws<ArgumentOutOfRangeException>(test);
+
+                mocks.VerifyAll(); // Expect no update observer.
             }
         }
 
@@ -519,7 +540,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_NoChartControlAndEnabledZoomToAllContextMenuItemClicked_DoesNotThrow()
+        public void ContextMenuStrip_NoMapControlAndEnabledZoomToAllContextMenuItemClicked_DoesNotThrow()
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
@@ -539,6 +560,11 @@ namespace Core.Plugins.Map.Test.Legend
                 // Assert
                 Assert.DoesNotThrow(call);
             }
+        }
+
+        private static MapDataContext GetContext(MapData mapData, MapDataCollection mapDataCollection = null)
+        {
+            return new MapDataContext(mapData, mapDataCollection ?? new MapDataCollection("test"));
         }
     }
 }
