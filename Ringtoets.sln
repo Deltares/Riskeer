@@ -443,11 +443,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Ringtoets.Test", "Demo
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial.TestUtil", "Core\Components\test\Core.Components.DotSpatial.TestUtil\Core.Components.DotSpatial.TestUtil.csproj", "{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis", "Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj", "{318BA582-88C9-4816-A54A-A7E431461DE3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
@@ -1349,11 +1344,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Scripts.Data.Test
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Scripts.Data.TestUtil.Test", "Migration\Scripts\test\Migration.Scripts.Data.TestUtil.Test\Migration.Scripts.Data.TestUtil.Test.csproj", "{8ADC8891-1D6C-4E15-B7BC-DE9641E83BEF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial.TestUtil.Test", "Core\Components\test\Core.Components.DotSpatial.TestUtil.Test\Core.Components.DotSpatial.TestUtil.Test.csproj", "{E111FC08-BE9A-493A-85D8-51CE6FBB13A3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -2575,15 +2565,6 @@ Global
 		{C48E2C11-3FDA-4356-A10F-757469A108FD}.Release|x86.Build.0 = Release|x86
 		{C48E2C11-3FDA-4356-A10F-757469A108FD}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{C48E2C11-3FDA-4356-A10F-757469A108FD}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
-		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
-		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
-		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.Debug|x86.ActiveCfg = Debug|x86
-		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.Debug|x86.Build.0 = Debug|x86
-		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.Release|x86.ActiveCfg = Release|x86
-		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.Release|x86.Build.0 = Release|x86
-		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{318BA582-88C9-4816-A54A-A7E431461DE3}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
 		{318BA582-88C9-4816-A54A-A7E431461DE3}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
 		{318BA582-88C9-4816-A54A-A7E431461DE3}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
@@ -4134,15 +4115,6 @@ Global
 		{8ADC8891-1D6C-4E15-B7BC-DE9641E83BEF}.Release|x86.Build.0 = Release|x86
 		{8ADC8891-1D6C-4E15-B7BC-DE9641E83BEF}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{8ADC8891-1D6C-4E15-B7BC-DE9641E83BEF}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{E111FC08-BE9A-493A-85D8-51CE6FBB13A3}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
-		{E111FC08-BE9A-493A-85D8-51CE6FBB13A3}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
-		{E111FC08-BE9A-493A-85D8-51CE6FBB13A3}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
-		{E111FC08-BE9A-493A-85D8-51CE6FBB13A3}.Debug|x86.ActiveCfg = Debug|x86
-		{E111FC08-BE9A-493A-85D8-51CE6FBB13A3}.Debug|x86.Build.0 = Debug|x86
-		{E111FC08-BE9A-493A-85D8-51CE6FBB13A3}.Release|x86.ActiveCfg = Release|x86
-		{E111FC08-BE9A-493A-85D8-51CE6FBB13A3}.Release|x86.Build.0 = Release|x86
-		{E111FC08-BE9A-493A-85D8-51CE6FBB13A3}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{E111FC08-BE9A-493A-85D8-51CE6FBB13A3}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{EA3E979C-FB00-443B-B6A0-273254F24802}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
 		{EA3E979C-FB00-443B-B6A0-273254F24802}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
 		{EA3E979C-FB00-443B-B6A0-273254F24802}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
@@ -5415,7 +5387,6 @@ Global
 		{7E26AAA5-22ED-43CC-9B21-23EEA60A5A87} = {555F3460-DD3D-4B1D-8319-0AA454050FF7}
 		{FFE3A667-3A4C-4F48-BC6B-1589867FCB41} = {F2C4C4F7-4058-4E71-859B-D704F15D2745}
 		{C48E2C11-3FDA-4356-A10F-757469A108FD} = {7E26AAA5-22ED-43CC-9B21-23EEA60A5A87}
-		{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{318BA582-88C9-4816-A54A-A7E431461DE3} = {7A696ACF-BA09-41A2-A912-A26E82C494CF}
 		{79559D7B-0ECC-4CB5-8ED1-D745F8482BA7} = {05D133D6-D7D8-4872-9B53-2753DD3F8BF9}
 		{B31E1A9B-D13E-42CD-BEDD-9D4A709CE7BD} = {79559D7B-0ECC-4CB5-8ED1-D745F8482BA7}
@@ -5620,7 +5591,6 @@ Global
 		{36F67E99-1546-4E12-876B-0FC121D52EEB} = {1154DEBF-0456-470C-971D-9B7882D4252A}
 		{E4B36055-A984-4D40-9A70-34354054FE46} = {FA7A737E-D2DB-4AD4-94CC-E3EFF242C485}
 		{8ADC8891-1D6C-4E15-B7BC-DE9641E83BEF} = {FA7A737E-D2DB-4AD4-94CC-E3EFF242C485}
-		{E111FC08-BE9A-493A-85D8-51CE6FBB13A3} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{EA3E979C-FB00-443B-B6A0-273254F24802} = {88E04195-C43E-40D3-B5F2-3A25E1E79E03}
 		{F0FB401A-3494-4237-9E6D-02CDF77912A8} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
 		{98FD0100-A601-450B-A2CD-718FAEB3A408} = {D9DC93FF-DCF3-44A4-9193-9911966CDFF4}
