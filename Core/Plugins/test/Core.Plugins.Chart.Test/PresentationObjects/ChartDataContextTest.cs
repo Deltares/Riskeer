@@ -32,7 +32,7 @@ namespace Core.Plugins.Chart.Test.PresentationObjects
     public class ChartDataContextTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             ChartData data = new TestChartData();
@@ -50,7 +50,7 @@ namespace Core.Plugins.Chart.Test.PresentationObjects
         }
 
         [Test]
-        public void ParameteredConstructor_ParentChartDataNull_ThrowsArgumentNullException()
+        public void Constructor_ParentChartDataNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new ChartDataContext(new TestChartData(), null);

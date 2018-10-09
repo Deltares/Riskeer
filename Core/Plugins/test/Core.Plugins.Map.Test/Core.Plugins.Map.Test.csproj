@@ -57,6 +57,7 @@
     <Compile Include="Legend\MapPointDataTreeNodeInfoTest.cs" />
     <Compile Include="Legend\MapPolygonDataTreeNodeInfoTest.cs" />
     <Compile Include="MapRibbonTest.cs" />
+    <Compile Include="PresentationObjects\MapDataContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\CategoryThemePropertiesTest.cs" />
     <Compile Include="PropertyClasses\FeatureBasedMapDataPropertiesTest.cs" />

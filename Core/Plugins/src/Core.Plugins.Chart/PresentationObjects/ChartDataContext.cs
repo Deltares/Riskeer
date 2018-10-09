@@ -36,7 +36,7 @@ namespace Core.Plugins.Chart.PresentationObjects
         /// <param name="wrappedData">The <see cref="ChartData"/> to wrap.</param>
         /// <param name="parentChartData">The parent <see cref="ChartDataCollection"/> 
         /// the <paramref name="wrappedData"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="parentChartData"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ChartDataContext(ChartData wrappedData, ChartDataCollection parentChartData) : base(wrappedData)
         {
             if (parentChartData == null)
