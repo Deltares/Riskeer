@@ -20,20 +20,17 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
-using Core.Components.Gis.Geometries;
 using Core.Plugins.Map.Legend;
+using Core.Plugins.Map.PresentationObjects;
 using Core.Plugins.Map.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -97,66 +94,6 @@ namespace Core.Plugins.Map.Test.Legend
             using (var view = new MapLegendView(contextMenuBuilderProvider))
             {
                 var mapData = new MapDataCollection("test data");
-
-                // Call
-                view.Data = mapData;
-
-                // Assert
-                Assert.AreSame(mapData, view.Data);
-                Assert.IsInstanceOf<MapData>(view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_MapPointData_DataSet()
-        {
-            // Setup
-            using (var view = new MapLegendView(contextMenuBuilderProvider))
-            {
-                var mapData = new MapPointData("test data")
-                {
-                    Features = CreateFeatures()
-                };
-
-                // Call
-                view.Data = mapData;
-
-                // Assert
-                Assert.AreSame(mapData, view.Data);
-                Assert.IsInstanceOf<MapData>(view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_MapLineData_DataSet()
-        {
-            // Setup
-            using (var view = new MapLegendView(contextMenuBuilderProvider))
-            {
-                var mapData = new MapLineData("test data")
-                {
-                    Features = CreateFeatures()
-                };
-
-                // Call
-                view.Data = mapData;
-
-                // Assert
-                Assert.AreSame(mapData, view.Data);
-                Assert.IsInstanceOf<MapData>(view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_MapPolygonData_DataSet()
-        {
-            // Setup
-            using (var view = new MapLegendView(contextMenuBuilderProvider))
-            {
-                var mapData = new MapPolygonData("test data")
-                {
-                    Features = CreateFeatures()
-                };
 
                 // Call
                 view.Data = mapData;
@@ -241,7 +178,38 @@ namespace Core.Plugins.Map.Test.Legend
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Selection_Always_ReturnsSelectedNodeData()
+        public void Selection_NestedNodeData_ReturnsWrappedObjectData()
+        {
+            // Setup
+            var mapData = new MapLineData("line data");
+            var mapDataCollection = new MapDataCollection("collection");
+
+            mapDataCollection.Add(mapData);
+
+            using (var view = new MapLegendView(contextMenuBuilderProvider)
+            {
+                Data = mapDataCollection
+            })
+            {
+                var context = new MapDataContext(mapData, mapDataCollection);
+
+                var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
+                WindowsFormsTestHelper.Show(treeViewControl);
+                treeViewControl.TrySelectNodeForData(context);
+
+                // Call
+                object selection = view.Selection;
+
+                // Assert
+                Assert.AreSame(mapData, selection);
+            }
+
+            WindowsFormsTestHelper.CloseAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Selection_RootNodeData_ReturnsObjectData()
         {
             // Setup
             var mapData = new MapLineData("line data");
@@ -255,15 +223,14 @@ namespace Core.Plugins.Map.Test.Legend
             })
             {
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
-
                 WindowsFormsTestHelper.Show(treeViewControl);
-                treeViewControl.TrySelectNodeForData(mapData);
+                treeViewControl.TrySelectNodeForData(mapDataCollection);
 
                 // Call
                 object selection = view.Selection;
 
                 // Assert
-                Assert.AreSame(mapData, selection);
+                Assert.AreSame(mapDataCollection, selection);
             }
 
             WindowsFormsTestHelper.CloseAll();
@@ -291,7 +258,8 @@ namespace Core.Plugins.Map.Test.Legend
                 view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
                 // When
-                treeViewControl.TrySelectNodeForData(mapData);
+                var context = new MapDataContext(mapData, mapDataCollection);
+                treeViewControl.TrySelectNodeForData(context);
 
                 // Then
                 Assert.AreEqual(1, selectionChangedCount);
@@ -321,20 +289,6 @@ namespace Core.Plugins.Map.Test.Legend
             }
 
             WindowsFormsTestHelper.CloseAll();
-        }
-
-        private static MapFeature[] CreateFeatures()
-        {
-            return new[]
-            {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        Enumerable.Empty<Point2D>()
-                    })
-                })
-            };
         }
     }
 }

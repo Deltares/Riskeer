@@ -75,7 +75,7 @@ namespace Core.Plugins.Chart.Test.Legend
         }
 
         [Test]
-        public void Data_ChartControl_DataSet()
+        public void Data_ChartDataCollection_DataSet()
         {
             // Setup 
             var mocks = new MockRepository();
