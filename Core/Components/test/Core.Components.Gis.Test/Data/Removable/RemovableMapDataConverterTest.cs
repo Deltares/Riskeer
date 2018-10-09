@@ -21,11 +21,11 @@
 
 using System;
 using System.Drawing;
-using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Data.Removable;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Style;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Components.Gis.Test.Data.Removable

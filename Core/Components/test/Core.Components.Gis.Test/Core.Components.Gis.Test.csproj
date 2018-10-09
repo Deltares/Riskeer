@@ -16,6 +16,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestFeatureBasedMapDataTest.cs" />
     <Compile Include="Theme\CategoryThemeTest.cs" />
     <Compile Include="Theme\ValueCriterionOperatorTest.cs" />
     <Compile Include="Theme\ValueCriterionTest.cs" />
