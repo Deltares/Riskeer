@@ -201,9 +201,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             var random = new Random(21);
 
             var unequalCriterion = new ValueCriterion(ValueCriterionOperator.UnequalValue,
-                                                      random.NextDouble());
+                                                      "unequal value");
             var equalCriterion = new ValueCriterion(ValueCriterionOperator.EqualValue,
-                                                    random.NextDouble());
+                                                    "equal value");
             var theme = new MapTheme(metadataAttribute, new[]
             {
                 new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),

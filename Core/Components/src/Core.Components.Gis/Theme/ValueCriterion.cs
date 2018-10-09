@@ -36,7 +36,7 @@ namespace Core.Components.Gis.Theme
         /// <param name="value">The value to apply when using this criteria.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="valueOperator"/>
         /// contains an invalid value for <see cref="ValueCriterionOperator"/>.</exception>
-        public ValueCriterion(ValueCriterionOperator valueOperator, double value)
+        public ValueCriterion(ValueCriterionOperator valueOperator, string value)
         {
             if (!Enum.IsDefined(typeof(ValueCriterionOperator), valueOperator))
             {
@@ -57,6 +57,6 @@ namespace Core.Components.Gis.Theme
         /// <summary>
         /// Gets the value that belongs to the criteria.
         /// </summary>
-        public double Value { get; }
+        public string Value { get; }
     }
 }

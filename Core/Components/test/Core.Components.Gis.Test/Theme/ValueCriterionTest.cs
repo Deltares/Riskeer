@@ -36,7 +36,7 @@ namespace Core.Components.Gis.Test.Theme
             // Setup
             var random = new Random(21);
             var valueOperator = random.NextEnumValue<ValueCriterionOperator>();
-            double value = random.NextDouble();
+            const string value = "test values";
 
             // Call
             var criteria = new ValueCriterion(valueOperator, value);
@@ -50,11 +50,10 @@ namespace Core.Components.Gis.Test.Theme
         public void Constructor_InvalidOperator_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var random = new Random(21);
             const ValueCriterionOperator invalidOperator = (ValueCriterionOperator) 9999;
 
             // Call
-            TestDelegate call = () => new ValueCriterion(invalidOperator, random.NextDouble());
+            TestDelegate call = () => new ValueCriterion(invalidOperator, "test");
 
             // Assert
             string expectedMessage = $"The value of argument 'valueOperator' ({invalidOperator}) is invalid for Enum type '{nameof(ValueCriterionOperator)}'.";

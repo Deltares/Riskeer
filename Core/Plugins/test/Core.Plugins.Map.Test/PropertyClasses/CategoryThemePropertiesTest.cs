@@ -113,10 +113,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                             string formatExpression)
         {
             // Setup
-            const string attributeName = "AttributeName";
-
             var random = new Random(21);
-            double value = random.NextDouble();
+            const string attributeName = "AttributeName";
+            const string value = "random value 123";
 
             Color color = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
             var criterion = new ValueCriterion(valueOperator, value);

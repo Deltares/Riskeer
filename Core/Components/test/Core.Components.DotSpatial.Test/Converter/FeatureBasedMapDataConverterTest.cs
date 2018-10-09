@@ -525,7 +525,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             {
                 new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
                                   new ValueCriterion(random.NextEnum<ValueCriterionOperator>(),
-                                                     random.NextDouble()))
+                                                     "test value"))
             });
 
             var mapData = new TestFeatureBasedMapData("test data")
@@ -562,7 +562,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var random = new Random(21);
             const string metadataAttributeName = "Meta";
-            double value = random.NextDouble();
+            const string value = "test value";
 
             var featureScheme = new PointScheme();
             var defaultCategory = new PointCategory();
