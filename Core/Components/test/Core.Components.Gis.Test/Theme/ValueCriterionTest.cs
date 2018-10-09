@@ -31,12 +31,13 @@ namespace Core.Components.Gis.Test.Theme
     public class ValueCriterionTest
     {
         [Test]
-        public void Constructor_ReturnsExpectedProperties()
+        [TestCase("test value")]
+        [TestCase("")]
+        public void Constructor_ReturnsExpectedProperties(string value)
         {
             // Setup
             var random = new Random(21);
             var valueOperator = random.NextEnumValue<ValueCriterionOperator>();
-            const string value = "test values";
 
             // Call
             var criteria = new ValueCriterion(valueOperator, value);
@@ -44,6 +45,21 @@ namespace Core.Components.Gis.Test.Theme
             // Assert
             Assert.AreEqual(valueOperator, criteria.ValueOperator);
             Assert.AreEqual(value, criteria.Value);
+        }
+
+        [Test]
+        public void Constructor_ValueNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+            var valueOperator = random.NextEnumValue<ValueCriterionOperator>();
+
+            // Call
+            TestDelegate call = () => new ValueCriterion(valueOperator, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("value", exception.ParamName);
         }
 
         [Test]

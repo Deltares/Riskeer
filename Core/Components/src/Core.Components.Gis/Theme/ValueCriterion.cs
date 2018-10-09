@@ -34,10 +34,17 @@ namespace Core.Components.Gis.Theme
         /// </summary>
         /// <param name="valueOperator">The <see cref="ValueCriterionOperator"/> belonging to this criterion.</param>
         /// <param name="value">The value to apply when using this criteria.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/>
+        /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="valueOperator"/>
         /// contains an invalid value for <see cref="ValueCriterionOperator"/>.</exception>
         public ValueCriterion(ValueCriterionOperator valueOperator, string value)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
             if (!Enum.IsDefined(typeof(ValueCriterionOperator), valueOperator))
             {
                 throw new InvalidEnumArgumentException(nameof(valueOperator),
