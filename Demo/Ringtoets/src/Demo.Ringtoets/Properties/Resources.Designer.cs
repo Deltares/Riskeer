@@ -455,5 +455,50 @@ namespace Demo.Ringtoets.Properties {
                 return ResourceManager.GetString("OpenThematicalMapViewCommand_Execute_MapPolygonData_with_UnequalValueCriteria", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AA.
+        /// </summary>
+        public static string ThematicalFeatureTypes_A {
+            get {
+                return ResourceManager.GetString("ThematicalFeatureTypes_A", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BB.
+        /// </summary>
+        public static string ThematicalFeatureTypes_B {
+            get {
+                return ResourceManager.GetString("ThematicalFeatureTypes_B", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CC.
+        /// </summary>
+        public static string ThematicalFeatureTypes_C {
+            get {
+                return ResourceManager.GetString("ThematicalFeatureTypes_C", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DD.
+        /// </summary>
+        public static string ThematicalFeatureTypes_D {
+            get {
+                return ResourceManager.GetString("ThematicalFeatureTypes_D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EE.
+        /// </summary>
+        public static string ThematicalFeatureTypes_E {
+            get {
+                return ResourceManager.GetString("ThematicalFeatureTypes_E", resourceCulture);
+            }
+        }
     }
 }

@@ -19,13 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Commands;
+using Core.Common.Util;
+using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
@@ -40,6 +40,24 @@ namespace Demo.Ringtoets.Commands
     /// </summary>
     public class OpenThematicalMapViewCommand : ICommand
     {
+        private enum ThematicalFeatureTypes
+        {
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.ThematicalFeatureTypes_A))]
+            A,
+
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.ThematicalFeatureTypes_B))]
+            B,
+
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.ThematicalFeatureTypes_C))]
+            C,
+
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.ThematicalFeatureTypes_D))]
+            D,
+
+            [ResourcesDisplayName(typeof(Resources), nameof(Resources.ThematicalFeatureTypes_E))]
+            E
+        }
+
         private const string selectedMetaDataAttributeName = "Waarde";
         private readonly IViewCommands viewCommands;
 
@@ -60,7 +78,7 @@ namespace Demo.Ringtoets.Commands
 
             var mapPointDataEqualCriteria = new MapPointData(Resources.OpenThematicalMapViewCommand_Execute_MapPointData_with_EqualValueCriteria)
             {
-                Features = CreateMapPointFeaturesWithMetaData(40),
+                Features = CreateMapPointFeaturesWithMetaData(40, 0),
                 Style =
                 {
                     Size = 10
@@ -72,7 +90,7 @@ namespace Demo.Ringtoets.Commands
 
             var mapPointDataUnequalCriteria = new MapPointData(Resources.OpenThematicalMapViewCommand_Execute_MapPointData_with_UnequalValueCriteria)
             {
-                Features = CreateMapPointFeaturesWithMetaData(15),
+                Features = CreateMapPointFeaturesWithMetaData(15, 5),
                 Style =
                 {
                     Size = 10
@@ -84,7 +102,7 @@ namespace Demo.Ringtoets.Commands
 
             var mapLineDataEqualCriteria = new MapLineData(Resources.OpenThematicalMapViewCommand_Execute_MapLineData_with_EqualValueCriteria)
             {
-                Features = CreateMapLineFeaturesWithMetaData(40),
+                Features = CreateMapLineFeaturesWithMetaData(40, 10),
                 SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
             SetEqualCriteria(mapLineDataEqualCriteria);
@@ -92,7 +110,7 @@ namespace Demo.Ringtoets.Commands
 
             var mapLineDataUnequalCriteria = new MapLineData(Resources.OpenThematicalMapViewCommand_Execute_MapLineData_with_UnequalValueCriteria)
             {
-                Features = CreateMapLineFeaturesWithMetaData(10),
+                Features = CreateMapLineFeaturesWithMetaData(10, 15),
                 SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
             SetUnequalCriteria(mapLineDataUnequalCriteria);
@@ -100,7 +118,7 @@ namespace Demo.Ringtoets.Commands
 
             var mapPolygonDataEqualCriteria = new MapPolygonData(Resources.OpenThematicalMapViewCommand_Execute_MapPolygonData_with_EqualValueCriteria)
             {
-                Features = CreatePolygonFeaturesWithMetaData(40),
+                Features = CreatePolygonFeaturesWithMetaData(40, 20),
                 SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
             SetEqualCriteria(mapPolygonDataEqualCriteria);
@@ -108,7 +126,7 @@ namespace Demo.Ringtoets.Commands
 
             var mapPolygonDataUnequalCriteria = new MapPolygonData(Resources.OpenThematicalMapViewCommand_Execute_MapPolygonData_with_UnequalValueCriteria)
             {
-                Features = CreatePolygonFeaturesWithMetaData(10),
+                Features = CreatePolygonFeaturesWithMetaData(10, 25),
                 SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
             SetUnequalCriteria(mapPolygonDataUnequalCriteria);
@@ -119,32 +137,33 @@ namespace Demo.Ringtoets.Commands
 
         private static void SetEqualCriteria(FeatureBasedMapData mapData)
         {
-            var random = new Random(13);
-            int nrOfFeatures = mapData.Features.Count();
-            var theme = new MapTheme("Waarde", new[]
+            var theme = new MapTheme(selectedMetaDataAttributeName, new[]
             {
-                new CategoryTheme(Color.DarkOrange, new ValueCriterion(ValueCriterionOperator.EqualValue, random.Next(0, nrOfFeatures))),
-                new CategoryTheme(Color.OrangeRed, new ValueCriterion(ValueCriterionOperator.EqualValue, random.Next(0, nrOfFeatures))),
-                new CategoryTheme(Color.SkyBlue, new ValueCriterion(ValueCriterionOperator.EqualValue, random.Next(0, nrOfFeatures))),
-                new CategoryTheme(Color.GreenYellow, new ValueCriterion(ValueCriterionOperator.EqualValue, random.Next(0, nrOfFeatures)))
+                new CategoryTheme(Color.DarkOrange, new ValueCriterion(ValueCriterionOperator.EqualValue, GetDisplayName(ThematicalFeatureTypes.A))),
+                new CategoryTheme(Color.OrangeRed, new ValueCriterion(ValueCriterionOperator.EqualValue, GetDisplayName(ThematicalFeatureTypes.B))),
+                new CategoryTheme(Color.SkyBlue, new ValueCriterion(ValueCriterionOperator.EqualValue, GetDisplayName(ThematicalFeatureTypes.C))),
+                new CategoryTheme(Color.GreenYellow, new ValueCriterion(ValueCriterionOperator.EqualValue, GetDisplayName(ThematicalFeatureTypes.D)))
             });
 
             mapData.MapTheme = theme;
+        }
+
+        private static string GetDisplayName(ThematicalFeatureTypes thematicalFeatureTypes)
+        {
+            return new EnumDisplayWrapper<ThematicalFeatureTypes>(thematicalFeatureTypes).DisplayName;
         }
 
         private static void SetUnequalCriteria(FeatureBasedMapData mapData)
         {
-            var random = new Random(37);
-            int nrOfFeatures = mapData.Features.Count();
-            var theme = new MapTheme("Waarde", new[]
+            var theme = new MapTheme(selectedMetaDataAttributeName, new[]
             {
-                new CategoryTheme(Color.Purple, new ValueCriterion(ValueCriterionOperator.UnequalValue, random.Next(0, nrOfFeatures)))
+                new CategoryTheme(Color.Purple, new ValueCriterion(ValueCriterionOperator.UnequalValue, GetDisplayName(ThematicalFeatureTypes.E)))
             });
 
             mapData.MapTheme = theme;
         }
 
-        private static IEnumerable<MapFeature> CreateMapPointFeaturesWithMetaData(int nrOfPoints)
+        private static IEnumerable<MapFeature> CreateMapPointFeaturesWithMetaData(int nrOfPoints, int bottom)
         {
             const double offset = 12;
             double xCoordinate = 0;
@@ -155,9 +174,9 @@ namespace Demo.Ringtoets.Commands
             {
                 MapFeature feature = GetFeatureWithPoints(new[]
                 {
-                    new Point2D(xCoordinate, 0)
+                    new Point2D(xCoordinate, bottom)
                 });
-                feature.MetaData[selectedMetaDataAttributeName] = i;
+                feature.MetaData[selectedMetaDataAttributeName] = GetThematicalFeatureType(i);
                 features[i] = feature;
 
                 xCoordinate += offset;
@@ -166,7 +185,7 @@ namespace Demo.Ringtoets.Commands
             return features;
         }
 
-        private static IEnumerable<MapFeature> CreateMapLineFeaturesWithMetaData(int nrOfLines)
+        private static IEnumerable<MapFeature> CreateMapLineFeaturesWithMetaData(int nrOfLines, int bottom)
         {
             double xCoordinate = 0;
 
@@ -176,17 +195,22 @@ namespace Demo.Ringtoets.Commands
             {
                 MapFeature feature = GetFeatureWithPoints(new[]
                 {
-                    new Point2D(xCoordinate, 0),
-                    new Point2D(xCoordinate++, 10)
+                    new Point2D(xCoordinate, bottom),
+                    new Point2D(xCoordinate++, bottom + 3)
                 });
-                feature.MetaData[selectedMetaDataAttributeName] = i;
+                feature.MetaData[selectedMetaDataAttributeName] = GetThematicalFeatureType(i);
                 features[i] = feature;
             }
 
             return features;
         }
 
-        private static IEnumerable<MapFeature> CreatePolygonFeaturesWithMetaData(int nrOfPolygons)
+        private static string GetThematicalFeatureType(int i)
+        {
+            return GetDisplayName((ThematicalFeatureTypes) (i % 5));
+        }
+
+        private static IEnumerable<MapFeature> CreatePolygonFeaturesWithMetaData(int nrOfPolygons, int bottom)
         {
             const double offset = 3;
             double leftCoordinate = 0;
@@ -198,13 +222,13 @@ namespace Demo.Ringtoets.Commands
             {
                 MapFeature feature = GetFeatureWithPoints(new[]
                 {
-                    new Point2D(leftCoordinate, 0),
-                    new Point2D(leftCoordinate, 5),
-                    new Point2D(rightCoordinate, 5),
-                    new Point2D(rightCoordinate, 0),
-                    new Point2D(leftCoordinate, 0)
+                    new Point2D(leftCoordinate, bottom),
+                    new Point2D(leftCoordinate, bottom + 3),
+                    new Point2D(rightCoordinate, bottom + 3),
+                    new Point2D(rightCoordinate, bottom),
+                    new Point2D(leftCoordinate, bottom)
                 });
-                feature.MetaData[selectedMetaDataAttributeName] = i;
+                feature.MetaData[selectedMetaDataAttributeName] = GetThematicalFeatureType(i);
                 features[i] = feature;
 
                 leftCoordinate += offset;

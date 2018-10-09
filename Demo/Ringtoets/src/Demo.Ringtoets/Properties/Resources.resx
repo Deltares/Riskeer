@@ -241,4 +241,19 @@
   <data name="OpenThematicalMapViewCommand_Execute_MapPolygonData_with_UnequalValueCriteria" xml:space="preserve">
     <value>Polygon data met ongelijk criterium</value>
   </data>
+  <data name="ThematicalFeatureTypes_A" xml:space="preserve">
+    <value>AA</value>
+  </data>
+  <data name="ThematicalFeatureTypes_B" xml:space="preserve">
+    <value>BB</value>
+  </data>
+  <data name="ThematicalFeatureTypes_C" xml:space="preserve">
+    <value>CC</value>
+  </data>
+  <data name="ThematicalFeatureTypes_D" xml:space="preserve">
+    <value>DD</value>
+  </data>
+  <data name="ThematicalFeatureTypes_E" xml:space="preserve">
+    <value>EE</value>
+  </data>
 </root>
