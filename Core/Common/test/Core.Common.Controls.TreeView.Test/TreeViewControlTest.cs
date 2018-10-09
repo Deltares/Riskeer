@@ -400,7 +400,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void TryRemoveNodeForData_NotRemoveable_ShowsDialog()
+        public void TryRemoveNodeForData_NotRemovable_ShowsDialog()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -441,7 +441,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void TryRemoveNodeForData_Removeable_OnNodeRemovedAndDataDeletedCalled()
+        public void TryRemoveNodeForData_Removable_OnNodeRemovedAndDataDeletedCalled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -731,7 +731,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void TryRemoveNodeForData_RemoveableCancelClicked_OnNodeRemovedNotCalled()
+        public void TryRemoveNodeForData_RemovableCancelClicked_OnNodeRemovedNotCalled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())

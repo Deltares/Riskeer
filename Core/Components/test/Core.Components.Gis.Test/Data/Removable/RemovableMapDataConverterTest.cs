@@ -34,7 +34,7 @@ namespace Core.Components.Gis.Test.Data.Removable
     public class RemovableMapDataConverterTest
     {
         [Test]
-        public void FromFeatureBasedMapData_WithMapPointData_ReturnsNewRemoveableDataWithSameProperties()
+        public void FromFeatureBasedMapData_WithMapPointData_ReturnsNewRemovableDataWithSameProperties()
         {
             // Setup
             const string name = "test";
@@ -65,7 +65,7 @@ namespace Core.Components.Gis.Test.Data.Removable
         }
 
         [Test]
-        public void FromFeatureBasedMapData_WithMapLineData_ReturnsNewRemoveableDataWithSameProperties()
+        public void FromFeatureBasedMapData_WithMapLineData_ReturnsNewRemovableDataWithSameProperties()
         {
             // Setup
             const string name = "test";
@@ -93,7 +93,7 @@ namespace Core.Components.Gis.Test.Data.Removable
         }
 
         [Test]
-        public void FromFeatureBasedMapData_WithMapPolygonData_ReturnsNewRemoveableDataWithSameProperties()
+        public void FromFeatureBasedMapData_WithMapPolygonData_ReturnsNewRemovableDataWithSameProperties()
         {
             // Setup
             const string name = "test";
