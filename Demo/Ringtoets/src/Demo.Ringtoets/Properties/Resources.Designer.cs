@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -331,6 +331,15 @@ namespace Demo.Ringtoets.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lege map.
+        /// </summary>
+        public static string OpenMapViewCommand_Execute_Empty {
+            get {
+                return ResourceManager.GetString("OpenMapViewCommand_Execute_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kustlijn Flevoland.
         /// </summary>
         public static string OpenMapViewCommand_Execute_Kustlijn_Flevoland {
@@ -390,6 +399,24 @@ namespace Demo.Ringtoets.Properties {
         public static string OpenMapViewCommand_Execute_Vlieland {
             get {
                 return ResourceManager.GetString("OpenMapViewCommand_Execute_Vlieland", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waddeneilanden.
+        /// </summary>
+        public static string OpenMapViewCommand_Execute_Wadden {
+            get {
+                return ResourceManager.GetString("OpenMapViewCommand_Execute_Wadden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wadden 2.
+        /// </summary>
+        public static string OpenMapViewCommand_Execute_Wadden_two {
+            get {
+                return ResourceManager.GetString("OpenMapViewCommand_Execute_Wadden_two", resourceCulture);
             }
         }
         

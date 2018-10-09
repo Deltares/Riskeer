@@ -57,8 +57,11 @@ namespace Demo.Ringtoets.Commands
         public void Execute()
         {
             var mapDataCollection = new MapDataCollection(Resources.OpenMapViewCommand_Execute_Demo_map_netherlands);
+            var waddenMapDataCollection = new MapDataCollection(Resources.OpenMapViewCommand_Execute_Wadden);
+            var nestedWaddenMapDataCollection = new MapDataCollection(Resources.OpenMapViewCommand_Execute_Wadden_two);
+            var emptyMapDataCollection = new MapDataCollection(Resources.OpenMapViewCommand_Execute_Empty);
 
-            mapDataCollection.Add(new MapPolygonData(Resources.OpenMapViewCommand_Execute_Texel)
+            waddenMapDataCollection.Add(new MapPolygonData(Resources.OpenMapViewCommand_Execute_Texel)
             {
                 Features = GetFeatureWithPoints(new[]
                 {
@@ -68,7 +71,7 @@ namespace Demo.Ringtoets.Commands
                 })
             });
 
-            mapDataCollection.Add(new MapPolygonData(Resources.OpenMapViewCommand_Execute_Vlieland)
+            waddenMapDataCollection.Add(new MapPolygonData(Resources.OpenMapViewCommand_Execute_Vlieland)
             {
                 Features = GetFeatureWithPoints(new[]
                 {
@@ -78,7 +81,7 @@ namespace Demo.Ringtoets.Commands
                 })
             });
 
-            mapDataCollection.Add(new MapPolygonData(Resources.OpenMapViewCommand_Execute_Terschelling)
+            waddenMapDataCollection.Add(new MapPolygonData(Resources.OpenMapViewCommand_Execute_Terschelling)
             {
                 Features = GetFeatureWithPoints(new[]
                 {
@@ -88,7 +91,7 @@ namespace Demo.Ringtoets.Commands
                 })
             });
 
-            mapDataCollection.Add(new MapPolygonData(Resources.OpenMapViewCommand_Execute_Ameland)
+            nestedWaddenMapDataCollection.Add(new MapPolygonData(Resources.OpenMapViewCommand_Execute_Ameland)
             {
                 Features = GetFeatureWithPoints(new[]
                 {
@@ -98,7 +101,7 @@ namespace Demo.Ringtoets.Commands
                 })
             });
 
-            mapDataCollection.Add(new MapPolygonData(Resources.OpenMapViewCommand_Execute_Schiermonnikoog)
+            nestedWaddenMapDataCollection.Add(new MapPolygonData(Resources.OpenMapViewCommand_Execute_Schiermonnikoog)
             {
                 Features = GetFeatureWithPoints(new[]
                 {
@@ -108,6 +111,10 @@ namespace Demo.Ringtoets.Commands
                 })
             });
 
+            waddenMapDataCollection.Add(emptyMapDataCollection);
+            waddenMapDataCollection.Add(nestedWaddenMapDataCollection);
+            mapDataCollection.Add(waddenMapDataCollection);
+            
             mapDataCollection.Add(new MapPointData(Resources.OpenMapViewCommand_Execute_Randstad)
             {
                 Features = GetFeatureWithPoints(new[]

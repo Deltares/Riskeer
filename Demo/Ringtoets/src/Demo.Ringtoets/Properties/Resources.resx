@@ -256,4 +256,13 @@
   <data name="ThematicalFeatureTypes_E" xml:space="preserve">
     <value>EE</value>
   </data>
+  <data name="OpenMapViewCommand_Execute_Wadden" xml:space="preserve">
+    <value>Waddeneilanden</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Empty" xml:space="preserve">
+    <value>Lege map</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Wadden_two" xml:space="preserve">
+    <value>Wadden 2</value>
+  </data>
 </root>
