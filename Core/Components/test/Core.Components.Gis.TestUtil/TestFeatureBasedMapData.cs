@@ -37,5 +37,10 @@ namespace Core.Components.Gis.TestUtil
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is
         /// <c>null</c> or whitespace.</exception>
         public TestFeatureBasedMapData(string name) : base(name) {}
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="TestFeatureBasedMapData"/>.
+        /// </summary>
+        public TestFeatureBasedMapData() : base("test data") {}
     }
 }
