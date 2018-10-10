@@ -29,6 +29,7 @@ using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Factories;
@@ -38,9 +39,6 @@ namespace Ringtoets.Common.Forms.Test.Factories
     [TestFixture]
     public class AssemblyMapDataFeaturesFactoryTest
     {
-        private const string categoryMetaData = "Categorie";
-        private const string probabilityMetaData = "Faalkans";
-
         [Test]
         public void CreateAssemblyFeatures_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -66,6 +64,33 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateAssemblyFeatures_GetAssemblyFuncThrowsAssemblyExceptionOnFirstSection_FirstSectionSkipped()
+        {
+            // Setup
+            var random = new Random(39);
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
+            var expectedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+
+            // Call
+            var shouldThrowException = true;
+            IEnumerable<MapFeature> features = AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<
+                TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism, sr =>
+            {
+                if (shouldThrowException)
+                {
+                    shouldThrowException = false;
+                    throw new AssemblyException();
+                }
+
+                return expectedAssembly;
+            });
+
+            // Assert
+            AssertMapFeature(failureMechanism.Sections.ElementAt(1), features.Single(), expectedAssembly);
+        }
+
+        [Test]
         public void CreateAssemblyFeatures_ValidParameters_ReturnsExpectedFeatures()
         {
             // Setup
@@ -86,17 +111,22 @@ namespace Ringtoets.Common.Forms.Test.Factories
             {
                 FailureMechanismSection section = failureMechanism.Sections.ElementAt(i);
                 MapFeature mapFeature = features.ElementAt(i);
-                IEnumerable<MapGeometry> mapGeometries = mapFeature.MapGeometries;
-                
-                Assert.AreEqual(1, mapGeometries.Count());
-                CollectionAssert.AreEqual(section.Points, mapGeometries.Single().PointCollections.First());
-                Assert.AreEqual(2, mapFeature.MetaData.Keys.Count);
-                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                                    DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssembly.Group)).DisplayName,
-                                mapFeature.MetaData[categoryMetaData]);
-                Assert.AreEqual(expectedAssembly.Probability,
-                                mapFeature.MetaData[probabilityMetaData]);
+                AssertMapFeature(section, mapFeature, expectedAssembly);
             }
+        }
+
+        private static void AssertMapFeature(FailureMechanismSection section, MapFeature mapFeature, FailureMechanismSectionAssembly expectedAssembly)
+        {
+            IEnumerable<MapGeometry> mapGeometries = mapFeature.MapGeometries;
+
+            Assert.AreEqual(1, mapGeometries.Count());
+            CollectionAssert.AreEqual(section.Points, mapGeometries.Single().PointCollections.First());
+            Assert.AreEqual(2, mapFeature.MetaData.Keys.Count);
+            Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
+                                DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssembly.Group)).DisplayName,
+                            mapFeature.MetaData["Categorie"]);
+            Assert.AreEqual(expectedAssembly.Probability,
+                            mapFeature.MetaData["Faalkans"]);
         }
     }
 }

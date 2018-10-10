@@ -26,6 +26,7 @@ using Core.Common.Util;
 using Core.Components.Gis.Features;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 
@@ -70,7 +71,16 @@ namespace Ringtoets.Common.Forms.Factories
             foreach (TSectionResult sectionResult in failureMechanism.SectionResults)
             {
                 MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(sectionResult.Section.Points);
-                FailureMechanismSectionAssembly assemblyResult = getAssemblyFunc(sectionResult);
+
+                FailureMechanismSectionAssembly assemblyResult;
+                try
+                {
+                    assemblyResult = getAssemblyFunc(sectionResult);
+                }
+                catch (AssemblyException)
+                {
+                    continue;
+                }
 
                 feature.MetaData[Resources.AssemblyCategory_Group_DisplayName] =
                     new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
