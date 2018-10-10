@@ -24,6 +24,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\PipingAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="PipingCalculationConfigurationHelperTest.cs" />
     <Compile Include="PipingSurfaceLineSelectionDialogTest.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismSectionsContextTest.cs" />
@@ -105,6 +106,10 @@
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
       <Name>Ringtoets.AssemblyTool.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Forms\Ringtoets.AssemblyTool.Forms.csproj">
+      <Project>{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}</Project>
+      <Name>Ringtoets.AssemblyTool.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
       <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>

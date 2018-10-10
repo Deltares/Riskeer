@@ -22,20 +22,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Util;
 using Core.Components.Gis.Features;
-using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Piping.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating collections of <see cref="MapFeature"/> for assembly results.
+    /// Factory for creating collections of <see cref="MapFeature"/> for assembly results in a <see cref="PipingFailureMechanism"/>.
     /// </summary>
     public static class PipingAssemblyMapDataFeaturesFactory
     {
@@ -45,10 +41,18 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to create the features for.</param>
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="MapFeature"/> could not be created.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c></exception>
         public static IEnumerable<MapFeature> CreateSimpleAssemblyFeatures(PipingFailureMechanism failureMechanism)
         {
-            return CreateAssemblyFeatures(failureMechanism,
-                                          PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment).ToArray();
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResult>(
+                failureMechanism,
+                PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -58,13 +62,26 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/> belongs to.</param>
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="MapFeature"/> could not be created.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c></exception>
         public static IEnumerable<MapFeature> CreateDetailedAssemblyFeatures(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return CreateAssemblyFeatures(failureMechanism,
-                                          sectionResult => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult,
-                                                                                                                            failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
-                                                                                                                            failureMechanism,
-                                                                                                                            assessmentSection)).ToArray();
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResult>(
+                failureMechanism,
+                sectionResult => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                    sectionResult,
+                    failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                    failureMechanism,
+                    assessmentSection));
         }
 
         /// <summary>
@@ -74,31 +91,53 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/> belongs to.</param>
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="MapFeature"/> could not be created.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c></exception>
         public static IEnumerable<MapFeature> CreateTailorMadeAssemblyFeatures(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return CreateAssemblyFeatures(failureMechanism,
-                                          sectionResult => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
-                                                                                                                              failureMechanism,
-                                                                                                                              assessmentSection)).ToArray();
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResult>(
+                failureMechanism,
+                sectionResult => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
+                                                                                                    failureMechanism,
+                                                                                                    assessmentSection));
         }
 
-        private static IEnumerable<MapFeature> CreateAssemblyFeatures(PipingFailureMechanism failureMechanism,
-                                                                      Func<PipingFailureMechanismSectionResult, FailureMechanismSectionAssembly> getAssemblyFunc)
+        /// <summary>
+        /// Creates features for the combined assembly results in <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to create the features for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/> belongs to.</param>
+        /// <returns>A collection of <see cref="MapFeature"/>.</returns>
+        /// <exception cref="AssemblyException">Thrown when a <see cref="MapFeature"/> could not be created.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c></exception>
+        public static IEnumerable<MapFeature> CreateCombinedAssemblyFeatures(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            for (var i = 0; i < failureMechanism.SectionResults.Count(); i++)
+            if (failureMechanism == null)
             {
-                PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.ElementAt(i);
-                MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(sectionResult.Section.Points);
-                FailureMechanismSectionAssembly assemblyResult = getAssemblyFunc(sectionResult);
-
-                feature.MetaData[RingtoetsCommonFormsResources.AssemblyCategory_Group_DisplayName] = 
-                    new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                        DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(assemblyResult.Group)).DisplayName;
-
-                feature.MetaData[RingtoetsCommonFormsResources.MetaData_Probability] = assemblyResult.Probability;
-
-                yield return feature;
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResult>(
+                failureMechanism,
+                sectionResult => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    sectionResult,
+                    failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                    failureMechanism,
+                    assessmentSection));
         }
     }
 }
