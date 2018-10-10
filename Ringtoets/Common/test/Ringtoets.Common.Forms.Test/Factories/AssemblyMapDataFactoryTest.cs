@@ -32,9 +32,6 @@ namespace Ringtoets.Common.Forms.Test.Factories
     [TestFixture]
     public class AssemblyMapDataFactoryTest
     {
-        private const int lineWidth = 2;
-        private const LineDashStyle lineDashStyle = LineDashStyle.Solid;
-
         [Test]
         public void CreateAssemblyMapDataCollection_ReturnsEmptyMapDataCollection()
         {
@@ -92,7 +89,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(expectedName, actualMapLineData.Name);
             Assert.AreEqual(expectedVisibility, actualMapLineData.IsVisible);
             Assert.AreEqual("Categorie", actualMapLineData.SelectedMetaDataAttribute);
-            AssertEqualStyle(actualMapLineData.Style, Color.Empty, lineWidth, lineDashStyle);
+            AssertEqualStyle(actualMapLineData.Style, Color.Empty, 2, LineDashStyle.Solid);
             AssertMapTheme(actualMapLineData.MapTheme);
         }
 
