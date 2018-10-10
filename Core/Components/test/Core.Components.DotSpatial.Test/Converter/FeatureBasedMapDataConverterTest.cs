@@ -252,7 +252,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerFeatures_LayerWithDataInDifferentCoodinateSystem_CreatedPointIsNotReprojected()
+        public void ConvertLayerFeatures_LayerWithDataInDifferentCoordinateSystem_CreatedPointIsNotReprojected()
         {
             // Setup
             var testConverter = new TestFeatureBasedMapDataConverter();
@@ -512,7 +512,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerProperties_MapDataWithMapThemeAndMetaDataNameNotInFeatures_ThrowsKeyNotFoundException()
+        public void ConvertLayerProperties_MapDataWithMapThemeAndMetaDataNameNotInFeatures_AddsOnlyDefaultCategory()
         {
             // Setup
             var random = new Random(21);
@@ -547,10 +547,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             var mapLayer = new TestFeatureLayer();
 
             // Call
-            TestDelegate call = () => testConverter.ConvertLayerProperties(mapData, mapLayer);
+            testConverter.ConvertLayerProperties(mapData, mapLayer);
 
             // Assert
-            Assert.Throws<KeyNotFoundException>(call);
+            Assert.AreSame(defaultCategory, mapLayer.Symbology.Categories.Single());
         }
 
         [Test]
