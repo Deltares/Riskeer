@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Util
         /// of <see cref="FailureMechanismSectionResult"/> objects 
         /// for each section which has calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>
-        /// or when an element in <paramref name="calculations"/> is <c>null</c></exception>
+        /// or when an element in <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is 
         /// <c>null</c>.</exception>
         public static IDictionary<string, List<ICalculation>> CollectCalculationsPerSection<T>(IEnumerable<FailureMechanismSection> sections,

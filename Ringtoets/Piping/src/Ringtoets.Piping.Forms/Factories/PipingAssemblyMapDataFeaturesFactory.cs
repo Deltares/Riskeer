@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to create the features for.</param>
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// is <c>null</c></exception>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateSimpleAssemblyFeatures(PipingFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to create the features for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/> belongs to.</param>
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateDetailedAssemblyFeatures(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to create the features for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/> belongs to.</param>
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateTailorMadeAssemblyFeatures(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Forms.Factories
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to create the features for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/> belongs to.</param>
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateCombinedAssemblyFeatures(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
