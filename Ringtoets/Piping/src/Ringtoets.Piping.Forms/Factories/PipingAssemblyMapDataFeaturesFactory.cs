@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Features;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Piping.Data;
 
