@@ -45,6 +45,7 @@
     <Compile Include="Controls\FailureMechanismAssemblyCategoryGroupControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Factories\AssemblyMapDataFactory.cs" />
     <Compile Include="Factories\RingtoetsGraphNodeFactory.cs" />
     <Compile Include="Factories\RingtoetsStackChartDataFactory.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiService.cs" />
