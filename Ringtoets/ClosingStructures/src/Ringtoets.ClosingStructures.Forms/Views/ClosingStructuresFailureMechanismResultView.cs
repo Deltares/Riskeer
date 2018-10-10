@@ -177,6 +177,12 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 nameof(ClosingStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
 
+        protected override void RefreshDataGrid()
+        {
+            base.RefreshDataGrid();
+            DataGridViewControl.AutoResizeColumn(combinedAssemblyProbabilityIndex);
+        }
+
         protected override void UpdateAssemblyResultControl()
         {
             FailureMechanismAssemblyResultControl.SetAssemblyResult(ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));

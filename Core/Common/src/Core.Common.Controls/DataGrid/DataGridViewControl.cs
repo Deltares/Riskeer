@@ -354,12 +354,17 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
-        /// Refreshes the <see cref="DataGridView"/> and performs an <see cref="DataGridView.AutoResizeColumns()"/>.
+        /// Refreshes the <see cref="DataGridView"/>.
         /// </summary>
-        public void RefreshDataGridView()
+        /// <param name="shouldAutoResizeColumns">Indicator whether the column widths in the control should automatically be resized.</param>
+        public void RefreshDataGridView(bool shouldAutoResizeColumns = true)
         {
             dataGridView.Refresh();
-            AutoResizeColumns();
+
+            if (shouldAutoResizeColumns)
+            {
+                AutoResizeColumns();
+            }
         }
 
         /// <summary>
@@ -368,6 +373,15 @@ namespace Core.Common.Controls.DataGrid
         public void AutoResizeColumns()
         {
             dataGridView.AutoResizeColumns();
+        }
+
+        /// <summary>
+        /// Adjusts the width of the column on index <paramref name="columnIndex"/> to fit the contents of all its cells,
+        /// including the header cell.
+        /// </summary>
+        public void AutoResizeColumn(int columnIndex)
+        {
+            dataGridView.AutoResizeColumn(columnIndex);
         }
 
         /// <summary>

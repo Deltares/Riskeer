@@ -3727,7 +3727,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelfactor lange overlaat[-].
+        ///   Looks up a localized string similar to Modelfactor lange overlaat [-].
         /// </summary>
         public static string StructuresInputFailureMechanismContext_ModelFactorLongThreshold_DisplayName {
             get {
