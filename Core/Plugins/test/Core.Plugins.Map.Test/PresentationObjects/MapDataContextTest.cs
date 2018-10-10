@@ -50,7 +50,7 @@ namespace Core.Plugins.Map.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_ParentChartDataNull_ThrowsArgumentNullException()
+        public void Constructor_ParentMapDataNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new MapDataContext(new TestMapData(), null);

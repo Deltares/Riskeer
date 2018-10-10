@@ -168,7 +168,7 @@ namespace Core.Plugins.Map.Test.Legend
 
         [Test]
         [TestCaseSource(nameof(MapDataLegendImages))]
-        public void Image_WrappedDataMapPointData_ReturnPointsIcon(MapData mapData, Image expectedImage)
+        public void Image_WrappedDataMapPointData_ReturnExpectedImage(MapData mapData, Image expectedImage)
         {
             // Setup            
             MapDataContext context = GetContext(mapData);
@@ -280,7 +280,7 @@ namespace Core.Plugins.Map.Test.Legend
 
         [Test]
         [TestCaseSource(nameof(IsCheckedMapData))]
-        public void OnNodeChecked_Always_SetsPointDataVisibilityAndNotifiesParentObservers(MapData mapData, bool initialVisibleState)
+        public void OnNodeChecked_Always_SetsMapDataVisibilityAndNotifiesParentObservers(MapData mapData, bool initialVisibleState)
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
