@@ -48,7 +48,8 @@ namespace Core.Plugins.Map.Test.Legend
     [TestFixture]
     public class MapDataContextTreeNodeInfoTest
     {
-        private const int contextMenuZoomToAllIndex = 0;
+        private const int featureBasedMapDataContextMenuZoomToAllIndex = 0;
+        private const int mapDataCollectionContextMenuZoomToAllIndex = 2;
 
         private MapLegendView mapLegendView;
         private TreeNodeInfo info;
@@ -167,7 +168,7 @@ namespace Core.Plugins.Map.Test.Legend
 
         [Test]
         [TestCaseSource(nameof(MapDataLegendImages))]
-        public void Image_WrappedDataMapPointData_ReturnPointsIcon(MapData mapData, Image expectedImage)
+        public void Image_WrappedDataMapPointData_ReturnExpectedImage(MapData mapData, Image expectedImage)
         {
             // Setup            
             MapDataContext context = GetContext(mapData);
@@ -279,7 +280,7 @@ namespace Core.Plugins.Map.Test.Legend
 
         [Test]
         [TestCaseSource(nameof(IsCheckedMapData))]
-        public void OnNodeChecked_Always_SetsPointDataVisibilityAndNotifiesParentObservers(MapData mapData, bool initialVisibleState)
+        public void OnNodeChecked_Always_SetsMapDataVisibilityAndNotifiesParentObservers(MapData mapData, bool initialVisibleState)
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -591,6 +592,34 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
+        public void ContextMenuStrip_MapDataCollection_CallsBuilder()
+        {
+            // Setup
+            var mapData = new MapDataCollection("name");
+
+            var builder = mocks.StrictMock<IContextMenuBuilder>();
+            using (mocks.Ordered())
+            {
+                builder.Expect(mb => mb.AddCustomImportItem(null, null, null)).IgnoreArguments().Return(builder);
+                builder.Expect(mb => mb.AddSeparator()).Return(builder);
+                builder.Expect(mb => mb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull)).Return(builder);
+                builder.Expect(mb => mb.AddSeparator()).Return(builder);
+                builder.Expect(mb => mb.AddPropertiesItem()).Return(builder);
+                builder.Expect(mb => mb.Build()).Return(null);
+            }
+
+            contextMenuBuilderProvider.Expect(p => p.Get(mapData, null)).Return(builder);
+
+            mocks.ReplayAll();
+
+            // Call
+            info.ContextMenuStrip(GetContext(mapData), null, null);
+
+            // Assert
+            // Assert expectancies are called in TearDown()
+        }
+
+        [Test]
         public void ContextMenuStrip_VisibleMapData_ZoomToAllItemEnabled()
         {
             // Setup
@@ -612,7 +641,7 @@ namespace Core.Plugins.Map.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, featureBasedMapDataContextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
                                                               "Zet het zoomniveau van de kaart dusdanig dat deze kaartlaag precies in het beeld past.",
                                                               Resources.ZoomToAllIcon);
@@ -637,7 +666,7 @@ namespace Core.Plugins.Map.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, featureBasedMapDataContextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
                                                               "Om het zoomniveau aan te passen moet de kaartlaag zichtbaar zijn.",
                                                               Resources.ZoomToAllIcon,
@@ -663,7 +692,7 @@ namespace Core.Plugins.Map.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, featureBasedMapDataContextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
                                                               "Om het zoomniveau aan te passen moet de kaartlaag elementen bevatten.",
                                                               Resources.ZoomToAllIcon,
@@ -696,7 +725,7 @@ namespace Core.Plugins.Map.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Call
-                contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
+                contextMenu.Items[featureBasedMapDataContextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
                 // Assert expectancies are called in TearDown()
@@ -721,7 +750,7 @@ namespace Core.Plugins.Map.Test.Legend
             var builder = new CustomItemsOnlyContextMenuBuilder();
             contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);
             var mapControl = mocks.StrictMock<IMapControl>();
-            mapControl.Expect(c => c.Data).Return(new MapDataCollection("name"));
+            mapControl.Expect(c => c.Data).Return(mapData);
             mapControl.Expect(c => c.ZoomToAllVisibleLayers(mapData));
             mocks.ReplayAll();
 
@@ -730,7 +759,7 @@ namespace Core.Plugins.Map.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Call
-                contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
+                contextMenu.Items[mapDataCollectionContextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
                 // Assert expectancies are called in TearDown()
@@ -757,7 +786,7 @@ namespace Core.Plugins.Map.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Call
-                TestDelegate call = () => contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
+                TestDelegate call = () => contextMenu.Items[featureBasedMapDataContextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
                 Assert.DoesNotThrow(call);

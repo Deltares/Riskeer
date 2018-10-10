@@ -51,7 +51,7 @@ namespace Core.Components.Gis.Test.Theme
             // Setup
             var random = new Random(21);
             var criterion = new ValueCriterion(random.NextEnumValue<ValueCriterionOperator>(),
-                                               "test value");
+                                               string.Empty);
 
             Color themeColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
 

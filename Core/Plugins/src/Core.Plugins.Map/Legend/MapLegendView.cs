@@ -133,13 +133,7 @@ namespace Core.Plugins.Map.Legend
                 OnDrop = MapDataContextOnDrop,
                 CanRemove = (context, parent) => CanRemoveMapData(context.WrappedData, parent),
                 OnNodeRemoved = (context, parent) => RemoveFromParent(context.WrappedData, parent),
-                ContextMenuStrip = (nodeData, parentData, treeView) => contextMenuBuilderProvider.Get(nodeData.WrappedData, treeView)
-                                                                                                 .AddCustomItem(CreateZoomToExtentsItem(nodeData.WrappedData))
-                                                                                                 .AddSeparator()
-                                                                                                 .AddDeleteItem()
-                                                                                                 .AddSeparator()
-                                                                                                 .AddPropertiesItem()
-                                                                                                 .Build()
+                ContextMenuStrip = MapDataContextContextMenuStrip
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataCollection>
@@ -151,16 +145,7 @@ namespace Core.Plugins.Map.Legend
                 CanDrop = MapDataCollectionCanDropAndInsert,
                 CanInsert = MapDataCollectionCanDropAndInsert,
                 OnDrop = MapDataCollectionOnDrop,
-                ContextMenuStrip = (mapDataCollection, parentData, treeView) => contextMenuBuilderProvider.Get(mapDataCollection, treeView)
-                                                                                                          .AddCustomImportItem(
-                                                                                                              MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer,
-                                                                                                              MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
-                                                                                                              MapResources.MapPlusIcon)
-                                                                                                          .AddSeparator()
-                                                                                                          .AddCustomItem(CreateZoomToExtentsItem(mapDataCollection))
-                                                                                                          .AddSeparator()
-                                                                                                          .AddPropertiesItem()
-                                                                                                          .Build()
+                ContextMenuStrip = MapDataCollectionContextMenuStrip
             });
         }
 
@@ -340,6 +325,23 @@ namespace Core.Plugins.Map.Legend
             }
         }
 
+        private ContextMenuStrip MapDataContextContextMenuStrip(MapDataContext mapDataContext, object parentData, TreeViewControl treeView)
+        {
+            var mapDataCollection = mapDataContext.WrappedData as MapDataCollection;
+            if (mapDataCollection != null)
+            {
+                return MapDataCollectionContextMenuStrip(mapDataCollection, parentData, treeView);
+            }
+
+            return contextMenuBuilderProvider.Get(mapDataContext.WrappedData, treeView)
+                                             .AddCustomItem(CreateZoomToExtentsItem(mapDataContext.WrappedData))
+                                             .AddSeparator()
+                                             .AddDeleteItem()
+                                             .AddSeparator()
+                                             .AddPropertiesItem()
+                                             .Build();
+        }
+
         #endregion
 
         #region MapDataCollection
@@ -368,6 +370,20 @@ namespace Core.Plugins.Map.Legend
             parent.Remove(mapData);
             parent.Insert(parent.Collection.Count() - position, mapData); // Note: target is the same as the previous parent in this case
             parent.NotifyObservers();
+        }
+
+        private ContextMenuStrip MapDataCollectionContextMenuStrip(MapDataCollection mapDataCollection, object parentData, TreeViewControl treeView)
+        {
+            return contextMenuBuilderProvider.Get(mapDataCollection, treeView)
+                                             .AddCustomImportItem(
+                                                 MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer,
+                                                 MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
+                                                 MapResources.MapPlusIcon)
+                                             .AddSeparator()
+                                             .AddCustomItem(CreateZoomToExtentsItem(mapDataCollection))
+                                             .AddSeparator()
+                                             .AddPropertiesItem()
+                                             .Build();
         }
 
         #endregion

@@ -68,6 +68,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double failureProbabilityStructureWithErosion;
         private readonly double stormDurationMean;
         private readonly double stormDurationVariation;
+        private readonly double modelFactorLongThresholdMean;
+        private readonly double modelFactorLongThresholdStandardDeviation;
         private readonly double bankWidthMean;
         private readonly double bankWidthStandardDeviation;
         private readonly double evaluationLevel;
@@ -125,6 +127,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="failureProbabilityStructureWithErosion">The failure probability structure with erosion.</param>
         /// <param name="stormDurationMean">The mean of the storm duration.</param>
         /// <param name="stormDurationVariation">The variation of the storm duration.</param>
+        /// <param name="modelFactorLongThresholdMean">The mean of the model factor long threshold.</param>
+        /// <param name="modelFactorLongThresholdStandardDeviation">The standard deviation of the model factor long threshold.</param>
         /// <param name="bankWidthMean">The mean of the bank width.</param>
         /// <param name="bankWidthStandardDeviation">The standard deviation of the bank width.</param>
         /// <param name="evaluationLevel">The evaluation level.</param>
@@ -163,6 +167,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                            double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeVariation,
                                                            double failureProbabilityStructureWithErosion,
                                                            double stormDurationMean, double stormDurationVariation,
+                                                           double modelFactorLongThresholdMean, double modelFactorLongThresholdStandardDeviation,
                                                            double bankWidthMean, double bankWidthStandardDeviation,
                                                            double evaluationLevel,
                                                            double modelFactorLoadEffectMean, double modelFactorLoadEffectStandardDeviation,
@@ -214,6 +219,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.failureProbabilityStructureWithErosion = failureProbabilityStructureWithErosion;
             this.stormDurationMean = stormDurationMean;
             this.stormDurationVariation = stormDurationVariation;
+            this.modelFactorLongThresholdMean = modelFactorLongThresholdMean;
+            this.modelFactorLongThresholdStandardDeviation = modelFactorLongThresholdStandardDeviation;
             this.bankWidthMean = bankWidthMean;
             this.bankWidthStandardDeviation = bankWidthStandardDeviation;
             this.evaluationLevel = evaluationLevel;
@@ -260,6 +267,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new LogNormalHydraRingVariable(104, HydraRingDeviationType.Variation, criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation);
                 yield return new DeterministicHydraRingVariable(105, failureProbabilityStructureWithErosion);
                 yield return new LogNormalHydraRingVariable(108, HydraRingDeviationType.Variation, stormDurationMean, stormDurationVariation);
+                yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, modelFactorLongThresholdMean, modelFactorLongThresholdStandardDeviation);
                 yield return new NormalHydraRingVariable(130, HydraRingDeviationType.Standard, bankWidthMean, bankWidthStandardDeviation);
                 yield return new DeterministicHydraRingVariable(131, evaluationLevel);
                 yield return new NormalHydraRingVariable(132, HydraRingDeviationType.Standard, modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation);

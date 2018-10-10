@@ -304,7 +304,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_MapDataCollectionWithVisibleFeatureBasedmapData_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_MapDataCollectionWithVisibleFeatureBasedMapData_CallsContextMenuBuilderMethods()
         {
             // Setup
             var mapPointData = new MapPointData("test")

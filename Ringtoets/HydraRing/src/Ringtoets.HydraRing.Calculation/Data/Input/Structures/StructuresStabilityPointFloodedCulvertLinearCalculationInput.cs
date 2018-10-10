@@ -85,6 +85,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="failureProbabilityStructureWithErosion">The failure probability structure with erosion.</param>
         /// <param name="stormDurationMean">The mean of the storm duration.</param>
         /// <param name="stormDurationVariation">The variation of the storm duration.</param>
+        /// <param name="modelFactorLongThresholdMean">The mean of the model factor long threshold.</param>
+        /// <param name="modelFactorLongThresholdStandardDeviation">The standard deviation of the model factor long threshold.</param>
         /// <param name="bankWidthMean">The mean of the bank width.</param>
         /// <param name="bankWidthStandardDeviation">The standard deviation of the bank width.</param>
         /// <param name="evaluationLevel">The evaluation level.</param>
@@ -131,6 +133,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                             double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeVariation,
                                                                             double failureProbabilityStructureWithErosion,
                                                                             double stormDurationMean, double stormDurationVariation,
+                                                                            double modelFactorLongThresholdMean, double modelFactorLongThresholdStandardDeviation,
                                                                             double bankWidthMean, double bankWidthStandardDeviation,
                                                                             double evaluationLevel,
                                                                             double modelFactorLoadEffectMean, double modelFactorLoadEffectStandardDeviation,
@@ -169,6 +172,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                    failureProbabilityStructureWithErosion,
                    stormDurationMean, stormDurationVariation,
+                   modelFactorLongThresholdMean, modelFactorLongThresholdStandardDeviation,
                    bankWidthMean, bankWidthStandardDeviation,
                    evaluationLevel,
                    modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation,

@@ -40,7 +40,7 @@ namespace Core.Components.Gis.TestUtil
             var random = new Random(21);
             return new CategoryTheme(Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
                                      new ValueCriterion(random.NextEnumValue<ValueCriterionOperator>(),
-                                                        "random " + random.Next()));
+                                                        "random"));
         }
     }
 }

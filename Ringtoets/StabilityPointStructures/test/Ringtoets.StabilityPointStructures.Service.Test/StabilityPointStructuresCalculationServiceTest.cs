@@ -662,6 +662,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.FailureProbabilityStructureWithErosion,
                     input.StormDuration.Mean,
                     input.StormDuration.CoefficientOfVariation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation,
                     input.BankWidth.Mean,
                     input.BankWidth.StandardDeviation,
                     input.EvaluationLevel,
@@ -677,9 +679,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.StabilityLinearLoadModel.Mean,
                     input.StabilityLinearLoadModel.CoefficientOfVariation,
                     input.WidthFlowApertures.Mean,
-                    input.WidthFlowApertures.StandardDeviation,
-                    generalInput.ModelFactorLongThreshold.Mean,
-                    generalInput.ModelFactorLongThreshold.StandardDeviation);
+                    input.WidthFlowApertures.StandardDeviation);
 
                 var actualInput = (StructuresStabilityPointLowSillLinearCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -782,6 +782,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.FailureProbabilityStructureWithErosion,
                     input.StormDuration.Mean,
                     input.StormDuration.CoefficientOfVariation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation,
                     input.BankWidth.Mean,
                     input.BankWidth.StandardDeviation,
                     input.EvaluationLevel,
@@ -797,9 +799,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.StabilityLinearLoadModel.Mean,
                     input.StabilityLinearLoadModel.CoefficientOfVariation,
                     input.WidthFlowApertures.Mean,
-                    input.WidthFlowApertures.StandardDeviation,
-                    generalInput.ModelFactorLongThreshold.Mean,
-                    generalInput.ModelFactorLongThreshold.StandardDeviation);
+                    input.WidthFlowApertures.StandardDeviation);
 
                 var actualInput = (StructuresStabilityPointLowSillLinearCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -899,6 +899,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.FailureProbabilityStructureWithErosion,
                     input.StormDuration.Mean,
                     input.StormDuration.CoefficientOfVariation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation,
                     input.BankWidth.Mean,
                     input.BankWidth.StandardDeviation,
                     input.EvaluationLevel,
@@ -914,9 +916,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.StabilityQuadraticLoadModel.Mean,
                     input.StabilityQuadraticLoadModel.CoefficientOfVariation,
                     input.WidthFlowApertures.Mean,
-                    input.WidthFlowApertures.StandardDeviation,
-                    generalInput.ModelFactorLongThreshold.Mean,
-                    generalInput.ModelFactorLongThreshold.StandardDeviation);
+                    input.WidthFlowApertures.StandardDeviation);
 
                 var actualInput = (StructuresStabilityPointLowSillQuadraticCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -1019,6 +1019,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.FailureProbabilityStructureWithErosion,
                     input.StormDuration.Mean,
                     input.StormDuration.CoefficientOfVariation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation,
                     input.BankWidth.Mean,
                     input.BankWidth.StandardDeviation,
                     input.EvaluationLevel,
@@ -1034,9 +1036,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.StabilityQuadraticLoadModel.Mean,
                     input.StabilityQuadraticLoadModel.CoefficientOfVariation,
                     input.WidthFlowApertures.Mean,
-                    input.WidthFlowApertures.StandardDeviation,
-                    generalInput.ModelFactorLongThreshold.Mean,
-                    generalInput.ModelFactorLongThreshold.StandardDeviation);
+                    input.WidthFlowApertures.StandardDeviation);
 
                 var actualInput = (StructuresStabilityPointLowSillQuadraticCalculationInput) calculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
@@ -1136,6 +1136,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.FailureProbabilityStructureWithErosion,
                     input.StormDuration.Mean,
                     input.StormDuration.CoefficientOfVariation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation,
                     input.BankWidth.Mean,
                     input.BankWidth.StandardDeviation,
                     input.EvaluationLevel,
@@ -1256,6 +1258,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.FailureProbabilityStructureWithErosion,
                     input.StormDuration.Mean,
                     input.StormDuration.CoefficientOfVariation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation,
                     input.BankWidth.Mean,
                     input.BankWidth.StandardDeviation,
                     input.EvaluationLevel,
@@ -1373,6 +1377,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.FailureProbabilityStructureWithErosion,
                     input.StormDuration.Mean,
                     input.StormDuration.CoefficientOfVariation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation,
                     input.BankWidth.Mean,
                     input.BankWidth.StandardDeviation,
                     input.EvaluationLevel,
@@ -1493,6 +1499,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.FailureProbabilityStructureWithErosion,
                     input.StormDuration.Mean,
                     input.StormDuration.CoefficientOfVariation,
+                    generalInput.ModelFactorLongThreshold.Mean,
+                    generalInput.ModelFactorLongThreshold.StandardDeviation,
                     input.BankWidth.Mean,
                     input.BankWidth.StandardDeviation,
                     input.EvaluationLevel,

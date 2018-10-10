@@ -130,6 +130,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup 
             const int nameColumnIndex = 0;
+            const int stringColumnIndex = 1;
 
             // Call
             using (ShowFailureMechanismResultsView(new ObservableList<TestFailureMechanismSectionResult>()))
@@ -137,10 +138,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 DataGridView dataGridView = GetDataGridView();
 
-                Assert.AreEqual(1, dataGridView.ColumnCount);
+                Assert.AreEqual(2, dataGridView.ColumnCount);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
 
                 Assert.AreEqual("Test", dataGridView.Columns[nameColumnIndex].HeaderText);
+                Assert.AreEqual("TestString", dataGridView.Columns[stringColumnIndex].HeaderText);
             }
         }
 
@@ -208,7 +210,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismSectionResultCollectionUpdated_ThenObserverNotified()
+        public void GivenFailureMechanismResultView_WhenFailureMechanismSectionResultCollectionUpdatedAndNotifiesObservers_ThenDataGridViewUpdated()
         {
             // Given
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
@@ -501,6 +503,62 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFailureMechanismResultView_WhenRowUpdated_ThenColumnDoesNotAutoResize()
+        {
+            // Given
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
+            };
+
+            using (ShowFailureMechanismResultsView(sectionResults))
+            {
+                DataGridView dataGridView = GetDataGridView();
+                var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[1];
+                row.TestString = "a";
+                int initialWidth = dataGridViewCell.OwningColumn.Width;
+
+                // When
+                row.TestString = "Looooooooooooong testing value";
+
+                // Then
+                int newWidth = dataGridViewCell.OwningColumn.Width;
+                Assert.AreEqual(initialWidth, newWidth);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultView_WhenSectionResultNotified_ThenColumnDoesAutoResize()
+        {
+            // Given
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                sectionResult
+            };
+
+            using (ShowFailureMechanismResultsView(sectionResults))
+            {
+                DataGridView dataGridView = GetDataGridView();
+                var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[1];
+                row.TestString = "a";
+                int initialWidth = dataGridViewCell.OwningColumn.Width;
+
+                // When
+                row.TestString = "Looooooooooooong testing value";
+                sectionResult.NotifyObservers();
+
+                // Then
+                int newWidth = dataGridViewCell.OwningColumn.Width;
+                Assert.Greater(newWidth, initialWidth);
+            }
+        }
+
+        [Test]
         public void GivenFailureMechanismResultView_WhenResultRemovedAndSectionResultsNotified_ThenEventHandlersDisconnected()
         {
             // Given
@@ -577,7 +635,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         private class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult,
-            FailureMechanismSectionResultRow<FailureMechanismSectionResult>,
+            TestRow,
             TestFailureMechanism,
             TestAssemblyResultControl>
         {
@@ -589,7 +647,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             public bool AssemblyResultControlUpdated { get; set; }
 
-            protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(
+            protected override TestRow CreateFailureMechanismSectionResultRow(
                 FailureMechanismSectionResult sectionResult)
             {
                 return new TestRow(sectionResult);
@@ -597,7 +655,8 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             protected override void AddDataGridColumns()
             {
-                DataGridViewControl.AddTextBoxColumn("Name", "Test", true);
+                DataGridViewControl.AddTextBoxColumn(nameof(TestRow.Name), "Test", true);
+                DataGridViewControl.AddTextBoxColumn(nameof(TestRow.TestString), "TestString");
             }
 
             protected override void UpdateAssemblyResultControl()
@@ -615,9 +674,24 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private class TestRow : FailureMechanismSectionResultRow<FailureMechanismSectionResult>
         {
+            private string testString;
+
             public TestRow(FailureMechanismSectionResult sectionResult) : base(sectionResult)
             {
                 ColumnStateDefinitions.Add(0, new DataGridViewColumnStateDefinition());
+            }
+
+            public string TestString
+            {
+                get
+                {
+                    return testString;
+                }
+                set
+                {
+                    testString = value;
+                    UpdateInternalData();
+                }
             }
 
             public bool Updated { get; private set; }

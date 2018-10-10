@@ -174,7 +174,7 @@ namespace Core.Plugins.Chart.Test.Legend
 
         [Test]
         [TestCaseSource(nameof(ChartDataLegendImages))]
-        public void Image_WrappedDataChartPointData_ReturnPointsIcon(ChartData chartData, Image expectedImage)
+        public void Image_WrappedDataChartPointData_ReturnsExpectedImage(ChartData chartData, Image expectedImage)
         {
             // Setup            
             ChartDataContext context = GetContext(chartData);
@@ -300,7 +300,7 @@ namespace Core.Plugins.Chart.Test.Legend
 
         [Test]
         [TestCaseSource(nameof(IsCheckedChartData))]
-        public void OnNodeChecked_Always_SetsPointDataVisibilityAndNotifiesParentObservers(ChartData chartData, bool initialVisibleState)
+        public void OnNodeChecked_Always_SetsChartDataVisibilityAndNotifiesParentObservers(ChartData chartData, bool initialVisibleState)
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();

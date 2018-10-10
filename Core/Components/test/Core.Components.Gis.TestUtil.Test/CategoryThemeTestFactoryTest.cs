@@ -35,7 +35,9 @@ namespace Core.Components.Gis.TestUtil.Test
 
             // Assert
             Assert.IsNotNull(theme);
-            Assert.IsNotNull(theme.Criterion);
+
+            ValueCriterion themeCriterion = theme.Criterion;
+            Assert.AreEqual("random", themeCriterion.Value);
         }
     }
 }

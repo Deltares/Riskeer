@@ -82,16 +82,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double failureProbabilityStructureWithErosion = 37.37;
             const double stormDurationMean = 38.38;
             const double stormDurationVariation = 39.39;
-            const double bankWidthMean = 40.40;
-            const double bankWidthStandardDeviation = 41.41;
-            const double evaluationLevel = 42.42;
-            const double modelFactorLoadEffectMean = 43.43;
-            const double modelFactorLoadEffectStandardDeviation = 44.44;
-            const double waveRatioMaxHN = 45.45;
-            const double waveRatioMaxHStandardDeviation = 46.46;
-            const double verticalDistance = 47.47;
-            const double modificationFactorWavesSlowlyVaryingPressureComponent = 48.48;
-            const double modificationFactorDynamicOrImpulsivePressureComponent = 49.49;
+            const double modelFactorLongThresholdMean = 40.40;
+            const double modelFactorLongThresholdStandardDeviation = 41.41;
+            const double bankWidthMean = 42.42;
+            const double bankWidthStandardDeviation = 43.43;
+            const double evaluationLevel = 44.44;
+            const double modelFactorLoadEffectMean = 45.45;
+            const double modelFactorLoadEffectStandardDeviation = 46.46;
+            const double waveRatioMaxHN = 47.47;
+            const double waveRatioMaxHStandardDeviation = 48.48;
+            const double verticalDistance = 49.49;
+            const double modificationFactorWavesSlowlyVaryingPressureComponent = 50.50;
+            const double modificationFactorDynamicOrImpulsivePressureComponent = 51.51;
 
             // Call
             var input = new TestStructuresStabilityPointCalculationInput(hydraulicBoundaryLocationId, sectionNormal,
@@ -120,6 +122,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                          criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                                                                          failureProbabilityStructureWithErosion,
                                                                          stormDurationMean, stormDurationVariation,
+                                                                         modelFactorLongThresholdMean, modelFactorLongThresholdStandardDeviation,
                                                                          bankWidthMean, bankWidthStandardDeviation,
                                                                          evaluationLevel,
                                                                          modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation,
@@ -171,13 +174,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             yield return new LogNormalHydraRingVariable(104, HydraRingDeviationType.Variation, 35.35, 36.36);
             yield return new DeterministicHydraRingVariable(105, 37.37);
             yield return new LogNormalHydraRingVariable(108, HydraRingDeviationType.Variation, 38.38, 39.39);
-            yield return new NormalHydraRingVariable(130, HydraRingDeviationType.Standard, 40.40, 41.41);
-            yield return new DeterministicHydraRingVariable(131, 42.42);
-            yield return new NormalHydraRingVariable(132, HydraRingDeviationType.Standard, 43.43, 44.44);
-            yield return new RayleighNHydraRingVariable(133, HydraRingDeviationType.Standard, 45.45, 46.46);
-            yield return new DeterministicHydraRingVariable(134, 47.47);
-            yield return new DeterministicHydraRingVariable(135, 48.48);
-            yield return new DeterministicHydraRingVariable(136, 49.49);
+            yield return new NormalHydraRingVariable(125, HydraRingDeviationType.Standard, 40.40, 41.41);
+            yield return new NormalHydraRingVariable(130, HydraRingDeviationType.Standard, 42.42, 43.43);
+            yield return new DeterministicHydraRingVariable(131, 44.44);
+            yield return new NormalHydraRingVariable(132, HydraRingDeviationType.Standard, 45.45, 46.46);
+            yield return new RayleighNHydraRingVariable(133, HydraRingDeviationType.Standard, 47.47, 48.48);
+            yield return new DeterministicHydraRingVariable(134, 49.49);
+            yield return new DeterministicHydraRingVariable(135, 50.50);
+            yield return new DeterministicHydraRingVariable(136, 51.51);
         }
 
         private class TestStructuresStabilityPointCalculationInput : StructuresStabilityPointCalculationInput
@@ -209,6 +213,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                 double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeVariation,
                                                                 double failureProbabilityStructureWithErosion,
                                                                 double stormDurationMean, double stormDurationVariation,
+                                                                double modelFactorLongThresholdMean, double modelFactorLongThresholdStandardDeviation,
                                                                 double bankWidthMean, double bankWidthStandardDeviation,
                                                                 double evaluationLevel,
                                                                 double modelFactorLoadEffectMean, double modelFactorLoadEffectStandardDeviation,
@@ -243,6 +248,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                        criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                        failureProbabilityStructureWithErosion,
                        stormDurationMean, stormDurationVariation,
+                       modelFactorLongThresholdMean, modelFactorLongThresholdStandardDeviation,
                        bankWidthMean, bankWidthStandardDeviation,
                        evaluationLevel,
                        modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation,
