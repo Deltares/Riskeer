@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateSimpleAssemblyMapData()
         {
-            return new MapLineData(Resources.AssemblyMapDataFactory_SimpleAssemblyMapData, GetLineStyle())
+            return new MapLineData(Resources.AssemblyMapDataFactory_SimpleAssemblyMapData, CreateLineStyle())
             {
                 SelectedMetaDataAttribute = Resources.AssemblyCategory_Group_DisplayName,
                 IsVisible = false,
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateDetailedAssemblyMapData()
         {
-            return new MapLineData(Resources.AssemblyMapDataFactory_DetailedAssemblyMapData, GetLineStyle())
+            return new MapLineData(Resources.AssemblyMapDataFactory_DetailedAssemblyMapData, CreateLineStyle())
             {
                 SelectedMetaDataAttribute = Resources.AssemblyCategory_Group_DisplayName,
                 IsVisible = false,
@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateTailorMadeAssemblyMapData()
         {
-            return new MapLineData(Resources.AssemblyMapDataFactory_TailorMadeAssemblyMapData, GetLineStyle())
+            return new MapLineData(Resources.AssemblyMapDataFactory_TailorMadeAssemblyMapData, CreateLineStyle())
             {
                 SelectedMetaDataAttribute = Resources.AssemblyCategory_Group_DisplayName,
                 IsVisible = false,
@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateCombinedAssemblyMapData()
         {
-            return new MapLineData(Resources.AssemblyMapDataFactory_CombinedAssemblyMapData, GetLineStyle())
+            return new MapLineData(Resources.AssemblyMapDataFactory_CombinedAssemblyMapData, CreateLineStyle())
             {
                 SelectedMetaDataAttribute = Resources.AssemblyCategory_Group_DisplayName,
                 IsVisible = true,
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Forms.Factories
             };
         }
 
-        private static LineStyle GetLineStyle()
+        private static LineStyle CreateLineStyle()
         {
             return new LineStyle
             {
