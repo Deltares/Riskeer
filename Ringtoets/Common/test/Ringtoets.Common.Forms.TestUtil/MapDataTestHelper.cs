@@ -23,10 +23,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
+using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -277,6 +280,62 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual(structuresArray.Length, structuresData.Features.Count());
             CollectionAssert.AreEqual(structuresArray.Select(hrp => hrp.Location),
                                       structuresData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="MapDataCollection"/> contains the data that is representative 
+        /// for the <paramref name="failureMechanism"/> and supplied <see cref="FailureMechanismSectionAssembly"/>.
+        /// </summary>
+        /// <param name="expectedSimpleAssembly">The expected simple assembly.</param>
+        /// <param name="expectedDetailedAssembly">The expected detailed assembly.</param>
+        /// <param name="expectedTailorMadeAssembly">The expected tailor made assembly.</param>
+        /// <param name="expectedCombinedAssembly">The expected combined assembly.</param>
+        /// <param name="assemblyMapData">The <see cref="MapDataCollection"/> that needs to be asserted.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the map data collection belongs to.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>there is an incorrect amount of items in <paramref name="assemblyMapData"/>;</item>
+        /// <item>one of the items in <paramref name="assemblyMapData"/> has incorrect properties.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertAssemblyMapDataCollection(FailureMechanismSectionAssembly expectedSimpleAssembly,
+                                                           FailureMechanismSectionAssembly expectedDetailedAssembly,
+                                                           FailureMechanismSectionAssembly expectedTailorMadeAssembly,
+                                                           FailureMechanismSectionAssembly expectedCombinedAssembly,
+                                                           MapDataCollection assemblyMapData,
+                                                           IFailureMechanism failureMechanism)
+        {
+            IEnumerable<MapData> assemblyMapDataCollection = assemblyMapData.Collection;
+            Assert.AreEqual(4, assemblyMapDataCollection.Count());
+            AssertAssemblyMapData("Toetsoordeel toets op maat", failureMechanism, expectedTailorMadeAssembly, assemblyMapDataCollection.ElementAt(0));
+            AssertAssemblyMapData("Toetsoordeel gedetailleerde toets", failureMechanism, expectedDetailedAssembly, assemblyMapDataCollection.ElementAt(1));
+            AssertAssemblyMapData("Toetsoordeel eenvoudige toets", failureMechanism, expectedSimpleAssembly, assemblyMapDataCollection.ElementAt(2));
+            AssertAssemblyMapData("Gecombineerd toetsoordeel", failureMechanism, expectedCombinedAssembly, assemblyMapDataCollection.ElementAt(3));
+        }
+
+        private static void AssertAssemblyMapData(string expectedMapDataName,
+                                                  IFailureMechanism failureMechanism,
+                                                  FailureMechanismSectionAssembly expectedAssembly,
+                                                  MapData mapData)
+        {
+            var assemblyMapLineData = (MapLineData) mapData;
+            Assert.AreEqual(expectedMapDataName, assemblyMapLineData.Name);
+
+            MapFeature[] features = assemblyMapLineData.Features.ToArray();
+            FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
+            Assert.AreEqual(sections.Length, features.Length);
+
+            for (var index = 0; index < sections.Length; index++)
+            {
+                MapFeature feature = features[index];
+
+                FailureMechanismSection failureMechanismSection = sections[index];
+                CollectionAssert.AreEqual(failureMechanismSection.Points, feature.MapGeometries.Single().PointCollections.Single());
+
+                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
+                                    DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssembly.Group)).DisplayName, feature.MetaData["Categorie"]);
+                Assert.AreEqual(expectedAssembly.Probability, feature.MetaData["Faalkans"]);
+            }
         }
 
         private static IEnumerable<Point2D> GetWorldPoints(ForeshoreProfile foreshoreProfile)

@@ -27,7 +27,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
@@ -35,7 +34,6 @@ using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -268,9 +266,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, mapDataList[stochasticSoilModelsIndex]);
                     AssertCalculationsMapData(failureMechanism.Calculations.Cast<PipingCalculationScenario>(), mapDataList[calculationsIndex]);
 
-                    var assemblyMapData = (MapDataCollection) mapDataList[assemblyResultsIndex];
-                    AssertAssemblyMapDataCollection(expectedSimpleAssembly, expectedDetailedAssembly, expectedTailorMadeAssembly, expectedCombinedAssembly,
-                                                    assemblyMapData, failureMechanism);
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(expectedSimpleAssembly,
+                                                                      expectedDetailedAssembly,
+                                                                      expectedTailorMadeAssembly,
+                                                                      expectedCombinedAssembly,
+                                                                      (MapDataCollection) mapDataList[assemblyResultsIndex],
+                                                                      failureMechanism);
                 }
             }
         }
@@ -745,8 +746,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                     // Precondition
                     var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
-                    AssertAssemblyMapDataCollection(originalSimpleAssembly, originalDetailedAssembly, originalTailorMadeAssembly, originalCombinedAssembly,
-                                                    assemblyMapData, failureMechanism);
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly,
+                                                                      originalDetailedAssembly,
+                                                                      originalTailorMadeAssembly,
+                                                                      originalCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
+
                     // When
                     var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                     var updatedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -759,8 +765,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     assessmentSection.NotifyObservers();
 
                     // Then
-                    AssertAssemblyMapDataCollection(updatedSimpleAssembly, updatedDetailedAssembly, updatedTailorMadeAssembly, updatedCombinedAssembly,
-                                                    assemblyMapData, failureMechanism);
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,
+                                                                      updatedDetailedAssembly,
+                                                                      updatedTailorMadeAssembly,
+                                                                      updatedCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
                     mocks.VerifyAll();
                 }
             }
@@ -806,8 +816,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                     // Precondition
                     var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
-                    AssertAssemblyMapDataCollection(originalSimpleAssembly, originalDetailedAssembly, originalTailorMadeAssembly, originalCombinedAssembly,
-                                                    assemblyMapData, failureMechanism);
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly,
+                                                                      originalDetailedAssembly,
+                                                                      originalTailorMadeAssembly,
+                                                                      originalCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
+
                     // When
                     var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                     var updatedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -820,8 +835,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     failureMechanism.NotifyObservers();
 
                     // Then
-                    AssertAssemblyMapDataCollection(updatedSimpleAssembly, updatedDetailedAssembly, updatedTailorMadeAssembly, updatedCombinedAssembly,
-                                                    assemblyMapData, failureMechanism);
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,
+                                                                      updatedDetailedAssembly,
+                                                                      updatedTailorMadeAssembly,
+                                                                      updatedCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
                     mocks.VerifyAll();
                 }
             }
@@ -885,8 +904,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                     // Precondition
                     var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
-                    AssertAssemblyMapDataCollection(originalSimpleAssembly, originalDetailedAssembly, originalTailorMadeAssembly, originalCombinedAssembly,
-                                                    assemblyMapData, failureMechanism);
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly,
+                                                                      originalDetailedAssembly,
+                                                                      originalTailorMadeAssembly,
+                                                                      originalCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
+
                     // When
                     var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                     var updatedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -899,8 +923,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     calculationA.NotifyObservers();
 
                     // Then
-                    AssertAssemblyMapDataCollection(updatedSimpleAssembly, updatedDetailedAssembly, updatedTailorMadeAssembly, updatedCombinedAssembly,
-                                                    assemblyMapData, failureMechanism);
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,
+                                                                      updatedDetailedAssembly,
+                                                                      updatedTailorMadeAssembly,
+                                                                      updatedCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
                     mocks.VerifyAll();
                 }
             }
@@ -943,8 +971,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                     // Precondition
                     var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
-                    AssertAssemblyMapDataCollection(originalSimpleAssembly, originalDetailedAssembly, originalTailorMadeAssembly, originalCombinedAssembly,
-                                                    assemblyMapData, failureMechanism);
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly,
+                                                                      originalDetailedAssembly,
+                                                                      originalTailorMadeAssembly,
+                                                                      originalCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
+
                     // When
                     var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                     var updatedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -957,8 +990,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     failureMechanism.SectionResults.First().NotifyObservers();
 
                     // Then
-                    AssertAssemblyMapDataCollection(updatedSimpleAssembly, updatedDetailedAssembly, updatedTailorMadeAssembly, updatedCombinedAssembly,
-                                                    assemblyMapData, failureMechanism);
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,
+                                                                      updatedDetailedAssembly,
+                                                                      updatedTailorMadeAssembly,
+                                                                      updatedCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
                     mocks.VerifyAll();
                 }
             }
@@ -1062,20 +1099,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
-        private static void AssertAssemblyMapDataCollection(FailureMechanismSectionAssembly expectedSimpleAssembly,
-                                                            FailureMechanismSectionAssembly expectedDetailedAssembly,
-                                                            FailureMechanismSectionAssembly expectedTailorMadeAssembly,
-                                                            FailureMechanismSectionAssembly expectedCombinedAssembly,
-                                                            MapDataCollection assemblyMapData,
-                                                            PipingFailureMechanism failureMechanism)
-        {
-            IEnumerable<MapData> assemblyMapDataCollection = assemblyMapData.Collection;
-            AssertAssemblyMapData(failureMechanism, expectedSimpleAssembly, assemblyMapDataCollection.ElementAt(simpleAssemblyIndex));
-            AssertAssemblyMapData(failureMechanism, expectedDetailedAssembly, assemblyMapDataCollection.ElementAt(detailedAssemblyIndex));
-            AssertAssemblyMapData(failureMechanism, expectedTailorMadeAssembly, assemblyMapDataCollection.ElementAt(tailorMadeAssemblyIndex));
-            AssertAssemblyMapData(failureMechanism, expectedCombinedAssembly, assemblyMapDataCollection.ElementAt(combinedAssemblyIndex));
-        }
-
         private static void AssertSurfaceLinesMapData(IEnumerable<PipingSurfaceLine> surfaceLines, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
@@ -1135,28 +1158,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
 
             Assert.AreEqual("Berekeningen", mapData.Name);
-        }
-
-        private static void AssertAssemblyMapData(IFailureMechanism failureMechanism,
-                                                  FailureMechanismSectionAssembly expectedAssembly,
-                                                  MapData mapData)
-        {
-            var assemblyMapLineData = (MapLineData) mapData;
-            MapFeature[] features = assemblyMapLineData.Features.ToArray();
-            FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
-            Assert.AreEqual(sections.Length, features.Length);
-
-            for (var index = 0; index < sections.Length; index++)
-            {
-                MapFeature feature = features[index];
-
-                FailureMechanismSection failureMechanismSection = sections[index];
-                CollectionAssert.AreEqual(failureMechanismSection.Points, feature.MapGeometries.Single().PointCollections.Single());
-
-                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                                    DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssembly.Group)).DisplayName, feature.MetaData["Categorie"]);
-                Assert.AreEqual(expectedAssembly.Probability, feature.MetaData["Faalkans"]);
-            }
         }
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
