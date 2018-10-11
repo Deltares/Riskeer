@@ -638,7 +638,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
-            const int updatedRefenceLineLayerIndex = referenceLineIndex + 7;
+            const int updatedReferenceLineLayerIndex = referenceLineIndex + 7;
             const int updatedSurfaceLineLayerIndex = surfaceLinesIndex - 1;
             const int updatedSectionsLayerIndex = sectionsIndex - 1;
             const int updateSectionStartLayerIndex = sectionsStartPointIndex - 1;
@@ -662,7 +662,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 List<MapData> mapDataList = mapData.Collection.ToList();
 
                 // Precondition
-                var referenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
+                var referenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
                 var surfaceLineData = (MapLineData) mapDataList[updatedSurfaceLineLayerIndex];
@@ -699,7 +699,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 assessmentSection.NotifyObservers();
 
                 // Assert
-                var actualReferenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
+                var actualReferenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
                 var actualSurfaceLineData = (MapLineData) mapDataList[updatedSurfaceLineLayerIndex];

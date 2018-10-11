@@ -137,6 +137,51 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toetsoordeel.
+        /// </summary>
+        public static string AssemblyMapDataFactory_AssemblyMapDataCollection {
+            get {
+                return ResourceManager.GetString("AssemblyMapDataFactory_AssemblyMapDataCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gecombineerd toetsoordeel.
+        /// </summary>
+        public static string AssemblyMapDataFactory_CombinedAssemblyMapData {
+            get {
+                return ResourceManager.GetString("AssemblyMapDataFactory_CombinedAssemblyMapData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetsoordeel gedetailleerde toets.
+        /// </summary>
+        public static string AssemblyMapDataFactory_DetailedAssemblyMapData {
+            get {
+                return ResourceManager.GetString("AssemblyMapDataFactory_DetailedAssemblyMapData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetsoordeel eenvoudige toets.
+        /// </summary>
+        public static string AssemblyMapDataFactory_SimpleAssemblyMapData {
+            get {
+                return ResourceManager.GetString("AssemblyMapDataFactory_SimpleAssemblyMapData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetsoordeel toets op maat.
+        /// </summary>
+        public static string AssemblyMapDataFactory_TailorMadeAssemblyMapData {
+            get {
+                return ResourceManager.GetString("AssemblyMapDataFactory_TailorMadeAssemblyMapData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waterstand met een overschrijdingsfrequentie gelijk aan de norm van het dijktraject..
         /// </summary>
         public static string AssessmentLevel_Description {
@@ -2559,6 +2604,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string MetaData_Length_Rounded {
             get {
                 return ResourceManager.GetString("MetaData_Length_Rounded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans.
+        /// </summary>
+        public static string MetaData_Probability {
+            get {
+                return ResourceManager.GetString("MetaData_Probability", resourceCulture);
             }
         }
         

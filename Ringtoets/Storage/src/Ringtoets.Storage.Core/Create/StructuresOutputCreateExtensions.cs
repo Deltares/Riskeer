@@ -39,7 +39,7 @@ namespace Ringtoets.Storage.Core.Create
         /// <param name="structuresOutput">The structures output to create a database entity for.</param>
         /// <returns>A new <see cref="TOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="structuresOutput"/>
-        /// is <c>null.</c></exception>
+        /// is <c>null</c>.</exception>
         public static TOutputEntity Create<TOutputEntity>(this StructuresOutput structuresOutput)
             where TOutputEntity : IStructuresOutputEntity,
             IHasGeneralResultFaultTreeIllustrationPointEntity,

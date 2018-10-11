@@ -143,7 +143,7 @@ namespace Core.Components.DotSpatial.Test.Projections
         }
 
         [Test]
-        public void Reproject_DifferentCoodinateSystems_ReprojectImageAndMetaData()
+        public void Reproject_DifferentCoordinateSystems_ReprojectImageAndMetaData()
         {
             // Setup
             var mapArgs = new MapArgs(new Rectangle(0, 0, 722, 349),

@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// marked as read-only.</param>
         /// <param name="distribution">The <see cref="TruncatedNormalDistribution"/> to create the properties for.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
         /// <paramref name="handler"/> is <c>null</c>.</exception>
         public TruncatedNormalDistributionProperties(

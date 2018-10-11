@@ -168,8 +168,6 @@ namespace Core.Components.DotSpatial.Converter
         /// </summary>
         /// <param name="mapData">The map data to base the scheme on.</param>
         /// <returns>The newly created <see cref="IFeatureScheme"/>.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown when the attribute could not be found 
-        /// in the available metadata.</exception>
         /// <exception cref="NotSupportedException">Thrown when the <paramref name="mapData"/>
         /// could not be successfully converted to a scheme.</exception>
         private IFeatureScheme CreateCategorySchemes(TFeatureBasedMapData mapData)
@@ -180,13 +178,17 @@ namespace Core.Components.DotSpatial.Converter
 
             MapTheme mapTheme = mapData.MapTheme;
             Dictionary<string, int> attributeMapping = GetAttributeMapping(mapData);
-            int attributeIndex = attributeMapping[mapTheme.AttributeName];
 
-            foreach (CategoryTheme categoryTheme in mapTheme.CategoryThemes)
+            if (attributeMapping.ContainsKey(mapTheme.AttributeName))
             {
-                IFeatureCategory category = CreateCategory(mapData, categoryTheme.Color);
-                category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criterion);
-                scheme.AddCategory(category);
+                int attributeIndex = attributeMapping[mapTheme.AttributeName];
+
+                foreach (CategoryTheme categoryTheme in mapTheme.CategoryThemes)
+                {
+                    IFeatureCategory category = CreateCategory(mapData, categoryTheme.Color);
+                    category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criterion);
+                    scheme.AddCategory(category);
+                }
             }
 
             return scheme;
