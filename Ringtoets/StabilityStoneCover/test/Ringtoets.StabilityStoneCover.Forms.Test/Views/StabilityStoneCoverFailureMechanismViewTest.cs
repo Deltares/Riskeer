@@ -592,7 +592,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
-            const int updatedRefenceLineLayerIndex = referenceLineIndex + 6;
+            const int updatedReferenceLineLayerIndex = referenceLineIndex + 6;
             const int updatedSectionsLayerIndex = sectionsIndex - 1;
             const int updateSectionStartLayerIndex = sectionsStartPointIndex - 1;
             const int updatedSectionEndLayerIndex = sectionsEndPointIndex - 1;
@@ -616,7 +616,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 List<MapData> mapDataList = mapData.Collection.ToList();
 
                 // Precondition
-                var referenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
+                var referenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
                 var sectionsData = (MapLineData) mapDataList[updatedSectionsLayerIndex];
@@ -650,7 +650,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 assessmentSection.NotifyObservers();
 
                 // Assert
-                var actualReferenceLineData = (MapLineData) mapDataList[updatedRefenceLineLayerIndex];
+                var actualReferenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
                 var actualSectionsData = (MapLineData) mapDataList[updatedSectionsLayerIndex];
