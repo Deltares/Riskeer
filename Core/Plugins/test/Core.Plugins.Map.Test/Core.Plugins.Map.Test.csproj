@@ -55,6 +55,7 @@
     <Compile Include="Legend\MapLegendControllerTest.cs" />
     <Compile Include="Legend\MapLegendViewTest.cs" />
     <Compile Include="MapRibbonTest.cs" />
+    <Compile Include="PresentationObjects\FeatureBasedMapDataContextTest.cs" />
     <Compile Include="PresentationObjects\MapDataCollectionContextTest.cs" />
     <Compile Include="PresentationObjects\MapDataContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
