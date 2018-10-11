@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Controls.PresentationObjects;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.PresentationObjects;
 using NUnit.Framework;
