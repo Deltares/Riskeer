@@ -53,6 +53,12 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
         private readonly MapLineData calculationsMapData;
+
+        private readonly MapLineData simpleAssemblyMapData;
+        private readonly MapLineData detailedAssemblyMapData;
+        private readonly MapLineData tailorMadeAssemblyMapData;
+        private readonly MapLineData combinedAssemblyMapData;
+
         private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private Observer assessmentSectionObserver;
@@ -71,6 +77,7 @@ namespace Ringtoets.Piping.Forms.Views
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, PipingCalculationScenario> calculationObserver;
         private RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> surfaceLineObserver;
+        private RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResult>, PipingFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismView"/>.
@@ -107,12 +114,25 @@ namespace Ringtoets.Piping.Forms.Views
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
             calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
 
+            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
+            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
+            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
+            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
+            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
+
             mapDataCollection.Add(referenceLineMapData);
             mapDataCollection.Add(stochasticSoilModelsMapData);
             mapDataCollection.Add(surfaceLinesMapData);
             mapDataCollection.Add(sectionsMapData);
             mapDataCollection.Add(sectionsStartPointMapData);
             mapDataCollection.Add(sectionsEndPointMapData);
+
+            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
+            assemblyMapDataCollection.Add(detailedAssemblyMapData);
+            assemblyMapDataCollection.Add(simpleAssemblyMapData);
+            assemblyMapDataCollection.Add(combinedAssemblyMapData);
+            mapDataCollection.Add(assemblyMapDataCollection);
+
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             mapDataCollection.Add(calculationsMapData);
 
@@ -159,6 +179,7 @@ namespace Ringtoets.Piping.Forms.Views
             calculationObserver.Dispose();
             surfaceLinesObserver.Dispose();
             surfaceLineObserver.Dispose();
+            sectionResultObserver.Dispose();
 
             if (disposing)
             {
@@ -170,11 +191,11 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void CreateObservers()
         {
-            failureMechanismObserver = new Observer(UpdateSectionsMapData)
+            failureMechanismObserver = new Observer(UpdateFailureMechanismMapData)
             {
                 Observable = FailureMechanism
             };
-            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
+            assessmentSectionObserver = new Observer(UpdateAssessmentSectionMapData)
             {
                 Observable = AssessmentSection
             };
@@ -221,9 +242,15 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
+
             surfaceLineObserver = new RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine>(UpdateSurfaceLinesMapData, rpslc => rpslc)
             {
                 Observable = FailureMechanism.SurfaceLines
+            };
+
+            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResult>, PipingFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
+            {
+                Observable = FailureMechanism.SectionResults
             };
         }
 
@@ -236,7 +263,30 @@ namespace Ringtoets.Piping.Forms.Views
             SetSectionsMapData();
             SetSurfaceLinesMapData();
             SetStochasticSoilModelsMapData();
+
+            SetAssemblyMapData();
         }
+
+        #region Assembly MapData
+
+        private void UpdateAssemblyMapData()
+        {
+            SetAssemblyMapData();
+            simpleAssemblyMapData.NotifyObservers();
+            detailedAssemblyMapData.NotifyObservers();
+            tailorMadeAssemblyMapData.NotifyObservers();
+            combinedAssemblyMapData.NotifyObservers();
+        }
+
+        private void SetAssemblyMapData()
+        {
+            simpleAssemblyMapData.Features = PipingAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
+            detailedAssemblyMapData.Features = PipingAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism, AssessmentSection);
+            tailorMadeAssemblyMapData.Features = PipingAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism, AssessmentSection);
+            combinedAssemblyMapData.Features = PipingAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism, AssessmentSection);
+        }
+
+        #endregion
 
         #region Calculations MapData
 
@@ -244,6 +294,8 @@ namespace Ringtoets.Piping.Forms.Views
         {
             SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
+
+            UpdateAssemblyMapData();
         }
 
         private void SetCalculationsMapData()
@@ -270,12 +322,14 @@ namespace Ringtoets.Piping.Forms.Views
 
         #endregion
 
-        #region ReferenceLine MapData
+        #region AssessmentSection MapData
 
-        private void UpdateReferenceLineMapData()
+        private void UpdateAssessmentSectionMapData()
         {
             SetReferenceLineMapData();
             referenceLineMapData.NotifyObservers();
+
+            UpdateAssemblyMapData();
         }
 
         private void SetReferenceLineMapData()
@@ -286,14 +340,16 @@ namespace Ringtoets.Piping.Forms.Views
 
         #endregion
 
-        #region Sections MapData
+        #region FailureMechanism MapData
 
-        private void UpdateSectionsMapData()
+        private void UpdateFailureMechanismMapData()
         {
             SetSectionsMapData();
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
+
+            UpdateAssemblyMapData();
         }
 
         private void SetSectionsMapData()
