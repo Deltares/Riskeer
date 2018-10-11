@@ -119,20 +119,19 @@ namespace Core.Plugins.Map.Legend
 
         private void RegisterTreeNodeInfos()
         {
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataContext>
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<FeatureBasedMapDataContext>
             {
                 Text = context => context.WrappedData.Name,
                 Image = GetImage,
-                ChildNodeObjects = MapDataContextGetChildNodeObjects,
-                CanDrag = (context, o) => true,
-                CanCheck = context => !(context.WrappedData is MapDataCollection),
+                CanDrag = (context, parent) => true,
+                CanCheck = context => true,
                 IsChecked = context => context.WrappedData.IsVisible,
-                OnNodeChecked = MapDataContextOnNodeChecked,
-                CanDrop = MapDataContextCanDropAndInsert,
-                CanInsert = MapDataContextCanDropAndInsert,
-                OnDrop = MapDataContextOnDrop,
-                CanRemove = (context, parent) => CanRemoveMapData(context.WrappedData, parent),
-                OnNodeRemoved = (context, parent) => RemoveFromParent(context.WrappedData, parent),
+                OnNodeChecked = FeatureBasedMapDataContextOnNodeChecked,
+                CanDrop = FeatureBasedMapDataContextCanDropAndInsert,
+                CanInsert = FeatureBasedMapDataContextCanDropAndInsert,
+                OnDrop = FeatureBasedMapDataContextOnDrop,
+                CanRemove = (context, parent) => CanRemoveMapData((FeatureBasedMapData) context.WrappedData, parent),
+                OnNodeRemoved = (context, parent) => RemoveFromParent((FeatureBasedMapData) context.WrappedData, parent),
                 ContextMenuStrip = MapDataContextContextMenuStrip
             });
 
@@ -165,25 +164,6 @@ namespace Core.Plugins.Map.Legend
         }
 
         #region MapData
-
-        private StrictContextMenuItem CreateZoomToExtentsItem(MapData nodeData)
-        {
-            StrictContextMenuItem zoomToExtentsItem = null;
-
-            var collectionNodeData = nodeData as MapDataCollection;
-            if (collectionNodeData != null)
-            {
-                zoomToExtentsItem = CreateZoomToExtentsItem(collectionNodeData);
-            }
-
-            var featureBasedNodeData = nodeData as FeatureBasedMapData;
-            if (featureBasedNodeData != null)
-            {
-                zoomToExtentsItem = CreateZoomToExtentsItem(featureBasedNodeData);
-            }
-
-            return zoomToExtentsItem;
-        }
 
         private StrictContextMenuItem CreateZoomToExtentsItem(FeatureBasedMapData nodeData)
         {
@@ -257,7 +237,7 @@ namespace Core.Plugins.Map.Legend
 
         #region MapDataContext
 
-        private static Image GetImage(MapDataContext context)
+        private static Image GetImage(FeatureBasedMapDataContext context)
         {
             if (context.WrappedData is MapPointData)
             {
@@ -277,32 +257,26 @@ namespace Core.Plugins.Map.Legend
             return GuiResources.folder;
         }
 
-        private static object[] MapDataContextGetChildNodeObjects(MapDataContext mapDataContext)
-        {
-            var collection = mapDataContext.WrappedData as MapDataCollection;
-            return collection != null ? GetChildNodeObjects(collection) : new object[0];
-        }
-
-        private void MapDataContextOnNodeChecked(MapDataContext mapDataContext, object parentData)
+        private void FeatureBasedMapDataContextOnNodeChecked(FeatureBasedMapDataContext mapDataContext, object parentData)
         {
             mapDataContext.WrappedData.IsVisible = !mapDataContext.WrappedData.IsVisible;
             NotifyObserversOfData(mapDataContext.WrappedData);
         }
 
-        private static bool MapDataContextCanDropAndInsert(object draggedData, object targetData)
+        private static bool FeatureBasedMapDataContextCanDropAndInsert(object draggedData, object targetData)
         {
-            var draggedDataContext = (MapDataContext) draggedData;
+            var draggedDataContext = (FeatureBasedMapDataContext) draggedData;
             var targetDataContext = (MapDataContext) targetData;
 
             return draggedDataContext.ParentMapData.Equals(targetDataContext.WrappedData);
         }
 
-        private static void MapDataContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
+        private static void FeatureBasedMapDataContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
         {
-            var mapContext = (MapDataContext) droppedData;
-            var sourceContext = oldParentData as MapDataContext;
+            var mapContext = (FeatureBasedMapDataContext) droppedData;
+            var sourceContext = oldParentData as MapDataCollectionContext;
 
-            MapData mapData = mapContext.WrappedData;
+            var mapData = (FeatureBasedMapData) mapContext.WrappedData;
             var parent = (MapDataCollection) (sourceContext != null ? sourceContext.WrappedData : oldParentData);
 
             parent.Remove(mapData);
@@ -310,12 +284,12 @@ namespace Core.Plugins.Map.Legend
             parent.NotifyObservers();
         }
 
-        private static bool CanRemoveMapData(MapData mapData, object parent)
+        private static bool CanRemoveMapData(FeatureBasedMapData mapData, object parent)
         {
             return mapData is IRemovable && parent is MapDataCollection;
         }
 
-        private static void RemoveFromParent(MapData dataToRemove, object parentData)
+        private static void RemoveFromParent(FeatureBasedMapData dataToRemove, object parentData)
         {
             if (CanRemoveMapData(dataToRemove, parentData))
             {
@@ -325,16 +299,10 @@ namespace Core.Plugins.Map.Legend
             }
         }
 
-        private ContextMenuStrip MapDataContextContextMenuStrip(MapDataContext mapDataContext, object parentData, TreeViewControl treeView)
+        private ContextMenuStrip MapDataContextContextMenuStrip(FeatureBasedMapDataContext mapDataContext, object parentData, TreeViewControl treeView)
         {
-            var mapDataCollection = mapDataContext.WrappedData as MapDataCollection;
-            if (mapDataCollection != null)
-            {
-                return MapDataCollectionContextMenuStrip(mapDataCollection, parentData, treeView);
-            }
-
             return contextMenuBuilderProvider.Get(mapDataContext.WrappedData, treeView)
-                                             .AddCustomItem(CreateZoomToExtentsItem(mapDataContext.WrappedData))
+                                             .AddCustomItem(CreateZoomToExtentsItem((FeatureBasedMapData) mapDataContext.WrappedData))
                                              .AddSeparator()
                                              .AddDeleteItem()
                                              .AddSeparator()

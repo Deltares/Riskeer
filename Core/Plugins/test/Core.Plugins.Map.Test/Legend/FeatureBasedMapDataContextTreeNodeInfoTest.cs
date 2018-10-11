@@ -41,15 +41,13 @@ using Core.Plugins.Map.PresentationObjects;
 using Core.Plugins.Map.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
-using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Core.Plugins.Map.Test.Legend
 {
     [TestFixture]
-    public class MapDataContextTreeNodeInfoTest
+    public class FeatureBasedMapDataContextTreeNodeInfoTest
     {
-        private const int featureBasedMapDataContextMenuZoomToAllIndex = 0;
-        private const int mapDataCollectionContextMenuZoomToAllIndex = 2;
+        private const int mapDataContextMenuZoomToAllIndex = 0;
 
         private MapLegendView mapLegendView;
         private TreeNodeInfo info;
@@ -63,47 +61,6 @@ namespace Core.Plugins.Map.Test.Legend
                 yield return new TestCaseData(new MapPointData("test"), Resources.PointsIcon);
                 yield return new TestCaseData(new MapLineData("test"), Resources.LineIcon);
                 yield return new TestCaseData(new MapPolygonData("test"), Resources.AreaIcon);
-                yield return new TestCaseData(new MapDataCollection("test"), GuiResources.folder);
-            }
-        }
-
-        private static IEnumerable<MapData> DragMapData
-        {
-            get
-            {
-                return new MapData[]
-                {
-                    new MapPointData("test"),
-                    new MapLineData("test"),
-                    new MapPolygonData("test"),
-                    new MapDataCollection("test")
-                };
-            }
-        }
-
-        private static IEnumerable<MapData> NoMapDataCollection
-        {
-            get
-            {
-                return new MapData[]
-                {
-                    new MapPointData("test"),
-                    new MapLineData("test"),
-                    new MapPolygonData("test")
-                };
-            }
-        }
-
-        private static IEnumerable<TestCaseData> IsCheckedMapData
-        {
-            get
-            {
-                yield return new TestCaseData(new MapPointData("test"), false);
-                yield return new TestCaseData(new MapPointData("test"), true);
-                yield return new TestCaseData(new MapLineData("test"), false);
-                yield return new TestCaseData(new MapLineData("test"), true);
-                yield return new TestCaseData(new MapPolygonData("test"), false);
-                yield return new TestCaseData(new MapPolygonData("test"), true);
             }
         }
 
@@ -119,7 +76,7 @@ namespace Core.Plugins.Map.Test.Legend
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
             var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
-            info = treeNodeInfoLookup[typeof(MapDataContext)];
+            info = treeNodeInfoLookup[typeof(FeatureBasedMapDataContext)];
         }
 
         [TearDown]
@@ -139,7 +96,7 @@ namespace Core.Plugins.Map.Test.Legend
             Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ExpandOnCreate);
-            Assert.IsNotNull(info.ChildNodeObjects);
+            Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNotNull(info.CanRemove);
@@ -154,10 +111,10 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void Text_Always_ReturnsNameFromWrappedMapData()
+        public void Text_WithContext_ReturnsNameFromWrappedMapData()
         {
             // Setup
-            MapDataContext context = GetContext(new TestMapData());
+            FeatureBasedMapDataContext context = GetContext(new TestFeatureBasedMapData());
 
             // Call
             string text = info.Text(context);
@@ -168,10 +125,10 @@ namespace Core.Plugins.Map.Test.Legend
 
         [Test]
         [TestCaseSource(nameof(MapDataLegendImages))]
-        public void Image_WrappedDataMapPointData_ReturnExpectedImage(MapData mapData, Image expectedImage)
+        public void Image_WithContext_ReturnExpectedImage(FeatureBasedMapData mapData, Image expectedImage)
         {
             // Setup            
-            MapDataContext context = GetContext(mapData);
+            FeatureBasedMapDataContext context = GetContext(mapData);
 
             // Call
             Image image = info.Image(context);
@@ -181,94 +138,32 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ChildNodeObjects_MapDataCollection_ReturnsItemsFromMapDataCollectionList()
+        public void CanDrag_Always_ReturnsTrue()
         {
-            // Setup
-            var mapData1 = new TestMapData();
-            var mapData2 = new TestMapData();
-            var mapData3 = new TestMapData();
-            var mapDataCollection = new MapDataCollection("test");
-
-            mapDataCollection.Add(mapData1);
-            mapDataCollection.Add(mapData2);
-            mapDataCollection.Add(mapData3);
-
-            MapDataContext context = GetContext(mapDataCollection);
-
             // Call
-            object[] objects = info.ChildNodeObjects(context);
-
-            // Assert
-            var expectedChildren = new[]
-            {
-                new MapDataContext(mapData3, new MapDataCollection("test")),
-                new MapDataContext(mapData2, new MapDataCollection("test")),
-                new MapDataContext(mapData1, new MapDataCollection("test"))
-            };
-            CollectionAssert.AreEqual(expectedChildren, objects);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(NoMapDataCollection))]
-        public void ChildNodeObjects_OtherThanMapDataCollection_ReturnsEmptyArray(MapData mapData)
-        {
-            // Setup
-            MapDataContext context = GetContext(mapData);
-
-            // Call
-            object[] objects = info.ChildNodeObjects(context);
-
-            // Assert
-            CollectionAssert.IsEmpty(objects);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(DragMapData))]
-        public void CanDrag_Always_ReturnsTrue(MapData mapData)
-        {
-            // Setup
-            MapDataContext context = GetContext(mapData);
-
-            // Call
-            bool canDrag = info.CanDrag(context, null);
+            bool canDrag = info.CanDrag(null, null);
 
             // Assert
             Assert.IsTrue(canDrag);
         }
 
         [Test]
-        public void CanCheck_WrappedDataMapDataCollection_ReturnsFalse()
+        public void CanCheck_Always_ReturnsTrue()
         {
-            // Setup
-            MapDataContext context = GetContext(new MapDataCollection("test"));
-
             // Call
-            bool canCheck = info.CanCheck(context);
-
-            // Assert
-            Assert.IsFalse(canCheck);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(NoMapDataCollection))]
-        public void CanCheck_WrappedDataOtherThanMapDataCollection_ReturnsTrue(MapData mapData)
-        {
-            // Setup
-            MapDataContext context = GetContext(mapData);
-
-            // Call
-            bool canCheck = info.CanCheck(context);
+            bool canCheck = info.CanCheck(null);
 
             // Assert
             Assert.IsTrue(canCheck);
         }
 
         [Test]
-        [TestCaseSource(nameof(IsCheckedMapData))]
-        public void IsChecked_Always_ReturnsAccordingToVisibleStateOfMapData(MapData mapData, bool isVisible)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsChecked_WithContext_ReturnsAccordingToVisibleStateOfMapData(bool isVisible)
         {
             // Setup
-            MapDataContext context = GetContext(mapData);
+            FeatureBasedMapDataContext context = GetContext(new TestFeatureBasedMapData());
             context.WrappedData.IsVisible = isVisible;
 
             // Call
@@ -279,15 +174,16 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        [TestCaseSource(nameof(IsCheckedMapData))]
-        public void OnNodeChecked_Always_SetsMapDataVisibilityAndNotifiesParentObservers(MapData mapData, bool initialVisibleState)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnNodeChecked_WithContext_SetsMapDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            MapDataContext context = GetContext(mapData);
+            FeatureBasedMapDataContext context = GetContext(new TestFeatureBasedMapData());
             context.WrappedData.IsVisible = initialVisibleState;
 
             context.WrappedData.Attach(observer);
@@ -304,11 +200,11 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanDrop_TargetIsSameAsSourceParent_ReturnsTrue()
         {
             // Setup
-            MapData mapData = new TestMapData();
+            FeatureBasedMapData mapData = new TestFeatureBasedMapData();
             var mapDataCollection = new MapDataCollection("test");
 
-            MapDataContext context = GetContext(mapData, mapDataCollection);
-            MapDataContext targetContext = GetContext(mapDataCollection);
+            FeatureBasedMapDataContext context = GetContext(mapData, mapDataCollection);
+            MapDataCollectionContext targetContext = GetContext(mapDataCollection);
 
             // Call
             bool canDrop = info.CanDrop(context, targetContext);
@@ -321,11 +217,11 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanDrop_TargetParentNotSameAsSourceParent_ReturnsFalse()
         {
             // Setup
-            MapData mapData = new TestMapData();
-            MapData mapData2 = new TestMapData();
+            FeatureBasedMapData mapData = new TestFeatureBasedMapData();
+            FeatureBasedMapData mapData2 = new TestFeatureBasedMapData();
 
-            MapDataContext context = GetContext(mapData);
-            MapDataContext targetContext = GetContext(mapData2);
+            FeatureBasedMapDataContext context = GetContext(mapData);
+            FeatureBasedMapDataContext targetContext = GetContext(mapData2);
 
             // Call
             bool canDrop = info.CanDrop(context, targetContext);
@@ -335,15 +231,15 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void CanDrop_TargetDataIsCollection_ReturnsFalse()
+        public void CanDrop_TargetDataIsCollectionWithSameParent_ReturnsFalse()
         {
             // Setup
-            MapData mapData = new TestMapData();
+            FeatureBasedMapData mapData = new TestFeatureBasedMapData();
             var rootCollection = new MapDataCollection("test");
             var targetCollection = new MapDataCollection("test");
 
-            MapDataContext context = GetContext(mapData, rootCollection);
-            MapDataContext targetContext = GetContext(targetCollection, rootCollection);
+            FeatureBasedMapDataContext context = GetContext(mapData, rootCollection);
+            MapDataCollectionContext targetContext = GetContext(targetCollection, rootCollection);
 
             // Call
             bool canDrop = info.CanDrop(context, targetContext);
@@ -356,11 +252,11 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanInsert_TargetIsSameAsSourceParent_ReturnsTrue()
         {
             // Setup
-            MapData mapData = new TestMapData();
+            FeatureBasedMapData mapData = new TestFeatureBasedMapData();
             var mapDataCollection = new MapDataCollection("test");
 
-            MapDataContext context = GetContext(mapData, mapDataCollection);
-            MapDataContext targetContext = GetContext(mapDataCollection);
+            FeatureBasedMapDataContext context = GetContext(mapData, mapDataCollection);
+            MapDataCollectionContext targetContext = GetContext(mapDataCollection);
 
             // Call
             bool canInsert = info.CanInsert(context, targetContext);
@@ -373,11 +269,11 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanInsert_TargetParentNotSameAsSourceParent_ReturnsFalse()
         {
             // Setup
-            MapData mapData = new TestMapData();
-            MapData mapData2 = new TestMapData();
+            FeatureBasedMapData mapData = new TestFeatureBasedMapData();
+            FeatureBasedMapData mapData2 = new TestFeatureBasedMapData();
 
-            MapDataContext context = GetContext(mapData);
-            MapDataContext targetContext = GetContext(mapData2);
+            FeatureBasedMapDataContext context = GetContext(mapData);
+            FeatureBasedMapDataContext targetContext = GetContext(mapData2);
 
             // Call
             bool canInsert = info.CanInsert(context, targetContext);
@@ -387,21 +283,21 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void CanInsert_TargetDataIsCollection_ReturnsFalse()
+        public void CanInsert_TargetDataIsCollectionWithSameParent_ReturnsFalse()
         {
             // Setup
-            MapData mapData = new TestMapData();
+            FeatureBasedMapData mapData = new TestFeatureBasedMapData();
             var rootCollection = new MapDataCollection("test");
             var targetCollection = new MapDataCollection("test");
 
-            MapDataContext context = GetContext(mapData, rootCollection);
-            MapDataContext targetContext = GetContext(targetCollection, rootCollection);
+            FeatureBasedMapDataContext context = GetContext(mapData, rootCollection);
+            MapDataCollectionContext targetContext = GetContext(targetCollection, rootCollection);
 
             // Call
-            bool canDrop = info.CanInsert(context, targetContext);
+            bool canInsert = info.CanInsert(context, targetContext);
 
             // Assert
-            Assert.IsFalse(canDrop);
+            Assert.IsFalse(canInsert);
         }
 
         [Test]
@@ -415,17 +311,17 @@ namespace Core.Plugins.Map.Test.Legend
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var mapData1 = new TestMapData();
-            var mapData2 = new TestMapData();
-            var mapData3 = new TestMapData();
+            var mapData1 = new TestFeatureBasedMapData();
+            var mapData2 = new TestFeatureBasedMapData();
+            var mapData3 = new TestFeatureBasedMapData();
             var mapDataCollection = new MapDataCollection("test");
 
             mapDataCollection.Add(mapData1);
             mapDataCollection.Add(mapData2);
             mapDataCollection.Add(mapData3);
 
-            MapDataContext context1 = GetContext(mapData1);
-            MapDataContext collectionContext = GetContext(mapDataCollection);
+            FeatureBasedMapDataContext context1 = GetContext(mapData1);
+            MapDataCollectionContext collectionContext = GetContext(mapDataCollection);
 
             mapDataCollection.Attach(observer);
 
@@ -454,9 +350,9 @@ namespace Core.Plugins.Map.Test.Legend
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var mapData1 = new MapLineData("line");
-            var mapData2 = new MapPolygonData("polygon");
-            var mapData3 = new MapPointData("point");
+            var mapData1 = new TestFeatureBasedMapData();
+            var mapData2 = new TestFeatureBasedMapData();
+            var mapData3 = new TestFeatureBasedMapData();
             var mapDataCollection = new MapDataCollection("test");
 
             mapDataCollection.Add(mapData1);
@@ -464,10 +360,10 @@ namespace Core.Plugins.Map.Test.Legend
             mapDataCollection.Add(mapData3);
 
             mapDataCollection.Attach(observer);
-            mapLegendView.Data = mapDataCollection;
+//            mapLegendView.Data = mapDataCollection;
 
-            MapDataContext context = GetContext(mapData1);
-            MapDataContext collectionContext = GetContext(mapDataCollection);
+            FeatureBasedMapDataContext context = GetContext(mapData1);
+            MapDataCollectionContext collectionContext = GetContext(mapDataCollection);
 
             mapDataCollection.Attach(observer);
 
@@ -487,16 +383,16 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanRemove_WithRemovableDataAndCollection_ReturnTrue()
         {
             // Setup
-            var removable = mocks.StrictMultiMock<MapLineData>(new[]
+            var removable = mocks.StrictMultiMock<FeatureBasedMapData>(new[]
             {
                 typeof(IRemovable)
             }, "name");
             mocks.ReplayAll();
 
-            MapDataContext context = GetContext(removable);
+            FeatureBasedMapDataContext context = GetContext(removable);
 
             // Call
-            bool canRemove = info.CanRemove(context, new MapDataCollection("collection"));
+            bool canRemove = info.CanRemove(context, context.ParentMapData);
 
             // Assert
             Assert.IsTrue(canRemove);
@@ -506,13 +402,13 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanRemove_WithoutCollection_ReturnFalse()
         {
             // Setup
-            var removable = mocks.StrictMultiMock<MapLineData>(new[]
+            var removable = mocks.StrictMultiMock<FeatureBasedMapData>(new[]
             {
                 typeof(IRemovable)
             }, "name");
             mocks.ReplayAll();
 
-            MapDataContext context = GetContext(removable);
+            FeatureBasedMapDataContext context = GetContext(removable);
 
             // Call
             bool canRemove = info.CanRemove(context, null);
@@ -525,13 +421,13 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanRemove_WithNotRemovableData_ReturnFalse()
         {
             // Setup
-            var notRemovable = mocks.StrictMock<MapLineData>("name");
+            var notRemovable = mocks.StrictMock<FeatureBasedMapData>("name");
             mocks.ReplayAll();
 
-            MapDataContext context = GetContext(notRemovable);
+            FeatureBasedMapDataContext context = GetContext(notRemovable);
 
             // Call
-            bool canRemove = info.CanRemove(context, new MapDataCollection("collection"));
+            bool canRemove = info.CanRemove(context, context.ParentMapData);
 
             // Assert
             Assert.IsFalse(canRemove);
@@ -541,7 +437,7 @@ namespace Core.Plugins.Map.Test.Legend
         public void OnNodeRemoved_WithRemovableDataToRemove_DataRemoved()
         {
             // Setup
-            var toRemove = mocks.StrictMultiMock<MapLineData>(new[]
+            var toRemove = mocks.StrictMultiMock<FeatureBasedMapData>(new[]
             {
                 typeof(IRemovable)
             }, "name");
@@ -552,10 +448,10 @@ namespace Core.Plugins.Map.Test.Legend
             collection.Add(toRemove);
             collection.Add(otherData);
 
-            MapDataContext context = GetContext(toRemove, collection);
+            FeatureBasedMapDataContext context = GetContext(toRemove, collection);
 
             // Call
-            info.OnNodeRemoved(context, collection);
+            info.OnNodeRemoved(context, context.ParentMapData);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -565,10 +461,10 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        [TestCaseSource(nameof(NoMapDataCollection))]
-        public void ContextMenuStrip_DifferentTypesOfMapData_CallsBuilder(MapData mapData)
+        public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
+            var mapData = new TestFeatureBasedMapData();
             var builder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
@@ -592,35 +488,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_MapDataCollection_CallsBuilder()
-        {
-            // Setup
-            var mapData = new MapDataCollection("name");
-
-            var builder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                builder.Expect(mb => mb.AddCustomImportItem(null, null, null)).IgnoreArguments().Return(builder);
-                builder.Expect(mb => mb.AddSeparator()).Return(builder);
-                builder.Expect(mb => mb.AddCustomItem(Arg<StrictContextMenuItem>.Is.NotNull)).Return(builder);
-                builder.Expect(mb => mb.AddSeparator()).Return(builder);
-                builder.Expect(mb => mb.AddPropertiesItem()).Return(builder);
-                builder.Expect(mb => mb.Build()).Return(null);
-            }
-
-            contextMenuBuilderProvider.Expect(p => p.Get(mapData, null)).Return(builder);
-
-            mocks.ReplayAll();
-
-            // Call
-            info.ContextMenuStrip(GetContext(mapData), null, null);
-
-            // Assert
-            // Assert expectancies are called in TearDown()
-        }
-
-        [Test]
-        public void ContextMenuStrip_VisibleMapData_ZoomToAllItemEnabled()
+        public void ContextMenuStrip_VisibleMapDataWithFeatures_ZoomToAllItemEnabled()
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
@@ -628,7 +496,7 @@ namespace Core.Plugins.Map.Test.Legend
 
             mocks.ReplayAll();
 
-            var mapData = new TestFeatureBasedMapData("A")
+            var mapData = new TestFeatureBasedMapData
             {
                 IsVisible = true,
                 Features = new[]
@@ -641,7 +509,7 @@ namespace Core.Plugins.Map.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, featureBasedMapDataContextMenuZoomToAllIndex,
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, mapDataContextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
                                                               "Zet het zoomniveau van de kaart dusdanig dat deze kaartlaag precies in het beeld past.",
                                                               Resources.ZoomToAllIcon);
@@ -657,7 +525,7 @@ namespace Core.Plugins.Map.Test.Legend
 
             mocks.ReplayAll();
 
-            var mapData = new TestFeatureBasedMapData("A")
+            var mapData = new TestFeatureBasedMapData
             {
                 IsVisible = false
             };
@@ -666,7 +534,7 @@ namespace Core.Plugins.Map.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, featureBasedMapDataContextMenuZoomToAllIndex,
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, mapDataContextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
                                                               "Om het zoomniveau aan te passen moet de kaartlaag zichtbaar zijn.",
                                                               Resources.ZoomToAllIcon,
@@ -675,7 +543,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_MapDataWithoutFeatures_ZoomToAllItemDisabled()
+        public void ContextMenuStrip_VisibleMapDataWithoutFeatures_ZoomToAllItemDisabled()
         {
             // Setup
             var builder = new CustomItemsOnlyContextMenuBuilder();
@@ -683,7 +551,7 @@ namespace Core.Plugins.Map.Test.Legend
 
             mocks.ReplayAll();
 
-            var mapData = new TestFeatureBasedMapData("A")
+            var mapData = new TestFeatureBasedMapData
             {
                 IsVisible = true
             };
@@ -692,7 +560,7 @@ namespace Core.Plugins.Map.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, featureBasedMapDataContextMenuZoomToAllIndex,
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, mapDataContextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
                                                               "Om het zoomniveau aan te passen moet de kaartlaag elementen bevatten.",
                                                               Resources.ZoomToAllIcon,
@@ -701,10 +569,10 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ContextMenuStrip_EnabledZoomToAllContextMenuOnMapDataItemClicked_DoZoomToVisibleData()
+        public void ContextMenuStrip_EnabledZoomToAllContextMenuItemClicked_DoZoomToVisibleData()
         {
             // Setup
-            var mapData = new TestFeatureBasedMapData("A")
+            var mapData = new TestFeatureBasedMapData()
             {
                 IsVisible = true,
                 Features = new[]
@@ -725,41 +593,7 @@ namespace Core.Plugins.Map.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Call
-                contextMenu.Items[featureBasedMapDataContextMenuZoomToAllIndex].PerformClick();
-
-                // Assert
-                // Assert expectancies are called in TearDown()
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_EnabledZoomToAllContextMenuOnMapDataCollectionItemClicked_DoZoomToVisibleData()
-        {
-            // Setup
-            var mapData = new MapDataCollection("A");
-            var pointData = new MapPointData("B")
-            {
-                IsVisible = true,
-                Features = new[]
-                {
-                    new MapFeature(Enumerable.Empty<MapGeometry>())
-                }
-            };
-            mapData.Add(pointData);
-
-            var builder = new CustomItemsOnlyContextMenuBuilder();
-            contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);
-            var mapControl = mocks.StrictMock<IMapControl>();
-            mapControl.Expect(c => c.Data).Return(mapData);
-            mapControl.Expect(c => c.ZoomToAllVisibleLayers(mapData));
-            mocks.ReplayAll();
-
-            mapLegendView.MapControl = mapControl;
-
-            using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
-            {
-                // Call
-                contextMenu.Items[mapDataCollectionContextMenuZoomToAllIndex].PerformClick();
+                contextMenu.Items[mapDataContextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
                 // Assert expectancies are called in TearDown()
@@ -786,16 +620,20 @@ namespace Core.Plugins.Map.Test.Legend
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(GetContext(mapData), null, null))
             {
                 // Call
-                TestDelegate call = () => contextMenu.Items[featureBasedMapDataContextMenuZoomToAllIndex].PerformClick();
+                TestDelegate call = () => contextMenu.Items[mapDataContextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
                 Assert.DoesNotThrow(call);
             }
         }
 
-        private static MapDataContext GetContext(MapData mapData, MapDataCollection mapDataCollection = null)
+        private static FeatureBasedMapDataContext GetContext(FeatureBasedMapData mapData, MapDataCollection mapDataCollection = null)
         {
-            return new MapDataContext(mapData, mapDataCollection ?? new MapDataCollection("test"));
+            return new FeatureBasedMapDataContext(mapData, mapDataCollection ?? new MapDataCollection("test"));
+        }
+        private static MapDataCollectionContext GetContext(MapDataCollection mapDataCollection, MapDataCollection parentMapDataCollection = null)
+        {
+            return new MapDataCollectionContext(mapDataCollection, parentMapDataCollection ?? new MapDataCollection("test"));
         }
     }
 }
