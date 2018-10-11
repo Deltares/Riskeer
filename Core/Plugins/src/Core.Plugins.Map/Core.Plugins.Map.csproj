@@ -33,6 +33,7 @@
     <Compile Include="MapRibbon.xaml.cs">
       <DependentUpon>MapRibbon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PresentationObjects\MapDataCollectionContext.cs" />
     <Compile Include="PresentationObjects\MapDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
