@@ -45,10 +45,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
     public class DuneErosionFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
-        private const int sectionsIndex = 1;
-        private const int sectionsStartPointIndex = 2;
-        private const int sectionsEndPointIndex = 3;
-        private const int duneLocationsIndex = 4;
+        private const int sectionsCollectionIndex = 1;
+        private const int duneLocationsIndex = 2;
+
+        private const int sectionsIndex = 0;
+        private const int sectionsStartPointIndex = 1;
+        private const int sectionsEndPointIndex = 2;
 
         private static IEnumerable<TestCaseData> GetCalculationFuncs
         {
@@ -189,11 +191,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
                 List<MapData> mapDataList = mapData.Collection.ToList();
-                Assert.AreEqual(5, mapDataList.Count);
+                Assert.AreEqual(3, mapDataList.Count);
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
-                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
-                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
-                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
+
+                IEnumerable<MapData> sectionsCollection = ((MapDataCollection) mapDataList[sectionsCollectionIndex]).Collection;
+                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsIndex));
+                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsStartPointIndex));
+                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsEndPointIndex));
+
                 AssertDuneLocationsMapData(failureMechanism, mapDataList[duneLocationsIndex]);
             }
         }
@@ -303,9 +308,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             using (var view = new DuneErosionFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                var sectionMapData = (MapLineData) map.Data.Collection.ElementAt(sectionsIndex);
-                var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
-                var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
+                IEnumerable<MapData> sectionsCollection = ((MapDataCollection) map.Data.Collection.ElementAt(sectionsCollectionIndex)).Collection;
+                var sectionMapData = (MapLineData) sectionsCollection.ElementAt(sectionsIndex);
+                var sectionStartsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsStartPointIndex);
+                var sectionsEndsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsEndPointIndex);
 
                 // When
                 FailureMechanismTestHelper.SetSections(failureMechanism, new[]
@@ -329,10 +335,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
-            const int updatedReferenceLineLayerIndex = referenceLineIndex + 4;
-            const int updatedSectionsLayerIndex = sectionsIndex - 1;
-            const int updateSectionStartLayerIndex = sectionsStartPointIndex - 1;
-            const int updatedSectionEndLayerIndex = sectionsEndPointIndex - 1;
+            const int updatedReferenceLineLayerIndex = referenceLineIndex + 2;
+            const int updatedSectionsCollectionIndex = sectionsCollectionIndex - 1;
             const int updatedDuneLocationsLayerIndex = duneLocationsIndex - 1;
 
             var assessmentSection = new AssessmentSectionStub();
@@ -353,14 +357,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 var referenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-                var sectionsData = (MapLineData) mapDataList[updatedSectionsLayerIndex];
+                var sectionsData = (MapDataCollection) mapDataList[updatedSectionsCollectionIndex];
                 Assert.AreEqual("Vakindeling", sectionsData.Name);
-
-                var sectionStartsData = (MapPointData) mapDataList[updateSectionStartLayerIndex];
-                Assert.AreEqual("Vakindeling (startpunten)", sectionStartsData.Name);
-
-                var sectionEndsData = (MapPointData) mapDataList[updatedSectionEndLayerIndex];
-                Assert.AreEqual("Vakindeling (eindpunten)", sectionEndsData.Name);
 
                 var duneLocationsData = (MapPointData) mapDataList[updatedDuneLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische belastingen", duneLocationsData.Name);
@@ -381,14 +379,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 var actualReferenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-                var actualSectionsData = (MapLineData) mapDataList[updatedSectionsLayerIndex];
+                var actualSectionsData = (MapDataCollection) mapDataList[updatedSectionsCollectionIndex];
                 Assert.AreEqual("Vakindeling", actualSectionsData.Name);
-
-                var actualSectionStartsData = (MapPointData) mapDataList[updateSectionStartLayerIndex];
-                Assert.AreEqual("Vakindeling (startpunten)", actualSectionStartsData.Name);
-
-                var actualSectionEndsData = (MapPointData) mapDataList[updatedSectionEndLayerIndex];
-                Assert.AreEqual("Vakindeling (eindpunten)", actualSectionEndsData.Name);
 
                 var actualDuneLocationsData = (MapPointData) mapDataList[updatedDuneLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische belastingen", actualDuneLocationsData.Name);
@@ -401,25 +393,33 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
-            Assert.AreEqual(5, mapDataList.Count);
+            Assert.AreEqual(3, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
-            var sectionsMapData = (MapLineData) mapDataList[sectionsIndex];
-            var sectionsStartPointMapData = (MapPointData) mapDataList[sectionsStartPointIndex];
-            var sectionsEndPointMapData = (MapPointData) mapDataList[sectionsEndPointIndex];
             var duneLocationsMapData = (MapPointData) mapDataList[duneLocationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
-            CollectionAssert.IsEmpty(sectionsMapData.Features);
-            CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
-            CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
             CollectionAssert.IsEmpty(duneLocationsMapData.Features);
 
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
-            Assert.AreEqual("Vakindeling", sectionsMapData.Name);
-            Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
-            Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
             Assert.AreEqual("Hydraulische belastingen", duneLocationsMapData.Name);
+
+            var sectionsMapDataCollection = (MapDataCollection) mapDataList[sectionsCollectionIndex];
+            Assert.AreEqual("Vakindeling", sectionsMapDataCollection.Name);
+            List<MapData> sectionsDataList = sectionsMapDataCollection.Collection.ToList();
+            Assert.AreEqual(3, sectionsDataList.Count);
+
+            var sectionsMapData = (MapLineData) sectionsDataList[sectionsIndex];
+            var sectionsStartPointMapData = (MapPointData) sectionsDataList[sectionsStartPointIndex];
+            var sectionsEndPointMapData = (MapPointData) sectionsDataList[sectionsEndPointIndex];
+
+            CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
+            CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
+            CollectionAssert.IsEmpty(sectionsMapData.Features);
+
+            Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
+            Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
+            Assert.AreEqual("Vakindeling", sectionsMapData.Name);
         }
 
         private static void AssertDuneLocationsMapData(DuneErosionFailureMechanism failureMechanism,
