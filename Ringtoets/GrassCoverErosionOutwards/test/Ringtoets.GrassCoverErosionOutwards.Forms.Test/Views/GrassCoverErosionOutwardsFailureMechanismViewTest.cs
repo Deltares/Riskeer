@@ -48,12 +48,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
     public class GrassCoverErosionOutwardsFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
-        private const int sectionsIndex = 1;
-        private const int sectionsStartPointIndex = 2;
-        private const int sectionsEndPointIndex = 3;
-        private const int hydraulicBoundaryLocationsIndex = 4;
-        private const int foreshoreProfilesIndex = 5;
-        private const int calculationsIndex = 6;
+        private const int sectionsCollectionIndex = 1;
+        private const int hydraulicBoundaryLocationsIndex = 2;
+        private const int foreshoreProfilesIndex = 3;
+        private const int calculationsIndex = 4;
+
+        private const int sectionsIndex = 0;
+        private const int sectionsStartPointIndex = 1;
+        private const int sectionsEndPointIndex = 2;
+
+        private const int hydraulicBoundaryLocationsObserverIndex = 1;
+        private const int foreshoreProfileObserverIndex = 2;
+        private const int calculationObserverIndex = 3;
+        private const int sectionsObserverIndex = 4;
+        private const int sectionsStartPointObserverIndex = 5;
+        private const int sectionsEndPointObserverIndex = 6;
 
         private static IEnumerable<TestCaseData> GetCalculationFuncs
         {
@@ -230,11 +239,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
                 List<MapData> mapDataList = mapData.Collection.ToList();
-                Assert.AreEqual(7, mapDataList.Count);
+                Assert.AreEqual(5, mapDataList.Count);
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
-                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
-                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
-                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
+
+                IEnumerable<MapData> sectionsCollection = ((MapDataCollection) mapDataList[sectionsCollectionIndex]).Collection;
+                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsIndex));
+                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsStartPointIndex));
+                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsEndPointIndex));
+
                 GrassCoverErosionOutwardsMapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism, assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(),
@@ -260,7 +272,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                observers[hydraulicBoundaryLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
@@ -301,7 +313,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                observers[hydraulicBoundaryLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
@@ -372,16 +384,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
+                IEnumerable<MapData> sectionsCollection = ((MapDataCollection) map.Data.Collection.ElementAt(sectionsCollectionIndex)).Collection;
+                var sectionMapData = (MapLineData) sectionsCollection.ElementAt(sectionsIndex);
+                var sectionStartsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsStartPointIndex);
+                var sectionsEndsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsEndPointIndex);
+
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
-
-                var sectionMapData = (MapLineData) map.Data.Collection.ElementAt(sectionsIndex);
-                var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
-                var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
                 // When
                 FailureMechanismTestHelper.SetSections(failureMechanism, new[]
@@ -424,7 +437,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[foreshoreProfileObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
@@ -467,7 +480,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                observers[foreshoreProfileObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
@@ -513,7 +526,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
@@ -560,7 +573,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
@@ -599,7 +612,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
@@ -621,10 +634,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
-            const int updatedReferenceLineLayerIndex = referenceLineIndex + 6;
-            const int updatedSectionsLayerIndex = sectionsIndex - 1;
-            const int updateSectionStartLayerIndex = sectionsStartPointIndex - 1;
-            const int updatedSectionEndLayerIndex = sectionsEndPointIndex - 1;
+            const int updatedReferenceLineLayerIndex = referenceLineIndex + 4;
+            const int updatedSectionsLayerIndex = sectionsCollectionIndex - 1;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
             const int updatedForeshoreProfilesLayerIndex = foreshoreProfilesIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;
@@ -647,14 +658,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 var referenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-                var sectionsData = (MapLineData) mapDataList[updatedSectionsLayerIndex];
+                var sectionsData = (MapDataCollection) mapDataList[updatedSectionsLayerIndex];
                 Assert.AreEqual("Vakindeling", sectionsData.Name);
-
-                var sectionStartsData = (MapPointData) mapDataList[updateSectionStartLayerIndex];
-                Assert.AreEqual("Vakindeling (startpunten)", sectionStartsData.Name);
-
-                var sectionEndsData = (MapPointData) mapDataList[updatedSectionEndLayerIndex];
-                Assert.AreEqual("Vakindeling (eindpunten)", sectionEndsData.Name);
 
                 var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische belastingen", hydraulicLocationsData.Name);
@@ -681,14 +686,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 var actualReferenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
                 Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-                var actualSectionsData = (MapLineData) mapDataList[updatedSectionsLayerIndex];
+                var actualSectionsData = (MapDataCollection) mapDataList[updatedSectionsLayerIndex];
                 Assert.AreEqual("Vakindeling", actualSectionsData.Name);
-
-                var actualSectionStartsData = (MapPointData) mapDataList[updateSectionStartLayerIndex];
-                Assert.AreEqual("Vakindeling (startpunten)", actualSectionStartsData.Name);
-
-                var actualSectionEndsData = (MapPointData) mapDataList[updatedSectionEndLayerIndex];
-                Assert.AreEqual("Vakindeling (eindpunten)", actualSectionEndsData.Name);
 
                 var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische belastingen", actualHydraulicLocationsData.Name);
@@ -732,31 +731,39 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
-            Assert.AreEqual(7, mapDataList.Count);
+            Assert.AreEqual(5, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
-            var sectionsMapData = (MapLineData) mapDataList[sectionsIndex];
             var foreshoreProfilesMapData = (MapLineData) mapDataList[foreshoreProfilesIndex];
-            var sectionsStartPointMapData = (MapPointData) mapDataList[sectionsStartPointIndex];
-            var sectionsEndPointMapData = (MapPointData) mapDataList[sectionsEndPointIndex];
             var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
             var calculationsMapData = (MapLineData) mapDataList[calculationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
-            CollectionAssert.IsEmpty(sectionsMapData.Features);
             CollectionAssert.IsEmpty(foreshoreProfilesMapData.Features);
-            CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
-            CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
             CollectionAssert.IsEmpty(calculationsMapData.Features);
 
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
-            Assert.AreEqual("Vakindeling", sectionsMapData.Name);
             Assert.AreEqual("Voorlandprofielen", foreshoreProfilesMapData.Name);
-            Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
-            Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
             Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);
+
+            var sectionsMapDataCollection = (MapDataCollection) mapDataList[sectionsCollectionIndex];
+            Assert.AreEqual("Vakindeling", sectionsMapDataCollection.Name);
+            List<MapData> sectionsDataList = sectionsMapDataCollection.Collection.ToList();
+            Assert.AreEqual(3, sectionsDataList.Count);
+
+            var sectionsMapData = (MapLineData) sectionsDataList[sectionsIndex];
+            var sectionsStartPointMapData = (MapPointData) sectionsDataList[sectionsStartPointIndex];
+            var sectionsEndPointMapData = (MapPointData) sectionsDataList[sectionsEndPointIndex];
+
+            CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
+            CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
+            CollectionAssert.IsEmpty(sectionsMapData.Features);
+
+            Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
+            Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
+            Assert.AreEqual("Vakindeling", sectionsMapData.Name);
         }
 
         /// <summary>
@@ -773,15 +780,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[sectionsIndex].Attach(sectionsMapDataObserver);
-
-            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
-
-            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
-
             var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
 
@@ -791,15 +789,25 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
 
+            MapData[] sectionsCollection = ((MapDataCollection) mapDataArray[sectionsCollectionIndex]).Collection.ToArray();
+            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
+            sectionsCollection[sectionsIndex].Attach(sectionsMapDataObserver);
+
+            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
+            sectionsCollection[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
+
+            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
+            sectionsCollection[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
+
             return new[]
             {
                 referenceLineMapDataObserver,
-                sectionsMapDataObserver,
-                sectionsStartPointMapDataObserver,
-                sectionsEndPointMapDataObserver,
                 hydraulicBoundaryLocationsMapDataObserver,
                 foreshoreProfilesMapDataObserver,
-                calculationsMapDataObserver
+                calculationsMapDataObserver,
+                sectionsMapDataObserver,
+                sectionsStartPointMapDataObserver,
+                sectionsEndPointMapDataObserver
             };
         }
     }
