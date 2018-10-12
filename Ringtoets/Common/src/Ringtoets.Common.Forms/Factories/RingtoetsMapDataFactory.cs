@@ -253,5 +253,14 @@ namespace Ringtoets.Common.Forms.Factories
                 SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
             };
         }
+
+        /// <summary>
+        /// Create <see cref="MapDataCollection"/> with default styling for sections.
+        /// </summary>
+        /// <returns>The created <see cref="MapDataCollection"/>.</returns>
+        public static MapDataCollection CreateSectionsMapDataCollection()
+        {
+            return new MapDataCollection(Resources.FailureMechanismSections_DisplayName);
+        }
     }
 }

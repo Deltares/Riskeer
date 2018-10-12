@@ -171,6 +171,17 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
 
+        [Test]
+        public void CreateSectionsMapDataCollection_ReturnsEmptyMapDataCollectionWithExpectedName()
+        {
+            // Call
+            MapDataCollection data = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
+
+            // Assert
+            CollectionAssert.IsEmpty(data.Collection);
+            Assert.AreEqual("Vakindeling", data.Name);
+        }
+
         private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, LineDashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);
