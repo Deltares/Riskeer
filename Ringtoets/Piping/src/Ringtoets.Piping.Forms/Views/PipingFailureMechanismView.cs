@@ -46,13 +46,14 @@ namespace Ringtoets.Piping.Forms.Views
     public partial class PipingFailureMechanismView : UserControl, IMapView
     {
         private readonly MapLineData referenceLineMapData;
-        private readonly MapLineData sectionsMapData;
         private readonly MapLineData stochasticSoilModelsMapData;
         private readonly MapLineData surfaceLinesMapData;
-        private readonly MapPointData sectionsStartPointMapData;
-        private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
         private readonly MapLineData calculationsMapData;
+
+        private readonly MapLineData sectionsMapData;
+        private readonly MapPointData sectionsStartPointMapData;
+        private readonly MapPointData sectionsEndPointMapData;
 
         private readonly MapLineData simpleAssemblyMapData;
         private readonly MapLineData detailedAssemblyMapData;
@@ -107,11 +108,8 @@ namespace Ringtoets.Piping.Forms.Views
             var mapDataCollection = new MapDataCollection(PipingDataResources.PipingFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
-            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             stochasticSoilModelsMapData = RingtoetsMapDataFactory.CreateStochasticSoilModelsMapData();
             surfaceLinesMapData = RingtoetsMapDataFactory.CreateSurfaceLinesMapData();
-            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
             calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
 
             MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
@@ -120,12 +118,19 @@ namespace Ringtoets.Piping.Forms.Views
             tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
             combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
 
+            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
+            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
+            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
+            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+            
             mapDataCollection.Add(referenceLineMapData);
             mapDataCollection.Add(stochasticSoilModelsMapData);
             mapDataCollection.Add(surfaceLinesMapData);
-            mapDataCollection.Add(sectionsMapData);
-            mapDataCollection.Add(sectionsStartPointMapData);
-            mapDataCollection.Add(sectionsEndPointMapData);
+            
+            sectionsMapDataCollection.Add(sectionsMapData);
+            sectionsMapDataCollection.Add(sectionsStartPointMapData);
+            sectionsMapDataCollection.Add(sectionsEndPointMapData);
+            mapDataCollection.Add(sectionsMapDataCollection);
 
             assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
             assemblyMapDataCollection.Add(detailedAssemblyMapData);
