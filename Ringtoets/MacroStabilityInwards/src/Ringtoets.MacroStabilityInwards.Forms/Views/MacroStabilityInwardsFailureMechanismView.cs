@@ -53,6 +53,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
         private readonly MapLineData calculationsMapData;
+
         private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private Observer assessmentSectionObserver;
@@ -101,19 +102,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             var mapDataCollection = new MapDataCollection(MacroStabilityInwardsDataResources.MacroStabilityInwardsFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
-            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             stochasticSoilModelsMapData = RingtoetsMapDataFactory.CreateStochasticSoilModelsMapData();
             surfaceLinesMapData = RingtoetsMapDataFactory.CreateSurfaceLinesMapData();
+
+            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
+            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+
             calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
 
             mapDataCollection.Add(referenceLineMapData);
             mapDataCollection.Add(stochasticSoilModelsMapData);
             mapDataCollection.Add(surfaceLinesMapData);
-            mapDataCollection.Add(sectionsMapData);
-            mapDataCollection.Add(sectionsStartPointMapData);
-            mapDataCollection.Add(sectionsEndPointMapData);
+
+            sectionsMapDataCollection.Add(sectionsMapData);
+            sectionsMapDataCollection.Add(sectionsStartPointMapData);
+            sectionsMapDataCollection.Add(sectionsEndPointMapData);
+            mapDataCollection.Add(sectionsMapDataCollection);
+
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             mapDataCollection.Add(calculationsMapData);
 

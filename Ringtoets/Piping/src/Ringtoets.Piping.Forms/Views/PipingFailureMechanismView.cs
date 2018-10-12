@@ -122,11 +122,11 @@ namespace Ringtoets.Piping.Forms.Views
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
-            
+
             mapDataCollection.Add(referenceLineMapData);
             mapDataCollection.Add(stochasticSoilModelsMapData);
             mapDataCollection.Add(surfaceLinesMapData);
-            
+
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
