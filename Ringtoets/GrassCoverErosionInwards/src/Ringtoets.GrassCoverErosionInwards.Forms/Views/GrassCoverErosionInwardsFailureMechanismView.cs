@@ -45,13 +45,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     public partial class GrassCoverErosionInwardsFailureMechanismView : UserControl, IMapView
     {
         private readonly MapLineData referenceLineMapData;
-        private readonly MapLineData sectionsMapData;
-        private readonly MapPointData sectionsStartPointMapData;
-        private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
         private readonly MapLineData dikeProfilesMapData;
         private readonly MapLineData foreshoreProfilesMapData;
         private readonly MapLineData calculationsMapData;
+
+        private readonly MapLineData sectionsMapData;
+        private readonly MapPointData sectionsStartPointMapData;
+        private readonly MapPointData sectionsEndPointMapData;
+
         private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
         private Observer hydraulicBoundaryLocationsObserver;
@@ -101,15 +103,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             dikeProfilesMapData = RingtoetsMapDataFactory.CreateDikeProfileMapData();
             foreshoreProfilesMapData = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
+            calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
+
+            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
-            calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
 
             mapDataCollection.Add(referenceLineMapData);
-            mapDataCollection.Add(sectionsMapData);
-            mapDataCollection.Add(sectionsStartPointMapData);
-            mapDataCollection.Add(sectionsEndPointMapData);
+            
+            sectionsMapDataCollection.Add(sectionsMapData);
+            sectionsMapDataCollection.Add(sectionsStartPointMapData);
+            sectionsMapDataCollection.Add(sectionsEndPointMapData);
+            mapDataCollection.Add(sectionsMapDataCollection);
+
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             mapDataCollection.Add(dikeProfilesMapData);
             mapDataCollection.Add(foreshoreProfilesMapData);
