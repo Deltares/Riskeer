@@ -176,7 +176,7 @@ namespace Core.Plugins.Map.Test.Legend
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void OnNodeChecked_WithContext_SetsMapDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
+        public void OnNodeChecked_WithContext_SetMapDataVisibilityAndNotifyObservers(bool initialVisibleState)
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -360,7 +360,6 @@ namespace Core.Plugins.Map.Test.Legend
             mapDataCollection.Add(mapData3);
 
             mapDataCollection.Attach(observer);
-//            mapLegendView.Data = mapDataCollection;
 
             FeatureBasedMapDataContext context = GetContext(mapData1);
             MapDataCollectionContext collectionContext = GetContext(mapDataCollection);

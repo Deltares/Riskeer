@@ -51,7 +51,7 @@
     <Compile Include="ImportInfos\MapDataCollectionImportInfoTest.cs" />
     <Compile Include="Legend\FeatureBasedMapDataContextTreeNodeInfoTest.cs" />
     <Compile Include="MapPluginTest.cs" />
-    <Compile Include="Legend\MapDataCollectionTreeNodeInfoTest.cs" />
+    <Compile Include="Legend\MapDataCollectionContextTreeNodeInfoTest.cs" />
     <Compile Include="Legend\MapLegendControllerTest.cs" />
     <Compile Include="Legend\MapLegendViewTest.cs" />
     <Compile Include="MapRibbonTest.cs" />
