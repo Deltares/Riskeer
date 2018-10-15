@@ -41,7 +41,7 @@ namespace Core.Plugins.Map.Test.PresentationObjects
             collection.Add(data);
 
             // Call
-            var context = new MapDataContext(data, collection);
+            var context = new TestMapDataContext(data, collection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<MapData>>(context);
@@ -53,11 +53,17 @@ namespace Core.Plugins.Map.Test.PresentationObjects
         public void Constructor_ParentMapDataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MapDataContext(new TestMapData(), null);
+            TestDelegate call = () => new TestMapDataContext(new TestMapData(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("parentMapData", exception.ParamName);
+        }
+
+        private class TestMapDataContext : MapDataContext
+        {
+            public TestMapDataContext(MapData wrappedData, MapDataCollection parentMapData) 
+                : base(wrappedData, parentMapData) {}
         }
     }
 }

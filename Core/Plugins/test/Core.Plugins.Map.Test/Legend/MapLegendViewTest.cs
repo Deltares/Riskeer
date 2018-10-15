@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.TestUtil;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.PresentationObjects;
 using Core.Plugins.Map.Properties;
@@ -191,7 +192,7 @@ namespace Core.Plugins.Map.Test.Legend
                 Data = mapDataCollection
             })
             {
-                var context = new MapDataContext(mapData, mapDataCollection);
+                var context = new TestMapDataContext(mapData, mapDataCollection);
 
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
                 WindowsFormsTestHelper.Show(treeViewControl);
@@ -258,7 +259,7 @@ namespace Core.Plugins.Map.Test.Legend
                 view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
                 // When
-                var context = new MapDataContext(mapData, mapDataCollection);
+                var context = new TestMapDataContext(mapData, mapDataCollection);
                 treeViewControl.TrySelectNodeForData(context);
 
                 // Then
@@ -266,6 +267,12 @@ namespace Core.Plugins.Map.Test.Legend
             }
 
             WindowsFormsTestHelper.CloseAll();
+        }
+
+        private class TestMapDataContext : MapDataContext
+        {
+            public TestMapDataContext(MapData wrappedData, MapDataCollection parentMapData)
+                : base(wrappedData, parentMapData) {}
         }
 
         [Test]

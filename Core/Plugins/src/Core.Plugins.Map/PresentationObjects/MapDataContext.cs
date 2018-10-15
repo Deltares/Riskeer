@@ -28,7 +28,7 @@ namespace Core.Plugins.Map.PresentationObjects
     /// <summary>
     /// Presentation object for <see cref="MapData"/>.
     /// </summary>
-    public class MapDataContext : ObservableWrappedObjectContextBase<MapData>
+    public abstract class MapDataContext : ObservableWrappedObjectContextBase<MapData>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MapDataContext"/>.
@@ -37,7 +37,7 @@ namespace Core.Plugins.Map.PresentationObjects
         /// <param name="parentMapData">The parent <see cref="MapDataCollection"/> 
         /// the <paramref name="wrappedData"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MapDataContext(MapData wrappedData, MapDataCollection parentMapData)
+        protected MapDataContext(MapData wrappedData, MapDataCollection parentMapData)
             : base(wrappedData)
         {
             if (parentMapData == null)
