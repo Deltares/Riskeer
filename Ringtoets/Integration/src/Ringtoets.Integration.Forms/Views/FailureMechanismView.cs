@@ -39,10 +39,11 @@ namespace Ringtoets.Integration.Forms.Views
     public partial class FailureMechanismView<T> : UserControl, IMapView where T : IFailureMechanism
     {
         private readonly MapLineData referenceLineMapData;
+        private readonly MapPointData hydraulicBoundaryLocationsMapData;
+
         private readonly MapLineData sectionsMapData;
         private readonly MapPointData sectionsStartPointMapData;
         private readonly MapPointData sectionsEndPointMapData;
-        private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
         private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
@@ -85,14 +86,19 @@ namespace Ringtoets.Integration.Forms.Views
             var mapDataCollection = new MapDataCollection(failureMechanism.Name);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+
+            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             mapDataCollection.Add(referenceLineMapData);
-            mapDataCollection.Add(sectionsMapData);
-            mapDataCollection.Add(sectionsStartPointMapData);
-            mapDataCollection.Add(sectionsEndPointMapData);
+
+            sectionsMapDataCollection.Add(sectionsMapData);
+            sectionsMapDataCollection.Add(sectionsStartPointMapData);
+            sectionsMapDataCollection.Add(sectionsEndPointMapData);
+            mapDataCollection.Add(sectionsMapDataCollection);
+
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
 
             SetAllMapDataFeatures();
