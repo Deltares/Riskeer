@@ -29,6 +29,7 @@ using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
+using RingtoetsCommonPrimitivesResources = Ringtoets.Common.Primitives.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Factories
 {
@@ -86,7 +87,7 @@ namespace Ringtoets.Common.Forms.Factories
                     new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
                         DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(assemblyResult.Group)).DisplayName;
 
-                feature.MetaData[Resources.MetaData_Probability] = assemblyResult.Probability;
+                feature.MetaData[RingtoetsCommonPrimitivesResources.Probability] = assemblyResult.Probability;
 
                 yield return feature;
             }

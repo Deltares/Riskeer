@@ -119,24 +119,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gecombineerd toetsoordeel.
-        /// </summary>
-        public static string AssemblyResultTotalView_AssemblyResultGroupBox_Text {
-            get {
-                return ResourceManager.GetString("AssemblyResultTotalView_AssemblyResultGroupBox_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel.
-        /// </summary>
-        public static string AssemblyResultTotalView_CategoryGroup_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultTotalView_CategoryGroup_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetsoordeel groepen 3 en 4.
         /// </summary>
         public static string AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text {

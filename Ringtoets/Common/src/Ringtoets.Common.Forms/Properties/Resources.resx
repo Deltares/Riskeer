@@ -1491,7 +1491,7 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
 berekende kans
 [-]</value>
   </data>
-  <data name="AssemblyMapDataFactory_AssemblyMapDataCollection" xml:space="preserve">
+  <data name="AssemblyResult" xml:space="preserve">
     <value>Toetsoordeel</value>
   </data>
   <data name="AssemblyMapDataFactory_SimpleAssemblyMapData" xml:space="preserve">
@@ -1503,10 +1503,7 @@ berekende kans
   <data name="AssemblyMapDataFactory_TailorMadeAssemblyMapData" xml:space="preserve">
     <value>Toetsoordeel toets op maat</value>
   </data>
-  <data name="AssemblyMapDataFactory_CombinedAssemblyMapData" xml:space="preserve">
+  <data name="CombinedAssembly" xml:space="preserve">
     <value>Gecombineerd toetsoordeel</value>
-  </data>
-  <data name="MetaData_Probability" xml:space="preserve">
-    <value>Faalkans</value>
   </data>
 </root>

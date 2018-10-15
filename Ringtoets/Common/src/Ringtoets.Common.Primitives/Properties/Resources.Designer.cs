@@ -109,15 +109,6 @@ namespace Ringtoets.Common.Primitives.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans.
-        /// </summary>
-        public static string AssessmentResultType_Probability {
-            get {
-                return ResourceManager.GetString("AssessmentResultType_Probability", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to FV.
         /// </summary>
         public static string AssessmentResultType_ProbabilityNegligible {
@@ -213,6 +204,15 @@ namespace Ringtoets.Common.Primitives.Properties {
         public static string FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans.
+        /// </summary>
+        public static string Probability {
+            get {
+                return ResourceManager.GetString("Probability", resourceCulture);
             }
         }
         

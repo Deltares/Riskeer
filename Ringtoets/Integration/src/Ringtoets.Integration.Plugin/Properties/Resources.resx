@@ -179,9 +179,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultTotal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AssemblyResultTotal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AssemblyResultTotal_DisplayName" xml:space="preserve">
-    <value>Gecombineerd toetsoordeel</value>
-  </data>
   <data name="AssessmentSectionMerger_No_matching_AssessmentSections" xml:space="preserve">
     <value>Er zijn geen trajecten gevonden die samengevoegd kunnen worden.</value>
   </data>
@@ -211,12 +208,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="AssemblyResult_file_filter_Extension" xml:space="preserve">
     <value>gml</value>
-  </data>
-  <data name="AssemblyResult_file_filter_Description" xml:space="preserve">
-    <value>Toetsoordeel</value>
-  </data>
-  <data name="AssemblyResult_DisplayName" xml:space="preserve">
-    <value>Toetsoordeel</value>
   </data>
   <data name="AssemblyResultsCategoryTreeFolder_DisplayName" xml:space="preserve">
     <value>Assemblage</value>

@@ -120,7 +120,7 @@
   <data name="AssessmentResultType_NotAssessed" xml:space="preserve">
     <value>NGO</value>
   </data>
-  <data name="AssessmentResultType_Probability" xml:space="preserve">
+  <data name="Probability" xml:space="preserve">
     <value>Faalkans</value>
   </data>
   <data name="SimpleAssessmentResultType_AssessFurther" xml:space="preserve">

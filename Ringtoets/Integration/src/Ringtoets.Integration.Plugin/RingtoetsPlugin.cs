@@ -607,7 +607,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>
             {
-                GetViewName = (view, context) => Resources.AssemblyResultTotal_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.CombinedAssembly,
                 Image = Resources.AssemblyResultTotal,
                 CloseForData = CloseAssemblyResultTotalViewForData,
                 CreateInstance = context => new AssemblyResultTotalView(context.WrappedData)
@@ -720,11 +720,11 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ExportInfo<AssemblyResultsContext>
             {
-                Name = Resources.AssemblyResult_DisplayName,
+                Name = RingtoetsCommonFormsResources.AssemblyResult,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.ReferenceLine != null,
                 FileFilterGenerator = new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
-                                                              Resources.AssemblyResult_file_filter_Description)
+                                                              RingtoetsCommonFormsResources.AssemblyResult)
             };
         }
 
@@ -1079,7 +1079,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyResultTotalContext>
             {
-                Text = context => Resources.AssemblyResultTotal_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.CombinedAssembly,
                 Image = context => Resources.AssemblyResultTotal,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()

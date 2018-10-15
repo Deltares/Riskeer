@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.assemblyResultGroupBox.Size = new System.Drawing.Size(789, 110);
             this.assemblyResultGroupBox.TabIndex = 1;
             this.assemblyResultGroupBox.TabStop = false;
-            this.assemblyResultGroupBox.Text = global::Ringtoets.Integration.Forms.Properties.Resources.AssemblyResultTotalView_AssemblyResultGroupBox_Text;
+            this.assemblyResultGroupBox.Text = global::Ringtoets.Common.Forms.Properties.Resources.CombinedAssembly;
             // 
             // assemblyResultTableLayoutPanel
             // 
