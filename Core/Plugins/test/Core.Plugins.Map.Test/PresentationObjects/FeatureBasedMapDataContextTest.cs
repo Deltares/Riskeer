@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
 using Core.Plugins.Map.PresentationObjects;
@@ -45,6 +46,17 @@ namespace Core.Plugins.Map.Test.PresentationObjects
             Assert.IsInstanceOf<MapDataContext>(context);
             Assert.AreSame(data, context.WrappedData);
             Assert.AreSame(collection, context.ParentMapData);
+        }
+
+        [Test]
+        public void Constructor_ParentMapDataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new FeatureBasedMapDataContext(new TestFeatureBasedMapData(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("parentMapData", exception.ParamName);
         }
     }
 }

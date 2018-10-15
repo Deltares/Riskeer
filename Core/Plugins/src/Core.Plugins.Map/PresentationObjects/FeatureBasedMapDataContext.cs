@@ -37,6 +37,16 @@ namespace Core.Plugins.Map.PresentationObjects
         /// the <paramref name="wrappedData"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public FeatureBasedMapDataContext(FeatureBasedMapData wrappedData, MapDataCollection parentMapData)
-            : base(wrappedData, parentMapData) {}
+            : base(wrappedData)
+        {
+            if (parentMapData == null)
+            {
+                throw new ArgumentNullException(nameof(parentMapData));
+            }
+
+            ParentMapData = parentMapData;
+        }
+
+        public override MapDataCollection ParentMapData { get; }
     }
 }

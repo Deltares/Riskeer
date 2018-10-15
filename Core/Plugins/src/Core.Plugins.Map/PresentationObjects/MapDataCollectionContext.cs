@@ -35,8 +35,14 @@ namespace Core.Plugins.Map.PresentationObjects
         /// <param name="wrappedData">The <see cref="MapDataCollection"/> to wrap.</param>
         /// <param name="parentMapData">The parent <see cref="MapDataCollection"/> 
         /// the <paramref name="wrappedData"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
+        /// is <c>null</c>.</exception>
         public MapDataCollectionContext(MapDataCollection wrappedData, MapDataCollection parentMapData)
-            : base(wrappedData, parentMapData) {}
+            : base(wrappedData)
+        {
+            ParentMapData = parentMapData;
+        }
+
+        public override MapDataCollection ParentMapData { get; }
     }
 }

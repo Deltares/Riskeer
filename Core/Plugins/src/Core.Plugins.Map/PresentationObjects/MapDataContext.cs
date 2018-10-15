@@ -34,24 +34,17 @@ namespace Core.Plugins.Map.PresentationObjects
         /// Creates a new instance of <see cref="MapDataContext"/>.
         /// </summary>
         /// <param name="wrappedData">The <see cref="MapData"/> to wrap.</param>
-        /// <param name="parentMapData">The parent <see cref="MapDataCollection"/> 
-        /// the <paramref name="wrappedData"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected MapDataContext(MapData wrappedData, MapDataCollection parentMapData)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
+        /// is <c>null</c>.</exception>
+        protected MapDataContext(MapData wrappedData)
             : base(wrappedData)
         {
-            if (parentMapData == null)
-            {
-                throw new ArgumentNullException(nameof(parentMapData));
-            }
-
-            ParentMapData = parentMapData;
         }
 
         /// <summary>
         /// Gets the parent <see cref="MapDataCollection"/>
         /// the <see cref="WrappedObjectContextBase{T}.WrappedData"/> belongs to.
         /// </summary>
-        public MapDataCollection ParentMapData { get; }
+        public abstract MapDataCollection ParentMapData { get; }
     }
 }

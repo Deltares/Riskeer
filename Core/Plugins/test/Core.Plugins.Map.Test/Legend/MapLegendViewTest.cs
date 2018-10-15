@@ -29,7 +29,6 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
-using Core.Components.Gis.TestUtil;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.PresentationObjects;
 using Core.Plugins.Map.Properties;
@@ -184,7 +183,6 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             var mapData = new MapLineData("line data");
             var mapDataCollection = new MapDataCollection("collection");
-
             mapDataCollection.Add(mapData);
 
             using (var view = new MapLegendView(contextMenuBuilderProvider)
@@ -192,7 +190,7 @@ namespace Core.Plugins.Map.Test.Legend
                 Data = mapDataCollection
             })
             {
-                var context = new TestMapDataContext(mapData, mapDataCollection);
+                var context = new TestMapDataContext(mapData);
 
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
                 WindowsFormsTestHelper.Show(treeViewControl);
@@ -244,7 +242,6 @@ namespace Core.Plugins.Map.Test.Legend
             // Given
             var mapData = new MapLineData("line data");
             var mapDataCollection = new MapDataCollection("collection");
-
             mapDataCollection.Add(mapData);
 
             using (var view = new MapLegendView(contextMenuBuilderProvider)
@@ -259,7 +256,7 @@ namespace Core.Plugins.Map.Test.Legend
                 view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
                 // When
-                var context = new TestMapDataContext(mapData, mapDataCollection);
+                var context = new TestMapDataContext(mapData);
                 treeViewControl.TrySelectNodeForData(context);
 
                 // Then
@@ -267,12 +264,6 @@ namespace Core.Plugins.Map.Test.Legend
             }
 
             WindowsFormsTestHelper.CloseAll();
-        }
-
-        private class TestMapDataContext : MapDataContext
-        {
-            public TestMapDataContext(MapData wrappedData, MapDataCollection parentMapData)
-                : base(wrappedData, parentMapData) {}
         }
 
         [Test]
@@ -296,6 +287,14 @@ namespace Core.Plugins.Map.Test.Legend
             }
 
             WindowsFormsTestHelper.CloseAll();
+        }
+
+        private class TestMapDataContext : MapDataContext
+        {
+            public TestMapDataContext(MapData wrappedData)
+                : base(wrappedData) {}
+
+            public override MapDataCollection ParentMapData { get; }
         }
     }
 }
