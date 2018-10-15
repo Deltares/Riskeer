@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
@@ -133,7 +132,7 @@ namespace Core.Plugins.Map.Legend
                 OnDrop = FeatureBasedMapDataContextOnDrop,
                 CanRemove = (context, parent) => CanRemoveMapData((FeatureBasedMapData) context.WrappedData, parent),
                 OnNodeRemoved = (context, parent) => RemoveFromParent((FeatureBasedMapData) context.WrappedData, parent),
-                ContextMenuStrip = MapDataContextContextMenuStrip
+                ContextMenuStrip = FeatureBasedMapDataContextContextMenuStrip
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataCollectionContext>
@@ -302,7 +301,7 @@ namespace Core.Plugins.Map.Legend
             }
         }
 
-        private ContextMenuStrip MapDataContextContextMenuStrip(FeatureBasedMapDataContext mapDataContext, object parentData, TreeViewControl treeView)
+        private ContextMenuStrip FeatureBasedMapDataContextContextMenuStrip(FeatureBasedMapDataContext mapDataContext, object parentData, TreeViewControl treeView)
         {
             return contextMenuBuilderProvider.Get(mapDataContext.WrappedData, treeView)
                                              .AddCustomItem(CreateZoomToExtentsItem(mapDataContext))
