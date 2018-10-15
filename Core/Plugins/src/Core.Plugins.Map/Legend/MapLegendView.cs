@@ -104,11 +104,13 @@ namespace Core.Plugins.Map.Legend
         {
             get
             {
-                return (MapData) treeViewControl.Data;
+                return (MapDataCollectionContext) treeViewControl.Data;
             }
             set
             {
-                treeViewControl.Data = (MapData) value;
+                treeViewControl.Data = value != null 
+                                           ? new MapDataCollectionContext((MapDataCollection) value, null) 
+                                           : null;
             }
         }
 
@@ -245,7 +247,7 @@ namespace Core.Plugins.Map.Legend
             {
                 return MapResources.PointsIcon;
             }
-        
+
             if (context.WrappedData is MapLineData)
             {
                 return MapResources.LineIcon;
@@ -341,7 +343,7 @@ namespace Core.Plugins.Map.Legend
 
         private static bool MapDataCollectionCanDropAndInsert(object draggedData, object targetData)
         {
-            var draggedDataContext = (MapDataCollectionContext) draggedData;
+            var draggedDataContext = (MapDataContext) draggedData;
             var targetDataContext = targetData as MapDataContext;
             object targetDataObject = targetDataContext != null ? targetDataContext.ParentMapData : targetData;
 
