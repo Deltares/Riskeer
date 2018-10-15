@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos

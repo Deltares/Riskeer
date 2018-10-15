@@ -171,7 +171,6 @@
     <Compile Include="Views\IllustrationPointsControlTest.cs" />
     <Compile Include="Views\IllustrationPointsTableControlTest.cs" />
     <Compile Include="Views\CalculationsViewTest.cs" />
-    <Compile Include="Views\FailureMechanismViewTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />
     <Compile Include="Views\FailureMechanismResultViewTest.cs" />
     <Compile Include="Helpers\FailureMechanismSectionResultRowHelperTest.cs" />

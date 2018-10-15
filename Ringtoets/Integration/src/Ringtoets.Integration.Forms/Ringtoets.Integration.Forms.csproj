@@ -118,6 +118,12 @@
       <DependentUpon>AssessmentSectionView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\CombinedFailureMechanismSectionAssemblyResultRow.cs" />
+    <Compile Include="Views\FailureMechanismView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FailureMechanismView.Designer.cs">
+      <DependentUpon>FailureMechanismView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MacroStabilityOutwardsAssemblyCategoriesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -338,6 +344,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\AssessmentSectionView.resx">
       <DependentUpon>AssessmentSectionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FailureMechanismView.resx">
+      <DependentUpon>FailureMechanismView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MacroStabilityOutwardsAssemblyCategoriesView.resx">
       <DependentUpon>MacroStabilityOutwardsAssemblyCategoriesView.cs</DependentUpon>

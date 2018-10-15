@@ -225,12 +225,6 @@
     <Compile Include="Views\CalculationsView.Designer.cs">
       <DependentUpon>CalculationsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\FailureMechanismView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\FailureMechanismView.Designer.cs">
-      <DependentUpon>FailureMechanismView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\FailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationCalculationRow.cs" />
     <Compile Include="Views\HydraulicBoundaryCalculationsView.cs">
@@ -320,9 +314,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CalculationsView.resx">
       <DependentUpon>CalculationsView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\FailureMechanismView.resx">
-      <DependentUpon>FailureMechanismView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CommentView.resx">
       <DependentUpon>CommentView.cs</DependentUpon>
