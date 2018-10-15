@@ -45,20 +45,21 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingFailureMechanismView : UserControl, IMapView
     {
-        private readonly MapLineData referenceLineMapData;
-        private readonly MapLineData stochasticSoilModelsMapData;
-        private readonly MapLineData surfaceLinesMapData;
-        private readonly MapPointData hydraulicBoundaryLocationsMapData;
-        private readonly MapLineData calculationsMapData;
+        private MapDataCollection mapDataCollection;
+        private MapLineData referenceLineMapData;
+        private MapLineData stochasticSoilModelsMapData;
+        private MapLineData surfaceLinesMapData;
+        private MapPointData hydraulicBoundaryLocationsMapData;
+        private MapLineData calculationsMapData;
 
-        private readonly MapLineData sectionsMapData;
-        private readonly MapPointData sectionsStartPointMapData;
-        private readonly MapPointData sectionsEndPointMapData;
+        private MapLineData sectionsMapData;
+        private MapPointData sectionsStartPointMapData;
+        private MapPointData sectionsEndPointMapData;
 
-        private readonly MapLineData simpleAssemblyMapData;
-        private readonly MapLineData detailedAssemblyMapData;
-        private readonly MapLineData tailorMadeAssemblyMapData;
-        private readonly MapLineData combinedAssemblyMapData;
+        private MapLineData simpleAssemblyMapData;
+        private MapLineData detailedAssemblyMapData;
+        private MapLineData tailorMadeAssemblyMapData;
+        private MapLineData combinedAssemblyMapData;
 
         private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
@@ -105,42 +106,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             CreateObservers();
 
-            var mapDataCollection = new MapDataCollection(PipingDataResources.PipingFailureMechanism_DisplayName);
-            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
-            stochasticSoilModelsMapData = RingtoetsMapDataFactory.CreateStochasticSoilModelsMapData();
-            surfaceLinesMapData = RingtoetsMapDataFactory.CreateSurfaceLinesMapData();
-            calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
-
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
-
-            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
-
-            mapDataCollection.Add(referenceLineMapData);
-            mapDataCollection.Add(stochasticSoilModelsMapData);
-            mapDataCollection.Add(surfaceLinesMapData);
-
-            sectionsMapDataCollection.Add(sectionsMapData);
-            sectionsMapDataCollection.Add(sectionsStartPointMapData);
-            sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(sectionsMapDataCollection);
-
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            mapDataCollection.Add(assemblyMapDataCollection);
-
-            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
-            mapDataCollection.Add(calculationsMapData);
-
+            CreateMapDataCollection();
             SetAllMapDataFeatures();
             ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
@@ -192,6 +158,45 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             base.Dispose(disposing);
+        }
+
+        private void CreateMapDataCollection()
+        {
+            mapDataCollection = new MapDataCollection(PipingDataResources.PipingFailureMechanism_DisplayName);
+            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
+            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            stochasticSoilModelsMapData = RingtoetsMapDataFactory.CreateStochasticSoilModelsMapData();
+            surfaceLinesMapData = RingtoetsMapDataFactory.CreateSurfaceLinesMapData();
+            calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
+
+            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
+            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
+            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
+            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
+            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
+
+            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
+            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
+            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
+            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+
+            mapDataCollection.Add(referenceLineMapData);
+            mapDataCollection.Add(stochasticSoilModelsMapData);
+            mapDataCollection.Add(surfaceLinesMapData);
+
+            sectionsMapDataCollection.Add(sectionsMapData);
+            sectionsMapDataCollection.Add(sectionsStartPointMapData);
+            sectionsMapDataCollection.Add(sectionsEndPointMapData);
+            mapDataCollection.Add(sectionsMapDataCollection);
+
+            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
+            assemblyMapDataCollection.Add(detailedAssemblyMapData);
+            assemblyMapDataCollection.Add(simpleAssemblyMapData);
+            assemblyMapDataCollection.Add(combinedAssemblyMapData);
+            mapDataCollection.Add(assemblyMapDataCollection);
+
+            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+            mapDataCollection.Add(calculationsMapData);
         }
 
         private void CreateObservers()

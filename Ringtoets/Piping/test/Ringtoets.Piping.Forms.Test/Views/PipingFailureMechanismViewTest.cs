@@ -716,7 +716,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithAssemblyData_WhenAssemblyDataUpdatedAndAssessmentSectionNotified_ThenMapDataUpdated()
+        public void GivenViewWithAssemblyData_WhenAssessmentSectionNotified_ThenMapDataUpdated()
         {
             // Given
             var random = new Random(39);
@@ -786,7 +786,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithAssemblyData_WhenAssemblyDataUpdatedAndFailureMechanismNotified_ThenMapDataUpdated()
+        public void GivenViewWithAssemblyData_WhenFailureMechanismNotified_ThenMapDataUpdated()
         {
             // Given
             var random = new Random(39);
@@ -856,7 +856,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithAssemblyData_WhenAssemblyDataUpdatedAndCalculationNotified_ThenMapDataUpdated()
+        public void GivenViewWithAssemblyData_WhenCalculationNotified_ThenMapDataUpdated()
         {
             // Given
             var random = new Random(39);
@@ -944,7 +944,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithAssemblyData_WhenAssemblyDataUpdatedAndFailureMechanismSectionResultNotified_ThenMapDataUpdated()
+        public void GivenViewWithAssemblyData_WhenFailureMechanismSectionResultNotified_ThenMapDataUpdated()
         {
             // Given
             var random = new Random(39);
