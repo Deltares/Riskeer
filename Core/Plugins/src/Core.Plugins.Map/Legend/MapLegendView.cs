@@ -90,13 +90,8 @@ namespace Core.Plugins.Map.Legend
         {
             get
             {
-                var mapDataContext = treeViewControl.SelectedData as MapDataContext;
-                if (mapDataContext != null)
-                {
-                    return mapDataContext.WrappedData;
-                }
-
-                return treeViewControl.SelectedData;
+                var mapDataContext = (MapDataContext) treeViewControl.SelectedData;
+                return mapDataContext.WrappedData;
             }
         }
 
@@ -269,7 +264,7 @@ namespace Core.Plugins.Map.Legend
 
         private static bool FeatureBasedMapDataContextCanDropAndInsert(object draggedData, object targetData)
         {
-            var draggedDataContext = (FeatureBasedMapDataContext) draggedData;
+            var draggedDataContext = (MapDataContext) draggedData;
             var targetDataContext = (MapDataContext) targetData;
 
             return draggedDataContext.ParentMapData.Equals(targetDataContext.WrappedData);
@@ -277,10 +272,10 @@ namespace Core.Plugins.Map.Legend
 
         private static void FeatureBasedMapDataContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
         {
-            var mapContext = (FeatureBasedMapDataContext) droppedData;
+            var mapContext = (MapDataContext) droppedData;
             var sourceContext = oldParentData as MapDataCollectionContext;
 
-            var mapData = (FeatureBasedMapData) mapContext.WrappedData;
+            MapData mapData = mapContext.WrappedData;
             var parent = (MapDataCollection) (sourceContext != null ? sourceContext.WrappedData : oldParentData);
 
             parent.Remove(mapData);
@@ -344,8 +339,8 @@ namespace Core.Plugins.Map.Legend
         private static bool MapDataCollectionCanDropAndInsert(object draggedData, object targetData)
         {
             var draggedDataContext = (MapDataContext) draggedData;
-            var targetDataContext = targetData as MapDataContext;
-            object targetDataObject = targetDataContext != null ? targetDataContext.ParentMapData : targetData;
+            var targetDataContext = (MapDataContext) targetData;
+            object targetDataObject = targetDataContext.WrappedData;;
 
             return draggedDataContext.ParentMapData.Equals(targetDataObject);
         }

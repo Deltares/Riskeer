@@ -166,13 +166,15 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void CanDrop_TargetParentIsSameAsSourceParent_ReturnsTrue()
+        public void CanDrop_TargetIsSameAsSourceParent_ReturnsTrue()
         {
             // Setup
-            MapDataCollectionContext context = GetContext(new MapDataCollection("test"));
+            var mapDataCollection = new MapDataCollection("test 1");
+            MapDataCollectionContext context1 = GetContext(mapDataCollection);
+            MapDataCollectionContext context2 = GetContext(new MapDataCollection("test 2"), mapDataCollection);
 
             // Call
-            bool canDrop = info.CanDrop(context, context.ParentMapData);
+            bool canDrop = info.CanDrop(context2, context1);
 
             // Assert
             Assert.IsTrue(canDrop);
@@ -195,10 +197,12 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanInsert_TargetParentIsSameAsSourceParent_ReturnsTrue()
         {
             // Setup
-            MapDataCollectionContext context = GetContext(new MapDataCollection("test"));
+            var mapDataCollection = new MapDataCollection("test 1");
+            MapDataCollectionContext context1 = GetContext(mapDataCollection);
+            MapDataCollectionContext context2 = GetContext(new MapDataCollection("test 2"), mapDataCollection);
 
             // Call
-            bool canInsert = info.CanInsert(context, context.ParentMapData);
+            bool canInsert = info.CanInsert(context2, context1);
 
             // Assert
             Assert.IsTrue(canInsert);
