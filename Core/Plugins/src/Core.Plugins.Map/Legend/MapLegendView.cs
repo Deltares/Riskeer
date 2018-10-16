@@ -305,7 +305,7 @@ namespace Core.Plugins.Map.Legend
 
         private ContextMenuStrip FeatureBasedMapDataContextContextMenuStrip(FeatureBasedMapDataContext mapDataContext, object parentData, TreeViewControl treeView)
         {
-            return contextMenuBuilderProvider.Get(mapDataContext.WrappedData, treeView)
+            return contextMenuBuilderProvider.Get(mapDataContext, treeView)
                                              .AddCustomItem(CreateZoomToExtentsItem(mapDataContext))
                                              .AddSeparator()
                                              .AddDeleteItem()
@@ -352,7 +352,7 @@ namespace Core.Plugins.Map.Legend
 
         private static void MapDataCollectionOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
         {
-            var mapDataContext = (MapDataCollectionContext) droppedData;
+            var mapDataContext = (MapDataContext) droppedData;
             MapData mapData = mapDataContext.WrappedData;
 
             var parentContext = (MapDataCollectionContext) oldParentData;

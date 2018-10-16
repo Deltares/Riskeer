@@ -464,6 +464,7 @@ namespace Core.Plugins.Map.Test.Legend
         {
             // Setup
             var mapData = new TestFeatureBasedMapData();
+            FeatureBasedMapDataContext context = GetContext(mapData);
             var builder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
@@ -475,12 +476,12 @@ namespace Core.Plugins.Map.Test.Legend
                 builder.Expect(mb => mb.Build()).Return(null);
             }
 
-            contextMenuBuilderProvider.Expect(p => p.Get(mapData, null)).Return(builder);
+            contextMenuBuilderProvider.Expect(p => p.Get(context, null)).Return(builder);
 
             mocks.ReplayAll();
 
             // Call
-            info.ContextMenuStrip(GetContext(mapData), null, null);
+            info.ContextMenuStrip(context, null, null);
 
             // Assert
             // Assert expectancies are called in TearDown()
