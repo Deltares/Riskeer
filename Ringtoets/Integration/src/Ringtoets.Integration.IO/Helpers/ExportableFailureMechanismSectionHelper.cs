@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.IO.Helpers
 
                 totalLength += pointsLength;
 
-                if (Math.Abs(totalLength - offset) < double.Epsilon)
+                if (Math.Abs(totalLength - offset) < 1e-8)
                 {
                     point = referenceLinePoints[i];
                     break;
