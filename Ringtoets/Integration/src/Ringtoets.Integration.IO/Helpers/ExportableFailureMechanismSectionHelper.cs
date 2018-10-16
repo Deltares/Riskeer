@@ -114,7 +114,7 @@ namespace Ringtoets.Integration.IO.Helpers
             index = 0;
             Point2D point = null;
 
-            if (Math.Abs(offset) < double.Epsilon)
+            if (Math.Abs(offset) < 1e-8)
             {
                 return referenceLinePoints[0];
             }
