@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Forms.Factories
                     new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
                         DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(assemblyResult.Group)).DisplayName;
 
-                feature.MetaData[RingtoetsCommonPrimitivesResources.Probability] = assemblyResult.Probability;
+                feature.MetaData[RingtoetsCommonPrimitivesResources.Probability_DisplayName] = assemblyResult.Probability;
 
                 yield return feature;
             }

@@ -166,9 +166,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Toetsoordeel.
         /// </summary>
-        public static string AssemblyResult {
+        public static string AssemblyResult_DisplayName {
             get {
-                return ResourceManager.GetString("AssemblyResult", resourceCulture);
+                return ResourceManager.GetString("AssemblyResult_DisplayName", resourceCulture);
             }
         }
         
@@ -1000,9 +1000,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gecombineerd toetsoordeel.
         /// </summary>
-        public static string CombinedAssembly {
+        public static string CombinedAssembly_DisplayName {
             get {
-                return ResourceManager.GetString("CombinedAssembly", resourceCulture);
+                return ResourceManager.GetString("CombinedAssembly_DisplayName", resourceCulture);
             }
         }
         

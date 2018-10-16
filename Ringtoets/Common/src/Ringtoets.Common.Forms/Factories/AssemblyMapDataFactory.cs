@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapDataCollection"/>.</returns>
         public static MapDataCollection CreateAssemblyMapDataCollection()
         {
-            return new MapDataCollection(Resources.AssemblyResult);
+            return new MapDataCollection(Resources.AssemblyResult_DisplayName);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateCombinedAssemblyMapData()
         {
-            return CreateAssemblyMapLineData(Resources.CombinedAssembly, true);
+            return CreateAssemblyMapLineData(Resources.CombinedAssembly_DisplayName, true);
         }
 
         private static MapLineData CreateAssemblyMapLineData(string name, bool isVisible)

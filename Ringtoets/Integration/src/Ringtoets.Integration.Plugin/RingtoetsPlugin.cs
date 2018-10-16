@@ -607,7 +607,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>
             {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.CombinedAssembly,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.CombinedAssembly_DisplayName,
                 Image = Resources.AssemblyResultTotal,
                 CloseForData = CloseAssemblyResultTotalViewForData,
                 CreateInstance = context => new AssemblyResultTotalView(context.WrappedData)
@@ -720,11 +720,11 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ExportInfo<AssemblyResultsContext>
             {
-                Name = RingtoetsCommonFormsResources.AssemblyResult,
+                Name = RingtoetsCommonFormsResources.AssemblyResult_DisplayName,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
                 IsEnabled = context => context.WrappedData.ReferenceLine != null,
                 FileFilterGenerator = new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
-                                                              RingtoetsCommonFormsResources.AssemblyResult)
+                                                              RingtoetsCommonFormsResources.AssemblyResult_DisplayName)
             };
         }
 
@@ -1079,7 +1079,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyResultTotalContext>
             {
-                Text = context => RingtoetsCommonFormsResources.CombinedAssembly,
+                Text = context => RingtoetsCommonFormsResources.CombinedAssembly_DisplayName,
                 Image = context => Resources.AssemblyResultTotal,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()

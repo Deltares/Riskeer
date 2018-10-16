@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Primitives
         /// The calculated probability for this failure
         /// mechanism section has to be entered.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Probability))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Probability_DisplayName))]
         Probability = 3,
 
         /// <summary>

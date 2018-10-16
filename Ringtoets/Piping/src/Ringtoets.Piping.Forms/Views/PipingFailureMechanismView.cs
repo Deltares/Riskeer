@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             CreateObservers();
 
-            CreateMapDataCollection();
+            CreateMapData();
             SetAllMapDataFeatures();
             ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void CreateMapDataCollection()
+        private void CreateMapData()
         {
             mapDataCollection = new MapDataCollection(PipingDataResources.PipingFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();

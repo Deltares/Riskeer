@@ -210,9 +210,9 @@ namespace Ringtoets.Common.Primitives.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Faalkans.
         /// </summary>
-        public static string Probability {
+        public static string Probability_DisplayName {
             get {
-                return ResourceManager.GetString("Probability", resourceCulture);
+                return ResourceManager.GetString("Probability_DisplayName", resourceCulture);
             }
         }
         
