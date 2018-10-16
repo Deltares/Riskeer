@@ -13,6 +13,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\GrassCoverErosionInwardsAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="GrassCoverErosionInwardsDikeProfileSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
