@@ -26,6 +26,7 @@
   <ItemGroup>
     <Compile Include="Factories\MacroStabilityInwardsSliceChartDataFactoryTest.cs" />
     <Compile Include="Factories\MacroStabilityInwardsSliceChartDataPointsFactoryTest.cs" />
+    <Compile Include="Factories\MacroStabilityInwardsAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationConfigurationHelperTest.cs" />
     <Compile Include="MacroStabilityInwardsSurfaceLineSelectionDialogTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsFailureMechanismContextTest.cs" />

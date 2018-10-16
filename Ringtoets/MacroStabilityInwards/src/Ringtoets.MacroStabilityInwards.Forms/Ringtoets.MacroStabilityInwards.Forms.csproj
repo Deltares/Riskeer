@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Include="Factories\MacroStabilityInwardsSliceChartDataFactory.cs" />
     <Compile Include="Factories\MacroStabilityInwardsSliceChartDataPointsFactory.cs" />
+    <Compile Include="Factories\MacroStabilityInwardsAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="MacroStabilityInwardsCalculationConfigurationHelper.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsFailureMechanismSectionsContext.cs" />
     <Compile Include="PropertyClasses\MacroStabilityInwardsLocationInputExtremeProperties.cs" />
