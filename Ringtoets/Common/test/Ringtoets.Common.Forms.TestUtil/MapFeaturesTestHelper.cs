@@ -22,10 +22,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Util;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Util.TestUtil;
 
 namespace Ringtoets.Common.Forms.TestUtil
@@ -35,6 +40,9 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// </summary>
     public static class MapFeaturesTestHelper
     {
+        private const string categoryMetaData = "Categorie";
+        private const string probabilityMetaData = "Faalkans";
+
         /// <summary>
         /// Asserts whether <paramref name="features"/> contains the data that is representative for the data of
         /// hydraulic boundary locations and calculations in <paramref name="assessmentSection"/>.
@@ -90,6 +98,41 @@ namespace Ringtoets.Common.Forms.TestUtil
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "Hs gr.C");
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="features"/> contains the data that is representative for the data
+        /// in <paramref name="expectedAssembly"/> and <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="expectedAssembly">The expected <see cref="FailureMechanismSectionAssembly"/>.</param>
+        /// <param name="failureMechanism">The failure mechanism that contains the sections.</param>
+        /// <param name="features">The features that need to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>the number of sections and features are not the same;</item>
+        /// <item>the properties of a section and the <paramref name="expectedAssembly"/> are not the same as
+        /// the one in the features;</item>
+        /// </list>
+        /// </exception>
+        public static void AssertAssemblyMapFeatures(FailureMechanismSectionAssembly expectedAssembly,
+                                                     IFailureMechanism failureMechanism,
+                                                     IEnumerable<MapFeature> features)
+        {
+            IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;
+            Assert.AreEqual(sections.Count(), features.Count());
+
+            for (var i = 0; i < features.Count(); i++)
+            {
+                FailureMechanismSection section = sections.ElementAt(i);
+                Assert.AreEqual(1, features.ElementAt(i).MapGeometries.Count());
+                CollectionAssert.AreEqual(section.Points, features.ElementAt(i).MapGeometries.Single().PointCollections.Single());
+                Assert.AreEqual(2, features.ElementAt(i).MetaData.Keys.Count);
+                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
+                                    DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssembly.Group)).DisplayName,
+                                features.ElementAt(i).MetaData[categoryMetaData]);
+                Assert.AreEqual(new NoProbabilityValueDoubleConverter().ConvertToString(expectedAssembly.Probability),
+                                features.ElementAt(i).MetaData[probabilityMetaData]);
             }
         }
 

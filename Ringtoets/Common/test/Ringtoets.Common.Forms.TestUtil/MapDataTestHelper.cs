@@ -34,6 +34,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.TestUtil
 {
@@ -333,8 +334,10 @@ namespace Ringtoets.Common.Forms.TestUtil
                 CollectionAssert.AreEqual(failureMechanismSection.Points, feature.MapGeometries.Single().PointCollections.Single());
 
                 Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                                    DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssembly.Group)).DisplayName, feature.MetaData["Categorie"]);
-                Assert.AreEqual(expectedAssembly.Probability, feature.MetaData["Faalkans"]);
+                                    DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssembly.Group)).DisplayName,
+                                feature.MetaData["Categorie"]);
+                Assert.AreEqual(new NoProbabilityValueDoubleConverter().ConvertToString(expectedAssembly.Probability),
+                                feature.MetaData["Faalkans"]);
             }
         }
 
