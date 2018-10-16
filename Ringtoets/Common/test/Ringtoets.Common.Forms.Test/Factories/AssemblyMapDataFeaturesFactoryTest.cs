@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Factories;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Test.Factories
 {
@@ -125,7 +126,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
                                 DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssembly.Group)).DisplayName,
                             mapFeature.MetaData["Categorie"]);
-            Assert.AreEqual(expectedAssembly.Probability,
+            Assert.AreEqual(new NoProbabilityValueDoubleConverter().ConvertToString(expectedAssembly.Probability),
                             mapFeature.MetaData["Faalkans"]);
         }
     }
