@@ -1017,7 +1017,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             const int updatedReferenceLineLayerIndex = referenceLineIndex + 6;
             const int updatedSurfaceLineLayerIndex = surfaceLinesIndex - 1;
             const int updatedSectionCollectionIndex = sectionsCollectionIndex - 1;
-            const int updatedAssemblyResultsLayerIndex = assemblyResultsIndex - 1;
+            const int updatedAssemblyResultsCollectionIndex = assemblyResultsIndex - 1;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
             const int updatedStochasticSoilModelsLayerIndex = stochasticSoilModelsIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;
@@ -1046,7 +1046,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var sectionsData = (MapDataCollection) mapDataList[updatedSectionCollectionIndex];
                 Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-                var assemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsLayerIndex];
+                var assemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
                 Assert.AreEqual("Toetsoordeel", assemblyResultsData.Name);
 
                 var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
@@ -1080,7 +1080,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var actualSectionsData = (MapDataCollection) mapDataList[updatedSectionCollectionIndex];
                 Assert.AreEqual("Vakindeling", actualSectionsData.Name);
 
-                var actualAssemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsLayerIndex];
+                var actualAssemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
                 Assert.AreEqual("Toetsoordeel", actualAssemblyResultsData.Name);
 
                 var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
@@ -1181,6 +1181,23 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);
 
+            var sectionsMapDataCollection = (MapDataCollection) mapDataList[sectionsCollectionIndex];
+            Assert.AreEqual("Vakindeling", sectionsMapDataCollection.Name);
+            List<MapData> sectionsDataList = sectionsMapDataCollection.Collection.ToList();
+            Assert.AreEqual(3, sectionsDataList.Count);
+
+            var sectionsMapData = (MapLineData) sectionsDataList[sectionsIndex];
+            var sectionsStartPointMapData = (MapPointData) sectionsDataList[sectionsStartPointIndex];
+            var sectionsEndPointMapData = (MapPointData) sectionsDataList[sectionsEndPointIndex];
+
+            CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
+            CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
+            CollectionAssert.IsEmpty(sectionsMapData.Features);
+
+            Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
+            Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
+            Assert.AreEqual("Vakindeling", sectionsMapData.Name);
+
             var assemblyResultsMapDataCollection = (MapDataCollection) mapDataList[assemblyResultsIndex];
             Assert.AreEqual("Toetsoordeel", assemblyResultsMapDataCollection.Name);
             List<MapData> assemblyMapDataList = assemblyResultsMapDataCollection.Collection.ToList();
@@ -1200,23 +1217,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Toetsoordeel eenvoudige toets", simpleAssemblyMapData.Name);
             Assert.AreEqual("Toetsoordeel gedetailleerde toets", detailedAssemblyMapData.Name);
             Assert.AreEqual("Toetsoordeel toets op maat", tailorMadeAssemblyMapData.Name);
-
-            var sectionsMapDataCollection = (MapDataCollection) mapDataList[sectionsCollectionIndex];
-            Assert.AreEqual("Vakindeling", sectionsMapDataCollection.Name);
-            List<MapData> sectionsDataList = sectionsMapDataCollection.Collection.ToList();
-            Assert.AreEqual(3, sectionsDataList.Count);
-
-            var sectionsMapData = (MapLineData) sectionsDataList[sectionsIndex];
-            var sectionsStartPointMapData = (MapPointData) sectionsDataList[sectionsStartPointIndex];
-            var sectionsEndPointMapData = (MapPointData) sectionsDataList[sectionsEndPointIndex];
-
-            CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
-            CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
-            CollectionAssert.IsEmpty(sectionsMapData.Features);
-
-            Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
-            Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
-            Assert.AreEqual("Vakindeling", sectionsMapData.Name);
         }
 
         /// <summary>
@@ -1245,6 +1245,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
 
+            MapData[] sectionsCollection = ((MapDataCollection) mapDataArray[sectionsCollectionIndex]).Collection.ToArray();
+            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
+            sectionsCollection[sectionsIndex].Attach(sectionsMapDataObserver);
+
+            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
+            sectionsCollection[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
+
+            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
+            sectionsCollection[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
+
             MapData[] assemblyResultsCollection = ((MapDataCollection) mapDataArray[assemblyResultsIndex]).Collection.ToArray();
             var simpleAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
             assemblyResultsCollection[simpleAssemblyIndex].Attach(simpleAssemblyMapDataObserver);
@@ -1257,16 +1267,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var combinedAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
             assemblyResultsCollection[combinedAssemblyIndex].Attach(combinedAssemblyMapDataObserver);
-
-            MapData[] sectionsCollection = ((MapDataCollection) mapDataArray[sectionsCollectionIndex]).Collection.ToArray();
-            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
-            sectionsCollection[sectionsIndex].Attach(sectionsMapDataObserver);
-
-            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
-            sectionsCollection[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
-
-            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
-            sectionsCollection[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
 
             return new[]
             {

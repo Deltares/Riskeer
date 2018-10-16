@@ -169,16 +169,16 @@ namespace Ringtoets.Piping.Forms.Views
             surfaceLinesMapData = RingtoetsMapDataFactory.CreateSurfaceLinesMapData();
             calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
-
             MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+
+            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
+            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
+            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
+            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
+            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
 
             mapDataCollection.Add(referenceLineMapData);
             mapDataCollection.Add(stochasticSoilModelsMapData);
