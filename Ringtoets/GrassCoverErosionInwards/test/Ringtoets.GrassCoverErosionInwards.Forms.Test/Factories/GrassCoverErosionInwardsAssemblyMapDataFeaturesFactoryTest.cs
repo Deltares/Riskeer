@@ -21,20 +21,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Factories;
 
@@ -43,9 +40,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
     [TestFixture]
     public class GrassCoverErosionInwardsAssemblyMapDataFeaturesFactoryTest
     {
-        private const string categoryMetaData = "Categorie";
-        private const string probabilityMetaData = "Faalkans";
-
         [Test]
         public void CreateSimpleAssemblyFeatures_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -77,20 +71,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
                 IEnumerable<MapFeature> features = GrassCoverErosionInwardsAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(failureMechanism);
 
                 // Assert
-                Assert.AreEqual(failureMechanism.Sections.Count(), features.Count());
-
-                for (var i = 0; i < features.Count(); i++)
-                {
-                    FailureMechanismSection section = failureMechanism.Sections.ElementAt(i);
-                    Assert.AreEqual(1, features.ElementAt(i).MapGeometries.Count());
-                    CollectionAssert.AreEqual(section.Points, features.ElementAt(i).MapGeometries.Single().PointCollections.Single());
-                    Assert.AreEqual(2, features.ElementAt(i).MetaData.Keys.Count);
-                    Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                                        DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(calculator.SimpleAssessmentAssemblyOutput.Group)).DisplayName,
-                                    features.ElementAt(i).MetaData[categoryMetaData]);
-                    Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Probability,
-                                    features.ElementAt(i).MetaData[probabilityMetaData]);
-                }
+                MapFeaturesTestHelper.AssertAssemblyMapFeatures(calculator.SimpleAssessmentAssemblyOutput, failureMechanism, features);
             }
         }
 
@@ -144,20 +125,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
                                                                                                                                          assessmentSection);
 
                 // Assert
-                Assert.AreEqual(failureMechanism.Sections.Count(), features.Count());
-
-                for (var i = 0; i < features.Count(); i++)
-                {
-                    FailureMechanismSection section = failureMechanism.Sections.ElementAt(i);
-                    Assert.AreEqual(1, features.ElementAt(i).MapGeometries.Count());
-                    CollectionAssert.AreEqual(section.Points, features.ElementAt(i).MapGeometries.Single().PointCollections.Single());
-                    Assert.AreEqual(2, features.ElementAt(i).MetaData.Keys.Count);
-                    Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                                        DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(calculator.DetailedAssessmentAssemblyOutput.Group)).DisplayName,
-                                    features.ElementAt(i).MetaData[categoryMetaData]);
-                    Assert.AreEqual(calculator.DetailedAssessmentAssemblyOutput.Probability,
-                                    features.ElementAt(i).MetaData[probabilityMetaData]);
-                }
+                MapFeaturesTestHelper.AssertAssemblyMapFeatures(calculator.DetailedAssessmentAssemblyOutput, failureMechanism, features);
             }
         }
 
@@ -211,20 +179,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
                                                                                                                                            assessmentSection);
 
                 // Assert
-                Assert.AreEqual(failureMechanism.Sections.Count(), features.Count());
-
-                for (var i = 0; i < features.Count(); i++)
-                {
-                    FailureMechanismSection section = failureMechanism.Sections.ElementAt(i);
-                    Assert.AreEqual(1, features.ElementAt(i).MapGeometries.Count());
-                    CollectionAssert.AreEqual(section.Points, features.ElementAt(i).MapGeometries.Single().PointCollections.Single());
-                    Assert.AreEqual(2, features.ElementAt(i).MetaData.Keys.Count);
-                    Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                                        DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(calculator.TailorMadeAssessmentAssemblyOutput.Group)).DisplayName,
-                                    features.ElementAt(i).MetaData[categoryMetaData]);
-                    Assert.AreEqual(calculator.TailorMadeAssessmentAssemblyOutput.Probability,
-                                    features.ElementAt(i).MetaData[probabilityMetaData]);
-                }
+                MapFeaturesTestHelper.AssertAssemblyMapFeatures(calculator.TailorMadeAssessmentAssemblyOutput, failureMechanism, features);
             }
         }
 
@@ -278,20 +233,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Factories
                                                                                                                                          assessmentSection);
 
                 // Assert
-                Assert.AreEqual(failureMechanism.Sections.Count(), features.Count());
-
-                for (var i = 0; i < features.Count(); i++)
-                {
-                    FailureMechanismSection section = failureMechanism.Sections.ElementAt(i);
-                    Assert.AreEqual(1, features.ElementAt(i).MapGeometries.Count());
-                    CollectionAssert.AreEqual(section.Points, features.ElementAt(i).MapGeometries.Single().PointCollections.Single());
-                    Assert.AreEqual(2, features.ElementAt(i).MetaData.Keys.Count);
-                    Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                                        DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(calculator.CombinedAssemblyOutput.Group)).DisplayName,
-                                    features.ElementAt(i).MetaData[categoryMetaData]);
-                    Assert.AreEqual(calculator.CombinedAssemblyOutput.Probability,
-                                    features.ElementAt(i).MetaData[probabilityMetaData]);
-                }
+                MapFeaturesTestHelper.AssertAssemblyMapFeatures(calculator.CombinedAssemblyOutput, failureMechanism, features);
             }
         }
     }
