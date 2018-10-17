@@ -140,7 +140,7 @@ namespace Core.Plugins.Map.Test.Legend
             mapDataCollection.Add(nestedCollection);
             mapDataCollection.Add(mapData3);
 
-            mocks.ReplayAll();
+            MapDataCollectionContext parentCollectionContext = GetContext(mapDataCollection);
 
             // Call
             object[] objects = info.ChildNodeObjects(GetContext(mapDataCollection));
@@ -148,10 +148,10 @@ namespace Core.Plugins.Map.Test.Legend
             // Assert
             CollectionAssert.AreEqual(new MapDataContext[]
             {
-                new FeatureBasedMapDataContext(mapData3, mapDataCollection),
-                new MapDataCollectionContext(nestedCollection, mapDataCollection), 
-                new FeatureBasedMapDataContext(mapData2, mapDataCollection),
-                new FeatureBasedMapDataContext(mapData1, mapDataCollection)
+                new FeatureBasedMapDataContext(mapData3, parentCollectionContext),
+                GetContext(nestedCollection, parentCollectionContext), 
+                new FeatureBasedMapDataContext(mapData2, parentCollectionContext),
+                new FeatureBasedMapDataContext(mapData1, parentCollectionContext)
             }, objects);
         }
 
@@ -171,7 +171,7 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             var mapDataCollection = new MapDataCollection("test 1");
             MapDataCollectionContext context1 = GetContext(mapDataCollection);
-            MapDataCollectionContext context2 = GetContext(new MapDataCollection("test 2"), mapDataCollection);
+            MapDataCollectionContext context2 = GetContext(new MapDataCollection("test 2"), context1);
 
             // Call
             bool canDrop = info.CanDrop(context2, context1);
@@ -199,7 +199,7 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             var mapDataCollection = new MapDataCollection("test 1");
             MapDataCollectionContext context1 = GetContext(mapDataCollection);
-            MapDataCollectionContext context2 = GetContext(new MapDataCollection("test 2"), mapDataCollection);
+            MapDataCollectionContext context2 = GetContext(new MapDataCollection("test 2"), context1);
 
             // Call
             bool canInsert = info.CanInsert(context2, context1);
@@ -514,9 +514,9 @@ namespace Core.Plugins.Map.Test.Legend
             }
         }
 
-        private static MapDataCollectionContext GetContext(MapDataCollection mapDataCollection, MapDataCollection parentMapDataCollection = null)
+        private static MapDataCollectionContext GetContext(MapDataCollection mapDataCollection, MapDataCollectionContext parentMapDataCollectionContext = null)
         {
-            return new MapDataCollectionContext(mapDataCollection, parentMapDataCollection ?? new MapDataCollection("test"));
+            return new MapDataCollectionContext(mapDataCollection, parentMapDataCollectionContext);
         }
     }
 }

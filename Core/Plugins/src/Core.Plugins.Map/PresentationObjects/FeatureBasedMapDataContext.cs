@@ -33,10 +33,10 @@ namespace Core.Plugins.Map.PresentationObjects
         /// Creates a new instance of <see cref="FeatureBasedMapDataContext"/>.
         /// </summary>
         /// <param name="wrappedData">The <see cref="FeatureBasedMapData"/> to wrap.</param>
-        /// <param name="parentMapData">The parent <see cref="MapDataCollection"/> 
+        /// <param name="parentMapData">The parent <see cref="MapDataCollectionContext"/> 
         /// the <paramref name="wrappedData"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FeatureBasedMapDataContext(FeatureBasedMapData wrappedData, MapDataCollection parentMapData)
+        public FeatureBasedMapDataContext(FeatureBasedMapData wrappedData, MapDataCollectionContext parentMapData)
             : base(wrappedData)
         {
             if (parentMapData == null)
@@ -47,6 +47,6 @@ namespace Core.Plugins.Map.PresentationObjects
             ParentMapData = parentMapData;
         }
 
-        public override MapDataCollection ParentMapData { get; }
+        public override MapDataCollectionContext ParentMapData { get; }
     }
 }

@@ -42,9 +42,9 @@ namespace Core.Plugins.Map.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the parent <see cref="MapDataCollection"/>
+        /// Gets the parent <see cref="MapDataCollectionContext"/>
         /// the <see cref="WrappedObjectContextBase{T}.WrappedData"/> belongs to.
         /// </summary>
-        public abstract MapDataCollection ParentMapData { get; }
+        public abstract MapDataCollectionContext ParentMapData { get; }
     }
 }

@@ -36,16 +36,17 @@ namespace Core.Plugins.Map.Test.PresentationObjects
             // Setup
             FeatureBasedMapData data = new TestFeatureBasedMapData();
             var collection = new MapDataCollection("test");
-
             collection.Add(data);
 
+            var collectionContext = new MapDataCollectionContext(collection, null);
+
             // Call
-            var context = new FeatureBasedMapDataContext(data, collection);
+            var context = new FeatureBasedMapDataContext(data, collectionContext);
 
             // Assert
             Assert.IsInstanceOf<MapDataContext>(context);
             Assert.AreSame(data, context.WrappedData);
-            Assert.AreSame(collection, context.ParentMapData);
+            Assert.AreSame(collectionContext, context.ParentMapData);
         }
 
         [Test]

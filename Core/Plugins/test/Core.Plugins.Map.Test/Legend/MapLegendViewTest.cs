@@ -229,7 +229,7 @@ namespace Core.Plugins.Map.Test.Legend
                 view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
                 // When
-                var context = new FeatureBasedMapDataContext(mapData, mapDataCollection);
+                var context = new FeatureBasedMapDataContext(mapData, new MapDataCollectionContext(mapDataCollection, null));
                 treeViewControl.TrySelectNodeForData(context);
 
                 // Then

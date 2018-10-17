@@ -316,20 +316,20 @@ namespace Core.Plugins.Map.Legend
         private static object[] GetCollectionChildNodeObjects(MapDataCollectionContext context)
         {
             var childObjects = new List<object>();
-
             var collection = (MapDataCollection) context.WrappedData;
+
             foreach (MapData mapData in collection.Collection.Reverse())
             {
                 var featureBasedMapData = mapData as FeatureBasedMapData;
                 if (featureBasedMapData != null)
                 {
-                    childObjects.Add(new FeatureBasedMapDataContext(featureBasedMapData, collection));
+                    childObjects.Add(new FeatureBasedMapDataContext(featureBasedMapData, context));
                 }
 
                 var nestedCollection = mapData as MapDataCollection;
                 if (nestedCollection != null)
                 {
-                    childObjects.Add(new MapDataCollectionContext(nestedCollection, collection));
+                    childObjects.Add(new MapDataCollectionContext(nestedCollection, context));
                 }
             }
 

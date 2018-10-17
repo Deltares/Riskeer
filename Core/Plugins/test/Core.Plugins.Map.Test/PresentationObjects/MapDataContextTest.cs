@@ -49,7 +49,7 @@ namespace Core.Plugins.Map.Test.PresentationObjects
             public TestMapDataContext(MapData wrappedData) 
                 : base(wrappedData) {}
 
-            public override MapDataCollection ParentMapData { get; }
+            public override MapDataCollectionContext ParentMapData { get; }
         }
     }
 }

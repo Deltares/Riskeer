@@ -33,15 +33,15 @@ namespace Core.Plugins.Map.Test.PresentationObjects
         {
             // Setup
             var collection = new MapDataCollection("test");
-            var collection2 = new MapDataCollection("test");
+            var parentCollectionContext = new MapDataCollectionContext(new MapDataCollection("test"), null);
 
             // Call
-            var context = new MapDataCollectionContext(collection, collection2);
+            var context = new MapDataCollectionContext(collection, parentCollectionContext);
 
             // Assert
             Assert.IsInstanceOf<MapDataContext>(context);
             Assert.AreSame(collection, context.WrappedData);
-            Assert.AreSame(collection2, context.ParentMapData);
+            Assert.AreSame(parentCollectionContext, context.ParentMapData);
         }
     }
 }

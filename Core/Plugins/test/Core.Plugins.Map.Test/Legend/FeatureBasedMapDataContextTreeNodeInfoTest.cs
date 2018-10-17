@@ -629,11 +629,11 @@ namespace Core.Plugins.Map.Test.Legend
 
         private static FeatureBasedMapDataContext GetContext(FeatureBasedMapData mapData, MapDataCollection mapDataCollection = null)
         {
-            return new FeatureBasedMapDataContext(mapData, mapDataCollection ?? new MapDataCollection("test"));
+            return new FeatureBasedMapDataContext(mapData, new MapDataCollectionContext(mapDataCollection ?? new MapDataCollection("test"), null));
         }
         private static MapDataCollectionContext GetContext(MapDataCollection mapDataCollection, MapDataCollection parentMapDataCollection = null)
         {
-            return new MapDataCollectionContext(mapDataCollection, parentMapDataCollection ?? new MapDataCollection("test"));
+            return new MapDataCollectionContext(mapDataCollection, new MapDataCollectionContext(parentMapDataCollection ?? new MapDataCollection("test"), null));
         }
     }
 }
