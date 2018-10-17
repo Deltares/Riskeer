@@ -137,7 +137,7 @@ namespace Core.Plugins.Map.Legend
                 Text = context => context.WrappedData.Name,
                 Image = context => GuiResources.folder,
                 ChildNodeObjects = GetCollectionChildNodeObjects,
-                CanDrag = (collection, parentData) => true,
+                CanDrag = (context, parentData) => context.ParentMapData != null,
                 CanDrop = MapDataCollectionCanDropAndInsert,
                 CanInsert = MapDataCollectionCanDropAndInsert,
                 OnDrop = MapDataCollectionOnDrop,

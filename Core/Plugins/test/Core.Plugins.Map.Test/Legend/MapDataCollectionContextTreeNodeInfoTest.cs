@@ -156,13 +156,29 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void CanDrag_Always_ReturnsTrue()
+        public void CanDrag_ParentContextNotNull_ReturnsTrue()
         {
+            // Setup
+            MapDataCollectionContext context = GetContext(new MapDataCollection("test"));
+
             // Call
-            bool canDrag = info.CanDrag(null, null);
+            bool canDrag = info.CanDrag(context, null);
 
             // Assert
             Assert.IsTrue(canDrag);
+        }
+
+        [Test]
+        public void CanDrag_ParentContextNull_ReturnsFalse()
+        {
+            // Setup
+            var context = new MapDataCollectionContext(new MapDataCollection("test"), null);
+
+            // Call
+            bool canDrag = info.CanDrag(context, null);
+
+            // Assert
+            Assert.IsFalse(canDrag);
         }
 
         [Test]
