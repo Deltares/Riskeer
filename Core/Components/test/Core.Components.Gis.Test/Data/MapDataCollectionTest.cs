@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Components.Gis.Test.Data
@@ -58,6 +59,71 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(name, mapDataCollection.Name);
             Assert.IsInstanceOf<MapData>(mapDataCollection);
             CollectionAssert.IsEmpty(mapDataCollection.Collection);
+            Assert.IsTrue(mapDataCollection.IsVisible);
+        }
+
+        [Test]
+        public void IsVisible_WithAllChildrenVisibleTrue_ReturnsTrue()
+        {
+            // Setup
+            var collection = new MapDataCollection("test");
+            collection.Add(new TestMapData());
+            collection.Add(new TestMapData());
+
+            // Call
+            bool isVisible = collection.IsVisible;
+
+            // Assert
+            Assert.IsTrue(isVisible);
+        }
+
+        [Test]
+        public void IsVisible_WithChildrenVisibleFalse_ReturnsFalse()
+        {
+            // Setup
+            var collection = new MapDataCollection("test");
+            collection.Add(new TestMapData());
+            collection.Add(new TestMapData
+            {
+                IsVisible = false
+            });
+
+            // Call
+            bool isVisible = collection.IsVisible;
+
+            // Assert
+            Assert.IsFalse(isVisible);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsVisible_SetNewValue_SetsVisibilityOfAllChildrenToNewValue(bool newValue)
+        {
+            // Setup
+            var collection = new MapDataCollection("test");
+            collection.Add(new TestMapData
+            {
+                IsVisible = !newValue
+            });
+            collection.Add(new TestMapData
+            {
+                IsVisible = !newValue
+            });
+
+            // Precondition
+            Assert.AreNotEqual(newValue, collection.IsVisible);
+
+            // Call
+            collection.IsVisible = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, collection.IsVisible);
+
+            foreach (MapData mapData in collection.Collection)
+            {
+                Assert.AreEqual(newValue, mapData.IsVisible);
+            }
         }
 
         [Test]

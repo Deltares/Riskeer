@@ -66,6 +66,6 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="MapData"/> is visible.
         /// </summary>
-        public bool IsVisible { get; set; }
+        public virtual bool IsVisible { get; set; }
     }
 }

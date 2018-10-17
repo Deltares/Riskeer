@@ -171,8 +171,12 @@ namespace Core.Plugins.Map.Test.Legend
         public void IsChecked_WithContext_ReturnsAccordingToVisibleStateOfMapData(bool isVisible)
         {
             // Setup
-            MapDataCollectionContext context = GetContext(new MapDataCollection("test"));
-            context.WrappedData.IsVisible = isVisible;
+            var featureBasedMapData = new TestFeatureBasedMapData();
+            var mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Add(featureBasedMapData);
+
+            MapDataCollectionContext context = GetContext(mapDataCollection);
+            featureBasedMapData.IsVisible = isVisible;
 
             // Call
             bool isChecked = info.IsChecked(context);
