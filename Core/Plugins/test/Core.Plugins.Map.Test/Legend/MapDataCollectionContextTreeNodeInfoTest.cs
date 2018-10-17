@@ -94,7 +94,7 @@ namespace Core.Plugins.Map.Test.Legend
             Assert.IsNull(info.CanRemove);
             Assert.IsNull(info.OnNodeRemoved);
             Assert.IsNotNull(info.CanCheck);
-            Assert.IsNull(info.IsChecked);
+            Assert.IsNotNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
             Assert.IsNotNull(info.CanDrag);
             Assert.IsNotNull(info.CanDrop);
@@ -163,6 +163,22 @@ namespace Core.Plugins.Map.Test.Legend
 
             // Assert
             Assert.IsTrue(canCheck);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsChecked_WithContext_ReturnsAccordingToVisibleStateOfMapData(bool isVisible)
+        {
+            // Setup
+            MapDataCollectionContext context = GetContext(new MapDataCollection("test"));
+            context.WrappedData.IsVisible = isVisible;
+
+            // Call
+            bool isChecked = info.IsChecked(context);
+
+            // Assert
+            Assert.AreEqual(isVisible, isChecked);
         }
 
         [Test]

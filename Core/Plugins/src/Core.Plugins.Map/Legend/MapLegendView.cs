@@ -139,6 +139,7 @@ namespace Core.Plugins.Map.Legend
                 ChildNodeObjects = GetCollectionChildNodeObjects,
                 CanDrag = (context, parentData) => context.ParentMapData != null,
                 CanCheck = context => true,
+                IsChecked = context => context.WrappedData.IsVisible,
                 CanDrop = MapDataCollectionCanDropAndInsert,
                 CanInsert = MapDataCollectionCanDropAndInsert,
                 OnDrop = MapDataCollectionOnDrop,
