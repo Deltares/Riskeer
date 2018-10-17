@@ -193,8 +193,6 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             var collectionObserver = mocks.StrictMock<IObserver>();
             collectionObserver.Expect(o => o.UpdateObserver());
-            var childMapDataObserver = mocks.StrictMock<IObserver>();
-            childMapDataObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var featureBasedMapData = new TestFeatureBasedMapData();
@@ -205,7 +203,6 @@ namespace Core.Plugins.Map.Test.Legend
             context.WrappedData.IsVisible = initialVisibleState;
 
             context.WrappedData.Attach(collectionObserver);
-            featureBasedMapData.Attach(childMapDataObserver);
 
             // Call
             info.OnNodeChecked(context, null);
@@ -213,6 +210,37 @@ namespace Core.Plugins.Map.Test.Legend
             // Assert
             Assert.AreEqual(!initialVisibleState, context.WrappedData.IsVisible);
             Assert.AreEqual(!initialVisibleState, featureBasedMapData.IsVisible);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnNodeChecked_WithContext_SetMapDataVisibilityAndNotifyAllObserversOfChildMapData(bool initialVisibleState)
+        {
+            // Setup
+            var collectionObserver = mocks.StrictMock<IObserver>();
+            collectionObserver.Expect(o => o.UpdateObserver());
+            var childMapDataObserver = mocks.StrictMock<IObserver>();
+            childMapDataObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var featureBasedMapData = new TestFeatureBasedMapData();
+            var nestedMapDataCollection = new MapDataCollection("nested");
+            nestedMapDataCollection.Add(featureBasedMapData);
+            var mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Add(nestedMapDataCollection);
+
+            MapDataCollectionContext context = GetContext(mapDataCollection);
+            context.WrappedData.IsVisible = initialVisibleState;
+
+            nestedMapDataCollection.Attach(collectionObserver);
+            featureBasedMapData.Attach(childMapDataObserver);
+
+            // Call
+            info.OnNodeChecked(context, null);
+
+            // Assert
             mocks.VerifyAll();
         }
 

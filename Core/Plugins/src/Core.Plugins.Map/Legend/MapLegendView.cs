@@ -346,9 +346,20 @@ namespace Core.Plugins.Map.Legend
             mapDataCollection.IsVisible = !mapDataCollection.IsVisible;
             mapDataCollection.NotifyObservers();
 
-            foreach (MapData mapData in mapDataCollection.Collection)
+            NotifyMapDataCollectionChildren(mapDataCollection);
+        }
+
+        private static void NotifyMapDataCollectionChildren(MapDataCollection collection)
+        {
+            foreach (MapData mapData in collection.Collection)
             {
                 mapData.NotifyObservers();
+
+                var nestedCollection = mapData as MapDataCollection;
+                if (nestedCollection != null)
+                {
+                    NotifyMapDataCollectionChildren(nestedCollection);
+                }
             }
         }
 
