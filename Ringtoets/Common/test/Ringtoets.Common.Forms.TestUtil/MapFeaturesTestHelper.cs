@@ -112,7 +112,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <list type="bullet">
         /// <item>the number of sections and features are not the same;</item>
         /// <item>the properties of a section and the <paramref name="expectedAssembly"/> are not the same as
-        /// the one in the features;</item>
+        /// the one in the features.</item>
         /// </list>
         /// </exception>
         public static void AssertAssemblyMapFeatures(FailureMechanismSectionAssembly expectedAssembly,
