@@ -516,7 +516,7 @@ namespace Core.Plugins.Map.Test.Legend
 
         private static MapDataCollectionContext GetContext(MapDataCollection mapDataCollection, MapDataCollectionContext parentMapDataCollectionContext = null)
         {
-            return new MapDataCollectionContext(mapDataCollection, parentMapDataCollectionContext);
+            return new MapDataCollectionContext(mapDataCollection, parentMapDataCollectionContext ?? new MapDataCollectionContext(new MapDataCollection("test"), null));
         }
     }
 }

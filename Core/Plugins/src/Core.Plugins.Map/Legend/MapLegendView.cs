@@ -103,8 +103,8 @@ namespace Core.Plugins.Map.Legend
             }
             set
             {
-                treeViewControl.Data = value != null 
-                                           ? new MapDataCollectionContext((MapDataCollection) value, null) 
+                treeViewControl.Data = value != null
+                                           ? new MapDataCollectionContext((MapDataCollection) value, null)
                                            : null;
             }
         }
@@ -267,7 +267,7 @@ namespace Core.Plugins.Map.Legend
             var draggedDataContext = (MapDataContext) draggedData;
             var targetDataContext = (MapDataContext) targetData;
 
-            return draggedDataContext.ParentMapData.Equals(targetDataContext.WrappedData);
+            return draggedDataContext.ParentMapData.WrappedData.Equals(targetDataContext.WrappedData);
         }
 
         private static void FeatureBasedMapDataContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
@@ -285,14 +285,15 @@ namespace Core.Plugins.Map.Legend
 
         private static bool CanRemoveMapData(FeatureBasedMapData mapData, object parent)
         {
-            return mapData is IRemovable && parent is MapDataCollection;
+            return mapData is IRemovable && parent is MapDataCollectionContext;
         }
 
         private static void RemoveFromParent(FeatureBasedMapData dataToRemove, object parentData)
         {
             if (CanRemoveMapData(dataToRemove, parentData))
             {
-                var collection = (MapDataCollection) parentData;
+                var mapDataCollectionContext = (MapDataCollectionContext) parentData;
+                var collection = (MapDataCollection) mapDataCollectionContext.WrappedData;
                 collection.Remove(dataToRemove);
                 collection.NotifyObservers();
             }
@@ -340,9 +341,9 @@ namespace Core.Plugins.Map.Legend
         {
             var draggedDataContext = (MapDataContext) draggedData;
             var targetDataContext = (MapDataContext) targetData;
-            object targetDataObject = targetDataContext.WrappedData;;
+            object targetDataObject = targetDataContext.WrappedData;
 
-            return draggedDataContext.ParentMapData.Equals(targetDataObject);
+            return draggedDataContext.ParentMapData.WrappedData.Equals(targetDataObject);
         }
 
         private static void MapDataCollectionOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
