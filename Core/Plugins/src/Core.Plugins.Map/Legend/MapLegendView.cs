@@ -140,6 +140,7 @@ namespace Core.Plugins.Map.Legend
                 CanDrag = (context, parentData) => context.ParentMapData != null,
                 CanCheck = context => true,
                 IsChecked = context => context.WrappedData.IsVisible,
+                OnNodeChecked = MapDataCollectionContextOnNodeChecked,
                 CanDrop = MapDataCollectionCanDropAndInsert,
                 CanInsert = MapDataCollectionCanDropAndInsert,
                 OnDrop = MapDataCollectionOnDrop,
@@ -337,6 +338,12 @@ namespace Core.Plugins.Map.Legend
             }
 
             return childObjects.ToArray();
+        }
+
+        private void MapDataCollectionContextOnNodeChecked(MapDataCollectionContext context, object parentData)
+        {
+            context.WrappedData.IsVisible = !context.WrappedData.IsVisible;
+            context.WrappedData.NotifyObservers();
         }
 
         private static bool MapDataCollectionCanDropAndInsert(object draggedData, object targetData)

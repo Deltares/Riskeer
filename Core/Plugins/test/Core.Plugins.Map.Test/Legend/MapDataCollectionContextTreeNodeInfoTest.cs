@@ -95,7 +95,7 @@ namespace Core.Plugins.Map.Test.Legend
             Assert.IsNull(info.OnNodeRemoved);
             Assert.IsNotNull(info.CanCheck);
             Assert.IsNotNull(info.IsChecked);
-            Assert.IsNull(info.OnNodeChecked);
+            Assert.IsNotNull(info.OnNodeChecked);
             Assert.IsNotNull(info.CanDrag);
             Assert.IsNotNull(info.CanDrop);
             Assert.IsNotNull(info.CanInsert);
@@ -183,6 +183,34 @@ namespace Core.Plugins.Map.Test.Legend
 
             // Assert
             Assert.AreEqual(isVisible, isChecked);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnNodeChecked_WithContext_SetMapDataVisibilityAndNotifyObservers(bool initialVisibleState)
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var featureBasedMapData = new TestFeatureBasedMapData();
+            var mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Add(featureBasedMapData);
+
+            MapDataCollectionContext context = GetContext(mapDataCollection);
+            context.WrappedData.IsVisible = initialVisibleState;
+
+            context.WrappedData.Attach(observer);
+
+            // Call
+            info.OnNodeChecked(context, null);
+
+            // Assert
+            Assert.AreEqual(!initialVisibleState, context.WrappedData.IsVisible);
+            Assert.AreEqual(!initialVisibleState, featureBasedMapData.IsVisible);
+            mocks.VerifyAll();
         }
 
         [Test]
