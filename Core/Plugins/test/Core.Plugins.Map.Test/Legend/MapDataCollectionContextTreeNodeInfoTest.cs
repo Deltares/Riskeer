@@ -93,7 +93,7 @@ namespace Core.Plugins.Map.Test.Legend
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
             Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.CanCheck);
+            Assert.IsNotNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
             Assert.IsNotNull(info.CanDrag);
@@ -153,6 +153,16 @@ namespace Core.Plugins.Map.Test.Legend
                 new FeatureBasedMapDataContext(mapData2, parentCollectionContext),
                 new FeatureBasedMapDataContext(mapData1, parentCollectionContext)
             }, objects);
+        }
+
+        [Test]
+        public void CanCheck_Always_ReturnsTrue()
+        {
+            // Call
+            bool canCheck = info.CanCheck(null);
+
+            // Assert
+            Assert.IsTrue(canCheck);
         }
 
         [Test]
