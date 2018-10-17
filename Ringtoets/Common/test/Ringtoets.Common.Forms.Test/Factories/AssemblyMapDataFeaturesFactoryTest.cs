@@ -116,6 +116,84 @@ namespace Ringtoets.Common.Forms.Test.Factories
             }
         }
 
+        [Test]
+        public void CreateAssemblyCategoryGroupFeatures_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<
+                IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                null,
+                sr => new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void CreateAssemblyCategoryGroupFeatures_GetAssemblyCategoryGroupFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<
+                TestFailureMechanism, FailureMechanismSectionResult>(new TestFailureMechanism(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("getAssemblyCategoryGroupFunc", paramName);
+        }
+
+        [Test]
+        public void CreateAssemblyCategoryGroupFeatures_GetAssemblyCategoryGroupFuncThrowsAssemblyExceptionOnFirstSection_FirstSectionSkipped()
+        {
+            // Setup
+            var random = new Random(39);
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, 2);
+            var expectedCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
+            // Call
+            var shouldThrowException = true;
+            IEnumerable<MapFeature> features = AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<
+                TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism, sr =>
+            {
+                if (shouldThrowException)
+                {
+                    shouldThrowException = false;
+                    throw new AssemblyException();
+                }
+
+                return expectedCategoryGroup;
+            });
+
+            // Assert
+            AssertAssemblyCategoryGroupMapFeature(failureMechanism.Sections.ElementAt(1), features.Single(), expectedCategoryGroup);
+        }
+
+        [Test]
+        public void CreateAssemblyCategoryGroupFeatures_ValidParameters_ReturnsExpectedFeatures()
+        {
+            // Setup
+            var random = new Random(39);
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(0, 10));
+
+            var expectedCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
+            // Call
+            IEnumerable<MapFeature> features = AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<
+                TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism, sr => expectedCategoryGroup);
+
+            // Assert
+            Assert.AreEqual(failureMechanism.Sections.Count(), features.Count());
+
+            for (var i = 0; i < features.Count(); i++)
+            {
+                FailureMechanismSection section = failureMechanism.Sections.ElementAt(i);
+                MapFeature mapFeature = features.ElementAt(i);
+                AssertAssemblyCategoryGroupMapFeature(section, mapFeature, expectedCategoryGroup);
+            }
+        }
+
         private static void AssertMapFeature(FailureMechanismSection section, MapFeature mapFeature, FailureMechanismSectionAssembly expectedAssembly)
         {
             IEnumerable<MapGeometry> mapGeometries = mapFeature.MapGeometries;
@@ -128,6 +206,18 @@ namespace Ringtoets.Common.Forms.Test.Factories
                             mapFeature.MetaData["Categorie"]);
             Assert.AreEqual(new NoProbabilityValueDoubleConverter().ConvertToString(expectedAssembly.Probability),
                             mapFeature.MetaData["Faalkans"]);
+        }
+
+        private static void AssertAssemblyCategoryGroupMapFeature(FailureMechanismSection section, MapFeature mapFeature, FailureMechanismSectionAssemblyCategoryGroup expectedAssembly)
+        {
+            IEnumerable<MapGeometry> mapGeometries = mapFeature.MapGeometries;
+
+            Assert.AreEqual(1, mapGeometries.Count());
+            CollectionAssert.AreEqual(section.Points, mapGeometries.Single().PointCollections.First());
+            Assert.AreEqual(1, mapFeature.MetaData.Keys.Count);
+            Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
+                                DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssembly)).DisplayName,
+                            mapFeature.MetaData["Categorie"]);
         }
     }
 }
