@@ -342,8 +342,14 @@ namespace Core.Plugins.Map.Legend
 
         private void MapDataCollectionContextOnNodeChecked(MapDataCollectionContext context, object parentData)
         {
-            context.WrappedData.IsVisible = !context.WrappedData.IsVisible;
-            context.WrappedData.NotifyObservers();
+            var mapDataCollection = (MapDataCollection) context.WrappedData;
+            mapDataCollection.IsVisible = !mapDataCollection.IsVisible;
+            mapDataCollection.NotifyObservers();
+
+            foreach (MapData mapData in mapDataCollection.Collection)
+            {
+                mapData.NotifyObservers();
+            }
         }
 
         private static bool MapDataCollectionCanDropAndInsert(object draggedData, object targetData)

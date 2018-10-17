@@ -191,8 +191,10 @@ namespace Core.Plugins.Map.Test.Legend
         public void OnNodeChecked_WithContext_SetMapDataVisibilityAndNotifyObservers(bool initialVisibleState)
         {
             // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var collectionObserver = mocks.StrictMock<IObserver>();
+            collectionObserver.Expect(o => o.UpdateObserver());
+            var childMapDataObserver = mocks.StrictMock<IObserver>();
+            childMapDataObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var featureBasedMapData = new TestFeatureBasedMapData();
@@ -202,7 +204,8 @@ namespace Core.Plugins.Map.Test.Legend
             MapDataCollectionContext context = GetContext(mapDataCollection);
             context.WrappedData.IsVisible = initialVisibleState;
 
-            context.WrappedData.Attach(observer);
+            context.WrappedData.Attach(collectionObserver);
+            featureBasedMapData.Attach(childMapDataObserver);
 
             // Call
             info.OnNodeChecked(context, null);
