@@ -13,6 +13,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\StabilityStoneCoverAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="PresentationObjects\EmptyStabilityStoneCoverOutput.cs" />
     <Compile Include="PresentationObjects\StabilityStoneCoverFailureMechanismSectionsContext.cs" />
     <Compile Include="PresentationObjects\StabilityStoneCoverContext.cs" />

@@ -136,6 +136,39 @@ namespace Ringtoets.Common.Forms.TestUtil
             }
         }
 
+        /// <summary>
+        /// Asserts whether <paramref name="features"/> contains the data that is representative for the data
+        /// in <paramref name="expectedCategoryGroup"/> and <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="expectedCategoryGroup">The expected <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</param>
+        /// <param name="failureMechanism">The failure mechanism that contains the sections.</param>
+        /// <param name="features">The features that need to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>the number of sections and features are not the same;</item>
+        /// <item>the properties of a section and the <paramref name="expectedCategoryGroup"/> are not the same as
+        /// the one in the features.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertAssemblyCategoryGroupMapFeatures(FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup,
+                                                                  IFailureMechanism failureMechanism,
+                                                                  IEnumerable<MapFeature> features)
+        {
+            IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;
+            Assert.AreEqual(sections.Count(), features.Count());
+
+            for (var i = 0; i < features.Count(); i++)
+            {
+                FailureMechanismSection section = sections.ElementAt(i);
+                Assert.AreEqual(1, features.ElementAt(i).MapGeometries.Count());
+                CollectionAssert.AreEqual(section.Points, features.ElementAt(i).MapGeometries.Single().PointCollections.Single());
+                Assert.AreEqual(1, features.ElementAt(i).MetaData.Keys.Count);
+                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
+                                    DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedCategoryGroup)).DisplayName,
+                                features.ElementAt(i).MetaData[categoryMetaData]);
+            }
+        }
+
         private static string GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {

@@ -30,6 +30,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\StabilityStoneCoverAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="PresentationObjects\StabilityStoneCoverContextTest.cs" />
     <Compile Include="PresentationObjects\StabilityStoneCoverFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StabilityStoneCoverFailureMechanismSectionsContextTest.cs" />
