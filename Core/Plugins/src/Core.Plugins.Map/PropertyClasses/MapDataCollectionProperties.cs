@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
@@ -80,11 +81,14 @@ namespace Core.Plugins.Map.PropertyClasses
             }
             set
             {
+                Dictionary<MapData, bool> childStates = GetChildStates(data);
+
                 data.IsVisible = value;
                 data.NotifyObservers();
 
+                NotifyChildren(childStates);
+
                 NotifyParents();
-                NotifyChildren(data.Collection);
             }
         }
 
@@ -96,19 +100,37 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        private static void NotifyChildren(IEnumerable<MapData> collection)
+        private static void NotifyChildren(Dictionary<MapData, bool> childStates)
         {
-            foreach (MapData child in collection)
+            foreach (KeyValuePair<MapData, bool> child in childStates)
             {
-                child.NotifyObservers();
+                if (child.Key.IsVisible != child.Value)
+                {
+                    child.Key.NotifyObservers();
+                }
+            }
+        }
+        private static Dictionary<MapData, bool> GetChildStates(MapDataCollection collection)
+        {
+            return GetChildren(collection).ToDictionary(child => child, child => child.IsVisible);
+        }
 
+        private static IEnumerable<MapData> GetChildren(MapDataCollection collection)
+        {
+            var children = new List<MapData>();
+
+            foreach (MapData child in collection.Collection)
+            {
                 var childCollection = child as MapDataCollection;
                 if (childCollection != null)
                 {
-                    NotifyChildren(childCollection.Collection);
+                    children.AddRange(GetChildren(childCollection));
                 }
 
+                children.Add(child);
             }
+
+            return children;
         }
     }
 }

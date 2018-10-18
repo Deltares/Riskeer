@@ -21,11 +21,13 @@
 
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.PropertyClasses;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Plugins.Map.Test.PropertyClasses
 {
@@ -33,7 +35,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
     public class MapDataCollectionPropertiesTest
     {
         private const int namePropertyIndex = 0;
-        private const int isVisblePropertyIndex = 1;
+        private const int isVisiblePropertyIndex = 1;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -75,11 +77,74 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             "De naam van deze kaartlagenmap.",
                                                                             true);
 
-            PropertyDescriptor isVisibleProperty = dynamicProperties[isVisblePropertyIndex];
+            PropertyDescriptor isVisibleProperty = dynamicProperties[isVisiblePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isVisibleProperty,
                                                                             mapDataCollectionCategory,
                                                                             "Weergeven",
                                                                             "Geeft aan of deze kaartlagenmap wordt weergegeven.");
+        }
+
+        [Test]
+        public static void IsVisible_Always_NotifiesDataAndParents()
+        {
+            // Setup
+            var parentMapDataCollection = new MapDataCollection("Parent 1");
+            var mapDataCollection = new MapDataCollection("Collection");
+
+            parentMapDataCollection.Add(mapDataCollection);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(2);
+            mocks.ReplayAll();
+
+            parentMapDataCollection.Attach(observer);
+            mapDataCollection.Attach(observer);
+
+            var properties = new MapDataCollectionProperties(mapDataCollection, new[]
+            {
+                parentMapDataCollection
+            });
+
+            // Call
+            properties.IsVisible = false;
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true, 1)]
+        [TestCase(false, 4)]
+        public static void GivenPropertiesWithChildren_WhenIsVisibleChanged_ThenOnlyChangedChildrenNotified(bool isVisible, int expectedNotifications)
+        {
+            // Given
+            var mapDataCollection = new MapDataCollection("Collection");
+            var childLayer1 = new MapLineData("Child 1");
+            var childCollection = new MapDataCollection("Child 2");
+            var childLayer2 = new MapLineData("Child 2");
+
+            mapDataCollection.Add(childLayer1);
+            mapDataCollection.Add(childCollection);
+            childCollection.Add(childLayer2);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(expectedNotifications);
+            mocks.ReplayAll();
+
+            mapDataCollection.Attach(observer);
+            childLayer1.Attach(observer);
+            childCollection.Attach(observer);
+            childLayer2.Attach(observer);
+
+            var properties = new MapDataCollectionProperties(mapDataCollection, Enumerable.Empty<MapDataCollection>());
+
+            // When
+            properties.IsVisible = isVisible;
+
+            // Then
+            mocks.VerifyAll();
         }
     }
 }
