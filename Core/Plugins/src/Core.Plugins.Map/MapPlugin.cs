@@ -79,7 +79,10 @@ namespace Core.Plugins.Map
             {
                 CreateInstance = data => new MapPointDataProperties(data)
             };
-            yield return new PropertyInfo<MapLineData, MapLineDataProperties>();
+            yield return new PropertyInfo<MapLineData, MapLineDataProperties>
+            {
+                CreateInstance = data => new MapLineDataProperties(data)
+            };
             yield return new PropertyInfo<MapPolygonData, MapPolygonDataProperties>();
         }
 

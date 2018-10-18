@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
@@ -38,6 +39,18 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     public class MapLineDataProperties : FeatureBasedMapDataProperties<MapLineData>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="MapLineDataProperties"/>.
+        /// </summary>
+        /// <param name="mapLineData">The <see cref="MapLineData"/> to
+        /// show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="mapLineData"/> is <c>null</c>.</exception>
+        public MapLineDataProperties(MapLineData mapLineData)
+        {
+            Data = mapLineData;
+        }
+
         public override string Type
         {
             get
