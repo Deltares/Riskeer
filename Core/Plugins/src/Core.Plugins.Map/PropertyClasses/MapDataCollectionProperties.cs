@@ -34,27 +34,28 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     public class MapDataCollectionProperties : ObjectProperties<MapDataCollection>
     {
-        private readonly IEnumerable<MapDataCollection> parentCollection;
+        private readonly IEnumerable<MapDataCollection> parents;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapDataCollectionProperties"/>.
         /// </summary>
         /// <param name="mapDataCollection">The <see cref="MapDataCollection"/> to show the properties for.</param>
-        /// <param name="parentCollection"></param>
+        /// <param name="parents">A collection containing all parent <see cref="MapDataCollection"/> of
+        /// the <paramref name="mapDataCollection"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MapDataCollectionProperties(MapDataCollection mapDataCollection, IEnumerable<MapDataCollection> parentCollection)
+        public MapDataCollectionProperties(MapDataCollection mapDataCollection, IEnumerable<MapDataCollection> parents)
         {
             if (mapDataCollection == null)
             {
                 throw new ArgumentNullException(nameof(mapDataCollection));
             }
 
-            if (parentCollection == null)
+            if (parents == null)
             {
-                throw new ArgumentNullException(nameof(parentCollection));
+                throw new ArgumentNullException(nameof(parents));
             }
 
-            this.parentCollection = parentCollection;
+            this.parents = parents;
 
             Data = mapDataCollection;
         }
@@ -94,7 +95,7 @@ namespace Core.Plugins.Map.PropertyClasses
 
         private void NotifyParents()
         {
-            foreach (MapDataCollection parent in parentCollection)
+            foreach (MapDataCollection parent in parents)
             {
                 parent.NotifyObservers();
             }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -36,6 +37,28 @@ namespace Core.Plugins.Map.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int isVisiblePropertyIndex = 1;
+
+        [Test]
+        public void Constructor_MapDataCollectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new MapDataCollectionProperties(null, Enumerable.Empty<MapDataCollection>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("mapDataCollection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ParentsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new MapDataCollectionProperties(new MapDataCollection("Test"), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("parents", exception.ParamName);
+        }
 
         [Test]
         public void Constructor_ExpectedValues()
