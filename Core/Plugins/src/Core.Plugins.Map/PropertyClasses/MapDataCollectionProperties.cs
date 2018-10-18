@@ -84,7 +84,7 @@ namespace Core.Plugins.Map.PropertyClasses
                 data.NotifyObservers();
 
                 NotifyParents();
-                NotifyChildren();
+                NotifyChildren(data.Collection);
             }
         }
 
@@ -96,16 +96,16 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        private void NotifyChildren()
+        private void NotifyChildren(IEnumerable<MapData> collection)
         {
-            foreach (MapData child in data.Collection)
+            foreach (MapData child in collection)
             {
                 child.NotifyObservers();
 
                 var childCollection = child as MapDataCollection;
                 if (childCollection != null)
                 {
-                    NotifyChildren();
+                    NotifyChildren(childCollection.Collection);
                 }
 
             }
