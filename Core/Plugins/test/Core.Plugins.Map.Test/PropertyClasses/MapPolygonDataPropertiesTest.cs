@@ -50,12 +50,15 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var data = new MapPolygonData("test");
+
             // Call
-            var properties = new MapPolygonDataProperties();
+            var properties = new MapPolygonDataProperties(data);
 
             // Assert
             Assert.IsInstanceOf<FeatureBasedMapDataProperties<MapPolygonData>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(data, properties.Data);
             Assert.AreEqual("Polygonen", properties.Type);
 
             TestHelper.AssertTypeConverter<MapPolygonDataProperties, ColorTypeConverter>(
@@ -79,10 +82,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MapPolygonDataProperties
-            {
-                Data = mapPolygonData
-            };
+            var properties = new MapPolygonDataProperties(mapPolygonData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -126,10 +126,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MapPolygonDataProperties
-            {
-                Data = mapPolygonData
-            };
+            var properties = new MapPolygonDataProperties(mapPolygonData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -152,7 +149,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewMapPolygonDataInstance_ReturnCorrectPropertyValues()
+        public void Constructor_Always_ReturnCorrectPropertyValues()
         {
             // Setup
             Color fillColor = Color.Aqua;
@@ -165,10 +162,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 StrokeColor = strokeColor,
                 StrokeThickness = strokeThickness
             });
-            var properties = new MapPolygonDataProperties();
 
             // Call
-            properties.Data = mapPolygonData;
+            var properties = new MapPolygonDataProperties(mapPolygonData);
 
             // Assert
             Assert.AreEqual(mapPolygonData.ShowLabels, properties.ShowLabels);
@@ -199,10 +195,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             mapPolygonData.Attach(observer);
 
-            var properties = new MapPolygonDataProperties
-            {
-                Data = mapPolygonData
-            };
+            var properties = new MapPolygonDataProperties(mapPolygonData);
 
             Color newFillColor = Color.Blue;
             Color newStrokeColor = Color.Red;
@@ -240,10 +233,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 }
             };
 
-            var properties = new MapPolygonDataProperties
-            {
-                Data = mapData
-            };
+            var properties = new MapPolygonDataProperties(mapData);
 
             // Call
             bool isShowLabelReadOnly = properties.DynamicReadonlyValidator(
@@ -272,10 +262,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                : null
             };
 
-            var properties = new MapPolygonDataProperties
-            {
-                Data = mapData
-            };
+            var properties = new MapPolygonDataProperties(mapData);
 
             // Call
             bool isStrokeColorReadOnly = properties.DynamicReadonlyValidator(
@@ -307,10 +294,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new MapPolygonDataProperties
-            {
-                Data = mapPolygonData
-            };
+            var properties = new MapPolygonDataProperties(mapPolygonData);
 
             // Call
             bool isOtherPropertyReadOnly = properties.DynamicReadonlyValidator(string.Empty);
@@ -330,10 +314,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 ShowLabels = showLabels
             };
 
-            var properties = new MapPolygonDataProperties
-            {
-                Data = mapPolygonData
-            };
+            var properties = new MapPolygonDataProperties(mapPolygonData);
 
             // Call
             bool isSelectedMetaDataAttributeVisible = properties.DynamicVisibleValidationMethod(
@@ -359,10 +340,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                : null
             };
 
-            var properties = new MapPolygonDataProperties
-            {
-                Data = mapPolygonData
-            };
+            var properties = new MapPolygonDataProperties(mapPolygonData);
 
             // Call
             bool isFillColorVisible = properties.DynamicVisibleValidationMethod(
@@ -394,10 +372,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new MapPolygonDataProperties
-            {
-                Data = mapPolygonData
-            };
+            var properties = new MapPolygonDataProperties(mapPolygonData);
 
             // Call
             bool isOtherPropertyVisible = properties.DynamicVisibleValidationMethod(string.Empty);

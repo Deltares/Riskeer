@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
@@ -36,6 +37,18 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     public class MapPolygonDataProperties : FeatureBasedMapDataProperties<MapPolygonData>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="MapPolygonDataProperties"/>.
+        /// </summary>
+        /// <param name="mapPolygonData">The <see cref="MapPolygonData"/> to
+        /// show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="mapPolygonData"/> is <c>null</c>.</exception>
+        public MapPolygonDataProperties(MapPolygonData mapPolygonData)
+        {
+            Data = mapPolygonData;
+        }
+
         public override string Type
         {
             get

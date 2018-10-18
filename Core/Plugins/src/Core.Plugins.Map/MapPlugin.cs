@@ -83,7 +83,10 @@ namespace Core.Plugins.Map
             {
                 CreateInstance = data => new MapLineDataProperties(data)
             };
-            yield return new PropertyInfo<MapPolygonData, MapPolygonDataProperties>();
+            yield return new PropertyInfo<MapPolygonData, MapPolygonDataProperties>
+            {
+                CreateInstance = data => new MapPolygonDataProperties(data)
+            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()

@@ -52,14 +52,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mapLineData = new MapLineData("test");
+            var data = new MapLineData("test");
 
             // Call
-            var properties = new MapLineDataProperties(mapLineData);
+            var properties = new MapLineDataProperties(data);
 
             // Assert
             Assert.IsInstanceOf<FeatureBasedMapDataProperties<MapLineData>>(properties);
-            Assert.AreSame(mapLineData, properties.Data);
+            Assert.AreSame(data, properties.Data);
             Assert.AreEqual("Lijnen", properties.Type);
 
             TestHelper.AssertTypeConverter<MapLineDataProperties, ColorTypeConverter>(
