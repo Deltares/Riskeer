@@ -197,14 +197,44 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
+        public void OnNodeChecked_WithContext_NotifyObserversOfParentMapDataCollections()
+        {
+            // Setup
+            var collectionObserver = mocks.StrictMock<IObserver>();
+            collectionObserver.Expect(o => o.UpdateObserver());
+            var parentCollectionObserver = mocks.StrictMock<IObserver>();
+            parentCollectionObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var featureBasedMapData = new TestFeatureBasedMapData();
+            var nestedMapDataCollection = new MapDataCollection("nested");
+            nestedMapDataCollection.Add(featureBasedMapData);
+            var mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Add(nestedMapDataCollection);
+
+            MapDataCollectionContext rootCollectionContext = GetContext(mapDataCollection);
+            MapDataCollectionContext nestedCollectionContext = GetContext(nestedMapDataCollection, rootCollectionContext);
+            FeatureBasedMapDataContext featureBasedMapDataContext = GetContext(featureBasedMapData, nestedCollectionContext);
+
+            nestedMapDataCollection.Attach(collectionObserver);
+            mapDataCollection.Attach(parentCollectionObserver);
+
+            // Call
+            info.OnNodeChecked(featureBasedMapDataContext, null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void CanDrop_TargetIsSameAsSourceParent_ReturnsTrue()
         {
             // Setup
             FeatureBasedMapData mapData = new TestFeatureBasedMapData();
             var mapDataCollection = new MapDataCollection("test");
 
-            FeatureBasedMapDataContext context = GetContext(mapData, mapDataCollection);
             MapDataCollectionContext targetContext = GetContext(mapDataCollection);
+            FeatureBasedMapDataContext context = GetContext(mapData, targetContext);
 
             // Call
             bool canDrop = info.CanDrop(context, targetContext);
@@ -238,8 +268,10 @@ namespace Core.Plugins.Map.Test.Legend
             var rootCollection = new MapDataCollection("test");
             var targetCollection = new MapDataCollection("test");
 
-            FeatureBasedMapDataContext context = GetContext(mapData, rootCollection);
-            MapDataCollectionContext targetContext = GetContext(targetCollection, rootCollection);
+            MapDataCollectionContext rootContext = GetContext(rootCollection);
+
+            FeatureBasedMapDataContext context = GetContext(mapData, rootContext);
+            MapDataCollectionContext targetContext = GetContext(targetCollection, rootContext);
 
             // Call
             bool canDrop = info.CanDrop(context, targetContext);
@@ -255,8 +287,8 @@ namespace Core.Plugins.Map.Test.Legend
             FeatureBasedMapData mapData = new TestFeatureBasedMapData();
             var mapDataCollection = new MapDataCollection("test");
 
-            FeatureBasedMapDataContext context = GetContext(mapData, mapDataCollection);
             MapDataCollectionContext targetContext = GetContext(mapDataCollection);
+            FeatureBasedMapDataContext context = GetContext(mapData, targetContext);
 
             // Call
             bool canInsert = info.CanInsert(context, targetContext);
@@ -290,8 +322,10 @@ namespace Core.Plugins.Map.Test.Legend
             var rootCollection = new MapDataCollection("test");
             var targetCollection = new MapDataCollection("test");
 
-            FeatureBasedMapDataContext context = GetContext(mapData, rootCollection);
-            MapDataCollectionContext targetContext = GetContext(targetCollection, rootCollection);
+            MapDataCollectionContext rootContext = GetContext(rootCollection);
+
+            FeatureBasedMapDataContext context = GetContext(mapData, rootContext);
+            MapDataCollectionContext targetContext = GetContext(targetCollection, rootContext);
 
             // Call
             bool canInsert = info.CanInsert(context, targetContext);
@@ -447,7 +481,7 @@ namespace Core.Plugins.Map.Test.Legend
             collection.Add(toRemove);
             collection.Add(otherData);
 
-            FeatureBasedMapDataContext context = GetContext(toRemove, collection);
+            FeatureBasedMapDataContext context = GetContext(toRemove, GetContext(collection));
 
             // Call
             info.OnNodeRemoved(context, context.ParentMapData);
@@ -572,7 +606,7 @@ namespace Core.Plugins.Map.Test.Legend
         public void ContextMenuStrip_EnabledZoomToAllContextMenuItemClicked_DoZoomToVisibleData()
         {
             // Setup
-            var mapData = new TestFeatureBasedMapData()
+            var mapData = new TestFeatureBasedMapData
             {
                 IsVisible = true,
                 Features = new[]
@@ -627,13 +661,14 @@ namespace Core.Plugins.Map.Test.Legend
             }
         }
 
-        private static FeatureBasedMapDataContext GetContext(FeatureBasedMapData mapData, MapDataCollection mapDataCollection = null)
+        private static FeatureBasedMapDataContext GetContext(FeatureBasedMapData mapData, MapDataCollectionContext parentMapDataCollectionContext = null)
         {
-            return new FeatureBasedMapDataContext(mapData, new MapDataCollectionContext(mapDataCollection ?? new MapDataCollection("test"), null));
+            return new FeatureBasedMapDataContext(mapData, parentMapDataCollectionContext ?? new MapDataCollectionContext(new MapDataCollection("test"), null));
         }
-        private static MapDataCollectionContext GetContext(MapDataCollection mapDataCollection, MapDataCollection parentMapDataCollection = null)
+
+        private static MapDataCollectionContext GetContext(MapDataCollection mapDataCollection, MapDataCollectionContext parentMapDataCollectionContext = null)
         {
-            return new MapDataCollectionContext(mapDataCollection, new MapDataCollectionContext(parentMapDataCollection ?? new MapDataCollection("test"), null));
+            return new MapDataCollectionContext(mapDataCollection, parentMapDataCollectionContext ?? new MapDataCollectionContext(new MapDataCollection("test"), null));
         }
     }
 }

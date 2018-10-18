@@ -272,6 +272,8 @@ namespace Core.Plugins.Map.Legend
         {
             mapDataContext.WrappedData.IsVisible = !mapDataContext.WrappedData.IsVisible;
             mapDataContext.WrappedData.NotifyObservers();
+
+            NotifyMapDataParents(mapDataContext);
         }
 
         private static bool FeatureBasedMapDataContextCanDropAndInsert(object draggedData, object targetData)
