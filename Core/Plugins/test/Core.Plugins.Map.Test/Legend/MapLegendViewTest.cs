@@ -181,7 +181,7 @@ namespace Core.Plugins.Map.Test.Legend
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Selection_Always_ReturnsWrappedObjectData()
+        public void Selection_Always_ReturnsDataContext()
         {
             // Setup
             var mapData = new MapLineData("line data");
@@ -199,10 +199,10 @@ namespace Core.Plugins.Map.Test.Legend
                 treeViewControl.TrySelectNodeForData(view.Data);
 
                 // Call
-                object selection = view.Selection;
+                var selection = (MapDataCollectionContext) view.Selection;
 
                 // Assert
-                Assert.AreSame(mapDataCollection, selection);
+                Assert.AreSame(mapDataCollection, selection.WrappedData);
             }
 
             WindowsFormsTestHelper.CloseAll();
