@@ -58,7 +58,7 @@ namespace Core.Plugins.Map.PropertyClasses
             Data = mapDataCollection;
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_MapDataCollection))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapDataCollection_Name_Description))]
         public string Name
@@ -69,7 +69,7 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_MapDataCollection))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_IsVisible_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapDataCollection_IsVisible_Description))]
         public bool IsVisible
@@ -96,7 +96,7 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-        private void NotifyChildren(IEnumerable<MapData> collection)
+        private static void NotifyChildren(IEnumerable<MapData> collection)
         {
             foreach (MapData child in collection)
             {

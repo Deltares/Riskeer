@@ -119,6 +119,15 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kaartlagenmap.
+        /// </summary>
+        public static string Categories_MapDataCollection {
+            get {
+                return ResourceManager.GetString("Categories_MapDataCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stijl.
         /// </summary>
         public static string Categories_Styling {
@@ -401,7 +410,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of deze map met kaartlagen wordt weergegeven..
+        ///   Looks up a localized string similar to Geeft aan of deze kaartlagenmap wordt weergegeven..
         /// </summary>
         public static string MapDataCollection_IsVisible_Description {
             get {
@@ -410,7 +419,7 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De naam van deze map met kaartlagen..
+        ///   Looks up a localized string similar to De naam van deze kaartlagenmap..
         /// </summary>
         public static string MapDataCollection_Name_Description {
             get {

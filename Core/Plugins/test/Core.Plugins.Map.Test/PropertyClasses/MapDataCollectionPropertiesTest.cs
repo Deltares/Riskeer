@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
@@ -32,30 +33,24 @@ namespace Core.Plugins.Map.Test.PropertyClasses
     public class MapDataCollectionPropertiesTest
     {
         private const int namePropertyIndex = 0;
+        private const int isVisblePropertyIndex = 1;
 
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var mapDataCollection = new MapDataCollection("Test");
+            mapDataCollection.Add(new MapPointData("Test 2"));
+
             // Call
-            var properties = new MapDataCollectionProperties();
+            var properties = new MapDataCollectionProperties(mapDataCollection, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MapDataCollection>>(properties);
-            Assert.IsNull(properties.Data);
-        }
+            Assert.AreSame(mapDataCollection, properties.Data);
 
-        [Test]
-        public void Data_SetNewMapDataCollectionInstance_ReturnCorrectPropertyValues()
-        {
-            // Setup
-            var mapDataCollection = new MapDataCollection("Test");
-            var properties = new MapDataCollectionProperties();
-
-            // Call
-            properties.Data = mapDataCollection;
-
-            // Assert
             Assert.AreEqual(mapDataCollection.Name, properties.Name);
+            Assert.AreEqual(mapDataCollection.IsVisible, properties.IsVisible);
         }
 
         [Test]
@@ -65,23 +60,26 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var mapDataCollection = new MapDataCollection("Test");
 
             // Call
-            var properties = new MapDataCollectionProperties
-            {
-                Data = mapDataCollection
-            };
+            var properties = new MapDataCollectionProperties(mapDataCollection, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(1, dynamicProperties.Count);
+            Assert.AreEqual(2, dynamicProperties.Count);
 
-            const string generalCategory = "Algemeen";
+            const string mapDataCollectionCategory = "Kaartlagenmap";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
+                                                                            mapDataCollectionCategory,
                                                                             "Naam",
-                                                                            "De naam van deze map met kaartlagen.",
+                                                                            "De naam van deze kaartlagenmap.",
                                                                             true);
+
+            PropertyDescriptor isVisibleProperty = dynamicProperties[isVisblePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isVisibleProperty,
+                                                                            mapDataCollectionCategory,
+                                                                            "Weergeven",
+                                                                            "Geeft aan of deze kaartlagenmap wordt weergegeven.");
         }
     }
 }
