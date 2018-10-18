@@ -59,7 +59,7 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(name, mapDataCollection.Name);
             Assert.IsInstanceOf<MapData>(mapDataCollection);
             CollectionAssert.IsEmpty(mapDataCollection.Collection);
-            Assert.IsTrue(mapDataCollection.IsVisible);
+            Assert.IsFalse(mapDataCollection.IsVisible);
         }
 
         [Test]
@@ -93,6 +93,25 @@ namespace Core.Components.Gis.Test.Data
 
             // Assert
             Assert.IsFalse(isVisible);
+        }
+
+        [Test]
+        public void IsVisible_WithVisibleMapDataAndEmptyCollectionAsChildren_ReturnsTrue()
+        {
+            // Setup
+            var collection = new MapDataCollection("test");
+            collection.Add(new TestMapData());
+            var nestedCollection = new MapDataCollection("nested");
+            collection.Add(nestedCollection);
+
+            // Precondition
+            Assert.IsFalse(nestedCollection.IsVisible);
+            
+            // Call
+            bool isVisible = collection.IsVisible;
+
+            // Assert
+            Assert.IsTrue(isVisible);
         }
 
         [Test]
