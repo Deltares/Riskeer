@@ -30,6 +30,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Data.Removable;
 using Core.Components.Gis.Forms;
+using Core.Plugins.Map.Helpers;
 using Core.Plugins.Map.PresentationObjects;
 using MapResources = Core.Plugins.Map.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
@@ -235,25 +236,12 @@ namespace Core.Plugins.Map.Legend
             };
         }
 
-        private void NotifyMapDataParents(MapDataContext context)
+        private static void NotifyMapDataParents(MapDataContext context)
         {
-            foreach (MapDataCollection mapDataCollection in GetParentsFromContext(context))
+            foreach (MapDataCollection mapDataCollection in MapDataContextHelper.GetParentsFromContext(context))
             {
                 mapDataCollection.NotifyObservers();
             }
-        }
-
-        private IEnumerable<MapDataCollection> GetParentsFromContext(MapDataContext context)
-        {
-            var parents = new List<MapDataCollection>();
-
-            if (context.ParentMapData != null)
-            {
-                parents.Add((MapDataCollection)context.ParentMapData.WrappedData);
-                parents.AddRange(GetParentsFromContext(context.ParentMapData));
-            }
-
-            return parents;
         }
 
         #endregion
