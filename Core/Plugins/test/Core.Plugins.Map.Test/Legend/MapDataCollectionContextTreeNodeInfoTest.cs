@@ -214,9 +214,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void OnNodeChecked_WithContext_NotifyAllObserversOfChildMapData(bool initialVisibleState)
+        public void OnNodeChecked_WithContext_NotifyAllObserversOfChildMapData()
         {
             // Setup
             var collectionObserver = mocks.StrictMock<IObserver>();
@@ -232,7 +230,6 @@ namespace Core.Plugins.Map.Test.Legend
             mapDataCollection.Add(nestedMapDataCollection);
 
             MapDataCollectionContext context = GetContext(mapDataCollection);
-            context.WrappedData.IsVisible = initialVisibleState;
 
             nestedMapDataCollection.Attach(collectionObserver);
             featureBasedMapData.Attach(childMapDataObserver);
@@ -245,9 +242,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void OnNodeChecked_WithContext_NotifyObserversOfParentMapDataCollections(bool initialVisibleState)
+        public void OnNodeChecked_WithContext_NotifyObserversOfParentMapDataCollections()
         {
             // Setup
             var collectionObserver = mocks.StrictMock<IObserver>();
@@ -264,8 +259,6 @@ namespace Core.Plugins.Map.Test.Legend
 
             MapDataCollectionContext rootCollectionContext = GetContext(mapDataCollection);
             MapDataCollectionContext nestedCollectionContext = GetContext(nestedMapDataCollection, rootCollectionContext);
-
-            nestedCollectionContext.WrappedData.IsVisible = initialVisibleState;
 
             nestedMapDataCollection.Attach(collectionObserver);
             mapDataCollection.Attach(parentCollectionObserver);
