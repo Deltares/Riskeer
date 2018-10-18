@@ -91,8 +91,7 @@ namespace Core.Plugins.Map.Legend
         {
             get
             {
-                var mapDataContext = (MapDataContext) treeViewControl.SelectedData;
-                return mapDataContext.WrappedData;
+                return treeViewControl.SelectedData;
             }
         }
 

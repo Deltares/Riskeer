@@ -401,6 +401,15 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of deze map met kaartlagen wordt weergegeven..
+        /// </summary>
+        public static string MapDataCollection_IsVisible_Description {
+            get {
+                return ResourceManager.GetString("MapDataCollection_IsVisible_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De naam van deze map met kaartlagen..
         /// </summary>
         public static string MapDataCollection_Name_Description {

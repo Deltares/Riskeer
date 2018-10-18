@@ -30,7 +30,9 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.IO.Importers;
 using Core.Plugins.Map.Commands;
+using Core.Plugins.Map.Helpers;
 using Core.Plugins.Map.Legend;
+using Core.Plugins.Map.PresentationObjects;
 using Core.Plugins.Map.Properties;
 using Core.Plugins.Map.PropertyClasses;
 
@@ -69,7 +71,10 @@ namespace Core.Plugins.Map
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<MapDataCollection, MapDataCollectionProperties>();
+            yield return new PropertyInfo<MapDataCollectionContext, MapDataCollectionProperties>
+            {
+                CreateInstance = context => new MapDataCollectionProperties((MapDataCollection) context.WrappedData, MapDataContextHelper.GetParentsFromContext(context))
+            };
             yield return new PropertyInfo<MapPointData, MapPointDataProperties>();
             yield return new PropertyInfo<MapLineData, MapLineDataProperties>();
             yield return new PropertyInfo<MapPolygonData, MapPolygonDataProperties>();

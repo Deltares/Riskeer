@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
@@ -31,6 +33,31 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     public class MapDataCollectionProperties : ObjectProperties<MapDataCollection>
     {
+        private readonly IEnumerable<MapDataCollection> parentCollection;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MapDataCollectionProperties"/>.
+        /// </summary>
+        /// <param name="mapDataCollection">The <see cref="MapDataCollection"/> to show the properties for.</param>
+        /// <param name="parentCollection"></param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MapDataCollectionProperties(MapDataCollection mapDataCollection, IEnumerable<MapDataCollection> parentCollection)
+        {
+            if (mapDataCollection == null)
+            {
+                throw new ArgumentNullException(nameof(mapDataCollection));
+            }
+
+            if (parentCollection == null)
+            {
+                throw new ArgumentNullException(nameof(parentCollection));
+            }
+
+            this.parentCollection = parentCollection;
+
+            Data = mapDataCollection;
+        }
+
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapDataCollection_Name_Description))]
@@ -39,6 +66,48 @@ namespace Core.Plugins.Map.PropertyClasses
             get
             {
                 return data.Name;
+            }
+        }
+
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_IsVisible_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapDataCollection_IsVisible_Description))]
+        public bool IsVisible
+        {
+            get
+            {
+                return data.IsVisible;
+            }
+            set
+            {
+                data.IsVisible = value;
+                data.NotifyObservers();
+
+                NotifyParents();
+                NotifyChildren();
+            }
+        }
+
+        private void NotifyParents()
+        {
+            foreach (MapDataCollection parent in parentCollection)
+            {
+                parent.NotifyObservers();
+            }
+        }
+
+        private void NotifyChildren()
+        {
+            foreach (MapData child in data.Collection)
+            {
+                child.NotifyObservers();
+
+                var childCollection = child as MapDataCollection;
+                if (childCollection != null)
+                {
+                    NotifyChildren();
+                }
+
             }
         }
     }
