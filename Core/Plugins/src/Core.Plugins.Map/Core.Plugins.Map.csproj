@@ -22,6 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ToggleMapLegendViewCommand.cs" />
+    <Compile Include="Helpers\MapDataContextHelper.cs" />
     <Compile Include="MapPlugin.cs" />
     <Compile Include="Legend\MapLegendController.cs" />
     <Compile Include="Legend\MapLegendView.cs">

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ToggleMapLegendViewCommandTest.cs" />
+    <Compile Include="Helpers\MapDataContextHelperTest.cs" />
     <Compile Include="ImportInfos\MapDataCollectionImportInfoTest.cs" />
     <Compile Include="Legend\FeatureBasedMapDataContextTreeNodeInfoTest.cs" />
     <Compile Include="MapPluginTest.cs" />
