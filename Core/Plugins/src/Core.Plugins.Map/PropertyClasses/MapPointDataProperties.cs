@@ -47,9 +47,7 @@ namespace Core.Plugins.Map.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="mapPointData"/> is <c>null</c>.</exception>
         public MapPointDataProperties(MapPointData mapPointData)
-        {
-            Data = mapPointData;
-        }
+            : base(mapPointData) {}
 
         public override string Type
         {

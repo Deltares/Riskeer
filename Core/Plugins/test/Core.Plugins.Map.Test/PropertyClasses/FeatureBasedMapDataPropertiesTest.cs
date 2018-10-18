@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -26,7 +27,6 @@ using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.TestUtil;
@@ -52,38 +52,50 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         private const int mapThemeCategoriesPropertyIndex = 6;
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            var properties = new TestFeatureBasedMapDataProperties();
+            TestDelegate call = () => new TestFeatureBasedMapDataProperties(null);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<MapPointData>>(properties);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("data", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var data = new TestFeatureBasedMapData();
+
+            // Call
+            var properties = new TestFeatureBasedMapDataProperties(data);
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<TestFeatureBasedMapData>>(properties);
             Assert.IsInstanceOf<IHasMetaData>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(data, properties.Data);
 
             TestHelper.AssertTypeConverter<TestFeatureBasedMapDataProperties, ExpandableArrayConverter>(
                 nameof(properties.Categories));
         }
 
         [Test]
-        public void Data_SetNewMapPointDataInstanceWithoutMapTheme_ReturnCorrectPropertyValues()
+        public void Constructor_ReturnCorrectPropertyValues()
         {
             // Setup
-            var mapPointData = new MapPointData("Test");
-
-            var properties = new TestFeatureBasedMapDataProperties();
+            var data = new TestFeatureBasedMapData();
 
             // Call
-            properties.Data = mapPointData;
+            var properties = new TestFeatureBasedMapDataProperties(data);
 
             // Assert
-            Assert.AreEqual(mapPointData.Name, properties.Name);
+            Assert.AreEqual(data.Name, properties.Name);
             Assert.AreEqual("Test feature based map data", properties.Type);
-            Assert.AreEqual(mapPointData.IsVisible, properties.IsVisible);
-            Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
+            Assert.AreEqual(data.IsVisible, properties.IsVisible);
+            Assert.AreEqual(data.ShowLabels, properties.ShowLabels);
             Assert.IsEmpty(properties.SelectedMetaDataAttribute.MetaDataAttribute);
-            Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
+            Assert.AreEqual(data.MetaData, properties.GetAvailableMetaDataAttributes());
 
             Assert.AreEqual("Enkel symbool", properties.StyleType);
             Assert.IsEmpty(properties.MapThemeAttributeName);
@@ -91,10 +103,10 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewMapPointDataInstanceWithMapTheme_ReturnCorrectPropertyValues()
+        public void Constructor_MapDataInstanceWithMapTheme_ReturnCorrectPropertyValues()
         {
             // Setup
-            var mapPointData = new MapPointData("Test")
+            var mapData = new TestFeatureBasedMapData
             {
                 MapTheme = new MapTheme("Attribute", new[]
                 {
@@ -102,29 +114,27 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new TestFeatureBasedMapDataProperties();
-
             // Call
-            properties.Data = mapPointData;
+            var properties = new TestFeatureBasedMapDataProperties(mapData);
 
             // Assert
-            Assert.AreEqual(mapPointData.Name, properties.Name);
+            Assert.AreEqual(mapData.Name, properties.Name);
             Assert.AreEqual("Test feature based map data", properties.Type);
-            Assert.AreEqual(mapPointData.IsVisible, properties.IsVisible);
-            Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
+            Assert.AreEqual(mapData.IsVisible, properties.IsVisible);
+            Assert.AreEqual(mapData.ShowLabels, properties.ShowLabels);
             Assert.IsEmpty(properties.SelectedMetaDataAttribute.MetaDataAttribute);
-            Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
+            Assert.AreEqual(mapData.MetaData, properties.GetAvailableMetaDataAttributes());
 
             Assert.AreEqual("Categorie", properties.StyleType);
-            Assert.AreEqual(mapPointData.MapTheme.AttributeName, properties.MapThemeAttributeName);
+            Assert.AreEqual(mapData.MapTheme.AttributeName, properties.MapThemeAttributeName);
 
-            IEnumerable<CategoryTheme> categoryThemes = mapPointData.MapTheme.CategoryThemes;
+            IEnumerable<CategoryTheme> categoryThemes = mapData.MapTheme.CategoryThemes;
             Assert.AreEqual(categoryThemes.Count(), properties.Categories.Length);
 
             CategoryThemeProperties categoryThemeProperties = properties.Categories.First();
             CategoryTheme categoryTheme = categoryThemes.First();
             Assert.AreSame(categoryTheme, categoryThemeProperties.Data);
-            StringAssert.StartsWith(mapPointData.MapTheme.AttributeName, categoryThemeProperties.Criterion);
+            StringAssert.StartsWith(mapData.MapTheme.AttributeName, categoryThemeProperties.Criterion);
         }
 
         [Test]
@@ -134,7 +144,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
             feature.MetaData["key"] = "value";
 
-            var mapPointData = new MapPointData("Test")
+            var mapData = new TestFeatureBasedMapData
             {
                 Features = new[]
                 {
@@ -144,10 +154,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new TestFeatureBasedMapDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new TestFeatureBasedMapDataProperties(mapData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -207,17 +214,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
-            var mapPointData = new MapPointData("Test")
+            var mapData = new TestFeatureBasedMapData
             {
                 ShowLabels = true
             };
 
-            mapPointData.Attach(observer);
+            mapData.Attach(observer);
 
-            var properties = new TestFeatureBasedMapDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new TestFeatureBasedMapDataProperties(mapData);
 
             // Call
             properties.IsVisible = false;
@@ -225,9 +229,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             properties.SelectedMetaDataAttribute = new SelectableMetaDataAttribute("ID");
 
             // Assert
-            Assert.IsFalse(mapPointData.IsVisible);
-            Assert.IsFalse(mapPointData.ShowLabels);
-            Assert.AreEqual("ID", mapPointData.SelectedMetaDataAttribute);
+            Assert.IsFalse(mapData.IsVisible);
+            Assert.IsFalse(mapData.ShowLabels);
+            Assert.AreEqual("ID", mapData.SelectedMetaDataAttribute);
             mocks.VerifyAll();
         }
 
@@ -243,7 +247,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 feature.MetaData["key"] = "value";
             }
 
-            var mapPointData = new MapPointData("Test")
+            var mapData = new TestFeatureBasedMapData
             {
                 Features = new[]
                 {
@@ -253,10 +257,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new TestFeatureBasedMapDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new TestFeatureBasedMapDataProperties(mapData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -285,7 +286,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
             feature.MetaData["key"] = "value";
 
-            var mapPointData = new MapPointData("Test")
+            var mapData = new TestFeatureBasedMapData
             {
                 Features = new[]
                 {
@@ -295,10 +296,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new TestFeatureBasedMapDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new TestFeatureBasedMapDataProperties(mapData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -320,7 +318,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void MapThemeRelatedProperties_MapDataWithMapThemeConfiguration_PropertiesShouldBeVisible(bool hasMapTheme)
         {
             // Setup
-            var mapPointData = new MapPointData("Test")
+            var mapData = new TestFeatureBasedMapData
             {
                 MapTheme = hasMapTheme
                                ? new MapTheme("Attribute", new[]
@@ -331,10 +329,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new TestFeatureBasedMapDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new TestFeatureBasedMapDataProperties(mapData);
 
             // Assert
             // Assert
@@ -371,7 +366,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 feature.MetaData["key"] = "value";
             }
 
-            var mapPointData = new MapPointData("Test")
+            var mapData = new TestFeatureBasedMapData
             {
                 Features = new[]
                 {
@@ -379,10 +374,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 }
             };
 
-            var properties = new TestFeatureBasedMapDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new TestFeatureBasedMapDataProperties(mapData);
 
             // Call
             bool isShowLabelReadOnly = properties.DynamicReadonlyValidator(
@@ -402,7 +394,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
             feature.MetaData["Key"] = "value";
 
-            var mapPointData = new MapPointData("Test")
+            var mapData = new TestFeatureBasedMapData
             {
                 Features = new[]
                 {
@@ -410,10 +402,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 }
             };
 
-            var properties = new TestFeatureBasedMapDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new TestFeatureBasedMapDataProperties(mapData);
 
             // Call
             bool isOtherPropertyReadOnly = properties.DynamicReadonlyValidator(string.Empty);
@@ -428,15 +417,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_ShowLabels_ReturnsExpectedValuesForRelevantProperties(bool showLabels)
         {
             // Setup
-            var mapPointData = new MapPointData("Test")
+            var mapData = new TestFeatureBasedMapData
             {
                 ShowLabels = showLabels
             };
 
-            var properties = new TestFeatureBasedMapDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new TestFeatureBasedMapDataProperties(mapData);
 
             // Call
             bool isSelectedMetaDataAttributeVisible = properties.DynamicVisibleValidationMethod(
@@ -452,7 +438,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_MapDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
         {
             // Setup
-            var mapPointData = new MapPointData("Test")
+            var mapData = new TestFeatureBasedMapData
             {
                 MapTheme = hasMapTheme
                                ? new MapTheme("Attribute", new[]
@@ -462,10 +448,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                : null
             };
 
-            var properties = new TestFeatureBasedMapDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new TestFeatureBasedMapDataProperties(mapData);
 
             // Call
             bool isMapThemeAttributeNameVisible = properties.DynamicVisibleValidationMethod(
@@ -481,7 +464,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsTrue()
         {
-            var mapPointData = new MapPointData("Test")
+            var mapData = new TestFeatureBasedMapData
             {
                 Features = new[]
                 {
@@ -494,10 +477,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new TestFeatureBasedMapDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new TestFeatureBasedMapDataProperties(mapData);
 
             // Call
             bool isOtherPropertyVisible = properties.DynamicVisibleValidationMethod(string.Empty);
@@ -506,8 +486,10 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.IsFalse(isOtherPropertyVisible);
         }
 
-        private class TestFeatureBasedMapDataProperties : FeatureBasedMapDataProperties<MapPointData>
+        private class TestFeatureBasedMapDataProperties : FeatureBasedMapDataProperties<TestFeatureBasedMapData>
         {
+            public TestFeatureBasedMapDataProperties(TestFeatureBasedMapData data) : base(data) {}
+
             public override string Type
             {
                 get

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
@@ -46,6 +47,23 @@ namespace Core.Plugins.Map.PropertyClasses
         private const int styleTypePropertyIndex = 5;
         private const int mapThemeAttributeNamePropertyIndex = 6;
         private const int mapThemeCategoryPropertyIndex = 7;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FeatureBasedMapDataProperties{T}"/>.
+        /// </summary>
+        /// <param name="data">The <typeparamref name="T"/> to
+        /// show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="data"/> is <c>null</c>.</exception>
+        protected FeatureBasedMapDataProperties(T data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            Data = data;
+        }
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Layer))]
