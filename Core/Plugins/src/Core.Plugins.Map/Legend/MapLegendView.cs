@@ -235,6 +235,27 @@ namespace Core.Plugins.Map.Legend
             };
         }
 
+        private void NotifyMapDataParents(MapDataContext context)
+        {
+            foreach (MapDataCollection mapDataCollection in GetParentsFromContext(context))
+            {
+                mapDataCollection.NotifyObservers();
+            }
+        }
+
+        private IEnumerable<MapDataCollection> GetParentsFromContext(MapDataContext context)
+        {
+            var parents = new List<MapDataCollection>();
+
+            if (context.ParentMapData != null)
+            {
+                parents.Add((MapDataCollection)context.ParentMapData.WrappedData);
+                parents.AddRange(GetParentsFromContext(context.ParentMapData));
+            }
+
+            return parents;
+        }
+
         #endregion
 
         #region FeatureBasedMapDataContext
@@ -347,6 +368,7 @@ namespace Core.Plugins.Map.Legend
             mapDataCollection.NotifyObservers();
 
             NotifyMapDataCollectionChildren(mapDataCollection);
+            NotifyMapDataParents(context);
         }
 
         private static void NotifyMapDataCollectionChildren(MapDataCollection collection)

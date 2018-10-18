@@ -216,7 +216,7 @@ namespace Core.Plugins.Map.Test.Legend
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void OnNodeChecked_WithContext_SetMapDataVisibilityAndNotifyAllObserversOfChildMapData(bool initialVisibleState)
+        public void OnNodeChecked_WithContext_NotifyAllObserversOfChildMapData(bool initialVisibleState)
         {
             // Setup
             var collectionObserver = mocks.StrictMock<IObserver>();
@@ -239,6 +239,39 @@ namespace Core.Plugins.Map.Test.Legend
 
             // Call
             info.OnNodeChecked(context, null);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnNodeChecked_WithContext_NotifyObserversOfParentMapDataCollections(bool initialVisibleState)
+        {
+            // Setup
+            var collectionObserver = mocks.StrictMock<IObserver>();
+            collectionObserver.Expect(o => o.UpdateObserver());
+            var parentCollectionObserver = mocks.StrictMock<IObserver>();
+            parentCollectionObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var featureBasedMapData = new TestFeatureBasedMapData();
+            var nestedMapDataCollection = new MapDataCollection("nested");
+            nestedMapDataCollection.Add(featureBasedMapData);
+            var mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Add(nestedMapDataCollection);
+
+            MapDataCollectionContext rootCollectionContext = GetContext(mapDataCollection);
+            MapDataCollectionContext nestedCollectionContext = GetContext(nestedMapDataCollection, rootCollectionContext);
+
+            nestedCollectionContext.WrappedData.IsVisible = initialVisibleState;
+
+            nestedMapDataCollection.Attach(collectionObserver);
+            mapDataCollection.Attach(parentCollectionObserver);
+
+            // Call
+            info.OnNodeChecked(nestedCollectionContext, null);
 
             // Assert
             mocks.VerifyAll();
