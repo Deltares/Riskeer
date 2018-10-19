@@ -37,6 +37,7 @@ namespace Core.Plugins.Map.PropertyClasses
     /// <summary>
     /// Base ViewModel of <see cref="FeatureBasedMapData"/> for properties panel.
     /// </summary>
+    /// <typeparam name="T">The type of <see cref="FeatureBasedMapData"/> to be shown in the properties.</typeparam>
     public abstract class FeatureBasedMapDataProperties<T> : ObjectProperties<T>, IHasMetaData where T : FeatureBasedMapData
     {
         private const int namePropertyIndex = 0;

@@ -49,7 +49,7 @@ namespace Core.Plugins.Map.Helpers
 
             if (context.ParentMapData != null)
             {
-                parents.Add((MapDataCollection)context.ParentMapData.WrappedData);
+                parents.Add((MapDataCollection) context.ParentMapData.WrappedData);
                 parents.AddRange(GetParentsFromContext(context.ParentMapData));
             }
 

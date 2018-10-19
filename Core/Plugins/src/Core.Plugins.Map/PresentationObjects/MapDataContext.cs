@@ -37,9 +37,7 @@ namespace Core.Plugins.Map.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
         /// is <c>null</c>.</exception>
         protected MapDataContext(MapData wrappedData)
-            : base(wrappedData)
-        {
-        }
+            : base(wrappedData) {}
 
         /// <summary>
         /// Gets the parent <see cref="MapDataCollectionContext"/>

@@ -36,7 +36,7 @@ namespace Core.Components.Gis.Helpers
         /// </summary>
         /// <param name="mapDataCollection">The collection to get the child states from.</param>
         /// <returns>A dictionary with the child map data and visibility states.</returns>
-         /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapDataCollection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapDataCollection"/> is <c>null</c>.</exception>
         public static Dictionary<MapData, bool> GetChildVisibilityStates(MapDataCollection mapDataCollection)
         {
             if (mapDataCollection == null)
