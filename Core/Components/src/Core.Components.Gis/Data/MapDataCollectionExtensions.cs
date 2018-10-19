@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Core.Components.Gis.Data
 {
     /// <summary>
-    /// Exentions methods for <see cref="MapDataCollection"/>.
+    /// Extension methods for <see cref="MapDataCollection"/>.
     /// </summary>
     public static class MapDataCollectionExtensions
     {
