@@ -61,6 +61,7 @@
     <Compile Include="PresentationObjects\MapDataContextTest.cs" />
     <Compile Include="PresentationObjects\MapLineDataContextTest.cs" />
     <Compile Include="PresentationObjects\MapPointDataContextTest.cs" />
+    <Compile Include="PresentationObjects\MapPolygonDataContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\CategoryThemePropertiesTest.cs" />
     <Compile Include="PropertyClasses\FeatureBasedMapDataPropertiesTest.cs" />
