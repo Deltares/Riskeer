@@ -184,7 +184,7 @@ namespace Core.Plugins.Map.Test.Legend
         public void Selection_Always_ReturnsDataContext()
         {
             // Setup
-            var mapData = new MapLineData("line data");
+            var mapData = new TestFeatureBasedMapData();
             var mapDataCollection = new MapDataCollection("collection");
 
             mapDataCollection.Add(mapData);

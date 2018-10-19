@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using Core.Plugins.Map.PropertyClasses;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -65,7 +66,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         {
             // Setup
             var mapDataCollection = new MapDataCollection("Test");
-            mapDataCollection.Add(new MapPointData("Test 2"));
+            mapDataCollection.Add(new TestFeatureBasedMapData());
 
             // Call
             var properties = new MapDataCollectionProperties(mapDataCollection, Enumerable.Empty<MapDataCollection>());
@@ -148,9 +149,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             mocks.ReplayAll();
 
             var mapDataCollection = new MapDataCollection("Collection");
-            var childLayer1 = new MapLineData("Child 1");
-            var childCollection = new MapDataCollection("Child 2");
-            var childLayer2 = new MapLineData("Child 2");
+            var childLayer1 = new TestFeatureBasedMapData();
+            var childCollection = new MapDataCollection("Child");
+            var childLayer2 = new TestFeatureBasedMapData();
 
             mapDataCollection.Add(childLayer1);
             mapDataCollection.Add(childCollection);
