@@ -30,6 +30,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Data.Removable;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.Helpers;
 using Core.Plugins.Map.Helpers;
 using Core.Plugins.Map.PresentationObjects;
 using MapResources = Core.Plugins.Map.Properties.Resources;
@@ -326,26 +327,26 @@ namespace Core.Plugins.Map.Legend
             return childObjects.ToArray();
         }
 
-        private void MapDataCollectionContextOnNodeChecked(MapDataCollectionContext context, object parentData)
+        private static void MapDataCollectionContextOnNodeChecked(MapDataCollectionContext context, object parentData)
         {
             var mapDataCollection = (MapDataCollection) context.WrappedData;
+
+            Dictionary<MapData, bool> childStates = MapDataCollectionHelper.GetChildVisibilityStates(mapDataCollection);
+
             mapDataCollection.IsVisible = !mapDataCollection.IsVisible;
             mapDataCollection.NotifyObservers();
 
-            NotifyMapDataCollectionChildren(mapDataCollection);
+            NotifyMapDataCollectionChildren(childStates);
             NotifyMapDataParents(context);
         }
 
-        private static void NotifyMapDataCollectionChildren(MapDataCollection collection)
+        private static void NotifyMapDataCollectionChildren(Dictionary<MapData, bool> childStates)
         {
-            foreach (MapData mapData in collection.Collection)
+            foreach (KeyValuePair<MapData, bool> child in childStates)
             {
-                mapData.NotifyObservers();
-
-                var nestedCollection = mapData as MapDataCollection;
-                if (nestedCollection != null)
+                if (child.Key.IsVisible != child.Value)
                 {
-                    NotifyMapDataCollectionChildren(nestedCollection);
+                    child.Key.NotifyObservers();
                 }
             }
         }

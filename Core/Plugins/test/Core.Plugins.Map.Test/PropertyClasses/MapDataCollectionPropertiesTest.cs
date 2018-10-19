@@ -108,18 +108,18 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         }
 
         [Test]
-        public static void IsVisible_Always_NotifiesDataAndParents()
+        public void IsVisible_Always_NotifiesDataAndParents()
         {
             // Setup
-            var parentMapDataCollection = new MapDataCollection("Parent 1");
-            var mapDataCollection = new MapDataCollection("Collection");
-
-            parentMapDataCollection.Add(mapDataCollection);
-
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(2);
             mocks.ReplayAll();
+
+            var parentMapDataCollection = new MapDataCollection("Parent 1");
+            var mapDataCollection = new MapDataCollection("Collection");
+
+            parentMapDataCollection.Add(mapDataCollection);
 
             parentMapDataCollection.Attach(observer);
             mapDataCollection.Attach(observer);
@@ -139,9 +139,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         [TestCase(true, 1)]
         [TestCase(false, 4)]
-        public static void GivenPropertiesWithChildren_WhenIsVisibleChanged_ThenOnlyChangedChildrenNotified(bool isVisible, int expectedNotifications)
+        public void GivenPropertiesWithChildren_WhenIsVisibleChanged_ThenOnlyChangedChildrenNotified(bool isVisible, int expectedNotifications)
         {
             // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(expectedNotifications);
+            mocks.ReplayAll();
+
             var mapDataCollection = new MapDataCollection("Collection");
             var childLayer1 = new MapLineData("Child 1");
             var childCollection = new MapDataCollection("Child 2");
@@ -150,11 +155,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             mapDataCollection.Add(childLayer1);
             mapDataCollection.Add(childCollection);
             childCollection.Add(childLayer2);
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(expectedNotifications);
-            mocks.ReplayAll();
 
             mapDataCollection.Attach(observer);
             childLayer1.Attach(observer);

@@ -214,25 +214,31 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void OnNodeChecked_WithContext_NotifyAllObserversOfChildMapData()
+        [TestCase(true, 3)]
+        [TestCase(false, 1)]
+        public void OnNodeChecked_WithContext_NotifyObserversOfChangedChildrenOnly(bool initialVisibility, int expectedNotifications)
         {
             // Setup
-            var collectionObserver = mocks.StrictMock<IObserver>();
-            collectionObserver.Expect(o => o.UpdateObserver());
-            var childMapDataObserver = mocks.StrictMock<IObserver>();
-            childMapDataObserver.Expect(o => o.UpdateObserver());
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(expectedNotifications);
             mocks.ReplayAll();
 
-            var featureBasedMapData = new TestFeatureBasedMapData();
+            var featureBasedMapData1 = new TestFeatureBasedMapData();
+            var featureBasedMapData2 = new TestFeatureBasedMapData
+            {
+                IsVisible = initialVisibility
+            };
             var nestedMapDataCollection = new MapDataCollection("nested");
-            nestedMapDataCollection.Add(featureBasedMapData);
+            nestedMapDataCollection.Add(featureBasedMapData1);
             var mapDataCollection = new MapDataCollection("test");
             mapDataCollection.Add(nestedMapDataCollection);
+            mapDataCollection.Add(featureBasedMapData2);
 
             MapDataCollectionContext context = GetContext(mapDataCollection);
 
-            nestedMapDataCollection.Attach(collectionObserver);
-            featureBasedMapData.Attach(childMapDataObserver);
+            nestedMapDataCollection.Attach(observer);
+            featureBasedMapData1.Attach(observer);
+            featureBasedMapData2.Attach(observer);
 
             // Call
             info.OnNodeChecked(context, null);
