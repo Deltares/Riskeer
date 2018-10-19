@@ -364,6 +364,7 @@ namespace Ringtoets.Common.Forms.TestUtil
                 FailureMechanismSection failureMechanismSection = sections[index];
                 CollectionAssert.AreEqual(failureMechanismSection.Points, feature.MapGeometries.Single().PointCollections.Single());
 
+                Assert.AreEqual(2, feature.MetaData.Count);
                 Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
                                     DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssembly.Group)).DisplayName,
                                 feature.MetaData["Categorie"]);
@@ -391,6 +392,7 @@ namespace Ringtoets.Common.Forms.TestUtil
                 FailureMechanismSection failureMechanismSection = sections[index];
                 CollectionAssert.AreEqual(failureMechanismSection.Points, feature.MapGeometries.Single().PointCollections.Single());
 
+                Assert.AreEqual(1, feature.MetaData.Count);
                 Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
                                     DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedCategory)).DisplayName,
                                 feature.MetaData["Categorie"]);
