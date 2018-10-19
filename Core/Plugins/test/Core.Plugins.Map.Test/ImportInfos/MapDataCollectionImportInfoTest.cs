@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Importers;
+using Core.Plugins.Map.PresentationObjects;
 using Core.Plugins.Map.Properties;
 using NUnit.Framework;
 
@@ -42,7 +43,7 @@ namespace Core.Plugins.Map.Test.ImportInfos
         public void SetUp()
         {
             plugin = new MapPlugin();
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(MapDataCollection));
+            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(MapDataCollectionContext));
         }
 
         [TearDown]
@@ -105,7 +106,7 @@ namespace Core.Plugins.Map.Test.ImportInfos
         public void CreateFileImporter_Always_ReturnFileImporter()
         {
             // Setup
-            var importTarget = new MapDataCollection("test");
+            var importTarget = new MapDataCollectionContext(new MapDataCollection("test"), null);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");

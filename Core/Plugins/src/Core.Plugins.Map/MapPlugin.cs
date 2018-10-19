@@ -91,7 +91,7 @@ namespace Core.Plugins.Map
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return new ImportInfo<MapDataCollection>
+            yield return new ImportInfo<MapDataCollectionContext>
             {
                 Name = Resources.Name_Layer,
                 Category = Resources.Categories_Layer,
@@ -99,8 +99,8 @@ namespace Core.Plugins.Map
                 FileFilterGenerator = new FileFilterGenerator(
                     Resources.MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension,
                     Resources.MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description),
-                IsEnabled = mapDataCollection => true,
-                CreateFileImporter = (mapDataCollection, filePath) => new FeatureBasedMapDataImporter(mapDataCollection, filePath)
+                IsEnabled = context => true,
+                CreateFileImporter = (context, filePath) => new FeatureBasedMapDataImporter((MapDataCollection) context.WrappedData, filePath)
             };
         }
 

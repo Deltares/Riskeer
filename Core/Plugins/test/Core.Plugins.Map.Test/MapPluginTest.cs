@@ -163,7 +163,7 @@ namespace Core.Plugins.Map.Test
 
                 // Assert
                 Assert.AreEqual(1, importInfos.Length);
-                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(MapDataCollection)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(MapDataCollectionContext)));
             }
         }
 
