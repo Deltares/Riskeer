@@ -13,6 +13,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\WaveImpactAsphaltCoverAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="PresentationObjects\EmptyWaveImpactAsphaltCoverOutput.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverFailureMechanismSectionsContext.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverWaveConditionsInputContext.cs" />
