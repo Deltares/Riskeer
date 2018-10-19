@@ -20,31 +20,40 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
+using System.Collections.Generic;
 using Core.Components.Gis.Data;
+using Core.Plugins.Map.PresentationObjects;
 
-namespace Core.Plugins.Map.PresentationObjects
+namespace Core.Plugins.Map.Helpers
 {
     /// <summary>
-    /// Presentation object for <see cref="MapData"/>.
+    /// Helper class for <see cref="MapDataContext"/>.
     /// </summary>
-    public abstract class MapDataContext : ObservableWrappedObjectContextBase<MapData>
+    public static class MapDataContextHelper
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MapDataContext"/>.
+        /// Gets all the parents of the given <paramref name="context"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="MapData"/> to wrap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
+        /// <param name="context">The context to get the parents for.</param>
+        /// <returns>A collection of <see cref="MapDataCollection"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="context"/>
         /// is <c>null</c>.</exception>
-        protected MapDataContext(MapData wrappedData)
-            : base(wrappedData)
+        public static IEnumerable<MapDataCollection> GetParentsFromContext(MapDataContext context)
         {
-        }
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
 
-        /// <summary>
-        /// Gets the parent <see cref="MapDataCollectionContext"/>
-        /// the <see cref="WrappedObjectContextBase{T}.WrappedData"/> belongs to.
-        /// </summary>
-        public abstract MapDataCollectionContext ParentMapData { get; }
+            var parents = new List<MapDataCollection>();
+
+            if (context.ParentMapData != null)
+            {
+                parents.Add((MapDataCollection)context.ParentMapData.WrappedData);
+                parents.AddRange(GetParentsFromContext(context.ParentMapData));
+            }
+
+            return parents;
+        }
     }
 }

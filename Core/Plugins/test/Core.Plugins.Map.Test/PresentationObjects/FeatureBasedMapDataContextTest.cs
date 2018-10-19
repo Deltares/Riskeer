@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Controls.PresentationObjects;
+using System;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
 using Core.Plugins.Map.PresentationObjects;
@@ -28,28 +28,36 @@ using NUnit.Framework;
 namespace Core.Plugins.Map.Test.PresentationObjects
 {
     [TestFixture]
-    public class MapDataContextTest
+    public class FeatureBasedMapDataContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            MapData data = new TestMapData();
+            FeatureBasedMapData data = new TestFeatureBasedMapData();
+            var collection = new MapDataCollection("test");
+            collection.Add(data);
+
+            var collectionContext = new MapDataCollectionContext(collection, null);
 
             // Call
-            var context = new TestMapDataContext(data);
+            var context = new FeatureBasedMapDataContext(data, collectionContext);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<MapData>>(context);
+            Assert.IsInstanceOf<MapDataContext>(context);
             Assert.AreSame(data, context.WrappedData);
+            Assert.AreSame(collectionContext, context.ParentMapData);
         }
 
-        private class TestMapDataContext : MapDataContext
+        [Test]
+        public void Constructor_ParentMapDataNull_ThrowsArgumentNullException()
         {
-            public TestMapDataContext(MapData wrappedData) 
-                : base(wrappedData) {}
+            // Call
+            TestDelegate call = () => new FeatureBasedMapDataContext(new TestFeatureBasedMapData(), null);
 
-            public override MapDataCollectionContext ParentMapData { get; }
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("parentMapData", exception.ParamName);
         }
     }
 }

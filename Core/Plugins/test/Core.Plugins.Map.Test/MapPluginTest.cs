@@ -38,6 +38,7 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Core.Plugins.Map.Legend;
+using Core.Plugins.Map.PresentationObjects;
 using Core.Plugins.Map.PropertyClasses;
 using DotSpatial.Data;
 using NUnit.Framework;
@@ -131,7 +132,7 @@ namespace Core.Plugins.Map.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(MapDataCollection),
+                    typeof(MapDataCollectionContext),
                     typeof(MapDataCollectionProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(

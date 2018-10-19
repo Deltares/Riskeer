@@ -48,13 +48,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ToggleMapLegendViewCommandTest.cs" />
+    <Compile Include="Helpers\MapDataContextHelperTest.cs" />
     <Compile Include="ImportInfos\MapDataCollectionImportInfoTest.cs" />
-    <Compile Include="Legend\MapDataContextTreeNodeInfoTest.cs" />
+    <Compile Include="Legend\FeatureBasedMapDataContextTreeNodeInfoTest.cs" />
     <Compile Include="MapPluginTest.cs" />
-    <Compile Include="Legend\MapDataCollectionTreeNodeInfoTest.cs" />
+    <Compile Include="Legend\MapDataCollectionContextTreeNodeInfoTest.cs" />
     <Compile Include="Legend\MapLegendControllerTest.cs" />
     <Compile Include="Legend\MapLegendViewTest.cs" />
     <Compile Include="MapRibbonTest.cs" />
+    <Compile Include="PresentationObjects\FeatureBasedMapDataContextTest.cs" />
+    <Compile Include="PresentationObjects\MapDataCollectionContextTest.cs" />
     <Compile Include="PresentationObjects\MapDataContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\CategoryThemePropertiesTest.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="PropertyClasses\MapLineDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MapPointDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MapPolygonDataPropertiesTest.cs" />
+    <Compile Include="PropertyInfos\MapDataCollectionContextPropertyInfoTest.cs" />
     <Compile Include="TestMapView.cs">
       <SubType>Component</SubType>
     </Compile>

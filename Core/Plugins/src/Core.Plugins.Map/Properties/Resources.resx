@@ -232,11 +232,17 @@
   <data name="FeatureBasedMapdata_SelectedMetaDataAttribute_DisplayName" xml:space="preserve">
     <value>Op basis van</value>
   </data>
+  <data name="Categories_MapDataCollection" xml:space="preserve">
+    <value>Kaartlagenmap</value>
+  </data>
   <data name="MapDataCollection_Name_Description" xml:space="preserve">
-    <value>De naam van deze map met kaartlagen.</value>
+    <value>De naam van deze kaartlagenmap.</value>
   </data>
   <data name="MapData_IsVisible_Description" xml:space="preserve">
     <value>Geeft aan of deze kaartlaag wordt weergegeven.</value>
+  </data>
+  <data name="MapDataCollection_IsVisible_Description" xml:space="preserve">
+    <value>Geeft aan of deze kaartlagenmap wordt weergegeven.</value>
   </data>
   <data name="MapData_IsVisible_DisplayName" xml:space="preserve">
     <value>Weergeven</value>

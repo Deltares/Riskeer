@@ -55,12 +55,15 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var data = new MapPointData("test");
+
             // Call
-            var properties = new MapPointDataProperties();
+            var properties = new MapPointDataProperties(data);
 
             // Assert
             Assert.IsInstanceOf<FeatureBasedMapDataProperties<MapPointData>>(properties);
-            Assert.IsNull(properties.Data);
+            Assert.AreSame(data, properties.Data);
             Assert.AreEqual("Punten", properties.Type);
 
             TestHelper.AssertTypeConverter<MapPointDataProperties, ColorTypeConverter>(
@@ -85,10 +88,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MapPointDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new MapPointDataProperties(mapPointData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -144,10 +144,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MapPointDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new MapPointDataProperties(mapPointData);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -185,7 +182,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewMapPointDataInstance_ReturnCorrectPropertyValues()
+        public void Constructor_Always_ReturnCorrectPropertyValues()
         {
             // Setup
             Color color = Color.Aqua;
@@ -200,10 +197,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 StrokeColor = color,
                 StrokeThickness = 1
             });
-            var properties = new MapPointDataProperties();
 
             // Call
-            properties.Data = mapPointData;
+            var properties = new MapPointDataProperties(mapPointData);
 
             // Assert
             Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
@@ -239,10 +235,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             mapPointData.Attach(observer);
 
-            var properties = new MapPointDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new MapPointDataProperties(mapPointData);
 
             Color newColor = Color.Blue;
             Color newStrokeColor = Color.Aquamarine;
@@ -286,10 +279,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 }
             };
 
-            var properties = new MapPointDataProperties
-            {
-                Data = mapData
-            };
+            var properties = new MapPointDataProperties(mapData);
 
             // Call
             bool isShowLabelReadOnly = properties.DynamicReadonlyValidator(
@@ -318,10 +308,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                : null
             };
 
-            var properties = new MapPointDataProperties
-            {
-                Data = mapData
-            };
+            var properties = new MapPointDataProperties(mapData);
 
             // Call
             bool isWidthReadOnly = properties.DynamicReadonlyValidator(
@@ -359,10 +346,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new MapPointDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new MapPointDataProperties(mapPointData);
 
             // Call
             bool isOtherPropertyReadOnly = properties.DynamicReadonlyValidator(string.Empty);
@@ -382,10 +366,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 ShowLabels = showLabels
             };
 
-            var properties = new MapPointDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new MapPointDataProperties(mapPointData);
 
             // Call
             bool isSelectedMetaDataAttributeVisible = properties.DynamicVisibleValidationMethod(
@@ -411,10 +392,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                : null
             };
 
-            var properties = new MapPointDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new MapPointDataProperties(mapPointData);
 
             // Call
             bool isMapThemeAttributeNameVisible = properties.DynamicVisibleValidationMethod(
@@ -446,10 +424,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new MapPointDataProperties
-            {
-                Data = mapPointData
-            };
+            var properties = new MapPointDataProperties(mapPointData);
 
             // Call
             bool isOtherPropertyVisible = properties.DynamicVisibleValidationMethod(string.Empty);

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Components.Gis.Data
 {
@@ -29,7 +30,7 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public class MapDataCollection : MapData
     {
-        private readonly List<MapData> mapDataList;
+        private readonly List<MapData> mapDataList = new List<MapData>();
 
         /// <summary>
         /// Creates a new instance of <see cref="MapDataCollection"/>.
@@ -37,9 +38,27 @@ namespace Core.Components.Gis.Data
         /// <param name="name">The name of the <see cref="MapDataCollection"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public MapDataCollection(string name) : base(name)
+        public MapDataCollection(string name) : base(name) {}
+
+        public override bool IsVisible
         {
-            mapDataList = new List<MapData>();
+            get
+            {
+                IEnumerable<MapData> layersToIgnore = mapDataList.Where(md =>
+                {
+                    var collection = md as MapDataCollection;
+                    return collection != null && !collection.Collection.Any();
+                });
+
+                return mapDataList.Any() && mapDataList.Except(layersToIgnore).All(md => md.IsVisible);
+            }
+            set
+            {
+                foreach (MapData mapData in mapDataList)
+                {
+                    mapData.IsVisible = value;
+                }
+            }
         }
 
         /// <summary>

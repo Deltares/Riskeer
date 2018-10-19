@@ -29,7 +29,7 @@ namespace Core.Components.Gis.Test
     public class TestFeatureBasedMapDataTest
     {
         [Test]
-        public void Constructor_ValidArguments_ExpectedValues()
+        public void Constructor_WithName_ExpectedValues()
         {
             // Setup
             const string name = "A";
@@ -40,6 +40,23 @@ namespace Core.Components.Gis.Test
             // Assert
             Assert.IsInstanceOf<FeatureBasedMapData>(mapData);
             Assert.AreEqual(name, mapData.Name);
+            CollectionAssert.IsEmpty(mapData.Features);
+            Assert.IsTrue(mapData.IsVisible);
+            CollectionAssert.IsEmpty(mapData.MetaData);
+            Assert.IsNull(mapData.SelectedMetaDataAttribute);
+            Assert.IsFalse(mapData.ShowLabels);
+            Assert.IsNull(mapData.MapTheme);
+        }
+
+        [Test]
+        public void Constructor_WithoutName_ExpectedValues()
+        {
+            // Call
+            var mapData = new TestFeatureBasedMapData();
+
+            // Assert
+            Assert.IsInstanceOf<FeatureBasedMapData>(mapData);
+            Assert.AreEqual("test data", mapData.Name);
             CollectionAssert.IsEmpty(mapData.Features);
             Assert.IsTrue(mapData.IsVisible);
             CollectionAssert.IsEmpty(mapData.MetaData);

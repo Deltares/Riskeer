@@ -22,25 +22,31 @@
 using System;
 using Core.Components.Gis.Data;
 
-namespace Core.Components.Gis.TestUtil
+namespace Core.Plugins.Map.PresentationObjects
 {
     /// <summary>
-    /// A class representing a <see cref="FeatureBasedMapData"/> implementation which is
-    /// not in the regular codebase.
+    /// Presentation object for <see cref="FeatureBasedMapData"/>.
     /// </summary>
-    public class TestFeatureBasedMapData : FeatureBasedMapData
+    public class FeatureBasedMapDataContext : MapDataContext
     {
         /// <summary>
-        /// Initializes a new instance of <see cref="TestFeatureBasedMapData"/>.
+        /// Creates a new instance of <see cref="FeatureBasedMapDataContext"/>.
         /// </summary>
-        /// <param name="name">The name of the map data.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is
-        /// <c>null</c> or whitespace.</exception>
-        public TestFeatureBasedMapData(string name) : base(name) {}
+        /// <param name="wrappedData">The <see cref="FeatureBasedMapData"/> to wrap.</param>
+        /// <param name="parentMapData">The parent <see cref="MapDataCollectionContext"/> 
+        /// the <paramref name="wrappedData"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public FeatureBasedMapDataContext(FeatureBasedMapData wrappedData, MapDataCollectionContext parentMapData)
+            : base(wrappedData)
+        {
+            if (parentMapData == null)
+            {
+                throw new ArgumentNullException(nameof(parentMapData));
+            }
 
-        /// <summary>
-        /// Initializes a new instance of <see cref="TestFeatureBasedMapData"/>.
-        /// </summary>
-        public TestFeatureBasedMapData() : base("test data") {}
+            ParentMapData = parentMapData;
+        }
+
+        public override MapDataCollectionContext ParentMapData { get; }
     }
 }

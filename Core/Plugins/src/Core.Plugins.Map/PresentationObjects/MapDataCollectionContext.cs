@@ -19,37 +19,30 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Controls.PresentationObjects;
+using System;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.TestUtil;
-using Core.Plugins.Map.PresentationObjects;
-using NUnit.Framework;
 
-namespace Core.Plugins.Map.Test.PresentationObjects
+namespace Core.Plugins.Map.PresentationObjects
 {
-    [TestFixture]
-    public class MapDataContextTest
+    /// <summary>
+    /// Presentation object for <see cref="MapDataCollection"/>.
+    /// </summary>
+    public class MapDataCollectionContext : MapDataContext
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        /// <summary>
+        /// Creates a new instance of <see cref="MapDataCollectionContext"/>.
+        /// </summary>
+        /// <param name="wrappedData">The <see cref="MapDataCollection"/> to wrap.</param>
+        /// <param name="parentMapData">The parent <see cref="MapDataCollectionContext"/> 
+        /// the <paramref name="wrappedData"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
+        /// is <c>null</c>.</exception>
+        public MapDataCollectionContext(MapDataCollection wrappedData, MapDataCollectionContext parentMapData)
+            : base(wrappedData)
         {
-            // Setup
-            MapData data = new TestMapData();
-
-            // Call
-            var context = new TestMapDataContext(data);
-
-            // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<MapData>>(context);
-            Assert.AreSame(data, context.WrappedData);
+            ParentMapData = parentMapData;
         }
 
-        private class TestMapDataContext : MapDataContext
-        {
-            public TestMapDataContext(MapData wrappedData) 
-                : base(wrappedData) {}
-
-            public override MapDataCollectionContext ParentMapData { get; }
-        }
+        public override MapDataCollectionContext ParentMapData { get; }
     }
 }

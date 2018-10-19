@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.TestUtil;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.PresentationObjects;
 using Core.Plugins.Map.Properties;
@@ -99,8 +100,10 @@ namespace Core.Plugins.Map.Test.Legend
                 view.Data = mapData;
 
                 // Assert
-                Assert.AreSame(mapData, view.Data);
-                Assert.IsInstanceOf<MapData>(view.Data);
+                Assert.IsInstanceOf<MapDataCollectionContext>(view.Data);
+                var viewData = (MapDataCollectionContext) view.Data;
+                Assert.AreSame(mapData, viewData.WrappedData);
+                Assert.IsNull(viewData.ParentMapData);
             }
         }
 
@@ -134,7 +137,7 @@ namespace Core.Plugins.Map.Test.Legend
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void MapControl_MapControlHasMapWithData_DataReturnsMapDataOfMap()
+        public void MapControl_MapControlHasMapWithData_DataReturnsWrappedMapDataOfMap()
         {
             // Setup
             var mapData = new MapDataCollection("A");
@@ -153,7 +156,7 @@ namespace Core.Plugins.Map.Test.Legend
                 view.MapControl = mapControl;
 
                 // Assert
-                Assert.AreSame(mapData, view.Data);
+                Assert.AreSame(mapData, ((MapDataCollectionContext) view.Data).WrappedData);
             }
 
             mockRepository.VerifyAll();
@@ -178,38 +181,7 @@ namespace Core.Plugins.Map.Test.Legend
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Selection_NestedNodeData_ReturnsWrappedObjectData()
-        {
-            // Setup
-            var mapData = new MapLineData("line data");
-            var mapDataCollection = new MapDataCollection("collection");
-
-            mapDataCollection.Add(mapData);
-
-            using (var view = new MapLegendView(contextMenuBuilderProvider)
-            {
-                Data = mapDataCollection
-            })
-            {
-                var context = new MapDataContext(mapData, mapDataCollection);
-
-                var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
-                WindowsFormsTestHelper.Show(treeViewControl);
-                treeViewControl.TrySelectNodeForData(context);
-
-                // Call
-                object selection = view.Selection;
-
-                // Assert
-                Assert.AreSame(mapData, selection);
-            }
-
-            WindowsFormsTestHelper.CloseAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Selection_RootNodeData_ReturnsObjectData()
+        public void Selection_Always_ReturnsDataContext()
         {
             // Setup
             var mapData = new MapLineData("line data");
@@ -224,13 +196,13 @@ namespace Core.Plugins.Map.Test.Legend
             {
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
                 WindowsFormsTestHelper.Show(treeViewControl);
-                treeViewControl.TrySelectNodeForData(mapDataCollection);
+                treeViewControl.TrySelectNodeForData(view.Data);
 
                 // Call
-                object selection = view.Selection;
+                var selection = (MapDataCollectionContext) view.Selection;
 
                 // Assert
-                Assert.AreSame(mapDataCollection, selection);
+                Assert.AreSame(mapDataCollection, selection.WrappedData);
             }
 
             WindowsFormsTestHelper.CloseAll();
@@ -241,9 +213,8 @@ namespace Core.Plugins.Map.Test.Legend
         public void GivenMapLegendView_WhenSelectedNodeChanged_SelectionChangedFired()
         {
             // Given
-            var mapData = new MapLineData("line data");
+            var mapData = new TestFeatureBasedMapData();
             var mapDataCollection = new MapDataCollection("collection");
-
             mapDataCollection.Add(mapData);
 
             using (var view = new MapLegendView(contextMenuBuilderProvider)
@@ -258,7 +229,7 @@ namespace Core.Plugins.Map.Test.Legend
                 view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
                 // When
-                var context = new MapDataContext(mapData, mapDataCollection);
+                var context = new FeatureBasedMapDataContext(mapData, new MapDataCollectionContext(mapDataCollection, null));
                 treeViewControl.TrySelectNodeForData(context);
 
                 // Then
