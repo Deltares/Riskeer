@@ -21,10 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Helpers;
 using Core.Plugins.Map.Properties;
 
 namespace Core.Plugins.Map.PropertyClasses
@@ -82,7 +82,7 @@ namespace Core.Plugins.Map.PropertyClasses
             }
             set
             {
-                Dictionary<MapData, bool> childStates = GetChildStates(data);
+                Dictionary<MapData, bool> childStates = MapDataCollectionHelper.GetChildVisibilityStates(data);
 
                 data.IsVisible = value;
                 data.NotifyObservers();
@@ -110,28 +110,6 @@ namespace Core.Plugins.Map.PropertyClasses
                     child.Key.NotifyObservers();
                 }
             }
-        }
-        private static Dictionary<MapData, bool> GetChildStates(MapDataCollection collection)
-        {
-            return GetChildren(collection).ToDictionary(child => child, child => child.IsVisible);
-        }
-
-        private static IEnumerable<MapData> GetChildren(MapDataCollection collection)
-        {
-            var children = new List<MapData>();
-
-            foreach (MapData child in collection.Collection)
-            {
-                var childCollection = child as MapDataCollection;
-                if (childCollection != null)
-                {
-                    children.AddRange(GetChildren(childCollection));
-                }
-
-                children.Add(child);
-            }
-
-            return children;
         }
     }
 }

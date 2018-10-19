@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Helpers;
 using Core.Components.Gis.TestUtil;
