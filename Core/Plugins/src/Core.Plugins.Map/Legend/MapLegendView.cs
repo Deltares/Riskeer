@@ -311,10 +311,22 @@ namespace Core.Plugins.Map.Legend
 
             foreach (MapData mapData in collection.Collection.Reverse())
             {
-                var featureBasedMapData = mapData as FeatureBasedMapData;
-                if (featureBasedMapData != null)
+                var mapPointData = mapData as MapPointData;
+                if (mapPointData != null)
                 {
-                    childObjects.Add(new FeatureBasedMapDataContext(featureBasedMapData, context));
+                    childObjects.Add(new MapPointDataContext(mapPointData, context));
+                }
+
+                var mapLineData = mapData as MapLineData;
+                if (mapLineData != null)
+                {
+                    childObjects.Add(new MapLineDataContext(mapLineData, context));
+                }
+
+                var mapPolygonData = mapData as MapPolygonData;
+                if (mapPolygonData != null)
+                {
+                    childObjects.Add(new MapPolygonDataContext(mapPolygonData, context));
                 }
 
                 var nestedCollection = mapData as MapDataCollection;

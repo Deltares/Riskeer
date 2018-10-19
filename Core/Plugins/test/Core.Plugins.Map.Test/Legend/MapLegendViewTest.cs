@@ -213,7 +213,7 @@ namespace Core.Plugins.Map.Test.Legend
         public void GivenMapLegendView_WhenSelectedNodeChanged_SelectionChangedFired()
         {
             // Given
-            var mapData = new TestFeatureBasedMapData();
+            var mapData = new MapPointData("test");
             var mapDataCollection = new MapDataCollection("collection");
             mapDataCollection.Add(mapData);
 
@@ -229,7 +229,7 @@ namespace Core.Plugins.Map.Test.Legend
                 view.SelectionChanged += (sender, args) => selectionChangedCount++;
 
                 // When
-                var context = new FeatureBasedMapDataContext(mapData, new MapDataCollectionContext(mapDataCollection, null));
+                var context = new MapPointDataContext(mapData, new MapDataCollectionContext(mapDataCollection, null));
                 treeViewControl.TrySelectNodeForData(context);
 
                 // Then

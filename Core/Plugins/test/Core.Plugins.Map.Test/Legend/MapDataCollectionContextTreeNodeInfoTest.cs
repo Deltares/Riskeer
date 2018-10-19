@@ -129,16 +129,16 @@ namespace Core.Plugins.Map.Test.Legend
         public void ChildNodeObjects_Always_ReturnsChildrenWithContextAndDataReversed()
         {
             // Setup
-            var mapData1 = new TestFeatureBasedMapData();
-            var mapData2 = new TestFeatureBasedMapData();
+            var mapPointData = new MapPointData("points");
+            var mapLineData = new MapLineData("lines");
             var nestedCollection = new MapDataCollection("nested");
-            var mapData3 = new TestFeatureBasedMapData();
+            var mapPolygonData = new MapPolygonData("polygons");
             var mapDataCollection = new MapDataCollection("test data");
 
-            mapDataCollection.Add(mapData1);
-            mapDataCollection.Add(mapData2);
+            mapDataCollection.Add(mapPointData);
+            mapDataCollection.Add(mapLineData);
             mapDataCollection.Add(nestedCollection);
-            mapDataCollection.Add(mapData3);
+            mapDataCollection.Add(mapPolygonData);
 
             MapDataCollectionContext parentCollectionContext = GetContext(mapDataCollection);
 
@@ -148,10 +148,10 @@ namespace Core.Plugins.Map.Test.Legend
             // Assert
             CollectionAssert.AreEqual(new MapDataContext[]
             {
-                new FeatureBasedMapDataContext(mapData3, parentCollectionContext),
+                new MapPolygonDataContext(mapPolygonData, parentCollectionContext),
                 GetContext(nestedCollection, parentCollectionContext), 
-                new FeatureBasedMapDataContext(mapData2, parentCollectionContext),
-                new FeatureBasedMapDataContext(mapData1, parentCollectionContext)
+                new MapLineDataContext(mapLineData, parentCollectionContext),
+                new MapPointDataContext(mapPointData, parentCollectionContext)
             }, objects);
         }
 
