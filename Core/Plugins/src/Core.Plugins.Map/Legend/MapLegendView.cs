@@ -124,9 +124,6 @@ namespace Core.Plugins.Map.Legend
                 CanCheck = context => true,
                 IsChecked = context => context.WrappedData.IsVisible,
                 OnNodeChecked = FeatureBasedMapDataContextOnNodeChecked,
-                CanDrop = FeatureBasedMapDataContextCanDropAndInsert,
-                CanInsert = FeatureBasedMapDataContextCanDropAndInsert,
-                OnDrop = FeatureBasedMapDataContextOnDrop,
                 CanRemove = (context, parent) => CanRemoveMapData((FeatureBasedMapData) context.WrappedData, parent),
                 OnNodeRemoved = (context, parent) => RemoveFromParent((FeatureBasedMapData) context.WrappedData, parent),
                 ContextMenuStrip = FeatureBasedMapDataContextContextMenuStrip
@@ -273,27 +270,6 @@ namespace Core.Plugins.Map.Legend
             mapDataContext.WrappedData.NotifyObservers();
 
             NotifyMapDataParents(mapDataContext);
-        }
-
-        private static bool FeatureBasedMapDataContextCanDropAndInsert(object draggedData, object targetData)
-        {
-            var draggedDataContext = (MapDataContext) draggedData;
-            var targetDataContext = (MapDataContext) targetData;
-
-            return draggedDataContext.ParentMapData.WrappedData.Equals(targetDataContext.WrappedData);
-        }
-
-        private static void FeatureBasedMapDataContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
-        {
-            var mapContext = (MapDataContext) droppedData;
-            var sourceContext = oldParentData as MapDataCollectionContext;
-
-            MapData mapData = mapContext.WrappedData;
-            var parent = (MapDataCollection) (sourceContext != null ? sourceContext.WrappedData : oldParentData);
-
-            parent.Remove(mapData);
-            parent.Insert(parent.Collection.Count() - position, mapData);
-            parent.NotifyObservers();
         }
 
         private static bool CanRemoveMapData(FeatureBasedMapData mapData, object parent)
