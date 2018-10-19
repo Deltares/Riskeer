@@ -24,6 +24,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\GrassCoverErosionOutwardsAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandlerTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProviderTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationHelperTest.cs" />

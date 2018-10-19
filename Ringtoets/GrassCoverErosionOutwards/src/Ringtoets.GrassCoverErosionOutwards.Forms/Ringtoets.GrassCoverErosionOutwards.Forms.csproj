@@ -13,6 +13,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\GrassCoverErosionOutwardsAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler.cs" />
     <Compile Include="GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationHelper.cs" />
