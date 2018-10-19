@@ -66,6 +66,7 @@
     <Compile Include="PropertyClasses\MapLineDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MapPointDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MapPolygonDataPropertiesTest.cs" />
+    <Compile Include="PropertyInfos\MapDataCollectionContextPropertyInfoTest.cs" />
     <Compile Include="TestMapView.cs">
       <SubType>Component</SubType>
     </Compile>
