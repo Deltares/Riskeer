@@ -965,8 +965,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             const int updatedReferenceLineLayerIndex = referenceLineIndex + 6;
             const int updatedSectionCollectionIndex = sectionsCollectionIndex - 1;
-            const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
             const int updatedAssemblyResultsCollectionIndex = assemblyResultsIndex - 1;
+            const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
             const int updatedDikeProfilesLayerIndex = dikeProfilesIndex - 1;
             const int updatedForeshoreProfilesLayerIndex = foreshoreProfilesIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;

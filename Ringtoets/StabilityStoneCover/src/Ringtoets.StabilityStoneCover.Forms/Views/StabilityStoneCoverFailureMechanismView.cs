@@ -45,14 +45,20 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
     /// </summary>
     public partial class StabilityStoneCoverFailureMechanismView : UserControl, IMapView
     {
-        private readonly MapLineData referenceLineMapData;
-        private readonly MapPointData hydraulicBoundaryLocationsMapData;
-        private readonly MapLineData foreshoreProfilesMapData;
-        private readonly MapLineData calculationsMapData;
+        private MapDataCollection mapDataCollection;
+        private MapLineData referenceLineMapData;
+        private MapPointData hydraulicBoundaryLocationsMapData;
+        private MapLineData foreshoreProfilesMapData;
+        private MapLineData calculationsMapData;
 
-        private readonly MapLineData sectionsMapData;
-        private readonly MapPointData sectionsStartPointMapData;
-        private readonly MapPointData sectionsEndPointMapData;
+        private MapLineData sectionsMapData;
+        private MapPointData sectionsStartPointMapData;
+        private MapPointData sectionsEndPointMapData;
+
+        private MapLineData simpleAssemblyMapData;
+        private MapLineData detailedAssemblyMapData;
+        private MapLineData tailorMadeAssemblyMapData;
+        private MapLineData combinedAssemblyMapData;
 
         private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
@@ -71,6 +77,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, StabilityStoneCoverWaveConditionsCalculation> calculationObserver;
         private RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
+        private RecursiveObserver<IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>, StabilityStoneCoverFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismView"/>.
@@ -98,28 +105,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
 
             CreateObservers();
 
-            var mapDataCollection = new MapDataCollection(StabilityStoneCoverDataResources.StabilityStoneCoverFailureMechanism_DisplayName);
-            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
-            foreshoreProfilesMapData = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
-            calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
-
-            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
-
-            mapDataCollection.Add(referenceLineMapData);
-           
-            sectionsMapDataCollection.Add(sectionsMapData);
-            sectionsMapDataCollection.Add(sectionsStartPointMapData);
-            sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(sectionsMapDataCollection);
-
-            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
-            mapDataCollection.Add(foreshoreProfilesMapData);
-            mapDataCollection.Add(calculationsMapData);
-
+            CreateMapData();
             SetMapDataFeatures();
             ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
@@ -162,6 +148,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
+            sectionResultObserver.Dispose();
 
             if (disposing)
             {
@@ -171,13 +158,50 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             base.Dispose(disposing);
         }
 
+        private void CreateMapData()
+        {
+            mapDataCollection = new MapDataCollection(StabilityStoneCoverDataResources.StabilityStoneCoverFailureMechanism_DisplayName);
+            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
+            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            foreshoreProfilesMapData = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
+            calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
+
+            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
+            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
+            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
+            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+
+            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
+            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
+            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
+            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
+            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
+
+            mapDataCollection.Add(referenceLineMapData);
+
+            sectionsMapDataCollection.Add(sectionsMapData);
+            sectionsMapDataCollection.Add(sectionsStartPointMapData);
+            sectionsMapDataCollection.Add(sectionsEndPointMapData);
+            mapDataCollection.Add(sectionsMapDataCollection);
+
+            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
+            assemblyMapDataCollection.Add(detailedAssemblyMapData);
+            assemblyMapDataCollection.Add(simpleAssemblyMapData);
+            assemblyMapDataCollection.Add(combinedAssemblyMapData);
+            mapDataCollection.Add(assemblyMapDataCollection);
+
+            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+            mapDataCollection.Add(foreshoreProfilesMapData);
+            mapDataCollection.Add(calculationsMapData);
+        }
+
         private void CreateObservers()
         {
-            failureMechanismObserver = new Observer(UpdateSectionsMapData)
+            failureMechanismObserver = new Observer(UpdateFailureMechanismData)
             {
                 Observable = FailureMechanism
             };
-            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
+            assessmentSectionObserver = new Observer(UpdateAssessmentSectionData)
             {
                 Observable = AssessmentSection
             };
@@ -225,6 +249,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             {
                 Observable = FailureMechanism.ForeshoreProfiles
             };
+
+            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>,
+                StabilityStoneCoverFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
+            {
+                Observable = FailureMechanism.SectionResults
+            };
         }
 
         private void SetMapDataFeatures()
@@ -234,7 +264,29 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             SetHydraulicBoundaryLocationsMapData();
             SetForeshoreProfilesMapData();
             SetCalculationsMapData();
+            SetAssemblyMapData();
         }
+
+        #region Assembly MapData
+
+        private void UpdateAssemblyMapData()
+        {
+            SetAssemblyMapData();
+            simpleAssemblyMapData.NotifyObservers();
+            detailedAssemblyMapData.NotifyObservers();
+            tailorMadeAssemblyMapData.NotifyObservers();
+            combinedAssemblyMapData.NotifyObservers();
+        }
+
+        private void SetAssemblyMapData()
+        {
+            simpleAssemblyMapData.Features = StabilityStoneCoverAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
+            detailedAssemblyMapData.Features = StabilityStoneCoverAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism);
+            tailorMadeAssemblyMapData.Features = StabilityStoneCoverAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism);
+            combinedAssemblyMapData.Features = StabilityStoneCoverAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism);
+        }
+
+        #endregion
 
         #region Calculations MapData
 
@@ -242,6 +294,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
+
+            UpdateAssemblyMapData();
         }
 
         private void SetCalculationsMapData()
@@ -268,9 +322,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
 
         #endregion
 
-        #region ReferenceLine MapData
+        #region AssessmentSection MapData
 
-        private void UpdateReferenceLineMapData()
+        private void UpdateAssessmentSectionData()
         {
             SetReferenceLineMapData();
             referenceLineMapData.NotifyObservers();
@@ -284,14 +338,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
 
         #endregion
 
-        #region Sections MapData
+        #region FailureMechanism MapData
 
-        private void UpdateSectionsMapData()
+        private void UpdateFailureMechanismData()
         {
             SetSectionsMapData();
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
+
+            UpdateAssemblyMapData();
         }
 
         private void SetSectionsMapData()
