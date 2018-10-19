@@ -59,6 +59,7 @@
     <Compile Include="PresentationObjects\FeatureBasedMapDataContextTest.cs" />
     <Compile Include="PresentationObjects\MapDataCollectionContextTest.cs" />
     <Compile Include="PresentationObjects\MapDataContextTest.cs" />
+    <Compile Include="PresentationObjects\MapLineDataContextTest.cs" />
     <Compile Include="PresentationObjects\MapPointDataContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\CategoryThemePropertiesTest.cs" />
