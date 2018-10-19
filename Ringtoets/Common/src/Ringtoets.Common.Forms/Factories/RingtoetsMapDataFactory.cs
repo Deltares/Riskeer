@@ -255,7 +255,7 @@ namespace Ringtoets.Common.Forms.Factories
         }
 
         /// <summary>
-        /// Create <see cref="MapDataCollection"/> with default styling for sections.
+        /// Create a <see cref="MapDataCollection"/> for sections.
         /// </summary>
         /// <returns>The created <see cref="MapDataCollection"/>.</returns>
         public static MapDataCollection CreateSectionsMapDataCollection()
