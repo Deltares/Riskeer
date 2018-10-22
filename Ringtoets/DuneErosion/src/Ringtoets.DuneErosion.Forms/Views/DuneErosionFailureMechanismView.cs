@@ -39,21 +39,29 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// </summary>
     public partial class DuneErosionFailureMechanismView : UserControl, IMapView
     {
-        private readonly Observer failureMechanismObserver;
-        private readonly Observer assessmentSectionObserver;
-        private readonly Observer duneLocationsObserver;
+        private MapDataCollection mapDataCollection;
+        private MapLineData referenceLineMapData;
+        private MapPointData duneLocationsMapData;
 
-        private readonly MapLineData referenceLineMapData;
-        private readonly MapLineData sectionsMapData;
-        private readonly MapPointData sectionsStartPointMapData;
-        private readonly MapPointData sectionsEndPointMapData;
-        private readonly MapPointData duneLocationsMapData;
+        private MapLineData sectionsMapData;
+        private MapPointData sectionsStartPointMapData;
+        private MapPointData sectionsEndPointMapData;
 
-        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificFactorizedSignalingNormObserver;
-        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificSignalingNormObserver;
-        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificLowerLimitNormObserver;
-        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForLowerLimitNormObserver;
-        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForFactorizedLowerLimitNormObserver;
+        private MapLineData simpleAssemblyMapData;
+        private MapLineData detailedAssemblyMapData;
+        private MapLineData tailorMadeAssemblyMapData;
+        private MapLineData combinedAssemblyMapData;
+
+        private Observer failureMechanismObserver;
+        private Observer assessmentSectionObserver;
+        private Observer duneLocationsObserver;
+
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificFactorizedSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForFactorizedLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<DuneErosionFailureMechanismSectionResult>, DuneErosionFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismView"/>.
@@ -80,44 +88,9 @@ namespace Ringtoets.DuneErosion.Forms.Views
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
-            failureMechanismObserver = new Observer(UpdateMapData)
-            {
-                Observable = failureMechanism
-            };
-            assessmentSectionObserver = new Observer(UpdateMapData)
-            {
-                Observable = assessmentSection
-            };
+            CreateObservers();
 
-            duneLocationsObserver = new Observer(UpdateMapData)
-            {
-                Observable = failureMechanism.DuneLocations
-            };
-
-            calculationsForMechanismSpecificFactorizedSignalingNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            calculationsForMechanismSpecificSignalingNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForMechanismSpecificSignalingNorm);
-            calculationsForMechanismSpecificLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-            calculationsForLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForLowerLimitNorm);
-            calculationsForFactorizedLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForFactorizedLowerLimitNorm);
-
-            var mapDataCollection = new MapDataCollection(DuneErosionDataResources.DuneErosionFailureMechanism_DisplayName);
-            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            duneLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
-            
-            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
-
-            mapDataCollection.Add(referenceLineMapData);
-
-            sectionsMapDataCollection.Add(sectionsMapData);
-            sectionsMapDataCollection.Add(sectionsStartPointMapData);
-            sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(sectionsMapDataCollection);
-
-            mapDataCollection.Add(duneLocationsMapData);
-
+            CreateMapData();
             SetMapDataFeatures();
             ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
@@ -148,11 +121,13 @@ namespace Ringtoets.DuneErosion.Forms.Views
             assessmentSectionObserver.Dispose();
             duneLocationsObserver.Dispose();
 
-            calculationsForMechanismSpecificFactorizedSignalingNormObserver?.Dispose();
-            calculationsForMechanismSpecificSignalingNormObserver?.Dispose();
-            calculationsForMechanismSpecificLowerLimitNormObserver?.Dispose();
-            calculationsForLowerLimitNormObserver?.Dispose();
-            calculationsForFactorizedLowerLimitNormObserver?.Dispose();
+            calculationsForMechanismSpecificFactorizedSignalingNormObserver.Dispose();
+            calculationsForMechanismSpecificSignalingNormObserver.Dispose();
+            calculationsForMechanismSpecificLowerLimitNormObserver.Dispose();
+            calculationsForLowerLimitNormObserver.Dispose();
+            calculationsForFactorizedLowerLimitNormObserver.Dispose();
+
+            sectionResultObserver.Dispose();
 
             if (disposing)
             {
@@ -162,36 +137,158 @@ namespace Ringtoets.DuneErosion.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void UpdateMapData()
+        private void CreateObservers()
         {
-            SetMapDataFeatures();
+            failureMechanismObserver = new Observer(UpdateFailureMechanismMapData)
+            {
+                Observable = FailureMechanism
+            };
+            assessmentSectionObserver = new Observer(UpdateAssessmentSectionMapData)
+            {
+                Observable = AssessmentSection
+            };
 
-            referenceLineMapData.NotifyObservers();
-            sectionsMapData.NotifyObservers();
-            sectionsStartPointMapData.NotifyObservers();
-            sectionsEndPointMapData.NotifyObservers();
-            duneLocationsMapData.NotifyObservers();
+            duneLocationsObserver = new Observer(UpdateDuneLocationMapData)
+            {
+                Observable = FailureMechanism.DuneLocations
+            };
+
+            calculationsForMechanismSpecificFactorizedSignalingNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
+            calculationsForMechanismSpecificSignalingNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForMechanismSpecificSignalingNorm);
+            calculationsForMechanismSpecificLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
+            calculationsForLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForLowerLimitNorm);
+            calculationsForFactorizedLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForFactorizedLowerLimitNorm);
+
+            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<DuneErosionFailureMechanismSectionResult>,
+                DuneErosionFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
+            {
+                Observable = FailureMechanism.SectionResults
+            };
+        }
+
+        private void CreateMapData()
+        {
+            mapDataCollection = new MapDataCollection(DuneErosionDataResources.DuneErosionFailureMechanism_DisplayName);
+            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
+            duneLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+
+            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
+            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
+            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
+            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+
+            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
+            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
+            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
+            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
+            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
+
+            mapDataCollection.Add(referenceLineMapData);
+
+            sectionsMapDataCollection.Add(sectionsMapData);
+            sectionsMapDataCollection.Add(sectionsStartPointMapData);
+            sectionsMapDataCollection.Add(sectionsEndPointMapData);
+            mapDataCollection.Add(sectionsMapDataCollection);
+
+            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
+            assemblyMapDataCollection.Add(detailedAssemblyMapData);
+            assemblyMapDataCollection.Add(simpleAssemblyMapData);
+            assemblyMapDataCollection.Add(combinedAssemblyMapData);
+            mapDataCollection.Add(assemblyMapDataCollection);
+
+            mapDataCollection.Add(duneLocationsMapData);
         }
 
         private void SetMapDataFeatures()
         {
-            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
-            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
-
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
-            sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
-            sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
-            sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-            duneLocationsMapData.Features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(FailureMechanism);
+            SetReferenceLineMapData();
+            SetFailureMechanismMapData();
+            SetDuneLocationMapData();
+            SetAssemblyMapData();
         }
 
         private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> CreateDuneLocationCalculationsObserver(
             IObservableEnumerable<DuneLocationCalculation> calculations)
         {
-            return new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(UpdateMapData, calc => calc)
+            return new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(UpdateDuneLocationMapData, calc => calc)
             {
                 Observable = calculations
             };
         }
+
+        #region AssessmentSection MapData
+
+        private void UpdateAssessmentSectionMapData()
+        {
+            SetReferenceLineMapData();
+            referenceLineMapData.NotifyObservers();
+        }
+
+        private void SetReferenceLineMapData()
+        {
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine,
+                                                                                                        AssessmentSection.Id,
+                                                                                                        AssessmentSection.Name);
+        }
+
+        #endregion
+
+        #region FailureMechanism MapData
+
+        private void UpdateFailureMechanismMapData()
+        {
+            SetFailureMechanismMapData();
+            sectionsMapData.NotifyObservers();
+            sectionsStartPointMapData.NotifyObservers();
+            sectionsEndPointMapData.NotifyObservers();
+
+            UpdateAssemblyMapData();
+        }
+
+        private void SetFailureMechanismMapData()
+        {
+            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
+            sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
+            sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
+            sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
+        }
+
+        #endregion
+
+        #region DuneLocation MapData
+
+        private void UpdateDuneLocationMapData()
+        {
+            SetDuneLocationMapData();
+            duneLocationsMapData.NotifyObservers();
+        }
+
+        private void SetDuneLocationMapData()
+        {
+            duneLocationsMapData.Features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(FailureMechanism);
+        }
+
+        #endregion
+
+        #region Assembly MapData
+
+        private void UpdateAssemblyMapData()
+        {
+            SetAssemblyMapData();
+            simpleAssemblyMapData.NotifyObservers();
+            detailedAssemblyMapData.NotifyObservers();
+            tailorMadeAssemblyMapData.NotifyObservers();
+            combinedAssemblyMapData.NotifyObservers();
+        }
+
+        private void SetAssemblyMapData()
+        {
+            simpleAssemblyMapData.Features = DuneErosionAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
+            detailedAssemblyMapData.Features = DuneErosionAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism);
+            tailorMadeAssemblyMapData.Features = DuneErosionAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism);
+            combinedAssemblyMapData.Features = DuneErosionAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism);
+        }
+
+        #endregion
     }
 }
