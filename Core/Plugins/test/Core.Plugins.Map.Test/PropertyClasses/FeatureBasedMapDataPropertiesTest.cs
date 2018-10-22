@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
@@ -220,7 +221,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            const int numberOfChangedProperties = 3;
+            const int numberOfChangedProperties = 2;
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
@@ -236,14 +237,42 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
-            properties.IsVisible = false;
             properties.ShowLabels = false;
             properties.SelectedMetaDataAttribute = new SelectableMetaDataAttribute("ID");
 
             // Assert
-            Assert.IsFalse(mapData.IsVisible);
             Assert.IsFalse(mapData.ShowLabels);
             Assert.AreEqual("ID", mapData.SelectedMetaDataAttribute);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void IsVisible_SetNewValue_UpdateDataAndNotifyObserversOfDataAndParents()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(4);
+            mocks.ReplayAll();
+
+            var mapData = new TestFeatureBasedMapData();
+            var parents = new[]
+            {
+                new MapDataCollection("test 1"),
+                new MapDataCollection("test 2"),
+                new MapDataCollection("test 3"),
+            };
+
+            mapData.Attach(observer);
+            parents.ForEachElementDo(parent => parent.Attach(observer));
+
+            var properties = new TestFeatureBasedMapDataProperties(mapData, parents);
+
+            // Call
+            properties.IsVisible = false;
+            
+            // Assert
+            Assert.IsFalse(properties.IsVisible);
             mocks.VerifyAll();
         }
 

@@ -28,6 +28,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Core.Common.Util.Extensions;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.Properties;
 using Core.Plugins.Map.UITypeEditors;
@@ -106,6 +107,8 @@ namespace Core.Plugins.Map.PropertyClasses
             {
                 data.IsVisible = value;
                 data.NotifyObservers();
+
+                parents.ForEachElementDo(collection => collection.NotifyObservers());
             }
         }
 
