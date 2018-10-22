@@ -59,7 +59,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var data = new MapPointData("test");
 
             // Call
-            var properties = new MapPointDataProperties(data);
+            var properties = new MapPointDataProperties(data, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             Assert.IsInstanceOf<FeatureBasedMapDataProperties<MapPointData>>(properties);
@@ -88,7 +88,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MapPointDataProperties(mapPointData);
+            var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -144,7 +144,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MapPointDataProperties(mapPointData);
+            var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -199,7 +199,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             });
 
             // Call
-            var properties = new MapPointDataProperties(mapPointData);
+            var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
@@ -235,7 +235,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             mapPointData.Attach(observer);
 
-            var properties = new MapPointDataProperties(mapPointData);
+            var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
 
             Color newColor = Color.Blue;
             Color newStrokeColor = Color.Aquamarine;
@@ -279,7 +279,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 }
             };
 
-            var properties = new MapPointDataProperties(mapData);
+            var properties = new MapPointDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isShowLabelReadOnly = properties.DynamicReadonlyValidator(
@@ -308,7 +308,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                : null
             };
 
-            var properties = new MapPointDataProperties(mapData);
+            var properties = new MapPointDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isWidthReadOnly = properties.DynamicReadonlyValidator(
@@ -346,7 +346,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new MapPointDataProperties(mapPointData);
+            var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isOtherPropertyReadOnly = properties.DynamicReadonlyValidator(string.Empty);
@@ -366,7 +366,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 ShowLabels = showLabels
             };
 
-            var properties = new MapPointDataProperties(mapPointData);
+            var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isSelectedMetaDataAttributeVisible = properties.DynamicVisibleValidationMethod(
@@ -392,7 +392,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                : null
             };
 
-            var properties = new MapPointDataProperties(mapPointData);
+            var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isMapThemeAttributeNameVisible = properties.DynamicVisibleValidationMethod(
@@ -424,7 +424,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new MapPointDataProperties(mapPointData);
+            var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isOtherPropertyVisible = properties.DynamicVisibleValidationMethod(string.Empty);
