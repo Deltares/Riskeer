@@ -35,9 +35,9 @@ using System.Resources;
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
 
-[assembly: AssemblyVersion("18.1.1.4")]
-[assembly: AssemblyFileVersion("18.1.1.4")]
+[assembly: AssemblyVersion("18.1.2.1")]
+[assembly: AssemblyFileVersion("18.1.2.1")]
 
 #if DEVELOPMENT
-[assembly: AssemblyInformationalVersion("18.1.1.GITHASH")]
+[assembly: AssemblyInformationalVersion("18.1.2.GITHASH")]
 #endif
