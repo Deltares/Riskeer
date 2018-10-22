@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -75,9 +75,9 @@ namespace Core.Plugins.Map
             {
                 CreateInstance = context => new MapDataCollectionProperties((MapDataCollection) context.WrappedData, MapDataContextHelper.GetParentsFromContext(context))
             };
-            yield return new PropertyInfo<MapPointData, MapPointDataProperties>
+            yield return new PropertyInfo<MapPointDataContext, MapPointDataProperties>
             {
-                CreateInstance = data => new MapPointDataProperties(data)
+                CreateInstance = data => new MapPointDataProperties((MapPointData) data.WrappedData)
             };
             yield return new PropertyInfo<MapLineData, MapLineDataProperties>
             {
