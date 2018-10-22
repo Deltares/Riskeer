@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
@@ -42,11 +43,11 @@ namespace Core.Plugins.Map.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="MapLineDataProperties"/>.
         /// </summary>
-        /// <param name="mapLineData">The <see cref="MapLineData"/> to
-        /// show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when
-        /// <paramref name="mapLineData"/> is <c>null</c>.</exception>
-        public MapLineDataProperties(MapLineData mapLineData)
+        /// <param name="mapLineData">The <see cref="MapLineData"/> to show the properties for.</param>
+        /// <param name="parents">A collection containing all parent <see cref="MapDataCollection"/> of
+        /// the <paramref name="mapLineData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MapLineDataProperties(MapLineData mapLineData, IEnumerable<MapDataCollection> parents)
             : base(mapLineData) {}
 
         public override string Type

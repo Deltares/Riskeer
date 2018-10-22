@@ -55,7 +55,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var data = new MapLineData("test");
 
             // Call
-            var properties = new MapLineDataProperties(data);
+            var properties = new MapLineDataProperties(data, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             Assert.IsInstanceOf<FeatureBasedMapDataProperties<MapLineData>>(properties);
@@ -78,7 +78,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MapLineDataProperties(mapLineData);
+            var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -119,7 +119,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MapLineDataProperties(mapLineData);
+            var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -157,7 +157,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             });
             
             // Call
-            var properties = new MapLineDataProperties(mapLineData);
+            var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             Assert.AreEqual(mapLineData.ShowLabels, properties.ShowLabels);
@@ -188,7 +188,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             mapLineData.Attach(observer);
 
-            var properties = new MapLineDataProperties(mapLineData);
+            var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
 
             Color newColor = Color.Blue;
             const int newWidth = 6;
@@ -226,7 +226,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 }
             };
 
-            var properties = new MapLineDataProperties(mapData);
+            var properties = new MapLineDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isShowLabelReadOnly = properties.DynamicReadonlyValidator(
@@ -255,7 +255,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                : null
             };
 
-            var properties = new MapLineDataProperties(mapData);
+            var properties = new MapLineDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isWidthReadOnly = properties.DynamicReadonlyValidator(
@@ -287,7 +287,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new MapLineDataProperties(mapLineData);
+            var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isOtherPropertyReadOnly = properties.DynamicReadonlyValidator(string.Empty);
@@ -307,7 +307,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 ShowLabels = showLabels
             };
 
-            var properties = new MapLineDataProperties(mapLineData);
+            var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isSelectedMetaDataAttributeVisible = properties.DynamicVisibleValidationMethod(
@@ -333,7 +333,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                : null
             };
 
-            var properties = new MapLineDataProperties(mapLineData);
+            var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isMapThemeAttributeNameVisible = properties.DynamicVisibleValidationMethod(
@@ -365,7 +365,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new MapLineDataProperties(mapLineData);
+            var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isOtherPropertyVisible = properties.DynamicVisibleValidationMethod(string.Empty);
