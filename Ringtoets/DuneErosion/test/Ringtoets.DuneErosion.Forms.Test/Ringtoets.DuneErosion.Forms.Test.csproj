@@ -25,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DuneErosionFailureMechanismPropertyChangeHandlerTest.cs" />
+    <Compile Include="Factories\DuneErosionAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="GuiServices\DuneLocationCalculationGuiServiceTest.cs" />
     <Compile Include="PresentationObjects\DuneErosionFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\DuneLocationCalculationsContextTest.cs" />

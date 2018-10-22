@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Include="AggregatedDuneLocationFactory.cs" />
     <Compile Include="DuneErosionFailureMechanismPropertyChangeHandler.cs" />
+    <Compile Include="Factories\DuneErosionAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="GuiServices\DuneLocationCalculationGuiService.cs" />
     <Compile Include="PresentationObjects\DuneErosionFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\DuneLocationCalculationsContext.cs" />
