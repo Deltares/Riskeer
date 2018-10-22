@@ -137,17 +137,17 @@ namespace Core.Plugins.Map.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(MapPointData),
+                    typeof(MapPointDataContext),
                     typeof(MapPointDataProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(MapLineData),
+                    typeof(MapLineDataContext),
                     typeof(MapLineDataProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(MapPolygonData),
+                    typeof(MapPolygonDataContext),
                     typeof(MapPolygonDataProperties));
             }
         }
