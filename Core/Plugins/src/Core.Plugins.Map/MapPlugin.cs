@@ -85,7 +85,7 @@ namespace Core.Plugins.Map
             };
             yield return new PropertyInfo<MapPolygonDataContext, MapPolygonDataProperties>
             {
-                CreateInstance = context => new MapPolygonDataProperties((MapPolygonData)context.WrappedData)
+                CreateInstance = context => new MapPolygonDataProperties((MapPolygonData)context.WrappedData, MapDataContextHelper.GetParentsFromContext(context))
             };
         }
 

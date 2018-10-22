@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
@@ -40,11 +41,11 @@ namespace Core.Plugins.Map.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="MapPolygonDataProperties"/>.
         /// </summary>
-        /// <param name="mapPolygonData">The <see cref="MapPolygonData"/> to
-        /// show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when
-        /// <paramref name="mapPolygonData"/> is <c>null</c>.</exception>
-        public MapPolygonDataProperties(MapPolygonData mapPolygonData)
+        /// <param name="mapPolygonData">The <see cref="MapPolygonData"/> to show the properties for.</param>
+        /// <param name="parents">A collection containing all parent <see cref="MapDataCollection"/> of
+        /// the <paramref name="mapPolygonData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MapPolygonDataProperties(MapPolygonData mapPolygonData, IEnumerable<MapDataCollection> parents)
             : base(mapPolygonData) {}
 
         public override string Type

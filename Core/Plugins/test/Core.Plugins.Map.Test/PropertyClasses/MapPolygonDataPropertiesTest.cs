@@ -54,7 +54,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var data = new MapPolygonData("test");
 
             // Call
-            var properties = new MapPolygonDataProperties(data);
+            var properties = new MapPolygonDataProperties(data, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             Assert.IsInstanceOf<FeatureBasedMapDataProperties<MapPolygonData>>(properties);
@@ -82,7 +82,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MapPolygonDataProperties(mapPolygonData);
+            var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -126,7 +126,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MapPolygonDataProperties(mapPolygonData);
+            var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -164,7 +164,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             });
 
             // Call
-            var properties = new MapPolygonDataProperties(mapPolygonData);
+            var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             Assert.AreEqual(mapPolygonData.ShowLabels, properties.ShowLabels);
@@ -195,7 +195,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             mapPolygonData.Attach(observer);
 
-            var properties = new MapPolygonDataProperties(mapPolygonData);
+            var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
 
             Color newFillColor = Color.Blue;
             Color newStrokeColor = Color.Red;
@@ -233,7 +233,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 }
             };
 
-            var properties = new MapPolygonDataProperties(mapData);
+            var properties = new MapPolygonDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isShowLabelReadOnly = properties.DynamicReadonlyValidator(
@@ -262,7 +262,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                : null
             };
 
-            var properties = new MapPolygonDataProperties(mapData);
+            var properties = new MapPolygonDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isStrokeColorReadOnly = properties.DynamicReadonlyValidator(
@@ -294,7 +294,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new MapPolygonDataProperties(mapPolygonData);
+            var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isOtherPropertyReadOnly = properties.DynamicReadonlyValidator(string.Empty);
@@ -314,7 +314,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 ShowLabels = showLabels
             };
 
-            var properties = new MapPolygonDataProperties(mapPolygonData);
+            var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isSelectedMetaDataAttributeVisible = properties.DynamicVisibleValidationMethod(
@@ -340,7 +340,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                : null
             };
 
-            var properties = new MapPolygonDataProperties(mapPolygonData);
+            var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isFillColorVisible = properties.DynamicVisibleValidationMethod(
@@ -372,7 +372,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new MapPolygonDataProperties(mapPolygonData);
+            var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isOtherPropertyVisible = properties.DynamicVisibleValidationMethod(string.Empty);
