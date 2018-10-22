@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.TestUtil;
@@ -55,11 +56,22 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestFeatureBasedMapDataProperties(null);
+            TestDelegate call = () => new TestFeatureBasedMapDataProperties(null, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("data", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ParentsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TestFeatureBasedMapDataProperties(new TestFeatureBasedMapData(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("parents", exception.ParamName);
         }
 
         [Test]
@@ -69,7 +81,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var data = new TestFeatureBasedMapData();
 
             // Call
-            var properties = new TestFeatureBasedMapDataProperties(data);
+            var properties = new TestFeatureBasedMapDataProperties(data, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<TestFeatureBasedMapData>>(properties);
@@ -87,7 +99,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var data = new TestFeatureBasedMapData();
 
             // Call
-            var properties = new TestFeatureBasedMapDataProperties(data);
+            var properties = new TestFeatureBasedMapDataProperties(data, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             Assert.AreEqual(data.Name, properties.Name);
@@ -115,7 +127,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new TestFeatureBasedMapDataProperties(mapData);
+            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             Assert.AreEqual(mapData.Name, properties.Name);
@@ -154,7 +166,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new TestFeatureBasedMapDataProperties(mapData);
+            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -221,7 +233,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             mapData.Attach(observer);
 
-            var properties = new TestFeatureBasedMapDataProperties(mapData);
+            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             properties.IsVisible = false;
@@ -257,7 +269,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new TestFeatureBasedMapDataProperties(mapData);
+            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -296,7 +308,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new TestFeatureBasedMapDataProperties(mapData);
+            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -329,7 +341,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             };
 
             // Call
-            var properties = new TestFeatureBasedMapDataProperties(mapData);
+            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
             // Assert
@@ -374,7 +386,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 }
             };
 
-            var properties = new TestFeatureBasedMapDataProperties(mapData);
+            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isShowLabelReadOnly = properties.DynamicReadonlyValidator(
@@ -402,7 +414,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 }
             };
 
-            var properties = new TestFeatureBasedMapDataProperties(mapData);
+            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isOtherPropertyReadOnly = properties.DynamicReadonlyValidator(string.Empty);
@@ -422,7 +434,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 ShowLabels = showLabels
             };
 
-            var properties = new TestFeatureBasedMapDataProperties(mapData);
+            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isSelectedMetaDataAttributeVisible = properties.DynamicVisibleValidationMethod(
@@ -448,7 +460,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                : null
             };
 
-            var properties = new TestFeatureBasedMapDataProperties(mapData);
+            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isMapThemeAttributeNameVisible = properties.DynamicVisibleValidationMethod(
@@ -477,7 +489,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 })
             };
 
-            var properties = new TestFeatureBasedMapDataProperties(mapData);
+            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
 
             // Call
             bool isOtherPropertyVisible = properties.DynamicVisibleValidationMethod(string.Empty);
@@ -488,7 +500,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
         private class TestFeatureBasedMapDataProperties : FeatureBasedMapDataProperties<TestFeatureBasedMapData>
         {
-            public TestFeatureBasedMapDataProperties(TestFeatureBasedMapData data) : base(data) {}
+            public TestFeatureBasedMapDataProperties(TestFeatureBasedMapData data, IEnumerable<MapDataCollection> parents)
+                : base(data, parents) {}
 
             public override string Type
             {

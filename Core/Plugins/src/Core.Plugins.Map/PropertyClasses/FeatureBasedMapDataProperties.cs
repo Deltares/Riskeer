@@ -48,20 +48,28 @@ namespace Core.Plugins.Map.PropertyClasses
         private const int styleTypePropertyIndex = 5;
         private const int mapThemeAttributeNamePropertyIndex = 6;
         private const int mapThemeCategoryPropertyIndex = 7;
+        private readonly IEnumerable<MapDataCollection> parents;
 
         /// <summary>
         /// Creates a new instance of <see cref="FeatureBasedMapDataProperties{T}"/>.
         /// </summary>
-        /// <param name="data">The <typeparamref name="T"/> to
-        /// show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when
-        /// <paramref name="data"/> is <c>null</c>.</exception>
-        protected FeatureBasedMapDataProperties(T data)
+        /// <param name="data">The <typeparamref name="T"/> to show the properties for.</param>
+        /// <param name="parents">A collection containing all parent <see cref="MapDataCollection"/> of
+        /// the <paramref name="data"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        protected FeatureBasedMapDataProperties(T data, IEnumerable<MapDataCollection> parents)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
+            if (parents == null)
+            {
+                throw new ArgumentNullException(nameof(parents));
+            }
+
+            this.parents = parents;
 
             Data = data;
         }

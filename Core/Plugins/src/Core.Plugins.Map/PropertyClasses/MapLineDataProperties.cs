@@ -48,7 +48,7 @@ namespace Core.Plugins.Map.PropertyClasses
         /// the <paramref name="mapLineData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MapLineDataProperties(MapLineData mapLineData, IEnumerable<MapDataCollection> parents)
-            : base(mapLineData) {}
+            : base(mapLineData, parents) {}
 
         public override string Type
         {

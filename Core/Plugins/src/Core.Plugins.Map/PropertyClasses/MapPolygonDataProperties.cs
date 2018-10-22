@@ -46,7 +46,7 @@ namespace Core.Plugins.Map.PropertyClasses
         /// the <paramref name="mapPolygonData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MapPolygonDataProperties(MapPolygonData mapPolygonData, IEnumerable<MapDataCollection> parents)
-            : base(mapPolygonData) {}
+            : base(mapPolygonData, parents) {}
 
         public override string Type
         {
