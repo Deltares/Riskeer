@@ -55,7 +55,7 @@ namespace Core.Components.DotSpatial.Converter
         {
             ValidateParameters(data, layer);
 
-            ClearLayerData(layer);
+            ClearLayerData(data, layer);
             SetDataTableColumns(data.MetaData, layer);
 
             ProjectionInfo originalLayerProjection = layer.Projection;
@@ -173,8 +173,7 @@ namespace Core.Components.DotSpatial.Converter
         private IFeatureScheme CreateCategorySchemes(TFeatureBasedMapData mapData)
         {
             IFeatureScheme scheme = CreateScheme();
-            scheme.ClearCategories();
-            scheme.AddCategory(CreateDefaultCategory(mapData));
+            ClearFeatureScheme(mapData, scheme);
 
             MapTheme mapTheme = mapData.MapTheme;
             Dictionary<string, int> attributeMapping = GetAttributeMapping(mapData);
@@ -194,6 +193,15 @@ namespace Core.Components.DotSpatial.Converter
             return scheme;
         }
 
+        private void ClearFeatureScheme(TFeatureBasedMapData mapData, IScheme scheme)
+        {
+            if (mapData.MapTheme != null)
+            {
+                scheme.ClearCategories();
+                scheme.AddCategory(CreateDefaultCategory(mapData));
+            }
+        }
+
         private static void ValidateParameters(TFeatureBasedMapData data, TMapFeatureLayer layer)
         {
             if (data == null)
@@ -207,10 +215,11 @@ namespace Core.Components.DotSpatial.Converter
             }
         }
 
-        private static void ClearLayerData(IFeatureLayer layer)
+        private void ClearLayerData(TFeatureBasedMapData mapData, IFeatureLayer layer)
         {
             layer.DataSet.Features.Clear();
             layer.DataSet.DataTable.Reset();
+            ClearFeatureScheme(mapData, layer.Symbology);
         }
 
         private static void SetDataTableColumns(IEnumerable<string> metaData, IFeatureLayer layer)

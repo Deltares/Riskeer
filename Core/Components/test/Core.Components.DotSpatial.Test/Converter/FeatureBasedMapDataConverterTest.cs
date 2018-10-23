@@ -625,6 +625,60 @@ namespace Core.Components.DotSpatial.Test.Converter
             }, testConverter.CreatedCategories);
         }
 
+        [Test]
+        public void GivenLayerWithConvertedProperties_WhenFeaturesClearedAndConverted_ThenOnlyDefaultCategoryAdded()
+        {
+            // Given
+            var random = new Random(21);
+            const string metadataAttributeName = "Meta";
+
+            var defaultCategory = new PointCategory();
+
+            var theme = new MapTheme(metadataAttributeName, new[]
+            {
+                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                  new ValueCriterion(random.NextEnum<ValueCriterionOperator>(),
+                                                     "test value"))
+            });
+
+            var mapData = new TestFeatureBasedMapData("test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                    {
+                        MetaData =
+                        {
+                            {
+                                metadataAttributeName, new object()
+                            }
+                        }
+                    }
+                },
+                MapTheme = theme
+            };
+
+            var testConverter = new TestFeatureBasedMapDataConverter
+            {
+                CreatedFeatureScheme = new PointScheme(),
+                CreatedDefaultCategory = defaultCategory,
+                CreatedCategory = new PointCategory()
+            };
+
+            var mapLayer = new TestFeatureLayer();
+            testConverter.ConvertLayerProperties(mapData, mapLayer);
+
+            // Precondition
+            Assert.AreEqual(2, mapLayer.Symbology.Categories.Count);
+
+            // When
+            mapData.Features = Enumerable.Empty<MapFeature>();
+            testConverter.ConvertLayerFeatures(mapData, mapLayer);
+
+            // Then
+            Assert.AreSame(defaultCategory, mapLayer.Symbology.Categories.Single());
+        }
+
         private class TestFeatureLayer : MapPointLayer
         {
             public TestFeatureLayer() : base(new FeatureSet())
