@@ -333,8 +333,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             SetReferenceLineMapData();
             referenceLineMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetReferenceLineMapData()

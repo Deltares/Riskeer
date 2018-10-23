@@ -365,10 +365,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 // Precondition
@@ -678,76 +674,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Then 
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
                 mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void GivenViewWithAssemblyData_WhenAssessmentSectionNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var random = new Random(39);
-            var assessmentSection = new AssessmentSectionStub();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
-
-            var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyOutput = originalDetailedAssembly;
-                calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
-                calculator.CombinedAssemblyOutput = originalCombinedAssembly;
-
-                using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection))
-                {
-                    IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                    var mocks = new MockRepository();
-                    IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                    observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                    observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    mocks.ReplayAll();
-
-                    // Precondition
-                    var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
-                    MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly,
-                                                                      originalDetailedAssembly,
-                                                                      originalTailorMadeAssembly,
-                                                                      originalCombinedAssembly,
-                                                                      assemblyMapData,
-                                                                      failureMechanism);
-
-                    // When
-                    var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
-                    calculator.DetailedAssessmentAssemblyOutput = updatedDetailedAssembly;
-                    calculator.TailorMadeAssessmentAssemblyOutput = updatedTailorMadeAssembly;
-                    calculator.CombinedAssemblyOutput = updatedCombinedAssembly;
-                    assessmentSection.NotifyObservers();
-
-                    // Then
-                    MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,
-                                                                      updatedDetailedAssembly,
-                                                                      updatedTailorMadeAssembly,
-                                                                      updatedCombinedAssembly,
-                                                                      assemblyMapData,
-                                                                      failureMechanism);
-                    mocks.VerifyAll();
-                }
             }
         }
 

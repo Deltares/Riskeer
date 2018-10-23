@@ -338,8 +338,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             SetReferenceLineMapData();
             referenceLineMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetReferenceLineMapData()

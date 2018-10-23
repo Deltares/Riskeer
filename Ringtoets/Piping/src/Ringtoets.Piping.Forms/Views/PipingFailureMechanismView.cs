@@ -338,8 +338,6 @@ namespace Ringtoets.Piping.Forms.Views
         {
             SetReferenceLineMapData();
             referenceLineMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetReferenceLineMapData()
