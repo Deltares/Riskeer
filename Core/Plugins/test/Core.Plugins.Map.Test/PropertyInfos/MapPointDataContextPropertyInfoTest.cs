@@ -57,7 +57,7 @@ namespace Core.Plugins.Map.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_WithValidArguments_NewPropertiesWithMapDataCollectionAsData()
+        public void CreateInstance_WithValidArguments_NewPropertiesWithMapPointDataAsData()
         {
             // Setup
             var mapData = new MapPointData("Test");
