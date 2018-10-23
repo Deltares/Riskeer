@@ -13,6 +13,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\HeightStructuresAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="PresentationObjects\HeightStructuresFailureMechanismSectionsContext.cs" />
     <Compile Include="PresentationObjects\HeightStructuresOutputContext.cs" />
     <Compile Include="PresentationObjects\HeightStructuresScenariosContext.cs" />
