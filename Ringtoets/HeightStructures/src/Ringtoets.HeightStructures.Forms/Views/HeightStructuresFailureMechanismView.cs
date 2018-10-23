@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Forms.Factories;
 using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.Views
@@ -45,15 +46,21 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// </summary>
     public partial class HeightStructuresFailureMechanismView : UserControl, IMapView
     {
-        private readonly MapLineData referenceLineMapData;
-        private readonly MapPointData hydraulicBoundaryLocationsMapData;
-        private readonly MapLineData foreshoreProfilesMapData;
-        private readonly MapPointData structuresMapData;
-        private readonly MapLineData calculationsMapData;
+        private MapDataCollection mapDataCollection;
+        private MapLineData referenceLineMapData;
+        private MapPointData hydraulicBoundaryLocationsMapData;
+        private MapLineData foreshoreProfilesMapData;
+        private MapPointData structuresMapData;
+        private MapLineData calculationsMapData;
 
-        private readonly MapLineData sectionsMapData;
-        private readonly MapPointData sectionsStartPointMapData;
-        private readonly MapPointData sectionsEndPointMapData;
+        private MapLineData sectionsMapData;
+        private MapPointData sectionsStartPointMapData;
+        private MapPointData sectionsEndPointMapData;
+
+        private MapLineData simpleAssemblyMapData;
+        private MapLineData detailedAssemblyMapData;
+        private MapLineData tailorMadeAssemblyMapData;
+        private MapLineData combinedAssemblyMapData;
 
         private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
@@ -74,6 +81,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         private RecursiveObserver<CalculationGroup, StructuresCalculation<HeightStructuresInput>> calculationObserver;
         private RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
         private RecursiveObserver<StructureCollection<HeightStructure>, HeightStructure> structureObserver;
+        private RecursiveObserver<IObservableEnumerable<HeightStructuresFailureMechanismSectionResult>, HeightStructuresFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismView"/>.
@@ -101,31 +109,8 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
             CreateObservers();
 
-            var mapDataCollection = new MapDataCollection(HeightStructuresDataResources.HeightStructuresFailureMechanism_DisplayName);
-            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
-            foreshoreProfilesMapData = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
-            calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
-            structuresMapData = RingtoetsMapDataFactory.CreateStructuresMapData();
-
-            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
-
-            mapDataCollection.Add(referenceLineMapData);
-
-            sectionsMapDataCollection.Add(sectionsMapData);
-            sectionsMapDataCollection.Add(sectionsStartPointMapData);
-            sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(sectionsMapDataCollection);
-
-            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
-            mapDataCollection.Add(foreshoreProfilesMapData);
-            mapDataCollection.Add(structuresMapData);
-            mapDataCollection.Add(calculationsMapData);
-
-            SetMapDataFeatures();
+            CreateMapData();
+            SetAllMapDataFeatures();
             ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
 
@@ -169,6 +154,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             calculationObserver.Dispose();
             structuresObserver.Dispose();
             structureObserver.Dispose();
+            sectionResultObserver.Dispose();
 
             if (disposing)
             {
@@ -178,13 +164,52 @@ namespace Ringtoets.HeightStructures.Forms.Views
             base.Dispose(disposing);
         }
 
+        private void CreateMapData()
+        {
+            mapDataCollection = new MapDataCollection(HeightStructuresDataResources.HeightStructuresFailureMechanism_DisplayName);
+            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
+            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            foreshoreProfilesMapData = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
+            calculationsMapData = RingtoetsMapDataFactory.CreateCalculationsMapData();
+            structuresMapData = RingtoetsMapDataFactory.CreateStructuresMapData();
+
+            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
+            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
+            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
+            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+
+            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
+            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
+            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
+            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
+            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
+
+            mapDataCollection.Add(referenceLineMapData);
+
+            sectionsMapDataCollection.Add(sectionsMapData);
+            sectionsMapDataCollection.Add(sectionsStartPointMapData);
+            sectionsMapDataCollection.Add(sectionsEndPointMapData);
+            mapDataCollection.Add(sectionsMapDataCollection);
+
+            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
+            assemblyMapDataCollection.Add(detailedAssemblyMapData);
+            assemblyMapDataCollection.Add(simpleAssemblyMapData);
+            assemblyMapDataCollection.Add(combinedAssemblyMapData);
+            mapDataCollection.Add(assemblyMapDataCollection);
+
+            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+            mapDataCollection.Add(foreshoreProfilesMapData);
+            mapDataCollection.Add(structuresMapData);
+            mapDataCollection.Add(calculationsMapData);
+        }
+
         private void CreateObservers()
         {
-            failureMechanismObserver = new Observer(UpdateSectionsMapData)
+            failureMechanismObserver = new Observer(UpdateFailureMechanismMapData)
             {
                 Observable = FailureMechanism
             };
-            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
+            assessmentSectionObserver = new Observer(UpdateAssessmentSectionMapData)
             {
                 Observable = AssessmentSection
             };
@@ -240,9 +265,15 @@ namespace Ringtoets.HeightStructures.Forms.Views
             {
                 Observable = FailureMechanism.HeightStructures
             };
+
+            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<HeightStructuresFailureMechanismSectionResult>,
+                HeightStructuresFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
+            {
+                Observable = FailureMechanism.SectionResults
+            };
         }
 
-        private void SetMapDataFeatures()
+        private void SetAllMapDataFeatures()
         {
             SetReferenceLineMapData();
             SetSectionsMapData();
@@ -250,7 +281,29 @@ namespace Ringtoets.HeightStructures.Forms.Views
             SetForeshoreProfilesMapData();
             SetStructuresMapData();
             SetCalculationsMapData();
+            SetAssemblyMapData();
         }
+
+        #region Assembly MapData
+
+        private void UpdateAssemblyMapData()
+        {
+            SetAssemblyMapData();
+            simpleAssemblyMapData.NotifyObservers();
+            detailedAssemblyMapData.NotifyObservers();
+            tailorMadeAssemblyMapData.NotifyObservers();
+            combinedAssemblyMapData.NotifyObservers();
+        }
+
+        private void SetAssemblyMapData()
+        {
+            simpleAssemblyMapData.Features = HeightStructuresAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
+            detailedAssemblyMapData.Features = HeightStructuresAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism, AssessmentSection);
+            tailorMadeAssemblyMapData.Features = HeightStructuresAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism, AssessmentSection);
+            combinedAssemblyMapData.Features = HeightStructuresAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism, AssessmentSection);
+        }
+
+        #endregion
 
         #region Calculations MapData
 
@@ -258,6 +311,8 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
+
+            UpdateAssemblyMapData();
         }
 
         private void SetCalculationsMapData()
@@ -284,9 +339,9 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         #endregion
 
-        #region ReferenceLine MapData
+        #region AssessmentSection MapData
 
-        private void UpdateReferenceLineMapData()
+        private void UpdateAssessmentSectionMapData()
         {
             SetReferenceLineMapData();
             referenceLineMapData.NotifyObservers();
@@ -300,20 +355,21 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         #endregion
 
-        #region Sections MapData
+        #region FailureMechanism MapData
 
-        private void UpdateSectionsMapData()
+        private void UpdateFailureMechanismMapData()
         {
             SetSectionsMapData();
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
+
+            UpdateAssemblyMapData();
         }
 
         private void SetSectionsMapData()
         {
             IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
-
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);

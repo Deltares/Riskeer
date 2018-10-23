@@ -25,12 +25,17 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -49,14 +54,20 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
     {
         private const int referenceLineIndex = 0;
         private const int sectionsCollectionIndex = 1;
-        private const int hydraulicBoundaryLocationsIndex = 2;
-        private const int foreshoreProfilesIndex = 3;
-        private const int structuresIndex = 4;
-        private const int calculationsIndex = 5;
+        private const int assemblyResultsIndex = 2;
+        private const int hydraulicBoundaryLocationsIndex = 3;
+        private const int foreshoreProfilesIndex = 4;
+        private const int structuresIndex = 5;
+        private const int calculationsIndex = 6;
 
         private const int sectionsIndex = 0;
         private const int sectionsStartPointIndex = 1;
         private const int sectionsEndPointIndex = 2;
+
+        private const int tailorMadeAssemblyIndex = 0;
+        private const int detailedAssemblyIndex = 1;
+        private const int simpleAssemblyIndex = 2;
+        private const int combinedAssemblyIndex = 3;
 
         private const int hydraulicBoundaryLocationsObserverIndex = 1;
         private const int foreshoreProfilesObserverIndex = 2;
@@ -65,6 +76,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         private const int sectionsObserverIndex = 5;
         private const int sectionsStartPointObserverIndex = 6;
         private const int sectionsEndPointObserverIndex = 7;
+        private const int simpleAssemblyObserverIndex = 8;
+        private const int detailedAssemblyObserverIndex = 9;
+        private const int tailorMadeAssemblyObserverIndex = 10;
+        private const int combinedAssemblyObserverIndex = 11;
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -137,6 +152,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
+            var random = new Random(39);
+
             var calculationA = new StructuresCalculation<HeightStructuresInput>
             {
                 InputParameters =
@@ -205,30 +222,52 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
             });
 
-            // Call
-            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection))
+            var expectedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var expectedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var expectedTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var expectedCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-                // Assert
-                MapDataCollection mapData = map.Data;
-                Assert.IsInstanceOf<MapDataCollection>(mapData);
+                calculator.SimpleAssessmentAssemblyOutput = expectedSimpleAssembly;
+                calculator.DetailedAssessmentAssemblyOutput = expectedDetailedAssembly;
+                calculator.TailorMadeAssessmentAssemblyOutput = expectedTailorMadeAssembly;
+                calculator.CombinedAssemblyOutput = expectedCombinedAssembly;
 
-                List<MapData> mapDataList = mapData.Collection.ToList();
-                Assert.AreEqual(6, mapDataList.Count);
-                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
+                // Call
+                using (var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection))
+                {
+                    IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                IEnumerable<MapData> sectionsCollection = ((MapDataCollection) mapDataList[sectionsCollectionIndex]).Collection;
-                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsIndex));
-                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsStartPointIndex));
-                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsEndPointIndex));
+                    // Assert
+                    MapDataCollection mapData = map.Data;
+                    Assert.IsInstanceOf<MapDataCollection>(mapData);
 
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
-                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
+                    List<MapData> mapDataList = mapData.Collection.ToList();
+                    Assert.AreEqual(7, mapDataList.Count);
+                    MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
 
-                AssertCalculationsMapData(
-                    failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
-                    mapDataList[calculationsIndex]);
+                    IEnumerable<MapData> sectionsCollection = ((MapDataCollection) mapDataList[sectionsCollectionIndex]).Collection;
+                    MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsIndex));
+                    MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsStartPointIndex));
+                    MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsEndPointIndex));
+
+                    MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
+                    MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
+                    AssertCalculationsMapData(
+                        failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
+                        mapDataList[calculationsIndex]);
+
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(expectedSimpleAssembly,
+                                                                      expectedDetailedAssembly,
+                                                                      expectedTailorMadeAssembly,
+                                                                      expectedCombinedAssembly,
+                                                                      (MapDataCollection) mapDataList[assemblyResultsIndex],
+                                                                      failureMechanism);
+                }
             }
         }
 
@@ -263,7 +302,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 });
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
-                // Then 
+                // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
                 mocks.VerifyAll();
             }
@@ -369,6 +408,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 // When
@@ -578,6 +621,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
@@ -627,6 +674,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
@@ -646,52 +697,220 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
+        public void GivenViewWithAssemblyData_WhenFailureMechanismNotified_ThenMapDataUpdated()
         {
             // Given
-            var calculationA = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3),
-                    Structure = new TestHeightStructure(new Point2D(1.2, 2.3))
-                }
-            };
-
+            var random = new Random(39);
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
 
-            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
+            var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var originalDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var originalTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var originalCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
+                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
+                calculator.DetailedAssessmentAssemblyOutput = originalDetailedAssembly;
+                calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
+                calculator.CombinedAssemblyOutput = originalCombinedAssembly;
 
-                var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+                using (var view = new HeightStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
+                {
+                    IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                // Precondition
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
-                                          calculationMapData);
+                    var mocks = new MockRepository();
+                    IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                    observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                    mocks.ReplayAll();
 
-                // When
-                calculationA.Name = "new name";
-                calculationA.NotifyObservers();
+                    // Precondition
+                    var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly,
+                                                                      originalDetailedAssembly,
+                                                                      originalTailorMadeAssembly,
+                                                                      originalCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
 
-                // Then
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(), calculationMapData);
-                mocks.VerifyAll();
+                    // When
+                    var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                    var updatedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                    var updatedTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                    var updatedCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                    calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
+                    calculator.DetailedAssessmentAssemblyOutput = updatedDetailedAssembly;
+                    calculator.TailorMadeAssessmentAssemblyOutput = updatedTailorMadeAssembly;
+                    calculator.CombinedAssemblyOutput = updatedCombinedAssembly;
+                    failureMechanism.NotifyObservers();
+
+                    // Then
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,
+                                                                      updatedDetailedAssembly,
+                                                                      updatedTailorMadeAssembly,
+                                                                      updatedCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
+                    mocks.VerifyAll();
+                }
             }
         }
 
         [Test]
-        public void UpdateObserver_DataUpdated_MapLayersSameOrder()
+        public void GivenViewWithAssemblyData_WhenCalculationNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var random = new Random(39);
+            var calculationA = new StructuresCalculation<HeightStructuresInput>();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
+
+            var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var originalDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var originalTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var originalCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
+                calculator.DetailedAssessmentAssemblyOutput = originalDetailedAssembly;
+                calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
+                calculator.CombinedAssemblyOutput = originalCombinedAssembly;
+
+                using (var view = new HeightStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
+                {
+                    IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                    var mocks = new MockRepository();
+                    IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                    observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                    mocks.ReplayAll();
+
+                    // Precondition
+                    var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly,
+                                                                      originalDetailedAssembly,
+                                                                      originalTailorMadeAssembly,
+                                                                      originalCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
+
+                    // When
+                    var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                    var updatedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                    var updatedTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                    var updatedCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                    calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
+                    calculator.DetailedAssessmentAssemblyOutput = updatedDetailedAssembly;
+                    calculator.TailorMadeAssessmentAssemblyOutput = updatedTailorMadeAssembly;
+                    calculator.CombinedAssemblyOutput = updatedCombinedAssembly;
+                    calculationA.NotifyObservers();
+
+                    // Then
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,
+                                                                      updatedDetailedAssembly,
+                                                                      updatedTailorMadeAssembly,
+                                                                      updatedCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
+                    mocks.VerifyAll();
+                }
+            }
+        }
+
+        [Test]
+        public void GivenViewWithAssemblyData_WhenFailureMechanismSectionResultNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var random = new Random(39);
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
+
+            var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var originalDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var originalTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var originalCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
+                calculator.DetailedAssessmentAssemblyOutput = originalDetailedAssembly;
+                calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
+                calculator.CombinedAssemblyOutput = originalCombinedAssembly;
+
+                using (var view = new HeightStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
+                {
+                    IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                    var mocks = new MockRepository();
+                    IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                    observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                    observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                    mocks.ReplayAll();
+
+                    // Precondition
+                    var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly,
+                                                                      originalDetailedAssembly,
+                                                                      originalTailorMadeAssembly,
+                                                                      originalCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
+
+                    // When
+                    var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                    var updatedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                    var updatedTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                    var updatedCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                    calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
+                    calculator.DetailedAssessmentAssemblyOutput = updatedDetailedAssembly;
+                    calculator.TailorMadeAssessmentAssemblyOutput = updatedTailorMadeAssembly;
+                    calculator.CombinedAssemblyOutput = updatedCombinedAssembly;
+                    failureMechanism.SectionResults.First().NotifyObservers();
+
+                    // Then
+                    MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,
+                                                                      updatedDetailedAssembly,
+                                                                      updatedTailorMadeAssembly,
+                                                                      updatedCombinedAssembly,
+                                                                      assemblyMapData,
+                                                                      failureMechanism);
+                    mocks.VerifyAll();
+                }
+            }
+        }
+
+        [Test]
+        public void NotifyObservers_DataUpdated_MapLayersSameOrder()
         {
             // Setup
-            const int updatedReferenceLineLayerIndex = referenceLineIndex + 5;
+            const int updatedReferenceLineLayerIndex = referenceLineIndex + 6;
             const int updatedSectionCollectionIndex = sectionsCollectionIndex - 1;
+            const int updatedAssemblyResultsCollectionIndex = assemblyResultsIndex - 1;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
             const int updatedForeshoreProfilesLayerIndex = foreshoreProfilesIndex - 1;
             const int updatedStructuresLayerIndex = structuresIndex - 1;
@@ -717,6 +936,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 var sectionsData = (MapDataCollection) mapDataList[updatedSectionCollectionIndex];
                 Assert.AreEqual("Vakindeling", sectionsData.Name);
+
+                var assemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
+                Assert.AreEqual("Toetsoordeel", assemblyResultsData.Name);
 
                 var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische belastingen", hydraulicLocationsData.Name);
@@ -748,6 +970,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 var actualSectionsData = (MapDataCollection) mapDataList[updatedSectionCollectionIndex];
                 Assert.AreEqual("Vakindeling", actualSectionsData.Name);
+
+                var actualAssemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
+                Assert.AreEqual("Toetsoordeel", actualAssemblyResultsData.Name);
 
                 var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische belastingen", actualHydraulicLocationsData.Name);
@@ -793,7 +1018,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
-            Assert.AreEqual(6, mapDataList.Count);
+            Assert.AreEqual(7, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
             var foreshoreProfilesMapData = (MapLineData) mapDataList[foreshoreProfilesIndex];
@@ -829,6 +1054,26 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
             Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
             Assert.AreEqual("Vakindeling", sectionsMapData.Name);
+
+            var assemblyResultsMapDataCollection = (MapDataCollection) mapDataList[assemblyResultsIndex];
+            Assert.AreEqual("Toetsoordeel", assemblyResultsMapDataCollection.Name);
+            List<MapData> assemblyMapDataList = assemblyResultsMapDataCollection.Collection.ToList();
+            Assert.AreEqual(4, assemblyMapDataList.Count);
+
+            var combinedAssemblyMapData = (MapLineData) assemblyMapDataList[combinedAssemblyIndex];
+            var simpleAssemblyMapData = (MapLineData) assemblyMapDataList[simpleAssemblyIndex];
+            var detailedAssemblyMapData = (MapLineData) assemblyMapDataList[detailedAssemblyIndex];
+            var tailorMadeAssemblyMapData = (MapLineData) assemblyMapDataList[tailorMadeAssemblyIndex];
+
+            CollectionAssert.IsEmpty(combinedAssemblyMapData.Features);
+            CollectionAssert.IsEmpty(simpleAssemblyMapData.Features);
+            CollectionAssert.IsEmpty(detailedAssemblyMapData.Features);
+            CollectionAssert.IsEmpty(tailorMadeAssemblyMapData.Features);
+
+            Assert.AreEqual("Gecombineerd toetsoordeel", combinedAssemblyMapData.Name);
+            Assert.AreEqual("Toetsoordeel eenvoudige toets", simpleAssemblyMapData.Name);
+            Assert.AreEqual("Toetsoordeel gedetailleerde toets", detailedAssemblyMapData.Name);
+            Assert.AreEqual("Toetsoordeel toets op maat", tailorMadeAssemblyMapData.Name);
         }
 
         /// <summary>
@@ -867,6 +1112,19 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
             sectionsCollection[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
 
+            MapData[] assemblyResultsCollection = ((MapDataCollection) mapDataArray[assemblyResultsIndex]).Collection.ToArray();
+            var simpleAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
+            assemblyResultsCollection[simpleAssemblyIndex].Attach(simpleAssemblyMapDataObserver);
+
+            var detailedAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
+            assemblyResultsCollection[detailedAssemblyIndex].Attach(detailedAssemblyMapDataObserver);
+
+            var tailorMadeAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
+            assemblyResultsCollection[tailorMadeAssemblyIndex].Attach(tailorMadeAssemblyMapDataObserver);
+
+            var combinedAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
+            assemblyResultsCollection[combinedAssemblyIndex].Attach(combinedAssemblyMapDataObserver);
+
             return new[]
             {
                 referenceLineMapDataObserver,
@@ -876,7 +1134,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 calculationsMapDataObserver,
                 sectionsMapDataObserver,
                 sectionsStartPointMapDataObserver,
-                sectionsEndPointMapDataObserver
+                sectionsEndPointMapDataObserver,
+                simpleAssemblyMapDataObserver,
+                detailedAssemblyMapDataObserver,
+                tailorMadeAssemblyMapDataObserver,
+                combinedAssemblyMapDataObserver
             };
         }
     }
