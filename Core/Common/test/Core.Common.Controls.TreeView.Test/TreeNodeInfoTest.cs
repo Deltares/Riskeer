@@ -75,7 +75,7 @@ namespace Core.Common.Controls.TreeView.Test
             Func<object, object, bool> canRemove = (o1, o2) => true;
             Action<object, object> onNodeRemoved = (o1, o2) => {};
             Func<object, bool> canCheck = o => true;
-            Func<object, bool> isChecked = o => true;
+            Func<object, TreeNodeCheckedState> isChecked = o => TreeNodeCheckedState.Checked;
             Action<object, object> onNodeChecked = (o1, o2) => {};
             Func<object, object, bool> canDrag = (o1, o2) => true;
             Func<object, object, bool> canDrop = (o1, o2) => true;
@@ -170,7 +170,7 @@ namespace Core.Common.Controls.TreeView.Test
             Func<int, object, bool> canRemove = (o1, o2) => true;
             Action<int, object> onNodeRemoved = (o1, o2) => {};
             Func<int, bool> canCheck = o => true;
-            Func<int, bool> isChecked = o => true;
+            Func<int, TreeNodeCheckedState> isChecked = o => TreeNodeCheckedState.Checked;
             Action<int, object> onNodeChecked = (o1, o2) => {};
             Func<int, object, bool> canDrag = (o1, o2) => true;
             Func<object, object, bool> canDrop = (o1, o2) => true;
@@ -284,7 +284,7 @@ namespace Core.Common.Controls.TreeView.Test
                 CanRemove = (o1, o2) => true,
                 OnNodeRemoved = (o1, o2) => { onNodeRemovedCounter++; },
                 CanCheck = o => true,
-                IsChecked = o => true,
+                IsChecked = o => TreeNodeCheckedState.Checked,
                 OnNodeChecked = (o1, o2) => { onNodeCheckedCounter++; },
                 CanDrag = (o1, o2) => true,
                 CanDrop = (o1, o2) => true,
@@ -317,7 +317,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsTrue(treeNodeInfo.CanRename(0, 1));
             Assert.IsTrue(treeNodeInfo.CanRemove(0, 1));
             Assert.IsTrue(treeNodeInfo.CanCheck(0));
-            Assert.IsTrue(treeNodeInfo.IsChecked(0));
+            Assert.AreEqual(TreeNodeCheckedState.Checked, treeNodeInfo.IsChecked(0));
             Assert.IsTrue(treeNodeInfo.CanDrag(0, 1));
             Assert.IsTrue(treeNodeInfo.CanDrop(0, 1));
             Assert.IsTrue(treeNodeInfo.CanInsert(0, 1));

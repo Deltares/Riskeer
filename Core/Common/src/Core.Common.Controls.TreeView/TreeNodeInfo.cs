@@ -118,7 +118,7 @@ namespace Core.Common.Controls.TreeView
         /// Gets or sets a function for checking whether or not the tree node should be checked.
         /// The <c>object</c> parameter represents the data of the tree node.
         /// </summary>
-        public Func<object, bool> IsChecked { get; set; }
+        public Func<object, TreeNodeCheckedState> IsChecked { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after checking or unchecking the tree node.
@@ -262,7 +262,7 @@ namespace Core.Common.Controls.TreeView
         /// Gets or sets a function for checking whether or not the tree node should be checked.
         /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// </summary>
-        public Func<TData, bool> IsChecked { get; set; }
+        public Func<TData, TreeNodeCheckedState> IsChecked { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after checking or unchecking the tree node.
@@ -353,7 +353,7 @@ namespace Core.Common.Controls.TreeView
                                : (Func<object, bool>) null,
                 IsChecked = treeNodeInfo.IsChecked != null
                                 ? tag => treeNodeInfo.IsChecked((TData) tag)
-                                : (Func<object, bool>) null,
+                                : (Func<object, TreeNodeCheckedState>) null,
                 OnNodeChecked = treeNodeInfo.OnNodeChecked != null
                                     ? (tag, parentTag) => treeNodeInfo.OnNodeChecked((TData) tag, parentTag)
                                     : (Action<object, object>) null,
