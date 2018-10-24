@@ -24,6 +24,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\StabilityPointStructuresAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="PresentationObjects\StabilityPointStructuresFailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\StabilityPointStructuresOutputContextTest.cs" />
     <Compile Include="PresentationObjects\StabilityPointStructuresScenariosContextTest.cs" />
