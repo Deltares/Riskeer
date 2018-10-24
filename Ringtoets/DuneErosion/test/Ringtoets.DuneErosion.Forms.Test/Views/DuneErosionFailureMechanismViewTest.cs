@@ -405,7 +405,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
-        [Test, Explicit]
+        [Test]
         public void GivenViewWithAssemblyData_WhenFailureMechanismNotified_ThenMapDataUpdated()
         {
             // Given
@@ -475,7 +475,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
-        [Test, Explicit]
+        [Test]
         public void GivenViewWithAssemblyData_WhenFailureMechanismSectionResultNotified_ThenMapDataUpdated()
         {
             // Given
@@ -542,7 +542,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
-        [Test, Explicit]
+        [Test]
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
