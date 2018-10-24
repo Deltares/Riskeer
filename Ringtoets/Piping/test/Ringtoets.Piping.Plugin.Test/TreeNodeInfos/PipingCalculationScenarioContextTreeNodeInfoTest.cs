@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(info.CanRemove);
             Assert.IsNotNull(info.OnNodeRemoved);
             Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.IsChecked);
+            Assert.IsNull(info.CheckedState);
             Assert.IsNull(info.OnNodeChecked);
             Assert.IsNotNull(info.CanDrag);
             Assert.IsNull(info.CanDrop);
