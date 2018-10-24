@@ -24,6 +24,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\ClosingStructuresAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresCalculationGroupContextTest.cs" />

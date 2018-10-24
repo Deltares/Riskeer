@@ -13,6 +13,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\ClosingStructuresAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresOutputContext.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresScenariosContext.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresFailureMechanismSectionsContext.cs" />
