@@ -589,9 +589,9 @@ namespace Core.Common.Controls.TreeView
             SetTreeNodeImageKey(treeNode, treeNodeInfo);
 
             if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(treeNode.Tag) &&
-                treeNodeInfo.IsChecked != null)
+                treeNodeInfo.CheckedState != null)
             {
-                if (treeNode.Checked != treeNodeInfo.IsChecked(treeNode.Tag))
+                if (treeNode.Checked != treeNodeInfo.CheckedState(treeNode.Tag))
                 {
                     treeView.AfterCheck -= TreeViewAfterCheck;
                     treeNode.Checked = !treeNode.Checked;

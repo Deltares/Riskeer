@@ -49,7 +49,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsNull(treeNodeInfo.CanRemove);
             Assert.IsNull(treeNodeInfo.OnNodeRemoved);
             Assert.IsNull(treeNodeInfo.CanCheck);
-            Assert.IsNull(treeNodeInfo.IsChecked);
+            Assert.IsNull(treeNodeInfo.CheckedState);
             Assert.IsNull(treeNodeInfo.OnNodeChecked);
             Assert.IsNull(treeNodeInfo.CanDrag);
             Assert.IsNull(treeNodeInfo.CanDrop);
@@ -96,7 +96,7 @@ namespace Core.Common.Controls.TreeView.Test
             treeNodeInfo.CanRemove = canRemove;
             treeNodeInfo.OnNodeRemoved = onNodeRemoved;
             treeNodeInfo.CanCheck = canCheck;
-            treeNodeInfo.IsChecked = isChecked;
+            treeNodeInfo.CheckedState = isChecked;
             treeNodeInfo.OnNodeChecked = onNodeChecked;
             treeNodeInfo.CanDrag = canDrag;
             treeNodeInfo.CanDrop = canDrop;
@@ -117,7 +117,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.AreEqual(canRemove, treeNodeInfo.CanRemove);
             Assert.AreEqual(onNodeRemoved, treeNodeInfo.OnNodeRemoved);
             Assert.AreEqual(canCheck, treeNodeInfo.CanCheck);
-            Assert.AreEqual(isChecked, treeNodeInfo.IsChecked);
+            Assert.AreEqual(isChecked, treeNodeInfo.CheckedState);
             Assert.AreEqual(onNodeChecked, treeNodeInfo.OnNodeChecked);
             Assert.AreEqual(canDrag, treeNodeInfo.CanDrag);
             Assert.AreEqual(canDrop, treeNodeInfo.CanDrop);
@@ -145,7 +145,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsNull(treeNodeInfo.CanRemove);
             Assert.IsNull(treeNodeInfo.OnNodeRemoved);
             Assert.IsNull(treeNodeInfo.CanCheck);
-            Assert.IsNull(treeNodeInfo.IsChecked);
+            Assert.IsNull(treeNodeInfo.CheckedState);
             Assert.IsNull(treeNodeInfo.OnNodeChecked);
             Assert.IsNull(treeNodeInfo.CanDrag);
             Assert.IsNull(treeNodeInfo.CanDrop);
@@ -190,7 +190,7 @@ namespace Core.Common.Controls.TreeView.Test
             treeNodeInfo.CanRemove = canRemove;
             treeNodeInfo.OnNodeRemoved = onNodeRemoved;
             treeNodeInfo.CanCheck = canCheck;
-            treeNodeInfo.IsChecked = isChecked;
+            treeNodeInfo.CheckedState = isChecked;
             treeNodeInfo.OnNodeChecked = onNodeChecked;
             treeNodeInfo.CanDrag = canDrag;
             treeNodeInfo.CanDrop = canDrop;
@@ -211,7 +211,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.AreEqual(canRemove, treeNodeInfo.CanRemove);
             Assert.AreEqual(onNodeRemoved, treeNodeInfo.OnNodeRemoved);
             Assert.AreEqual(canCheck, treeNodeInfo.CanCheck);
-            Assert.AreEqual(isChecked, treeNodeInfo.IsChecked);
+            Assert.AreEqual(isChecked, treeNodeInfo.CheckedState);
             Assert.AreEqual(onNodeChecked, treeNodeInfo.OnNodeChecked);
             Assert.AreEqual(canDrag, treeNodeInfo.CanDrag);
             Assert.AreEqual(canDrop, treeNodeInfo.CanDrop);
@@ -244,7 +244,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsNull(treeNodeInfo.CanRemove);
             Assert.IsNull(treeNodeInfo.OnNodeRemoved);
             Assert.IsNull(treeNodeInfo.CanCheck);
-            Assert.IsNull(treeNodeInfo.IsChecked);
+            Assert.IsNull(treeNodeInfo.CheckedState);
             Assert.IsNull(treeNodeInfo.OnNodeChecked);
             Assert.IsNull(treeNodeInfo.CanDrag);
             Assert.IsNull(treeNodeInfo.CanDrop);
@@ -284,7 +284,7 @@ namespace Core.Common.Controls.TreeView.Test
                 CanRemove = (o1, o2) => true,
                 OnNodeRemoved = (o1, o2) => { onNodeRemovedCounter++; },
                 CanCheck = o => true,
-                IsChecked = o => TreeNodeCheckedState.Checked,
+                CheckedState = o => TreeNodeCheckedState.Checked,
                 OnNodeChecked = (o1, o2) => { onNodeCheckedCounter++; },
                 CanDrag = (o1, o2) => true,
                 CanDrop = (o1, o2) => true,
@@ -317,7 +317,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsTrue(treeNodeInfo.CanRename(0, 1));
             Assert.IsTrue(treeNodeInfo.CanRemove(0, 1));
             Assert.IsTrue(treeNodeInfo.CanCheck(0));
-            Assert.AreEqual(TreeNodeCheckedState.Checked, treeNodeInfo.IsChecked(0));
+            Assert.AreEqual(TreeNodeCheckedState.Checked, treeNodeInfo.CheckedState(0));
             Assert.IsTrue(treeNodeInfo.CanDrag(0, 1));
             Assert.IsTrue(treeNodeInfo.CanDrop(0, 1));
             Assert.IsTrue(treeNodeInfo.CanInsert(0, 1));
