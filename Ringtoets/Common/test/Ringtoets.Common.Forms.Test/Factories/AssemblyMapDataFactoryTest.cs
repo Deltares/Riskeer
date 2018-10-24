@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(expectedName, actualMapLineData.Name);
             Assert.AreEqual(expectedVisibility, actualMapLineData.IsVisible);
             Assert.AreEqual("Categorie", actualMapLineData.SelectedMetaDataAttribute);
-            AssertEqualStyle(actualMapLineData.Style, Color.Empty, 2, LineDashStyle.Solid);
+            AssertEqualStyle(actualMapLineData.Style, Color.Empty, 6, LineDashStyle.Solid);
             AssertMapTheme(actualMapLineData.MapTheme);
         }
 
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             AssertCategoryTheme("Vv", Color.FromArgb(255, 255, 153, 0), theme.CategoryThemes.ElementAt(4));
             AssertCategoryTheme("VIv", Color.FromArgb(255, 255, 0, 0), theme.CategoryThemes.ElementAt(5));
             AssertCategoryTheme("VIIv", Color.FromArgb(255, 255, 255, 255), theme.CategoryThemes.ElementAt(6));
-            AssertCategoryTheme("-", Color.HotPink, theme.CategoryThemes.ElementAt(7));
+            AssertCategoryTheme("-", Color.FromArgb(0, 0, 0, 0), theme.CategoryThemes.ElementAt(7));
             AssertCategoryTheme(string.Empty, Color.FromArgb(0, 0, 0, 0), theme.CategoryThemes.ElementAt(8));
         }
 

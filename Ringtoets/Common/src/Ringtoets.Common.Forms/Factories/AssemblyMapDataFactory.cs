@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Forms.Factories
     /// </summary>
     public static class AssemblyMapDataFactory
     {
-        private const int lineWidth = 2;
+        private const int lineWidth = 6;
         private const LineDashStyle lineDashStyle = LineDashStyle.Solid;
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Forms.Factories
                 new CategoryTheme(Color.FromArgb(255, 255, 153, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.Vv)),
                 new CategoryTheme(Color.FromArgb(255, 255, 0, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.VIv)),
                 new CategoryTheme(Color.FromArgb(255, 255, 255, 255), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.VIIv)),
-                new CategoryTheme(Color.HotPink, CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.NotApplicable)),
+                new CategoryTheme(Color.FromArgb(0, 0, 0, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.NotApplicable)),
                 new CategoryTheme(Color.FromArgb(0, 0, 0, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.None))
             });
         }
