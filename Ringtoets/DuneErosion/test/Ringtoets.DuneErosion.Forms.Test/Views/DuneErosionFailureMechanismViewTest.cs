@@ -280,7 +280,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
-        [Test, Explicit]
+        [Test]
         [TestCaseSource(nameof(GetCalculationFuncs))]
         public void GivenViewWithDuneLocationsData_WhenDuneLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
             Func<DuneErosionFailureMechanism, DuneLocationCalculation> getCalculationFunc)
@@ -360,7 +360,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
-        [Test, Explicit]
+        [Test]
         public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
