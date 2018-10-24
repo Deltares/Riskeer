@@ -179,10 +179,11 @@ namespace Core.Plugins.Map.Test.Legend
             featureBasedMapData.IsVisible = isVisible;
 
             // Call
-            bool isChecked = info.CheckedState(context);
+            TreeNodeCheckedState checkedState = info.CheckedState(context);
 
             // Assert
-            Assert.AreEqual(isVisible, isChecked);
+            TreeNodeCheckedState expectedCheckedState = isVisible ? TreeNodeCheckedState.Checked : TreeNodeCheckedState.Unchecked;
+            Assert.AreEqual(expectedCheckedState, checkedState);
         }
 
         [Test]
