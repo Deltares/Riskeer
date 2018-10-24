@@ -47,6 +47,7 @@ using Ringtoets.DuneErosion.Forms.Views;
 namespace Ringtoets.DuneErosion.Forms.Test.Views
 {
     [TestFixture]
+    [Explicit("Breaks TeamCity coverage report")]
     public class DuneErosionFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
