@@ -115,7 +115,7 @@ namespace Core.Plugins.Chart.Legend
                 ChildNodeObjects = ChartDataContextGetChildNodeObjects,
                 CanDrag = (context, o) => !(context.WrappedData is ChartMultipleAreaData),
                 CanCheck = context => !(context.WrappedData is ChartDataCollection),
-                IsChecked = context => context.WrappedData.IsVisible,
+                CheckedState = context => context.WrappedData.IsVisible,
                 OnNodeChecked = ChartDataContextOnNodeChecked,
                 CanDrop = ChartDataContextCanDropAndInsert,
                 CanInsert = ChartDataContextCanDropAndInsert,

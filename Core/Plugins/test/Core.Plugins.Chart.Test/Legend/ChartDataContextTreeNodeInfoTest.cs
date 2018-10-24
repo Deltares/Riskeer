@@ -151,7 +151,7 @@ namespace Core.Plugins.Chart.Test.Legend
             Assert.IsNull(info.CanRemove);
             Assert.IsNull(info.OnNodeRemoved);
             Assert.IsNotNull(info.CanCheck);
-            Assert.IsNotNull(info.IsChecked);
+            Assert.IsNotNull(info.CheckedState);
             Assert.IsNotNull(info.OnNodeChecked);
             Assert.IsNotNull(info.CanDrag);
             Assert.IsNotNull(info.CanDrop);
@@ -292,7 +292,7 @@ namespace Core.Plugins.Chart.Test.Legend
             context.WrappedData.IsVisible = isVisible;
 
             // Call
-            bool isChecked = info.IsChecked(context);
+            bool isChecked = info.CheckedState(context);
 
             // Assert
             Assert.AreEqual(isVisible, isChecked);
