@@ -47,7 +47,6 @@ using Ringtoets.DuneErosion.Forms.Views;
 namespace Ringtoets.DuneErosion.Forms.Test.Views
 {
     [TestFixture]
-    [Explicit("Breaks TeamCity coverage report")]
     public class DuneErosionFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
@@ -281,7 +280,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
-        [Test]
+        [Test, Explicit]
         [TestCaseSource(nameof(GetCalculationFuncs))]
         public void GivenViewWithDuneLocationsData_WhenDuneLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
             Func<DuneErosionFailureMechanism, DuneLocationCalculation> getCalculationFunc)
@@ -319,7 +318,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
-        [Test]
+        [Test, Explicit]
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -361,7 +360,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
-        [Test]
+        [Test, Explicit]
         public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -406,7 +405,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
-        [Test]
+        [Test, Explicit]
         public void GivenViewWithAssemblyData_WhenFailureMechanismNotified_ThenMapDataUpdated()
         {
             // Given
@@ -476,7 +475,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
-        [Test]
+        [Test, Explicit]
         public void GivenViewWithAssemblyData_WhenFailureMechanismSectionResultNotified_ThenMapDataUpdated()
         {
             // Given
@@ -543,7 +542,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
-        [Test]
+        [Test, Explicit]
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
