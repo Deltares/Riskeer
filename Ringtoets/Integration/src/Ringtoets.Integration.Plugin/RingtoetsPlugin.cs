@@ -80,6 +80,7 @@ using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.Dialogs;
+using Ringtoets.Integration.Forms.Factories;
 using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
@@ -480,6 +481,15 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.Map,
                 CreateInstance = section => new AssessmentSectionView(section)
             };
+
+            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
+                context => new FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
+                    context.WrappedData,
+                    context.Parent,
+                    () => MacroStabilityOutwardsAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
+                    () => MacroStabilityOutwardsAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(context.WrappedData, context.Parent),
+                    () => MacroStabilityOutwardsAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData, context.Parent),
+                    () => MacroStabilityOutwardsAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData, context.Parent)));
 
             yield return new ViewInfo<IFailureMechanismContext<IFailureMechanism>, FailureMechanismView<IFailureMechanism>>
             {
@@ -1248,6 +1258,40 @@ namespace Ringtoets.Integration.Plugin
         }
 
         #region ViewInfos
+
+        #region FailureMechanismWithDetailedAssessmentView ViewInfo
+
+        private static ViewInfo<IFailureMechanismContext<TFailureMechanism>, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
+            TFailureMechanism, TSectionResult>(
+            Func<IFailureMechanismContext<TFailureMechanism>, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> createInstanceFunc)
+            where TSectionResult : FailureMechanismSectionResult
+            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
+        {
+            return new ViewInfo<IFailureMechanismContext<TFailureMechanism>,
+                FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                CloseForData = CloseFailureMechanismWithDetailedAssessmentViewForData,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CreateInstance = createInstanceFunc
+            };
+        }
+
+        private static bool CloseFailureMechanismWithDetailedAssessmentViewForData<TFailureMechanism, TSectionResult>(
+            FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult> view, object o)
+            where TFailureMechanism : IHasSectionResults<TSectionResult>
+            where TSectionResult : FailureMechanismSectionResult
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as IFailureMechanism;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
+        }
+
+        #endregion
 
         #region FailureMechanismView ViewInfo
 

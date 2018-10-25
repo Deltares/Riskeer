@@ -394,7 +394,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(22, viewInfos.Length);
+                Assert.AreEqual(23, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -524,6 +524,11 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(AssemblyResultCategoriesContext),
                     typeof(AssessmentSection),
                     typeof(AssemblyResultCategoriesView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(IFailureMechanismContext<MacroStabilityOutwardsFailureMechanism>),
+                    typeof(FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>));
             }
         }
 
