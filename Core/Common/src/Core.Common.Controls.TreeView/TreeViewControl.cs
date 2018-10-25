@@ -591,7 +591,7 @@ namespace Core.Common.Controls.TreeView
             if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(treeNode.Tag) &&
                 treeNodeInfo.CheckedState != null)
             {
-                if (treeNode.Checked != treeNodeInfo.CheckedState(treeNode.Tag))
+                if (!IsCheckedStateUpToDate(treeNode, treeNodeInfo))
                 {
                     treeView.AfterCheck -= TreeViewAfterCheck;
                     treeNode.Checked = !treeNode.Checked;
@@ -605,6 +605,14 @@ namespace Core.Common.Controls.TreeView
             {
                 treeNode.Expand();
             }
+        }
+
+        private static bool IsCheckedStateUpToDate(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
+        {
+            TreeNodeCheckedState checkedState = treeNodeInfo.CheckedState(treeNode.Tag);
+
+            return treeNode.Checked && (checkedState == TreeNodeCheckedState.Checked || checkedState == TreeNodeCheckedState.Mixed)
+                   || !treeNode.Checked && checkedState == TreeNodeCheckedState.Unchecked;
         }
 
         private void RefreshChildNodes(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
