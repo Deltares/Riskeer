@@ -102,7 +102,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => CreateView(null, assessmentSection);
+            TestDelegate call = () => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                null,
+                assessmentSection,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -119,11 +125,113 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => CreateView(failureMechanism, null);
+            TestDelegate call = () => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                failureMechanism,
+                null,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_GetSimpleAssemblyFeaturesFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                failureMechanism,
+                assessmentSection,
+                null,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getSimpleAssemblyFeaturesFunc", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_GetDetailedAssemblyFeaturesFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                failureMechanism,
+                assessmentSection,
+                Enumerable.Empty<MapFeature>,
+                null,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getDetailedAssemblyFeaturesFunc", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_GetTailorMadeAssemblyFeaturesFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                failureMechanism,
+                assessmentSection,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>,
+                null,
+                Enumerable.Empty<MapFeature>);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getTailorMadeAssemblyFeaturesFunc", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_GetCombinedAssemblyFeaturesFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                failureMechanism,
+                assessmentSection,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>,
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getCombinedAssemblyFeaturesFunc", exception.ParamName);
             mocks.VerifyAll();
         }
 
