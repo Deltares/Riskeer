@@ -108,6 +108,7 @@ namespace Core.Common.Controls.TreeView
             treeView.StateImageList = new ImageList();
             treeView.StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.UncheckedNormal));
             treeView.StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.CheckedNormal));
+            treeView.StateImageList.Images.Add(CreateCheckBoxGlyph(CheckBoxState.MixedNormal));
 
             treeView.DrawMode = TreeViewDrawMode.Normal;
             treeView.AllowDrop = true;

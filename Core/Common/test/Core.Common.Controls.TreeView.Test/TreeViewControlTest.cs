@@ -54,7 +54,7 @@ namespace Core.Common.Controls.TreeView.Test
                 Assert.AreEqual(0, treeView.ImageList.Images.Count);
 
                 Assert.NotNull(treeView.StateImageList);
-                Assert.AreEqual(2, treeView.StateImageList.Images.Count);
+                Assert.AreEqual(3, treeView.StateImageList.Images.Count);
             }
         }
 
