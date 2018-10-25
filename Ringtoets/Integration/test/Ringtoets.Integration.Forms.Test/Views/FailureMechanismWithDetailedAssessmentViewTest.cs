@@ -571,6 +571,173 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenViewWithAssemblyFeatures_WhenFailureMechanismNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var random = new Random(39);
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
+
+            var originalSimpleAssemblyFeatures = new[]
+            {
+                new MapFeature(Enumerable.Empty<MapGeometry>())
+            };
+            var originalDetailedAssemblyFeatures = new[]
+            {
+                new MapFeature(Enumerable.Empty<MapGeometry>())
+            };
+            var originalTailorMadeAssemblyFeatures = new[]
+            {
+                new MapFeature(Enumerable.Empty<MapGeometry>())
+            };
+            var originalCombinedAssemblyFeatures = new[]
+            {
+                new MapFeature(Enumerable.Empty<MapGeometry>())
+            };
+
+            using (var view = new FailureMechanismWithDetailedAssessmentView<TestFailureMechanism, FailureMechanismSectionResult>(
+                failureMechanism,
+                new AssessmentSectionStub(),
+                () => originalSimpleAssemblyFeatures,
+                () => originalDetailedAssemblyFeatures,
+                () => originalTailorMadeAssemblyFeatures,
+                () => originalCombinedAssemblyFeatures))
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                // Precondition
+                IEnumerable<MapData> assemblyMapDataList = ((MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex)).Collection;
+                CollectionAssert.AreEqual(originalSimpleAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(simpleAssemblyIndex)).Features);
+                CollectionAssert.AreEqual(originalDetailedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(detailedAssemblyIndex)).Features);
+                CollectionAssert.AreEqual(originalTailorMadeAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(tailorMadeAssemblyIndex)).Features);
+                CollectionAssert.AreEqual(originalCombinedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(combinedAssemblyIndex)).Features);
+
+                // When
+                originalSimpleAssemblyFeatures = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                };
+                originalDetailedAssemblyFeatures = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                };
+                originalTailorMadeAssemblyFeatures = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                };
+                originalCombinedAssemblyFeatures = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                };
+                failureMechanism.NotifyObservers();
+
+                // Then
+                CollectionAssert.AreEqual(originalSimpleAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(simpleAssemblyIndex)).Features);
+                CollectionAssert.AreEqual(originalDetailedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(detailedAssemblyIndex)).Features);
+                CollectionAssert.AreEqual(originalTailorMadeAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(tailorMadeAssemblyIndex)).Features);
+                CollectionAssert.AreEqual(originalCombinedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(combinedAssemblyIndex)).Features);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenViewWithAssemblyFeatures_WhenFailureMechanismSectionResultNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var random = new Random(39);
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
+
+            var originalSimpleAssemblyFeatures = new[]
+            {
+                new MapFeature(Enumerable.Empty<MapGeometry>())
+            };
+            var originalDetailedAssemblyFeatures = new[]
+            {
+                new MapFeature(Enumerable.Empty<MapGeometry>())
+            };
+            var originalTailorMadeAssemblyFeatures = new[]
+            {
+                new MapFeature(Enumerable.Empty<MapGeometry>())
+            };
+            var originalCombinedAssemblyFeatures = new[]
+            {
+                new MapFeature(Enumerable.Empty<MapGeometry>())
+            };
+
+            using (var view = new FailureMechanismWithDetailedAssessmentView<TestFailureMechanism, FailureMechanismSectionResult>(
+                failureMechanism,
+                new AssessmentSectionStub(),
+                () => originalSimpleAssemblyFeatures,
+                () => originalDetailedAssemblyFeatures,
+                () => originalTailorMadeAssemblyFeatures,
+                () => originalCombinedAssemblyFeatures))
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                // Precondition
+                IEnumerable<MapData> assemblyMapDataList = ((MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex)).Collection;
+                CollectionAssert.AreEqual(originalSimpleAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(simpleAssemblyIndex)).Features);
+                CollectionAssert.AreEqual(originalDetailedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(detailedAssemblyIndex)).Features);
+                CollectionAssert.AreEqual(originalTailorMadeAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(tailorMadeAssemblyIndex)).Features);
+                CollectionAssert.AreEqual(originalCombinedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(combinedAssemblyIndex)).Features);
+
+                // When
+                originalSimpleAssemblyFeatures = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                };
+                originalDetailedAssemblyFeatures = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                };
+                originalTailorMadeAssemblyFeatures = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                };
+                originalCombinedAssemblyFeatures = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>()),
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                };
+                failureMechanism.SectionResults.First().NotifyObservers();
+
+                // Then
+                CollectionAssert.AreEqual(originalSimpleAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(simpleAssemblyIndex)).Features);
+                CollectionAssert.AreEqual(originalDetailedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(detailedAssemblyIndex)).Features);
+                CollectionAssert.AreEqual(originalTailorMadeAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(tailorMadeAssemblyIndex)).Features);
+                CollectionAssert.AreEqual(originalCombinedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(combinedAssemblyIndex)).Features);
+                mocks.VerifyAll();
+            }
+        }
+
         private static FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> CreateView(
             IHasSectionResults<FailureMechanismSectionResult> failureMechanism,
             IAssessmentSection assessmentSection)
