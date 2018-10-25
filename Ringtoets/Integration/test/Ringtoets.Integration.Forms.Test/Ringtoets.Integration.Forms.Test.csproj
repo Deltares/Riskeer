@@ -88,6 +88,7 @@
     <Compile Include="Views\AssemblyResultCategoriesViewTest.cs" />
     <Compile Include="Views\AssemblyResultPerSectionViewTest.cs" />
     <Compile Include="Views\AssemblyCategoriesTableTest.cs" />
+    <Compile Include="Views\FailureMechanismWithDetailedAssessmentViewTest.cs" />
     <Compile Include="Views\FailureMechanismViewTest.cs" />
     <Compile Include="Views\MacroStabilityOutwardsAssemblyCategoriesViewTest.cs" />
     <Compile Include="Views\FailureMechanismAssemblyCategoriesViewTest.cs" />

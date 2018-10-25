@@ -119,6 +119,12 @@
       <DependentUpon>AssessmentSectionView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\CombinedFailureMechanismSectionAssemblyResultRow.cs" />
+    <Compile Include="Views\FailureMechanismWithDetailedAssessmentView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FailureMechanismWithDetailedAssessmentView.Designer.cs">
+      <DependentUpon>FailureMechanismWithDetailedAssessmentView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FailureMechanismView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -345,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\AssessmentSectionView.resx">
       <DependentUpon>AssessmentSectionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FailureMechanismWithDetailedAssessmentView.resx">
+      <DependentUpon>FailureMechanismWithDetailedAssessmentView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FailureMechanismView.resx">
       <DependentUpon>FailureMechanismView.cs</DependentUpon>
