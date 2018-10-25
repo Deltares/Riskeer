@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Util.Extensions;
 
 namespace Core.Components.Gis.Data
 {
@@ -59,6 +60,32 @@ namespace Core.Components.Gis.Data
                     mapData.IsVisible = value;
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets the visibility of the map data collection.
+        /// </summary>
+        /// <returns>A <see cref="MapDataCollectionVisibility"/>.</returns>
+        public MapDataCollectionVisibility GetVisibility()
+        {
+            IEnumerable<MapData> collectionsToIgnore = mapDataList.Where(md =>
+            {
+                var collection = md as MapDataCollection;
+                return collection != null && !collection.Collection.Any();
+            });
+
+            MapData[] children = mapDataList.Except(collectionsToIgnore).ToArray();
+
+            if (children.All(md => !md.IsVisible))
+            {
+                return MapDataCollectionVisibility.NotVisible;
+            }
+            if (children.All(md => md.IsVisible))
+            {
+                return MapDataCollectionVisibility.Visible;
+            }
+
+            return MapDataCollectionVisibility.Mixed;
         }
 
         /// <summary>

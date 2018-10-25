@@ -146,6 +146,92 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
+        public void GetVisibility_AllChildrenVisibleTrue_ReturnVisible()
+        {
+            // Setup
+            var collection = new MapDataCollection("test");
+            collection.Add(new TestMapData());
+            collection.Add(new TestMapData());
+
+            // Call
+            MapDataCollectionVisibility visibility = collection.GetVisibility();
+
+            // Assert
+            Assert.AreEqual(MapDataCollectionVisibility.Visible, visibility);
+        }
+
+        [Test]
+        public void GetVisibility_AllChildrenVisibleFalse_ReturnNotVisible()
+        {
+            // Setup
+            var collection = new MapDataCollection("test");
+            collection.Add(new TestMapData
+            {
+                IsVisible = false
+            });
+            collection.Add(new TestMapData
+            {
+                IsVisible = false
+            });
+
+            // Call
+            MapDataCollectionVisibility visibility = collection.GetVisibility();
+
+            // Assert
+            Assert.AreEqual(MapDataCollectionVisibility.NotVisible, visibility);
+        }
+
+        [Test]
+        public void GetVisibility_NoChildren_ReturnNotVisible()
+        {
+            // Setup
+            var collection = new MapDataCollection("test");
+
+            // Call
+            MapDataCollectionVisibility visibility = collection.GetVisibility();
+
+            // Assert
+            Assert.AreEqual(MapDataCollectionVisibility.NotVisible, visibility);
+        }
+
+        [Test]
+        public void GetVisibility_WithVisibleMapDataAndEmptyCollectionAsChildren_ReturnsVisible()
+        {
+            // Setup
+            var collection = new MapDataCollection("test");
+            collection.Add(new TestMapData());
+            var nestedCollection = new MapDataCollection("nested");
+            collection.Add(nestedCollection);
+
+            // Precondition
+            Assert.AreEqual(MapDataCollectionVisibility.NotVisible, nestedCollection.GetVisibility());
+
+            // Call
+            MapDataCollectionVisibility visibility = collection.GetVisibility();
+
+            // Assert
+            Assert.AreEqual(MapDataCollectionVisibility.Visible, visibility);
+        }
+
+        [Test]
+        public void GetVisibility_WithVisibleAndNotVisibleMapDataAsChildren_ReturnsMixed()
+        {
+            // Setup
+            var collection = new MapDataCollection("test");
+            collection.Add(new TestMapData());
+            collection.Add(new TestMapData
+            {
+                IsVisible = false
+            });
+
+            // Call
+            MapDataCollectionVisibility visibility = collection.GetVisibility();
+
+            // Assert
+            Assert.AreEqual(MapDataCollectionVisibility.Mixed, visibility);
+        }
+
+        [Test]
         public void Add_NotNull_AddsItemToCollection()
         {
             // Setup
