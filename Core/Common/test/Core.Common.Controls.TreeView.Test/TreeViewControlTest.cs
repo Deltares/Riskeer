@@ -1609,6 +1609,75 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
+        [TestCase(TreeNodeCheckedState.Unchecked, 0)]
+        [TestCase(TreeNodeCheckedState.Checked, 1)]
+        [TestCase(TreeNodeCheckedState.Mixed, 2)]
+        [Apartment(ApartmentState.STA)]
+        public void GivenTreeViewControl_WhenTreeNodeInfoWithCheckedState_ThenExpectedStateImageIndexSet(TreeNodeCheckedState checkedState, int expectedStateImageIndex)
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                const string identifier = "identifier";
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    CanCheck = o => true,
+                    CheckedState = o => checkedState
+                };
+
+                var treeView = (System.Windows.Forms.TreeView)treeViewControl.Controls[0];
+                treeView.Name = identifier;
+
+                WindowsFormsTestHelper.Show(treeViewControl);
+                var treeViewTester = new TreeViewTester(identifier);
+
+                try
+                {
+                    // When
+                    treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                    treeViewControl.Data = new object();
+
+                    // Then
+                    treeViewTester.SelectNode(0);
+                    TreeNode node = treeViewTester.Properties.SelectedNode;
+
+                    Assert.AreEqual(expectedStateImageIndex, node.StateImageIndex);
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenTreeViewControl_WhenTreeNodeInfoWithInvalidCheckedState_ThenNotSupportedExceptionThrown()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    CanCheck = o => true,
+                    CheckedState = o => 0
+                };
+
+                // When
+                TestDelegate call = () =>
+                {
+                    treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                    treeViewControl.Data = new object();
+                };
+
+                // Then
+                Assert.Throws<NotSupportedException>(call);
+            }
+        }
+
+        [Test]
         public void GivenObservableDataOnTreeControl_WhenObserversNotified_ThenNodeForDataChanges()
         {
             // Given

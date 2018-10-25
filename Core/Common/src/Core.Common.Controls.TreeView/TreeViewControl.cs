@@ -80,6 +80,7 @@ namespace Core.Common.Controls.TreeView
         private const string stateImageLocationString = "StateImage";
         private const int uncheckedCheckBoxStateImageIndex = 0;
         private const int checkedCheckBoxStateImageIndex = 1;
+        private const int mixedCheckBoxStateImageIndex = 2;
         private const int updateTimerInterval = 10;
 
         private readonly DragDropHandler dragDropHandler = new DragDropHandler();
@@ -592,14 +593,28 @@ namespace Core.Common.Controls.TreeView
             if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(treeNode.Tag) &&
                 treeNodeInfo.CheckedState != null)
             {
-                if (!IsCheckedStateUpToDate(treeNode, treeNodeInfo))
+                TreeNodeCheckedState treeNodeCheckedState = treeNodeInfo.CheckedState(treeNode.Tag);
+                if (!IsCheckedStateUpToDate(treeNode, treeNodeCheckedState))
                 {
                     treeView.AfterCheck -= TreeViewAfterCheck;
                     treeNode.Checked = !treeNode.Checked;
                     treeView.AfterCheck += TreeViewAfterCheck;
                 }
 
-                treeNode.StateImageIndex = treeNode.Checked ? checkedCheckBoxStateImageIndex : uncheckedCheckBoxStateImageIndex;
+                switch (treeNodeCheckedState)
+                {
+                    case TreeNodeCheckedState.Checked:
+                        treeNode.StateImageIndex = checkedCheckBoxStateImageIndex;
+                        break;
+                    case TreeNodeCheckedState.Unchecked:
+                        treeNode.StateImageIndex = uncheckedCheckBoxStateImageIndex;
+                        break;
+                    case TreeNodeCheckedState.Mixed:
+                        treeNode.StateImageIndex = mixedCheckBoxStateImageIndex;
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
             }
 
             if (treeNodeInfo.ExpandOnCreate != null && treeNodeInfo.ExpandOnCreate(treeNode.Tag))
@@ -608,12 +623,10 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private static bool IsCheckedStateUpToDate(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
+        private static bool IsCheckedStateUpToDate(TreeNode treeNode, TreeNodeCheckedState treeNodeCheckedState)
         {
-            TreeNodeCheckedState checkedState = treeNodeInfo.CheckedState(treeNode.Tag);
-
-            return treeNode.Checked && (checkedState == TreeNodeCheckedState.Checked || checkedState == TreeNodeCheckedState.Mixed)
-                   || !treeNode.Checked && checkedState == TreeNodeCheckedState.Unchecked;
+            return treeNode.Checked && (treeNodeCheckedState == TreeNodeCheckedState.Checked || treeNodeCheckedState == TreeNodeCheckedState.Mixed)
+                   || !treeNode.Checked && treeNodeCheckedState == TreeNodeCheckedState.Unchecked;
         }
 
         private void RefreshChildNodes(TreeNode treeNode, TreeNodeInfo treeNodeInfo)
@@ -985,7 +998,7 @@ namespace Core.Common.Controls.TreeView
             bool isOnCheckBox = IsOnCheckBox(point);
             if (treeNodeInfo.CanCheck != null && treeNodeInfo.CanCheck(clickedNode.Tag) && isOnCheckBox)
             {
-                clickedNode.Checked = !clickedNode.Checked;
+               clickedNode.Checked = !clickedNode.Checked;
             }
         }
 
