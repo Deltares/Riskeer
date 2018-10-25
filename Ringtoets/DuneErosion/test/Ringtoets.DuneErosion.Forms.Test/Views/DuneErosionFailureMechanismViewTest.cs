@@ -318,8 +318,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
-        [Test, Explicit]
-        public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
+        [Test]
+        public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndAssessmentSectionNotified_ThenMapDataUpdated()
         {
             // Given
             var assessmentSection = new AssessmentSectionStub
