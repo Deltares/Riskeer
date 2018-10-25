@@ -45,13 +45,7 @@ namespace Core.Components.Gis.Data
         {
             get
             {
-                IEnumerable<MapData> layersToIgnore = mapDataList.Where(md =>
-                {
-                    var collection = md as MapDataCollection;
-                    return collection != null && !collection.Collection.Any();
-                });
-
-                return mapDataList.Any() && mapDataList.Except(layersToIgnore).All(md => md.IsVisible);
+                return GetVisibility() != MapDataCollectionVisibility.NotVisible;
             }
             set
             {

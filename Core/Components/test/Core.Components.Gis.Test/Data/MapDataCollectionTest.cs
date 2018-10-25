@@ -78,7 +78,28 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        public void IsVisible_WithChildrenVisibleFalse_ReturnsFalse()
+        public void IsVisible_WithAllChildrenVisibleFalse_ReturnsFalse()
+        {
+            // Setup
+            var collection = new MapDataCollection("test");
+            collection.Add(new TestMapData
+            {
+                IsVisible = false
+            });
+            collection.Add(new TestMapData
+            {
+                IsVisible = false
+            });
+
+            // Call
+            bool isVisible = collection.IsVisible;
+
+            // Assert
+            Assert.IsFalse(isVisible);
+        }
+
+        [Test]
+        public void IsVisible_WithChildrenVisibleFalseAndTrue_ReturnsTrue()
         {
             // Setup
             var collection = new MapDataCollection("test");
@@ -92,7 +113,7 @@ namespace Core.Components.Gis.Test.Data
             bool isVisible = collection.IsVisible;
 
             // Assert
-            Assert.IsFalse(isVisible);
+            Assert.IsTrue(isVisible);
         }
 
         [Test]
