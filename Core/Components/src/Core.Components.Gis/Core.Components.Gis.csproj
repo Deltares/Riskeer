@@ -12,6 +12,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\MapDataCollectionVisibility.cs" />
     <Compile Include="Helpers\MapDataCollectionHelper.cs" />
     <Compile Include="Theme\CategoryTheme.cs" />
     <Compile Include="Theme\ValueCriterion.cs" />
