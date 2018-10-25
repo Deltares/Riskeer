@@ -18,6 +18,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\MicrostabilityAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\MacroStabilityOutwardsAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Merge\AssessmentSectionMergeDataProviderDialog.cs">
       <SubType>Form</SubType>
