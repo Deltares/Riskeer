@@ -33,6 +33,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\MicrostabilityAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\MacroStabilityOutwardsAssemblyMapDataFeaturesFactoryTest.cs" />

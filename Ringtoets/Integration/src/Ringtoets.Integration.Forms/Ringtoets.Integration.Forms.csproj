@@ -18,6 +18,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\MicrostabilityAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\MacroStabilityOutwardsAssemblyMapDataFeaturesFactory.cs" />

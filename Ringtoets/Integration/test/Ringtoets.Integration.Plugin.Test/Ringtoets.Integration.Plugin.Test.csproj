@@ -149,6 +149,7 @@
     <Compile Include="ViewInfos\AssemblyResultPerSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssemblyResultTotalViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionAssemblyCategoriesViewInfoTest.cs" />
+    <Compile Include="ViewInfos\GrassCoverSlipOffInwardsFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverSlipOffOutwardsFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\MicrostabilityFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityOutwardsFailureMechanismViewInfoTest.cs" />
