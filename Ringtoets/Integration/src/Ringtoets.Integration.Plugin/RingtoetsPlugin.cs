@@ -482,7 +482,7 @@ namespace Ringtoets.Integration.Plugin
                 CreateInstance = section => new AssessmentSectionView(section)
             };
 
-            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
+            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<MacroStabilityOutwardsFailureMechanismContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
                 context => new FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
                     context.WrappedData,
                     context.Parent,
@@ -490,6 +490,15 @@ namespace Ringtoets.Integration.Plugin
                     () => MacroStabilityOutwardsAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(context.WrappedData, context.Parent),
                     () => MacroStabilityOutwardsAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData, context.Parent),
                     () => MacroStabilityOutwardsAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData, context.Parent)));
+
+            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<MicrostabilityFailureMechanismContext, MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult>(
+                context => new FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult>(
+                    context.WrappedData,
+                    context.Parent,
+                    () => MicrostabilityAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
+                    () => MicrostabilityAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(context.WrappedData),
+                    () => MicrostabilityAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
+                    () => MicrostabilityAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
 
             yield return new ViewInfo<IFailureMechanismContext<IFailureMechanism>, FailureMechanismView<IFailureMechanism>>
             {
@@ -1261,13 +1270,14 @@ namespace Ringtoets.Integration.Plugin
 
         #region FailureMechanismWithDetailedAssessmentView ViewInfo
 
-        private static ViewInfo<IFailureMechanismContext<TFailureMechanism>, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
-            TFailureMechanism, TSectionResult>(
-            Func<IFailureMechanismContext<TFailureMechanism>, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> createInstanceFunc)
+        private static ViewInfo<TFailureMechanismContext, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
+            TFailureMechanismContext, TFailureMechanism, TSectionResult>(
+            Func<TFailureMechanismContext, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> createInstanceFunc)
             where TSectionResult : FailureMechanismSectionResult
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
+            where TFailureMechanismContext : IFailureMechanismContext<TFailureMechanism>
         {
-            return new ViewInfo<IFailureMechanismContext<TFailureMechanism>,
+            return new ViewInfo<TFailureMechanismContext,
                 FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,

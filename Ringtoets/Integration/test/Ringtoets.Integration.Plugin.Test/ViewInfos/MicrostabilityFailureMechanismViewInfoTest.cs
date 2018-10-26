@@ -39,7 +39,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class MacroStabilityOutwardsFailureMechanismViewInfoTest
+    public class MicrostabilityFailureMechanismViewInfoTest
     {
         private MockRepository mocks;
         private RingtoetsPlugin plugin;
@@ -51,8 +51,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks = new MockRepository();
             plugin = new RingtoetsPlugin();
             info = plugin.GetViewInfos().First(
-                tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism,
-                           MacroStabilityOutwardsFailureMechanismSectionResult>));
+                tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
+                           MicrostabilityFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -65,8 +65,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityOutwardsFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(MacroStabilityOutwardsFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(MicrostabilityFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(MicrostabilityFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -76,8 +76,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var failureMechanismContext = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanism = new MicrostabilityFailureMechanism();
+            var failureMechanismContext = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, failureMechanismContext);
@@ -104,9 +104,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -124,9 +124,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -142,10 +142,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var otherFailureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
+            var otherFailureMechanism = new MicrostabilityFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -161,9 +161,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -183,12 +183,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            var failureMechanism = new MicrostabilityFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
-            var context = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -203,28 +203,28 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
 
-            var context = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism,
-                MacroStabilityOutwardsFailureMechanismSectionResult>>(view);
+            Assert.IsInstanceOf<FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
+                MicrostabilityFailureMechanismSectionResult>>(view);
 
-            var failureMechanismView = (FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism,
-                MacroStabilityOutwardsFailureMechanismSectionResult>) view;
+            var failureMechanismView = (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
+                MicrostabilityFailureMechanismSectionResult>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private static FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult> CreateView(
-            MacroStabilityOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> CreateView(
+            MicrostabilityFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism,
-                MacroStabilityOutwardsFailureMechanismSectionResult>(
+            return new FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
+                MicrostabilityFailureMechanismSectionResult>(
                 failureMechanism,
                 assessmentSection,
                 Enumerable.Empty<MapFeature>,
