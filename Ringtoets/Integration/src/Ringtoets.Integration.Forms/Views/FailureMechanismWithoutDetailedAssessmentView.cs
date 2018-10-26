@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly Func<IEnumerable<MapFeature>> getSimpleAssemblyFeaturesFunc;
         private readonly Func<IEnumerable<MapFeature>> getTailorMadeAssemblyFeaturesFunc;
         private readonly Func<IEnumerable<MapFeature>> getCombinedAssemblyFeaturesFunc;
-        
+
         private MapDataCollection mapDataCollection;
         private MapLineData referenceLineMapData;
         private MapPointData hydraulicBoundaryLocationsMapData;
@@ -83,11 +83,11 @@ namespace Ringtoets.Integration.Forms.Views
         /// <param name="getCombinedAssemblyFeaturesFunc">The <see cref="Func{T}"/> that returns a collection of <see cref="MapFeature"/> representing
         /// the combined assembly results for this failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismWithoutDetailedAssessmentView(TFailureMechanism failureMechanism, 
-                                                          IAssessmentSection assessmentSection,
-                                                          Func<IEnumerable<MapFeature>> getSimpleAssemblyFeaturesFunc,
-                                                          Func<IEnumerable<MapFeature>> getTailorMadeAssemblyFeaturesFunc,
-                                                          Func<IEnumerable<MapFeature>> getCombinedAssemblyFeaturesFunc)
+        public FailureMechanismWithoutDetailedAssessmentView(TFailureMechanism failureMechanism,
+                                                             IAssessmentSection assessmentSection,
+                                                             Func<IEnumerable<MapFeature>> getSimpleAssemblyFeaturesFunc,
+                                                             Func<IEnumerable<MapFeature>> getTailorMadeAssemblyFeaturesFunc,
+                                                             Func<IEnumerable<MapFeature>> getCombinedAssemblyFeaturesFunc)
         {
             if (failureMechanism == null)
             {
@@ -128,37 +128,6 @@ namespace Ringtoets.Integration.Forms.Views
             CreateMapData();
             SetAllMapDataFeatures();
             ringtoetsMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
-        }
-
-        private void CreateMapData()
-        {
-            mapDataCollection = new MapDataCollection(FailureMechanism.Name);
-            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
-
-            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
-
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
-
-            mapDataCollection.Add(referenceLineMapData);
-
-            sectionsMapDataCollection.Add(sectionsMapData);
-            sectionsMapDataCollection.Add(sectionsStartPointMapData);
-            sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(sectionsMapDataCollection);
-
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            mapDataCollection.Add(assemblyMapDataCollection);
-
-            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
         }
 
         /// <summary>
@@ -202,6 +171,37 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             base.Dispose(disposing);
+        }
+
+        private void CreateMapData()
+        {
+            mapDataCollection = new MapDataCollection(FailureMechanism.Name);
+            referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
+            hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+
+            MapDataCollection sectionsMapDataCollection = RingtoetsMapDataFactory.CreateSectionsMapDataCollection();
+            sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
+            sectionsStartPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
+            sectionsEndPointMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+
+            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
+            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
+            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
+            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
+
+            mapDataCollection.Add(referenceLineMapData);
+
+            sectionsMapDataCollection.Add(sectionsMapData);
+            sectionsMapDataCollection.Add(sectionsStartPointMapData);
+            sectionsMapDataCollection.Add(sectionsEndPointMapData);
+            mapDataCollection.Add(sectionsMapDataCollection);
+
+            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
+            assemblyMapDataCollection.Add(simpleAssemblyMapData);
+            assemblyMapDataCollection.Add(combinedAssemblyMapData);
+            mapDataCollection.Add(assemblyMapDataCollection);
+
+            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
         }
 
         private void CreateObservers()
