@@ -394,7 +394,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(28, viewInfos.Length);
+                Assert.AreEqual(29, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -534,7 +534,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     viewInfos,
                     typeof(MicrostabilityFailureMechanismContext),
                     typeof(FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult>));
-                
+
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverSlipOffOutwardsFailureMechanismContext),
@@ -544,7 +544,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     viewInfos,
                     typeof(GrassCoverSlipOffInwardsFailureMechanismContext),
                     typeof(FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResult>));
-                
+
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(PipingStructureFailureMechanismContext),
@@ -554,6 +554,11 @@ namespace Ringtoets.Integration.Plugin.Test
                     viewInfos,
                     typeof(StrengthStabilityLengthwiseConstructionFailureMechanismContext),
                     typeof(FailureMechanismWithoutDetailedAssessmentView<StrengthStabilityLengthwiseConstructionFailureMechanism, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(TechnicalInnovationFailureMechanismContext),
+                    typeof(FailureMechanismWithoutDetailedAssessmentView<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult>));
             }
         }
 

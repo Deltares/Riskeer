@@ -20,6 +20,7 @@
   <ItemGroup>
     <Compile Include="Factories\GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\TechnicalInnovationAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\PipingStructureAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\MicrostabilityAssemblyMapDataFeaturesFactory.cs" />

@@ -35,6 +35,7 @@
   <ItemGroup>
     <Compile Include="Factories\GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="Factories\TechnicalInnovationAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\PipingStructureAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\MicrostabilityAssemblyMapDataFeaturesFactoryTest.cs" />

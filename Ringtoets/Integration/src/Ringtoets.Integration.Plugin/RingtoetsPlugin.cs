@@ -535,6 +535,14 @@ namespace Ringtoets.Integration.Plugin
                     () => StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
                     () => StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
 
+            yield return CreateFailureMechanismWithoutDetailedAssessmentViewInfo<TechnicalInnovationFailureMechanismContext, TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult>(
+                context => new FailureMechanismWithoutDetailedAssessmentView<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult>(
+                    context.WrappedData,
+                    context.Parent,
+                    () => TechnicalInnovationAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
+                    () => TechnicalInnovationAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
+                    () => TechnicalInnovationAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
+
             yield return new ViewInfo<IFailureMechanismContext<IFailureMechanism>, FailureMechanismView<IFailureMechanism>>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
