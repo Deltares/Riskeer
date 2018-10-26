@@ -38,7 +38,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class MicrostabilityFailureMechanismViewInfoTest
+    public class GrassCoverSlipOffOutwardsFailureMechanismViewInfoTest
     {
         private MockRepository mocks;
         private RingtoetsPlugin plugin;
@@ -50,8 +50,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks = new MockRepository();
             plugin = new RingtoetsPlugin();
             info = plugin.GetViewInfos().First(
-                tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                           MicrostabilityFailureMechanismSectionResult>));
+                tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
+                           GrassCoverSlipOffOutwardsFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -64,8 +64,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MicrostabilityFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(MicrostabilityFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(GrassCoverSlipOffOutwardsFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverSlipOffOutwardsFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -75,8 +75,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MicrostabilityFailureMechanism();
-            var failureMechanismContext = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            var failureMechanismContext = new GrassCoverSlipOffOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, failureMechanismContext);
@@ -103,9 +103,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MicrostabilityFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResult> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -123,9 +123,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new MicrostabilityFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResult> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -141,10 +141,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new MicrostabilityFailureMechanism();
-            var otherFailureMechanism = new MicrostabilityFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            var otherFailureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResult> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -160,9 +160,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new MicrostabilityFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResult> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -182,12 +182,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MicrostabilityFailureMechanism
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
-            var context = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverSlipOffOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -202,28 +202,28 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new MicrostabilityFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            var context = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverSlipOffOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                MicrostabilityFailureMechanismSectionResult>>(view);
+            Assert.IsInstanceOf<FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResult>>(view);
 
-            var failureMechanismView = (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                MicrostabilityFailureMechanismSectionResult>) view;
+            var failureMechanismView = (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResult>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private static FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> CreateView(
-            MicrostabilityFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResult> CreateView(
+            GrassCoverSlipOffOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                MicrostabilityFailureMechanismSectionResult>(
+            return new FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
                 failureMechanism,
                 assessmentSection,
                 Enumerable.Empty<MapFeature>,
