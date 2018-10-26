@@ -517,6 +517,15 @@ namespace Ringtoets.Integration.Plugin
                     () => GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(context.WrappedData),
                     () => GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
                     () => GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
+            
+            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<PipingStructureFailureMechanismContext, PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>(
+                context => new FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>(
+                    context.WrappedData,
+                    context.Parent,
+                    () => PipingStructureAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
+                    () => PipingStructureAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(context.WrappedData),
+                    () => PipingStructureAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
+                    () => PipingStructureAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
 
             yield return new ViewInfo<IFailureMechanismContext<IFailureMechanism>, FailureMechanismView<IFailureMechanism>>
             {

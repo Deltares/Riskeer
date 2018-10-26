@@ -394,7 +394,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(26, viewInfos.Length);
+                Assert.AreEqual(27, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -544,6 +544,11 @@ namespace Ringtoets.Integration.Plugin.Test
                     viewInfos,
                     typeof(GrassCoverSlipOffInwardsFailureMechanismContext),
                     typeof(FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResult>));
+                
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(PipingStructureFailureMechanismContext),
+                    typeof(FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>));
             }
         }
 
