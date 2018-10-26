@@ -58,7 +58,8 @@ namespace Ringtoets.Integration.Forms.Factories
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/> to create the features for.</param>
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateDetailedAssemblyFeatures(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
@@ -76,7 +77,8 @@ namespace Ringtoets.Integration.Forms.Factories
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/> to create the features for.</param>
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateTailorMadeAssemblyFeatures(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
@@ -94,7 +96,8 @@ namespace Ringtoets.Integration.Forms.Factories
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/> to create the features for.</param>
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateCombinedAssemblyFeatures(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
