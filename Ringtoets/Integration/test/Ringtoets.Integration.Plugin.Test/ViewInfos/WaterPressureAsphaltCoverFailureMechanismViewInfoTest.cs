@@ -24,19 +24,21 @@ using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using Core.Components.Gis.Features;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class FailureMechanismViewInfoTest
+    public class WaterPressureAsphaltCoverFailureMechanismViewInfoTest
     {
         private MockRepository mocks;
         private RingtoetsPlugin plugin;
@@ -47,7 +49,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismView<IFailureMechanism>));
+            info = plugin.GetViewInfos().First(
+                tni => tni.ViewType == typeof(FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
+                           WaterPressureAsphaltCoverFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -60,8 +64,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(IFailureMechanismContext<IFailureMechanism>), info.DataType);
-            Assert.AreEqual(typeof(IFailureMechanismContext<IFailureMechanism>), info.ViewDataType);
+            Assert.AreEqual(typeof(WaterPressureAsphaltCoverFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(WaterPressureAsphaltCoverFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -71,8 +75,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+            var failureMechanismContext = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, failureMechanismContext);
@@ -99,9 +103,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection))
+            using (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult> view =
+                CreateView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -118,9 +123,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection))
+            using (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult> view =
+                CreateView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -135,10 +141,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new TestFailureMechanism();
-            var otherFailureMechanism = new TestFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+            var otherFailureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection))
+            using (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult> view =
+                CreateView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherFailureMechanism);
@@ -153,9 +160,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection))
+            using (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult> view =
+                CreateView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -174,12 +182,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
-            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -194,32 +202,33 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismView<IFailureMechanism>>(view);
+            Assert.IsInstanceOf<FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
+                WaterPressureAsphaltCoverFailureMechanismSectionResult>>(view);
 
-            var failureMechanismView = (FailureMechanismView<IFailureMechanism>) view;
+            var failureMechanismView = (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
+                WaterPressureAsphaltCoverFailureMechanismSectionResult>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private class TestFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+        private static FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult> CreateView(
+            WaterPressureAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            public TestFailureMechanismContext(IFailureMechanism wrappedData, IAssessmentSection parent)
-            {
-                WrappedData = wrappedData;
-                Parent = parent;
-            }
-
-            public IFailureMechanism WrappedData { get; }
-
-            public IAssessmentSection Parent { get; }
+            return new FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
+                WaterPressureAsphaltCoverFailureMechanismSectionResult>(
+                failureMechanism,
+                assessmentSection,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>,
+                Enumerable.Empty<MapFeature>);
         }
     }
 }

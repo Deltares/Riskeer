@@ -20,6 +20,7 @@
   <ItemGroup>
     <Compile Include="Factories\GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactory.cs" />
+    <Compile Include="Factories\WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\TechnicalInnovationAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\PipingStructureAssemblyMapDataFeaturesFactory.cs" />
@@ -136,12 +137,6 @@
     </Compile>
     <Compile Include="Views\FailureMechanismWithDetailedAssessmentView.Designer.cs">
       <DependentUpon>FailureMechanismWithDetailedAssessmentView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FailureMechanismView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\FailureMechanismView.Designer.cs">
-      <DependentUpon>FailureMechanismView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MacroStabilityOutwardsAssemblyCategoriesView.cs">
       <SubType>UserControl</SubType>
@@ -369,9 +364,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FailureMechanismWithDetailedAssessmentView.resx">
       <DependentUpon>FailureMechanismWithDetailedAssessmentView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\FailureMechanismView.resx">
-      <DependentUpon>FailureMechanismView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MacroStabilityOutwardsAssemblyCategoriesView.resx">
       <DependentUpon>MacroStabilityOutwardsAssemblyCategoriesView.cs</DependentUpon>

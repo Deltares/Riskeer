@@ -543,14 +543,13 @@ namespace Ringtoets.Integration.Plugin
                     () => TechnicalInnovationAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
                     () => TechnicalInnovationAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
 
-            yield return new ViewInfo<IFailureMechanismContext<IFailureMechanism>, FailureMechanismView<IFailureMechanism>>
-            {
-                GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RingtoetsCommonFormsResources.CalculationIcon,
-                CloseForData = CloseFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
-                CreateInstance = context => new FailureMechanismView<IFailureMechanism>(context.WrappedData, context.Parent)
-            };
+            yield return CreateFailureMechanismWithoutDetailedAssessmentViewInfo<WaterPressureAsphaltCoverFailureMechanismContext, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult>(
+                context => new FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult>(
+                    context.WrappedData,
+                    context.Parent,
+                    () => WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
+                    () => WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
+                    () => WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
 
             yield return CreateFailureMechanismResultViewInfo<
                 GrassCoverSlipOffInwardsFailureMechanism,
@@ -1370,20 +1369,6 @@ namespace Ringtoets.Integration.Plugin
             FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult> view, object o)
             where TFailureMechanism : IHasSectionResults<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as IFailureMechanism;
-
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
-
-        #endregion
-
-        #region FailureMechanismView ViewInfo
-
-        private static bool CloseFailureMechanismViewForData(FailureMechanismView<IFailureMechanism> view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as IFailureMechanism;

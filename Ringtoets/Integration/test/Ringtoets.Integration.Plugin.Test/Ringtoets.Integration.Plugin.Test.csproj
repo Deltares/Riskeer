@@ -151,6 +151,8 @@
     <Compile Include="ViewInfos\AssessmentSectionAssemblyCategoriesViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverSlipOffInwardsFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverSlipOffOutwardsFailureMechanismViewInfoTest.cs" />
+    <Compile Include="ViewInfos\WaterPressureAsphaltCoverFailureMechanismViewInfoTest.cs" />
+    <Compile Include="ViewInfos\TechnicalInnovationFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\StrengthStabilityLengthwiseConstructionFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\PipingStructureFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\MicrostabilityFailureMechanismViewInfoTest.cs" />
@@ -162,7 +164,6 @@
     <Compile Include="ViewInfos\AssessmentSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\DesignWaterLevelCalculationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\GeneralResultFaultTreeIllustrationPointViewInfoTest.cs" />
-    <Compile Include="ViewInfos\FailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\TechnicalInnovationResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\MicrostabilityResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\PipingStructureResultViewInfoTest.cs" />

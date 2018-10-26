@@ -427,11 +427,6 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(IFailureMechanismContext<IFailureMechanism>),
-                    typeof(FailureMechanismView<IFailureMechanism>));
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
                     typeof(FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>),
                     typeof(StrengthStabilityLengthwiseConstructionResultView));
@@ -559,6 +554,11 @@ namespace Ringtoets.Integration.Plugin.Test
                     viewInfos,
                     typeof(TechnicalInnovationFailureMechanismContext),
                     typeof(FailureMechanismWithoutDetailedAssessmentView<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult>));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(WaterPressureAsphaltCoverFailureMechanismContext),
+                    typeof(FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult>));
             }
         }
 

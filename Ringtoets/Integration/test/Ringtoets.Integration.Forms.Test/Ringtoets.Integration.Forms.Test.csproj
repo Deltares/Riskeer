@@ -35,6 +35,7 @@
   <ItemGroup>
     <Compile Include="Factories\GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="Factories\WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\TechnicalInnovationAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Factories\PipingStructureAssemblyMapDataFeaturesFactoryTest.cs" />
@@ -96,7 +97,6 @@
     <Compile Include="Views\AssemblyCategoriesTableTest.cs" />
     <Compile Include="Views\FailureMechanismWithoutDetailedAssessmentViewTest.cs" />
     <Compile Include="Views\FailureMechanismWithDetailedAssessmentViewTest.cs" />
-    <Compile Include="Views\FailureMechanismViewTest.cs" />
     <Compile Include="Views\MacroStabilityOutwardsAssemblyCategoriesViewTest.cs" />
     <Compile Include="Views\FailureMechanismAssemblyCategoriesViewTest.cs" />
     <Compile Include="Views\AssessmentSectionAssemblyCategoriesViewTest.cs" />
