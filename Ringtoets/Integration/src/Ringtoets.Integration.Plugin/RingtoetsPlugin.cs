@@ -508,7 +508,7 @@ namespace Ringtoets.Integration.Plugin
                     () => GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(context.WrappedData),
                     () => GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
                     () => GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
-            
+
             yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<GrassCoverSlipOffInwardsFailureMechanismContext, GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResult>(
                 context => new FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResult>(
                     context.WrappedData,
@@ -517,7 +517,7 @@ namespace Ringtoets.Integration.Plugin
                     () => GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(context.WrappedData),
                     () => GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
                     () => GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
-            
+
             yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<PipingStructureFailureMechanismContext, PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>(
                 context => new FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>(
                     context.WrappedData,
@@ -526,6 +526,14 @@ namespace Ringtoets.Integration.Plugin
                     () => PipingStructureAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(context.WrappedData),
                     () => PipingStructureAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
                     () => PipingStructureAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
+
+            yield return CreateFailureMechanismWithoutDetailedAssessmentViewInfo<StrengthStabilityLengthwiseConstructionFailureMechanismContext, StrengthStabilityLengthwiseConstructionFailureMechanism, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(
+                context => new FailureMechanismWithoutDetailedAssessmentView<StrengthStabilityLengthwiseConstructionFailureMechanism, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(
+                    context.WrappedData,
+                    context.Parent,
+                    () => StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
+                    () => StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
+                    () => StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
 
             yield return new ViewInfo<IFailureMechanismContext<IFailureMechanism>, FailureMechanismView<IFailureMechanism>>
             {
@@ -1317,6 +1325,41 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseFailureMechanismWithDetailedAssessmentViewForData<TFailureMechanism, TSectionResult>(
             FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult> view, object o)
+            where TFailureMechanism : IHasSectionResults<TSectionResult>
+            where TSectionResult : FailureMechanismSectionResult
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as IFailureMechanism;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
+        }
+
+        #endregion
+
+        #region FailureMechanismWithoutDetailedAssessmentView ViewInfo
+
+        private static ViewInfo<TFailureMechanismContext, FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithoutDetailedAssessmentViewInfo<
+            TFailureMechanismContext, TFailureMechanism, TSectionResult>(
+            Func<TFailureMechanismContext, FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>> createInstanceFunc)
+            where TSectionResult : FailureMechanismSectionResult
+            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
+            where TFailureMechanismContext : IFailureMechanismContext<TFailureMechanism>
+        {
+            return new ViewInfo<TFailureMechanismContext,
+                FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RingtoetsCommonFormsResources.CalculationIcon,
+                CloseForData = CloseFailureMechanismWithoutDetailedAssessmentViewForData,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CreateInstance = createInstanceFunc
+            };
+        }
+
+        private static bool CloseFailureMechanismWithoutDetailedAssessmentViewForData<TFailureMechanism, TSectionResult>(
+            FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult> view, object o)
             where TFailureMechanism : IHasSectionResults<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
