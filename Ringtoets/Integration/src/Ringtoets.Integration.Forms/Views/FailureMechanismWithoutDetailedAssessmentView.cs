@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Forms.Views
         private RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> sectionResultObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismWithoutDetailedAssessmentView{T,T2}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismWithoutDetailedAssessmentView{TFailureMechanism, TSectionResul}"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
