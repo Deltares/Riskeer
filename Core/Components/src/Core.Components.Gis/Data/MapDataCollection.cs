@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Util.Extensions;
 
 namespace Core.Components.Gis.Data
 {
@@ -57,6 +56,17 @@ namespace Core.Components.Gis.Data
         }
 
         /// <summary>
+        /// Gets the collection of <see cref="MapData"/> of the <see cref="MapDataCollection"/>.
+        /// </summary>
+        public IEnumerable<MapData> Collection
+        {
+            get
+            {
+                return mapDataList;
+            }
+        }
+
+        /// <summary>
         /// Gets the visibility of the map data collection.
         /// </summary>
         /// <returns>A <see cref="MapDataCollectionVisibility"/>.</returns>
@@ -69,28 +79,25 @@ namespace Core.Components.Gis.Data
             });
 
             MapData[] children = mapDataList.Except(collectionsToIgnore).ToArray();
+            MapDataCollection[] nestedCollections = children.OfType<MapDataCollection>()
+                                                            .ToArray();
+
+            if (nestedCollections.Any(c => c.GetVisibility() == MapDataCollectionVisibility.Mixed))
+            {
+                return MapDataCollectionVisibility.Mixed;
+            }
 
             if (children.All(md => !md.IsVisible))
             {
                 return MapDataCollectionVisibility.NotVisible;
             }
+
             if (children.All(md => md.IsVisible))
             {
                 return MapDataCollectionVisibility.Visible;
             }
 
             return MapDataCollectionVisibility.Mixed;
-        }
-
-        /// <summary>
-        /// Gets the collection of <see cref="MapData"/> of the <see cref="MapDataCollection"/>.
-        /// </summary>
-        public IEnumerable<MapData> Collection
-        {
-            get
-            {
-                return mapDataList;
-            }
         }
 
         /// <summary>

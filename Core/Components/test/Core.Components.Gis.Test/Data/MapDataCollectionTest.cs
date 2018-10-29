@@ -241,6 +241,51 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
+        public void GetVisibility_WithVisibleMapDataAndNotVisibleCollectionAsChildren_ReturnsMixed()
+        {
+            // Setup
+            var nestedCollection = new MapDataCollection("nested");
+            nestedCollection.Add(new TestMapData
+            {
+                IsVisible = false
+            });
+            var collection = new MapDataCollection("test");
+            collection.Add(new TestMapData());
+            collection.Add(nestedCollection);
+
+            // Precondition
+            Assert.AreEqual(MapDataCollectionVisibility.NotVisible, nestedCollection.GetVisibility());
+
+            // Call
+            MapDataCollectionVisibility visibility = collection.GetVisibility();
+
+            // Assert
+            Assert.AreEqual(MapDataCollectionVisibility.Mixed, visibility);
+        }
+
+        [Test]
+        public void GetVisibility_WithMixedCollectionAsChild_ReturnsMixed()
+        {
+            var nestedCollection = new MapDataCollection("test");
+            nestedCollection.Add(new TestMapData());
+            nestedCollection .Add(new TestMapData
+            {
+                IsVisible = false
+            });
+            var collection = new MapDataCollection("test");
+            collection.Add(nestedCollection);
+
+            // Precondition
+            Assert.AreEqual(MapDataCollectionVisibility.Mixed, nestedCollection.GetVisibility());
+
+            // Call
+            MapDataCollectionVisibility visibility = collection.GetVisibility();
+
+            // Assert
+            Assert.AreEqual(MapDataCollectionVisibility.Mixed, visibility);
+        }
+
+        [Test]
         public void Add_NotNull_AddsItemToCollection()
         {
             // Setup
