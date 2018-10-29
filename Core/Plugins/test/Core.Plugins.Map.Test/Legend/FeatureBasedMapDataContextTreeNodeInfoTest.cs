@@ -160,7 +160,7 @@ namespace Core.Plugins.Map.Test.Legend
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void IsChecked_WithContext_ReturnsAccordingToVisibleStateOfMapData(bool isVisible)
+        public void CheckedState_WithContext_ReturnsAccordingToVisibleStateOfMapData(bool isVisible)
         {
             // Setup
             FeatureBasedMapDataContext context = GetContext(new TestFeatureBasedMapData());
