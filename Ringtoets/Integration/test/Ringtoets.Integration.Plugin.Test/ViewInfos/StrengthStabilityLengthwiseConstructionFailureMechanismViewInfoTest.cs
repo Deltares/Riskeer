@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(StrengthStabilityLengthwiseConstructionFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(StrengthStabilityLengthwiseConstructionFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(StrengthStabilityLengthwiseConstructionFailureMechanism), info.ViewDataType);
         }
 
         [Test]

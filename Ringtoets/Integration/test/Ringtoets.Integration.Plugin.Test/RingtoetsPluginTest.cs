@@ -523,41 +523,49 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(MacroStabilityOutwardsFailureMechanismContext),
+                    typeof(MacroStabilityOutwardsFailureMechanism),
                     typeof(FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(MicrostabilityFailureMechanismContext),
+                    typeof(MicrostabilityFailureMechanism),
                     typeof(FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverSlipOffOutwardsFailureMechanismContext),
+                    typeof(GrassCoverSlipOffOutwardsFailureMechanism),
                     typeof(FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverSlipOffInwardsFailureMechanismContext),
+                    typeof(GrassCoverSlipOffInwardsFailureMechanism),
                     typeof(FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(PipingStructureFailureMechanismContext),
+                    typeof(PipingStructureFailureMechanism),
                     typeof(FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(StrengthStabilityLengthwiseConstructionFailureMechanismContext),
+                    typeof(StrengthStabilityLengthwiseConstructionFailureMechanism),
                     typeof(FailureMechanismWithoutDetailedAssessmentView<StrengthStabilityLengthwiseConstructionFailureMechanism, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(TechnicalInnovationFailureMechanismContext),
+                    typeof(TechnicalInnovationFailureMechanism),
                     typeof(FailureMechanismWithoutDetailedAssessmentView<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(WaterPressureAsphaltCoverFailureMechanismContext),
+                    typeof(WaterPressureAsphaltCoverFailureMechanism),
                     typeof(FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult>));
             }
         }

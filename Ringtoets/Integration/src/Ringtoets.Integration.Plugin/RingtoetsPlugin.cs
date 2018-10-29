@@ -1312,14 +1312,14 @@ namespace Ringtoets.Integration.Plugin
 
         #region FailureMechanismWithDetailedAssessmentView ViewInfo
 
-        private static ViewInfo<TFailureMechanismContext, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
+        private static ViewInfo<TFailureMechanismContext, TFailureMechanism, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
             TFailureMechanismContext, TFailureMechanism, TSectionResult>(
             Func<TFailureMechanismContext, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> createInstanceFunc)
             where TSectionResult : FailureMechanismSectionResult
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
             where TFailureMechanismContext : IFailureMechanismContext<TFailureMechanism>
         {
-            return new ViewInfo<TFailureMechanismContext,
+            return new ViewInfo<TFailureMechanismContext, TFailureMechanism,
                 FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
@@ -1347,14 +1347,14 @@ namespace Ringtoets.Integration.Plugin
 
         #region FailureMechanismWithoutDetailedAssessmentView ViewInfo
 
-        private static ViewInfo<TFailureMechanismContext, FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithoutDetailedAssessmentViewInfo<
+        private static ViewInfo<TFailureMechanismContext, TFailureMechanism, FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithoutDetailedAssessmentViewInfo<
             TFailureMechanismContext, TFailureMechanism, TSectionResult>(
             Func<TFailureMechanismContext, FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>> createInstanceFunc)
             where TSectionResult : FailureMechanismSectionResult
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
             where TFailureMechanismContext : IFailureMechanismContext<TFailureMechanism>
         {
-            return new ViewInfo<TFailureMechanismContext,
+            return new ViewInfo<TFailureMechanismContext, TFailureMechanism,
                 FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,

@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(MicrostabilityFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(MicrostabilityFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(MicrostabilityFailureMechanism), info.ViewDataType);
         }
 
         [Test]

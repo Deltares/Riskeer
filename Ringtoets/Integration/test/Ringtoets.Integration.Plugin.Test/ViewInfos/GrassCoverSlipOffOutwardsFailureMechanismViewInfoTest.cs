@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(GrassCoverSlipOffOutwardsFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(GrassCoverSlipOffOutwardsFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(GrassCoverSlipOffOutwardsFailureMechanism), info.ViewDataType);
         }
 
         [Test]

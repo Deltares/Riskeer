@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(WaterPressureAsphaltCoverFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(WaterPressureAsphaltCoverFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(WaterPressureAsphaltCoverFailureMechanism), info.ViewDataType);
         }
 
         [Test]

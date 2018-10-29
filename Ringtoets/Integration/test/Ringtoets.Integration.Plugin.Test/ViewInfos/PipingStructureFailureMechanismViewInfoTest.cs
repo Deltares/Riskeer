@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(PipingStructureFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(PipingStructureFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(PipingStructureFailureMechanism), info.ViewDataType);
         }
 
         [Test]
