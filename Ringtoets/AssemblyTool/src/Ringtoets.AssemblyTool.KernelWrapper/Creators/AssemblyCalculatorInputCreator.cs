@@ -37,7 +37,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to create
         /// an <see cref="EFmSectionCategory"/> for.</param>
         /// <returns>An <see cref="EFmSectionCategory"/> based on <paramref name="category"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>

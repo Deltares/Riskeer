@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -1653,7 +1654,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenTreeViewControl_WhenTreeNodeInfoWithInvalidCheckedState_ThenNotSupportedExceptionThrown()
+        public void GivenTreeViewControl_WhenTreeNodeInfoWithInvalidCheckedState_ThenInvalidEnumArgumentExceptionThrown()
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
@@ -1673,7 +1674,8 @@ namespace Core.Common.Controls.TreeView.Test
                 };
 
                 // Then
-                Assert.Throws<NotSupportedException>(call);
+                string expectedMessage = $"The value of argument 'treeNodeCheckedState' ({0}) is invalid for Enum type '{nameof(TreeNodeCheckedState)}'.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
             }
         }
 

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -560,6 +561,10 @@ namespace Core.Common.Controls.TreeView
         /// </summary>
         /// <param name="treeNode">The <see cref="TreeNode"/> to update.</param>
         /// <exception cref="InvalidOperationException">Thrown when no corresponding <see cref="TreeNodeInfo"/> can be found for the provided <see cref="TreeNode"/>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the <see cref="TreeNodeCheckedState"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the <see cref="TreeNodeCheckedState"/>
+        /// is a valid value, but unsupported.</exception>
         private void UpdateNode(TreeNode treeNode)
         {
             TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
@@ -601,25 +606,46 @@ namespace Core.Common.Controls.TreeView
                     treeView.AfterCheck += TreeViewAfterCheck;
                 }
 
-                switch (treeNodeCheckedState)
-                {
-                    case TreeNodeCheckedState.Checked:
-                        treeNode.StateImageIndex = checkedCheckBoxStateImageIndex;
-                        break;
-                    case TreeNodeCheckedState.Unchecked:
-                        treeNode.StateImageIndex = uncheckedCheckBoxStateImageIndex;
-                        break;
-                    case TreeNodeCheckedState.Mixed:
-                        treeNode.StateImageIndex = mixedCheckBoxStateImageIndex;
-                        break;
-                    default:
-                        throw new NotSupportedException();
-                }
+                SetTreeNodeStateImageIndex(treeNode, treeNodeCheckedState);
             }
 
             if (treeNodeInfo.ExpandOnCreate != null && treeNodeInfo.ExpandOnCreate(treeNode.Tag))
             {
                 treeNode.Expand();
+            }
+        }
+
+        /// <summary>
+        /// Sets the state image index of the tree node.
+        /// </summary>
+        /// <param name="treeNode">The tree node to sets the state image index for.</param>
+        /// <param name="treeNodeCheckedState">The checked state to determine the state index from.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the <paramref name="treeNodeCheckedState"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="treeNodeCheckedState"/>
+        /// is a valid value, but unsupported.</exception>
+        private static void SetTreeNodeStateImageIndex(TreeNode treeNode, TreeNodeCheckedState treeNodeCheckedState)
+        {
+            if (!Enum.IsDefined(typeof(TreeNodeCheckedState), treeNodeCheckedState))
+            {
+                throw new InvalidEnumArgumentException(nameof(treeNodeCheckedState),
+                                                       (int) treeNodeCheckedState,
+                                                       typeof(TreeNodeCheckedState));
+            }
+
+            switch (treeNodeCheckedState)
+            {
+                case TreeNodeCheckedState.Checked:
+                    treeNode.StateImageIndex = checkedCheckBoxStateImageIndex;
+                    break;
+                case TreeNodeCheckedState.Unchecked:
+                    treeNode.StateImageIndex = uncheckedCheckBoxStateImageIndex;
+                    break;
+                case TreeNodeCheckedState.Mixed:
+                    treeNode.StateImageIndex = mixedCheckBoxStateImageIndex;
+                    break;
+                default:
+                    throw new NotSupportedException();
             }
         }
 
