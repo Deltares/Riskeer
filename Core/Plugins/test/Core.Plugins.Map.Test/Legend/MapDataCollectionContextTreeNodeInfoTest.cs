@@ -254,6 +254,39 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
+        public void OnNodeChecked_WithContextAndStateMixed_SetMapDataVisibilityAndNotifyObservers()
+        {
+            // Setup
+            var observer1 = mocks.StrictMock<IObserver>();
+            var observer2 = mocks.StrictMock<IObserver>();
+            observer2.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var featureBasedMapData1 = new TestFeatureBasedMapData();
+            var featureBasedMapData2 = new TestFeatureBasedMapData
+            {
+                IsVisible = false
+            };
+            var mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Add(featureBasedMapData1);
+            mapDataCollection.Add(featureBasedMapData2);
+
+            MapDataCollectionContext context = GetContext(mapDataCollection);
+
+            featureBasedMapData1.Attach(observer1);
+            featureBasedMapData2.Attach(observer2);
+
+            // Call
+            info.OnNodeChecked(context, null);
+
+            // Assert
+            Assert.IsTrue(context.WrappedData.IsVisible);
+            Assert.IsTrue(featureBasedMapData1.IsVisible);
+            Assert.IsTrue(featureBasedMapData2.IsVisible);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(true, 3)]
         [TestCase(false, 1)]
         public void OnNodeChecked_WithContext_NotifyObserversOfChangedChildrenOnly(bool initialVisibility, int expectedNotifications)

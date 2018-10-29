@@ -362,7 +362,10 @@ namespace Core.Plugins.Map.Legend
 
             Dictionary<MapData, bool> childStates = MapDataCollectionHelper.GetChildVisibilityStates(mapDataCollection);
 
-            mapDataCollection.IsVisible = !mapDataCollection.IsVisible;
+            MapDataCollectionVisibility collectionOriginalVisibility = mapDataCollection.GetVisibility();
+
+            mapDataCollection.IsVisible = collectionOriginalVisibility == MapDataCollectionVisibility.Mixed 
+                                          || collectionOriginalVisibility == MapDataCollectionVisibility.NotVisible;
             mapDataCollection.NotifyObservers();
 
             NotifyMapDataCollectionChildren(childStates);
