@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -166,9 +167,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void IsChecked_WithContext_ReturnsAccordingToVisibleStateOfMapData(bool isVisible)
+        public void CheckedState_WithContextAndMapDataCollectionVisibilityVisible_ReturnsStateChecked()
         {
             // Setup
             var featureBasedMapData = new TestFeatureBasedMapData();
@@ -176,14 +175,54 @@ namespace Core.Plugins.Map.Test.Legend
             mapDataCollection.Add(featureBasedMapData);
 
             MapDataCollectionContext context = GetContext(mapDataCollection);
-            featureBasedMapData.IsVisible = isVisible;
 
             // Call
             TreeNodeCheckedState checkedState = info.CheckedState(context);
 
             // Assert
-            TreeNodeCheckedState expectedCheckedState = isVisible ? TreeNodeCheckedState.Checked : TreeNodeCheckedState.Unchecked;
-            Assert.AreEqual(expectedCheckedState, checkedState);
+            Assert.AreEqual(TreeNodeCheckedState.Checked, checkedState);
+        }
+
+        [Test]
+        public void CheckedState_WithContextAndMapDataCollectionVisibilityNotVisible_ReturnsStateUnchecked()
+        {
+            // Setup
+            var featureBasedMapData = new TestFeatureBasedMapData
+            {
+                IsVisible = false
+            };
+            var mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Add(featureBasedMapData);
+
+            MapDataCollectionContext context = GetContext(mapDataCollection);
+
+            // Call
+            TreeNodeCheckedState checkedState = info.CheckedState(context);
+
+            // Assert
+            Assert.AreEqual(TreeNodeCheckedState.Unchecked, checkedState);
+        }
+
+        [Test]
+        public void CheckedState_WithContextAndMapDataCollectionVisibilityMixed_ReturnsStateMixed()
+        {
+            // Setup
+            var featureBasedMapData1 = new TestFeatureBasedMapData();
+            var featureBasedMapData2 = new TestFeatureBasedMapData
+            {
+                IsVisible = false
+            };
+            var mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Add(featureBasedMapData1);
+            mapDataCollection.Add(featureBasedMapData2);
+
+            MapDataCollectionContext context = GetContext(mapDataCollection);
+
+            // Call
+            TreeNodeCheckedState checkedState = info.CheckedState(context);
+
+            // Assert
+            Assert.AreEqual(TreeNodeCheckedState.Mixed, checkedState);
         }
 
         [Test]

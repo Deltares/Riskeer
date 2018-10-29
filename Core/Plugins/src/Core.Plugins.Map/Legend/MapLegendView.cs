@@ -137,7 +137,7 @@ namespace Core.Plugins.Map.Legend
                 ChildNodeObjects = GetCollectionChildNodeObjects,
                 CanDrag = (context, parentData) => context.ParentMapData != null,
                 CanCheck = context => true,
-                CheckedState = context => context.WrappedData.IsVisible ? TreeNodeCheckedState.Checked : TreeNodeCheckedState.Unchecked,
+                CheckedState = MapDataCollectionContextCheckedState,
                 OnNodeChecked = MapDataCollectionContextOnNodeChecked,
                 CanDrop = MapDataCollectionCanDropAndInsert,
                 CanInsert = MapDataCollectionCanDropAndInsert,
@@ -337,6 +337,23 @@ namespace Core.Plugins.Map.Legend
             }
 
             return childObjects.ToArray();
+        }
+
+        private static TreeNodeCheckedState MapDataCollectionContextCheckedState(MapDataCollectionContext context)
+        {
+            var mapDataCollection = (MapDataCollection)context.WrappedData;
+
+            switch (mapDataCollection.GetVisibility())
+            {
+                case MapDataCollectionVisibility.Visible:
+                    return TreeNodeCheckedState.Checked;
+                case MapDataCollectionVisibility.NotVisible:
+                    return TreeNodeCheckedState.Unchecked;
+                case MapDataCollectionVisibility.Mixed:
+                    return TreeNodeCheckedState.Mixed;
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         private static void MapDataCollectionContextOnNodeChecked(MapDataCollectionContext context, object parentData)
