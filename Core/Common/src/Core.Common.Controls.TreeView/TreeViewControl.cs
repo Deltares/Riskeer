@@ -618,7 +618,7 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// Sets the state image index of the tree node.
         /// </summary>
-        /// <param name="treeNode">The tree node to sets the state image index for.</param>
+        /// <param name="treeNode">The tree node to set the state image index for.</param>
         /// <param name="treeNodeCheckedState">The checked state to determine the state index from.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when the <paramref name="treeNodeCheckedState"/>
         /// is an invalid value.</exception>
