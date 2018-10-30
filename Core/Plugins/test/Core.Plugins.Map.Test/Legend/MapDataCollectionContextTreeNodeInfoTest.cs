@@ -94,7 +94,7 @@ namespace Core.Plugins.Map.Test.Legend
             Assert.IsNull(info.CanRemove);
             Assert.IsNull(info.OnNodeRemoved);
             Assert.IsNotNull(info.CanCheck);
-            Assert.IsNotNull(info.IsChecked);
+            Assert.IsNotNull(info.CheckedState);
             Assert.IsNotNull(info.OnNodeChecked);
             Assert.IsNotNull(info.CanDrag);
             Assert.IsNotNull(info.CanDrop);
@@ -166,9 +166,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void IsChecked_WithContext_ReturnsAccordingToVisibleStateOfMapData(bool isVisible)
+        public void CheckedState_WithContextAndMapDataCollectionVisibilityVisible_ReturnsStateChecked()
         {
             // Setup
             var featureBasedMapData = new TestFeatureBasedMapData();
@@ -176,13 +174,54 @@ namespace Core.Plugins.Map.Test.Legend
             mapDataCollection.Add(featureBasedMapData);
 
             MapDataCollectionContext context = GetContext(mapDataCollection);
-            featureBasedMapData.IsVisible = isVisible;
 
             // Call
-            bool isChecked = info.IsChecked(context);
+            TreeNodeCheckedState checkedState = info.CheckedState(context);
 
             // Assert
-            Assert.AreEqual(isVisible, isChecked);
+            Assert.AreEqual(TreeNodeCheckedState.Checked, checkedState);
+        }
+
+        [Test]
+        public void CheckedState_WithContextAndMapDataCollectionVisibilityNotVisible_ReturnsStateUnchecked()
+        {
+            // Setup
+            var featureBasedMapData = new TestFeatureBasedMapData
+            {
+                IsVisible = false
+            };
+            var mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Add(featureBasedMapData);
+
+            MapDataCollectionContext context = GetContext(mapDataCollection);
+
+            // Call
+            TreeNodeCheckedState checkedState = info.CheckedState(context);
+
+            // Assert
+            Assert.AreEqual(TreeNodeCheckedState.Unchecked, checkedState);
+        }
+
+        [Test]
+        public void CheckedState_WithContextAndMapDataCollectionVisibilityMixed_ReturnsStateMixed()
+        {
+            // Setup
+            var featureBasedMapData1 = new TestFeatureBasedMapData();
+            var featureBasedMapData2 = new TestFeatureBasedMapData
+            {
+                IsVisible = false
+            };
+            var mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Add(featureBasedMapData1);
+            mapDataCollection.Add(featureBasedMapData2);
+
+            MapDataCollectionContext context = GetContext(mapDataCollection);
+
+            // Call
+            TreeNodeCheckedState checkedState = info.CheckedState(context);
+
+            // Assert
+            Assert.AreEqual(TreeNodeCheckedState.Mixed, checkedState);
         }
 
         [Test]
@@ -210,6 +249,39 @@ namespace Core.Plugins.Map.Test.Legend
             // Assert
             Assert.AreEqual(!initialVisibleState, context.WrappedData.IsVisible);
             Assert.AreEqual(!initialVisibleState, featureBasedMapData.IsVisible);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OnNodeChecked_WithContextAndStateMixed_SetMapDataVisibilityAndNotifyObservers()
+        {
+            // Setup
+            var observer1 = mocks.StrictMock<IObserver>();
+            var observer2 = mocks.StrictMock<IObserver>();
+            observer2.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var featureBasedMapData1 = new TestFeatureBasedMapData();
+            var featureBasedMapData2 = new TestFeatureBasedMapData
+            {
+                IsVisible = false
+            };
+            var mapDataCollection = new MapDataCollection("test");
+            mapDataCollection.Add(featureBasedMapData1);
+            mapDataCollection.Add(featureBasedMapData2);
+
+            MapDataCollectionContext context = GetContext(mapDataCollection);
+
+            featureBasedMapData1.Attach(observer1);
+            featureBasedMapData2.Attach(observer2);
+
+            // Call
+            info.OnNodeChecked(context, null);
+
+            // Assert
+            Assert.IsTrue(context.WrappedData.IsVisible);
+            Assert.IsTrue(featureBasedMapData1.IsVisible);
+            Assert.IsTrue(featureBasedMapData2.IsVisible);
             mocks.VerifyAll();
         }
 

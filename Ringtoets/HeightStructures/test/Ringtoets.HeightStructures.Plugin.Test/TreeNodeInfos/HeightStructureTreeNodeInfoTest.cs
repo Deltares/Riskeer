@@ -74,7 +74,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             Assert.IsNull(info.CanRemove);
             Assert.IsNull(info.OnNodeRemoved);
             Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.IsChecked);
+            Assert.IsNull(info.CheckedState);
             Assert.IsNull(info.OnNodeChecked);
             Assert.IsNull(info.CanDrag);
             Assert.IsNull(info.CanDrop);

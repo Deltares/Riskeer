@@ -44,13 +44,7 @@ namespace Core.Components.Gis.Data
         {
             get
             {
-                IEnumerable<MapData> layersToIgnore = mapDataList.Where(md =>
-                {
-                    var collection = md as MapDataCollection;
-                    return collection != null && !collection.Collection.Any();
-                });
-
-                return mapDataList.Any() && mapDataList.Except(layersToIgnore).All(md => md.IsVisible);
+                return GetVisibility() != MapDataCollectionVisibility.NotVisible;
             }
             set
             {
@@ -70,6 +64,40 @@ namespace Core.Components.Gis.Data
             {
                 return mapDataList;
             }
+        }
+
+        /// <summary>
+        /// Gets the visibility of the map data collection.
+        /// </summary>
+        /// <returns>A <see cref="MapDataCollectionVisibility"/>.</returns>
+        public MapDataCollectionVisibility GetVisibility()
+        {
+            IEnumerable<MapData> collectionsToIgnore = mapDataList.Where(md =>
+            {
+                var collection = md as MapDataCollection;
+                return collection != null && !collection.Collection.Any();
+            });
+
+            MapData[] children = mapDataList.Except(collectionsToIgnore).ToArray();
+            MapDataCollection[] nestedCollections = children.OfType<MapDataCollection>()
+                                                            .ToArray();
+
+            if (nestedCollections.Any(c => c.GetVisibility() == MapDataCollectionVisibility.Mixed))
+            {
+                return MapDataCollectionVisibility.Mixed;
+            }
+
+            if (children.All(md => !md.IsVisible))
+            {
+                return MapDataCollectionVisibility.NotVisible;
+            }
+
+            if (children.All(md => md.IsVisible))
+            {
+                return MapDataCollectionVisibility.Visible;
+            }
+
+            return MapDataCollectionVisibility.Mixed;
         }
 
         /// <summary>

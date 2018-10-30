@@ -115,10 +115,10 @@ namespace Core.Common.Controls.TreeView
         public Func<object, bool> CanCheck { get; set; }
 
         /// <summary>
-        /// Gets or sets a function for checking whether or not the tree node should be checked.
+        /// Gets or sets a function for checking the checked state of the tree node.
         /// The <c>object</c> parameter represents the data of the tree node.
         /// </summary>
-        public Func<object, bool> IsChecked { get; set; }
+        public Func<object, TreeNodeCheckedState> CheckedState { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after checking or unchecking the tree node.
@@ -259,10 +259,10 @@ namespace Core.Common.Controls.TreeView
         public Func<TData, bool> CanCheck { get; set; }
 
         /// <summary>
-        /// Gets or sets a function for checking whether or not the tree node should be checked.
+        /// Gets or sets a function for checking the checked state of the tree node.
         /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// </summary>
-        public Func<TData, bool> IsChecked { get; set; }
+        public Func<TData, TreeNodeCheckedState> CheckedState { get; set; }
 
         /// <summary>
         /// Gets or sets an action for obtaining the logic to perform after checking or unchecking the tree node.
@@ -351,9 +351,9 @@ namespace Core.Common.Controls.TreeView
                 CanCheck = treeNodeInfo.CanCheck != null
                                ? tag => treeNodeInfo.CanCheck((TData) tag)
                                : (Func<object, bool>) null,
-                IsChecked = treeNodeInfo.IsChecked != null
-                                ? tag => treeNodeInfo.IsChecked((TData) tag)
-                                : (Func<object, bool>) null,
+                CheckedState = treeNodeInfo.CheckedState != null
+                                ? tag => treeNodeInfo.CheckedState((TData) tag)
+                                : (Func<object, TreeNodeCheckedState>) null,
                 OnNodeChecked = treeNodeInfo.OnNodeChecked != null
                                     ? (tag, parentTag) => treeNodeInfo.OnNodeChecked((TData) tag, parentTag)
                                     : (Action<object, object>) null,

@@ -123,7 +123,7 @@ namespace Core.Plugins.Map.Legend
                 Image = GetImage,
                 CanDrag = (context, parent) => true,
                 CanCheck = context => true,
-                IsChecked = context => context.WrappedData.IsVisible,
+                CheckedState = context => context.WrappedData.IsVisible ? TreeNodeCheckedState.Checked : TreeNodeCheckedState.Unchecked,
                 OnNodeChecked = FeatureBasedMapDataContextOnNodeChecked,
                 CanRemove = (context, parent) => CanRemoveMapData((FeatureBasedMapData) context.WrappedData, parent),
                 OnNodeRemoved = (context, parent) => RemoveFromParent((FeatureBasedMapData) context.WrappedData, parent),
@@ -137,7 +137,7 @@ namespace Core.Plugins.Map.Legend
                 ChildNodeObjects = GetCollectionChildNodeObjects,
                 CanDrag = (context, parentData) => context.ParentMapData != null,
                 CanCheck = context => true,
-                IsChecked = context => context.WrappedData.IsVisible,
+                CheckedState = MapDataCollectionContextCheckedState,
                 OnNodeChecked = MapDataCollectionContextOnNodeChecked,
                 CanDrop = MapDataCollectionCanDropAndInsert,
                 CanInsert = MapDataCollectionCanDropAndInsert,
@@ -339,13 +339,33 @@ namespace Core.Plugins.Map.Legend
             return childObjects.ToArray();
         }
 
+        private static TreeNodeCheckedState MapDataCollectionContextCheckedState(MapDataCollectionContext context)
+        {
+            var mapDataCollection = (MapDataCollection) context.WrappedData;
+
+            switch (mapDataCollection.GetVisibility())
+            {
+                case MapDataCollectionVisibility.Visible:
+                    return TreeNodeCheckedState.Checked;
+                case MapDataCollectionVisibility.NotVisible:
+                    return TreeNodeCheckedState.Unchecked;
+                case MapDataCollectionVisibility.Mixed:
+                    return TreeNodeCheckedState.Mixed;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
         private static void MapDataCollectionContextOnNodeChecked(MapDataCollectionContext context, object parentData)
         {
             var mapDataCollection = (MapDataCollection) context.WrappedData;
 
             Dictionary<MapData, bool> childStates = MapDataCollectionHelper.GetChildVisibilityStates(mapDataCollection);
 
-            mapDataCollection.IsVisible = !mapDataCollection.IsVisible;
+            MapDataCollectionVisibility collectionOriginalVisibility = mapDataCollection.GetVisibility();
+
+            mapDataCollection.IsVisible = collectionOriginalVisibility == MapDataCollectionVisibility.Mixed
+                                          || collectionOriginalVisibility == MapDataCollectionVisibility.NotVisible;
             mapDataCollection.NotifyObservers();
 
             NotifyMapDataCollectionChildren(childStates);

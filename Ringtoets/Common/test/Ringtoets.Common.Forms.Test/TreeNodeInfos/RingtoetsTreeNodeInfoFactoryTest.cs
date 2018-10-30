@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Assert.AreSame(onNodeRemoved, treeNodeInfo.OnNodeRemoved);
             Assert.IsNull(treeNodeInfo.ForeColor);
             Assert.IsNull(treeNodeInfo.CanCheck);
-            Assert.IsNull(treeNodeInfo.IsChecked);
+            Assert.IsNull(treeNodeInfo.CheckedState);
             Assert.IsNull(treeNodeInfo.OnNodeChecked);
         }
 
@@ -621,7 +621,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Assert.AreSame(onNodeRemoved, treeNodeInfo.OnNodeRemoved);
             Assert.IsNull(treeNodeInfo.ForeColor);
             Assert.IsNull(treeNodeInfo.CanCheck);
-            Assert.IsNull(treeNodeInfo.IsChecked);
+            Assert.IsNull(treeNodeInfo.CheckedState);
             Assert.IsNull(treeNodeInfo.OnNodeChecked);
         }
 
@@ -810,7 +810,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Assert.IsNull(treeNodeInfo.CanRemove);
             Assert.IsNull(treeNodeInfo.OnNodeRemoved);
             Assert.IsNull(treeNodeInfo.CanCheck);
-            Assert.IsNull(treeNodeInfo.IsChecked);
+            Assert.IsNull(treeNodeInfo.CheckedState);
             Assert.IsNull(treeNodeInfo.OnNodeChecked);
             Assert.IsNull(treeNodeInfo.CanDrag);
             Assert.IsNull(treeNodeInfo.CanDrop);

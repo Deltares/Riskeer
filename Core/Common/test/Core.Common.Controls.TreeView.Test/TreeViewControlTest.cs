@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -54,7 +55,7 @@ namespace Core.Common.Controls.TreeView.Test
                 Assert.AreEqual(0, treeView.ImageList.Images.Count);
 
                 Assert.NotNull(treeView.StateImageList);
-                Assert.AreEqual(2, treeView.StateImageList.Images.Count);
+                Assert.AreEqual(3, treeView.StateImageList.Images.Count);
             }
         }
 
@@ -1605,6 +1606,76 @@ namespace Core.Common.Controls.TreeView.Test
                 {
                     WindowsFormsTestHelper.CloseAll();
                 }
+            }
+        }
+
+        [Test]
+        [TestCase(TreeNodeCheckedState.Unchecked, 0)]
+        [TestCase(TreeNodeCheckedState.Checked, 1)]
+        [TestCase(TreeNodeCheckedState.Mixed, 2)]
+        [Apartment(ApartmentState.STA)]
+        public void GivenTreeViewControl_WhenTreeNodeInfoWithCheckedState_ThenExpectedStateImageIndexSet(TreeNodeCheckedState checkedState, int expectedStateImageIndex)
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                const string identifier = "identifier";
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    CanCheck = o => true,
+                    CheckedState = o => checkedState
+                };
+
+                var treeView = (System.Windows.Forms.TreeView)treeViewControl.Controls[0];
+                treeView.Name = identifier;
+
+                WindowsFormsTestHelper.Show(treeViewControl);
+                var treeViewTester = new TreeViewTester(identifier);
+
+                try
+                {
+                    // When
+                    treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                    treeViewControl.Data = new object();
+
+                    // Then
+                    treeViewTester.SelectNode(0);
+                    TreeNode node = treeViewTester.Properties.SelectedNode;
+
+                    Assert.AreEqual(expectedStateImageIndex, node.StateImageIndex);
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenTreeViewControl_WhenTreeNodeInfoWithInvalidCheckedState_ThenInvalidEnumArgumentExceptionThrown()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    CanCheck = o => true,
+                    CheckedState = o => 0
+                };
+
+                // When
+                TestDelegate call = () =>
+                {
+                    treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                    treeViewControl.Data = new object();
+                };
+
+                // Then
+                string expectedMessage = $"The value of argument 'treeNodeCheckedState' ({0}) is invalid for Enum type '{nameof(TreeNodeCheckedState)}'.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
             }
         }
 
