@@ -123,7 +123,7 @@ namespace Core.Plugins.Map.Legend
                 Image = GetImage,
                 CanDrag = (context, parent) => true,
                 CanCheck = context => true,
-                CheckedState = context => context.WrappedData.IsVisible ? TreeNodeCheckedState.Checked  : TreeNodeCheckedState.Unchecked,
+                CheckedState = context => context.WrappedData.IsVisible ? TreeNodeCheckedState.Checked : TreeNodeCheckedState.Unchecked,
                 OnNodeChecked = FeatureBasedMapDataContextOnNodeChecked,
                 CanRemove = (context, parent) => CanRemoveMapData((FeatureBasedMapData) context.WrappedData, parent),
                 OnNodeRemoved = (context, parent) => RemoveFromParent((FeatureBasedMapData) context.WrappedData, parent),
@@ -341,7 +341,7 @@ namespace Core.Plugins.Map.Legend
 
         private static TreeNodeCheckedState MapDataCollectionContextCheckedState(MapDataCollectionContext context)
         {
-            var mapDataCollection = (MapDataCollection)context.WrappedData;
+            var mapDataCollection = (MapDataCollection) context.WrappedData;
 
             switch (mapDataCollection.GetVisibility())
             {
@@ -364,7 +364,7 @@ namespace Core.Plugins.Map.Legend
 
             MapDataCollectionVisibility collectionOriginalVisibility = mapDataCollection.GetVisibility();
 
-            mapDataCollection.IsVisible = collectionOriginalVisibility == MapDataCollectionVisibility.Mixed 
+            mapDataCollection.IsVisible = collectionOriginalVisibility == MapDataCollectionVisibility.Mixed
                                           || collectionOriginalVisibility == MapDataCollectionVisibility.NotVisible;
             mapDataCollection.NotifyObservers();
 
