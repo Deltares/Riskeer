@@ -58,7 +58,7 @@ namespace Core.Components.Gis.Test.Helpers
         [Test]
         public void GetChildVisibilityStates_MapDataCollectionWithChildren_ReturnsDictionary()
         {
-            // Setup            
+            // Setup
             var mapDataCollection = new MapDataCollection("test");
             var mapData1 = new TestFeatureBasedMapData();
             var mapData2 = new TestFeatureBasedMapData
@@ -93,6 +93,64 @@ namespace Core.Components.Gis.Test.Helpers
                 },
                 {
                     nestedCollection, false
+                }
+            };
+            CollectionAssert.AreEqual(expectedDictionary, states);
+        }
+
+        [Test]
+        public void GetNestedCollectionVisibilityStates_MapDataCollectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => MapDataCollectionHelper.GetNestedCollectionVisibilityStates(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("mapDataCollection", exception.ParamName);
+        }
+
+        [Test]
+        public void GetNestedCollectionVisibilityStates_MapDataCollectionWithoutChildren_ReturnsEmptyDictionary()
+        {
+            // Setup
+            var mapDataCollection = new MapDataCollection("test");
+
+            // Call
+            Dictionary<MapDataCollection, MapDataCollectionVisibility> states = MapDataCollectionHelper.GetNestedCollectionVisibilityStates(mapDataCollection);
+
+            // Assert
+            CollectionAssert.IsEmpty(states);
+        }
+
+        [Test]
+        public void GetNestedCollectionVisibilityStates_MapDataCollectionWithChildren_ReturnsDictionary()
+        {
+            // Setup
+            var mapDataCollection = new MapDataCollection("test");
+            var mapData1 = new TestFeatureBasedMapData();
+            var mapData2 = new TestFeatureBasedMapData
+            {
+                IsVisible = false
+            };
+            var mapData3 = new TestFeatureBasedMapData
+            {
+                IsVisible = false
+            };
+            var nestedCollection = new MapDataCollection("nested");
+            nestedCollection.Add(mapData3);
+
+            mapDataCollection.Add(mapData1);
+            mapDataCollection.Add(mapData2);
+            mapDataCollection.Add(nestedCollection);
+
+            // Call
+            Dictionary<MapDataCollection, MapDataCollectionVisibility> states = MapDataCollectionHelper.GetNestedCollectionVisibilityStates(mapDataCollection);
+
+            // Assert
+            var expectedDictionary = new Dictionary<MapDataCollection, MapDataCollectionVisibility>
+            {
+                {
+                    nestedCollection, MapDataCollectionVisibility.NotVisible
                 }
             };
             CollectionAssert.AreEqual(expectedDictionary, states);

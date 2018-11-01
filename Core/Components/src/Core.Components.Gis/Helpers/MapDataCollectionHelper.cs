@@ -47,6 +47,22 @@ namespace Core.Components.Gis.Helpers
             return GetMapDataRecursively(mapDataCollection).ToDictionary(child => child, child => child.IsVisible);
         }
 
+        /// <summary>
+        /// Gets the visibility states of the child <see cref="MapDataCollection"/> of <paramref name="mapDataCollection"/>.
+        /// </summary>
+        /// <param name="mapDataCollection">The collection to get the child states from.</param>
+        /// <returns>A dictionary with the child map data collection and visibility states.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapDataCollection"/> is <c>null</c>.</exception>
+        public static Dictionary<MapDataCollection, MapDataCollectionVisibility> GetNestedCollectionVisibilityStates(MapDataCollection mapDataCollection)
+        {
+            if (mapDataCollection == null)
+            {
+                throw new ArgumentNullException(nameof(mapDataCollection));
+            }
+
+            return GetMapDataCollectionRecursively(mapDataCollection).ToDictionary(child => child, child => child.GetVisibility());
+        }
+
         private static IEnumerable<MapData> GetMapDataRecursively(MapDataCollection mapDataCollection)
         {
             var mapDataList = new List<MapData>();
@@ -63,6 +79,23 @@ namespace Core.Components.Gis.Helpers
             }
 
             return mapDataList;
+        }
+
+        private static IEnumerable<MapDataCollection> GetMapDataCollectionRecursively(MapDataCollection mapDataCollection)
+        {
+            var mapDataCollectionList = new List<MapDataCollection>();
+
+            foreach (MapData mapData in mapDataCollection.Collection)
+            {
+                var nestedMapDataCollection = mapData as MapDataCollection;
+                if (nestedMapDataCollection != null)
+                {
+                    mapDataCollectionList.AddRange(GetMapDataCollectionRecursively(nestedMapDataCollection));
+                    mapDataCollectionList.Add(nestedMapDataCollection);
+                }
+            }
+
+            return mapDataCollectionList;
         }
     }
 }
