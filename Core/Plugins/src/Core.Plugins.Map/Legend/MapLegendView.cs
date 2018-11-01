@@ -360,7 +360,8 @@ namespace Core.Plugins.Map.Legend
         {
             var mapDataCollection = (MapDataCollection) context.WrappedData;
 
-            Dictionary<MapData, bool> childStates = MapDataCollectionHelper.GetChildVisibilityStates(mapDataCollection);
+            Dictionary<FeatureBasedMapData, bool> childStates = mapDataCollection.GetFeatureBasedMapDataRecursively().ToDictionary(child => child, child => child.IsVisible);
+            Dictionary<MapDataCollection, MapDataCollectionVisibility> nestedCollectionVisibilityStates = MapDataCollectionHelper.GetNestedCollectionVisibilityStates(mapDataCollection);
 
             MapDataCollectionVisibility collectionOriginalVisibility = mapDataCollection.GetVisibility();
 
@@ -369,12 +370,24 @@ namespace Core.Plugins.Map.Legend
             mapDataCollection.NotifyObservers();
 
             NotifyMapDataCollectionChildren(childStates);
+            NotifyNestedMapDataCollections(nestedCollectionVisibilityStates);
             NotifyMapDataParents(context);
         }
 
-        private static void NotifyMapDataCollectionChildren(Dictionary<MapData, bool> childStates)
+        private static void NotifyNestedMapDataCollections(Dictionary<MapDataCollection, MapDataCollectionVisibility> childStates)
         {
-            foreach (KeyValuePair<MapData, bool> child in childStates)
+            foreach (KeyValuePair<MapDataCollection, MapDataCollectionVisibility> child in childStates)
+            {
+                if (child.Key.GetVisibility() != child.Value)
+                {
+                    child.Key.NotifyObservers();
+                }
+            }
+        }
+
+        private static void NotifyMapDataCollectionChildren(Dictionary<FeatureBasedMapData, bool> childStates)
+        {
+            foreach (KeyValuePair<FeatureBasedMapData, bool> child in childStates)
             {
                 if (child.Key.IsVisible != child.Value)
                 {

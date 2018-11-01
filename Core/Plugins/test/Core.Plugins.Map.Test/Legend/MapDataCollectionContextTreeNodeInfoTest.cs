@@ -286,8 +286,8 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        [TestCase(true, 3)]
-        [TestCase(false, 1)]
+        [TestCase(true, 4)]
+        [TestCase(false, 3)]
         public void OnNodeChecked_WithContext_NotifyObserversOfChangedChildrenOnly(bool initialVisibility, int expectedNotifications)
         {
             // Setup
@@ -300,8 +300,14 @@ namespace Core.Plugins.Map.Test.Legend
             {
                 IsVisible = initialVisibility
             };
+            var featureBasedMapData3 = new TestFeatureBasedMapData
+            {
+                IsVisible = initialVisibility
+            };
             var nestedMapDataCollection = new MapDataCollection("nested");
             nestedMapDataCollection.Add(featureBasedMapData1);
+            nestedMapDataCollection.Add(featureBasedMapData3);
+
             var mapDataCollection = new MapDataCollection("test");
             mapDataCollection.Add(nestedMapDataCollection);
             mapDataCollection.Add(featureBasedMapData2);
@@ -311,6 +317,7 @@ namespace Core.Plugins.Map.Test.Legend
             nestedMapDataCollection.Attach(observer);
             featureBasedMapData1.Attach(observer);
             featureBasedMapData2.Attach(observer);
+            featureBasedMapData3.Attach(observer);
 
             // Call
             info.OnNodeChecked(context, null);
