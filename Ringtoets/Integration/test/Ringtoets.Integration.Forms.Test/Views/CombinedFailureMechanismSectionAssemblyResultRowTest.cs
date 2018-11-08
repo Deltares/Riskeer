@@ -137,6 +137,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var random = new Random(21);
 
             var result = new CombinedFailureMechanismSectionAssemblyResult(
+                random.Next(),
                 random.NextDouble(),
                 random.NextDouble(),
                 categoryGroup,
@@ -193,6 +194,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             var random = new Random(21);
             return new CombinedFailureMechanismSectionAssemblyResult(
+                random.Next(),
                 random.NextDouble(),
                 random.NextDouble(),
                 random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),

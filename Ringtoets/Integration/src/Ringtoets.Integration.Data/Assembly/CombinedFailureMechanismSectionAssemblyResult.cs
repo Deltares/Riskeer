@@ -32,6 +32,7 @@ namespace Ringtoets.Integration.Data.Assembly
         /// <summary>
         /// Creates a new instance of <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
+        /// <param name="sectionNumber">The number of the section.</param>
         /// <param name="sectionStart">The start of the section from the beginning of the reference line
         /// in meters.</param>
         /// <param name="sectionEnd">The end of the section from the beginning of the reference line
@@ -41,7 +42,7 @@ namespace Ringtoets.Integration.Data.Assembly
         /// <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/>
         /// is <c>null</c>.</exception>
-        public CombinedFailureMechanismSectionAssemblyResult(double sectionStart, double sectionEnd,
+        public CombinedFailureMechanismSectionAssemblyResult(int sectionNumber, double sectionStart, double sectionEnd,
                                                              FailureMechanismSectionAssemblyCategoryGroup totalResult,
                                                              ConstructionProperties properties)
         {
@@ -50,6 +51,7 @@ namespace Ringtoets.Integration.Data.Assembly
                 throw new ArgumentNullException(nameof(properties));
             }
 
+            SectionNumber = sectionNumber;
             SectionStart = sectionStart;
             SectionEnd = sectionEnd;
             TotalResult = totalResult;

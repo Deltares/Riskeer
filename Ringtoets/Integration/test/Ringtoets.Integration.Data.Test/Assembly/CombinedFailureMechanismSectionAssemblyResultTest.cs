@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(),
+            TestDelegate call = () => new CombinedFailureMechanismSectionAssemblyResult(random.Next(), random.NextDouble(), random.NextDouble(),
                                                                                         random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(), null);
 
             // Assert
@@ -50,16 +50,17 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         {
             // Setup
             var random = new Random(21);
+            int sectionNumber = random.Next();
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
             var totalResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             // Call
-            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult,
+            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionNumber, sectionStart, sectionEnd, totalResult,
                                                                            new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties());
 
             // Assert
-            Assert.AreEqual(0, result.SectionNumber);
+            Assert.AreEqual(sectionNumber, result.SectionNumber);
             Assert.AreEqual(sectionStart, result.SectionStart);
             Assert.AreEqual(sectionEnd, result.SectionEnd);
             Assert.AreEqual(totalResult, result.TotalResult);
@@ -88,6 +89,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         {
             // Setup
             var random = new Random(21);
+            int sectionNumber = random.Next();
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
             var totalResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
@@ -111,7 +113,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             var technicalInnovationResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             // Call
-            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult,
+            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionNumber, sectionStart, sectionEnd, totalResult,
                                                                            new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
                                                                            {
                                                                                Piping = pipingResult,
@@ -135,7 +137,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                                                                            });
 
             // Assert
-            Assert.AreEqual(0, result.SectionNumber);
+            Assert.AreEqual(sectionNumber, result.SectionNumber);
             Assert.AreEqual(sectionStart, result.SectionStart);
             Assert.AreEqual(sectionEnd, result.SectionEnd);
             Assert.AreEqual(totalResult, result.TotalResult);

@@ -61,6 +61,7 @@ namespace Ringtoets.Integration.Data.Assembly
             }
 
             return output.Select(assembly => new CombinedFailureMechanismSectionAssemblyResult(
+                                     0,
                                      assembly.Section.SectionStart,
                                      assembly.Section.SectionEnd,
                                      assembly.Section.CategoryGroup,

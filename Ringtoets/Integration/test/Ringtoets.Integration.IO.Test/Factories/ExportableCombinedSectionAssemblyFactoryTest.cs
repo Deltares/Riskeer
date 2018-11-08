@@ -89,7 +89,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
         {
             var random = new Random(seed);
 
-            return new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(),
+            return new CombinedFailureMechanismSectionAssemblyResult(random.Next(),
+                                                                     random.NextDouble(),
                                                                      random.NextDouble(),
                                                                      random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                                                                      new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
