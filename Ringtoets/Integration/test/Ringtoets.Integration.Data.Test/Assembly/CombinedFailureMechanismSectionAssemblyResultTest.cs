@@ -59,6 +59,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                                                                            new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties());
 
             // Assert
+            Assert.AreEqual(0, result.SectionNumber);
             Assert.AreEqual(sectionStart, result.SectionStart);
             Assert.AreEqual(sectionEnd, result.SectionEnd);
             Assert.AreEqual(totalResult, result.TotalResult);
@@ -134,6 +135,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                                                                            });
 
             // Assert
+            Assert.AreEqual(0, result.SectionNumber);
             Assert.AreEqual(sectionStart, result.SectionStart);
             Assert.AreEqual(sectionEnd, result.SectionEnd);
             Assert.AreEqual(totalResult, result.TotalResult);

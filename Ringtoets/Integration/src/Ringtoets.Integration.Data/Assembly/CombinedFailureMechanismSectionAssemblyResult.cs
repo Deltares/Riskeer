@@ -74,6 +74,11 @@ namespace Ringtoets.Integration.Data.Assembly
         }
 
         /// <summary>
+        /// Gets the number of the section.
+        /// </summary>
+        public int SectionNumber { get; }
+
+        /// <summary>
         /// Gets the start of the section from the beginning of the reference line.
         /// [m]
         /// </summary>
