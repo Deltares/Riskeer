@@ -153,7 +153,7 @@ namespace Core.Plugins.Map
 
         private void OnViewBroughtToFront(object sender, ViewChangeEventArgs e)
         {
-            UpdateComponentsForView(e.View as IMapView);
+            UpdateComponentsForActiveDocumentView();
         }
 
         private void OnViewClosed(object sender, ViewChangeEventArgs e)

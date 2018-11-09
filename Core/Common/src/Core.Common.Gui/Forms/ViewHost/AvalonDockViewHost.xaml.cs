@@ -130,12 +130,11 @@ namespace Core.Common.Gui.Forms.ViewHost
             };
 
             PerformWithoutChangingActiveContent(() => AddLayoutDocument(layoutDocument));
-
             BringToFront(layoutDocument);
 
             documentViews.Add(view);
             hostControls.Add(hostControl);
-
+            ActiveDocumentView = view;
             layoutDocument.Closed += OnLayoutDocumentClosed;
 
             OnViewOpened(view);

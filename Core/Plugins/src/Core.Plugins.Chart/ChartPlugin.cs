@@ -121,7 +121,7 @@ namespace Core.Plugins.Chart
 
         private void OnViewBroughtToFront(object sender, ViewChangeEventArgs e)
         {
-            UpdateComponentsForView(e.View as IChartView);
+            UpdateComponentsForActiveDocumentView();
         }
 
         private void OnViewClosed(object sender, ViewChangeEventArgs e)
