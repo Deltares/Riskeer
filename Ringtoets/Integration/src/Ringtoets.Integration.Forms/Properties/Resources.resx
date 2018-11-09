@@ -382,4 +382,7 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="AssemblyResultCategories_DisplayName" xml:space="preserve">
     <value>Categoriegrenzen voor de gecombineerde toetssporen 1 en 2</value>
   </data>
+  <data name="SectionNumber_DisplayName" xml:space="preserve">
+    <value>Vaknummer</value>
+  </data>
 </root>

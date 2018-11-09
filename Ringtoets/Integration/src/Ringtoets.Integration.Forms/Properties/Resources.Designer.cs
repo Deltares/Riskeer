@@ -863,6 +863,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vaknummer.
+        /// </summary>
+        public static string SectionNumber_DisplayName {
+            get {
+                return ResourceManager.GetString("SectionNumber_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M..
         /// </summary>
         public static string SignalingNorm_Description {

@@ -159,6 +159,9 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeDataGridView()
         {
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionNumber),
+                                                 Resources.SectionNumber_DisplayName,
+                                                 true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionStart),
                                                  RingtoetsCommonFormsResources.SectionStart_DisplayName,
                                                  true);
