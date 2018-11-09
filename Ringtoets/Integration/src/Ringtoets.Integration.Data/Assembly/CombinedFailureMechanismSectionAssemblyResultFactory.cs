@@ -60,8 +60,8 @@ namespace Ringtoets.Integration.Data.Assembly
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return output.Select(assembly => new CombinedFailureMechanismSectionAssemblyResult(
-                                     0,
+            return output.Select((assembly, sectionNumber) => new CombinedFailureMechanismSectionAssemblyResult(
+                                     sectionNumber + 1,
                                      assembly.Section.SectionStart,
                                      assembly.Section.SectionEnd,
                                      assembly.Section.CategoryGroup,
