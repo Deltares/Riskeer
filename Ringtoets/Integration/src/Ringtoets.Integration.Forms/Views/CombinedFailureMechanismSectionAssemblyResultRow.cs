@@ -80,6 +80,17 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
+        /// Gets the number of the section.
+        /// </summary>
+        public int SectionNumber
+        {
+            get
+            {
+                return combinedFailureMechanismSectionAssemblyResult.SectionNumber;
+            }
+        }
+
+        /// <summary>
         /// Gets the start of the section from the beginning of the reference line.
         /// [m]
         /// </summary>

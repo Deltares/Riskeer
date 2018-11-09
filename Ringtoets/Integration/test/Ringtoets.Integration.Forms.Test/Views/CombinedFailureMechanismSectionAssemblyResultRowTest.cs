@@ -102,6 +102,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, duneErosionIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, technicalInnovationIndex);
 
+            Assert.AreEqual(result.SectionNumber, row.SectionNumber);
             Assert.AreEqual(2, row.SectionStart.NumberOfDecimalPlaces);
             Assert.AreEqual(result.SectionStart, row.SectionStart, row.SectionStart.GetAccuracy());
             Assert.AreEqual(2, row.SectionStart.NumberOfDecimalPlaces);
