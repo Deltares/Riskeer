@@ -51,6 +51,7 @@
     <Compile Include="Observers\AssessmentSectionResultObserver.cs" />
     <Compile Include="PresentationObjects\AssemblyResultCategoriesContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContext.cs" />
+    <Compile Include="PresentationObjects\AssemblyResultPerSectionMapContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultsContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContext.cs" />
     <Compile Include="PresentationObjects\MacroStabilityOutwardsAssemblyCategoriesContext.cs" />

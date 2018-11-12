@@ -51,6 +51,7 @@
     <Compile Include="Observers\AssessmentSectionResultObserverTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultCategoriesContextTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContextTest.cs" />
+    <Compile Include="PresentationObjects\AssemblyResultPerSectionMapContextTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultsContextTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContextTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityOutwardsAssemblyCategoriesContextTest.cs" />
