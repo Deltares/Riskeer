@@ -212,4 +212,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultsCategoryTreeFolder_DisplayName" xml:space="preserve">
     <value>Assemblage</value>
   </data>
+  <data name="AssemblyResultPerSection_Map_DisplayName" xml:space="preserve">
+    <value>Assemblagekaart</value>
+  </data>
 </root>

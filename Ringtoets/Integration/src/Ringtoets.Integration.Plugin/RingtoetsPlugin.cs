@@ -1201,6 +1201,15 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<AssemblyResultPerSectionMapContext>
+            {
+                Text = context => Resources.AssemblyResultPerSection_Map_DisplayName,
+                Image = context => Resources.AssemblyResultPerSection,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
         }
 
         private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IObservableEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<

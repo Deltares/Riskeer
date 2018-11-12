@@ -101,6 +101,15 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assemblagekaart.
+        /// </summary>
+        public static string AssemblyResultPerSection_Map_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultPerSection_Map_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assemblage.
         /// </summary>
         public static string AssemblyResultsCategoryTreeFolder_DisplayName {

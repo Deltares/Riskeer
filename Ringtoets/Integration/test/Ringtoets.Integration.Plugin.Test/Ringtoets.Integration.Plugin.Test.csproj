@@ -98,6 +98,7 @@
     <Compile Include="RingtoetsRibbonTest.cs" />
     <Compile Include="TreeNodeInfos\AssemblyResultCategoriesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssemblyResultPerSectionContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\AssemblyResultPerSectionMapContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssemblyResultsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssemblyResultTotalContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssessmentSectionTreeNodeInfoTest.cs" />
