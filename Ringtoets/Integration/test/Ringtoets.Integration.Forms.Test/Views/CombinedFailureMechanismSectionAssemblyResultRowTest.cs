@@ -37,25 +37,25 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class CombinedFailureMechanismSectionAssemblyResultRowTest
     {
-        private const int totalResultIndex = 2;
-        private const int pipingIndex = 3;
-        private const int grassCoverErosionInwardsIndex = 4;
-        private const int macroStabilityInwardsIndex = 5;
-        private const int macroStabilityOutwardsIndex = 6;
-        private const int microstabililityIndex = 7;
-        private const int stabilityStoneCoverIndex = 8;
-        private const int waveImpactAsphaltCoverIndex = 9;
-        private const int waterPressureAsphaltCoverIndex = 10;
-        private const int grassCoverErosionOutwardsIndex = 11;
-        private const int grassCoverSlipOffOutwardsIndex = 12;
-        private const int grassCoverSlipOffInwardsIndex = 13;
-        private const int heightStructuresIndex = 14;
-        private const int closingStructuresIndex = 15;
-        private const int pipingStructureIndex = 16;
-        private const int stabilityPointStructuresIndex = 17;
-        private const int strengthStabilityLengthwiseIndex = 18;
-        private const int duneErosionIndex = 19;
-        private const int technicalInnovationIndex = 20;
+        private const int totalResultIndex = 3;
+        private const int pipingIndex = 4;
+        private const int grassCoverErosionInwardsIndex = 5;
+        private const int macroStabilityInwardsIndex = 6;
+        private const int macroStabilityOutwardsIndex = 7;
+        private const int microstabililityIndex = 8;
+        private const int stabilityStoneCoverIndex = 9;
+        private const int waveImpactAsphaltCoverIndex = 10;
+        private const int waterPressureAsphaltCoverIndex = 11;
+        private const int grassCoverErosionOutwardsIndex = 12;
+        private const int grassCoverSlipOffOutwardsIndex = 13;
+        private const int grassCoverSlipOffInwardsIndex = 14;
+        private const int heightStructuresIndex = 15;
+        private const int closingStructuresIndex = 16;
+        private const int pipingStructureIndex = 17;
+        private const int stabilityPointStructuresIndex = 18;
+        private const int strengthStabilityLengthwiseIndex = 19;
+        private const int duneErosionIndex = 20;
+        private const int technicalInnovationIndex = 21;
 
         [Test]
         public void Constructor_CombinedFailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
