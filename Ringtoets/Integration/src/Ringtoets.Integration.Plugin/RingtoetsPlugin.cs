@@ -2494,6 +2494,7 @@ namespace Ringtoets.Integration.Plugin
             AssessmentSection assessmentSection = context.WrappedData;
             return new object[]
             {
+                new AssemblyResultPerSectionMapContext(assessmentSection),
                 new AssemblyResultCategoriesContext(assessmentSection),
                 new AssemblyResultTotalContext(assessmentSection),
                 new AssemblyResultPerSectionContext(assessmentSection)
