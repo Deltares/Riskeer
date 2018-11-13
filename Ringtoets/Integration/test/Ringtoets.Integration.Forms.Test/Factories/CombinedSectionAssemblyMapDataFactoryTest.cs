@@ -23,6 +23,7 @@ using System.Drawing;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Forms.Factories;
 
 namespace Ringtoets.Integration.Forms.Test.Factories
@@ -48,6 +49,7 @@ namespace Ringtoets.Integration.Forms.Test.Factories
             Assert.AreEqual(LineDashStyle.Solid, lineStyle.DashStyle);
 
             Assert.AreEqual("Vaknummer", data.SelectedMetaDataAttribute);
+            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(data.MapTheme);
         }
     }
 }

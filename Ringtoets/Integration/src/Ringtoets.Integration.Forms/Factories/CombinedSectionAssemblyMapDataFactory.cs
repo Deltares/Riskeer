@@ -21,6 +21,8 @@
 
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
+using Ringtoets.Common.Forms.Factories;
+using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.Factories
 {
@@ -35,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateCombinedSectionAssemblyResultMapData()
         {
-            return new MapLineData("Gecombineerd vakoordeel",
+            return new MapLineData(Resources.AssemblyResultPerSection_DisplayName,
                                    new LineStyle
                                    {
                                        Width = 6,
@@ -43,7 +45,8 @@ namespace Ringtoets.Integration.Forms.Factories
                                    })
             {
                 IsVisible = true,
-                SelectedMetaDataAttribute = "Vaknummer"
+                SelectedMetaDataAttribute = Resources.SectionNumber_DisplayName,
+                MapTheme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
             };
         }
     }
