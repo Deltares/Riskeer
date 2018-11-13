@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.Factories;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -73,12 +74,7 @@ namespace Ringtoets.Integration.Forms.Views
             CreateObservers();
 
             var mapDataCollection = new MapDataCollection("Assemblagekaart");
-            assemblyResultLineData = new MapLineData("Gecombineerd vakoordeel",
-                                                     new LineStyle
-                                                     {
-                                                         Width = 6,
-                                                         DashStyle = LineDashStyle.Solid
-                                                     });
+            assemblyResultLineData = CombinedSectionAssemblyMapDataFactory.CreateCombinedSectionAssemblyResultMapData();
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 

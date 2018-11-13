@@ -20,6 +20,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\CombinedSectionAssemblyMapDataFactory.cs" />
     <Compile Include="Factories\GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactory.cs" />
     <Compile Include="Factories\WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactory.cs" />
