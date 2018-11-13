@@ -20,12 +20,11 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
-using Core.Components.Gis.Theme;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Factories;
+using Ringtoets.Common.Forms.TestUtil;
 
 namespace Ringtoets.Common.Forms.Test.Factories
 {
@@ -90,7 +89,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(expectedVisibility, actualMapLineData.IsVisible);
             Assert.AreEqual("Categorie", actualMapLineData.SelectedMetaDataAttribute);
             AssertEqualStyle(actualMapLineData.Style, Color.Empty, 6, LineDashStyle.Solid);
-            AssertMapTheme(actualMapLineData.MapTheme);
+            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(actualMapLineData.MapTheme);
         }
 
         private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, LineDashStyle style)
@@ -98,28 +97,6 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(style, lineStyle.DashStyle);
-        }
-
-        private static void AssertMapTheme(MapTheme theme)
-        {
-            Assert.AreEqual("Categorie", theme.AttributeName);
-            Assert.AreEqual(9, theme.CategoryThemes.Count());
-            AssertCategoryTheme("Iv", Color.FromArgb(255, 0, 255, 0), theme.CategoryThemes.First());
-            AssertCategoryTheme("IIv", Color.FromArgb(255, 118, 147, 60), theme.CategoryThemes.ElementAt(1));
-            AssertCategoryTheme("IIIv", Color.FromArgb(255, 255, 255, 0), theme.CategoryThemes.ElementAt(2));
-            AssertCategoryTheme("IVv", Color.FromArgb(255, 204, 192, 218), theme.CategoryThemes.ElementAt(3));
-            AssertCategoryTheme("Vv", Color.FromArgb(255, 255, 153, 0), theme.CategoryThemes.ElementAt(4));
-            AssertCategoryTheme("VIv", Color.FromArgb(255, 255, 0, 0), theme.CategoryThemes.ElementAt(5));
-            AssertCategoryTheme("VIIv", Color.FromArgb(255, 255, 255, 255), theme.CategoryThemes.ElementAt(6));
-            AssertCategoryTheme("-", Color.FromArgb(0, 0, 0, 0), theme.CategoryThemes.ElementAt(7));
-            AssertCategoryTheme(string.Empty, Color.FromArgb(0, 0, 0, 0), theme.CategoryThemes.ElementAt(8));
-        }
-
-        private static void AssertCategoryTheme(string expectedValue, Color expectedColor, CategoryTheme categoryTheme)
-        {
-            Assert.AreEqual(expectedColor, categoryTheme.Color);
-            Assert.AreEqual(expectedValue, categoryTheme.Criterion.Value);
-            Assert.AreEqual(ValueCriterionOperator.EqualValue, categoryTheme.Criterion.ValueOperator);
         }
     }
 }

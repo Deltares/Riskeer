@@ -27,6 +27,7 @@
     <Compile Include="DataGridViewControlColumnStateDefinitionTestHelper.cs" />
     <Compile Include="CalculationsViewSynchronizationTester.cs" />
     <Compile Include="MapFeaturesTestHelper.cs" />
+    <Compile Include="MapThemeTestHelper.cs" />
     <Compile Include="MapViewTestHelper.cs" />
     <Compile Include="SetPropertyValueAfterConfirmationParameterTester.cs" />
     <Compile Include="ControlTestHelper.cs" />

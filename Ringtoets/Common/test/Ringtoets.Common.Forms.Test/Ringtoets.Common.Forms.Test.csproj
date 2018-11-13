@@ -56,6 +56,7 @@
     <Compile Include="Controls\FailureMechanismAssemblyCategoryGroupControlTest.cs" />
     <Compile Include="ExportInfos\RingtoetsExportInfoFactoryTest.cs" />
     <Compile Include="Factories\AssemblyMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="Factories\MapThemeFactoryTest.cs" />
     <Compile Include="Factories\RingtoetsGraphNodeFactoryTest.cs" />
     <Compile Include="Factories\AssemblyMapDataFactoryTest.cs" />
     <Compile Include="Factories\RingtoetsStackChartDataFactoryTest.cs" />

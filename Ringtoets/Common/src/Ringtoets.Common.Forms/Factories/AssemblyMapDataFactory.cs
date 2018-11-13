@@ -19,12 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
-using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
-using Core.Components.Gis.Theme;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Factories
@@ -92,30 +88,8 @@ namespace Ringtoets.Common.Forms.Factories
             {
                 SelectedMetaDataAttribute = Resources.AssemblyCategory_Group_DisplayName,
                 IsVisible = isVisible,
-                MapTheme = CreateMapTheme()
+                MapTheme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
             };
-        }
-
-        private static MapTheme CreateMapTheme()
-        {
-            return new MapTheme(Resources.AssemblyCategory_Group_DisplayName, new[]
-            {
-                new CategoryTheme(Color.FromArgb(255, 0, 255, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.Iv)),
-                new CategoryTheme(Color.FromArgb(255, 118, 147, 60), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.IIv)),
-                new CategoryTheme(Color.FromArgb(255, 255, 255, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.IIIv)),
-                new CategoryTheme(Color.FromArgb(255, 204, 192, 218), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.IVv)),
-                new CategoryTheme(Color.FromArgb(255, 255, 153, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.Vv)),
-                new CategoryTheme(Color.FromArgb(255, 255, 0, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.VIv)),
-                new CategoryTheme(Color.FromArgb(255, 255, 255, 255), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.VIIv)),
-                new CategoryTheme(Color.FromArgb(0, 0, 0, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.NotApplicable)),
-                new CategoryTheme(Color.FromArgb(0, 0, 0, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.None))
-            });
-        }
-
-        private static ValueCriterion CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup category)
-        {
-            return new ValueCriterion(ValueCriterionOperator.EqualValue,
-                                      new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(category).DisplayName);
         }
     }
 }
