@@ -300,4 +300,7 @@
   <ItemGroup>
     <None Include="Resources\AssemblyResultTotal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\AssemblyResultPerSectionMap.png" />
+  </ItemGroup>
 </Project>

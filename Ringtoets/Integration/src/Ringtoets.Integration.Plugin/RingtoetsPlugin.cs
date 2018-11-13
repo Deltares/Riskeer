@@ -1205,7 +1205,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new TreeNodeInfo<AssemblyResultPerSectionMapContext>
             {
                 Text = context => Resources.AssemblyResultPerSection_Map_DisplayName,
-                Image = context => Resources.AssemblyResultPerSection,
+                Image = context => Resources.AssemblyResultPerSectionMap,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()

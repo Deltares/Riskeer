@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Image image = info.Image(null);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(Resources.AssemblyResultPerSection, image);
+                TestHelper.AssertImagesAreEqual(Resources.AssemblyResultPerSectionMap, image);
             }
         }
 
