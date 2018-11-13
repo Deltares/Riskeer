@@ -23,11 +23,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data;
@@ -39,8 +44,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
     public class AssemblyResultPerSectionMapViewTest
     {
         private const int assemblyResultsIndex = 0;
-        private const int referenceLineIndex = 1;
-        private const int hydraulicBoundaryLocationsIndex = 2;
+        private const int hydraulicBoundaryLocationsIndex = 1;
+        private const int referenceLineIndex = 2;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -57,8 +62,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_WithAssessmentSection_ExpectedValues()
         {
             // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             // Call
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
@@ -76,6 +80,178 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 AssertEmptyMapData(view.Map.Data);
             }
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            // Call
+            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+            {
+                // Assert
+                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
+            }
+        }
+
+        [Test]
+        public void Constructor_WithReferenceLineAndHydraulicBoundaryDatabase_DataUpdatedToCollectionOfFilledMapData()
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.ReferenceLine = referenceLine;
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+            });
+
+            // Call
+            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+            {
+                // Assert
+                Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
+                MapDataCollection mapData = view.Map.Data;
+                Assert.IsNotNull(mapData);
+
+                MapData hydraulicBoundaryLocationsMapData = mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+
+                MapData referenceLineMapData = mapData.Collection.ElementAt(referenceLineIndex);
+                AssertReferenceLineMapData(referenceLine, referenceLineMapData);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+        {
+            // Given
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+
+                // When
+                HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
+                calculation.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenViewWithHydraulicBoundaryLocationsDatabase_WhenChangingHydraulicBoundaryLocationsDataAndObserversNotified_ThenMapDataUpdated()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+            });
+
+            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+
+                // When
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
+                });
+                assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.ReferenceLine = referenceLine;
+
+            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
+
+                // Precondition
+                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+
+                // Call
+                assessmentSection.ReferenceLine.SetGeometry(new[]
+                {
+                    new Point2D(2.0, 5.0),
+                    new Point2D(4.0, 3.0)
+                });
+                assessmentSection.NotifyObservers();
+
+                // Assert
+                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+                mocks.VerifyAll();
+            }
+        }
+
+        private static AssessmentSection CreateAssessmentSection()
+        {
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            return assessmentSection;
         }
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
@@ -103,6 +279,34 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
             Assert.IsTrue(referenceLineMapData.IsVisible);
+        }
+
+        /// <summary>
+        /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
+        /// </summary>
+        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
+        /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
+        /// elements.</param>
+        /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
+        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        {
+            MapData[] mapDataArray = mapData.ToArray();
+
+            var assemblyResultsObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[assemblyResultsIndex].Attach(assemblyResultsObserver);
+
+            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
+
+            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
+
+            return new[]
+            {
+                assemblyResultsObserver,
+                hydraulicBoundaryLocationsMapDataObserver,
+                referenceLineMapDataObserver
+            };
         }
     }
 }
