@@ -20,22 +20,21 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for presenting the category boundaries used in the overall assembly results of an <see cref="AssessmentSection"/>.
+    /// Presentation object for presenting the assembly results of an <see cref="AssessmentSection"/> on a per section basis on a map.
     /// </summary>
-    public class AssemblyResultPerSectionMapContext : ObservableWrappedObjectContextBase<AssessmentSection>
+    public class AssemblyResultPerSectionMapContext : AssemblyResultPerSectionContext
     {
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultPerSectionMapContext"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section to present the overall assembly results for.</param>
+        /// <param name = "assessmentSection" > The assessment section to present the assembly results for on a per section basis on a map.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public AssemblyResultPerSectionMapContext(AssessmentSection assessmentSection) 
+        public AssemblyResultPerSectionMapContext(AssessmentSection assessmentSection)
             : base(assessmentSection) {}
     }
 }

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
@@ -40,7 +39,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var context = new AssemblyResultPerSectionMapContext(assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<AssessmentSection>>(context);
+            Assert.IsInstanceOf<AssemblyResultPerSectionContext>(context);
             Assert.AreSame(assessmentSection, context.WrappedData);
         }
     }
