@@ -13,9 +13,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.cs" />
@@ -107,6 +109,12 @@
     </Compile>
     <Compile Include="Views\AssemblyResultCategoriesView.Designer.cs">
       <DependentUpon>AssemblyResultCategoriesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssemblyResultPerSectionMapView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssemblyResultPerSectionMapView.Designer.cs">
+      <DependentUpon>AssemblyResultPerSectionMapView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\AssemblyResultPerSectionView.cs">
       <SubType>UserControl</SubType>
@@ -350,6 +358,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\AssemblyResultCategoriesView.resx">
       <DependentUpon>AssemblyResultCategoriesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AssemblyResultPerSectionMapView.resx">
+      <DependentUpon>AssemblyResultPerSectionMapView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\AssemblyResultPerSectionView.resx">
       <DependentUpon>AssemblyResultPerSectionView.cs</DependentUpon>
