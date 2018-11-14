@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Test.Factories
             // Assert
             Assert.AreEqual("Gecombineerd vakoordeel", data.Name);
             
-            Assert.IsTrue(data.IsVisible);
+            Assert.IsTrue(data.ShowLabels);
             CollectionAssert.IsEmpty(data.Features);
 
             LineStyle lineStyle = data.Style;

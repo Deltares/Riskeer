@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Forms.Factories
                                        DashStyle = LineDashStyle.Solid
                                    })
             {
-                IsVisible = true,
+                ShowLabels = true,
                 SelectedMetaDataAttribute = Resources.SectionNumber_DisplayName,
                 MapTheme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
             };
