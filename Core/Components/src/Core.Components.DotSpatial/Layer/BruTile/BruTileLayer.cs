@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -55,7 +55,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using BruTile;
 using Core.Common.Base.Data;
 using Core.Components.BruTile.Configurations;
@@ -93,8 +92,6 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         private readonly ITileFetcher tileFetcher;
 
         private readonly ImageAttributes imageAttributes;
-
-        private readonly object drawLock = new object();
 
         /// <summary>
         /// The projection information of the data source captured by <see cref="configuration"/>.
@@ -269,30 +266,18 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
         private void DrawRegion(MapArgs args, DotSpatialExtent region, ITileSchema schema)
         {
-            if (!Monitor.TryEnter(drawLock))
+            DotSpatialExtent geoExtent = GetExtentInTargetCoordinateSystem(region);
+
+            BruTileExtent extent;
+            if (GetBruTileExtentToRender(geoExtent, out extent))
             {
-                return;
-            }
+                double distancePerPixel = extent.Width / args.ImageRectangle.Width;
+                level = Utilities.GetNearestLevel(schema.Resolutions, distancePerPixel);
 
-            try
-            {
-                DotSpatialExtent geoExtent = GetExtentInTargetCoordinateSystem(region);
+                tileFetcher.DropAllPendingTileRequests();
 
-                BruTileExtent extent;
-                if (GetBruTileExtentToRender(geoExtent, out extent))
-                {
-                    double distancePerPixel = extent.Width / args.ImageRectangle.Width;
-                    level = Utilities.GetNearestLevel(schema.Resolutions, distancePerPixel);
-
-                    tileFetcher.DropAllPendingTileRequests();
-
-                    IEnumerable<TileInfo> tiles = Sort(schema.GetTileInfos(extent, level), geoExtent.Center);
-                    DrawTilesAtCurrentLevel(args, tiles, schema);
-                }
-            }
-            finally
-            {
-                Monitor.Exit(drawLock);
+                IEnumerable<TileInfo> tiles = Sort(schema.GetTileInfos(extent, level), geoExtent.Center);
+                DrawTilesAtCurrentLevel(args, tiles, schema);
             }
         }
 
