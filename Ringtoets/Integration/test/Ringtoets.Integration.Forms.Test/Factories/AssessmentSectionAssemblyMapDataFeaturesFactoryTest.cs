@@ -136,6 +136,36 @@ namespace Ringtoets.Integration.Forms.Test.Factories
             }
         }
 
+        [Test]
+        public void CreateCombinedFailureMechanismSectionAssemblyFeatures_AssemblyCalculatorThrowsException_ReturnsEmptyFeatureCollection()
+        {
+            // Setup
+            var random = new Random(21);
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(2, 2)
+            });
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
+            {
+                ReferenceLine = referenceLine
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                IEnumerable<MapFeature> features = AssessmentSectionAssemblyMapDataFeaturesFactory.CreateCombinedFailureMechanismSectionAssemblyFeatures(assessmentSection);
+
+                // Assert
+                CollectionAssert.IsEmpty(features);
+            }
+        }
+
         private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection, int seed)
         {
             var random = new Random(seed);
