@@ -26,6 +26,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -50,12 +51,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsFailureMechanismProperties(null);
+            TestDelegate test = () => new MacroStabilityInwardsFailureMechanismProperties(null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsFailureMechanismProperties(new MacroStabilityInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -64,13 +82,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues(bool isRelevant)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsFailureMechanism>>(properties);
@@ -84,27 +106,31 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(probabilityAssessmentInput.GetN(
-                                probabilityAssessmentInput.SectionLength),
+            Assert.AreEqual(probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length),
                             properties.N,
                             properties.N.GetAccuracy());
             Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
-            Assert.AreEqual(probabilityAssessmentInput.SectionLength,
+            Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 IsRelevant = true
             };
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -182,19 +208,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 IsRelevant = false
             };
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -229,6 +260,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -241,13 +273,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Call
             TestDelegate call = () => properties.A = value;
@@ -268,6 +301,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -275,7 +309,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Call
             properties.A = value;
@@ -291,11 +325,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 IsRelevant = isRelevant
             };
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
@@ -311,6 +349,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactor)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+            mocks.VerifyAll();
         }
     }
 }

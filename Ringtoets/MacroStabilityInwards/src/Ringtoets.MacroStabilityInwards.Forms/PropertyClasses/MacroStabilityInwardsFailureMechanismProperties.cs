@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.Properties;
@@ -46,18 +47,27 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int bPropertyIndex = 8;
         private const int sectionLengthPropertyIndex = 9;
         private const int nPropertyIndex = 10;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsFailureMechanismProperties(MacroStabilityInwardsFailureMechanism data)
+        /// <param name="assessmentSection">The assessment section the data belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MacroStabilityInwardsFailureMechanismProperties(MacroStabilityInwardsFailureMechanism data, IAssessmentSection assessmentSection)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.assessmentSection = assessmentSection;
 
             Data = data;
         }
@@ -202,7 +212,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, data.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
+                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
             }
         }
 
@@ -216,7 +226,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = data.MacroStabilityInwardsProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength));
+                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
             }
         }
 
