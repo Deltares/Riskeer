@@ -219,7 +219,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.Norm, calculator.DetailedAssessmentNormativeNormInput);
                 double expectedN = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
-                    failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
+                    assessmentSection.ReferenceLine.Length);
                 Assert.AreEqual(expectedN, calculator.DetailedAssessmentFailureMechanismNInput);
                 Assert.AreEqual(failureMechanism.Contribution / 100, calculator.DetailedAssessmentFailureMechanismContribution);
             }

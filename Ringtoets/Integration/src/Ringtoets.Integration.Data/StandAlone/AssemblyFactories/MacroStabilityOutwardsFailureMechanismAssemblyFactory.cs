@@ -112,7 +112,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
             try
             {
                 double n = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
-                    failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
+                    assessmentSection.ReferenceLine.Length);
 
                 return calculator.AssembleDetailedAssessment(
                     failureMechanismSectionResult.DetailedAssessmentResult,

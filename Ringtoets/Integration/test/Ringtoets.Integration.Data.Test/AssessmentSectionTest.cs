@@ -99,9 +99,6 @@ namespace Ringtoets.Integration.Data.Test
 
             AssertExpectedContributions(composition, assessmentSection);
 
-            Assert.AreEqual(double.NaN, assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(double.NaN, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
 
             Assert.IsTrue(assessmentSection.BackgroundData.IsVisible);
@@ -389,9 +386,6 @@ namespace Ringtoets.Integration.Data.Test
             assessmentSection.ReferenceLine = referenceLine;
 
             // Assert
-            Assert.AreEqual(referenceLine.Length, assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(referenceLine.Length, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(referenceLine.Length, assessmentSection.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(referenceLine.Length, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
         }
 
@@ -406,9 +400,6 @@ namespace Ringtoets.Integration.Data.Test
             assessmentSection.ReferenceLine = null;
 
             // Assert
-            Assert.AreEqual(double.NaN, assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(double.NaN, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
         }
 

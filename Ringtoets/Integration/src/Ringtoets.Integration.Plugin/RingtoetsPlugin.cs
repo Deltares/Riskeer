@@ -1880,7 +1880,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 new MacroStabilityOutwardsAssemblyCategoriesContext(nodeData,
                                                                     assessmentSection,
-                                                                    () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
+                                                                    () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
                 new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
                     nodeData.SectionResults, nodeData, assessmentSection),
                 nodeData.OutputComments
