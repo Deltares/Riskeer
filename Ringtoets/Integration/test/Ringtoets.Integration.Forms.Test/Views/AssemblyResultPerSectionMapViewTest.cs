@@ -26,17 +26,27 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
+using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.Forms;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Views;
+using Ringtoets.Integration.Util;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
@@ -97,7 +107,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithReferenceLineAndHydraulicBoundaryDatabase_DataUpdatedToCollectionOfFilledMapData()
+        public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -115,18 +125,38 @@ namespace Ringtoets.Integration.Forms.Test.Views
             });
 
             // Call
-            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                // Assert
-                Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
-                MapDataCollection mapData = view.Map.Data;
-                Assert.IsNotNull(mapData);
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                CombinedFailureMechanismSectionAssembly[] failureMechanismSectionAssembly =
+                {
+                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection)
+                };
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = failureMechanismSectionAssembly;
 
-                MapData hydraulicBoundaryLocationsMapData = mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+                using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+                {
+                    // Assert
+                    Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
+                    MapDataCollection mapData = view.Map.Data;
+                    Assert.IsNotNull(mapData);
 
-                MapData referenceLineMapData = mapData.Collection.ElementAt(referenceLineIndex);
-                AssertReferenceLineMapData(referenceLine, referenceLineMapData);
+                    Assert.AreEqual(3, mapData.Collection.Count());
+
+                    IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedResults =
+                        AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+
+                    AssertCombinedFailureMechanismSectionAssemblyResultMapData(expectedResults,
+                                                                               assessmentSection.ReferenceLine,
+                                                                               mapData.Collection.ElementAt(assemblyResultsIndex));
+
+                    MapData hydraulicBoundaryLocationsMapData = mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                    MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+
+                    MapData referenceLineMapData = mapData.Collection.ElementAt(referenceLineIndex);
+                    AssertReferenceLineMapData(referenceLine, referenceLineMapData);
+                }
             }
         }
 
@@ -254,6 +284,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
             return assessmentSection;
         }
 
+        private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection)
+        {
+            var random = new Random(37);
+            return new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(random.NextDouble(),
+                                                                                                           random.NextDouble(),
+                                                                                                           random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
+                                                               assessmentSection.GetFailureMechanisms()
+                                                                                .Where(fm => fm.IsRelevant)
+                                                                                .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()).ToArray());
+        }
+
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
             Assert.AreEqual("Assemblagekaart", mapDataCollection.Name);
@@ -279,6 +320,48 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
             Assert.IsTrue(referenceLineMapData.IsVisible);
+        }
+
+        private static void AssertCombinedFailureMechanismSectionAssemblyResultMapData(IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedAssemblyResults,
+                                                                                       ReferenceLine referenceLine,
+                                                                                       MapData mapData)
+        {
+            Assert.IsInstanceOf<MapLineData>(mapData);
+            var assemblyResultMapData = (MapLineData) mapData;
+
+            int expectedNrOfResults = expectedAssemblyResults.Count();
+            IEnumerable<MapFeature> mapFeatures = assemblyResultMapData.Features;
+            Assert.AreEqual(expectedNrOfResults, mapFeatures.Count());
+
+            for (var i = 0; i < expectedNrOfResults; i++)
+            {
+                CombinedFailureMechanismSectionAssemblyResult expectedAssemblyResult = expectedAssemblyResults.ElementAt(i);
+                MapFeature actualFeature = mapFeatures.ElementAt(i);
+
+                MapGeometry mapGeometry = actualFeature.MapGeometries.Single();
+                AssertEqualPointCollections(referenceLine,
+                                            expectedAssemblyResult,
+                                            mapGeometry);
+
+                Assert.AreEqual(2, actualFeature.MetaData.Keys.Count);
+                Assert.AreEqual(expectedAssemblyResult.SectionNumber, actualFeature.MetaData["Vaknummer"]);
+                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
+                                    DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssemblyResult.TotalResult)).DisplayName,
+                                mapFeatures.ElementAt(i).MetaData["Categorie"]);
+            }
+        }
+
+        private static void AssertEqualPointCollections(ReferenceLine referenceLine,
+                                                        CombinedFailureMechanismSectionAssemblyResult sectionAssemblyResult,
+                                                        MapGeometry geometry)
+        {
+            IEnumerable<Point2D> expectedGeometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                referenceLine,
+                sectionAssemblyResult.SectionStart,
+                sectionAssemblyResult.SectionEnd).ToArray();
+            CollectionAssert.IsNotEmpty(expectedGeometry);
+
+            CollectionAssert.AreEqual(expectedGeometry, geometry.PointCollections.Single());
         }
 
         /// <summary>

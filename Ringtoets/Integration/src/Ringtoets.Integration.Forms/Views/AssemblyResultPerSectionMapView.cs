@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultPerSectionMapView : UserControl, IMapView
     {
-        private readonly MapLineData assemblyResultLineData;
+        private readonly MapLineData assemblyResultsMapData;
         private readonly MapLineData referenceLineMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
@@ -74,11 +74,11 @@ namespace Ringtoets.Integration.Forms.Views
             CreateObservers();
 
             var mapDataCollection = new MapDataCollection("Assemblagekaart");
-            assemblyResultLineData = CombinedSectionAssemblyMapDataFactory.CreateCombinedSectionAssemblyResultMapData();
+            assemblyResultsMapData = CombinedSectionAssemblyMapDataFactory.CreateCombinedSectionAssemblyResultMapData();
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
-            mapDataCollection.Add(assemblyResultLineData);
+            mapDataCollection.Add(assemblyResultsMapData);
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             mapDataCollection.Add(referenceLineMapData);
 
@@ -157,6 +157,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             SetReferenceLineMapData();
             SetHydraulicBoundaryLocationsMapData();
+            SetAssemblyResultsMapData();
         }
 
         #region ReferenceLine MapData
@@ -190,5 +191,10 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         #endregion
+
+        private void SetAssemblyResultsMapData()
+        {
+            assemblyResultsMapData.Features = AssessmentSectionAssemblyMapDataFeaturesFactory.CreateCombinedFailureMechanismSectionAssemblyFeatures(AssessmentSection);
+        }
     }
 }
