@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -39,6 +39,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
@@ -73,6 +74,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
             // Call
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
@@ -88,7 +90,24 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
 
-                AssertEmptyMapData(view.Map.Data);
+                MapDataCollection mapDataCollection = view.Map.Data;
+                Assert.AreEqual("Assemblagekaart", mapDataCollection.Name);
+
+                List<MapData> mapDataList = mapDataCollection.Collection.ToList();
+
+                Assert.AreEqual(3, mapDataList.Count);
+
+                var assemblyResultsLineMapData = (MapLineData) mapDataList[assemblyResultsIndex];
+                var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
+                var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
+
+                CollectionAssert.IsEmpty(assemblyResultsLineMapData.Features);
+                CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
+                Assert.AreEqual(1, referenceLineMapData.Features.Count());
+
+                Assert.AreEqual("Gecombineerd vakoordeel", assemblyResultsLineMapData.Name);
+                Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
+                Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             }
         }
 
@@ -96,7 +115,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
 
             // Call
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
@@ -110,6 +129,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
+            var random = new Random(21);
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -131,7 +151,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 CombinedFailureMechanismSectionAssembly[] failureMechanismSectionAssembly =
                 {
-                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection)
+                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection,
+                                                                  random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
                 };
                 calculator.CombinedFailureMechanismSectionAssemblyOutput = failureMechanismSectionAssembly;
 
@@ -155,7 +176,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
 
                     MapData referenceLineMapData = mapData.Collection.ElementAt(referenceLineIndex);
-                    AssertReferenceLineMapData(referenceLine, referenceLineMapData);
+                    AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
                 }
             }
         }
@@ -167,7 +188,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            AssessmentSection assessmentSection = CreateAssessmentSection();
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -202,7 +223,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenViewWithHydraulicBoundaryLocationsDatabase_WhenChangingHydraulicBoundaryLocationsDataAndObserversNotified_ThenMapDataUpdated()
         {
             // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
@@ -240,13 +261,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new List<Point2D>
+            referenceLine.SetGeometry(new[]
             {
                 new Point2D(1.0, 2.0),
                 new Point2D(2.0, 1.0)
             });
 
-            AssessmentSection assessmentSection = CreateAssessmentSection();
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             assessmentSection.ReferenceLine = referenceLine;
 
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
@@ -255,6 +276,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[assemblyResultsIndex].Expect(obs => obs.UpdateObserver());
                 observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
@@ -277,43 +299,140 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenViewWithAssemblyResults_WhenFailureMechanismNotifiesObserver_ThenAssemblyResultsRefreshed()
+        {
+            // Given
+            var random = new Random(21);
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
+                {
+                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection,
+                                                                  FailureMechanismSectionAssemblyCategoryGroup.IIIv)
+                };
+
+                using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+                {
+                    // Precondition
+                    MapDataCollection mapData = view.Map.Data;
+
+                    var mocks = new MockRepository();
+                    IObserver[] observers = AttachMapDataObservers(mocks, mapData.Collection);
+                    observers[assemblyResultsIndex].Expect(obs => obs.UpdateObserver());
+                    mocks.ReplayAll();
+
+                    IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedResults =
+                        AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+
+                    AssertCombinedFailureMechanismSectionAssemblyResultMapData(expectedResults,
+                                                                               assessmentSection.ReferenceLine,
+                                                                               mapData.Collection.ElementAt(assemblyResultsIndex));
+
+                    // When 
+                    calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
+                    {
+                        CreateCombinedFailureMechanismSectionAssembly(assessmentSection, FailureMechanismSectionAssemblyCategoryGroup.Iv)
+                    };
+                    IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
+                    failureMechanisms.ElementAt(random.Next(failureMechanisms.Count())).NotifyObservers();
+
+                    // Then
+                    expectedResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+                    AssertCombinedFailureMechanismSectionAssemblyResultMapData(expectedResults,
+                                                                               assessmentSection.ReferenceLine,
+                                                                               mapData.Collection.ElementAt(assemblyResultsIndex));
+                    mocks.VerifyAll();
+                }
+            }
+        }
+
+        [Test]
+        public void GivenViewWithAssemblyResults_WhenAssessmentSectionNotifiesObserver_ThenAssemblyResultsRefreshed()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
+                {
+                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection,
+                                                                  FailureMechanismSectionAssemblyCategoryGroup.IIIv)
+                };
+
+                using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+                {
+                    // Precondition
+                    MapDataCollection mapData = view.Map.Data;
+
+                    var mocks = new MockRepository();
+                    IObserver[] observers = AttachMapDataObservers(mocks, mapData.Collection);
+                    observers[assemblyResultsIndex].Expect(obs => obs.UpdateObserver());
+                    observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                    mocks.ReplayAll();
+
+                    IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedResults =
+                        AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+
+                    AssertCombinedFailureMechanismSectionAssemblyResultMapData(expectedResults,
+                                                                               assessmentSection.ReferenceLine,
+                                                                               mapData.Collection.ElementAt(assemblyResultsIndex));
+
+                    // When 
+                    calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
+                    {
+                        CreateCombinedFailureMechanismSectionAssembly(assessmentSection, FailureMechanismSectionAssemblyCategoryGroup.Iv)
+                    };
+                    assessmentSection.NotifyObservers();
+
+                    // Then
+                    expectedResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+                    AssertCombinedFailureMechanismSectionAssemblyResultMapData(expectedResults,
+                                                                               assessmentSection.ReferenceLine,
+                                                                               mapData.Collection.ElementAt(assemblyResultsIndex));
+                    mocks.VerifyAll();
+                }
+            }
+        }
+
         private static AssessmentSection CreateAssessmentSection()
         {
             var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            return new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+        }
+
+        private static AssessmentSection CreateAssessmentSectionWithReferenceLine()
+        {
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.ReferenceLine = referenceLine;
+
             return assessmentSection;
         }
 
-        private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection)
+        private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection,
+                                                                                                             FailureMechanismSectionAssemblyCategoryGroup totalResult)
         {
             var random = new Random(37);
             return new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(random.NextDouble(),
                                                                                                            random.NextDouble(),
-                                                                                                           random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
+                                                                                                           totalResult),
                                                                assessmentSection.GetFailureMechanisms()
                                                                                 .Where(fm => fm.IsRelevant)
                                                                                 .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()).ToArray());
-        }
-
-        private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
-        {
-            Assert.AreEqual("Assemblagekaart", mapDataCollection.Name);
-
-            List<MapData> mapDataList = mapDataCollection.Collection.ToList();
-
-            Assert.AreEqual(3, mapDataList.Count);
-
-            var assemblyResultsLineMapData = (MapLineData) mapDataList[assemblyResultsIndex];
-            var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
-            var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
-
-            CollectionAssert.IsEmpty(assemblyResultsLineMapData.Features);
-            CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
-            CollectionAssert.IsEmpty(referenceLineMapData.Features);
-
-            Assert.AreEqual("Gecombineerd vakoordeel", assemblyResultsLineMapData.Name);
-            Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
-            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
         }
 
         private static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData referenceLineMapData)
@@ -378,11 +497,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assemblyResultsObserver = mocks.StrictMock<IObserver>();
             mapDataArray[assemblyResultsIndex].Attach(assemblyResultsObserver);
 
-            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
-
             var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
+
+            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
             return new[]
             {

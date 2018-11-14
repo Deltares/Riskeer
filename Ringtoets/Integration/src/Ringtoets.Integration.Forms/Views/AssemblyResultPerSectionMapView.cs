@@ -24,12 +24,12 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
-using Core.Components.Gis.Style;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Factories;
+using Ringtoets.Integration.Forms.Observers;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -44,6 +44,7 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
         private Observer assessmentSectionObserver;
+        private Observer referenceLineObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
@@ -104,19 +105,20 @@ namespace Ringtoets.Integration.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            assessmentSectionObserver.Dispose();
-            waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
-            waterLevelCalculationsForSignalingNormObserver.Dispose();
-            waterLevelCalculationsForLowerLimitNormObserver.Dispose();
-            waterLevelCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-            waveHeightCalculationsForFactorizedSignalingNormObserver.Dispose();
-            waveHeightCalculationsForSignalingNormObserver.Dispose();
-            waveHeightCalculationsForLowerLimitNormObserver.Dispose();
-            waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-            hydraulicBoundaryLocationsObserver.Dispose();
-
             if (disposing)
             {
+                assessmentSectionObserver.Dispose();
+                referenceLineObserver.Dispose();
+                waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
+                waterLevelCalculationsForSignalingNormObserver.Dispose();
+                waterLevelCalculationsForLowerLimitNormObserver.Dispose();
+                waterLevelCalculationsForFactorizedLowerLimitNormObserver.Dispose();
+                waveHeightCalculationsForFactorizedSignalingNormObserver.Dispose();
+                waveHeightCalculationsForSignalingNormObserver.Dispose();
+                waveHeightCalculationsForLowerLimitNormObserver.Dispose();
+                waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
+                hydraulicBoundaryLocationsObserver.Dispose();
+
                 components?.Dispose();
             }
 
@@ -125,9 +127,14 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void CreateObservers()
         {
-            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
+            referenceLineObserver = new Observer(UpdateReferenceLineMapData)
             {
                 Observable = AssessmentSection
+            };
+
+            assessmentSectionObserver = new Observer(UpdateAssemblyResultsMapData)
+            {
+                Observable = new AssessmentSectionResultObserver(AssessmentSection)
             };
 
             waterLevelCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
@@ -158,6 +165,17 @@ namespace Ringtoets.Integration.Forms.Views
             SetReferenceLineMapData();
             SetHydraulicBoundaryLocationsMapData();
             SetAssemblyResultsMapData();
+        }
+
+        private void UpdateAssemblyResultsMapData()
+        {
+            SetAssemblyResultsMapData();
+            assemblyResultsMapData.NotifyObservers();
+        }
+
+        private void SetAssemblyResultsMapData()
+        {
+            assemblyResultsMapData.Features = AssessmentSectionAssemblyMapDataFeaturesFactory.CreateCombinedFailureMechanismSectionAssemblyFeatures(AssessmentSection);
         }
 
         #region ReferenceLine MapData
@@ -191,10 +209,5 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         #endregion
-
-        private void SetAssemblyResultsMapData()
-        {
-            assemblyResultsMapData.Features = AssessmentSectionAssemblyMapDataFeaturesFactory.CreateCombinedFailureMechanismSectionAssemblyFeatures(AssessmentSection);
-        }
     }
 }
