@@ -102,8 +102,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
                 },
                 MacroStabilityInwardsProbabilityAssessmentInput =
                 {
-                    A = random.NextDouble(),
-                    SectionLength = random.NextDouble()
+                    A = random.NextDouble()
                 }
             };
             var registry = new PersistenceRegistry();
