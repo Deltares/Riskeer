@@ -693,7 +693,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism,
                                                               assessmentSection,
-                                                              () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
+                                                              () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
                 new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
                 new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments

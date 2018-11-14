@@ -87,10 +87,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
-                PipingProbabilityAssessmentInput =
-                {
-                    SectionLength = 6000
-                },
                 Contribution = 100
             };
 

@@ -395,7 +395,7 @@ namespace Ringtoets.Piping.Data
                                                                              IAssessmentSection assessmentSection)
         {
             return AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(failureMechanism.PipingProbabilityAssessmentInput.GetN(
-                                                                                    failureMechanism.PipingProbabilityAssessmentInput.SectionLength),
+                                                                                    assessmentSection.ReferenceLine.Length),
                                                                                 failureMechanism,
                                                                                 assessmentSection);
         }

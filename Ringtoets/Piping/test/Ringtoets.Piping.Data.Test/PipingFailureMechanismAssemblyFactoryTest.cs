@@ -51,9 +51,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, assemblyCategoriesInput.SignalingNorm);
             Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, assemblyCategoriesInput.LowerLimitNorm);
             Assert.AreEqual(failureMechanism.Contribution, assemblyCategoriesInput.FailureMechanismContribution);
-            Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.GetN(
-                                failureMechanism.PipingProbabilityAssessmentInput.SectionLength),
-                            assemblyCategoriesInput.N);
+            Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length), assemblyCategoriesInput.N);
         }
 
         #region Simple Assembly
