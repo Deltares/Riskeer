@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
@@ -60,20 +61,28 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         private const int meanDiameter70PropertyIndex = 19;
         private const int sellMeijerReductionFactorPropertyIndex = 20;
 
+        private readonly IAssessmentSection assessmentSection;
         private readonly IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
+        /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingFailureMechanismProperties(PipingFailureMechanism data,
+                                                IAssessmentSection assessmentSection,
                                                 IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             if (handler == null)
@@ -82,6 +91,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
 
             Data = data;
+            this.assessmentSection = assessmentSection;
             propertyChangeHandler = handler;
         }
 
@@ -277,7 +287,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, data.PipingProbabilityAssessmentInput.SectionLength);
+                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
             }
         }
 
@@ -291,7 +301,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 PipingProbabilityAssessmentInput probabilityAssessmentInput = data.PipingProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength));
+                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
             }
         }
 
