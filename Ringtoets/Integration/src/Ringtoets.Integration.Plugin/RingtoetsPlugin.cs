@@ -324,7 +324,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<MacroStabilityOutwardsFailureMechanismContext, MacroStabilityOutwardsFailureMechanismProperties>
             {
-                CreateInstance = context => new MacroStabilityOutwardsFailureMechanismProperties(context.WrappedData)
+                CreateInstance = context => new MacroStabilityOutwardsFailureMechanismProperties(context.WrappedData, context.Parent)
             };
             yield return new PropertyInfo<PipingStructureFailureMechanismContext, PipingStructureFailureMechanismProperties>
             {
