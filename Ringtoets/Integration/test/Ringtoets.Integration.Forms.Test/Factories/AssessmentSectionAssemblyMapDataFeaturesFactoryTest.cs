@@ -37,7 +37,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Factories;
+using Ringtoets.Integration.TestUtil;
 using Ringtoets.Integration.Util;
+using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Ringtoets.Integration.Forms.Test.Factories
 {
@@ -107,6 +109,30 @@ namespace Ringtoets.Integration.Forms.Test.Factories
                                         DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssemblyResult.TotalResult)).DisplayName,
                                     features.ElementAt(i).MetaData["Categorie"]);
                 }
+            }
+        }
+
+        [Test]
+        public void CreateCombinedFailureMechanismSectionAssemblyFeatures_WithAssessmentSection_ManualAssemblyUsed()
+        {
+            // Setup
+            var random = new Random(21);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
+                random.NextEnumValue<AssessmentSectionComposition>());
+            MacroStabilityInwardsFailureMechanismSectionResult sectionResult = assessmentSection.MacroStabilityInwards.SectionResults.First();
+            sectionResult.UseManualAssembly = true;
+            sectionResult.ManualAssemblyProbability = random.NextDouble();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                AssessmentSectionAssemblyMapDataFeaturesFactory.CreateCombinedFailureMechanismSectionAssemblyFeatures(assessmentSection);
+
+                // Assert
+                Assert.AreEqual(sectionResult.ManualAssemblyProbability, calculator.ManualAssemblyProbabilityInput);
             }
         }
 
