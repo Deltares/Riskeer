@@ -30,7 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.IO.Assembly;
 using Ringtoets.Integration.IO.Factories;
-using Ringtoets.Integration.IO.Helpers;
+using Ringtoets.Integration.Util;
 
 namespace Ringtoets.Integration.IO.Test.Factories
 {
@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
                                                                             ExportableCombinedFailureMechanismSection actualSection,
                                                                             ReferenceLine referenceLine)
         {
-            IEnumerable<Point2D> expectedGeometry = ExportableFailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+            IEnumerable<Point2D> expectedGeometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
                 referenceLine,
                 actualSection.StartDistance,
                 actualSection.EndDistance).ToArray();
