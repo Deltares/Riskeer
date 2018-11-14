@@ -54,9 +54,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class AssemblyResultPerSectionMapViewTest
     {
-        private const int assemblyResultsIndex = 0;
+        private const int referenceLineIndex = 0;
         private const int hydraulicBoundaryLocationsIndex = 1;
-        private const int referenceLineIndex = 2;
+        private const int assemblyResultsIndex = 2;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -324,6 +324,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     var mocks = new MockRepository();
                     IObserver[] observers = AttachMapDataObservers(mocks, mapData.Collection);
                     observers[assemblyResultsIndex].Expect(obs => obs.UpdateObserver());
+//                    observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
                     mocks.ReplayAll();
 
                     IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedResults =
@@ -494,20 +495,20 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             MapData[] mapDataArray = mapData.ToArray();
 
-            var assemblyResultsObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[assemblyResultsIndex].Attach(assemblyResultsObserver);
+            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
             var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
 
-            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
+            var assemblyResultsObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[assemblyResultsIndex].Attach(assemblyResultsObserver);
 
             return new[]
             {
-                assemblyResultsObserver,
+                referenceLineMapDataObserver,
                 hydraulicBoundaryLocationsMapDataObserver,
-                referenceLineMapDataObserver
+                assemblyResultsObserver
             };
         }
     }
