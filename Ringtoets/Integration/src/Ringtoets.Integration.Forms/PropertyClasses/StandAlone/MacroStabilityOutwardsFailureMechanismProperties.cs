@@ -66,9 +66,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            this.assessmentSection = assessmentSection;
-
             Data = data;
+            this.assessmentSection = assessmentSection;
         }
 
         [DynamicVisibleValidationMethod]

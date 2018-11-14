@@ -67,9 +67,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            this.assessmentSection = assessmentSection;
-
             Data = data;
+            this.assessmentSection = assessmentSection;
         }
 
         #region Model settings
