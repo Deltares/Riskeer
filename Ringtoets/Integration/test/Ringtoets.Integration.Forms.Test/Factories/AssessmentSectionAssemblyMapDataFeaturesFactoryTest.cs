@@ -37,6 +37,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Factories;
+using Ringtoets.Integration.Util;
 
 namespace Ringtoets.Integration.Forms.Test.Factories
 {
@@ -59,9 +60,15 @@ namespace Ringtoets.Integration.Forms.Test.Factories
         {
             // Setup
             var random = new Random(21);
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(2, 2)
+            });
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             {
-                ReferenceLine = new ReferenceLine()
+                ReferenceLine = referenceLine
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -90,7 +97,9 @@ namespace Ringtoets.Integration.Forms.Test.Factories
                     MapFeature actualFeature = features.ElementAt(i);
 
                     MapGeometry mapGeometry = actualFeature.MapGeometries.Single();
-                    Assert.AreEqual(0, mapGeometry.PointCollections.Single().Count());
+                    AssertEqualPointCollections(assessmentSection.ReferenceLine,
+                                                expectedAssemblyResult,
+                                                mapGeometry);
 
                     Assert.AreEqual(2, actualFeature.MetaData.Keys.Count);
                     Assert.AreEqual(expectedAssemblyResult.SectionNumber, actualFeature.MetaData["Vaknummer"]);
@@ -112,9 +121,17 @@ namespace Ringtoets.Integration.Forms.Test.Factories
                                                                                 .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()).ToArray());
         }
 
-        private static void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)
+        private static void AssertEqualPointCollections(ReferenceLine referenceLine,
+                                                        CombinedFailureMechanismSectionAssemblyResult sectionAssemblyResult,
+                                                        MapGeometry geometry)
         {
-            CollectionAssert.AreEqual(points.Select(p => new Point2D(p)), geometry.PointCollections.First());
+            IEnumerable<Point2D> expectedGeometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                referenceLine,
+                sectionAssemblyResult.SectionStart,
+                sectionAssemblyResult.SectionEnd).ToArray();
+            CollectionAssert.IsNotEmpty(expectedGeometry);
+
+            CollectionAssert.AreEqual(expectedGeometry, geometry.PointCollections.Single());
         }
     }
 }

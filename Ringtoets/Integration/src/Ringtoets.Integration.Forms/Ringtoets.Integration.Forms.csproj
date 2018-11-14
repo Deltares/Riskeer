@@ -343,6 +343,11 @@
       <Name>Ringtoets.Integration.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Util\Ringtoets.Integration.Util.csproj">
+      <Project>{d4d21027-b2cd-47e2-a299-70885cc93ab4}</Project>
+      <Name>Ringtoets.Integration.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dialogs\BackgroundMapDataSelectionDialog.resx">

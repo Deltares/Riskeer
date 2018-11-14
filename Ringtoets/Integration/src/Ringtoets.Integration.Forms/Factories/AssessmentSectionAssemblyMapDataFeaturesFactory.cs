@@ -29,6 +29,7 @@ using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Properties;
+using Ringtoets.Integration.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Factories
@@ -53,17 +54,20 @@ namespace Ringtoets.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResult =
+            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults =
                 AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
             var mapFeatures = new List<MapFeature>();
-            foreach (CombinedFailureMechanismSectionAssemblyResult combinedFailureMechanismSectionAssemblyResult in assemblyResult)
+            foreach (CombinedFailureMechanismSectionAssemblyResult assemblyResult in assemblyResults)
             {
-                MapFeature mapFeature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(new Point2D[0]);
+                IEnumerable<Point2D> geometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(assessmentSection.ReferenceLine,
+                                                                                                                 assemblyResult.SectionStart,
+                                                                                                                 assemblyResult.SectionEnd);
+                MapFeature mapFeature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(geometry);
 
                 mapFeature.MetaData[RingtoetsCommonFormsResources.AssemblyCategory_Group_DisplayName] =
                     new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                        DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(combinedFailureMechanismSectionAssemblyResult.TotalResult)).DisplayName;
-                mapFeature.MetaData[Resources.SectionNumber_DisplayName] = combinedFailureMechanismSectionAssemblyResult.SectionNumber;
+                        DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(assemblyResult.TotalResult)).DisplayName;
+                mapFeature.MetaData[Resources.SectionNumber_DisplayName] = assemblyResult.SectionNumber;
 
                 mapFeatures.Add(mapFeature);
             }
