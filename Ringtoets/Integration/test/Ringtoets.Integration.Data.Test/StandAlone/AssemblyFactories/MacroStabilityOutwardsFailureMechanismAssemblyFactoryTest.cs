@@ -385,8 +385,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentProbability, calculator.TailorMadeAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityAndDetailedCalculationResultInput);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.Norm, calculator.TailorMadeAssessmentNormativeNormInput);
-                double expectedN = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
-                    failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
+                double expectedN = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
                 Assert.AreEqual(expectedN, calculator.TailorMadeAssessmentFailureMechanismNInput);
                 Assert.AreEqual(failureMechanism.Contribution / 100, calculator.TailorMadeAssessmentFailureMechanismContributionInput);
             }
