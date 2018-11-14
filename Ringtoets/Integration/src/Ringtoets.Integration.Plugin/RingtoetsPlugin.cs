@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -2494,10 +2494,10 @@ namespace Ringtoets.Integration.Plugin
             AssessmentSection assessmentSection = context.WrappedData;
             return new object[]
             {
-                new AssemblyResultPerSectionMapContext(assessmentSection),
                 new AssemblyResultCategoriesContext(assessmentSection),
                 new AssemblyResultTotalContext(assessmentSection),
-                new AssemblyResultPerSectionContext(assessmentSection)
+                new AssemblyResultPerSectionContext(assessmentSection),
+                new AssemblyResultPerSectionMapContext(assessmentSection)
             };
         }
 

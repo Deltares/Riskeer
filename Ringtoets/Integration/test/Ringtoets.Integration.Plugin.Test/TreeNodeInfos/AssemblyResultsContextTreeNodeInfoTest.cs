@@ -161,17 +161,17 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(4, objects.Length);
 
-                var assemblyResultPerSectionMapContext = (AssemblyResultPerSectionContext)objects[0];
-                Assert.AreSame(assessmentSection, assemblyResultPerSectionMapContext.WrappedData);
-
-                var assemblyResultCategoriesContext = (AssemblyResultCategoriesContext) objects[1];
+                var assemblyResultCategoriesContext = (AssemblyResultCategoriesContext) objects[0];
                 Assert.AreSame(assessmentSection, assemblyResultCategoriesContext.WrappedData);
 
-                var assemblyResultTotalContext = (AssemblyResultTotalContext) objects[2];
+                var assemblyResultTotalContext = (AssemblyResultTotalContext) objects[1];
                 Assert.AreSame(assessmentSection, assemblyResultTotalContext.WrappedData);
 
-                var assemblyResultPerSectionContext = (AssemblyResultPerSectionContext) objects[3];
+                var assemblyResultPerSectionContext = (AssemblyResultPerSectionContext) objects[2];
                 Assert.AreSame(assessmentSection, assemblyResultPerSectionContext.WrappedData);
+
+                var assemblyResultPerSectionMapContext = (AssemblyResultPerSectionMapContext)objects[3];
+                Assert.AreSame(assessmentSection, assemblyResultPerSectionMapContext.WrappedData);
             }
         }
 
