@@ -701,7 +701,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism,
                                                               assessmentSection,
-                                                              () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
+                                                              () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
                 new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
                 new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments

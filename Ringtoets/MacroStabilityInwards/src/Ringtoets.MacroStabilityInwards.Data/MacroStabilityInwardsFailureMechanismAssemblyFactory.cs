@@ -395,7 +395,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                                                                              IAssessmentSection assessmentSection)
         {
             return AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
-                                                                                    failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
+                                                                                    assessmentSection.ReferenceLine.Length),
                                                                                 failureMechanism,
                                                                                 assessmentSection);
         }

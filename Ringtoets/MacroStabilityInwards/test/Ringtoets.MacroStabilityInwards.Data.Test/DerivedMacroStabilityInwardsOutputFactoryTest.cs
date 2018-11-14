@@ -88,10 +88,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
-                MacroStabilityInwardsProbabilityAssessmentInput =
-                {
-                    SectionLength = 6000
-                },
                 Contribution = 100
             };
 

@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
             double factorOfStability = output.FactorOfStability;
             double requiredProbability = CalculateRequiredProbability(probabilityAssessmentInput.A,
                                                                       probabilityAssessmentInput.B,
-                                                                      probabilityAssessmentInput.SectionLength,
+                                                                      assessmentSection.ReferenceLine.Length,
                                                                       norm,
                                                                       contribution);
             double requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);

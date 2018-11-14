@@ -51,8 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, assemblyCategoriesInput.SignalingNorm);
             Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, assemblyCategoriesInput.LowerLimitNorm);
             Assert.AreEqual(failureMechanism.Contribution, assemblyCategoriesInput.FailureMechanismContribution);
-            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
-                                failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
+            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length),
                             assemblyCategoriesInput.N);
         }
 

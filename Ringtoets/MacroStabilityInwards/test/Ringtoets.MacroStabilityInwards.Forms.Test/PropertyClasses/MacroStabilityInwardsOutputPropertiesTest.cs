@@ -109,14 +109,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var random = new Random(39);
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
-                Contribution = 10,
-                MacroStabilityInwardsProbabilityAssessmentInput =
-                {
-                    SectionLength = random.Next(1000)
-                }
+                Contribution = 10
             };
 
             var mocks = new MockRepository();

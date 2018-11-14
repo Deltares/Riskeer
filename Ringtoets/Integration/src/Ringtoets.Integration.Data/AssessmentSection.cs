@@ -566,7 +566,6 @@ namespace Ringtoets.Integration.Data
             {
                 referenceLine = value;
                 double sectionLength = value?.Length ?? double.NaN;
-                MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength = sectionLength;
                 MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength = sectionLength;
                 WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength = sectionLength;
             }
