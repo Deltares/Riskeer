@@ -119,6 +119,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assemblagekaart.
+        /// </summary>
+        public static string AssemblyResultPerSectionMapView_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultPerSectionMapView_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toetsoordeel groepen 3 en 4.
         /// </summary>
         public static string AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text {

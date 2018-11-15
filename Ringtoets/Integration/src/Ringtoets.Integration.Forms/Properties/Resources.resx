@@ -385,4 +385,7 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="SectionNumber_DisplayName" xml:space="preserve">
     <value>Vaknummer</value>
   </data>
+  <data name="AssemblyResultPerSectionMapView_DisplayName" xml:space="preserve">
+    <value>Assemblagekaart</value>
+  </data>
 </root>

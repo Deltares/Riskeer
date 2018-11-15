@@ -30,6 +30,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Factories;
 using Ringtoets.Integration.Forms.Observers;
+using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -74,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Views
 
             CreateObservers();
 
-            var mapDataCollection = new MapDataCollection("Assemblagekaart");
+            var mapDataCollection = new MapDataCollection(Resources.AssemblyResultPerSectionMapView_DisplayName);
             assemblyResultsMapData = CombinedSectionAssemblyMapDataFactory.CreateCombinedSectionAssemblyResultMapData();
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
@@ -167,6 +168,8 @@ namespace Ringtoets.Integration.Forms.Views
             SetAssemblyResultsMapData();
         }
 
+        #region AssemblyResults MapData
+
         private void UpdateAssemblyResultsMapData()
         {
             SetAssemblyResultsMapData();
@@ -177,6 +180,8 @@ namespace Ringtoets.Integration.Forms.Views
         {
             assemblyResultsMapData.Features = AssessmentSectionAssemblyMapDataFeaturesFactory.CreateCombinedFailureMechanismSectionAssemblyFeatures(AssessmentSection);
         }
+
+        #endregion
 
         #region ReferenceLine MapData
 
