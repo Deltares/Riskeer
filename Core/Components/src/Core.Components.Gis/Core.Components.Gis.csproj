@@ -15,6 +15,9 @@
     <Compile Include="Data\MapDataCollectionVisibility.cs" />
     <Compile Include="Helpers\MapDataCollectionHelper.cs" />
     <Compile Include="Theme\CategoryTheme.cs" />
+    <Compile Include="Theme\LineCategoryTheme.cs" />
+    <Compile Include="Theme\PointCategoryTheme.cs" />
+    <Compile Include="Theme\PolygonCategoryTheme.cs" />
     <Compile Include="Theme\ValueCriterion.cs" />
     <Compile Include="Theme\ValueCriterionOperator.cs" />
     <Compile Include="Theme\MapTheme.cs" />
