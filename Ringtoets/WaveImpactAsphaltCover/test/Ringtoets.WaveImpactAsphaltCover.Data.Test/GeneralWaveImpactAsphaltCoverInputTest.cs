@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2018. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -39,8 +39,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             // Assert
             Assert.AreEqual(2, generalInput.DeltaL.NumberOfDecimalPlaces);
             Assert.AreEqual(1000.0, generalInput.DeltaL, generalInput.DeltaL.GetAccuracy());
-            Assert.IsNaN(generalInput.SectionLength);
-            Assert.IsNaN(generalInput.N);
+        }
+
         [Test]
         public void GetN_SectionLengthNaN_ReturnsNaN()
         {
