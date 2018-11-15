@@ -70,11 +70,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithAssessmentSection_ExpectedValues()
+        public void Constructor_WithAssessmentSectionWithoutData_ExpectedValues()
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.ReferenceLine = new ReferenceLine();
 
             // Call
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
@@ -103,7 +102,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 CollectionAssert.IsEmpty(assemblyResultsLineMapData.Features);
                 CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
-                Assert.AreEqual(1, referenceLineMapData.Features.Count());
+                CollectionAssert.IsEmpty(referenceLineMapData.Features);
 
                 Assert.AreEqual("Gecombineerd vakoordeel", assemblyResultsLineMapData.Name);
                 Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
@@ -115,7 +114,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             // Call
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
@@ -324,7 +323,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     var mocks = new MockRepository();
                     IObserver[] observers = AttachMapDataObservers(mocks, mapData.Collection);
                     observers[assemblyResultsIndex].Expect(obs => obs.UpdateObserver());
-//                    observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
                     mocks.ReplayAll();
 
                     IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedResults =

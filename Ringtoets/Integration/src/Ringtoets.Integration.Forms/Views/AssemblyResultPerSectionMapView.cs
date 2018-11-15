@@ -163,6 +163,11 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SetAllMapDataFeatures()
         {
+            if (AssessmentSection.ReferenceLine == null)
+            {
+                return;
+            }
+
             SetReferenceLineMapData();
             SetHydraulicBoundaryLocationsMapData();
             SetAssemblyResultsMapData();
