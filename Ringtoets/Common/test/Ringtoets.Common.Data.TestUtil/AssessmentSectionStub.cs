@@ -57,6 +57,7 @@ namespace Ringtoets.Common.Data.TestUtil
                 Name = "Background data"
             };
 
+            ReferenceLine = new ReferenceLine();
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             waterLevelCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
