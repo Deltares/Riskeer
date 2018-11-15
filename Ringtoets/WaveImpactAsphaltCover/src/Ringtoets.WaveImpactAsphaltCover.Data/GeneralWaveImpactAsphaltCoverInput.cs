@@ -79,5 +79,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
                 return Math.Max(1, SectionLength / deltaL);
             }
         }
+
+        /// <summary>
+        /// Gets the 'N' parameter used to factor in the 'length effect'.
+        /// </summary>
+        /// <param name="sectionLength">The length of the assessment section.</param>
+        /// <returns>The 'N' parameter.</returns>
+        public double GetN(double sectionLength)
+        {
+            return Math.Max(1, sectionLength / deltaL);
+        }
     }
 }
