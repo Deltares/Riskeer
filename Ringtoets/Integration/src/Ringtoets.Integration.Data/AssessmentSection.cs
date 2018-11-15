@@ -61,7 +61,6 @@ namespace Ringtoets.Integration.Data
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
-        private ReferenceLine referenceLine;
         private PipingFailureMechanism piping;
         private GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwards;
         private MacroStabilityInwardsFailureMechanism macroStabilityInwards;
@@ -556,19 +555,7 @@ namespace Ringtoets.Integration.Data
 
         public AssessmentSectionComposition Composition { get; private set; }
 
-        public ReferenceLine ReferenceLine
-        {
-            get
-            {
-                return referenceLine;
-            }
-            set
-            {
-                referenceLine = value;
-                double sectionLength = value?.Length ?? double.NaN;
-                WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength = sectionLength;
-            }
-        }
+        public ReferenceLine ReferenceLine { get; set; }
 
         public FailureMechanismContribution FailureMechanismContribution { get; }
 

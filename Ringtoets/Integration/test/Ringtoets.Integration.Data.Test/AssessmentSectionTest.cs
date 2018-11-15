@@ -99,8 +99,6 @@ namespace Ringtoets.Integration.Data.Test
 
             AssertExpectedContributions(composition, assessmentSection);
 
-            Assert.AreEqual(double.NaN, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
-
             Assert.IsTrue(assessmentSection.BackgroundData.IsVisible);
             Assert.AreEqual(0.0, assessmentSection.BackgroundData.Transparency.Value);
             Assert.AreEqual("Bing Maps - Satelliet", assessmentSection.BackgroundData.Name);
@@ -363,44 +361,6 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.AreSame(referenceLine, assessmentSection.ReferenceLine);
-        }
-
-        [Test]
-        public void ReferenceLine_SomeReferenceLine_RelevantGeneralInputSectionLengthSet()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            var referenceLine = new ReferenceLine();
-
-            Point2D[] somePointsCollection =
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            };
-            referenceLine.SetGeometry(somePointsCollection);
-
-            // Call
-            assessmentSection.ReferenceLine = referenceLine;
-
-            // Assert
-            Assert.AreEqual(referenceLine.Length, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
-        }
-
-        [Test]
-        public void ReferenceLine_Null_RelevantGeneralInputSectionLengthNaN()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
-            // Call
-            assessmentSection.ReferenceLine = null;
-
-            // Assert
-            Assert.AreEqual(double.NaN, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
         }
 
         [Test]
