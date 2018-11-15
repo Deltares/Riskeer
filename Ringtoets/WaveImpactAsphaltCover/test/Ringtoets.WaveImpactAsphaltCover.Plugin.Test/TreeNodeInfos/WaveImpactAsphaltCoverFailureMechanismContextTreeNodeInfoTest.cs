@@ -242,7 +242,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
-                Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.N, calculator.AssemblyCategoriesInput.N);
+                Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length), calculator.AssemblyCategoriesInput.N);
             }
 
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
