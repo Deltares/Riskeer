@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -47,20 +48,28 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         private const int aPropertyIndex = 9;
         private const int bPropertyIndex = 10;
         private const int cPropertyIndex = 11;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverFailureMechanismProperties(WaveImpactAsphaltCoverFailureMechanism data)
+        /// <param name="assessmentSection">The assessment section the data belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public WaveImpactAsphaltCoverFailureMechanismProperties(WaveImpactAsphaltCoverFailureMechanism data, IAssessmentSection assessmentSection)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             Data = data;
+            this.assessmentSection = assessmentSection;
         }
 
         [DynamicVisibleValidationMethod]
@@ -161,7 +170,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, data.GeneralWaveImpactAsphaltCoverInput.SectionLength);
+                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
             }
         }
 
@@ -192,7 +201,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, data.GeneralWaveImpactAsphaltCoverInput.N);
+                return new RoundedDouble(2, data.GeneralWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length));
             }
         }
 
