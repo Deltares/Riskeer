@@ -17,6 +17,7 @@
     <Compile Include="TestFeatureBasedMapData.cs" />
     <Compile Include="TestImageBasedMapData.cs" />
     <Compile Include="TestMapData.cs" />
+    <Compile Include="ValueCriterionTestFactory.cs" />
     <Compile Include="WmtsMapDataTestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
