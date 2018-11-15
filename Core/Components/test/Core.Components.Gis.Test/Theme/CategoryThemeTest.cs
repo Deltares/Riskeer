@@ -20,8 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
-using Core.Common.TestUtil;
+using Core.Components.Gis.TestUtil;
 using Core.Components.Gis.Theme;
 using NUnit.Framework;
 
@@ -33,12 +32,8 @@ namespace Core.Components.Gis.Test.Theme
         [Test]
         public void Constructor_CriterionNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = new Random(21);
-            Color themeColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
-
             // Call
-            TestDelegate call = () => new CategoryTheme(themeColor, null);
+            TestDelegate call = () => new TestCategoryTheme(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,18 +44,18 @@ namespace Core.Components.Gis.Test.Theme
         public void Constructor_ValidArguments_ReturnsExpectedProperties()
         {
             // Setup
-            var random = new Random(21);
-            var criterion = new ValueCriterion(random.NextEnumValue<ValueCriterionOperator>(),
-                                               string.Empty);
-
-            Color themeColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
+            ValueCriterion criterion = ValueCriterionTestFactory.CreateValueCriterion();
 
             // Call
-            var category = new CategoryTheme(themeColor, criterion);
+            var category = new TestCategoryTheme(criterion);
 
             // Assert
-            Assert.AreEqual(themeColor, category.Color);
             Assert.AreSame(criterion, category.Criterion);
+        }
+
+        private class TestCategoryTheme : CategoryTheme
+        {
+            public TestCategoryTheme(ValueCriterion criterion) : base(criterion) {}
         }
     }
 }

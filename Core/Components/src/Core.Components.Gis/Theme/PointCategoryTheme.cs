@@ -37,7 +37,7 @@ namespace Core.Components.Gis.Theme
         /// <param name="criterion">The <see cref="ValueCriterion"/> belonging to the category.</param>
         /// <param name="style">The <see cref="PointStyle"/> belonging to the category.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PointCategoryTheme(ValueCriterion criterion, PointStyle style) : base(Color.AliceBlue, criterion)
+        public PointCategoryTheme(ValueCriterion criterion, PointStyle style) : base(criterion)
         {
             if (style == null)
             {

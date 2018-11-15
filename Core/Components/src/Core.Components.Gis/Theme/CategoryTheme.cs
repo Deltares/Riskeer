@@ -20,37 +20,29 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 
 namespace Core.Components.Gis.Theme
 {
     /// <summary>
     /// Class to define themes for categories.
     /// </summary>
-    public class CategoryTheme
+    public abstract class CategoryTheme
     {
         /// <summary>
         /// Creates a new instance of <see cref="CategoryTheme"/>.
         /// </summary>
-        /// <param name="themeColor">The color to be applied for the theme.</param>
         /// <param name="criterion">The criterion belonging to the category.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="criterion"/>
         /// is <c>null</c>.</exception>
-        public CategoryTheme(Color themeColor, ValueCriterion criterion)
+        protected CategoryTheme(ValueCriterion criterion)
         {
             if (criterion == null)
             {
                 throw new ArgumentNullException(nameof(criterion));
             }
 
-            Color = themeColor;
             Criterion = criterion;
         }
-
-        /// <summary>
-        /// Gets the color of the category theme.
-        /// </summary>
-        public Color Color { get; }
 
         /// <summary>
         /// Gets the criterion that is associated with the category theme.
