@@ -49,6 +49,9 @@ namespace Ringtoets.Common.Data.TestUtil
         {
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            assessmentSection.Replay();
+
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
             return assessmentSection;
         }
@@ -74,8 +77,9 @@ namespace Ringtoets.Common.Data.TestUtil
                                                                                                                 1.0 / 30000));
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(GetHydraulicBoundaryDatabase(filePath));
-
             assessmentSection.Replay();
+
+            assessmentSection.ReferenceLine = new ReferenceLine();
 
             return assessmentSection;
         }
