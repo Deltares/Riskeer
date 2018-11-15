@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2018. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -709,6 +709,13 @@ namespace Ringtoets.Integration.Plugin
                 CloseForData = CloseAssemblyResultCategoriesViewForData,
                 CreateInstance = context => new AssemblyResultCategoriesView(context.WrappedData,
                                                                              context.GetAssemblyCategoriesFunc)
+            };
+            yield return new ViewInfo<AssemblyResultPerSectionMapContext, AssessmentSection, AssemblyResultPerSectionMapView>
+            {
+                GetViewName = (view, context) => RingtoetsFormsResources.AssemblyResultPerSectionMapView_DisplayName,
+                Image = Resources.AssemblyResultPerSectionMap,
+                CloseForData = CloseAssemblyResultPerSectionMapViewForData,
+                CreateInstance = context => new AssemblyResultPerSectionMapView(context.WrappedData)
             };
         }
 
@@ -1548,6 +1555,16 @@ namespace Ringtoets.Integration.Plugin
         #region AssemblyResultCategoriesContext ViewInfo
 
         private bool CloseAssemblyResultCategoriesViewForData(AssemblyResultCategoriesView view, object o)
+        {
+            var assessmentSection = o as AssessmentSection;
+            return assessmentSection != null && assessmentSection == view.AssessmentSection;
+        }
+
+        #endregion
+
+        #region AssemblyResultPerSectionMapContext ViewInfo
+
+        private static bool CloseAssemblyResultPerSectionMapViewForData(AssemblyResultPerSectionMapView view, object o)
         {
             var assessmentSection = o as AssessmentSection;
             return assessmentSection != null && assessmentSection == view.AssessmentSection;

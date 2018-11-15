@@ -147,6 +147,7 @@
     <Compile Include="UpdateInfos\GrassCoverSlipOffOutwardsFailureMechanismSectionsContextUpdateInfoTest.cs" />
     <Compile Include="UpdateInfos\GrassCoverSlipOffInwardsFailureMechanismSectionsContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\AssemblyResultCategoriesViewInfoTest.cs" />
+    <Compile Include="ViewInfos\AssemblyResultPerSectionMapViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssemblyResultPerSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssemblyResultTotalViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionAssemblyCategoriesViewInfoTest.cs" />

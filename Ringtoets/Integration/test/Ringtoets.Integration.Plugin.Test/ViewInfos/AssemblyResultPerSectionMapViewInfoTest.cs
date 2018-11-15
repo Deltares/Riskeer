@@ -34,7 +34,7 @@ using Ringtoets.Integration.Plugin.Properties;
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class AssemblyResultPerSectionViewInfoTest
+    public class AssemblyResultPerSectionMapViewInfoTest
     {
         private RingtoetsPlugin plugin;
         private ViewInfo info;
@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new RingtoetsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssemblyResultPerSectionView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssemblyResultPerSectionMapView));
         }
 
         [TearDown]
@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(AssemblyResultPerSectionContext), info.DataType);
+            Assert.AreEqual(typeof(AssemblyResultPerSectionMapContext), info.DataType);
             Assert.AreEqual(typeof(AssessmentSection), info.ViewDataType);
         }
 
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, null);
 
             // Assert
-            Assert.AreEqual("Gecombineerd vakoordeel", viewName);
+            Assert.AreEqual("Assemblagekaart", viewName);
         }
 
         [Test]
@@ -77,17 +77,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Image image = info.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.AssemblyResultPerSection, image);
+            TestHelper.AssertImagesAreEqual(Resources.AssemblyResultPerSectionMap, image);
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
-            using (var view = new AssemblyResultPerSectionView(assessmentSection))
+            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -101,11 +100,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var random = new Random(21);
-            var assessmentSection1 = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            var assessmentSection2 = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection1 = CreateAssessmentSection();
+            AssessmentSection assessmentSection2 = CreateAssessmentSection();
 
-            using (var view = new AssemblyResultPerSectionView(assessmentSection1))
+            using (var view = new AssemblyResultPerSectionMapView(assessmentSection1))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection2);
@@ -119,15 +117,23 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_SetsExpectedViewProperties()
         {
             // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            var context = new AssemblyResultPerSectionContext(assessmentSection);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            var context = new AssemblyResultPerSectionMapContext(assessmentSection);
 
             // Call
-            var view = (AssemblyResultPerSectionView) info.CreateInstance(context);
+            var view = (AssemblyResultPerSectionMapView) info.CreateInstance(context);
 
             // Assert
             Assert.AreSame(assessmentSection, view.AssessmentSection);
+        }
+
+        private static AssessmentSection CreateAssessmentSection()
+        {
+            var random = new Random(21);
+            return new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
+            {
+                ReferenceLine = new ReferenceLine()
+            };
         }
     }
 }
