@@ -39,16 +39,20 @@ namespace Core.Components.Gis.Test.Data
         [Test]
         public void Constructor_ValidName_NameAndDefaultValuesSet()
         {
+            // Setup
+            const string name = "test data";
+
             // Call
-            var data = new MapPolygonData("test data");
+            var data = new MapPolygonData(name);
 
             // Assert
-            Assert.AreEqual("test data", data.Name);
+            Assert.AreEqual(name, data.Name);
             CollectionAssert.IsEmpty(data.Features);
             Assert.IsInstanceOf<FeatureBasedMapData>(data);
             Assert.AreEqual(Color.DarkGray, data.Style.FillColor);
             Assert.AreEqual(Color.Black, data.Style.StrokeColor);
             Assert.AreEqual(2, data.Style.StrokeThickness);
+            Assert.IsNull(data.Theme);
         }
 
         [Test]
@@ -93,6 +97,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_WithStyle_ExpectedValues()
         {
             // Setup
+            const string name = "test data";
             var style = new PolygonStyle
             {
                 FillColor = Color.Aqua,
@@ -101,10 +106,10 @@ namespace Core.Components.Gis.Test.Data
             };
 
             // Call
-            var data = new MapPolygonData("test data", style);
+            var data = new MapPolygonData(name, style);
 
             // Assert
-            Assert.AreEqual("test data", data.Name);
+            Assert.AreEqual(name, data.Name);
             CollectionAssert.IsEmpty(data.Features);
             Assert.IsInstanceOf<FeatureBasedMapData>(data);
             Assert.AreSame(style, data.Style);

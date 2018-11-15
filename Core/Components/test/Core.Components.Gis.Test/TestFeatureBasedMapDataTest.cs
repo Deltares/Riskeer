@@ -45,7 +45,6 @@ namespace Core.Components.Gis.Test
             CollectionAssert.IsEmpty(mapData.MetaData);
             Assert.IsNull(mapData.SelectedMetaDataAttribute);
             Assert.IsFalse(mapData.ShowLabels);
-            Assert.IsNull(mapData.MapTheme);
         }
 
         [Test]
@@ -62,7 +61,6 @@ namespace Core.Components.Gis.Test
             CollectionAssert.IsEmpty(mapData.MetaData);
             Assert.IsNull(mapData.SelectedMetaDataAttribute);
             Assert.IsFalse(mapData.ShowLabels);
-            Assert.IsNull(mapData.MapTheme);
         }
     }
 }

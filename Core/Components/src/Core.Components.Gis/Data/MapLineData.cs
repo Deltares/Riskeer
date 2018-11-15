@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Style;
+using Core.Components.Gis.Theme;
 
 namespace Core.Components.Gis.Data
 {
@@ -64,6 +65,11 @@ namespace Core.Components.Gis.Data
         /// Gets the style of the line.
         /// </summary>
         public LineStyle Style { get; }
+
+        /// <summary>
+        /// Gets or sets the map theme of the <see cref="MapLineData"/>.
+        /// </summary>
+        public MapTheme<LineCategoryTheme> Theme { get; set; }
 
         /// <summary>
         /// This method validates newly set features.

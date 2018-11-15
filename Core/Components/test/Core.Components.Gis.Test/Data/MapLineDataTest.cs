@@ -39,16 +39,20 @@ namespace Core.Components.Gis.Test.Data
         [Test]
         public void Constructor_ValidName_NameAndDefaultValuesSet()
         {
+            // Setup
+            const string name = "test data";
+
             // Call
-            var data = new MapLineData("test data");
+            var data = new MapLineData(name);
 
             // Assert
-            Assert.AreEqual("test data", data.Name);
+            Assert.AreEqual(name, data.Name);
             CollectionAssert.IsEmpty(data.Features);
             Assert.IsInstanceOf<FeatureBasedMapData>(data);
             Assert.AreEqual(Color.Black, data.Style.Color);
             Assert.AreEqual(2, data.Style.Width);
             Assert.AreEqual(LineDashStyle.Solid, data.Style.DashStyle);
+            Assert.IsNull(data.Theme);
         }
 
         [Test]
@@ -93,6 +97,7 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_WithStyle_ExpectedValues()
         {
             // Setup
+            const string name = "test data";
             var style = new LineStyle
             {
                 Color = Color.Red,
@@ -104,10 +109,11 @@ namespace Core.Components.Gis.Test.Data
             var data = new MapLineData("test data", style);
 
             // Assert
-            Assert.AreEqual("test data", data.Name);
+            Assert.AreEqual(name, data.Name);
             CollectionAssert.IsEmpty(data.Features);
             Assert.IsInstanceOf<FeatureBasedMapData>(data);
             Assert.AreSame(style, data.Style);
+            Assert.IsNull(data.Theme);
         }
 
         [Test]

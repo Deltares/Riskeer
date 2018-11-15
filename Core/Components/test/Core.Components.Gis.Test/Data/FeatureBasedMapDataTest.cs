@@ -48,7 +48,6 @@ namespace Core.Components.Gis.Test.Data
             Assert.IsFalse(data.ShowLabels);
             Assert.IsNull(data.SelectedMetaDataAttribute);
             CollectionAssert.IsEmpty(data.MetaData);
-            Assert.IsNull(data.MapTheme);
         }
 
         [Test]
