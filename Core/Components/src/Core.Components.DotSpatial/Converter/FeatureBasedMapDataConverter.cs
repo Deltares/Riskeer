@@ -102,13 +102,13 @@ namespace Core.Components.DotSpatial.Converter
             layer.ShowLabels = data.ShowLabels;
             ((IMapFeatureLayer) layer).LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
 
-            if (data.MapTheme == null)
+            if (HasMapTheme(data))
             {
-                layer.Symbolizer = CreateSymbolizer(data);
+                layer.Symbology = CreateCategoryScheme(data);
             }
             else
             {
-                layer.Symbology = CreateCategorySchemes(data);
+                layer.Symbolizer = CreateSymbolizer(data);
             }
         }
 
@@ -130,27 +130,12 @@ namespace Core.Components.DotSpatial.Converter
         protected abstract IFeatureSymbolizer CreateSymbolizer(TFeatureBasedMapData mapData);
 
         /// <summary>
-        /// Creates a new <see cref="IFeatureScheme"/> to be applied on the data.
-        /// </summary>
-        /// <returns>The newly created <see cref="IFeatureScheme"/>.</returns>
-        protected abstract IFeatureScheme CreateScheme();
-
-        /// <summary>
         /// Creates a new <see cref="IFeatureCategory"/> based on <paramref name="mapData"/>.
         /// </summary>
         /// <param name="mapData">The map data to base the category on.</param>
         /// <returns>The newly created <see cref="IFeatureCategory"/>.</returns>
         /// <remarks><c>null</c> should never be returned as this will break DotSpatial.</remarks>
         protected abstract IFeatureCategory CreateDefaultCategory(TFeatureBasedMapData mapData);
-
-        /// <summary>
-        /// Creates a new <see cref="IFeatureCategory"/> with a different color than specified in the <paramref name="mapData"/>.
-        /// </summary>
-        /// <param name="mapData">The map data to base the category on.</param>
-        /// <param name="color">The desired color of the category.</param>
-        /// <returns>The newly created <see cref="IFeatureCategory"/>.</returns>
-        /// <remarks><c>null</c> should never be returned as this will break DotSpatial.</remarks>
-        protected abstract IFeatureCategory CreateCategory(TFeatureBasedMapData mapData, Color color);
 
         /// <summary>
         /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an <see cref="IEnumerable{T}"/>
@@ -164,38 +149,26 @@ namespace Core.Components.DotSpatial.Converter
         }
 
         /// <summary>
-        /// Creates the <see cref="IFeatureScheme"/> based on the <paramref name="mapData"/>.
+        /// Determines if the <paramref name="mapData"/> has a categorical theming to be applied
+        /// on the data it contains
         /// </summary>
-        /// <param name="mapData">The map data to base the scheme on.</param>
-        /// <returns>The newly created <see cref="IFeatureScheme"/>.</returns>
+        /// <param name="mapData">The map data to determine if it has categorical theming.</param>
+        /// <returns><c>true</c> if the <paramref name="mapData"/> has categorical theming, <c>false</c> otherwise.</returns>
+        protected abstract bool HasMapTheme(TFeatureBasedMapData mapData);
+
+        /// <summary>
+        /// Creates the <see cref="IFeatureScheme"/> based on the categorical theming of <paramref name="mapData"/>.
+        /// </summary>
+        /// <param name="mapData">The map data to create the categorical theming for.</param>
+        /// <returns>A configured <see cref="IFeatureScheme"/> based on the map data theme.</returns>
+        /// <remarks><c>null</c> should never be returned as this will break DotSpatial.</remarks>
         /// <exception cref="NotSupportedException">Thrown when the <paramref name="mapData"/>
         /// could not be successfully converted to a scheme.</exception>
-        private IFeatureScheme CreateCategorySchemes(TFeatureBasedMapData mapData)
-        {
-            IFeatureScheme scheme = CreateScheme();
-            ClearFeatureScheme(mapData, scheme);
-
-            MapTheme mapTheme = mapData.MapTheme;
-            Dictionary<string, int> attributeMapping = GetAttributeMapping(mapData);
-
-            if (attributeMapping.ContainsKey(mapTheme.AttributeName))
-            {
-                int attributeIndex = attributeMapping[mapTheme.AttributeName];
-
-                foreach (CategoryTheme categoryTheme in mapTheme.CategoryThemes)
-                {
-                    IFeatureCategory category = CreateCategory(mapData, categoryTheme.Color);
-                    category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criterion);
-                    scheme.AddCategory(category);
-                }
-            }
-
-            return scheme;
-        }
+        protected abstract IFeatureScheme CreateCategoryScheme(TFeatureBasedMapData mapData);
 
         private void ClearFeatureScheme(TFeatureBasedMapData mapData, IScheme scheme)
         {
-            if (mapData.MapTheme != null)
+            if (HasMapTheme(mapData))
             {
                 scheme.ClearCategories();
                 scheme.AddCategory(CreateDefaultCategory(mapData));
