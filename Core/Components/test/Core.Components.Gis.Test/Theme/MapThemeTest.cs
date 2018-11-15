@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Components.Gis.TestUtil;
@@ -39,9 +38,9 @@ namespace Core.Components.Gis.Test.Theme
         public void Constructor_InvalidAttribute_ThrowsArgumentException(string invalidAttributeName)
         {
             // Call
-            TestDelegate call = () => new MapTheme(invalidAttributeName, new[]
+            TestDelegate call = () => new MapTheme<TestCategoryTheme>(invalidAttributeName, new[]
             {
-                CategoryThemeTestFactory.CreateCategoryTheme()
+                CreateCategoryTheme()
             });
 
             // Assert
@@ -53,7 +52,7 @@ namespace Core.Components.Gis.Test.Theme
         public void Constructor_CategoryThemesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MapTheme("Arbitrary attribute", null);
+            TestDelegate call = () => new MapTheme<TestCategoryTheme>("Arbitrary attribute", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -63,11 +62,9 @@ namespace Core.Components.Gis.Test.Theme
         [Test]
         public void Constructor_CategoryThemesEmpty_ThrowsArgumentException()
         {
-            // Setup
-            IEnumerable<CategoryTheme> mapCategories = Enumerable.Empty<CategoryTheme>();
-
             // Call
-            TestDelegate call = () => new MapTheme("Arbitrary attribute", mapCategories);
+            TestDelegate call = () => new MapTheme<CategoryTheme>("Arbitrary attribute",
+                                                                  Enumerable.Empty<CategoryTheme>());
 
             // Assert
             const string expectedMessage = "categoryThemes is empty.";
@@ -79,17 +76,27 @@ namespace Core.Components.Gis.Test.Theme
         {
             // Setup
             const string attributeName = "Arbitrary attribute";
-            CategoryTheme[] mapCategories =
+            TestCategoryTheme[] mapCategories =
             {
-                CategoryThemeTestFactory.CreateCategoryTheme()
+                CreateCategoryTheme()
             };
 
             // Call
-            var theme = new MapTheme(attributeName, mapCategories);
+            var theme = new MapTheme<TestCategoryTheme>(attributeName, mapCategories);
 
             // Assert
             Assert.AreEqual(attributeName, theme.AttributeName);
             Assert.AreSame(mapCategories, theme.CategoryThemes);
+        }
+
+        private static TestCategoryTheme CreateCategoryTheme()
+        {
+            return new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
+        }
+
+        private class TestCategoryTheme : CategoryTheme
+        {
+            public TestCategoryTheme(ValueCriterion criterion) : base(criterion) {}
         }
     }
 }

@@ -26,13 +26,14 @@ using System.Linq;
 namespace Core.Components.Gis.Theme
 {
     /// <summary>
-    /// Class that contains the definition for a categorial theming of 
+    /// Class that contains the definition for a categorical theming of 
     /// map data objects.
     /// </summary>
-    public class MapTheme
+    /// <typeparam name="TCategoryTheme">The type of category theme for the categorical theming.</typeparam>
+    public class MapTheme<TCategoryTheme> where TCategoryTheme : CategoryTheme
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MapTheme"/>.
+        /// Creates a new instance of <see cref="MapTheme{T}"/>.
         /// </summary>
         /// <param name="attributeName">The name of the attribute to which the theme is applicable for.</param>
         /// <param name="categoryThemes">The category themes that are applicable for the map theme.</param>
@@ -42,7 +43,7 @@ namespace Core.Components.Gis.Theme
         /// <item><paramref name="attributeName"/> is null, empty or consists of only whitespace.</item>
         /// <item><paramref name="categoryThemes"/> is empty.</item>
         /// </list></exception>
-        public MapTheme(string attributeName, IEnumerable<CategoryTheme> categoryThemes)
+        public MapTheme(string attributeName, IEnumerable<TCategoryTheme> categoryThemes)
         {
             if (string.IsNullOrWhiteSpace(attributeName))
             {
@@ -71,6 +72,6 @@ namespace Core.Components.Gis.Theme
         /// <summary>
         /// Gets the category themes that are applicable for the theme.
         /// </summary>
-        public IEnumerable<CategoryTheme> CategoryThemes { get; }
+        public IEnumerable<TCategoryTheme> CategoryThemes { get; }
     }
 }
