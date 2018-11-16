@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
@@ -110,7 +111,7 @@ namespace Ringtoets.Storage.Core.Create
 
         private static void AddEntityForReferenceLine(AssessmentSection section, AssessmentSectionEntity entity)
         {
-            if (section.ReferenceLine != null)
+            if (section.ReferenceLine.Points.Any())
             {
                 entity.ReferenceLinePointXml = new Point2DCollectionXmlSerializer().ToXml(section.ReferenceLine.Points);
             }
