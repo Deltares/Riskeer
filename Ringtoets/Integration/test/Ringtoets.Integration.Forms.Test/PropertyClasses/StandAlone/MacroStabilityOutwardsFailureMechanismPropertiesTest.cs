@@ -85,6 +85,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            assessmentSection.ReferenceLine = new ReferenceLine();
+
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
                 IsRelevant = isRelevant

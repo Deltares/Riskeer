@@ -112,6 +112,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             mocks.ReplayAll();
 
+            assessmentSection.ReferenceLine = new ReferenceLine();
+
             // Call
             var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, handler);
 

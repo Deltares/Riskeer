@@ -86,6 +86,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            assessmentSection.ReferenceLine = new ReferenceLine();
+
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 IsRelevant = isRelevant
