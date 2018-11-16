@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -184,33 +184,6 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categorieën.
-        /// </summary>
-        public static string FeatureBasedMapdata_Categories_DisplayName {
-            get {
-                return ResourceManager.GetString("FeatureBasedMapdata_Categories_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan de kaartlaag is gecategoriseerd..
-        /// </summary>
-        public static string FeatureBasedMapdata_MapThemeAttributeName_Description {
-            get {
-                return ResourceManager.GetString("FeatureBasedMapdata_MapThemeAttributeName_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Op basis van.
-        /// </summary>
-        public static string FeatureBasedMapdata_MapThemeAttributeName_DisplayName {
-            get {
-                return ResourceManager.GetString("FeatureBasedMapdata_MapThemeAttributeName_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag..
         /// </summary>
         public static string FeatureBasedMapdata_SelectedMetaDataAttribute_Description {
@@ -347,6 +320,15 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categorieën.
+        /// </summary>
+        public static string Mapdata_Categories_DisplayName {
+            get {
+                return ResourceManager.GetString("Mapdata_Categories_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kleur.
         /// </summary>
         public static string MapData_Color_DisplayName {
@@ -370,6 +352,24 @@ namespace Core.Plugins.Map.Properties {
         public static string MapData_IsVisible_DisplayName {
             get {
                 return ResourceManager.GetString("MapData_IsVisible_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan de kaartlaag is gecategoriseerd..
+        /// </summary>
+        public static string Mapdata_MapThemeAttributeName_Description {
+            get {
+                return ResourceManager.GetString("Mapdata_MapThemeAttributeName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Op basis van.
+        /// </summary>
+        public static string Mapdata_MapThemeAttributeName_DisplayName {
+            get {
+                return ResourceManager.GetString("Mapdata_MapThemeAttributeName_DisplayName", resourceCulture);
             }
         }
         
