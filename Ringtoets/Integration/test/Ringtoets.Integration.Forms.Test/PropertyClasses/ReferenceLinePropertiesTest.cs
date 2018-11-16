@@ -74,14 +74,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var random = new Random(39);
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var referenceLine = new ReferenceLine();
             var geometry = new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble()),
                 new Point2D(random.NextDouble(), random.NextDouble())
             };
-            referenceLine.SetGeometry(geometry);
-            assessmentSection.ReferenceLine = referenceLine;
+            assessmentSection.ReferenceLine.SetGeometry(geometry);
             mocks.ReplayAll();
 
             // Call
@@ -89,7 +87,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(2, properties.Length.NumberOfDecimalPlaces);
-            Assert.AreEqual(referenceLine.Length, properties.Length, properties.Length.GetAccuracy());
+            Assert.AreEqual(assessmentSection.ReferenceLine.Length, properties.Length, properties.Length.GetAccuracy());
             CollectionAssert.AreEqual(geometry, properties.Geometry);
             mocks.VerifyAll();
         }
@@ -100,9 +98,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-
-            assessmentSection.ReferenceLine = new ReferenceLine();
 
             // Call
             var properties = new ReferenceLineProperties(assessmentSection);

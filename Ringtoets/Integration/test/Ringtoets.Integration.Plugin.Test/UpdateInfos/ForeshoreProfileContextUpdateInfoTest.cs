@@ -52,9 +52,8 @@ namespace Ringtoets.Integration.Plugin.Test.UpdateInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-
-            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
 

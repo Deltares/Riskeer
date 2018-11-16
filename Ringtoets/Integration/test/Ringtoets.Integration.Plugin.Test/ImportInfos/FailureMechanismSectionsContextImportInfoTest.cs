@@ -91,7 +91,6 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = null;
             mocks.ReplayAll();
 
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
@@ -111,7 +110,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
@@ -141,9 +140,8 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-
-            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var importTarget = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
