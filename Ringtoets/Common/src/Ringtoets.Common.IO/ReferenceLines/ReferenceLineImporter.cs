@@ -99,7 +99,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         {
             var clearReferenceLineDependentData = false;
 
-            if (ImportTarget.ReferenceLine != null)
+            if (ImportTarget.ReferenceLine.Points.Any())
             {
                 if (!replacementHandler.ConfirmReplace())
                 {

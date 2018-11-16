@@ -143,7 +143,7 @@ namespace Ringtoets.Integration.Test
 
             // Then
             Assert.IsTrue(importSuccessful);
-            Assert.AreNotSame(originalReferenceLine, assessmentSection.ReferenceLine);
+            Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
             Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
             Assert.AreEqual(803, point2Ds.Length);
             Assert.AreEqual(198237.375, point2Ds[123].X, 1e-6);
