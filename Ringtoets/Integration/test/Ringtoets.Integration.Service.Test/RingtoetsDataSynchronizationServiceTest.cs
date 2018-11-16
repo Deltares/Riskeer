@@ -683,8 +683,6 @@ namespace Ringtoets.Integration.Service.Test
             TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
             CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.Sections);
             CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.SectionResults);
-
-            Assert.IsNull(assessmentSection.ReferenceLine);
         }
 
         [Test]
@@ -702,27 +700,6 @@ namespace Ringtoets.Integration.Service.Test
             AssertChangedObjects(results, assessmentSection);
 
             CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
-            CollectionAssert.DoesNotContain(results.RemovedObjects, null);
-        }
-
-        [Test]
-        public void ClearReferenceLine_FullyConfiguredAssessmentSectionWithoutReferenceLine_ClearResultsDoesNotContainReferenceLineNorNullForRemovedObjects()
-        {
-            // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            ReferenceLine originalReferenceLine = assessmentSection.ReferenceLine;
-            assessmentSection.ReferenceLine = null;
-
-            IEnumerable<object> expectedRemovedObjects = GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection);
-
-            // Call
-            ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(assessmentSection);
-
-            // Assert
-            AssertChangedObjects(results, assessmentSection);
-
-            CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
-            CollectionAssert.DoesNotContain(results.RemovedObjects, originalReferenceLine);
             CollectionAssert.DoesNotContain(results.RemovedObjects, null);
         }
 
@@ -1329,7 +1306,7 @@ namespace Ringtoets.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(60, changedObjects.Length);
+            Assert.AreEqual(59, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -1425,8 +1402,6 @@ namespace Ringtoets.Integration.Service.Test
             TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
             CollectionAssert.Contains(changedObjects, technicalInnovationFailureMechanism);
             CollectionAssert.Contains(changedObjects, technicalInnovationFailureMechanism.SectionResults);
-
-            CollectionAssert.Contains(changedObjects, assessmentSection);
         }
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)
@@ -1450,12 +1425,6 @@ namespace Ringtoets.Integration.Service.Test
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StrengthStabilityLengthwiseConstruction));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.DuneErosion));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.TechnicalInnovation));
-
-            if (assessmentSection.ReferenceLine != null)
-            {
-                expectedRemovedObjects.Add(assessmentSection.ReferenceLine);
-            }
-
             return expectedRemovedObjects;
         }
 

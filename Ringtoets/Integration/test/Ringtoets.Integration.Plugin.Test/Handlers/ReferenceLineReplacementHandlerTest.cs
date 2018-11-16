@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -148,7 +149,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             var handler = new ReferenceLineReplacementHandler(viewCommands);
 
-            var referenceLine = new ReferenceLine();
+            ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
 
             // Call
             IObservable[] observables = handler.Replace(assessmentSection, referenceLine).ToArray();
@@ -310,7 +311,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.Contains(observables, technicalInnovationFailureMechanism);
             CollectionAssert.Contains(observables, technicalInnovationFailureMechanism.SectionResults);
 
-            Assert.AreSame(referenceLine, assessmentSection.ReferenceLine);
+            CollectionAssert.AreEqual(referenceLine.Points, assessmentSection.ReferenceLine.Points);
             CollectionAssert.Contains(observables, assessmentSection);
 
             mocks.VerifyAll();
@@ -337,7 +338,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void DoPostReplacementUpdates_AfterReplacingReferenceLine_CloseViewsForRemovedData()
         {
             // Setup
-            const int expectedNumberOfRemovedInstances = 196;
+            const int expectedNumberOfRemovedInstances = 195;
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
@@ -361,7 +362,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         public void DoPostReplacementUpdates_CalledSecondTimeAfterReplaceAndUpdateCycle_DoNothing()
         {
             // Setup
-            const int expectedNumberOfRemovedInstances = 196;
+            const int expectedNumberOfRemovedInstances = 195;
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();

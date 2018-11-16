@@ -53,11 +53,6 @@ namespace Ringtoets.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (assessmentSection.ReferenceLine == null)
-            {
-                throw new ArgumentException("reference line of assessment section cannot be null.");
-            }
-
             return new ExportableAssessmentSection(assessmentSection.Name,
                                                    assessmentSection.Id,
                                                    assessmentSection.ReferenceLine.Points,
