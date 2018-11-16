@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Gui.Commands;
@@ -69,14 +70,17 @@ namespace Ringtoets.Integration.Plugin.Handlers
         {
             removedObjects.Clear();
 
-            ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLine(section);
+            ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(section);
             foreach (object removedObject in results.RemovedObjects)
             {
                 removedObjects.Enqueue(removedObject);
             }
 
-            section.ReferenceLine = newReferenceLine;
-            return results.ChangedObjects;
+            section.ReferenceLine.SetGeometry(newReferenceLine.Points);
+            return new IObservable[]
+            {
+                section
+            }.Concat(results.ChangedObjects);
         }
 
         public void DoPostReplacementUpdates()

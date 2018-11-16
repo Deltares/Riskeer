@@ -570,7 +570,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearReferenceLine_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RingtoetsDataSynchronizationService.ClearReferenceLine(null);
+            TestDelegate call = () => RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -584,7 +584,7 @@ namespace Ringtoets.Integration.Service.Test
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             // Call
-            RingtoetsDataSynchronizationService.ClearReferenceLine(assessmentSection);
+            RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(assessmentSection);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -696,7 +696,7 @@ namespace Ringtoets.Integration.Service.Test
             IEnumerable<object> expectedRemovedObjects = GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection);
 
             // Call
-            ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLine(assessmentSection);
+            ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(assessmentSection);
 
             // Assert
             AssertChangedObjects(results, assessmentSection);
@@ -716,7 +716,7 @@ namespace Ringtoets.Integration.Service.Test
             IEnumerable<object> expectedRemovedObjects = GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection);
 
             // Call
-            ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLine(assessmentSection);
+            ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(assessmentSection);
 
             // Assert
             AssertChangedObjects(results, assessmentSection);

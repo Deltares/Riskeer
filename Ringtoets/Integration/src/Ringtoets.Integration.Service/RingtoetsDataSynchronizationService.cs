@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -315,7 +316,7 @@ namespace Ringtoets.Integration.Service
         /// <returns>The results of the clear action.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        public static ClearResults ClearReferenceLine(IAssessmentSection assessmentSection)
+        public static ClearResults ClearReferenceLineDependentData(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
@@ -332,14 +333,6 @@ namespace Ringtoets.Integration.Service
                 changedObjects.AddRange(results.ChangedObjects);
                 removedObjects.AddRange(results.RemovedObjects);
             }
-
-            if (assessmentSection.ReferenceLine != null)
-            {
-                removedObjects.Add(assessmentSection.ReferenceLine);
-                assessmentSection.ReferenceLine = null;
-            }
-
-            changedObjects.Add(assessmentSection);
 
             return new ClearResults(changedObjects, removedObjects);
         }
@@ -695,10 +688,10 @@ namespace Ringtoets.Integration.Service
                 return StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(stabilityPointStructuresFailureMechanism);
             }
 
-            return ClearReferenceLineDependentData(failureMechanism);
+            return ClearReferenceLineDependentDataForFailureMechanism(failureMechanism);
         }
 
-        private static ClearResults ClearReferenceLineDependentData(IFailureMechanism failureMechanism)
+        private static ClearResults ClearReferenceLineDependentDataForFailureMechanism(IFailureMechanism failureMechanism)
         {
             var removedObjects = new List<object>();
             var changedObjects = new List<IObservable>();
