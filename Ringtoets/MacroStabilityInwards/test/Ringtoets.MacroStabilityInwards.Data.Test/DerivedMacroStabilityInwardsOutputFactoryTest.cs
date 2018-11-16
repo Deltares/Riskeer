@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -95,6 +96,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
+            assessmentSection.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(5, 10),
+                new Point2D(20, 20)
+            });
+
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
             {
                 FactorOfStability = new Random(21).NextDouble()
@@ -105,11 +113,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual(output.FactorOfStability, derivedOutput.FactorOfStability, derivedOutput.FactorOfStability.GetAccuracy());
-            Assert.AreEqual(0.805, derivedOutput.MacroStabilityInwardsFactorOfSafety, derivedOutput.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
-            Assert.AreEqual(0.049327007121741082, derivedOutput.MacroStabilityInwardsProbability, 1e-6);
+            Assert.AreEqual(1.278, derivedOutput.MacroStabilityInwardsFactorOfSafety, derivedOutput.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(0.049327, derivedOutput.MacroStabilityInwardsProbability, 1e-6);
             Assert.AreEqual(1.65141, derivedOutput.MacroStabilityInwardsReliability, derivedOutput.MacroStabilityInwardsReliability.GetAccuracy());
-            Assert.AreEqual(0.020161290322580648d, derivedOutput.RequiredProbability, 1e-6);
-            Assert.AreEqual(2.05043, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(0.098108, derivedOutput.RequiredProbability, 1e-6);
+            Assert.AreEqual(1.2924, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
             mocks.VerifyAll();
         }
     }
