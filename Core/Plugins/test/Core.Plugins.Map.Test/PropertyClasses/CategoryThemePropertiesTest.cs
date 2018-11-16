@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Components.Gis.TestUtil;
@@ -36,7 +35,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
     public class CategoryThemePropertiesTest
     {
         private const int criterionPropertyIndex = 0;
-        private const int colorPropertyIndex = 1;
 
         [Test]
         public void Constructor_AttributeNameNull_ThrowsArgumentNullException()
@@ -73,21 +71,20 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreSame(theme, properties.Data);
             Assert.IsInstanceOf<ObjectProperties<CategoryTheme>>(properties);
             TestHelper.AssertTypeConverter<CategoryThemeProperties, ExpandableObjectConverter>();
-            TestHelper.AssertTypeConverter<CategoryThemeProperties, ColorTypeConverter>(nameof(CategoryThemeProperties.Color));
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            CategoryTheme theme = CategoryThemeTestFactory.CreateCategoryTheme();
+            var theme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
 
             // Call
             var properties = new CategoryThemeProperties(string.Empty, theme);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(1, dynamicProperties.Count);
 
             const string themeCategory = "Stijl";
             PropertyDescriptor criterionProperty = dynamicProperties[criterionPropertyIndex];
@@ -95,14 +92,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             themeCategory,
                                                                             "Criterium",
                                                                             "Het criterium van deze categorie.",
-                                                                            true);
-
-            PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
-            Assert.IsInstanceOf<ColorTypeConverter>(colorProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
-                                                                            themeCategory,
-                                                                            "Kleur",
-                                                                            "De kleur waarmee deze categorie wordt weergegeven.",
                                                                             true);
         }
 
@@ -113,13 +102,11 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                             string formatExpression)
         {
             // Setup
-            var random = new Random(21);
             const string attributeName = "AttributeName";
             const string value = "random value 123";
 
-            Color color = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
             var criterion = new ValueCriterion(valueOperator, value);
-            var theme = new CategoryTheme(color, criterion);
+            var theme = new TestCategoryTheme(criterion);
 
             // Call
             var properties = new CategoryThemeProperties(attributeName, theme);
@@ -127,7 +114,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Assert
             string expectedValue = string.Format(formatExpression, attributeName, value);
             Assert.AreEqual(expectedValue, properties.Criterion);
-            Assert.AreEqual(color, properties.Color);
         }
 
         [Test]
@@ -143,6 +129,11 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             Assert.IsEmpty(toString);
+        }
+
+        private class TestCategoryTheme : CategoryTheme
+        {
+            public TestCategoryTheme(ValueCriterion criterion) : base(criterion) {}
         }
     }
 }

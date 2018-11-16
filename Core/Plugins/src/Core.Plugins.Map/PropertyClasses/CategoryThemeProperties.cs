@@ -21,9 +21,7 @@
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using Core.Common.Gui.Attributes;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Components.Gis.Theme;
@@ -83,19 +81,6 @@ namespace Core.Plugins.Map.PropertyClasses
                     default:
                         throw new NotSupportedException();
                 }
-            }
-        }
-
-        [PropertyOrder(2)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.CategoryThemeProperties_Color_Description))]
-        [TypeConverter(typeof(ColorTypeConverter))]
-        public Color Color
-        {
-            get
-            {
-                return data.Color;
             }
         }
 
