@@ -77,10 +77,10 @@ namespace Ringtoets.Common.Forms.Factories
         /// <param name="id">The id of the <see cref="IAssessmentSection"/>.</param>
         /// <param name="name">The name of the <see cref="IAssessmentSection"/>.</param>
         /// <returns>A collection of features or an empty collection when <paramref name="referenceLine"/> 
-        /// is <c>null</c>.</returns>
+        /// is <c>null</c> or has no geometry.</returns>
         public static IEnumerable<MapFeature> CreateReferenceLineFeatures(ReferenceLine referenceLine, string id, string name)
         {
-            if (referenceLine != null)
+            if (referenceLine != null && referenceLine.Points.Any())
             {
                 MapFeature feature = CreateSingleLineMapFeature(referenceLine.Points);
                 feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = id;

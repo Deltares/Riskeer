@@ -86,6 +86,16 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateReferenceLineFeatures_ReferenceLineWithEmptyGeometry_ReturnsEmptyFeaturesCollection()
+        {
+            // Call
+            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(new ReferenceLine(), string.Empty, string.Empty);
+
+            // Assert
+            CollectionAssert.IsEmpty(features);
+        }
+
+        [Test]
         public void CreateReferenceLineFeatures_GivenReferenceLine_ReturnsReferenceLineFeature()
         {
             // Setup
