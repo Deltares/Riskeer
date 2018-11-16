@@ -538,10 +538,6 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void ConvertLayerProperties_MapDataHasMapTheme_SetsSymbology()
         {
             // Setup
-            var mocks = new MockRepository();
-            var scheme = mocks.Stub<IFeatureScheme>();
-            mocks.ReplayAll();
-
             var mapLayer = new TestFeatureLayer();
             var mapData = new TestFeatureBasedMapData("test data")
             {
@@ -551,6 +547,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 }
             };
 
+            var scheme = new PointScheme();
             var testConverter = new TestFeatureBasedMapDataConverter
             {
                 CreatedFeatureScheme = scheme,
@@ -562,17 +559,12 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.AreSame(scheme, mapLayer.Symbology);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ConvertLayerProperties_MapDataHasMapTheme_CallsCreateCategorySchemeWithCorrectInput()
         {
             // Setup
-            var mocks = new MockRepository();
-            var scheme = mocks.Stub<IFeatureScheme>();
-            mocks.ReplayAll();
-
             var mapData = new TestFeatureBasedMapData("test data")
             {
                 Features = new[]
@@ -581,6 +573,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 }
             };
 
+            var scheme = new PointScheme();
             var testConverter = new TestFeatureBasedMapDataConverter
             {
                 CreatedFeatureScheme = scheme,
@@ -594,7 +587,6 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.AreSame(mapData, testConverter.MapDataInput);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -626,6 +618,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             mocks.ReplayAll();
 
             var scheme = new PointScheme();
+            scheme.Categories.Clear();
             scheme.Categories.Add(categoryOne);
             scheme.Categories.Add(categoryTwo);
 
@@ -637,7 +630,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var testConverter = new TestFeatureBasedMapDataConverter
             {
                 CreatedDefaultCategory = defaultCategory,
-                MapDataHasTheme = true
+                MapDataHasTheme =  true
             };
 
             // Precondition
@@ -681,6 +674,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             protected override bool HasMapTheme(TestFeatureBasedMapData mapData)
             {
+                MapDataInput = mapData;
                 return MapDataHasTheme;
             }
 

@@ -220,11 +220,16 @@ namespace Core.Components.DotSpatial.Converter
             }
         }
 
+        /// <summary>
+        /// Gets the mapping between map data attribute names and DotSpatial attribute names.
+        /// </summary>
+        /// <param name="data">The map data to get the mappings from.</param>
+        /// <returns>The mapping between map data attribute names and DotSpatial attribute names.</returns>
         /// <remarks>
         /// This method is used for obtaining a mapping between map data attribute names and DotSpatial
         /// attribute names. This mapping is needed because DotSpatial can't handle special characters.
         /// </remarks>
-        private static Dictionary<string, int> GetAttributeMapping(TFeatureBasedMapData data)
+        protected static Dictionary<string, int> GetAttributeMapping(TFeatureBasedMapData data)
         {
             return Enumerable.Range(0, data.MetaData.Count())
                              .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
@@ -258,7 +263,7 @@ namespace Core.Components.DotSpatial.Converter
         /// and <paramref name="criterion"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when the <paramref name="criterion"/>
         /// cannot be used to create a filter expression.</exception>
-        private static string CreateFilterExpression(int attributeIndex, ValueCriterion criterion)
+        protected static string CreateFilterExpression(int attributeIndex, ValueCriterion criterion)
         {
             ValueCriterionOperator valueOperator = criterion.ValueOperator;
             switch (valueOperator)

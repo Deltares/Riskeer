@@ -30,12 +30,14 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
+using Core.Components.Gis.TestUtil;
 using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
 using NUnit.Framework;
+using Rhino.Mocks;
 using LineStyle = Core.Components.Gis.Style.LineStyle;
 
 namespace Core.Components.DotSpatial.Test.Converter
@@ -167,6 +169,69 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
+        public void GivenMapLayerWithScheme_WhenConvertingLayerFeatures_ThenClearsAppliedSchemeAndAppliesDefaultCategory()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var categoryOne = mocks.Stub<ILineCategory>();
+            var categoryTwo = mocks.Stub<ILineCategory>();
+            mocks.ReplayAll();
+
+            var mapLineLayer = new MapLineLayer
+            {
+                Symbology = new LineScheme
+                {
+                    Categories =
+                    {
+                        categoryOne,
+                        categoryTwo
+                    }
+                }
+            };
+
+            var converter = new MapLineDataConverter();
+
+            var random = new Random(21);
+            var lineStyle = new LineStyle
+            {
+                Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                Width = random.Next(1, 48),
+                DashStyle = random.NextEnum<LineDashStyle>()
+            };
+            var theme = new MapTheme<LineCategoryTheme>("Meta", new[]
+            {
+                new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                      new LineStyle
+                                      {
+                                          Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                          Width = random.Next(1, 48),
+                                          DashStyle = random.NextEnum<LineDashStyle>()
+                                      })
+            });
+
+            var mapLineData = new MapLineData("test", lineStyle)
+            {
+                Features = new[]
+                {
+                    CreateMapFeatureWithMetaData("Meta")
+                },
+                Theme = theme
+            };
+
+            // When
+            converter.ConvertLayerFeatures(mapLineData, mapLineLayer);
+
+            // Then
+            LineCategoryCollection categoryCollection = mapLineLayer.Symbology.Categories;
+            Assert.AreEqual(1, categoryCollection.Count);
+
+            ILineSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(lineStyle);
+            AssertAreEqual(expectedSymbolizer, categoryCollection.Single().Symbolizer);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [Combinatorial]
         public void ConvertLayerProperties_MapLineDataWithStyle_ConvertsStyleToMapLineLayer(
             [Values(KnownColor.AliceBlue, KnownColor.Azure)]
@@ -204,19 +269,27 @@ namespace Core.Components.DotSpatial.Test.Converter
                                                       "unequal value");
             var equalCriterion = new ValueCriterion(ValueCriterionOperator.EqualValue,
                                                     "equal value");
-            var theme = new MapTheme(metadataAttribute, new[]
+            var theme = new MapTheme<LineCategoryTheme>(metadataAttribute, new[]
             {
-                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  equalCriterion),
-                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  unequalCriterion)
+                new LineCategoryTheme(equalCriterion, new LineStyle
+                {
+                    Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                    Width = random.Next(1, 48),
+                    DashStyle = random.NextEnum<LineDashStyle>()
+                }),
+                new LineCategoryTheme(unequalCriterion, new LineStyle
+                {
+                    Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                    Width = random.Next(1, 48),
+                    DashStyle = random.NextEnum<LineDashStyle>()
+                })
             });
 
             var lineStyle = new LineStyle
             {
                 Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
                 Width = random.Next(1, 48),
-                DashStyle = LineDashStyle.DashDotDot
+                DashStyle = random.NextEnum<LineDashStyle>()
             };
             var mapLineData = new MapLineData("test", lineStyle)
             {
@@ -224,7 +297,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 {
                     CreateMapFeatureWithMetaData(metadataAttribute)
                 },
-                MapTheme = theme
+                Theme = theme
             };
 
             var mapLineLayer = new MapLineLayer();
@@ -235,10 +308,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             converter.ConvertLayerProperties(mapLineData, mapLineLayer);
 
             // Assert
-            const DashStyle expectedDashStyle = DashStyle.DashDotDot;
-            ILineSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
-                                                                          expectedDashStyle,
-                                                                          lineStyle.Color);
+            ILineSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(lineStyle);
 
             ILineScheme appliedScheme = mapLineLayer.Symbology;
             Assert.AreEqual(3, appliedScheme.Categories.Count);
@@ -250,24 +320,22 @@ namespace Core.Components.DotSpatial.Test.Converter
             ILineCategory equalSchemeCategory = appliedScheme.Categories[1];
             string expectedFilter = $"[1] = '{equalCriterion.Value}'";
             Assert.AreEqual(expectedFilter, equalSchemeCategory.FilterExpression);
-            expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
-                                                          expectedDashStyle,
-                                                          theme.CategoryThemes.ElementAt(0).Color);
+            LineStyle expectedCategoryStyle = theme.CategoryThemes.ElementAt(0).Style;
+            expectedSymbolizer = CreateExpectedSymbolizer(expectedCategoryStyle);
             AssertAreEqual(expectedSymbolizer, equalSchemeCategory.Symbolizer);
 
             ILineCategory unEqualSchemeCategory = appliedScheme.Categories[2];
             expectedFilter = $"NOT [1] = '{unequalCriterion.Value}'";
             Assert.AreEqual(expectedFilter, unEqualSchemeCategory.FilterExpression);
-            expectedSymbolizer = CreateExpectedSymbolizer(lineStyle,
-                                                          expectedDashStyle,
-                                                          theme.CategoryThemes.ElementAt(1).Color);
+            expectedCategoryStyle = theme.CategoryThemes.ElementAt(1).Style;
+            expectedSymbolizer = CreateExpectedSymbolizer(expectedCategoryStyle);
             AssertAreEqual(expectedSymbolizer, unEqualSchemeCategory.Symbolizer);
         }
 
-        private static ILineSymbolizer CreateExpectedSymbolizer(LineStyle expectedLineStyle,
-                                                                DashStyle expectedDashStyle,
-                                                                Color expectedColor)
+        private static ILineSymbolizer CreateExpectedSymbolizer(LineStyle expectedLineStyle)
         {
+            DashStyle expectedDashStyle = MapDataHelper.Convert(expectedLineStyle.DashStyle);
+            Color expectedColor = expectedLineStyle.Color;
             return new LineSymbolizer(expectedColor, expectedColor, expectedLineStyle.Width, expectedDashStyle, LineCap.Round);
         }
 
@@ -280,6 +348,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 {
                     new[]
                     {
+                        new Point2D(random.NextDouble(), random.NextDouble()),
                         new Point2D(random.NextDouble(), random.NextDouble())
                     }
                 })

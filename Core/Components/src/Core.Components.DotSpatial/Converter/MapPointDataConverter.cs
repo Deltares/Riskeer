@@ -20,15 +20,15 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Style;
+using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
-using Point = DotSpatial.Topology.Point;
 
 namespace Core.Components.DotSpatial.Converter
 {
@@ -44,33 +44,52 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override IFeatureSymbolizer CreateSymbolizer(MapPointData mapData)
         {
-            return CreatePointSymbolizer(mapData);
-        }
-
-        protected override IFeatureScheme CreateScheme()
-        {
-            return new PointScheme();
+            return CreatePointSymbolizer(mapData.Style);
         }
 
         protected override IFeatureCategory CreateDefaultCategory(MapPointData mapData)
         {
-            return CreateCategory(mapData, mapData.Style.Color);
+            return CreateCategory(mapData.Style);
         }
 
-        protected override IFeatureCategory CreateCategory(MapPointData mapData, Color color)
+        protected override bool HasMapTheme(MapPointData mapData)
         {
-            PointSymbolizer symbolizer = CreatePointSymbolizer(mapData);
-
-            var category = new PointCategory(symbolizer);
-            category.SetColor(color);
-
-            return category;
+            return mapData.Theme != null;
         }
 
-        private static PointSymbolizer CreatePointSymbolizer(MapPointData mapData)
+        protected override IFeatureScheme CreateCategoryScheme(MapPointData mapData)
         {
-            var symbolizer = new PointSymbolizer(mapData.Style.Color, MapDataHelper.Convert(mapData.Style.Symbol), mapData.Style.Size);
-            symbolizer.SetOutline(mapData.Style.StrokeColor, mapData.Style.StrokeThickness);
+            var scheme = new PointScheme();
+            scheme.ClearCategories();
+            scheme.AddCategory(CreateCategory(mapData.Style));
+
+            MapTheme<PointCategoryTheme> mapTheme = mapData.Theme;
+            Dictionary<string, int> attributeMapping = GetAttributeMapping(mapData);
+
+            if (attributeMapping.ContainsKey(mapTheme.AttributeName))
+            {
+                int attributeIndex = attributeMapping[mapTheme.AttributeName];
+
+                foreach (PointCategoryTheme categoryTheme in mapTheme.CategoryThemes)
+                {
+                    IFeatureCategory category = CreateCategory(categoryTheme.Style);
+                    category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criterion);
+                    scheme.AddCategory(category);
+                }
+            }
+
+            return scheme;
+        }
+
+        private static IFeatureCategory CreateCategory(PointStyle pointStyle)
+        {
+            return new PointCategory(CreatePointSymbolizer(pointStyle));
+        }
+
+        private static PointSymbolizer CreatePointSymbolizer(PointStyle style)
+        {
+            var symbolizer = new PointSymbolizer(style.Color, MapDataHelper.Convert(style.Symbol), style.Size);
+            symbolizer.SetOutline(style.StrokeColor, style.StrokeThickness);
             return symbolizer;
         }
 

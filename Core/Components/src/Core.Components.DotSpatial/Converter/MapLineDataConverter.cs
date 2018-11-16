@@ -20,16 +20,17 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
+using LineStyle = Core.Components.Gis.Style.LineStyle;
 
 namespace Core.Components.DotSpatial.Converter
 {
@@ -52,22 +53,46 @@ namespace Core.Components.DotSpatial.Converter
                                       LineCap.Round);
         }
 
-        protected override IFeatureScheme CreateScheme()
-        {
-            return new LineScheme();
-        }
-
         protected override IFeatureCategory CreateDefaultCategory(MapLineData mapData)
         {
-            return CreateCategory(mapData, mapData.Style.Color);
+            return CreateCategory(mapData.Style);
         }
 
-        protected override IFeatureCategory CreateCategory(MapLineData mapData, Color color)
+        protected override bool HasMapTheme(MapLineData mapData)
         {
-            return new LineCategory(color,
-                                    color,
-                                    mapData.Style.Width,
-                                    MapDataHelper.Convert(mapData.Style.DashStyle),
+            return mapData.Theme != null;
+        }
+
+        protected override IFeatureScheme CreateCategoryScheme(MapLineData mapData)
+        {
+            var scheme = new LineScheme();
+            scheme.ClearCategories();
+            scheme.AddCategory(CreateCategory(mapData.Style));
+
+            MapTheme<LineCategoryTheme> mapTheme = mapData.Theme;
+            Dictionary<string, int> attributeMapping = GetAttributeMapping(mapData);
+
+            if (attributeMapping.ContainsKey(mapTheme.AttributeName))
+            {
+                int attributeIndex = attributeMapping[mapTheme.AttributeName];
+
+                foreach (LineCategoryTheme categoryTheme in mapTheme.CategoryThemes)
+                {
+                    IFeatureCategory category = CreateCategory(categoryTheme.Style);
+                    category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criterion);
+                    scheme.AddCategory(category);
+                }
+            }
+
+            return scheme;
+        }
+
+        private static IFeatureCategory CreateCategory(LineStyle style)
+        {
+            return new LineCategory(style.Color,
+                                    style.Color,
+                                    style.Width,
+                                    MapDataHelper.Convert(style.DashStyle),
                                     LineCap.Round);
         }
 
