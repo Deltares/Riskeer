@@ -111,6 +111,7 @@ namespace Ringtoets.Integration.Data
                 Name = defaultWellKnownTileSource.GetDisplayName()
             };
 
+            ReferenceLine = new ReferenceLine();
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             piping = new PipingFailureMechanism();

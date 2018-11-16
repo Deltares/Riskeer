@@ -64,9 +64,12 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.AreEqual("Traject", assessmentSection.Name);
             Assert.IsNull(assessmentSection.Comments.Body);
-            Assert.IsNull(assessmentSection.ReferenceLine);
             Assert.AreEqual(composition, assessmentSection.Composition);
             Assert.IsInstanceOf<FailureMechanismContribution>(assessmentSection.FailureMechanismContribution);
+
+            ReferenceLine referenceLine = assessmentSection.ReferenceLine;
+            Assert.IsNotNull(referenceLine);
+            CollectionAssert.IsEmpty(referenceLine.Points);
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             Assert.IsNotNull(hydraulicBoundaryDatabase);
