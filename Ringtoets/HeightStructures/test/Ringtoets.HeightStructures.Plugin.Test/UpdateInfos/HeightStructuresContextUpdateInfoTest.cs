@@ -249,9 +249,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.UpdateInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-
-            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var structures = new StructureCollection<HeightStructure>();
