@@ -219,7 +219,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = originalReferenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(originalReferenceLine);
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
             handler.Expect(h => h.ConfirmReplace()).Return(false);
             handler.Expect(h => h.Replace(null, null))
@@ -250,7 +250,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = originalReferenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(originalReferenceLine);
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
             var importer = new ReferenceLineImporter(assessmentSection, handler, path);
             handler.Expect(h => h.ConfirmReplace())
@@ -281,7 +281,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = originalReferenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(originalReferenceLine);
             var handler = mocks.Stub<IReferenceLineReplaceHandler>();
             handler.Stub(h => h.ConfirmReplace())
                    .Return(true);
@@ -316,7 +316,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = originalReferenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(originalReferenceLine);
             var handler = mocks.Stub<IReferenceLineReplaceHandler>();
             handler.Stub(h => h.ConfirmReplace())
                    .Return(true);
@@ -398,7 +398,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             contextObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = originalReferenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(originalReferenceLine);
             assessmentSection.Expect(section => section.Attach(contextObserver));
             assessmentSection.Expect(section => section.NotifyObservers()).Do((Action) (() => contextObserver.UpdateObserver()));
 
@@ -449,7 +449,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var mocks = new MockRepository();
             var contextObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = originalReferenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(originalReferenceLine);
             assessmentSection.Expect(section => section.Attach(contextObserver));
 
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
@@ -487,7 +487,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             contextObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = originalReferenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(originalReferenceLine);
             assessmentSection.Expect(section => section.Attach(contextObserver));
             assessmentSection.Expect(section => section.NotifyObservers()).Do((Action) (() => contextObserver.UpdateObserver()));
 

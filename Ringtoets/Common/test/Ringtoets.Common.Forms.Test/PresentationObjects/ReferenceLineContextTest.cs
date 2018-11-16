@@ -31,16 +31,13 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
     public class ReferenceLineContextTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-
-            var referenceLine = new ReferenceLine();
-
-            assessmentSection.ReferenceLine = referenceLine;
 
             // Call
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
