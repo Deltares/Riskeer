@@ -259,6 +259,56 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
+        public void ConvertLayerProperties_MapLineDataWithThemeAndMetaDataNameNotInFeatures_OnlyAddsDefaultCategory()
+        {
+            // Setup
+            const string metadataAttribute = "Meta";
+            var random = new Random(21);
+            var theme = new MapTheme<LineCategoryTheme>("Other Meta", new[]
+            {
+                new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                      new LineStyle
+                                      {
+                                          Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                          Width = random.Next(1, 48),
+                                          DashStyle = random.NextEnum<LineDashStyle>()
+                                      }),
+            });
+
+            var lineStyle = new LineStyle
+            {
+                Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                Width = random.Next(1, 48),
+                DashStyle = random.NextEnum<LineDashStyle>()
+            };
+            var mapLineData = new MapLineData("test", lineStyle)
+            {
+                Features = new[]
+                {
+                    CreateMapFeatureWithMetaData(metadataAttribute)
+                },
+                Theme = theme
+            };
+
+            var mapLineLayer = new MapLineLayer();
+
+            var converter = new MapLineDataConverter();
+
+            // Call
+            converter.ConvertLayerProperties(mapLineData, mapLineLayer);
+
+            // Assert
+            ILineSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(lineStyle);
+
+            ILineScheme appliedScheme = mapLineLayer.Symbology;
+            Assert.AreEqual(1, appliedScheme.Categories.Count);
+
+            ILineCategory baseCategory = appliedScheme.Categories[0];
+            AssertAreEqual(expectedSymbolizer, baseCategory.Symbolizer);
+            Assert.IsNull(baseCategory.FilterExpression);
+        }
+
+        [Test]
         public void ConvertLayerProperties_MapLineDataWithStyleAndValueCriteria_ConvertDataToMapPointLayer()
         {
             // Setup

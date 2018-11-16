@@ -30,6 +30,7 @@ using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.TestUtil;
+using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
@@ -630,7 +631,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var testConverter = new TestFeatureBasedMapDataConverter
             {
                 CreatedDefaultCategory = defaultCategory,
-                MapDataHasTheme =  true
+                MapDataHasTheme = true
             };
 
             // Precondition
@@ -642,6 +643,28 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Then
             Assert.AreSame(defaultCategory, mapLayer.Symbology.Categories.Single());
+        }
+
+        [Test]
+        [TestCase(ValueCriterionOperator.EqualValue, "[{0}] = '{1}'", TestName = "EqualValue")]
+        [TestCase(ValueCriterionOperator.UnequalValue, "NOT [{0}] = '{1}'", TestName = "UnequalValue")]
+        public void CreateFilterExpression_WithValidValues_ReturnsExpectedExpression(ValueCriterionOperator criterionOperator,
+                                                                                     string expressionFormat)
+        {
+            // Setup
+            var random = new Random(21);
+            int index = random.Next();
+            const string value = "test value";
+
+            var valueCriterion = new ValueCriterion(criterionOperator,
+                                                    value);
+
+            // Call
+            string filterExpression = TestFeatureBasedMapDataConverter.PublicCreateFilterExpression(index, valueCriterion);
+
+            // Assert
+            string expectedFilterExpression = string.Format(expressionFormat, index, value);
+            Assert.AreEqual(expectedFilterExpression, filterExpression);
         }
 
         private class TestFeatureLayer : MapPointLayer
@@ -661,6 +684,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             public TestFeatureBasedMapData MapDataInput { get; private set; }
 
             public bool MapDataHasTheme { private get; set; }
+
+            public static string PublicCreateFilterExpression(int attributeIndex, ValueCriterion criterion)
+            {
+                return CreateFilterExpression(attributeIndex, criterion);
+            }
 
             protected override IFeatureSymbolizer CreateSymbolizer(TestFeatureBasedMapData mapData)
             {

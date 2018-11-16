@@ -162,7 +162,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var categoryTwo = mocks.Stub<IPointCategory>();
             mocks.ReplayAll();
 
-            var mapLineLayer = new MapPointLayer
+            var mapPointLayer = new MapPointLayer
             {
                 Symbology = new PointScheme
                 {
@@ -207,10 +207,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             // When
-            converter.ConvertLayerFeatures(mapPointData, mapLineLayer);
+            converter.ConvertLayerFeatures(mapPointData, mapPointLayer);
 
             // Then
-            PointCategoryCollection categoryCollection = mapLineLayer.Symbology.Categories;
+            PointCategoryCollection categoryCollection = mapPointLayer.Symbology.Categories;
             Assert.AreEqual(1, categoryCollection.Count);
 
             IPointSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(pointStyle);
@@ -253,6 +253,60 @@ namespace Core.Components.DotSpatial.Test.Converter
             expectedSymbolizer.SetOutline(expectedColor, 1);
 
             AssertAreEqual(expectedSymbolizer, mapPointLayer.Symbolizer);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_MapLineDataWithThemeAndMetaDataNameNotInFeatures_OnlyAddsDefaultCategory()
+        {
+            // Setup
+            const string metadataAttribute = "Meta";
+            var random = new Random(21);
+            var theme = new MapTheme<PointCategoryTheme>("Other Meta", new[]
+            {
+                new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                       new PointStyle
+                                       {
+                                           Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                           Size = random.Next(1, 48),
+                                           Symbol = random.NextEnum<PointSymbol>(),
+                                           StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                           StrokeThickness = random.Next(1, 48)
+                                       })
+            });
+
+            var pointStyle = new PointStyle
+            {
+                Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                Size = random.Next(1, 48),
+                Symbol = random.NextEnum<PointSymbol>(),
+                StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                StrokeThickness = random.Next(1, 48)
+            };
+            var mapPointData = new MapPointData("test", pointStyle)
+            {
+                Features = new[]
+                {
+                    CreateMapFeatureWithMetaData(metadataAttribute)
+                },
+                Theme = theme
+            };
+
+            var mapPointLayer = new MapPointLayer();
+
+            var converter = new MapPointDataConverter();
+
+            // Call
+            converter.ConvertLayerProperties(mapPointData, mapPointLayer);
+
+            // Assert
+            PointSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(pointStyle);
+
+            IPointScheme appliedScheme = mapPointLayer.Symbology;
+            Assert.AreEqual(1, appliedScheme.Categories.Count);
+
+            IPointCategory baseCategory = appliedScheme.Categories[0];
+            AssertAreEqual(expectedSymbolizer, baseCategory.Symbolizer);
+            Assert.IsNull(baseCategory.FilterExpression);
         }
 
         [Test]
