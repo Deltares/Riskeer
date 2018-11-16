@@ -25,7 +25,6 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
 using Core.Common.Gui.Attributes;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Extensions;
@@ -47,8 +46,6 @@ namespace Core.Plugins.Map.PropertyClasses
         private const int showLabelsPropertyIndex = 3;
         private const int selectedMetaDataAttributePropertyIndex = 4;
         private const int styleTypePropertyIndex = 5;
-        private const int mapThemeAttributeNamePropertyIndex = 6;
-        private const int mapThemeCategoryPropertyIndex = 7;
         private readonly IEnumerable<MapDataCollection> parents;
 
         /// <summary>
@@ -138,44 +135,7 @@ namespace Core.Plugins.Map.PropertyClasses
         {
             get
             {
-                if (data.MapTheme != null)
-                {
-                    return Resources.FeatureBasedMapData_StyleType_Categories;
-                }
-
                 return Resources.FeatureBasedMapData_StyleType_Single_Symbol;
-            }
-        }
-
-        [PropertyOrder(mapThemeAttributeNamePropertyIndex)]
-        [DynamicVisible]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_MapThemeAttributeName_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.FeatureBasedMapdata_MapThemeAttributeName_Description))]
-        public string MapThemeAttributeName
-        {
-            get
-            {
-                return data.MapTheme != null
-                           ? data.MapTheme.AttributeName
-                           : string.Empty;
-            }
-        }
-
-        [PropertyOrder(mapThemeCategoryPropertyIndex)]
-        [DynamicVisible]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_Categories_DisplayName))]
-        [TypeConverter(typeof(ExpandableArrayConverter))]
-        public CategoryThemeProperties[] Categories
-        {
-            get
-            {
-                return data.MapTheme != null
-                           ? data.MapTheme.CategoryThemes
-                                 .Select(theme => new CategoryThemeProperties(data.MapTheme.AttributeName, theme))
-                                 .ToArray()
-                           : new CategoryThemeProperties[0];
             }
         }
 
@@ -217,12 +177,6 @@ namespace Core.Plugins.Map.PropertyClasses
             if (propertyName == nameof(SelectedMetaDataAttribute))
             {
                 return data.ShowLabels;
-            }
-
-            if (propertyName == nameof(MapThemeAttributeName)
-                || propertyName == nameof(Categories))
-            {
-                return data.MapTheme != null;
             }
 
             return false;

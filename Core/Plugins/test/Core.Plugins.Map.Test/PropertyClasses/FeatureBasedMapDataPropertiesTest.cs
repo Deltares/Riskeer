@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
@@ -32,7 +31,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.TestUtil;
-using Core.Components.Gis.Theme;
 using Core.Plugins.Map.PropertyClasses;
 using Core.Plugins.Map.UITypeEditors;
 using NUnit.Framework;
@@ -49,9 +47,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         private const int showLabelsPropertyIndex = 3;
         private const int selectedMetaDataAttributePropertyIndex = 4;
         private const int stylePropertyIndex = 5;
-
-        private const int mapThemeAttributeNamePropertyIndex = 5;
-        private const int mapThemeCategoriesPropertyIndex = 6;
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
@@ -88,9 +83,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<TestFeatureBasedMapData>>(properties);
             Assert.IsInstanceOf<IHasMetaData>(properties);
             Assert.AreSame(data, properties.Data);
-
-            TestHelper.AssertTypeConverter<TestFeatureBasedMapDataProperties, ExpandableArrayConverter>(
-                nameof(properties.Categories));
         }
 
         [Test]
@@ -111,43 +103,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(data.MetaData, properties.GetAvailableMetaDataAttributes());
 
             Assert.AreEqual("Enkel symbool", properties.StyleType);
-            Assert.IsEmpty(properties.MapThemeAttributeName);
-            CollectionAssert.IsEmpty(properties.Categories);
-        }
-
-        [Test]
-        public void Constructor_MapDataInstanceWithMapTheme_ReturnCorrectPropertyValues()
-        {
-            // Setup
-            var mapData = new TestFeatureBasedMapData
-            {
-                MapTheme = new MapTheme("Attribute", new[]
-                {
-                    CategoryThemeTestFactory.CreateCategoryTheme()
-                })
-            };
-
-            // Call
-            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
-
-            // Assert
-            Assert.AreEqual(mapData.Name, properties.Name);
-            Assert.AreEqual("Test feature based map data", properties.Type);
-            Assert.AreEqual(mapData.IsVisible, properties.IsVisible);
-            Assert.AreEqual(mapData.ShowLabels, properties.ShowLabels);
-            Assert.IsEmpty(properties.SelectedMetaDataAttribute.MetaDataAttribute);
-            Assert.AreEqual(mapData.MetaData, properties.GetAvailableMetaDataAttributes());
-
-            Assert.AreEqual("Categorie", properties.StyleType);
-            Assert.AreEqual(mapData.MapTheme.AttributeName, properties.MapThemeAttributeName);
-
-            IEnumerable<CategoryTheme> categoryThemes = mapData.MapTheme.CategoryThemes;
-            Assert.AreEqual(categoryThemes.Count(), properties.Categories.Length);
-
-            CategoryThemeProperties categoryThemeProperties = properties.Categories.First();
-            CategoryTheme categoryTheme = categoryThemes.First();
-            Assert.AreSame(categoryTheme, categoryThemeProperties.Data);
-            StringAssert.StartsWith(mapData.MapTheme.AttributeName, categoryThemeProperties.Criterion);
         }
 
         [Test]
@@ -260,7 +215,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             {
                 new MapDataCollection("test 1"),
                 new MapDataCollection("test 2"),
-                new MapDataCollection("test 3"),
+                new MapDataCollection("test 3")
             };
 
             mapData.Attach(observer);
@@ -270,7 +225,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Call
             properties.IsVisible = false;
-            
+
             // Assert
             Assert.IsFalse(properties.IsVisible);
             mocks.VerifyAll();
@@ -356,48 +311,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void MapThemeRelatedProperties_MapDataWithMapThemeConfiguration_PropertiesShouldBeVisible(bool hasMapTheme)
-        {
-            // Setup
-            var mapData = new TestFeatureBasedMapData
-            {
-                MapTheme = hasMapTheme
-                               ? new MapTheme("Attribute", new[]
-                               {
-                                   CategoryThemeTestFactory.CreateCategoryTheme()
-                               })
-                               : null
-            };
-
-            // Call
-            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
-
-            // Assert
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(hasMapTheme ? 7 : 5, dynamicProperties.Count);
-
-            if (hasMapTheme)
-            {
-                PropertyDescriptor mapThemeAttributeNameProperty = dynamicProperties[mapThemeAttributeNamePropertyIndex];
-                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(mapThemeAttributeNameProperty,
-                                                                                "Stijl",
-                                                                                "Op basis van",
-                                                                                "Toont de eigenschap op basis waarvan de kaartlaag is gecategoriseerd.",
-                                                                                true);
-
-                PropertyDescriptor categoriesAttribute = dynamicProperties[mapThemeCategoriesPropertyIndex];
-                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(categoriesAttribute,
-                                                                                "Stijl",
-                                                                                "Categorieën",
-                                                                                string.Empty,
-                                                                                true);
-            }
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
         public void DynamicReadOnlyValidator_MapHasMetaData_ReturnsExpectedValuesForRelevantProperties(bool hasMetaData)
         {
             // Setup
@@ -474,35 +387,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicVisibleValidationMethod_MapDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
-        {
-            // Setup
-            var mapData = new TestFeatureBasedMapData
-            {
-                MapTheme = hasMapTheme
-                               ? new MapTheme("Attribute", new[]
-                               {
-                                   CategoryThemeTestFactory.CreateCategoryTheme()
-                               })
-                               : null
-            };
-
-            var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
-
-            // Call
-            bool isMapThemeAttributeNameVisible = properties.DynamicVisibleValidationMethod(
-                nameof(TestFeatureBasedMapDataProperties.MapThemeAttributeName));
-            bool isMapThemeCategoriesVisible = properties.DynamicVisibleValidationMethod(
-                nameof(TestFeatureBasedMapDataProperties.Categories));
-
-            // Assert
-            Assert.AreEqual(hasMapTheme, isMapThemeAttributeNameVisible);
-            Assert.AreEqual(hasMapTheme, isMapThemeCategoriesVisible);
-        }
-
-        [Test]
         public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsTrue()
         {
             var mapData = new TestFeatureBasedMapData
@@ -511,11 +395,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 {
                     new MapFeature(Enumerable.Empty<MapGeometry>())
                 },
-                ShowLabels = true,
-                MapTheme = new MapTheme("Attribute", new[]
-                {
-                    CategoryThemeTestFactory.CreateCategoryTheme()
-                })
+                ShowLabels = true
             };
 
             var properties = new TestFeatureBasedMapDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
