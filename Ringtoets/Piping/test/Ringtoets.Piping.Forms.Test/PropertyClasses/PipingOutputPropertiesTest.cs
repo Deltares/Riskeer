@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -139,19 +140,18 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             DerivedPipingOutput expectedDerivedOutput = DerivedPipingOutputFactory.Create(output, failureMechanism, assessmentSection);
-            const string probabilityFormat = "1/{0:n0}";
             Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
             Assert.AreEqual(expectedDerivedOutput.UpliftReliability, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / expectedDerivedOutput.UpliftProbability), properties.UpliftProbability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.UpliftProbability), properties.UpliftProbability);
             Assert.AreEqual(heaveFactorOfSafety, properties.HeaveFactorOfSafety, properties.HeaveFactorOfSafety.GetAccuracy());
             Assert.AreEqual(expectedDerivedOutput.HeaveReliability, properties.HeaveReliability, properties.HeaveReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / expectedDerivedOutput.HeaveProbability), properties.HeaveProbability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.HeaveProbability), properties.HeaveProbability);
             Assert.AreEqual(sellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety.GetAccuracy());
             Assert.AreEqual(expectedDerivedOutput.SellmeijerReliability, properties.SellmeijerReliability, properties.SellmeijerReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / expectedDerivedOutput.SellmeijerProbability), properties.SellmeijerProbability);
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / expectedDerivedOutput.RequiredProbability), properties.RequiredProbability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.SellmeijerProbability), properties.SellmeijerProbability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.RequiredProbability), properties.RequiredProbability);
             Assert.AreEqual(expectedDerivedOutput.RequiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1.0 / expectedDerivedOutput.PipingProbability), properties.PipingProbability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.PipingProbability), properties.PipingProbability);
             Assert.AreEqual(expectedDerivedOutput.PipingReliability, properties.PipingReliability, properties.PipingReliability.GetAccuracy());
             Assert.AreEqual(expectedDerivedOutput.PipingFactorOfSafety, properties.PipingFactorOfSafety, properties.PipingFactorOfSafety.GetAccuracy());
 
