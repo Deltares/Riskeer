@@ -713,6 +713,51 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kleur van de symbolen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PointCategoryTheme_Color_Description {
+            get {
+                return ResourceManager.GetString("PointCategoryTheme_Color_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De grootte van de symbolen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PointCategoryTheme_Size_Description {
+            get {
+                return ResourceManager.GetString("PointCategoryTheme_Size_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijn van de symbolen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PointCategoryTheme_StrokeColor_Description {
+            get {
+                return ResourceManager.GetString("PointCategoryTheme_StrokeColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijn van de symbolen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PointCategoryTheme_StrokeThickness_Description {
+            get {
+                return ResourceManager.GetString("PointCategoryTheme_StrokeThickness_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het symbool waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PointCategoryTheme_Symbol_Description {
+            get {
+                return ResourceManager.GetString("PointCategoryTheme_Symbol_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap PointsIcon {

@@ -373,4 +373,19 @@
   <data name="LineCategoryTheme_Width_Description" xml:space="preserve">
     <value>De dikte van de lijnen waarmee deze categorie wordt weergegeven.</value>
   </data>
+  <data name="PointCategoryTheme_Color_Description" xml:space="preserve">
+    <value>De kleur van de symbolen waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PointCategoryTheme_Size_Description" xml:space="preserve">
+    <value>De grootte van de symbolen waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PointCategoryTheme_StrokeColor_Description" xml:space="preserve">
+    <value>De kleur van de lijn van de symbolen waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PointCategoryTheme_StrokeThickness_Description" xml:space="preserve">
+    <value>De dikte van de lijn van de symbolen waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PointCategoryTheme_Symbol_Description" xml:space="preserve">
+    <value>Het symbool waarmee deze categorie wordt weergegeven.</value>
+  </data>
 </root>

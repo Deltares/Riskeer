@@ -67,18 +67,17 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         {
             // Setup
             const string attributeName = "AttributeName";
-            var mapLineData = new MapLineData("Name");
             ValueCriterion valueCriterion = ValueCriterionTestFactory.CreateValueCriterion();
-            var categoryLineTheme = new LineCategoryTheme(valueCriterion, new LineStyle());
+            var categoryTheme = new LineCategoryTheme(valueCriterion, new LineStyle());
 
-            var properties = new LineCategoryThemeProperties(attributeName, categoryLineTheme, mapLineData);
+            var properties = new LineCategoryThemeProperties(attributeName, categoryTheme, new MapLineData("Name"));
 
             // Assert
-            Assert.AreSame(categoryLineTheme, properties.Data);
+            Assert.AreSame(categoryTheme, properties.Data);
 
-            Assert.AreEqual(categoryLineTheme.Style.Color, properties.Color);
-            Assert.AreEqual(categoryLineTheme.Style.Width, properties.Width);
-            Assert.AreEqual(categoryLineTheme.Style.DashStyle, properties.DashStyle);
+            Assert.AreEqual(categoryTheme.Style.Color, properties.Color);
+            Assert.AreEqual(categoryTheme.Style.Width, properties.Width);
+            Assert.AreEqual(categoryTheme.Style.DashStyle, properties.DashStyle);
 
             string expectedValue = GetExpectedFormatExpression(valueCriterion, attributeName);
             Assert.AreEqual(expectedValue, properties.Criterion);
@@ -88,11 +87,11 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_WithValidArguments_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var categoryLineTheme = new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
-                                                          new LineStyle());
+            var categoryTheme = new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                                      new LineStyle());
 
             // Call
-            var properties = new LineCategoryThemeProperties(string.Empty, categoryLineTheme, new MapLineData("Name"));
+            var properties = new LineCategoryThemeProperties(string.Empty, categoryTheme, new MapLineData("Name"));
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -135,10 +134,10 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var mapData = new MapLineData("Name");
             mapData.Attach(observer);
 
-            var categoryLineTheme = new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
-                                                          new LineStyle());
+            var categoryTheme = new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                                      new LineStyle());
 
-            var properties = new LineCategoryThemeProperties(string.Empty, categoryLineTheme, mapData);
+            var properties = new LineCategoryThemeProperties(string.Empty, categoryTheme, mapData);
 
             int width = random.Next(1, 48);
             Color color = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
@@ -150,10 +149,10 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             properties.DashStyle = dashStyle;
 
             // Assert
-            LineStyle actualLineStyle = categoryLineTheme.Style;
-            Assert.AreEqual(width, actualLineStyle.Width);
-            Assert.AreEqual(color, actualLineStyle.Color);
-            Assert.AreEqual(dashStyle, actualLineStyle.DashStyle);
+            LineStyle actualStyle = categoryTheme.Style;
+            Assert.AreEqual(width, actualStyle.Width);
+            Assert.AreEqual(color, actualStyle.Color);
+            Assert.AreEqual(dashStyle, actualStyle.DashStyle);
 
             mocks.VerifyAll();
         }
