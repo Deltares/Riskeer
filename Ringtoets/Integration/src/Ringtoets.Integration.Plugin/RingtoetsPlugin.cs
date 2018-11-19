@@ -754,7 +754,7 @@ namespace Ringtoets.Integration.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = Resources.Foreshore,
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
-                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
+                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine.Points.Any(),
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
         }
