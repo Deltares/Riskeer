@@ -384,7 +384,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<ReferenceLineContext, ReferenceLineProperties>
             {
-                CreateInstance = context => new ReferenceLineProperties(context.WrappedData.ReferenceLine)
+                CreateInstance = context => new ReferenceLineProperties(context.WrappedData)
             };
             yield return new PropertyInfo<FailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesProperties>
             {
@@ -764,8 +764,8 @@ namespace Ringtoets.Integration.Plugin
             yield return new ExportInfo<ReferenceLineContext>
             {
                 Name = RingtoetsCommonDataResources.ReferenceLine_DisplayName,
-                CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData.ReferenceLine, context.WrappedData.Id, filePath),
-                IsEnabled = context => HasReferenceLine(context.WrappedData),
+                CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData, context.AssessmentSection.Id, filePath),
+                IsEnabled = context => HasReferenceLine(context.AssessmentSection),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
             };
@@ -904,7 +904,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsCommonDataResources.ReferenceLine_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.ReferenceLineIcon,
-                ForeColor = context => context.WrappedData.ReferenceLine.Points.Any()
+                ForeColor = context => context.WrappedData.Points.Any()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = ReferenceLineContextMenuStrip
@@ -1662,7 +1662,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var childNodes = new List<object>
             {
-                new ReferenceLineContext(nodeData),
+                new ReferenceLineContext(nodeData.ReferenceLine, nodeData),
                 new NormContext(nodeData.FailureMechanismContribution, nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData.HydraulicBoundaryDatabase, nodeData),

@@ -86,14 +86,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            var context = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                string text = info.Text(referenceLineContext);
+                string text = info.Text(context);
 
                 // Assert
                 Assert.AreEqual("Referentielijn", text);
@@ -109,14 +109,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            var context = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Image image = info.Image(referenceLineContext);
+                Image image = info.Image(context);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ReferenceLineIcon, image);
@@ -164,10 +164,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            var referenceLineContext = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -188,10 +187,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            var referenceLineContext = new ReferenceLineContext(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(),
+                                                                assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
