@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Service.Comparers
 
         private static bool AreReferenceLinesEquivalent(ReferenceLine referenceLine, ReferenceLine otherReferenceLine)
         {
-            if (referenceLine == null && otherReferenceLine == null)
+            if (!referenceLine.Points.Any() && !otherReferenceLine.Points.Any())
             {
                 return true;
             }
