@@ -39,22 +39,29 @@ namespace Ringtoets.Integration.Plugin.Handlers
     /// </summary>
     public class ReferenceLineReplacementHandler : IReferenceLineReplaceHandler
     {
+        private readonly IAssessmentSection assessmentSection;
         private readonly IViewCommands viewCommands;
         private readonly Queue<object> removedObjects = new Queue<object>();
 
         /// <summary>
         /// Creates a new instance of <see cref="ReferenceLineReplacementHandler"/>.
         /// </summary>
+        /// <param name="assessmentSection">The assessment section to remove data for.</param>
         /// <param name="viewCommands">The view commands used to close views for removed data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewCommands"/>
-        /// is <c>null</c>.</exception>
-        public ReferenceLineReplacementHandler(IViewCommands viewCommands)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ReferenceLineReplacementHandler(IAssessmentSection assessmentSection, IViewCommands viewCommands)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             if (viewCommands == null)
             {
                 throw new ArgumentNullException(nameof(viewCommands));
             }
 
+            this.assessmentSection = assessmentSection;
             this.viewCommands = viewCommands;
         }
 

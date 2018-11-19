@@ -50,18 +50,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
     public class ReferenceLineReplacementHandlerTest : NUnitFormTest
     {
         [Test]
-        public void Constructor_ViewCommandsNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new ReferenceLineReplacementHandler(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("viewCommands", paramName);
-        }
-
-        [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -69,7 +58,42 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             // Call
-            var handler = new ReferenceLineReplacementHandler(viewCommands);
+            TestDelegate call = () => new ReferenceLineReplacementHandler(null, viewCommands);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ViewCommandsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new ReferenceLineReplacementHandler(assessmentSection, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("viewCommands", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            // Call
+            var handler = new ReferenceLineReplacementHandler(assessmentSection, viewCommands);
 
             // Assert
             Assert.IsInstanceOf<IReferenceLineReplaceHandler>(handler);
@@ -83,6 +107,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
@@ -102,7 +127,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 }
             };
 
-            var handler = new ReferenceLineReplacementHandler(viewCommands);
+            var handler = new ReferenceLineReplacementHandler(assessmentSection, viewCommands);
 
             // Call
             bool result = handler.ConfirmReplace();
@@ -123,10 +148,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var handler = new ReferenceLineReplacementHandler(viewCommands);
+            var handler = new ReferenceLineReplacementHandler(assessmentSection, viewCommands);
 
             var referenceLine = new ReferenceLine();
 
@@ -147,7 +173,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            var handler = new ReferenceLineReplacementHandler(viewCommands);
+            var handler = new ReferenceLineReplacementHandler(assessmentSection, viewCommands);
 
             ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
 
@@ -322,10 +348,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
-            var handler = new ReferenceLineReplacementHandler(viewCommands);
+            var handler = new ReferenceLineReplacementHandler(assessmentSection, viewCommands);
 
             // Call
             handler.DoPostReplacementUpdates();
@@ -346,9 +373,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                         .Repeat.Times(expectedNumberOfRemovedInstances);
             mocks.ReplayAll();
 
-            var handler = new ReferenceLineReplacementHandler(viewCommands);
-
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+
+            var handler = new ReferenceLineReplacementHandler(assessmentSection, viewCommands);
             handler.Replace(assessmentSection, new ReferenceLine());
 
             // Call
@@ -370,9 +397,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                         .Repeat.Times(expectedNumberOfRemovedInstances);
             mocks.ReplayAll();
 
-            var handler = new ReferenceLineReplacementHandler(viewCommands);
-
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+
+            var handler = new ReferenceLineReplacementHandler(assessmentSection, viewCommands);
             handler.Replace(assessmentSection, new ReferenceLine());
             handler.DoPostReplacementUpdates();
 
