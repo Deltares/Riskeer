@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -31,20 +32,33 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
     public class ReferenceLineContextTest
     {
         [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ReferenceLineContext(new ReferenceLine(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
+            var referenceLine = new ReferenceLine();
+
             // Call
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            var context = new ReferenceLineContext(referenceLine, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(referenceLineContext);
-            Assert.AreSame(assessmentSection, referenceLineContext.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ReferenceLine>>(context);
+            Assert.AreSame(referenceLine, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
         }
     }

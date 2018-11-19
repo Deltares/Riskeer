@@ -28,14 +28,29 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for <see cref="ReferenceLine"/> instances.
     /// </summary>
-    public class ReferenceLineContext : ObservableWrappedObjectContextBase<IAssessmentSection>
+    public class ReferenceLineContext : ObservableWrappedObjectContextBase<ReferenceLine>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ReferenceLineContext"/> class.
         /// </summary>
-        /// <param name="wrappedAssessmentSection">The assessment section that is wrapped.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedAssessmentSection"/> is <c>null</c>.</exception>
-        public ReferenceLineContext(IAssessmentSection wrappedAssessmentSection)
-            : base(wrappedAssessmentSection) {}
+        /// <param name="referenceLine">The reference line that is wrapped.</param>
+        /// <param name="assessmentSection">The assessment section that the <see cref="ReferenceLine"/>
+        /// belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ReferenceLineContext(ReferenceLine referenceLine, IAssessmentSection assessmentSection)
+            : base(referenceLine)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            AssessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
     }
 }
