@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             assessmentSection.ReferenceLine.SetGeometry(originalReferenceLineGeometry);
 
-            var handler = new ReferenceLineReplacementHandler(viewCommands);
+            var handler = new ReferenceLineReplacementHandler(assessmentSection, viewCommands);
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
             var importer = new ReferenceLineImporter(assessmentSection.ReferenceLine, handler, path);
@@ -111,7 +111,7 @@ namespace Ringtoets.Integration.Test
             ReferenceLine originalReferenceLine = assessmentSection.ReferenceLine;
             Point2D[] originalReferenceLineGeometry = originalReferenceLine.Points.ToArray();
 
-            var handler = new ReferenceLineReplacementHandler(viewCommands);
+            var handler = new ReferenceLineReplacementHandler(assessmentSection, viewCommands);
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 

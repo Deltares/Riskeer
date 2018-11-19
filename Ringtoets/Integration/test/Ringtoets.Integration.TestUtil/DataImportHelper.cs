@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.TestUtil
                 var viewCommands = mocks.Stub<IViewCommands>();
                 mocks.ReplayAll();
                 var activity = new FileImportActivity(new ReferenceLineImporter(assessmentSection.ReferenceLine,
-                                                                                new ReferenceLineReplacementHandler(viewCommands),
+                                                                                new ReferenceLineReplacementHandler(assessmentSection, viewCommands),
                                                                                 filePath),
                                                       "ReferenceLineImporter");
                 activity.Run();

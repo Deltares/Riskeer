@@ -722,7 +722,7 @@ namespace Ringtoets.Integration.Plugin
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new ReferenceLineImporter(context.WrappedData,
-                                                                                      new ReferenceLineReplacementHandler(Gui.ViewCommands),
+                                                                                      new ReferenceLineReplacementHandler(context.AssessmentSection, Gui.ViewCommands),
                                                                                       filePath)
             };
 
