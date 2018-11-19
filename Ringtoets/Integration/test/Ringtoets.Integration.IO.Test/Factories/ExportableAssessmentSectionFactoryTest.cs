@@ -64,9 +64,9 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             {
                 Name = name,
-                Id = id,
-                ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry()
+                Id = id
             };
+            assessmentSection.ReferenceLine.SetGeometry(ReferenceLineTestFactory.CreateReferenceLineGeometry());
 
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, random.Next(1, 10));
@@ -136,9 +136,9 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             {
-                ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry(),
                 Id = "1"
             };
+            assessmentSection.ReferenceLine.SetGeometry(ReferenceLineTestFactory.CreateReferenceLineGeometry());
 
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             failureMechanism.IsRelevant = true;

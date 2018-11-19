@@ -454,10 +454,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             bool hasManualAssembly)
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>())
-            {
-                ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry()
-            };
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            assessmentSection.ReferenceLine.SetGeometry(ReferenceLineTestFactory.CreateReferenceLineGeometry());
             foreach (IHasSectionResults<FailureMechanismSectionResult> failureMechanism in assessmentSection.GetFailureMechanisms()
                                                                                                             .Cast<IHasSectionResults<FailureMechanismSectionResult>>())
             {

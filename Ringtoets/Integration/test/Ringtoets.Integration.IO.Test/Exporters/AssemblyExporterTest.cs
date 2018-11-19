@@ -243,19 +243,16 @@ namespace Ringtoets.Integration.IO.Test.Exporters
 
         private static AssessmentSection CreateConfiguredAssessmentSection()
         {
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                Name = "assessmentSectionName",
+                Id = "assessmentSectionId"
+            };
+            assessmentSection.ReferenceLine.SetGeometry(new[]
             {
                 new Point2D(1, 1),
                 new Point2D(2, 2)
             });
-
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                Name = "assessmentSectionName",
-                Id = "assessmentSectionId",
-                ReferenceLine = referenceLine
-            };
 
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, 2);
