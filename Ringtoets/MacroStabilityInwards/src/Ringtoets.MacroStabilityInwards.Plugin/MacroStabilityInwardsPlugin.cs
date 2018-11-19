@@ -118,7 +118,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = MacroStabilityInwardsFormsResources.SurfaceLineIcon,
                 FileFilterGenerator = SurfaceLineFileFilter,
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
+                IsEnabled = context => HasReferenceLine(context.AssessmentSection),
                 CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<MacroStabilityInwardsSurfaceLine>(
                     context.WrappedData,
                     filePath,
@@ -133,7 +133,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = MacroStabilityInwardsFormsResources.SoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
+                IsEnabled = context => HasReferenceLine(context.AssessmentSection),
                 CreateFileImporter = (context, filePath) => new StochasticSoilModelImporter<MacroStabilityInwardsStochasticSoilModel>(
                     context.WrappedData,
                     filePath,
@@ -423,6 +423,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                                                                              query,
                                                                              new DialogBasedInquiryHelper(Gui.MainWindow));
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
+        }
+
+        private static bool HasReferenceLine(IAssessmentSection assessmentSection)
+        {
+            return assessmentSection.ReferenceLine.Points.Any();
         }
 
         #region MacroStabilityInwardsFailureMechanismView ViewInfo
