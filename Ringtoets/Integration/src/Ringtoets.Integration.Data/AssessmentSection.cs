@@ -556,7 +556,7 @@ namespace Ringtoets.Integration.Data
 
         public AssessmentSectionComposition Composition { get; private set; }
 
-        public ReferenceLine ReferenceLine { get; set; }
+        public ReferenceLine ReferenceLine { get; }
 
         public FailureMechanismContribution FailureMechanismContribution { get; }
 
