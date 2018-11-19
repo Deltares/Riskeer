@@ -733,7 +733,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.SectionsIcon,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description),
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
+                IsEnabled = context => HasReferenceLine(context.AssessmentSection),
                 CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
                                                                                                  context.AssessmentSection.ReferenceLine,
                                                                                                  filePath,
