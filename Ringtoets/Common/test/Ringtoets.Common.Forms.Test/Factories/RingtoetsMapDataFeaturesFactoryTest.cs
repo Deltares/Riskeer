@@ -76,13 +76,14 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateReferenceLineFeatures_ReferenceLineNull_ReturnsEmptyFeaturesCollection()
+        public void CreateReferenceLineFeatures_ReferenceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(null, string.Empty, string.Empty);
+            TestDelegate call = () => RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(null, string.Empty, string.Empty);
 
             // Assert
-            CollectionAssert.IsEmpty(features);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("referenceLine", exception.ParamName);
         }
 
         [Test]
