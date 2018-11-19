@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.DikeProfile,
                 FileFilterGenerator = DikeProfileImporterFileFilterGenerator(),
-                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
+                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine.Points.Any(),
                 VerifyUpdates = context => VerifyDikeProfilesShouldUpdate(context,
                                                                           Resources.GrassCoverErosionInwardsPlugin_VerifyDikeProfileImport_When_importing_DikeProfiles_Calculation_output_will_be_cleared_confirm)
             };
