@@ -351,22 +351,6 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
-        public void ReferenceLine_SetNewValue_GetNewValue()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
-            var referenceLine = new ReferenceLine();
-
-            // Call
-            assessmentSection.ReferenceLine = referenceLine;
-
-            // Assert
-            Assert.AreSame(referenceLine, assessmentSection.ReferenceLine);
-        }
-
-        [Test]
         public void SetHydraulicBoundaryLocationCalculations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Setup

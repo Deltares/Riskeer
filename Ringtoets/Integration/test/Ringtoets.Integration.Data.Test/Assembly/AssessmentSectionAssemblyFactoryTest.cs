@@ -860,7 +860,6 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.ReferenceLine = new ReferenceLine();
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
@@ -886,7 +885,6 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.ReferenceLine = new ReferenceLine();
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
