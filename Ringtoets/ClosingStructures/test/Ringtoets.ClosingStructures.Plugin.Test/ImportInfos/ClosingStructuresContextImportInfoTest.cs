@@ -110,12 +110,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineSet_ReturnTrue()
+        public void IsEnabled_ReferenceLineWithGeometry_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
+            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -136,11 +136,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineNotSet_ReturnFalse()
+        public void IsEnabled_ReferenceLineWithoutGeometry_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
