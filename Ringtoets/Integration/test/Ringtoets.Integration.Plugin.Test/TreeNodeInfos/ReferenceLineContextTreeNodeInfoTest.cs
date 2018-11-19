@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -159,10 +160,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasNoReferenceLine_ReturnDisabledColor()
+        public void ForeColor_ContextHasReferenceLineWithoutGeometry_ReturnDisabledColor()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -182,11 +184,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasReferenceLineData_ReturnControlText()
+        public void ForeColor_ContextHasReferenceLineWithGeometry_ReturnControlText()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
+            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
