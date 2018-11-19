@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Data.TestUtil.Test
@@ -62,6 +63,26 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsEmpty(failureMechanism.FailureMechanismSectionSourcePath);
             Assert.AreEqual(nrOfSections, failureMechanism.Sections.Count());
+        }
+
+        [Test]
+        public void AddSectionsBasedOnReferenceLine_WithArguments_AddsSectionsToFailureMechanism()
+        {
+            // Setup
+            var random = new Random(21);
+            int nrOfSections = random.Next(1, 10);
+            var failureMechanism = new TestFailureMechanism();
+            ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
+
+            // Call
+            FailureMechanismTestHelper.AddSectionsBasedOnReferenceLine(referenceLine, failureMechanism, nrOfSections);
+
+            // Assert
+            Assert.IsEmpty(failureMechanism.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(nrOfSections, failureMechanism.Sections.Count());
+            Assert.AreEqual(referenceLine.Points.First(), failureMechanism.Sections.First().StartPoint);
+            Assert.AreEqual(referenceLine.Points.Last().X, failureMechanism.Sections.Last().EndPoint.X, 1e-6);
+            Assert.AreEqual(referenceLine.Points.Last().Y, failureMechanism.Sections.Last().EndPoint.Y, 1e-6);
         }
     }
 }
