@@ -877,7 +877,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private static bool IsHeightStructuresImportEnabled(HeightStructuresContext context)
         {
-            return context.AssessmentSection.ReferenceLine != null;
+            return context.AssessmentSection.ReferenceLine.Points.Any();
         }
 
         private static FileFilterGenerator CreateHeightStructureFileFilter()
