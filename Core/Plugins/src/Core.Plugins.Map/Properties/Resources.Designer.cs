@@ -137,15 +137,6 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kleur waarmee deze categorie wordt weergegeven..
-        /// </summary>
-        public static string CategoryThemeProperties_Color_Description {
-            get {
-                return ResourceManager.GetString("CategoryThemeProperties_Color_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het criterium van deze categorie..
         /// </summary>
         public static string CategoryThemeProperties_Criterion_Description {
@@ -306,6 +297,33 @@ namespace Core.Plugins.Map.Properties {
         public static string General_Map {
             get {
                 return ResourceManager.GetString("General_Map", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijnen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string LineCategoryTheme_Color_Description {
+            get {
+                return ResourceManager.GetString("LineCategoryTheme_Color_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De stijl van de lijnen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string LineCategoryTheme_DashStyle_Description {
+            get {
+                return ResourceManager.GetString("LineCategoryTheme_DashStyle_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijnen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string LineCategoryTheme_Width_Description {
+            get {
+                return ResourceManager.GetString("LineCategoryTheme_Width_Description", resourceCulture);
             }
         }
         

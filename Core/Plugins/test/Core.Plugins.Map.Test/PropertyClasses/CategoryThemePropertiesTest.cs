@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Components.Gis.TestUtil;

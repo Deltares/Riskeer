@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{610E0A9C-1997-4C43-A10E-39D4C66ADA93}</ProjectGuid>
@@ -49,6 +49,7 @@
     <Compile Include="PropertyClasses\CategoryThemeProperties.cs" />
     <Compile Include="PropertyClasses\FeatureBasedMapDataProperties.cs" />
     <Compile Include="PropertyClasses\IHasMetaData.cs" />
+    <Compile Include="PropertyClasses\LineCategoryThemeProperties.cs" />
     <Compile Include="PropertyClasses\MapDataCollectionProperties.cs" />
     <Compile Include="PropertyClasses\MapLineDataProperties.cs" />
     <Compile Include="PropertyClasses\MapPointDataProperties.cs" />
