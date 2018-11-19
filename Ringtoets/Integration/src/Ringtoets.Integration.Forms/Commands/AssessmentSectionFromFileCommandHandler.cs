@@ -273,7 +273,7 @@ namespace Ringtoets.Integration.Forms.Commands
             }
             else
             {
-                assessmentSection.ReferenceLine = selectedItem.ReferenceLine;
+                assessmentSection.ReferenceLine.SetGeometry(selectedItem.ReferenceLine.Points);
             }
 
             assessmentSection.FailureMechanismContribution.NormativeNorm = normativeNorm;
