@@ -47,10 +47,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         private const int sizePropertyIndex = 9;
         private const int symbolPropertyIndex = 10;
 
-        private const int strokeColorWithMapThemePropertyIndex = 8;
-        private const int strokeThicknessWithMapThemePropertyIndex = 9;
-        private const int sizeWithMapThemePropertyIndex = 10;
-        private const int symbolWithMapThemePropertyIndex = 11;
+        private const int categoryThemesPropertyIndex = 6;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -137,10 +134,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                     new MapFeature(Enumerable.Empty<MapGeometry>())
                 },
                 ShowLabels = true,
-                MapTheme = new MapTheme("Attribute", new[]
-                {
-                    CategoryThemeTestFactory.CreateCategoryTheme()
-                })
+                Theme = CreateMapTheme()
             };
 
             // Call
@@ -148,41 +142,19 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(12, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
             const string styleCategory = "Stijl";
 
-            PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorWithMapThemePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
+            PropertyDescriptor categoryThemesProperty = dynamicProperties[categoryThemesPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(categoryThemesProperty,
                                                                             styleCategory,
-                                                                            "Lijnkleur",
-                                                                            "De kleur van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven.",
-                                                                            true);
-
-            PropertyDescriptor strokeThicknessProperty = dynamicProperties[strokeThicknessWithMapThemePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeThicknessProperty,
-                                                                            styleCategory,
-                                                                            "Lijndikte",
-                                                                            "De dikte van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven.",
-                                                                            true);
-
-            PropertyDescriptor sizeProperty = dynamicProperties[sizeWithMapThemePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sizeProperty,
-                                                                            styleCategory,
-                                                                            "Grootte",
-                                                                            "De grootte van de symbolen waarmee deze kaartlaag wordt weergegeven.",
-                                                                            true);
-
-            PropertyDescriptor symbolProperty = dynamicProperties[symbolWithMapThemePropertyIndex];
-            Assert.IsInstanceOf<EnumTypeConverter>(symbolProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(symbolProperty,
-                                                                            styleCategory,
-                                                                            "Symbool",
-                                                                            "Het symbool waarmee deze kaartlaag wordt weergegeven.",
+                                                                            "Categorieën",
+                                                                            string.Empty,
                                                                             true);
         }
 
         [Test]
-        public void Constructor_Always_ReturnCorrectPropertyValues()
+        public void Constructor_WithoutMapTheme_ReturnCorrectPropertyValues()
         {
             // Setup
             Color color = Color.Aqua;
@@ -211,6 +183,33 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(1, properties.StrokeThickness);
             Assert.AreEqual(size, properties.Size);
             Assert.AreEqual(symbol, properties.Symbol);
+
+            CollectionAssert.IsEmpty(properties.CategoryThemes);
+        }
+
+        [Test]
+        public void Constructor_WithMapTheme_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            var categoryTheme = new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new PointStyle());
+            var mapPointData = new MapPointData("Test", new PointStyle())
+            {
+                Theme = new MapTheme<PointCategoryTheme>("Attribute", new[]
+                {
+                    categoryTheme
+                })
+            };
+
+            // Call
+            var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
+
+            // Assert
+            Assert.AreEqual(mapPointData.ShowLabels, properties.ShowLabels);
+            Assert.IsEmpty(properties.SelectedMetaDataAttribute.MetaDataAttribute);
+            Assert.AreEqual(mapPointData.MetaData, properties.GetAvailableMetaDataAttributes());
+
+            Assert.AreEqual(1, properties.CategoryThemes.Length);
+            Assert.AreSame(categoryTheme, properties.CategoryThemes.First().Data);
         }
 
         [Test]
@@ -295,69 +294,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicReadOnlyValidator_MapPointDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
-        {
-            // Setup
-            var mapData = new MapPointData("Test")
-            {
-                MapTheme = hasMapTheme
-                               ? new MapTheme("Attribute", new[]
-                               {
-                                   CategoryThemeTestFactory.CreateCategoryTheme()
-                               })
-                               : null
-            };
-
-            var properties = new MapPointDataProperties(mapData, Enumerable.Empty<MapDataCollection>());
-
-            // Call
-            bool isWidthReadOnly = properties.DynamicReadonlyValidator(
-                nameof(MapPointDataProperties.Size));
-            bool isStrokeColorReadOnly = properties.DynamicReadonlyValidator(
-                nameof(MapPointDataProperties.StrokeColor));
-            bool isStrokeThicknessReadOnly = properties.DynamicReadonlyValidator(
-                nameof(MapPointDataProperties.StrokeThickness));
-            bool isDashStyleReadOnly = properties.DynamicReadonlyValidator(
-                nameof(MapPointDataProperties.Symbol));
-
-            // Assert
-            Assert.AreEqual(hasMapTheme, isWidthReadOnly);
-            Assert.AreEqual(hasMapTheme, isStrokeColorReadOnly);
-            Assert.AreEqual(hasMapTheme, isStrokeThicknessReadOnly);
-            Assert.AreEqual(hasMapTheme, isDashStyleReadOnly);
-        }
-
-        [Test]
-        public void DynamicReadOnlyValidator_AnyOtherProperty_ReturnsFalse()
-        {
-            // Setup
-            var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
-            feature.MetaData["Key"] = "value";
-
-            var mapPointData = new MapPointData("Test")
-            {
-                Features = new[]
-                {
-                    feature
-                },
-                MapTheme = new MapTheme("Attribute", new[]
-                {
-                    CategoryThemeTestFactory.CreateCategoryTheme()
-                })
-            };
-
-            var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
-
-            // Call
-            bool isOtherPropertyReadOnly = properties.DynamicReadonlyValidator(string.Empty);
-
-            // Assert
-            Assert.IsFalse(isOtherPropertyReadOnly);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
         public void DynamicVisibleValidationMethod_ShowLabels_ReturnsExpectedValuesForRelevantProperties(bool showLabels)
         {
             // Setup
@@ -384,28 +320,34 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Setup
             var mapPointData = new MapPointData("Test")
             {
-                MapTheme = hasMapTheme
-                               ? new MapTheme("Attribute", new[]
-                               {
-                                   CategoryThemeTestFactory.CreateCategoryTheme()
-                               })
-                               : null
+                Theme = hasMapTheme
+                            ? CreateMapTheme()
+                            : null
             };
 
             var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
 
             // Call
-            bool isMapThemeAttributeNameVisible = properties.DynamicVisibleValidationMethod(
-                nameof(MapPointDataProperties.MapThemeAttributeName));
-            bool isMapThemeCategoriesVisible = properties.DynamicVisibleValidationMethod(
-                nameof(MapPointDataProperties.Categories));
-            bool isLineColorStyleVisible = properties.DynamicVisibleValidationMethod(
+            bool isCategoryThemesVisible = properties.DynamicVisibleValidationMethod(
+                nameof(MapLineDataProperties.CategoryThemes));
+            bool isColorVisible = properties.DynamicVisibleValidationMethod(
                 nameof(MapPointDataProperties.Color));
+            bool isStrokeColorVisible = properties.DynamicVisibleValidationMethod(
+                nameof(MapPointDataProperties.StrokeColor));
+            bool isStrokeThicknessVisible = properties.DynamicVisibleValidationMethod(
+                nameof(MapPointDataProperties.StrokeThickness));
+            bool isSizeVisible = properties.DynamicVisibleValidationMethod(
+                nameof(MapPointDataProperties.Size));
+            bool isSymbolVisible = properties.DynamicVisibleValidationMethod(
+                nameof(MapPointDataProperties.Symbol));
 
             // Assert
-            Assert.AreEqual(hasMapTheme, isMapThemeAttributeNameVisible);
-            Assert.AreEqual(hasMapTheme, isMapThemeCategoriesVisible);
-            Assert.AreNotEqual(hasMapTheme, isLineColorStyleVisible);
+            Assert.AreEqual(hasMapTheme, isCategoryThemesVisible);
+            Assert.AreNotEqual(hasMapTheme, isColorVisible);
+            Assert.AreNotEqual(hasMapTheme, isStrokeColorVisible);
+            Assert.AreNotEqual(hasMapTheme, isStrokeThicknessVisible);
+            Assert.AreNotEqual(hasMapTheme, isSizeVisible);
+            Assert.AreNotEqual(hasMapTheme, isSymbolVisible);
         }
 
         [Test]
@@ -418,10 +360,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                     new MapFeature(Enumerable.Empty<MapGeometry>())
                 },
                 ShowLabels = true,
-                MapTheme = new MapTheme("Attribute", new[]
-                {
-                    CategoryThemeTestFactory.CreateCategoryTheme()
-                })
+                Theme = CreateMapTheme()
             };
 
             var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
@@ -431,6 +370,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(isOtherPropertyVisible);
+        }
+
+        private static MapTheme<PointCategoryTheme> CreateMapTheme()
+        {
+            return new MapTheme<PointCategoryTheme>("Attribute", new[]
+            {
+                new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new PointStyle())
+            });
         }
     }
 }
