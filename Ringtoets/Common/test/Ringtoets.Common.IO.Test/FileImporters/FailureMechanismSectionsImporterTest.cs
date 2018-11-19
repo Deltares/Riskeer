@@ -751,7 +751,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var referenceLineImporter = new ReferenceLineImporter(assessmentSection, handler, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(new ReferenceLine(), handler, referenceLineFilePath);
             referenceLineImporter.Import();
 
             mocks.VerifyAll();

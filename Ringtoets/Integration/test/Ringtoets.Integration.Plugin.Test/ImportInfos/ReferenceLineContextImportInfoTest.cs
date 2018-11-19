@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var importTarget = new ReferenceLineContext(assessmentSection);
+            var importTarget = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(importTarget, "");

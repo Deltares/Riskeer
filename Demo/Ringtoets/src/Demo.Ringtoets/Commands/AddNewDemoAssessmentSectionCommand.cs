@@ -115,7 +115,7 @@ namespace Demo.Ringtoets.Commands
                                                                                    "traject_6-3.prj",
                                                                                    "traject_6-3.shx"))
             {
-                var importer = new ReferenceLineImporter(demoAssessmentSection,
+                var importer = new ReferenceLineImporter(demoAssessmentSection.ReferenceLine,
                                                          new ReferenceLineReplacementHandler(viewCommands),
                                                          Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                                       "traject_6-3.shp"));

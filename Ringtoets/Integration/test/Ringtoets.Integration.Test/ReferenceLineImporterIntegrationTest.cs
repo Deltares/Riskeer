@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Test
             var handler = new ReferenceLineReplacementHandler(viewCommands);
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(assessmentSection.ReferenceLine, handler, path);
             string messageBoxTitle = null, messageBoxText = null;
             DialogBoxHandler = (name, wnd) =>
             {
@@ -115,7 +115,7 @@ namespace Ringtoets.Integration.Test
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(assessmentSection.ReferenceLine, handler, path);
 
             string messageBoxTitle = null, messageBoxText = null;
             DialogBoxHandler = (name, wnd) =>
