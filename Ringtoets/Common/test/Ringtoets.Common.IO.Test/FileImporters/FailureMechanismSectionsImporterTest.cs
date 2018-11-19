@@ -742,6 +742,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             var handler = mocks.Stub<IReferenceLineReplaceHandler>();
             handler.Stub(h => h.ConfirmReplace()).Return(true);
             handler.Stub(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
