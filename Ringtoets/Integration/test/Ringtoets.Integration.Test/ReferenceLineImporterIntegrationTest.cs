@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
@@ -42,14 +43,15 @@ namespace Ringtoets.Integration.Test
     public class ReferenceLineImporterIntegrationTest : NUnitFormsAssertTest
     {
         [Test]
-        public void GivenAssessmentSectionWithReferenceLine_WhenCancelingReferenceLineImport_ThenKeepOriginalReferenceLine()
+        public void GivenReferenceLineWithGeometry_WhenCancelingReferenceLineImport_ThenKeepOriginalReferenceLine()
         {
             // Given
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var originalReferenceLine = new ReferenceLine();
+            ReferenceLine originalReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
+            Point2D[] originalReferenceLineGeometry = originalReferenceLine.Points.ToArray();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
@@ -76,7 +78,7 @@ namespace Ringtoets.Integration.Test
 
             // Then
             Assert.IsFalse(importSuccessful);
-            Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
+            CollectionAssert.AreEqual(originalReferenceLineGeometry, assessmentSection.ReferenceLine.Points);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             string expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
@@ -86,7 +88,7 @@ namespace Ringtoets.Integration.Test
         }
 
         [Test]
-        public void GivenAssessmentSectionWithReferenceLineAndOtherData_WhenImportingReferenceLine_ThenReferenceLineReplacedAndReferenceLineDependentDataCleared()
+        public void GivenAssessmentSectionWithReferenceLineAndOtherData_WhenImportingReferenceLine_ThenReferenceLineGeometryReplacedAndReferenceLineDependentDataCleared()
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -110,6 +112,7 @@ namespace Ringtoets.Integration.Test
             DataImportHelper.ImportPipingStochasticSoilModels(assessmentSection);
 
             ReferenceLine originalReferenceLine = assessmentSection.ReferenceLine;
+            Point2D[] originalReferenceLineGeometry = originalReferenceLine.Points.ToArray();
 
             var handler = new ReferenceLineReplacementHandler(viewCommands);
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -144,6 +147,7 @@ namespace Ringtoets.Integration.Test
             // Then
             Assert.IsTrue(importSuccessful);
             Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
+            CollectionAssert.AreNotEqual(originalReferenceLineGeometry, assessmentSection.ReferenceLine.Points);
             Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
             Assert.AreEqual(803, point2Ds.Length);
             Assert.AreEqual(198237.375, point2Ds[123].X, 1e-6);
