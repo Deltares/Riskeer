@@ -239,7 +239,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             ClearCurrentData();
 
-            if (AssessmentSection.ReferenceLine == null)
+            if (!AssessmentSection.ReferenceLine.Points.Any())
             {
                 return;
             }
