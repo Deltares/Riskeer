@@ -45,7 +45,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         private const int widthPropertyIndex = 7;
         private const int stylePropertyIndex = 8;
 
-        private const int mapThemeCategoriesPropertyIndex = 8;
+        private const int categoryThemesPropertyIndex = 6;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -119,14 +119,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
             const string styleCategory = "Stijl";
 
-            PropertyDescriptor widthProperty = dynamicProperties[mapThemeCategoriesPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthProperty,
+            PropertyDescriptor categoryThemesProperty = dynamicProperties[categoryThemesPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(categoryThemesProperty,
                                                                             styleCategory,
                                                                             "Categorieën",
-                                                                            "De dikte van de lijnen waarmee deze kaartlaag wordt weergegeven.",
+                                                                            string.Empty,
                                                                             true);
         }
 
@@ -157,7 +157,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(width, properties.Width);
             Assert.AreEqual(dashStyle, properties.DashStyle);
 
-            CollectionAssert.IsEmpty(properties.LineCategoryThemes);
+            CollectionAssert.IsEmpty(properties.CategoryThemes);
         }
 
         [Test]
@@ -181,8 +181,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.IsEmpty(properties.SelectedMetaDataAttribute.MetaDataAttribute);
             Assert.AreEqual(mapLineData.MetaData, properties.GetAvailableMetaDataAttributes());
 
-            Assert.AreEqual(1, properties.LineCategoryThemes);
-            Assert.AreEqual(lineCategoryTheme, properties.LineCategoryThemes.First().Data);
+            Assert.AreEqual(1, properties.CategoryThemes.Length);
+            Assert.AreEqual(lineCategoryTheme, properties.CategoryThemes.First().Data);
         }
 
         [Test]
@@ -292,8 +292,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
 
             // Call
-            bool isMapThemeCategoriesVisible = properties.DynamicVisibleValidationMethod(
-                nameof(MapLineDataProperties.LineCategoryThemes));
+            bool isCategoryThemesVisible = properties.DynamicVisibleValidationMethod(
+                nameof(MapLineDataProperties.CategoryThemes));
             bool isLineColorStyleVisible = properties.DynamicVisibleValidationMethod(
                 nameof(MapLineDataProperties.Color));
             bool isLineWidthVisible = properties.DynamicVisibleValidationMethod(
@@ -302,7 +302,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 nameof(MapLineDataProperties.Color));
 
             // Assert
-            Assert.AreEqual(hasMapTheme, isMapThemeCategoriesVisible);
+            Assert.AreEqual(hasMapTheme, isCategoryThemesVisible);
             Assert.AreNotEqual(hasMapTheme, isLineColorStyleVisible);
             Assert.AreNotEqual(hasMapTheme, isLineWidthVisible);
             Assert.AreNotEqual(hasMapTheme, isLineDashStyleVisible);
