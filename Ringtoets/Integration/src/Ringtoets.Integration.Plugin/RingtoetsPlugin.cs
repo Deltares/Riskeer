@@ -765,7 +765,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Name = RingtoetsCommonDataResources.ReferenceLine_DisplayName,
                 CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData.ReferenceLine, context.WrappedData.Id, filePath),
-                IsEnabled = context => context.WrappedData.ReferenceLine != null,
+                IsEnabled = context => context.WrappedData.ReferenceLine.Points.Any(),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
             };
