@@ -119,7 +119,7 @@ namespace Core.Plugins.Map.PropertyClasses
         {
             if (propertyName == nameof(Color))
             {
-                return data.MapTheme == null;
+                return data.Theme == null;
             }
 
             return base.DynamicVisibleValidationMethod(propertyName);
@@ -130,7 +130,7 @@ namespace Core.Plugins.Map.PropertyClasses
             if (propertyName == nameof(Width)
                 || propertyName == nameof(DashStyle))
             {
-                return data.MapTheme != null;
+                return data.Theme != null;
             }
 
             return base.DynamicReadonlyValidator(propertyName);

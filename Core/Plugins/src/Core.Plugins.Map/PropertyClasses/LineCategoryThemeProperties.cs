@@ -20,8 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Design;
 using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
+using Core.Common.Gui.UITypeEditors;
+using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
@@ -33,7 +38,7 @@ namespace Core.Plugins.Map.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="LineCategoryTheme"/> for properties panel.
     /// </summary>
-    public class LineCategoryThemeProperties : CategoryThemeProperties
+    public class LineCategoryThemeProperties : CategoryThemeProperties<LineCategoryTheme>
     {
         private readonly MapLineData mapData;
 
@@ -55,18 +60,54 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LineCategoryTheme_Color_Description))]
-        public Color Color { get; set; }
+        [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+        [TypeConverter(typeof(ColorTypeConverter))]
+        public Color Color
+        {
+            get
+            {
+                return data.Style.Color;
+            }
+            set
+            {
+                data.Style.Color = value;
+                mapData.NotifyObservers();
+            }
+        }
 
         [PropertyOrder(3)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeThickness_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LineCategoryTheme_Width_Description))]
-        public int Width { get; set; }
+        public int Width
+        {
+            get
+            {
+                return data.Style.Width;
+            }
+            set
+            {
+                data.Style.Width = value;
+                mapData.NotifyObservers();
+            }
+        }
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapLineData_DashStyle_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LineCategoryTheme_DashStyle_Description))]
-        public LineDashStyle DashStyle { get; set; }
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public LineDashStyle DashStyle
+        {
+            get
+            {
+                return data.Style.DashStyle;
+            }
+            set
+            {
+                data.Style.DashStyle = value;
+                mapData.NotifyObservers();
+            }
+        }
     }
 }

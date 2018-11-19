@@ -54,7 +54,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var properties = new LineCategoryThemeProperties(string.Empty, categoryLineTheme, new MapLineData("Name"));
 
             // Assert
-            Assert.IsInstanceOf<CategoryThemeProperties>(properties);
+            Assert.IsInstanceOf<CategoryThemeProperties<LineCategoryTheme>>(properties);
 
             TestHelper.AssertTypeConverter<LineCategoryThemeProperties, ColorTypeConverter>(
                 nameof(LineCategoryThemeProperties.Color));

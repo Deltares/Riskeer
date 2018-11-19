@@ -32,19 +32,21 @@ namespace Core.Plugins.Map.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="CategoryTheme"/> for properties panel.
     /// </summary>
+    /// <typeparam name="TCategoryTheme">The type of category theme.</typeparam>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class CategoryThemeProperties : ObjectProperties<CategoryTheme>
+    public class CategoryThemeProperties<TCategoryTheme> : ObjectProperties<TCategoryTheme> where TCategoryTheme : CategoryTheme
+
     {
         private readonly string attributeName;
 
         /// <summary>
-        /// Creates a new instance of <see cref="CategoryThemeProperties"/>.
+        /// Creates a new instance of <see cref="CategoryThemeProperties{T}"/>.
         /// </summary>
         /// <param name="attributeName">The name of the attribute on which <paramref name="categoryTheme"/>
         /// is based on.</param>
         /// <param name="categoryTheme">The theme to create the property info panel for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public CategoryThemeProperties(string attributeName, CategoryTheme categoryTheme)
+        public CategoryThemeProperties(string attributeName, TCategoryTheme categoryTheme)
         {
             if (attributeName == null)
             {

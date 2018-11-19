@@ -39,7 +39,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_AttributeNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new CategoryThemeProperties(null, CategoryThemeTestFactory.CreateCategoryTheme());
+            TestDelegate call = () => new CategoryThemeProperties<CategoryTheme>(null, CategoryThemeTestFactory.CreateCategoryTheme());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -50,7 +50,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_CategoryThemeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new CategoryThemeProperties(string.Empty, null);
+            TestDelegate call = () => new CategoryThemeProperties<CategoryTheme>(string.Empty, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -61,15 +61,15 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            CategoryTheme theme = CategoryThemeTestFactory.CreateCategoryTheme();
+            var theme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
 
             // Call
-            var properties = new CategoryThemeProperties(string.Empty, theme);
+            var properties = new CategoryThemeProperties<TestCategoryTheme>(string.Empty, theme);
 
             // Assert
             Assert.AreSame(theme, properties.Data);
-            Assert.IsInstanceOf<ObjectProperties<CategoryTheme>>(properties);
-            TestHelper.AssertTypeConverter<CategoryThemeProperties, ExpandableObjectConverter>();
+            Assert.IsInstanceOf<ObjectProperties<TestCategoryTheme>>(properties);
+            TestHelper.AssertTypeConverter<CategoryThemeProperties<CategoryTheme>, ExpandableObjectConverter>();
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var theme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
 
             // Call
-            var properties = new CategoryThemeProperties(string.Empty, theme);
+            var properties = new CategoryThemeProperties<TestCategoryTheme>(string.Empty, theme);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -108,7 +108,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var theme = new TestCategoryTheme(criterion);
 
             // Call
-            var properties = new CategoryThemeProperties(attributeName, theme);
+            var properties = new CategoryThemeProperties<TestCategoryTheme>(attributeName, theme);
 
             // Assert
             string expectedValue = string.Format(formatExpression, attributeName, value);
@@ -119,9 +119,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void ToString_Always_ReturnsEmptyString()
         {
             // Setup
-            CategoryTheme theme = CategoryThemeTestFactory.CreateCategoryTheme();
+            var theme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
 
-            var properties = new CategoryThemeProperties(string.Empty, theme);
+            var properties = new CategoryThemeProperties<TestCategoryTheme>(string.Empty, theme);
 
             // Call
             string toString = properties.ToString();
