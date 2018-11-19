@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -42,6 +43,22 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                 new Point2D(3, 3),
                 new Point2D(4, 4)
             }, referenceLine.Points);
+        }
+
+        [Test]
+        public void CreateReferenceLineGeometry_Always_ReturnsExpectedValues()
+        {
+            // Call
+            IEnumerable<Point2D> geometry = ReferenceLineTestFactory.CreateReferenceLineGeometry();
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2),
+                new Point2D(3, 3),
+                new Point2D(4, 4)
+            }, geometry);
         }
     }
 }
