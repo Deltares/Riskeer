@@ -340,9 +340,9 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Categorieën.
         /// </summary>
-        public static string Mapdata_Categories_DisplayName {
+        public static string MapData_Categories_DisplayName {
             get {
-                return ResourceManager.GetString("Mapdata_Categories_DisplayName", resourceCulture);
+                return ResourceManager.GetString("MapData_Categories_DisplayName", resourceCulture);
             }
         }
         
