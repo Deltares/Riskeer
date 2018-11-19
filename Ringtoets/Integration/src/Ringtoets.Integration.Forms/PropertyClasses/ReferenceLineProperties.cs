@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return data.ReferenceLine != null;
+            return data.ReferenceLine.Points.Any();
         }
     }
 }

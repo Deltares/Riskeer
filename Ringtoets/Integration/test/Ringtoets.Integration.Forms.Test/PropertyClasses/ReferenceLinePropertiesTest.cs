@@ -68,18 +68,20 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_AssessmentSectionWithReferenceLine_ReturnExpectedValues()
+        public void GetProperties_ReferenceLineWithoutGeometry_ReturnExpectedValues()
         {
             // Setup
             var random = new Random(39);
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var geometry = new[]
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble()),
                 new Point2D(random.NextDouble(), random.NextDouble())
-            };
-            assessmentSection.ReferenceLine.SetGeometry(geometry);
+            });
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
             mocks.ReplayAll();
 
             // Call
@@ -88,17 +90,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(2, properties.Length.NumberOfDecimalPlaces);
             Assert.AreEqual(assessmentSection.ReferenceLine.Length, properties.Length, properties.Length.GetAccuracy());
-            CollectionAssert.AreEqual(geometry, properties.Geometry);
+            CollectionAssert.AreEqual(referenceLine.Points, properties.Geometry);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_AssessmentSectionWithReferenceLine_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_ReferenceLineWithGeometry_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
+            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             mocks.ReplayAll();
 
             // Call
@@ -129,11 +131,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_AssessmentSectionWithoutReferenceLine_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_ReferenceLineWithoutGeometry_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
             // Call
