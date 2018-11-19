@@ -39,7 +39,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
     public class ReferenceLineImporterTest
     {
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
+        public void Constructor_ReferenceLineNull_ThrowArgumentNullException()
         {
             var mocks = new MockRepository();
             var handler = mocks.Stub<IReferenceLineReplaceHandler>();
@@ -59,15 +59,14 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IReferenceLineReplaceHandler>();
             mocks.ReplayAll();
 
             // Call
-            var importer = new ReferenceLineImporter(assessmentSection, handler, "");
+            var importer = new ReferenceLineImporter(new ReferenceLine(), handler, "");
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase<IAssessmentSection>>(importer);
+            Assert.IsInstanceOf<FileImporterBase<ReferenceLine>>(importer);
             mocks.VerifyAll();
         }
 
@@ -77,7 +76,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
             handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
                                           Arg<ReferenceLine>.Is.NotNull))
@@ -95,7 +93,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
 
             // Call
             bool importSuccessful = importer.Import();
@@ -111,7 +109,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             var handler = mocks.Stub<IReferenceLineReplaceHandler>();
             handler.Expect(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
                                           Arg<ReferenceLine>.Is.NotNull))
@@ -137,7 +134,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 }
             };
             var progressChangedCallCount = 0;
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
@@ -159,8 +156,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
             handler.Expect(h => h.ConfirmReplace())
                    .Repeat.Never();
@@ -171,7 +166,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -190,8 +185,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
             handler.Expect(h => h.ConfirmReplace())
                    .Repeat.Never();
@@ -202,7 +195,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist");
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
 
             // Call
             var importSuccessful = true;
@@ -221,8 +214,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
             handler.Expect(h => h.ConfirmReplace()).Return(false);
             handler.Expect(h => h.Replace(null, null))
@@ -232,7 +223,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), handler, path);
 
             // Call
             bool importSuccessful = importer.Import();
@@ -251,10 +242,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), handler, path);
             handler.Expect(h => h.ConfirmReplace())
                    .WhenCalled(invocation => importer.Cancel())
                    .Return(acceptRemovalOfReferenceLineDependentData);
@@ -281,14 +270,12 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             var handler = mocks.Stub<IReferenceLineReplaceHandler>();
             handler.Stub(h => h.ConfirmReplace())
                    .Return(true);
             mocks.ReplayAll();
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Inlezen referentielijn."))
@@ -316,7 +303,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             var handler = mocks.Stub<IReferenceLineReplaceHandler>();
             handler.Stub(h => h.ConfirmReplace())
                    .Return(true);
@@ -325,7 +311,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
             importer.SetProgressChanged((description, step, steps) =>
             {
                 if (description.Contains("Geïmporteerde data toevoegen aan het toetsspoor."))
@@ -352,7 +338,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
             handler.Expect(h => h.ConfirmReplace())
                    .Repeat.Never();
@@ -372,7 +357,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
             importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
             // Precondition
@@ -392,12 +377,13 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void DoPostImportUpdates_AssessmentSectionAlreadyHasReferenceLineWithGeometryAndAnswerDialogToContinue_NotifyObserversOfTargetContextAndClearedObjects()
         {
             // Setup
+            ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
+
             var mocks = new MockRepository();
             var contextObserver = mocks.Stub<IObserver>();
             contextObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             assessmentSection.Expect(section => section.Attach(contextObserver));
             assessmentSection.Expect(section => section.NotifyObservers()).Do((Action) (() => contextObserver.UpdateObserver()));
 
@@ -423,10 +409,10 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            var referenceLineContext = new ReferenceLineContext(referenceLine, assessmentSection);
             referenceLineContext.Attach(contextObserver);
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(referenceLine, handler, path);
 
             // Precondition
             Assert.IsTrue(importer.Import());
@@ -444,14 +430,15 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
+            ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
+
             var mocks = new MockRepository();
             var contextObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             assessmentSection.Expect(section => section.Attach(contextObserver));
 
             var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(referenceLine, handler, path);
             handler.Expect(h => h.ConfirmReplace())
                    .WhenCalled(invocation => importer.Cancel())
                    .Return(true);
@@ -461,7 +448,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            var referenceLineContext = new ReferenceLineContext(referenceLine, assessmentSection);
             referenceLineContext.Attach(contextObserver);
 
             // Precondition
@@ -485,7 +472,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             contextObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(originalReferenceLine);
             assessmentSection.Expect(section => section.Attach(contextObserver));
             assessmentSection.Expect(section => section.NotifyObservers()).Do((Action) (() => contextObserver.UpdateObserver()));
 
@@ -512,10 +498,10 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            var referenceLineContext = new ReferenceLineContext(originalReferenceLine, assessmentSection);
             referenceLineContext.Attach(contextObserver);
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(originalReferenceLine, handler, path);
             importer.SetProgressChanged((description, step, steps) => importer.Cancel());
 
             // Precondition

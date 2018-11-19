@@ -31,10 +31,9 @@ using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 namespace Ringtoets.Common.IO.ReferenceLines
 {
     /// <summary>
-    /// Imports a <see cref="ReferenceLine"/> and stores it on an <see cref="IAssessmentSection"/>,
-    /// taking data from a shapefile containing a single polyline.
+    /// Imports a <see cref="ReferenceLine"/> taking data from a shapefile containing a single polyline.
     /// </summary>
-    public class ReferenceLineImporter : FileImporterBase<IAssessmentSection>
+    public class ReferenceLineImporter : FileImporterBase<ReferenceLine>
     {
         private readonly List<IObservable> changedObservables = new List<IObservable>();
         private readonly IReferenceLineReplaceHandler replacementHandler;
@@ -42,13 +41,13 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <summary>
         /// Initializes a new instance of the <see cref="ReferenceLineImporter"/> class.
         /// </summary>
-        /// <param name="importTarget">The assessment section to update.</param>
+        /// <param name="importTarget">The reference line to update.</param>
         /// <param name="replacementHandler">The object responsible for replacing the
         /// <see cref="ReferenceLine"/>.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/>
         /// or <paramref name="filePath"/> is <c>null</c>.</exception>
-        public ReferenceLineImporter(IAssessmentSection importTarget,
+        public ReferenceLineImporter(ReferenceLine importTarget,
                                      IReferenceLineReplaceHandler replacementHandler,
                                      string filePath)
             : base(filePath, importTarget)
@@ -99,7 +98,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         {
             var clearReferenceLineDependentData = false;
 
-            if (ImportTarget.ReferenceLine.Points.Any())
+            if (ImportTarget.Points.Any())
             {
                 if (!replacementHandler.ConfirmReplace())
                 {
@@ -154,7 +153,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                                3, 3);
             }
 
-            changedObservables.AddRange(replacementHandler.Replace(ImportTarget, importedReferenceLine).Where(o => !ReferenceEquals(o, ImportTarget)));
+            changedObservables.AddRange(replacementHandler.Replace(assessmentSection, importedReferenceLine).Where(o => !ReferenceEquals(o, ImportTarget)));
         }
     }
 }
