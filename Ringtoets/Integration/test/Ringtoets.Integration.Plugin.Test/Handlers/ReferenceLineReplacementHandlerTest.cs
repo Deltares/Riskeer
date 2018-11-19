@@ -178,7 +178,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
 
             // Call
-            IObservable[] observables = handler.Replace(assessmentSection, referenceLine).ToArray();
+            IObservable[] observables = handler.Replace(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
             Assert.AreEqual(60, observables.Length);
@@ -376,7 +376,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             var handler = new ReferenceLineReplacementHandler(assessmentSection, viewCommands);
-            handler.Replace(assessmentSection, new ReferenceLine());
+            handler.Replace(assessmentSection.ReferenceLine, new ReferenceLine());
 
             // Call
             handler.DoPostReplacementUpdates();
@@ -400,7 +400,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             var handler = new ReferenceLineReplacementHandler(assessmentSection, viewCommands);
-            handler.Replace(assessmentSection, new ReferenceLine());
+            handler.Replace(assessmentSection.ReferenceLine, new ReferenceLine());
             handler.DoPostReplacementUpdates();
 
             // Call

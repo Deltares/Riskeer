@@ -73,20 +73,20 @@ namespace Ringtoets.Integration.Plugin.Handlers
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> Replace(IAssessmentSection section, ReferenceLine newReferenceLine)
+        public IEnumerable<IObservable> Replace(ReferenceLine oldReferenceLine, ReferenceLine newReferenceLine)
         {
             removedObjects.Clear();
 
-            ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(section);
+            ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(assessmentSection);
             foreach (object removedObject in results.RemovedObjects)
             {
                 removedObjects.Enqueue(removedObject);
             }
 
-            section.ReferenceLine.SetGeometry(newReferenceLine.Points);
+            oldReferenceLine.SetGeometry(newReferenceLine.Points);
             return new IObservable[]
             {
-                section
+                oldReferenceLine
             }.Concat(results.ChangedObjects);
         }
 

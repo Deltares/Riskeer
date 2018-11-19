@@ -153,7 +153,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                                3, 3);
             }
 
-            changedObservables.AddRange(replacementHandler.Replace(assessmentSection, importedReferenceLine).Where(o => !ReferenceEquals(o, ImportTarget)));
+            changedObservables.AddRange(replacementHandler.Replace(ImportTarget, importedReferenceLine).Where(o => !ReferenceEquals(o, ImportTarget)));
         }
     }
 }
