@@ -120,10 +120,9 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         {
             // Setup
             var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
-            {
-                ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry()
-            };
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            assessmentSection.ReferenceLine.SetGeometry(ReferenceLineTestFactory.CreateReferenceLineGeometry());
+
             var context = new AssemblyResultsContext(assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())

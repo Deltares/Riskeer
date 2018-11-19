@@ -60,10 +60,8 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                ReferenceLine = new ReferenceLine()
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
             var context = new ReferenceLineContext(assessmentSection);
             const string filePath = "test";
 
@@ -118,10 +116,9 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void IsEnabled_ReferenceLineWithGeometry_ReturnTrue()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry()
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            assessmentSection.ReferenceLine.SetGeometry(ReferenceLineTestFactory.CreateReferenceLineGeometry());
+
             var context = new ReferenceLineContext(assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
