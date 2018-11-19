@@ -84,7 +84,6 @@ namespace Ringtoets.Storage.Core.TestUtil
                     FilePath = "/temp/test",
                     Version = "1.0"
                 },
-                ReferenceLine = GetReferenceLine(),
                 Id = "12-2",
                 FailureMechanismContribution =
                 {
@@ -93,6 +92,14 @@ namespace Ringtoets.Storage.Core.TestUtil
                     NormativeNorm = NormType.Signaling
                 }
             };
+
+            assessmentSection.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(2, 3),
+                new Point2D(5, 4),
+                new Point2D(5, 8),
+                new Point2D(-3, 2)
+            });
 
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             hydraulicBoundaryLocations.AddRange(GetHydraulicBoundaryLocations());
@@ -350,21 +357,6 @@ namespace Ringtoets.Storage.Core.TestUtil
                 foreshoreProfile1,
                 foreshoreProfile2
             }, "some/path/to/foreshoreprofile");
-        }
-
-        private static ReferenceLine GetReferenceLine()
-        {
-            IEnumerable<Point2D> points = new[]
-            {
-                new Point2D(2, 3),
-                new Point2D(5, 4),
-                new Point2D(5, 8),
-                new Point2D(-3, 2)
-            };
-
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(points);
-            return referenceLine;
         }
 
         private static IEnumerable<HydraulicBoundaryLocation> GetHydraulicBoundaryLocations()
