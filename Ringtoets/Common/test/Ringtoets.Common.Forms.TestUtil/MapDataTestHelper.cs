@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual("Referentielijn", mapData.Name);
 
             var referenceLineData = (MapLineData) mapData;
-            if (referenceLine == null)
+            if (!referenceLine.Points.Any())
             {
                 CollectionAssert.IsEmpty(referenceLineData.Features);
             }
