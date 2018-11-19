@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -31,12 +32,13 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
     public class ReferenceLineTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var referenceLine = new ReferenceLine();
 
             // Assert
+            Assert.IsInstanceOf<Observable>(referenceLine);
             CollectionAssert.IsEmpty(referenceLine.Points);
         }
 
