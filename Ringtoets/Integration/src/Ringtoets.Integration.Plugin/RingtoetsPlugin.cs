@@ -783,7 +783,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Name = RingtoetsCommonFormsResources.AssemblyResult_DisplayName,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
-                IsEnabled = context => context.WrappedData.ReferenceLine != null,
+                IsEnabled = context => context.WrappedData.ReferenceLine.Points.Any(),
                 FileFilterGenerator = new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
                                                               RingtoetsCommonFormsResources.AssemblyResult_DisplayName)
             };
