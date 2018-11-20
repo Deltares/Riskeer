@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using Core.Common.Util;
+using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
 using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Properties;
@@ -28,28 +29,43 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating <see cref="MapTheme"/> instances.
+    /// Factory for creating <see cref="MapTheme{T}"/> instances.
     /// </summary>
     public static class MapThemeFactory
     {
+        private const int lineWidth = 6;
+        private const LineDashStyle lineDashStyle = LineDashStyle.Solid;
+
         /// <summary>
-        /// Creates a <see cref="MapTheme"/> based on the values of <see cref="DisplayFailureMechanismSectionAssemblyCategoryGroup"/>.
+        /// Creates a <see cref="MapTheme{T}"/> based on the values of <see cref="DisplayFailureMechanismSectionAssemblyCategoryGroup"/>.
         /// </summary>
-        /// <returns>The created <see cref="MapTheme"/>.</returns>
-        public static MapTheme CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
+        /// <returns>The created <see cref="MapTheme{T}"/>.</returns>
+        public static MapTheme<LineCategoryTheme> CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
         {
-            return new MapTheme(Resources.AssemblyCategory_Group_DisplayName, new[]
+            return new MapTheme<LineCategoryTheme>(Resources.AssemblyCategory_Group_DisplayName, new[]
             {
-                new CategoryTheme(Color.FromArgb(255, 0, 255, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.Iv)),
-                new CategoryTheme(Color.FromArgb(255, 118, 147, 60), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.IIv)),
-                new CategoryTheme(Color.FromArgb(255, 255, 255, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.IIIv)),
-                new CategoryTheme(Color.FromArgb(255, 204, 192, 218), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.IVv)),
-                new CategoryTheme(Color.FromArgb(255, 255, 153, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.Vv)),
-                new CategoryTheme(Color.FromArgb(255, 255, 0, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.VIv)),
-                new CategoryTheme(Color.FromArgb(255, 255, 255, 255), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.VIIv)),
-                new CategoryTheme(Color.FromArgb(0, 0, 0, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.NotApplicable)),
-                new CategoryTheme(Color.FromArgb(0, 0, 0, 0), CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup.None))
+                CreateCategoryTheme(Color.FromArgb(255, 0, 255, 0), DisplayFailureMechanismSectionAssemblyCategoryGroup.Iv),
+                CreateCategoryTheme(Color.FromArgb(255, 118, 147, 60), DisplayFailureMechanismSectionAssemblyCategoryGroup.IIv),
+                CreateCategoryTheme(Color.FromArgb(255, 255, 255, 0), DisplayFailureMechanismSectionAssemblyCategoryGroup.IIIv),
+                CreateCategoryTheme(Color.FromArgb(255, 204, 192, 218), DisplayFailureMechanismSectionAssemblyCategoryGroup.IVv),
+                CreateCategoryTheme(Color.FromArgb(255, 255, 153, 0), DisplayFailureMechanismSectionAssemblyCategoryGroup.Vv),
+                CreateCategoryTheme(Color.FromArgb(255, 255, 0, 0), DisplayFailureMechanismSectionAssemblyCategoryGroup.VIv),
+                CreateCategoryTheme(Color.FromArgb(255, 255, 255, 255), DisplayFailureMechanismSectionAssemblyCategoryGroup.VIIv),
+                CreateCategoryTheme(Color.FromArgb(0, 0, 0, 0), DisplayFailureMechanismSectionAssemblyCategoryGroup.NotApplicable),
+                CreateCategoryTheme(Color.FromArgb(0, 0, 0, 0), DisplayFailureMechanismSectionAssemblyCategoryGroup.None)
             });
+        }
+
+        private static LineCategoryTheme CreateCategoryTheme(Color color, DisplayFailureMechanismSectionAssemblyCategoryGroup categoryGroup)
+        {
+            var lineStyle = new LineStyle
+            {
+                Color = color,
+                DashStyle = lineDashStyle,
+                Width = lineWidth
+            };
+
+            return new LineCategoryTheme(CreateCriterion(categoryGroup), lineStyle);
         }
 
         private static ValueCriterion CreateCriterion(DisplayFailureMechanismSectionAssemblyCategoryGroup category)

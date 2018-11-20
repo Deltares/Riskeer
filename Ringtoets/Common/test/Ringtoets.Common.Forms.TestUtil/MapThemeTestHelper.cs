@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using System.Linq;
+using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Forms;
@@ -29,7 +30,7 @@ using Ringtoets.AssemblyTool.Forms;
 namespace Ringtoets.Common.Forms.TestUtil
 {
     /// <summary>
-    /// Class that can be used to assert properties of a <see cref="MapTheme"/>
+    /// Class that can be used to assert properties of a <see cref="MapTheme{T}"/>
     /// </summary>
     public static class MapThemeTestHelper
     {
@@ -37,14 +38,14 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// Asserts whether the <paramref name="theme"/> is configured to categories values
         /// of type <see cref="DisplayFailureMechanismSectionAssemblyCategoryGroup"/>.
         /// </summary>
-        /// <param name="theme">The <see cref="MapTheme"/> to assert.</param>
+        /// <param name="theme">The <see cref="MapTheme{T}"/> to assert.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="theme"/> does not have the expected attribute name it categorizes its data on.</item>
         /// <item><paramref name="theme"/> does not have the expected number of criteria as themes.</item>
         /// <item><paramref name="theme"/> does not have the expected categorical criteria as themes.</item>
         /// </list></exception>
-        public static void AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(MapTheme theme)
+        public static void AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(MapTheme<LineCategoryTheme> theme)
         {
             Assert.AreEqual("Categorie", theme.AttributeName);
             Assert.AreEqual(9, theme.CategoryThemes.Count());
@@ -59,11 +60,18 @@ namespace Ringtoets.Common.Forms.TestUtil
             AssertCategoryTheme(string.Empty, Color.FromArgb(0, 0, 0, 0), theme.CategoryThemes.ElementAt(8));
         }
 
-        private static void AssertCategoryTheme(string expectedValue, Color expectedColor, CategoryTheme categoryTheme)
+        private static void AssertCategoryTheme(string expectedValue, Color expectedColor, LineCategoryTheme categoryTheme)
         {
-            Assert.AreEqual(expectedColor, categoryTheme.Color);
             Assert.AreEqual(expectedValue, categoryTheme.Criterion.Value);
             Assert.AreEqual(ValueCriterionOperator.EqualValue, categoryTheme.Criterion.ValueOperator);
+            AssertLineStyle(expectedColor, categoryTheme.Style);
+        }
+
+        private static void AssertLineStyle(Color expectedColor, LineStyle actualLineStyle)
+        {
+            Assert.AreEqual(expectedColor, actualLineStyle.Color);
+            Assert.AreEqual(6, actualLineStyle.Width);
+            Assert.AreEqual(LineDashStyle.Solid, actualLineStyle.DashStyle);
         }
     }
 }

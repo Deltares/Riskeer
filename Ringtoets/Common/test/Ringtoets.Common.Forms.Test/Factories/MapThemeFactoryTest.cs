@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         public void CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme_ReturnsMapTheme()
         {
             // Call
-            MapTheme mapTheme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme();
+            MapTheme<LineCategoryTheme> mapTheme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme();
 
             // Assert
             MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(mapTheme);
