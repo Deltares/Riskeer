@@ -69,6 +69,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 nameof(MapPointDataProperties.StrokeColor));
             TestHelper.AssertTypeConverter<MapPointDataProperties, EnumTypeConverter>(
                 nameof(MapPointDataProperties.Symbol));
+
+            TestHelper.AssertTypeConverter<MapPointDataProperties, ExpandableArrayConverter>(
+                nameof(MapPointDataProperties.CategoryThemes));
         }
 
         [Test]

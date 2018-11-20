@@ -65,6 +65,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
 
             TestHelper.AssertTypeConverter<MapPolygonDataProperties, ColorTypeConverter>(
                 nameof(MapPolygonDataProperties.StrokeColor));
+
+            TestHelper.AssertTypeConverter<MapPolygonDataProperties, ExpandableArrayConverter>(
+                nameof(MapPolygonDataProperties.CategoryThemes));
         }
 
         [Test]

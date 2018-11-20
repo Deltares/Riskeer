@@ -65,6 +65,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                 nameof(MapLineDataProperties.Color));
             TestHelper.AssertTypeConverter<MapLineDataProperties, EnumTypeConverter>(
                 nameof(MapLineDataProperties.DashStyle));
+
+            TestHelper.AssertTypeConverter<MapLineDataProperties, ExpandableArrayConverter>(
+                nameof(MapLineDataProperties.CategoryThemes));
         }
 
         [Test]

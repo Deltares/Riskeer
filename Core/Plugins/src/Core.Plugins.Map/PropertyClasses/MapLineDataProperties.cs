@@ -121,6 +121,7 @@ namespace Core.Plugins.Map.PropertyClasses
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Categories_DisplayName))]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
         public LineCategoryThemeProperties[] CategoryThemes
         {
             get
