@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 

@@ -38,8 +38,8 @@ namespace Core.Plugins.Map.PropertyClasses
     public abstract class CategoryThemeProperties<TCategoryTheme> : ObjectProperties<TCategoryTheme> where TCategoryTheme : CategoryTheme
 
     {
-        private readonly string attributeName;
         protected readonly FeatureBasedMapData MapData;
+        private readonly string attributeName;
 
         /// <summary>
         /// Creates a new instance of <see cref="CategoryThemeProperties{T}"/>.

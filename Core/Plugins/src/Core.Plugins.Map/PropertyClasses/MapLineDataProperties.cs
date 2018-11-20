@@ -135,7 +135,7 @@ namespace Core.Plugins.Map.PropertyClasses
 
         public override bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (propertyName == nameof(Color) 
+            if (propertyName == nameof(Color)
                 || propertyName == nameof(Width)
                 || propertyName == nameof(DashStyle)
             )

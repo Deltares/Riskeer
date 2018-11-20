@@ -272,7 +272,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                                           Color = Color.FromKnownColor(random.NextEnum<KnownColor>()),
                                           Width = random.Next(1, 48),
                                           DashStyle = random.NextEnum<LineDashStyle>()
-                                      }),
+                                      })
             });
 
             var lineStyle = new LineStyle

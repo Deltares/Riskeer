@@ -96,7 +96,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         {
             // Setup
             var categoryTheme = new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
-                                                      new PointStyle());
+                                                       new PointStyle());
 
             // Call
             var properties = new PointCategoryThemeProperties(string.Empty, categoryTheme, new MapPointData("Name"));

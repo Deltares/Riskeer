@@ -132,7 +132,6 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
-
         public override bool DynamicVisibleValidationMethod(string propertyName)
         {
             if (propertyName == nameof(FillColor)

@@ -166,6 +166,44 @@ namespace Core.Components.DotSpatial.Converter
         /// could not be successfully converted to a scheme.</exception>
         protected abstract IFeatureScheme CreateCategoryScheme(TFeatureBasedMapData mapData);
 
+        /// <summary>
+        /// Gets the mapping between map data attribute names and DotSpatial attribute names.
+        /// </summary>
+        /// <param name="data">The map data to get the mappings from.</param>
+        /// <returns>The mapping between map data attribute names and DotSpatial attribute names.</returns>
+        /// <remarks>
+        /// This method is used for obtaining a mapping between map data attribute names and DotSpatial
+        /// attribute names. This mapping is needed because DotSpatial can't handle special characters.
+        /// </remarks>
+        protected static Dictionary<string, int> GetAttributeMapping(TFeatureBasedMapData data)
+        {
+            return Enumerable.Range(0, data.MetaData.Count())
+                             .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
+        }
+
+        /// <summary>
+        /// Creates a filter expression based for an attribute and the criteria to apply.
+        /// </summary>
+        /// <param name="attributeIndex">The index of the attribute in the metadata table.</param>
+        /// <param name="criterion">The criterion to convert to an expression.</param>
+        /// <returns>The filter expression based on the <paramref name="attributeIndex"/>
+        /// and <paramref name="criterion"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="criterion"/>
+        /// cannot be used to create a filter expression.</exception>
+        protected static string CreateFilterExpression(int attributeIndex, ValueCriterion criterion)
+        {
+            ValueCriterionOperator valueOperator = criterion.ValueOperator;
+            switch (valueOperator)
+            {
+                case ValueCriterionOperator.EqualValue:
+                    return $"[{attributeIndex}] = '{criterion.Value}'";
+                case ValueCriterionOperator.UnequalValue:
+                    return $"NOT [{attributeIndex}] = '{criterion.Value}'";
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
         private void ClearFeatureScheme(TFeatureBasedMapData mapData, IScheme scheme)
         {
             if (HasMapTheme(mapData))
@@ -220,21 +258,6 @@ namespace Core.Components.DotSpatial.Converter
             }
         }
 
-        /// <summary>
-        /// Gets the mapping between map data attribute names and DotSpatial attribute names.
-        /// </summary>
-        /// <param name="data">The map data to get the mappings from.</param>
-        /// <returns>The mapping between map data attribute names and DotSpatial attribute names.</returns>
-        /// <remarks>
-        /// This method is used for obtaining a mapping between map data attribute names and DotSpatial
-        /// attribute names. This mapping is needed because DotSpatial can't handle special characters.
-        /// </remarks>
-        protected static Dictionary<string, int> GetAttributeMapping(TFeatureBasedMapData data)
-        {
-            return Enumerable.Range(0, data.MetaData.Count())
-                             .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
-        }
-
         private static MapLabelLayer GetLabelLayer(IDictionary<string, int> attributeMapping, IFeatureSet featureSet, string labelToShow)
         {
             var labelLayer = new MapLabelLayer();
@@ -252,29 +275,6 @@ namespace Core.Components.DotSpatial.Converter
             }
 
             return labelLayer;
-        }
-
-        /// <summary>
-        /// Creates a filter expression based for an attribute and the criteria to apply.
-        /// </summary>
-        /// <param name="attributeIndex">The index of the attribute in the metadata table.</param>
-        /// <param name="criterion">The criterion to convert to an expression.</param>
-        /// <returns>The filter expression based on the <paramref name="attributeIndex"/>
-        /// and <paramref name="criterion"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when the <paramref name="criterion"/>
-        /// cannot be used to create a filter expression.</exception>
-        protected static string CreateFilterExpression(int attributeIndex, ValueCriterion criterion)
-        {
-            ValueCriterionOperator valueOperator = criterion.ValueOperator;
-            switch (valueOperator)
-            {
-                case ValueCriterionOperator.EqualValue:
-                    return $"[{attributeIndex}] = '{criterion.Value}'";
-                case ValueCriterionOperator.UnequalValue:
-                    return $"NOT [{attributeIndex}] = '{criterion.Value}'";
-                default:
-                    throw new NotSupportedException();
-            }
         }
     }
 }
