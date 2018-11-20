@@ -30,6 +30,7 @@ using Core.Components.Gis.Style;
 using Core.Components.Gis.TestUtil;
 using Core.Components.Gis.Theme;
 using Core.Plugins.Map.PropertyClasses;
+using Core.Plugins.Map.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -78,8 +79,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(categoryTheme.Style.StrokeColor, properties.StrokeColor);
             Assert.AreEqual(categoryTheme.Style.StrokeThickness, properties.StrokeThickness);
 
-            string expectedValue = GetExpectedFormatExpression(valueCriterion, attributeName);
-            Assert.AreEqual(expectedValue, properties.Criterion);
+            ValueCriterionTestHelper.AssertValueCriterionFormatExpression(attributeName,
+                                                                          valueCriterion,
+                                                                          properties.Criterion);
         }
 
         [Test]
@@ -151,20 +153,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(strokeThickness, actualStyle.StrokeThickness);
 
             mocks.VerifyAll();
-        }
-
-        private static string GetExpectedFormatExpression(ValueCriterion valueCriterion, string attributeName)
-        {
-            string valueCriterionValue = valueCriterion.Value;
-            switch (valueCriterion.ValueOperator)
-            {
-                case ValueCriterionOperator.EqualValue:
-                    return $"{attributeName} = {valueCriterionValue}";
-                case ValueCriterionOperator.UnequalValue:
-                    return $"{attributeName} ≠ {valueCriterionValue}";
-                default:
-                    throw new NotSupportedException();
-            }
         }
     }
 }

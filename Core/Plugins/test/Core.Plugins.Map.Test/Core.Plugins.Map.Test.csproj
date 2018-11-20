@@ -141,6 +141,10 @@
       <Project>{610e0a9c-1997-4c43-a10e-39d4c66ada93}</Project>
       <Name>Core.Plugins.Map</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core.Plugins.Map.TestUtil\Core.Plugins.Map.TestUtil.csproj">
+      <Project>{430C588F-004A-4E19-91FB-F31E35174DF5}</Project>
+      <Name>Core.Plugins.Map.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
