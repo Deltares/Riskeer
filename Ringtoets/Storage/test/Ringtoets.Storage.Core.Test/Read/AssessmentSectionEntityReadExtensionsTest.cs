@@ -162,7 +162,7 @@ namespace Ringtoets.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_WithReferenceLineEntities_ReturnsNewAssessmentSectionWithReferenceLineSet()
+        public void Read_WithReferenceLineEntities_ReturnsNewAssessmentSectionWithReferenceWithGeometry()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();

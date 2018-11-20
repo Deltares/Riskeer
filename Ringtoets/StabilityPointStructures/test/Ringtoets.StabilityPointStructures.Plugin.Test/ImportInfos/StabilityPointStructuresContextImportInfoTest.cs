@@ -168,7 +168,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineNotWithoutGeometry_ReturnFalse()
+        public void IsEnabled_ReferenceLineWithoutGeometry_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
