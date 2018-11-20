@@ -57,7 +57,7 @@ namespace Core.Plugins.Map.PropertyClasses
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PolygonCategoryTheme_FillColor_Description)]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PolygonCategoryTheme_FillColor_Description))]
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(ColorTypeConverter))]
         public Color FillColor

@@ -106,13 +106,13 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
                                                                             styleCategory,
-                                                                            "Lijndikte",
+                                                                            "Lijnkleur",
                                                                             "De kleur van de lijn van de vlakken waarmee deze categorie wordt weergegeven.");
 
             PropertyDescriptor strokeThicknessProperty = dynamicProperties[strokeThicknessPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeThicknessProperty,
                                                                             styleCategory,
-                                                                            "Lijnstijl",
+                                                                            "Lijndikte",
                                                                             "De dikte van de lijn van de vlakken waarmee deze categorie wordt weergegeven.");
         }
 
