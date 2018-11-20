@@ -40,8 +40,6 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     public class LineCategoryThemeProperties : CategoryThemeProperties<LineCategoryTheme>
     {
-        private readonly MapLineData mapData;
-
         /// <summary>
         /// Creates a new instance of <see cref="LineCategoryThemeProperties"/>.
         /// </summary>
@@ -51,10 +49,7 @@ namespace Core.Plugins.Map.PropertyClasses
         /// <param name="mapData">The <see cref="MapLineData"/> the <paramref name="categoryTheme"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public LineCategoryThemeProperties(string attributeName, LineCategoryTheme categoryTheme, MapLineData mapData)
-            : base(attributeName, categoryTheme)
-        {
-            this.mapData = mapData;
-        }
+            : base(attributeName, categoryTheme, mapData) {}
 
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
@@ -71,7 +66,7 @@ namespace Core.Plugins.Map.PropertyClasses
             set
             {
                 data.Style.Color = value;
-                mapData.NotifyObservers();
+                MapData.NotifyObservers();
             }
         }
 
@@ -88,7 +83,7 @@ namespace Core.Plugins.Map.PropertyClasses
             set
             {
                 data.Style.Width = value;
-                mapData.NotifyObservers();
+                MapData.NotifyObservers();
             }
         }
 
@@ -106,7 +101,7 @@ namespace Core.Plugins.Map.PropertyClasses
             set
             {
                 data.Style.DashStyle = value;
-                mapData.NotifyObservers();
+                MapData.NotifyObservers();
             }
         }
     }

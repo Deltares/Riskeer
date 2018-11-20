@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Core.Components.Gis.Data;
 using Core.Components.Gis.Theme;
 using Core.Plugins.Map.Properties;
 
@@ -34,10 +35,11 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     /// <typeparam name="TCategoryTheme">The type of category theme.</typeparam>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class CategoryThemeProperties<TCategoryTheme> : ObjectProperties<TCategoryTheme> where TCategoryTheme : CategoryTheme
+    public abstract class CategoryThemeProperties<TCategoryTheme> : ObjectProperties<TCategoryTheme> where TCategoryTheme : CategoryTheme
 
     {
         private readonly string attributeName;
+        protected readonly FeatureBasedMapData MapData;
 
         /// <summary>
         /// Creates a new instance of <see cref="CategoryThemeProperties{T}"/>.
@@ -45,8 +47,9 @@ namespace Core.Plugins.Map.PropertyClasses
         /// <param name="attributeName">The name of the attribute on which <paramref name="categoryTheme"/>
         /// is based on.</param>
         /// <param name="categoryTheme">The theme to create the property info panel for.</param>
+        /// <param name="mapData">The <see cref="FeatureBasedMapData"/> the <paramref name="categoryTheme"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public CategoryThemeProperties(string attributeName, TCategoryTheme categoryTheme)
+        public CategoryThemeProperties(string attributeName, TCategoryTheme categoryTheme, FeatureBasedMapData mapData)
         {
             if (attributeName == null)
             {
@@ -58,7 +61,13 @@ namespace Core.Plugins.Map.PropertyClasses
                 throw new ArgumentNullException(nameof(categoryTheme));
             }
 
+            if (mapData == null)
+            {
+                throw new ArgumentNullException(nameof(mapData));
+            }
+
             this.attributeName = attributeName;
+            MapData = mapData;
             data = categoryTheme;
         }
 

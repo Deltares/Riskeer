@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
 using Core.Components.Gis.Theme;
 using Core.Plugins.Map.PropertyClasses;
@@ -42,7 +43,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var categoryTheme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
 
             // Call
-            TestDelegate call = () => new CategoryThemeProperties<TestCategoryTheme>(null, categoryTheme);
+            TestDelegate call = () => new TestCategoryThemeProperties(null, categoryTheme, new TestFeatureBasedMapData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,11 +54,25 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_CategoryThemeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new CategoryThemeProperties<CategoryTheme>(string.Empty, null);
+            TestDelegate call = () => new TestCategoryThemeProperties(string.Empty, null, new TestFeatureBasedMapData());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("categoryTheme", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_MapDataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var categoryTheme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
+
+            // Call
+            TestDelegate call = () => new TestCategoryThemeProperties(string.Empty, categoryTheme, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("mapData", exception.ParamName);
         }
 
         [Test]
@@ -67,7 +82,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var theme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
 
             // Call
-            var properties = new CategoryThemeProperties<TestCategoryTheme>(string.Empty, theme);
+            var properties = new TestCategoryThemeProperties(string.Empty, theme, new TestFeatureBasedMapData());
 
             // Assert
             Assert.AreSame(theme, properties.Data);
@@ -82,7 +97,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var theme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
 
             // Call
-            var properties = new CategoryThemeProperties<TestCategoryTheme>(string.Empty, theme);
+            var properties = new TestCategoryThemeProperties(string.Empty, theme, new TestFeatureBasedMapData());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -111,7 +126,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var theme = new TestCategoryTheme(criterion);
 
             // Call
-            var properties = new CategoryThemeProperties<TestCategoryTheme>(attributeName, theme);
+            var properties = new TestCategoryThemeProperties(attributeName, theme, new TestFeatureBasedMapData());
 
             // Assert
             string expectedValue = string.Format(formatExpression, attributeName, value);
@@ -124,13 +139,19 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Setup
             var theme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
 
-            var properties = new CategoryThemeProperties<TestCategoryTheme>(string.Empty, theme);
+            var properties = new TestCategoryThemeProperties(string.Empty, theme, new TestFeatureBasedMapData());
 
             // Call
             string toString = properties.ToString();
 
             // Assert
             Assert.IsEmpty(toString);
+        }
+
+        private class TestCategoryThemeProperties : CategoryThemeProperties<TestCategoryTheme>
+        {
+            public TestCategoryThemeProperties(string attributeName, TestCategoryTheme categoryTheme, FeatureBasedMapData mapData) 
+                : base(attributeName, categoryTheme, mapData) {}
         }
 
         private class TestCategoryTheme : CategoryTheme
