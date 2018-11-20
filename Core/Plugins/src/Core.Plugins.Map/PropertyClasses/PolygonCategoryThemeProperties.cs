@@ -26,30 +26,29 @@ using System.Drawing.Design;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.UITypeEditors;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
 using Core.Plugins.Map.Properties;
 
-namespace Core.Plugins.Map.PropertyClasses {
+namespace Core.Plugins.Map.PropertyClasses
+{
     /// <summary>
-    /// ViewModel of <see cref="PointCategoryTheme"/> for properties panel.
+    /// ViewModel of <see cref="PolygonCategoryTheme"/> for properties panel.
     /// </summary>
-    public class PointCategoryThemeProperties : CategoryThemeProperties<PointCategoryTheme>
+    public class PolygonCategoryThemeProperties : CategoryThemeProperties<PolygonCategoryTheme>
     {
-        private readonly MapPointData mapData;
+        private readonly MapPolygonData mapData;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PointCategoryThemeProperties"/>.
+        /// Creates a new instance of <see cref="PolygonCategoryThemeProperties"/>.
         /// </summary>
         /// <param name="attributeName">The name of the attribute on which <paramref name="categoryTheme"/>
         /// is based on.</param>
         /// <param name="categoryTheme">The theme to create the property info panel for.</param>
         /// <param name="mapData">The <see cref="MapLineData"/> the <paramref name="categoryTheme"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PointCategoryThemeProperties(string attributeName, PointCategoryTheme categoryTheme, MapPointData mapData)
+        public PolygonCategoryThemeProperties(string attributeName, PolygonCategoryTheme categoryTheme, MapPolygonData mapData)
             : base(attributeName, categoryTheme)
         {
             this.mapData = mapData;
@@ -58,26 +57,27 @@ namespace Core.Plugins.Map.PropertyClasses {
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PointCategoryTheme_Color_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_FillColor_Description))]
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(ColorTypeConverter))]
-        public Color Color
+        public Color FillColor
         {
             get
             {
-                return data.Style.Color;
+                return data.Style.FillColor;
             }
             set
             {
-                data.Style.Color = value;
+                data.Style.FillColor = value;
                 mapData.NotifyObservers();
             }
         }
 
         [PropertyOrder(3)]
+        [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeColor_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PointCategoryTheme_StrokeColor_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_FillColor_Description))]
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(ColorTypeConverter))]
         public Color StrokeColor
@@ -96,7 +96,7 @@ namespace Core.Plugins.Map.PropertyClasses {
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeThickness_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PointCategoryTheme_StrokeThickness_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_StrokeThickness_Description))]
         public int StrokeThickness
         {
             get
@@ -106,41 +106,6 @@ namespace Core.Plugins.Map.PropertyClasses {
             set
             {
                 data.Style.StrokeThickness = value;
-                mapData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(5)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_Size_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PointCategoryTheme_Size_Description))]
-        public int Size
-        {
-            get
-            {
-                return data.Style.Size;
-            }
-            set
-            {
-                data.Style.Size = value;
-                mapData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(6)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapPointData_Symbol_Displayname))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PointCategoryTheme_Symbol_Description))]
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public PointSymbol Symbol
-        {
-            get
-            {
-                return data.Style.Symbol;
-            }
-            set
-            {
-                data.Style.Symbol = value;
                 mapData.NotifyObservers();
             }
         }

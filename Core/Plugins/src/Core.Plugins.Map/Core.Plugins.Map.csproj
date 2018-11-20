@@ -55,6 +55,7 @@
     <Compile Include="PropertyClasses\MapPointDataProperties.cs" />
     <Compile Include="PropertyClasses\MapPolygonDataProperties.cs" />
     <Compile Include="PropertyClasses\PointCategoryThemeProperties.cs" />
+    <Compile Include="PropertyClasses\PolygonCategoryThemeProperties.cs" />
     <Compile Include="UITypeEditors\MetaDataAttributeEditor.cs" />
     <Compile Include="UITypeEditors\SelectableMetaDataAttribute.cs" />
   </ItemGroup>

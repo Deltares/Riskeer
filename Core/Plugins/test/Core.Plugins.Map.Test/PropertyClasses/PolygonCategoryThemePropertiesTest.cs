@@ -25,7 +25,6 @@ using System.Drawing;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Core.Components.Gis.TestUtil;
@@ -37,29 +36,29 @@ using Rhino.Mocks;
 namespace Core.Plugins.Map.Test.PropertyClasses
 {
     [TestFixture]
-    public class LineCategoryThemePropertiesTest
+    public class PolygonCategoryThemePropertiesTest
     {
-        private const int colorPropertyIndex = 1;
-        private const int lineWidthPropertyIndex = 2;
-        private const int lineStylePropertyIndex = 3;
+        private const int fillColorPropertyIndex = 1;
+        private const int strokeColorPropertyIndex = 2;
+        private const int strokeThicknessPropertyIndex = 3;
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var categoryTheme = new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
-                                                      new LineStyle());
+            var categoryTheme = new PolygonCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                                         new PolygonStyle());
 
             // Call
-            var properties = new LineCategoryThemeProperties(string.Empty, categoryTheme, new MapLineData("Name"));
+            var properties = new PolygonCategoryThemeProperties(string.Empty, categoryTheme, new MapPolygonData("Name"));
 
             // Assert
-            Assert.IsInstanceOf<CategoryThemeProperties<LineCategoryTheme>>(properties);
+            Assert.IsInstanceOf<CategoryThemeProperties<PolygonCategoryTheme>>(properties);
 
-            TestHelper.AssertTypeConverter<LineCategoryThemeProperties, ColorTypeConverter>(
-                nameof(LineCategoryThemeProperties.Color));
-            TestHelper.AssertTypeConverter<LineCategoryThemeProperties, EnumTypeConverter>(
-                nameof(LineCategoryThemeProperties.DashStyle));
+            TestHelper.AssertTypeConverter<MapLineDataProperties, ColorTypeConverter>(
+                nameof(PolygonCategoryThemeProperties.FillColor));
+            TestHelper.AssertTypeConverter<MapLineDataProperties, ColorTypeConverter>(
+                nameof(PolygonCategoryThemeProperties.StrokeColor));
         }
 
         [Test]
@@ -68,16 +67,16 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Setup
             const string attributeName = "AttributeName";
             ValueCriterion valueCriterion = ValueCriterionTestFactory.CreateValueCriterion();
-            var categoryTheme = new LineCategoryTheme(valueCriterion, new LineStyle());
+            var categoryTheme = new PolygonCategoryTheme(valueCriterion, new PolygonStyle());
 
-            var properties = new LineCategoryThemeProperties(attributeName, categoryTheme, new MapLineData("Name"));
+            var properties = new PolygonCategoryThemeProperties(attributeName, categoryTheme, new MapPolygonData("Name"));
 
             // Assert
             Assert.AreSame(categoryTheme, properties.Data);
 
-            Assert.AreEqual(categoryTheme.Style.Color, properties.Color);
-            Assert.AreEqual(categoryTheme.Style.Width, properties.Width);
-            Assert.AreEqual(categoryTheme.Style.DashStyle, properties.DashStyle);
+            Assert.AreEqual(categoryTheme.Style.FillColor, properties.FillColor);
+            Assert.AreEqual(categoryTheme.Style.StrokeColor, properties.StrokeColor);
+            Assert.AreEqual(categoryTheme.Style.StrokeThickness, properties.StrokeThickness);
 
             string expectedValue = GetExpectedFormatExpression(valueCriterion, attributeName);
             Assert.AreEqual(expectedValue, properties.Criterion);
@@ -87,36 +86,36 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_WithValidArguments_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var categoryTheme = new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
-                                                      new LineStyle());
+            var categoryTheme = new PolygonCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                                         new PolygonStyle());
 
             // Call
-            var properties = new LineCategoryThemeProperties(string.Empty, categoryTheme, new MapLineData("Name"));
+            var properties = new PolygonCategoryThemeProperties(string.Empty, categoryTheme, new MapPolygonData("Name"));
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(4, dynamicProperties.Count);
             const string styleCategory = "Stijl";
 
-            PropertyDescriptor colorProperty = dynamicProperties[colorPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
+            PropertyDescriptor fillColorProperty = dynamicProperties[fillColorPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(fillColorProperty,
                                                                             styleCategory,
                                                                             "Kleur",
-                                                                            "De kleur van de lijnen waarmee deze categorie wordt weergegeven.",
+                                                                            "De kleur van de vlakken waarmee deze categorie wordt weergegeven.",
                                                                             true);
 
-            PropertyDescriptor lineWidthProperty = dynamicProperties[lineWidthPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lineWidthProperty,
+            PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
                                                                             styleCategory,
                                                                             "Lijndikte",
-                                                                            "De dikte van de lijnen waarmee deze categorie wordt weergegeven.",
+                                                                            "De kleur van de lijn van de vlakken waarmee deze categorie wordt weergegeven.",
                                                                             true);
 
-            PropertyDescriptor lineStyleProperty = dynamicProperties[lineStylePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lineStyleProperty,
+            PropertyDescriptor strokeThicknessProperty = dynamicProperties[strokeThicknessPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeThicknessProperty,
                                                                             styleCategory,
                                                                             "Lijnstijl",
-                                                                            "De stijl van de lijnen waarmee deze categorie wordt weergegeven.",
+                                                                            "De dikte van de lijn van de vlakken waarmee deze categorie wordt weergegeven.",
                                                                             true);
         }
 
@@ -131,28 +130,28 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(3);
             mocks.ReplayAll();
 
-            var mapData = new MapLineData("Name");
+            var mapData = new MapPolygonData("Name");
             mapData.Attach(observer);
 
-            var categoryTheme = new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
-                                                      new LineStyle());
+            var categoryTheme = new PolygonCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                                         new PolygonStyle());
 
-            var properties = new LineCategoryThemeProperties(string.Empty, categoryTheme, mapData);
+            var properties = new PolygonCategoryThemeProperties(string.Empty, categoryTheme, mapData);
 
-            int width = random.Next(1, 48);
-            Color color = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
-            var dashStyle = random.NextEnumValue<LineDashStyle>();
+            Color fillColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
+            Color strokeColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
+            int strokeThickness = random.Next(1, 48);
 
             // Call
-            properties.Width = width;
-            properties.Color = color;
-            properties.DashStyle = dashStyle;
+            properties.FillColor = fillColor;
+            properties.StrokeColor = strokeColor;
+            properties.StrokeThickness = strokeThickness;
 
             // Assert
-            LineStyle actualStyle = categoryTheme.Style;
-            Assert.AreEqual(width, actualStyle.Width);
-            Assert.AreEqual(color, actualStyle.Color);
-            Assert.AreEqual(dashStyle, actualStyle.DashStyle);
+            PolygonStyle actualStyle = categoryTheme.Style;
+            Assert.AreEqual(fillColor, actualStyle.FillColor);
+            Assert.AreEqual(strokeColor, actualStyle.StrokeColor);
+            Assert.AreEqual(strokeThickness, actualStyle.StrokeThickness);
 
             mocks.VerifyAll();
         }
