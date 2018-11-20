@@ -24,11 +24,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
+using System.Linq;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.UITypeEditors;
 using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Theme;
 using Core.Plugins.Map.Properties;
 
 namespace Core.Plugins.Map.PropertyClasses
@@ -114,11 +116,22 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
+        public PolygonCategoryThemeProperties[] CategoryThemes
+        {
+            get
+            {
+                MapTheme<PolygonCategoryTheme> mapTheme = data.Theme;
+                return mapTheme != null
+                           ? mapTheme.CategoryThemes.Select(ct => new PolygonCategoryThemeProperties(mapTheme.AttributeName, ct, data)).ToArray()
+                           : new PolygonCategoryThemeProperties[0];
+            }
+        }
+
         public override bool DynamicVisibleValidationMethod(string propertyName)
         {
             if (propertyName == nameof(FillColor))
             {
-                return data.MapTheme == null;
+                return data.Theme == null;
             }
 
             return base.DynamicVisibleValidationMethod(propertyName);
@@ -129,7 +142,7 @@ namespace Core.Plugins.Map.PropertyClasses
             if (propertyName == nameof(StrokeColor)
                 || propertyName == nameof(StrokeThickness))
             {
-                return data.MapTheme != null;
+                return data.Theme != null;
             }
 
             return base.DynamicReadonlyValidator(propertyName);
