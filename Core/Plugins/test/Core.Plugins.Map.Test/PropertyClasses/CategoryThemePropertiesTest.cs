@@ -38,8 +38,11 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         public void Constructor_AttributeNameNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var categoryTheme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
+
             // Call
-            TestDelegate call = () => new CategoryThemeProperties<CategoryTheme>(null, CategoryThemeTestFactory.CreateCategoryTheme());
+            TestDelegate call = () => new CategoryThemeProperties<TestCategoryTheme>(null, categoryTheme);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
