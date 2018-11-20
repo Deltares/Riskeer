@@ -211,15 +211,6 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categorie.
-        /// </summary>
-        public static string FeatureBasedMapData_StyleType_Categories {
-            get {
-                return ResourceManager.GetString("FeatureBasedMapData_StyleType_Categories", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het type van de stijl die wordt toegepast voor het weergeven van deze kaartlaag..
         /// </summary>
         public static string FeatureBasedMapdata_StyleType_Description {
@@ -234,15 +225,6 @@ namespace Core.Plugins.Map.Properties {
         public static string FeatureBasedMapdata_StyleType_DisplayName {
             get {
                 return ResourceManager.GetString("FeatureBasedMapdata_StyleType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enkel symbool.
-        /// </summary>
-        public static string FeatureBasedMapData_StyleType_Single_Symbol {
-            get {
-                return ResourceManager.GetString("FeatureBasedMapData_StyleType_Single_Symbol", resourceCulture);
             }
         }
         
@@ -424,6 +406,24 @@ namespace Core.Plugins.Map.Properties {
         public static string MapData_StrokeThickness_DisplayName {
             get {
                 return ResourceManager.GetString("MapData_StrokeThickness_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie.
+        /// </summary>
+        public static string MapData_StyleType_Categories {
+            get {
+                return ResourceManager.GetString("MapData_StyleType_Categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enkel symbool.
+        /// </summary>
+        public static string MapData_StyleType_Single_Symbol {
+            get {
+                return ResourceManager.GetString("MapData_StyleType_Single_Symbol", resourceCulture);
             }
         }
         

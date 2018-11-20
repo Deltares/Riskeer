@@ -131,13 +131,7 @@ namespace Core.Plugins.Map.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FeatureBasedMapdata_StyleType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FeatureBasedMapdata_StyleType_Description))]
-        public string StyleType
-        {
-            get
-            {
-                return Resources.FeatureBasedMapData_StyleType_Single_Symbol;
-            }
-        }
+        public abstract string StyleType { get; }
 
         [PropertyOrder(selectedMetaDataAttributePropertyIndex)]
         [DynamicVisible]

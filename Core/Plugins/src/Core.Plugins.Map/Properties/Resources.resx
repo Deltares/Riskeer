@@ -355,10 +355,10 @@
   <data name="FeatureBasedMapdata_StyleType_DisplayName" xml:space="preserve">
     <value>Type</value>
   </data>
-  <data name="FeatureBasedMapData_StyleType_Categories" xml:space="preserve">
+  <data name="MapData_StyleType_Categories" xml:space="preserve">
     <value>Categorie</value>
   </data>
-  <data name="FeatureBasedMapData_StyleType_Single_Symbol" xml:space="preserve">
+  <data name="MapData_StyleType_Single_Symbol" xml:space="preserve">
     <value>Enkel symbool</value>
   </data>
   <data name="MapData_Categories_DisplayName" xml:space="preserve">

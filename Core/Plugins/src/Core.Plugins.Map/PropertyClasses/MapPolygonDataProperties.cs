@@ -58,6 +58,16 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
+        public override string StyleType
+        {
+            get
+            {
+                return data.Theme != null
+                           ? Resources.MapData_StyleType_Categories
+                           : Resources.MapData_StyleType_Single_Symbol;
+            }
+        }
+
         [PropertyOrder(8)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]

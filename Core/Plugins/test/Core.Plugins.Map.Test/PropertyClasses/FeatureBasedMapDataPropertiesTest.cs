@@ -102,7 +102,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.IsEmpty(properties.SelectedMetaDataAttribute.MetaDataAttribute);
             Assert.AreEqual(data.MetaData, properties.GetAvailableMetaDataAttributes());
 
-            Assert.AreEqual("Enkel symbool", properties.StyleType);
+            Assert.IsNull(properties.StyleType);
         }
 
         [Test]
@@ -419,6 +419,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                     return "Test feature based map data";
                 }
             }
+
+            public override string StyleType { get; }
         }
     }
 }

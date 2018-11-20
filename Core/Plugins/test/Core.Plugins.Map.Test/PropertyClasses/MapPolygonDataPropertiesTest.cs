@@ -159,6 +159,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
+            Assert.AreEqual("Enkel symbool", properties.StyleType);
+
             Assert.AreEqual(mapPolygonData.ShowLabels, properties.ShowLabels);
             Assert.IsEmpty(properties.SelectedMetaDataAttribute.MetaDataAttribute);
             Assert.AreEqual(mapPolygonData.MetaData, properties.GetAvailableMetaDataAttributes());
@@ -188,6 +190,8 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
 
             // Assert
+            Assert.AreEqual("Categorie", properties.StyleType);
+
             Assert.AreEqual(mapPolygonData.ShowLabels, properties.ShowLabels);
             Assert.IsEmpty(properties.SelectedMetaDataAttribute.MetaDataAttribute);
             Assert.AreEqual(mapPolygonData.MetaData, properties.GetAvailableMetaDataAttributes());
