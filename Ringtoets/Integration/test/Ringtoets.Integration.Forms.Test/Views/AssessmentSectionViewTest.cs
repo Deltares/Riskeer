@@ -233,12 +233,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 // Call
-                assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+                referenceLine.SetGeometry(new List<Point2D>
                 {
                     new Point2D(2.0, 5.0),
                     new Point2D(4.0, 3.0)
                 });
-                assessmentSection.NotifyObservers();
+                referenceLine.NotifyObservers();
 
                 // Assert
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
