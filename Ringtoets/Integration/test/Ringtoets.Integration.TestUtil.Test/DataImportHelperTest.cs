@@ -41,17 +41,6 @@ namespace Ringtoets.Integration.TestUtil.Test
         }
 
         [Test]
-        public void ImportReferenceLine_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => DataImportHelper.ImportReferenceLine(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("importTarget", paramName);
-        }
-
-        [Test]
         public void ImportReferenceLine_ValidAssessmentSection_AddsReferenceLineGeometry()
         {
             // Call

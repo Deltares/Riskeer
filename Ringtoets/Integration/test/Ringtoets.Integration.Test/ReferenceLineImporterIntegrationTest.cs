@@ -95,8 +95,8 @@ namespace Ringtoets.Integration.Test
             var failureMechanismObserver = mocks.StrictMock<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver())
                                     .Repeat.Times(assessmentSection.GetFailureMechanisms().Count());
-            var assessmentSectionObserver = mocks.StrictMock<IObserver>();
-            assessmentSectionObserver.Expect(o => o.UpdateObserver());
+            var referenceLineObserver = mocks.StrictMock<IObserver>();
+            referenceLineObserver.Expect(o => o.UpdateObserver());
             var surfaceLinesObserver = mocks.StrictMock<IObserver>();
             surfaceLinesObserver.Expect(o => o.UpdateObserver());
             var stochasticSoilModelsObserver = mocks.StrictMock<IObserver>();
@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Test
                 messageBoxTester.ClickOk();
             };
 
-            assessmentSection.Attach(assessmentSectionObserver);
+            assessmentSection.ReferenceLine.Attach(referenceLineObserver);
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 failureMechanism.Attach(failureMechanismObserver);
