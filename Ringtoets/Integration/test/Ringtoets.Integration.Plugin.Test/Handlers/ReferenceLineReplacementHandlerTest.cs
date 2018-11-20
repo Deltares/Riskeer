@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Replace_AssessmentSectionNull_ThrowArgumentNullException()
+        public void Replace_OriginalReferenceLineNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -161,7 +161,30 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
+            Assert.AreEqual("originalReferenceLine", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Replace_NewReferenceLineNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new ReferenceLineReplacementHandler(assessmentSection, viewCommands);
+
+            var referenceLine = new ReferenceLine();
+
+            // Call
+            TestDelegate call = () => handler.Replace(referenceLine, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("newReferenceLine", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -181,7 +204,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Replace(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(60, observables.Length);
+            Assert.AreEqual(59, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -338,7 +361,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.Contains(observables, technicalInnovationFailureMechanism.SectionResults);
 
             CollectionAssert.AreEqual(referenceLine.Points, assessmentSection.ReferenceLine.Points);
-            CollectionAssert.Contains(observables, assessmentSection);
 
             mocks.VerifyAll();
         }

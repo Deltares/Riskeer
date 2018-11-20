@@ -73,8 +73,18 @@ namespace Ringtoets.Integration.Plugin.Handlers
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> Replace(ReferenceLine oldReferenceLine, ReferenceLine newReferenceLine)
+        public IEnumerable<IObservable> Replace(ReferenceLine originalReferenceLine, ReferenceLine newReferenceLine)
         {
+            if (originalReferenceLine == null)
+            {
+                throw new ArgumentNullException(nameof(originalReferenceLine));
+            }
+
+            if (newReferenceLine == null)
+            {
+                throw new ArgumentNullException(nameof(newReferenceLine));
+            }
+
             removedObjects.Clear();
 
             ClearResults results = RingtoetsDataSynchronizationService.ClearReferenceLineDependentData(assessmentSection);
@@ -83,11 +93,8 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 removedObjects.Enqueue(removedObject);
             }
 
-            oldReferenceLine.SetGeometry(newReferenceLine.Points);
-            return new IObservable[]
-            {
-                oldReferenceLine
-            }.Concat(results.ChangedObjects);
+            originalReferenceLine.SetGeometry(newReferenceLine.Points);
+            return results.ChangedObjects;
         }
 
         public void DoPostReplacementUpdates()

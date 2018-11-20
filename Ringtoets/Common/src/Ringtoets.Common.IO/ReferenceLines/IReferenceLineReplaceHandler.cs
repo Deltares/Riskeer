@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -42,10 +43,11 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// Replaces the <see cref="ReferenceLine"/> of a <see cref="IAssessmentSection"/>
         /// and propagates the changes to underlying data structure.
         /// </summary>
-        /// <param name="oldReferenceLine">The reference line to be updated.</param>
+        /// <param name="originalReferenceLine">The reference line to be updated.</param>
         /// <param name="newReferenceLine">The new reference line.</param>
         /// <returns>All objects that have been affected by the replacement.</returns>
-        IEnumerable<IObservable> Replace(ReferenceLine oldReferenceLine, ReferenceLine newReferenceLine);
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        IEnumerable<IObservable> Replace(ReferenceLine originalReferenceLine, ReferenceLine newReferenceLine);
 
         /// <summary>
         /// Perform post-replacement updates.
