@@ -155,6 +155,10 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
+        [PropertyOrder(13)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Categories_DisplayName))]
         public PointCategoryThemeProperties[] CategoryThemes
         {
             get
@@ -168,9 +172,18 @@ namespace Core.Plugins.Map.PropertyClasses
 
         public override bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (propertyName == nameof(Color))
+            if (propertyName == nameof(Color)
+                || propertyName == nameof(StrokeColor)
+                || propertyName == nameof(StrokeThickness)
+                || propertyName == nameof(Size)
+                || propertyName == nameof(Symbol))
             {
                 return data.Theme == null;
+            }
+
+            if (propertyName == nameof(CategoryThemes))
+            {
+                return data.Theme != null;
             }
 
             return base.DynamicVisibleValidationMethod(propertyName);

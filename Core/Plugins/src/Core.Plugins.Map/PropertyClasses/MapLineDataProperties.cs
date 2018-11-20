@@ -81,7 +81,7 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [PropertyOrder(9)]
-        [DynamicReadOnly]
+        [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeThickness_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_Width_Description))]
@@ -99,7 +99,7 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [PropertyOrder(10)]
-        [DynamicReadOnly]
+        [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapLineData_DashStyle_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_DashStyle_Description))]
@@ -134,9 +134,17 @@ namespace Core.Plugins.Map.PropertyClasses
 
         public override bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (propertyName == nameof(Color))
+            if (propertyName == nameof(Color) 
+                || propertyName == nameof(Width)
+                || propertyName == nameof(DashStyle)
+            )
             {
                 return data.Theme == null;
+            }
+
+            if (propertyName == nameof(CategoryThemes))
+            {
+                return data.Theme != null;
             }
 
             return base.DynamicVisibleValidationMethod(propertyName);
