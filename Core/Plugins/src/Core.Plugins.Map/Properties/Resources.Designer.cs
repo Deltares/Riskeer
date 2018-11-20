@@ -768,6 +768,33 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kleur van de vlakken waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PolygonCategoryTheme_FillColor_Description {
+            get {
+                return ResourceManager.GetString("PolygonCategoryTheme_FillColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijn van de vlakken waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PolygonCategoryTheme_StrokeColor_Description {
+            get {
+                return ResourceManager.GetString("PolygonCategoryTheme_StrokeColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijn van de vlakken waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PolygonCategoryTheme_StrokeThickness_Description {
+            get {
+                return ResourceManager.GetString("PolygonCategoryTheme_StrokeThickness_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap RectangleZoomIcon {

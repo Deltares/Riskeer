@@ -57,7 +57,7 @@ namespace Core.Plugins.Map.PropertyClasses
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Color_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_FillColor_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PolygonCategoryTheme_FillColor_Description)]
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(ColorTypeConverter))]
         public Color FillColor
@@ -74,10 +74,9 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeColor_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_FillColor_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PolygonCategoryTheme_StrokeColor_Description))]
         [Editor(typeof(ColorEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(ColorTypeConverter))]
         public Color StrokeColor
@@ -96,7 +95,7 @@ namespace Core.Plugins.Map.PropertyClasses
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeThickness_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MapPolygonData_StrokeThickness_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PolygonCategoryTheme_StrokeThickness_Description))]
         public int StrokeThickness
         {
             get

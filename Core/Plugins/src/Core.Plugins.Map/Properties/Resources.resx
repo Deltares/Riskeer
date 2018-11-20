@@ -388,4 +388,13 @@
   <data name="PointCategoryTheme_Symbol_Description" xml:space="preserve">
     <value>Het symbool waarmee deze categorie wordt weergegeven.</value>
   </data>
+  <data name="PolygonCategoryTheme_FillColor_Description" xml:space="preserve">
+    <value>De kleur van de vlakken waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PolygonCategoryTheme_StrokeColor_Description" xml:space="preserve">
+    <value>De kleur van de lijn van de vlakken waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PolygonCategoryTheme_StrokeThickness_Description" xml:space="preserve">
+    <value>De dikte van de lijn van de vlakken waarmee deze categorie wordt weergegeven.</value>
+  </data>
 </root>

@@ -58,13 +58,13 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<CategoryThemeProperties<PointCategoryTheme>>(properties);
 
-            TestHelper.AssertTypeConverter<LineCategoryThemeProperties, ColorTypeConverter>(
+            TestHelper.AssertTypeConverter<PointCategoryThemeProperties, ColorTypeConverter>(
                 nameof(PointCategoryThemeProperties.Color));
 
-            TestHelper.AssertTypeConverter<LineCategoryThemeProperties, ColorTypeConverter>(
+            TestHelper.AssertTypeConverter<PointCategoryThemeProperties, ColorTypeConverter>(
                 nameof(PointCategoryThemeProperties.StrokeColor));
 
-            TestHelper.AssertTypeConverter<LineCategoryThemeProperties, EnumTypeConverter>(
+            TestHelper.AssertTypeConverter<PointCategoryThemeProperties, EnumTypeConverter>(
                 nameof(PointCategoryThemeProperties.Symbol));
         }
 
@@ -95,11 +95,11 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_WithValidArguments_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var categoryTheme = new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
-                                                      new LineStyle());
+            var categoryTheme = new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                                      new PointStyle());
 
             // Call
-            var properties = new LineCategoryThemeProperties(string.Empty, categoryTheme, new MapLineData("Name"));
+            var properties = new PointCategoryThemeProperties(string.Empty, categoryTheme, new MapPointData("Name"));
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

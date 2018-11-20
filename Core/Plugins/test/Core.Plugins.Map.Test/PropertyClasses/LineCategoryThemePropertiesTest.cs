@@ -102,22 +102,19 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(colorProperty,
                                                                             styleCategory,
                                                                             "Kleur",
-                                                                            "De kleur van de lijnen waarmee deze categorie wordt weergegeven.",
-                                                                            true);
+                                                                            "De kleur van de lijnen waarmee deze categorie wordt weergegeven.");
 
             PropertyDescriptor lineWidthProperty = dynamicProperties[lineWidthPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lineWidthProperty,
                                                                             styleCategory,
                                                                             "Lijndikte",
-                                                                            "De dikte van de lijnen waarmee deze categorie wordt weergegeven.",
-                                                                            true);
+                                                                            "De dikte van de lijnen waarmee deze categorie wordt weergegeven.");
 
             PropertyDescriptor lineStyleProperty = dynamicProperties[lineStylePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lineStyleProperty,
                                                                             styleCategory,
                                                                             "Lijnstijl",
-                                                                            "De stijl van de lijnen waarmee deze categorie wordt weergegeven.",
-                                                                            true);
+                                                                            "De stijl van de lijnen waarmee deze categorie wordt weergegeven.");
         }
 
         [Test]

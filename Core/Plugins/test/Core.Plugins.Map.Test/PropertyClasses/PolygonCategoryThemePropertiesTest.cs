@@ -55,9 +55,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<CategoryThemeProperties<PolygonCategoryTheme>>(properties);
 
-            TestHelper.AssertTypeConverter<MapLineDataProperties, ColorTypeConverter>(
+            TestHelper.AssertTypeConverter<PolygonCategoryThemeProperties, ColorTypeConverter>(
                 nameof(PolygonCategoryThemeProperties.FillColor));
-            TestHelper.AssertTypeConverter<MapLineDataProperties, ColorTypeConverter>(
+            TestHelper.AssertTypeConverter<PolygonCategoryThemeProperties, ColorTypeConverter>(
                 nameof(PolygonCategoryThemeProperties.StrokeColor));
         }
 
@@ -101,22 +101,19 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(fillColorProperty,
                                                                             styleCategory,
                                                                             "Kleur",
-                                                                            "De kleur van de vlakken waarmee deze categorie wordt weergegeven.",
-                                                                            true);
+                                                                            "De kleur van de vlakken waarmee deze categorie wordt weergegeven.");
 
             PropertyDescriptor strokeColorProperty = dynamicProperties[strokeColorPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeColorProperty,
                                                                             styleCategory,
                                                                             "Lijndikte",
-                                                                            "De kleur van de lijn van de vlakken waarmee deze categorie wordt weergegeven.",
-                                                                            true);
+                                                                            "De kleur van de lijn van de vlakken waarmee deze categorie wordt weergegeven.");
 
             PropertyDescriptor strokeThicknessProperty = dynamicProperties[strokeThicknessPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(strokeThicknessProperty,
                                                                             styleCategory,
                                                                             "Lijnstijl",
-                                                                            "De dikte van de lijn van de vlakken waarmee deze categorie wordt weergegeven.",
-                                                                            true);
+                                                                            "De dikte van de lijn van de vlakken waarmee deze categorie wordt weergegeven.");
         }
 
         [Test]
