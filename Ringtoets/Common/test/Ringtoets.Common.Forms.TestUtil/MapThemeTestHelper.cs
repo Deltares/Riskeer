@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Forms.TestUtil
     public static class MapThemeTestHelper
     {
         /// <summary>
-        /// Asserts whether the <paramref name="theme"/> is configured to categories values
+        /// Asserts whether the <paramref name="theme"/> is configured for category values
         /// of type <see cref="DisplayFailureMechanismSectionAssemblyCategoryGroup"/>.
         /// </summary>
         /// <param name="theme">The <see cref="MapTheme{T}"/> to assert.</param>
@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             Assert.AreEqual("Categorie", theme.AttributeName);
             Assert.AreEqual(9, theme.CategoryThemes.Count());
-            AssertCategoryTheme("Iv", Color.FromArgb(255, 0, 255, 0), theme.CategoryThemes.First());
+            AssertCategoryTheme("Iv", Color.FromArgb(255, 0, 255, 0), theme.CategoryThemes.ElementAt(0));
             AssertCategoryTheme("IIv", Color.FromArgb(255, 118, 147, 60), theme.CategoryThemes.ElementAt(1));
             AssertCategoryTheme("IIIv", Color.FromArgb(255, 255, 255, 0), theme.CategoryThemes.ElementAt(2));
             AssertCategoryTheme("IVv", Color.FromArgb(255, 204, 192, 218), theme.CategoryThemes.ElementAt(3));
