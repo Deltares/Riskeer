@@ -12,11 +12,11 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryThemeTestFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestFeatureBasedMapData.cs" />
     <Compile Include="TestImageBasedMapData.cs" />
     <Compile Include="TestMapData.cs" />
+    <Compile Include="ValueCriterionTestFactory.cs" />
     <Compile Include="WmtsMapDataTestHelper.cs" />
   </ItemGroup>
   <ItemGroup>

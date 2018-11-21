@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
+using System.Linq;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.UITypeEditors;
@@ -31,6 +32,7 @@ using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
+using Core.Components.Gis.Theme;
 using Core.Plugins.Map.Properties;
 
 namespace Core.Plugins.Map.PropertyClasses
@@ -58,6 +60,16 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
+        public override string StyleType
+        {
+            get
+            {
+                return data.Theme != null
+                           ? Resources.MapData_StyleType_Categories
+                           : Resources.MapData_StyleType_Single_Symbol;
+            }
+        }
+
         [PropertyOrder(8)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
@@ -79,7 +91,7 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [PropertyOrder(9)]
-        [DynamicReadOnly]
+        [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_StrokeThickness_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_Width_Description))]
@@ -97,7 +109,7 @@ namespace Core.Plugins.Map.PropertyClasses
         }
 
         [PropertyOrder(10)]
-        [DynamicReadOnly]
+        [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapLineData_DashStyle_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapLineData_DashStyle_Description))]
@@ -115,11 +127,35 @@ namespace Core.Plugins.Map.PropertyClasses
             }
         }
 
+        [PropertyOrder(11)]
+        [DynamicVisible]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Categories_DisplayName))]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        public LineCategoryThemeProperties[] CategoryThemes
+        {
+            get
+            {
+                MapTheme<LineCategoryTheme> mapTheme = data.Theme;
+                return mapTheme != null
+                           ? mapTheme.CategoryThemes.Select(ct => new LineCategoryThemeProperties(mapTheme.AttributeName, ct, data)).ToArray()
+                           : new LineCategoryThemeProperties[0];
+            }
+        }
+
         public override bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (propertyName == nameof(Color))
+            if (propertyName == nameof(Color)
+                || propertyName == nameof(Width)
+                || propertyName == nameof(DashStyle)
+            )
             {
-                return data.MapTheme == null;
+                return data.Theme == null;
+            }
+
+            if (propertyName == nameof(CategoryThemes))
+            {
+                return data.Theme != null;
             }
 
             return base.DynamicVisibleValidationMethod(propertyName);
@@ -130,7 +166,7 @@ namespace Core.Plugins.Map.PropertyClasses
             if (propertyName == nameof(Width)
                 || propertyName == nameof(DashStyle))
             {
-                return data.MapTheme != null;
+                return data.Theme != null;
             }
 
             return base.DynamicReadonlyValidator(propertyName);

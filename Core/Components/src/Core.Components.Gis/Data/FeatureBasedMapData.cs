@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Features;
-using Core.Components.Gis.Theme;
 
 namespace Core.Components.Gis.Data
 {
@@ -89,11 +88,6 @@ namespace Core.Components.Gis.Data
                                .Distinct();
             }
         }
-
-        /// <summary>
-        /// Gets or sets the map theme of the <see cref="FeatureBasedMapData"/>.
-        /// </summary>
-        public MapTheme MapTheme { get; set; }
 
         /// <summary>
         /// This method validates newly set features.

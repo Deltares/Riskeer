@@ -3,16 +3,16 @@
 // This file is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
+// it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
+// GNU Lesser General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License
+// You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
@@ -20,23 +20,21 @@
 // All rights reserved.
 
 using Core.Components.Gis.Theme;
-using NUnit.Framework;
-using Ringtoets.Common.Forms.Factories;
-using Ringtoets.Common.Forms.TestUtil;
 
-namespace Ringtoets.Common.Forms.Test.Factories
+namespace Core.Components.Gis.TestUtil
 {
-    [TestFixture]
-    public class MapThemeFactoryTest
+    /// <summary>
+    /// Creates valid instances of <see cref="ValueCriterion"/> which can be used for testing.
+    /// </summary>
+    public static class ValueCriterionTestFactory
     {
-        [Test]
-        public void CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme_ReturnsMapTheme()
+        /// <summary>
+        /// Creates a fully configured <see cref="ValueCriterion"/>.
+        /// </summary>
+        /// <returns>A fully configured <see cref="ValueCriterion"/>.</returns>
+        public static ValueCriterion CreateValueCriterion()
         {
-            // Call
-            MapTheme<LineCategoryTheme> mapTheme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme();
-
-            // Assert
-            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(mapTheme);
+            return new ValueCriterion(ValueCriterionOperator.EqualValue, "value");
         }
     }
 }

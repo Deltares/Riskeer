@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Test.Factories
             Assert.AreEqual(LineDashStyle.Solid, lineStyle.DashStyle);
 
             Assert.AreEqual("Vaknummer", data.SelectedMetaDataAttribute);
-            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(data.MapTheme);
+            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(data.Theme);
         }
     }
 }

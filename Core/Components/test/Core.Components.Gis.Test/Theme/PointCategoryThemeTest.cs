@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Components.Gis.Style;
 using Core.Components.Gis.TestUtil;
 using Core.Components.Gis.Theme;
 using NUnit.Framework;
@@ -27,35 +28,33 @@ using NUnit.Framework;
 namespace Core.Components.Gis.Test.Theme
 {
     [TestFixture]
-    public class CategoryThemeTest
+    public class PointCategoryThemeTest
     {
         [Test]
-        public void Constructor_CriterionNull_ThrowsArgumentNullException()
+        public void Constructor_StyleNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestCategoryTheme(null);
+            TestDelegate call = () => new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("criterion", exception.ParamName);
+            Assert.AreEqual("style", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_ValidArguments_ReturnsExpectedProperties()
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            ValueCriterion criterion = ValueCriterionTestFactory.CreateValueCriterion();
+            ValueCriterion valueCriterion = ValueCriterionTestFactory.CreateValueCriterion();
+            var style = new PointStyle();
 
             // Call
-            var category = new TestCategoryTheme(criterion);
+            var category = new PointCategoryTheme(valueCriterion, style);
 
             // Assert
-            Assert.AreSame(criterion, category.Criterion);
-        }
-
-        private class TestCategoryTheme : CategoryTheme
-        {
-            public TestCategoryTheme(ValueCriterion criterion) : base(criterion) {}
+            Assert.IsInstanceOf<CategoryTheme>(category);
+            Assert.AreSame(valueCriterion, category.Criterion);
+            Assert.AreSame(style, category.Style);
         }
     }
 }

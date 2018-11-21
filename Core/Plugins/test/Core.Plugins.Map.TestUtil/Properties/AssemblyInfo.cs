@@ -19,34 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using System.Reflection;
 
-namespace Core.Components.Gis.Theme
-{
-    /// <summary>
-    /// Class to define themes for categories.
-    /// </summary>
-    public abstract class CategoryTheme
-    {
-        /// <summary>
-        /// Creates a new instance of <see cref="CategoryTheme"/>.
-        /// </summary>
-        /// <param name="criterion">The criterion belonging to the category.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="criterion"/>
-        /// is <c>null</c>.</exception>
-        protected CategoryTheme(ValueCriterion criterion)
-        {
-            if (criterion == null)
-            {
-                throw new ArgumentNullException(nameof(criterion));
-            }
-
-            Criterion = criterion;
-        }
-
-        /// <summary>
-        /// Gets the criterion that is associated with the category theme.
-        /// </summary>
-        public ValueCriterion Criterion { get; }
-    }
-}
+[assembly: AssemblyTitle("Core.Plugins.Map.TestUtil")]
+[assembly: AssemblyProduct("Core.Plugins.Map.TestUtil")]

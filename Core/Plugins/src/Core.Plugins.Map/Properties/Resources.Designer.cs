@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -137,15 +137,6 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kleur waarmee deze categorie wordt weergegeven..
-        /// </summary>
-        public static string CategoryThemeProperties_Color_Description {
-            get {
-                return ResourceManager.GetString("CategoryThemeProperties_Color_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het criterium van deze categorie..
         /// </summary>
         public static string CategoryThemeProperties_Criterion_Description {
@@ -180,33 +171,6 @@ namespace Core.Plugins.Map.Properties {
             get {
                 return ResourceManager.GetString("CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeNam" +
                         "e_0_Value_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categorieën.
-        /// </summary>
-        public static string FeatureBasedMapdata_Categories_DisplayName {
-            get {
-                return ResourceManager.GetString("FeatureBasedMapdata_Categories_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan de kaartlaag is gecategoriseerd..
-        /// </summary>
-        public static string FeatureBasedMapdata_MapThemeAttributeName_Description {
-            get {
-                return ResourceManager.GetString("FeatureBasedMapdata_MapThemeAttributeName_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Op basis van.
-        /// </summary>
-        public static string FeatureBasedMapdata_MapThemeAttributeName_DisplayName {
-            get {
-                return ResourceManager.GetString("FeatureBasedMapdata_MapThemeAttributeName_DisplayName", resourceCulture);
             }
         }
         
@@ -247,15 +211,6 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categorie.
-        /// </summary>
-        public static string FeatureBasedMapData_StyleType_Categories {
-            get {
-                return ResourceManager.GetString("FeatureBasedMapData_StyleType_Categories", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het type van de stijl die wordt toegepast voor het weergeven van deze kaartlaag..
         /// </summary>
         public static string FeatureBasedMapdata_StyleType_Description {
@@ -270,15 +225,6 @@ namespace Core.Plugins.Map.Properties {
         public static string FeatureBasedMapdata_StyleType_DisplayName {
             get {
                 return ResourceManager.GetString("FeatureBasedMapdata_StyleType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enkel symbool.
-        /// </summary>
-        public static string FeatureBasedMapData_StyleType_Single_Symbol {
-            get {
-                return ResourceManager.GetString("FeatureBasedMapData_StyleType_Single_Symbol", resourceCulture);
             }
         }
         
@@ -337,12 +283,48 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijnen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string LineCategoryTheme_Color_Description {
+            get {
+                return ResourceManager.GetString("LineCategoryTheme_Color_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De stijl van de lijnen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string LineCategoryTheme_DashStyle_Description {
+            get {
+                return ResourceManager.GetString("LineCategoryTheme_DashStyle_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijnen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string LineCategoryTheme_Width_Description {
+            get {
+                return ResourceManager.GetString("LineCategoryTheme_Width_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap LineIcon {
             get {
                 object obj = ResourceManager.GetObject("LineIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorieën.
+        /// </summary>
+        public static string MapData_Categories_DisplayName {
+            get {
+                return ResourceManager.GetString("MapData_Categories_DisplayName", resourceCulture);
             }
         }
         
@@ -370,6 +352,24 @@ namespace Core.Plugins.Map.Properties {
         public static string MapData_IsVisible_DisplayName {
             get {
                 return ResourceManager.GetString("MapData_IsVisible_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan de kaartlaag is gecategoriseerd..
+        /// </summary>
+        public static string Mapdata_MapThemeAttributeName_Description {
+            get {
+                return ResourceManager.GetString("Mapdata_MapThemeAttributeName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Op basis van.
+        /// </summary>
+        public static string Mapdata_MapThemeAttributeName_DisplayName {
+            get {
+                return ResourceManager.GetString("Mapdata_MapThemeAttributeName_DisplayName", resourceCulture);
             }
         }
         
@@ -406,6 +406,24 @@ namespace Core.Plugins.Map.Properties {
         public static string MapData_StrokeThickness_DisplayName {
             get {
                 return ResourceManager.GetString("MapData_StrokeThickness_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie.
+        /// </summary>
+        public static string MapData_StyleType_Categories {
+            get {
+                return ResourceManager.GetString("MapData_StyleType_Categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enkel symbool.
+        /// </summary>
+        public static string MapData_StyleType_Single_Symbol {
+            get {
+                return ResourceManager.GetString("MapData_StyleType_Single_Symbol", resourceCulture);
             }
         }
         
@@ -695,12 +713,84 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kleur van de symbolen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PointCategoryTheme_Color_Description {
+            get {
+                return ResourceManager.GetString("PointCategoryTheme_Color_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De grootte van de symbolen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PointCategoryTheme_Size_Description {
+            get {
+                return ResourceManager.GetString("PointCategoryTheme_Size_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijn van de symbolen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PointCategoryTheme_StrokeColor_Description {
+            get {
+                return ResourceManager.GetString("PointCategoryTheme_StrokeColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijn van de symbolen waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PointCategoryTheme_StrokeThickness_Description {
+            get {
+                return ResourceManager.GetString("PointCategoryTheme_StrokeThickness_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het symbool waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PointCategoryTheme_Symbol_Description {
+            get {
+                return ResourceManager.GetString("PointCategoryTheme_Symbol_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap PointsIcon {
             get {
                 object obj = ResourceManager.GetObject("PointsIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de vlakken waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PolygonCategoryTheme_FillColor_Description {
+            get {
+                return ResourceManager.GetString("PolygonCategoryTheme_FillColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijn van de vlakken waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PolygonCategoryTheme_StrokeColor_Description {
+            get {
+                return ResourceManager.GetString("PolygonCategoryTheme_StrokeColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijn van de vlakken waarmee deze categorie wordt weergegeven..
+        /// </summary>
+        public static string PolygonCategoryTheme_StrokeThickness_Description {
+            get {
+                return ResourceManager.GetString("PolygonCategoryTheme_StrokeThickness_Description", resourceCulture);
             }
         }
         

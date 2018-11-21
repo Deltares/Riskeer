@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(expectedVisibility, actualMapLineData.IsVisible);
             Assert.AreEqual("Categorie", actualMapLineData.SelectedMetaDataAttribute);
             AssertEqualStyle(actualMapLineData.Style, Color.Empty, 6, LineDashStyle.Solid);
-            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(actualMapLineData.MapTheme);
+            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(actualMapLineData.Theme);
         }
 
         private static void AssertEqualStyle(LineStyle lineStyle, Color color, int width, LineDashStyle style)

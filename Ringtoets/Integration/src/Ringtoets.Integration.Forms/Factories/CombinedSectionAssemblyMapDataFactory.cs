@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Factories
             {
                 ShowLabels = true,
                 SelectedMetaDataAttribute = Resources.SectionNumber_DisplayName,
-                MapTheme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
+                Theme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
             };
         }
     }

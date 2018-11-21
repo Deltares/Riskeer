@@ -36,6 +36,7 @@ using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Point = DotSpatial.Topology.Point;
 
 namespace Core.Components.DotSpatial.Test.Converter
@@ -512,37 +513,18 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerProperties_MapDataWithMapThemeAndMetaDataNameNotInFeatures_AddsOnlyDefaultCategory()
+        public void ConvertLayerProperties_WithMapData_CallsHasMapThemeWithCorrectInput()
         {
             // Setup
-            var random = new Random(21);
-
-            var featureScheme = new PointScheme();
-            var defaultCategory = new PointCategory();
-            var category = new PointCategory();
-
-            var theme = new MapTheme("Meta", new[]
-            {
-                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  new ValueCriterion(random.NextEnum<ValueCriterionOperator>(),
-                                                     "test value"))
-            });
-
             var mapData = new TestFeatureBasedMapData("test data")
             {
                 Features = new[]
                 {
                     new MapFeature(Enumerable.Empty<MapGeometry>())
-                },
-                MapTheme = theme
+                }
             };
 
-            var testConverter = new TestFeatureBasedMapDataConverter
-            {
-                CreatedFeatureScheme = featureScheme,
-                CreatedDefaultCategory = defaultCategory,
-                CreatedCategory = category
-            };
+            var testConverter = new TestFeatureBasedMapDataConverter();
 
             var mapLayer = new TestFeatureLayer();
 
@@ -550,54 +532,53 @@ namespace Core.Components.DotSpatial.Test.Converter
             testConverter.ConvertLayerProperties(mapData, mapLayer);
 
             // Assert
-            Assert.AreSame(defaultCategory, mapLayer.Symbology.Categories.Single());
+            Assert.AreSame(mapData, testConverter.MapDataInput);
         }
 
         [Test]
-        [TestCase(ValueCriterionOperator.EqualValue, "[1] = '{0}'", TestName = "EqualValue")]
-        [TestCase(ValueCriterionOperator.UnequalValue, "NOT [1] = '{0}'", TestName = "UnequalValue")]
-        public void ConvertLayerProperties_MapDataWithMapThemeAndValidValueCriteria_SetsCorrectFilterExpression(ValueCriterionOperator criterionOperator,
-                                                                                                                string expressionFormat)
+        public void ConvertLayerProperties_MapDataHasMapTheme_SetsSymbology()
         {
             // Setup
-            var random = new Random(21);
-            const string metadataAttributeName = "Meta";
-            const string value = "test value";
-
-            var featureScheme = new PointScheme();
-            var defaultCategory = new PointCategory();
-            var category = new PointCategory();
-
-            var valueCriterion = new ValueCriterion(criterionOperator,
-                                                    value);
-            var theme = new MapTheme(metadataAttributeName, new[]
-            {
-                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  valueCriterion)
-            });
-
+            var mapLayer = new TestFeatureLayer();
             var mapData = new TestFeatureBasedMapData("test data")
             {
                 Features = new[]
                 {
                     new MapFeature(Enumerable.Empty<MapGeometry>())
-                    {
-                        MetaData =
-                        {
-                            {
-                                metadataAttributeName, new object()
-                            }
-                        }
-                    }
-                },
-                MapTheme = theme
+                }
             };
 
+            var scheme = new PointScheme();
             var testConverter = new TestFeatureBasedMapDataConverter
             {
-                CreatedFeatureScheme = featureScheme,
-                CreatedDefaultCategory = defaultCategory,
-                CreatedCategory = category
+                CreatedFeatureScheme = scheme,
+                MapDataHasTheme = true
+            };
+
+            // Call
+            testConverter.ConvertLayerProperties(mapData, mapLayer);
+
+            // Assert
+            Assert.AreSame(scheme, mapLayer.Symbology);
+        }
+
+        [Test]
+        public void ConvertLayerProperties_MapDataHasMapTheme_CallsCreateCategorySchemeWithCorrectInput()
+        {
+            // Setup
+            var mapData = new TestFeatureBasedMapData("test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(Enumerable.Empty<MapGeometry>())
+                }
+            };
+
+            var scheme = new PointScheme();
+            var testConverter = new TestFeatureBasedMapDataConverter
+            {
+                CreatedFeatureScheme = scheme,
+                MapDataHasTheme = true
             };
 
             var mapLayer = new TestFeatureLayer();
@@ -606,41 +587,16 @@ namespace Core.Components.DotSpatial.Test.Converter
             testConverter.ConvertLayerProperties(mapData, mapLayer);
 
             // Assert
-            Assert.AreSame(featureScheme, mapLayer.Symbology);
-
-            Assert.IsNull(defaultCategory.FilterExpression);
-            string expectedFilterExpression = string.Format(expressionFormat, value);
-            Assert.AreEqual(expectedFilterExpression, category.FilterExpression);
-
-            CollectionAssert.AreEqual(new[]
-            {
-                defaultCategory,
-                category
-            }, mapLayer.Symbology.Categories);
-
-            CollectionAssert.AreEqual(new[]
-            {
-                Tuple.Create(mapData, Color.Transparent),
-                Tuple.Create(mapData, theme.CategoryThemes.Single().Color)
-            }, testConverter.CreatedCategories);
+            Assert.AreSame(mapData, testConverter.MapDataInput);
         }
 
         [Test]
         public void GivenLayerWithConvertedProperties_WhenFeaturesClearedAndConverted_ThenOnlyDefaultCategoryAdded()
         {
             // Given
-            var random = new Random(21);
             const string metadataAttributeName = "Meta";
 
             var defaultCategory = new PointCategory();
-
-            var theme = new MapTheme(metadataAttributeName, new[]
-            {
-                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  new ValueCriterion(random.NextEnum<ValueCriterionOperator>(),
-                                                     "test value"))
-            });
-
             var mapData = new TestFeatureBasedMapData("test data")
             {
                 Features = new[]
@@ -654,19 +610,29 @@ namespace Core.Components.DotSpatial.Test.Converter
                             }
                         }
                     }
-                },
-                MapTheme = theme
+                }
+            };
+
+            var mocks = new MockRepository();
+            var categoryOne = mocks.Stub<IPointCategory>();
+            var categoryTwo = mocks.Stub<IPointCategory>();
+            mocks.ReplayAll();
+
+            var scheme = new PointScheme();
+            scheme.Categories.Clear();
+            scheme.Categories.Add(categoryOne);
+            scheme.Categories.Add(categoryTwo);
+
+            var mapLayer = new TestFeatureLayer
+            {
+                Symbology = scheme
             };
 
             var testConverter = new TestFeatureBasedMapDataConverter
             {
-                CreatedFeatureScheme = new PointScheme(),
                 CreatedDefaultCategory = defaultCategory,
-                CreatedCategory = new PointCategory()
+                MapDataHasTheme = true
             };
-
-            var mapLayer = new TestFeatureLayer();
-            testConverter.ConvertLayerProperties(mapData, mapLayer);
 
             // Precondition
             Assert.AreEqual(2, mapLayer.Symbology.Categories.Count);
@@ -679,6 +645,28 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreSame(defaultCategory, mapLayer.Symbology.Categories.Single());
         }
 
+        [Test]
+        [TestCase(ValueCriterionOperator.EqualValue, "[{0}] = '{1}'", TestName = "EqualValue")]
+        [TestCase(ValueCriterionOperator.UnequalValue, "NOT [{0}] = '{1}'", TestName = "UnequalValue")]
+        public void CreateFilterExpression_WithValidValues_ReturnsExpectedExpression(ValueCriterionOperator criterionOperator,
+                                                                                     string expressionFormat)
+        {
+            // Setup
+            var random = new Random(21);
+            int index = random.Next();
+            const string value = "test value";
+
+            var valueCriterion = new ValueCriterion(criterionOperator,
+                                                    value);
+
+            // Call
+            string filterExpression = TestFeatureBasedMapDataConverter.PublicCreateFilterExpression(index, valueCriterion);
+
+            // Assert
+            string expectedFilterExpression = string.Format(expressionFormat, index, value);
+            Assert.AreEqual(expectedFilterExpression, filterExpression);
+        }
+
         private class TestFeatureLayer : MapPointLayer
         {
             public TestFeatureLayer() : base(new FeatureSet())
@@ -689,25 +677,17 @@ namespace Core.Components.DotSpatial.Test.Converter
 
         private class TestFeatureBasedMapDataConverter : FeatureBasedMapDataConverter<TestFeatureBasedMapData, TestFeatureLayer>
         {
-            private readonly List<Tuple<TestFeatureBasedMapData, Color>> createdCategories;
-
-            public TestFeatureBasedMapDataConverter()
-            {
-                createdCategories = new List<Tuple<TestFeatureBasedMapData, Color>>();
-            }
-
             public IFeatureCategory CreatedDefaultCategory { private get; set; }
-
-            public IFeatureCategory CreatedCategory { private get; set; }
 
             public IFeatureScheme CreatedFeatureScheme { private get; set; }
 
-            public IEnumerable<Tuple<TestFeatureBasedMapData, Color>> CreatedCategories
+            public TestFeatureBasedMapData MapDataInput { get; private set; }
+
+            public bool MapDataHasTheme { private get; set; }
+
+            public static string PublicCreateFilterExpression(int attributeIndex, ValueCriterion criterion)
             {
-                get
-                {
-                    return createdCategories;
-                }
+                return CreateFilterExpression(attributeIndex, criterion);
             }
 
             protected override IFeatureSymbolizer CreateSymbolizer(TestFeatureBasedMapData mapData)
@@ -715,21 +695,21 @@ namespace Core.Components.DotSpatial.Test.Converter
                 return new PointSymbolizer();
             }
 
-            protected override IFeatureScheme CreateScheme()
-            {
-                return CreatedFeatureScheme;
-            }
-
             protected override IFeatureCategory CreateDefaultCategory(TestFeatureBasedMapData mapData)
             {
-                createdCategories.Add(Tuple.Create(mapData, Color.Transparent));
                 return CreatedDefaultCategory;
             }
 
-            protected override IFeatureCategory CreateCategory(TestFeatureBasedMapData mapData, Color color)
+            protected override bool HasMapTheme(TestFeatureBasedMapData mapData)
             {
-                createdCategories.Add(Tuple.Create(mapData, color));
-                return CreatedCategory;
+                MapDataInput = mapData;
+                return MapDataHasTheme;
+            }
+
+            protected override IFeatureScheme CreateCategoryScheme(TestFeatureBasedMapData mapData)
+            {
+                MapDataInput = mapData;
+                return CreatedFeatureScheme;
             }
 
             protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)

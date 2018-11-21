@@ -29,6 +29,7 @@ using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
 using Demo.Ringtoets.Properties;
 
@@ -135,32 +136,19 @@ namespace Demo.Ringtoets.Commands
             viewCommands.OpenView(mapDataCollection);
         }
 
-        private static void SetEqualCriteria(FeatureBasedMapData mapData)
+        private static ValueCriterion CreateEqualValueCriterion(ThematicalFeatureTypes featureType)
         {
-            var theme = new MapTheme(selectedMetaDataAttributeName, new[]
-            {
-                new CategoryTheme(Color.DarkOrange, new ValueCriterion(ValueCriterionOperator.EqualValue, GetDisplayName(ThematicalFeatureTypes.A))),
-                new CategoryTheme(Color.OrangeRed, new ValueCriterion(ValueCriterionOperator.EqualValue, GetDisplayName(ThematicalFeatureTypes.B))),
-                new CategoryTheme(Color.SkyBlue, new ValueCriterion(ValueCriterionOperator.EqualValue, GetDisplayName(ThematicalFeatureTypes.C))),
-                new CategoryTheme(Color.GreenYellow, new ValueCriterion(ValueCriterionOperator.EqualValue, GetDisplayName(ThematicalFeatureTypes.D)))
-            });
+            return new ValueCriterion(ValueCriterionOperator.EqualValue, GetDisplayName(featureType));
+        }
 
-            mapData.MapTheme = theme;
+        private static ValueCriterion CreateUnEqualValueCriterion(ThematicalFeatureTypes featureType)
+        {
+            return new ValueCriterion(ValueCriterionOperator.UnequalValue, GetDisplayName(featureType));
         }
 
         private static string GetDisplayName(ThematicalFeatureTypes thematicalFeatureTypes)
         {
             return new EnumDisplayWrapper<ThematicalFeatureTypes>(thematicalFeatureTypes).DisplayName;
-        }
-
-        private static void SetUnequalCriteria(FeatureBasedMapData mapData)
-        {
-            var theme = new MapTheme(selectedMetaDataAttributeName, new[]
-            {
-                new CategoryTheme(Color.Purple, new ValueCriterion(ValueCriterionOperator.UnequalValue, GetDisplayName(ThematicalFeatureTypes.E)))
-            });
-
-            mapData.MapTheme = theme;
         }
 
         private static IEnumerable<MapFeature> CreateMapPointFeaturesWithMetaData(int nrOfPoints, int bottom)
@@ -248,5 +236,124 @@ namespace Demo.Ringtoets.Commands
                 })
             });
         }
+
+        #region MapLineData CategoryThemes
+
+        private static void SetEqualCriteria(MapLineData mapData)
+        {
+            LineStyle defaultStyle = mapData.Style;
+            var theme = new MapTheme<LineCategoryTheme>(selectedMetaDataAttributeName, new[]
+            {
+                new LineCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.A), CreateLineStyle(Color.DarkOrange, defaultStyle)),
+                new LineCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.B), CreateLineStyle(Color.OrangeRed, defaultStyle)),
+                new LineCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.C), CreateLineStyle(Color.SkyBlue, defaultStyle)),
+                new LineCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.D), CreateLineStyle(Color.GreenYellow, defaultStyle))
+            });
+
+            mapData.Theme = theme;
+        }
+
+        private static void SetUnequalCriteria(MapLineData mapData)
+        {
+            LineStyle defaultLineStyle = mapData.Style;
+            var theme = new MapTheme<LineCategoryTheme>(selectedMetaDataAttributeName, new[]
+            {
+                new LineCategoryTheme(CreateUnEqualValueCriterion(ThematicalFeatureTypes.E), CreateLineStyle(Color.HotPink, defaultLineStyle))
+            });
+
+            mapData.Theme = theme;
+        }
+
+        private static LineStyle CreateLineStyle(Color color, LineStyle defaultStyle)
+        {
+            return new LineStyle
+            {
+                Width = defaultStyle.Width,
+                Color = color,
+                DashStyle = defaultStyle.DashStyle
+            };
+        }
+
+        #endregion
+
+        #region MapPointData CategoryThemes
+
+        private static void SetEqualCriteria(MapPointData mapData)
+        {
+            PointStyle defaultStyle = mapData.Style;
+            var theme = new MapTheme<PointCategoryTheme>(selectedMetaDataAttributeName, new[]
+            {
+                new PointCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.A), CreatePointStyle(Color.DarkOrange, defaultStyle)),
+                new PointCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.B), CreatePointStyle(Color.OrangeRed, defaultStyle)),
+                new PointCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.C), CreatePointStyle(Color.SkyBlue, defaultStyle)),
+                new PointCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.D), CreatePointStyle(Color.GreenYellow, defaultStyle))
+            });
+
+            mapData.Theme = theme;
+        }
+
+        private static void SetUnequalCriteria(MapPointData mapData)
+        {
+            PointStyle defaultStyle = mapData.Style;
+            var theme = new MapTheme<PointCategoryTheme>(selectedMetaDataAttributeName, new[]
+            {
+                new PointCategoryTheme(CreateUnEqualValueCriterion(ThematicalFeatureTypes.E), CreatePointStyle(Color.HotPink, defaultStyle))
+            });
+
+            mapData.Theme = theme;
+        }
+
+        private static PointStyle CreatePointStyle(Color color, PointStyle defaultStyle)
+        {
+            return new PointStyle
+            {
+                Color = color,
+                Size = defaultStyle.Size,
+                Symbol = defaultStyle.Symbol,
+                StrokeColor = color,
+                StrokeThickness = defaultStyle.StrokeThickness
+            };
+        }
+
+        #endregion
+
+        #region MapPointData CategoryThemes
+
+        private static void SetEqualCriteria(MapPolygonData mapData)
+        {
+            PolygonStyle defaultStyle = mapData.Style;
+            var theme = new MapTheme<PolygonCategoryTheme>(selectedMetaDataAttributeName, new[]
+            {
+                new PolygonCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.A), CreatePointStyle(Color.DarkOrange, defaultStyle)),
+                new PolygonCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.B), CreatePointStyle(Color.OrangeRed, defaultStyle)),
+                new PolygonCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.C), CreatePointStyle(Color.SkyBlue, defaultStyle)),
+                new PolygonCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.D), CreatePointStyle(Color.GreenYellow, defaultStyle))
+            });
+
+            mapData.Theme = theme;
+        }
+
+        private static void SetUnequalCriteria(MapPolygonData mapData)
+        {
+            PolygonStyle defaultStyle = mapData.Style;
+            var theme = new MapTheme<PolygonCategoryTheme>(selectedMetaDataAttributeName, new[]
+            {
+                new PolygonCategoryTheme(CreateUnEqualValueCriterion(ThematicalFeatureTypes.E), CreatePointStyle(Color.HotPink, defaultStyle))
+            });
+
+            mapData.Theme = theme;
+        }
+
+        private static PolygonStyle CreatePointStyle(Color color, PolygonStyle defaultStyle)
+        {
+            return new PolygonStyle
+            {
+                FillColor = color,
+                StrokeColor = color,
+                StrokeThickness = defaultStyle.StrokeThickness
+            };
+        }
+
+        #endregion
     }
 }

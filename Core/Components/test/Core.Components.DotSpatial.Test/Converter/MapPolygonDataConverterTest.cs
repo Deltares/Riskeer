@@ -29,12 +29,14 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
+using Core.Components.Gis.TestUtil;
 using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {
@@ -223,6 +225,70 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
+        public void GivenMapLayerWithScheme_WhenConvertingLayerFeatures_ThenClearsAppliedSchemeAndAppliesDefaultCategory()
+        {
+            // Given
+            const string metadataAttribute = "Meta";
+
+            var mocks = new MockRepository();
+            var categoryOne = mocks.Stub<IPolygonCategory>();
+            var categoryTwo = mocks.Stub<IPolygonCategory>();
+            mocks.ReplayAll();
+
+            var mapPolygonLayer = new MapPolygonLayer
+            {
+                Symbology = new PolygonScheme
+                {
+                    Categories =
+                    {
+                        categoryOne,
+                        categoryTwo
+                    }
+                }
+            };
+
+            var converter = new MapPolygonDataConverter();
+
+            var random = new Random(21);
+            var polygonStyle = new PolygonStyle
+            {
+                FillColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                StrokeThickness = random.Next(1, 48)
+            };
+            var theme = new MapTheme<PolygonCategoryTheme>(metadataAttribute, new[]
+            {
+                new PolygonCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                         new PolygonStyle
+                                         {
+                                             FillColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                             StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                             StrokeThickness = random.Next(1, 48)
+                                         })
+            });
+            var mapPolygonData = new MapPolygonData("test", polygonStyle)
+            {
+                Features = new[]
+                {
+                    CreateMapFeatureWithMetaData(metadataAttribute)
+                },
+                Theme = theme
+            };
+
+            // When
+            converter.ConvertLayerFeatures(mapPolygonData, mapPolygonLayer);
+
+            // Then
+            PolygonCategoryCollection categoryCollection = mapPolygonLayer.Symbology.Categories;
+            Assert.AreEqual(1, categoryCollection.Count);
+
+            PolygonSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle);
+            AssertAreEqual(expectedSymbolizer, categoryCollection.Single().Symbolizer);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [Combinatorial]
         public void ConvertLayerProperties_MapPolygonDataWithStyle_ConvertsStyleToMapPolygonLayer(
             [Values(KnownColor.AliceBlue, KnownColor.Azure)]
@@ -273,6 +339,56 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
+        public void ConvertLayerProperties_MapLineDataWithThemeAndMetaDataNameNotInFeatures_OnlyAddsDefaultCategory()
+        {
+            // Setup
+            const string metadataAttribute = "Meta";
+            var random = new Random(21);
+            var theme = new MapTheme<PolygonCategoryTheme>("Other Meta", new[]
+            {
+                new PolygonCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                         new PolygonStyle
+                                         {
+                                             FillColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                             StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                                             StrokeThickness = random.Next(1, 48)
+                                         })
+            });
+
+            var polygonStyle = new PolygonStyle
+            {
+                FillColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                StrokeThickness = random.Next(1, 48)
+            };
+            var mapPolygonData = new MapPolygonData("test", polygonStyle)
+            {
+                Features = new[]
+                {
+                    CreateMapFeatureWithMetaData(metadataAttribute)
+                },
+                Theme = theme
+            };
+
+            var mapPolygonLayer = new MapPolygonLayer();
+
+            var converter = new MapPolygonDataConverter();
+
+            // Call
+            converter.ConvertLayerProperties(mapPolygonData, mapPolygonLayer);
+
+            // Assert
+            IPolygonSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle);
+
+            IPolygonScheme appliedScheme = mapPolygonLayer.Symbology;
+            Assert.AreEqual(1, appliedScheme.Categories.Count);
+
+            IPolygonCategory baseCategory = appliedScheme.Categories[0];
+            AssertAreEqual(expectedSymbolizer, baseCategory.Symbolizer);
+            Assert.IsNull(baseCategory.FilterExpression);
+        }
+
+        [Test]
         public void ConvertLayerProperties_MapPointDataWithStyleAndValueCriteria_ConvertDataToMapPointLayer()
         {
             // Setup
@@ -283,12 +399,20 @@ namespace Core.Components.DotSpatial.Test.Converter
                                                       "unequal value");
             var equalCriterion = new ValueCriterion(ValueCriterionOperator.EqualValue,
                                                     "equal value");
-            var theme = new MapTheme(metadataAttribute, new[]
+            var theme = new MapTheme<PolygonCategoryTheme>(metadataAttribute, new[]
             {
-                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  equalCriterion),
-                new CategoryTheme(Color.FromKnownColor(random.NextEnum<KnownColor>()),
-                                  unequalCriterion)
+                new PolygonCategoryTheme(equalCriterion, new PolygonStyle
+                {
+                    FillColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                    StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                    StrokeThickness = random.Next(1, 48)
+                }),
+                new PolygonCategoryTheme(unequalCriterion, new PolygonStyle
+                {
+                    FillColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                    StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
+                    StrokeThickness = random.Next(1, 48)
+                })
             });
 
             var polygonStyle = new PolygonStyle
@@ -297,26 +421,26 @@ namespace Core.Components.DotSpatial.Test.Converter
                 StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
                 StrokeThickness = random.Next(1, 48)
             };
-            var mapPointData = new MapPolygonData("test", polygonStyle)
+            var mapPolygonData = new MapPolygonData("test", polygonStyle)
             {
                 Features = new[]
                 {
                     CreateMapFeatureWithMetaData(metadataAttribute)
                 },
-                MapTheme = theme
+                Theme = theme
             };
 
-            var mapPointLayer = new MapPolygonLayer();
+            var mapPolygonLayer = new MapPolygonLayer();
 
             var converter = new MapPolygonDataConverter();
 
             // Call
-            converter.ConvertLayerProperties(mapPointData, mapPointLayer);
+            converter.ConvertLayerProperties(mapPolygonData, mapPolygonLayer);
 
             // Assert
-            PolygonSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle, polygonStyle.FillColor);
+            PolygonSymbolizer expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle);
 
-            IPolygonScheme appliedScheme = mapPointLayer.Symbology;
+            IPolygonScheme appliedScheme = mapPolygonLayer.Symbology;
             Assert.AreEqual(3, appliedScheme.Categories.Count);
 
             IPolygonCategory baseCategory = appliedScheme.Categories[0];
@@ -326,15 +450,15 @@ namespace Core.Components.DotSpatial.Test.Converter
             IPolygonCategory equalSchemeCategory = appliedScheme.Categories[1];
             string expectedFilter = $"[1] = '{equalCriterion.Value}'";
             Assert.AreEqual(expectedFilter, equalSchemeCategory.FilterExpression);
-            expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle,
-                                                          theme.CategoryThemes.ElementAt(0).Color);
+            PolygonStyle expectedCategoryStyle = theme.CategoryThemes.ElementAt(0).Style;
+            expectedSymbolizer = CreateExpectedSymbolizer(expectedCategoryStyle);
             AssertAreEqual(expectedSymbolizer, equalSchemeCategory.Symbolizer);
 
             IPolygonCategory unEqualSchemeCategory = appliedScheme.Categories[2];
             expectedFilter = $"NOT [1] = '{unequalCriterion.Value}'";
             Assert.AreEqual(expectedFilter, unEqualSchemeCategory.FilterExpression);
-            expectedSymbolizer = CreateExpectedSymbolizer(polygonStyle,
-                                                          theme.CategoryThemes.ElementAt(1).Color);
+            expectedCategoryStyle = theme.CategoryThemes.ElementAt(1).Style;
+            expectedSymbolizer = CreateExpectedSymbolizer(expectedCategoryStyle);
             AssertAreEqual(expectedSymbolizer, unEqualSchemeCategory.Symbolizer);
         }
 
@@ -347,6 +471,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 {
                     new[]
                     {
+                        new Point2D(random.NextDouble(), random.NextDouble()),
                         new Point2D(random.NextDouble(), random.NextDouble())
                     }
                 })
@@ -356,11 +481,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             return mapFeature;
         }
 
-        private static PolygonSymbolizer CreateExpectedSymbolizer(PolygonStyle expectedPolygonStyle,
-                                                                  Color expectedFillColor)
+        private static PolygonSymbolizer CreateExpectedSymbolizer(PolygonStyle expectedPolygonStyle)
         {
-            var expectedSymbolizer = new PolygonSymbolizer(expectedFillColor, expectedPolygonStyle.StrokeColor, expectedPolygonStyle.StrokeThickness);
-            return expectedSymbolizer;
+            return new PolygonSymbolizer(expectedPolygonStyle.FillColor, expectedPolygonStyle.StrokeColor, expectedPolygonStyle.StrokeThickness);
         }
 
         private static Point2D[] CreateRectangularRing(double xy1, double xy2)

@@ -20,27 +20,35 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
-using Core.Common.TestUtil;
-using Core.Components.Gis.Theme;
+using Core.Components.Gis.Data;
+using Core.Components.Gis.Style;
 
-namespace Core.Components.Gis.TestUtil
+namespace Core.Components.Gis.Theme
 {
     /// <summary>
-    /// Creates valid instances of <see cref="CategoryTheme"/> which can be used for testing.
+    /// Class to define categories for <see cref="MapLineData"/>.
     /// </summary>
-    public static class CategoryThemeTestFactory
+    public class LineCategoryTheme : CategoryTheme
     {
         /// <summary>
-        /// Creates a fully configured <see cref="CategoryTheme"/>.
+        /// Creates a new instance of <see cref="LineCategoryTheme"/>.
         /// </summary>
-        /// <returns>A fully configured <see cref="CategoryTheme"/>.</returns>
-        public static CategoryTheme CreateCategoryTheme()
+        /// <param name="criterion">The <see cref="ValueCriterion"/> belonging to the category.</param>
+        /// <param name="style">The <see cref="LineStyle"/> belonging to the category.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public LineCategoryTheme(ValueCriterion criterion, LineStyle style) : base(criterion)
         {
-            var random = new Random(21);
-            return new CategoryTheme(Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                                     new ValueCriterion(random.NextEnumValue<ValueCriterionOperator>(),
-                                                        "random"));
+            if (style == null)
+            {
+                throw new ArgumentNullException(nameof(style));
+            }
+
+            Style = style;
         }
+
+        /// <summary>
+        /// Gets the <see cref="LineStyle"/> of the category.
+        /// </summary>
+        public LineStyle Style { get; }
     }
 }

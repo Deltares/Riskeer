@@ -20,33 +20,35 @@
 // All rights reserved.
 
 using System;
+using Core.Components.Gis.Data;
+using Core.Components.Gis.Style;
 
 namespace Core.Components.Gis.Theme
 {
     /// <summary>
-    /// Class to define themes for categories.
+    /// Class to define categories for <see cref="MapPointData"/>.
     /// </summary>
-    public abstract class CategoryTheme
+    public class PointCategoryTheme : CategoryTheme
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CategoryTheme"/>.
+        /// Creates a new instance of <see cref="PointCategoryTheme"/>.
         /// </summary>
-        /// <param name="criterion">The criterion belonging to the category.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="criterion"/>
-        /// is <c>null</c>.</exception>
-        protected CategoryTheme(ValueCriterion criterion)
+        /// <param name="criterion">The <see cref="ValueCriterion"/> belonging to the category.</param>
+        /// <param name="style">The <see cref="PointStyle"/> belonging to the category.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public PointCategoryTheme(ValueCriterion criterion, PointStyle style) : base(criterion)
         {
-            if (criterion == null)
+            if (style == null)
             {
-                throw new ArgumentNullException(nameof(criterion));
+                throw new ArgumentNullException(nameof(style));
             }
 
-            Criterion = criterion;
+            Style = style;
         }
 
         /// <summary>
-        /// Gets the criterion that is associated with the category theme.
+        /// Gets the <see cref="PointStyle"/> of the category.
         /// </summary>
-        public ValueCriterion Criterion { get; }
+        public PointStyle Style { get; }
     }
 }

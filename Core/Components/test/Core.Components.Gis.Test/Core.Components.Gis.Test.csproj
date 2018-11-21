@@ -20,6 +20,9 @@
     <Compile Include="Helpers\MapDataCollectionHelperTest.cs" />
     <Compile Include="TestFeatureBasedMapDataTest.cs" />
     <Compile Include="Theme\CategoryThemeTest.cs" />
+    <Compile Include="Theme\LineCategoryThemeTest.cs" />
+    <Compile Include="Theme\PointCategoryThemeTest.cs" />
+    <Compile Include="Theme\PolygonCategoryThemeTest.cs" />
     <Compile Include="Theme\ValueCriterionOperatorTest.cs" />
     <Compile Include="Theme\ValueCriterionTest.cs" />
     <Compile Include="Theme\MapThemeTest.cs" />

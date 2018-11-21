@@ -20,33 +20,35 @@
 // All rights reserved.
 
 using System;
+using Core.Components.Gis.Data;
+using Core.Components.Gis.Style;
 
 namespace Core.Components.Gis.Theme
 {
     /// <summary>
-    /// Class to define themes for categories.
+    /// Class to define categories for <see cref="MapPolygonData"/>.
     /// </summary>
-    public abstract class CategoryTheme
+    public class PolygonCategoryTheme : CategoryTheme
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CategoryTheme"/>.
+        /// Creates a new instance of <see cref="PolygonCategoryTheme"/>.
         /// </summary>
-        /// <param name="criterion">The criterion belonging to the category.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="criterion"/>
-        /// is <c>null</c>.</exception>
-        protected CategoryTheme(ValueCriterion criterion)
+        /// <param name="criterion">The <see cref="ValueCriterion"/> belonging to the category.</param>
+        /// <param name="style">The <see cref="PolygonStyle"/> belonging to the category.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public PolygonCategoryTheme(ValueCriterion criterion, PolygonStyle style) : base(criterion)
         {
-            if (criterion == null)
+            if (style == null)
             {
-                throw new ArgumentNullException(nameof(criterion));
+                throw new ArgumentNullException(nameof(style));
             }
 
-            Criterion = criterion;
+            Style = style;
         }
 
         /// <summary>
-        /// Gets the criterion that is associated with the category theme.
+        /// Gets the <see cref="PolygonStyle"/> of the category.
         /// </summary>
-        public ValueCriterion Criterion { get; }
+        public PolygonStyle Style { get; }
     }
 }

@@ -65,10 +65,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\CategoryThemePropertiesTest.cs" />
     <Compile Include="PropertyClasses\FeatureBasedMapDataPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\LineCategoryThemePropertiesTest.cs" />
     <Compile Include="PropertyClasses\MapDataCollectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MapLineDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MapPointDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\MapPolygonDataPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\PointCategoryThemePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\PolygonCategoryThemePropertiesTest.cs" />
     <Compile Include="PropertyInfos\MapDataCollectionContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\MapLineDataContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\MapPointDataContextPropertyInfoTest.cs" />
@@ -137,6 +140,10 @@
     <ProjectReference Include="..\..\src\Core.Plugins.Map\Core.Plugins.Map.csproj">
       <Project>{610e0a9c-1997-4c43-a10e-39d4c66ada93}</Project>
       <Name>Core.Plugins.Map</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Plugins.Map.TestUtil\Core.Plugins.Map.TestUtil.csproj">
+      <Project>{430C588F-004A-4E19-91FB-F31E35174DF5}</Project>
+      <Name>Core.Plugins.Map.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

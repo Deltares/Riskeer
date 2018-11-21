@@ -19,25 +19,42 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Components.Gis.Style;
+using Core.Components.Gis.TestUtil;
 using Core.Components.Gis.Theme;
 using NUnit.Framework;
 
-namespace Core.Components.Gis.TestUtil.Test
+namespace Core.Components.Gis.Test.Theme
 {
     [TestFixture]
-    public class CategoryThemeTestFactoryTest
+    public class LineCategoryThemeTest
     {
         [Test]
-        public void CreateDefaultCategoryTheme_ReturnsCategoryTheme()
+        public void Constructor_StyleNull_ThrowsArgumentNullException()
         {
             // Call
-            CategoryTheme theme = CategoryThemeTestFactory.CreateCategoryTheme();
+            TestDelegate call = () => new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), null);
 
             // Assert
-            Assert.IsNotNull(theme);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("style", exception.ParamName);
+        }
 
-            ValueCriterion themeCriterion = theme.Criterion;
-            Assert.AreEqual("random", themeCriterion.Value);
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            ValueCriterion valueCriterion = ValueCriterionTestFactory.CreateValueCriterion();
+            var style = new LineStyle();
+
+            // Call
+            var category = new LineCategoryTheme(valueCriterion, style);
+
+            // Assert
+            Assert.IsInstanceOf<CategoryTheme>(category);
+            Assert.AreSame(valueCriterion, category.Criterion);
+            Assert.AreSame(style, category.Style);
         }
     }
 }

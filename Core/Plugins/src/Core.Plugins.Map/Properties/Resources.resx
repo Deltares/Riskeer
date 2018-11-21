@@ -331,9 +331,6 @@
   <data name="MapPolygonData_StrokeThickness_Description" xml:space="preserve">
     <value>De dikte van de lijn van de vlakken waarmee deze kaartlaag wordt weergegeven.</value>
   </data>
-  <data name="CategoryThemeProperties_Color_Description" xml:space="preserve">
-    <value>De kleur waarmee deze categorie wordt weergegeven.</value>
-  </data>
   <data name="CategoryThemeProperties_Criterion_Description" xml:space="preserve">
     <value>Het criterium van deze categorie.</value>
   </data>
@@ -346,10 +343,10 @@
   <data name="CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeName_0_Value_1_" xml:space="preserve">
     <value>{0} ≠ {1}</value>
   </data>
-  <data name="FeatureBasedMapdata_MapThemeAttributeName_Description" xml:space="preserve">
+  <data name="Mapdata_MapThemeAttributeName_Description" xml:space="preserve">
     <value>Toont de eigenschap op basis waarvan de kaartlaag is gecategoriseerd.</value>
   </data>
-  <data name="FeatureBasedMapdata_MapThemeAttributeName_DisplayName" xml:space="preserve">
+  <data name="Mapdata_MapThemeAttributeName_DisplayName" xml:space="preserve">
     <value>Op basis van</value>
   </data>
   <data name="FeatureBasedMapdata_StyleType_Description" xml:space="preserve">
@@ -358,13 +355,46 @@
   <data name="FeatureBasedMapdata_StyleType_DisplayName" xml:space="preserve">
     <value>Type</value>
   </data>
-  <data name="FeatureBasedMapData_StyleType_Categories" xml:space="preserve">
+  <data name="MapData_StyleType_Categories" xml:space="preserve">
     <value>Categorie</value>
   </data>
-  <data name="FeatureBasedMapData_StyleType_Single_Symbol" xml:space="preserve">
+  <data name="MapData_StyleType_Single_Symbol" xml:space="preserve">
     <value>Enkel symbool</value>
   </data>
-  <data name="FeatureBasedMapdata_Categories_DisplayName" xml:space="preserve">
+  <data name="MapData_Categories_DisplayName" xml:space="preserve">
     <value>Categorieën</value>
+  </data>
+  <data name="LineCategoryTheme_Color_Description" xml:space="preserve">
+    <value>De kleur van de lijnen waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="LineCategoryTheme_DashStyle_Description" xml:space="preserve">
+    <value>De stijl van de lijnen waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="LineCategoryTheme_Width_Description" xml:space="preserve">
+    <value>De dikte van de lijnen waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PointCategoryTheme_Color_Description" xml:space="preserve">
+    <value>De kleur van de symbolen waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PointCategoryTheme_Size_Description" xml:space="preserve">
+    <value>De grootte van de symbolen waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PointCategoryTheme_StrokeColor_Description" xml:space="preserve">
+    <value>De kleur van de lijn van de symbolen waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PointCategoryTheme_StrokeThickness_Description" xml:space="preserve">
+    <value>De dikte van de lijn van de symbolen waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PointCategoryTheme_Symbol_Description" xml:space="preserve">
+    <value>Het symbool waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PolygonCategoryTheme_FillColor_Description" xml:space="preserve">
+    <value>De kleur van de vlakken waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PolygonCategoryTheme_StrokeColor_Description" xml:space="preserve">
+    <value>De kleur van de lijn van de vlakken waarmee deze categorie wordt weergegeven.</value>
+  </data>
+  <data name="PolygonCategoryTheme_StrokeThickness_Description" xml:space="preserve">
+    <value>De dikte van de lijn van de vlakken waarmee deze categorie wordt weergegeven.</value>
   </data>
 </root>

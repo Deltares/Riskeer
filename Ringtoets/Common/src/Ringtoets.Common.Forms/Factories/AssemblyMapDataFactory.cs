@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Forms.Factories
             {
                 SelectedMetaDataAttribute = Resources.AssemblyCategory_Group_DisplayName,
                 IsVisible = isVisible,
-                MapTheme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
+                Theme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
             };
         }
     }
