@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
@@ -33,6 +34,7 @@ using Core.Components.Gis.Style;
 using Core.Components.Gis.TestUtil;
 using Core.Components.Gis.Theme;
 using Core.Plugins.Map.PropertyClasses;
+using Core.Plugins.Map.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -169,12 +171,13 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_WithMapTheme_ReturnCorrectPropertyValues()
         {
             // Setup
-            var lineCategoryTheme = new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new LineStyle());
+            const string attributeName = "Attribute";
+            var categoryTheme = new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new LineStyle());
             var mapLineData = new MapLineData("Test", new LineStyle())
             {
-                Theme = new MapTheme<LineCategoryTheme>("Attribute", new[]
+                Theme = new MapTheme<LineCategoryTheme>(attributeName, new[]
                 {
-                    lineCategoryTheme
+                    categoryTheme
                 })
             };
 
@@ -189,7 +192,41 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreEqual(mapLineData.MetaData, properties.GetAvailableMetaDataAttributes());
 
             Assert.AreEqual(1, properties.CategoryThemes.Length);
-            Assert.AreEqual(lineCategoryTheme, properties.CategoryThemes.First().Data);
+            LineCategoryThemeProperties pointCategoryThemeProperties = properties.CategoryThemes.First();
+            Assert.AreSame(categoryTheme, pointCategoryThemeProperties.Data);
+            ValueCriterionTestHelper.AssertValueCriterionFormatExpression(attributeName,
+                                                                          categoryTheme.Criterion,
+                                                                          pointCategoryThemeProperties.Criterion);
+        }
+
+        [Test]
+        public void GivenMapLineDataPropertiesWithMapTheme_WhenCategoryThemePropertySet_ThenMapDataNotified()
+        {
+            // Given
+            var random = new Random(21);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var mapLineData = new MapLineData("Test", new LineStyle())
+            {
+                Theme = new MapTheme<LineCategoryTheme>("Attribute", new[]
+                {
+                    new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new LineStyle())
+                })
+            };
+            mapLineData.Attach(observer);
+
+            var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
+
+            // When
+            LineCategoryThemeProperties categoryThemeProperties = properties.CategoryThemes.First();
+            categoryThemeProperties.Width = random.Next(1, 48);
+
+            // Then
+            mocks.VerifyAll();
         }
 
         [Test]
