@@ -42,6 +42,7 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly MapLineData referenceLineMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
+        private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
@@ -95,6 +96,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
+            assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
             waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
             waterLevelCalculationsForSignalingNormObserver.Dispose();
@@ -116,6 +118,11 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void CreateObservers()
         {
+            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
+            {
+                Observable = assessmentSection
+            };
+
             referenceLineObserver = new Observer(UpdateReferenceLineMapData)
             {
                 Observable = assessmentSection.ReferenceLine

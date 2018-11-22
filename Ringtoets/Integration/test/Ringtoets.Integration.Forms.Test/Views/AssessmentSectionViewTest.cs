@@ -203,6 +203,47 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            var assessmentSection = new AssessmentSectionStub
+            {
+                ReferenceLine = referenceLine
+            };
+
+            using (var view = new AssessmentSectionView(assessmentSection))
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
+
+                // Precondition
+                MapDataTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData);
+                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+
+                // Call
+                assessmentSection.Name = "New name";
+                assessmentSection.NotifyObservers();
+
+                // Assert
+                MapDataTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
         {
             // Setup
