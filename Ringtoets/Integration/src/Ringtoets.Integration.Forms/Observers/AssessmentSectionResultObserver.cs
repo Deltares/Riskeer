@@ -48,6 +48,7 @@ namespace Ringtoets.Integration.Forms.Observers
     public class AssessmentSectionResultObserver : Observable, IDisposable
     {
         private readonly Observer assessmentSectionObserver;
+        private readonly Observer referenceLineObserver;
         private readonly Observer closingStructuresObserver;
         private readonly Observer duneErosionObserver;
         private readonly Observer grassCoverErosionInwardsObserver;
@@ -86,6 +87,11 @@ namespace Ringtoets.Integration.Forms.Observers
             })
             {
                 Observable = assessmentSection
+            };
+
+            referenceLineObserver = new Observer(NotifyObservers)
+            {
+                Observable = assessmentSection.ReferenceLine
             };
 
             closingStructuresObserver = CreateCalculatableFailureMechanismObserver<ClosingStructuresFailureMechanism,
@@ -157,6 +163,7 @@ namespace Ringtoets.Integration.Forms.Observers
             }
 
             assessmentSectionObserver.Dispose();
+            referenceLineObserver.Dispose();
             closingStructuresObserver.Dispose();
             duneErosionObserver.Dispose();
             grassCoverErosionInwardsObserver.Dispose();
