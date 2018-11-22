@@ -62,6 +62,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
+        private Observer referenceLineObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private Observer dikeProfilesObserver;
 
@@ -134,6 +135,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
+            referenceLineObserver.Dispose();
             waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
             waterLevelCalculationsForSignalingNormObserver.Dispose();
             waterLevelCalculationsForLowerLimitNormObserver.Dispose();
@@ -203,9 +205,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             {
                 Observable = FailureMechanism
             };
-            assessmentSectionObserver = new Observer(UpdateAssessmentSectionMapData)
+            assessmentSectionObserver = new Observer(UpdateUpdateReferenceLineMapData)
             {
                 Observable = AssessmentSection
+            };
+            referenceLineObserver = new Observer(UpdateUpdateReferenceLineMapData)
+            {
+                Observable = AssessmentSection.ReferenceLine
             };
             hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
             {
@@ -329,7 +335,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         #region AssessmentSection MapData
 
-        private void UpdateAssessmentSectionMapData()
+        private void UpdateUpdateReferenceLineMapData()
         {
             SetReferenceLineMapData();
             referenceLineMapData.NotifyObservers();
