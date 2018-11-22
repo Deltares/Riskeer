@@ -319,18 +319,58 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndAssessmentSectionNotified_ThenMapDataUpdated()
+        public void GivenViewWithAssessmentSectionData_WhenAssessmentSectionUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var assessmentSection = new AssessmentSectionStub
-            {
-                ReferenceLine = new ReferenceLine()
-            };
-            assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new List<Point2D>
             {
                 new Point2D(1.0, 2.0),
                 new Point2D(2.0, 1.0)
             });
+            var assessmentSection = new AssessmentSectionStub
+            {
+                ReferenceLine = referenceLine
+            };
+
+            using (var view = new DuneErosionFailureMechanismView(new DuneErosionFailureMechanism(), assessmentSection))
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
+
+                // Precondition
+                MapDataTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData);
+
+                // When
+                assessmentSection.Name = "New name";
+                assessmentSection.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+            var assessmentSection = new AssessmentSectionStub
+            {
+                ReferenceLine = referenceLine
+            };
 
             using (var view = new DuneErosionFailureMechanismView(new DuneErosionFailureMechanism(), assessmentSection))
             {
@@ -347,12 +387,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 // When
-                assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+                referenceLine.SetGeometry(new List<Point2D>
                 {
                     new Point2D(2.0, 5.0),
                     new Point2D(4.0, 3.0)
                 });
-                assessmentSection.NotifyObservers();
+                referenceLine.NotifyObservers();
 
                 // Then
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
