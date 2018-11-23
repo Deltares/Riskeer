@@ -49,7 +49,7 @@ namespace Core.Plugins.Map.PropertyClasses
         /// <param name="categoryTheme">The theme to create the property info panel for.</param>
         /// <param name="mapData">The <see cref="FeatureBasedMapData"/> the <paramref name="categoryTheme"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public CategoryThemeProperties(string attributeName, TCategoryTheme categoryTheme, FeatureBasedMapData mapData)
+        protected CategoryThemeProperties(string attributeName, TCategoryTheme categoryTheme, FeatureBasedMapData mapData)
         {
             if (attributeName == null)
             {
