@@ -38,23 +38,23 @@ namespace Ringtoets.Common.Data.TestUtil
         public static ReferenceLine CreateReferenceLineWithGeometry()
         {
             var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(CreateReferenceLineGeometry());
+            CreateReferenceLineGeometry(referenceLine);
             return referenceLine;
         }
 
         /// <summary>
-        /// Creates default geometry for a <see cref="ReferenceLine"/>.
+        /// Creates a default geometry for a <see cref="ReferenceLine"/>.
         /// </summary>
         /// <returns>A geometry</returns>
-        public static IEnumerable<Point2D> CreateReferenceLineGeometry()
+        public static void CreateReferenceLineGeometry(ReferenceLine referenceLine)
         {
-            return new[]
+            referenceLine.SetGeometry(new[]
             {
                 new Point2D(1, 1),
                 new Point2D(2, 2),
                 new Point2D(3, 3),
                 new Point2D(4, 4)
-            };
+            });
         }
     }
 }

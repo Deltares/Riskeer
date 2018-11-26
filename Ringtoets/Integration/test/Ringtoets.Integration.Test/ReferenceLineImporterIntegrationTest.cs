@@ -50,10 +50,9 @@ namespace Ringtoets.Integration.Test
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            Point2D[] originalReferenceLineGeometry = ReferenceLineTestFactory.CreateReferenceLineGeometry().ToArray();
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.ReferenceLine.SetGeometry(originalReferenceLineGeometry);
+            ReferenceLineTestFactory.CreateReferenceLineGeometry(assessmentSection.ReferenceLine);
+            Point2D[] originalReferenceLineGeometry = assessmentSection.ReferenceLine.Points.ToArray();
 
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");

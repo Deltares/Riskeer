@@ -46,10 +46,13 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateReferenceLineGeometry_Always_ReturnsExpectedValues()
+        public void CreateReferenceLineGeometry_WithReferenceLine_SetsExpectedGeometry()
         {
+            // Setup
+            var referenceLine = new ReferenceLine();
+
             // Call
-            IEnumerable<Point2D> geometry = ReferenceLineTestFactory.CreateReferenceLineGeometry();
+            ReferenceLineTestFactory.CreateReferenceLineGeometry(referenceLine);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -58,7 +61,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                 new Point2D(2, 2),
                 new Point2D(3, 3),
                 new Point2D(4, 4)
-            }, geometry);
+            }, referenceLine.Points);
         }
     }
 }

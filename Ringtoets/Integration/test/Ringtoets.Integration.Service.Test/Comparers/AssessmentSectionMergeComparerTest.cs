@@ -135,23 +135,12 @@ namespace Ringtoets.Integration.Service.Test.Comparers
 
         private static IEnumerable<ChangePropertyData<AssessmentSection>> ChangeSingleDataProperties()
         {
-            var referenceLineDifferentPointCount = new ReferenceLine();
-            referenceLineDifferentPointCount.SetGeometry(new[]
-            {
-                new Point2D(1, 1)
-            });
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.ReferenceLine.SetGeometry(new[]
                                                                    {
                                                                        new Point2D(1, 1)
                                                                    }),
                                                                    "Referenceline different point count");
 
-            var referenceLineDifferentPoint = new ReferenceLine();
-            referenceLineDifferentPoint.SetGeometry(new[]
-            {
-                new Point2D(1, 1),
-                new Point2D(1, 3)
-            });
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.ReferenceLine.SetGeometry(new[]
                                                                    {
                                                                        new Point2D(1, 1),
