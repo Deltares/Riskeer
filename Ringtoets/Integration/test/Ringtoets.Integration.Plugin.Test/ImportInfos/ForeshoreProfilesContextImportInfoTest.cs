@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceWithGeometry_ReturnTrue()
+        public void IsEnabled_ReferenceLineWithGeometry_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();

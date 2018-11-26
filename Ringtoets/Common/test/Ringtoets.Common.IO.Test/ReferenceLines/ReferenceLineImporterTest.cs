@@ -70,15 +70,18 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
-        public void Import_ContextWithReferenceLineWithoutGeometry_ImportReferenceLineToAssessmentSection()
+        public void Import_WhenSuccessful_UpdatesOriginalReferenceLineWithImportedReferenceLine()
         {
             // Setup
+            var originalReferenceLine = new ReferenceLine();
+
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.NotNull,
                                          Arg<ReferenceLine>.Is.NotNull))
                    .WhenCalled(invocation =>
                    {
+                       Assert.AreSame(originalReferenceLine, invocation.Arguments[0]);
                        var importedReferenceLine = (ReferenceLine) invocation.Arguments[1];
                        Point2D[] point2Ds = importedReferenceLine.Points.ToArray();
                        Assert.AreEqual(803, point2Ds.Length);
@@ -91,7 +94,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
+            var importer = new ReferenceLineImporter(originalReferenceLine, handler, path);
 
             // Call
             bool importSuccessful = importer.Import();
@@ -102,7 +105,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
-        public void Import_ContextWithReferenceLineWithoutGeometry_GeneratedExpectedProgressMessages()
+        public void Import_WhenSuccessful_GeneratedExpectedProgressMessages()
         {
             // Setup
             var mocks = new MockRepository();
@@ -154,11 +157,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.ConfirmUpdate())
-                   .Repeat.Never();
-            handler.Expect(h => h.Update(null, null))
-                   .IgnoreArguments()
-                   .Repeat.Never();
             mocks.ReplayAll();
 
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
@@ -183,11 +181,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.ConfirmUpdate())
-                   .Repeat.Never();
-            handler.Expect(h => h.Update(null, null))
-                   .IgnoreArguments()
-                   .Repeat.Never();
             mocks.ReplayAll();
 
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist");
@@ -207,15 +200,12 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
-        public void Import_CancelingImport_ReturnFalseAndNoChanges()
+        public void Import_CancelImportDuringDialogInteraction_ReturnsFalseAndNoChanges()
         {
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             handler.Expect(h => h.ConfirmUpdate()).Return(false);
-            handler.Expect(h => h.Update(null, null))
-                   .IgnoreArguments()
-                   .Repeat.Never();
             mocks.ReplayAll();
 
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
@@ -244,9 +234,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             handler.Expect(h => h.ConfirmUpdate())
                    .WhenCalled(invocation => importer.Cancel())
                    .Return(acceptRemovalOfReferenceLineDependentData);
-            handler.Expect(h => h.Update(null, null))
-                   .IgnoreArguments()
-                   .Repeat.Never();
             mocks.ReplayAll();
 
             var importResult = true;
@@ -268,8 +255,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             var mocks = new MockRepository();
             var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            handler.Stub(h => h.ConfirmUpdate())
-                   .Return(true);
             mocks.ReplayAll();
 
             var importer = new ReferenceLineImporter(new ReferenceLine(), handler, path);
@@ -300,10 +285,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             var mocks = new MockRepository();
             var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            handler.Stub(h => h.ConfirmUpdate())
-                   .Return(true);
-            handler.Stub(h => h.Update(Arg<ReferenceLine>.Is.NotNull,
-                                       Arg<ReferenceLine>.Is.NotNull))
+            handler.Stub(h => h.Update(null, null))
+                   .IgnoreArguments()
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
@@ -329,13 +312,11 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
-        public void Import_ReusingCanceledImporterForContextWithReferenceLineWithoutGeometry_ImportReferenceLineToAssessmentSection()
+        public void Import_ReusingCanceledImporterForReferenceLineWithoutGeometry_ImportReferenceLine()
         {
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.ConfirmUpdate())
-                   .Repeat.Never();
             handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.NotNull,
                                          Arg<ReferenceLine>.Is.NotNull))
                    .WhenCalled(invocation =>
@@ -407,7 +388,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             importer.DoPostImport();
 
             // Assert
-            mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations and context
+            mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations
         }
 
         [Test]
@@ -425,9 +406,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             handler.Expect(h => h.ConfirmUpdate())
                    .WhenCalled(invocation => importer.Cancel())
                    .Return(true);
-            handler.Expect(h => h.Update(null, null))
-                   .IgnoreArguments()
-                   .Repeat.Never();
 
             mocks.ReplayAll();
 
@@ -487,7 +465,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             importer.DoPostImport();
 
             // Assert
-            mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations and context
+            mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations
         }
 
         private class ExpectedProgressNotification
