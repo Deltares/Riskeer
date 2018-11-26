@@ -36,7 +36,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
     public class ReferenceLineImporter : FileImporterBase<ReferenceLine>
     {
         private readonly List<IObservable> changedObservables = new List<IObservable>();
-        private readonly IReferenceLineReplaceHandler replacementHandler;
+        private readonly IReferenceLineUpdateHandler replacementHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReferenceLineImporter"/> class.
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/>
         /// or <paramref name="filePath"/> is <c>null</c>.</exception>
         public ReferenceLineImporter(ReferenceLine importTarget,
-                                     IReferenceLineReplaceHandler replacementHandler,
+                                     IReferenceLineUpdateHandler replacementHandler,
                                      string filePath)
             : base(filePath, importTarget)
         {

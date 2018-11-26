@@ -65,7 +65,7 @@
     <Compile Include="FileImporters\ForeshoreProfileUpdateDataStrategyTest.cs" />
     <Compile Include="Handlers\AssessmentSectionCompositionChangeHandlerTest.cs" />
     <Compile Include="Handlers\FailureMechanismContributionNormChangeHandlerTest.cs" />
-    <Compile Include="Handlers\ReferenceLineReplacementHandlerTest.cs" />
+    <Compile Include="Handlers\ReferenceLineUpdateHandlerTest.cs" />
     <Compile Include="ImportInfos\FailureMechanismSectionsContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\ForeshoreProfilesContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\ReferenceLineContextImportInfoTest.cs" />

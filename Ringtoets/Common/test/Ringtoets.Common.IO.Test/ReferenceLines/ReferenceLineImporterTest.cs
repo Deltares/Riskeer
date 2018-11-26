@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         public void Constructor_ReferenceLineNull_ThrowArgumentNullException()
         {
             var mocks = new MockRepository();
-            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
             mocks.ReplayAll();
 
             // Call
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             handler.Expect(h => h.Replace(Arg<ReferenceLine>.Is.NotNull,
                                           Arg<ReferenceLine>.Is.NotNull))
                    .WhenCalled(invocation =>
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
             handler.Expect(h => h.Replace(Arg<ReferenceLine>.Is.NotNull,
                                           Arg<ReferenceLine>.Is.NotNull))
                    .Return(Enumerable.Empty<IObservable>());
@@ -154,7 +154,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             handler.Expect(h => h.ConfirmReplace())
                    .Repeat.Never();
             handler.Expect(h => h.Replace(null, null))
@@ -183,7 +183,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             handler.Expect(h => h.ConfirmReplace())
                    .Repeat.Never();
             handler.Expect(h => h.Replace(null, null))
@@ -212,7 +212,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             handler.Expect(h => h.ConfirmReplace()).Return(false);
             handler.Expect(h => h.Replace(null, null))
                    .IgnoreArguments()
@@ -240,7 +240,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
             var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             var importer = new ReferenceLineImporter(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), handler, path);
             handler.Expect(h => h.ConfirmReplace())
                    .WhenCalled(invocation => importer.Cancel())
@@ -268,7 +268,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var mocks = new MockRepository();
-            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
             handler.Stub(h => h.ConfirmReplace())
                    .Return(true);
             mocks.ReplayAll();
@@ -300,7 +300,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
             var mocks = new MockRepository();
-            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
             handler.Stub(h => h.ConfirmReplace())
                    .Return(true);
             handler.Stub(h => h.Replace(Arg<ReferenceLine>.Is.NotNull,
@@ -334,7 +334,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             handler.Expect(h => h.ConfirmReplace())
                    .Repeat.Never();
             handler.Expect(h => h.Replace(Arg<ReferenceLine>.Is.NotNull,
@@ -385,7 +385,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var observable2 = mocks.StrictMock<IObservable>();
             observable2.Expect(o => o.NotifyObservers());
 
-            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             handler.Expect(h => h.ConfirmReplace()).Return(true);
             handler.Expect(h => h.Replace(Arg<ReferenceLine>.Is.Same(referenceLine),
                                           Arg<ReferenceLine>.Is.NotNull))
@@ -421,7 +421,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
 
-            var handler = mocks.StrictMock<IReferenceLineReplaceHandler>();
+            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             var importer = new ReferenceLineImporter(referenceLine, handler, path);
             handler.Expect(h => h.ConfirmReplace())
                    .WhenCalled(invocation => importer.Cancel())
@@ -460,7 +460,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var observable2 = mocks.StrictMock<IObservable>();
             observable2.Expect(o => o.NotifyObservers());
 
-            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
             handler.Stub(h => h.ConfirmReplace()).Return(true);
             handler.Expect(h => h.Replace(Arg<ReferenceLine>.Is.Same(referenceLine),
                                           Arg<ReferenceLine>.Is.NotNull))

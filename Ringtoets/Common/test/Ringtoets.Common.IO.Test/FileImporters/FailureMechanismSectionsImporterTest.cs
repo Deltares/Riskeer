@@ -741,7 +741,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var referenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
+            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
             handler.Stub(h => h.ConfirmReplace()).Return(true);
             handler.Stub(h => h.Replace(Arg<ReferenceLine>.Is.NotNull,
                                         Arg<ReferenceLine>.Is.NotNull))
