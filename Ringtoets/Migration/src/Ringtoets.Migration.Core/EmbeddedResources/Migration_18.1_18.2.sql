@@ -8,7 +8,26 @@ PRAGMA foreign_keys = OFF;
 ATTACH DATABASE "{0}" AS SOURCEPROJECT;
 
 INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
-INSERT INTO BackgroundDataEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataEntity;
+INSERT INTO BackgroundDataEntity (
+	[BackgroundDataEntityId],
+	[AssessmentSectionEntityId],
+	[Name],
+	[IsVisible],
+	[Transparency],
+	[BackgroundDataType])
+SELECT 
+	[BackgroundDataEntityId],
+	[AssessmentSectionEntityId],
+	[Name],
+	[IsVisible],
+	CASE 
+		WHEN [Transparency] > 0 
+			THEN [Transparency]
+	ELSE 
+		0.6
+	END,
+	[BackgroundDataType]
+FROM [SOURCEPROJECT].BackgroundDataEntity;
 INSERT INTO BackgroundDataMetaEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
 INSERT INTO ClosingStructureEntity SELECT * FROM [SOURCEPROJECT].ClosingStructureEntity;

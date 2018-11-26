@@ -59,10 +59,44 @@ namespace Ringtoets.Migration.Integration.Test
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
+
+                    AssertBackgroundData(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
             }
+        }
+
+        private static void AssertBackgroundData(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateTransparency =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+                "SELECT SUM([IsInvalid]) = 0 " +
+                "FROM " +
+                "(" +
+                "SELECT " +
+                "CASE WHEN (NEW.[Transparency] = OLD.[Transparency] AND OLD.[Transparency] > 0) " +
+                "OR (NEW.[Transparency] = 0.6 AND OLD.[Transparency] = 0) " +
+                "THEN 0 " +
+                "ELSE 1 " +
+                "END AS [IsInvalid] " +
+                "FROM BackgroundDataEntity NEW " +
+                "JOIN [SOURCEPROJECT].BackgroundDataEntity OLD USING(BackgroundDataEntityId) " +
+                "); " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateTransparency);
+
+            string validateBackgroundData =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT;" +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].BackgroundDataEntity) " +
+                "FROM BackgroundDataEntity NEW " +
+                "JOIN [SOURCEPROJECT].BackgroundDataEntity OLD USING(BackgroundDataEntityId) " +
+                "WHERE NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
+                "AND NEW.[Name] = OLD.[Name] " +
+                "AND NEW.[IsVisible] = OLD.[IsVisible] " +
+                "AND NEW.[BackgroundDataType] = OLD.[BackgroundDataType]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateBackgroundData);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
