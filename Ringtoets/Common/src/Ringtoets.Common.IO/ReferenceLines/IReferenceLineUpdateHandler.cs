@@ -27,16 +27,15 @@ using Ringtoets.Common.Data.AssessmentSection;
 namespace Ringtoets.Common.IO.ReferenceLines
 {
     /// <summary>
-    /// Interface for an object that can properly replace a <see cref="ReferenceLine"/>
-    /// from an <see cref="IAssessmentSection"/>.
+    /// Interface for an object that can properly update a <see cref="ReferenceLine"/>.
     /// </summary>
     public interface IReferenceLineUpdateHandler
     {
         /// <summary>
-        /// Checks to see if the replacement of the <see cref="ReferenceLine"/> should occur
+        /// Checks to see if the update of the <see cref="ReferenceLine"/> should occur
         /// or not.
         /// </summary>
-        /// <returns><c>true</c> if the replacement should occur, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if the update should occur, <c>false</c> otherwise.</returns>
         bool ConfirmReplace();
 
         /// <summary>

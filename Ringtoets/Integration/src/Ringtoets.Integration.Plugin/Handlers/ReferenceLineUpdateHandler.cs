@@ -35,7 +35,7 @@ using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Class responsible for replacing a <see cref="ReferenceLine"/> on a <see cref="IAssessmentSection"/>.
+    /// Class responsible for updating a <see cref="ReferenceLine"/>.
     /// </summary>
     public class ReferenceLineUpdateHandler : IReferenceLineUpdateHandler
     {
