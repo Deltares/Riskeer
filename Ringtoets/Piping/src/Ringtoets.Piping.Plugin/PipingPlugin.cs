@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = PipingSurfaceLineFileFilter,
-                IsEnabled = context => HasReferenceLine(context.AssessmentSection),
+                IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
                 CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<PipingSurfaceLine>(
                     context.WrappedData,
                     filePath,
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
-                IsEnabled = context => HasReferenceLine(context.AssessmentSection),
+                IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
                 CreateFileImporter = (context, filePath) => new StochasticSoilModelImporter<PipingStochasticSoilModel>(
                     context.WrappedData,
                     filePath,
@@ -414,9 +414,9 @@ namespace Ringtoets.Piping.Plugin
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
-        private static bool HasReferenceLine(IAssessmentSection assessmentSection)
+        private static bool HasGeometry(ReferenceLine referenceLine)
         {
-            return assessmentSection.ReferenceLine.Points.Any();
+            return referenceLine.Points.Any();
         }
 
         #region PipingFailureMechanismView ViewInfo

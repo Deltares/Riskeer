@@ -904,7 +904,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsCommonDataResources.ReferenceLine_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.ReferenceLineIcon,
-                ForeColor = context => context.WrappedData.Points.Any()
+                ForeColor = context => HasGeometry(context.WrappedData)
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = ReferenceLineContextMenuStrip
