@@ -130,7 +130,7 @@
   <data name="Foreshore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Foreshore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ReferenceLineReplacementHandler_Confirm_clear_referenceLine_dependent_data" xml:space="preserve">
+  <data name="ReferenceLineUpdateHandler_Confirm_clear_referenceLine_dependent_data" xml:space="preserve">
     <value>Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist.
 
 Wilt u doorgaan?</value>

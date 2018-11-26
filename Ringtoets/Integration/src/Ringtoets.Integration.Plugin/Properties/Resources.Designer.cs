@@ -316,9 +316,9 @@ namespace Ringtoets.Integration.Plugin.Properties {
         ///
         ///Wilt u doorgaan?.
         /// </summary>
-        public static string ReferenceLineReplacementHandler_Confirm_clear_referenceLine_dependent_data {
+        public static string ReferenceLineUpdateHandler_Confirm_clear_referenceLine_dependent_data {
             get {
-                return ResourceManager.GetString("ReferenceLineReplacementHandler_Confirm_clear_referenceLine_dependent_data", resourceCulture);
+                return ResourceManager.GetString("ReferenceLineUpdateHandler_Confirm_clear_referenceLine_dependent_data", resourceCulture);
             }
         }
         

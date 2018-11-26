@@ -36,21 +36,21 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// or not.
         /// </summary>
         /// <returns><c>true</c> if the update should occur, <c>false</c> otherwise.</returns>
-        bool ConfirmReplace();
+        bool ConfirmUpdate();
 
         /// <summary>
-        /// Replaces the <see cref="ReferenceLine"/> of a <see cref="IAssessmentSection"/>
-        /// and propagates the changes to underlying data structure.
+        /// Updates the <paramref name="originalReferenceLine"/> with the <paramref name="newReferenceLine"/>
+        /// and its dependent data.
         /// </summary>
         /// <param name="originalReferenceLine">The reference line to be updated.</param>
         /// <param name="newReferenceLine">The new reference line.</param>
-        /// <returns>All objects that have been affected by the replacement.</returns>
+        /// <returns>All objects that have been affected by the update.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        IEnumerable<IObservable> Replace(ReferenceLine originalReferenceLine, ReferenceLine newReferenceLine);
+        IEnumerable<IObservable> Update(ReferenceLine originalReferenceLine, ReferenceLine newReferenceLine);
 
         /// <summary>
-        /// Perform post-replacement updates.
+        /// Perform post-update actions.
         /// </summary>
-        void DoPostReplacementUpdates();
+        void DoPostUpdateActions();
     }
 }

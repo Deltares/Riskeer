@@ -65,15 +65,15 @@ namespace Ringtoets.Integration.Plugin.Handlers
             this.viewCommands = viewCommands;
         }
 
-        public bool ConfirmReplace()
+        public bool ConfirmUpdate()
         {
-            DialogResult result = MessageBox.Show(Resources.ReferenceLineReplacementHandler_Confirm_clear_referenceLine_dependent_data,
+            DialogResult result = MessageBox.Show(Resources.ReferenceLineUpdateHandler_Confirm_clear_referenceLine_dependent_data,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
             return result == DialogResult.OK;
         }
 
-        public IEnumerable<IObservable> Replace(ReferenceLine originalReferenceLine, ReferenceLine newReferenceLine)
+        public IEnumerable<IObservable> Update(ReferenceLine originalReferenceLine, ReferenceLine newReferenceLine)
         {
             if (originalReferenceLine == null)
             {
@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             return results.ChangedObjects;
         }
 
-        public void DoPostReplacementUpdates()
+        public void DoPostUpdateActions()
         {
             while (removedObjects.Count > 0)
             {

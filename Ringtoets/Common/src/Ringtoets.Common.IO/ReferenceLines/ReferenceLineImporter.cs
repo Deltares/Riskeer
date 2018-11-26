@@ -84,7 +84,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
         protected override void DoPostImportUpdates()
         {
-            updateHandler.DoPostReplacementUpdates();
+            updateHandler.DoPostUpdateActions();
 
             base.DoPostImportUpdates();
 
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
             if (ImportTarget.Points.Any())
             {
-                if (!updateHandler.ConfirmReplace())
+                if (!updateHandler.ConfirmUpdate())
                 {
                     Cancel();
                 }
@@ -153,7 +153,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                                3, 3);
             }
 
-            changedObservables.AddRange(updateHandler.Replace(ImportTarget, importedReferenceLine).Where(o => !ReferenceEquals(o, ImportTarget)));
+            changedObservables.AddRange(updateHandler.Update(ImportTarget, importedReferenceLine).Where(o => !ReferenceEquals(o, ImportTarget)));
         }
     }
 }

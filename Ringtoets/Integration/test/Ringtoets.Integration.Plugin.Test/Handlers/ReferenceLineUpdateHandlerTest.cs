@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ConfirmReplace_ClickDialog_ReturnTrueIfOkAndFalseIfCancel(bool clickOk)
+        public void ConfirmUpdate_ClickDialog_ReturnTrueIfOkAndFalseIfCancel(bool clickOk)
         {
             // Setup
             var mocks = new MockRepository();
@@ -130,7 +130,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
 
             // Call
-            bool result = handler.ConfirmReplace();
+            bool result = handler.ConfirmUpdate();
 
             // Assert
             Assert.AreEqual(clickOk, result);
@@ -144,7 +144,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Replace_OriginalReferenceLineNull_ThrowArgumentNullException()
+        public void Update_OriginalReferenceLineNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var referenceLine = new ReferenceLine();
 
             // Call
-            TestDelegate call = () => handler.Replace(null, referenceLine);
+            TestDelegate call = () => handler.Update(null, referenceLine);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Replace_NewReferenceLineNull_ThrowArgumentNullException()
+        public void Update_NewReferenceLineNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -179,7 +179,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var referenceLine = new ReferenceLine();
 
             // Call
-            TestDelegate call = () => handler.Replace(referenceLine, null);
+            TestDelegate call = () => handler.Update(referenceLine, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -188,7 +188,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Replace_FullyConfiguredAssessmentSection_AllReferenceLineDependentDataCleared()
+        public void Update_FullyConfiguredAssessmentSection_AllReferenceLineDependentDataCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -201,7 +201,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
 
             // Call
-            IObservable[] observables = handler.Replace(assessmentSection.ReferenceLine, referenceLine).ToArray();
+            IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
             Assert.AreEqual(59, observables.Length);
@@ -366,7 +366,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void DoPostReplacementUpdates_NoReplaceCalled_DoNothing()
+        public void DoPostUpdateActions_NoUpdateCalled_DoNothing()
         {
             // Setup
             var mocks = new MockRepository();
@@ -377,14 +377,14 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
 
             // Call
-            handler.DoPostReplacementUpdates();
+            handler.DoPostUpdateActions();
 
             // Assert
             mocks.VerifyAll(); // Expect not calls in 'viewCommands'
         }
 
         [Test]
-        public void DoPostReplacementUpdates_AfterReplacingReferenceLine_CloseViewsForRemovedData()
+        public void DoPostUpdateActions_AfterUpdatingReferenceLine_CloseViewsForRemovedData()
         {
             // Setup
             const int expectedNumberOfRemovedInstances = 195;
@@ -398,17 +398,17 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
-            handler.Replace(assessmentSection.ReferenceLine, new ReferenceLine());
+            handler.Update(assessmentSection.ReferenceLine, new ReferenceLine());
 
             // Call
-            handler.DoPostReplacementUpdates();
+            handler.DoPostUpdateActions();
 
             // Assert
             mocks.VerifyAll();
         }
 
         [Test]
-        public void DoPostReplacementUpdates_CalledSecondTimeAfterReplaceAndUpdateCycle_DoNothing()
+        public void DoPostUpdateActions_CalledSecondTimeAfterUpdateAndUpdateCycle_DoNothing()
         {
             // Setup
             const int expectedNumberOfRemovedInstances = 195;
@@ -422,11 +422,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
-            handler.Replace(assessmentSection.ReferenceLine, new ReferenceLine());
-            handler.DoPostReplacementUpdates();
+            handler.Update(assessmentSection.ReferenceLine, new ReferenceLine());
+            handler.DoPostUpdateActions();
 
             // Call
-            handler.DoPostReplacementUpdates(); // Expected number should be identical to that of DoPostReplacementUpdates_AfterReplacingReferenceLine_CloseViewsForRemovedData
+            handler.DoPostUpdateActions(); // Expected number should be identical to that of DoPostReplacementUpdates_AfterReplacingReferenceLine_CloseViewsForRemovedData
 
             // Assert
             mocks.VerifyAll();

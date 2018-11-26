@@ -742,9 +742,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var mocks = new MockRepository();
             var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            handler.Stub(h => h.ConfirmReplace()).Return(true);
-            handler.Stub(h => h.Replace(Arg<ReferenceLine>.Is.NotNull,
-                                        Arg<ReferenceLine>.Is.NotNull))
+            handler.Stub(h => h.ConfirmUpdate()).Return(true);
+            handler.Stub(h => h.Update(Arg<ReferenceLine>.Is.NotNull,
+                                       Arg<ReferenceLine>.Is.NotNull))
                    .WhenCalled(invocation => referenceLine = (ReferenceLine) invocation.Arguments[1])
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();

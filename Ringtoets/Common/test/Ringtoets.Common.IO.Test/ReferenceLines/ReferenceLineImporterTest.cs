@@ -75,8 +75,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.Replace(Arg<ReferenceLine>.Is.NotNull,
-                                          Arg<ReferenceLine>.Is.NotNull))
+            handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.NotNull,
+                                         Arg<ReferenceLine>.Is.NotNull))
                    .WhenCalled(invocation =>
                    {
                        var importedReferenceLine = (ReferenceLine) invocation.Arguments[1];
@@ -107,8 +107,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.Replace(Arg<ReferenceLine>.Is.NotNull,
-                                          Arg<ReferenceLine>.Is.NotNull))
+            handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.NotNull,
+                                         Arg<ReferenceLine>.Is.NotNull))
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
@@ -154,9 +154,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.ConfirmReplace())
+            handler.Expect(h => h.ConfirmUpdate())
                    .Repeat.Never();
-            handler.Expect(h => h.Replace(null, null))
+            handler.Expect(h => h.Update(null, null))
                    .IgnoreArguments()
                    .Repeat.Never();
             mocks.ReplayAll();
@@ -183,9 +183,9 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.ConfirmReplace())
+            handler.Expect(h => h.ConfirmUpdate())
                    .Repeat.Never();
-            handler.Expect(h => h.Replace(null, null))
+            handler.Expect(h => h.Update(null, null))
                    .IgnoreArguments()
                    .Repeat.Never();
             mocks.ReplayAll();
@@ -212,8 +212,8 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.ConfirmReplace()).Return(false);
-            handler.Expect(h => h.Replace(null, null))
+            handler.Expect(h => h.ConfirmUpdate()).Return(false);
+            handler.Expect(h => h.Update(null, null))
                    .IgnoreArguments()
                    .Repeat.Never();
             mocks.ReplayAll();
@@ -241,10 +241,10 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             var importer = new ReferenceLineImporter(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), handler, path);
-            handler.Expect(h => h.ConfirmReplace())
+            handler.Expect(h => h.ConfirmUpdate())
                    .WhenCalled(invocation => importer.Cancel())
                    .Return(acceptRemovalOfReferenceLineDependentData);
-            handler.Expect(h => h.Replace(null, null))
+            handler.Expect(h => h.Update(null, null))
                    .IgnoreArguments()
                    .Repeat.Never();
             mocks.ReplayAll();
@@ -268,7 +268,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             var mocks = new MockRepository();
             var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            handler.Stub(h => h.ConfirmReplace())
+            handler.Stub(h => h.ConfirmUpdate())
                    .Return(true);
             mocks.ReplayAll();
 
@@ -300,10 +300,10 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             var mocks = new MockRepository();
             var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            handler.Stub(h => h.ConfirmReplace())
+            handler.Stub(h => h.ConfirmUpdate())
                    .Return(true);
-            handler.Stub(h => h.Replace(Arg<ReferenceLine>.Is.NotNull,
-                                        Arg<ReferenceLine>.Is.NotNull))
+            handler.Stub(h => h.Update(Arg<ReferenceLine>.Is.NotNull,
+                                       Arg<ReferenceLine>.Is.NotNull))
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
@@ -334,10 +334,10 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.ConfirmReplace())
+            handler.Expect(h => h.ConfirmUpdate())
                    .Repeat.Never();
-            handler.Expect(h => h.Replace(Arg<ReferenceLine>.Is.NotNull,
-                                          Arg<ReferenceLine>.Is.NotNull))
+            handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.NotNull,
+                                         Arg<ReferenceLine>.Is.NotNull))
                    .WhenCalled(invocation =>
                    {
                        var importedReferenceLine = (ReferenceLine) invocation.Arguments[1];
@@ -385,15 +385,15 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             observable2.Expect(o => o.NotifyObservers());
 
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            handler.Expect(h => h.ConfirmReplace()).Return(true);
-            handler.Expect(h => h.Replace(Arg<ReferenceLine>.Is.Same(referenceLine),
-                                          Arg<ReferenceLine>.Is.NotNull))
+            handler.Expect(h => h.ConfirmUpdate()).Return(true);
+            handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.Same(referenceLine),
+                                         Arg<ReferenceLine>.Is.NotNull))
                    .Return(new[]
                    {
                        observable1,
                        observable2
                    });
-            handler.Expect(h => h.DoPostReplacementUpdates());
+            handler.Expect(h => h.DoPostUpdateActions());
             mocks.ReplayAll();
 
             referenceLine.Attach(referenceLineObserver);
@@ -422,10 +422,10 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
 
             var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
             var importer = new ReferenceLineImporter(referenceLine, handler, path);
-            handler.Expect(h => h.ConfirmReplace())
+            handler.Expect(h => h.ConfirmUpdate())
                    .WhenCalled(invocation => importer.Cancel())
                    .Return(true);
-            handler.Expect(h => h.Replace(null, null))
+            handler.Expect(h => h.Update(null, null))
                    .IgnoreArguments()
                    .Repeat.Never();
 
@@ -460,15 +460,15 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             observable2.Expect(o => o.NotifyObservers());
 
             var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            handler.Stub(h => h.ConfirmReplace()).Return(true);
-            handler.Expect(h => h.Replace(Arg<ReferenceLine>.Is.Same(referenceLine),
-                                          Arg<ReferenceLine>.Is.NotNull))
+            handler.Stub(h => h.ConfirmUpdate()).Return(true);
+            handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.Same(referenceLine),
+                                         Arg<ReferenceLine>.Is.NotNull))
                    .Return(new[]
                    {
                        observable1,
                        observable2
                    });
-            handler.Expect(h => h.DoPostReplacementUpdates());
+            handler.Expect(h => h.DoPostUpdateActions());
 
             mocks.ReplayAll();
 
