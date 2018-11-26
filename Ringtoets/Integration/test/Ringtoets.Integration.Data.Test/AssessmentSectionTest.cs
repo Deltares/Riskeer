@@ -99,15 +99,16 @@ namespace Ringtoets.Integration.Data.Test
 
             AssertExpectedContributions(composition, assessmentSection);
 
-            Assert.AreEqual(double.NaN, assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
+            Assert.IsNaN(assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
+            Assert.IsNaN(assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
+            Assert.IsNaN(assessmentSection.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
+            Assert.IsNaN(assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
 
-            Assert.IsTrue(assessmentSection.BackgroundData.IsVisible);
-            Assert.AreEqual(0.0, assessmentSection.BackgroundData.Transparency.Value);
-            Assert.AreEqual("Bing Maps - Satelliet", assessmentSection.BackgroundData.Name);
-            var configuration = (WellKnownBackgroundDataConfiguration) assessmentSection.BackgroundData.Configuration;
+            BackgroundData backgroundData = assessmentSection.BackgroundData;
+            Assert.IsTrue(backgroundData.IsVisible);
+            Assert.AreEqual(0.60, backgroundData.Transparency, backgroundData.Transparency.GetAccuracy());
+            Assert.AreEqual("Bing Maps - Satelliet", backgroundData.Name);
+            var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
             Assert.AreEqual(RingtoetsWellKnownTileSource.BingAerial, configuration.WellKnownTileSource);
 
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);

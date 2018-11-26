@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
 
             Configuration = configuration;
             IsVisible = true;
-            transparency = new RoundedDouble(transparencyNumberOfDecimals);
+            transparency = new RoundedDouble(transparencyNumberOfDecimals, 0.60);
         }
 
         /// <summary>

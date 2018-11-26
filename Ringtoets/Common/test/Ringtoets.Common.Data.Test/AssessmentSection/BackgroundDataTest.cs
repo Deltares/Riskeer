@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             Assert.IsNull(backgroundData.Name);
             Assert.IsTrue(backgroundData.IsVisible);
             Assert.AreEqual(2, backgroundData.Transparency.NumberOfDecimalPlaces);
-            Assert.AreEqual(0, backgroundData.Transparency.Value);
+            Assert.AreEqual(0.60, backgroundData.Transparency.Value);
             Assert.AreSame(configuration, backgroundData.Configuration);
         }
 
