@@ -45,13 +45,17 @@ namespace Ringtoets.Common.IO.ReferenceLines
         /// <param name="updateHandler">The object responsible for updating the
         /// <see cref="ReferenceLine"/>.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/>
-        /// or <paramref name="filePath"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ReferenceLineImporter(ReferenceLine importTarget,
                                      IReferenceLineUpdateHandler updateHandler,
                                      string filePath)
             : base(filePath, importTarget)
         {
+            if (updateHandler == null)
+            {
+                throw new ArgumentNullException(nameof(updateHandler));
+            }
+
             this.updateHandler = updateHandler;
         }
 

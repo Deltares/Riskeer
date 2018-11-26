@@ -54,6 +54,17 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
+        public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ReferenceLineImporter(new ReferenceLine(), null, "");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("updateHandler", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -438,7 +449,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             observable2.Expect(o => o.NotifyObservers());
 
             var handler = mocks.Stub<IReferenceLineUpdateHandler>();
-            handler.Stub(h => h.ConfirmUpdate()).Return(true);
             handler.Expect(h => h.Update(Arg<ReferenceLine>.Is.Same(referenceLine),
                                          Arg<ReferenceLine>.Is.NotNull))
                    .Return(new[]
