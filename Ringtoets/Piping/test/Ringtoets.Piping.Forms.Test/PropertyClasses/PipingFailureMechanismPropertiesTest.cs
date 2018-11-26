@@ -80,6 +80,22 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new PipingFailureMechanismProperties(new PipingFailureMechanism(), null, handler);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ChangeHandlerNull_ThrowArgumentNullException()
         {
             // Setup
