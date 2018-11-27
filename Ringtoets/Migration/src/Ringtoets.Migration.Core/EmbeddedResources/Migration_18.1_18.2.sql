@@ -147,49 +147,6 @@ CREATE TABLE IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
 	'LogMessage' TEXT NOT NULL
 );
 
-CREATE TEMP TABLE TempFailureMechanisms
-(
-	'FailureMechanismType' INTEGER NOT NULL,
-	'FailureMechanismName' VARCHAR(255) NOT NULL
-);
-
-INSERT INTO TempFailureMechanisms VALUES (1, 'Piping');
-INSERT INTO TempFailureMechanisms VALUES (2, 'Macrostabiliteit binnenwaarts');
-INSERT INTO TempFailureMechanisms VALUES (3, 'Golfklappen op asfaltbekleding');
-INSERT INTO TempFailureMechanisms VALUES (4, 'Grasbekleding erosie buitentalud');
-INSERT INTO TempFailureMechanisms VALUES (5, 'Grasbekleding afschuiven buitentalud');
-INSERT INTO TempFailureMechanisms VALUES (6, 'Grasbekleding erosie kruin en binnentalud');
-INSERT INTO TempFailureMechanisms VALUES (7, 'Stabiliteit steenzetting');
-INSERT INTO TempFailureMechanisms VALUES (8, 'Duinafslag');
-INSERT INTO TempFailureMechanisms VALUES (9, 'Hoogte kunstwerk');
-INSERT INTO TempFailureMechanisms VALUES (10, 'Betrouwbaarheid sluiting kunstwerk');
-INSERT INTO TempFailureMechanisms VALUES (11, 'Piping bij kunstwerk');
-INSERT INTO TempFailureMechanisms VALUES (12, 'Sterkte en stabiliteit puntconstructies');
-INSERT INTO TempFailureMechanisms VALUES (13, 'Macrostabiliteit buitenwaarts');
-INSERT INTO TempFailureMechanisms VALUES (14, 'Microstabiliteit');
-INSERT INTO TempFailureMechanisms VALUES (15, 'Wateroverdruk bij asfaltbekleding');
-INSERT INTO TempFailureMechanisms VALUES (16, 'Grasbekleding afschuiven binnentalud');
-INSERT INTO TempFailureMechanisms VALUES (17, 'Sterkte en stabiliteit langsconstructies');
-INSERT INTO TempFailureMechanisms VALUES (18, 'Technische innovaties');
-
-CREATE TEMP TABLE TempAssessmentSectionFailureMechanism
-(
-	[AssessmentSectionId],
-	[AssessmentSectionName],
-	[FailureMechanismId],
-	[FailureMechanismName]
-);
-
-INSERT INTO TempAssessmentSectionFailureMechanism
-SELECT
-	[AssessmentSectionEntityId],
-	[Name],
-	[FailureMechanismEntityId],
-	[FailureMechanismName]
-FROM AssessmentSectionEntity
-JOIN FailureMechanismEntity USING (AssessmentSectionEntityId)
-JOIN TempFailureMechanisms USING (FailureMechanismType);
-
 CREATE TEMP TABLE TempAssessmentSectionChanges
 (
 	[AssessmentSectionId],
@@ -200,24 +157,14 @@ CREATE TEMP TABLE TempAssessmentSectionChanges
 
 INSERT INTO TempAssessmentSectionChanges
 SELECT
-	asfm.[AssessmentSectionId],
-	asfm.[AssessmentSectionName],
+	ase.[AssessmentSectionEntityId],
+	ase.[Name],
 	0,
 	"De waarde voor de transparantie van de achtergrondkaart is aangepast naar 0.60."
 FROM AssessmentSectionEntity AS ase
 JOIN BackgroundDataEntity AS bd USING(AssessmentSectionEntityId)
 JOIN [SOURCEPROJECT].BackgroundDataEntity AS source USING(BackgroundDataEntityId)
-JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[AssessmentSectionId] = ase.AssessmentSectionEntityId
 WHERE source.[Transparency] != bd.Transparency;
-
-CREATE TEMP TABLE TempChanges
-(
-	[AssessmentSectionId],
-	[AssessmentSectionName],
-	[FailureMechanismId],
-	[FailureMechanismName],
-	[msg]
-);
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
@@ -230,42 +177,11 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[ToVersion],
 	[LogMessage])
 WITH RECURSIVE
-FailureMechanismMessages
-(
-	[FailureMechanismId],
-	[FailureMechanismName],
-	[AssessmentSectionId],
-	[AssessmentSectionName],
-	[msg], 
-	[level]
-) AS (
-SELECT DISTINCT 
-	[FailureMechanismId],
-	[FailureMechanismName],
-	[AssessmentSectionId],
-	[AssessmentSectionName],
-	NULL,
-	1
-	FROM TempChanges
-	UNION
-SELECT
-	[FailureMechanismId],
-	NULL,
-	[AssessmentSectionId],
-	[AssessmentSectionName],
-	[msg],
-	2
-	FROM TempChanges
-	WHERE TempChanges.[FailureMechanismId] IS [FailureMechanismId]
-	ORDER BY [FailureMechanismId], [AssessmentSectionId]
-),
 AssessmentSectionFailureMechanismMessages
 (
 	[AssessmentSectionId],
 	[AssessmentSectionName],
 	[IsAssessmentSectionHeader],
-	[FailureMechanismId],
-	[FailureMechanismName],
 	[msg],
 	[level],
 	[Order]
@@ -275,8 +191,6 @@ AssessmentSectionFailureMechanismMessages
 	[AssessmentSectionName],
 	1,
 	NULL,
-	NULL,
-	NULL,
 	1,
 	0
 	FROM
@@ -285,12 +199,6 @@ AssessmentSectionFailureMechanismMessages
 			[AssessmentSectionId],
 			[AssessmentSectionName]
 			FROM TempAssessmentSectionChanges
-		UNION
-		SELECT 
-			[AssessmentSectionId],
-			[AssessmentSectionName]
-			FROM FailureMechanismMessages
-		WHERE [AssessmentSectionId] IS NOT NULL
 	)
 
 	UNION
@@ -303,28 +211,11 @@ AssessmentSectionFailureMechanismMessages
 			[AssessmentSectionId],
 			[AssessmentSectionName],
 			0 AS [IsAssessmentSectionHeader],
-			NULL AS [FailureMechanismId],
-			NULL,
 			[msg],
 			1 AS [level],
 			[Order]
 			FROM TempAssessmentSectionChanges
-
-		UNION
-
-		SELECT
-			[AssessmentSectionId],
-			NULL,
-			0 AS [IsAssessmentSectionHeader],
-			fmm.[FailureMechanismId] AS [FailureMechanismId],
-			fmm.[FailureMechanismName],
-			[msg],
-			fmm.[level] AS [level],
-			1 AS [Order]
-			FROM FailureMechanismMessages AS fmm
-			WHERE fmm.[AssessmentSectionId] IS [AssessmentSectionId]
-
-	) ORDER BY [AssessmentSectionId], [FailureMechanismId], [level], [IsAssessmentSectionHeader] DESC, [Order]
+	) ORDER BY [AssessmentSectionId], [level], [IsAssessmentSectionHeader] DESC, [Order]
 )
 SELECT 
 	"18.1",
@@ -337,20 +228,10 @@ SELECT
 				ELSE
 					"  + " || [msg]
 				END	
-		ELSE
-			CASE
-				WHEN [FailureMechanismName] IS NOT NULL
-					THEN "  + Toetsspoor: '" || [FailureMechanismName] || "'"
-				ELSE
-				"    - " || [msg]
-			END
 	END
 FROM AssessmentSectionFailureMechanismMessages;
 
-DROP TABLE TempFailureMechanisms;
-DROP TABLE TempAssessmentSectionFailureMechanism;
 DROP TABLE TempAssessmentSectionChanges;
-DROP TABLE TempChanges;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 
