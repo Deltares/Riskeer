@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
@@ -35,28 +34,18 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     public class MapDataCollectionProperties : ObjectProperties<MapDataCollection>
     {
-        private readonly IEnumerable<MapDataCollection> parents;
-
         /// <summary>
         /// Creates a new instance of <see cref="MapDataCollectionProperties"/>.
         /// </summary>
         /// <param name="mapDataCollection">The <see cref="MapDataCollection"/> to show the properties for.</param>
-        /// <param name="parents">A collection containing all parent <see cref="MapDataCollection"/> of
-        /// the <paramref name="mapDataCollection"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MapDataCollectionProperties(MapDataCollection mapDataCollection, IEnumerable<MapDataCollection> parents)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapDataCollection"/>
+        /// is <c>null</c>.</exception>
+        public MapDataCollectionProperties(MapDataCollection mapDataCollection)
         {
             if (mapDataCollection == null)
             {
                 throw new ArgumentNullException(nameof(mapDataCollection));
             }
-
-            if (parents == null)
-            {
-                throw new ArgumentNullException(nameof(parents));
-            }
-
-            this.parents = parents;
 
             Data = mapDataCollection;
         }

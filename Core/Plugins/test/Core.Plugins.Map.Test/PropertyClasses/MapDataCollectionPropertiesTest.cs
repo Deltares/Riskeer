@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -42,22 +41,11 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_MapDataCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MapDataCollectionProperties(null, Enumerable.Empty<MapDataCollection>());
+            TestDelegate call = () => new MapDataCollectionProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("mapDataCollection", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_ParentsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new MapDataCollectionProperties(new MapDataCollection("Test"), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("parents", exception.ParamName);
         }
 
         [Test]
@@ -68,7 +56,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             mapDataCollection.Add(new TestFeatureBasedMapData());
 
             // Call
-            var properties = new MapDataCollectionProperties(mapDataCollection, Enumerable.Empty<MapDataCollection>());
+            var properties = new MapDataCollectionProperties(mapDataCollection);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MapDataCollection>>(properties);
@@ -88,7 +76,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var mapDataCollection = new MapDataCollection("Test");
 
             // Call
-            var properties = new MapDataCollectionProperties(mapDataCollection, Enumerable.Empty<MapDataCollection>());
+            var properties = new MapDataCollectionProperties(mapDataCollection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

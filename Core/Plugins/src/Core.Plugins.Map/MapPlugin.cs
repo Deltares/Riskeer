@@ -73,7 +73,7 @@ namespace Core.Plugins.Map
         {
             yield return new PropertyInfo<MapDataCollectionContext, MapDataCollectionProperties>
             {
-                CreateInstance = context => new MapDataCollectionProperties((MapDataCollection) context.WrappedData, MapDataContextHelper.GetParentsFromContext(context))
+                CreateInstance = context => new MapDataCollectionProperties((MapDataCollection) context.WrappedData)
             };
             yield return new PropertyInfo<MapPointDataContext, MapPointDataProperties>
             {
