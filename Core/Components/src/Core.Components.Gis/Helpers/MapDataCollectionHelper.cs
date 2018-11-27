@@ -32,22 +32,6 @@ namespace Core.Components.Gis.Helpers
     public static class MapDataCollectionHelper
     {
         /// <summary>
-        /// Gets the visibility states of the children of <paramref name="mapDataCollection"/>.
-        /// </summary>
-        /// <param name="mapDataCollection">The collection to get the child states from.</param>
-        /// <returns>A dictionary with the child map data and visibility states.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapDataCollection"/> is <c>null</c>.</exception>
-        public static Dictionary<MapData, bool> GetChildVisibilityStates(MapDataCollection mapDataCollection)
-        {
-            if (mapDataCollection == null)
-            {
-                throw new ArgumentNullException(nameof(mapDataCollection));
-            }
-
-            return GetMapDataRecursively(mapDataCollection).ToDictionary(child => child, child => child.IsVisible);
-        }
-
-        /// <summary>
         /// Gets the visibility states of the child <see cref="MapDataCollection"/> of <paramref name="mapDataCollection"/>.
         /// </summary>
         /// <param name="mapDataCollection">The collection to get the child states from.</param>
@@ -61,24 +45,6 @@ namespace Core.Components.Gis.Helpers
             }
 
             return GetMapDataCollectionRecursively(mapDataCollection).ToDictionary(child => child, child => child.GetVisibility());
-        }
-
-        private static IEnumerable<MapData> GetMapDataRecursively(MapDataCollection mapDataCollection)
-        {
-            var mapDataList = new List<MapData>();
-
-            foreach (MapData mapData in mapDataCollection.Collection)
-            {
-                var nestedMapDataCollection = mapData as MapDataCollection;
-                if (nestedMapDataCollection != null)
-                {
-                    mapDataList.AddRange(GetMapDataRecursively(nestedMapDataCollection));
-                }
-
-                mapDataList.Add(mapData);
-            }
-
-            return mapDataList;
         }
 
         private static IEnumerable<MapDataCollection> GetMapDataCollectionRecursively(MapDataCollection mapDataCollection)
