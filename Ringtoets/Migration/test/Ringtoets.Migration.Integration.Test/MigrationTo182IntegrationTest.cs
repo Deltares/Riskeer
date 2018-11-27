@@ -220,13 +220,17 @@ namespace Ringtoets.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(2, messages.Count);
+                Assert.AreEqual(3, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("18.1", newVersion, "Gevolgen van de migratie van versie 18.1 naar versie 18.2:"),
                     messages[i++]);
+
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("18.1", newVersion, "* Geen aanpassingen."),
+                    new MigrationLogMessage("18.1", newVersion, "* Traject: 'BackgroundData-DefaultValue'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("18.1", newVersion, $"  + De waarde voor de transparantie van de achtergrondkaart is aangepast naar 0.60."),
                     messages[i]);
             }
         }
