@@ -22,14 +22,13 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
 using Core.Plugins.Map.PropertyClasses;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Plugins.Map.Test.PropertyClasses
 {
@@ -37,7 +36,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
     public class MapDataCollectionPropertiesTest
     {
         private const int namePropertyIndex = 0;
-        private const int isVisiblePropertyIndex = 1;
+        private const int visibilityPropertyIndex = 1;
 
         [Test]
         public void Constructor_MapDataCollectionNull_ThrowsArgumentNullException()
@@ -76,7 +75,10 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             Assert.AreSame(mapDataCollection, properties.Data);
 
             Assert.AreEqual(mapDataCollection.Name, properties.Name);
-            Assert.AreEqual(mapDataCollection.IsVisible, properties.IsVisible);
+            Assert.AreEqual(mapDataCollection.GetVisibility(), properties.Visibility);
+
+            TestHelper.AssertTypeConverter<MapDataCollectionProperties, EnumTypeConverter>(
+                nameof(MapDataCollectionProperties.Visibility));
         }
 
         [Test]
@@ -101,74 +103,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                                             "De naam van deze kaartlagenmap.",
                                                                             true);
 
-            PropertyDescriptor isVisibleProperty = dynamicProperties[isVisiblePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isVisibleProperty,
+            PropertyDescriptor visibilityProperty = dynamicProperties[visibilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(visibilityProperty,
                                                                             mapDataCollectionCategory,
                                                                             "Weergeven",
-                                                                            "Geeft aan of deze kaartlagenmap wordt weergegeven.");
-        }
-
-        [Test]
-        public void IsVisible_Always_NotifiesDataAndParents()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(2);
-            mocks.ReplayAll();
-
-            var parentMapDataCollection = new MapDataCollection("Parent 1");
-            var mapDataCollection = new MapDataCollection("Collection");
-
-            parentMapDataCollection.Add(mapDataCollection);
-
-            parentMapDataCollection.Attach(observer);
-            mapDataCollection.Attach(observer);
-
-            var properties = new MapDataCollectionProperties(mapDataCollection, new[]
-            {
-                parentMapDataCollection
-            });
-
-            // Call
-            properties.IsVisible = false;
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true, 1)]
-        [TestCase(false, 4)]
-        public void GivenPropertiesWithChildren_WhenIsVisibleChanged_ThenOnlyChangedChildrenNotified(bool isVisible, int expectedNotifications)
-        {
-            // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(expectedNotifications);
-            mocks.ReplayAll();
-
-            var mapDataCollection = new MapDataCollection("Collection");
-            var childLayer1 = new TestFeatureBasedMapData();
-            var childCollection = new MapDataCollection("Child");
-            var childLayer2 = new TestFeatureBasedMapData();
-
-            mapDataCollection.Add(childLayer1);
-            mapDataCollection.Add(childCollection);
-            childCollection.Add(childLayer2);
-
-            mapDataCollection.Attach(observer);
-            childLayer1.Attach(observer);
-            childCollection.Attach(observer);
-            childLayer2.Attach(observer);
-
-            var properties = new MapDataCollectionProperties(mapDataCollection, Enumerable.Empty<MapDataCollection>());
-
-            // When
-            properties.IsVisible = isVisible;
-
-            // Then
-            mocks.VerifyAll();
+                                                                            "Geeft aan of deze kaartlagenmap wordt weergegeven.",
+                                                                            true);
         }
     }
 }
