@@ -27,7 +27,7 @@ using NUnit.Framework;
 namespace Core.Components.Gis.Test.Data
 {
     [TestFixture]
-    public class MapDataCollectionVisibilityTest : EnumValuesTestFixture<MapDataCollectionVisibility, int>
+    public class MapDataCollectionVisibilityTest : EnumWithResourcesDisplayNameTestFixture<MapDataCollectionVisibility>
     {
         protected override IDictionary<MapDataCollectionVisibility, int> ExpectedValueForEnumValues
         {
@@ -43,7 +43,26 @@ namespace Core.Components.Gis.Test.Data
                     },
                     {
                         MapDataCollectionVisibility.Mixed, 3
+                    }
+                };
+            }
+        }
+
+        protected override IDictionary<MapDataCollectionVisibility, string> ExpectedDisplayNameForEnumValues
+        {
+            get
+            {
+                return new Dictionary<MapDataCollectionVisibility, string>
+                {
+                    {
+                        MapDataCollectionVisibility.Visible, "Wel"
                     },
+                    {
+                        MapDataCollectionVisibility.NotVisible, "Niet"
+                    },
+                    {
+                        MapDataCollectionVisibility.Mixed, "Deels"
+                    }
                 };
             }
         }

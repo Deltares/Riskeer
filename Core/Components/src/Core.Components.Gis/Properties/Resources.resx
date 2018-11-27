@@ -186,4 +186,13 @@
   <data name="Pentagon_DisplayName" xml:space="preserve">
     <value>Vijfhoek</value>
   </data>
+  <data name="MapDataCollectionVisibility_Mixed_DisplayName" xml:space="preserve">
+    <value>Deels</value>
+  </data>
+  <data name="MapDataCollectionVisibility_NotVisible_DisplayName" xml:space="preserve">
+    <value>Niet</value>
+  </data>
+  <data name="MapDataCollectionVisibility_Visible_DisplayName" xml:space="preserve">
+    <value>Wel</value>
+  </data>
 </root>

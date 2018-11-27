@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -40,7 +40,7 @@ namespace Core.Components.Gis.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -204,6 +204,33 @@ namespace Core.Components.Gis.Properties {
         internal static string LineDashStyle_Solid_DisplayName {
             get {
                 return ResourceManager.GetString("LineDashStyle_Solid_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deels.
+        /// </summary>
+        internal static string MapDataCollectionVisibility_Mixed_DisplayName {
+            get {
+                return ResourceManager.GetString("MapDataCollectionVisibility_Mixed_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niet.
+        /// </summary>
+        internal static string MapDataCollectionVisibility_NotVisible_DisplayName {
+            get {
+                return ResourceManager.GetString("MapDataCollectionVisibility_NotVisible_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wel.
+        /// </summary>
+        internal static string MapDataCollectionVisibility_Visible_DisplayName {
+            get {
+                return ResourceManager.GetString("MapDataCollectionVisibility_Visible_DisplayName", resourceCulture);
             }
         }
         

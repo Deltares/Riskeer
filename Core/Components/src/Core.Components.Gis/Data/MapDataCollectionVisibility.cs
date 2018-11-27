@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Attributes;
+using Core.Components.Gis.Properties;
+
 namespace Core.Components.Gis.Data
 {
     /// <summary>
@@ -29,16 +32,19 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Map data collection visible.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapDataCollectionVisibility_Visible_DisplayName))]
         Visible = 1,
 
         /// <summary>
         /// Map data collection not visible.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapDataCollectionVisibility_NotVisible_DisplayName))]
         NotVisible = 2,
 
         /// <summary>
         /// Map data collection partially visible.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapDataCollectionVisibility_Mixed_DisplayName))]
         Mixed = 3
     }
 }
