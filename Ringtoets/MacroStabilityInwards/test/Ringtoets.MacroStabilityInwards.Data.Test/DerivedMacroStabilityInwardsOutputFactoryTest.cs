@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -88,10 +89,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
-                MacroStabilityInwardsProbabilityAssessmentInput =
-                {
-                    SectionLength = 6000
-                },
                 Contribution = 100
             };
 
@@ -109,11 +106,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual(output.FactorOfStability, derivedOutput.FactorOfStability, derivedOutput.FactorOfStability.GetAccuracy());
-            Assert.AreEqual(0.805, derivedOutput.MacroStabilityInwardsFactorOfSafety, derivedOutput.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
-            Assert.AreEqual(0.049327007121741082, derivedOutput.MacroStabilityInwardsProbability, 1e-6);
+            Assert.AreEqual(1.289, derivedOutput.MacroStabilityInwardsFactorOfSafety, derivedOutput.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(0.049327, derivedOutput.MacroStabilityInwardsProbability, 1e-6);
             Assert.AreEqual(1.65141, derivedOutput.MacroStabilityInwardsReliability, derivedOutput.MacroStabilityInwardsReliability.GetAccuracy());
-            Assert.AreEqual(0.020161290322580648d, derivedOutput.RequiredProbability, 1e-6);
-            Assert.AreEqual(2.05043, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(0.1, derivedOutput.RequiredProbability, 1e-6);
+            Assert.AreEqual(1.28155, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
             mocks.VerifyAll();
         }
     }

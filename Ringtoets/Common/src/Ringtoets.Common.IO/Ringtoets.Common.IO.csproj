@@ -83,7 +83,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SoilProfile\PreconsolidationStress.cs" />
-    <Compile Include="ReferenceLines\IReferenceLineReplaceHandler.cs" />
+    <Compile Include="ReferenceLines\IReferenceLineUpdateHandler.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLinesMetaReader.cs" />

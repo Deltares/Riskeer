@@ -212,7 +212,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
                 FileFilterGenerator = CreateClosingStructureFileFilter(),
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
+                IsEnabled = context => context.AssessmentSection.ReferenceLine.Points.Any(),
                 VerifyUpdates = context => VerifyStructuresShouldUpdate(
                     context.FailureMechanism,
                     RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)

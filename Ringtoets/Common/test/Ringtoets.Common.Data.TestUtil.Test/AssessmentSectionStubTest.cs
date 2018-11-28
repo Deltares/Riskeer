@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsNull(assessmentSection.Name);
             Assert.IsNull(assessmentSection.Comments);
             Assert.AreEqual(0, Convert.ToInt32(assessmentSection.Composition));
-            Assert.IsNull(assessmentSection.ReferenceLine);
+            Assert.IsNotNull(assessmentSection.ReferenceLine);
             Assert.IsNotNull(assessmentSection.BackgroundData);
             Assert.AreEqual("Background data", assessmentSection.BackgroundData.Name);
 
@@ -92,7 +92,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsNull(assessmentSection.Name);
             Assert.IsNull(assessmentSection.Comments);
             Assert.AreEqual(0, Convert.ToInt32(assessmentSection.Composition));
-            Assert.IsNull(assessmentSection.ReferenceLine);
+            Assert.IsNotNull(assessmentSection.ReferenceLine);
+            CollectionAssert.IsEmpty(assessmentSection.ReferenceLine.Points);
             Assert.IsNotNull(assessmentSection.BackgroundData);
             Assert.AreEqual("Background data", assessmentSection.BackgroundData.Name);
 

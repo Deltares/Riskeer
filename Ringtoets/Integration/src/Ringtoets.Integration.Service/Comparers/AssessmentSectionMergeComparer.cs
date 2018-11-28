@@ -57,18 +57,8 @@ namespace Ringtoets.Integration.Service.Comparers
 
         private static bool AreReferenceLinesEquivalent(ReferenceLine referenceLine, ReferenceLine otherReferenceLine)
         {
-            if (referenceLine == null && otherReferenceLine == null)
-            {
-                return true;
-            }
-
-            IEnumerable<Point2D> referenceLineGeometry = referenceLine?.Points;
-            IEnumerable<Point2D> otherReferenceLineGeometry = otherReferenceLine?.Points;
-
-            if (referenceLineGeometry == null || otherReferenceLineGeometry == null)
-            {
-                return false;
-            }
+            IEnumerable<Point2D> referenceLineGeometry = referenceLine.Points;
+            IEnumerable<Point2D> otherReferenceLineGeometry = otherReferenceLine.Points;
 
             int nrOfPoints = referenceLineGeometry.Count();
             if (otherReferenceLineGeometry.Count() != nrOfPoints)

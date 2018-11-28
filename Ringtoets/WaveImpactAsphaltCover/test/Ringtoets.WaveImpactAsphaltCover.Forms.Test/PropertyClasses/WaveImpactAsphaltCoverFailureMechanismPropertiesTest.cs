@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -51,12 +52,29 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverFailureMechanismProperties(null);
+            TestDelegate test = () => new WaveImpactAsphaltCoverFailureMechanismProperties(null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -65,13 +83,18 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         public void Constructor_WithWaveImpactAsphaltCoverFailureMechanism_ReturnsCorrectPropertyValues(bool isRelevant)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
+            mocks.ReplayAll();
+
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
             // Call
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreSame(failureMechanism, properties.Data);
@@ -90,25 +113,31 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreEqual(generalWaveImpactAsphaltCoverInput.DeltaL, properties.DeltaL);
 
             Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
-            Assert.AreEqual(generalWaveImpactAsphaltCoverInput.SectionLength,
+            Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
 
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(generalWaveImpactAsphaltCoverInput.N,
+            Assert.AreEqual(generalWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length),
                             properties.N,
                             properties.N.GetAccuracy());
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(
                 new WaveImpactAsphaltCoverFailureMechanism
                 {
                     IsRelevant = true
-                });
+                }, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -194,17 +223,23 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                                                                             "c",
                                                                             "De waarde van de parameter 'c' in de berekening voor golf condities.",
                                                                             true);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(
                 new WaveImpactAsphaltCoverFailureMechanism
                 {
                     IsRelevant = false
-                });
+                }, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -239,6 +274,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -252,13 +289,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Call
             TestDelegate call = () => properties.DeltaL = (RoundedDouble) value;
@@ -278,6 +316,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -285,7 +324,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Call
             properties.DeltaL = (RoundedDouble) value;
@@ -303,11 +342,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnsExpectedVisibility(bool isRelevant)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(
                 new WaveImpactAsphaltCoverFailureMechanism
                 {
                     IsRelevant = isRelevant
-                });
+                }, assessmentSection);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
@@ -324,6 +367,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.C)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+            mocks.VerifyAll();
         }
     }
 }

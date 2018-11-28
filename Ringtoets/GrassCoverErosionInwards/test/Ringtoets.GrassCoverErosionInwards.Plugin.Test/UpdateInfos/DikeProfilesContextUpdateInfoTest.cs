@@ -99,9 +99,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-
-            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var dikeProfiles = new DikeProfileCollection();
@@ -263,9 +262,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.UpdateInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-
-            assessmentSection.ReferenceLine = new ReferenceLine();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var context = new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection);

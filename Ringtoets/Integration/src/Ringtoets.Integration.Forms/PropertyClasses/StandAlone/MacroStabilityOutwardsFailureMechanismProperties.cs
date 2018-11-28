@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.Input;
@@ -36,6 +37,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
     /// </summary>
     public class MacroStabilityOutwardsFailureMechanismProperties : ObjectProperties<MacroStabilityOutwardsFailureMechanism>
     {
+        private readonly IAssessmentSection assessmentSection;
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
@@ -50,15 +52,22 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
         /// Creates a new instance of <see cref="MacroStabilityOutwardsFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> input parameter is <c>null</c>.</exception>
-        public MacroStabilityOutwardsFailureMechanismProperties(MacroStabilityOutwardsFailureMechanism data)
+        /// <param name="assessmentSection">The assessment section the data belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MacroStabilityOutwardsFailureMechanismProperties(MacroStabilityOutwardsFailureMechanism data, IAssessmentSection assessmentSection)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             Data = data;
+            this.assessmentSection = assessmentSection;
         }
 
         [DynamicVisibleValidationMethod]
@@ -188,7 +197,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
         {
             get
             {
-                return new RoundedDouble(2, data.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
+                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
             }
         }
 
@@ -202,7 +211,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
             get
             {
                 MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = data.MacroStabilityOutwardsProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength));
+                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
             }
         }
 

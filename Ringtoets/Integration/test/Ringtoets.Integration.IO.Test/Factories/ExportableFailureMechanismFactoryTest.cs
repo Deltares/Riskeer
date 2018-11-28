@@ -57,10 +57,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             mocks.ReplayAll();
-
-            ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
-            assessmentSection.ReferenceLine = referenceLine;
 
             var random = new Random(21);
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
@@ -107,10 +105,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             mocks.ReplayAll();
-
-            ReferenceLine referenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
-            assessmentSection.ReferenceLine = referenceLine;
 
             var random = new Random(21);
             var group = random.NextEnumValue<ExportableFailureMechanismGroup>();

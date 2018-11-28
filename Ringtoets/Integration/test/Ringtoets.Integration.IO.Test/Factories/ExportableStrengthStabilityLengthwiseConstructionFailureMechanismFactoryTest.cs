@@ -79,9 +79,8 @@ namespace Ringtoets.Integration.IO.Test.Factories
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             mocks.ReplayAll();
-
-            assessmentSection.ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry();
 
             var random = new Random(21);
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism

@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
@@ -42,24 +43,21 @@ namespace Ringtoets.Integration.Test
     public class ReferenceLineImporterIntegrationTest : NUnitFormsAssertTest
     {
         [Test]
-        public void GivenAssessmentSectionWithReferenceLine_WhenCancelingReferenceLineImport_ThenKeepOriginalReferenceLine()
+        public void GivenReferenceLineWithGeometry_WhenCancelingReferenceLineImport_ThenKeepOriginalReferenceLine()
         {
             // Given
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var originalReferenceLine = new ReferenceLine();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ReferenceLineTestFactory.CreateReferenceLineGeometry(assessmentSection.ReferenceLine);
+            Point2D[] originalReferenceLineGeometry = assessmentSection.ReferenceLine.Points.ToArray();
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                ReferenceLine = originalReferenceLine
-            };
-
-            var handler = new ReferenceLineReplacementHandler(viewCommands);
+            var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(assessmentSection.ReferenceLine, handler, path);
             string messageBoxTitle = null, messageBoxText = null;
             DialogBoxHandler = (name, wnd) =>
             {
@@ -76,7 +74,7 @@ namespace Ringtoets.Integration.Test
 
             // Then
             Assert.IsFalse(importSuccessful);
-            Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
+            CollectionAssert.AreEqual(originalReferenceLineGeometry, assessmentSection.ReferenceLine.Points);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             string expectedText = "Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
@@ -86,7 +84,7 @@ namespace Ringtoets.Integration.Test
         }
 
         [Test]
-        public void GivenAssessmentSectionWithReferenceLineAndOtherData_WhenImportingReferenceLine_ThenReferenceLineReplacedAndReferenceLineDependentDataCleared()
+        public void GivenAssessmentSectionWithReferenceLineAndOtherData_WhenImportingReferenceLine_ThenReferenceLineGeometryReplacedAndReferenceLineDependentDataCleared()
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -96,8 +94,8 @@ namespace Ringtoets.Integration.Test
             var failureMechanismObserver = mocks.StrictMock<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver())
                                     .Repeat.Times(assessmentSection.GetFailureMechanisms().Count());
-            var assessmentSectionObserver = mocks.StrictMock<IObserver>();
-            assessmentSectionObserver.Expect(o => o.UpdateObserver());
+            var referenceLineObserver = mocks.StrictMock<IObserver>();
+            referenceLineObserver.Expect(o => o.UpdateObserver());
             var surfaceLinesObserver = mocks.StrictMock<IObserver>();
             surfaceLinesObserver.Expect(o => o.UpdateObserver());
             var stochasticSoilModelsObserver = mocks.StrictMock<IObserver>();
@@ -110,12 +108,13 @@ namespace Ringtoets.Integration.Test
             DataImportHelper.ImportPipingStochasticSoilModels(assessmentSection);
 
             ReferenceLine originalReferenceLine = assessmentSection.ReferenceLine;
+            Point2D[] originalReferenceLineGeometry = originalReferenceLine.Points.ToArray();
 
-            var handler = new ReferenceLineReplacementHandler(viewCommands);
+            var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                      Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var importer = new ReferenceLineImporter(assessmentSection, handler, path);
+            var importer = new ReferenceLineImporter(assessmentSection.ReferenceLine, handler, path);
 
             string messageBoxTitle = null, messageBoxText = null;
             DialogBoxHandler = (name, wnd) =>
@@ -128,7 +127,7 @@ namespace Ringtoets.Integration.Test
                 messageBoxTester.ClickOk();
             };
 
-            assessmentSection.Attach(assessmentSectionObserver);
+            assessmentSection.ReferenceLine.Attach(referenceLineObserver);
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 failureMechanism.Attach(failureMechanismObserver);
@@ -143,7 +142,8 @@ namespace Ringtoets.Integration.Test
 
             // Then
             Assert.IsTrue(importSuccessful);
-            Assert.AreNotSame(originalReferenceLine, assessmentSection.ReferenceLine);
+            Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
+            CollectionAssert.AreNotEqual(originalReferenceLineGeometry, assessmentSection.ReferenceLine.Points);
             Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
             Assert.AreEqual(803, point2Ds.Length);
             Assert.AreEqual(198237.375, point2Ds[123].X, 1e-6);

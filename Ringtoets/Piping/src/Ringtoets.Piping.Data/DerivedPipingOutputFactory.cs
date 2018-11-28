@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Data
 
             double requiredProbability = RequiredProbability(probabilityAssessmentInput.A,
                                                              probabilityAssessmentInput.B,
-                                                             probabilityAssessmentInput.SectionLength,
+                                                             assessmentSection.ReferenceLine.Length,
                                                              norm,
                                                              contribution);
             double requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);

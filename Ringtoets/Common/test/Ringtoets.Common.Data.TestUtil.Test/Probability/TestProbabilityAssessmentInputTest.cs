@@ -44,7 +44,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test.Probability
             Assert.IsInstanceOf<ProbabilityAssessmentInput>(probabilityAssessmentInput);
             Assert.AreEqual(a, probabilityAssessmentInput.A);
             Assert.AreEqual(b, probabilityAssessmentInput.B);
-            Assert.IsNaN(probabilityAssessmentInput.SectionLength);
         }
     }
 }

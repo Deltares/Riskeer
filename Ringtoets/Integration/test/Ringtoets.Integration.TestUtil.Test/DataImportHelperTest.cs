@@ -41,17 +41,6 @@ namespace Ringtoets.Integration.TestUtil.Test
         }
 
         [Test]
-        public void ImportReferenceLine_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => DataImportHelper.ImportReferenceLine(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("importTarget", paramName);
-        }
-
-        [Test]
         public void ImportReferenceLine_ValidAssessmentSection_AddsReferenceLineGeometry()
         {
             // Call
@@ -59,20 +48,6 @@ namespace Ringtoets.Integration.TestUtil.Test
 
             // Assert
             Assert.AreEqual(2380, dikeSection.ReferenceLine.Points.Count());
-        }
-
-        [Test]
-        public void ImportFailureMechanismSections_WithoutReferenceLine_ArgumentNullException()
-        {
-            // Setup
-            IFailureMechanism failureMechanism = dikeSection.GetFailureMechanisms().ElementAt(new Random(21).Next(0, 18));
-
-            // Call
-            TestDelegate test = () => DataImportHelper.ImportFailureMechanismSections(dikeSection, failureMechanism);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("referenceLine", exception.ParamName);
         }
 
         [Test]
@@ -91,23 +66,6 @@ namespace Ringtoets.Integration.TestUtil.Test
             int[] expectedSectionCounts = Enumerable.Repeat(0, failureMechanismCount).ToArray();
             expectedSectionCounts[chosenFailureMechanismIndex] = 283;
             CollectionAssert.AreEqual(expectedSectionCounts, dikeSection.GetFailureMechanisms().Select(fm => fm.Sections.Count()));
-        }
-
-        [Test]
-        public void ImportFailureMechanismSections_MultipleFailureMechanismsWithoutReferenceLine_ArgumentNullException()
-        {
-            // Setup
-            IFailureMechanism failureMechanism = dikeSection.GetFailureMechanisms().ElementAt(new Random(21).Next(0, 18));
-
-            // Call
-            TestDelegate test = () => DataImportHelper.ImportFailureMechanismSections(dikeSection, new[]
-            {
-                failureMechanism
-            });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("referenceLine", exception.ParamName);
         }
 
         [Test]
@@ -161,17 +119,6 @@ namespace Ringtoets.Integration.TestUtil.Test
         }
 
         [Test]
-        public void ImportPipingSurfaceLines_WithoutReferenceLine_ArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => DataImportHelper.ImportPipingSurfaceLines(dikeSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("referenceLine", exception.ParamName);
-        }
-
-        [Test]
         public void ImportPipingSurfaceLines_WithReferenceLine_AddsFourSurfaceLines()
         {
             // Setup
@@ -218,17 +165,6 @@ namespace Ringtoets.Integration.TestUtil.Test
                 "W1-7_0_1D1",
                 "W1-8_6_1D1"
             }, dikeSection.Piping.StochasticSoilModels.SelectMany(sm => sm.StochasticSoilProfiles.Select(sp => sp.SoilProfile.Name)));
-        }
-
-        [Test]
-        public void ImportMacroStabilityInwardsSurfaceLines_WithoutReferenceLine_ArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => DataImportHelper.ImportMacroStabilityInwardsSurfaceLines(dikeSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("referenceLine", exception.ParamName);
         }
 
         [Test]

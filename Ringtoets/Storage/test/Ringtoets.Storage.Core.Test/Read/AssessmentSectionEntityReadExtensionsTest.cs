@@ -100,7 +100,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             Assert.AreEqual(normativeNorm, section.FailureMechanismContribution.NormativeNorm);
 
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
-            Assert.IsNull(section.ReferenceLine);
+            CollectionAssert.IsEmpty(section.ReferenceLine.Points);
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = section.HydraulicBoundaryDatabase;
             Assert.IsNotNull(hydraulicBoundaryDatabase);
@@ -162,7 +162,7 @@ namespace Ringtoets.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_WithReferenceLineEntities_ReturnsNewAssessmentSectionWithReferenceLineSet()
+        public void Read_WithReferenceLineEntities_ReturnsNewAssessmentSectionWithReferenceLineWithGeometry()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();

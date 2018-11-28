@@ -27,6 +27,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -61,15 +62,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         private const int sellMeijerReductionFactorPropertyIndex = 19;
 
         [Test]
-        public void Constructor_DataIsNull_ThrowArgumentNullException()
+        public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingFailureMechanismProperties(null, handler);
+            TestDelegate test = () => new PipingFailureMechanismProperties(null, assessmentSection, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -78,16 +80,36 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ChangeHandlerIsNull_ThrowArgumentNullException()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new PipingFailureMechanismProperties(
-                new PipingFailureMechanism(),
-                null);
+            TestDelegate call = () => new PipingFailureMechanismProperties(new PipingFailureMechanism(), null, handler);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ChangeHandlerNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new PipingFailureMechanismProperties(new PipingFailureMechanism(), assessmentSection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("handler", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -101,14 +123,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 IsRelevant = isRelevant
             };
 
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
+            mocks.ReplayAll();
 
             // Call
-            var properties = new PipingFailureMechanismProperties(
-                failureMechanism,
-                handler);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, handler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<PipingFailureMechanism>>(properties);
@@ -139,15 +161,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(probabilityAssessmentInput.GetN(
-                                probabilityAssessmentInput.SectionLength),
+            Assert.AreEqual(probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length),
                             properties.N,
                             properties.N.GetAccuracy());
             Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
-            Assert.AreEqual(probabilityAssessmentInput.SectionLength,
+            Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -159,15 +180,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 IsRelevant = true
             };
 
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
-
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
+            mocks.ReplayAll();
 
             // Call
-            var properties = new PipingFailureMechanismProperties(
-                failureMechanism,
-                handler);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -317,7 +336,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                                             "Reductiefactor Sellmeijer.",
                                                                             true);
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -329,15 +348,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 IsRelevant = false
             };
 
-            var mockRepository = new MockRepository();
-            var handler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
-
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
+            mocks.ReplayAll();
 
             // Call
-            var properties = new PipingFailureMechanismProperties(
-                failureMechanism,
-                handler);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -373,7 +390,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -386,16 +403,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
+            var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new PipingFailureMechanismProperties(
-                failureMechanism,
-                changeHandler);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, changeHandler);
 
             // Call
             TestDelegate call = () => properties.A = value;
@@ -416,17 +432,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new PipingFailureMechanismProperties(
-                failureMechanism,
-                changeHandler);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, changeHandler);
 
             // Call
             properties.A = value;
@@ -450,7 +465,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var roundedValue = (RoundedDouble) value;
 
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
+            mocks.ReplayAll();
+
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, RoundedDouble>(
                 failureMechanism,
                 roundedValue,
@@ -458,11 +476,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 {
                     observable
                 });
-            mocks.ReplayAll();
 
-            var properties = new PipingFailureMechanismProperties(
-                failureMechanism,
-                changeHandler);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, changeHandler);
 
             // Call            
             TestDelegate test = () => properties.WaterVolumetricWeight = roundedValue;
@@ -486,8 +501,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var roundedValue = (RoundedDouble) value;
 
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
 
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, RoundedDouble>(
                 failureMechanism,
@@ -497,11 +514,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     observable
                 });
 
-            mocks.ReplayAll();
-
-            var properties = new PipingFailureMechanismProperties(
-                failureMechanism,
-                changeHandler);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, changeHandler);
 
             // Call            
             properties.WaterVolumetricWeight = roundedValue;
@@ -520,6 +533,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             mocks.ReplayAll();
 
@@ -527,9 +541,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 IsRelevant = isRelevant
             };
-            var properties = new PipingFailureMechanismProperties(
-                pipingFailureMechanism,
-                changeHandler);
+            var properties = new PipingFailureMechanismProperties(pipingFailureMechanism, assessmentSection, changeHandler);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));

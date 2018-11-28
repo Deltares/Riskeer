@@ -75,7 +75,8 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismProperties>
             {
-                CreateInstance = context => new PipingFailureMechanismProperties(context.WrappedData, new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
+                CreateInstance = context => new PipingFailureMechanismProperties(context.WrappedData, context.Parent,
+                                                                                 new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
             };
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>
             {
@@ -119,7 +120,7 @@ namespace Ringtoets.Piping.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilterGenerator = PipingSurfaceLineFileFilter,
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
+                IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
                 CreateFileImporter = (context, filePath) => new SurfaceLinesCsvImporter<PipingSurfaceLine>(
                     context.WrappedData,
                     filePath,
@@ -134,7 +135,7 @@ namespace Ringtoets.Piping.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilterGenerator = StochasticSoilModelFileFilter,
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
+                IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
                 CreateFileImporter = (context, filePath) => new StochasticSoilModelImporter<PipingStochasticSoilModel>(
                     context.WrappedData,
                     filePath,
@@ -411,6 +412,11 @@ namespace Ringtoets.Piping.Plugin
                                                                              query,
                                                                              new DialogBasedInquiryHelper(Gui.MainWindow));
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
+        }
+
+        private static bool HasGeometry(ReferenceLine referenceLine)
+        {
+            return referenceLine.Points.Any();
         }
 
         #region PipingFailureMechanismView ViewInfo
@@ -693,7 +699,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism,
                                                               assessmentSection,
-                                                              () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
+                                                              () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
                 new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
                 new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments

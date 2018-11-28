@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
@@ -109,14 +110,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var random = new Random(39);
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
-                Contribution = 10,
-                MacroStabilityInwardsProbabilityAssessmentInput =
-                {
-                    SectionLength = random.Next(1000)
-                }
+                Contribution = 10
             };
 
             var mocks = new MockRepository();
@@ -135,10 +131,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedDerivedOutput.FactorOfStability, properties.MacroStabilityInwardsFactorOfStability,
                             properties.MacroStabilityInwardsFactorOfStability.GetAccuracy());
 
-            const string probabilityFormat = "1/{0:n0}";
-            Assert.AreEqual(string.Format(probabilityFormat, 1 / expectedDerivedOutput.RequiredProbability), properties.RequiredProbability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.RequiredProbability), properties.RequiredProbability);
             Assert.AreEqual(expectedDerivedOutput.RequiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(string.Format(probabilityFormat, 1 / expectedDerivedOutput.MacroStabilityInwardsProbability), properties.MacroStabilityInwardsProbability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), properties.MacroStabilityInwardsProbability);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsReliability, properties.MacroStabilityInwardsReliability, properties.MacroStabilityInwardsReliability.GetAccuracy());
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsFactorOfSafety, properties.MacroStabilityInwardsFactorOfSafety, properties.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
             mocks.VerifyAll();

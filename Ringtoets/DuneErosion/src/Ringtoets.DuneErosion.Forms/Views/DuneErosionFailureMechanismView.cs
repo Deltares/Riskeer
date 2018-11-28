@@ -54,6 +54,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
+        private Observer referenceLineObserver;
         private Observer duneLocationsObserver;
 
         private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificFactorizedSignalingNormObserver;
@@ -119,6 +120,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
+            referenceLineObserver.Dispose();
             duneLocationsObserver.Dispose();
 
             calculationsForMechanismSpecificFactorizedSignalingNormObserver.Dispose();
@@ -143,11 +145,14 @@ namespace Ringtoets.DuneErosion.Forms.Views
             {
                 Observable = FailureMechanism
             };
-            assessmentSectionObserver = new Observer(UpdateAssessmentSectionMapData)
+            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
                 Observable = AssessmentSection
             };
-
+            referenceLineObserver = new Observer(UpdateReferenceLineMapData)
+            {
+                Observable = AssessmentSection.ReferenceLine
+            };
             duneLocationsObserver = new Observer(UpdateDuneLocationMapData)
             {
                 Observable = FailureMechanism.DuneLocations
@@ -218,7 +223,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         #region AssessmentSection MapData
 
-        private void UpdateAssessmentSectionMapData()
+        private void UpdateReferenceLineMapData()
         {
             SetReferenceLineMapData();
             referenceLineMapData.NotifyObservers();

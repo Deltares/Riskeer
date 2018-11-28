@@ -210,7 +210,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
                 FileFilterGenerator = CreateStabilityPointStructureFileFilter(),
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
+                IsEnabled = context => context.AssessmentSection.ReferenceLine.Points.Any(),
                 VerifyUpdates = context => VerifyStructuresShouldUpdate(
                     context.FailureMechanism,
                     RingtoetsCommonIOResources.VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm)

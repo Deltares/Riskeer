@@ -210,9 +210,10 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         }
 
         [Test]
-        public void AssertReferenceLineMapData_ReferenceLineNullMapDataHasFeatures_ThrowAssertionException()
+        public void AssertReferenceLineMapData_ReferenceLineWithoutGeometryMapDataHasFeatures_ThrowAssertionException()
         {
             // Setup
+            var referenceLine = new ReferenceLine();
             var mapData = new MapLineData("Referentielijn")
             {
                 Features = new[]
@@ -228,7 +229,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
             };
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(null, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(referenceLine, mapData);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -326,13 +327,14 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         }
 
         [Test]
-        public void AssertReferenceLineMapData_ReferenceLineNullMapDataCorrect_DoesNotThrow()
+        public void AssertReferenceLineMapData_ReferenceLineWithoutGeometryMapDataCorrect_DoesNotThrow()
         {
             // Setup
+            var referenceLine = new ReferenceLine();
             var mapData = new MapLineData("Referentielijn");
 
             // Call
-            TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(null, mapData);
+            TestDelegate test = () => MapDataTestHelper.AssertReferenceLineMapData(referenceLine, mapData);
 
             // Assert
             Assert.DoesNotThrow(test);

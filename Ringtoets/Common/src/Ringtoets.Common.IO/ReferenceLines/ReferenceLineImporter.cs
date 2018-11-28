@@ -31,29 +31,32 @@ using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 namespace Ringtoets.Common.IO.ReferenceLines
 {
     /// <summary>
-    /// Imports a <see cref="ReferenceLine"/> and stores it on an <see cref="IAssessmentSection"/>,
-    /// taking data from a shapefile containing a single polyline.
+    /// Imports a <see cref="ReferenceLine"/> taking data from a shapefile containing a single polyline.
     /// </summary>
-    public class ReferenceLineImporter : FileImporterBase<IAssessmentSection>
+    public class ReferenceLineImporter : FileImporterBase<ReferenceLine>
     {
         private readonly List<IObservable> changedObservables = new List<IObservable>();
-        private readonly IReferenceLineReplaceHandler replacementHandler;
+        private readonly IReferenceLineUpdateHandler updateHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReferenceLineImporter"/> class.
         /// </summary>
-        /// <param name="importTarget">The assessment section to update.</param>
-        /// <param name="replacementHandler">The object responsible for replacing the
+        /// <param name="importTarget">The reference line to update.</param>
+        /// <param name="updateHandler">The object responsible for updating the
         /// <see cref="ReferenceLine"/>.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/>
-        /// or <paramref name="filePath"/> is <c>null</c>.</exception>
-        public ReferenceLineImporter(IAssessmentSection importTarget,
-                                     IReferenceLineReplaceHandler replacementHandler,
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ReferenceLineImporter(ReferenceLine importTarget,
+                                     IReferenceLineUpdateHandler updateHandler,
                                      string filePath)
             : base(filePath, importTarget)
         {
-            this.replacementHandler = replacementHandler;
+            if (updateHandler == null)
+            {
+                throw new ArgumentNullException(nameof(updateHandler));
+            }
+
+            this.updateHandler = updateHandler;
         }
 
         protected override bool OnImport()
@@ -85,7 +88,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
 
         protected override void DoPostImportUpdates()
         {
-            replacementHandler.DoPostReplacementUpdates();
+            updateHandler.DoPostUpdateActions();
 
             base.DoPostImportUpdates();
 
@@ -99,9 +102,9 @@ namespace Ringtoets.Common.IO.ReferenceLines
         {
             var clearReferenceLineDependentData = false;
 
-            if (ImportTarget.ReferenceLine != null)
+            if (ImportTarget.Points.Any())
             {
-                if (!replacementHandler.ConfirmReplace())
+                if (!updateHandler.ConfirmUpdate())
                 {
                     Cancel();
                 }
@@ -154,7 +157,7 @@ namespace Ringtoets.Common.IO.ReferenceLines
                                3, 3);
             }
 
-            changedObservables.AddRange(replacementHandler.Replace(ImportTarget, importedReferenceLine).Where(o => !ReferenceEquals(o, ImportTarget)));
+            changedObservables.AddRange(updateHandler.Update(ImportTarget, importedReferenceLine).Where(o => !ReferenceEquals(o, ImportTarget)));
         }
     }
 }

@@ -449,7 +449,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             Assert.IsNotNull(assessmentSection);
 
             AssessmentSection expectedAssessmentSection = TestAssessmentSection1_2(true);
-            expectedAssessmentSection.ReferenceLine = null;
+            expectedAssessmentSection.ReferenceLine.SetGeometry(Enumerable.Empty<Point2D>());
 
             AssertAssessmentSection(expectedAssessmentSection, assessmentSection);
             mockRepository.VerifyAll();
@@ -535,7 +535,6 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             assessmentSection.GrassCoverErosionInwards.GeneralInput.N = (RoundedDouble) 2.0;
             assessmentSection.GrassCoverErosionOutwards.GeneralInput.N = (RoundedDouble) 2.0;
             assessmentSection.HeightStructures.GeneralInput.N = (RoundedDouble) 2.0;
-            assessmentSection.ReferenceLine = new ReferenceLine();
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
                 new Point2D(160679.9250, 475072.583),
@@ -547,13 +546,6 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
         private static AssessmentSection TestAssessmentSection2_1()
         {
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
-            {
-                new Point2D(155556.9191, 464341.1281),
-                new Point2D(155521.4761, 464360.7401)
-            });
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune,
                                                           1.0 / 100,
                                                           1.0 / 300)
@@ -564,7 +556,6 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 {
                     NormativeNorm = NormType.Signaling
                 },
-                ReferenceLine = referenceLine,
                 GrassCoverErosionInwards =
                 {
                     GeneralInput =
@@ -588,6 +579,12 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 }
             };
 
+            assessmentSection.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(155556.9191, 464341.1281),
+                new Point2D(155521.4761, 464360.7401)
+            });
+
             return assessmentSection;
         }
 
@@ -602,8 +599,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 FailureMechanismContribution =
                 {
                     NormativeNorm = NormType.Signaling
-                },
-                ReferenceLine = new ReferenceLine()
+                }
             };
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
@@ -636,13 +632,6 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
         private static void AssertReferenceLine(ReferenceLine expected, ReferenceLine actual)
         {
-            if (expected == null)
-            {
-                Assert.IsNull(actual);
-                return;
-            }
-
-            Assert.IsNotNull(actual);
             Point2D[] expectedPoints = expected.Points.ToArray();
             Point2D[] actualPoints = actual.Points.ToArray();
             CollectionAssert.AreEqual(expectedPoints, actualPoints,

@@ -39,31 +39,45 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             // Assert
             Assert.AreEqual(2, generalInput.DeltaL.NumberOfDecimalPlaces);
             Assert.AreEqual(1000.0, generalInput.DeltaL, generalInput.DeltaL.GetAccuracy());
-            Assert.IsNaN(generalInput.SectionLength);
-            Assert.IsNaN(generalInput.N);
         }
 
         [Test]
-        public void N_DeltaLBiggerThanSectionLength_ReturnsCorrectValue()
+        public void GetN_SectionLengthNaN_ReturnsNaN()
+        {
+            // Setup
+            var random = new Random(39);
+            var generalInput = new GeneralWaveImpactAsphaltCoverInput
+            {
+                DeltaL = random.NextRoundedDouble()
+            };
+
+            // Call
+            double n = generalInput.GetN(double.NaN);
+
+            // Assert
+            Assert.IsNaN(n);
+        }
+
+        [Test]
+        public void GetN_DeltaLBiggerThanSectionLength_ReturnsCorrectValue()
         {
             // Setup
             var random = new Random(39);
 
             var generalInput = new GeneralWaveImpactAsphaltCoverInput
             {
-                SectionLength = random.NextDouble(0, 1000),
                 DeltaL = random.NextRoundedDouble(1001, 99999)
             };
 
             // Call
-            double n = generalInput.N;
+            double n = generalInput.GetN(random.NextDouble(0, 1000));
 
             // Assert
             Assert.AreEqual(1, n);
         }
 
         [Test]
-        public void N_DeltaLSmallerThanSectionLength_ReturnsCorrectValue()
+        public void GetN_DeltaLSmallerThanSectionLength_ReturnsCorrectValue()
         {
             // Setup
             var random = new Random(39);
@@ -72,12 +86,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
 
             var generalInput = new GeneralWaveImpactAsphaltCoverInput
             {
-                SectionLength = sectionLength,
                 DeltaL = deltaL
             };
 
             // Call
-            double n = generalInput.N;
+            double n = generalInput.GetN(sectionLength);
 
             // Assert
             Assert.AreEqual(sectionLength / deltaL, n, 1e-2);

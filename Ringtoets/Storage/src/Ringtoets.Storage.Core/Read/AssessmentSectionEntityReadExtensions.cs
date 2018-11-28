@@ -110,11 +110,7 @@ namespace Ringtoets.Storage.Core.Read
             if (entity.ReferenceLinePointXml != null)
             {
                 Point2D[] points = new Point2DCollectionXmlSerializer().FromXml(entity.ReferenceLinePointXml);
-
-                var referenceLine = new ReferenceLine();
-                referenceLine.SetGeometry(points);
-
-                assessmentSection.ReferenceLine = referenceLine;
+                assessmentSection.ReferenceLine.SetGeometry(points);
             }
         }
 

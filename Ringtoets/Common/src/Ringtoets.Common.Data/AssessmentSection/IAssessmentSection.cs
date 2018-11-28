@@ -54,9 +54,9 @@ namespace Ringtoets.Common.Data.AssessmentSection
         AssessmentSectionComposition Composition { get; }
 
         /// <summary>
-        /// Gets or sets the reference line defining the geometry of the assessment section.
+        /// Gets the reference line defining the geometry of the assessment section.
         /// </summary>
-        ReferenceLine ReferenceLine { get; set; }
+        ReferenceLine ReferenceLine { get; }
 
         /// <summary>
         /// Gets or sets the contribution of each failure mechanism available in this assessment section.

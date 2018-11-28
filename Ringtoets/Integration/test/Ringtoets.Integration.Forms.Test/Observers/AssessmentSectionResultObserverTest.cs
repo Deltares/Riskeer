@@ -155,6 +155,29 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenReferenceLineNotified_ThenAttachedObserverNotified()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                resultObserver.Attach(observer);
+
+                // When
+                assessmentSection.ReferenceLine.NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenClosingStructuresCalculationNotified_ThenAttachedObserverNotified()
         {
             // Given

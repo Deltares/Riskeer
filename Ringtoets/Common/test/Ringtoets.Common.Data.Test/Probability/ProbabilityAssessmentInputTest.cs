@@ -62,7 +62,6 @@ namespace Ringtoets.Common.Data.Test.Probability
             // Assert
             Assert.AreEqual(a, probabilityAssessmentInput.A);
             Assert.AreEqual(b, probabilityAssessmentInput.B);
-            Assert.IsNaN(probabilityAssessmentInput.SectionLength);
         }
 
         [Test]

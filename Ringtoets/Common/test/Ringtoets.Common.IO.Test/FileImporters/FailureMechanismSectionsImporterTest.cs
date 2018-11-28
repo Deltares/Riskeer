@@ -738,24 +738,23 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
         private static ReferenceLine ImportReferenceLine(string referenceLineFilePath)
         {
-            ReferenceLine importedReferenceLine = null;
+            var referenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IReferenceLineReplaceHandler>();
-            handler.Stub(h => h.ConfirmReplace()).Return(true);
-            handler.Stub(h => h.Replace(Arg<IAssessmentSection>.Is.Same(assessmentSection),
-                                        Arg<ReferenceLine>.Is.NotNull))
-                   .WhenCalled(invocation => { importedReferenceLine = (ReferenceLine) invocation.Arguments[1]; })
+            var handler = mocks.Stub<IReferenceLineUpdateHandler>();
+            handler.Stub(h => h.ConfirmUpdate()).Return(true);
+            handler.Stub(h => h.Update(Arg<ReferenceLine>.Is.NotNull,
+                                       Arg<ReferenceLine>.Is.NotNull))
+                   .WhenCalled(invocation => referenceLine = (ReferenceLine) invocation.Arguments[1])
                    .Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
-            var referenceLineImporter = new ReferenceLineImporter(assessmentSection, handler, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(referenceLine, handler, referenceLineFilePath);
             referenceLineImporter.Import();
 
             mocks.VerifyAll();
 
-            return importedReferenceLine;
+            return referenceLine;
         }
 
         private void AssertSectionsAreValidForReferenceLine(IEnumerable<FailureMechanismSection> sections, ReferenceLine referenceLine)

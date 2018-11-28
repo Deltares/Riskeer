@@ -62,16 +62,13 @@ namespace Ringtoets.Integration.Forms.Test.Factories
         {
             // Setup
             var random = new Random(21);
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
+            
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            assessmentSection.ReferenceLine.SetGeometry(new[]
             {
                 new Point2D(0, 0),
                 new Point2D(2, 2)
             });
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
-            {
-                ReferenceLine = referenceLine
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -141,16 +138,13 @@ namespace Ringtoets.Integration.Forms.Test.Factories
         {
             // Setup
             var random = new Random(21);
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
+            
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            assessmentSection.ReferenceLine.SetGeometry(new[]
             {
                 new Point2D(0, 0),
                 new Point2D(2, 2)
             });
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
-            {
-                ReferenceLine = referenceLine
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

@@ -360,6 +360,45 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void GivenViewWithAssessmentSectionData_WhenAssessmentSectionUpdatedAndNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+            var assessmentSection = new AssessmentSectionStub
+            {
+                ReferenceLine = referenceLine
+            };
+
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection))
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
+
+                // Precondition
+                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
+
+                // When
+                assessmentSection.Name = "New name";
+                assessmentSection.NotifyObservers();
+
+                // Then
+                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -369,7 +408,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(1.0, 2.0),
                 new Point2D(2.0, 1.0)
             });
-
             var assessmentSection = new AssessmentSectionStub
             {
                 ReferenceLine = referenceLine
@@ -390,12 +428,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 // When
-                assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+                referenceLine.SetGeometry(new List<Point2D>
                 {
                     new Point2D(2.0, 5.0),
                     new Point2D(4.0, 3.0)
                 });
-                assessmentSection.NotifyObservers();
+                referenceLine.NotifyObservers();
 
                 // Then
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);

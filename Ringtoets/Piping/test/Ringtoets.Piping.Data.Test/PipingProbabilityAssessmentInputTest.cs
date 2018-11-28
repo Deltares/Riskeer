@@ -37,7 +37,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<ProbabilityAssessmentInput>(pipingProbabilityAssessmentInput);
             Assert.AreEqual(0.4, pipingProbabilityAssessmentInput.A);
             Assert.AreEqual(300, pipingProbabilityAssessmentInput.B);
-            Assert.IsNaN(pipingProbabilityAssessmentInput.SectionLength);
         }
     }
 }

@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.IO.Exporters;
@@ -95,7 +96,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_AssessmentSectionWithoutReferenceLine_ReturnsFalse()
+        public void IsEnabled_ReferenceLineWithoutGeometry_ReturnsFalse()
         {
             // Setup
             var random = new Random(21);
@@ -115,14 +116,13 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_AssessmentSectionWithReferenceLine_ReturnsTrue()
+        public void IsEnabled_ReferenceLineWithGeometry_ReturnsTrue()
         {
             // Setup
             var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
-            {
-                ReferenceLine = new ReferenceLine()
-            };
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            ReferenceLineTestFactory.CreateReferenceLineGeometry(assessmentSection.ReferenceLine);
+
             var context = new AssemblyResultsContext(assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())

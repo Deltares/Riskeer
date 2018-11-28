@@ -169,6 +169,21 @@ namespace Ringtoets.Common.Forms.TestUtil
             }
         }
 
+        /// <summary>
+        /// Asserts whether the <paramref name="features"/> contains the meta data that is representative for the <paramref name="referenceLine"/>.
+        /// </summary>
+        /// <param name="referenceLine">The reference line that contains the original data.</param>
+        /// <param name="assessmentSection">The assessment section that contains the original data.</param>
+        /// <param name="features">The features that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when the meta data does not have the correct values.</exception>
+        public static void AssertReferenceLineMetaData(ReferenceLine referenceLine, IAssessmentSection assessmentSection, IEnumerable<MapFeature> features)
+        {
+            MapFeature feature = features.Single();
+            Assert.AreEqual(assessmentSection.Id, feature.MetaData["ID"]);
+            Assert.AreEqual(assessmentSection.Name, feature.MetaData["Naam"]);
+            Assert.AreEqual(new RoundedDouble(2, referenceLine.Length), feature.MetaData["Lengte*"]);
+        }
+
         private static string GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {

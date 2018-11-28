@@ -54,20 +54,6 @@ namespace Ringtoets.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableAssessmentSection_WithAssessmentSectionWithoutReferenceLine_ThrowsArgumentException()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
-            // Call
-            TestDelegate call = () => ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "reference line of assessment section cannot be null.");
-        }
-
-        [Test]
         public void CreateExportableAssessmentSection_WithAssessmentSectionWithReferenceLine_ReturnsExpectedValues()
         {
             // Setup
@@ -78,9 +64,9 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             {
                 Name = name,
-                Id = id,
-                ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry()
+                Id = id
             };
+            ReferenceLineTestFactory.CreateReferenceLineGeometry(assessmentSection.ReferenceLine);
 
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, random.Next(1, 10));
@@ -150,9 +136,9 @@ namespace Ringtoets.Integration.IO.Test.Factories
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             {
-                ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry(),
                 Id = "1"
             };
+            ReferenceLineTestFactory.CreateReferenceLineGeometry(assessmentSection.ReferenceLine);
 
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             failureMechanism.IsRelevant = true;

@@ -203,6 +203,47 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            var assessmentSection = new AssessmentSectionStub
+            {
+                ReferenceLine = referenceLine
+            };
+
+            using (var view = new AssessmentSectionView(assessmentSection))
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
+
+                // Precondition
+                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
+                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+
+                // Call
+                assessmentSection.Name = "New name";
+                assessmentSection.NotifyObservers();
+
+                // Assert
+                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
         {
             // Setup
@@ -233,12 +274,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 // Call
-                assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+                referenceLine.SetGeometry(new List<Point2D>
                 {
                     new Point2D(2.0, 5.0),
                     new Point2D(4.0, 3.0)
                 });
-                assessmentSection.NotifyObservers();
+                referenceLine.NotifyObservers();
 
                 // Assert
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);

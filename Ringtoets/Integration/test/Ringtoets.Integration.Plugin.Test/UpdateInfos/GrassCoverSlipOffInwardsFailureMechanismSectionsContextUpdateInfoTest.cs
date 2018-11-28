@@ -162,7 +162,7 @@ namespace Ringtoets.Integration.Plugin.Test.UpdateInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();

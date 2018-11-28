@@ -130,10 +130,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         private static AssessmentSection CreateAssessmentSection()
         {
             var random = new Random(21);
-            return new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
-            {
-                ReferenceLine = new ReferenceLine()
-            };
+            return new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
         }
     }
 }

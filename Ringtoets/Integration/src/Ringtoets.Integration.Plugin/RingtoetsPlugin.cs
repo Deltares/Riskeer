@@ -324,7 +324,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<MacroStabilityOutwardsFailureMechanismContext, MacroStabilityOutwardsFailureMechanismProperties>
             {
-                CreateInstance = context => new MacroStabilityOutwardsFailureMechanismProperties(context.WrappedData)
+                CreateInstance = context => new MacroStabilityOutwardsFailureMechanismProperties(context.WrappedData, context.Parent)
             };
             yield return new PropertyInfo<PipingStructureFailureMechanismContext, PipingStructureFailureMechanismProperties>
             {
@@ -729,7 +729,7 @@ namespace Ringtoets.Integration.Plugin
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new ReferenceLineImporter(context.WrappedData,
-                                                                                      new ReferenceLineReplacementHandler(Gui.ViewCommands),
+                                                                                      new ReferenceLineUpdateHandler(context.AssessmentSection, Gui.ViewCommands),
                                                                                       filePath)
             };
 
@@ -740,7 +740,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.SectionsIcon,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description),
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
+                IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
                 CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
                                                                                                  context.AssessmentSection.ReferenceLine,
                                                                                                  filePath,
@@ -761,7 +761,7 @@ namespace Ringtoets.Integration.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = Resources.Foreshore,
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
-                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
+                IsEnabled = context => HasGeometry(context.ParentAssessmentSection.ReferenceLine),
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
         }
@@ -771,8 +771,8 @@ namespace Ringtoets.Integration.Plugin
             yield return new ExportInfo<ReferenceLineContext>
             {
                 Name = RingtoetsCommonDataResources.ReferenceLine_DisplayName,
-                CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData.ReferenceLine, context.WrappedData.Id, filePath),
-                IsEnabled = context => context.WrappedData.ReferenceLine != null,
+                CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData, context.AssessmentSection.Id, filePath),
+                IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
             };
@@ -790,7 +790,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Name = RingtoetsCommonFormsResources.AssemblyResult_DisplayName,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
-                IsEnabled = context => context.WrappedData.ReferenceLine != null,
+                IsEnabled = context => HasGeometry(context.WrappedData.ReferenceLine),
                 FileFilterGenerator = new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
                                                               RingtoetsCommonFormsResources.AssemblyResult_DisplayName)
             };
@@ -911,9 +911,9 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsCommonDataResources.ReferenceLine_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.ReferenceLineIcon,
-                ForeColor = context => context.WrappedData.ReferenceLine == null
-                                           ? Color.FromKnownColor(KnownColor.GrayText)
-                                           : Color.FromKnownColor(KnownColor.ControlText),
+                ForeColor = context => HasGeometry(context.WrappedData)
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = ReferenceLineContextMenuStrip
             };
 
@@ -1290,6 +1290,11 @@ namespace Ringtoets.Integration.Plugin
                         validationProblem);
                 }
             }
+        }
+
+        private static bool HasGeometry(ReferenceLine referenceLine)
+        {
+            return referenceLine.Points.Any();
         }
 
         #region PropertyInfos
@@ -1674,7 +1679,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var childNodes = new List<object>
             {
-                new ReferenceLineContext(nodeData),
+                new ReferenceLineContext(nodeData.ReferenceLine, nodeData),
                 new NormContext(nodeData.FailureMechanismContribution, nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData.HydraulicBoundaryDatabase, nodeData),
@@ -1897,7 +1902,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 new MacroStabilityOutwardsAssemblyCategoriesContext(nodeData,
                                                                     assessmentSection,
-                                                                    () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
+                                                                    () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
                 new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
                     nodeData.SectionResults, nodeData, assessmentSection),
                 nodeData.OutputComments

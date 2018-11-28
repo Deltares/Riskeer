@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new ReferenceLineContext(assessmentSection);
+            var context = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

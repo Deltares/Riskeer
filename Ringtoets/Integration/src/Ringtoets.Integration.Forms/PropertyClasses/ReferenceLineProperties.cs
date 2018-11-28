@@ -35,10 +35,9 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of a <see cref="ReferenceLine"/> in the <see cref="IAssessmentSection"/>
-    /// for properties panel.
+    /// ViewModel of a <see cref="ReferenceLine"/> for properties panel.
     /// </summary>
-    public class ReferenceLineProperties : ObjectProperties<IAssessmentSection>
+    public class ReferenceLineProperties : ObjectProperties<ReferenceLine>
     {
         private const int lengthPropertyIndex = 1;
         private const int geometryPropertyIndex = 2;
@@ -46,16 +45,16 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="ReferenceLineProperties"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section to show the reference line properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public ReferenceLineProperties(IAssessmentSection assessmentSection)
+        /// <param name="referenceLine">The reference line to show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/> is <c>null</c>.</exception>
+        public ReferenceLineProperties(ReferenceLine referenceLine)
         {
-            if (assessmentSection == null)
+            if (referenceLine == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentNullException(nameof(referenceLine));
             }
 
-            data = assessmentSection;
+            data = referenceLine;
         }
 
         [DynamicVisible]
@@ -67,7 +66,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, data.ReferenceLine.Length);
+                return new RoundedDouble(2, data.Length);
             }
         }
 
@@ -81,14 +80,14 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.ReferenceLine.Points.ToArray();
+                return data.Points.ToArray();
             }
         }
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return data.ReferenceLine != null;
+            return data.Points.Any();
         }
     }
 }

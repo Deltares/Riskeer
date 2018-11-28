@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -75,16 +76,16 @@ namespace Ringtoets.Integration.Service.Test.Comparers
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Compare_AssessmentSectionsHaveEquivalentReferenceLines_ReturnsTrue(bool hasReferenceLine)
+        public void Compare_AssessmentSectionsHaveEquivalentReferenceLines_ReturnsTrue(bool referenceLineImported)
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
             AssessmentSection otherAssessmentSection = CreateAssessmentSection();
 
-            if (!hasReferenceLine)
+            if (!referenceLineImported)
             {
-                assessmentSection.ReferenceLine = null;
-                otherAssessmentSection.ReferenceLine = null;
+                assessmentSection.ReferenceLine.SetGeometry(Enumerable.Empty<Point2D>());
+                otherAssessmentSection.ReferenceLine.SetGeometry(Enumerable.Empty<Point2D>());
             }
 
             var comparer = new AssessmentSectionMergeComparer();
@@ -112,16 +113,14 @@ namespace Ringtoets.Integration.Service.Test.Comparers
 
         private static AssessmentSection CreateAssessmentSection()
         {
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike, 0.1, 0.025);
+            assessmentSection.ReferenceLine.SetGeometry(new[]
             {
                 new Point2D(1, 1),
                 new Point2D(1, 2)
             });
-            return new AssessmentSection(AssessmentSectionComposition.Dike, 0.1, 0.025)
-            {
-                ReferenceLine = referenceLine
-            };
+
+            return assessmentSection;
         }
 
         private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionTestCases()
@@ -136,23 +135,17 @@ namespace Ringtoets.Integration.Service.Test.Comparers
 
         private static IEnumerable<ChangePropertyData<AssessmentSection>> ChangeSingleDataProperties()
         {
-            var referenceLineDifferentPointCount = new ReferenceLine();
-            referenceLineDifferentPointCount.SetGeometry(new[]
-            {
-                new Point2D(1, 1)
-            });
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.ReferenceLine = referenceLineDifferentPointCount,
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.ReferenceLine.SetGeometry(new[]
+                                                                   {
+                                                                       new Point2D(1, 1)
+                                                                   }),
                                                                    "Referenceline different point count");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.ReferenceLine = null,
-                                                                   "Referenceline null");
 
-            var referenceLineDifferentPoint = new ReferenceLine();
-            referenceLineDifferentPoint.SetGeometry(new[]
-            {
-                new Point2D(1, 1),
-                new Point2D(1, 3)
-            });
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.ReferenceLine = referenceLineDifferentPoint,
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.ReferenceLine.SetGeometry(new[]
+                                                                   {
+                                                                       new Point2D(1, 1),
+                                                                       new Point2D(1, 3)
+                                                                   }),
                                                                    "Referenceline different point");
 
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.Id = "DifferentVersion",

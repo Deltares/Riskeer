@@ -25,10 +25,11 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO.ReferenceLines;
-using Ringtoets.Integration.Data;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ExportInfos
@@ -59,11 +60,11 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         public void CreateFileExporter_Always_ReturnFileExporter()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                ReferenceLine = new ReferenceLine()
-            };
-            var context = new ReferenceLineContext(assessmentSection);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var context = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
             const string filePath = "test";
 
             using (var plugin = new RingtoetsPlugin())
@@ -76,6 +77,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<ReferenceLineExporter>(fileExporter);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -95,11 +97,15 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_NoReferenceLineSet_ReturnFalse()
+        public void IsEnabled_ReferenceLineWithoutGeometry_ReturnFalse()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new ReferenceLineContext(assessmentSection);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
+            mocks.ReplayAll();
+
+            var context = new ReferenceLineContext(assessmentSection.ReferenceLine, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -111,17 +117,19 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineSet_ReturnTrue()
+        public void IsEnabled_ReferenceLineWithGeometry_ReturnTrue()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                ReferenceLine = new ReferenceLine()
-            };
-            var context = new ReferenceLineContext(assessmentSection);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
+            mocks.ReplayAll();
+
+            var context = new ReferenceLineContext(assessmentSection.ReferenceLine, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -133,6 +141,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+            mocks.VerifyAll();
         }
 
         private static ExportInfo GetExportInfo(RingtoetsPlugin plugin)

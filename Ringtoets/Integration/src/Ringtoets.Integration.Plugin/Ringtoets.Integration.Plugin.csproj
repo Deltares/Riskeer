@@ -40,7 +40,7 @@
     <Compile Include="Handlers\AssessmentSectionCompositionChangeHandler.cs" />
     <Compile Include="Handlers\FailureMechanismContributionNormChangeHandler.cs" />
     <Compile Include="Merge\IAssessmentSectionMergeHandler.cs" />
-    <Compile Include="Handlers\ReferenceLineReplacementHandler.cs" />
+    <Compile Include="Handlers\ReferenceLineUpdateHandler.cs" />
     <Compile Include="Merge\AssessmentSectionProvider.cs" />
     <Compile Include="Merge\AssessmentSectionProviderException.cs" />
     <Compile Include="Merge\IAssessmentSectionProvider.cs" />

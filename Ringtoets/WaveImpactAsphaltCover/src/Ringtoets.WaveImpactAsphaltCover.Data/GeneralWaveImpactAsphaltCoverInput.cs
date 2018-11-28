@@ -38,7 +38,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         public GeneralWaveImpactAsphaltCoverInput()
         {
             deltaL = new RoundedDouble(2, 1000.0);
-            SectionLength = double.NaN;
         }
 
         /// <summary>
@@ -65,19 +64,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         }
 
         /// <summary>
-        /// Gets or sets the length of the assessment section.
-        /// </summary>
-        public double SectionLength { get; set; }
-
-        /// <summary>
         /// Gets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
-        public double N
+        /// <param name="sectionLength">The length of the assessment section.</param>
+        /// <returns>The 'N' parameter.</returns>
+        public double GetN(double sectionLength)
         {
-            get
-            {
-                return Math.Max(1, SectionLength / deltaL);
-            }
+            return Math.Max(1, sectionLength / deltaL);
         }
     }
 }

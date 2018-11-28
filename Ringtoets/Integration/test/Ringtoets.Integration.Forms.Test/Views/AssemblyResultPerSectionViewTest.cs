@@ -455,9 +455,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
-            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResults.Single().UseManualAssembly = hasManualAssembly;
+            ReferenceLineTestFactory.CreateReferenceLineGeometry(assessmentSection.ReferenceLine);
+            foreach (IHasSectionResults<FailureMechanismSectionResult> failureMechanism in assessmentSection.GetFailureMechanisms()
+                                                                                                            .Cast<IHasSectionResults<FailureMechanismSectionResult>>())
+            {
+                FailureMechanismTestHelper.AddSectionsBasedOnReferenceLine(assessmentSection.ReferenceLine, failureMechanism, 1);
+                failureMechanism.SectionResults.Single().UseManualAssembly = hasManualAssembly;
+            }
 
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {

@@ -100,7 +100,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.StructuresIcon,
-                IsEnabled = IsHeightStructuresImportEnabled,
+                IsEnabled = context => context.AssessmentSection.ReferenceLine.Points.Any(),
                 FileFilterGenerator = CreateHeightStructureFileFilter(),
                 CreateFileImporter = (context, filePath) => CreateHeightStructuresImporter(
                     context, filePath, new ImportMessageProvider(), new HeightStructureReplaceDataStrategy(context.FailureMechanism)),
@@ -873,11 +873,6 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             return new HeightStructuresImporter(context.WrappedData, context.AssessmentSection.ReferenceLine,
                                                 filePath, messageProvider, strategy);
-        }
-
-        private static bool IsHeightStructuresImportEnabled(HeightStructuresContext context)
-        {
-            return context.AssessmentSection.ReferenceLine != null;
         }
 
         private static FileFilterGenerator CreateHeightStructureFileFilter()

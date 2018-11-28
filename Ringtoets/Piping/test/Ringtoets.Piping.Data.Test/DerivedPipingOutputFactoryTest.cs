@@ -87,10 +87,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
-                PipingProbabilityAssessmentInput =
-                {
-                    SectionLength = 6000
-                },
                 Contribution = 100
             };
 
@@ -113,8 +109,8 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0.00017624686431291146, derivedOutput.HeaveProbability, 1e-6);
             Assert.AreEqual(0.13596896289025881, derivedOutput.SellmeijerProbability, 1e-6);
             Assert.AreEqual(3.57331, derivedOutput.PipingReliability, derivedOutput.PipingReliability.GetAccuracy());
-            Assert.AreEqual(2.28655, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(1.563, derivedOutput.PipingFactorOfSafety, derivedOutput.PipingFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(1.28155, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(2.788, derivedOutput.PipingFactorOfSafety, derivedOutput.PipingFactorOfSafety.GetAccuracy());
             mocks.VerifyAll();
         }
     }

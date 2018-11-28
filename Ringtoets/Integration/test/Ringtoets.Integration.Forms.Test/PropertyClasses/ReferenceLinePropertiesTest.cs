@@ -26,7 +26,6 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -37,75 +36,59 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     public class ReferenceLinePropertiesTest
     {
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void Constructor_ReferenceLineNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new ReferenceLineProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
+            Assert.AreEqual("referenceLine", paramName);
         }
 
         [Test]
-        public void Constructor_WithAssessmentSection_ExpectedValues()
+        public void Constructor_WithReferenceLine_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var referenceLine = new ReferenceLine();
 
             // Call
-            var properties = new ReferenceLineProperties(assessmentSection);
+            var properties = new ReferenceLineProperties(referenceLine);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<IAssessmentSection>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<ReferenceLine>>(properties);
             TestHelper.AssertTypeConverter<ReferenceLineProperties, ExpandableArrayConverter>(
                 nameof(ReferenceLineProperties.Geometry));
 
-            Assert.AreSame(assessmentSection, properties.Data);
-            mocks.VerifyAll();
+            Assert.AreSame(referenceLine, properties.Data);
         }
 
         [Test]
-        public void GetProperties_AssessmentSectionWithReferenceLine_ReturnExpectedValues()
+        public void GetProperties_ReferenceLineWithGeometry_ReturnExpectedValues()
         {
             // Setup
             var random = new Random(39);
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var referenceLine = new ReferenceLine();
-            var geometry = new[]
+            referenceLine.SetGeometry(new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble()),
                 new Point2D(random.NextDouble(), random.NextDouble())
-            };
-            referenceLine.SetGeometry(geometry);
-            assessmentSection.ReferenceLine = referenceLine;
-            mocks.ReplayAll();
+            });
 
             // Call
-            var properties = new ReferenceLineProperties(assessmentSection);
+            var properties = new ReferenceLineProperties(referenceLine);
 
             // Assert
             Assert.AreEqual(2, properties.Length.NumberOfDecimalPlaces);
             Assert.AreEqual(referenceLine.Length, properties.Length, properties.Length.GetAccuracy());
-            CollectionAssert.AreEqual(geometry, properties.Geometry);
-            mocks.VerifyAll();
+            CollectionAssert.AreEqual(referenceLine.Points, properties.Geometry);
         }
 
         [Test]
-        public void Constructor_AssessmentSectionWithReferenceLine_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_ReferenceLineWithGeometry_PropertiesHaveExpectedAttributeValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            assessmentSection.ReferenceLine = new ReferenceLine();
-
             // Call
-            var properties = new ReferenceLineProperties(assessmentSection);
+            var properties = new ReferenceLineProperties(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -128,25 +111,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Lijst van alle coördinaten (X-coördinaat, Y-coördinaat) " +
                                                                             "die samen de referentielijn vormen.",
                                                                             true);
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_AssessmentSectionWithoutReferenceLine_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_ReferenceLineWithoutGeometry_PropertiesHaveExpectedAttributeValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            var properties = new ReferenceLineProperties(assessmentSection);
+            var properties = new ReferenceLineProperties(new ReferenceLine());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
             Assert.AreEqual(0, dynamicProperties.Count);
-            mocks.VerifyAll();
         }
     }
 }

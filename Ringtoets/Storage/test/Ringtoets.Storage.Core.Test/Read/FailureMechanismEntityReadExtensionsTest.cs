@@ -828,7 +828,6 @@ namespace Ringtoets.Storage.Core.Test.Read
 
             MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.First();
             Assert.AreEqual(metaEntity.A, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
-            Assert.IsNaN(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
         }
 
         [Test]

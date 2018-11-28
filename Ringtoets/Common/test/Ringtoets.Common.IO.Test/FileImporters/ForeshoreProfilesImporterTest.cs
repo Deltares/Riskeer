@@ -162,12 +162,11 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
 
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
             var messageProvider = mockRepository.Stub<IImporterMessageProvider>();
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
-
             mockRepository.ReplayAll();
 
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
@@ -254,7 +253,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
             mockRepository.ReplayAll();
 
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath, strategy, messageProvider);
@@ -279,7 +278,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
@@ -337,7 +336,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var observer = mockRepository.StrictMock<IObserver>();
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
             var failureMechanism = mockRepository.Stub<IFailureMechanism>();
 
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
@@ -407,7 +406,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var observer = mockRepository.StrictMock<IObserver>();
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
             var failureMechanism = mockRepository.Stub<IFailureMechanism>();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
@@ -469,7 +468,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
 
             const string cancelledLogMessage = "Operation cancelled";
             var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
@@ -510,7 +509,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
 
             const string cancelledLogMessage = "Operation cancelled";
             var messageProvider = mockRepository.StrictMock<IImporterMessageProvider>();
@@ -549,7 +548,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
@@ -636,7 +635,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
+            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
 
             var strategy = mockRepository.StrictMock<IForeshoreProfileUpdateDataStrategy>();
             var foreshoreProfiles = new ForeshoreProfileCollection();

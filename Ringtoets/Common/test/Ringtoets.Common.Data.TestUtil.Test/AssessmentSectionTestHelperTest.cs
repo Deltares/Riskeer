@@ -55,6 +55,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
             Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
             Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
+            Assert.IsNotNull(assessmentSection.ReferenceLine);
 
             mocks.VerifyAll();
         }
@@ -86,6 +87,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
             Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
             Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
+            Assert.IsNotNull(assessmentSection.ReferenceLine);
 
             CollectionAssert.AreEqual(new[]
             {
@@ -128,6 +130,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
             Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
             Assert.IsNull(hydraulicBoundaryDatabase.PreprocessorDirectory);
+            Assert.IsNotNull(assessmentSection.ReferenceLine);
 
             CollectionAssert.AreEqual(new[]
             {

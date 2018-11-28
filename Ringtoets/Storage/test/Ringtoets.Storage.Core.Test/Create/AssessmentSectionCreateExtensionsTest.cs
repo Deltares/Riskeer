@@ -248,10 +248,7 @@ namespace Ringtoets.Storage.Core.Test.Create
                 new Point2D(5, 3)
             };
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                ReferenceLine = new ReferenceLine()
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             assessmentSection.ReferenceLine.SetGeometry(points);
 
             var registry = new PersistenceRegistry();

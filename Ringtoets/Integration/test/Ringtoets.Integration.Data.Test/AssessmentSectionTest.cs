@@ -64,9 +64,12 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.AreEqual("Traject", assessmentSection.Name);
             Assert.IsNull(assessmentSection.Comments.Body);
-            Assert.IsNull(assessmentSection.ReferenceLine);
             Assert.AreEqual(composition, assessmentSection.Composition);
             Assert.IsInstanceOf<FailureMechanismContribution>(assessmentSection.FailureMechanismContribution);
+
+            ReferenceLine referenceLine = assessmentSection.ReferenceLine;
+            Assert.IsNotNull(referenceLine);
+            CollectionAssert.IsEmpty(referenceLine.Points);
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             Assert.IsNotNull(hydraulicBoundaryDatabase);
@@ -98,11 +101,6 @@ namespace Ringtoets.Integration.Data.Test
             Assert.NotNull(assessmentSection.TechnicalInnovation);
 
             AssertExpectedContributions(composition, assessmentSection);
-
-            Assert.IsNaN(assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
-            Assert.IsNaN(assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
-            Assert.IsNaN(assessmentSection.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
-            Assert.IsNaN(assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
 
             BackgroundData backgroundData = assessmentSection.BackgroundData;
             Assert.IsTrue(backgroundData.IsVisible);
@@ -351,66 +349,6 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(relevancies[9], assessmentSection.PipingStructure.IsRelevant);
             Assert.AreEqual(relevancies[10], assessmentSection.DuneErosion.IsRelevant);
             AssertFailureProbabilityMarginFactor(composition, assessmentSection);
-        }
-
-        [Test]
-        public void ReferenceLine_SetNewValue_GetNewValue()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
-            var referenceLine = new ReferenceLine();
-
-            // Call
-            assessmentSection.ReferenceLine = referenceLine;
-
-            // Assert
-            Assert.AreSame(referenceLine, assessmentSection.ReferenceLine);
-        }
-
-        [Test]
-        public void ReferenceLine_SomeReferenceLine_RelevantGeneralInputSectionLengthSet()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            var referenceLine = new ReferenceLine();
-
-            Point2D[] somePointsCollection =
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            };
-            referenceLine.SetGeometry(somePointsCollection);
-
-            // Call
-            assessmentSection.ReferenceLine = referenceLine;
-
-            // Assert
-            Assert.AreEqual(referenceLine.Length, assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(referenceLine.Length, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(referenceLine.Length, assessmentSection.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(referenceLine.Length, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
-        }
-
-        [Test]
-        public void ReferenceLine_Null_RelevantGeneralInputSectionLengthNaN()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
-            // Call
-            assessmentSection.ReferenceLine = null;
-
-            // Assert
-            Assert.AreEqual(double.NaN, assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
         }
 
         [Test]

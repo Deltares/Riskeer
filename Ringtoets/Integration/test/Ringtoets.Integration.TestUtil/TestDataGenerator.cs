@@ -69,7 +69,6 @@ namespace Ringtoets.Integration.TestUtil
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var assessmentSection = new AssessmentSection(composition)
             {
-                ReferenceLine = new ReferenceLine(),
                 HydraulicBoundaryDatabase =
                 {
                     Locations =
@@ -240,10 +239,14 @@ namespace Ringtoets.Integration.TestUtil
         public static AssessmentSection GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
-            var assessmentSection = new AssessmentSection(composition)
+            var assessmentSection = new AssessmentSection(composition);
+            assessmentSection.ReferenceLine.SetGeometry(new[]
             {
-                ReferenceLine = GetReferenceLine()
-            };
+                new Point2D(-1, -1),
+                new Point2D(5, 5),
+                new Point2D(10, 10),
+                new Point2D(-3, 2)
+            });
 
             IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
             for (var i = 0; i < failureMechanisms.Count(); i++)
@@ -252,19 +255,6 @@ namespace Ringtoets.Integration.TestUtil
             }
 
             return assessmentSection;
-        }
-
-        private static ReferenceLine GetReferenceLine()
-        {
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
-            {
-                new Point2D(-1, -1),
-                new Point2D(5, 5),
-                new Point2D(10, 10),
-                new Point2D(-3, 2)
-            });
-            return referenceLine;
         }
 
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,

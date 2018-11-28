@@ -47,13 +47,7 @@ namespace Ringtoets.Common.Data.Probability
         {
             A = a;
             B = b;
-            SectionLength = double.NaN;
         }
-
-        /// <summary>
-        /// Gets or sets the length of the assessment section.
-        /// </summary>
-        public double SectionLength { get; set; }
 
         /// <summary>
         /// Gets or sets 'a' parameter used to factor in the 'length effect' when determining the

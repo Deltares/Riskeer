@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -85,14 +86,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            var context = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                string text = info.Text(referenceLineContext);
+                string text = info.Text(context);
 
                 // Assert
                 Assert.AreEqual("Referentielijn", text);
@@ -108,14 +109,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            var context = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Image image = info.Image(referenceLineContext);
+                Image image = info.Image(context);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ReferenceLineIcon, image);
@@ -159,13 +160,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasNoReferenceLine_ReturnDisabledColor()
+        public void ForeColor_ContextHasReferenceLineWithoutGeometry_ReturnDisabledColor()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            var referenceLineContext = new ReferenceLineContext(new ReferenceLine(), assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -182,14 +183,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasReferenceLineData_ReturnControlText()
+        public void ForeColor_ContextHasReferenceLineWithGeometry_ReturnControlText()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            var referenceLineContext = new ReferenceLineContext(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(),
+                                                                assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {

@@ -129,15 +129,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
+            
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.ReferenceLine.SetGeometry(new[]
             {
                 new Point2D(1.0, 2.0),
                 new Point2D(2.0, 1.0)
             });
-
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.ReferenceLine = referenceLine;
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
@@ -267,7 +265,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             });
 
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.ReferenceLine = referenceLine;
+            assessmentSection.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
 
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
             {
@@ -409,15 +411,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private static AssessmentSection CreateAssessmentSectionWithReferenceLine()
         {
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.ReferenceLine.SetGeometry(new[]
             {
                 new Point2D(1.0, 2.0),
                 new Point2D(2.0, 1.0)
             });
-
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.ReferenceLine = referenceLine;
 
             return assessmentSection;
         }
