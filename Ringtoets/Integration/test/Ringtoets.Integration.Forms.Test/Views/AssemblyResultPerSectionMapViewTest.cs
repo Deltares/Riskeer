@@ -48,6 +48,8 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Util;
+using Ringtoets.Piping.Data;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
@@ -84,9 +86,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsNull(view.Data);
 
                 Assert.AreEqual(1, view.Controls.Count);
-                Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
-                Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
+                Assert.IsInstanceOf<TableLayoutPanel>(view.Controls[0]);
+
+                var layoutPanel = (TableLayoutPanel) view.Controls[0];
+                Assert.AreEqual(1, layoutPanel.ColumnCount);
+                Assert.AreEqual(2, layoutPanel.RowCount);
+                Assert.AreEqual(DockStyle.Fill, layoutPanel.Dock);
+
+                var warningPanel = (Panel) layoutPanel.GetControlFromPosition(0, 0);
+                Assert.AreEqual(DockStyle.Fill, warningPanel.Dock);
+                Assert.IsFalse(warningPanel.Visible);
+
+                var mapControl = (RingtoetsMapControl) layoutPanel.GetControlFromPosition(0, 1);
+                Assert.AreSame(view.Map, mapControl.MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
+
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
 
                 MapDataCollection mapDataCollection = view.Map.Data;
@@ -195,7 +209,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = GetMapControl(view);
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -230,7 +244,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = GetMapControl(view);
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -271,7 +285,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+                IMapControl map = GetMapControl(view);
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -401,6 +415,79 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenViewWithManualAssemblyResults_WhenShowingView_ThenExpectedWarningSet(bool hasManualAssembly)
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
+            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+            failureMechanism.SectionResults.Single().UseManualAssembly = hasManualAssembly;
+
+            // When
+            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+            {
+                // Then 
+                var layoutPanel = (TableLayoutPanel) view.Controls[0];
+                var warningPanel = (Panel) layoutPanel.GetControlFromPosition(0, 0);
+                Assert.AreEqual(hasManualAssembly, warningPanel.Visible);
+                AssertWarningPanel(warningPanel);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithoutManualAssemblyResults_WhenAssessmentSectionWithManualAssemblyResultsAndNotifiesObservers_ThenExpectedWarningSet()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
+
+            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+            {
+                // Precondition
+                var layoutPanel = (TableLayoutPanel) view.Controls[0];
+                var warningPanel = (Panel) layoutPanel.GetControlFromPosition(0, 0);
+                Assert.IsFalse(warningPanel.Visible);
+
+                // When
+                PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+                failureMechanism.SectionResults.Single().UseManualAssembly = true;
+                failureMechanism.NotifyObservers();
+
+                // Then 
+                Assert.IsTrue(warningPanel.Visible);
+                AssertWarningPanel(warningPanel);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithManualAssemblyResults_WhenAssessmentSectionWithoutManualAssemblyResultsAndNotifiesObservers_ThenExpectedWarningSet()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
+            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
+            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
+            failureMechanism.SectionResults.Single().UseManualAssembly = true;
+
+            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+            {
+                // Precondition
+                var layoutPanel = (TableLayoutPanel) view.Controls[0];
+                var warningPanel = (Panel) layoutPanel.GetControlFromPosition(0, 0);
+                Assert.IsTrue(warningPanel.Visible);
+                AssertWarningPanel(warningPanel);
+
+                // When
+                failureMechanism.SectionResults.Single().UseManualAssembly = false;
+                failureMechanism.NotifyObservers();
+
+                // Then 
+                Assert.IsFalse(warningPanel.Visible);
+            }
+        }
+
         private static AssessmentSection CreateAssessmentSection()
         {
             var random = new Random(21);
@@ -467,6 +554,28 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                     DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssemblyResult.TotalResult)).DisplayName,
                                 mapFeatures.ElementAt(i).MetaData["Categorie"]);
             }
+        }
+
+        private static void AssertWarningPanel(Panel warningPanel)
+        {
+            Assert.AreEqual(2, warningPanel.Controls.Count);
+
+            var warningIcon = (PictureBox) warningPanel.Controls.Find("warningIcon", false).Single();
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.PencilWarning.ToBitmap(), warningIcon.Image);
+            Assert.AreEqual(DockStyle.Left, warningIcon.Dock);
+            Assert.AreEqual(16, warningIcon.MaximumSize.Height);
+            Assert.AreEqual(16, warningIcon.MaximumSize.Width);
+            Assert.AreEqual(PictureBoxSizeMode.StretchImage, warningIcon.SizeMode);
+
+            var warningText = (Label) warningPanel.Controls.Find("warningText", false).Single();
+            Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningText.Text);
+        }
+
+        private static IMapControl GetMapControl(AssemblyResultPerSectionMapView view)
+        {
+            var layoutPanel = (TableLayoutPanel) view.Controls[0];
+            var ringtoetsMapControl = (RingtoetsMapControl) layoutPanel.GetControlFromPosition(0, 1);
+            return ringtoetsMapControl.MapControl;
         }
 
         private static void AssertEqualPointCollections(ReferenceLine referenceLine,

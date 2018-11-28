@@ -28,9 +28,11 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Factories;
 using Ringtoets.Integration.Forms.Observers;
 using Ringtoets.Integration.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -70,6 +72,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             InitializeComponent();
+            InitializeWarningPanel();
 
             AssessmentSection = assessmentSection;
 
@@ -85,6 +88,7 @@ namespace Ringtoets.Integration.Forms.Views
             mapDataCollection.Add(assemblyResultsMapData);
 
             SetAllMapDataFeatures();
+            SetWarningPanel();
 
             ringtoetsMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
         }
@@ -133,7 +137,11 @@ namespace Ringtoets.Integration.Forms.Views
                 Observable = AssessmentSection
             };
 
-            assessmentSectionObserver = new Observer(UpdateAssemblyResultsMapData)
+            assessmentSectionObserver = new Observer(() =>
+            {
+                UpdateAssemblyResultsMapData();
+                SetWarningPanel();
+            })
             {
                 Observable = new AssessmentSectionResultObserver(AssessmentSection)
             };
@@ -161,6 +169,11 @@ namespace Ringtoets.Integration.Forms.Views
             };
         }
 
+        private void InitializeWarningPanel()
+        {
+            warningIcon.Image = RingtoetsCommonFormsResources.PencilWarning.ToBitmap();
+        }
+
         private void SetAllMapDataFeatures()
         {
             if (AssessmentSection.ReferenceLine == null)
@@ -171,6 +184,17 @@ namespace Ringtoets.Integration.Forms.Views
             SetReferenceLineMapData();
             SetHydraulicBoundaryLocationsMapData();
             SetAssemblyResultsMapData();
+        }
+
+        private void SetWarningPanel()
+        {
+            if (AssessmentSectionHelper.HasManualAssemblyResults(AssessmentSection))
+            {
+                warningPanel.Visible = true;
+                return;
+            }
+
+            warningPanel.Visible = false;
         }
 
         #region AssemblyResults MapData
