@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.warningText.Name = "warningText";
             this.warningText.Size = new System.Drawing.Size(500, 13);
             this.warningText.TabIndex = 1;
-            this.warningText.Text = "Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.";
+            this.warningText.Text = global::Ringtoets.Common.Forms.Properties.Resources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies;
             // 
             // AssemblyResultPerSectionMapView
             // 
