@@ -362,7 +362,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
+                var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -370,14 +370,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 mocks.ReplayAll();
 
                 // Precondition
-                MapDataTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData);
+                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
 
                 // When
                 assessmentSection.Name = "New name";
                 assessmentSection.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData);
+                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
                 mocks.VerifyAll();
             }
         }

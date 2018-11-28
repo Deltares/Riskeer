@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
 using Core.Common.Util;
@@ -128,22 +127,6 @@ namespace Ringtoets.Common.Forms.TestUtil
                 Assert.AreEqual(1, referenceLineData.Features.Count());
                 CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
             }
-        }
-
-        /// <summary>
-        /// Asserts whether the <see cref="MapData"/> contains the meta data that is representative for the <paramref name="referenceLine"/>.
-        /// </summary>
-        /// <param name="referenceLine">The reference line that contains the original data.</param>
-        /// <param name="assessmentSection">The assessment section that contains the original data.</param>
-        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
-        /// <exception cref="AssertionException">Thrown when the meta data does not have the correct values.</exception>
-        public static void AssertReferenceLineMetaData(ReferenceLine referenceLine, IAssessmentSection assessmentSection, MapData mapData)
-        {
-            var referenceLineData = (MapLineData)mapData;
-            MapFeature feature = referenceLineData.Features.Single();
-            Assert.AreEqual(assessmentSection.Id, feature.MetaData["ID"]);
-            Assert.AreEqual(assessmentSection.Name, feature.MetaData["Naam"]);
-            Assert.AreEqual(new RoundedDouble(2, referenceLine.Length), feature.MetaData["Lengte*"]);
         }
 
         /// <summary>

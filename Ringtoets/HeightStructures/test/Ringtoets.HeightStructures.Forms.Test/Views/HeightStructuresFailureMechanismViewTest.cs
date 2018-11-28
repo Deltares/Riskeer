@@ -370,17 +370,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
+                var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData);
+                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
 
                 // When
                 assessmentSection.Name = "New name";
                 assessmentSection.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData);
+                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
                 mocks.VerifyAll();
             }
         }
