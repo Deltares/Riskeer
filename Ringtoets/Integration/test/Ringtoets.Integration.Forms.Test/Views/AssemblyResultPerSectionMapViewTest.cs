@@ -130,12 +130,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var random = new Random(21);
             
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.ReferenceLine.SetGeometry(new[]
-            {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
@@ -254,22 +249,43 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
+
+            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                observers[assemblyResultsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                var referenceLineMapData = (MapLineData)map.Data.Collection.ElementAt(referenceLineIndex);
+
+                // Precondition
+                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
+                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+
+                // Call
+                assessmentSection.Name = "New name";
+                assessmentSection.NotifyObservers();
+
+                // Assert
+                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
         {
             // Setup
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
-            {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
-
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.ReferenceLine.SetGeometry(new[]
-            {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
+            ReferenceLine referenceLine = assessmentSection.ReferenceLine;
 
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
             {
@@ -287,12 +303,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 // Call
-                assessmentSection.ReferenceLine.SetGeometry(new[]
+                referenceLine.SetGeometry(new[]
                 {
                     new Point2D(2.0, 5.0),
                     new Point2D(4.0, 3.0)
                 });
-                assessmentSection.NotifyObservers();
+                referenceLine.NotifyObservers();
 
                 // Assert
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
@@ -324,6 +340,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                     var mocks = new MockRepository();
                     IObserver[] observers = AttachMapDataObservers(mocks, mapData.Collection);
+                    observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
                     observers[assemblyResultsIndex].Expect(obs => obs.UpdateObserver());
                     mocks.ReplayAll();
 

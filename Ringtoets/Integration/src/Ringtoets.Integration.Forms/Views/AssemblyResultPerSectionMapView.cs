@@ -45,7 +45,6 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
         private Observer assessmentSectionObserver;
-        private Observer referenceLineObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
@@ -109,7 +108,6 @@ namespace Ringtoets.Integration.Forms.Views
             if (disposing)
             {
                 assessmentSectionObserver.Dispose();
-                referenceLineObserver.Dispose();
                 waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
                 waterLevelCalculationsForSignalingNormObserver.Dispose();
                 waterLevelCalculationsForLowerLimitNormObserver.Dispose();
@@ -128,12 +126,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void CreateObservers()
         {
-            referenceLineObserver = new Observer(UpdateReferenceLineMapData)
-            {
-                Observable = AssessmentSection
-            };
-
-            assessmentSectionObserver = new Observer(UpdateAssemblyResultsMapData)
+            assessmentSectionObserver = new Observer(UpdateAssessmentSectionData)
             {
                 Observable = new AssessmentSectionResultObserver(AssessmentSection)
             };
@@ -163,14 +156,15 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SetAllMapDataFeatures()
         {
-            if (AssessmentSection.ReferenceLine == null)
-            {
-                return;
-            }
-
             SetReferenceLineMapData();
             SetHydraulicBoundaryLocationsMapData();
             SetAssemblyResultsMapData();
+        }
+
+        private void UpdateAssessmentSectionData()
+        {
+            UpdateAssemblyResultsMapData();
+            UpdateReferenceLineMapData();
         }
 
         #region AssemblyResults MapData
