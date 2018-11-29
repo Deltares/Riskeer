@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Theme;
 
 namespace Core.Components.Gis.Data
 {
@@ -103,5 +104,32 @@ namespace Core.Components.Gis.Data
                 throw new ArgumentNullException(nameof(featuresToValidate), @"The array of features cannot be null or contain null.");
             }
         }
+    }
+
+    /// <summary>
+    /// Base class for <see cref="MapData"/> which is based on an array of features
+    /// and has categorical theming. The features are defined in the RD-new coordinate system.
+    /// </summary>
+    /// <typeparam name="TCategoryTheme">The type of category theme.</typeparam>
+    public abstract class FeatureBasedMapData<TCategoryTheme> : FeatureBasedMapData
+        where TCategoryTheme : CategoryTheme
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="FeatureBasedMapData{T}"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="FeatureBasedMapData"/>.</param>
+        /// <param name="theme">The <see cref="MapTheme{TCategoryTheme}"/>
+        /// belonging to the <see cref="FeatureBasedMapData"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        protected FeatureBasedMapData(string name, MapTheme<TCategoryTheme> theme) : base(name)
+        {
+            Theme = theme;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="MapTheme{TCategoryTheme}"/> that belongs to the map data.
+        /// </summary>
+        public MapTheme<TCategoryTheme> Theme { get; }
     }
 }
