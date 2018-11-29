@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Plugin.Test.ExportInfos
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            ReferenceLineTestFactory.CreateReferenceLineGeometry(assessmentSection.ReferenceLine);
+            ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
 
             var context = new AssemblyResultsContext(assessmentSection);
 

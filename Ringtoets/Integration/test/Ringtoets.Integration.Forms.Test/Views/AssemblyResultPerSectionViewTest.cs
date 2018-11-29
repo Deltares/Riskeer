@@ -455,7 +455,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
-            ReferenceLineTestFactory.CreateReferenceLineGeometry(assessmentSection.ReferenceLine);
+            ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
             foreach (IHasSectionResults<FailureMechanismSectionResult> failureMechanism in assessmentSection.GetFailureMechanisms()
                                                                                                             .Cast<IHasSectionResults<FailureMechanismSectionResult>>())
             {

@@ -426,7 +426,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             handler.DoPostUpdateActions();
 
             // Call
-            handler.DoPostUpdateActions(); // Expected number should be identical to that of DoPostReplacementUpdates_AfterReplacingReferenceLine_CloseViewsForRemovedData
+            handler.DoPostUpdateActions(); // Expected number should be identical to that of DoPostUpdateActions_AfterUpdatingReferenceLine_CloseViewsForRemovedData
 
             // Assert
             mocks.VerifyAll();

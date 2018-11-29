@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Test
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ReferenceLineTestFactory.CreateReferenceLineGeometry(assessmentSection.ReferenceLine);
+            ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
             Point2D[] originalReferenceLineGeometry = assessmentSection.ReferenceLine.Points.ToArray();
 
             var handler = new ReferenceLineUpdateHandler(assessmentSection, viewCommands);

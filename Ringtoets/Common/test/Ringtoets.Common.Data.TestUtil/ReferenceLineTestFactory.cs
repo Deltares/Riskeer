@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 
@@ -38,15 +37,14 @@ namespace Ringtoets.Common.Data.TestUtil
         public static ReferenceLine CreateReferenceLineWithGeometry()
         {
             var referenceLine = new ReferenceLine();
-            CreateReferenceLineGeometry(referenceLine);
+            SetReferenceLineGeometry(referenceLine);
             return referenceLine;
         }
 
         /// <summary>
-        /// Creates a default geometry for a <see cref="ReferenceLine"/>.
+        /// Sets a default geometry on a <see cref="ReferenceLine"/>.
         /// </summary>
-        /// <returns>A geometry</returns>
-        public static void CreateReferenceLineGeometry(ReferenceLine referenceLine)
+        public static void SetReferenceLineGeometry(ReferenceLine referenceLine)
         {
             referenceLine.SetGeometry(new[]
             {

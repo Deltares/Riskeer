@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
                 Name = name,
                 Id = id
             };
-            ReferenceLineTestFactory.CreateReferenceLineGeometry(assessmentSection.ReferenceLine);
+            ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
 
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, random.Next(1, 10));
@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.IO.Test.Factories
             {
                 Id = "1"
             };
-            ReferenceLineTestFactory.CreateReferenceLineGeometry(assessmentSection.ReferenceLine);
+            ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
 
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             failureMechanism.IsRelevant = true;

@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var referenceLine = new ReferenceLine();
 
             // Call
-            ReferenceLineTestFactory.CreateReferenceLineGeometry(referenceLine);
+            ReferenceLineTestFactory.SetReferenceLineGeometry(referenceLine);
 
             // Assert
             CollectionAssert.AreEqual(new[]
