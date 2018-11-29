@@ -113,10 +113,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_MapLineDataWithMapTheme_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mapLineData = new MapLineData("Test")
+            var mapLineData = new MapLineData("Test", new LineStyle(), CreateMapTheme())
             {
-                ShowLabels = true,
-                Theme = CreateMapTheme()
+                ShowLabels = true
             };
 
             // Call
@@ -173,13 +172,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Setup
             const string attributeName = "Attribute";
             var categoryTheme = new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new LineStyle());
-            var mapLineData = new MapLineData("Test", new LineStyle())
-            {
-                Theme = new MapTheme<LineCategoryTheme>(attributeName, new[]
-                {
-                    categoryTheme
-                })
-            };
+            var mapLineData = new MapLineData("Test",
+                                              new LineStyle(),
+                                              new MapTheme<LineCategoryTheme>(attributeName, new[]
+                                              {
+                                                  categoryTheme
+                                              }));
 
             // Call
             var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
@@ -210,13 +208,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var mapLineData = new MapLineData("Test", new LineStyle())
-            {
-                Theme = new MapTheme<LineCategoryTheme>("Attribute", new[]
-                {
-                    new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new LineStyle())
-                })
-            };
+            var mapLineData = new MapLineData("Test",
+                                              new LineStyle(),
+                                              new MapTheme<LineCategoryTheme>("Attribute", new[]
+                                              {
+                                                  new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new LineStyle())
+                                              }));
             mapLineData.Attach(observer);
 
             var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
@@ -326,12 +323,10 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_MapLineDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
         {
             // Setup
-            var mapLineData = new MapLineData("Test")
-            {
-                Theme = hasMapTheme
-                            ? CreateMapTheme()
-                            : null
-            };
+            MapTheme<LineCategoryTheme> mapTheme = hasMapTheme
+                               ? CreateMapTheme()
+                               : null;
+            var mapLineData = new MapLineData("Test", new LineStyle(), mapTheme);
 
             var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
 
@@ -355,14 +350,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsTrue()
         {
-            var mapLineData = new MapLineData("Test")
+            // Setup
+            var mapLineData = new MapLineData("Test", new LineStyle(), CreateMapTheme())
             {
                 Features = new[]
                 {
                     new MapFeature(Enumerable.Empty<MapGeometry>())
                 },
-                ShowLabels = true,
-                Theme = CreateMapTheme()
+                ShowLabels = true
             };
 
             var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());

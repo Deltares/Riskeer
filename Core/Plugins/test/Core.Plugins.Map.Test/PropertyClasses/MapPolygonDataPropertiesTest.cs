@@ -116,14 +116,13 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_MapPolygonDataWithMapTheme_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mapPolygonData = new MapPolygonData("Test")
+            var mapPolygonData = new MapPolygonData("Test", new PolygonStyle(), CreateMapTheme())
             {
                 Features = new[]
                 {
                     new MapFeature(Enumerable.Empty<MapGeometry>())
                 },
-                ShowLabels = true,
-                Theme = CreateMapTheme()
+                ShowLabels = true
             };
 
             // Call
@@ -181,13 +180,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             const string attributeName = "Attribute";
             var categoryTheme = new PolygonCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
                                                          new PolygonStyle());
-            var mapPolygonData = new MapPolygonData("Test", new PolygonStyle())
-            {
-                Theme = new MapTheme<PolygonCategoryTheme>(attributeName, new[]
-                {
-                    categoryTheme
-                })
-            };
+            var mapPolygonData = new MapPolygonData("Test",
+                                                    new PolygonStyle(),
+                                                    new MapTheme<PolygonCategoryTheme>(attributeName, new[]
+                                                    {
+                                                        categoryTheme
+                                                    }));
 
             // Call
             var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
@@ -218,13 +216,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var mapPolygonData = new MapPolygonData("Test", new PolygonStyle())
-            {
-                Theme = new MapTheme<PolygonCategoryTheme>("Attribute", new[]
-                {
-                    new PolygonCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new PolygonStyle())
-                })
-            };
+            var mapPolygonData = new MapPolygonData("Test",
+                                                    new PolygonStyle(),
+                                                    new MapTheme<PolygonCategoryTheme>("Attribute", new[]
+                                                    {
+                                                        new PolygonCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new PolygonStyle())
+                                                    }));
             mapPolygonData.Attach(observer);
 
             var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
@@ -334,12 +331,10 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_MapPolygonDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
         {
             // Setup
-            var mapPolygonData = new MapPolygonData("Test")
-            {
-                Theme = hasMapTheme
-                            ? CreateMapTheme()
-                            : null
-            };
+            MapTheme<PolygonCategoryTheme> mapTheme = hasMapTheme
+                                                          ? CreateMapTheme()
+                                                          : null;
+            var mapPolygonData = new MapPolygonData("Test", new PolygonStyle(), mapTheme);
 
             var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
 
@@ -363,14 +358,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsTrue()
         {
-            var mapPolygonData = new MapPolygonData("Test")
+            // Setup
+            var mapPolygonData = new MapPolygonData("Test", new PolygonStyle(), CreateMapTheme())
             {
                 Features = new[]
                 {
                     new MapFeature(Enumerable.Empty<MapGeometry>())
                 },
-                ShowLabels = true,
-                Theme = CreateMapTheme()
+                ShowLabels = true
             };
 
             var properties = new MapPolygonDataProperties(mapPolygonData, Enumerable.Empty<MapDataCollection>());
