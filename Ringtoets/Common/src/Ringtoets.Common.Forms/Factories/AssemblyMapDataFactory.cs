@@ -81,14 +81,14 @@ namespace Ringtoets.Common.Forms.Factories
         private static MapLineData CreateAssemblyMapLineData(string name, bool isVisible)
         {
             return new MapLineData(name, new LineStyle
-            {
-                Width = lineWidth,
-                DashStyle = lineDashStyle
-            })
+                                   {
+                                       Width = lineWidth,
+                                       DashStyle = lineDashStyle
+                                   },
+                                   MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme())
             {
                 SelectedMetaDataAttribute = Resources.AssemblyCategory_Group_DisplayName,
-                IsVisible = isVisible,
-                Theme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
+                IsVisible = isVisible
             };
         }
     }
