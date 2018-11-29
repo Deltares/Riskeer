@@ -54,7 +54,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                        new PointStyle());
 
             // Call
-            var properties = new PointCategoryThemeProperties(string.Empty, categoryTheme, new MapPointData("Name"));
+            var properties = new PointCategoryThemeProperties(categoryTheme, string.Empty, new MapPointData("Name"));
 
             // Assert
             Assert.IsInstanceOf<CategoryThemeProperties<PointCategoryTheme>>(properties);
@@ -77,7 +77,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             ValueCriterion valueCriterion = ValueCriterionTestFactory.CreateValueCriterion();
             var categoryTheme = new PointCategoryTheme(valueCriterion, new PointStyle());
 
-            var properties = new PointCategoryThemeProperties(attributeName, categoryTheme, new MapPointData("Name"));
+            var properties = new PointCategoryThemeProperties(categoryTheme, attributeName, new MapPointData("Name"));
 
             // Assert
             Assert.AreSame(categoryTheme, properties.Data);
@@ -101,7 +101,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                        new PointStyle());
 
             // Call
-            var properties = new PointCategoryThemeProperties(string.Empty, categoryTheme, new MapPointData("Name"));
+            var properties = new PointCategoryThemeProperties(categoryTheme, string.Empty, new MapPointData("Name"));
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -156,7 +156,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var categoryTheme = new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
                                                        new PointStyle());
 
-            var properties = new PointCategoryThemeProperties(string.Empty, categoryTheme, mapData);
+            var properties = new PointCategoryThemeProperties(categoryTheme, string.Empty, mapData);
 
             Color color = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
             Color strokeColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());

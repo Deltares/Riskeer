@@ -137,7 +137,7 @@ namespace Core.Plugins.Map.PropertyClasses
             {
                 MapTheme<PolygonCategoryTheme> mapTheme = data.Theme;
                 return mapTheme != null
-                           ? mapTheme.CategoryThemes.Select(ct => new PolygonCategoryThemeProperties(mapTheme.AttributeName, ct, data)).ToArray()
+                           ? mapTheme.CategoryThemes.Select(ct => new PolygonCategoryThemeProperties(ct, mapTheme.AttributeName, data)).ToArray()
                            : new PolygonCategoryThemeProperties[0];
             }
         }

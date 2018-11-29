@@ -51,7 +51,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                          new PolygonStyle());
 
             // Call
-            var properties = new PolygonCategoryThemeProperties(string.Empty, categoryTheme, new MapPolygonData("Name"));
+            var properties = new PolygonCategoryThemeProperties(categoryTheme, string.Empty, new MapPolygonData("Name"));
 
             // Assert
             Assert.IsInstanceOf<CategoryThemeProperties<PolygonCategoryTheme>>(properties);
@@ -70,7 +70,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             ValueCriterion valueCriterion = ValueCriterionTestFactory.CreateValueCriterion();
             var categoryTheme = new PolygonCategoryTheme(valueCriterion, new PolygonStyle());
 
-            var properties = new PolygonCategoryThemeProperties(attributeName, categoryTheme, new MapPolygonData("Name"));
+            var properties = new PolygonCategoryThemeProperties(categoryTheme, attributeName, new MapPolygonData("Name"));
 
             // Assert
             Assert.AreSame(categoryTheme, properties.Data);
@@ -92,7 +92,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                          new PolygonStyle());
 
             // Call
-            var properties = new PolygonCategoryThemeProperties(string.Empty, categoryTheme, new MapPolygonData("Name"));
+            var properties = new PolygonCategoryThemeProperties(categoryTheme, string.Empty, new MapPolygonData("Name"));
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -135,7 +135,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var categoryTheme = new PolygonCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
                                                          new PolygonStyle());
 
-            var properties = new PolygonCategoryThemeProperties(string.Empty, categoryTheme, mapData);
+            var properties = new PolygonCategoryThemeProperties(categoryTheme, string.Empty, mapData);
 
             Color fillColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
             Color strokeColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());

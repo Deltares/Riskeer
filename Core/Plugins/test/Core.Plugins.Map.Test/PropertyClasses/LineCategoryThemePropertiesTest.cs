@@ -52,7 +52,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                       new LineStyle());
 
             // Call
-            var properties = new LineCategoryThemeProperties(string.Empty, categoryTheme, new MapLineData("Name"));
+            var properties = new LineCategoryThemeProperties(categoryTheme, string.Empty, new MapLineData("Name"));
 
             // Assert
             Assert.IsInstanceOf<CategoryThemeProperties<LineCategoryTheme>>(properties);
@@ -71,7 +71,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             ValueCriterion valueCriterion = ValueCriterionTestFactory.CreateValueCriterion();
             var categoryTheme = new LineCategoryTheme(valueCriterion, new LineStyle());
 
-            var properties = new LineCategoryThemeProperties(attributeName, categoryTheme, new MapLineData("Name"));
+            var properties = new LineCategoryThemeProperties(categoryTheme, attributeName, new MapLineData("Name"));
 
             // Assert
             Assert.AreSame(categoryTheme, properties.Data);
@@ -93,7 +93,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
                                                       new LineStyle());
 
             // Call
-            var properties = new LineCategoryThemeProperties(string.Empty, categoryTheme, new MapLineData("Name"));
+            var properties = new LineCategoryThemeProperties(categoryTheme, string.Empty, new MapLineData("Name"));
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -136,7 +136,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             var categoryTheme = new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
                                                       new LineStyle());
 
-            var properties = new LineCategoryThemeProperties(string.Empty, categoryTheme, mapData);
+            var properties = new LineCategoryThemeProperties(categoryTheme, string.Empty, mapData);
 
             int width = random.Next(1, 48);
             Color color = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
