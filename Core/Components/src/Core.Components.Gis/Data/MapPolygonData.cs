@@ -32,7 +32,7 @@ namespace Core.Components.Gis.Data
     /// <summary>
     /// This class represents features that form a closed area.
     /// </summary>
-    public class MapPolygonData : FeatureBasedMapData
+    public class MapPolygonData : FeatureBasedMapData<PolygonCategoryTheme>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MapPolygonData"/> with default styling.
@@ -51,7 +51,20 @@ namespace Core.Components.Gis.Data
         /// <c>null</c> or only whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>
         /// is <c>null</c>.</exception>
-        public MapPolygonData(string name, PolygonStyle style) : base(name)
+        public MapPolygonData(string name, PolygonStyle style) : this(name, style, null) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MapPolygonData"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="MapLineData"/>.</param>
+        /// <param name="style">The default style of the data that is not categorized by the categories
+        /// defined in <paramref name="mapTheme"/>.</param>
+        /// <param name="mapTheme">The map theme belong to the data.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>
+        /// is <c>null</c>.</exception>
+        public MapPolygonData(string name, PolygonStyle style, MapTheme<PolygonCategoryTheme> mapTheme) : base(name, mapTheme)
         {
             if (style == null)
             {
@@ -65,11 +78,6 @@ namespace Core.Components.Gis.Data
         /// Gets the style of the polygon.
         /// </summary>
         public PolygonStyle Style { get; }
-
-        /// <summary>
-        /// Gets or sets the map theme of the <see cref="MapPolygonData"/>.
-        /// </summary>
-        public MapTheme<PolygonCategoryTheme> Theme { get; set; }
 
         /// <summary>
         /// This method validates newly set features.

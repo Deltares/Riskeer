@@ -32,7 +32,7 @@ namespace Core.Components.Gis.Data
     /// <summary>
     /// This class represents features that are visible as a line.
     /// </summary>
-    public class MapLineData : FeatureBasedMapData
+    public class MapLineData : FeatureBasedMapData<LineCategoryTheme>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MapLineData"/> with default styling.
@@ -51,7 +51,20 @@ namespace Core.Components.Gis.Data
         /// <c>null</c> or only whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>
         /// is <c>null</c>.</exception>
-        public MapLineData(string name, LineStyle style) : base(name)
+        public MapLineData(string name, LineStyle style) : this(name, style, null) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MapLineData"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="MapLineData"/>.</param>
+        /// <param name="style">The default style of the data that is not categorized by the categories
+        /// defined in <paramref name="mapTheme"/>.</param>
+        /// <param name="mapTheme">The map theme belong to the data.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>
+        /// is <c>null</c>.</exception>
+        public MapLineData(string name, LineStyle style, MapTheme<LineCategoryTheme> mapTheme) : base(name, mapTheme)
         {
             if (style == null)
             {
@@ -65,11 +78,6 @@ namespace Core.Components.Gis.Data
         /// Gets the style of the line.
         /// </summary>
         public LineStyle Style { get; }
-
-        /// <summary>
-        /// Gets or sets the map theme of the <see cref="MapLineData"/>.
-        /// </summary>
-        public MapTheme<LineCategoryTheme> Theme { get; set; }
 
         /// <summary>
         /// This method validates newly set features.
