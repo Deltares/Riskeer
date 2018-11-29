@@ -67,9 +67,8 @@ namespace Core.Plugins.Map.PropertyClasses
                 throw new ArgumentNullException(nameof(parents));
             }
 
+            this.data = data;
             this.parents = parents;
-
-            Data = data;
         }
 
         [PropertyOrder(namePropertyIndex)]

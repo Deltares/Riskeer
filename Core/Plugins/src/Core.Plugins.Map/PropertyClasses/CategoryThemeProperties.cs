@@ -35,10 +35,10 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     /// <typeparam name="TCategoryTheme">The type of category theme.</typeparam>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public abstract class CategoryThemeProperties<TCategoryTheme> : ObjectProperties<TCategoryTheme> where TCategoryTheme : CategoryTheme
+    public abstract class CategoryThemeProperties<TCategoryTheme> : ObjectProperties<TCategoryTheme>
+        where TCategoryTheme : CategoryTheme
 
     {
-        protected readonly FeatureBasedMapData MapData;
         private readonly string attributeName;
 
         /// <summary>
@@ -66,10 +66,15 @@ namespace Core.Plugins.Map.PropertyClasses
                 throw new ArgumentNullException(nameof(mapData));
             }
 
-            this.attributeName = attributeName;
-            MapData = mapData;
             data = categoryTheme;
+            MapData = mapData;
+            this.attributeName = attributeName;
         }
+
+        /// <summary>
+        /// Gets the <see cref="FeatureBasedMapData"/> that the <see cref="CategoryTheme"/> belongs to.
+        /// </summary>
+        protected FeatureBasedMapData MapData { get; }
 
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]
