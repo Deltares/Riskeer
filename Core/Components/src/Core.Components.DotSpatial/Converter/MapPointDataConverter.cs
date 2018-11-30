@@ -35,7 +35,7 @@ namespace Core.Components.DotSpatial.Converter
     /// <summary>
     /// The converter that converts <see cref="MapPointData"/> data into <see cref="MapPointLayer"/> data.
     /// </summary>
-    public class MapPointDataConverter : FeatureBasedMapDataConverter<MapPointData, MapPointLayer>
+    public class MapPointDataConverter : FeatureBasedMapDataConverter<MapPointData, MapPointLayer, PointCategoryTheme>
     {
         protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
         {
@@ -52,33 +52,14 @@ namespace Core.Components.DotSpatial.Converter
             return CreateCategory(mapData.Style);
         }
 
-        protected override bool HasMapTheme(MapPointData mapData)
+        protected override IFeatureScheme CreateScheme()
         {
-            return mapData.Theme != null;
+            return new PointScheme();
         }
 
-        protected override IFeatureScheme CreateCategoryScheme(MapPointData mapData)
+        protected override IFeatureCategory CreateFeatureCategory(PointCategoryTheme categoryTheme)
         {
-            var scheme = new PointScheme();
-            scheme.ClearCategories();
-            scheme.AddCategory(CreateCategory(mapData.Style));
-
-            MapTheme<PointCategoryTheme> mapTheme = mapData.Theme;
-            Dictionary<string, int> attributeMapping = GetAttributeMapping(mapData);
-
-            if (attributeMapping.ContainsKey(mapTheme.AttributeName))
-            {
-                int attributeIndex = attributeMapping[mapTheme.AttributeName];
-
-                foreach (PointCategoryTheme categoryTheme in mapTheme.CategoryThemes)
-                {
-                    IFeatureCategory category = CreateCategory(categoryTheme.Style);
-                    category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criterion);
-                    scheme.AddCategory(category);
-                }
-            }
-
-            return scheme;
+            return CreateCategory(categoryTheme.Style);
         }
 
         private static IFeatureCategory CreateCategory(PointStyle pointStyle)
