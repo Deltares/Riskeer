@@ -41,7 +41,7 @@ namespace Core.Components.Gis.Test.Theme
         }
 
         [Test]
-        public void Constructor_ValidArguments_ReturnsExpectedProperties()
+        public void Constructor_WithValidArguments_ExpectedValues()
         {
             // Setup
             ValueCriterion criterion = ValueCriterionTestFactory.CreateValueCriterion();
