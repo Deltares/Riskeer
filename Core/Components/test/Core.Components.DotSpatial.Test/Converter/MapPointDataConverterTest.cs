@@ -52,7 +52,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapPointDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<FeatureBasedMapDataConverter<MapPointData, MapPointLayer>>(converter);
+            Assert.IsInstanceOf<FeatureBasedMapDataConverter<MapPointData, MapPointLayer, PointCategoryTheme>>(converter);
         }
 
         [Test]
@@ -197,13 +197,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                                            StrokeThickness = random.Next(1, 48)
                                        })
             });
-            var mapPointData = new MapPointData("test", pointStyle)
+            var mapPointData = new MapPointData("test", pointStyle, theme)
             {
                 Features = new[]
                 {
                     CreateMapFeatureWithMetaData(metadataAttribute)
-                },
-                Theme = theme
+                }
             };
 
             // When
@@ -282,13 +281,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                 StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
                 StrokeThickness = random.Next(1, 48)
             };
-            var mapPointData = new MapPointData("test", pointStyle)
+            var mapPointData = new MapPointData("test", pointStyle, theme)
             {
                 Features = new[]
                 {
                     CreateMapFeatureWithMetaData(metadataAttribute)
-                },
-                Theme = theme
+                }
             };
 
             var mapPointLayer = new MapPointLayer();
@@ -348,13 +346,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                 StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
                 StrokeThickness = random.Next(1, 48)
             };
-            var mapPointData = new MapPointData("test", pointStyle)
+            var mapPointData = new MapPointData("test", pointStyle, theme)
             {
                 Features = new[]
                 {
                     CreateMapFeatureWithMetaData(metadataAttribute)
-                },
-                Theme = theme
+                }
             };
 
             var mapPointLayer = new MapPointLayer();
