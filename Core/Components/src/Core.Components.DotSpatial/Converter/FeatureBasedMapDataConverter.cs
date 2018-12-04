@@ -41,9 +41,11 @@ namespace Core.Components.DotSpatial.Converter
     /// </summary>
     /// <typeparam name="TFeatureBasedMapData">The type of feature based map data to convert.</typeparam>
     /// <typeparam name="TMapFeatureLayer">The type of map feature layer to set the converted data to.</typeparam>
-    public abstract class FeatureBasedMapDataConverter<TFeatureBasedMapData, TMapFeatureLayer>
-        where TFeatureBasedMapData : FeatureBasedMapData
+    /// <typeparam name="TCategoryTheme">The type of category theme.</typeparam>
+    public abstract class FeatureBasedMapDataConverter<TFeatureBasedMapData, TMapFeatureLayer, TCategoryTheme>
+        where TFeatureBasedMapData : FeatureBasedMapData<TCategoryTheme>
         where TMapFeatureLayer : FeatureLayer, IMapFeatureLayer
+        where TCategoryTheme : CategoryTheme
     {
         /// <summary>
         /// Converts all feature related data from <paramref name="data"/> to <paramref name="layer"/>.
@@ -102,7 +104,7 @@ namespace Core.Components.DotSpatial.Converter
             layer.ShowLabels = data.ShowLabels;
             ((IMapFeatureLayer) layer).LabelLayer = GetLabelLayer(GetAttributeMapping(data), layer.DataSet, data.SelectedMetaDataAttribute);
 
-            if (HasMapTheme(data))
+            if (data.Theme != null)
             {
                 layer.Symbology = CreateCategoryScheme(data);
             }
@@ -149,64 +151,46 @@ namespace Core.Components.DotSpatial.Converter
         }
 
         /// <summary>
-        /// Determines if the <paramref name="mapData"/> has a categorical theming to be applied
-        /// on the data it contains
+        /// Creates the <see cref="IFeatureScheme"/> based on the type of map data.
         /// </summary>
-        /// <param name="mapData">The map data to determine if it has categorical theming.</param>
-        /// <returns><c>true</c> if the <paramref name="mapData"/> has categorical theming, <c>false</c> otherwise.</returns>
-        protected abstract bool HasMapTheme(TFeatureBasedMapData mapData);
-
-        /// <summary>
-        /// Creates the <see cref="IFeatureScheme"/> based on the categorical theming of <paramref name="mapData"/>.
-        /// </summary>
-        /// <param name="mapData">The map data to create the categorical theming for.</param>
-        /// <returns>A configured <see cref="IFeatureScheme"/> based on the map data theme.</returns>
+        /// <returns>A configured <see cref="IFeatureScheme"/> based on the type of map data.</returns>
         /// <remarks><c>null</c> should never be returned as this will break DotSpatial.</remarks>
-        /// <exception cref="NotSupportedException">Thrown when the <paramref name="mapData"/>
-        /// could not be successfully converted to a scheme.</exception>
-        protected abstract IFeatureScheme CreateCategoryScheme(TFeatureBasedMapData mapData);
+        protected abstract IFeatureScheme CreateScheme();
 
         /// <summary>
-        /// Gets the mapping between map data attribute names and DotSpatial attribute names.
+        /// Creates the <see cref="IFeatureCategory"/> based on the type of category theme.
         /// </summary>
-        /// <param name="data">The map data to get the mappings from.</param>
-        /// <returns>The mapping between map data attribute names and DotSpatial attribute names.</returns>
-        /// <remarks>
-        /// This method is used for obtaining a mapping between map data attribute names and DotSpatial
-        /// attribute names. This mapping is needed because DotSpatial can't handle special characters.
-        /// </remarks>
-        protected static Dictionary<string, int> GetAttributeMapping(TFeatureBasedMapData data)
-        {
-            return Enumerable.Range(0, data.MetaData.Count())
-                             .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
-        }
+        /// <param name="categoryTheme">The type of category theme to create a <see cref="IFeatureCategory"/> for.</param>
+        /// <returns>A <see cref="IFeatureCategory"/> based on <paramref name="categoryTheme"/>.</returns>
+        /// <remarks><c>null</c> should never be returned as this will break DotSpatial.</remarks>
+        protected abstract IFeatureCategory CreateFeatureCategory(TCategoryTheme categoryTheme);
 
-        /// <summary>
-        /// Creates a filter expression based for an attribute and the criteria to apply.
-        /// </summary>
-        /// <param name="attributeIndex">The index of the attribute in the metadata table.</param>
-        /// <param name="criterion">The criterion to convert to an expression.</param>
-        /// <returns>The filter expression based on the <paramref name="attributeIndex"/>
-        /// and <paramref name="criterion"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when the <paramref name="criterion"/>
-        /// cannot be used to create a filter expression.</exception>
-        protected static string CreateFilterExpression(int attributeIndex, ValueCriterion criterion)
+        private IFeatureScheme CreateCategoryScheme(TFeatureBasedMapData mapData)
         {
-            ValueCriterionOperator valueOperator = criterion.ValueOperator;
-            switch (valueOperator)
+            IFeatureScheme scheme = CreateScheme();
+            scheme.ClearCategories();
+            scheme.AddCategory(CreateDefaultCategory(mapData));
+
+            MapTheme<TCategoryTheme> mapTheme = mapData.Theme;
+            Dictionary<string, int> attributeMapping = GetAttributeMapping(mapData);
+            if (attributeMapping.ContainsKey(mapTheme.AttributeName))
             {
-                case ValueCriterionOperator.EqualValue:
-                    return $"[{attributeIndex}] = '{criterion.Value}'";
-                case ValueCriterionOperator.UnequalValue:
-                    return $"NOT [{attributeIndex}] = '{criterion.Value}'";
-                default:
-                    throw new NotSupportedException();
+                int attributeIndex = attributeMapping[mapTheme.AttributeName];
+
+                foreach (TCategoryTheme categoryTheme in mapTheme.CategoryThemes)
+                {
+                    IFeatureCategory category = CreateFeatureCategory(categoryTheme);
+                    category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criterion);
+                    scheme.AddCategory(category);
+                }
             }
+
+            return scheme;
         }
 
         private void ClearFeatureScheme(TFeatureBasedMapData mapData, IScheme scheme)
         {
-            if (HasMapTheme(mapData))
+            if (mapData.Theme != null)
             {
                 scheme.ClearCategories();
                 scheme.AddCategory(CreateDefaultCategory(mapData));
@@ -258,6 +242,16 @@ namespace Core.Components.DotSpatial.Converter
             }
         }
 
+        /// <remarks>
+        /// This method is used for obtaining a mapping between map data attribute names and DotSpatial
+        /// attribute names. This mapping is needed because DotSpatial can't handle special characters.
+        /// </remarks>
+        private static Dictionary<string, int> GetAttributeMapping(TFeatureBasedMapData data)
+        {
+            return Enumerable.Range(0, data.MetaData.Count())
+                             .ToDictionary(md => data.MetaData.ElementAt(md), mdi => mdi + 1);
+        }
+
         private static MapLabelLayer GetLabelLayer(IDictionary<string, int> attributeMapping, IFeatureSet featureSet, string labelToShow)
         {
             var labelLayer = new MapLabelLayer();
@@ -275,6 +269,29 @@ namespace Core.Components.DotSpatial.Converter
             }
 
             return labelLayer;
+        }
+
+        /// <summary>
+        /// Creates a filter expression based for an attribute and the criteria to apply.
+        /// </summary>
+        /// <param name="attributeIndex">The index of the attribute in the metadata table.</param>
+        /// <param name="criterion">The criterion to convert to an expression.</param>
+        /// <returns>The filter expression based on the <paramref name="attributeIndex"/>
+        /// and <paramref name="criterion"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when the <paramref name="criterion"/>
+        /// cannot be used to create a filter expression.</exception>
+        private static string CreateFilterExpression(int attributeIndex, ValueCriterion criterion)
+        {
+            ValueCriterionOperator valueOperator = criterion.ValueOperator;
+            switch (valueOperator)
+            {
+                case ValueCriterionOperator.EqualValue:
+                    return $"[{attributeIndex}] = '{criterion.Value}'";
+                case ValueCriterionOperator.UnequalValue:
+                    return $"NOT [{attributeIndex}] = '{criterion.Value}'";
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }

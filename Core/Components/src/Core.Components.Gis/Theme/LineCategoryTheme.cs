@@ -33,7 +33,7 @@ namespace Core.Components.Gis.Theme
         /// <summary>
         /// Creates a new instance of <see cref="LineCategoryTheme"/>.
         /// </summary>
-        /// <param name="criterion">The <see cref="ValueCriterion"/> belonging to the category.</param>
+        /// <param name="criterion">The criterion belonging to the category.</param>
         /// <param name="style">The <see cref="LineStyle"/> belonging to the category.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public LineCategoryTheme(ValueCriterion criterion, LineStyle style) : base(criterion)

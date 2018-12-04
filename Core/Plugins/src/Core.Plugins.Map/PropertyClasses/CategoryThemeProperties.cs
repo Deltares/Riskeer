@@ -35,30 +35,29 @@ namespace Core.Plugins.Map.PropertyClasses
     /// </summary>
     /// <typeparam name="TCategoryTheme">The type of category theme.</typeparam>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public abstract class CategoryThemeProperties<TCategoryTheme> : ObjectProperties<TCategoryTheme> where TCategoryTheme : CategoryTheme
-
+    public abstract class CategoryThemeProperties<TCategoryTheme> : ObjectProperties<TCategoryTheme>
+        where TCategoryTheme : CategoryTheme
     {
-        protected readonly FeatureBasedMapData MapData;
         private readonly string attributeName;
 
         /// <summary>
         /// Creates a new instance of <see cref="CategoryThemeProperties{T}"/>.
         /// </summary>
+        /// <param name="categoryTheme">The theme to create the property info panel for.</param>
         /// <param name="attributeName">The name of the attribute on which <paramref name="categoryTheme"/>
         /// is based on.</param>
-        /// <param name="categoryTheme">The theme to create the property info panel for.</param>
         /// <param name="mapData">The <see cref="FeatureBasedMapData"/> the <paramref name="categoryTheme"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected CategoryThemeProperties(string attributeName, TCategoryTheme categoryTheme, FeatureBasedMapData mapData)
+        protected CategoryThemeProperties(TCategoryTheme categoryTheme, string attributeName, FeatureBasedMapData mapData)
         {
-            if (attributeName == null)
-            {
-                throw new ArgumentNullException(nameof(attributeName));
-            }
-
             if (categoryTheme == null)
             {
                 throw new ArgumentNullException(nameof(categoryTheme));
+            }
+
+            if (attributeName == null)
+            {
+                throw new ArgumentNullException(nameof(attributeName));
             }
 
             if (mapData == null)
@@ -66,9 +65,9 @@ namespace Core.Plugins.Map.PropertyClasses
                 throw new ArgumentNullException(nameof(mapData));
             }
 
-            this.attributeName = attributeName;
-            MapData = mapData;
             data = categoryTheme;
+            MapData = mapData;
+            this.attributeName = attributeName;
         }
 
         [PropertyOrder(1)]
@@ -79,19 +78,20 @@ namespace Core.Plugins.Map.PropertyClasses
         {
             get
             {
+                string format;
                 switch (data.Criterion.ValueOperator)
                 {
                     case ValueCriterionOperator.EqualValue:
-                        return string.Format(Resources.CategoryThemeProperties_Criterion_ValueCriterionOperatorEqualValue_AttributeName_0_Value_1_,
-                                             attributeName,
-                                             data.Criterion.Value);
+                        format = Resources.CategoryThemeProperties_Criterion_ValueCriterionOperatorEqualValue_AttributeName_0_Value_1_;
+                        break;
                     case ValueCriterionOperator.UnequalValue:
-                        return string.Format(Resources.CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeName_0_Value_1_,
-                                             attributeName,
-                                             data.Criterion.Value);
+                        format = Resources.CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeName_0_Value_1_;
+                        break;
                     default:
                         throw new NotSupportedException();
                 }
+
+                return string.Format(format, attributeName, data.Criterion.Value);
             }
         }
 
@@ -99,5 +99,10 @@ namespace Core.Plugins.Map.PropertyClasses
         {
             return string.Empty;
         }
+
+        /// <summary>
+        /// Gets the <see cref="FeatureBasedMapData"/> that the <see cref="CategoryTheme"/> belongs to.
+        /// </summary>
+        protected FeatureBasedMapData MapData { get; }
     }
 }

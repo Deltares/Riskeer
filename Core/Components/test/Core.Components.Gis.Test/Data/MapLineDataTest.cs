@@ -29,6 +29,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
+using Core.Components.Gis.TestUtil;
+using Core.Components.Gis.Theme;
 using NUnit.Framework;
 
 namespace Core.Components.Gis.Test.Data
@@ -37,7 +39,7 @@ namespace Core.Components.Gis.Test.Data
     public class MapLineDataTest
     {
         [Test]
-        public void Constructor_ValidName_NameAndDefaultValuesSet()
+        public void Constructor_WithValidName_ExpectedValues()
         {
             // Setup
             const string name = "test data";
@@ -48,7 +50,7 @@ namespace Core.Components.Gis.Test.Data
             // Assert
             Assert.AreEqual(name, data.Name);
             CollectionAssert.IsEmpty(data.Features);
-            Assert.IsInstanceOf<FeatureBasedMapData>(data);
+            Assert.IsInstanceOf<FeatureBasedMapData<LineCategoryTheme>>(data);
             Assert.AreEqual(Color.Black, data.Style.Color);
             Assert.AreEqual(2, data.Style.Width);
             Assert.AreEqual(LineDashStyle.Solid, data.Style.DashStyle);
@@ -106,14 +108,58 @@ namespace Core.Components.Gis.Test.Data
             };
 
             // Call
-            var data = new MapLineData("test data", style);
+            var data = new MapLineData(name, style);
 
             // Assert
             Assert.AreEqual(name, data.Name);
             CollectionAssert.IsEmpty(data.Features);
-            Assert.IsInstanceOf<FeatureBasedMapData>(data);
             Assert.AreSame(style, data.Style);
             Assert.IsNull(data.Theme);
+        }
+
+        [Test]
+        public void Constructor_StyleNullAndWithMapTheme_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new MapLineData("test data",
+                                                      null,
+                                                      new MapTheme<LineCategoryTheme>("attribute", new[]
+                                                      {
+                                                          new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                                                                new LineStyle())
+                                                      }));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("style", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithStyleAndMapTheme_ExpectedValues()
+        {
+            // Setup
+            const string name = "test data";
+            var style = new LineStyle
+            {
+                Color = Color.Red,
+                Width = 5,
+                DashStyle = LineDashStyle.Dash
+            };
+
+            var mapTheme = new MapTheme<LineCategoryTheme>("attribute", new[]
+            {
+                new LineCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                      new LineStyle())
+            });
+
+            // Call
+            var data = new MapLineData(name, style, mapTheme);
+
+            // Assert
+            Assert.AreEqual(name, data.Name);
+            CollectionAssert.IsEmpty(data.Features);
+            Assert.AreSame(style, data.Style);
+            Assert.AreSame(mapTheme, data.Theme);
         }
 
         [Test]

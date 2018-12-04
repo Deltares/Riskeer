@@ -38,7 +38,7 @@ namespace Core.Components.DotSpatial.Converter
     /// <summary>
     /// The converter that converts <see cref="MapPolygonData"/> data into <see cref="MapPolygonLayer"/> data.
     /// </summary>
-    public class MapPolygonDataConverter : FeatureBasedMapDataConverter<MapPolygonData, MapPolygonLayer>
+    public class MapPolygonDataConverter : FeatureBasedMapDataConverter<MapPolygonData, MapPolygonLayer, PolygonCategoryTheme>
     {
         protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
         {
@@ -67,46 +67,25 @@ namespace Core.Components.DotSpatial.Converter
 
         protected override IFeatureSymbolizer CreateSymbolizer(MapPolygonData mapData)
         {
-            return new PolygonSymbolizer(mapData.Style.FillColor, GetStrokeColor(mapData.Style), mapData.Style.StrokeThickness);
+            PolygonStyle polygonStyle = mapData.Style;
+            return new PolygonSymbolizer(polygonStyle.FillColor,
+                                         GetStrokeColor(polygonStyle),
+                                         polygonStyle.StrokeThickness);
+        }
+
+        protected override IFeatureScheme CreateScheme()
+        {
+            return new PolygonScheme();
+        }
+
+        protected override IFeatureCategory CreateFeatureCategory(PolygonCategoryTheme categoryTheme)
+        {
+            return CreateCategory(categoryTheme.Style);
         }
 
         protected override IFeatureCategory CreateDefaultCategory(MapPolygonData mapData)
         {
             return CreateCategory(mapData.Style);
-        }
-
-        protected override bool HasMapTheme(MapPolygonData mapData)
-        {
-            return mapData.Theme != null;
-        }
-
-        protected override IFeatureScheme CreateCategoryScheme(MapPolygonData mapData)
-        {
-            var scheme = new PolygonScheme();
-            scheme.ClearCategories();
-            scheme.AddCategory(CreateCategory(mapData.Style));
-
-            MapTheme<PolygonCategoryTheme> mapTheme = mapData.Theme;
-            Dictionary<string, int> attributeMapping = GetAttributeMapping(mapData);
-
-            if (attributeMapping.ContainsKey(mapTheme.AttributeName))
-            {
-                int attributeIndex = attributeMapping[mapTheme.AttributeName];
-
-                foreach (PolygonCategoryTheme categoryTheme in mapTheme.CategoryThemes)
-                {
-                    IFeatureCategory category = CreateCategory(categoryTheme.Style);
-                    category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criterion);
-                    scheme.AddCategory(category);
-                }
-            }
-
-            return scheme;
-        }
-
-        private static IFeatureCategory CreateCategory(PolygonStyle style)
-        {
-            return new PolygonCategory(style.FillColor, GetStrokeColor(style), style.StrokeThickness);
         }
 
         private static Color GetStrokeColor(PolygonStyle style)
@@ -118,6 +97,11 @@ namespace Core.Components.DotSpatial.Converter
             }
 
             return strokeColor;
+        }
+
+        private IFeatureCategory CreateCategory(PolygonStyle style)
+        {
+            return new PolygonCategory(style.FillColor, GetStrokeColor(style), style.StrokeThickness);
         }
 
         private static IBasicGeometry GetGeometry(List<IPolygon> geometryList)

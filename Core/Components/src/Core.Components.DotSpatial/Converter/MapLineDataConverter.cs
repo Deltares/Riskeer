@@ -37,7 +37,7 @@ namespace Core.Components.DotSpatial.Converter
     /// <summary>
     /// The converter that converts <see cref="MapLineData"/> data into <see cref="MapLineLayer"/> data.
     /// </summary>
-    public class MapLineDataConverter : FeatureBasedMapDataConverter<MapLineData, MapLineLayer>
+    public class MapLineDataConverter : FeatureBasedMapDataConverter<MapLineData, MapLineLayer, LineCategoryTheme>
     {
         protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
         {
@@ -53,38 +53,19 @@ namespace Core.Components.DotSpatial.Converter
                                       LineCap.Round);
         }
 
+        protected override IFeatureScheme CreateScheme()
+        {
+            return new LineScheme();
+        }
+
+        protected override IFeatureCategory CreateFeatureCategory(LineCategoryTheme categoryTheme)
+        {
+            return CreateCategory(categoryTheme.Style);
+        }
+
         protected override IFeatureCategory CreateDefaultCategory(MapLineData mapData)
         {
             return CreateCategory(mapData.Style);
-        }
-
-        protected override bool HasMapTheme(MapLineData mapData)
-        {
-            return mapData.Theme != null;
-        }
-
-        protected override IFeatureScheme CreateCategoryScheme(MapLineData mapData)
-        {
-            var scheme = new LineScheme();
-            scheme.ClearCategories();
-            scheme.AddCategory(CreateCategory(mapData.Style));
-
-            MapTheme<LineCategoryTheme> mapTheme = mapData.Theme;
-            Dictionary<string, int> attributeMapping = GetAttributeMapping(mapData);
-
-            if (attributeMapping.ContainsKey(mapTheme.AttributeName))
-            {
-                int attributeIndex = attributeMapping[mapTheme.AttributeName];
-
-                foreach (LineCategoryTheme categoryTheme in mapTheme.CategoryThemes)
-                {
-                    IFeatureCategory category = CreateCategory(categoryTheme.Style);
-                    category.FilterExpression = CreateFilterExpression(attributeIndex, categoryTheme.Criterion);
-                    scheme.AddCategory(category);
-                }
-            }
-
-            return scheme;
         }
 
         private static IFeatureCategory CreateCategory(LineStyle style)

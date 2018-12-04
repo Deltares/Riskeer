@@ -26,6 +26,8 @@ using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.TestUtil;
+using Core.Components.Gis.Theme;
 using NUnit.Framework;
 
 namespace Core.Components.Gis.Test.Data
@@ -34,7 +36,7 @@ namespace Core.Components.Gis.Test.Data
     public class FeatureBasedMapDataTest
     {
         [Test]
-        public void Constructor_ValidName_NameAndDefaultValuesSet()
+        public void Constructor_ValidName_ExpectedValues()
         {
             // Setup
             const string name = "test data";
@@ -147,9 +149,39 @@ namespace Core.Components.Gis.Test.Data
             }, metaData);
         }
 
+        [Test]
+        public void TypedConstructor_WithCategoryThemes_ExpectedValues()
+        {
+            // Setup
+            const string name = "name";
+            var mapTheme = new MapTheme<TestCategoryTheme>("test", new[]
+            {
+                new TestCategoryTheme()
+            });
+
+            // Call
+            var data = new TypedTestFeatureBasedMapData(name, mapTheme);
+
+            // Assert
+            Assert.IsInstanceOf<FeatureBasedMapData>(data);
+            Assert.AreEqual(name, data.Name);
+            Assert.AreSame(mapTheme, data.Theme);
+        }
+
         private class TestFeatureBasedMapData : FeatureBasedMapData
         {
             public TestFeatureBasedMapData(string name) : base(name) {}
+        }
+
+        private class TypedTestFeatureBasedMapData : FeatureBasedMapData<TestCategoryTheme>
+        {
+            public TypedTestFeatureBasedMapData(string name, MapTheme<TestCategoryTheme> theme)
+                : base(name, theme) {}
+        }
+
+        private class TestCategoryTheme : CategoryTheme
+        {
+            public TestCategoryTheme() : base(ValueCriterionTestFactory.CreateValueCriterion()) {}
         }
     }
 }

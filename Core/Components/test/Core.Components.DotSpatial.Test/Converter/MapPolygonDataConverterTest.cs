@@ -50,7 +50,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapPolygonDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<FeatureBasedMapDataConverter<MapPolygonData, MapPolygonLayer>>(converter);
+            Assert.IsInstanceOf<FeatureBasedMapDataConverter<MapPolygonData, MapPolygonLayer, PolygonCategoryTheme>>(converter);
         }
 
         [Test]
@@ -266,13 +266,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                                              StrokeThickness = random.Next(1, 48)
                                          })
             });
-            var mapPolygonData = new MapPolygonData("test", polygonStyle)
+            var mapPolygonData = new MapPolygonData("test", polygonStyle, theme)
             {
                 Features = new[]
                 {
                     CreateMapFeatureWithMetaData(metadataAttribute)
-                },
-                Theme = theme
+                }
             };
 
             // When
@@ -339,7 +338,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerProperties_MapLineDataWithThemeAndMetaDataNameNotInFeatures_OnlyAddsDefaultCategory()
+        public void ConvertLayerProperties_MapPolygonDataWithThemeAndMetaDataNameNotInFeatures_OnlyAddsDefaultCategory()
         {
             // Setup
             const string metadataAttribute = "Meta";
@@ -361,13 +360,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                 StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
                 StrokeThickness = random.Next(1, 48)
             };
-            var mapPolygonData = new MapPolygonData("test", polygonStyle)
+            var mapPolygonData = new MapPolygonData("test", polygonStyle, theme)
             {
                 Features = new[]
                 {
                     CreateMapFeatureWithMetaData(metadataAttribute)
-                },
-                Theme = theme
+                }
             };
 
             var mapPolygonLayer = new MapPolygonLayer();
@@ -389,7 +387,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerProperties_MapPointDataWithStyleAndValueCriteria_ConvertDataToMapPointLayer()
+        public void ConvertLayerProperties_MapPolygonDataWithThemeAndMetaDataNameInFeatures_ConvertDataToMapPolygonLayer()
         {
             // Setup
             const string metadataAttribute = "Meta";
@@ -421,13 +419,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                 StrokeColor = Color.FromKnownColor(random.NextEnum<KnownColor>()),
                 StrokeThickness = random.Next(1, 48)
             };
-            var mapPolygonData = new MapPolygonData("test", polygonStyle)
+            var mapPolygonData = new MapPolygonData("test", polygonStyle, theme)
             {
                 Features = new[]
                 {
                     CreateMapFeatureWithMetaData(metadataAttribute)
-                },
-                Theme = theme
+                }
             };
 
             var mapPolygonLayer = new MapPolygonLayer();
@@ -483,7 +480,9 @@ namespace Core.Components.DotSpatial.Test.Converter
 
         private static PolygonSymbolizer CreateExpectedSymbolizer(PolygonStyle expectedPolygonStyle)
         {
-            return new PolygonSymbolizer(expectedPolygonStyle.FillColor, expectedPolygonStyle.StrokeColor, expectedPolygonStyle.StrokeThickness);
+            return new PolygonSymbolizer(expectedPolygonStyle.FillColor,
+                                         expectedPolygonStyle.StrokeColor,
+                                         expectedPolygonStyle.StrokeThickness);
         }
 
         private static Point2D[] CreateRectangularRing(double xy1, double xy2)

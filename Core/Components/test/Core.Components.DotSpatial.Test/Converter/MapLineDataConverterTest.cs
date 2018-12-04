@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -52,7 +52,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapLineDataConverter();
 
             // Assert
-            Assert.IsInstanceOf<FeatureBasedMapDataConverter<MapLineData, MapLineLayer>>(converter);
+            Assert.IsInstanceOf<FeatureBasedMapDataConverter<MapLineData, MapLineLayer, LineCategoryTheme>>(converter);
         }
 
         [Test]
@@ -209,13 +209,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                                       })
             });
 
-            var mapLineData = new MapLineData("test", lineStyle)
+            var mapLineData = new MapLineData("test", lineStyle, theme)
             {
                 Features = new[]
                 {
                     CreateMapFeatureWithMetaData("Meta")
-                },
-                Theme = theme
+                }
             };
 
             // When
@@ -281,13 +280,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                 Width = random.Next(1, 48),
                 DashStyle = random.NextEnum<LineDashStyle>()
             };
-            var mapLineData = new MapLineData("test", lineStyle)
+            var mapLineData = new MapLineData("test", lineStyle, theme)
             {
                 Features = new[]
                 {
                     CreateMapFeatureWithMetaData(metadataAttribute)
-                },
-                Theme = theme
+                }
             };
 
             var mapLineLayer = new MapLineLayer();
@@ -309,7 +307,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerProperties_MapLineDataWithStyleAndValueCriteria_ConvertDataToMapPointLayer()
+        public void ConvertLayerProperties_MapLineDataWithThemeAndMetaDataNameInFeatures_ConvertDataToMapLineLayer()
         {
             // Setup
             const string metadataAttribute = "Meta";
@@ -341,13 +339,12 @@ namespace Core.Components.DotSpatial.Test.Converter
                 Width = random.Next(1, 48),
                 DashStyle = random.NextEnum<LineDashStyle>()
             };
-            var mapLineData = new MapLineData("test", lineStyle)
+            var mapLineData = new MapLineData("test", lineStyle, theme)
             {
                 Features = new[]
                 {
                     CreateMapFeatureWithMetaData(metadataAttribute)
-                },
-                Theme = theme
+                }
             };
 
             var mapLineLayer = new MapLineLayer();

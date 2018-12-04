@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -77,7 +77,9 @@ namespace Demo.Ringtoets.Commands
         {
             var mapDataCollection = new MapDataCollection(Resources.OpenThematicalMapViewCommand_Execute_Demo_map_with_theming);
 
-            var mapPointDataEqualCriteria = new MapPointData(Resources.OpenThematicalMapViewCommand_Execute_MapPointData_with_EqualValueCriteria)
+            var mapPointDataEqualCriteria = new MapPointData(Resources.OpenThematicalMapViewCommand_Execute_MapPointData_with_EqualValueCriteria,
+                                                             CreatePointStyle(Color.Black),
+                                                             CreatePointCategoryThemeWithEqualCriteria())
             {
                 Features = CreateMapPointFeaturesWithMetaData(40, 0),
                 Style =
@@ -86,10 +88,11 @@ namespace Demo.Ringtoets.Commands
                 },
                 SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
-            SetEqualCriteria(mapPointDataEqualCriteria);
             mapDataCollection.Add(mapPointDataEqualCriteria);
 
-            var mapPointDataUnequalCriteria = new MapPointData(Resources.OpenThematicalMapViewCommand_Execute_MapPointData_with_UnequalValueCriteria)
+            var mapPointDataUnequalCriteria = new MapPointData(Resources.OpenThematicalMapViewCommand_Execute_MapPointData_with_UnequalValueCriteria,
+                                                               CreatePointStyle(Color.Black),
+                                                               CreatePointCategoryThemeWithUnequalCriteria())
             {
                 Features = CreateMapPointFeaturesWithMetaData(15, 5),
                 Style =
@@ -98,39 +101,42 @@ namespace Demo.Ringtoets.Commands
                 },
                 SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
-            SetUnequalCriteria(mapPointDataUnequalCriteria);
             mapDataCollection.Add(mapPointDataUnequalCriteria);
 
-            var mapLineDataEqualCriteria = new MapLineData(Resources.OpenThematicalMapViewCommand_Execute_MapLineData_with_EqualValueCriteria)
+            var mapLineDataEqualCriteria = new MapLineData(Resources.OpenThematicalMapViewCommand_Execute_MapLineData_with_EqualValueCriteria,
+                                                           CreateLineStyle(Color.Black),
+                                                           CreateLineCategoryThemeWithEqualCriteria())
             {
                 Features = CreateMapLineFeaturesWithMetaData(40, 10),
                 SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
-            SetEqualCriteria(mapLineDataEqualCriteria);
             mapDataCollection.Add(mapLineDataEqualCriteria);
 
-            var mapLineDataUnequalCriteria = new MapLineData(Resources.OpenThematicalMapViewCommand_Execute_MapLineData_with_UnequalValueCriteria)
+            var mapLineDataUnequalCriteria = new MapLineData(Resources.OpenThematicalMapViewCommand_Execute_MapLineData_with_UnequalValueCriteria,
+                                                             CreateLineStyle(Color.Black),
+                                                             CreateLineCategoryThemeWithUnequalCriteria())
             {
                 Features = CreateMapLineFeaturesWithMetaData(10, 15),
                 SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
-            SetUnequalCriteria(mapLineDataUnequalCriteria);
             mapDataCollection.Add(mapLineDataUnequalCriteria);
 
-            var mapPolygonDataEqualCriteria = new MapPolygonData(Resources.OpenThematicalMapViewCommand_Execute_MapPolygonData_with_EqualValueCriteria)
+            var mapPolygonDataEqualCriteria = new MapPolygonData(Resources.OpenThematicalMapViewCommand_Execute_MapPolygonData_with_EqualValueCriteria,
+                                                                 CreatePolygonStyle(Color.Black),
+                                                                 CreatePolygonCategoryThemeWithEqualCriteria())
             {
                 Features = CreatePolygonFeaturesWithMetaData(40, 20),
                 SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
-            SetEqualCriteria(mapPolygonDataEqualCriteria);
             mapDataCollection.Add(mapPolygonDataEqualCriteria);
 
-            var mapPolygonDataUnequalCriteria = new MapPolygonData(Resources.OpenThematicalMapViewCommand_Execute_MapPolygonData_with_UnequalValueCriteria)
+            var mapPolygonDataUnequalCriteria = new MapPolygonData(Resources.OpenThematicalMapViewCommand_Execute_MapPolygonData_with_UnequalValueCriteria,
+                                                                   CreatePolygonStyle(Color.Black),
+                                                                   CreatePolygonCategoryThemeWithUnequalCriteria())
             {
                 Features = CreatePolygonFeaturesWithMetaData(10, 25),
                 SelectedMetaDataAttribute = selectedMetaDataAttributeName
             };
-            SetUnequalCriteria(mapPolygonDataUnequalCriteria);
             mapDataCollection.Add(mapPolygonDataUnequalCriteria);
 
             viewCommands.OpenView(mapDataCollection);
@@ -239,38 +245,32 @@ namespace Demo.Ringtoets.Commands
 
         #region MapLineData CategoryThemes
 
-        private static void SetEqualCriteria(MapLineData mapData)
+        private static MapTheme<LineCategoryTheme> CreateLineCategoryThemeWithEqualCriteria()
         {
-            LineStyle defaultStyle = mapData.Style;
-            var theme = new MapTheme<LineCategoryTheme>(selectedMetaDataAttributeName, new[]
+            return new MapTheme<LineCategoryTheme>(selectedMetaDataAttributeName, new[]
             {
-                new LineCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.A), CreateLineStyle(Color.DarkOrange, defaultStyle)),
-                new LineCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.B), CreateLineStyle(Color.OrangeRed, defaultStyle)),
-                new LineCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.C), CreateLineStyle(Color.SkyBlue, defaultStyle)),
-                new LineCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.D), CreateLineStyle(Color.GreenYellow, defaultStyle))
+                new LineCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.A), CreateLineStyle(Color.DarkOrange)),
+                new LineCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.B), CreateLineStyle(Color.OrangeRed)),
+                new LineCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.C), CreateLineStyle(Color.SkyBlue)),
+                new LineCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.D), CreateLineStyle(Color.GreenYellow))
             });
-
-            mapData.Theme = theme;
         }
 
-        private static void SetUnequalCriteria(MapLineData mapData)
+        private static MapTheme<LineCategoryTheme> CreateLineCategoryThemeWithUnequalCriteria()
         {
-            LineStyle defaultLineStyle = mapData.Style;
-            var theme = new MapTheme<LineCategoryTheme>(selectedMetaDataAttributeName, new[]
+            return new MapTheme<LineCategoryTheme>(selectedMetaDataAttributeName, new[]
             {
-                new LineCategoryTheme(CreateUnEqualValueCriterion(ThematicalFeatureTypes.E), CreateLineStyle(Color.HotPink, defaultLineStyle))
+                new LineCategoryTheme(CreateUnEqualValueCriterion(ThematicalFeatureTypes.E), CreateLineStyle(Color.HotPink))
             });
-
-            mapData.Theme = theme;
         }
 
-        private static LineStyle CreateLineStyle(Color color, LineStyle defaultStyle)
+        private static LineStyle CreateLineStyle(Color color)
         {
             return new LineStyle
             {
-                Width = defaultStyle.Width,
+                Width = 6,
                 Color = color,
-                DashStyle = defaultStyle.DashStyle
+                DashStyle = LineDashStyle.Solid
             };
         }
 
@@ -278,79 +278,67 @@ namespace Demo.Ringtoets.Commands
 
         #region MapPointData CategoryThemes
 
-        private static void SetEqualCriteria(MapPointData mapData)
+        private static MapTheme<PointCategoryTheme> CreatePointCategoryThemeWithEqualCriteria()
         {
-            PointStyle defaultStyle = mapData.Style;
-            var theme = new MapTheme<PointCategoryTheme>(selectedMetaDataAttributeName, new[]
+            return new MapTheme<PointCategoryTheme>(selectedMetaDataAttributeName, new[]
             {
-                new PointCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.A), CreatePointStyle(Color.DarkOrange, defaultStyle)),
-                new PointCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.B), CreatePointStyle(Color.OrangeRed, defaultStyle)),
-                new PointCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.C), CreatePointStyle(Color.SkyBlue, defaultStyle)),
-                new PointCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.D), CreatePointStyle(Color.GreenYellow, defaultStyle))
+                new PointCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.A), CreatePointStyle(Color.DarkOrange)),
+                new PointCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.B), CreatePointStyle(Color.OrangeRed)),
+                new PointCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.C), CreatePointStyle(Color.SkyBlue)),
+                new PointCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.D), CreatePointStyle(Color.GreenYellow))
             });
-
-            mapData.Theme = theme;
         }
 
-        private static void SetUnequalCriteria(MapPointData mapData)
+        private static MapTheme<PointCategoryTheme> CreatePointCategoryThemeWithUnequalCriteria()
         {
-            PointStyle defaultStyle = mapData.Style;
-            var theme = new MapTheme<PointCategoryTheme>(selectedMetaDataAttributeName, new[]
+            return new MapTheme<PointCategoryTheme>(selectedMetaDataAttributeName, new[]
             {
-                new PointCategoryTheme(CreateUnEqualValueCriterion(ThematicalFeatureTypes.E), CreatePointStyle(Color.HotPink, defaultStyle))
+                new PointCategoryTheme(CreateUnEqualValueCriterion(ThematicalFeatureTypes.E), CreatePointStyle(Color.HotPink))
             });
-
-            mapData.Theme = theme;
         }
 
-        private static PointStyle CreatePointStyle(Color color, PointStyle defaultStyle)
+        private static PointStyle CreatePointStyle(Color color)
         {
             return new PointStyle
             {
                 Color = color,
-                Size = defaultStyle.Size,
-                Symbol = defaultStyle.Symbol,
+                Size = 6,
+                Symbol = PointSymbol.Hexagon,
                 StrokeColor = color,
-                StrokeThickness = defaultStyle.StrokeThickness
+                StrokeThickness = 2
             };
         }
 
         #endregion
 
-        #region MapPointData CategoryThemes
+        #region MapPolygonData CategoryThemes
 
-        private static void SetEqualCriteria(MapPolygonData mapData)
+        private static MapTheme<PolygonCategoryTheme> CreatePolygonCategoryThemeWithEqualCriteria()
         {
-            PolygonStyle defaultStyle = mapData.Style;
-            var theme = new MapTheme<PolygonCategoryTheme>(selectedMetaDataAttributeName, new[]
+            return new MapTheme<PolygonCategoryTheme>(selectedMetaDataAttributeName, new[]
             {
-                new PolygonCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.A), CreatePointStyle(Color.DarkOrange, defaultStyle)),
-                new PolygonCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.B), CreatePointStyle(Color.OrangeRed, defaultStyle)),
-                new PolygonCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.C), CreatePointStyle(Color.SkyBlue, defaultStyle)),
-                new PolygonCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.D), CreatePointStyle(Color.GreenYellow, defaultStyle))
+                new PolygonCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.A), CreatePolygonStyle(Color.DarkOrange)),
+                new PolygonCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.B), CreatePolygonStyle(Color.OrangeRed)),
+                new PolygonCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.C), CreatePolygonStyle(Color.SkyBlue)),
+                new PolygonCategoryTheme(CreateEqualValueCriterion(ThematicalFeatureTypes.D), CreatePolygonStyle(Color.GreenYellow))
             });
-
-            mapData.Theme = theme;
         }
 
-        private static void SetUnequalCriteria(MapPolygonData mapData)
+        private static MapTheme<PolygonCategoryTheme> CreatePolygonCategoryThemeWithUnequalCriteria()
         {
-            PolygonStyle defaultStyle = mapData.Style;
-            var theme = new MapTheme<PolygonCategoryTheme>(selectedMetaDataAttributeName, new[]
+            return new MapTheme<PolygonCategoryTheme>(selectedMetaDataAttributeName, new[]
             {
-                new PolygonCategoryTheme(CreateUnEqualValueCriterion(ThematicalFeatureTypes.E), CreatePointStyle(Color.HotPink, defaultStyle))
+                new PolygonCategoryTheme(CreateUnEqualValueCriterion(ThematicalFeatureTypes.E), CreatePolygonStyle(Color.HotPink))
             });
-
-            mapData.Theme = theme;
         }
 
-        private static PolygonStyle CreatePointStyle(Color color, PolygonStyle defaultStyle)
+        private static PolygonStyle CreatePolygonStyle(Color color)
         {
             return new PolygonStyle
             {
                 FillColor = color,
                 StrokeColor = color,
-                StrokeThickness = defaultStyle.StrokeThickness
+                StrokeThickness = 2
             };
         }
 

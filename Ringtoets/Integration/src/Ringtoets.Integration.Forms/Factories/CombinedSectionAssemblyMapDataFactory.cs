@@ -42,11 +42,11 @@ namespace Ringtoets.Integration.Forms.Factories
                                    {
                                        Width = 6,
                                        DashStyle = LineDashStyle.Solid
-                                   })
+                                   },
+                                   MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme())
             {
                 ShowLabels = true,
-                SelectedMetaDataAttribute = Resources.SectionNumber_DisplayName,
-                Theme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
+                SelectedMetaDataAttribute = Resources.SectionNumber_DisplayName
             };
         }
     }

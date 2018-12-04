@@ -138,7 +138,6 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         {
             // Setup
             var theme = new TestCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion());
-
             var properties = new TestCategoryThemeProperties(string.Empty, theme, new TestFeatureBasedMapData());
 
             // Call
@@ -151,7 +150,7 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         private class TestCategoryThemeProperties : CategoryThemeProperties<TestCategoryTheme>
         {
             public TestCategoryThemeProperties(string attributeName, TestCategoryTheme categoryTheme, FeatureBasedMapData mapData)
-                : base(attributeName, categoryTheme, mapData) {}
+                : base(categoryTheme, attributeName, mapData) {}
         }
 
         private class TestCategoryTheme : CategoryTheme

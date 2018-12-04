@@ -29,6 +29,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
+using Core.Components.Gis.TestUtil;
+using Core.Components.Gis.Theme;
 using NUnit.Framework;
 
 namespace Core.Components.Gis.Test.Data
@@ -48,7 +50,7 @@ namespace Core.Components.Gis.Test.Data
             // Assert
             Assert.AreEqual(name, data.Name);
             CollectionAssert.IsEmpty(data.Features);
-            Assert.IsInstanceOf<FeatureBasedMapData>(data);
+            Assert.IsInstanceOf<FeatureBasedMapData<PolygonCategoryTheme>>(data);
             Assert.AreEqual(Color.DarkGray, data.Style.FillColor);
             Assert.AreEqual(Color.Black, data.Style.StrokeColor);
             Assert.AreEqual(2, data.Style.StrokeThickness);
@@ -111,8 +113,53 @@ namespace Core.Components.Gis.Test.Data
             // Assert
             Assert.AreEqual(name, data.Name);
             CollectionAssert.IsEmpty(data.Features);
-            Assert.IsInstanceOf<FeatureBasedMapData>(data);
             Assert.AreSame(style, data.Style);
+            Assert.IsNull(data.Theme);
+        }
+
+        [Test]
+        public void Constructor_StyleNullAndWithMapTheme_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new MapPointData("test data",
+                                                       null,
+                                                       new MapTheme<PointCategoryTheme>("attribute", new[]
+                                                       {
+                                                           new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                                                                  new PointStyle())
+                                                       }));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("style", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithStyleAndMapTheme_ExpectedValues()
+        {
+            // Setup
+            const string name = "test data";
+            var style = new PolygonStyle
+            {
+                FillColor = Color.Aqua,
+                StrokeColor = Color.DarkGoldenrod,
+                StrokeThickness = 3
+            };
+
+            var mapTheme = new MapTheme<PolygonCategoryTheme>("attribute", new[]
+            {
+                new PolygonCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(),
+                                         new PolygonStyle())
+            });
+
+            // Call
+            var data = new MapPolygonData(name, style, mapTheme);
+
+            // Assert
+            Assert.AreEqual(name, data.Name);
+            CollectionAssert.IsEmpty(data.Features);
+            Assert.AreSame(style, data.Style);
+            Assert.AreSame(mapTheme, data.Theme);
         }
 
         [Test]

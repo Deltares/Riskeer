@@ -29,7 +29,7 @@ namespace Core.Components.Gis.Theme
     /// Class that contains the definition for a categorical theming of 
     /// map data objects.
     /// </summary>
-    /// <typeparam name="TCategoryTheme">The type of category theme for the categorical theming.</typeparam>
+    /// <typeparam name="TCategoryTheme">The type of category theme.</typeparam>
     public class MapTheme<TCategoryTheme> where TCategoryTheme : CategoryTheme
     {
         /// <summary>

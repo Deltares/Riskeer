@@ -176,7 +176,7 @@ namespace Core.Plugins.Map.PropertyClasses
             {
                 MapTheme<PointCategoryTheme> mapTheme = data.Theme;
                 return mapTheme != null
-                           ? mapTheme.CategoryThemes.Select(ct => new PointCategoryThemeProperties(mapTheme.AttributeName, ct, data)).ToArray()
+                           ? mapTheme.CategoryThemes.Select(ct => new PointCategoryThemeProperties(ct, mapTheme.AttributeName, data)).ToArray()
                            : new PointCategoryThemeProperties[0];
             }
         }

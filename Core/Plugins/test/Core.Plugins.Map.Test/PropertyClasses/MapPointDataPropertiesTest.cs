@@ -132,14 +132,13 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void Constructor_MapPointDataWithMapTheme_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mapPointData = new MapPointData("Test")
+            var mapPointData = new MapPointData("Test", new PointStyle(), CreateMapTheme())
             {
                 Features = new[]
                 {
                     new MapFeature(Enumerable.Empty<MapGeometry>())
                 },
-                ShowLabels = true,
-                Theme = CreateMapTheme()
+                ShowLabels = true
             };
 
             // Call
@@ -200,13 +199,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             // Setup
             const string attributeName = "Attribute";
             var categoryTheme = new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new PointStyle());
-            var mapPointData = new MapPointData("Test", new PointStyle())
-            {
-                Theme = new MapTheme<PointCategoryTheme>(attributeName, new[]
-                {
-                    categoryTheme
-                })
-            };
+            var mapPointData = new MapPointData("Test",
+                                                new PointStyle(),
+                                                new MapTheme<PointCategoryTheme>(attributeName, new[]
+                                                {
+                                                    categoryTheme
+                                                }));
 
             // Call
             var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
@@ -237,13 +235,12 @@ namespace Core.Plugins.Map.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var mapPointData = new MapPointData("Test", new PointStyle())
-            {
-                Theme = new MapTheme<PointCategoryTheme>("Attribute", new[]
-                {
-                    new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new PointStyle())
-                })
-            };
+            var mapPointData = new MapPointData("Test",
+                                                new PointStyle(),
+                                                new MapTheme<PointCategoryTheme>("Attribute", new[]
+                                                {
+                                                    new PointCategoryTheme(ValueCriterionTestFactory.CreateValueCriterion(), new PointStyle())
+                                                }));
             mapPointData.Attach(observer);
 
             var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
@@ -362,12 +359,10 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_MapPointDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
         {
             // Setup
-            var mapPointData = new MapPointData("Test")
-            {
-                Theme = hasMapTheme
-                            ? CreateMapTheme()
-                            : null
-            };
+            MapTheme<PointCategoryTheme> mapTheme = hasMapTheme
+                                                        ? CreateMapTheme()
+                                                        : null;
+            var mapPointData = new MapPointData("Test", new PointStyle(), mapTheme);
 
             var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());
 
@@ -397,14 +392,14 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         [Test]
         public void DynamicVisibleValidationMethod_AnyOtherProperty_ReturnsTrue()
         {
-            var mapPointData = new MapPointData("Test")
+            // Setup
+            var mapPointData = new MapPointData("Test", new PointStyle(), CreateMapTheme())
             {
                 Features = new[]
                 {
                     new MapFeature(Enumerable.Empty<MapGeometry>())
                 },
-                ShowLabels = true,
-                Theme = CreateMapTheme()
+                ShowLabels = true
             };
 
             var properties = new MapPointDataProperties(mapPointData, Enumerable.Empty<MapDataCollection>());

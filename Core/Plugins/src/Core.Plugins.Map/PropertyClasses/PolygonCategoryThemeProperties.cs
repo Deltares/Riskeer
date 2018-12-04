@@ -41,13 +41,13 @@ namespace Core.Plugins.Map.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="PolygonCategoryThemeProperties"/>.
         /// </summary>
+        /// <param name="categoryTheme">The theme to create the property info panel for.</param>
         /// <param name="attributeName">The name of the attribute on which <paramref name="categoryTheme"/>
         /// is based on.</param>
-        /// <param name="categoryTheme">The theme to create the property info panel for.</param>
         /// <param name="mapData">The <see cref="MapLineData"/> the <paramref name="categoryTheme"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PolygonCategoryThemeProperties(string attributeName, PolygonCategoryTheme categoryTheme, MapPolygonData mapData)
-            : base(attributeName, categoryTheme, mapData) {}
+        public PolygonCategoryThemeProperties(PolygonCategoryTheme categoryTheme, string attributeName, MapPolygonData mapData)
+            : base(categoryTheme, attributeName, mapData) {}
 
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Styling))]

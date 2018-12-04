@@ -138,7 +138,7 @@ namespace Core.Plugins.Map.PropertyClasses
             {
                 MapTheme<LineCategoryTheme> mapTheme = data.Theme;
                 return mapTheme != null
-                           ? mapTheme.CategoryThemes.Select(ct => new LineCategoryThemeProperties(mapTheme.AttributeName, ct, data)).ToArray()
+                           ? mapTheme.CategoryThemes.Select(ct => new LineCategoryThemeProperties(ct, mapTheme.AttributeName, data)).ToArray()
                            : new LineCategoryThemeProperties[0];
             }
         }
