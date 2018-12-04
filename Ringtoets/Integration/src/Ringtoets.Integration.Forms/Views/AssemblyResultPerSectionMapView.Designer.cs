@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -66,18 +66,20 @@ namespace Ringtoets.Integration.Forms.Views
             // ringtoetsMapControl
             // 
             this.ringtoetsMapControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ringtoetsMapControl.Location = new System.Drawing.Point(3, 22);
+            this.ringtoetsMapControl.Location = new System.Drawing.Point(3, 16);
             this.ringtoetsMapControl.Name = "ringtoetsMapControl";
-            this.ringtoetsMapControl.Size = new System.Drawing.Size(556, 125);
+            this.ringtoetsMapControl.Size = new System.Drawing.Size(556, 131);
             this.ringtoetsMapControl.TabIndex = 0;
             // 
             // warningPanel
             // 
             this.warningPanel.AutoSize = true;
+            this.warningPanel.BackColor = System.Drawing.SystemColors.Info;
             this.warningPanel.Controls.Add(this.warningIcon);
             this.warningPanel.Controls.Add(this.warningText);
             this.warningPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.warningPanel.Location = new System.Drawing.Point(3, 3);
+            this.warningPanel.Location = new System.Drawing.Point(0, 0);
+            this.warningPanel.Margin = new System.Windows.Forms.Padding(0);
             this.warningPanel.Name = "warningPanel";
             this.warningPanel.Size = new System.Drawing.Size(556, 13);
             this.warningPanel.TabIndex = 1;
@@ -90,6 +92,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.warningIcon.Name = "warningIcon";
             this.warningIcon.Size = new System.Drawing.Size(16, 16);
             this.warningIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.warningIcon.Image = global::Ringtoets.Common.Forms.Properties.Resources.PencilWarning.ToBitmap();
             this.warningIcon.TabIndex = 1;
             this.warningIcon.TabStop = false;
             // 

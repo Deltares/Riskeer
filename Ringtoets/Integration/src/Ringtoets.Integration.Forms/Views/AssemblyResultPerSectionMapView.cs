@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly MapLineData referenceLineMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
-        private Observer assessmentSectionObserver;
+        private Observer assessmentSectionResultObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
@@ -71,7 +71,6 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             InitializeComponent();
-            InitializeWarningPanel();
 
             AssessmentSection = assessmentSection;
 
@@ -111,7 +110,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (disposing)
             {
-                assessmentSectionObserver.Dispose();
+                assessmentSectionResultObserver.Dispose();
                 waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
                 waterLevelCalculationsForSignalingNormObserver.Dispose();
                 waterLevelCalculationsForLowerLimitNormObserver.Dispose();
@@ -130,7 +129,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void CreateObservers()
         {
-            assessmentSectionObserver = new Observer(() =>
+            assessmentSectionResultObserver = new Observer(() =>
             {
                 UpdateAssessmentSectionData();
                 SetWarningPanel();
@@ -162,11 +161,6 @@ namespace Ringtoets.Integration.Forms.Views
             };
         }
 
-        private void InitializeWarningPanel()
-        {
-            warningIcon.Image = RingtoetsCommonFormsResources.PencilWarning.ToBitmap();
-        }
-
         private void SetAllMapDataFeatures()
         {
             SetReferenceLineMapData();
@@ -176,13 +170,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SetWarningPanel()
         {
-            if (AssessmentSectionHelper.HasManualAssemblyResults(AssessmentSection))
-            {
-                warningPanel.Visible = true;
-                return;
-            }
-
-            warningPanel.Visible = false;
+            warningPanel.Visible = AssessmentSectionHelper.HasManualAssemblyResults(AssessmentSection);
         }
 
         private void UpdateAssessmentSectionData()

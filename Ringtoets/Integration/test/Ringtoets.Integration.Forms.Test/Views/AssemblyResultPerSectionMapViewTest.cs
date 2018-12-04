@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -143,7 +144,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            
+
             AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
@@ -278,7 +279,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 observers[assemblyResultsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
-                var referenceLineMapData = (MapLineData)map.Data.Collection.ElementAt(referenceLineIndex);
+                var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
                 MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
@@ -437,7 +438,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenViewWithManualAssemblyResults_WhenShowingView_ThenExpectedWarningSet(bool hasManualAssembly)
+        public void GivenViewWithVariousManualAssemblyResultConfigurations_WhenShowingView_ThenExpectedWarningSet(bool hasManualAssembly)
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
@@ -464,9 +465,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
             {
-                // Precondition
                 var layoutPanel = (TableLayoutPanel) view.Controls[0];
                 var warningPanel = (Panel) layoutPanel.GetControlFromPosition(0, 0);
+
+                // Precondition
                 Assert.IsFalse(warningPanel.Visible);
 
                 // When
@@ -492,9 +494,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
             {
-                // Precondition
                 var layoutPanel = (TableLayoutPanel) view.Controls[0];
                 var warningPanel = (Panel) layoutPanel.GetControlFromPosition(0, 0);
+
+                // Precondition
                 Assert.IsTrue(warningPanel.Visible);
                 AssertWarningPanel(warningPanel);
 
@@ -582,6 +585,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(16, warningIcon.MaximumSize.Height);
             Assert.AreEqual(16, warningIcon.MaximumSize.Width);
             Assert.AreEqual(PictureBoxSizeMode.StretchImage, warningIcon.SizeMode);
+            Assert.AreEqual(SystemColors.Info, warningPanel.BackColor);
 
             var warningText = (Label) warningPanel.Controls.Find("warningText", false).Single();
             Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningText.Text);
