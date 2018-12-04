@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Factories
             return new MapLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName,
                                    new LineStyle
                                    {
-                                       Color = Color.Red,
+                                       Color = Color.FromArgb(0, 128, 255),
                                        Width = thickLineWidth,
                                        DashStyle = LineDashStyle.Solid
                                    })

@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(data.Features);
             Assert.AreEqual("Referentielijn", data.Name);
-            AssertEqualStyle(data.Style, Color.Red, 3, LineDashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.FromArgb(0, 128, 255), 3, LineDashStyle.Solid);
             Assert.AreEqual("Naam", data.SelectedMetaDataAttribute);
         }
 
