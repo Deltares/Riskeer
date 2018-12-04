@@ -307,7 +307,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerProperties_MapLineDataWithStyleAndValueCriteria_ConvertDataToMapPointLayer()
+        public void ConvertLayerProperties_MapLineDataWithThemeAndMetaDataNameInFeatures_ConvertDataToMapLineLayer()
         {
             // Setup
             const string metadataAttribute = "Meta";

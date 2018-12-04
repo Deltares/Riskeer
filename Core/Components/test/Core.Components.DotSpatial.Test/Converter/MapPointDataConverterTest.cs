@@ -255,7 +255,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerProperties_MapLineDataWithThemeAndMetaDataNameNotInFeatures_OnlyAddsDefaultCategory()
+        public void ConvertLayerProperties_MapPointDataWithThemeAndMetaDataNameNotInFeatures_OnlyAddsDefaultCategory()
         {
             // Setup
             const string metadataAttribute = "Meta";
@@ -308,7 +308,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerProperties_MapPointDataWithStyleAndValueCriteria_ConvertDataToMapPointLayer()
+        public void ConvertLayerProperties_MapPointDataWithThemeAndMetaDataNameInFeatures_ConvertDataToMapPointLayer()
         {
             // Setup
             const string metadataAttribute = "Meta";

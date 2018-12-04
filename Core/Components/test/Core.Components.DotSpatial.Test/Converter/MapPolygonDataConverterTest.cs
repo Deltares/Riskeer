@@ -338,7 +338,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerProperties_MapLineDataWithThemeAndMetaDataNameNotInFeatures_OnlyAddsDefaultCategory()
+        public void ConvertLayerProperties_MapPolygonDataWithThemeAndMetaDataNameNotInFeatures_OnlyAddsDefaultCategory()
         {
             // Setup
             const string metadataAttribute = "Meta";
@@ -387,7 +387,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void ConvertLayerProperties_MapPointDataWithStyleAndValueCriteria_ConvertDataToMapPointLayer()
+        public void ConvertLayerProperties_MapPolygonDataWithThemeAndMetaDataNameInFeatures_ConvertDataToMapPolygonLayer()
         {
             // Setup
             const string metadataAttribute = "Meta";
