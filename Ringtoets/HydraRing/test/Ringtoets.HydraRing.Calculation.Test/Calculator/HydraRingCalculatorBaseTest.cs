@@ -31,6 +31,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.HydraRing.Calculation.Parsers;
+using Ringtoets.HydraRing.Calculation.TestUtil;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 {
@@ -53,7 +54,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         {
             // Setup
             var parser = new TestParser();
-            HydraRingCalculationSettings settings = CreateHydraRingCalculationSettings();
+            var settings = new HydraRingCalculationSettings("D:\\hlcd.sqlity", string.Empty);
             var calculator = new TestHydraRingCalculator(settings, parser);
             var hydraRingCalculationInput = new TestHydraRingCalculationInput();
 
@@ -72,7 +73,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         {
             // Setup
             var parser = new TestParser();
-            var calculator = new TestHydraRingCalculator(CreateHydraRingCalculationSettings(), parser);
+            var calculator = new TestHydraRingCalculator(HydraRingCalculationSettingsTestFactory.CreateSettings(),
+                                                         parser);
 
             // Call
             calculator.PublicCalculate(new TestHydraRingCalculationInput());
@@ -88,7 +90,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             // Setup
             var parseException = new HydraRingFileParserException("message", new Exception());
             var parser = new TestParser(parseException);
-            var calculator = new TestHydraRingCalculator(CreateHydraRingCalculationSettings(), parser);
+            var calculator = new TestHydraRingCalculator(HydraRingCalculationSettingsTestFactory.CreateSettings(),
+                                                         parser);
 
             // Call
             TestDelegate test = () => calculator.PublicCalculate(new TestHydraRingCalculationInput());
@@ -113,7 +116,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
                                                                           "Exception message",
                                                                           new Exception("InnerException"));
             var parser = new TestParser(supportedException);
-            var calculator = new TestHydraRingCalculator(CreateHydraRingCalculationSettings(), parser);
+            var calculator = new TestHydraRingCalculator(HydraRingCalculationSettingsTestFactory.CreateSettings(),
+                                                         parser);
 
             // Call
             TestDelegate test = () => calculator.PublicCalculate(new TestHydraRingCalculationInput());
@@ -146,7 +150,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         public void Calculate_IllustrationPointsParserThrowsException_SetsIllustrationPointsParserError()
         {
             // Setup
-            var calculator = new TestHydraRingCalculator(CreateHydraRingCalculationSettings(), new TestParser());
+            var calculator = new TestHydraRingCalculator(HydraRingCalculationSettingsTestFactory.CreateSettings(),
+                                                         new TestParser());
 
             // Call
             calculator.PublicCalculate(new TestHydraRingCalculationInput());
@@ -155,13 +160,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             const string expectedMessage = "Er konden geen illustratiepunten worden uitgelezen.";
             Assert.AreEqual(expectedMessage, calculator.IllustrationPointsParserErrorMessage);
             Assert.IsNull(calculator.IllustrationPointsResult);
-        }
-
-        private static HydraRingCalculationSettings CreateHydraRingCalculationSettings()
-        {
-            var settings = new HydraRingCalculationSettings(string.Empty,
-                                                            string.Empty);
-            return settings;
         }
     }
 

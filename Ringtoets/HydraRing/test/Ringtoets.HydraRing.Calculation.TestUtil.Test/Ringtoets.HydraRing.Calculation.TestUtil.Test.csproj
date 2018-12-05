@@ -15,6 +15,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HydraRingCalculationSettingsTestFactoryTest.cs" />
     <Compile Include="HydraRingDataEqualityHelperTest.cs" />
     <Compile Include="IllustrationPoints\TestFaultTreeIllustrationPointTest.cs" />
     <Compile Include="IllustrationPoints\GeneralResultTestFactoryTest.cs" />
