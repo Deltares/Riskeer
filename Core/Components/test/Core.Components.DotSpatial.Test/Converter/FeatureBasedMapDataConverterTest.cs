@@ -772,7 +772,9 @@ namespace Core.Components.DotSpatial.Test.Converter
 
         private class TestFeatureBasedMapData : FeatureBasedMapData<TestCategoryTheme>
         {
-            public TestFeatureBasedMapData(string name, MapTheme<TestCategoryTheme> theme = null) : base(name, theme) {}
+            public TestFeatureBasedMapData(string name) : this(name, null) {}
+
+            public TestFeatureBasedMapData(string name, MapTheme<TestCategoryTheme> theme) : base(name, theme) {}
         }
 
         private class TestFeatureBasedMapDataConverter : FeatureBasedMapDataConverter<TestFeatureBasedMapData, TestFeatureLayer, TestCategoryTheme>

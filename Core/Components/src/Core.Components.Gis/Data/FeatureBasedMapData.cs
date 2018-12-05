@@ -118,6 +118,14 @@ namespace Core.Components.Gis.Data
         /// Creates a new instance of <see cref="FeatureBasedMapData{T}"/>.
         /// </summary>
         /// <param name="name">The name of the <see cref="FeatureBasedMapData"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        protected FeatureBasedMapData(string name) : this(name, null) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FeatureBasedMapData{T}"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="FeatureBasedMapData"/>.</param>
         /// <param name="theme">The <see cref="MapTheme{TCategoryTheme}"/>
         /// belonging to the <see cref="FeatureBasedMapData"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
