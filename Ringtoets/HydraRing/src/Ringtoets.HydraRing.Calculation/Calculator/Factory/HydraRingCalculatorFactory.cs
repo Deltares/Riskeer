@@ -64,10 +64,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
             return new HydraulicLoadsCalculator(settings);
         }
 
-        public IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(string hlcdDirectory, string preprocessorDirectory)
+        public IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(HydraRingCalculationSettings calculationSettings)
         {
-            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
-            return new HydraulicLoadsCalculator(settings);
+            return new HydraulicLoadsCalculator(calculationSettings);
         }
 
         public IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory, string preprocessorDirectory)

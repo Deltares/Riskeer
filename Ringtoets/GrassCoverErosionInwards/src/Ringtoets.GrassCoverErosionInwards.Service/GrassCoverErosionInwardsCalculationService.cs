@@ -271,7 +271,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             if (calculation.InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation && overtoppingRateNormValid)
             {
-                overtoppingRateCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingRateCalculator(hlcdDirectory, preprocessorDirectory);
+                var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
+                overtoppingRateCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingRateCalculator(settings);
                 numberOfCalculators++;
             }
 
