@@ -85,6 +85,7 @@
     <Compile Include="Factories\ExportableTechnicalInnovationFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableWaterPressureAsphaltCoverFailureMechanismFactory.cs" />
     <Compile Include="Factories\ExportableWaveImpactAsphaltCoverFailureMechanismFactory.cs" />
+    <Compile Include="Handlers\IHydraulicBoundaryDatabaseUpdateHandler.cs" />
     <Compile Include="Helpers\ExportableFailureMechanismSectionHelper.cs" />
     <Compile Include="Helpers\IdentifierGenerator.cs" />
     <Compile Include="Importers\HydraulicBoundaryDatabaseImporter.cs" />
