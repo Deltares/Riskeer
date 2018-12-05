@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2018. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -48,32 +48,38 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
 
         public IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new DesignWaterLevelCalculator(hlcdDirectory, preprocessorDirectory);
+            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
+            return new DesignWaterLevelCalculator(settings);
         }
 
         public IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new OvertoppingCalculator(hlcdDirectory, preprocessorDirectory);
+            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
+            return new OvertoppingCalculator(settings);
         }
 
         public IHydraulicLoadsCalculator CreateDikeHeightCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new HydraulicLoadsCalculator(hlcdDirectory, preprocessorDirectory);
+            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
+            return new HydraulicLoadsCalculator(settings);
         }
 
         public IHydraulicLoadsCalculator CreateOvertoppingRateCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new HydraulicLoadsCalculator(hlcdDirectory, preprocessorDirectory);
+            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
+            return new HydraulicLoadsCalculator(settings);
         }
 
         public IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new WaveConditionsCosineCalculator(hlcdDirectory, preprocessorDirectory);
+            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
+            return new WaveConditionsCosineCalculator(settings);
         }
 
         public IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory, string preprocessorDirectory)
         {
-            return new WaveHeightCalculator(hlcdDirectory, preprocessorDirectory);
+            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
+            return new WaveHeightCalculator(settings);
         }
 
         public IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(HydraRingCalculationSettings calculationSettings)
@@ -84,7 +90,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         public IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory, string preprocessorDirectory)
             where TCalculationInput : ExceedanceProbabilityCalculationInput
         {
-            return new StructuresCalculator<TCalculationInput>(hlcdDirectory, preprocessorDirectory);
+            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
+            return new StructuresCalculator<TCalculationInput>(settings);
         }
     }
 }
