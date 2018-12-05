@@ -19,13 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.IO;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Integration.IO.Importers;
 
 namespace Ringtoets.Integration.IO.Test.Importers
 {
     [TestFixture]
     public class HydraulicBoundaryDatabaseImporterTest
     {
-        
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var filePath = "";
+
+            // Call
+            var importer = new HydraulicBoundaryDatabaseImporter(filePath, new HydraulicBoundaryDatabase());
+
+            // Assert
+            Assert.IsInstanceOf<FileImporterBase<HydraulicBoundaryDatabase>>(importer);
+        }
     }
 }

@@ -19,9 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.IO;
+using Ringtoets.Common.Data.Hydraulics;
+
 namespace Ringtoets.Integration.IO.Importers
 {
-    public class HydraulicBoundaryDatabaseImporter
+    public class HydraulicBoundaryDatabaseImporter : FileImporterBase<HydraulicBoundaryDatabase>
     {
+        public HydraulicBoundaryDatabaseImporter(string filePath, HydraulicBoundaryDatabase importTarget)
+            : base(filePath, importTarget) {}
+
+        protected override void LogImportCanceledMessage()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override bool OnImport()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
