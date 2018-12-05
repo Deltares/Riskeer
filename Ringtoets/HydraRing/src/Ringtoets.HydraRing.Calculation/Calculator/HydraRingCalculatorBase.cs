@@ -41,6 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// </summary>
     internal abstract class HydraRingCalculatorBase
     {
+        private readonly HydraRingCalculationSettings calculationSettings;
         private readonly LastErrorFileParser lastErrorFileParser;
         private readonly IllustrationPointsParser illustrationPointsParser;
 
@@ -93,8 +94,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 throw new ArgumentNullException(nameof(calculationSettings));
             }
 
-            hlcdDirectory = calculationSettings.HlcdFilePath;
-            preprocessorDirectory = calculationSettings.PreprocessorDirectory;
+            this.calculationSettings = calculationSettings;
 
             lastErrorFileParser = new LastErrorFileParser();
             illustrationPointsParser = new IllustrationPointsParser();
@@ -157,7 +157,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         {
             try
             {
-                if (string.IsNullOrEmpty(preprocessorDirectory) && hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
+                if (string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory) && hydraRingCalculationInput.PreprocessorSetting.RunPreprocessor)
                 {
                     throw new InvalidOperationException("Preprocessor directory required but not specified.");
                 }
@@ -171,9 +171,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 var hydraRingInitializationService = new HydraRingInitializationService(
                     hydraRingCalculationInput.FailureMechanismType,
                     sectionId,
-                    hlcdDirectory,
                     OutputDirectory,
-                    preprocessorDirectory);
+                    calculationSettings);
                 hydraRingInitializationService.WriteInitializationScript();
                 hydraRingConfigurationService.WriteDatabaseCreationScript(hydraRingInitializationService.DatabaseCreationScriptFilePath);
 

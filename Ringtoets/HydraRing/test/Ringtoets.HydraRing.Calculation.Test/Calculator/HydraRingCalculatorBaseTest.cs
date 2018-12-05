@@ -38,25 +38,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
     public class HydraRingCalculatorBaseTest
     {
         [Test]
-        public void Constructor_HlcdDirectoryNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationSettingsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestHydraRingCalculator(null, "");
+            TestDelegate call = () => new TestHydraRingCalculator(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hlcdDirectory", paramName);
-        }
-
-        [Test]
-        public void Constructor_PreprocessorDirectoryNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new TestHydraRingCalculator("", null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("preprocessorDirectory", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationSettings", exception.ParamName);
         }
 
         [Test]
@@ -76,17 +65,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             // Assert
             string message = Assert.Throws<InvalidOperationException>(test).Message;
             Assert.AreEqual("Preprocessor directory required but not specified.", message);
-        }
-
-        [Test]
-        public void Constructor_CalculationSettingsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new TestHydraRingCalculator(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculationSettings", exception.ParamName);
         }
 
         [Test]
@@ -153,13 +131,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         public void Calculate_LastErrorFilePresent_LastErrorFileContentSet()
         {
             // Setup
-            var calculator = new TestHydraRingCalculator(CreateHydraRingCalculationSettings(), new TestParser());
+            var settings = new HydraRingCalculationSettings("D:\\HLCD.sqlite", string.Empty);
+            var calculator = new TestHydraRingCalculator(settings, new TestParser());
 
             // Call
             calculator.PublicCalculate(new TestHydraRingCalculationInput());
 
             // Assert
-            Assert.AreEqual("Hydraulic database HLCD.sqlite not found.\r\n", calculator.LastErrorFileContent);
+            string expectedContent = $"Hydraulic database {settings.HlcdFilePath} not found.\r\n";
+            Assert.AreEqual(expectedContent, calculator.LastErrorFileContent);
         }
 
         [Test]
@@ -188,8 +168,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
     internal class TestHydraRingCalculator : HydraRingCalculatorBase
     {
         private readonly IHydraRingFileParser parser;
-
-        public TestHydraRingCalculator(string hlcdDirectory, string preprocessorDirectory) : base(hlcdDirectory, preprocessorDirectory) {}
 
         public TestHydraRingCalculator(HydraRingCalculationSettings calculationSettings) : base(calculationSettings) {}
 
