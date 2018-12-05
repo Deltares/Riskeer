@@ -11,42 +11,31 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingCalculationSettings"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary
-        /// database file.</param>
-        /// <param name="hydraulicBoundaryLocationsConfigurationFilePath">The path which points to
-        /// the hydraulic boundary locations configuration file.</param>
+        /// <param name="hlcdFilePath">The path which points to the HLCD file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to be used for the calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="preprocessorDirectory"/>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is null
         /// is <c>null</c></exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="hydraulicBoundaryDatabaseFilePath"/>
-        /// or <paramref name="hydraulicBoundaryLocationsConfigurationFilePath"/>of the input parameters contains invalid
-        /// characters.</exception>
-        public HydraRingCalculationSettings(string hydraulicBoundaryDatabaseFilePath,
-                                            string hydraulicBoundaryLocationsConfigurationFilePath,
+        public HydraRingCalculationSettings(string hlcdFilePath,
                                             string preprocessorDirectory)
         {
+            if (hlcdFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(hlcdFilePath));
+            }
+
             if (preprocessorDirectory == null)
             {
                 throw new ArgumentNullException(nameof(preprocessorDirectory));
             }
 
-            IOUtils.ValidateFilePath(hydraulicBoundaryDatabaseFilePath);
-            IOUtils.ValidateFilePath(hydraulicBoundaryLocationsConfigurationFilePath);
-
-            HydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
-            HydraulicBoundaryLocationsConfigurationFilePath = hydraulicBoundaryLocationsConfigurationFilePath;
+            HlcdFilePath = hlcdFilePath;
             PreprocessorDirectory = preprocessorDirectory;
         }
 
         /// <summary>
-        /// Gets the hydraulic boundary database filepath.
-        /// </summary>
-        public string HydraulicBoundaryDatabaseFilePath { get; }
-
-        /// <summary>
         /// Gets the hydraulic locations configurations filepath.
         /// </summary>
-        public string HydraulicBoundaryLocationsConfigurationFilePath { get; }
+        public string HlcdFilePath { get; }
 
         /// <summary>
         /// Gets the preprocessor director.

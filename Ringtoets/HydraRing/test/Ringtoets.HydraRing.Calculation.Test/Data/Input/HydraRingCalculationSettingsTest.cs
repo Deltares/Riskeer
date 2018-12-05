@@ -1,5 +1,4 @@
 ﻿using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 
@@ -9,51 +8,22 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
     public class HydraRingCalculationSettingsTest
     {
         [Test]
-        [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
-        public void Constructor_WithInvalidHydraulicBoundaryDatabaseFilePath_ThrowsArgumentException(
-            string invalidHydraulicBoundaryDatabaseFilePath)
+        public void Constructor_HlcdFilePathNull_ThrowsArgumentNullException()
         {
-            // Setup
-            string hlcdFilePath = TestHelper.GetScratchPadPath();
-            string preProcessorDirectory = TestHelper.GetScratchPadPath();
-
             // Call
-            TestDelegate call = () => new HydraRingCalculationSettings(invalidHydraulicBoundaryDatabaseFilePath,
-                                                                       hlcdFilePath,
-                                                                       preProcessorDirectory);
+            TestDelegate call = () => new HydraRingCalculationSettings(null,
+                                                                       string.Empty);
 
             // Assert
-            Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("hlcdFilePath", exception.ParamName);
         }
 
         [Test]
-        [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
-        public void Constructor_WithInvalidHydraulicBoundaryLocationsConfigurationsFilePath_ThrowsArgumentException(
-            string invalidHlcdFilePath)
+        public void Constructor_PreprocessorDirectoryNull_ThrowsArgumentNullException()
         {
-            // Setup
-            string hydraulicBoundaryLocationsDatabaseFilePath = TestHelper.GetScratchPadPath();
-            string preProcessorDirectory = TestHelper.GetScratchPadPath();
-
             // Call
-            TestDelegate call = () => new HydraRingCalculationSettings(hydraulicBoundaryLocationsDatabaseFilePath,
-                                                                       invalidHlcdFilePath,
-                                                                       preProcessorDirectory);
-
-            // Assert
-            Assert.Throws<ArgumentException>(call);
-        }
-
-        [Test]
-        public void Constructor_WithPreprocessorDirectoryNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            string hydraulicBoundaryLocationsDatabaseFilePath = TestHelper.GetScratchPadPath();
-            string hlcdFilePath = TestHelper.GetScratchPadPath();
-
-            // Call
-            TestDelegate call = () => new HydraRingCalculationSettings(hydraulicBoundaryLocationsDatabaseFilePath,
-                                                                       hlcdFilePath,
+            TestDelegate call = () => new HydraRingCalculationSettings(string.Empty,
                                                                        null);
 
             // Assert
@@ -65,18 +35,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
         public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
-            string hydraulicBoundaryDatabaseFilePath = TestHelper.GetScratchPadPath();
-            string hlcdFilePath = TestHelper.GetScratchPadPath();
-            string preProcessorDirectory = TestHelper.GetScratchPadPath();
+            const string hlcdFilePath = "hlcdFilePath";
+            const string preProcessorDirectory = "PreprocessorDirectory";
 
             // Call
-            var settings = new HydraRingCalculationSettings(hydraulicBoundaryDatabaseFilePath,
-                                                            hlcdFilePath,
+            var settings = new HydraRingCalculationSettings(hlcdFilePath,
                                                             preProcessorDirectory);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HydraulicBoundaryDatabaseFilePath);
-            Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HydraulicBoundaryLocationsConfigurationFilePath);
+            Assert.AreEqual(hlcdFilePath, settings.HlcdFilePath);
             Assert.AreEqual(preProcessorDirectory, settings.PreprocessorDirectory);
         }
     }
