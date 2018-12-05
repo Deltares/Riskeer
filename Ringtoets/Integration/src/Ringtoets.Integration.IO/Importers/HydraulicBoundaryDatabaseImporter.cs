@@ -19,13 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.IO;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Integration.IO.Importers
 {
+    /// <summary>
+    /// Importer for hydraulic boundary database files and corresponding configuration files.
+    /// </summary>
     public class HydraulicBoundaryDatabaseImporter : FileImporterBase<HydraulicBoundaryDatabase>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
+        /// </summary>
+        /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
+        /// <param name="importTarget">The import target.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicBoundaryDatabaseImporter(string filePath, HydraulicBoundaryDatabase importTarget)
             : base(filePath, importTarget) {}
 
