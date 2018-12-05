@@ -22,6 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.TestUtil;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 {
@@ -31,8 +32,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            HydraRingCalculationSettings settings = HydraRingCalculationSettingsTestFactory.CreateSettings();
+
             // Call
-            var calculator = new StructuresCalculator<ExceedanceProbabilityCalculationInput>(string.Empty, string.Empty);
+            var calculator = new StructuresCalculator<ExceedanceProbabilityCalculationInput>(settings);
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);

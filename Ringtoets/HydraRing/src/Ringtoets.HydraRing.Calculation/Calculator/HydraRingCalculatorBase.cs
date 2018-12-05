@@ -45,48 +45,17 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         private readonly LastErrorFileParser lastErrorFileParser;
         private readonly IllustrationPointsParser illustrationPointsParser;
 
-        private readonly string hlcdDirectory;
-        private readonly string preprocessorDirectory;
-
         private Process hydraRingProcess;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingCalculatorBase"/> with a default Hydra-Ring file parser
         /// initialized.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory in which the hydraulic boundary database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        protected HydraRingCalculatorBase(string hlcdDirectory, string preprocessorDirectory)
-        {
-            if (hlcdDirectory == null)
-            {
-                throw new ArgumentNullException(nameof(hlcdDirectory));
-            }
-
-            if (preprocessorDirectory == null)
-            {
-                throw new ArgumentNullException(nameof(preprocessorDirectory));
-            }
-
-            this.hlcdDirectory = hlcdDirectory;
-            this.preprocessorDirectory = preprocessorDirectory;
-
-            lastErrorFileParser = new LastErrorFileParser();
-            illustrationPointsParser = new IllustrationPointsParser();
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HydraRingCalculatorBase"/> with a default Hydra-Ring file parser
-        /// initialized.
-        /// </summary>
-        /// <param name="calculationSettings">The directory in which the hydraulic boundary database can be found.</param>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// general information for a Hydra-Ring calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/> is <c>null</c>.</exception>
         /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/> is <c>null</c>.</exception>
         protected HydraRingCalculatorBase(HydraRingCalculationSettings calculationSettings)
         {
             if (calculationSettings == null)

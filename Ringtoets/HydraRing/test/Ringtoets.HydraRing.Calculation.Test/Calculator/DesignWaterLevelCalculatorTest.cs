@@ -21,6 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Calculator;
+using Ringtoets.HydraRing.Calculation.TestUtil;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 {
@@ -31,7 +32,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         public void Constructor_ExpectedValues()
         {
             // Call
-            var calculator = new DesignWaterLevelCalculator(string.Empty, string.Empty);
+            var calculator = new DesignWaterLevelCalculator(HydraRingCalculationSettingsTestFactory.CreateSettings());
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
