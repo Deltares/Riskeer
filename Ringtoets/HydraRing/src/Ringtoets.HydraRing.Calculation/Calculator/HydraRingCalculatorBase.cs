@@ -93,7 +93,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
                 throw new ArgumentNullException(nameof(calculationSettings));
             }
 
-            hlcdDirectory = calculationSettings.HydraulicBoundaryLocationsConfigurationFilePath;
+            hlcdDirectory = calculationSettings.HlcdFilePath;
             preprocessorDirectory = calculationSettings.PreprocessorDirectory;
 
             lastErrorFileParser = new LastErrorFileParser();
