@@ -56,7 +56,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         private const int waveHeightColumnIndex = 7;
         private const int wavePeriodColumnIndex = 8;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
+        private static readonly string hydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "complete.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         private Form testForm;
@@ -446,7 +447,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                FilePath = hydraulicBoundaryDatabaseFilePath
             });
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
@@ -454,10 +455,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var calculationsObserver = mocks.StrictMock<IObserver>();
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
-                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath) 
-                                                                                          && Equals(string.Empty, arg.PreprocessorDirectory))))
-                             .Return(new TestDunesBoundaryConditionsCalculator());
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
+                                 Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
+                                 Assert.IsEmpty(settings.PreprocessorDirectory);
+                             })
+                 .Return(new TestDunesBoundaryConditionsCalculator());
             mocks.ReplayAll();
 
             IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
@@ -505,7 +510,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                FilePath = hydraulicBoundaryDatabaseFilePath
             });
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
@@ -513,9 +518,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var calculationsObserver = mocks.StrictMock<IObserver>();
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
-                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
-                                                                                          && Equals(string.Empty, arg.PreprocessorDirectory))))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
+                                 Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
+                                 Assert.IsEmpty(settings.PreprocessorDirectory);
+                             })
                  .Return(new TestDunesBoundaryConditionsCalculator());
             mocks.ReplayAll();
 
@@ -627,16 +636,20 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                FilePath = hydraulicBoundaryDatabaseFilePath
             });
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
-                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
-                                                                                          && Equals(string.Empty, arg.PreprocessorDirectory))))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
+                                 Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
+                                 Assert.IsEmpty(settings.PreprocessorDirectory);
+                             })
                  .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
@@ -685,7 +698,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite"),
+                FilePath = hydraulicBoundaryDatabaseFilePath,
                 CanUsePreprocessor = true,
                 UsePreprocessor = true,
                 PreprocessorDirectory = validPreprocessorDirectory
@@ -695,9 +708,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
-                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
-                                                                                          && Equals(validPreprocessorDirectory, arg.PreprocessorDirectory))))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
+                                 Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
+                             })
                  .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
@@ -748,7 +765,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite"),
+                FilePath = hydraulicBoundaryDatabaseFilePath,
                 CanUsePreprocessor = true,
                 UsePreprocessor = false,
                 PreprocessorDirectory = "InvalidPreprocessorDirectory"
@@ -758,9 +775,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
-                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
-                                                                                          && Equals(string.Empty, arg.PreprocessorDirectory))))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
+                                 Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
+                                 Assert.IsEmpty(settings.PreprocessorDirectory);
+                             })
                  .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 

@@ -134,9 +134,13 @@ namespace Ringtoets.Integration.Service.Test
                 calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, ""))
                                  .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
 
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
-                                             Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
-                                                                                              && Equals(string.Empty, arg.PreprocessorDirectory))))
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
+                                     Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 })
                                  .Return(new TestDunesBoundaryConditionsCalculator()).Repeat.Times(5);
             }
 

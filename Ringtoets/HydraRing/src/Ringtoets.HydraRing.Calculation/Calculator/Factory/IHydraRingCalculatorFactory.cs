@@ -107,6 +107,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
         /// general information for a Hydra-Ring calculation.</param>
+        /// <returns>A new <see cref="IDunesBoundaryConditionsCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
         /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>

@@ -268,9 +268,13 @@ namespace Ringtoets.DuneErosion.Service.Test
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
 
             string expectedPreprocessorDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
-                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
-                                                                                          && Equals(expectedPreprocessorDirectory, arg.PreprocessorDirectory))))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                 Assert.AreEqual(expectedPreprocessorDirectory, settings.PreprocessorDirectory);
+                             })
                              .Return(calculator);
             mocks.ReplayAll();
 

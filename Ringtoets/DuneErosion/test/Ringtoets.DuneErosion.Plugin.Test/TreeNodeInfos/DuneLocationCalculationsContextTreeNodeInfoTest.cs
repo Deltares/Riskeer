@@ -400,9 +400,13 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = duneLocationCalculations.Count;
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
-                                             Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
-                                                                                              && Equals(string.Empty, arg.PreprocessorDirectory))))
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 })
                                  .Return(new TestDunesBoundaryConditionsCalculator())
                                  .Repeat
                                  .Times(nrOfCalculators);
@@ -498,10 +502,14 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
-                                             Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
-                                                                                              && Equals(string.Empty, arg.PreprocessorDirectory))))
-                     .Return(dunesBoundaryConditionsCalculator);
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 })
+                                 .Return(dunesBoundaryConditionsCalculator);
 
                 mocks.ReplayAll();
 
@@ -578,10 +586,14 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
-                                             Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
-                                                                                              && Equals(preprocessorDirectory, arg.PreprocessorDirectory))))
-                     .Return(dunesBoundaryConditionsCalculator);
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                     Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
+                                 })
+                                 .Return(dunesBoundaryConditionsCalculator);
 
                 mocks.ReplayAll();
 
@@ -657,10 +669,14 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
-                                             Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
-                                                                                              && Equals(string.Empty, arg.PreprocessorDirectory))))
-                     .Return(dunesBoundaryConditionsCalculator);
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 })
+                                 .Return(dunesBoundaryConditionsCalculator);
 
                 mocks.ReplayAll();
 
