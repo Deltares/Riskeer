@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.IO;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Integration.IO.Handlers;
 
 namespace Ringtoets.Integration.IO.Importers
 {
@@ -31,14 +32,26 @@ namespace Ringtoets.Integration.IO.Importers
     /// </summary>
     public class HydraulicBoundaryDatabaseImporter : FileImporterBase<HydraulicBoundaryDatabase>
     {
+        private readonly IHydraulicBoundaryDatabaseUpdateHandler updateHandler;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
         /// </summary>
         /// <param name="importTarget">The import target.</param>
+        /// <param name="updateHandler">The object responsible for updating the <see cref="HydraulicBoundaryDatabase"/>.</param>
         /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseImporter(HydraulicBoundaryDatabase importTarget, string filePath)
-            : base(filePath, importTarget) {}
+        public HydraulicBoundaryDatabaseImporter(HydraulicBoundaryDatabase importTarget, IHydraulicBoundaryDatabaseUpdateHandler updateHandler,
+                                                 string filePath)
+            : base(filePath, importTarget)
+        {
+            if (updateHandler == null)
+            {
+                throw new ArgumentNullException(nameof(updateHandler));
+            }
+
+            this.updateHandler = updateHandler;
+        }
 
         protected override void LogImportCanceledMessage()
         {

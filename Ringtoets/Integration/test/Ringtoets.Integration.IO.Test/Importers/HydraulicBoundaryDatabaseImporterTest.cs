@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.IO;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Importers;
 
 namespace Ringtoets.Integration.IO.Test.Importers
@@ -30,16 +33,29 @@ namespace Ringtoets.Integration.IO.Test.Importers
     public class HydraulicBoundaryDatabaseImporterTest
     {
         [Test]
+        public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), null, "");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("updateHandler", exception.ParamName);
+        }
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var filePath = "";
+            var mocks = new MockRepository();
+            var updateHandler = mocks.Stub<IHydraulicBoundaryDatabaseUpdateHandler>();
+            mocks.ReplayAll();
 
             // Call
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), filePath);
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), updateHandler, "");
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<HydraulicBoundaryDatabase>>(importer);
+            mocks.VerifyAll();
         }
     }
 }
