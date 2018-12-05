@@ -79,6 +79,28 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="HydraRingCalculatorBase"/> with a default Hydra-Ring file parser
+        /// initialized.
+        /// </summary>
+        /// <param name="calculationSettings">The directory in which the hydraulic boundary database can be found.</param>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
+        /// equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/> is <c>null</c>.</exception>
+        protected HydraRingCalculatorBase(HydraRingCalculationSettings calculationSettings)
+        {
+            if (calculationSettings == null)
+            {
+                throw new ArgumentNullException(nameof(calculationSettings));
+            }
+
+            hlcdDirectory = calculationSettings.HydraulicBoundaryLocationsConfigurationFilePath;
+            preprocessorDirectory = calculationSettings.PreprocessorDirectory;
+
+            lastErrorFileParser = new LastErrorFileParser();
+            illustrationPointsParser = new IllustrationPointsParser();
+        }
+
+        /// <summary>
         /// Gets the temporary output directory that is generated during the calculation.
         /// </summary>
         public string OutputDirectory { get; private set; }

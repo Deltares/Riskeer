@@ -78,6 +78,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         }
 
         [Test]
+        public void Constructor_CalculationSettingsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TestHydraRingCalculator(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationSettings", exception.ParamName);
+        }
+
+        [Test]
         public void Calculate_WithCustomParser_ParsersExecutedAndOutputSet()
         {
             // Setup
@@ -171,6 +182,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         private readonly IHydraRingFileParser parser;
 
         public TestHydraRingCalculator(string hlcdDirectory, string preprocessorDirectory) : base(hlcdDirectory, preprocessorDirectory) {}
+
+        public TestHydraRingCalculator(HydraRingCalculationSettings calculationSettings) : base(calculationSettings) {}
 
         public TestHydraRingCalculator(string hlcdDirectory, string preprocessorDirectory, IHydraRingFileParser parser) : base(hlcdDirectory, preprocessorDirectory)
         {
