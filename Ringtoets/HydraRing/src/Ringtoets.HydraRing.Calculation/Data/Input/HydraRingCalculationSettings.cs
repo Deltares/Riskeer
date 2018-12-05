@@ -1,5 +1,4 @@
 ﻿using System;
-using Core.Common.Util;
 
 namespace Ringtoets.HydraRing.Calculation.Data.Input
 {
