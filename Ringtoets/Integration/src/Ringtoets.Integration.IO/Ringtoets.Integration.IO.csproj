@@ -87,6 +87,7 @@
     <Compile Include="Factories\ExportableWaveImpactAsphaltCoverFailureMechanismFactory.cs" />
     <Compile Include="Helpers\ExportableFailureMechanismSectionHelper.cs" />
     <Compile Include="Helpers\IdentifierGenerator.cs" />
+    <Compile Include="Importers\HydraulicBoundaryDatabaseImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
