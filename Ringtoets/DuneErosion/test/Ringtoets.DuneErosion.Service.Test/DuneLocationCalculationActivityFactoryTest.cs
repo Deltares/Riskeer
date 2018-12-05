@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
@@ -265,7 +266,11 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : ""))
+
+            string expectedPreprocessorDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                          && Equals(expectedPreprocessorDirectory, arg.PreprocessorDirectory))))
                              .Return(calculator);
             mocks.ReplayAll();
 

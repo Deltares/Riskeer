@@ -45,6 +45,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -527,7 +528,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     Converged = false
                 };
 
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty)).Return(dunesBoundaryConditionsCalculator).Repeat.Times(5);
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                             Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                              && Equals(string.Empty, arg.PreprocessorDirectory))))
+                                 .Return(dunesBoundaryConditionsCalculator).Repeat.Times(5);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -76,9 +76,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
             return new WaveHeightCalculator(hlcdDirectory, preprocessorDirectory);
         }
 
-        public IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory, string preprocessorDirectory)
+        public IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(HydraRingCalculationSettings calculationSettings)
         {
-            return new DunesBoundaryConditionsCalculator(hlcdDirectory, preprocessorDirectory);
+            return new DunesBoundaryConditionsCalculator(calculationSettings);
         }
 
         public IStructuresCalculator<TCalculationInput> CreateStructuresCalculator<TCalculationInput>(string hlcdDirectory, string preprocessorDirectory)

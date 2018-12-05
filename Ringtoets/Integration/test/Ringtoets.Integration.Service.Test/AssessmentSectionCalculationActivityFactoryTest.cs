@@ -39,6 +39,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
@@ -133,7 +134,9 @@ namespace Ringtoets.Integration.Service.Test
                 calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, ""))
                                  .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
 
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                             Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                              && Equals(string.Empty, arg.PreprocessorDirectory))))
                                  .Return(new TestDunesBoundaryConditionsCalculator()).Repeat.Times(5);
             }
 

@@ -105,14 +105,13 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <summary>
         /// Creates a calculator for performing a calculation for dunes boundary conditions.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// general information for a Hydra-Ring calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <returns>A new <see cref="IDunesBoundaryConditionsCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(string hlcdDirectory, string preprocessorDirectory);
+        IDunesBoundaryConditionsCalculator CreateDunesBoundaryConditionsCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
         /// Creates a calculator for performing a calculation for structures.

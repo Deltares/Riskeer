@@ -35,6 +35,7 @@ using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
@@ -181,7 +182,10 @@ namespace Ringtoets.DuneErosion.Service.Test
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                          && Equals(validPreprocessorDirectory, arg.PreprocessorDirectory))))
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var duneLocation = new TestDuneLocation(locationName);
@@ -241,7 +245,10 @@ namespace Ringtoets.DuneErosion.Service.Test
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                          && Equals(validPreprocessorDirectory, arg.PreprocessorDirectory))))
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
@@ -285,7 +292,10 @@ namespace Ringtoets.DuneErosion.Service.Test
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                          && Equals(validPreprocessorDirectory, arg.PreprocessorDirectory))))
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
@@ -323,7 +333,10 @@ namespace Ringtoets.DuneErosion.Service.Test
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                          && Equals(validPreprocessorDirectory, arg.PreprocessorDirectory))))
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation(locationName));
@@ -368,7 +381,10 @@ namespace Ringtoets.DuneErosion.Service.Test
             };
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                          && Equals(validPreprocessorDirectory, arg.PreprocessorDirectory))))
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),

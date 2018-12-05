@@ -31,6 +31,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 
@@ -91,14 +92,13 @@ namespace Ringtoets.DuneErosion.Service
                 throw new ArgumentNullException(nameof(messageProvider));
             }
 
-            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-
             DuneLocation duneLocation = duneLocationCalculation.DuneLocation;
             string duneLocationName = duneLocation.Name;
 
             CalculationServiceHelper.LogCalculationBegin();
 
-            calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(hlcdDirectory, preprocessorDirectory);
+            var settings = new HydraRingCalculationSettings(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory);
+            calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(settings);
 
             var exceptionThrown = false;
 

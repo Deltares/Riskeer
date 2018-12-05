@@ -33,6 +33,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
@@ -223,7 +224,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             var mockRepository = new MockRepository();
             var viewParent = mockRepository.Stub<IWin32Window>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                         Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                          && Equals(validPreprocessorDirectory, arg.PreprocessorDirectory))))
                              .Return(new TestDunesBoundaryConditionsCalculator());
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)

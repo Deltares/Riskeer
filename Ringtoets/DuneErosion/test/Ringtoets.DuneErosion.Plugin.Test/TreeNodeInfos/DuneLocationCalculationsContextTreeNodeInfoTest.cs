@@ -44,6 +44,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -399,7 +400,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = duneLocationCalculations.Count;
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                             Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                              && Equals(string.Empty, arg.PreprocessorDirectory))))
                                  .Return(new TestDunesBoundaryConditionsCalculator())
                                  .Repeat
                                  .Times(nrOfCalculators);
@@ -495,8 +498,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
-                                 .Return(dunesBoundaryConditionsCalculator);
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                             Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                              && Equals(string.Empty, arg.PreprocessorDirectory))))
+                     .Return(dunesBoundaryConditionsCalculator);
 
                 mocks.ReplayAll();
 
@@ -573,8 +578,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, preprocessorDirectory))
-                                 .Return(dunesBoundaryConditionsCalculator);
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                             Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                              && Equals(preprocessorDirectory, arg.PreprocessorDirectory))))
+                     .Return(dunesBoundaryConditionsCalculator);
 
                 mocks.ReplayAll();
 
@@ -650,8 +657,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
-                                 .Return(dunesBoundaryConditionsCalculator);
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(
+                                             Arg<HydraRingCalculationSettings>.Matches(arg => Equals(testDataPath, arg.HlcdFilePath)
+                                                                                              && Equals(string.Empty, arg.PreprocessorDirectory))))
+                     .Return(dunesBoundaryConditionsCalculator);
 
                 mocks.ReplayAll();
 
