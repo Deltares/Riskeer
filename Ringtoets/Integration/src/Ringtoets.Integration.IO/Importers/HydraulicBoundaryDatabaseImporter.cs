@@ -34,10 +34,10 @@ namespace Ringtoets.Integration.IO.Importers
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>.
         /// </summary>
-        /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
         /// <param name="importTarget">The import target.</param>
+        /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseImporter(string filePath, HydraulicBoundaryDatabase importTarget)
+        public HydraulicBoundaryDatabaseImporter(HydraulicBoundaryDatabase importTarget, string filePath)
             : base(filePath, importTarget) {}
 
         protected override void LogImportCanceledMessage()

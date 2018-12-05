@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var filePath = "";
 
             // Call
-            var importer = new HydraulicBoundaryDatabaseImporter(filePath, new HydraulicBoundaryDatabase());
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), filePath);
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<HydraulicBoundaryDatabase>>(importer);
