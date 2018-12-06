@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using Core.Common.Base.IO;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
@@ -55,6 +57,54 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<HydraulicBoundaryDatabase>>(importer);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_FilePathIsDirectory_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO, Path.DirectorySeparatorChar.ToString());
+
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, path);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': bestandspad mag niet verwijzen naar een lege bestandsnaam. "
+                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_FileDoesNotExist_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO, "I_dont_exist");
+
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, path);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bestand bestaat niet. "
+                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccessful);
             mocks.VerifyAll();
         }
     }

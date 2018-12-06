@@ -21,8 +21,10 @@
 
 using System;
 using Core.Common.Base.IO;
-using Ringtoets.Common.Data.AssessmentSection;
+using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.Integration.IO.Handlers;
 
 namespace Ringtoets.Integration.IO.Importers
@@ -60,7 +62,38 @@ namespace Ringtoets.Integration.IO.Importers
 
         protected override bool OnImport()
         {
-            throw new System.NotImplementedException();
+            ReadResult<ReadHydraulicBoundaryDatabase> readResult = ReadHydraulicBoundaryDatabase();
+
+            return !readResult.CriticalErrorOccurred;
+        }
+
+        private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()
+        {
+            try
+            {
+                using (HydraulicBoundaryDatabaseReader reader = new HydraulicBoundaryDatabaseReader(FilePath))
+                {
+                    ReadResult<ReadHydraulicBoundaryDatabase> readResult = ReadHydraulicBoundaryDatabase(reader);
+
+                    return readResult;
+                }
+            }
+            catch (CriticalFileReadException e)
+            {
+                return HandleCriticalFileReadError<ReadHydraulicBoundaryDatabase>(e);
+            }
+        }
+
+        private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase(HydraulicBoundaryDatabaseReader reader)
+        {
+            return new ReadResult<ReadHydraulicBoundaryDatabase>(false);
+        }
+
+        private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
+        {
+            string errorMessage = $"{e.Message} {Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
+            Log.Error(errorMessage);
+            return new ReadResult<T>(true);
         }
     }
 }
