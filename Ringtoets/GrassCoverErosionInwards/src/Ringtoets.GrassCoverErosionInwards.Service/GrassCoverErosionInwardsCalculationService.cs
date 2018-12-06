@@ -250,7 +250,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             var numberOfCalculators = 1;
             var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
 
-            overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory, preprocessorDirectory);
+            overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(settings);
 
             bool dikeHeightNormValid = TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(
                 GetNormForDikeHeight(calculation.InputParameters,
