@@ -34,6 +34,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
     [TestFixture]
     public class HydraulicBoundaryDatabaseImporterTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO, nameof(HydraulicBoundaryDatabaseImporter));
+
         [Test]
         public void Constructor_UpdateHandlerNull_ThrowsArgumentNullException()
         {
@@ -106,6 +108,31 @@ namespace Ringtoets.Integration.IO.Test.Importers
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ValidFiles_ExpectedProgressNotifications()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string filePath = Path.Combine(testDataPath, "complete.sqlite");
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, filePath);
+            importer.SetProgressChanged((currentStepName, currentStep, totalNumberOfSteps) =>
+            {
+                if (currentStep == 0)
+                {
+                    Assert.AreEqual("Inlezen van het hydraulische belastingen bestand.", currentStepName);
+                }
+            });
+
+            // Call
+            bool importResult = importer.Import();
+
+            // Assert
+            Assert.IsTrue(importResult);
         }
     }
 }

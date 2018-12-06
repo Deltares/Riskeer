@@ -69,6 +69,7 @@ namespace Ringtoets.Integration.IO.Importers
 
         private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()
         {
+            NotifyProgress("Inlezen van het hydraulische belastingen bestand.", 1, 1);
             try
             {
                 using (HydraulicBoundaryDatabaseReader reader = new HydraulicBoundaryDatabaseReader(FilePath))
