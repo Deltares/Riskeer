@@ -51,7 +51,15 @@ namespace Core.Components.Gis.Data
         /// <c>null</c> or only whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/>
         /// is <c>null</c>.</exception>
-        public MapLineData(string name, LineStyle style) : this(name, style, null) {}
+        public MapLineData(string name, LineStyle style) : base(name)
+        {
+            if (style == null)
+            {
+                throw new ArgumentNullException(nameof(style));
+            }
+
+            Style = style;
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="MapLineData"/>.

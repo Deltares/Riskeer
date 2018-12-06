@@ -323,10 +323,9 @@ namespace Core.Plugins.Map.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_MapLineDataWithMapTheme_ReturnsExpectedValuesForRelevantProperties(bool hasMapTheme)
         {
             // Setup
-            MapTheme<LineCategoryTheme> mapTheme = hasMapTheme
-                               ? CreateMapTheme()
-                               : null;
-            var mapLineData = new MapLineData("Test", new LineStyle(), mapTheme);
+            MapLineData mapLineData = hasMapTheme
+                                          ? new MapLineData("Test", new LineStyle(), CreateMapTheme())
+                                          : new MapLineData("Test");
 
             var properties = new MapLineDataProperties(mapLineData, Enumerable.Empty<MapDataCollection>());
 

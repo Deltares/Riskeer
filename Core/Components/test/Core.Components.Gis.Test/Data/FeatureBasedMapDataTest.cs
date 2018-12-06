@@ -150,6 +150,17 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
+        public void TypedConstructor_ThemeNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TypedTestFeatureBasedMapData("name", null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("theme", exception.ParamName);
+        }
+
+        [Test]
         public void TypedConstructor_WitName_ExpectedValues()
         {
             // Setup
