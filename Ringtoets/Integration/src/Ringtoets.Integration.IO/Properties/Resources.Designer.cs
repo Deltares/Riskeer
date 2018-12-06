@@ -111,6 +111,26 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}
+        ///Er is geen hydraulische belastingen database gekoppeld..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_Hydrauli" +
+                        "cBoundaryDatabase_imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van het hydraulische belastingen bestand..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_ReadHydraulicBoundaryDatabase_Read_HRD_file {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ReadHydraulicBoundaryDatabase_Read_HRD_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assemblage.
         /// </summary>
         internal static string SerializableAssembly_IdPrefix {

@@ -153,4 +153,11 @@
   <data name="AssemblyExporter_CheckManualAssembly_Assembly_result_contains_manual_results_exporter_will_ignore_manual_results" xml:space="preserve">
     <value>Veiligheidsoordeel is (deels) gebaseerd op handmatig ingevoerde toetsoordelen. Tijdens het exporteren worden handmatig ingevoerde toetsoordelen genegeerd.</value>
   </data>
+  <data name="HydraulicBoundaryDatabaseImporter_ReadHydraulicBoundaryDatabase_Read_HRD_file" xml:space="preserve">
+    <value>Inlezen van het hydraulische belastingen bestand.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported" xml:space="preserve">
+    <value>{0}
+Er is geen hydraulische belastingen database gekoppeld.</value>
+  </data>
 </root>

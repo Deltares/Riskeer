@@ -26,6 +26,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.Integration.IO.Handlers;
+using Ringtoets.Integration.IO.Properties;
 
 namespace Ringtoets.Integration.IO.Importers
 {
@@ -69,7 +70,7 @@ namespace Ringtoets.Integration.IO.Importers
 
         private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()
         {
-            NotifyProgress("Inlezen van het hydraulische belastingen bestand.", 1, 1);
+            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ReadHydraulicBoundaryDatabase_Read_HRD_file, 1, 1);
             try
             {
                 using (HydraulicBoundaryDatabaseReader reader = new HydraulicBoundaryDatabaseReader(FilePath))
@@ -92,7 +93,8 @@ namespace Ringtoets.Integration.IO.Importers
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
         {
-            string errorMessage = $"{e.Message} {Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
+            string errorMessage = string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
+                                                e.Message);
             Log.Error(errorMessage);
             return new ReadResult<T>(true);
         }

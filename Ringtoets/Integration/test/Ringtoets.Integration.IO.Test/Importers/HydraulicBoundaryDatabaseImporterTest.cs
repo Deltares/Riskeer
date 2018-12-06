@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': bestandspad mag niet verwijzen naar een lege bestandsnaam. "
+            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': bestandspad mag niet verwijzen naar een lege bestandsnaam."
                                      + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bestand bestaat niet. "
+            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bestand bestaat niet."
                                      + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
