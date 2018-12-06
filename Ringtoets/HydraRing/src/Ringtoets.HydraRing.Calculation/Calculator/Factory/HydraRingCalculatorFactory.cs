@@ -67,10 +67,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
             return new HydraulicLoadsCalculator(calculationSettings);
         }
 
-        public IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory, string preprocessorDirectory)
+        public IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(HydraRingCalculationSettings calculationSettings)
         {
-            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
-            return new WaveConditionsCosineCalculator(settings);
+            return new WaveConditionsCosineCalculator(calculationSettings);
         }
 
         public IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory, string preprocessorDirectory)
