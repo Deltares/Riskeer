@@ -134,7 +134,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             documentViews.Add(view);
             hostControls.Add(hostControl);
-            ActiveDocumentView = view;
+
             layoutDocument.Closed += OnLayoutDocumentClosed;
 
             OnViewOpened(view);
