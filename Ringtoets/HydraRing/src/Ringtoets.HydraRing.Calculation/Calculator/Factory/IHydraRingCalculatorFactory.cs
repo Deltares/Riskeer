@@ -57,21 +57,21 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <summary>
         /// Creates a calculator for calculating a dike height.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// general information for a Hydra-Ring calculation.</param>
+        /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        IHydraulicLoadsCalculator CreateDikeHeightCalculator(string hlcdDirectory, string preprocessorDirectory);
+        IHydraulicLoadsCalculator CreateDikeHeightCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
         /// Creates a calculator for calculating an overtopping rate.
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
-        ///     general information for a Hydra-Ring calculation.</param>
-        /// <returns>A new <see cref="IDunesBoundaryConditionsCalculator"/>.</returns>>
+        /// general information for a Hydra-Ring calculation.</param>
+        /// <returns>A new <see cref="IHydraulicLoadsCalculator"/>.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
         /// is <c>null</c>.</exception>
         /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>

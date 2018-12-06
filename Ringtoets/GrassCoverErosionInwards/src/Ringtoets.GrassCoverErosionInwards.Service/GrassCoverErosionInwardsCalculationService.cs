@@ -248,6 +248,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                       string preprocessorDirectory)
         {
             var numberOfCalculators = 1;
+            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
 
             overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory, preprocessorDirectory);
 
@@ -259,7 +260,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             if (calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation && dikeHeightNormValid)
             {
-                dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory, preprocessorDirectory);
+
+                dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(settings);
                 numberOfCalculators++;
             }
 
@@ -271,7 +273,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             if (calculation.InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation && overtoppingRateNormValid)
             {
-                var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
+                
                 overtoppingRateCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingRateCalculator(settings);
                 numberOfCalculators++;
             }
