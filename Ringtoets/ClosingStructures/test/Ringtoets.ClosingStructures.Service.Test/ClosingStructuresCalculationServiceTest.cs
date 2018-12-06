@@ -884,7 +884,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
                                  Assert.AreEqual(testDataPath, settings.HlcdFilePath);
-                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
+                                 Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
                              })
                              .Return(calculator);
             mockRepository.ReplayAll();
