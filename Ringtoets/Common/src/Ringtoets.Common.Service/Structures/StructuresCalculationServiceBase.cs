@@ -157,7 +157,8 @@ namespace Ringtoets.Common.Service.Structures
             TCalculationInput input = CreateInput(calculation.InputParameters, generalInput, hydraulicBoundaryDatabaseFilePath, !string.IsNullOrEmpty(preprocessorDirectory));
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(hlcdDirectory, preprocessorDirectory);
+            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
+            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresCalculator<TCalculationInput>(settings);
             string calculationName = calculation.Name;
 
             CalculationServiceHelper.LogCalculationBegin();
