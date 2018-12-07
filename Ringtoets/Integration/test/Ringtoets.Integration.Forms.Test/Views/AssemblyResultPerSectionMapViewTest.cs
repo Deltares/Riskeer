@@ -86,21 +86,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<IMapView>(view);
                 Assert.IsNull(view.Data);
 
-                Assert.AreEqual(1, view.Controls.Count);
-                Assert.IsInstanceOf<TableLayoutPanel>(view.Controls[0]);
+                Assert.AreEqual(2, view.Controls.Count);
 
-                var layoutPanel = (TableLayoutPanel) view.Controls[0];
-                Assert.AreEqual(1, layoutPanel.ColumnCount);
-                Assert.AreEqual(2, layoutPanel.RowCount);
-                Assert.AreEqual(DockStyle.Fill, layoutPanel.Dock);
-
-                var warningPanel = (Panel) layoutPanel.GetControlFromPosition(0, 0);
-                Assert.AreEqual(DockStyle.Fill, warningPanel.Dock);
-                Assert.IsFalse(warningPanel.Visible);
-
-                var mapControl = (RingtoetsMapControl) layoutPanel.GetControlFromPosition(0, 1);
-                Assert.AreSame(view.Map, mapControl.MapControl);
+                IMapControl mapControl = GetMapControl(view);
+                Assert.AreSame(view.Map, mapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
+
+                Panel warningPanel = GetWarningPanel(view);
+                Assert.AreEqual(DockStyle.Top, warningPanel.Dock);
+                Assert.IsFalse(warningPanel.Visible);
+                Assert.IsTrue(warningPanel.AutoSize);
 
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
 
@@ -450,8 +445,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
             {
                 // Then 
-                var layoutPanel = (TableLayoutPanel) view.Controls[0];
-                var warningPanel = (Panel) layoutPanel.GetControlFromPosition(0, 0);
+                Panel warningPanel = GetWarningPanel(view);
                 Assert.AreEqual(hasManualAssembly, warningPanel.Visible);
                 AssertWarningPanel(warningPanel);
             }
@@ -465,8 +459,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
             {
-                var layoutPanel = (TableLayoutPanel) view.Controls[0];
-                var warningPanel = (Panel) layoutPanel.GetControlFromPosition(0, 0);
+                Panel warningPanel = GetWarningPanel(view);
 
                 // Precondition
                 Assert.IsFalse(warningPanel.Visible);
@@ -494,8 +487,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
             {
-                var layoutPanel = (TableLayoutPanel) view.Controls[0];
-                var warningPanel = (Panel) layoutPanel.GetControlFromPosition(0, 0);
+                Panel warningPanel = GetWarningPanel(view);
 
                 // Precondition
                 Assert.IsTrue(warningPanel.Visible);
@@ -575,6 +567,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
+        private static Panel GetWarningPanel(AssemblyResultPerSectionMapView view)
+        {
+            return (Panel) view.Controls[1];
+        }
+
         private static void AssertWarningPanel(Panel warningPanel)
         {
             Assert.AreEqual(2, warningPanel.Controls.Count);
@@ -593,9 +590,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private static IMapControl GetMapControl(AssemblyResultPerSectionMapView view)
         {
-            var layoutPanel = (TableLayoutPanel) view.Controls[0];
-            var ringtoetsMapControl = (RingtoetsMapControl) layoutPanel.GetControlFromPosition(0, 1);
-            return ringtoetsMapControl.MapControl;
+            var mapControl = (RingtoetsMapControl) view.Controls[0];
+            return mapControl.MapControl;
         }
 
         private static void AssertEqualPointCollections(ReferenceLine referenceLine,
