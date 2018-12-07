@@ -33,14 +33,14 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <summary>
         /// Creates a calculator for calculating a design water level.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
+        /// general information for a Hydra-Ring calculation.</param>
+        /// <returns>A new <see cref="IDesignWaterLevelCalculator"/>.</returns>>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/>
+        /// is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <returns>A new <see cref="IDesignWaterLevelCalculator"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/>
-        /// or <paramref name="preprocessorDirectory"/> is <c>null</c>.</exception>
-        IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string preprocessorDirectory);
+        IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(HydraRingCalculationSettings calculationSettings);
 
         /// <summary>
         /// Creates a calculator for performing an overtopping calculation.

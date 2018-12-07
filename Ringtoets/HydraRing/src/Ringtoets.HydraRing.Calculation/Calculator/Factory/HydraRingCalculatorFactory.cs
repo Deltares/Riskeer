@@ -46,10 +46,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
             }
         }
 
-        public IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string preprocessorDirectory)
+        public IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(HydraRingCalculationSettings calculationSettings)
         {
-            var settings = new HydraRingCalculationSettings(hlcdDirectory, preprocessorDirectory);
-            return new DesignWaterLevelCalculator(settings);
+            return new DesignWaterLevelCalculator(calculationSettings);
         }
 
         public IOvertoppingCalculator CreateOvertoppingCalculator(HydraRingCalculationSettings calculationSettings)
