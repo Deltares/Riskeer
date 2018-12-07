@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using log4net;
@@ -32,6 +31,7 @@ using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using HydraRingGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
@@ -88,12 +88,12 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentNullException(nameof(messageProvider));
             }
 
-            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation;
 
             CalculationServiceHelper.LogCalculationBegin();
 
-            calculator = HydraRingCalculatorFactory.Instance.CreateWaveHeightCalculator(hlcdDirectory, preprocessorDirectory);
+            var settings = new HydraRingCalculationSettings(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory);
+            calculator = HydraRingCalculatorFactory.Instance.CreateWaveHeightCalculator(settings);
 
             var exceptionThrown = false;
 
