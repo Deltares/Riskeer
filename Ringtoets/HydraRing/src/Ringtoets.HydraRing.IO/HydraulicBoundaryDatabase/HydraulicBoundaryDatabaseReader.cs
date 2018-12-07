@@ -19,8 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
+using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
+using Core.Common.Util.Builders;
+using Ringtoets.HydraRing.IO.Properties;
 
 namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
 {
@@ -42,5 +50,114 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         /// </list>
         /// </exception>
         public HydraulicBoundaryDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
+        public ReadHydraulicBoundaryDatabase Read()
+        {
+            return new ReadHydraulicBoundaryDatabase(ReadTrackId(), ReadVersion(), ReadLocations().ToArray());
+        }
+
+        /// <summary>
+        /// Reads the track id from the hydraulic boundary database.
+        /// </summary>
+        /// <returns>The track id found in the database.</returns>
+        /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema
+        /// or the track id cannot be found.</exception>
+        private long ReadTrackId()
+        {
+            try
+            {
+                using (IDataReader dataReader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetTrackIdQuery(),
+                                                                 new SQLiteParameter
+                                                                 {
+                                                                     DbType = DbType.String
+                                                                 }))
+                {
+                    if (dataReader.Read())
+                    {
+                        return Convert.ToInt64(dataReader[GeneralTableDefinitions.TrackId]);
+                    }
+
+                    throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(Path)
+                                                            .Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column));
+                }
+            }
+            catch (InvalidCastException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new LineParseException(message, exception);
+            }
+            catch (SQLiteException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+                throw new CriticalFileReadException(message, exception);
+            }
+        }
+
+        /// <summary>
+        /// Gets the version of the hydraulic boundary database.
+        /// </summary>
+        /// <returns>The version found in the database, or <see cref="string.Empty"/> if the version cannot be found.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
+        private string ReadVersion()
+        {
+            try
+            {
+                using (IDataReader dataReader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery(), null))
+                {
+                    return !dataReader.Read() ? string.Empty : Convert.ToString(dataReader[GeneralTableDefinitions.GeneratedVersion]);
+                }
+            }
+            catch (SQLiteException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+                throw new CriticalFileReadException(message, exception);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
+        private IEnumerable<ReadHydraulicBoundaryLocation> ReadLocations()
+        {
+            using (IDataReader reader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsQuery()))
+            {
+                while (MoveNext(reader))
+                {
+                    yield return ReadLocation(reader);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Reads the next location from the database.
+        /// </summary>
+        /// <returns>A new instance of <see cref="ReadHydraulicBoundaryLocation"/> based on the data read from
+        /// the database or <c>null</c> if no data is available.</returns>
+        /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
+        private ReadHydraulicBoundaryLocation ReadLocation(IDataReader reader)
+        {
+            try
+            {
+                var id = reader.Read<long>(HrdLocationsTableDefinitions.HrdLocationId);
+                var name = reader.Read<string>(HrdLocationsTableDefinitions.Name);
+                var x = reader.Read<double>(HrdLocationsTableDefinitions.XCoordinate);
+                var y = reader.Read<double>(HrdLocationsTableDefinitions.YCoordinate);
+
+                return new ReadHydraulicBoundaryLocation(id, name, x, y);
+            }
+            catch (ConversionException e)
+            {
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new LineParseException(message, e);
+            }
+        }
     }
 }
