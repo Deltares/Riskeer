@@ -33,6 +33,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using Ringtoets.Revetment.Data;
@@ -279,8 +280,8 @@ namespace Ringtoets.Revetment.Service
                                                          string hydraulicBoundaryDatabaseFilePath,
                                                          string preprocessorDirectory)
         {
-            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            calculator = HydraRingCalculatorFactory.Instance.CreateWaveConditionsCosineCalculator(hlcdDirectory, preprocessorDirectory);
+            var settings = new HydraRingCalculationSettings(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory);
+            calculator = HydraRingCalculatorFactory.Instance.CreateWaveConditionsCosineCalculator(settings);
             WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, norm, input, hydraulicBoundaryDatabaseFilePath,
                                                                                 !string.IsNullOrEmpty(preprocessorDirectory));
 
