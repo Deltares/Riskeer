@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.IO.Importers
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file, 1, 1);
             try
             {
-                using (var reader = new HydraulicBoundaryDatabaseReader(FilePath))
+                using (var reader = new OldHydraulicBoundaryDatabaseReader(FilePath))
                 {
                     ReadResult<ReadHydraulicBoundaryDatabase> readResult = ReadHydraulicBoundaryDatabase(reader);
 
@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.IO.Importers
             }
         }
 
-        private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase(HydraulicBoundaryDatabaseReader reader)
+        private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase(OldHydraulicBoundaryDatabaseReader reader)
         {
             return new ReadResult<ReadHydraulicBoundaryDatabase>(false);
         }

@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.FileImporters
     {
         private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryDatabaseImporter));
 
-        private HydraulicBoundaryDatabaseReader hydraulicBoundaryDatabaseReader;
+        private OldHydraulicBoundaryDatabaseReader hydraulicBoundaryDatabaseReader;
         private HydraulicLocationConfigurationDatabaseReader hydraulicLocationConfigurationDatabaseReader;
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// </exception>
         private void ValidateAndConnectTo(string filePath)
         {
-            hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(filePath);
+            hydraulicBoundaryDatabaseReader = new OldHydraulicBoundaryDatabaseReader(filePath);
 
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
             try

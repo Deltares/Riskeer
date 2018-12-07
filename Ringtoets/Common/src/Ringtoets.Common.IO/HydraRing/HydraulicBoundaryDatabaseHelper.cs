@@ -73,7 +73,7 @@ namespace Ringtoets.Common.IO.HydraRing
             string settingsDatabaseFileName = GetHydraulicBoundarySettingsDatabase(filePath);
             try
             {
-                using (var db = new HydraulicBoundaryDatabaseReader(filePath))
+                using (var db = new OldHydraulicBoundaryDatabaseReader(filePath))
                 {
                     db.GetVersion();
                 }
@@ -174,7 +174,7 @@ namespace Ringtoets.Common.IO.HydraRing
         /// boundary database could be created.</exception>
         private static string GetVersion(string filePath)
         {
-            using (var db = new HydraulicBoundaryDatabaseReader(filePath))
+            using (var db = new OldHydraulicBoundaryDatabaseReader(filePath))
             {
                 return db.GetVersion();
             }
