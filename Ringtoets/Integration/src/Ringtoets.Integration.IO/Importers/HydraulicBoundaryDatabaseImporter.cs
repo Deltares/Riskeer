@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
+// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -58,14 +58,18 @@ namespace Ringtoets.Integration.IO.Importers
 
         protected override void LogImportCanceledMessage()
         {
-            throw new System.NotImplementedException();
+            Log.Info(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed);
         }
 
         protected override bool OnImport()
         {
             ReadResult<ReadHydraulicBoundaryDatabase> readResult = ReadHydraulicBoundaryDatabase();
+            if (readResult.CriticalErrorOccurred || Canceled)
+            {
+                return false;
+            }
 
-            return !readResult.CriticalErrorOccurred;
+            return true;
         }
 
         private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()

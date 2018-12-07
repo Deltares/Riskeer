@@ -122,6 +122,15 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inlezen van het hydraulische belastingen bestand..
         /// </summary>
         internal static string HydraulicBoundaryDatabaseImporter_ReadHydraulicBoundaryDatabase_Read_HRD_file {

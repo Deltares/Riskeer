@@ -134,5 +134,37 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Assert
             Assert.IsTrue(importResult);
         }
+
+        [Test]
+        public void Import_CancelOfImportWhenReadingHydraulicBoundaryDatabase_CancelsImportAndLogs()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string filePath = Path.Combine(testDataPath, "complete.sqlite");
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, filePath);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (description.Contains("Inlezen van het hydraulische belastingen bestand."))
+                {
+                    importer.Cancel();
+                }
+            });
+
+            // Precondition
+            Assert.IsTrue(File.Exists(filePath));
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create("Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.", LogLevelConstant.Info);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
+            Assert.IsFalse(importResult);
+        }
     }
 }

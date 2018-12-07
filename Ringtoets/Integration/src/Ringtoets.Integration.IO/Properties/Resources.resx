@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -159,5 +159,8 @@
   <data name="HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported" xml:space="preserve">
     <value>{0}
 Er is geen hydraulische belastingen database gekoppeld.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed" xml:space="preserve">
+    <value>Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.</value>
   </data>
 </root>
