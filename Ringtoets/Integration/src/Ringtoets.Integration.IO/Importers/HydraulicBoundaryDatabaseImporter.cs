@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Properties;
