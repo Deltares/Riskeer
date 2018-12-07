@@ -44,6 +44,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Plugin.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -324,7 +325,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Converged = false
                 };
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, string.Empty)).Return(designWaterLevelCalculator).Repeat.Times(4);
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
+                                     Assert.AreEqual(assessmentSection.HydraulicBoundaryDatabase.FilePath, settings.HlcdFilePath);
+                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 })
+                                 .Return(designWaterLevelCalculator)
+                                 .Repeat
+                                 .Times(4);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>

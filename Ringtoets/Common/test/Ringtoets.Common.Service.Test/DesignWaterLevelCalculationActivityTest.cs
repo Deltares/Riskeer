@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Calculation.TestUtil.IllustrationPoints;
@@ -190,7 +191,14 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
+                             })
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
@@ -249,7 +257,14 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
+                             })
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationCalculation,
@@ -291,7 +306,14 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
+                             })
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var output = new TestHydraulicBoundaryLocationCalculationOutput(double.NaN, CalculationConvergence.CalculatedConverged);
@@ -357,7 +379,14 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
+                             })
+                             .Return(calculator);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName))

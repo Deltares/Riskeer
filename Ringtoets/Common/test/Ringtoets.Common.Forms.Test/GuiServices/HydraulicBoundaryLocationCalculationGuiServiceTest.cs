@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.Common.Forms.Test.GuiServices
@@ -217,7 +218,14 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, "")).Return(new TestDesignWaterLevelCalculator());
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                 Assert.IsEmpty(settings.PreprocessorDirectory);
+                             })
+                             .Return(new TestDesignWaterLevelCalculator());
             mockRepository.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;

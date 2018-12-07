@@ -46,6 +46,7 @@ using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.Plugin.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -799,11 +800,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
+                    FilePath = validFilePath
                 }
             };
 
@@ -836,7 +838,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Converged = false
                 };
 
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, string.Empty)).Return(designWaterLevelCalculator).Repeat.Times(4);
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
+                                     Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 })
+                                 .Return(designWaterLevelCalculator)
+                                 .Repeat
+                                 .Times(4);
                 calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator).Repeat.Times(4);
                 mocks.ReplayAll();
 

@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
@@ -230,7 +231,15 @@ namespace Ringtoets.Common.Service.Test
             var mocks = new MockRepository();
             var calculator = new TestDesignWaterLevelCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : "")).Return(calculator);
+            string preprocessorDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                             .WhenCalled(invocation =>
+                             {
+                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                 Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
+                             })
+                             .Return(calculator);
             mocks.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
