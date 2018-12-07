@@ -848,7 +848,15 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                                  .Return(designWaterLevelCalculator)
                                  .Repeat
                                  .Times(4);
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator).Repeat.Times(4);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
+                                     Assert.AreEqual(validFilePath, settings.HlcdFilePath);
+                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 }).Return(waveHeightCalculator)
+                                 .Repeat
+                                 .Times(4);
                 mocks.ReplayAll();
 
                 TreeNodeInfo info = GetInfo(plugin);

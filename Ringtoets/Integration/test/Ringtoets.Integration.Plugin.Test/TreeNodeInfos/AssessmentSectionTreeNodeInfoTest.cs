@@ -545,7 +545,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                                  {
                                      DesignWaterLevel = 2.0
                                  }).Repeat.Times(4);
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
+                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 })
                                  .Return(new TestWaveHeightCalculator()).Repeat.Times(4);
 
                 calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
@@ -574,7 +580,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                                      Assert.IsEmpty(settings.PreprocessorDirectory);
                                  })
                                  .Return(new TestDesignWaterLevelCalculator()).Repeat.Times(3);
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
+                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 })
                                  .Return(new TestWaveHeightCalculator()).Repeat.Times(3);
 
                 calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
