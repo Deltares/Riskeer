@@ -133,9 +133,9 @@ namespace Ringtoets.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Inlezen van het hydraulische belastingen bestand..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_ReadHydraulicBoundaryDatabase_Read_HRD_file {
+        internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ReadHydraulicBoundaryDatabase_Read_HRD_file", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file", resourceCulture);
             }
         }
         

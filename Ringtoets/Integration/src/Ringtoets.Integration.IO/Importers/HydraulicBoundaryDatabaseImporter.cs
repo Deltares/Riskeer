@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2018. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -56,11 +56,6 @@ namespace Ringtoets.Integration.IO.Importers
             this.updateHandler = updateHandler;
         }
 
-        protected override void LogImportCanceledMessage()
-        {
-            Log.Info(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed);
-        }
-
         protected override bool OnImport()
         {
             ReadResult<ReadHydraulicBoundaryDatabase> readResult = ReadHydraulicBoundaryDatabase();
@@ -72,12 +67,17 @@ namespace Ringtoets.Integration.IO.Importers
             return true;
         }
 
+        protected override void LogImportCanceledMessage()
+        {
+            Log.Info(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed);
+        }
+
         private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()
         {
-            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ReadHydraulicBoundaryDatabase_Read_HRD_file, 1, 1);
+            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file, 1, 1);
             try
             {
-                using (HydraulicBoundaryDatabaseReader reader = new HydraulicBoundaryDatabaseReader(FilePath))
+                using (var reader = new HydraulicBoundaryDatabaseReader(FilePath))
                 {
                     ReadResult<ReadHydraulicBoundaryDatabase> readResult = ReadHydraulicBoundaryDatabase(reader);
 
