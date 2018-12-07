@@ -19,11 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Data.SQLite;
 using System.IO;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
-using Core.Common.Util.Builders;
 using NUnit.Framework;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 
@@ -62,8 +64,8 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
             };
 
             // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': het bestand bestaat niet.";
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            string expectedMessage = new FileReaderErrorMessageBuilder(hydraulicBoundaryDatabaseFile).Build("Het bestand bestaat niet.");
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -79,9 +81,65 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
             };
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
             string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': bestandspad mag niet leeg of ongedefinieerd zijn.";
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void Read_EmptyDatabase_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "empty.sqlite");
+
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            {
+                // Call
+                TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read();
+
+                // Assert
+                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kon geen locaties verkrijgen van de database.";
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void Read_DatabaseWithoutTrackId_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "emptySchemaGeneral.sqlite");
+
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            {
+                // Call
+                TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read();
+
+                // Assert
+                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
+                var exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void Read_InvalidTrackIdColumn_ThrowsLineParseException()
+        {
+            // Setup
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "corruptschema.sqlite");
+
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            {
+                // Call
+                TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(test);
+                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
+            }
         }
     }
 }
