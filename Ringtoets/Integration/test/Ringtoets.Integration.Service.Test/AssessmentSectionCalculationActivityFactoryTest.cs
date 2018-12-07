@@ -104,7 +104,13 @@ namespace Ringtoets.Integration.Service.Test
 
             using (mocks.Ordered())
             {
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
+                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 })
                                  .Return(new TestDesignWaterLevelCalculator
                                  {
                                      DesignWaterLevel = 2.0
@@ -130,7 +136,13 @@ namespace Ringtoets.Integration.Service.Test
                                  })
                                  .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(9);
 
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, ""))
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
+                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                 })
                                  .Return(new TestDesignWaterLevelCalculator()).Repeat.Times(3);
                 calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, ""))
                                  .Return(new TestWaveHeightCalculator()).Repeat.Times(3);
