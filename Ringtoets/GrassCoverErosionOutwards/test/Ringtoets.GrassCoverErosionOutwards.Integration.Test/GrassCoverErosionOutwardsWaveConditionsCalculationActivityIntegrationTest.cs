@@ -231,7 +231,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
                                  Assert.IsEmpty(settings.PreprocessorDirectory);
                              })
                              .Return(new TestWaveConditionsCosineCalculator())
@@ -294,7 +294,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
                                  Assert.IsEmpty(settings.PreprocessorDirectory);
                              })
                              .Return(waveConditionsCosineCalculator)
@@ -361,7 +361,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
                                  Assert.IsEmpty(settings.PreprocessorDirectory);
                              })
                              .Return(new TestWaveConditionsCosineCalculator());
@@ -428,7 +428,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
                                  Assert.IsEmpty(settings.PreprocessorDirectory);
                              })
                              .Return(new TestWaveConditionsCosineCalculator());
@@ -485,7 +485,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
                                  Assert.IsEmpty(settings.PreprocessorDirectory);
                              })
                              .Return(new TestWaveConditionsCosineCalculator())
@@ -540,7 +540,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
                                  Assert.IsEmpty(settings.PreprocessorDirectory);
                              })
                              .Return(calculator)
@@ -601,7 +601,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
                                  Assert.IsEmpty(settings.PreprocessorDirectory);
                              })
                              .Return(waveConditionsCosineCalculator)
@@ -648,7 +648,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
                                  Assert.IsEmpty(settings.PreprocessorDirectory);
                              })
                              .Return(new TestWaveConditionsCosineCalculator())
@@ -697,7 +697,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
                                  Assert.AreEqual(validPreprocessorDirectory, settings.PreprocessorDirectory);
                              })
                              .Return(new TestWaveConditionsCosineCalculator())
@@ -746,7 +746,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
                                  Assert.IsEmpty(settings.PreprocessorDirectory);
                              })
                              .Return(new TestWaveConditionsCosineCalculator())
@@ -779,7 +779,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
                                  Assert.IsEmpty(settings.PreprocessorDirectory);
                              })
                              .Return(new TestWaveConditionsCosineCalculator

@@ -502,11 +502,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
+            string hydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
+                    FilePath = hydraulicBoundaryDatabaseFilePath
                 }
             };
 
@@ -554,7 +555,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                     Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
                                      Assert.IsEmpty(settings.PreprocessorDirectory);
                                  })
                                  .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(9);
@@ -568,7 +569,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                     Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
                                      Assert.IsEmpty(settings.PreprocessorDirectory);
                                  })
                                  .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(3);

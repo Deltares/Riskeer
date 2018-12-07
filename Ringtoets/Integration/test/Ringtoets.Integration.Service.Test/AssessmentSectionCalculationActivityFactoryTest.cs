@@ -78,6 +78,7 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
+            string hydraulicBoundaryDatabaseFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
@@ -124,7 +125,7 @@ namespace Ringtoets.Integration.Service.Test
                                  .WhenCalled(invocation =>
                                  {
                                      var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                     Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
                                      Assert.IsEmpty(settings.PreprocessorDirectory);
                                  })
                                  .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(9);
@@ -138,7 +139,7 @@ namespace Ringtoets.Integration.Service.Test
                                  .WhenCalled(invocation =>
                                  {
                                      var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                     Assert.AreEqual(testDataPath, settings.HlcdFilePath);
+                                     Assert.AreEqual(hydraulicBoundaryDatabaseFilePath, settings.HlcdFilePath);
                                      Assert.IsEmpty(settings.PreprocessorDirectory);
                                  })
                                  .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(3);

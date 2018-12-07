@@ -567,21 +567,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(calculatorThatFails);
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                             .WhenCalled(invocation =>
-                             {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.IsEmpty(settings.PreprocessorDirectory);
-                             })
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(null))
+                             .IgnoreArguments()
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
                              .Twice();
@@ -749,7 +739,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                              })
                              .Return(calculator)
                              .Repeat
-                            .Times(3);
+                             .Times(3);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
