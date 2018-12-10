@@ -29,7 +29,6 @@ using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Properties;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Integration.IO.Importers
 {
@@ -112,7 +111,7 @@ namespace Ringtoets.Integration.IO.Importers
             }
             catch (CriticalFileReadException)
             {
-                return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(RingtoetsCommonIOResources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
+                return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(Resources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
             }
         }
 

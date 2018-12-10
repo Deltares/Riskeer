@@ -166,4 +166,7 @@ Er is geen hydraulische belastingen database gekoppeld.</value>
   <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file" xml:space="preserve">
     <value>Inlezen van het hydraulische locatie configuratie bestand.</value>
   </data>
+  <data name="HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found" xml:space="preserve">
+    <value>Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
+  </data>
 </root>
