@@ -141,5 +141,24 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
                 Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
             }
         }
+
+        [Test]
+        public void Read_DatabaseSchemaInvalidLocationColumns_ThrowsLineParseException()
+        {
+            // Setup
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "corruptLocationSchema.sqlite");
+
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            {
+                // Call
+                TestDelegate test = () => hydraulicBoundaryDatabaseReader.Read();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(test);
+                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<ConversionException>(exception.InnerException);
+            }
+        }
     }
 }
