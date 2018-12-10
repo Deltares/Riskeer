@@ -52,9 +52,9 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         public HydraulicBoundaryDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
-        /// 
+        /// Reads the hydraulic boundary database.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A read hydraulic boundary database.</returns>
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
         public ReadHydraulicBoundaryDatabase Read()
