@@ -20,12 +20,16 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
+using Core.Common.Util.Builders;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Properties;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Integration.IO.Importers
 {
@@ -57,8 +61,14 @@ namespace Ringtoets.Integration.IO.Importers
 
         protected override bool OnImport()
         {
-            ReadResult<ReadHydraulicBoundaryDatabase> readResult = ReadHydraulicBoundaryDatabase();
-            if (readResult.CriticalErrorOccurred || Canceled)
+            ReadResult<ReadHydraulicBoundaryDatabase> readHydraulicBoundaryDatabaseResult = ReadHydraulicBoundaryDatabase();
+            if (readHydraulicBoundaryDatabaseResult.CriticalErrorOccurred || Canceled)
+            {
+                return false;
+            }
+
+            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase();
+            if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred)
             {
                 return false;
             }
@@ -76,10 +86,9 @@ namespace Ringtoets.Integration.IO.Importers
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file, 1, 1);
             try
             {
-                using (var reader = new OldHydraulicBoundaryDatabaseReader(FilePath))
+                using (var reader = new HydraulicBoundaryDatabaseReader(FilePath))
                 {
                     ReadResult<ReadHydraulicBoundaryDatabase> readResult = ReadHydraulicBoundaryDatabase(reader);
-
                     return readResult;
                 }
             }
@@ -89,15 +98,46 @@ namespace Ringtoets.Integration.IO.Importers
             }
         }
 
-        private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase(OldHydraulicBoundaryDatabaseReader reader)
+        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase()
+        {
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(FilePath), "hlcd.sqlite");
+            try
+            {
+                using (var reader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
+                {
+                    ReadResult<ReadHydraulicLocationConfigurationDatabase> readResult = ReadHydraulicLocationConfigurationDatabase(reader);
+                    return readResult;
+                }
+            }
+            catch (CriticalFileReadException)
+            {
+                return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(RingtoetsCommonIOResources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
+            }
+        }
+
+        private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase(HydraulicBoundaryDatabaseReader reader)
         {
             return new ReadResult<ReadHydraulicBoundaryDatabase>(false);
+        }
+
+        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabaseReader reader)
+        {
+            return new ReadResult<ReadHydraulicLocationConfigurationDatabase>(false);
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
         {
             string errorMessage = string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
                                                 e.Message);
+            Log.Error(errorMessage);
+            return new ReadResult<T>(true);
+        }
+
+        private ReadResult<T> HandleCriticalFileReadError<T>(string message)
+        {
+            string errorMessage = new FileReaderErrorMessageBuilder(FilePath).Build(
+                string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
+                              message));
             Log.Error(errorMessage);
             return new ReadResult<T>(true);
         }

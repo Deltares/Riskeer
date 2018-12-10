@@ -111,6 +111,30 @@ namespace Ringtoets.Integration.IO.Test.Importers
         }
 
         [Test]
+        public void Import_ExistingFileWithoutHlcd_ThrowCriticalFileReadException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string path = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
+
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, path);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand."
+                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_ValidFiles_ExpectedProgressNotifications()
         {
             // Setup
