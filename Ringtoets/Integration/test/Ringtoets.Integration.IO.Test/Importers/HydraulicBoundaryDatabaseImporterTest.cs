@@ -184,6 +184,11 @@ namespace Ringtoets.Integration.IO.Test.Importers
                 {
                     Assert.AreEqual("Inlezen van het hydraulische locatie configuratie bestand.", currentStepName);
                 }
+
+                if (currentStep == 3)
+                {
+                    Assert.AreEqual("Controleren van het rekeninstellingen bestand.", currentStepName);
+                }
             });
 
             // Call
@@ -191,7 +196,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(2, totalSteps);
+            Assert.AreEqual(3, totalSteps);
         }
 
         [Test]

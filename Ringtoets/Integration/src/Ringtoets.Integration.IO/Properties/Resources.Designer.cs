@@ -158,6 +158,15 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Controleren van het rekeninstellingen bestand..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assemblage.
         /// </summary>
         internal static string SerializableAssembly_IdPrefix {

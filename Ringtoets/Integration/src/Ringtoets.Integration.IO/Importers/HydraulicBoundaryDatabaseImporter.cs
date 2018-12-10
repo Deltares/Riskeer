@@ -38,6 +38,7 @@ namespace Ringtoets.Integration.IO.Importers
     /// </summary>
     public class HydraulicBoundaryDatabaseImporter : FileImporterBase<HydraulicBoundaryDatabase>
     {
+        private int numberOfSteps = 3;
         private readonly IHydraulicBoundaryDatabaseUpdateHandler updateHandler;
 
         /// <summary>
@@ -88,7 +89,7 @@ namespace Ringtoets.Integration.IO.Importers
 
         private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()
         {
-            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file, 1, 2);
+            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file, 1, numberOfSteps);
             try
             {
                 using (var reader = new HydraulicBoundaryDatabaseReader(FilePath))
@@ -105,7 +106,7 @@ namespace Ringtoets.Integration.IO.Importers
 
         private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase()
         {
-            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file, 2, 2);
+            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(FilePath), "hlcd.sqlite");
             try
             {
@@ -133,8 +134,8 @@ namespace Ringtoets.Integration.IO.Importers
 
         private bool OpenSettingsFileToValidate()
         {
+            NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file, 3, numberOfSteps);
             string settingsFilePath = HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(FilePath);
-
             try
             {
                 using (new HydraRingSettingsDatabaseReader(settingsFilePath)) { }
