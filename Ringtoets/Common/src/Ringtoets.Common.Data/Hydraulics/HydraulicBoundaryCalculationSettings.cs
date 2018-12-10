@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Ringtoets.Common.Data.Hydraulics
+﻿namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
     /// Class which holds all hydraulic boundary calculations settings.

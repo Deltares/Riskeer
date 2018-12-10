@@ -23,16 +23,16 @@ namespace Ringtoets.Common.Data.Hydraulics
             }
 
             string hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabase.FilePath;
-            string hydraulicBoundaryDatabaseDirectory = null;
+            string hlcdFilePath = null;
 
             if (!string.IsNullOrWhiteSpace(hydraulicBoundaryDatabaseFilePath))
             {
                 string directory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-                hydraulicBoundaryDatabaseDirectory = Path.Combine(directory, "HLCD.sqlite");
+                hlcdFilePath = Path.Combine(directory, "HLCD.sqlite");
             }
 
             return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabaseFilePath,
-                                                            hydraulicBoundaryDatabaseDirectory,
+                                                            hlcdFilePath,
                                                             hydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
     }

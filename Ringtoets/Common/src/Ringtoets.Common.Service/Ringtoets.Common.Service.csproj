@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculatableActivity.cs" />
+    <Compile Include="HydraRingCalculationSettingsFactory.cs" />
     <Compile Include="HydraulicBoundaryLocationCalculationActivityFactory.cs" />
     <Compile Include="TargetProbabilityCalculationServiceHelper.cs" />
     <Compile Include="CalculationServiceHelper.cs" />
