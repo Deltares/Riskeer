@@ -73,15 +73,15 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         {
             try
             {
-                using (IDataReader dataReader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetTrackIdQuery(),
-                                                                 new SQLiteParameter
-                                                                 {
-                                                                     DbType = DbType.String
-                                                                 }))
+                using (IDataReader reader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetTrackIdQuery(),
+                                                             new SQLiteParameter
+                                                             {
+                                                                 DbType = DbType.String
+                                                             }))
                 {
-                    if (dataReader.Read())
+                    if (reader.Read())
                     {
-                        return Convert.ToInt64(dataReader[GeneralTableDefinitions.TrackId]);
+                        return Convert.ToInt64(reader[GeneralTableDefinitions.TrackId]);
                     }
 
                     throw new CriticalFileReadException(new FileReaderErrorMessageBuilder(Path)
@@ -107,22 +107,20 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
         /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
         private string ReadVersion()
         {
-            try
+            using (IDataReader reader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery(), null))
             {
-                using (IDataReader dataReader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery(), null))
+                if (reader.Read())
                 {
-                    string version = Convert.ToString(dataReader[GeneralTableDefinitions.GeneratedVersion]);
+                    string version = Convert.ToString(reader[GeneralTableDefinitions.GeneratedVersion]);
 
                     if (!string.IsNullOrEmpty(version))
                     {
                         return version;
                     }
                 }
-            }
-            catch (SQLiteException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
-                throw new CriticalFileReadException(message, exception);
+
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                throw new CriticalFileReadException(message);
             }
         }
 
