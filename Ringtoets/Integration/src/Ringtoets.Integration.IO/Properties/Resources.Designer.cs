@@ -131,6 +131,15 @@ namespace Ringtoets.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inlezen van het hydraulische locatie configuratie bestand..
+        /// </summary>
+        internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inlezen van het hydraulische belastingen bestand..
         /// </summary>
         internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file {

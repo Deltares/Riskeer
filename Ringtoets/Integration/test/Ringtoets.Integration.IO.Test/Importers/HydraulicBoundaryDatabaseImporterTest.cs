@@ -142,13 +142,21 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
             mocks.ReplayAll();
 
+            var totalSteps = 0;
+
             string filePath = Path.Combine(testDataPath, "complete.sqlite");
             var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, filePath);
             importer.SetProgressChanged((currentStepName, currentStep, totalNumberOfSteps) =>
             {
-                if (currentStep == 0)
+                totalSteps = totalNumberOfSteps;
+                if (currentStep == 1)
                 {
                     Assert.AreEqual("Inlezen van het hydraulische belastingen bestand.", currentStepName);
+                }
+
+                if (currentStep == 2)
+                {
+                    Assert.AreEqual("Inlezen van het hydraulische locatie configuratie bestand.", currentStepName);
                 }
             });
 
@@ -157,6 +165,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             // Assert
             Assert.IsTrue(importResult);
+            Assert.AreEqual(2, totalSteps);
         }
 
         [Test]

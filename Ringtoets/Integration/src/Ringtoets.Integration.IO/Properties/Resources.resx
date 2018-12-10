@@ -163,4 +163,7 @@ Er is geen hydraulische belastingen database gekoppeld.</value>
   <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed" xml:space="preserve">
     <value>Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.</value>
   </data>
+  <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file" xml:space="preserve">
+    <value>Inlezen van het hydraulische locatie configuratie bestand.</value>
+  </data>
 </root>
