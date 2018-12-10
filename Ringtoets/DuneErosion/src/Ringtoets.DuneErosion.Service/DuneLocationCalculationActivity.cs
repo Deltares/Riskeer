@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.DuneErosion.Data;
@@ -82,8 +83,7 @@ namespace Ringtoets.DuneErosion.Service
         {
             calculationService.Calculate(duneLocationCalculation,
                                          norm,
-                                         hydraulicBoundaryDatabaseFilePath,
-                                         preprocessorDirectory,
+                                         new HydraulicBoundaryCalculationSettings(string.Empty, string.Empty, string.Empty),
                                          messageProvider);
         }
 

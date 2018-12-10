@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.IO;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using log4net;
@@ -53,23 +52,22 @@ namespace Ringtoets.DuneErosion.Service
         /// </summary>
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to perform.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic 
-        /// boundary database file.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
+        /// to perform a  hydraulic boundary calculation.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/> or
-        /// <paramref name="messageProvider"/> is <c>null</c>.</exception>
+        /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/>,
+        /// <paramref name="calculationSettings"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item>The <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
+        /// <item>The hydraulic boundary location database file path contains invalid characters.</item>
         /// <item>The contribution of the failure mechanism is zero.</item>
         /// <item>The target probability or the calculated probability falls outside the [0.0, 1.0] 
         /// range and is not <see cref="double.NaN"/>.</item>
         /// </list></exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// <item>No settings database file could be found at the location of the hydraulic boundary database
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
@@ -78,13 +76,17 @@ namespace Ringtoets.DuneErosion.Service
         /// the calculation.</exception>
         public void Calculate(DuneLocationCalculation duneLocationCalculation,
                               double norm,
-                              string hydraulicBoundaryDatabaseFilePath,
-                              string preprocessorDirectory,
+                              HydraulicBoundaryCalculationSettings calculationSettings,
                               ICalculationMessageProvider messageProvider)
         {
             if (duneLocationCalculation == null)
             {
                 throw new ArgumentNullException(nameof(duneLocationCalculation));
+            }
+
+            if (calculationSettings == null)
+            {
+                throw new ArgumentNullException(nameof(calculationSettings));
             }
 
             if (messageProvider == null)
@@ -97,8 +99,8 @@ namespace Ringtoets.DuneErosion.Service
 
             CalculationServiceHelper.LogCalculationBegin();
 
-            var settings = new HydraRingCalculationSettings(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory);
-            calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(settings);
+            HydraRingCalculationSettings hydraRingCalculationSettings = HydraRingCalculationSettingsFactory.CreateSettings(calculationSettings);
+            calculator = HydraRingCalculatorFactory.Instance.CreateDunesBoundaryConditionsCalculator(hydraRingCalculationSettings);
 
             var exceptionThrown = false;
 
@@ -106,8 +108,7 @@ namespace Ringtoets.DuneErosion.Service
             {
                 DunesBoundaryConditionsCalculationInput calculationInput = CreateInput(duneLocation,
                                                                                        norm,
-                                                                                       hydraulicBoundaryDatabaseFilePath,
-                                                                                       !string.IsNullOrEmpty(preprocessorDirectory));
+                                                                                       calculationSettings);
                 calculator.Calculate(calculationInput);
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
@@ -203,16 +204,15 @@ namespace Ringtoets.DuneErosion.Service
         /// </summary>
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to create the input for.</param>
         /// <param name="norm">The norm of the failure mechanism to use.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path to the hydraulic
-        /// boundary database.</param>
-        /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
+        /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing
+        /// all data to perform a  hydraulic boundary calculation.</param>
         /// <returns>A <see cref="DunesBoundaryConditionsCalculationInput"/> with all needed
         /// input data.</returns>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path.
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
+        /// <item>No settings database file could be found at the location of the hydraulic boundary database file path.
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// <item>Unable to read required data from database file.</item>
@@ -220,11 +220,12 @@ namespace Ringtoets.DuneErosion.Service
         /// </exception>
         private static DunesBoundaryConditionsCalculationInput CreateInput(DuneLocation duneLocation,
                                                                            double norm,
-                                                                           string hydraulicBoundaryDatabaseFilePath,
-                                                                           bool usePreprocessor)
+                                                                           HydraulicBoundaryCalculationSettings calculationSettings)
         {
             var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, norm);
-            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dunesBoundaryConditionsCalculationInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dunesBoundaryConditionsCalculationInput, 
+                                                                       calculationSettings.HydraulicBoundaryDatabaseFilePath, 
+                                                                       !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));
             return dunesBoundaryConditionsCalculationInput;
         }
     }
