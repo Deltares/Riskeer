@@ -51,6 +51,7 @@
     <Compile Include="HasSectionResultsHelperTest.cs" />
     <Compile Include="Helpers\SoilLayerDataHelperTest.cs" />
     <Compile Include="Hydraulics\CalculationConvergenceTest.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryCalculationSettingsTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabaseExtensionsTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabaseTest.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocationCalculationInputTest.cs" />

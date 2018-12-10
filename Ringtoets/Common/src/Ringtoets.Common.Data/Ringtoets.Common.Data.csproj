@@ -54,6 +54,7 @@
     <Compile Include="HasSectionResultsHelper.cs" />
     <Compile Include="Helpers\SoilLayerDataHelper.cs" />
     <Compile Include="Hydraulics\CalculationConvergence.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryCalculationSettings.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabaseExtensions.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryLocation.cs" />
