@@ -53,6 +53,16 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase
         public HydraulicLocationConfigurationDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
+        /// Reads the hydraulic location configuration database.
+        /// </summary>
+        /// <param name="trackId">The track id to read the location configurations for.</param>
+        /// <returns>A read hydraulic location configuration database.</returns>
+        public ReadHydraulicLocationConfigurationDatabase Read(long trackId)
+        {
+            return new ReadHydraulicLocationConfigurationDatabase(GetLocationIdsByTrackId(trackId));
+        }
+
+        /// <summary>
         /// Gets the location ids from the database, based upon <paramref name="trackId"/>.
         /// </summary>
         /// <param name="trackId">The hydraulic boundary track id.</param>
