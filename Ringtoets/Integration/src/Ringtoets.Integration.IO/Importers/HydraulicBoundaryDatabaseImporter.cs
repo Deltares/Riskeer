@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.IO.Importers
             }
             catch (CriticalFileReadException e)
             {
-                return HandleCriticalFileReadError<ReadHydraulicBoundaryDatabase>(e);
+                return HandleCriticalFileReadError<ReadHydraulicBoundaryDatabase>(e.Message);
             }
         }
 
@@ -124,14 +124,6 @@ namespace Ringtoets.Integration.IO.Importers
         private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabaseReader reader)
         {
             return new ReadResult<ReadHydraulicLocationConfigurationDatabase>(false);
-        }
-
-        private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
-        {
-            string errorMessage = string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
-                                                e.Message);
-            Log.Error(errorMessage);
-            return new ReadResult<T>(true);
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(string message)
