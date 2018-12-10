@@ -169,7 +169,9 @@ namespace Ringtoets.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_CancelOfImportWhenReadingHydraulicBoundaryDatabase_CancelsImportAndLogs()
+        [TestCase(1)]
+        [TestCase(2)]
+        public void Import_CancelOfImportWhilePerformingStep_CancelsImportAndLogs(int stepNumber)
         {
             // Setup
             var mocks = new MockRepository();
@@ -178,9 +180,9 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             string filePath = Path.Combine(testDataPath, "complete.sqlite");
             var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, filePath);
-            importer.SetProgressChanged((description, step, steps) =>
+            importer.SetProgressChanged((description, currentStep, steps) =>
             {
-                if (description.Contains("Inlezen van het hydraulische belastingen bestand."))
+                if (currentStep == stepNumber)
                 {
                     importer.Cancel();
                 }

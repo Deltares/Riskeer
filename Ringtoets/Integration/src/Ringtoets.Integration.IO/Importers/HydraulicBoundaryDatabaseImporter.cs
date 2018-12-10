@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.IO.Importers
             }
 
             ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase();
-            if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred)
+            if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
             {
                 return false;
             }
