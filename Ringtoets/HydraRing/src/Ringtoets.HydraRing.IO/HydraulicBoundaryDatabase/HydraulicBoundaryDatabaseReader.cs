@@ -111,7 +111,12 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase
             {
                 using (IDataReader dataReader = CreateDataReader(HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery(), null))
                 {
-                    return !dataReader.Read() ? string.Empty : Convert.ToString(dataReader[GeneralTableDefinitions.GeneratedVersion]);
+                    string version = Convert.ToString(dataReader[GeneralTableDefinitions.GeneratedVersion]);
+
+                    if (!string.IsNullOrEmpty(version))
+                    {
+                        return version;
+                    }
                 }
             }
             catch (SQLiteException exception)
