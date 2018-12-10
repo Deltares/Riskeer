@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Importers;
 
@@ -111,7 +112,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
         }
 
         [Test]
-        public void Import_ExistingFileWithoutHlcd_ThrowCriticalFileReadException()
+        public void Import_ExistingFileWithoutHlcd_CancelImportWithErrorMessage()
         {
             // Setup
             var mocks = new MockRepository();
@@ -127,7 +128,32 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand."
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand."
+                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ExistingFileWithoutSettings_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string path = Path.Combine(testDataPath, "withoutSettings", "complete.sqlite");
+
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, path);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': kon het rekeninstellingen bestand niet openen. " +
+                                     $"Fout bij het lezen van bestand '{HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(path)}': het bestand bestaat niet."
                                      + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);

@@ -25,6 +25,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.IO.Handlers;
@@ -72,6 +73,11 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
+            if (!OpenSettingsFileToValidate())
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -93,7 +99,7 @@ namespace Ringtoets.Integration.IO.Importers
             }
             catch (CriticalFileReadException e)
             {
-                return HandleCriticalFileReadError<ReadHydraulicBoundaryDatabase>(e.Message);
+                return HandleCriticalFileReadError<ReadHydraulicBoundaryDatabase>(e);
             }
         }
 
@@ -125,6 +131,30 @@ namespace Ringtoets.Integration.IO.Importers
             return new ReadResult<ReadHydraulicLocationConfigurationDatabase>(false);
         }
 
+        private bool OpenSettingsFileToValidate()
+        {
+            string settingsFilePath = HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(FilePath);
+
+            try
+            {
+                using (new HydraRingSettingsDatabaseReader(settingsFilePath)) { }
+                return true;
+            }
+            catch (CriticalFileReadException e)
+            {
+                HandleCriticalFileReadError(string.Format(Common.IO.Properties.Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_, e.Message));
+                return false;
+            }
+        }
+
+        private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
+        {
+            string errorMessage = string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
+                                                e.Message);
+            Log.Error(errorMessage);
+            return new ReadResult<T>(true);
+        }
+
         private ReadResult<T> HandleCriticalFileReadError<T>(string message)
         {
             string errorMessage = new FileReaderErrorMessageBuilder(FilePath).Build(
@@ -132,6 +162,14 @@ namespace Ringtoets.Integration.IO.Importers
                               message));
             Log.Error(errorMessage);
             return new ReadResult<T>(true);
+        }
+
+        private void HandleCriticalFileReadError(string message)
+        {
+            string errorMessage = new FileReaderErrorMessageBuilder(FilePath).Build(
+                string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
+                              message));
+            Log.Error(errorMessage);
         }
     }
 }
