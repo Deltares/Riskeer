@@ -53,6 +53,7 @@
     <Compile Include="FailureMechanism\FailureMechanismSectionCollection.cs" />
     <Compile Include="HasSectionResultsHelper.cs" />
     <Compile Include="Helpers\SoilLayerDataHelper.cs" />
+    <Compile Include="Hydraulics\HydraulicBoundaryCalculationSettingsFactory.cs" />
     <Compile Include="Hydraulics\CalculationConvergence.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryCalculationSettings.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />
