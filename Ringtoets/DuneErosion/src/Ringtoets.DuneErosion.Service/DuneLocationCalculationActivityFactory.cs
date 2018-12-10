@@ -63,9 +63,9 @@ namespace Ringtoets.DuneErosion.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
             return calculations.Select(calculation => new DuneLocationCalculationActivity(calculation,
-                                                                                          assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                          assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                          settings,
                                                                                           norm,
                                                                                           categoryBoundaryName)).ToArray();
         }
