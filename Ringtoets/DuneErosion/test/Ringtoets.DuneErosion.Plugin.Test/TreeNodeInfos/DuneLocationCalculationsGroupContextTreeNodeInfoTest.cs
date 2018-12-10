@@ -35,8 +35,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Plugin.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
@@ -445,11 +447,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
-                                     Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         hydraRingCalculationSettings);
                                  })
-                 .Return(dunesBoundaryConditionsCalculator).Repeat.Times(5);
+                                 .Return(dunesBoundaryConditionsCalculator).Repeat.Times(5);
                 mocks.ReplayAll();
 
                 using (var plugin = new DuneErosionPlugin())
