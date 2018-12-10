@@ -22,6 +22,7 @@
 using System;
 using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -158,6 +159,29 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabase
                 string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<ConversionException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void Read_ValidFile_ReturnsReadHydraulicBoundaryDatabase()
+        {
+            // Setup
+            string hydraulicBoundaryDatabaseFile = Path.Combine(testDataPath, "complete.sqlite");
+
+            using (var hydraulicBoundaryDatabaseReader = new HydraulicBoundaryDatabaseReader(hydraulicBoundaryDatabaseFile))
+            {
+                // Call
+                ReadHydraulicBoundaryDatabase readDatabase = hydraulicBoundaryDatabaseReader.Read();
+
+                // Assert
+                Assert.AreEqual("Dutch coast South19-11-2015 12:0013", readDatabase.Version);
+                Assert.AreEqual((long)13, readDatabase.TrackId);
+                Assert.AreEqual(18, readDatabase.Locations.Count());
+                ReadHydraulicBoundaryLocation location = readDatabase.Locations.First();
+                Assert.AreEqual(1, location.Id);
+                Assert.AreEqual("punt_flw_ 1", location.Name);
+                Assert.AreEqual(52697.5, location.CoordinateX);
+                Assert.AreEqual(427567.0, location.CoordinateY);
             }
         }
     }
