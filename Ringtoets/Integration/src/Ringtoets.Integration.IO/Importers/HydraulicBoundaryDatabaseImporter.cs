@@ -157,19 +157,21 @@ namespace Ringtoets.Integration.IO.Importers
 
         private ReadResult<T> HandleCriticalFileReadError<T>(string message)
         {
-            string errorMessage = new FileReaderErrorMessageBuilder(FilePath).Build(
-                string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
-                              message));
-            Log.Error(errorMessage);
+            HandleCriticalFileReadError(message);
             return new ReadResult<T>(true);
         }
 
         private void HandleCriticalFileReadError(string message)
         {
-            string errorMessage = new FileReaderErrorMessageBuilder(FilePath).Build(
+            string errorMessage = BuildErrorMessage(message);
+            Log.Error(errorMessage);
+        }
+
+        private string BuildErrorMessage(string message)
+        {
+            return new FileReaderErrorMessageBuilder(FilePath).Build(
                 string.Format(Resources.HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported,
                               message));
-            Log.Error(errorMessage);
         }
     }
 }
