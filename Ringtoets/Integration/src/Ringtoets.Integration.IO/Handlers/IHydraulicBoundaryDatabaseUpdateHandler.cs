@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
 namespace Ringtoets.Integration.IO.Handlers
 {
@@ -45,12 +46,16 @@ namespace Ringtoets.Integration.IO.Handlers
         bool InquireConfirmation();
 
         /// <summary>
-        /// Updates the <see cref="HydraulicBoundaryDatabase"/> and its dependent data with the
-        /// <paramref name="readHydraulicBoundaryDatabase"/>
+        /// Updates the <paramref name="hydraulicBoundaryDatabase"/> and its dependent data with the
+        /// <paramref name="readHydraulicBoundaryDatabase"/> and the <paramref name="readHydraulicLocationConfigurationDatabase"/>.
         /// </summary>
-        /// <param name="readHydraulicBoundaryDatabase">The read data to update with.</param>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to update.</param>
+        /// <param name="readHydraulicBoundaryDatabase">The read hydraulic boundary database to update with.</param>
+        /// <param name="readHydraulicLocationConfigurationDatabase">The read hydraulic location configuration database to update with.</param>
         /// <returns>All objects that have been affected by the update.</returns>
-        IEnumerable<IObservable> Update(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase);
+        IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                        ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+                                        ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase);
 
         /// <summary>
         /// Perform post-update actions.
