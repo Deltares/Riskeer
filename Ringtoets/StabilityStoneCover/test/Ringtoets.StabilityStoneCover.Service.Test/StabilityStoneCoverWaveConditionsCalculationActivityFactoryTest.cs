@@ -332,7 +332,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             var testCalculator = new TestWaveConditionsCosineCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             int nrOfCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count() * 2;
-            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];

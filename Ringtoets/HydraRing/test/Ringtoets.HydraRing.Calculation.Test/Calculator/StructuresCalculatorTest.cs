@@ -32,11 +32,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            HydraRingCalculationSettings settings = HydraRingCalculationSettingsTestFactory.CreateSettings();
-
             // Call
-            var calculator = new StructuresCalculator<ExceedanceProbabilityCalculationInput>(settings);
+            var calculator = new StructuresCalculator<ExceedanceProbabilityCalculationInput>(
+                HydraRingCalculationSettingsTestFactory.CreateSettings());
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);

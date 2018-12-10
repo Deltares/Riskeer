@@ -3,7 +3,7 @@
 namespace Ringtoets.HydraRing.Calculation.Data.Input
 {
     /// <summary>
-    /// Class which holds all the general information to run a Hydra-Ring calculation
+    /// Class which holds all the general information to run a Hydra-Ring calculation.
     /// </summary>
     public class HydraRingCalculationSettings
     {
@@ -12,8 +12,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         /// </summary>
         /// <param name="hlcdFilePath">The path which points to the HLCD file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to be used for the calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is null
-        /// is <c>null</c></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraRingCalculationSettings(string hlcdFilePath,
                                             string preprocessorDirectory)
         {
@@ -32,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         }
 
         /// <summary>
-        /// Gets the hydraulic locations configurations filepath.
+        /// Gets the HLCD filepath.
         /// </summary>
         public string HlcdFilePath { get; }
 

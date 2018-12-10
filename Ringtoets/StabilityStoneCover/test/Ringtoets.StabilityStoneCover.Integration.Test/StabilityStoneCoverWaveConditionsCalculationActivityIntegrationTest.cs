@@ -758,7 +758,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             observer.Expect(o => o.UpdateObserver());
 
             var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
                                  var settings = (HydraRingCalculationSettings) invocation.Arguments[0];

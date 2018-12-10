@@ -260,7 +260,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             if (calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation && dikeHeightNormValid)
             {
-
                 dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(settings);
                 numberOfCalculators++;
             }
@@ -272,8 +271,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                           failureMechanismContribution), lm => {});
 
             if (calculation.InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation && overtoppingRateNormValid)
-            {
-                
+            {                
                 overtoppingRateCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingRateCalculator(settings);
                 numberOfCalculators++;
             }
