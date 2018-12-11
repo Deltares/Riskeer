@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2018. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -105,6 +105,54 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             // Assert
             string expectedMessage = $@"Fout bij het lezen van bestand '{path}': het bestand bestaat niet."
+                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_InvalidSchema_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string path = Path.Combine(testDataPath, "corruptschema.sqlite");
+
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, path);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database."
+                                     + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccessful);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_EmptySchema_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string path = Path.Combine(testDataPath, "empty.sqlite");
+
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, path);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{path}': kon geen locaties verkrijgen van de database."
                                      + $"{Environment.NewLine}Er is geen hydraulische belastingen database gekoppeld.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);

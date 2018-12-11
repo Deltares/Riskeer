@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2018. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2018. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
 using Ringtoets.Common.Data.Hydraulics;
@@ -108,7 +109,7 @@ namespace Ringtoets.Integration.IO.Importers
                     };
                 }
             }
-            catch (CriticalFileReadException e)
+            catch (Exception e) when (e is CriticalFileReadException || e is LineParseException)
             {
                 return HandleCriticalFileReadError<ReadHydraulicBoundaryDatabase>(e);
             }
