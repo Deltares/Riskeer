@@ -77,8 +77,7 @@ namespace Ringtoets.Common.Service
         protected override void PerformCalculation()
         {
             calculationService.Calculate(hydraulicBoundaryLocationCalculation,
-                                         hydraulicBoundaryDatabaseFilePath,
-                                         preprocessorDirectory,
+                                         new HydraulicBoundaryCalculationSettings(string.Empty, string.Empty, string.Empty),
                                          norm,
                                          messageProvider);
         }
