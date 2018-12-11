@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -42,6 +44,7 @@ namespace Ringtoets.Integration.IO.Importers
     public class HydraulicBoundaryDatabaseImporter : FileImporterBase<HydraulicBoundaryDatabase>
     {
         private const int numberOfSteps = 4;
+        private readonly List<IObservable> changedObservables = new List<IObservable>();
         private readonly IHydraulicBoundaryDatabaseUpdateHandler updateHandler;
 
         /// <summary>
@@ -101,6 +104,16 @@ namespace Ringtoets.Integration.IO.Importers
         protected override void LogImportCanceledMessage()
         {
             Log.Info(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed);
+        }
+
+        protected override void DoPostImportUpdates()
+        {
+            base.DoPostImportUpdates();
+
+            foreach (IObservable changedObservable in changedObservables)
+            {
+                changedObservable.NotifyObservers();
+            }
         }
 
         private bool IsClearingDependentDataRequired(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
@@ -199,9 +212,8 @@ namespace Ringtoets.Integration.IO.Importers
         private void AddHydraulicBoundaryDatabaseToDataModel(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                              ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
         {
-            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection,
-                           4, numberOfSteps);
-            updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase);
+            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection, 4, numberOfSteps);
+            changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase));
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)

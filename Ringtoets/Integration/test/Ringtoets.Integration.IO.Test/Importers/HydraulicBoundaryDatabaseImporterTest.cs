@@ -277,10 +277,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
             handler.Stub(h => h.IsConfirmationRequired(Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
-                   .WhenCalled(invocation =>
-                   {
-                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[0]);
-                   })
+                   .WhenCalled(invocation => { AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[0]); })
                    .Return(false);
             handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.NotNull,
                                          Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
@@ -314,6 +311,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicBoundaryDatabaseUpdateHandler>();
+            handler.Stub(h => h.IsConfirmationRequired(null)).IgnoreArguments().Return(false);
+            handler.Stub(h => h.Update(null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -372,10 +371,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var mocks = new MockRepository();
             var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
             handler.Expect(h => h.IsConfirmationRequired(Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull))
-                   .WhenCalled(invocation =>
-                   {
-                       AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[0]);
-                   })
+                   .WhenCalled(invocation => { AssertReadHydraulicBoundaryDatabase((ReadHydraulicBoundaryDatabase) invocation.Arguments[0]); })
                    .Return(true);
             handler.Expect(h => h.InquireConfirmation()).Return(false);
             mocks.ReplayAll();
@@ -394,18 +390,6 @@ namespace Ringtoets.Integration.IO.Test.Importers
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
             mocks.VerifyAll();
-        }
-
-        private static void AssertReadHydraulicBoundaryDatabase(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
-        {
-            Assert.AreEqual("Dutch coast South19-11-2015 12:0013", readHydraulicBoundaryDatabase.Version);
-            Assert.AreEqual((long) 13, readHydraulicBoundaryDatabase.TrackId);
-            Assert.AreEqual(18, readHydraulicBoundaryDatabase.Locations.Count());
-            ReadHydraulicBoundaryLocation location = readHydraulicBoundaryDatabase.Locations.First();
-            Assert.AreEqual(1, location.Id);
-            Assert.AreEqual("punt_flw_ 1", location.Name);
-            Assert.AreEqual(52697.5, location.CoordinateX);
-            Assert.AreEqual(427567.0, location.CoordinateY);
         }
 
         [Test]
@@ -451,6 +435,8 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Setup
             var mocks = new MockRepository();
             var handler = mocks.Stub<IHydraulicBoundaryDatabaseUpdateHandler>();
+            handler.Stub(h => h.IsConfirmationRequired(null)).IgnoreArguments().Return(false);
+            handler.Stub(h => h.Update(null, null, null)).IgnoreArguments().Return(Enumerable.Empty<IObservable>());
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -474,6 +460,90 @@ namespace Ringtoets.Integration.IO.Test.Importers
             TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 1);
             Assert.IsTrue(importResult);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DoPostImportUpdates_HydraulicBoundaryDatabaseIsSetAndAnswerDialogToContinue_NotifyObserversOfTargetAndClearedObjects()
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, "complete.sqlite");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var mocks = new MockRepository();
+            var hydraulicBoundaryDatabaseObserver = mocks.Stub<IObserver>();
+            hydraulicBoundaryDatabaseObserver.Expect(o => o.UpdateObserver());
+
+            var observable1 = mocks.StrictMock<IObservable>();
+            observable1.Expect(o => o.NotifyObservers());
+            var observable2 = mocks.StrictMock<IObservable>();
+            observable2.Expect(o => o.NotifyObservers());
+
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            handler.Expect(h => h.IsConfirmationRequired(null)).IgnoreArguments().Return(true);
+            handler.Expect(h => h.InquireConfirmation()).Return(true);
+            handler.Expect(h => h.Update(Arg<HydraulicBoundaryDatabase>.Is.Same(hydraulicBoundaryDatabase),
+                                         Arg<ReadHydraulicBoundaryDatabase>.Is.NotNull,
+                                         Arg<ReadHydraulicLocationConfigurationDatabase>.Is.NotNull))
+                   .Return(new[]
+                   {
+                       observable1,
+                       observable2
+                   });
+            mocks.ReplayAll();
+
+            hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, filePath);
+
+            // Precondition
+            Assert.IsTrue(importer.Import());
+
+            // Call
+            importer.DoPostImport();
+
+            // Assert
+            mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations
+        }
+
+        [Test]
+        public void DoPostImportUpdates_CancelingImport_DoNotNotifyObserversAndNotDoPostReplacementUpdates()
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, "complete.sqlite");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase, handler, filePath);
+            handler.Expect(h => h.IsConfirmationRequired(null)).IgnoreArguments()
+                   .WhenCalled(invocation => importer.Cancel())
+                   .Return(false);
+
+            mocks.ReplayAll();
+
+            hydraulicBoundaryDatabase.Attach(observer);
+
+            // Precondition
+            Assert.IsFalse(importer.Import());
+
+            // Call
+            importer.DoPostImport();
+
+            // Assert
+            mocks.VerifyAll(); // Expect no NotifyObserver calls
+        }
+
+        private static void AssertReadHydraulicBoundaryDatabase(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
+        {
+            Assert.AreEqual("Dutch coast South19-11-2015 12:0013", readHydraulicBoundaryDatabase.Version);
+            Assert.AreEqual((long) 13, readHydraulicBoundaryDatabase.TrackId);
+            Assert.AreEqual(18, readHydraulicBoundaryDatabase.Locations.Count());
+            ReadHydraulicBoundaryLocation location = readHydraulicBoundaryDatabase.Locations.First();
+            Assert.AreEqual(1, location.Id);
+            Assert.AreEqual("punt_flw_ 1", location.Name);
+            Assert.AreEqual(52697.5, location.CoordinateX);
+            Assert.AreEqual(427567.0, location.CoordinateY);
         }
     }
 }
