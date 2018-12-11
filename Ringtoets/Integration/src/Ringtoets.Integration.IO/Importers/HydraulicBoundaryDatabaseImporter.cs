@@ -85,6 +85,8 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
+            AddHydraulicBoundaryDatabaseToDataModel(readHydraulicBoundaryDatabaseResult.Items.Single(), readHydraulicLocationConfigurationDatabaseResult.Items.Single());
+
             return true;
         }
 
@@ -164,6 +166,12 @@ namespace Ringtoets.Integration.IO.Importers
                 HandleCriticalFileReadError(string.Format(Common.IO.Properties.Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_, e.Message));
                 return false;
             }
+        }
+
+        private void AddHydraulicBoundaryDatabaseToDataModel(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+                                                             ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
+        {
+            updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase);
         }
 
         private ReadResult<T> HandleCriticalFileReadError<T>(Exception e)
