@@ -164,7 +164,7 @@ namespace Ringtoets.Integration.IO.Importers
             }
             catch (CriticalFileReadException e)
             {
-                HandleCriticalFileReadError(string.Format(RingtoetsCommonIOResources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_, e.Message));
+                HandleCriticalFileReadError(string.Format(Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_, e.Message));
                 return false;
             }
         }

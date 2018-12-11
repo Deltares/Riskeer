@@ -172,4 +172,7 @@ Er is geen hydraulische belastingen database gekoppeld.</value>
   <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file" xml:space="preserve">
     <value>Controleren van het rekeninstellingen bestand.</value>
   </data>
+  <data name="HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_" xml:space="preserve">
+    <value>Kon het rekeninstellingen bestand niet openen. {0}</value>
+  </data>
 </root>
