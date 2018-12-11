@@ -57,6 +57,7 @@
     <Compile Include="FileImporters\MacroStabilityOutwardsFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="FileImporters\GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategyTest.cs" />
     <Compile Include="FileImporters\GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateStrategyTest.cs" />
+    <Compile Include="Handlers\HydraulicBoundaryDatabaseUpdateHandlerTest.cs" />
     <Compile Include="Merge\AssessmentSectionMergeHandlerTest.cs" />
     <Compile Include="Merge\AssessmentSectionMergerTest.cs" />
     <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />

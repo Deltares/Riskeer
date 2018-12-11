@@ -33,6 +33,7 @@
     <Compile Include="FileImporters\MacroStabilityOutwardsFailureMechanismSectionResultUpdateStrategy.cs" />
     <Compile Include="FileImporters\GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategy.cs" />
     <Compile Include="FileImporters\GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateStrategy.cs" />
+    <Compile Include="Handlers\HydraulicBoundaryDatabaseUpdateHandler.cs" />
     <Compile Include="Merge\AssessmentSectionMergeHandler.cs" />
     <Compile Include="Merge\AssessmentSectionMerger.cs" />
     <Compile Include="FileImporters\ForeshoreProfileReplaceDataStrategy.cs" />
