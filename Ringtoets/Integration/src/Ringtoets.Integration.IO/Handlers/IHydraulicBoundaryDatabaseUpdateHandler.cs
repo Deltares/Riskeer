@@ -56,10 +56,5 @@ namespace Ringtoets.Integration.IO.Handlers
         IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                         ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                         ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase);
-
-        /// <summary>
-        /// Perform post-update actions.
-        /// </summary>
-        void DoPostUpdateActions();
     }
 }
