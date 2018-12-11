@@ -44,6 +44,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.Plugin.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input;
@@ -838,12 +839,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Converged = false
                 };
 
+                HydraulicBoundaryCalculationSettings expectedSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
-                                     Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(expectedSettings,
+                                                                                                               hydraRingCalculationSettings);
                                  })
                                  .Return(designWaterLevelCalculator)
                                  .Repeat
@@ -851,7 +853,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
+                                     var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
                                      Assert.AreEqual(validFilePath, settings.HlcdFilePath);
                                      Assert.IsEmpty(settings.PreprocessorDirectory);
                                  }).Return(waveHeightCalculator)
