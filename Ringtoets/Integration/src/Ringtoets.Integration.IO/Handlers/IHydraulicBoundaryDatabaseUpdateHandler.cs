@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 
 namespace Ringtoets.Integration.IO.Handlers
