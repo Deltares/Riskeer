@@ -67,7 +67,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             // Call
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
-                                                               CreateCalculationSettings(),
+                                                               HydraulicBoundaryCalculationSettingsTestFactory.CreateSettings(),
                                                                1.0 / 30000,
                                                                categoryBoundaryName);
 
@@ -185,10 +185,10 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Converged = true
             };
 
-            string preprocessoryDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
+            string preprocessorDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
             var calculationSettings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                                validHlcdFilePath,
-                                                                               preprocessoryDirectory);
+                                                                               preprocessorDirectory);
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
