@@ -412,9 +412,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
-                                     Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         hydraRingCalculationSettings);
                                  })
                                  .Return(designWaterLevelCalculator);
                 mockRepository.ReplayAll();
@@ -483,9 +484,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
-                                     Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                     Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
+                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         hydraRingCalculationSettings);
                                  })
                                  .Return(designWaterLevelCalculator);
                 mockRepository.ReplayAll();
@@ -552,9 +554,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
-                                     var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
-                                     Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                     Assert.IsEmpty(settings.PreprocessorDirectory);
+                                     var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         hydraRingCalculationSettings);
                                  })
                                  .Return(designWaterLevelCalculator);
                 mockRepository.ReplayAll();
@@ -618,13 +621,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     Converged = false
                 };
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     var settings = (HydraRingCalculationSettings)invocation.Arguments[0];
-                                     Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                     Assert.IsEmpty(settings.PreprocessorDirectory);
-                                 })
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(null))
+                                 .IgnoreArguments()
                                  .Return(designWaterLevelCalculator);
                 mockRepository.ReplayAll();
 
