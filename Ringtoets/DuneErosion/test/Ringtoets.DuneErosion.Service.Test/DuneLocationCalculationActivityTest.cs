@@ -59,6 +59,24 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
+        public void Constructor_CalculationSettingsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            const string locationName = "locationName";
+            const string categoryBoundaryName = "A";
+
+            // Call
+            TestDelegate call = () => new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
+                                                                          null,
+                                                                          1,
+                                                                          categoryBoundaryName);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationSettings", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup

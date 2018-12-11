@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
-        /// to perform a  hydraulic boundary calculation.</param>
+        /// to perform a hydraulic boundary calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="categoryBoundaryName">The category boundary name of the calculation.</param>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>

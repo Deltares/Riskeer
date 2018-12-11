@@ -205,7 +205,7 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to create the input for.</param>
         /// <param name="norm">The norm of the failure mechanism to use.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing
-        /// all data to perform a  hydraulic boundary calculation.</param>
+        /// all data to perform a hydraulic boundary calculation.</param>
         /// <returns>A <see cref="DunesBoundaryConditionsCalculationInput"/> with all needed
         /// input data.</returns>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path.
