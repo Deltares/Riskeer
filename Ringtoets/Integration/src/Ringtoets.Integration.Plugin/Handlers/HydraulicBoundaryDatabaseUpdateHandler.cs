@@ -20,15 +20,20 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.IO.Handlers;
 
 namespace Ringtoets.Integration.Plugin.Handlers
 {
     /// <summary>
     /// Class that can properly update a <see cref="HydraulicBoundaryDatabase"/>.
     /// </summary>
-    public class HydraulicBoundaryDatabaseUpdateHandler
+    public class HydraulicBoundaryDatabaseUpdateHandler : IHydraulicBoundaryDatabaseUpdateHandler
     {
         private readonly AssessmentSection assessmentSection;
 
@@ -46,6 +51,21 @@ namespace Ringtoets.Integration.Plugin.Handlers
             }
 
             this.assessmentSection = assessmentSection;
+        }
+
+        public bool IsConfirmationRequired(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool InquireConfirmation()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IObservable> Update(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase, ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
+        {
+            throw new NotImplementedException();
         }
     }
 }

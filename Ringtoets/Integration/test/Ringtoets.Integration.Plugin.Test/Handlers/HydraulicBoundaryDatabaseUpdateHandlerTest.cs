@@ -21,6 +21,9 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Integration.Data;
+using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.Plugin.Handlers;
 
 namespace Ringtoets.Integration.Plugin.Test.Handlers
@@ -38,6 +41,16 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var handler = new HydraulicBoundaryDatabaseUpdateHandler(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Assert
+            Assert.IsInstanceOf<IHydraulicBoundaryDatabaseUpdateHandler>(handler);
         }
     }
 }
