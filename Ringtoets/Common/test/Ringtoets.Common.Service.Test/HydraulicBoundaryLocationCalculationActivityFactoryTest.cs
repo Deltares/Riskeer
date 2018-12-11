@@ -115,8 +115,9 @@ namespace Ringtoets.Common.Service.Test
             Assert.AreEqual(2, activities.Count());
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveHeightCalculationActivity));
 
-            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, usePreprocessor);
-            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, usePreprocessor);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
 
             mocks.VerifyAll();
         }
@@ -201,18 +202,18 @@ namespace Ringtoets.Common.Service.Test
                                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                 string categoryBoundaryName,
                                                                 double norm,
-                                                                bool usePreprocessor)
+                                                                HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
             var calculator = new TestWaveHeightCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            string preprocessorDirectory = usePreprocessor ? validPreprocessorDirectory : string.Empty;
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
-                                 var settings = (HydraRingCalculationSettings) invocation.Arguments[0];
-                                 Assert.AreEqual(validFilePath, settings.HlcdFilePath);
-                                 Assert.AreEqual(preprocessorDirectory, settings.PreprocessorDirectory);
+                                 var hydraRingCalculationSettings = (HydraRingCalculationSettings) invocation.Arguments[0];
+                                 HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     hydraRingCalculationSettings);
                              })
                              .Return(calculator);
             mocks.ReplayAll();
