@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             this.assessmentSection = assessmentSection;
         }
 
-        public bool IsConfirmationRequired(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
+        public bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
         {
             throw new NotImplementedException();
         }

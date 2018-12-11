@@ -35,9 +35,10 @@ namespace Ringtoets.Integration.IO.Handlers
         /// <summary>
         /// Checks whether confirmation is required before updating the <see cref="HydraulicBoundaryDatabase"/>.
         /// </summary>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database.</param>
         /// <param name="readHydraulicBoundaryDatabase">The read hydraulic boundary database.</param>
         /// <returns><c>true</c> when confirmation is required; <c>false</c> otherwise.</returns>
-        bool IsConfirmationRequired(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase);
+        bool IsConfirmationRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase);
 
         /// <summary>
         /// Gets confirmation for updating the <see cref="HydraulicBoundaryDatabase"/>.

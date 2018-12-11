@@ -120,7 +120,7 @@ namespace Ringtoets.Integration.IO.Importers
         {
             var clearDependentData = false;
 
-            if (updateHandler.IsConfirmationRequired(readHydraulicBoundaryDatabase))
+            if (updateHandler.IsConfirmationRequired(ImportTarget, readHydraulicBoundaryDatabase))
             {
                 if (!updateHandler.InquireConfirmation())
                 {
