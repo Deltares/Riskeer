@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
             mocks.ReplayAll();
 
-            string path = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
+            string path = Path.Combine(testDataPath, "withoutHLCD", "complete.sqlite");
 
             var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, path);
 
@@ -165,7 +165,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
         {
             // Setup
             var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IHydraulicBoundaryDatabaseUpdateHandler>();
+            var handler = mocks.Stub<IHydraulicBoundaryDatabaseUpdateHandler>();
             mocks.ReplayAll();
 
             var totalSteps = 0;
@@ -197,6 +197,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             // Assert
             Assert.IsTrue(importResult);
             Assert.AreEqual(3, totalSteps);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -232,6 +233,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create("Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.", LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
+            mocks.VerifyAll();
         }
     }
 }

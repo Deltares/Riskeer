@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.Util.Builders;
@@ -68,7 +69,11 @@ namespace Ringtoets.Integration.IO.Importers
                 return false;
             }
 
-            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase();
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = readHydraulicBoundaryDatabaseResult.Items.Single();
+
+            ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(
+                readHydraulicBoundaryDatabase.TrackId);
+
             if (readHydraulicLocationConfigurationDatabaseResult.CriticalErrorOccurred || Canceled)
             {
                 return false;
@@ -94,8 +99,13 @@ namespace Ringtoets.Integration.IO.Importers
             {
                 using (var reader = new HydraulicBoundaryDatabaseReader(FilePath))
                 {
-                    ReadResult<ReadHydraulicBoundaryDatabase> readResult = ReadHydraulicBoundaryDatabase(reader);
-                    return readResult;
+                    return new ReadResult<ReadHydraulicBoundaryDatabase>(false)
+                    {
+                        Items = new[]
+                        {
+                            reader.Read()
+                        }
+                    };
                 }
             }
             catch (CriticalFileReadException e)
@@ -104,7 +114,7 @@ namespace Ringtoets.Integration.IO.Importers
             }
         }
 
-        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase()
+        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(long trackId)
         {
             NotifyProgress(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file, 2, numberOfSteps);
             string hlcdFilePath = Path.Combine(Path.GetDirectoryName(FilePath), "hlcd.sqlite");
@@ -112,24 +122,19 @@ namespace Ringtoets.Integration.IO.Importers
             {
                 using (var reader = new HydraulicLocationConfigurationDatabaseReader(hlcdFilePath))
                 {
-                    ReadResult<ReadHydraulicLocationConfigurationDatabase> readResult = ReadHydraulicLocationConfigurationDatabase(reader);
-                    return readResult;
+                    return new ReadResult<ReadHydraulicLocationConfigurationDatabase>(false)
+                    {
+                        Items = new []
+                        {
+                            reader.Read(trackId)
+                        }
+                    };
                 }
             }
             catch (CriticalFileReadException)
             {
                 return HandleCriticalFileReadError<ReadHydraulicLocationConfigurationDatabase>(Resources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
             }
-        }
-
-        private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase(HydraulicBoundaryDatabaseReader reader)
-        {
-            return new ReadResult<ReadHydraulicBoundaryDatabase>(false);
-        }
-
-        private ReadResult<ReadHydraulicLocationConfigurationDatabase> ReadHydraulicLocationConfigurationDatabase(HydraulicLocationConfigurationDatabaseReader reader)
-        {
-            return new ReadResult<ReadHydraulicLocationConfigurationDatabase>(false);
         }
 
         private bool OpenSettingsFileToValidate()
