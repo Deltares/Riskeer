@@ -32,6 +32,7 @@ using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.IO.Handlers;
 using Ringtoets.Integration.IO.Properties;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Integration.IO.Importers
 {
@@ -40,7 +41,7 @@ namespace Ringtoets.Integration.IO.Importers
     /// </summary>
     public class HydraulicBoundaryDatabaseImporter : FileImporterBase<HydraulicBoundaryDatabase>
     {
-        private int numberOfSteps = 3;
+        private const int numberOfSteps = 4;
         private readonly IHydraulicBoundaryDatabaseUpdateHandler updateHandler;
 
         /// <summary>
@@ -163,7 +164,7 @@ namespace Ringtoets.Integration.IO.Importers
             }
             catch (CriticalFileReadException e)
             {
-                HandleCriticalFileReadError(string.Format(Common.IO.Properties.Resources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_, e.Message));
+                HandleCriticalFileReadError(string.Format(RingtoetsCommonIOResources.HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_, e.Message));
                 return false;
             }
         }
@@ -171,6 +172,8 @@ namespace Ringtoets.Integration.IO.Importers
         private void AddHydraulicBoundaryDatabaseToDataModel(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                              ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase)
         {
+            NotifyProgress(RingtoetsCommonIOResources.Importer_ProgressText_Adding_imported_data_to_AssessmentSection,
+                           4, numberOfSteps);
             updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase);
         }
 

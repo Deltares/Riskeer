@@ -27,8 +27,11 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
+using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabase;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Ringtoets.Integration.IO.Handlers;
@@ -313,27 +316,44 @@ namespace Ringtoets.Integration.IO.Test.Importers
             var handler = mocks.Stub<IHydraulicBoundaryDatabaseUpdateHandler>();
             mocks.ReplayAll();
 
-            var totalSteps = 0;
-
             string filePath = Path.Combine(testDataPath, "complete.sqlite");
-            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, filePath);
-            importer.SetProgressChanged((currentStepName, currentStep, totalNumberOfSteps) =>
+
+            var expectedProgressMessages = new[]
             {
-                totalSteps = totalNumberOfSteps;
-                if (currentStep == 1)
+                new ExpectedProgressNotification
                 {
-                    Assert.AreEqual("Inlezen van het hydraulische belastingen bestand.", currentStepName);
+                    Text = "Inlezen van het hydraulische belastingen bestand.",
+                    CurrentStep = 1,
+                    TotalNumberOfSteps = 4
+                },
+                new ExpectedProgressNotification
+                {
+                    Text = "Inlezen van het hydraulische locatie configuratie bestand.",
+                    CurrentStep = 2,
+                    TotalNumberOfSteps = 4
+                },
+                new ExpectedProgressNotification
+                {
+                    Text = "Controleren van het rekeninstellingen bestand.",
+                    CurrentStep = 3,
+                    TotalNumberOfSteps = 4
+                },
+                new ExpectedProgressNotification
+                {
+                    Text = "Geïmporteerde data toevoegen aan het traject.",
+                    CurrentStep = 4,
+                    TotalNumberOfSteps = 4
                 }
+            };
+            var progressChangedCallCount = 0;
 
-                if (currentStep == 2)
-                {
-                    Assert.AreEqual("Inlezen van het hydraulische locatie configuratie bestand.", currentStepName);
-                }
-
-                if (currentStep == 3)
-                {
-                    Assert.AreEqual("Controleren van het rekeninstellingen bestand.", currentStepName);
-                }
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, filePath);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
+                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].TotalNumberOfSteps, steps);
+                progressChangedCallCount++;
             });
 
             // Call
@@ -341,7 +361,7 @@ namespace Ringtoets.Integration.IO.Test.Importers
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(3, totalSteps);
+            Assert.AreEqual(4, progressChangedCallCount);
             mocks.VerifyAll();
         }
 
@@ -378,6 +398,37 @@ namespace Ringtoets.Integration.IO.Test.Importers
             Tuple<string, LogLevelConstant> expectedLogMessage = Tuple.Create("Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd.", LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_CancelImportDuringAddReadDataToDataModel_ContinuesImportAndLogs()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IHydraulicBoundaryDatabaseUpdateHandler>();
+            mocks.ReplayAll();
+
+            string filePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var importer = new HydraulicBoundaryDatabaseImporter(new HydraulicBoundaryDatabase(), handler, filePath);
+            importer.SetProgressChanged((description, step, steps) =>
+            {
+                if (step == 4)
+                {
+                    importer.Cancel();
+                }
+            });
+
+            var importResult = true;
+
+            // Call
+            importer.Import();
+            Action call = () => importResult = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Huidige actie was niet meer te annuleren en is daarom voortgezet.", 1);
+            Assert.IsTrue(importResult);
             mocks.VerifyAll();
         }
     }
