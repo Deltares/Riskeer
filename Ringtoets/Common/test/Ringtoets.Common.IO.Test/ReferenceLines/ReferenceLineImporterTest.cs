@@ -212,7 +212,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
         }
 
         [Test]
-        public void Import_CancelImportDuringDialogInteraction_ReturnsFalseAndNoChanges()
+        public void Import_CancelImportDuringDialogInteraction_GenerateCanceledLogMessageAndReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -223,30 +223,6 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
             var importer = new ReferenceLineImporter(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), handler, path);
-
-            // Call
-            bool importSuccessful = importer.Import();
-
-            // Assert
-            Assert.IsFalse(importSuccessful);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Import_CancelImportDuringDialogInteraction_GenerateCanceledLogMessageAndReturnsFalse(bool acceptRemovalOfReferenceLineDependentData)
-        {
-            // Setup
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
-
-            var mocks = new MockRepository();
-            var handler = mocks.StrictMock<IReferenceLineUpdateHandler>();
-            var importer = new ReferenceLineImporter(ReferenceLineTestFactory.CreateReferenceLineWithGeometry(), handler, path);
-            handler.Expect(h => h.ConfirmUpdate())
-                   .WhenCalled(invocation => importer.Cancel())
-                   .Return(acceptRemovalOfReferenceLineDependentData);
-            mocks.ReplayAll();
 
             var importResult = true;
 

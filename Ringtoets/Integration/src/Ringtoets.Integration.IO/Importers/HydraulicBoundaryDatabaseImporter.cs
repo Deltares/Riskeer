@@ -73,6 +73,13 @@ namespace Ringtoets.Integration.IO.Importers
 
             ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = readHydraulicBoundaryDatabaseResult.Items.Single();
 
+            bool clearDependentData = IsClearingDependentDataRequired(readHydraulicBoundaryDatabase);
+
+            if (Canceled)
+            {
+                return false;
+            }
+
             ReadResult<ReadHydraulicLocationConfigurationDatabase> readHydraulicLocationConfigurationDatabaseResult = ReadHydraulicLocationConfigurationDatabase(
                 readHydraulicBoundaryDatabase.TrackId);
 
@@ -94,6 +101,25 @@ namespace Ringtoets.Integration.IO.Importers
         protected override void LogImportCanceledMessage()
         {
             Log.Info(Resources.HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed);
+        }
+
+        private bool IsClearingDependentDataRequired(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase)
+        {
+            var clearDependentData = false;
+
+            if (updateHandler.IsConfirmationRequired(readHydraulicBoundaryDatabase))
+            {
+                if (!updateHandler.InquireConfirmation())
+                {
+                    Cancel();
+                }
+                else
+                {
+                    clearDependentData = true;
+                }
+            }
+
+            return clearDependentData;
         }
 
         private ReadResult<ReadHydraulicBoundaryDatabase> ReadHydraulicBoundaryDatabase()
@@ -159,7 +185,8 @@ namespace Ringtoets.Integration.IO.Importers
             string settingsFilePath = HydraulicBoundaryDatabaseHelper.GetHydraulicBoundarySettingsDatabase(FilePath);
             try
             {
-                using (new HydraRingSettingsDatabaseReader(settingsFilePath)) { }
+                using (new HydraRingSettingsDatabaseReader(settingsFilePath)) {}
+
                 return true;
             }
             catch (CriticalFileReadException e)
